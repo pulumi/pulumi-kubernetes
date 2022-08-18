@@ -118,7 +118,7 @@ func (i *EndpointsList) ToEndpointsListOutputWithContext(ctx context.Context) En
 // EndpointsListArrayInput is an input type that accepts EndpointsListArray and EndpointsListArrayOutput values.
 // You can construct a concrete instance of `EndpointsListArrayInput` via:
 //
-//          EndpointsListArray{ EndpointsListArgs{...} }
+//	EndpointsListArray{ EndpointsListArgs{...} }
 type EndpointsListArrayInput interface {
 	pulumi.Input
 
@@ -143,7 +143,7 @@ func (i EndpointsListArray) ToEndpointsListArrayOutputWithContext(ctx context.Co
 // EndpointsListMapInput is an input type that accepts EndpointsListMap and EndpointsListMapOutput values.
 // You can construct a concrete instance of `EndpointsListMapInput` via:
 //
-//          EndpointsListMap{ "key": EndpointsListArgs{...} }
+//	EndpointsListMap{ "key": EndpointsListArgs{...} }
 type EndpointsListMapInput interface {
 	pulumi.Input
 

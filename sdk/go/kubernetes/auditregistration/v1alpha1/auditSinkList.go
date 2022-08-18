@@ -115,7 +115,7 @@ func (i *AuditSinkList) ToAuditSinkListOutputWithContext(ctx context.Context) Au
 // AuditSinkListArrayInput is an input type that accepts AuditSinkListArray and AuditSinkListArrayOutput values.
 // You can construct a concrete instance of `AuditSinkListArrayInput` via:
 //
-//          AuditSinkListArray{ AuditSinkListArgs{...} }
+//	AuditSinkListArray{ AuditSinkListArgs{...} }
 type AuditSinkListArrayInput interface {
 	pulumi.Input
 
@@ -140,7 +140,7 @@ func (i AuditSinkListArray) ToAuditSinkListArrayOutputWithContext(ctx context.Co
 // AuditSinkListMapInput is an input type that accepts AuditSinkListMap and AuditSinkListMapOutput values.
 // You can construct a concrete instance of `AuditSinkListMapInput` via:
 //
-//          AuditSinkListMap{ "key": AuditSinkListArgs{...} }
+//	AuditSinkListMap{ "key": AuditSinkListArgs{...} }
 type AuditSinkListMapInput interface {
 	pulumi.Input
 

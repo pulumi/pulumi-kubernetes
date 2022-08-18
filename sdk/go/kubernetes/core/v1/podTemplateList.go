@@ -118,7 +118,7 @@ func (i *PodTemplateList) ToPodTemplateListOutputWithContext(ctx context.Context
 // PodTemplateListArrayInput is an input type that accepts PodTemplateListArray and PodTemplateListArrayOutput values.
 // You can construct a concrete instance of `PodTemplateListArrayInput` via:
 //
-//          PodTemplateListArray{ PodTemplateListArgs{...} }
+//	PodTemplateListArray{ PodTemplateListArgs{...} }
 type PodTemplateListArrayInput interface {
 	pulumi.Input
 
@@ -143,7 +143,7 @@ func (i PodTemplateListArray) ToPodTemplateListArrayOutputWithContext(ctx contex
 // PodTemplateListMapInput is an input type that accepts PodTemplateListMap and PodTemplateListMapOutput values.
 // You can construct a concrete instance of `PodTemplateListMapInput` via:
 //
-//          PodTemplateListMap{ "key": PodTemplateListArgs{...} }
+//	PodTemplateListMap{ "key": PodTemplateListArgs{...} }
 type PodTemplateListMapInput interface {
 	pulumi.Input
 

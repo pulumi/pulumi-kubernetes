@@ -131,7 +131,7 @@ func (i *APIServicePatch) ToAPIServicePatchOutputWithContext(ctx context.Context
 // APIServicePatchArrayInput is an input type that accepts APIServicePatchArray and APIServicePatchArrayOutput values.
 // You can construct a concrete instance of `APIServicePatchArrayInput` via:
 //
-//          APIServicePatchArray{ APIServicePatchArgs{...} }
+//	APIServicePatchArray{ APIServicePatchArgs{...} }
 type APIServicePatchArrayInput interface {
 	pulumi.Input
 
@@ -156,7 +156,7 @@ func (i APIServicePatchArray) ToAPIServicePatchArrayOutputWithContext(ctx contex
 // APIServicePatchMapInput is an input type that accepts APIServicePatchMap and APIServicePatchMapOutput values.
 // You can construct a concrete instance of `APIServicePatchMapInput` via:
 //
-//          APIServicePatchMap{ "key": APIServicePatchArgs{...} }
+//	APIServicePatchMap{ "key": APIServicePatchArgs{...} }
 type APIServicePatchMapInput interface {
 	pulumi.Input
 

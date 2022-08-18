@@ -6269,6 +6269,7 @@ export namespace apps {
              */
             type: string;
         }
+
     }
 }
 
@@ -8628,6 +8629,7 @@ export namespace autoscaling {
              */
             name: string;
         }
+
     }
 
     export namespace v2beta1 {
@@ -10255,6 +10257,7 @@ export namespace autoscaling {
              */
             name: string;
         }
+
     }
 }
 
@@ -20149,6 +20152,7 @@ export namespace core {
              */
             runAsUserName: string;
         }
+
     }
 }
 
@@ -23304,6 +23308,7 @@ export namespace flowcontrol {
              */
             name: string;
         }
+
     }
 
     export namespace v1beta1 {
@@ -23958,6 +23963,7 @@ export namespace flowcontrol {
              */
             name: string;
         }
+
     }
 
     export namespace v1beta2 {
@@ -24612,6 +24618,7 @@ export namespace flowcontrol {
              */
             name: string;
         }
+
     }
 }
 
@@ -25943,6 +25950,7 @@ export namespace networking {
              */
             number: number;
         }
+
     }
 
     export namespace v1beta1 {
@@ -26271,6 +26279,7 @@ export namespace networking {
              */
             secretName: string;
         }
+
     }
 }
 
@@ -27379,6 +27388,7 @@ export namespace policy {
              */
             rule: string;
         }
+
     }
 }
 

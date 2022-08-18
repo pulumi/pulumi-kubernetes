@@ -118,7 +118,7 @@ func (i *CSINodeList) ToCSINodeListOutputWithContext(ctx context.Context) CSINod
 // CSINodeListArrayInput is an input type that accepts CSINodeListArray and CSINodeListArrayOutput values.
 // You can construct a concrete instance of `CSINodeListArrayInput` via:
 //
-//          CSINodeListArray{ CSINodeListArgs{...} }
+//	CSINodeListArray{ CSINodeListArgs{...} }
 type CSINodeListArrayInput interface {
 	pulumi.Input
 
@@ -143,7 +143,7 @@ func (i CSINodeListArray) ToCSINodeListArrayOutputWithContext(ctx context.Contex
 // CSINodeListMapInput is an input type that accepts CSINodeListMap and CSINodeListMapOutput values.
 // You can construct a concrete instance of `CSINodeListMapInput` via:
 //
-//          CSINodeListMap{ "key": CSINodeListArgs{...} }
+//	CSINodeListMap{ "key": CSINodeListArgs{...} }
 type CSINodeListMapInput interface {
 	pulumi.Input
 

@@ -120,7 +120,7 @@ func (i *PodSecurityPolicy) ToPodSecurityPolicyOutputWithContext(ctx context.Con
 // PodSecurityPolicyArrayInput is an input type that accepts PodSecurityPolicyArray and PodSecurityPolicyArrayOutput values.
 // You can construct a concrete instance of `PodSecurityPolicyArrayInput` via:
 //
-//          PodSecurityPolicyArray{ PodSecurityPolicyArgs{...} }
+//	PodSecurityPolicyArray{ PodSecurityPolicyArgs{...} }
 type PodSecurityPolicyArrayInput interface {
 	pulumi.Input
 
@@ -145,7 +145,7 @@ func (i PodSecurityPolicyArray) ToPodSecurityPolicyArrayOutputWithContext(ctx co
 // PodSecurityPolicyMapInput is an input type that accepts PodSecurityPolicyMap and PodSecurityPolicyMapOutput values.
 // You can construct a concrete instance of `PodSecurityPolicyMapInput` via:
 //
-//          PodSecurityPolicyMap{ "key": PodSecurityPolicyArgs{...} }
+//	PodSecurityPolicyMap{ "key": PodSecurityPolicyArgs{...} }
 type PodSecurityPolicyMapInput interface {
 	pulumi.Input
 

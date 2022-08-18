@@ -18,10 +18,10 @@ import (
 // The following conditions are used to determine whether the resource creation has
 // succeeded or failed:
 //
-// 1.  Ingress object exists.
-// 2.  Endpoint objects exist with matching names for each Ingress path (except when Service
+//  1. Ingress object exists.
+//  2. Endpoint objects exist with matching names for each Ingress path (except when Service
 //     type is ExternalName).
-// 3.  Ingress entry exists for '.status.loadBalancer.ingress'.
+//  3. Ingress entry exists for '.status.loadBalancer.ingress'.
 //
 // If the Ingress has not reached a Ready state after 10 minutes, it will
 // time out and mark the resource update as Failed. You can override the default timeout value
@@ -33,97 +33,103 @@ import (
 // package main
 //
 // import (
-// 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
-// 	networkingv1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/networking/v1"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
+//	networkingv1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/networking/v1"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := networkingv1.NewIngress(ctx, "ingress", &networkingv1.IngressArgs{
-// 			Metadata: &metav1.ObjectMetaArgs{
-// 				Annotations: pulumi.StringMap{
-// 					"nginx.ingress.kubernetes.io/rewrite-target": pulumi.String("/"),
-// 				},
-// 			},
-// 			Spec: &networkingv1.IngressSpecArgs{
-// 				Rules: networkingv1.IngressRuleArray{
-// 					&networkingv1.IngressRuleArgs{
-// 						Http: &networkingv1.HTTPIngressRuleValueArgs{
-// 							Paths: networkingv1.HTTPIngressPathArray{
-// 								&networkingv1.HTTPIngressPathArgs{
-// 									Backend: &networkingv1.IngressBackendArgs{
-// 										Service: &networkingv1.IngressServiceBackendArgs{
-// 											Name: pulumi.String("test"),
-// 											Port: &networkingv1.ServiceBackendPortArgs{
-// 												Number: pulumi.Int(80),
-// 											},
-// 										},
-// 									},
-// 									Path:     pulumi.String("/testpath"),
-// 									PathType: pulumi.String("Prefix"),
-// 								},
-// 							},
-// 						},
-// 					},
-// 				},
-// 			},
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := networkingv1.NewIngress(ctx, "ingress", &networkingv1.IngressArgs{
+//				Metadata: &metav1.ObjectMetaArgs{
+//					Annotations: pulumi.StringMap{
+//						"nginx.ingress.kubernetes.io/rewrite-target": pulumi.String("/"),
+//					},
+//				},
+//				Spec: &networkingv1.IngressSpecArgs{
+//					Rules: networkingv1.IngressRuleArray{
+//						&networkingv1.IngressRuleArgs{
+//							Http: &networkingv1.HTTPIngressRuleValueArgs{
+//								Paths: networkingv1.HTTPIngressPathArray{
+//									&networkingv1.HTTPIngressPathArgs{
+//										Backend: &networkingv1.IngressBackendArgs{
+//											Service: &networkingv1.IngressServiceBackendArgs{
+//												Name: pulumi.String("test"),
+//												Port: &networkingv1.ServiceBackendPortArgs{
+//													Number: pulumi.Int(80),
+//												},
+//											},
+//										},
+//										Path:     pulumi.String("/testpath"),
+//										PathType: pulumi.String("Prefix"),
+//									},
+//								},
+//							},
+//						},
+//					},
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
 // ```
 // ### Create an Ingress with a user-specified name
 // ```go
 // package main
 //
 // import (
-// 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
-// 	networkingv1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/networking/v1"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
+//	networkingv1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/networking/v1"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := networkingv1.NewIngress(ctx, "ingress", &networkingv1.IngressArgs{
-// 			Metadata: &metav1.ObjectMetaArgs{
-// 				Annotations: pulumi.StringMap{
-// 					"nginx.ingress.kubernetes.io/rewrite-target": pulumi.String("/"),
-// 				},
-// 				Name: pulumi.String("minimal-ingress"),
-// 			},
-// 			Spec: &networkingv1.IngressSpecArgs{
-// 				Rules: networkingv1.IngressRuleArray{
-// 					&networkingv1.IngressRuleArgs{
-// 						Http: &networkingv1.HTTPIngressRuleValueArgs{
-// 							Paths: networkingv1.HTTPIngressPathArray{
-// 								&networkingv1.HTTPIngressPathArgs{
-// 									Backend: &networkingv1.IngressBackendArgs{
-// 										Service: &networkingv1.IngressServiceBackendArgs{
-// 											Name: pulumi.String("test"),
-// 											Port: &networkingv1.ServiceBackendPortArgs{
-// 												Number: pulumi.Int(80),
-// 											},
-// 										},
-// 									},
-// 									Path:     pulumi.String("/testpath"),
-// 									PathType: pulumi.String("Prefix"),
-// 								},
-// 							},
-// 						},
-// 					},
-// 				},
-// 			},
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
-// 		return nil
-// 	})
-// }
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := networkingv1.NewIngress(ctx, "ingress", &networkingv1.IngressArgs{
+//				Metadata: &metav1.ObjectMetaArgs{
+//					Annotations: pulumi.StringMap{
+//						"nginx.ingress.kubernetes.io/rewrite-target": pulumi.String("/"),
+//					},
+//					Name: pulumi.String("minimal-ingress"),
+//				},
+//				Spec: &networkingv1.IngressSpecArgs{
+//					Rules: networkingv1.IngressRuleArray{
+//						&networkingv1.IngressRuleArgs{
+//							Http: &networkingv1.HTTPIngressRuleValueArgs{
+//								Paths: networkingv1.HTTPIngressPathArray{
+//									&networkingv1.HTTPIngressPathArgs{
+//										Backend: &networkingv1.IngressBackendArgs{
+//											Service: &networkingv1.IngressServiceBackendArgs{
+//												Name: pulumi.String("test"),
+//												Port: &networkingv1.ServiceBackendPortArgs{
+//													Number: pulumi.Int(80),
+//												},
+//											},
+//										},
+//										Path:     pulumi.String("/testpath"),
+//										PathType: pulumi.String("Prefix"),
+//									},
+//								},
+//							},
+//						},
+//					},
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
 // ```
 type Ingress struct {
 	pulumi.CustomResourceState
@@ -238,7 +244,7 @@ func (i *Ingress) ToIngressOutputWithContext(ctx context.Context) IngressOutput 
 // IngressArrayInput is an input type that accepts IngressArray and IngressArrayOutput values.
 // You can construct a concrete instance of `IngressArrayInput` via:
 //
-//          IngressArray{ IngressArgs{...} }
+//	IngressArray{ IngressArgs{...} }
 type IngressArrayInput interface {
 	pulumi.Input
 
@@ -263,7 +269,7 @@ func (i IngressArray) ToIngressArrayOutputWithContext(ctx context.Context) Ingre
 // IngressMapInput is an input type that accepts IngressMap and IngressMapOutput values.
 // You can construct a concrete instance of `IngressMapInput` via:
 //
-//          IngressMap{ "key": IngressArgs{...} }
+//	IngressMap{ "key": IngressArgs{...} }
 type IngressMapInput interface {
 	pulumi.Input
 

@@ -30,7 +30,7 @@ type CustomResourceColumnDefinition struct {
 // CustomResourceColumnDefinitionInput is an input type that accepts CustomResourceColumnDefinitionArgs and CustomResourceColumnDefinitionOutput values.
 // You can construct a concrete instance of `CustomResourceColumnDefinitionInput` via:
 //
-//          CustomResourceColumnDefinitionArgs{...}
+//	CustomResourceColumnDefinitionArgs{...}
 type CustomResourceColumnDefinitionInput interface {
 	pulumi.Input
 
@@ -69,7 +69,7 @@ func (i CustomResourceColumnDefinitionArgs) ToCustomResourceColumnDefinitionOutp
 // CustomResourceColumnDefinitionArrayInput is an input type that accepts CustomResourceColumnDefinitionArray and CustomResourceColumnDefinitionArrayOutput values.
 // You can construct a concrete instance of `CustomResourceColumnDefinitionArrayInput` via:
 //
-//          CustomResourceColumnDefinitionArray{ CustomResourceColumnDefinitionArgs{...} }
+//	CustomResourceColumnDefinitionArray{ CustomResourceColumnDefinitionArgs{...} }
 type CustomResourceColumnDefinitionArrayInput interface {
 	pulumi.Input
 
@@ -175,7 +175,7 @@ type CustomResourceColumnDefinitionPatch struct {
 // CustomResourceColumnDefinitionPatchInput is an input type that accepts CustomResourceColumnDefinitionPatchArgs and CustomResourceColumnDefinitionPatchOutput values.
 // You can construct a concrete instance of `CustomResourceColumnDefinitionPatchInput` via:
 //
-//          CustomResourceColumnDefinitionPatchArgs{...}
+//	CustomResourceColumnDefinitionPatchArgs{...}
 type CustomResourceColumnDefinitionPatchInput interface {
 	pulumi.Input
 
@@ -214,7 +214,7 @@ func (i CustomResourceColumnDefinitionPatchArgs) ToCustomResourceColumnDefinitio
 // CustomResourceColumnDefinitionPatchArrayInput is an input type that accepts CustomResourceColumnDefinitionPatchArray and CustomResourceColumnDefinitionPatchArrayOutput values.
 // You can construct a concrete instance of `CustomResourceColumnDefinitionPatchArrayInput` via:
 //
-//          CustomResourceColumnDefinitionPatchArray{ CustomResourceColumnDefinitionPatchArgs{...} }
+//	CustomResourceColumnDefinitionPatchArray{ CustomResourceColumnDefinitionPatchArgs{...} }
 type CustomResourceColumnDefinitionPatchArrayInput interface {
 	pulumi.Input
 
@@ -315,7 +315,7 @@ type CustomResourceConversion struct {
 // CustomResourceConversionInput is an input type that accepts CustomResourceConversionArgs and CustomResourceConversionOutput values.
 // You can construct a concrete instance of `CustomResourceConversionInput` via:
 //
-//          CustomResourceConversionArgs{...}
+//	CustomResourceConversionArgs{...}
 type CustomResourceConversionInput interface {
 	pulumi.Input
 
@@ -357,11 +357,11 @@ func (i CustomResourceConversionArgs) ToCustomResourceConversionPtrOutputWithCon
 // CustomResourceConversionPtrInput is an input type that accepts CustomResourceConversionArgs, CustomResourceConversionPtr and CustomResourceConversionPtrOutput values.
 // You can construct a concrete instance of `CustomResourceConversionPtrInput` via:
 //
-//          CustomResourceConversionArgs{...}
+//	        CustomResourceConversionArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CustomResourceConversionPtrInput interface {
 	pulumi.Input
 
@@ -418,7 +418,8 @@ func (o CustomResourceConversionOutput) ConversionReviewVersions() pulumi.String
 }
 
 // strategy specifies how custom resources are converted between versions. Allowed values are: - `None`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `Webhook`: API Server will call to an external webhook to do the conversion. Additional information
-//   is needed for this option. This requires spec.preserveUnknownFields to be false, and spec.conversion.webhookClientConfig to be set.
+//
+//	is needed for this option. This requires spec.preserveUnknownFields to be false, and spec.conversion.webhookClientConfig to be set.
 func (o CustomResourceConversionOutput) Strategy() pulumi.StringOutput {
 	return o.ApplyT(func(v CustomResourceConversion) string { return v.Strategy }).(pulumi.StringOutput)
 }
@@ -463,7 +464,8 @@ func (o CustomResourceConversionPtrOutput) ConversionReviewVersions() pulumi.Str
 }
 
 // strategy specifies how custom resources are converted between versions. Allowed values are: - `None`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `Webhook`: API Server will call to an external webhook to do the conversion. Additional information
-//   is needed for this option. This requires spec.preserveUnknownFields to be false, and spec.conversion.webhookClientConfig to be set.
+//
+//	is needed for this option. This requires spec.preserveUnknownFields to be false, and spec.conversion.webhookClientConfig to be set.
 func (o CustomResourceConversionPtrOutput) Strategy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CustomResourceConversion) *string {
 		if v == nil {
@@ -497,7 +499,7 @@ type CustomResourceConversionPatch struct {
 // CustomResourceConversionPatchInput is an input type that accepts CustomResourceConversionPatchArgs and CustomResourceConversionPatchOutput values.
 // You can construct a concrete instance of `CustomResourceConversionPatchInput` via:
 //
-//          CustomResourceConversionPatchArgs{...}
+//	CustomResourceConversionPatchArgs{...}
 type CustomResourceConversionPatchInput interface {
 	pulumi.Input
 
@@ -539,11 +541,11 @@ func (i CustomResourceConversionPatchArgs) ToCustomResourceConversionPatchPtrOut
 // CustomResourceConversionPatchPtrInput is an input type that accepts CustomResourceConversionPatchArgs, CustomResourceConversionPatchPtr and CustomResourceConversionPatchPtrOutput values.
 // You can construct a concrete instance of `CustomResourceConversionPatchPtrInput` via:
 //
-//          CustomResourceConversionPatchArgs{...}
+//	        CustomResourceConversionPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CustomResourceConversionPatchPtrInput interface {
 	pulumi.Input
 
@@ -600,7 +602,8 @@ func (o CustomResourceConversionPatchOutput) ConversionReviewVersions() pulumi.S
 }
 
 // strategy specifies how custom resources are converted between versions. Allowed values are: - `None`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `Webhook`: API Server will call to an external webhook to do the conversion. Additional information
-//   is needed for this option. This requires spec.preserveUnknownFields to be false, and spec.conversion.webhookClientConfig to be set.
+//
+//	is needed for this option. This requires spec.preserveUnknownFields to be false, and spec.conversion.webhookClientConfig to be set.
 func (o CustomResourceConversionPatchOutput) Strategy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CustomResourceConversionPatch) *string { return v.Strategy }).(pulumi.StringPtrOutput)
 }
@@ -645,7 +648,8 @@ func (o CustomResourceConversionPatchPtrOutput) ConversionReviewVersions() pulum
 }
 
 // strategy specifies how custom resources are converted between versions. Allowed values are: - `None`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `Webhook`: API Server will call to an external webhook to do the conversion. Additional information
-//   is needed for this option. This requires spec.preserveUnknownFields to be false, and spec.conversion.webhookClientConfig to be set.
+//
+//	is needed for this option. This requires spec.preserveUnknownFields to be false, and spec.conversion.webhookClientConfig to be set.
 func (o CustomResourceConversionPatchPtrOutput) Strategy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CustomResourceConversionPatch) *string {
 		if v == nil {
@@ -681,7 +685,7 @@ type CustomResourceDefinitionType struct {
 // CustomResourceDefinitionTypeInput is an input type that accepts CustomResourceDefinitionTypeArgs and CustomResourceDefinitionTypeOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionTypeInput` via:
 //
-//          CustomResourceDefinitionTypeArgs{...}
+//	CustomResourceDefinitionTypeArgs{...}
 type CustomResourceDefinitionTypeInput interface {
 	pulumi.Input
 
@@ -717,7 +721,7 @@ func (i CustomResourceDefinitionTypeArgs) ToCustomResourceDefinitionTypeOutputWi
 // CustomResourceDefinitionTypeArrayInput is an input type that accepts CustomResourceDefinitionTypeArray and CustomResourceDefinitionTypeArrayOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionTypeArrayInput` via:
 //
-//          CustomResourceDefinitionTypeArray{ CustomResourceDefinitionTypeArgs{...} }
+//	CustomResourceDefinitionTypeArray{ CustomResourceDefinitionTypeArgs{...} }
 type CustomResourceDefinitionTypeArrayInput interface {
 	pulumi.Input
 
@@ -815,7 +819,7 @@ type CustomResourceDefinitionCondition struct {
 // CustomResourceDefinitionConditionInput is an input type that accepts CustomResourceDefinitionConditionArgs and CustomResourceDefinitionConditionOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionConditionInput` via:
 //
-//          CustomResourceDefinitionConditionArgs{...}
+//	CustomResourceDefinitionConditionArgs{...}
 type CustomResourceDefinitionConditionInput interface {
 	pulumi.Input
 
@@ -852,7 +856,7 @@ func (i CustomResourceDefinitionConditionArgs) ToCustomResourceDefinitionConditi
 // CustomResourceDefinitionConditionArrayInput is an input type that accepts CustomResourceDefinitionConditionArray and CustomResourceDefinitionConditionArrayOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionConditionArrayInput` via:
 //
-//          CustomResourceDefinitionConditionArray{ CustomResourceDefinitionConditionArgs{...} }
+//	CustomResourceDefinitionConditionArray{ CustomResourceDefinitionConditionArgs{...} }
 type CustomResourceDefinitionConditionArrayInput interface {
 	pulumi.Input
 
@@ -951,7 +955,7 @@ type CustomResourceDefinitionConditionPatch struct {
 // CustomResourceDefinitionConditionPatchInput is an input type that accepts CustomResourceDefinitionConditionPatchArgs and CustomResourceDefinitionConditionPatchOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionConditionPatchInput` via:
 //
-//          CustomResourceDefinitionConditionPatchArgs{...}
+//	CustomResourceDefinitionConditionPatchArgs{...}
 type CustomResourceDefinitionConditionPatchInput interface {
 	pulumi.Input
 
@@ -988,7 +992,7 @@ func (i CustomResourceDefinitionConditionPatchArgs) ToCustomResourceDefinitionCo
 // CustomResourceDefinitionConditionPatchArrayInput is an input type that accepts CustomResourceDefinitionConditionPatchArray and CustomResourceDefinitionConditionPatchArrayOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionConditionPatchArrayInput` via:
 //
-//          CustomResourceDefinitionConditionPatchArray{ CustomResourceDefinitionConditionPatchArgs{...} }
+//	CustomResourceDefinitionConditionPatchArray{ CustomResourceDefinitionConditionPatchArgs{...} }
 type CustomResourceDefinitionConditionPatchArrayInput interface {
 	pulumi.Input
 
@@ -1084,7 +1088,7 @@ type CustomResourceDefinitionListType struct {
 // CustomResourceDefinitionListTypeInput is an input type that accepts CustomResourceDefinitionListTypeArgs and CustomResourceDefinitionListTypeOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionListTypeInput` via:
 //
-//          CustomResourceDefinitionListTypeArgs{...}
+//	CustomResourceDefinitionListTypeArgs{...}
 type CustomResourceDefinitionListTypeInput interface {
 	pulumi.Input
 
@@ -1168,7 +1172,7 @@ type CustomResourceDefinitionNames struct {
 // CustomResourceDefinitionNamesInput is an input type that accepts CustomResourceDefinitionNamesArgs and CustomResourceDefinitionNamesOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionNamesInput` via:
 //
-//          CustomResourceDefinitionNamesArgs{...}
+//	CustomResourceDefinitionNamesArgs{...}
 type CustomResourceDefinitionNamesInput interface {
 	pulumi.Input
 
@@ -1215,11 +1219,11 @@ func (i CustomResourceDefinitionNamesArgs) ToCustomResourceDefinitionNamesPtrOut
 // CustomResourceDefinitionNamesPtrInput is an input type that accepts CustomResourceDefinitionNamesArgs, CustomResourceDefinitionNamesPtr and CustomResourceDefinitionNamesPtrOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionNamesPtrInput` via:
 //
-//          CustomResourceDefinitionNamesArgs{...}
+//	        CustomResourceDefinitionNamesArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CustomResourceDefinitionNamesPtrInput interface {
 	pulumi.Input
 
@@ -1403,7 +1407,7 @@ type CustomResourceDefinitionNamesPatch struct {
 // CustomResourceDefinitionNamesPatchInput is an input type that accepts CustomResourceDefinitionNamesPatchArgs and CustomResourceDefinitionNamesPatchOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionNamesPatchInput` via:
 //
-//          CustomResourceDefinitionNamesPatchArgs{...}
+//	CustomResourceDefinitionNamesPatchArgs{...}
 type CustomResourceDefinitionNamesPatchInput interface {
 	pulumi.Input
 
@@ -1450,11 +1454,11 @@ func (i CustomResourceDefinitionNamesPatchArgs) ToCustomResourceDefinitionNamesP
 // CustomResourceDefinitionNamesPatchPtrInput is an input type that accepts CustomResourceDefinitionNamesPatchArgs, CustomResourceDefinitionNamesPatchPtr and CustomResourceDefinitionNamesPatchPtrOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionNamesPatchPtrInput` via:
 //
-//          CustomResourceDefinitionNamesPatchArgs{...}
+//	        CustomResourceDefinitionNamesPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CustomResourceDefinitionNamesPatchPtrInput interface {
 	pulumi.Input
 
@@ -1635,7 +1639,7 @@ type CustomResourceDefinitionPatchType struct {
 // CustomResourceDefinitionPatchTypeInput is an input type that accepts CustomResourceDefinitionPatchTypeArgs and CustomResourceDefinitionPatchTypeOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionPatchTypeInput` via:
 //
-//          CustomResourceDefinitionPatchTypeArgs{...}
+//	CustomResourceDefinitionPatchTypeArgs{...}
 type CustomResourceDefinitionPatchTypeInput interface {
 	pulumi.Input
 
@@ -1734,7 +1738,7 @@ type CustomResourceDefinitionSpec struct {
 // CustomResourceDefinitionSpecInput is an input type that accepts CustomResourceDefinitionSpecArgs and CustomResourceDefinitionSpecOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionSpecInput` via:
 //
-//          CustomResourceDefinitionSpecArgs{...}
+//	CustomResourceDefinitionSpecArgs{...}
 type CustomResourceDefinitionSpecInput interface {
 	pulumi.Input
 
@@ -1872,7 +1876,7 @@ type CustomResourceDefinitionSpecPatch struct {
 // CustomResourceDefinitionSpecPatchInput is an input type that accepts CustomResourceDefinitionSpecPatchArgs and CustomResourceDefinitionSpecPatchOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionSpecPatchInput` via:
 //
-//          CustomResourceDefinitionSpecPatchArgs{...}
+//	CustomResourceDefinitionSpecPatchArgs{...}
 type CustomResourceDefinitionSpecPatchInput interface {
 	pulumi.Input
 
@@ -1927,11 +1931,11 @@ func (i CustomResourceDefinitionSpecPatchArgs) ToCustomResourceDefinitionSpecPat
 // CustomResourceDefinitionSpecPatchPtrInput is an input type that accepts CustomResourceDefinitionSpecPatchArgs, CustomResourceDefinitionSpecPatchPtr and CustomResourceDefinitionSpecPatchPtrOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionSpecPatchPtrInput` via:
 //
-//          CustomResourceDefinitionSpecPatchArgs{...}
+//	        CustomResourceDefinitionSpecPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CustomResourceDefinitionSpecPatchPtrInput interface {
 	pulumi.Input
 
@@ -2171,7 +2175,7 @@ type CustomResourceDefinitionStatus struct {
 // CustomResourceDefinitionStatusInput is an input type that accepts CustomResourceDefinitionStatusArgs and CustomResourceDefinitionStatusOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionStatusInput` via:
 //
-//          CustomResourceDefinitionStatusArgs{...}
+//	CustomResourceDefinitionStatusArgs{...}
 type CustomResourceDefinitionStatusInput interface {
 	pulumi.Input
 
@@ -2212,11 +2216,11 @@ func (i CustomResourceDefinitionStatusArgs) ToCustomResourceDefinitionStatusPtrO
 // CustomResourceDefinitionStatusPtrInput is an input type that accepts CustomResourceDefinitionStatusArgs, CustomResourceDefinitionStatusPtr and CustomResourceDefinitionStatusPtrOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionStatusPtrInput` via:
 //
-//          CustomResourceDefinitionStatusArgs{...}
+//	        CustomResourceDefinitionStatusArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CustomResourceDefinitionStatusPtrInput interface {
 	pulumi.Input
 
@@ -2349,7 +2353,7 @@ type CustomResourceDefinitionStatusPatch struct {
 // CustomResourceDefinitionStatusPatchInput is an input type that accepts CustomResourceDefinitionStatusPatchArgs and CustomResourceDefinitionStatusPatchOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionStatusPatchInput` via:
 //
-//          CustomResourceDefinitionStatusPatchArgs{...}
+//	CustomResourceDefinitionStatusPatchArgs{...}
 type CustomResourceDefinitionStatusPatchInput interface {
 	pulumi.Input
 
@@ -2390,11 +2394,11 @@ func (i CustomResourceDefinitionStatusPatchArgs) ToCustomResourceDefinitionStatu
 // CustomResourceDefinitionStatusPatchPtrInput is an input type that accepts CustomResourceDefinitionStatusPatchArgs, CustomResourceDefinitionStatusPatchPtr and CustomResourceDefinitionStatusPatchPtrOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionStatusPatchPtrInput` via:
 //
-//          CustomResourceDefinitionStatusPatchArgs{...}
+//	        CustomResourceDefinitionStatusPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CustomResourceDefinitionStatusPatchPtrInput interface {
 	pulumi.Input
 
@@ -2541,7 +2545,7 @@ type CustomResourceDefinitionVersion struct {
 // CustomResourceDefinitionVersionInput is an input type that accepts CustomResourceDefinitionVersionArgs and CustomResourceDefinitionVersionOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionVersionInput` via:
 //
-//          CustomResourceDefinitionVersionArgs{...}
+//	CustomResourceDefinitionVersionArgs{...}
 type CustomResourceDefinitionVersionInput interface {
 	pulumi.Input
 
@@ -2584,7 +2588,7 @@ func (i CustomResourceDefinitionVersionArgs) ToCustomResourceDefinitionVersionOu
 // CustomResourceDefinitionVersionArrayInput is an input type that accepts CustomResourceDefinitionVersionArray and CustomResourceDefinitionVersionArrayOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionVersionArrayInput` via:
 //
-//          CustomResourceDefinitionVersionArray{ CustomResourceDefinitionVersionArgs{...} }
+//	CustomResourceDefinitionVersionArray{ CustomResourceDefinitionVersionArgs{...} }
 type CustomResourceDefinitionVersionArrayInput interface {
 	pulumi.Input
 
@@ -2706,7 +2710,7 @@ type CustomResourceDefinitionVersionPatch struct {
 // CustomResourceDefinitionVersionPatchInput is an input type that accepts CustomResourceDefinitionVersionPatchArgs and CustomResourceDefinitionVersionPatchOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionVersionPatchInput` via:
 //
-//          CustomResourceDefinitionVersionPatchArgs{...}
+//	CustomResourceDefinitionVersionPatchArgs{...}
 type CustomResourceDefinitionVersionPatchInput interface {
 	pulumi.Input
 
@@ -2749,7 +2753,7 @@ func (i CustomResourceDefinitionVersionPatchArgs) ToCustomResourceDefinitionVers
 // CustomResourceDefinitionVersionPatchArrayInput is an input type that accepts CustomResourceDefinitionVersionPatchArray and CustomResourceDefinitionVersionPatchArrayOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionVersionPatchArrayInput` via:
 //
-//          CustomResourceDefinitionVersionPatchArray{ CustomResourceDefinitionVersionPatchArgs{...} }
+//	CustomResourceDefinitionVersionPatchArray{ CustomResourceDefinitionVersionPatchArgs{...} }
 type CustomResourceDefinitionVersionPatchArrayInput interface {
 	pulumi.Input
 
@@ -2861,7 +2865,7 @@ type CustomResourceSubresourceScale struct {
 // CustomResourceSubresourceScaleInput is an input type that accepts CustomResourceSubresourceScaleArgs and CustomResourceSubresourceScaleOutput values.
 // You can construct a concrete instance of `CustomResourceSubresourceScaleInput` via:
 //
-//          CustomResourceSubresourceScaleArgs{...}
+//	CustomResourceSubresourceScaleArgs{...}
 type CustomResourceSubresourceScaleInput interface {
 	pulumi.Input
 
@@ -2902,11 +2906,11 @@ func (i CustomResourceSubresourceScaleArgs) ToCustomResourceSubresourceScalePtrO
 // CustomResourceSubresourceScalePtrInput is an input type that accepts CustomResourceSubresourceScaleArgs, CustomResourceSubresourceScalePtr and CustomResourceSubresourceScalePtrOutput values.
 // You can construct a concrete instance of `CustomResourceSubresourceScalePtrInput` via:
 //
-//          CustomResourceSubresourceScaleArgs{...}
+//	        CustomResourceSubresourceScaleArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CustomResourceSubresourceScalePtrInput interface {
 	pulumi.Input
 
@@ -3039,7 +3043,7 @@ type CustomResourceSubresourceScalePatch struct {
 // CustomResourceSubresourceScalePatchInput is an input type that accepts CustomResourceSubresourceScalePatchArgs and CustomResourceSubresourceScalePatchOutput values.
 // You can construct a concrete instance of `CustomResourceSubresourceScalePatchInput` via:
 //
-//          CustomResourceSubresourceScalePatchArgs{...}
+//	CustomResourceSubresourceScalePatchArgs{...}
 type CustomResourceSubresourceScalePatchInput interface {
 	pulumi.Input
 
@@ -3080,11 +3084,11 @@ func (i CustomResourceSubresourceScalePatchArgs) ToCustomResourceSubresourceScal
 // CustomResourceSubresourceScalePatchPtrInput is an input type that accepts CustomResourceSubresourceScalePatchArgs, CustomResourceSubresourceScalePatchPtr and CustomResourceSubresourceScalePatchPtrOutput values.
 // You can construct a concrete instance of `CustomResourceSubresourceScalePatchPtrInput` via:
 //
-//          CustomResourceSubresourceScalePatchArgs{...}
+//	        CustomResourceSubresourceScalePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CustomResourceSubresourceScalePatchPtrInput interface {
 	pulumi.Input
 
@@ -3215,7 +3219,7 @@ type CustomResourceSubresources struct {
 // CustomResourceSubresourcesInput is an input type that accepts CustomResourceSubresourcesArgs and CustomResourceSubresourcesOutput values.
 // You can construct a concrete instance of `CustomResourceSubresourcesInput` via:
 //
-//          CustomResourceSubresourcesArgs{...}
+//	CustomResourceSubresourcesArgs{...}
 type CustomResourceSubresourcesInput interface {
 	pulumi.Input
 
@@ -3254,11 +3258,11 @@ func (i CustomResourceSubresourcesArgs) ToCustomResourceSubresourcesPtrOutputWit
 // CustomResourceSubresourcesPtrInput is an input type that accepts CustomResourceSubresourcesArgs, CustomResourceSubresourcesPtr and CustomResourceSubresourcesPtrOutput values.
 // You can construct a concrete instance of `CustomResourceSubresourcesPtrInput` via:
 //
-//          CustomResourceSubresourcesArgs{...}
+//	        CustomResourceSubresourcesArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CustomResourceSubresourcesPtrInput interface {
 	pulumi.Input
 
@@ -3374,7 +3378,7 @@ type CustomResourceSubresourcesPatch struct {
 // CustomResourceSubresourcesPatchInput is an input type that accepts CustomResourceSubresourcesPatchArgs and CustomResourceSubresourcesPatchOutput values.
 // You can construct a concrete instance of `CustomResourceSubresourcesPatchInput` via:
 //
-//          CustomResourceSubresourcesPatchArgs{...}
+//	CustomResourceSubresourcesPatchArgs{...}
 type CustomResourceSubresourcesPatchInput interface {
 	pulumi.Input
 
@@ -3413,11 +3417,11 @@ func (i CustomResourceSubresourcesPatchArgs) ToCustomResourceSubresourcesPatchPt
 // CustomResourceSubresourcesPatchPtrInput is an input type that accepts CustomResourceSubresourcesPatchArgs, CustomResourceSubresourcesPatchPtr and CustomResourceSubresourcesPatchPtrOutput values.
 // You can construct a concrete instance of `CustomResourceSubresourcesPatchPtrInput` via:
 //
-//          CustomResourceSubresourcesPatchArgs{...}
+//	        CustomResourceSubresourcesPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CustomResourceSubresourcesPatchPtrInput interface {
 	pulumi.Input
 
@@ -3531,7 +3535,7 @@ type CustomResourceValidation struct {
 // CustomResourceValidationInput is an input type that accepts CustomResourceValidationArgs and CustomResourceValidationOutput values.
 // You can construct a concrete instance of `CustomResourceValidationInput` via:
 //
-//          CustomResourceValidationArgs{...}
+//	CustomResourceValidationArgs{...}
 type CustomResourceValidationInput interface {
 	pulumi.Input
 
@@ -3568,11 +3572,11 @@ func (i CustomResourceValidationArgs) ToCustomResourceValidationPtrOutputWithCon
 // CustomResourceValidationPtrInput is an input type that accepts CustomResourceValidationArgs, CustomResourceValidationPtr and CustomResourceValidationPtrOutput values.
 // You can construct a concrete instance of `CustomResourceValidationPtrInput` via:
 //
-//          CustomResourceValidationArgs{...}
+//	        CustomResourceValidationArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CustomResourceValidationPtrInput interface {
 	pulumi.Input
 
@@ -3671,7 +3675,7 @@ type CustomResourceValidationPatch struct {
 // CustomResourceValidationPatchInput is an input type that accepts CustomResourceValidationPatchArgs and CustomResourceValidationPatchOutput values.
 // You can construct a concrete instance of `CustomResourceValidationPatchInput` via:
 //
-//          CustomResourceValidationPatchArgs{...}
+//	CustomResourceValidationPatchArgs{...}
 type CustomResourceValidationPatchInput interface {
 	pulumi.Input
 
@@ -3708,11 +3712,11 @@ func (i CustomResourceValidationPatchArgs) ToCustomResourceValidationPatchPtrOut
 // CustomResourceValidationPatchPtrInput is an input type that accepts CustomResourceValidationPatchArgs, CustomResourceValidationPatchPtr and CustomResourceValidationPatchPtrOutput values.
 // You can construct a concrete instance of `CustomResourceValidationPatchPtrInput` via:
 //
-//          CustomResourceValidationPatchArgs{...}
+//	        CustomResourceValidationPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CustomResourceValidationPatchPtrInput interface {
 	pulumi.Input
 
@@ -3811,7 +3815,7 @@ type ExternalDocumentation struct {
 // ExternalDocumentationInput is an input type that accepts ExternalDocumentationArgs and ExternalDocumentationOutput values.
 // You can construct a concrete instance of `ExternalDocumentationInput` via:
 //
-//          ExternalDocumentationArgs{...}
+//	ExternalDocumentationArgs{...}
 type ExternalDocumentationInput interface {
 	pulumi.Input
 
@@ -3848,11 +3852,11 @@ func (i ExternalDocumentationArgs) ToExternalDocumentationPtrOutputWithContext(c
 // ExternalDocumentationPtrInput is an input type that accepts ExternalDocumentationArgs, ExternalDocumentationPtr and ExternalDocumentationPtrOutput values.
 // You can construct a concrete instance of `ExternalDocumentationPtrInput` via:
 //
-//          ExternalDocumentationArgs{...}
+//	        ExternalDocumentationArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ExternalDocumentationPtrInput interface {
 	pulumi.Input
 
@@ -3962,7 +3966,7 @@ type ExternalDocumentationPatch struct {
 // ExternalDocumentationPatchInput is an input type that accepts ExternalDocumentationPatchArgs and ExternalDocumentationPatchOutput values.
 // You can construct a concrete instance of `ExternalDocumentationPatchInput` via:
 //
-//          ExternalDocumentationPatchArgs{...}
+//	ExternalDocumentationPatchArgs{...}
 type ExternalDocumentationPatchInput interface {
 	pulumi.Input
 
@@ -3999,11 +4003,11 @@ func (i ExternalDocumentationPatchArgs) ToExternalDocumentationPatchPtrOutputWit
 // ExternalDocumentationPatchPtrInput is an input type that accepts ExternalDocumentationPatchArgs, ExternalDocumentationPatchPtr and ExternalDocumentationPatchPtrOutput values.
 // You can construct a concrete instance of `ExternalDocumentationPatchPtrInput` via:
 //
-//          ExternalDocumentationPatchArgs{...}
+//	        ExternalDocumentationPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ExternalDocumentationPatchPtrInput interface {
 	pulumi.Input
 
@@ -4195,7 +4199,7 @@ type JSONSchemaProps struct {
 // JSONSchemaPropsInput is an input type that accepts JSONSchemaPropsArgs and JSONSchemaPropsOutput values.
 // You can construct a concrete instance of `JSONSchemaPropsInput` via:
 //
-//          JSONSchemaPropsArgs{...}
+//	JSONSchemaPropsArgs{...}
 type JSONSchemaPropsInput interface {
 	pulumi.Input
 
@@ -4314,11 +4318,11 @@ func (i JSONSchemaPropsArgs) ToJSONSchemaPropsPtrOutputWithContext(ctx context.C
 // JSONSchemaPropsPtrInput is an input type that accepts JSONSchemaPropsArgs, JSONSchemaPropsPtr and JSONSchemaPropsPtrOutput values.
 // You can construct a concrete instance of `JSONSchemaPropsPtrInput` via:
 //
-//          JSONSchemaPropsArgs{...}
+//	        JSONSchemaPropsArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type JSONSchemaPropsPtrInput interface {
 	pulumi.Input
 
@@ -4347,7 +4351,7 @@ func (i *jsonschemaPropsPtrType) ToJSONSchemaPropsPtrOutputWithContext(ctx conte
 // JSONSchemaPropsArrayInput is an input type that accepts JSONSchemaPropsArray and JSONSchemaPropsArrayOutput values.
 // You can construct a concrete instance of `JSONSchemaPropsArrayInput` via:
 //
-//          JSONSchemaPropsArray{ JSONSchemaPropsArgs{...} }
+//	JSONSchemaPropsArray{ JSONSchemaPropsArgs{...} }
 type JSONSchemaPropsArrayInput interface {
 	pulumi.Input
 
@@ -4372,7 +4376,7 @@ func (i JSONSchemaPropsArray) ToJSONSchemaPropsArrayOutputWithContext(ctx contex
 // JSONSchemaPropsMapInput is an input type that accepts JSONSchemaPropsMap and JSONSchemaPropsMapOutput values.
 // You can construct a concrete instance of `JSONSchemaPropsMapInput` via:
 //
-//          JSONSchemaPropsMap{ "key": JSONSchemaPropsArgs{...} }
+//	JSONSchemaPropsMap{ "key": JSONSchemaPropsArgs{...} }
 type JSONSchemaPropsMapInput interface {
 	pulumi.Input
 
@@ -4579,13 +4583,14 @@ func (o JSONSchemaPropsOutput) X_kubernetes_embedded_resource() pulumi.BoolPtrOu
 // x-kubernetes-int-or-string specifies that this value is either an integer or a string. If this is true, an empty type is allowed and type as child of anyOf is permitted if following one of the following patterns:
 //
 // 1) anyOf:
-//    - type: integer
-//    - type: string
+//   - type: integer
+//   - type: string
+//
 // 2) allOf:
-//    - anyOf:
-//      - type: integer
-//      - type: string
-//    - ... zero or more
+//   - anyOf:
+//   - type: integer
+//   - type: string
+//   - ... zero or more
 func (o JSONSchemaPropsOutput) X_kubernetes_int_or_string() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v JSONSchemaProps) *bool { return v.X_kubernetes_int_or_string }).(pulumi.BoolPtrOutput)
 }
@@ -4599,30 +4604,30 @@ func (o JSONSchemaPropsOutput) X_kubernetes_list_map_keys() pulumi.StringArrayOu
 
 // x-kubernetes-list-type annotates an array to further describe its topology. This extension must only be used on lists and may have 3 possible values:
 //
-// 1) `atomic`: the list is treated as a single entity, like a scalar.
-//      Atomic lists will be entirely replaced when updated. This extension
-//      may be used on any type of list (struct, scalar, ...).
-// 2) `set`:
-//      Sets are lists that must not have multiple items with the same value. Each
-//      value must be a scalar, an object with x-kubernetes-map-type `atomic` or an
-//      array with x-kubernetes-list-type `atomic`.
-// 3) `map`:
-//      These lists are like maps in that their elements have a non-index key
-//      used to identify them. Order is preserved upon merge. The map tag
-//      must only be used on a list with elements of type object.
-//    Defaults to atomic for arrays.
+//  1. `atomic`: the list is treated as a single entity, like a scalar.
+//     Atomic lists will be entirely replaced when updated. This extension
+//     may be used on any type of list (struct, scalar, ...).
+//  2. `set`:
+//     Sets are lists that must not have multiple items with the same value. Each
+//     value must be a scalar, an object with x-kubernetes-map-type `atomic` or an
+//     array with x-kubernetes-list-type `atomic`.
+//  3. `map`:
+//     These lists are like maps in that their elements have a non-index key
+//     used to identify them. Order is preserved upon merge. The map tag
+//     must only be used on a list with elements of type object.
+//     Defaults to atomic for arrays.
 func (o JSONSchemaPropsOutput) X_kubernetes_list_type() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v JSONSchemaProps) *string { return v.X_kubernetes_list_type }).(pulumi.StringPtrOutput)
 }
 
 // x-kubernetes-map-type annotates an object to further describe its topology. This extension must only be used when type is object and may have 2 possible values:
 //
-// 1) `granular`:
-//      These maps are actual maps (key-value pairs) and each fields are independent
-//      from each other (they can each be manipulated by separate actors). This is
-//      the default behaviour for all maps.
-// 2) `atomic`: the list is treated as a single entity, like a scalar.
-//      Atomic maps will be entirely replaced when updated.
+//  1. `granular`:
+//     These maps are actual maps (key-value pairs) and each fields are independent
+//     from each other (they can each be manipulated by separate actors). This is
+//     the default behaviour for all maps.
+//  2. `atomic`: the list is treated as a single entity, like a scalar.
+//     Atomic maps will be entirely replaced when updated.
 func (o JSONSchemaPropsOutput) X_kubernetes_map_type() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v JSONSchemaProps) *string { return v.X_kubernetes_map_type }).(pulumi.StringPtrOutput)
 }
@@ -5006,13 +5011,14 @@ func (o JSONSchemaPropsPtrOutput) X_kubernetes_embedded_resource() pulumi.BoolPt
 // x-kubernetes-int-or-string specifies that this value is either an integer or a string. If this is true, an empty type is allowed and type as child of anyOf is permitted if following one of the following patterns:
 //
 // 1) anyOf:
-//    - type: integer
-//    - type: string
+//   - type: integer
+//   - type: string
+//
 // 2) allOf:
-//    - anyOf:
-//      - type: integer
-//      - type: string
-//    - ... zero or more
+//   - anyOf:
+//   - type: integer
+//   - type: string
+//   - ... zero or more
 func (o JSONSchemaPropsPtrOutput) X_kubernetes_int_or_string() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *JSONSchemaProps) *bool {
 		if v == nil {
@@ -5036,18 +5042,18 @@ func (o JSONSchemaPropsPtrOutput) X_kubernetes_list_map_keys() pulumi.StringArra
 
 // x-kubernetes-list-type annotates an array to further describe its topology. This extension must only be used on lists and may have 3 possible values:
 //
-// 1) `atomic`: the list is treated as a single entity, like a scalar.
-//      Atomic lists will be entirely replaced when updated. This extension
-//      may be used on any type of list (struct, scalar, ...).
-// 2) `set`:
-//      Sets are lists that must not have multiple items with the same value. Each
-//      value must be a scalar, an object with x-kubernetes-map-type `atomic` or an
-//      array with x-kubernetes-list-type `atomic`.
-// 3) `map`:
-//      These lists are like maps in that their elements have a non-index key
-//      used to identify them. Order is preserved upon merge. The map tag
-//      must only be used on a list with elements of type object.
-//    Defaults to atomic for arrays.
+//  1. `atomic`: the list is treated as a single entity, like a scalar.
+//     Atomic lists will be entirely replaced when updated. This extension
+//     may be used on any type of list (struct, scalar, ...).
+//  2. `set`:
+//     Sets are lists that must not have multiple items with the same value. Each
+//     value must be a scalar, an object with x-kubernetes-map-type `atomic` or an
+//     array with x-kubernetes-list-type `atomic`.
+//  3. `map`:
+//     These lists are like maps in that their elements have a non-index key
+//     used to identify them. Order is preserved upon merge. The map tag
+//     must only be used on a list with elements of type object.
+//     Defaults to atomic for arrays.
 func (o JSONSchemaPropsPtrOutput) X_kubernetes_list_type() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *JSONSchemaProps) *string {
 		if v == nil {
@@ -5059,12 +5065,12 @@ func (o JSONSchemaPropsPtrOutput) X_kubernetes_list_type() pulumi.StringPtrOutpu
 
 // x-kubernetes-map-type annotates an object to further describe its topology. This extension must only be used when type is object and may have 2 possible values:
 //
-// 1) `granular`:
-//      These maps are actual maps (key-value pairs) and each fields are independent
-//      from each other (they can each be manipulated by separate actors). This is
-//      the default behaviour for all maps.
-// 2) `atomic`: the list is treated as a single entity, like a scalar.
-//      Atomic maps will be entirely replaced when updated.
+//  1. `granular`:
+//     These maps are actual maps (key-value pairs) and each fields are independent
+//     from each other (they can each be manipulated by separate actors). This is
+//     the default behaviour for all maps.
+//  2. `atomic`: the list is treated as a single entity, like a scalar.
+//     Atomic maps will be entirely replaced when updated.
 func (o JSONSchemaPropsPtrOutput) X_kubernetes_map_type() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *JSONSchemaProps) *string {
 		if v == nil {
@@ -5215,7 +5221,7 @@ type JSONSchemaPropsPatch struct {
 // JSONSchemaPropsPatchInput is an input type that accepts JSONSchemaPropsPatchArgs and JSONSchemaPropsPatchOutput values.
 // You can construct a concrete instance of `JSONSchemaPropsPatchInput` via:
 //
-//          JSONSchemaPropsPatchArgs{...}
+//	JSONSchemaPropsPatchArgs{...}
 type JSONSchemaPropsPatchInput interface {
 	pulumi.Input
 
@@ -5334,11 +5340,11 @@ func (i JSONSchemaPropsPatchArgs) ToJSONSchemaPropsPatchPtrOutputWithContext(ctx
 // JSONSchemaPropsPatchPtrInput is an input type that accepts JSONSchemaPropsPatchArgs, JSONSchemaPropsPatchPtr and JSONSchemaPropsPatchPtrOutput values.
 // You can construct a concrete instance of `JSONSchemaPropsPatchPtrInput` via:
 //
-//          JSONSchemaPropsPatchArgs{...}
+//	        JSONSchemaPropsPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type JSONSchemaPropsPatchPtrInput interface {
 	pulumi.Input
 
@@ -5367,7 +5373,7 @@ func (i *jsonschemaPropsPatchPtrType) ToJSONSchemaPropsPatchPtrOutputWithContext
 // JSONSchemaPropsPatchArrayInput is an input type that accepts JSONSchemaPropsPatchArray and JSONSchemaPropsPatchArrayOutput values.
 // You can construct a concrete instance of `JSONSchemaPropsPatchArrayInput` via:
 //
-//          JSONSchemaPropsPatchArray{ JSONSchemaPropsPatchArgs{...} }
+//	JSONSchemaPropsPatchArray{ JSONSchemaPropsPatchArgs{...} }
 type JSONSchemaPropsPatchArrayInput interface {
 	pulumi.Input
 
@@ -5574,13 +5580,14 @@ func (o JSONSchemaPropsPatchOutput) X_kubernetes_embedded_resource() pulumi.Bool
 // x-kubernetes-int-or-string specifies that this value is either an integer or a string. If this is true, an empty type is allowed and type as child of anyOf is permitted if following one of the following patterns:
 //
 // 1) anyOf:
-//    - type: integer
-//    - type: string
+//   - type: integer
+//   - type: string
+//
 // 2) allOf:
-//    - anyOf:
-//      - type: integer
-//      - type: string
-//    - ... zero or more
+//   - anyOf:
+//   - type: integer
+//   - type: string
+//   - ... zero or more
 func (o JSONSchemaPropsPatchOutput) X_kubernetes_int_or_string() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v JSONSchemaPropsPatch) *bool { return v.X_kubernetes_int_or_string }).(pulumi.BoolPtrOutput)
 }
@@ -5594,30 +5601,30 @@ func (o JSONSchemaPropsPatchOutput) X_kubernetes_list_map_keys() pulumi.StringAr
 
 // x-kubernetes-list-type annotates an array to further describe its topology. This extension must only be used on lists and may have 3 possible values:
 //
-// 1) `atomic`: the list is treated as a single entity, like a scalar.
-//      Atomic lists will be entirely replaced when updated. This extension
-//      may be used on any type of list (struct, scalar, ...).
-// 2) `set`:
-//      Sets are lists that must not have multiple items with the same value. Each
-//      value must be a scalar, an object with x-kubernetes-map-type `atomic` or an
-//      array with x-kubernetes-list-type `atomic`.
-// 3) `map`:
-//      These lists are like maps in that their elements have a non-index key
-//      used to identify them. Order is preserved upon merge. The map tag
-//      must only be used on a list with elements of type object.
-//    Defaults to atomic for arrays.
+//  1. `atomic`: the list is treated as a single entity, like a scalar.
+//     Atomic lists will be entirely replaced when updated. This extension
+//     may be used on any type of list (struct, scalar, ...).
+//  2. `set`:
+//     Sets are lists that must not have multiple items with the same value. Each
+//     value must be a scalar, an object with x-kubernetes-map-type `atomic` or an
+//     array with x-kubernetes-list-type `atomic`.
+//  3. `map`:
+//     These lists are like maps in that their elements have a non-index key
+//     used to identify them. Order is preserved upon merge. The map tag
+//     must only be used on a list with elements of type object.
+//     Defaults to atomic for arrays.
 func (o JSONSchemaPropsPatchOutput) X_kubernetes_list_type() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v JSONSchemaPropsPatch) *string { return v.X_kubernetes_list_type }).(pulumi.StringPtrOutput)
 }
 
 // x-kubernetes-map-type annotates an object to further describe its topology. This extension must only be used when type is object and may have 2 possible values:
 //
-// 1) `granular`:
-//      These maps are actual maps (key-value pairs) and each fields are independent
-//      from each other (they can each be manipulated by separate actors). This is
-//      the default behaviour for all maps.
-// 2) `atomic`: the list is treated as a single entity, like a scalar.
-//      Atomic maps will be entirely replaced when updated.
+//  1. `granular`:
+//     These maps are actual maps (key-value pairs) and each fields are independent
+//     from each other (they can each be manipulated by separate actors). This is
+//     the default behaviour for all maps.
+//  2. `atomic`: the list is treated as a single entity, like a scalar.
+//     Atomic maps will be entirely replaced when updated.
 func (o JSONSchemaPropsPatchOutput) X_kubernetes_map_type() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v JSONSchemaPropsPatch) *string { return v.X_kubernetes_map_type }).(pulumi.StringPtrOutput)
 }
@@ -6001,13 +6008,14 @@ func (o JSONSchemaPropsPatchPtrOutput) X_kubernetes_embedded_resource() pulumi.B
 // x-kubernetes-int-or-string specifies that this value is either an integer or a string. If this is true, an empty type is allowed and type as child of anyOf is permitted if following one of the following patterns:
 //
 // 1) anyOf:
-//    - type: integer
-//    - type: string
+//   - type: integer
+//   - type: string
+//
 // 2) allOf:
-//    - anyOf:
-//      - type: integer
-//      - type: string
-//    - ... zero or more
+//   - anyOf:
+//   - type: integer
+//   - type: string
+//   - ... zero or more
 func (o JSONSchemaPropsPatchPtrOutput) X_kubernetes_int_or_string() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *JSONSchemaPropsPatch) *bool {
 		if v == nil {
@@ -6031,18 +6039,18 @@ func (o JSONSchemaPropsPatchPtrOutput) X_kubernetes_list_map_keys() pulumi.Strin
 
 // x-kubernetes-list-type annotates an array to further describe its topology. This extension must only be used on lists and may have 3 possible values:
 //
-// 1) `atomic`: the list is treated as a single entity, like a scalar.
-//      Atomic lists will be entirely replaced when updated. This extension
-//      may be used on any type of list (struct, scalar, ...).
-// 2) `set`:
-//      Sets are lists that must not have multiple items with the same value. Each
-//      value must be a scalar, an object with x-kubernetes-map-type `atomic` or an
-//      array with x-kubernetes-list-type `atomic`.
-// 3) `map`:
-//      These lists are like maps in that their elements have a non-index key
-//      used to identify them. Order is preserved upon merge. The map tag
-//      must only be used on a list with elements of type object.
-//    Defaults to atomic for arrays.
+//  1. `atomic`: the list is treated as a single entity, like a scalar.
+//     Atomic lists will be entirely replaced when updated. This extension
+//     may be used on any type of list (struct, scalar, ...).
+//  2. `set`:
+//     Sets are lists that must not have multiple items with the same value. Each
+//     value must be a scalar, an object with x-kubernetes-map-type `atomic` or an
+//     array with x-kubernetes-list-type `atomic`.
+//  3. `map`:
+//     These lists are like maps in that their elements have a non-index key
+//     used to identify them. Order is preserved upon merge. The map tag
+//     must only be used on a list with elements of type object.
+//     Defaults to atomic for arrays.
 func (o JSONSchemaPropsPatchPtrOutput) X_kubernetes_list_type() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *JSONSchemaPropsPatch) *string {
 		if v == nil {
@@ -6054,12 +6062,12 @@ func (o JSONSchemaPropsPatchPtrOutput) X_kubernetes_list_type() pulumi.StringPtr
 
 // x-kubernetes-map-type annotates an object to further describe its topology. This extension must only be used when type is object and may have 2 possible values:
 //
-// 1) `granular`:
-//      These maps are actual maps (key-value pairs) and each fields are independent
-//      from each other (they can each be manipulated by separate actors). This is
-//      the default behaviour for all maps.
-// 2) `atomic`: the list is treated as a single entity, like a scalar.
-//      Atomic maps will be entirely replaced when updated.
+//  1. `granular`:
+//     These maps are actual maps (key-value pairs) and each fields are independent
+//     from each other (they can each be manipulated by separate actors). This is
+//     the default behaviour for all maps.
+//  2. `atomic`: the list is treated as a single entity, like a scalar.
+//     Atomic maps will be entirely replaced when updated.
 func (o JSONSchemaPropsPatchPtrOutput) X_kubernetes_map_type() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *JSONSchemaPropsPatch) *string {
 		if v == nil {
@@ -6114,7 +6122,7 @@ type ServiceReference struct {
 // ServiceReferenceInput is an input type that accepts ServiceReferenceArgs and ServiceReferenceOutput values.
 // You can construct a concrete instance of `ServiceReferenceInput` via:
 //
-//          ServiceReferenceArgs{...}
+//	ServiceReferenceArgs{...}
 type ServiceReferenceInput interface {
 	pulumi.Input
 
@@ -6157,11 +6165,11 @@ func (i ServiceReferenceArgs) ToServiceReferencePtrOutputWithContext(ctx context
 // ServiceReferencePtrInput is an input type that accepts ServiceReferenceArgs, ServiceReferencePtr and ServiceReferencePtrOutput values.
 // You can construct a concrete instance of `ServiceReferencePtrInput` via:
 //
-//          ServiceReferenceArgs{...}
+//	        ServiceReferenceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ServiceReferencePtrInput interface {
 	pulumi.Input
 
@@ -6311,7 +6319,7 @@ type ServiceReferencePatch struct {
 // ServiceReferencePatchInput is an input type that accepts ServiceReferencePatchArgs and ServiceReferencePatchOutput values.
 // You can construct a concrete instance of `ServiceReferencePatchInput` via:
 //
-//          ServiceReferencePatchArgs{...}
+//	ServiceReferencePatchArgs{...}
 type ServiceReferencePatchInput interface {
 	pulumi.Input
 
@@ -6354,11 +6362,11 @@ func (i ServiceReferencePatchArgs) ToServiceReferencePatchPtrOutputWithContext(c
 // ServiceReferencePatchPtrInput is an input type that accepts ServiceReferencePatchArgs, ServiceReferencePatchPtr and ServiceReferencePatchPtrOutput values.
 // You can construct a concrete instance of `ServiceReferencePatchPtrInput` via:
 //
-//          ServiceReferencePatchArgs{...}
+//	        ServiceReferencePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ServiceReferencePatchPtrInput interface {
 	pulumi.Input
 
@@ -6518,7 +6526,7 @@ type WebhookClientConfig struct {
 // WebhookClientConfigInput is an input type that accepts WebhookClientConfigArgs and WebhookClientConfigOutput values.
 // You can construct a concrete instance of `WebhookClientConfigInput` via:
 //
-//          WebhookClientConfigArgs{...}
+//	WebhookClientConfigArgs{...}
 type WebhookClientConfigInput interface {
 	pulumi.Input
 
@@ -6571,11 +6579,11 @@ func (i WebhookClientConfigArgs) ToWebhookClientConfigPtrOutputWithContext(ctx c
 // WebhookClientConfigPtrInput is an input type that accepts WebhookClientConfigArgs, WebhookClientConfigPtr and WebhookClientConfigPtrOutput values.
 // You can construct a concrete instance of `WebhookClientConfigPtrInput` via:
 //
-//          WebhookClientConfigArgs{...}
+//	        WebhookClientConfigArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type WebhookClientConfigPtrInput interface {
 	pulumi.Input
 
@@ -6744,7 +6752,7 @@ type WebhookClientConfigPatch struct {
 // WebhookClientConfigPatchInput is an input type that accepts WebhookClientConfigPatchArgs and WebhookClientConfigPatchOutput values.
 // You can construct a concrete instance of `WebhookClientConfigPatchInput` via:
 //
-//          WebhookClientConfigPatchArgs{...}
+//	WebhookClientConfigPatchArgs{...}
 type WebhookClientConfigPatchInput interface {
 	pulumi.Input
 
@@ -6797,11 +6805,11 @@ func (i WebhookClientConfigPatchArgs) ToWebhookClientConfigPatchPtrOutputWithCon
 // WebhookClientConfigPatchPtrInput is an input type that accepts WebhookClientConfigPatchArgs, WebhookClientConfigPatchPtr and WebhookClientConfigPatchPtrOutput values.
 // You can construct a concrete instance of `WebhookClientConfigPatchPtrInput` via:
 //
-//          WebhookClientConfigPatchArgs{...}
+//	        WebhookClientConfigPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type WebhookClientConfigPatchPtrInput interface {
 	pulumi.Input
 

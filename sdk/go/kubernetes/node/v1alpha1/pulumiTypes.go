@@ -21,7 +21,7 @@ type Overhead struct {
 // OverheadInput is an input type that accepts OverheadArgs and OverheadOutput values.
 // You can construct a concrete instance of `OverheadInput` via:
 //
-//          OverheadArgs{...}
+//	OverheadArgs{...}
 type OverheadInput interface {
 	pulumi.Input
 
@@ -58,11 +58,11 @@ func (i OverheadArgs) ToOverheadPtrOutputWithContext(ctx context.Context) Overhe
 // OverheadPtrInput is an input type that accepts OverheadArgs, OverheadPtr and OverheadPtrOutput values.
 // You can construct a concrete instance of `OverheadPtrInput` via:
 //
-//          OverheadArgs{...}
+//	        OverheadArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type OverheadPtrInput interface {
 	pulumi.Input
 
@@ -161,7 +161,7 @@ type OverheadPatch struct {
 // OverheadPatchInput is an input type that accepts OverheadPatchArgs and OverheadPatchOutput values.
 // You can construct a concrete instance of `OverheadPatchInput` via:
 //
-//          OverheadPatchArgs{...}
+//	OverheadPatchArgs{...}
 type OverheadPatchInput interface {
 	pulumi.Input
 
@@ -198,11 +198,11 @@ func (i OverheadPatchArgs) ToOverheadPatchPtrOutputWithContext(ctx context.Conte
 // OverheadPatchPtrInput is an input type that accepts OverheadPatchArgs, OverheadPatchPtr and OverheadPatchPtrOutput values.
 // You can construct a concrete instance of `OverheadPatchPtrInput` via:
 //
-//          OverheadPatchArgs{...}
+//	        OverheadPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type OverheadPatchPtrInput interface {
 	pulumi.Input
 
@@ -307,7 +307,7 @@ type RuntimeClassType struct {
 // RuntimeClassTypeInput is an input type that accepts RuntimeClassTypeArgs and RuntimeClassTypeOutput values.
 // You can construct a concrete instance of `RuntimeClassTypeInput` via:
 //
-//          RuntimeClassTypeArgs{...}
+//	RuntimeClassTypeArgs{...}
 type RuntimeClassTypeInput interface {
 	pulumi.Input
 
@@ -342,7 +342,7 @@ func (i RuntimeClassTypeArgs) ToRuntimeClassTypeOutputWithContext(ctx context.Co
 // RuntimeClassTypeArrayInput is an input type that accepts RuntimeClassTypeArray and RuntimeClassTypeArrayOutput values.
 // You can construct a concrete instance of `RuntimeClassTypeArrayInput` via:
 //
-//          RuntimeClassTypeArray{ RuntimeClassTypeArgs{...} }
+//	RuntimeClassTypeArray{ RuntimeClassTypeArgs{...} }
 type RuntimeClassTypeArrayInput interface {
 	pulumi.Input
 
@@ -434,7 +434,7 @@ type RuntimeClassListType struct {
 // RuntimeClassListTypeInput is an input type that accepts RuntimeClassListTypeArgs and RuntimeClassListTypeOutput values.
 // You can construct a concrete instance of `RuntimeClassListTypeInput` via:
 //
-//          RuntimeClassListTypeArgs{...}
+//	RuntimeClassListTypeArgs{...}
 type RuntimeClassListTypeInput interface {
 	pulumi.Input
 
@@ -516,7 +516,7 @@ type RuntimeClassPatchType struct {
 // RuntimeClassPatchTypeInput is an input type that accepts RuntimeClassPatchTypeArgs and RuntimeClassPatchTypeOutput values.
 // You can construct a concrete instance of `RuntimeClassPatchTypeInput` via:
 //
-//          RuntimeClassPatchTypeArgs{...}
+//	RuntimeClassPatchTypeArgs{...}
 type RuntimeClassPatchTypeInput interface {
 	pulumi.Input
 
@@ -596,7 +596,7 @@ type RuntimeClassSpec struct {
 // RuntimeClassSpecInput is an input type that accepts RuntimeClassSpecArgs and RuntimeClassSpecOutput values.
 // You can construct a concrete instance of `RuntimeClassSpecInput` via:
 //
-//          RuntimeClassSpecArgs{...}
+//	RuntimeClassSpecArgs{...}
 type RuntimeClassSpecInput interface {
 	pulumi.Input
 
@@ -669,7 +669,7 @@ type RuntimeClassSpecPatch struct {
 // RuntimeClassSpecPatchInput is an input type that accepts RuntimeClassSpecPatchArgs and RuntimeClassSpecPatchOutput values.
 // You can construct a concrete instance of `RuntimeClassSpecPatchInput` via:
 //
-//          RuntimeClassSpecPatchArgs{...}
+//	RuntimeClassSpecPatchArgs{...}
 type RuntimeClassSpecPatchInput interface {
 	pulumi.Input
 
@@ -710,11 +710,11 @@ func (i RuntimeClassSpecPatchArgs) ToRuntimeClassSpecPatchPtrOutputWithContext(c
 // RuntimeClassSpecPatchPtrInput is an input type that accepts RuntimeClassSpecPatchArgs, RuntimeClassSpecPatchPtr and RuntimeClassSpecPatchPtrOutput values.
 // You can construct a concrete instance of `RuntimeClassSpecPatchPtrInput` via:
 //
-//          RuntimeClassSpecPatchArgs{...}
+//	        RuntimeClassSpecPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type RuntimeClassSpecPatchPtrInput interface {
 	pulumi.Input
 
@@ -845,7 +845,7 @@ type Scheduling struct {
 // SchedulingInput is an input type that accepts SchedulingArgs and SchedulingOutput values.
 // You can construct a concrete instance of `SchedulingInput` via:
 //
-//          SchedulingArgs{...}
+//	SchedulingArgs{...}
 type SchedulingInput interface {
 	pulumi.Input
 
@@ -884,11 +884,11 @@ func (i SchedulingArgs) ToSchedulingPtrOutputWithContext(ctx context.Context) Sc
 // SchedulingPtrInput is an input type that accepts SchedulingArgs, SchedulingPtr and SchedulingPtrOutput values.
 // You can construct a concrete instance of `SchedulingPtrInput` via:
 //
-//          SchedulingArgs{...}
+//	        SchedulingArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type SchedulingPtrInput interface {
 	pulumi.Input
 
@@ -1004,7 +1004,7 @@ type SchedulingPatch struct {
 // SchedulingPatchInput is an input type that accepts SchedulingPatchArgs and SchedulingPatchOutput values.
 // You can construct a concrete instance of `SchedulingPatchInput` via:
 //
-//          SchedulingPatchArgs{...}
+//	SchedulingPatchArgs{...}
 type SchedulingPatchInput interface {
 	pulumi.Input
 
@@ -1043,11 +1043,11 @@ func (i SchedulingPatchArgs) ToSchedulingPatchPtrOutputWithContext(ctx context.C
 // SchedulingPatchPtrInput is an input type that accepts SchedulingPatchArgs, SchedulingPatchPtr and SchedulingPatchPtrOutput values.
 // You can construct a concrete instance of `SchedulingPatchPtrInput` via:
 //
-//          SchedulingPatchArgs{...}
+//	        SchedulingPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type SchedulingPatchPtrInput interface {
 	pulumi.Input
 

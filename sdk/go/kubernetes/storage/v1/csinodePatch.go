@@ -126,7 +126,7 @@ func (i *CSINodePatch) ToCSINodePatchOutputWithContext(ctx context.Context) CSIN
 // CSINodePatchArrayInput is an input type that accepts CSINodePatchArray and CSINodePatchArrayOutput values.
 // You can construct a concrete instance of `CSINodePatchArrayInput` via:
 //
-//          CSINodePatchArray{ CSINodePatchArgs{...} }
+//	CSINodePatchArray{ CSINodePatchArgs{...} }
 type CSINodePatchArrayInput interface {
 	pulumi.Input
 
@@ -151,7 +151,7 @@ func (i CSINodePatchArray) ToCSINodePatchArrayOutputWithContext(ctx context.Cont
 // CSINodePatchMapInput is an input type that accepts CSINodePatchMap and CSINodePatchMapOutput values.
 // You can construct a concrete instance of `CSINodePatchMapInput` via:
 //
-//          CSINodePatchMap{ "key": CSINodePatchArgs{...} }
+//	CSINodePatchMap{ "key": CSINodePatchArgs{...} }
 type CSINodePatchMapInput interface {
 	pulumi.Input
 

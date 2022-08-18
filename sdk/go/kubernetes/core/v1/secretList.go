@@ -118,7 +118,7 @@ func (i *SecretList) ToSecretListOutputWithContext(ctx context.Context) SecretLi
 // SecretListArrayInput is an input type that accepts SecretListArray and SecretListArrayOutput values.
 // You can construct a concrete instance of `SecretListArrayInput` via:
 //
-//          SecretListArray{ SecretListArgs{...} }
+//	SecretListArray{ SecretListArgs{...} }
 type SecretListArrayInput interface {
 	pulumi.Input
 
@@ -143,7 +143,7 @@ func (i SecretListArray) ToSecretListArrayOutputWithContext(ctx context.Context)
 // SecretListMapInput is an input type that accepts SecretListMap and SecretListMapOutput values.
 // You can construct a concrete instance of `SecretListMapInput` via:
 //
-//          SecretListMap{ "key": SecretListArgs{...} }
+//	SecretListMap{ "key": SecretListArgs{...} }
 type SecretListMapInput interface {
 	pulumi.Input
 

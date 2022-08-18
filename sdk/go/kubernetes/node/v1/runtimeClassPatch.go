@@ -144,7 +144,7 @@ func (i *RuntimeClassPatch) ToRuntimeClassPatchOutputWithContext(ctx context.Con
 // RuntimeClassPatchArrayInput is an input type that accepts RuntimeClassPatchArray and RuntimeClassPatchArrayOutput values.
 // You can construct a concrete instance of `RuntimeClassPatchArrayInput` via:
 //
-//          RuntimeClassPatchArray{ RuntimeClassPatchArgs{...} }
+//	RuntimeClassPatchArray{ RuntimeClassPatchArgs{...} }
 type RuntimeClassPatchArrayInput interface {
 	pulumi.Input
 
@@ -169,7 +169,7 @@ func (i RuntimeClassPatchArray) ToRuntimeClassPatchArrayOutputWithContext(ctx co
 // RuntimeClassPatchMapInput is an input type that accepts RuntimeClassPatchMap and RuntimeClassPatchMapOutput values.
 // You can construct a concrete instance of `RuntimeClassPatchMapInput` via:
 //
-//          RuntimeClassPatchMap{ "key": RuntimeClassPatchArgs{...} }
+//	RuntimeClassPatchMap{ "key": RuntimeClassPatchArgs{...} }
 type RuntimeClassPatchMapInput interface {
 	pulumi.Input
 
@@ -226,7 +226,8 @@ func (o RuntimeClassPatchOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
 }
 
 // Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see
-//  https://kubernetes.io/docs/concepts/scheduling-eviction/pod-overhead/
+//
+//	https://kubernetes.io/docs/concepts/scheduling-eviction/pod-overhead/
 func (o RuntimeClassPatchOutput) Overhead() OverheadPatchPtrOutput {
 	return o.ApplyT(func(v *RuntimeClassPatch) OverheadPatchPtrOutput { return v.Overhead }).(OverheadPatchPtrOutput)
 }

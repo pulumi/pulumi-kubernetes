@@ -122,7 +122,7 @@ func (i *TokenRequestPatch) ToTokenRequestPatchOutputWithContext(ctx context.Con
 // TokenRequestPatchArrayInput is an input type that accepts TokenRequestPatchArray and TokenRequestPatchArrayOutput values.
 // You can construct a concrete instance of `TokenRequestPatchArrayInput` via:
 //
-//          TokenRequestPatchArray{ TokenRequestPatchArgs{...} }
+//	TokenRequestPatchArray{ TokenRequestPatchArgs{...} }
 type TokenRequestPatchArrayInput interface {
 	pulumi.Input
 
@@ -147,7 +147,7 @@ func (i TokenRequestPatchArray) ToTokenRequestPatchArrayOutputWithContext(ctx co
 // TokenRequestPatchMapInput is an input type that accepts TokenRequestPatchMap and TokenRequestPatchMapOutput values.
 // You can construct a concrete instance of `TokenRequestPatchMapInput` via:
 //
-//          TokenRequestPatchMap{ "key": TokenRequestPatchArgs{...} }
+//	TokenRequestPatchMap{ "key": TokenRequestPatchArgs{...} }
 type TokenRequestPatchMapInput interface {
 	pulumi.Input
 

@@ -131,7 +131,7 @@ func (i *DaemonSetPatch) ToDaemonSetPatchOutputWithContext(ctx context.Context) 
 // DaemonSetPatchArrayInput is an input type that accepts DaemonSetPatchArray and DaemonSetPatchArrayOutput values.
 // You can construct a concrete instance of `DaemonSetPatchArrayInput` via:
 //
-//          DaemonSetPatchArray{ DaemonSetPatchArgs{...} }
+//	DaemonSetPatchArray{ DaemonSetPatchArgs{...} }
 type DaemonSetPatchArrayInput interface {
 	pulumi.Input
 
@@ -156,7 +156,7 @@ func (i DaemonSetPatchArray) ToDaemonSetPatchArrayOutputWithContext(ctx context.
 // DaemonSetPatchMapInput is an input type that accepts DaemonSetPatchMap and DaemonSetPatchMapOutput values.
 // You can construct a concrete instance of `DaemonSetPatchMapInput` via:
 //
-//          DaemonSetPatchMap{ "key": DaemonSetPatchArgs{...} }
+//	DaemonSetPatchMap{ "key": DaemonSetPatchArgs{...} }
 type DaemonSetPatchMapInput interface {
 	pulumi.Input
 

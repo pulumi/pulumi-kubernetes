@@ -26,7 +26,7 @@ type Info struct {
 // InfoInput is an input type that accepts InfoArgs and InfoOutput values.
 // You can construct a concrete instance of `InfoInput` via:
 //
-//          InfoArgs{...}
+//	InfoArgs{...}
 type InfoInput interface {
 	pulumi.Input
 
@@ -126,7 +126,7 @@ type InfoPatch struct {
 // InfoPatchInput is an input type that accepts InfoPatchArgs and InfoPatchOutput values.
 // You can construct a concrete instance of `InfoPatchInput` via:
 //
-//          InfoPatchArgs{...}
+//	InfoPatchArgs{...}
 type InfoPatchInput interface {
 	pulumi.Input
 

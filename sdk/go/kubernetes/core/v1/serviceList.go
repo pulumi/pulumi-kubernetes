@@ -118,7 +118,7 @@ func (i *ServiceList) ToServiceListOutputWithContext(ctx context.Context) Servic
 // ServiceListArrayInput is an input type that accepts ServiceListArray and ServiceListArrayOutput values.
 // You can construct a concrete instance of `ServiceListArrayInput` via:
 //
-//          ServiceListArray{ ServiceListArgs{...} }
+//	ServiceListArray{ ServiceListArgs{...} }
 type ServiceListArrayInput interface {
 	pulumi.Input
 
@@ -143,7 +143,7 @@ func (i ServiceListArray) ToServiceListArrayOutputWithContext(ctx context.Contex
 // ServiceListMapInput is an input type that accepts ServiceListMap and ServiceListMapOutput values.
 // You can construct a concrete instance of `ServiceListMapInput` via:
 //
-//          ServiceListMap{ "key": ServiceListArgs{...} }
+//	ServiceListMap{ "key": ServiceListArgs{...} }
 type ServiceListMapInput interface {
 	pulumi.Input
 

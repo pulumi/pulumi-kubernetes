@@ -118,7 +118,7 @@ func (i *PodDisruptionBudgetList) ToPodDisruptionBudgetListOutputWithContext(ctx
 // PodDisruptionBudgetListArrayInput is an input type that accepts PodDisruptionBudgetListArray and PodDisruptionBudgetListArrayOutput values.
 // You can construct a concrete instance of `PodDisruptionBudgetListArrayInput` via:
 //
-//          PodDisruptionBudgetListArray{ PodDisruptionBudgetListArgs{...} }
+//	PodDisruptionBudgetListArray{ PodDisruptionBudgetListArgs{...} }
 type PodDisruptionBudgetListArrayInput interface {
 	pulumi.Input
 
@@ -143,7 +143,7 @@ func (i PodDisruptionBudgetListArray) ToPodDisruptionBudgetListArrayOutputWithCo
 // PodDisruptionBudgetListMapInput is an input type that accepts PodDisruptionBudgetListMap and PodDisruptionBudgetListMapOutput values.
 // You can construct a concrete instance of `PodDisruptionBudgetListMapInput` via:
 //
-//          PodDisruptionBudgetListMap{ "key": PodDisruptionBudgetListArgs{...} }
+//	PodDisruptionBudgetListMap{ "key": PodDisruptionBudgetListArgs{...} }
 type PodDisruptionBudgetListMapInput interface {
 	pulumi.Input
 

@@ -111,7 +111,7 @@ func (i *CertificateSigningRequestList) ToCertificateSigningRequestListOutputWit
 // CertificateSigningRequestListArrayInput is an input type that accepts CertificateSigningRequestListArray and CertificateSigningRequestListArrayOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestListArrayInput` via:
 //
-//          CertificateSigningRequestListArray{ CertificateSigningRequestListArgs{...} }
+//	CertificateSigningRequestListArray{ CertificateSigningRequestListArgs{...} }
 type CertificateSigningRequestListArrayInput interface {
 	pulumi.Input
 
@@ -136,7 +136,7 @@ func (i CertificateSigningRequestListArray) ToCertificateSigningRequestListArray
 // CertificateSigningRequestListMapInput is an input type that accepts CertificateSigningRequestListMap and CertificateSigningRequestListMapOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestListMapInput` via:
 //
-//          CertificateSigningRequestListMap{ "key": CertificateSigningRequestListArgs{...} }
+//	CertificateSigningRequestListMap{ "key": CertificateSigningRequestListArgs{...} }
 type CertificateSigningRequestListMapInput interface {
 	pulumi.Input
 

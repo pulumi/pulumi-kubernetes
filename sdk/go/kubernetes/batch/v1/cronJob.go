@@ -125,7 +125,7 @@ func (i *CronJob) ToCronJobOutputWithContext(ctx context.Context) CronJobOutput 
 // CronJobArrayInput is an input type that accepts CronJobArray and CronJobArrayOutput values.
 // You can construct a concrete instance of `CronJobArrayInput` via:
 //
-//          CronJobArray{ CronJobArgs{...} }
+//	CronJobArray{ CronJobArgs{...} }
 type CronJobArrayInput interface {
 	pulumi.Input
 
@@ -150,7 +150,7 @@ func (i CronJobArray) ToCronJobArrayOutputWithContext(ctx context.Context) CronJ
 // CronJobMapInput is an input type that accepts CronJobMap and CronJobMapOutput values.
 // You can construct a concrete instance of `CronJobMapInput` via:
 //
-//          CronJobMap{ "key": CronJobArgs{...} }
+//	CronJobMap{ "key": CronJobArgs{...} }
 type CronJobMapInput interface {
 	pulumi.Input
 

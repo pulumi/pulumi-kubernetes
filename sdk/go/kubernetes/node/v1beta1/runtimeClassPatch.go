@@ -141,7 +141,7 @@ func (i *RuntimeClassPatch) ToRuntimeClassPatchOutputWithContext(ctx context.Con
 // RuntimeClassPatchArrayInput is an input type that accepts RuntimeClassPatchArray and RuntimeClassPatchArrayOutput values.
 // You can construct a concrete instance of `RuntimeClassPatchArrayInput` via:
 //
-//          RuntimeClassPatchArray{ RuntimeClassPatchArgs{...} }
+//	RuntimeClassPatchArray{ RuntimeClassPatchArgs{...} }
 type RuntimeClassPatchArrayInput interface {
 	pulumi.Input
 
@@ -166,7 +166,7 @@ func (i RuntimeClassPatchArray) ToRuntimeClassPatchArrayOutputWithContext(ctx co
 // RuntimeClassPatchMapInput is an input type that accepts RuntimeClassPatchMap and RuntimeClassPatchMapOutput values.
 // You can construct a concrete instance of `RuntimeClassPatchMapInput` via:
 //
-//          RuntimeClassPatchMap{ "key": RuntimeClassPatchArgs{...} }
+//	RuntimeClassPatchMap{ "key": RuntimeClassPatchArgs{...} }
 type RuntimeClassPatchMapInput interface {
 	pulumi.Input
 

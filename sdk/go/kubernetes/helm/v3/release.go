@@ -24,108 +24,120 @@ import (
 // package main
 //
 // import (
-// 	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v3"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v3"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := helm.NewRelease(ctx, "nginx-ingress", helm.ReleaseArgs{
-// 			Chart: pulumi.String("./nginx-ingress"),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := helm.NewRelease(ctx, "nginx-ingress", helm.ReleaseArgs{
+//				Chart: pulumi.String("./nginx-ingress"),
+//			})
+//			if err != nil {
+//				return err
+//			}
 //
-// 		return nil
-// 	})
-// }
+//			return nil
+//		})
+//	}
+//
 // ```
 // ### Remote Chart
 // ```go
 // package main
 //
 // import (
-// 	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v3"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v3"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := helm.NewRelease(ctx, "nginx-ingress", helm.ReleaseArgs{
-// 			Chart:   pulumi.String("nginx-ingress"),
-// 			Version: pulumi.String("1.24.4"),
-// 			RepositoryOpts: helm.RepositoryOptsArgs{
-// 				Repo: pulumi.String("https://charts.helm.sh/stable"),
-// 			},
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := helm.NewRelease(ctx, "nginx-ingress", helm.ReleaseArgs{
+//				Chart:   pulumi.String("nginx-ingress"),
+//				Version: pulumi.String("1.24.4"),
+//				RepositoryOpts: helm.RepositoryOptsArgs{
+//					Repo: pulumi.String("https://charts.helm.sh/stable"),
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
 //
-// 		return nil
-// 	})
-// }
+//			return nil
+//		})
+//	}
+//
 // ```
 // ### Set Chart Values
 // ```go
 // package main
 //
 // import (
-// 	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v3"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v3"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := helm.NewRelease(ctx, "nginx-ingress", helm.ReleaseArgs{
-// 			Chart:   pulumi.String("nginx-ingress"),
-// 			Version: pulumi.String("1.24.4"),
-// 			RepositoryOpts: helm.RepositoryOptsArgs{
-// 				Repo: pulumi.String("https://charts.helm.sh/stable"),
-// 			},
-// 			Values: pulumi.Map{
-// 				"controller": pulumi.Map{
-// 					"metrics": pulumi.Map{
-// 						"enabled": pulumi.Bool(true),
-// 					},
-// 				},
-// 			},
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := helm.NewRelease(ctx, "nginx-ingress", helm.ReleaseArgs{
+//				Chart:   pulumi.String("nginx-ingress"),
+//				Version: pulumi.String("1.24.4"),
+//				RepositoryOpts: helm.RepositoryOptsArgs{
+//					Repo: pulumi.String("https://charts.helm.sh/stable"),
+//				},
+//				Values: pulumi.Map{
+//					"controller": pulumi.Map{
+//						"metrics": pulumi.Map{
+//							"enabled": pulumi.Bool(true),
+//						},
+//					},
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
 //
-// 		return nil
-// 	})
-// }
+//			return nil
+//		})
+//	}
+//
 // ```
 // ### Deploy Chart into Namespace
 // ```go
 // package main
 //
 // import (
-// 	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v3"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v3"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := helm.NewRelease(ctx, "nginx-ingress", helm.ReleaseArgs{
-// 			Chart:     pulumi.String("nginx-ingress"),
-// 			Version:   pulumi.String("1.24.4"),
-// 			Namespace: pulumi.String("test-namespace"),
-// 			RepositoryOpts: helm.RepositoryOptsArgs{
-// 				Repo: pulumi.String("https://charts.helm.sh/stable"),
-// 			},
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := helm.NewRelease(ctx, "nginx-ingress", helm.ReleaseArgs{
+//				Chart:     pulumi.String("nginx-ingress"),
+//				Version:   pulumi.String("1.24.4"),
+//				Namespace: pulumi.String("test-namespace"),
+//				RepositoryOpts: helm.RepositoryOptsArgs{
+//					Repo: pulumi.String("https://charts.helm.sh/stable"),
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
 //
-// 		return nil
-// 	})
-// }
+//			return nil
+//		})
+//	}
+//
 // ```
 //
 // ### Depend on a Chart resource
@@ -133,76 +145,81 @@ import (
 // package main
 //
 // import (
-// 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/core/v1"
-// 	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v3"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/core/v1"
+//	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v3"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		release, err := helm.NewRelease(ctx, "nginx-ingress", helm.ReleaseArgs{
-// 			Chart:     pulumi.String("nginx-ingress"),
-// 			Version:   pulumi.String("1.24.4"),
-// 			Namespace: pulumi.String("test-namespace"),
-// 			RepositoryOpts: helm.RepositoryOptsArgs{
-// 				Repo: pulumi.String("https://charts.helm.sh/stable"),
-// 			},
-// 			SkipAwait: pulumi.Bool(false),
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			release, err := helm.NewRelease(ctx, "nginx-ingress", helm.ReleaseArgs{
+//				Chart:     pulumi.String("nginx-ingress"),
+//				Version:   pulumi.String("1.24.4"),
+//				Namespace: pulumi.String("test-namespace"),
+//				RepositoryOpts: helm.RepositoryOptsArgs{
+//					Repo: pulumi.String("https://charts.helm.sh/stable"),
+//				},
+//				SkipAwait: pulumi.Bool(false),
+//			})
+//			if err != nil {
+//				return err
+//			}
 //
-// 		// Create a ConfigMap depending on the Chart. The ConfigMap will not be created until after all of the Chart
-// 		// resources are ready. Notice SkipAwait is set to false above. This is the default and will cause Helm
-// 		// to await the underlying resources to be available. Setting it to true will make the ConfigMap available right away.
-// 		_, err = corev1.NewConfigMap(ctx, "cm", &corev1.ConfigMapArgs{
-// 			Data: pulumi.StringMap{
-// 				"foo": pulumi.String("bar"),
-// 			},
-// 		}, pulumi.DependsOnInputs(release))
-// 		if err != nil {
-// 			return err
-// 		}
+//			// Create a ConfigMap depending on the Chart. The ConfigMap will not be created until after all of the Chart
+//			// resources are ready. Notice SkipAwait is set to false above. This is the default and will cause Helm
+//			// to await the underlying resources to be available. Setting it to true will make the ConfigMap available right away.
+//			_, err = corev1.NewConfigMap(ctx, "cm", &corev1.ConfigMapArgs{
+//				Data: pulumi.StringMap{
+//					"foo": pulumi.String("bar"),
+//				},
+//			}, pulumi.DependsOnInputs(release))
+//			if err != nil {
+//				return err
+//			}
 //
-// 		return nil
-// 	})
-// }
+//			return nil
+//		})
+//	}
+//
 // ```
 // ### Specify Helm Chart Values in File and Code
 // ```go
 // package main
 //
 // import (
-// 	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v3"
-// 	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/yaml"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v3"
+//	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/yaml"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		_, err := helm.NewRelease(ctx, "redis", helm.ReleaseArgs{
-// 			Chart:   pulumi.String("redis"),
-// 			RepositoryOpts: helm.RepositoryOptsArgs{
-// 				Repo: pulumi.String("https://charts.helm.sh/stable"),
-// 			},
-// 			ValueYamlFiles: pulumi.NewFileAsset("./metrics.yml"),
-// 			Value: pulumi.Map{
-// 				"cluster": pulumi.Map{
-// 					"enabled": pulumi.Bool(true),
-// 				},
-// 				"rbac": pulumi.Map{
-// 					"create": pulumi.Bool(true),
-// 				},
-// 			},
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := helm.NewRelease(ctx, "redis", helm.ReleaseArgs{
+//				Chart:   pulumi.String("redis"),
+//				RepositoryOpts: helm.RepositoryOptsArgs{
+//					Repo: pulumi.String("https://charts.helm.sh/stable"),
+//				},
+//				ValueYamlFiles: pulumi.NewFileAsset("./metrics.yml"),
+//				Value: pulumi.Map{
+//					"cluster": pulumi.Map{
+//						"enabled": pulumi.Bool(true),
+//					},
+//					"rbac": pulumi.Map{
+//						"create": pulumi.Bool(true),
+//					},
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
 //
-// 		return nil
-// 	})
-// }
+//			return nil
+//		})
+//	}
 //
 // // -- Contents of metrics.yml --
 // // metrics:
@@ -213,55 +230,58 @@ import (
 // package main
 //
 // import (
-// 	"fmt"
 //
-// 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/core/v1"
-// 	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v3"
-// 	"github.com/pulumi/pulumi-random/sdk/v4/go/random"
-// 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"fmt"
+//
+//	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/core/v1"
+//	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v3"
+//	"github.com/pulumi/pulumi-random/sdk/v4/go/random"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-// 	pulumi.Run(func(ctx *pulumi.Context) error {
-// 		rel, err := helm.NewRelease(ctx, "redis", &helm.ReleaseArgs{
-// 			Chart: pulumi.String("redis"),
-// 			RepositoryOpts: helm.RepositoryOptsArgs{
-// 				Repo: pulumi.String("https://raw.githubusercontent.com/bitnami/charts/eb5f9a9513d987b519f0ecd732e7031241c50328/bitnami"),
-// 			},
-// 			Values: pulumi.Map{
-// 				"cluster": pulumi.Map{
-// 					"enabled": pulumi.Bool(true),
-// 				},
-// 				"rbac": pulumi.BoolMap{
-// 					"create": pulumi.Bool(true),
-// 				},
-// 			},
-// 		})
-// 		if err != nil {
-// 			return err
-// 		}
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			rel, err := helm.NewRelease(ctx, "redis", &helm.ReleaseArgs{
+//				Chart: pulumi.String("redis"),
+//				RepositoryOpts: helm.RepositoryOptsArgs{
+//					Repo: pulumi.String("https://raw.githubusercontent.com/bitnami/charts/eb5f9a9513d987b519f0ecd732e7031241c50328/bitnami"),
+//				},
+//				Values: pulumi.Map{
+//					"cluster": pulumi.Map{
+//						"enabled": pulumi.Bool(true),
+//					},
+//					"rbac": pulumi.BoolMap{
+//						"create": pulumi.Bool(true),
+//					},
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
 //
-// 		// srv will only resolve after the redis chart is installed.
-// 		srv := pulumi.All(rel.Status.Namespace(), rel.Status.Name()).
-// 			ApplyT(func(r interface{}) (interface{}, error) {
-// 				arr := r.([]interface{})
-// 				namespace := arr[0].(*string)
-// 				name := arr[1].(*string)
-// 				svc, err := corev1.GetService(ctx,
-// 					"redis-master-svc",
-// 					pulumi.ID(fmt.Sprintf("%s/%s-master", *namespace, *name)),
-// 					nil,
-// 				)
-// 				if err != nil {
-// 					return "", nil
-// 				}
-// 				return svc.Spec.ClusterIP(), nil
-// 			})
-// 		ctx.Export("redisMasterClusterIP", srv)
+//			// srv will only resolve after the redis chart is installed.
+//			srv := pulumi.All(rel.Status.Namespace(), rel.Status.Name()).
+//				ApplyT(func(r interface{}) (interface{}, error) {
+//					arr := r.([]interface{})
+//					namespace := arr[0].(*string)
+//					name := arr[1].(*string)
+//					svc, err := corev1.GetService(ctx,
+//						"redis-master-svc",
+//						pulumi.ID(fmt.Sprintf("%s/%s-master", *namespace, *name)),
+//						nil,
+//					)
+//					if err != nil {
+//						return "", nil
+//					}
+//					return svc.Spec.ClusterIP(), nil
+//				})
+//			ctx.Export("redisMasterClusterIP", srv)
 //
-// 		return nil
-// 	})
-// }
+//			return nil
+//		})
+//	}
+//
 // ```
 //
 // ## Import
@@ -553,7 +573,7 @@ func (i *Release) ToReleaseOutputWithContext(ctx context.Context) ReleaseOutput 
 // ReleaseArrayInput is an input type that accepts ReleaseArray and ReleaseArrayOutput values.
 // You can construct a concrete instance of `ReleaseArrayInput` via:
 //
-//          ReleaseArray{ ReleaseArgs{...} }
+//	ReleaseArray{ ReleaseArgs{...} }
 type ReleaseArrayInput interface {
 	pulumi.Input
 
@@ -578,7 +598,7 @@ func (i ReleaseArray) ToReleaseArrayOutputWithContext(ctx context.Context) Relea
 // ReleaseMapInput is an input type that accepts ReleaseMap and ReleaseMapOutput values.
 // You can construct a concrete instance of `ReleaseMapInput` via:
 //
-//          ReleaseMap{ "key": ReleaseArgs{...} }
+//	ReleaseMap{ "key": ReleaseArgs{...} }
 type ReleaseMapInput interface {
 	pulumi.Input
 

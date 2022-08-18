@@ -118,7 +118,7 @@ func (i *NetworkPolicyList) ToNetworkPolicyListOutputWithContext(ctx context.Con
 // NetworkPolicyListArrayInput is an input type that accepts NetworkPolicyListArray and NetworkPolicyListArrayOutput values.
 // You can construct a concrete instance of `NetworkPolicyListArrayInput` via:
 //
-//          NetworkPolicyListArray{ NetworkPolicyListArgs{...} }
+//	NetworkPolicyListArray{ NetworkPolicyListArgs{...} }
 type NetworkPolicyListArrayInput interface {
 	pulumi.Input
 
@@ -143,7 +143,7 @@ func (i NetworkPolicyListArray) ToNetworkPolicyListArrayOutputWithContext(ctx co
 // NetworkPolicyListMapInput is an input type that accepts NetworkPolicyListMap and NetworkPolicyListMapOutput values.
 // You can construct a concrete instance of `NetworkPolicyListMapInput` via:
 //
-//          NetworkPolicyListMap{ "key": NetworkPolicyListArgs{...} }
+//	NetworkPolicyListMap{ "key": NetworkPolicyListArgs{...} }
 type NetworkPolicyListMapInput interface {
 	pulumi.Input
 

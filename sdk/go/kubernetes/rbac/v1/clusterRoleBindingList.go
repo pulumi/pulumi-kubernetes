@@ -118,7 +118,7 @@ func (i *ClusterRoleBindingList) ToClusterRoleBindingListOutputWithContext(ctx c
 // ClusterRoleBindingListArrayInput is an input type that accepts ClusterRoleBindingListArray and ClusterRoleBindingListArrayOutput values.
 // You can construct a concrete instance of `ClusterRoleBindingListArrayInput` via:
 //
-//          ClusterRoleBindingListArray{ ClusterRoleBindingListArgs{...} }
+//	ClusterRoleBindingListArray{ ClusterRoleBindingListArgs{...} }
 type ClusterRoleBindingListArrayInput interface {
 	pulumi.Input
 
@@ -143,7 +143,7 @@ func (i ClusterRoleBindingListArray) ToClusterRoleBindingListArrayOutputWithCont
 // ClusterRoleBindingListMapInput is an input type that accepts ClusterRoleBindingListMap and ClusterRoleBindingListMapOutput values.
 // You can construct a concrete instance of `ClusterRoleBindingListMapInput` via:
 //
-//          ClusterRoleBindingListMap{ "key": ClusterRoleBindingListArgs{...} }
+//	ClusterRoleBindingListMap{ "key": ClusterRoleBindingListArgs{...} }
 type ClusterRoleBindingListMapInput interface {
 	pulumi.Input
 

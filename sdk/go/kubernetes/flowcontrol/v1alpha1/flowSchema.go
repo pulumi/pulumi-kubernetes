@@ -125,7 +125,7 @@ func (i *FlowSchema) ToFlowSchemaOutputWithContext(ctx context.Context) FlowSche
 // FlowSchemaArrayInput is an input type that accepts FlowSchemaArray and FlowSchemaArrayOutput values.
 // You can construct a concrete instance of `FlowSchemaArrayInput` via:
 //
-//          FlowSchemaArray{ FlowSchemaArgs{...} }
+//	FlowSchemaArray{ FlowSchemaArgs{...} }
 type FlowSchemaArrayInput interface {
 	pulumi.Input
 
@@ -150,7 +150,7 @@ func (i FlowSchemaArray) ToFlowSchemaArrayOutputWithContext(ctx context.Context)
 // FlowSchemaMapInput is an input type that accepts FlowSchemaMap and FlowSchemaMapOutput values.
 // You can construct a concrete instance of `FlowSchemaMapInput` via:
 //
-//          FlowSchemaMap{ "key": FlowSchemaArgs{...} }
+//	FlowSchemaMap{ "key": FlowSchemaArgs{...} }
 type FlowSchemaMapInput interface {
 	pulumi.Input
 

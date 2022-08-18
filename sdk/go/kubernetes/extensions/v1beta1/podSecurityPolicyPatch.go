@@ -126,7 +126,7 @@ func (i *PodSecurityPolicyPatch) ToPodSecurityPolicyPatchOutputWithContext(ctx c
 // PodSecurityPolicyPatchArrayInput is an input type that accepts PodSecurityPolicyPatchArray and PodSecurityPolicyPatchArrayOutput values.
 // You can construct a concrete instance of `PodSecurityPolicyPatchArrayInput` via:
 //
-//          PodSecurityPolicyPatchArray{ PodSecurityPolicyPatchArgs{...} }
+//	PodSecurityPolicyPatchArray{ PodSecurityPolicyPatchArgs{...} }
 type PodSecurityPolicyPatchArrayInput interface {
 	pulumi.Input
 
@@ -151,7 +151,7 @@ func (i PodSecurityPolicyPatchArray) ToPodSecurityPolicyPatchArrayOutputWithCont
 // PodSecurityPolicyPatchMapInput is an input type that accepts PodSecurityPolicyPatchMap and PodSecurityPolicyPatchMapOutput values.
 // You can construct a concrete instance of `PodSecurityPolicyPatchMapInput` via:
 //
-//          PodSecurityPolicyPatchMap{ "key": PodSecurityPolicyPatchArgs{...} }
+//	PodSecurityPolicyPatchMap{ "key": PodSecurityPolicyPatchArgs{...} }
 type PodSecurityPolicyPatchMapInput interface {
 	pulumi.Input
 

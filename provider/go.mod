@@ -11,10 +11,10 @@ require (
 	github.com/mitchellh/mapstructure v1.4.3
 	github.com/pkg/errors v0.9.1
 	github.com/pulumi/cloud-ready-checks v1.0.1-0.20220105213132-0fbbc00d3335
-	github.com/pulumi/pulumi/pkg/v3 v3.37.1
-	github.com/pulumi/pulumi/sdk/v3 v3.37.1
+	github.com/pulumi/pulumi/pkg/v3 v3.38.0
+	github.com/pulumi/pulumi/sdk/v3 v3.38.0
 	github.com/stretchr/testify v1.7.1
-	golang.org/x/crypto v0.0.0-20220622213112-05595931fe9d
+	golang.org/x/crypto v0.0.0-20220722155217-630584e8d5aa
 	google.golang.org/grpc v1.47.0
 	gopkg.in/yaml.v3 v3.0.1
 	helm.sh/helm/v3 v3.9.0
@@ -197,7 +197,6 @@ require (
 	github.com/spf13/cast v1.4.1 // indirect
 	github.com/spf13/cobra v1.4.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
-	github.com/src-d/gcfg v1.4.0 // indirect
 	github.com/texttheater/golang-levenshtein v1.0.1 // indirect
 	github.com/tweekmonster/luser v0.0.0-20161003172636-3fa38070dbd7 // indirect
 	github.com/uber/jaeger-client-go v2.30.0+incompatible // indirect
@@ -228,8 +227,6 @@ require (
 	gopkg.in/AlecAivazis/survey.v1 v1.8.9-0.20200217094205-6773bdf39b7f // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/square/go-jose.v2 v2.6.0 // indirect
-	gopkg.in/src-d/go-billy.v4 v4.3.2 // indirect
-	gopkg.in/src-d/go-git.v4 v4.13.1 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	k8s.io/apiextensions-apiserver v0.24.0 // indirect
@@ -245,9 +242,14 @@ require (
 
 require (
 	github.com/Microsoft/go-winio v0.5.2 // indirect
+	github.com/ProtonMail/go-crypto v0.0.0-20210428141323-04723f9f07d7 // indirect
+	github.com/acomagu/bufpipe v1.0.3 // indirect
 	github.com/aead/chacha20 v0.0.0-20180709150244-8b13a72661da // indirect
 	github.com/docker/cli v20.10.13+incompatible // indirect
 	github.com/edsrzf/mmap-go v1.1.0 // indirect
+	github.com/go-git/gcfg v1.5.0 // indirect
+	github.com/go-git/go-billy/v5 v5.3.1 // indirect
+	github.com/go-git/go-git/v5 v5.4.2 // indirect
 	github.com/klauspost/compress v1.15.1 // indirect
 	github.com/moby/sys/mountinfo v0.6.0 // indirect
 	github.com/natefinch/atomic v1.0.1 // indirect

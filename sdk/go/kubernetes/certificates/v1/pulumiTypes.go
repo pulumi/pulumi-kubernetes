@@ -33,7 +33,7 @@ type CertificateSigningRequestType struct {
 // CertificateSigningRequestTypeInput is an input type that accepts CertificateSigningRequestTypeArgs and CertificateSigningRequestTypeOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestTypeInput` via:
 //
-//          CertificateSigningRequestTypeArgs{...}
+//	CertificateSigningRequestTypeArgs{...}
 type CertificateSigningRequestTypeInput interface {
 	pulumi.Input
 
@@ -75,7 +75,7 @@ func (i CertificateSigningRequestTypeArgs) ToCertificateSigningRequestTypeOutput
 // CertificateSigningRequestTypeArrayInput is an input type that accepts CertificateSigningRequestTypeArray and CertificateSigningRequestTypeArrayOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestTypeArrayInput` via:
 //
-//          CertificateSigningRequestTypeArray{ CertificateSigningRequestTypeArgs{...} }
+//	CertificateSigningRequestTypeArray{ CertificateSigningRequestTypeArgs{...} }
 type CertificateSigningRequestTypeArrayInput interface {
 	pulumi.Input
 
@@ -191,7 +191,7 @@ type CertificateSigningRequestCondition struct {
 // CertificateSigningRequestConditionInput is an input type that accepts CertificateSigningRequestConditionArgs and CertificateSigningRequestConditionOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestConditionInput` via:
 //
-//          CertificateSigningRequestConditionArgs{...}
+//	CertificateSigningRequestConditionArgs{...}
 type CertificateSigningRequestConditionInput interface {
 	pulumi.Input
 
@@ -240,7 +240,7 @@ func (i CertificateSigningRequestConditionArgs) ToCertificateSigningRequestCondi
 // CertificateSigningRequestConditionArrayInput is an input type that accepts CertificateSigningRequestConditionArray and CertificateSigningRequestConditionArrayOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestConditionArrayInput` via:
 //
-//          CertificateSigningRequestConditionArray{ CertificateSigningRequestConditionArgs{...} }
+//	CertificateSigningRequestConditionArray{ CertificateSigningRequestConditionArgs{...} }
 type CertificateSigningRequestConditionArrayInput interface {
 	pulumi.Input
 
@@ -366,7 +366,7 @@ type CertificateSigningRequestConditionPatch struct {
 // CertificateSigningRequestConditionPatchInput is an input type that accepts CertificateSigningRequestConditionPatchArgs and CertificateSigningRequestConditionPatchOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestConditionPatchInput` via:
 //
-//          CertificateSigningRequestConditionPatchArgs{...}
+//	CertificateSigningRequestConditionPatchArgs{...}
 type CertificateSigningRequestConditionPatchInput interface {
 	pulumi.Input
 
@@ -415,7 +415,7 @@ func (i CertificateSigningRequestConditionPatchArgs) ToCertificateSigningRequest
 // CertificateSigningRequestConditionPatchArrayInput is an input type that accepts CertificateSigningRequestConditionPatchArray and CertificateSigningRequestConditionPatchArrayOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestConditionPatchArrayInput` via:
 //
-//          CertificateSigningRequestConditionPatchArray{ CertificateSigningRequestConditionPatchArgs{...} }
+//	CertificateSigningRequestConditionPatchArray{ CertificateSigningRequestConditionPatchArgs{...} }
 type CertificateSigningRequestConditionPatchArrayInput interface {
 	pulumi.Input
 
@@ -526,7 +526,7 @@ type CertificateSigningRequestListType struct {
 // CertificateSigningRequestListTypeInput is an input type that accepts CertificateSigningRequestListTypeArgs and CertificateSigningRequestListTypeOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestListTypeInput` via:
 //
-//          CertificateSigningRequestListTypeArgs{...}
+//	CertificateSigningRequestListTypeArgs{...}
 type CertificateSigningRequestListTypeInput interface {
 	pulumi.Input
 
@@ -613,7 +613,7 @@ type CertificateSigningRequestPatchType struct {
 // CertificateSigningRequestPatchTypeInput is an input type that accepts CertificateSigningRequestPatchTypeArgs and CertificateSigningRequestPatchTypeOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestPatchTypeInput` via:
 //
-//          CertificateSigningRequestPatchTypeArgs{...}
+//	CertificateSigningRequestPatchTypeArgs{...}
 type CertificateSigningRequestPatchTypeInput interface {
 	pulumi.Input
 
@@ -764,7 +764,7 @@ type CertificateSigningRequestSpec struct {
 // CertificateSigningRequestSpecInput is an input type that accepts CertificateSigningRequestSpecArgs and CertificateSigningRequestSpecOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestSpecInput` via:
 //
-//          CertificateSigningRequestSpecArgs{...}
+//	CertificateSigningRequestSpecArgs{...}
 type CertificateSigningRequestSpecInput interface {
 	pulumi.Input
 
@@ -869,10 +869,10 @@ func (o CertificateSigningRequestSpecOutput) ToCertificateSigningRequestSpecOutp
 //
 // Certificate signers may not honor this field for various reasons:
 //
-//   1. Old signer that is unaware of the field (such as the in-tree
-//      implementations prior to v1.22)
-//   2. Signer whose configured maximum is shorter than the requested duration
-//   3. Signer whose configured minimum is longer than the requested duration
+//  1. Old signer that is unaware of the field (such as the in-tree
+//     implementations prior to v1.22)
+//  2. Signer whose configured maximum is shorter than the requested duration
+//  3. Signer whose configured minimum is longer than the requested duration
 //
 // The minimum valid value for expirationSeconds is 600, i.e. 10 minutes.
 func (o CertificateSigningRequestSpecOutput) ExpirationSeconds() pulumi.IntPtrOutput {
@@ -900,11 +900,11 @@ func (o CertificateSigningRequestSpecOutput) Request() pulumi.StringOutput {
 //
 // Well-known Kubernetes signers are:
 //  1. "kubernetes.io/kube-apiserver-client": issues client certificates that can be used to authenticate to kube-apiserver.
-//       Requests for this signer are never auto-approved by kube-controller-manager, can be issued by the "csrsigning" controller in kube-controller-manager.
+//     Requests for this signer are never auto-approved by kube-controller-manager, can be issued by the "csrsigning" controller in kube-controller-manager.
 //  2. "kubernetes.io/kube-apiserver-client-kubelet": issues client certificates that kubelets use to authenticate to kube-apiserver.
-//       Requests for this signer can be auto-approved by the "csrapproving" controller in kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
+//     Requests for this signer can be auto-approved by the "csrapproving" controller in kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
 //  3. "kubernetes.io/kubelet-serving" issues serving certificates that kubelets use to serve TLS endpoints, which kube-apiserver can connect to securely.
-//       Requests for this signer are never auto-approved by kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
+//     Requests for this signer are never auto-approved by kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
 //
 // More details are available at https://k8s.io/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers
 //
@@ -931,13 +931,14 @@ func (o CertificateSigningRequestSpecOutput) Uid() pulumi.StringPtrOutput {
 // Requests for TLS serving certificates typically request: "key encipherment", "digital signature", "server auth".
 //
 // Valid values are:
-//  "signing", "digital signature", "content commitment",
-//  "key encipherment", "key agreement", "data encipherment",
-//  "cert sign", "crl sign", "encipher only", "decipher only", "any",
-//  "server auth", "client auth",
-//  "code signing", "email protection", "s/mime",
-//  "ipsec end system", "ipsec tunnel", "ipsec user",
-//  "timestamping", "ocsp signing", "microsoft sgc", "netscape sgc"
+//
+//	"signing", "digital signature", "content commitment",
+//	"key encipherment", "key agreement", "data encipherment",
+//	"cert sign", "crl sign", "encipher only", "decipher only", "any",
+//	"server auth", "client auth",
+//	"code signing", "email protection", "s/mime",
+//	"ipsec end system", "ipsec tunnel", "ipsec user",
+//	"timestamping", "ocsp signing", "microsoft sgc", "netscape sgc"
 func (o CertificateSigningRequestSpecOutput) Usages() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v CertificateSigningRequestSpec) []string { return v.Usages }).(pulumi.StringArrayOutput)
 }
@@ -1014,7 +1015,7 @@ type CertificateSigningRequestSpecPatch struct {
 // CertificateSigningRequestSpecPatchInput is an input type that accepts CertificateSigningRequestSpecPatchArgs and CertificateSigningRequestSpecPatchOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestSpecPatchInput` via:
 //
-//          CertificateSigningRequestSpecPatchArgs{...}
+//	CertificateSigningRequestSpecPatchArgs{...}
 type CertificateSigningRequestSpecPatchInput interface {
 	pulumi.Input
 
@@ -1109,11 +1110,11 @@ func (i CertificateSigningRequestSpecPatchArgs) ToCertificateSigningRequestSpecP
 // CertificateSigningRequestSpecPatchPtrInput is an input type that accepts CertificateSigningRequestSpecPatchArgs, CertificateSigningRequestSpecPatchPtr and CertificateSigningRequestSpecPatchPtrOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestSpecPatchPtrInput` via:
 //
-//          CertificateSigningRequestSpecPatchArgs{...}
+//	        CertificateSigningRequestSpecPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CertificateSigningRequestSpecPatchPtrInput interface {
 	pulumi.Input
 
@@ -1170,10 +1171,10 @@ func (o CertificateSigningRequestSpecPatchOutput) ToCertificateSigningRequestSpe
 //
 // Certificate signers may not honor this field for various reasons:
 //
-//   1. Old signer that is unaware of the field (such as the in-tree
-//      implementations prior to v1.22)
-//   2. Signer whose configured maximum is shorter than the requested duration
-//   3. Signer whose configured minimum is longer than the requested duration
+//  1. Old signer that is unaware of the field (such as the in-tree
+//     implementations prior to v1.22)
+//  2. Signer whose configured maximum is shorter than the requested duration
+//  3. Signer whose configured minimum is longer than the requested duration
 //
 // The minimum valid value for expirationSeconds is 600, i.e. 10 minutes.
 func (o CertificateSigningRequestSpecPatchOutput) ExpirationSeconds() pulumi.IntPtrOutput {
@@ -1201,11 +1202,11 @@ func (o CertificateSigningRequestSpecPatchOutput) Request() pulumi.StringPtrOutp
 //
 // Well-known Kubernetes signers are:
 //  1. "kubernetes.io/kube-apiserver-client": issues client certificates that can be used to authenticate to kube-apiserver.
-//       Requests for this signer are never auto-approved by kube-controller-manager, can be issued by the "csrsigning" controller in kube-controller-manager.
+//     Requests for this signer are never auto-approved by kube-controller-manager, can be issued by the "csrsigning" controller in kube-controller-manager.
 //  2. "kubernetes.io/kube-apiserver-client-kubelet": issues client certificates that kubelets use to authenticate to kube-apiserver.
-//       Requests for this signer can be auto-approved by the "csrapproving" controller in kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
+//     Requests for this signer can be auto-approved by the "csrapproving" controller in kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
 //  3. "kubernetes.io/kubelet-serving" issues serving certificates that kubelets use to serve TLS endpoints, which kube-apiserver can connect to securely.
-//       Requests for this signer are never auto-approved by kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
+//     Requests for this signer are never auto-approved by kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
 //
 // More details are available at https://k8s.io/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers
 //
@@ -1232,13 +1233,14 @@ func (o CertificateSigningRequestSpecPatchOutput) Uid() pulumi.StringPtrOutput {
 // Requests for TLS serving certificates typically request: "key encipherment", "digital signature", "server auth".
 //
 // Valid values are:
-//  "signing", "digital signature", "content commitment",
-//  "key encipherment", "key agreement", "data encipherment",
-//  "cert sign", "crl sign", "encipher only", "decipher only", "any",
-//  "server auth", "client auth",
-//  "code signing", "email protection", "s/mime",
-//  "ipsec end system", "ipsec tunnel", "ipsec user",
-//  "timestamping", "ocsp signing", "microsoft sgc", "netscape sgc"
+//
+//	"signing", "digital signature", "content commitment",
+//	"key encipherment", "key agreement", "data encipherment",
+//	"cert sign", "crl sign", "encipher only", "decipher only", "any",
+//	"server auth", "client auth",
+//	"code signing", "email protection", "s/mime",
+//	"ipsec end system", "ipsec tunnel", "ipsec user",
+//	"timestamping", "ocsp signing", "microsoft sgc", "netscape sgc"
 func (o CertificateSigningRequestSpecPatchOutput) Usages() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v CertificateSigningRequestSpecPatch) []string { return v.Usages }).(pulumi.StringArrayOutput)
 }
@@ -1278,10 +1280,10 @@ func (o CertificateSigningRequestSpecPatchPtrOutput) Elem() CertificateSigningRe
 //
 // Certificate signers may not honor this field for various reasons:
 //
-//   1. Old signer that is unaware of the field (such as the in-tree
-//      implementations prior to v1.22)
-//   2. Signer whose configured maximum is shorter than the requested duration
-//   3. Signer whose configured minimum is longer than the requested duration
+//  1. Old signer that is unaware of the field (such as the in-tree
+//     implementations prior to v1.22)
+//  2. Signer whose configured maximum is shorter than the requested duration
+//  3. Signer whose configured minimum is longer than the requested duration
 //
 // The minimum valid value for expirationSeconds is 600, i.e. 10 minutes.
 func (o CertificateSigningRequestSpecPatchPtrOutput) ExpirationSeconds() pulumi.IntPtrOutput {
@@ -1329,11 +1331,11 @@ func (o CertificateSigningRequestSpecPatchPtrOutput) Request() pulumi.StringPtrO
 //
 // Well-known Kubernetes signers are:
 //  1. "kubernetes.io/kube-apiserver-client": issues client certificates that can be used to authenticate to kube-apiserver.
-//       Requests for this signer are never auto-approved by kube-controller-manager, can be issued by the "csrsigning" controller in kube-controller-manager.
+//     Requests for this signer are never auto-approved by kube-controller-manager, can be issued by the "csrsigning" controller in kube-controller-manager.
 //  2. "kubernetes.io/kube-apiserver-client-kubelet": issues client certificates that kubelets use to authenticate to kube-apiserver.
-//       Requests for this signer can be auto-approved by the "csrapproving" controller in kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
+//     Requests for this signer can be auto-approved by the "csrapproving" controller in kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
 //  3. "kubernetes.io/kubelet-serving" issues serving certificates that kubelets use to serve TLS endpoints, which kube-apiserver can connect to securely.
-//       Requests for this signer are never auto-approved by kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
+//     Requests for this signer are never auto-approved by kube-controller-manager, and can be issued by the "csrsigning" controller in kube-controller-manager.
 //
 // More details are available at https://k8s.io/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers
 //
@@ -1370,13 +1372,14 @@ func (o CertificateSigningRequestSpecPatchPtrOutput) Uid() pulumi.StringPtrOutpu
 // Requests for TLS serving certificates typically request: "key encipherment", "digital signature", "server auth".
 //
 // Valid values are:
-//  "signing", "digital signature", "content commitment",
-//  "key encipherment", "key agreement", "data encipherment",
-//  "cert sign", "crl sign", "encipher only", "decipher only", "any",
-//  "server auth", "client auth",
-//  "code signing", "email protection", "s/mime",
-//  "ipsec end system", "ipsec tunnel", "ipsec user",
-//  "timestamping", "ocsp signing", "microsoft sgc", "netscape sgc"
+//
+//	"signing", "digital signature", "content commitment",
+//	"key encipherment", "key agreement", "data encipherment",
+//	"cert sign", "crl sign", "encipher only", "decipher only", "any",
+//	"server auth", "client auth",
+//	"code signing", "email protection", "s/mime",
+//	"ipsec end system", "ipsec tunnel", "ipsec user",
+//	"timestamping", "ocsp signing", "microsoft sgc", "netscape sgc"
 func (o CertificateSigningRequestSpecPatchPtrOutput) Usages() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *CertificateSigningRequestSpecPatch) []string {
 		if v == nil {
@@ -1428,7 +1431,7 @@ type CertificateSigningRequestStatus struct {
 // CertificateSigningRequestStatusInput is an input type that accepts CertificateSigningRequestStatusArgs and CertificateSigningRequestStatusOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestStatusInput` via:
 //
-//          CertificateSigningRequestStatusArgs{...}
+//	CertificateSigningRequestStatusArgs{...}
 type CertificateSigningRequestStatusInput interface {
 	pulumi.Input
 
@@ -1488,11 +1491,11 @@ func (i CertificateSigningRequestStatusArgs) ToCertificateSigningRequestStatusPt
 // CertificateSigningRequestStatusPtrInput is an input type that accepts CertificateSigningRequestStatusArgs, CertificateSigningRequestStatusPtr and CertificateSigningRequestStatusPtrOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestStatusPtrInput` via:
 //
-//          CertificateSigningRequestStatusArgs{...}
+//	        CertificateSigningRequestStatusArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CertificateSigningRequestStatusPtrInput interface {
 	pulumi.Input
 
@@ -1550,9 +1553,9 @@ func (o CertificateSigningRequestStatusOutput) ToCertificateSigningRequestStatus
 // Validation requirements:
 //  1. certificate must contain one or more PEM blocks.
 //  2. All PEM blocks must have the "CERTIFICATE" label, contain no headers, and the encoded data
-//       must be a BER-encoded ASN.1 Certificate structure as described in section 4 of RFC5280.
+//     must be a BER-encoded ASN.1 Certificate structure as described in section 4 of RFC5280.
 //  3. Non-PEM content may appear before or after the "CERTIFICATE" PEM blocks and is unvalidated,
-//       to allow for explanatory text as described in section 5.2 of RFC7468.
+//     to allow for explanatory text as described in section 5.2 of RFC7468.
 //
 // If more than one PEM block is present, and the definition of the requested spec.signerName does not indicate otherwise, the first block is the issued certificate, and subsequent blocks should be treated as intermediate certificates and presented in TLS handshakes.
 //
@@ -1560,11 +1563,11 @@ func (o CertificateSigningRequestStatusOutput) ToCertificateSigningRequestStatus
 //
 // When serialized as JSON or YAML, the data is additionally base64-encoded, so it consists of:
 //
-//     base64(
-//     -----BEGIN CERTIFICATE-----
-//     ...
-//     -----END CERTIFICATE-----
-//     )
+//	base64(
+//	-----BEGIN CERTIFICATE-----
+//	...
+//	-----END CERTIFICATE-----
+//	)
 func (o CertificateSigningRequestStatusOutput) Certificate() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CertificateSigningRequestStatus) *string { return v.Certificate }).(pulumi.StringPtrOutput)
 }
@@ -1605,9 +1608,9 @@ func (o CertificateSigningRequestStatusPtrOutput) Elem() CertificateSigningReque
 // Validation requirements:
 //  1. certificate must contain one or more PEM blocks.
 //  2. All PEM blocks must have the "CERTIFICATE" label, contain no headers, and the encoded data
-//       must be a BER-encoded ASN.1 Certificate structure as described in section 4 of RFC5280.
+//     must be a BER-encoded ASN.1 Certificate structure as described in section 4 of RFC5280.
 //  3. Non-PEM content may appear before or after the "CERTIFICATE" PEM blocks and is unvalidated,
-//       to allow for explanatory text as described in section 5.2 of RFC7468.
+//     to allow for explanatory text as described in section 5.2 of RFC7468.
 //
 // If more than one PEM block is present, and the definition of the requested spec.signerName does not indicate otherwise, the first block is the issued certificate, and subsequent blocks should be treated as intermediate certificates and presented in TLS handshakes.
 //
@@ -1615,11 +1618,11 @@ func (o CertificateSigningRequestStatusPtrOutput) Elem() CertificateSigningReque
 //
 // When serialized as JSON or YAML, the data is additionally base64-encoded, so it consists of:
 //
-//     base64(
-//     -----BEGIN CERTIFICATE-----
-//     ...
-//     -----END CERTIFICATE-----
-//     )
+//	base64(
+//	-----BEGIN CERTIFICATE-----
+//	...
+//	-----END CERTIFICATE-----
+//	)
 func (o CertificateSigningRequestStatusPtrOutput) Certificate() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CertificateSigningRequestStatus) *string {
 		if v == nil {
@@ -1671,7 +1674,7 @@ type CertificateSigningRequestStatusPatch struct {
 // CertificateSigningRequestStatusPatchInput is an input type that accepts CertificateSigningRequestStatusPatchArgs and CertificateSigningRequestStatusPatchOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestStatusPatchInput` via:
 //
-//          CertificateSigningRequestStatusPatchArgs{...}
+//	CertificateSigningRequestStatusPatchArgs{...}
 type CertificateSigningRequestStatusPatchInput interface {
 	pulumi.Input
 
@@ -1731,11 +1734,11 @@ func (i CertificateSigningRequestStatusPatchArgs) ToCertificateSigningRequestSta
 // CertificateSigningRequestStatusPatchPtrInput is an input type that accepts CertificateSigningRequestStatusPatchArgs, CertificateSigningRequestStatusPatchPtr and CertificateSigningRequestStatusPatchPtrOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestStatusPatchPtrInput` via:
 //
-//          CertificateSigningRequestStatusPatchArgs{...}
+//	        CertificateSigningRequestStatusPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CertificateSigningRequestStatusPatchPtrInput interface {
 	pulumi.Input
 
@@ -1793,9 +1796,9 @@ func (o CertificateSigningRequestStatusPatchOutput) ToCertificateSigningRequestS
 // Validation requirements:
 //  1. certificate must contain one or more PEM blocks.
 //  2. All PEM blocks must have the "CERTIFICATE" label, contain no headers, and the encoded data
-//       must be a BER-encoded ASN.1 Certificate structure as described in section 4 of RFC5280.
+//     must be a BER-encoded ASN.1 Certificate structure as described in section 4 of RFC5280.
 //  3. Non-PEM content may appear before or after the "CERTIFICATE" PEM blocks and is unvalidated,
-//       to allow for explanatory text as described in section 5.2 of RFC7468.
+//     to allow for explanatory text as described in section 5.2 of RFC7468.
 //
 // If more than one PEM block is present, and the definition of the requested spec.signerName does not indicate otherwise, the first block is the issued certificate, and subsequent blocks should be treated as intermediate certificates and presented in TLS handshakes.
 //
@@ -1803,11 +1806,11 @@ func (o CertificateSigningRequestStatusPatchOutput) ToCertificateSigningRequestS
 //
 // When serialized as JSON or YAML, the data is additionally base64-encoded, so it consists of:
 //
-//     base64(
-//     -----BEGIN CERTIFICATE-----
-//     ...
-//     -----END CERTIFICATE-----
-//     )
+//	base64(
+//	-----BEGIN CERTIFICATE-----
+//	...
+//	-----END CERTIFICATE-----
+//	)
 func (o CertificateSigningRequestStatusPatchOutput) Certificate() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CertificateSigningRequestStatusPatch) *string { return v.Certificate }).(pulumi.StringPtrOutput)
 }
@@ -1850,9 +1853,9 @@ func (o CertificateSigningRequestStatusPatchPtrOutput) Elem() CertificateSigning
 // Validation requirements:
 //  1. certificate must contain one or more PEM blocks.
 //  2. All PEM blocks must have the "CERTIFICATE" label, contain no headers, and the encoded data
-//       must be a BER-encoded ASN.1 Certificate structure as described in section 4 of RFC5280.
+//     must be a BER-encoded ASN.1 Certificate structure as described in section 4 of RFC5280.
 //  3. Non-PEM content may appear before or after the "CERTIFICATE" PEM blocks and is unvalidated,
-//       to allow for explanatory text as described in section 5.2 of RFC7468.
+//     to allow for explanatory text as described in section 5.2 of RFC7468.
 //
 // If more than one PEM block is present, and the definition of the requested spec.signerName does not indicate otherwise, the first block is the issued certificate, and subsequent blocks should be treated as intermediate certificates and presented in TLS handshakes.
 //
@@ -1860,11 +1863,11 @@ func (o CertificateSigningRequestStatusPatchPtrOutput) Elem() CertificateSigning
 //
 // When serialized as JSON or YAML, the data is additionally base64-encoded, so it consists of:
 //
-//     base64(
-//     -----BEGIN CERTIFICATE-----
-//     ...
-//     -----END CERTIFICATE-----
-//     )
+//	base64(
+//	-----BEGIN CERTIFICATE-----
+//	...
+//	-----END CERTIFICATE-----
+//	)
 func (o CertificateSigningRequestStatusPatchPtrOutput) Certificate() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CertificateSigningRequestStatusPatch) *string {
 		if v == nil {

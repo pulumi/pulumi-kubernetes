@@ -133,7 +133,7 @@ func (i *Status) ToStatusOutputWithContext(ctx context.Context) StatusOutput {
 // StatusArrayInput is an input type that accepts StatusArray and StatusArrayOutput values.
 // You can construct a concrete instance of `StatusArrayInput` via:
 //
-//          StatusArray{ StatusArgs{...} }
+//	StatusArray{ StatusArgs{...} }
 type StatusArrayInput interface {
 	pulumi.Input
 
@@ -158,7 +158,7 @@ func (i StatusArray) ToStatusArrayOutputWithContext(ctx context.Context) StatusA
 // StatusMapInput is an input type that accepts StatusMap and StatusMapOutput values.
 // You can construct a concrete instance of `StatusMapInput` via:
 //
-//          StatusMap{ "key": StatusArgs{...} }
+//	StatusMap{ "key": StatusArgs{...} }
 type StatusMapInput interface {
 	pulumi.Input
 

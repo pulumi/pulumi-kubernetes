@@ -122,7 +122,7 @@ func (i *ReplicationControllerPatch) ToReplicationControllerPatchOutputWithConte
 // ReplicationControllerPatchArrayInput is an input type that accepts ReplicationControllerPatchArray and ReplicationControllerPatchArrayOutput values.
 // You can construct a concrete instance of `ReplicationControllerPatchArrayInput` via:
 //
-//          ReplicationControllerPatchArray{ ReplicationControllerPatchArgs{...} }
+//	ReplicationControllerPatchArray{ ReplicationControllerPatchArgs{...} }
 type ReplicationControllerPatchArrayInput interface {
 	pulumi.Input
 
@@ -147,7 +147,7 @@ func (i ReplicationControllerPatchArray) ToReplicationControllerPatchArrayOutput
 // ReplicationControllerPatchMapInput is an input type that accepts ReplicationControllerPatchMap and ReplicationControllerPatchMapOutput values.
 // You can construct a concrete instance of `ReplicationControllerPatchMapInput` via:
 //
-//          ReplicationControllerPatchMap{ "key": ReplicationControllerPatchArgs{...} }
+//	ReplicationControllerPatchMap{ "key": ReplicationControllerPatchArgs{...} }
 type ReplicationControllerPatchMapInput interface {
 	pulumi.Input
 

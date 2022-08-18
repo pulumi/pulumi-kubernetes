@@ -135,7 +135,7 @@ func (i *ControllerRevision) ToControllerRevisionOutputWithContext(ctx context.C
 // ControllerRevisionArrayInput is an input type that accepts ControllerRevisionArray and ControllerRevisionArrayOutput values.
 // You can construct a concrete instance of `ControllerRevisionArrayInput` via:
 //
-//          ControllerRevisionArray{ ControllerRevisionArgs{...} }
+//	ControllerRevisionArray{ ControllerRevisionArgs{...} }
 type ControllerRevisionArrayInput interface {
 	pulumi.Input
 
@@ -160,7 +160,7 @@ func (i ControllerRevisionArray) ToControllerRevisionArrayOutputWithContext(ctx 
 // ControllerRevisionMapInput is an input type that accepts ControllerRevisionMap and ControllerRevisionMapOutput values.
 // You can construct a concrete instance of `ControllerRevisionMapInput` via:
 //
-//          ControllerRevisionMap{ "key": ControllerRevisionArgs{...} }
+//	ControllerRevisionMap{ "key": ControllerRevisionArgs{...} }
 type ControllerRevisionMapInput interface {
 	pulumi.Input
 

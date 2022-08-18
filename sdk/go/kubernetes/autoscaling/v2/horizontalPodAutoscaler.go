@@ -128,7 +128,7 @@ func (i *HorizontalPodAutoscaler) ToHorizontalPodAutoscalerOutputWithContext(ctx
 // HorizontalPodAutoscalerArrayInput is an input type that accepts HorizontalPodAutoscalerArray and HorizontalPodAutoscalerArrayOutput values.
 // You can construct a concrete instance of `HorizontalPodAutoscalerArrayInput` via:
 //
-//          HorizontalPodAutoscalerArray{ HorizontalPodAutoscalerArgs{...} }
+//	HorizontalPodAutoscalerArray{ HorizontalPodAutoscalerArgs{...} }
 type HorizontalPodAutoscalerArrayInput interface {
 	pulumi.Input
 
@@ -153,7 +153,7 @@ func (i HorizontalPodAutoscalerArray) ToHorizontalPodAutoscalerArrayOutputWithCo
 // HorizontalPodAutoscalerMapInput is an input type that accepts HorizontalPodAutoscalerMap and HorizontalPodAutoscalerMapOutput values.
 // You can construct a concrete instance of `HorizontalPodAutoscalerMapInput` via:
 //
-//          HorizontalPodAutoscalerMap{ "key": HorizontalPodAutoscalerArgs{...} }
+//	HorizontalPodAutoscalerMap{ "key": HorizontalPodAutoscalerArgs{...} }
 type HorizontalPodAutoscalerMapInput interface {
 	pulumi.Input
 

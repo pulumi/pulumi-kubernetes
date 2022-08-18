@@ -126,7 +126,7 @@ func (i *SelfSubjectAccessReview) ToSelfSubjectAccessReviewOutputWithContext(ctx
 // SelfSubjectAccessReviewArrayInput is an input type that accepts SelfSubjectAccessReviewArray and SelfSubjectAccessReviewArrayOutput values.
 // You can construct a concrete instance of `SelfSubjectAccessReviewArrayInput` via:
 //
-//          SelfSubjectAccessReviewArray{ SelfSubjectAccessReviewArgs{...} }
+//	SelfSubjectAccessReviewArray{ SelfSubjectAccessReviewArgs{...} }
 type SelfSubjectAccessReviewArrayInput interface {
 	pulumi.Input
 
@@ -151,7 +151,7 @@ func (i SelfSubjectAccessReviewArray) ToSelfSubjectAccessReviewArrayOutputWithCo
 // SelfSubjectAccessReviewMapInput is an input type that accepts SelfSubjectAccessReviewMap and SelfSubjectAccessReviewMapOutput values.
 // You can construct a concrete instance of `SelfSubjectAccessReviewMapInput` via:
 //
-//          SelfSubjectAccessReviewMap{ "key": SelfSubjectAccessReviewArgs{...} }
+//	SelfSubjectAccessReviewMap{ "key": SelfSubjectAccessReviewArgs{...} }
 type SelfSubjectAccessReviewMapInput interface {
 	pulumi.Input
 

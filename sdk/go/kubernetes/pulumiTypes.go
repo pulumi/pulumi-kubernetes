@@ -56,7 +56,7 @@ func (val *HelmReleaseSettings) Defaults() *HelmReleaseSettings {
 // HelmReleaseSettingsInput is an input type that accepts HelmReleaseSettingsArgs and HelmReleaseSettingsOutput values.
 // You can construct a concrete instance of `HelmReleaseSettingsInput` via:
 //
-//          HelmReleaseSettingsArgs{...}
+//	HelmReleaseSettingsArgs{...}
 type HelmReleaseSettingsInput interface {
 	pulumi.Input
 
@@ -124,11 +124,11 @@ func (i HelmReleaseSettingsArgs) ToHelmReleaseSettingsPtrOutputWithContext(ctx c
 // HelmReleaseSettingsPtrInput is an input type that accepts HelmReleaseSettingsArgs, HelmReleaseSettingsPtr and HelmReleaseSettingsPtrOutput values.
 // You can construct a concrete instance of `HelmReleaseSettingsPtrInput` via:
 //
-//          HelmReleaseSettingsArgs{...}
+//	        HelmReleaseSettingsArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type HelmReleaseSettingsPtrInput interface {
 	pulumi.Input
 
@@ -306,7 +306,7 @@ func (val *KubeClientSettings) Defaults() *KubeClientSettings {
 // KubeClientSettingsInput is an input type that accepts KubeClientSettingsArgs and KubeClientSettingsOutput values.
 // You can construct a concrete instance of `KubeClientSettingsInput` via:
 //
-//          KubeClientSettingsArgs{...}
+//	KubeClientSettingsArgs{...}
 type KubeClientSettingsInput interface {
 	pulumi.Input
 
@@ -359,11 +359,11 @@ func (i KubeClientSettingsArgs) ToKubeClientSettingsPtrOutputWithContext(ctx con
 // KubeClientSettingsPtrInput is an input type that accepts KubeClientSettingsArgs, KubeClientSettingsPtr and KubeClientSettingsPtrOutput values.
 // You can construct a concrete instance of `KubeClientSettingsPtrInput` via:
 //
-//          KubeClientSettingsArgs{...}
+//	        KubeClientSettingsArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type KubeClientSettingsPtrInput interface {
 	pulumi.Input
 

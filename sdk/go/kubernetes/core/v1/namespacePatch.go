@@ -122,7 +122,7 @@ func (i *NamespacePatch) ToNamespacePatchOutputWithContext(ctx context.Context) 
 // NamespacePatchArrayInput is an input type that accepts NamespacePatchArray and NamespacePatchArrayOutput values.
 // You can construct a concrete instance of `NamespacePatchArrayInput` via:
 //
-//          NamespacePatchArray{ NamespacePatchArgs{...} }
+//	NamespacePatchArray{ NamespacePatchArgs{...} }
 type NamespacePatchArrayInput interface {
 	pulumi.Input
 
@@ -147,7 +147,7 @@ func (i NamespacePatchArray) ToNamespacePatchArrayOutputWithContext(ctx context.
 // NamespacePatchMapInput is an input type that accepts NamespacePatchMap and NamespacePatchMapOutput values.
 // You can construct a concrete instance of `NamespacePatchMapInput` via:
 //
-//          NamespacePatchMap{ "key": NamespacePatchArgs{...} }
+//	NamespacePatchMap{ "key": NamespacePatchArgs{...} }
 type NamespacePatchMapInput interface {
 	pulumi.Input
 

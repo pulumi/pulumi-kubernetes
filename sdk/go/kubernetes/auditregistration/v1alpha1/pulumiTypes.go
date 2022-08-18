@@ -25,7 +25,7 @@ type AuditSinkType struct {
 // AuditSinkTypeInput is an input type that accepts AuditSinkTypeArgs and AuditSinkTypeOutput values.
 // You can construct a concrete instance of `AuditSinkTypeInput` via:
 //
-//          AuditSinkTypeArgs{...}
+//	AuditSinkTypeArgs{...}
 type AuditSinkTypeInput interface {
 	pulumi.Input
 
@@ -59,7 +59,7 @@ func (i AuditSinkTypeArgs) ToAuditSinkTypeOutputWithContext(ctx context.Context)
 // AuditSinkTypeArrayInput is an input type that accepts AuditSinkTypeArray and AuditSinkTypeArrayOutput values.
 // You can construct a concrete instance of `AuditSinkTypeArrayInput` via:
 //
-//          AuditSinkTypeArray{ AuditSinkTypeArgs{...} }
+//	AuditSinkTypeArray{ AuditSinkTypeArgs{...} }
 type AuditSinkTypeArrayInput interface {
 	pulumi.Input
 
@@ -149,7 +149,7 @@ type AuditSinkListType struct {
 // AuditSinkListTypeInput is an input type that accepts AuditSinkListTypeArgs and AuditSinkListTypeOutput values.
 // You can construct a concrete instance of `AuditSinkListTypeInput` via:
 //
-//          AuditSinkListTypeArgs{...}
+//	AuditSinkListTypeArgs{...}
 type AuditSinkListTypeInput interface {
 	pulumi.Input
 
@@ -228,7 +228,7 @@ type AuditSinkPatchType struct {
 // AuditSinkPatchTypeInput is an input type that accepts AuditSinkPatchTypeArgs and AuditSinkPatchTypeOutput values.
 // You can construct a concrete instance of `AuditSinkPatchTypeInput` via:
 //
-//          AuditSinkPatchTypeArgs{...}
+//	AuditSinkPatchTypeArgs{...}
 type AuditSinkPatchTypeInput interface {
 	pulumi.Input
 
@@ -304,7 +304,7 @@ type AuditSinkSpec struct {
 // AuditSinkSpecInput is an input type that accepts AuditSinkSpecArgs and AuditSinkSpecOutput values.
 // You can construct a concrete instance of `AuditSinkSpecInput` via:
 //
-//          AuditSinkSpecArgs{...}
+//	AuditSinkSpecArgs{...}
 type AuditSinkSpecInput interface {
 	pulumi.Input
 
@@ -343,11 +343,11 @@ func (i AuditSinkSpecArgs) ToAuditSinkSpecPtrOutputWithContext(ctx context.Conte
 // AuditSinkSpecPtrInput is an input type that accepts AuditSinkSpecArgs, AuditSinkSpecPtr and AuditSinkSpecPtrOutput values.
 // You can construct a concrete instance of `AuditSinkSpecPtrInput` via:
 //
-//          AuditSinkSpecArgs{...}
+//	        AuditSinkSpecArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type AuditSinkSpecPtrInput interface {
 	pulumi.Input
 
@@ -463,7 +463,7 @@ type AuditSinkSpecPatch struct {
 // AuditSinkSpecPatchInput is an input type that accepts AuditSinkSpecPatchArgs and AuditSinkSpecPatchOutput values.
 // You can construct a concrete instance of `AuditSinkSpecPatchInput` via:
 //
-//          AuditSinkSpecPatchArgs{...}
+//	AuditSinkSpecPatchArgs{...}
 type AuditSinkSpecPatchInput interface {
 	pulumi.Input
 
@@ -502,11 +502,11 @@ func (i AuditSinkSpecPatchArgs) ToAuditSinkSpecPatchPtrOutputWithContext(ctx con
 // AuditSinkSpecPatchPtrInput is an input type that accepts AuditSinkSpecPatchArgs, AuditSinkSpecPatchPtr and AuditSinkSpecPatchPtrOutput values.
 // You can construct a concrete instance of `AuditSinkSpecPatchPtrInput` via:
 //
-//          AuditSinkSpecPatchArgs{...}
+//	        AuditSinkSpecPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type AuditSinkSpecPatchPtrInput interface {
 	pulumi.Input
 
@@ -622,7 +622,7 @@ type Policy struct {
 // PolicyInput is an input type that accepts PolicyArgs and PolicyOutput values.
 // You can construct a concrete instance of `PolicyInput` via:
 //
-//          PolicyArgs{...}
+//	PolicyArgs{...}
 type PolicyInput interface {
 	pulumi.Input
 
@@ -661,11 +661,11 @@ func (i PolicyArgs) ToPolicyPtrOutputWithContext(ctx context.Context) PolicyPtrO
 // PolicyPtrInput is an input type that accepts PolicyArgs, PolicyPtr and PolicyPtrOutput values.
 // You can construct a concrete instance of `PolicyPtrInput` via:
 //
-//          PolicyArgs{...}
+//	        PolicyArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PolicyPtrInput interface {
 	pulumi.Input
 
@@ -781,7 +781,7 @@ type PolicyPatch struct {
 // PolicyPatchInput is an input type that accepts PolicyPatchArgs and PolicyPatchOutput values.
 // You can construct a concrete instance of `PolicyPatchInput` via:
 //
-//          PolicyPatchArgs{...}
+//	PolicyPatchArgs{...}
 type PolicyPatchInput interface {
 	pulumi.Input
 
@@ -820,11 +820,11 @@ func (i PolicyPatchArgs) ToPolicyPatchPtrOutputWithContext(ctx context.Context) 
 // PolicyPatchPtrInput is an input type that accepts PolicyPatchArgs, PolicyPatchPtr and PolicyPatchPtrOutput values.
 // You can construct a concrete instance of `PolicyPatchPtrInput` via:
 //
-//          PolicyPatchArgs{...}
+//	        PolicyPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PolicyPatchPtrInput interface {
 	pulumi.Input
 
@@ -944,7 +944,7 @@ type ServiceReference struct {
 // ServiceReferenceInput is an input type that accepts ServiceReferenceArgs and ServiceReferenceOutput values.
 // You can construct a concrete instance of `ServiceReferenceInput` via:
 //
-//          ServiceReferenceArgs{...}
+//	ServiceReferenceArgs{...}
 type ServiceReferenceInput interface {
 	pulumi.Input
 
@@ -987,11 +987,11 @@ func (i ServiceReferenceArgs) ToServiceReferencePtrOutputWithContext(ctx context
 // ServiceReferencePtrInput is an input type that accepts ServiceReferenceArgs, ServiceReferencePtr and ServiceReferencePtrOutput values.
 // You can construct a concrete instance of `ServiceReferencePtrInput` via:
 //
-//          ServiceReferenceArgs{...}
+//	        ServiceReferenceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ServiceReferencePtrInput interface {
 	pulumi.Input
 
@@ -1141,7 +1141,7 @@ type ServiceReferencePatch struct {
 // ServiceReferencePatchInput is an input type that accepts ServiceReferencePatchArgs and ServiceReferencePatchOutput values.
 // You can construct a concrete instance of `ServiceReferencePatchInput` via:
 //
-//          ServiceReferencePatchArgs{...}
+//	ServiceReferencePatchArgs{...}
 type ServiceReferencePatchInput interface {
 	pulumi.Input
 
@@ -1184,11 +1184,11 @@ func (i ServiceReferencePatchArgs) ToServiceReferencePatchPtrOutputWithContext(c
 // ServiceReferencePatchPtrInput is an input type that accepts ServiceReferencePatchArgs, ServiceReferencePatchPtr and ServiceReferencePatchPtrOutput values.
 // You can construct a concrete instance of `ServiceReferencePatchPtrInput` via:
 //
-//          ServiceReferencePatchArgs{...}
+//	        ServiceReferencePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ServiceReferencePatchPtrInput interface {
 	pulumi.Input
 
@@ -1334,7 +1334,7 @@ type Webhook struct {
 // WebhookInput is an input type that accepts WebhookArgs and WebhookOutput values.
 // You can construct a concrete instance of `WebhookInput` via:
 //
-//          WebhookArgs{...}
+//	WebhookArgs{...}
 type WebhookInput interface {
 	pulumi.Input
 
@@ -1373,11 +1373,11 @@ func (i WebhookArgs) ToWebhookPtrOutputWithContext(ctx context.Context) WebhookP
 // WebhookPtrInput is an input type that accepts WebhookArgs, WebhookPtr and WebhookPtrOutput values.
 // You can construct a concrete instance of `WebhookPtrInput` via:
 //
-//          WebhookArgs{...}
+//	        WebhookArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type WebhookPtrInput interface {
 	pulumi.Input
 
@@ -1507,7 +1507,7 @@ type WebhookClientConfig struct {
 // WebhookClientConfigInput is an input type that accepts WebhookClientConfigArgs and WebhookClientConfigOutput values.
 // You can construct a concrete instance of `WebhookClientConfigInput` via:
 //
-//          WebhookClientConfigArgs{...}
+//	WebhookClientConfigArgs{...}
 type WebhookClientConfigInput interface {
 	pulumi.Input
 
@@ -1560,11 +1560,11 @@ func (i WebhookClientConfigArgs) ToWebhookClientConfigPtrOutputWithContext(ctx c
 // WebhookClientConfigPtrInput is an input type that accepts WebhookClientConfigArgs, WebhookClientConfigPtr and WebhookClientConfigPtrOutput values.
 // You can construct a concrete instance of `WebhookClientConfigPtrInput` via:
 //
-//          WebhookClientConfigArgs{...}
+//	        WebhookClientConfigArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type WebhookClientConfigPtrInput interface {
 	pulumi.Input
 
@@ -1733,7 +1733,7 @@ type WebhookClientConfigPatch struct {
 // WebhookClientConfigPatchInput is an input type that accepts WebhookClientConfigPatchArgs and WebhookClientConfigPatchOutput values.
 // You can construct a concrete instance of `WebhookClientConfigPatchInput` via:
 //
-//          WebhookClientConfigPatchArgs{...}
+//	WebhookClientConfigPatchArgs{...}
 type WebhookClientConfigPatchInput interface {
 	pulumi.Input
 
@@ -1786,11 +1786,11 @@ func (i WebhookClientConfigPatchArgs) ToWebhookClientConfigPatchPtrOutputWithCon
 // WebhookClientConfigPatchPtrInput is an input type that accepts WebhookClientConfigPatchArgs, WebhookClientConfigPatchPtr and WebhookClientConfigPatchPtrOutput values.
 // You can construct a concrete instance of `WebhookClientConfigPatchPtrInput` via:
 //
-//          WebhookClientConfigPatchArgs{...}
+//	        WebhookClientConfigPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type WebhookClientConfigPatchPtrInput interface {
 	pulumi.Input
 
@@ -1945,7 +1945,7 @@ type WebhookPatch struct {
 // WebhookPatchInput is an input type that accepts WebhookPatchArgs and WebhookPatchOutput values.
 // You can construct a concrete instance of `WebhookPatchInput` via:
 //
-//          WebhookPatchArgs{...}
+//	WebhookPatchArgs{...}
 type WebhookPatchInput interface {
 	pulumi.Input
 
@@ -1984,11 +1984,11 @@ func (i WebhookPatchArgs) ToWebhookPatchPtrOutputWithContext(ctx context.Context
 // WebhookPatchPtrInput is an input type that accepts WebhookPatchArgs, WebhookPatchPtr and WebhookPatchPtrOutput values.
 // You can construct a concrete instance of `WebhookPatchPtrInput` via:
 //
-//          WebhookPatchArgs{...}
+//	        WebhookPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type WebhookPatchPtrInput interface {
 	pulumi.Input
 
@@ -2104,7 +2104,7 @@ type WebhookThrottleConfig struct {
 // WebhookThrottleConfigInput is an input type that accepts WebhookThrottleConfigArgs and WebhookThrottleConfigOutput values.
 // You can construct a concrete instance of `WebhookThrottleConfigInput` via:
 //
-//          WebhookThrottleConfigArgs{...}
+//	WebhookThrottleConfigArgs{...}
 type WebhookThrottleConfigInput interface {
 	pulumi.Input
 
@@ -2143,11 +2143,11 @@ func (i WebhookThrottleConfigArgs) ToWebhookThrottleConfigPtrOutputWithContext(c
 // WebhookThrottleConfigPtrInput is an input type that accepts WebhookThrottleConfigArgs, WebhookThrottleConfigPtr and WebhookThrottleConfigPtrOutput values.
 // You can construct a concrete instance of `WebhookThrottleConfigPtrInput` via:
 //
-//          WebhookThrottleConfigArgs{...}
+//	        WebhookThrottleConfigArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type WebhookThrottleConfigPtrInput interface {
 	pulumi.Input
 
@@ -2263,7 +2263,7 @@ type WebhookThrottleConfigPatch struct {
 // WebhookThrottleConfigPatchInput is an input type that accepts WebhookThrottleConfigPatchArgs and WebhookThrottleConfigPatchOutput values.
 // You can construct a concrete instance of `WebhookThrottleConfigPatchInput` via:
 //
-//          WebhookThrottleConfigPatchArgs{...}
+//	WebhookThrottleConfigPatchArgs{...}
 type WebhookThrottleConfigPatchInput interface {
 	pulumi.Input
 
@@ -2302,11 +2302,11 @@ func (i WebhookThrottleConfigPatchArgs) ToWebhookThrottleConfigPatchPtrOutputWit
 // WebhookThrottleConfigPatchPtrInput is an input type that accepts WebhookThrottleConfigPatchArgs, WebhookThrottleConfigPatchPtr and WebhookThrottleConfigPatchPtrOutput values.
 // You can construct a concrete instance of `WebhookThrottleConfigPatchPtrInput` via:
 //
-//          WebhookThrottleConfigPatchArgs{...}
+//	        WebhookThrottleConfigPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type WebhookThrottleConfigPatchPtrInput interface {
 	pulumi.Input
 

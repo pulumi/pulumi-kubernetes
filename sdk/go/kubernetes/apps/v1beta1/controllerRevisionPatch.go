@@ -137,7 +137,7 @@ func (i *ControllerRevisionPatch) ToControllerRevisionPatchOutputWithContext(ctx
 // ControllerRevisionPatchArrayInput is an input type that accepts ControllerRevisionPatchArray and ControllerRevisionPatchArrayOutput values.
 // You can construct a concrete instance of `ControllerRevisionPatchArrayInput` via:
 //
-//          ControllerRevisionPatchArray{ ControllerRevisionPatchArgs{...} }
+//	ControllerRevisionPatchArray{ ControllerRevisionPatchArgs{...} }
 type ControllerRevisionPatchArrayInput interface {
 	pulumi.Input
 
@@ -162,7 +162,7 @@ func (i ControllerRevisionPatchArray) ToControllerRevisionPatchArrayOutputWithCo
 // ControllerRevisionPatchMapInput is an input type that accepts ControllerRevisionPatchMap and ControllerRevisionPatchMapOutput values.
 // You can construct a concrete instance of `ControllerRevisionPatchMapInput` via:
 //
-//          ControllerRevisionPatchMap{ "key": ControllerRevisionPatchArgs{...} }
+//	ControllerRevisionPatchMap{ "key": ControllerRevisionPatchArgs{...} }
 type ControllerRevisionPatchMapInput interface {
 	pulumi.Input
 

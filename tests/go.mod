@@ -12,8 +12,8 @@ replace (
 require (
 	github.com/pulumi/pulumi-kubernetes/provider/v3 v3.0.0-rc.1
 	github.com/pulumi/pulumi-kubernetes/sdk/v3 v3.0.0-rc.1
-	github.com/pulumi/pulumi/pkg/v3 v3.37.1
-	github.com/pulumi/pulumi/sdk/v3 v3.37.1
+	github.com/pulumi/pulumi/pkg/v3 v3.38.0
+	github.com/pulumi/pulumi/sdk/v3 v3.38.0
 	github.com/stretchr/testify v1.7.1
 	helm.sh/helm/v3 v3.9.0
 	k8s.io/apimachinery v0.24.0
@@ -49,8 +49,10 @@ require (
 	github.com/Masterminds/squirrel v1.5.2 // indirect
 	github.com/Microsoft/go-winio v0.5.2 // indirect
 	github.com/Microsoft/hcsshim v0.9.2 // indirect
+	github.com/ProtonMail/go-crypto v0.0.0-20210428141323-04723f9f07d7 // indirect
 	github.com/PuerkitoBio/purell v1.1.1 // indirect
 	github.com/PuerkitoBio/urlesc v0.0.0-20170810143723-de5bf2ad4578 // indirect
+	github.com/acomagu/bufpipe v1.0.3 // indirect
 	github.com/aead/chacha20 v0.0.0-20180709150244-8b13a72661da // indirect
 	github.com/agext/levenshtein v1.2.3 // indirect
 	github.com/ahmetb/go-linq v3.0.0+incompatible // indirect
@@ -94,6 +96,9 @@ require (
 	github.com/exponent-io/jsonpath v0.0.0-20151013193312-d6023ce2651d // indirect
 	github.com/fatih/color v1.13.0 // indirect
 	github.com/go-errors/errors v1.0.1 // indirect
+	github.com/go-git/gcfg v1.5.0 // indirect
+	github.com/go-git/go-billy/v5 v5.3.1 // indirect
+	github.com/go-git/go-git/v5 v5.4.2 // indirect
 	github.com/go-gorp/gorp/v3 v3.0.2 // indirect
 	github.com/go-logr/logr v1.2.2 // indirect
 	github.com/go-openapi/jsonpointer v0.19.5 // indirect
@@ -202,7 +207,6 @@ require (
 	github.com/spf13/cast v1.4.1 // indirect
 	github.com/spf13/cobra v1.4.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
-	github.com/src-d/gcfg v1.4.0 // indirect
 	github.com/texttheater/golang-levenshtein v1.0.1 // indirect
 	github.com/tweekmonster/luser v0.0.0-20161003172636-3fa38070dbd7 // indirect
 	github.com/uber/jaeger-client-go v2.30.0+incompatible // indirect
@@ -218,7 +222,7 @@ require (
 	go.uber.org/atomic v1.9.0 // indirect
 	gocloud.dev v0.24.0 // indirect
 	gocloud.dev/secrets/hashivault v0.24.0 // indirect
-	golang.org/x/crypto v0.0.0-20220622213112-05595931fe9d // indirect
+	golang.org/x/crypto v0.0.0-20220722155217-630584e8d5aa // indirect
 	golang.org/x/net v0.0.0-20220325170049-de3da57026de // indirect
 	golang.org/x/oauth2 v0.0.0-20220309155454-6242fa91716a // indirect
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c // indirect
@@ -235,8 +239,6 @@ require (
 	gopkg.in/AlecAivazis/survey.v1 v1.8.9-0.20200217094205-6773bdf39b7f // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/square/go-jose.v2 v2.6.0 // indirect
-	gopkg.in/src-d/go-billy.v4 v4.3.2 // indirect
-	gopkg.in/src-d/go-git.v4 v4.13.1 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect

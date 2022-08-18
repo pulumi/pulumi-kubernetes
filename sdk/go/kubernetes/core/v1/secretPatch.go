@@ -148,7 +148,7 @@ func (i *SecretPatch) ToSecretPatchOutputWithContext(ctx context.Context) Secret
 // SecretPatchArrayInput is an input type that accepts SecretPatchArray and SecretPatchArrayOutput values.
 // You can construct a concrete instance of `SecretPatchArrayInput` via:
 //
-//          SecretPatchArray{ SecretPatchArgs{...} }
+//	SecretPatchArray{ SecretPatchArgs{...} }
 type SecretPatchArrayInput interface {
 	pulumi.Input
 
@@ -173,7 +173,7 @@ func (i SecretPatchArray) ToSecretPatchArrayOutputWithContext(ctx context.Contex
 // SecretPatchMapInput is an input type that accepts SecretPatchMap and SecretPatchMapOutput values.
 // You can construct a concrete instance of `SecretPatchMapInput` via:
 //
-//          SecretPatchMap{ "key": SecretPatchArgs{...} }
+//	SecretPatchMap{ "key": SecretPatchArgs{...} }
 type SecretPatchMapInput interface {
 	pulumi.Input
 

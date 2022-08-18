@@ -118,7 +118,7 @@ func (i *EndpointSliceList) ToEndpointSliceListOutputWithContext(ctx context.Con
 // EndpointSliceListArrayInput is an input type that accepts EndpointSliceListArray and EndpointSliceListArrayOutput values.
 // You can construct a concrete instance of `EndpointSliceListArrayInput` via:
 //
-//          EndpointSliceListArray{ EndpointSliceListArgs{...} }
+//	EndpointSliceListArray{ EndpointSliceListArgs{...} }
 type EndpointSliceListArrayInput interface {
 	pulumi.Input
 
@@ -143,7 +143,7 @@ func (i EndpointSliceListArray) ToEndpointSliceListArrayOutputWithContext(ctx co
 // EndpointSliceListMapInput is an input type that accepts EndpointSliceListMap and EndpointSliceListMapOutput values.
 // You can construct a concrete instance of `EndpointSliceListMapInput` via:
 //
-//          EndpointSliceListMap{ "key": EndpointSliceListArgs{...} }
+//	EndpointSliceListMap{ "key": EndpointSliceListArgs{...} }
 type EndpointSliceListMapInput interface {
 	pulumi.Input
 

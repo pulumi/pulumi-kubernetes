@@ -123,7 +123,7 @@ func (i *LocalSubjectAccessReview) ToLocalSubjectAccessReviewOutputWithContext(c
 // LocalSubjectAccessReviewArrayInput is an input type that accepts LocalSubjectAccessReviewArray and LocalSubjectAccessReviewArrayOutput values.
 // You can construct a concrete instance of `LocalSubjectAccessReviewArrayInput` via:
 //
-//          LocalSubjectAccessReviewArray{ LocalSubjectAccessReviewArgs{...} }
+//	LocalSubjectAccessReviewArray{ LocalSubjectAccessReviewArgs{...} }
 type LocalSubjectAccessReviewArrayInput interface {
 	pulumi.Input
 
@@ -148,7 +148,7 @@ func (i LocalSubjectAccessReviewArray) ToLocalSubjectAccessReviewArrayOutputWith
 // LocalSubjectAccessReviewMapInput is an input type that accepts LocalSubjectAccessReviewMap and LocalSubjectAccessReviewMapOutput values.
 // You can construct a concrete instance of `LocalSubjectAccessReviewMapInput` via:
 //
-//          LocalSubjectAccessReviewMap{ "key": LocalSubjectAccessReviewArgs{...} }
+//	LocalSubjectAccessReviewMap{ "key": LocalSubjectAccessReviewArgs{...} }
 type LocalSubjectAccessReviewMapInput interface {
 	pulumi.Input
 

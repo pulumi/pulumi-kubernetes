@@ -177,7 +177,7 @@ func (i *CSIStorageCapacity) ToCSIStorageCapacityOutputWithContext(ctx context.C
 // CSIStorageCapacityArrayInput is an input type that accepts CSIStorageCapacityArray and CSIStorageCapacityArrayOutput values.
 // You can construct a concrete instance of `CSIStorageCapacityArrayInput` via:
 //
-//          CSIStorageCapacityArray{ CSIStorageCapacityArgs{...} }
+//	CSIStorageCapacityArray{ CSIStorageCapacityArgs{...} }
 type CSIStorageCapacityArrayInput interface {
 	pulumi.Input
 
@@ -202,7 +202,7 @@ func (i CSIStorageCapacityArray) ToCSIStorageCapacityArrayOutputWithContext(ctx 
 // CSIStorageCapacityMapInput is an input type that accepts CSIStorageCapacityMap and CSIStorageCapacityMapOutput values.
 // You can construct a concrete instance of `CSIStorageCapacityMapInput` via:
 //
-//          CSIStorageCapacityMap{ "key": CSIStorageCapacityArgs{...} }
+//	CSIStorageCapacityMap{ "key": CSIStorageCapacityArgs{...} }
 type CSIStorageCapacityMapInput interface {
 	pulumi.Input
 

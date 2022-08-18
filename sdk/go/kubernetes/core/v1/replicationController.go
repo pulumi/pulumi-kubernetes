@@ -116,7 +116,7 @@ func (i *ReplicationController) ToReplicationControllerOutputWithContext(ctx con
 // ReplicationControllerArrayInput is an input type that accepts ReplicationControllerArray and ReplicationControllerArrayOutput values.
 // You can construct a concrete instance of `ReplicationControllerArrayInput` via:
 //
-//          ReplicationControllerArray{ ReplicationControllerArgs{...} }
+//	ReplicationControllerArray{ ReplicationControllerArgs{...} }
 type ReplicationControllerArrayInput interface {
 	pulumi.Input
 
@@ -141,7 +141,7 @@ func (i ReplicationControllerArray) ToReplicationControllerArrayOutputWithContex
 // ReplicationControllerMapInput is an input type that accepts ReplicationControllerMap and ReplicationControllerMapOutput values.
 // You can construct a concrete instance of `ReplicationControllerMapInput` via:
 //
-//          ReplicationControllerMap{ "key": ReplicationControllerArgs{...} }
+//	ReplicationControllerMap{ "key": ReplicationControllerArgs{...} }
 type ReplicationControllerMapInput interface {
 	pulumi.Input
 

@@ -118,7 +118,7 @@ func (i *ResourceQuotaList) ToResourceQuotaListOutputWithContext(ctx context.Con
 // ResourceQuotaListArrayInput is an input type that accepts ResourceQuotaListArray and ResourceQuotaListArrayOutput values.
 // You can construct a concrete instance of `ResourceQuotaListArrayInput` via:
 //
-//          ResourceQuotaListArray{ ResourceQuotaListArgs{...} }
+//	ResourceQuotaListArray{ ResourceQuotaListArgs{...} }
 type ResourceQuotaListArrayInput interface {
 	pulumi.Input
 
@@ -143,7 +143,7 @@ func (i ResourceQuotaListArray) ToResourceQuotaListArrayOutputWithContext(ctx co
 // ResourceQuotaListMapInput is an input type that accepts ResourceQuotaListMap and ResourceQuotaListMapOutput values.
 // You can construct a concrete instance of `ResourceQuotaListMapInput` via:
 //
-//          ResourceQuotaListMap{ "key": ResourceQuotaListArgs{...} }
+//	ResourceQuotaListMap{ "key": ResourceQuotaListArgs{...} }
 type ResourceQuotaListMapInput interface {
 	pulumi.Input
 

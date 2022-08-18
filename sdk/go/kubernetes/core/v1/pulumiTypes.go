@@ -28,7 +28,7 @@ type AWSElasticBlockStoreVolumeSource struct {
 // AWSElasticBlockStoreVolumeSourceInput is an input type that accepts AWSElasticBlockStoreVolumeSourceArgs and AWSElasticBlockStoreVolumeSourceOutput values.
 // You can construct a concrete instance of `AWSElasticBlockStoreVolumeSourceInput` via:
 //
-//          AWSElasticBlockStoreVolumeSourceArgs{...}
+//	AWSElasticBlockStoreVolumeSourceArgs{...}
 type AWSElasticBlockStoreVolumeSourceInput interface {
 	pulumi.Input
 
@@ -73,11 +73,11 @@ func (i AWSElasticBlockStoreVolumeSourceArgs) ToAWSElasticBlockStoreVolumeSource
 // AWSElasticBlockStoreVolumeSourcePtrInput is an input type that accepts AWSElasticBlockStoreVolumeSourceArgs, AWSElasticBlockStoreVolumeSourcePtr and AWSElasticBlockStoreVolumeSourcePtrOutput values.
 // You can construct a concrete instance of `AWSElasticBlockStoreVolumeSourcePtrInput` via:
 //
-//          AWSElasticBlockStoreVolumeSourceArgs{...}
+//	        AWSElasticBlockStoreVolumeSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type AWSElasticBlockStoreVolumeSourcePtrInput interface {
 	pulumi.Input
 
@@ -231,7 +231,7 @@ type AWSElasticBlockStoreVolumeSourcePatch struct {
 // AWSElasticBlockStoreVolumeSourcePatchInput is an input type that accepts AWSElasticBlockStoreVolumeSourcePatchArgs and AWSElasticBlockStoreVolumeSourcePatchOutput values.
 // You can construct a concrete instance of `AWSElasticBlockStoreVolumeSourcePatchInput` via:
 //
-//          AWSElasticBlockStoreVolumeSourcePatchArgs{...}
+//	AWSElasticBlockStoreVolumeSourcePatchArgs{...}
 type AWSElasticBlockStoreVolumeSourcePatchInput interface {
 	pulumi.Input
 
@@ -276,11 +276,11 @@ func (i AWSElasticBlockStoreVolumeSourcePatchArgs) ToAWSElasticBlockStoreVolumeS
 // AWSElasticBlockStoreVolumeSourcePatchPtrInput is an input type that accepts AWSElasticBlockStoreVolumeSourcePatchArgs, AWSElasticBlockStoreVolumeSourcePatchPtr and AWSElasticBlockStoreVolumeSourcePatchPtrOutput values.
 // You can construct a concrete instance of `AWSElasticBlockStoreVolumeSourcePatchPtrInput` via:
 //
-//          AWSElasticBlockStoreVolumeSourcePatchArgs{...}
+//	        AWSElasticBlockStoreVolumeSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type AWSElasticBlockStoreVolumeSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -430,7 +430,7 @@ type Affinity struct {
 // AffinityInput is an input type that accepts AffinityArgs and AffinityOutput values.
 // You can construct a concrete instance of `AffinityInput` via:
 //
-//          AffinityArgs{...}
+//	AffinityArgs{...}
 type AffinityInput interface {
 	pulumi.Input
 
@@ -471,11 +471,11 @@ func (i AffinityArgs) ToAffinityPtrOutputWithContext(ctx context.Context) Affini
 // AffinityPtrInput is an input type that accepts AffinityArgs, AffinityPtr and AffinityPtrOutput values.
 // You can construct a concrete instance of `AffinityPtrInput` via:
 //
-//          AffinityArgs{...}
+//	        AffinityArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type AffinityPtrInput interface {
 	pulumi.Input
 
@@ -608,7 +608,7 @@ type AffinityPatch struct {
 // AffinityPatchInput is an input type that accepts AffinityPatchArgs and AffinityPatchOutput values.
 // You can construct a concrete instance of `AffinityPatchInput` via:
 //
-//          AffinityPatchArgs{...}
+//	AffinityPatchArgs{...}
 type AffinityPatchInput interface {
 	pulumi.Input
 
@@ -649,11 +649,11 @@ func (i AffinityPatchArgs) ToAffinityPatchPtrOutputWithContext(ctx context.Conte
 // AffinityPatchPtrInput is an input type that accepts AffinityPatchArgs, AffinityPatchPtr and AffinityPatchPtrOutput values.
 // You can construct a concrete instance of `AffinityPatchPtrInput` via:
 //
-//          AffinityPatchArgs{...}
+//	        AffinityPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type AffinityPatchPtrInput interface {
 	pulumi.Input
 
@@ -784,7 +784,7 @@ type AttachedVolume struct {
 // AttachedVolumeInput is an input type that accepts AttachedVolumeArgs and AttachedVolumeOutput values.
 // You can construct a concrete instance of `AttachedVolumeInput` via:
 //
-//          AttachedVolumeArgs{...}
+//	AttachedVolumeArgs{...}
 type AttachedVolumeInput interface {
 	pulumi.Input
 
@@ -815,7 +815,7 @@ func (i AttachedVolumeArgs) ToAttachedVolumeOutputWithContext(ctx context.Contex
 // AttachedVolumeArrayInput is an input type that accepts AttachedVolumeArray and AttachedVolumeArrayOutput values.
 // You can construct a concrete instance of `AttachedVolumeArrayInput` via:
 //
-//          AttachedVolumeArray{ AttachedVolumeArgs{...} }
+//	AttachedVolumeArray{ AttachedVolumeArgs{...} }
 type AttachedVolumeArrayInput interface {
 	pulumi.Input
 
@@ -893,7 +893,7 @@ type AttachedVolumePatch struct {
 // AttachedVolumePatchInput is an input type that accepts AttachedVolumePatchArgs and AttachedVolumePatchOutput values.
 // You can construct a concrete instance of `AttachedVolumePatchInput` via:
 //
-//          AttachedVolumePatchArgs{...}
+//	AttachedVolumePatchArgs{...}
 type AttachedVolumePatchInput interface {
 	pulumi.Input
 
@@ -924,7 +924,7 @@ func (i AttachedVolumePatchArgs) ToAttachedVolumePatchOutputWithContext(ctx cont
 // AttachedVolumePatchArrayInput is an input type that accepts AttachedVolumePatchArray and AttachedVolumePatchArrayOutput values.
 // You can construct a concrete instance of `AttachedVolumePatchArrayInput` via:
 //
-//          AttachedVolumePatchArray{ AttachedVolumePatchArgs{...} }
+//	AttachedVolumePatchArray{ AttachedVolumePatchArgs{...} }
 type AttachedVolumePatchArrayInput interface {
 	pulumi.Input
 
@@ -1010,7 +1010,7 @@ type AzureDiskVolumeSource struct {
 // AzureDiskVolumeSourceInput is an input type that accepts AzureDiskVolumeSourceArgs and AzureDiskVolumeSourceOutput values.
 // You can construct a concrete instance of `AzureDiskVolumeSourceInput` via:
 //
-//          AzureDiskVolumeSourceArgs{...}
+//	AzureDiskVolumeSourceArgs{...}
 type AzureDiskVolumeSourceInput interface {
 	pulumi.Input
 
@@ -1057,11 +1057,11 @@ func (i AzureDiskVolumeSourceArgs) ToAzureDiskVolumeSourcePtrOutputWithContext(c
 // AzureDiskVolumeSourcePtrInput is an input type that accepts AzureDiskVolumeSourceArgs, AzureDiskVolumeSourcePtr and AzureDiskVolumeSourcePtrOutput values.
 // You can construct a concrete instance of `AzureDiskVolumeSourcePtrInput` via:
 //
-//          AzureDiskVolumeSourceArgs{...}
+//	        AzureDiskVolumeSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type AzureDiskVolumeSourcePtrInput interface {
 	pulumi.Input
 
@@ -1245,7 +1245,7 @@ type AzureDiskVolumeSourcePatch struct {
 // AzureDiskVolumeSourcePatchInput is an input type that accepts AzureDiskVolumeSourcePatchArgs and AzureDiskVolumeSourcePatchOutput values.
 // You can construct a concrete instance of `AzureDiskVolumeSourcePatchInput` via:
 //
-//          AzureDiskVolumeSourcePatchArgs{...}
+//	AzureDiskVolumeSourcePatchArgs{...}
 type AzureDiskVolumeSourcePatchInput interface {
 	pulumi.Input
 
@@ -1292,11 +1292,11 @@ func (i AzureDiskVolumeSourcePatchArgs) ToAzureDiskVolumeSourcePatchPtrOutputWit
 // AzureDiskVolumeSourcePatchPtrInput is an input type that accepts AzureDiskVolumeSourcePatchArgs, AzureDiskVolumeSourcePatchPtr and AzureDiskVolumeSourcePatchPtrOutput values.
 // You can construct a concrete instance of `AzureDiskVolumeSourcePatchPtrInput` via:
 //
-//          AzureDiskVolumeSourcePatchArgs{...}
+//	        AzureDiskVolumeSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type AzureDiskVolumeSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -1476,7 +1476,7 @@ type AzureFilePersistentVolumeSource struct {
 // AzureFilePersistentVolumeSourceInput is an input type that accepts AzureFilePersistentVolumeSourceArgs and AzureFilePersistentVolumeSourceOutput values.
 // You can construct a concrete instance of `AzureFilePersistentVolumeSourceInput` via:
 //
-//          AzureFilePersistentVolumeSourceArgs{...}
+//	AzureFilePersistentVolumeSourceArgs{...}
 type AzureFilePersistentVolumeSourceInput interface {
 	pulumi.Input
 
@@ -1519,11 +1519,11 @@ func (i AzureFilePersistentVolumeSourceArgs) ToAzureFilePersistentVolumeSourcePt
 // AzureFilePersistentVolumeSourcePtrInput is an input type that accepts AzureFilePersistentVolumeSourceArgs, AzureFilePersistentVolumeSourcePtr and AzureFilePersistentVolumeSourcePtrOutput values.
 // You can construct a concrete instance of `AzureFilePersistentVolumeSourcePtrInput` via:
 //
-//          AzureFilePersistentVolumeSourceArgs{...}
+//	        AzureFilePersistentVolumeSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type AzureFilePersistentVolumeSourcePtrInput interface {
 	pulumi.Input
 
@@ -1673,7 +1673,7 @@ type AzureFilePersistentVolumeSourcePatch struct {
 // AzureFilePersistentVolumeSourcePatchInput is an input type that accepts AzureFilePersistentVolumeSourcePatchArgs and AzureFilePersistentVolumeSourcePatchOutput values.
 // You can construct a concrete instance of `AzureFilePersistentVolumeSourcePatchInput` via:
 //
-//          AzureFilePersistentVolumeSourcePatchArgs{...}
+//	AzureFilePersistentVolumeSourcePatchArgs{...}
 type AzureFilePersistentVolumeSourcePatchInput interface {
 	pulumi.Input
 
@@ -1716,11 +1716,11 @@ func (i AzureFilePersistentVolumeSourcePatchArgs) ToAzureFilePersistentVolumeSou
 // AzureFilePersistentVolumeSourcePatchPtrInput is an input type that accepts AzureFilePersistentVolumeSourcePatchArgs, AzureFilePersistentVolumeSourcePatchPtr and AzureFilePersistentVolumeSourcePatchPtrOutput values.
 // You can construct a concrete instance of `AzureFilePersistentVolumeSourcePatchPtrInput` via:
 //
-//          AzureFilePersistentVolumeSourcePatchArgs{...}
+//	        AzureFilePersistentVolumeSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type AzureFilePersistentVolumeSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -1868,7 +1868,7 @@ type AzureFileVolumeSource struct {
 // AzureFileVolumeSourceInput is an input type that accepts AzureFileVolumeSourceArgs and AzureFileVolumeSourceOutput values.
 // You can construct a concrete instance of `AzureFileVolumeSourceInput` via:
 //
-//          AzureFileVolumeSourceArgs{...}
+//	AzureFileVolumeSourceArgs{...}
 type AzureFileVolumeSourceInput interface {
 	pulumi.Input
 
@@ -1909,11 +1909,11 @@ func (i AzureFileVolumeSourceArgs) ToAzureFileVolumeSourcePtrOutputWithContext(c
 // AzureFileVolumeSourcePtrInput is an input type that accepts AzureFileVolumeSourceArgs, AzureFileVolumeSourcePtr and AzureFileVolumeSourcePtrOutput values.
 // You can construct a concrete instance of `AzureFileVolumeSourcePtrInput` via:
 //
-//          AzureFileVolumeSourceArgs{...}
+//	        AzureFileVolumeSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type AzureFileVolumeSourcePtrInput interface {
 	pulumi.Input
 
@@ -2046,7 +2046,7 @@ type AzureFileVolumeSourcePatch struct {
 // AzureFileVolumeSourcePatchInput is an input type that accepts AzureFileVolumeSourcePatchArgs and AzureFileVolumeSourcePatchOutput values.
 // You can construct a concrete instance of `AzureFileVolumeSourcePatchInput` via:
 //
-//          AzureFileVolumeSourcePatchArgs{...}
+//	AzureFileVolumeSourcePatchArgs{...}
 type AzureFileVolumeSourcePatchInput interface {
 	pulumi.Input
 
@@ -2087,11 +2087,11 @@ func (i AzureFileVolumeSourcePatchArgs) ToAzureFileVolumeSourcePatchPtrOutputWit
 // AzureFileVolumeSourcePatchPtrInput is an input type that accepts AzureFileVolumeSourcePatchArgs, AzureFileVolumeSourcePatchPtr and AzureFileVolumeSourcePatchPtrOutput values.
 // You can construct a concrete instance of `AzureFileVolumeSourcePatchPtrInput` via:
 //
-//          AzureFileVolumeSourcePatchArgs{...}
+//	        AzureFileVolumeSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type AzureFileVolumeSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -2226,7 +2226,7 @@ type BindingType struct {
 // BindingTypeInput is an input type that accepts BindingTypeArgs and BindingTypeOutput values.
 // You can construct a concrete instance of `BindingTypeInput` via:
 //
-//          BindingTypeArgs{...}
+//	BindingTypeArgs{...}
 type BindingTypeInput interface {
 	pulumi.Input
 
@@ -2308,7 +2308,7 @@ type BindingPatchType struct {
 // BindingPatchTypeInput is an input type that accepts BindingPatchTypeArgs and BindingPatchTypeOutput values.
 // You can construct a concrete instance of `BindingPatchTypeInput` via:
 //
-//          BindingPatchTypeArgs{...}
+//	BindingPatchTypeArgs{...}
 type BindingPatchTypeInput interface {
 	pulumi.Input
 
@@ -2400,7 +2400,7 @@ type CSIPersistentVolumeSource struct {
 // CSIPersistentVolumeSourceInput is an input type that accepts CSIPersistentVolumeSourceArgs and CSIPersistentVolumeSourceOutput values.
 // You can construct a concrete instance of `CSIPersistentVolumeSourceInput` via:
 //
-//          CSIPersistentVolumeSourceArgs{...}
+//	CSIPersistentVolumeSourceArgs{...}
 type CSIPersistentVolumeSourceInput interface {
 	pulumi.Input
 
@@ -2453,11 +2453,11 @@ func (i CSIPersistentVolumeSourceArgs) ToCSIPersistentVolumeSourcePtrOutputWithC
 // CSIPersistentVolumeSourcePtrInput is an input type that accepts CSIPersistentVolumeSourceArgs, CSIPersistentVolumeSourcePtr and CSIPersistentVolumeSourcePtrOutput values.
 // You can construct a concrete instance of `CSIPersistentVolumeSourcePtrInput` via:
 //
-//          CSIPersistentVolumeSourceArgs{...}
+//	        CSIPersistentVolumeSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CSIPersistentVolumeSourcePtrInput interface {
 	pulumi.Input
 
@@ -2692,7 +2692,7 @@ type CSIPersistentVolumeSourcePatch struct {
 // CSIPersistentVolumeSourcePatchInput is an input type that accepts CSIPersistentVolumeSourcePatchArgs and CSIPersistentVolumeSourcePatchOutput values.
 // You can construct a concrete instance of `CSIPersistentVolumeSourcePatchInput` via:
 //
-//          CSIPersistentVolumeSourcePatchArgs{...}
+//	CSIPersistentVolumeSourcePatchArgs{...}
 type CSIPersistentVolumeSourcePatchInput interface {
 	pulumi.Input
 
@@ -2745,11 +2745,11 @@ func (i CSIPersistentVolumeSourcePatchArgs) ToCSIPersistentVolumeSourcePatchPtrO
 // CSIPersistentVolumeSourcePatchPtrInput is an input type that accepts CSIPersistentVolumeSourcePatchArgs, CSIPersistentVolumeSourcePatchPtr and CSIPersistentVolumeSourcePatchPtrOutput values.
 // You can construct a concrete instance of `CSIPersistentVolumeSourcePatchPtrInput` via:
 //
-//          CSIPersistentVolumeSourcePatchArgs{...}
+//	        CSIPersistentVolumeSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CSIPersistentVolumeSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -2976,7 +2976,7 @@ type CSIVolumeSource struct {
 // CSIVolumeSourceInput is an input type that accepts CSIVolumeSourceArgs and CSIVolumeSourceOutput values.
 // You can construct a concrete instance of `CSIVolumeSourceInput` via:
 //
-//          CSIVolumeSourceArgs{...}
+//	CSIVolumeSourceArgs{...}
 type CSIVolumeSourceInput interface {
 	pulumi.Input
 
@@ -3021,11 +3021,11 @@ func (i CSIVolumeSourceArgs) ToCSIVolumeSourcePtrOutputWithContext(ctx context.C
 // CSIVolumeSourcePtrInput is an input type that accepts CSIVolumeSourceArgs, CSIVolumeSourcePtr and CSIVolumeSourcePtrOutput values.
 // You can construct a concrete instance of `CSIVolumeSourcePtrInput` via:
 //
-//          CSIVolumeSourceArgs{...}
+//	        CSIVolumeSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CSIVolumeSourcePtrInput interface {
 	pulumi.Input
 
@@ -3192,7 +3192,7 @@ type CSIVolumeSourcePatch struct {
 // CSIVolumeSourcePatchInput is an input type that accepts CSIVolumeSourcePatchArgs and CSIVolumeSourcePatchOutput values.
 // You can construct a concrete instance of `CSIVolumeSourcePatchInput` via:
 //
-//          CSIVolumeSourcePatchArgs{...}
+//	CSIVolumeSourcePatchArgs{...}
 type CSIVolumeSourcePatchInput interface {
 	pulumi.Input
 
@@ -3237,11 +3237,11 @@ func (i CSIVolumeSourcePatchArgs) ToCSIVolumeSourcePatchPtrOutputWithContext(ctx
 // CSIVolumeSourcePatchPtrInput is an input type that accepts CSIVolumeSourcePatchArgs, CSIVolumeSourcePatchPtr and CSIVolumeSourcePatchPtrOutput values.
 // You can construct a concrete instance of `CSIVolumeSourcePatchPtrInput` via:
 //
-//          CSIVolumeSourcePatchArgs{...}
+//	        CSIVolumeSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CSIVolumeSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -3402,7 +3402,7 @@ type Capabilities struct {
 // CapabilitiesInput is an input type that accepts CapabilitiesArgs and CapabilitiesOutput values.
 // You can construct a concrete instance of `CapabilitiesInput` via:
 //
-//          CapabilitiesArgs{...}
+//	CapabilitiesArgs{...}
 type CapabilitiesInput interface {
 	pulumi.Input
 
@@ -3441,11 +3441,11 @@ func (i CapabilitiesArgs) ToCapabilitiesPtrOutputWithContext(ctx context.Context
 // CapabilitiesPtrInput is an input type that accepts CapabilitiesArgs, CapabilitiesPtr and CapabilitiesPtrOutput values.
 // You can construct a concrete instance of `CapabilitiesPtrInput` via:
 //
-//          CapabilitiesArgs{...}
+//	        CapabilitiesArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CapabilitiesPtrInput interface {
 	pulumi.Input
 
@@ -3561,7 +3561,7 @@ type CapabilitiesPatch struct {
 // CapabilitiesPatchInput is an input type that accepts CapabilitiesPatchArgs and CapabilitiesPatchOutput values.
 // You can construct a concrete instance of `CapabilitiesPatchInput` via:
 //
-//          CapabilitiesPatchArgs{...}
+//	CapabilitiesPatchArgs{...}
 type CapabilitiesPatchInput interface {
 	pulumi.Input
 
@@ -3600,11 +3600,11 @@ func (i CapabilitiesPatchArgs) ToCapabilitiesPatchPtrOutputWithContext(ctx conte
 // CapabilitiesPatchPtrInput is an input type that accepts CapabilitiesPatchArgs, CapabilitiesPatchPtr and CapabilitiesPatchPtrOutput values.
 // You can construct a concrete instance of `CapabilitiesPatchPtrInput` via:
 //
-//          CapabilitiesPatchArgs{...}
+//	        CapabilitiesPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CapabilitiesPatchPtrInput interface {
 	pulumi.Input
 
@@ -3728,7 +3728,7 @@ type CephFSPersistentVolumeSource struct {
 // CephFSPersistentVolumeSourceInput is an input type that accepts CephFSPersistentVolumeSourceArgs and CephFSPersistentVolumeSourceOutput values.
 // You can construct a concrete instance of `CephFSPersistentVolumeSourceInput` via:
 //
-//          CephFSPersistentVolumeSourceArgs{...}
+//	CephFSPersistentVolumeSourceArgs{...}
 type CephFSPersistentVolumeSourceInput interface {
 	pulumi.Input
 
@@ -3775,11 +3775,11 @@ func (i CephFSPersistentVolumeSourceArgs) ToCephFSPersistentVolumeSourcePtrOutpu
 // CephFSPersistentVolumeSourcePtrInput is an input type that accepts CephFSPersistentVolumeSourceArgs, CephFSPersistentVolumeSourcePtr and CephFSPersistentVolumeSourcePtrOutput values.
 // You can construct a concrete instance of `CephFSPersistentVolumeSourcePtrInput` via:
 //
-//          CephFSPersistentVolumeSourceArgs{...}
+//	        CephFSPersistentVolumeSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CephFSPersistentVolumeSourcePtrInput interface {
 	pulumi.Input
 
@@ -3963,7 +3963,7 @@ type CephFSPersistentVolumeSourcePatch struct {
 // CephFSPersistentVolumeSourcePatchInput is an input type that accepts CephFSPersistentVolumeSourcePatchArgs and CephFSPersistentVolumeSourcePatchOutput values.
 // You can construct a concrete instance of `CephFSPersistentVolumeSourcePatchInput` via:
 //
-//          CephFSPersistentVolumeSourcePatchArgs{...}
+//	CephFSPersistentVolumeSourcePatchArgs{...}
 type CephFSPersistentVolumeSourcePatchInput interface {
 	pulumi.Input
 
@@ -4010,11 +4010,11 @@ func (i CephFSPersistentVolumeSourcePatchArgs) ToCephFSPersistentVolumeSourcePat
 // CephFSPersistentVolumeSourcePatchPtrInput is an input type that accepts CephFSPersistentVolumeSourcePatchArgs, CephFSPersistentVolumeSourcePatchPtr and CephFSPersistentVolumeSourcePatchPtrOutput values.
 // You can construct a concrete instance of `CephFSPersistentVolumeSourcePatchPtrInput` via:
 //
-//          CephFSPersistentVolumeSourcePatchArgs{...}
+//	        CephFSPersistentVolumeSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CephFSPersistentVolumeSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -4198,7 +4198,7 @@ type CephFSVolumeSource struct {
 // CephFSVolumeSourceInput is an input type that accepts CephFSVolumeSourceArgs and CephFSVolumeSourceOutput values.
 // You can construct a concrete instance of `CephFSVolumeSourceInput` via:
 //
-//          CephFSVolumeSourceArgs{...}
+//	CephFSVolumeSourceArgs{...}
 type CephFSVolumeSourceInput interface {
 	pulumi.Input
 
@@ -4245,11 +4245,11 @@ func (i CephFSVolumeSourceArgs) ToCephFSVolumeSourcePtrOutputWithContext(ctx con
 // CephFSVolumeSourcePtrInput is an input type that accepts CephFSVolumeSourceArgs, CephFSVolumeSourcePtr and CephFSVolumeSourcePtrOutput values.
 // You can construct a concrete instance of `CephFSVolumeSourcePtrInput` via:
 //
-//          CephFSVolumeSourceArgs{...}
+//	        CephFSVolumeSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CephFSVolumeSourcePtrInput interface {
 	pulumi.Input
 
@@ -4433,7 +4433,7 @@ type CephFSVolumeSourcePatch struct {
 // CephFSVolumeSourcePatchInput is an input type that accepts CephFSVolumeSourcePatchArgs and CephFSVolumeSourcePatchOutput values.
 // You can construct a concrete instance of `CephFSVolumeSourcePatchInput` via:
 //
-//          CephFSVolumeSourcePatchArgs{...}
+//	CephFSVolumeSourcePatchArgs{...}
 type CephFSVolumeSourcePatchInput interface {
 	pulumi.Input
 
@@ -4480,11 +4480,11 @@ func (i CephFSVolumeSourcePatchArgs) ToCephFSVolumeSourcePatchPtrOutputWithConte
 // CephFSVolumeSourcePatchPtrInput is an input type that accepts CephFSVolumeSourcePatchArgs, CephFSVolumeSourcePatchPtr and CephFSVolumeSourcePatchPtrOutput values.
 // You can construct a concrete instance of `CephFSVolumeSourcePatchPtrInput` via:
 //
-//          CephFSVolumeSourcePatchArgs{...}
+//	        CephFSVolumeSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CephFSVolumeSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -4664,7 +4664,7 @@ type CinderPersistentVolumeSource struct {
 // CinderPersistentVolumeSourceInput is an input type that accepts CinderPersistentVolumeSourceArgs and CinderPersistentVolumeSourceOutput values.
 // You can construct a concrete instance of `CinderPersistentVolumeSourceInput` via:
 //
-//          CinderPersistentVolumeSourceArgs{...}
+//	CinderPersistentVolumeSourceArgs{...}
 type CinderPersistentVolumeSourceInput interface {
 	pulumi.Input
 
@@ -4707,11 +4707,11 @@ func (i CinderPersistentVolumeSourceArgs) ToCinderPersistentVolumeSourcePtrOutpu
 // CinderPersistentVolumeSourcePtrInput is an input type that accepts CinderPersistentVolumeSourceArgs, CinderPersistentVolumeSourcePtr and CinderPersistentVolumeSourcePtrOutput values.
 // You can construct a concrete instance of `CinderPersistentVolumeSourcePtrInput` via:
 //
-//          CinderPersistentVolumeSourceArgs{...}
+//	        CinderPersistentVolumeSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CinderPersistentVolumeSourcePtrInput interface {
 	pulumi.Input
 
@@ -4861,7 +4861,7 @@ type CinderPersistentVolumeSourcePatch struct {
 // CinderPersistentVolumeSourcePatchInput is an input type that accepts CinderPersistentVolumeSourcePatchArgs and CinderPersistentVolumeSourcePatchOutput values.
 // You can construct a concrete instance of `CinderPersistentVolumeSourcePatchInput` via:
 //
-//          CinderPersistentVolumeSourcePatchArgs{...}
+//	CinderPersistentVolumeSourcePatchArgs{...}
 type CinderPersistentVolumeSourcePatchInput interface {
 	pulumi.Input
 
@@ -4904,11 +4904,11 @@ func (i CinderPersistentVolumeSourcePatchArgs) ToCinderPersistentVolumeSourcePat
 // CinderPersistentVolumeSourcePatchPtrInput is an input type that accepts CinderPersistentVolumeSourcePatchArgs, CinderPersistentVolumeSourcePatchPtr and CinderPersistentVolumeSourcePatchPtrOutput values.
 // You can construct a concrete instance of `CinderPersistentVolumeSourcePatchPtrInput` via:
 //
-//          CinderPersistentVolumeSourcePatchArgs{...}
+//	        CinderPersistentVolumeSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CinderPersistentVolumeSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -5058,7 +5058,7 @@ type CinderVolumeSource struct {
 // CinderVolumeSourceInput is an input type that accepts CinderVolumeSourceArgs and CinderVolumeSourceOutput values.
 // You can construct a concrete instance of `CinderVolumeSourceInput` via:
 //
-//          CinderVolumeSourceArgs{...}
+//	CinderVolumeSourceArgs{...}
 type CinderVolumeSourceInput interface {
 	pulumi.Input
 
@@ -5101,11 +5101,11 @@ func (i CinderVolumeSourceArgs) ToCinderVolumeSourcePtrOutputWithContext(ctx con
 // CinderVolumeSourcePtrInput is an input type that accepts CinderVolumeSourceArgs, CinderVolumeSourcePtr and CinderVolumeSourcePtrOutput values.
 // You can construct a concrete instance of `CinderVolumeSourcePtrInput` via:
 //
-//          CinderVolumeSourceArgs{...}
+//	        CinderVolumeSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CinderVolumeSourcePtrInput interface {
 	pulumi.Input
 
@@ -5255,7 +5255,7 @@ type CinderVolumeSourcePatch struct {
 // CinderVolumeSourcePatchInput is an input type that accepts CinderVolumeSourcePatchArgs and CinderVolumeSourcePatchOutput values.
 // You can construct a concrete instance of `CinderVolumeSourcePatchInput` via:
 //
-//          CinderVolumeSourcePatchArgs{...}
+//	CinderVolumeSourcePatchArgs{...}
 type CinderVolumeSourcePatchInput interface {
 	pulumi.Input
 
@@ -5298,11 +5298,11 @@ func (i CinderVolumeSourcePatchArgs) ToCinderVolumeSourcePatchPtrOutputWithConte
 // CinderVolumeSourcePatchPtrInput is an input type that accepts CinderVolumeSourcePatchArgs, CinderVolumeSourcePatchPtr and CinderVolumeSourcePatchPtrOutput values.
 // You can construct a concrete instance of `CinderVolumeSourcePatchPtrInput` via:
 //
-//          CinderVolumeSourcePatchArgs{...}
+//	        CinderVolumeSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type CinderVolumeSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -5446,7 +5446,7 @@ type ClientIPConfig struct {
 // ClientIPConfigInput is an input type that accepts ClientIPConfigArgs and ClientIPConfigOutput values.
 // You can construct a concrete instance of `ClientIPConfigInput` via:
 //
-//          ClientIPConfigArgs{...}
+//	ClientIPConfigArgs{...}
 type ClientIPConfigInput interface {
 	pulumi.Input
 
@@ -5483,11 +5483,11 @@ func (i ClientIPConfigArgs) ToClientIPConfigPtrOutputWithContext(ctx context.Con
 // ClientIPConfigPtrInput is an input type that accepts ClientIPConfigArgs, ClientIPConfigPtr and ClientIPConfigPtrOutput values.
 // You can construct a concrete instance of `ClientIPConfigPtrInput` via:
 //
-//          ClientIPConfigArgs{...}
+//	        ClientIPConfigArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ClientIPConfigPtrInput interface {
 	pulumi.Input
 
@@ -5586,7 +5586,7 @@ type ClientIPConfigPatch struct {
 // ClientIPConfigPatchInput is an input type that accepts ClientIPConfigPatchArgs and ClientIPConfigPatchOutput values.
 // You can construct a concrete instance of `ClientIPConfigPatchInput` via:
 //
-//          ClientIPConfigPatchArgs{...}
+//	ClientIPConfigPatchArgs{...}
 type ClientIPConfigPatchInput interface {
 	pulumi.Input
 
@@ -5623,11 +5623,11 @@ func (i ClientIPConfigPatchArgs) ToClientIPConfigPatchPtrOutputWithContext(ctx c
 // ClientIPConfigPatchPtrInput is an input type that accepts ClientIPConfigPatchArgs, ClientIPConfigPatchPtr and ClientIPConfigPatchPtrOutput values.
 // You can construct a concrete instance of `ClientIPConfigPatchPtrInput` via:
 //
-//          ClientIPConfigPatchArgs{...}
+//	        ClientIPConfigPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ClientIPConfigPatchPtrInput interface {
 	pulumi.Input
 
@@ -5732,7 +5732,7 @@ type ComponentCondition struct {
 // ComponentConditionInput is an input type that accepts ComponentConditionArgs and ComponentConditionOutput values.
 // You can construct a concrete instance of `ComponentConditionInput` via:
 //
-//          ComponentConditionArgs{...}
+//	ComponentConditionArgs{...}
 type ComponentConditionInput interface {
 	pulumi.Input
 
@@ -5767,7 +5767,7 @@ func (i ComponentConditionArgs) ToComponentConditionOutputWithContext(ctx contex
 // ComponentConditionArrayInput is an input type that accepts ComponentConditionArray and ComponentConditionArrayOutput values.
 // You can construct a concrete instance of `ComponentConditionArrayInput` via:
 //
-//          ComponentConditionArray{ ComponentConditionArgs{...} }
+//	ComponentConditionArray{ ComponentConditionArgs{...} }
 type ComponentConditionArrayInput interface {
 	pulumi.Input
 
@@ -5859,7 +5859,7 @@ type ComponentConditionPatch struct {
 // ComponentConditionPatchInput is an input type that accepts ComponentConditionPatchArgs and ComponentConditionPatchOutput values.
 // You can construct a concrete instance of `ComponentConditionPatchInput` via:
 //
-//          ComponentConditionPatchArgs{...}
+//	ComponentConditionPatchArgs{...}
 type ComponentConditionPatchInput interface {
 	pulumi.Input
 
@@ -5894,7 +5894,7 @@ func (i ComponentConditionPatchArgs) ToComponentConditionPatchOutputWithContext(
 // ComponentConditionPatchArrayInput is an input type that accepts ComponentConditionPatchArray and ComponentConditionPatchArrayOutput values.
 // You can construct a concrete instance of `ComponentConditionPatchArrayInput` via:
 //
-//          ComponentConditionPatchArray{ ComponentConditionPatchArgs{...} }
+//	ComponentConditionPatchArray{ ComponentConditionPatchArgs{...} }
 type ComponentConditionPatchArrayInput interface {
 	pulumi.Input
 
@@ -5986,7 +5986,7 @@ type ComponentStatus struct {
 // ComponentStatusInput is an input type that accepts ComponentStatusArgs and ComponentStatusOutput values.
 // You can construct a concrete instance of `ComponentStatusInput` via:
 //
-//          ComponentStatusArgs{...}
+//	ComponentStatusArgs{...}
 type ComponentStatusInput interface {
 	pulumi.Input
 
@@ -6021,7 +6021,7 @@ func (i ComponentStatusArgs) ToComponentStatusOutputWithContext(ctx context.Cont
 // ComponentStatusArrayInput is an input type that accepts ComponentStatusArray and ComponentStatusArrayOutput values.
 // You can construct a concrete instance of `ComponentStatusArrayInput` via:
 //
-//          ComponentStatusArray{ ComponentStatusArgs{...} }
+//	ComponentStatusArray{ ComponentStatusArgs{...} }
 type ComponentStatusArrayInput interface {
 	pulumi.Input
 
@@ -6113,7 +6113,7 @@ type ComponentStatusList struct {
 // ComponentStatusListInput is an input type that accepts ComponentStatusListArgs and ComponentStatusListOutput values.
 // You can construct a concrete instance of `ComponentStatusListInput` via:
 //
-//          ComponentStatusListArgs{...}
+//	ComponentStatusListArgs{...}
 type ComponentStatusListInput interface {
 	pulumi.Input
 
@@ -6195,7 +6195,7 @@ type ComponentStatusPatch struct {
 // ComponentStatusPatchInput is an input type that accepts ComponentStatusPatchArgs and ComponentStatusPatchOutput values.
 // You can construct a concrete instance of `ComponentStatusPatchInput` via:
 //
-//          ComponentStatusPatchArgs{...}
+//	ComponentStatusPatchArgs{...}
 type ComponentStatusPatchInput interface {
 	pulumi.Input
 
@@ -6281,7 +6281,7 @@ type ConfigMapType struct {
 // ConfigMapTypeInput is an input type that accepts ConfigMapTypeArgs and ConfigMapTypeOutput values.
 // You can construct a concrete instance of `ConfigMapTypeInput` via:
 //
-//          ConfigMapTypeArgs{...}
+//	ConfigMapTypeArgs{...}
 type ConfigMapTypeInput interface {
 	pulumi.Input
 
@@ -6320,7 +6320,7 @@ func (i ConfigMapTypeArgs) ToConfigMapTypeOutputWithContext(ctx context.Context)
 // ConfigMapTypeArrayInput is an input type that accepts ConfigMapTypeArray and ConfigMapTypeArrayOutput values.
 // You can construct a concrete instance of `ConfigMapTypeArrayInput` via:
 //
-//          ConfigMapTypeArray{ ConfigMapTypeArgs{...} }
+//	ConfigMapTypeArray{ ConfigMapTypeArgs{...} }
 type ConfigMapTypeArrayInput interface {
 	pulumi.Input
 
@@ -6420,7 +6420,7 @@ type ConfigMapEnvSource struct {
 // ConfigMapEnvSourceInput is an input type that accepts ConfigMapEnvSourceArgs and ConfigMapEnvSourceOutput values.
 // You can construct a concrete instance of `ConfigMapEnvSourceInput` via:
 //
-//          ConfigMapEnvSourceArgs{...}
+//	ConfigMapEnvSourceArgs{...}
 type ConfigMapEnvSourceInput interface {
 	pulumi.Input
 
@@ -6461,11 +6461,11 @@ func (i ConfigMapEnvSourceArgs) ToConfigMapEnvSourcePtrOutputWithContext(ctx con
 // ConfigMapEnvSourcePtrInput is an input type that accepts ConfigMapEnvSourceArgs, ConfigMapEnvSourcePtr and ConfigMapEnvSourcePtrOutput values.
 // You can construct a concrete instance of `ConfigMapEnvSourcePtrInput` via:
 //
-//          ConfigMapEnvSourceArgs{...}
+//	        ConfigMapEnvSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ConfigMapEnvSourcePtrInput interface {
 	pulumi.Input
 
@@ -6585,7 +6585,7 @@ type ConfigMapEnvSourcePatch struct {
 // ConfigMapEnvSourcePatchInput is an input type that accepts ConfigMapEnvSourcePatchArgs and ConfigMapEnvSourcePatchOutput values.
 // You can construct a concrete instance of `ConfigMapEnvSourcePatchInput` via:
 //
-//          ConfigMapEnvSourcePatchArgs{...}
+//	ConfigMapEnvSourcePatchArgs{...}
 type ConfigMapEnvSourcePatchInput interface {
 	pulumi.Input
 
@@ -6626,11 +6626,11 @@ func (i ConfigMapEnvSourcePatchArgs) ToConfigMapEnvSourcePatchPtrOutputWithConte
 // ConfigMapEnvSourcePatchPtrInput is an input type that accepts ConfigMapEnvSourcePatchArgs, ConfigMapEnvSourcePatchPtr and ConfigMapEnvSourcePatchPtrOutput values.
 // You can construct a concrete instance of `ConfigMapEnvSourcePatchPtrInput` via:
 //
-//          ConfigMapEnvSourcePatchArgs{...}
+//	        ConfigMapEnvSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ConfigMapEnvSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -6750,7 +6750,7 @@ type ConfigMapKeySelector struct {
 // ConfigMapKeySelectorInput is an input type that accepts ConfigMapKeySelectorArgs and ConfigMapKeySelectorOutput values.
 // You can construct a concrete instance of `ConfigMapKeySelectorInput` via:
 //
-//          ConfigMapKeySelectorArgs{...}
+//	ConfigMapKeySelectorArgs{...}
 type ConfigMapKeySelectorInput interface {
 	pulumi.Input
 
@@ -6791,11 +6791,11 @@ func (i ConfigMapKeySelectorArgs) ToConfigMapKeySelectorPtrOutputWithContext(ctx
 // ConfigMapKeySelectorPtrInput is an input type that accepts ConfigMapKeySelectorArgs, ConfigMapKeySelectorPtr and ConfigMapKeySelectorPtrOutput values.
 // You can construct a concrete instance of `ConfigMapKeySelectorPtrInput` via:
 //
-//          ConfigMapKeySelectorArgs{...}
+//	        ConfigMapKeySelectorArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ConfigMapKeySelectorPtrInput interface {
 	pulumi.Input
 
@@ -6928,7 +6928,7 @@ type ConfigMapKeySelectorPatch struct {
 // ConfigMapKeySelectorPatchInput is an input type that accepts ConfigMapKeySelectorPatchArgs and ConfigMapKeySelectorPatchOutput values.
 // You can construct a concrete instance of `ConfigMapKeySelectorPatchInput` via:
 //
-//          ConfigMapKeySelectorPatchArgs{...}
+//	ConfigMapKeySelectorPatchArgs{...}
 type ConfigMapKeySelectorPatchInput interface {
 	pulumi.Input
 
@@ -6969,11 +6969,11 @@ func (i ConfigMapKeySelectorPatchArgs) ToConfigMapKeySelectorPatchPtrOutputWithC
 // ConfigMapKeySelectorPatchPtrInput is an input type that accepts ConfigMapKeySelectorPatchArgs, ConfigMapKeySelectorPatchPtr and ConfigMapKeySelectorPatchPtrOutput values.
 // You can construct a concrete instance of `ConfigMapKeySelectorPatchPtrInput` via:
 //
-//          ConfigMapKeySelectorPatchArgs{...}
+//	        ConfigMapKeySelectorPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ConfigMapKeySelectorPatchPtrInput interface {
 	pulumi.Input
 
@@ -7108,7 +7108,7 @@ type ConfigMapListType struct {
 // ConfigMapListTypeInput is an input type that accepts ConfigMapListTypeArgs and ConfigMapListTypeOutput values.
 // You can construct a concrete instance of `ConfigMapListTypeInput` via:
 //
-//          ConfigMapListTypeArgs{...}
+//	ConfigMapListTypeArgs{...}
 type ConfigMapListTypeInput interface {
 	pulumi.Input
 
@@ -7192,7 +7192,7 @@ type ConfigMapNodeConfigSource struct {
 // ConfigMapNodeConfigSourceInput is an input type that accepts ConfigMapNodeConfigSourceArgs and ConfigMapNodeConfigSourceOutput values.
 // You can construct a concrete instance of `ConfigMapNodeConfigSourceInput` via:
 //
-//          ConfigMapNodeConfigSourceArgs{...}
+//	ConfigMapNodeConfigSourceArgs{...}
 type ConfigMapNodeConfigSourceInput interface {
 	pulumi.Input
 
@@ -7237,11 +7237,11 @@ func (i ConfigMapNodeConfigSourceArgs) ToConfigMapNodeConfigSourcePtrOutputWithC
 // ConfigMapNodeConfigSourcePtrInput is an input type that accepts ConfigMapNodeConfigSourceArgs, ConfigMapNodeConfigSourcePtr and ConfigMapNodeConfigSourcePtrOutput values.
 // You can construct a concrete instance of `ConfigMapNodeConfigSourcePtrInput` via:
 //
-//          ConfigMapNodeConfigSourceArgs{...}
+//	        ConfigMapNodeConfigSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ConfigMapNodeConfigSourcePtrInput interface {
 	pulumi.Input
 
@@ -7408,7 +7408,7 @@ type ConfigMapNodeConfigSourcePatch struct {
 // ConfigMapNodeConfigSourcePatchInput is an input type that accepts ConfigMapNodeConfigSourcePatchArgs and ConfigMapNodeConfigSourcePatchOutput values.
 // You can construct a concrete instance of `ConfigMapNodeConfigSourcePatchInput` via:
 //
-//          ConfigMapNodeConfigSourcePatchArgs{...}
+//	ConfigMapNodeConfigSourcePatchArgs{...}
 type ConfigMapNodeConfigSourcePatchInput interface {
 	pulumi.Input
 
@@ -7453,11 +7453,11 @@ func (i ConfigMapNodeConfigSourcePatchArgs) ToConfigMapNodeConfigSourcePatchPtrO
 // ConfigMapNodeConfigSourcePatchPtrInput is an input type that accepts ConfigMapNodeConfigSourcePatchArgs, ConfigMapNodeConfigSourcePatchPtr and ConfigMapNodeConfigSourcePatchPtrOutput values.
 // You can construct a concrete instance of `ConfigMapNodeConfigSourcePatchPtrInput` via:
 //
-//          ConfigMapNodeConfigSourcePatchArgs{...}
+//	        ConfigMapNodeConfigSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ConfigMapNodeConfigSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -7626,7 +7626,7 @@ type ConfigMapPatchType struct {
 // ConfigMapPatchTypeInput is an input type that accepts ConfigMapPatchTypeArgs and ConfigMapPatchTypeOutput values.
 // You can construct a concrete instance of `ConfigMapPatchTypeInput` via:
 //
-//          ConfigMapPatchTypeArgs{...}
+//	ConfigMapPatchTypeArgs{...}
 type ConfigMapPatchTypeInput interface {
 	pulumi.Input
 
@@ -7722,7 +7722,7 @@ type ConfigMapProjection struct {
 // ConfigMapProjectionInput is an input type that accepts ConfigMapProjectionArgs and ConfigMapProjectionOutput values.
 // You can construct a concrete instance of `ConfigMapProjectionInput` via:
 //
-//          ConfigMapProjectionArgs{...}
+//	ConfigMapProjectionArgs{...}
 type ConfigMapProjectionInput interface {
 	pulumi.Input
 
@@ -7765,11 +7765,11 @@ func (i ConfigMapProjectionArgs) ToConfigMapProjectionPtrOutputWithContext(ctx c
 // ConfigMapProjectionPtrInput is an input type that accepts ConfigMapProjectionArgs, ConfigMapProjectionPtr and ConfigMapProjectionPtrOutput values.
 // You can construct a concrete instance of `ConfigMapProjectionPtrInput` via:
 //
-//          ConfigMapProjectionArgs{...}
+//	        ConfigMapProjectionArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ConfigMapProjectionPtrInput interface {
 	pulumi.Input
 
@@ -7906,7 +7906,7 @@ type ConfigMapProjectionPatch struct {
 // ConfigMapProjectionPatchInput is an input type that accepts ConfigMapProjectionPatchArgs and ConfigMapProjectionPatchOutput values.
 // You can construct a concrete instance of `ConfigMapProjectionPatchInput` via:
 //
-//          ConfigMapProjectionPatchArgs{...}
+//	ConfigMapProjectionPatchArgs{...}
 type ConfigMapProjectionPatchInput interface {
 	pulumi.Input
 
@@ -7949,11 +7949,11 @@ func (i ConfigMapProjectionPatchArgs) ToConfigMapProjectionPatchPtrOutputWithCon
 // ConfigMapProjectionPatchPtrInput is an input type that accepts ConfigMapProjectionPatchArgs, ConfigMapProjectionPatchPtr and ConfigMapProjectionPatchPtrOutput values.
 // You can construct a concrete instance of `ConfigMapProjectionPatchPtrInput` via:
 //
-//          ConfigMapProjectionPatchArgs{...}
+//	        ConfigMapProjectionPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ConfigMapProjectionPatchPtrInput interface {
 	pulumi.Input
 
@@ -8092,7 +8092,7 @@ type ConfigMapVolumeSource struct {
 // ConfigMapVolumeSourceInput is an input type that accepts ConfigMapVolumeSourceArgs and ConfigMapVolumeSourceOutput values.
 // You can construct a concrete instance of `ConfigMapVolumeSourceInput` via:
 //
-//          ConfigMapVolumeSourceArgs{...}
+//	ConfigMapVolumeSourceArgs{...}
 type ConfigMapVolumeSourceInput interface {
 	pulumi.Input
 
@@ -8137,11 +8137,11 @@ func (i ConfigMapVolumeSourceArgs) ToConfigMapVolumeSourcePtrOutputWithContext(c
 // ConfigMapVolumeSourcePtrInput is an input type that accepts ConfigMapVolumeSourceArgs, ConfigMapVolumeSourcePtr and ConfigMapVolumeSourcePtrOutput values.
 // You can construct a concrete instance of `ConfigMapVolumeSourcePtrInput` via:
 //
-//          ConfigMapVolumeSourceArgs{...}
+//	        ConfigMapVolumeSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ConfigMapVolumeSourcePtrInput interface {
 	pulumi.Input
 
@@ -8295,7 +8295,7 @@ type ConfigMapVolumeSourcePatch struct {
 // ConfigMapVolumeSourcePatchInput is an input type that accepts ConfigMapVolumeSourcePatchArgs and ConfigMapVolumeSourcePatchOutput values.
 // You can construct a concrete instance of `ConfigMapVolumeSourcePatchInput` via:
 //
-//          ConfigMapVolumeSourcePatchArgs{...}
+//	ConfigMapVolumeSourcePatchArgs{...}
 type ConfigMapVolumeSourcePatchInput interface {
 	pulumi.Input
 
@@ -8340,11 +8340,11 @@ func (i ConfigMapVolumeSourcePatchArgs) ToConfigMapVolumeSourcePatchPtrOutputWit
 // ConfigMapVolumeSourcePatchPtrInput is an input type that accepts ConfigMapVolumeSourcePatchArgs, ConfigMapVolumeSourcePatchPtr and ConfigMapVolumeSourcePatchPtrOutput values.
 // You can construct a concrete instance of `ConfigMapVolumeSourcePatchPtrInput` via:
 //
-//          ConfigMapVolumeSourcePatchArgs{...}
+//	        ConfigMapVolumeSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ConfigMapVolumeSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -8532,7 +8532,7 @@ type Container struct {
 // ContainerInput is an input type that accepts ContainerArgs and ContainerOutput values.
 // You can construct a concrete instance of `ContainerInput` via:
 //
-//          ContainerArgs{...}
+//	ContainerArgs{...}
 type ContainerInput interface {
 	pulumi.Input
 
@@ -8603,7 +8603,7 @@ func (i ContainerArgs) ToContainerOutputWithContext(ctx context.Context) Contain
 // ContainerArrayInput is an input type that accepts ContainerArray and ContainerArrayOutput values.
 // You can construct a concrete instance of `ContainerArrayInput` via:
 //
-//          ContainerArray{ ContainerArgs{...} }
+//	ContainerArray{ ContainerArgs{...} }
 type ContainerArrayInput interface {
 	pulumi.Input
 
@@ -8781,7 +8781,7 @@ type ContainerImage struct {
 // ContainerImageInput is an input type that accepts ContainerImageArgs and ContainerImageOutput values.
 // You can construct a concrete instance of `ContainerImageInput` via:
 //
-//          ContainerImageArgs{...}
+//	ContainerImageArgs{...}
 type ContainerImageInput interface {
 	pulumi.Input
 
@@ -8812,7 +8812,7 @@ func (i ContainerImageArgs) ToContainerImageOutputWithContext(ctx context.Contex
 // ContainerImageArrayInput is an input type that accepts ContainerImageArray and ContainerImageArrayOutput values.
 // You can construct a concrete instance of `ContainerImageArrayInput` via:
 //
-//          ContainerImageArray{ ContainerImageArgs{...} }
+//	ContainerImageArray{ ContainerImageArgs{...} }
 type ContainerImageArrayInput interface {
 	pulumi.Input
 
@@ -8890,7 +8890,7 @@ type ContainerImagePatch struct {
 // ContainerImagePatchInput is an input type that accepts ContainerImagePatchArgs and ContainerImagePatchOutput values.
 // You can construct a concrete instance of `ContainerImagePatchInput` via:
 //
-//          ContainerImagePatchArgs{...}
+//	ContainerImagePatchArgs{...}
 type ContainerImagePatchInput interface {
 	pulumi.Input
 
@@ -8921,7 +8921,7 @@ func (i ContainerImagePatchArgs) ToContainerImagePatchOutputWithContext(ctx cont
 // ContainerImagePatchArrayInput is an input type that accepts ContainerImagePatchArray and ContainerImagePatchArrayOutput values.
 // You can construct a concrete instance of `ContainerImagePatchArrayInput` via:
 //
-//          ContainerImagePatchArray{ ContainerImagePatchArgs{...} }
+//	ContainerImagePatchArray{ ContainerImagePatchArgs{...} }
 type ContainerImagePatchArrayInput interface {
 	pulumi.Input
 
@@ -9039,7 +9039,7 @@ type ContainerPatch struct {
 // ContainerPatchInput is an input type that accepts ContainerPatchArgs and ContainerPatchOutput values.
 // You can construct a concrete instance of `ContainerPatchInput` via:
 //
-//          ContainerPatchArgs{...}
+//	ContainerPatchArgs{...}
 type ContainerPatchInput interface {
 	pulumi.Input
 
@@ -9110,7 +9110,7 @@ func (i ContainerPatchArgs) ToContainerPatchOutputWithContext(ctx context.Contex
 // ContainerPatchArrayInput is an input type that accepts ContainerPatchArray and ContainerPatchArrayOutput values.
 // You can construct a concrete instance of `ContainerPatchArrayInput` via:
 //
-//          ContainerPatchArray{ ContainerPatchArgs{...} }
+//	ContainerPatchArray{ ContainerPatchArgs{...} }
 type ContainerPatchArrayInput interface {
 	pulumi.Input
 
@@ -9294,7 +9294,7 @@ type ContainerPort struct {
 // ContainerPortInput is an input type that accepts ContainerPortArgs and ContainerPortOutput values.
 // You can construct a concrete instance of `ContainerPortInput` via:
 //
-//          ContainerPortArgs{...}
+//	ContainerPortArgs{...}
 type ContainerPortInput interface {
 	pulumi.Input
 
@@ -9331,7 +9331,7 @@ func (i ContainerPortArgs) ToContainerPortOutputWithContext(ctx context.Context)
 // ContainerPortArrayInput is an input type that accepts ContainerPortArray and ContainerPortArrayOutput values.
 // You can construct a concrete instance of `ContainerPortArrayInput` via:
 //
-//          ContainerPortArray{ ContainerPortArgs{...} }
+//	ContainerPortArray{ ContainerPortArgs{...} }
 type ContainerPortArrayInput interface {
 	pulumi.Input
 
@@ -9430,7 +9430,7 @@ type ContainerPortPatch struct {
 // ContainerPortPatchInput is an input type that accepts ContainerPortPatchArgs and ContainerPortPatchOutput values.
 // You can construct a concrete instance of `ContainerPortPatchInput` via:
 //
-//          ContainerPortPatchArgs{...}
+//	ContainerPortPatchArgs{...}
 type ContainerPortPatchInput interface {
 	pulumi.Input
 
@@ -9467,7 +9467,7 @@ func (i ContainerPortPatchArgs) ToContainerPortPatchOutputWithContext(ctx contex
 // ContainerPortPatchArrayInput is an input type that accepts ContainerPortPatchArray and ContainerPortPatchArrayOutput values.
 // You can construct a concrete instance of `ContainerPortPatchArrayInput` via:
 //
-//          ContainerPortPatchArray{ ContainerPortPatchArgs{...} }
+//	ContainerPortPatchArray{ ContainerPortPatchArgs{...} }
 type ContainerPortPatchArrayInput interface {
 	pulumi.Input
 
@@ -9562,7 +9562,7 @@ type ContainerState struct {
 // ContainerStateInput is an input type that accepts ContainerStateArgs and ContainerStateOutput values.
 // You can construct a concrete instance of `ContainerStateInput` via:
 //
-//          ContainerStateArgs{...}
+//	ContainerStateArgs{...}
 type ContainerStateInput interface {
 	pulumi.Input
 
@@ -9603,11 +9603,11 @@ func (i ContainerStateArgs) ToContainerStatePtrOutputWithContext(ctx context.Con
 // ContainerStatePtrInput is an input type that accepts ContainerStateArgs, ContainerStatePtr and ContainerStatePtrOutput values.
 // You can construct a concrete instance of `ContainerStatePtrInput` via:
 //
-//          ContainerStateArgs{...}
+//	        ContainerStateArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ContainerStatePtrInput interface {
 	pulumi.Input
 
@@ -9740,7 +9740,7 @@ type ContainerStatePatch struct {
 // ContainerStatePatchInput is an input type that accepts ContainerStatePatchArgs and ContainerStatePatchOutput values.
 // You can construct a concrete instance of `ContainerStatePatchInput` via:
 //
-//          ContainerStatePatchArgs{...}
+//	ContainerStatePatchArgs{...}
 type ContainerStatePatchInput interface {
 	pulumi.Input
 
@@ -9781,11 +9781,11 @@ func (i ContainerStatePatchArgs) ToContainerStatePatchPtrOutputWithContext(ctx c
 // ContainerStatePatchPtrInput is an input type that accepts ContainerStatePatchArgs, ContainerStatePatchPtr and ContainerStatePatchPtrOutput values.
 // You can construct a concrete instance of `ContainerStatePatchPtrInput` via:
 //
-//          ContainerStatePatchArgs{...}
+//	        ContainerStatePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ContainerStatePatchPtrInput interface {
 	pulumi.Input
 
@@ -9914,7 +9914,7 @@ type ContainerStateRunning struct {
 // ContainerStateRunningInput is an input type that accepts ContainerStateRunningArgs and ContainerStateRunningOutput values.
 // You can construct a concrete instance of `ContainerStateRunningInput` via:
 //
-//          ContainerStateRunningArgs{...}
+//	ContainerStateRunningArgs{...}
 type ContainerStateRunningInput interface {
 	pulumi.Input
 
@@ -9951,11 +9951,11 @@ func (i ContainerStateRunningArgs) ToContainerStateRunningPtrOutputWithContext(c
 // ContainerStateRunningPtrInput is an input type that accepts ContainerStateRunningArgs, ContainerStateRunningPtr and ContainerStateRunningPtrOutput values.
 // You can construct a concrete instance of `ContainerStateRunningPtrInput` via:
 //
-//          ContainerStateRunningArgs{...}
+//	        ContainerStateRunningArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ContainerStateRunningPtrInput interface {
 	pulumi.Input
 
@@ -10054,7 +10054,7 @@ type ContainerStateRunningPatch struct {
 // ContainerStateRunningPatchInput is an input type that accepts ContainerStateRunningPatchArgs and ContainerStateRunningPatchOutput values.
 // You can construct a concrete instance of `ContainerStateRunningPatchInput` via:
 //
-//          ContainerStateRunningPatchArgs{...}
+//	ContainerStateRunningPatchArgs{...}
 type ContainerStateRunningPatchInput interface {
 	pulumi.Input
 
@@ -10091,11 +10091,11 @@ func (i ContainerStateRunningPatchArgs) ToContainerStateRunningPatchPtrOutputWit
 // ContainerStateRunningPatchPtrInput is an input type that accepts ContainerStateRunningPatchArgs, ContainerStateRunningPatchPtr and ContainerStateRunningPatchPtrOutput values.
 // You can construct a concrete instance of `ContainerStateRunningPatchPtrInput` via:
 //
-//          ContainerStateRunningPatchArgs{...}
+//	        ContainerStateRunningPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ContainerStateRunningPatchPtrInput interface {
 	pulumi.Input
 
@@ -10206,7 +10206,7 @@ type ContainerStateTerminated struct {
 // ContainerStateTerminatedInput is an input type that accepts ContainerStateTerminatedArgs and ContainerStateTerminatedOutput values.
 // You can construct a concrete instance of `ContainerStateTerminatedInput` via:
 //
-//          ContainerStateTerminatedArgs{...}
+//	ContainerStateTerminatedArgs{...}
 type ContainerStateTerminatedInput interface {
 	pulumi.Input
 
@@ -10255,11 +10255,11 @@ func (i ContainerStateTerminatedArgs) ToContainerStateTerminatedPtrOutputWithCon
 // ContainerStateTerminatedPtrInput is an input type that accepts ContainerStateTerminatedArgs, ContainerStateTerminatedPtr and ContainerStateTerminatedPtrOutput values.
 // You can construct a concrete instance of `ContainerStateTerminatedPtrInput` via:
 //
-//          ContainerStateTerminatedArgs{...}
+//	        ContainerStateTerminatedArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ContainerStateTerminatedPtrInput interface {
 	pulumi.Input
 
@@ -10460,7 +10460,7 @@ type ContainerStateTerminatedPatch struct {
 // ContainerStateTerminatedPatchInput is an input type that accepts ContainerStateTerminatedPatchArgs and ContainerStateTerminatedPatchOutput values.
 // You can construct a concrete instance of `ContainerStateTerminatedPatchInput` via:
 //
-//          ContainerStateTerminatedPatchArgs{...}
+//	ContainerStateTerminatedPatchArgs{...}
 type ContainerStateTerminatedPatchInput interface {
 	pulumi.Input
 
@@ -10509,11 +10509,11 @@ func (i ContainerStateTerminatedPatchArgs) ToContainerStateTerminatedPatchPtrOut
 // ContainerStateTerminatedPatchPtrInput is an input type that accepts ContainerStateTerminatedPatchArgs, ContainerStateTerminatedPatchPtr and ContainerStateTerminatedPatchPtrOutput values.
 // You can construct a concrete instance of `ContainerStateTerminatedPatchPtrInput` via:
 //
-//          ContainerStateTerminatedPatchArgs{...}
+//	        ContainerStateTerminatedPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ContainerStateTerminatedPatchPtrInput interface {
 	pulumi.Input
 
@@ -10704,7 +10704,7 @@ type ContainerStateWaiting struct {
 // ContainerStateWaitingInput is an input type that accepts ContainerStateWaitingArgs and ContainerStateWaitingOutput values.
 // You can construct a concrete instance of `ContainerStateWaitingInput` via:
 //
-//          ContainerStateWaitingArgs{...}
+//	ContainerStateWaitingArgs{...}
 type ContainerStateWaitingInput interface {
 	pulumi.Input
 
@@ -10743,11 +10743,11 @@ func (i ContainerStateWaitingArgs) ToContainerStateWaitingPtrOutputWithContext(c
 // ContainerStateWaitingPtrInput is an input type that accepts ContainerStateWaitingArgs, ContainerStateWaitingPtr and ContainerStateWaitingPtrOutput values.
 // You can construct a concrete instance of `ContainerStateWaitingPtrInput` via:
 //
-//          ContainerStateWaitingArgs{...}
+//	        ContainerStateWaitingArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ContainerStateWaitingPtrInput interface {
 	pulumi.Input
 
@@ -10863,7 +10863,7 @@ type ContainerStateWaitingPatch struct {
 // ContainerStateWaitingPatchInput is an input type that accepts ContainerStateWaitingPatchArgs and ContainerStateWaitingPatchOutput values.
 // You can construct a concrete instance of `ContainerStateWaitingPatchInput` via:
 //
-//          ContainerStateWaitingPatchArgs{...}
+//	ContainerStateWaitingPatchArgs{...}
 type ContainerStateWaitingPatchInput interface {
 	pulumi.Input
 
@@ -10902,11 +10902,11 @@ func (i ContainerStateWaitingPatchArgs) ToContainerStateWaitingPatchPtrOutputWit
 // ContainerStateWaitingPatchPtrInput is an input type that accepts ContainerStateWaitingPatchArgs, ContainerStateWaitingPatchPtr and ContainerStateWaitingPatchPtrOutput values.
 // You can construct a concrete instance of `ContainerStateWaitingPatchPtrInput` via:
 //
-//          ContainerStateWaitingPatchArgs{...}
+//	        ContainerStateWaitingPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ContainerStateWaitingPatchPtrInput interface {
 	pulumi.Input
 
@@ -11036,7 +11036,7 @@ type ContainerStatus struct {
 // ContainerStatusInput is an input type that accepts ContainerStatusArgs and ContainerStatusOutput values.
 // You can construct a concrete instance of `ContainerStatusInput` via:
 //
-//          ContainerStatusArgs{...}
+//	ContainerStatusArgs{...}
 type ContainerStatusInput interface {
 	pulumi.Input
 
@@ -11081,7 +11081,7 @@ func (i ContainerStatusArgs) ToContainerStatusOutputWithContext(ctx context.Cont
 // ContainerStatusArrayInput is an input type that accepts ContainerStatusArray and ContainerStatusArrayOutput values.
 // You can construct a concrete instance of `ContainerStatusArrayInput` via:
 //
-//          ContainerStatusArray{ ContainerStatusArgs{...} }
+//	ContainerStatusArray{ ContainerStatusArgs{...} }
 type ContainerStatusArrayInput interface {
 	pulumi.Input
 
@@ -11208,7 +11208,7 @@ type ContainerStatusPatch struct {
 // ContainerStatusPatchInput is an input type that accepts ContainerStatusPatchArgs and ContainerStatusPatchOutput values.
 // You can construct a concrete instance of `ContainerStatusPatchInput` via:
 //
-//          ContainerStatusPatchArgs{...}
+//	ContainerStatusPatchArgs{...}
 type ContainerStatusPatchInput interface {
 	pulumi.Input
 
@@ -11253,7 +11253,7 @@ func (i ContainerStatusPatchArgs) ToContainerStatusPatchOutputWithContext(ctx co
 // ContainerStatusPatchArrayInput is an input type that accepts ContainerStatusPatchArray and ContainerStatusPatchArrayOutput values.
 // You can construct a concrete instance of `ContainerStatusPatchArrayInput` via:
 //
-//          ContainerStatusPatchArray{ ContainerStatusPatchArgs{...} }
+//	ContainerStatusPatchArray{ ContainerStatusPatchArgs{...} }
 type ContainerStatusPatchArrayInput interface {
 	pulumi.Input
 
@@ -11364,7 +11364,7 @@ type DaemonEndpoint struct {
 // DaemonEndpointInput is an input type that accepts DaemonEndpointArgs and DaemonEndpointOutput values.
 // You can construct a concrete instance of `DaemonEndpointInput` via:
 //
-//          DaemonEndpointArgs{...}
+//	DaemonEndpointArgs{...}
 type DaemonEndpointInput interface {
 	pulumi.Input
 
@@ -11401,11 +11401,11 @@ func (i DaemonEndpointArgs) ToDaemonEndpointPtrOutputWithContext(ctx context.Con
 // DaemonEndpointPtrInput is an input type that accepts DaemonEndpointArgs, DaemonEndpointPtr and DaemonEndpointPtrOutput values.
 // You can construct a concrete instance of `DaemonEndpointPtrInput` via:
 //
-//          DaemonEndpointArgs{...}
+//	        DaemonEndpointArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type DaemonEndpointPtrInput interface {
 	pulumi.Input
 
@@ -11504,7 +11504,7 @@ type DaemonEndpointPatch struct {
 // DaemonEndpointPatchInput is an input type that accepts DaemonEndpointPatchArgs and DaemonEndpointPatchOutput values.
 // You can construct a concrete instance of `DaemonEndpointPatchInput` via:
 //
-//          DaemonEndpointPatchArgs{...}
+//	DaemonEndpointPatchArgs{...}
 type DaemonEndpointPatchInput interface {
 	pulumi.Input
 
@@ -11541,11 +11541,11 @@ func (i DaemonEndpointPatchArgs) ToDaemonEndpointPatchPtrOutputWithContext(ctx c
 // DaemonEndpointPatchPtrInput is an input type that accepts DaemonEndpointPatchArgs, DaemonEndpointPatchPtr and DaemonEndpointPatchPtrOutput values.
 // You can construct a concrete instance of `DaemonEndpointPatchPtrInput` via:
 //
-//          DaemonEndpointPatchArgs{...}
+//	        DaemonEndpointPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type DaemonEndpointPatchPtrInput interface {
 	pulumi.Input
 
@@ -11644,7 +11644,7 @@ type DownwardAPIProjection struct {
 // DownwardAPIProjectionInput is an input type that accepts DownwardAPIProjectionArgs and DownwardAPIProjectionOutput values.
 // You can construct a concrete instance of `DownwardAPIProjectionInput` via:
 //
-//          DownwardAPIProjectionArgs{...}
+//	DownwardAPIProjectionArgs{...}
 type DownwardAPIProjectionInput interface {
 	pulumi.Input
 
@@ -11681,11 +11681,11 @@ func (i DownwardAPIProjectionArgs) ToDownwardAPIProjectionPtrOutputWithContext(c
 // DownwardAPIProjectionPtrInput is an input type that accepts DownwardAPIProjectionArgs, DownwardAPIProjectionPtr and DownwardAPIProjectionPtrOutput values.
 // You can construct a concrete instance of `DownwardAPIProjectionPtrInput` via:
 //
-//          DownwardAPIProjectionArgs{...}
+//	        DownwardAPIProjectionArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type DownwardAPIProjectionPtrInput interface {
 	pulumi.Input
 
@@ -11784,7 +11784,7 @@ type DownwardAPIProjectionPatch struct {
 // DownwardAPIProjectionPatchInput is an input type that accepts DownwardAPIProjectionPatchArgs and DownwardAPIProjectionPatchOutput values.
 // You can construct a concrete instance of `DownwardAPIProjectionPatchInput` via:
 //
-//          DownwardAPIProjectionPatchArgs{...}
+//	DownwardAPIProjectionPatchArgs{...}
 type DownwardAPIProjectionPatchInput interface {
 	pulumi.Input
 
@@ -11821,11 +11821,11 @@ func (i DownwardAPIProjectionPatchArgs) ToDownwardAPIProjectionPatchPtrOutputWit
 // DownwardAPIProjectionPatchPtrInput is an input type that accepts DownwardAPIProjectionPatchArgs, DownwardAPIProjectionPatchPtr and DownwardAPIProjectionPatchPtrOutput values.
 // You can construct a concrete instance of `DownwardAPIProjectionPatchPtrInput` via:
 //
-//          DownwardAPIProjectionPatchArgs{...}
+//	        DownwardAPIProjectionPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type DownwardAPIProjectionPatchPtrInput interface {
 	pulumi.Input
 
@@ -11930,7 +11930,7 @@ type DownwardAPIVolumeFile struct {
 // DownwardAPIVolumeFileInput is an input type that accepts DownwardAPIVolumeFileArgs and DownwardAPIVolumeFileOutput values.
 // You can construct a concrete instance of `DownwardAPIVolumeFileInput` via:
 //
-//          DownwardAPIVolumeFileArgs{...}
+//	DownwardAPIVolumeFileArgs{...}
 type DownwardAPIVolumeFileInput interface {
 	pulumi.Input
 
@@ -11965,7 +11965,7 @@ func (i DownwardAPIVolumeFileArgs) ToDownwardAPIVolumeFileOutputWithContext(ctx 
 // DownwardAPIVolumeFileArrayInput is an input type that accepts DownwardAPIVolumeFileArray and DownwardAPIVolumeFileArrayOutput values.
 // You can construct a concrete instance of `DownwardAPIVolumeFileArrayInput` via:
 //
-//          DownwardAPIVolumeFileArray{ DownwardAPIVolumeFileArgs{...} }
+//	DownwardAPIVolumeFileArray{ DownwardAPIVolumeFileArgs{...} }
 type DownwardAPIVolumeFileArrayInput interface {
 	pulumi.Input
 
@@ -12057,7 +12057,7 @@ type DownwardAPIVolumeFilePatch struct {
 // DownwardAPIVolumeFilePatchInput is an input type that accepts DownwardAPIVolumeFilePatchArgs and DownwardAPIVolumeFilePatchOutput values.
 // You can construct a concrete instance of `DownwardAPIVolumeFilePatchInput` via:
 //
-//          DownwardAPIVolumeFilePatchArgs{...}
+//	DownwardAPIVolumeFilePatchArgs{...}
 type DownwardAPIVolumeFilePatchInput interface {
 	pulumi.Input
 
@@ -12092,7 +12092,7 @@ func (i DownwardAPIVolumeFilePatchArgs) ToDownwardAPIVolumeFilePatchOutputWithCo
 // DownwardAPIVolumeFilePatchArrayInput is an input type that accepts DownwardAPIVolumeFilePatchArray and DownwardAPIVolumeFilePatchArrayOutput values.
 // You can construct a concrete instance of `DownwardAPIVolumeFilePatchArrayInput` via:
 //
-//          DownwardAPIVolumeFilePatchArray{ DownwardAPIVolumeFilePatchArgs{...} }
+//	DownwardAPIVolumeFilePatchArray{ DownwardAPIVolumeFilePatchArgs{...} }
 type DownwardAPIVolumeFilePatchArrayInput interface {
 	pulumi.Input
 
@@ -12180,7 +12180,7 @@ type DownwardAPIVolumeSource struct {
 // DownwardAPIVolumeSourceInput is an input type that accepts DownwardAPIVolumeSourceArgs and DownwardAPIVolumeSourceOutput values.
 // You can construct a concrete instance of `DownwardAPIVolumeSourceInput` via:
 //
-//          DownwardAPIVolumeSourceArgs{...}
+//	DownwardAPIVolumeSourceArgs{...}
 type DownwardAPIVolumeSourceInput interface {
 	pulumi.Input
 
@@ -12219,11 +12219,11 @@ func (i DownwardAPIVolumeSourceArgs) ToDownwardAPIVolumeSourcePtrOutputWithConte
 // DownwardAPIVolumeSourcePtrInput is an input type that accepts DownwardAPIVolumeSourceArgs, DownwardAPIVolumeSourcePtr and DownwardAPIVolumeSourcePtrOutput values.
 // You can construct a concrete instance of `DownwardAPIVolumeSourcePtrInput` via:
 //
-//          DownwardAPIVolumeSourceArgs{...}
+//	        DownwardAPIVolumeSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type DownwardAPIVolumeSourcePtrInput interface {
 	pulumi.Input
 
@@ -12339,7 +12339,7 @@ type DownwardAPIVolumeSourcePatch struct {
 // DownwardAPIVolumeSourcePatchInput is an input type that accepts DownwardAPIVolumeSourcePatchArgs and DownwardAPIVolumeSourcePatchOutput values.
 // You can construct a concrete instance of `DownwardAPIVolumeSourcePatchInput` via:
 //
-//          DownwardAPIVolumeSourcePatchArgs{...}
+//	DownwardAPIVolumeSourcePatchArgs{...}
 type DownwardAPIVolumeSourcePatchInput interface {
 	pulumi.Input
 
@@ -12378,11 +12378,11 @@ func (i DownwardAPIVolumeSourcePatchArgs) ToDownwardAPIVolumeSourcePatchPtrOutpu
 // DownwardAPIVolumeSourcePatchPtrInput is an input type that accepts DownwardAPIVolumeSourcePatchArgs, DownwardAPIVolumeSourcePatchPtr and DownwardAPIVolumeSourcePatchPtrOutput values.
 // You can construct a concrete instance of `DownwardAPIVolumeSourcePatchPtrInput` via:
 //
-//          DownwardAPIVolumeSourcePatchArgs{...}
+//	        DownwardAPIVolumeSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type DownwardAPIVolumeSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -12498,7 +12498,7 @@ type EmptyDirVolumeSource struct {
 // EmptyDirVolumeSourceInput is an input type that accepts EmptyDirVolumeSourceArgs and EmptyDirVolumeSourceOutput values.
 // You can construct a concrete instance of `EmptyDirVolumeSourceInput` via:
 //
-//          EmptyDirVolumeSourceArgs{...}
+//	EmptyDirVolumeSourceArgs{...}
 type EmptyDirVolumeSourceInput interface {
 	pulumi.Input
 
@@ -12537,11 +12537,11 @@ func (i EmptyDirVolumeSourceArgs) ToEmptyDirVolumeSourcePtrOutputWithContext(ctx
 // EmptyDirVolumeSourcePtrInput is an input type that accepts EmptyDirVolumeSourceArgs, EmptyDirVolumeSourcePtr and EmptyDirVolumeSourcePtrOutput values.
 // You can construct a concrete instance of `EmptyDirVolumeSourcePtrInput` via:
 //
-//          EmptyDirVolumeSourceArgs{...}
+//	        EmptyDirVolumeSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type EmptyDirVolumeSourcePtrInput interface {
 	pulumi.Input
 
@@ -12657,7 +12657,7 @@ type EmptyDirVolumeSourcePatch struct {
 // EmptyDirVolumeSourcePatchInput is an input type that accepts EmptyDirVolumeSourcePatchArgs and EmptyDirVolumeSourcePatchOutput values.
 // You can construct a concrete instance of `EmptyDirVolumeSourcePatchInput` via:
 //
-//          EmptyDirVolumeSourcePatchArgs{...}
+//	EmptyDirVolumeSourcePatchArgs{...}
 type EmptyDirVolumeSourcePatchInput interface {
 	pulumi.Input
 
@@ -12696,11 +12696,11 @@ func (i EmptyDirVolumeSourcePatchArgs) ToEmptyDirVolumeSourcePatchPtrOutputWithC
 // EmptyDirVolumeSourcePatchPtrInput is an input type that accepts EmptyDirVolumeSourcePatchArgs, EmptyDirVolumeSourcePatchPtr and EmptyDirVolumeSourcePatchPtrOutput values.
 // You can construct a concrete instance of `EmptyDirVolumeSourcePatchPtrInput` via:
 //
-//          EmptyDirVolumeSourcePatchArgs{...}
+//	        EmptyDirVolumeSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type EmptyDirVolumeSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -12820,7 +12820,7 @@ type EndpointAddress struct {
 // EndpointAddressInput is an input type that accepts EndpointAddressArgs and EndpointAddressOutput values.
 // You can construct a concrete instance of `EndpointAddressInput` via:
 //
-//          EndpointAddressArgs{...}
+//	EndpointAddressArgs{...}
 type EndpointAddressInput interface {
 	pulumi.Input
 
@@ -12855,7 +12855,7 @@ func (i EndpointAddressArgs) ToEndpointAddressOutputWithContext(ctx context.Cont
 // EndpointAddressArrayInput is an input type that accepts EndpointAddressArray and EndpointAddressArrayOutput values.
 // You can construct a concrete instance of `EndpointAddressArrayInput` via:
 //
-//          EndpointAddressArray{ EndpointAddressArgs{...} }
+//	EndpointAddressArray{ EndpointAddressArgs{...} }
 type EndpointAddressArrayInput interface {
 	pulumi.Input
 
@@ -12947,7 +12947,7 @@ type EndpointAddressPatch struct {
 // EndpointAddressPatchInput is an input type that accepts EndpointAddressPatchArgs and EndpointAddressPatchOutput values.
 // You can construct a concrete instance of `EndpointAddressPatchInput` via:
 //
-//          EndpointAddressPatchArgs{...}
+//	EndpointAddressPatchArgs{...}
 type EndpointAddressPatchInput interface {
 	pulumi.Input
 
@@ -12982,7 +12982,7 @@ func (i EndpointAddressPatchArgs) ToEndpointAddressPatchOutputWithContext(ctx co
 // EndpointAddressPatchArrayInput is an input type that accepts EndpointAddressPatchArray and EndpointAddressPatchArrayOutput values.
 // You can construct a concrete instance of `EndpointAddressPatchArrayInput` via:
 //
-//          EndpointAddressPatchArray{ EndpointAddressPatchArgs{...} }
+//	EndpointAddressPatchArray{ EndpointAddressPatchArgs{...} }
 type EndpointAddressPatchArrayInput interface {
 	pulumi.Input
 
@@ -13074,7 +13074,7 @@ type EndpointPort struct {
 // EndpointPortInput is an input type that accepts EndpointPortArgs and EndpointPortOutput values.
 // You can construct a concrete instance of `EndpointPortInput` via:
 //
-//          EndpointPortArgs{...}
+//	EndpointPortArgs{...}
 type EndpointPortInput interface {
 	pulumi.Input
 
@@ -13109,7 +13109,7 @@ func (i EndpointPortArgs) ToEndpointPortOutputWithContext(ctx context.Context) E
 // EndpointPortArrayInput is an input type that accepts EndpointPortArray and EndpointPortArrayOutput values.
 // You can construct a concrete instance of `EndpointPortArrayInput` via:
 //
-//          EndpointPortArray{ EndpointPortArgs{...} }
+//	EndpointPortArray{ EndpointPortArgs{...} }
 type EndpointPortArrayInput interface {
 	pulumi.Input
 
@@ -13201,7 +13201,7 @@ type EndpointPortPatch struct {
 // EndpointPortPatchInput is an input type that accepts EndpointPortPatchArgs and EndpointPortPatchOutput values.
 // You can construct a concrete instance of `EndpointPortPatchInput` via:
 //
-//          EndpointPortPatchArgs{...}
+//	EndpointPortPatchArgs{...}
 type EndpointPortPatchInput interface {
 	pulumi.Input
 
@@ -13236,7 +13236,7 @@ func (i EndpointPortPatchArgs) ToEndpointPortPatchOutputWithContext(ctx context.
 // EndpointPortPatchArrayInput is an input type that accepts EndpointPortPatchArray and EndpointPortPatchArrayOutput values.
 // You can construct a concrete instance of `EndpointPortPatchArrayInput` via:
 //
-//          EndpointPortPatchArray{ EndpointPortPatchArgs{...} }
+//	EndpointPortPatchArray{ EndpointPortPatchArgs{...} }
 type EndpointPortPatchArrayInput interface {
 	pulumi.Input
 
@@ -13314,13 +13314,16 @@ func (o EndpointPortPatchArrayOutput) Index(i pulumi.IntInput) EndpointPortPatch
 }
 
 // EndpointSubset is a group of addresses with a common set of ports. The expanded set of endpoints is the Cartesian product of Addresses x Ports. For example, given:
-//   {
-//     Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
-//     Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
-//   }
+//
+//	{
+//	  Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+//	  Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+//	}
+//
 // The resulting set of endpoints can be viewed as:
-//     a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
-//     b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+//
+//	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
+//	b: [ 10.10.1.1:309, 10.10.2.2:309 ]
 type EndpointSubset struct {
 	// IP addresses which offer the related ports that are marked as ready. These endpoints should be considered safe for load balancers and clients to utilize.
 	Addresses []EndpointAddress `pulumi:"addresses"`
@@ -13333,7 +13336,7 @@ type EndpointSubset struct {
 // EndpointSubsetInput is an input type that accepts EndpointSubsetArgs and EndpointSubsetOutput values.
 // You can construct a concrete instance of `EndpointSubsetInput` via:
 //
-//          EndpointSubsetArgs{...}
+//	EndpointSubsetArgs{...}
 type EndpointSubsetInput interface {
 	pulumi.Input
 
@@ -13342,13 +13345,16 @@ type EndpointSubsetInput interface {
 }
 
 // EndpointSubset is a group of addresses with a common set of ports. The expanded set of endpoints is the Cartesian product of Addresses x Ports. For example, given:
-//   {
-//     Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
-//     Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
-//   }
+//
+//	{
+//	  Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+//	  Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+//	}
+//
 // The resulting set of endpoints can be viewed as:
-//     a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
-//     b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+//
+//	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
+//	b: [ 10.10.1.1:309, 10.10.2.2:309 ]
 type EndpointSubsetArgs struct {
 	// IP addresses which offer the related ports that are marked as ready. These endpoints should be considered safe for load balancers and clients to utilize.
 	Addresses EndpointAddressArrayInput `pulumi:"addresses"`
@@ -13373,7 +13379,7 @@ func (i EndpointSubsetArgs) ToEndpointSubsetOutputWithContext(ctx context.Contex
 // EndpointSubsetArrayInput is an input type that accepts EndpointSubsetArray and EndpointSubsetArrayOutput values.
 // You can construct a concrete instance of `EndpointSubsetArrayInput` via:
 //
-//          EndpointSubsetArray{ EndpointSubsetArgs{...} }
+//	EndpointSubsetArray{ EndpointSubsetArgs{...} }
 type EndpointSubsetArrayInput interface {
 	pulumi.Input
 
@@ -13396,13 +13402,16 @@ func (i EndpointSubsetArray) ToEndpointSubsetArrayOutputWithContext(ctx context.
 }
 
 // EndpointSubset is a group of addresses with a common set of ports. The expanded set of endpoints is the Cartesian product of Addresses x Ports. For example, given:
-//   {
-//     Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
-//     Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
-//   }
+//
+//	{
+//	  Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+//	  Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+//	}
+//
 // The resulting set of endpoints can be viewed as:
-//     a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
-//     b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+//
+//	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
+//	b: [ 10.10.1.1:309, 10.10.2.2:309 ]
 type EndpointSubsetOutput struct{ *pulumi.OutputState }
 
 func (EndpointSubsetOutput) ElementType() reflect.Type {
@@ -13453,13 +13462,16 @@ func (o EndpointSubsetArrayOutput) Index(i pulumi.IntInput) EndpointSubsetOutput
 }
 
 // EndpointSubset is a group of addresses with a common set of ports. The expanded set of endpoints is the Cartesian product of Addresses x Ports. For example, given:
-//   {
-//     Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
-//     Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
-//   }
+//
+//	{
+//	  Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+//	  Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+//	}
+//
 // The resulting set of endpoints can be viewed as:
-//     a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
-//     b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+//
+//	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
+//	b: [ 10.10.1.1:309, 10.10.2.2:309 ]
 type EndpointSubsetPatch struct {
 	// IP addresses which offer the related ports that are marked as ready. These endpoints should be considered safe for load balancers and clients to utilize.
 	Addresses []EndpointAddressPatch `pulumi:"addresses"`
@@ -13472,7 +13484,7 @@ type EndpointSubsetPatch struct {
 // EndpointSubsetPatchInput is an input type that accepts EndpointSubsetPatchArgs and EndpointSubsetPatchOutput values.
 // You can construct a concrete instance of `EndpointSubsetPatchInput` via:
 //
-//          EndpointSubsetPatchArgs{...}
+//	EndpointSubsetPatchArgs{...}
 type EndpointSubsetPatchInput interface {
 	pulumi.Input
 
@@ -13481,13 +13493,16 @@ type EndpointSubsetPatchInput interface {
 }
 
 // EndpointSubset is a group of addresses with a common set of ports. The expanded set of endpoints is the Cartesian product of Addresses x Ports. For example, given:
-//   {
-//     Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
-//     Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
-//   }
+//
+//	{
+//	  Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+//	  Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+//	}
+//
 // The resulting set of endpoints can be viewed as:
-//     a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
-//     b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+//
+//	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
+//	b: [ 10.10.1.1:309, 10.10.2.2:309 ]
 type EndpointSubsetPatchArgs struct {
 	// IP addresses which offer the related ports that are marked as ready. These endpoints should be considered safe for load balancers and clients to utilize.
 	Addresses EndpointAddressPatchArrayInput `pulumi:"addresses"`
@@ -13512,7 +13527,7 @@ func (i EndpointSubsetPatchArgs) ToEndpointSubsetPatchOutputWithContext(ctx cont
 // EndpointSubsetPatchArrayInput is an input type that accepts EndpointSubsetPatchArray and EndpointSubsetPatchArrayOutput values.
 // You can construct a concrete instance of `EndpointSubsetPatchArrayInput` via:
 //
-//          EndpointSubsetPatchArray{ EndpointSubsetPatchArgs{...} }
+//	EndpointSubsetPatchArray{ EndpointSubsetPatchArgs{...} }
 type EndpointSubsetPatchArrayInput interface {
 	pulumi.Input
 
@@ -13535,13 +13550,16 @@ func (i EndpointSubsetPatchArray) ToEndpointSubsetPatchArrayOutputWithContext(ct
 }
 
 // EndpointSubset is a group of addresses with a common set of ports. The expanded set of endpoints is the Cartesian product of Addresses x Ports. For example, given:
-//   {
-//     Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
-//     Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
-//   }
+//
+//	{
+//	  Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+//	  Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+//	}
+//
 // The resulting set of endpoints can be viewed as:
-//     a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
-//     b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+//
+//	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
+//	b: [ 10.10.1.1:309, 10.10.2.2:309 ]
 type EndpointSubsetPatchOutput struct{ *pulumi.OutputState }
 
 func (EndpointSubsetPatchOutput) ElementType() reflect.Type {
@@ -13592,17 +13610,18 @@ func (o EndpointSubsetPatchArrayOutput) Index(i pulumi.IntInput) EndpointSubsetP
 }
 
 // Endpoints is a collection of endpoints that implement the actual service. Example:
-//   Name: "mysvc",
-//   Subsets: [
-//     {
-//       Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
-//       Ports: [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
-//     },
-//     {
-//       Addresses: [{"ip": "10.10.3.3"}],
-//       Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
-//     },
-//  ]
+//
+//	 Name: "mysvc",
+//	 Subsets: [
+//	   {
+//	     Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+//	     Ports: [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+//	   },
+//	   {
+//	     Addresses: [{"ip": "10.10.3.3"}],
+//	     Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
+//	   },
+//	]
 type EndpointsType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -13617,7 +13636,7 @@ type EndpointsType struct {
 // EndpointsTypeInput is an input type that accepts EndpointsTypeArgs and EndpointsTypeOutput values.
 // You can construct a concrete instance of `EndpointsTypeInput` via:
 //
-//          EndpointsTypeArgs{...}
+//	EndpointsTypeArgs{...}
 type EndpointsTypeInput interface {
 	pulumi.Input
 
@@ -13626,17 +13645,18 @@ type EndpointsTypeInput interface {
 }
 
 // Endpoints is a collection of endpoints that implement the actual service. Example:
-//   Name: "mysvc",
-//   Subsets: [
-//     {
-//       Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
-//       Ports: [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
-//     },
-//     {
-//       Addresses: [{"ip": "10.10.3.3"}],
-//       Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
-//     },
-//  ]
+//
+//	 Name: "mysvc",
+//	 Subsets: [
+//	   {
+//	     Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+//	     Ports: [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+//	   },
+//	   {
+//	     Addresses: [{"ip": "10.10.3.3"}],
+//	     Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
+//	   },
+//	]
 type EndpointsTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -13663,7 +13683,7 @@ func (i EndpointsTypeArgs) ToEndpointsTypeOutputWithContext(ctx context.Context)
 // EndpointsTypeArrayInput is an input type that accepts EndpointsTypeArray and EndpointsTypeArrayOutput values.
 // You can construct a concrete instance of `EndpointsTypeArrayInput` via:
 //
-//          EndpointsTypeArray{ EndpointsTypeArgs{...} }
+//	EndpointsTypeArray{ EndpointsTypeArgs{...} }
 type EndpointsTypeArrayInput interface {
 	pulumi.Input
 
@@ -13686,17 +13706,18 @@ func (i EndpointsTypeArray) ToEndpointsTypeArrayOutputWithContext(ctx context.Co
 }
 
 // Endpoints is a collection of endpoints that implement the actual service. Example:
-//   Name: "mysvc",
-//   Subsets: [
-//     {
-//       Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
-//       Ports: [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
-//     },
-//     {
-//       Addresses: [{"ip": "10.10.3.3"}],
-//       Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
-//     },
-//  ]
+//
+//	 Name: "mysvc",
+//	 Subsets: [
+//	   {
+//	     Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+//	     Ports: [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+//	   },
+//	   {
+//	     Addresses: [{"ip": "10.10.3.3"}],
+//	     Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
+//	   },
+//	]
 type EndpointsTypeOutput struct{ *pulumi.OutputState }
 
 func (EndpointsTypeOutput) ElementType() reflect.Type {
@@ -13766,7 +13787,7 @@ type EndpointsListType struct {
 // EndpointsListTypeInput is an input type that accepts EndpointsListTypeArgs and EndpointsListTypeOutput values.
 // You can construct a concrete instance of `EndpointsListTypeInput` via:
 //
-//          EndpointsListTypeArgs{...}
+//	EndpointsListTypeArgs{...}
 type EndpointsListTypeInput interface {
 	pulumi.Input
 
@@ -13834,17 +13855,18 @@ func (o EndpointsListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 }
 
 // Endpoints is a collection of endpoints that implement the actual service. Example:
-//   Name: "mysvc",
-//   Subsets: [
-//     {
-//       Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
-//       Ports: [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
-//     },
-//     {
-//       Addresses: [{"ip": "10.10.3.3"}],
-//       Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
-//     },
-//  ]
+//
+//	 Name: "mysvc",
+//	 Subsets: [
+//	   {
+//	     Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+//	     Ports: [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+//	   },
+//	   {
+//	     Addresses: [{"ip": "10.10.3.3"}],
+//	     Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
+//	   },
+//	]
 type EndpointsPatchType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -13859,7 +13881,7 @@ type EndpointsPatchType struct {
 // EndpointsPatchTypeInput is an input type that accepts EndpointsPatchTypeArgs and EndpointsPatchTypeOutput values.
 // You can construct a concrete instance of `EndpointsPatchTypeInput` via:
 //
-//          EndpointsPatchTypeArgs{...}
+//	EndpointsPatchTypeArgs{...}
 type EndpointsPatchTypeInput interface {
 	pulumi.Input
 
@@ -13868,17 +13890,18 @@ type EndpointsPatchTypeInput interface {
 }
 
 // Endpoints is a collection of endpoints that implement the actual service. Example:
-//   Name: "mysvc",
-//   Subsets: [
-//     {
-//       Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
-//       Ports: [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
-//     },
-//     {
-//       Addresses: [{"ip": "10.10.3.3"}],
-//       Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
-//     },
-//  ]
+//
+//	 Name: "mysvc",
+//	 Subsets: [
+//	   {
+//	     Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+//	     Ports: [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+//	   },
+//	   {
+//	     Addresses: [{"ip": "10.10.3.3"}],
+//	     Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
+//	   },
+//	]
 type EndpointsPatchTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -13903,17 +13926,18 @@ func (i EndpointsPatchTypeArgs) ToEndpointsPatchTypeOutputWithContext(ctx contex
 }
 
 // Endpoints is a collection of endpoints that implement the actual service. Example:
-//   Name: "mysvc",
-//   Subsets: [
-//     {
-//       Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
-//       Ports: [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
-//     },
-//     {
-//       Addresses: [{"ip": "10.10.3.3"}],
-//       Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
-//     },
-//  ]
+//
+//	 Name: "mysvc",
+//	 Subsets: [
+//	   {
+//	     Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+//	     Ports: [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+//	   },
+//	   {
+//	     Addresses: [{"ip": "10.10.3.3"}],
+//	     Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
+//	   },
+//	]
 type EndpointsPatchTypeOutput struct{ *pulumi.OutputState }
 
 func (EndpointsPatchTypeOutput) ElementType() reflect.Type {
@@ -13961,7 +13985,7 @@ type EnvFromSource struct {
 // EnvFromSourceInput is an input type that accepts EnvFromSourceArgs and EnvFromSourceOutput values.
 // You can construct a concrete instance of `EnvFromSourceInput` via:
 //
-//          EnvFromSourceArgs{...}
+//	EnvFromSourceArgs{...}
 type EnvFromSourceInput interface {
 	pulumi.Input
 
@@ -13994,7 +14018,7 @@ func (i EnvFromSourceArgs) ToEnvFromSourceOutputWithContext(ctx context.Context)
 // EnvFromSourceArrayInput is an input type that accepts EnvFromSourceArray and EnvFromSourceArrayOutput values.
 // You can construct a concrete instance of `EnvFromSourceArrayInput` via:
 //
-//          EnvFromSourceArray{ EnvFromSourceArgs{...} }
+//	EnvFromSourceArray{ EnvFromSourceArgs{...} }
 type EnvFromSourceArrayInput interface {
 	pulumi.Input
 
@@ -14079,7 +14103,7 @@ type EnvFromSourcePatch struct {
 // EnvFromSourcePatchInput is an input type that accepts EnvFromSourcePatchArgs and EnvFromSourcePatchOutput values.
 // You can construct a concrete instance of `EnvFromSourcePatchInput` via:
 //
-//          EnvFromSourcePatchArgs{...}
+//	EnvFromSourcePatchArgs{...}
 type EnvFromSourcePatchInput interface {
 	pulumi.Input
 
@@ -14112,7 +14136,7 @@ func (i EnvFromSourcePatchArgs) ToEnvFromSourcePatchOutputWithContext(ctx contex
 // EnvFromSourcePatchArrayInput is an input type that accepts EnvFromSourcePatchArray and EnvFromSourcePatchArrayOutput values.
 // You can construct a concrete instance of `EnvFromSourcePatchArrayInput` via:
 //
-//          EnvFromSourcePatchArray{ EnvFromSourcePatchArgs{...} }
+//	EnvFromSourcePatchArray{ EnvFromSourcePatchArgs{...} }
 type EnvFromSourcePatchArrayInput interface {
 	pulumi.Input
 
@@ -14197,7 +14221,7 @@ type EnvVar struct {
 // EnvVarInput is an input type that accepts EnvVarArgs and EnvVarOutput values.
 // You can construct a concrete instance of `EnvVarInput` via:
 //
-//          EnvVarArgs{...}
+//	EnvVarArgs{...}
 type EnvVarInput interface {
 	pulumi.Input
 
@@ -14230,7 +14254,7 @@ func (i EnvVarArgs) ToEnvVarOutputWithContext(ctx context.Context) EnvVarOutput 
 // EnvVarArrayInput is an input type that accepts EnvVarArray and EnvVarArrayOutput values.
 // You can construct a concrete instance of `EnvVarArrayInput` via:
 //
-//          EnvVarArray{ EnvVarArgs{...} }
+//	EnvVarArray{ EnvVarArgs{...} }
 type EnvVarArrayInput interface {
 	pulumi.Input
 
@@ -14315,7 +14339,7 @@ type EnvVarPatch struct {
 // EnvVarPatchInput is an input type that accepts EnvVarPatchArgs and EnvVarPatchOutput values.
 // You can construct a concrete instance of `EnvVarPatchInput` via:
 //
-//          EnvVarPatchArgs{...}
+//	EnvVarPatchArgs{...}
 type EnvVarPatchInput interface {
 	pulumi.Input
 
@@ -14348,7 +14372,7 @@ func (i EnvVarPatchArgs) ToEnvVarPatchOutputWithContext(ctx context.Context) Env
 // EnvVarPatchArrayInput is an input type that accepts EnvVarPatchArray and EnvVarPatchArrayOutput values.
 // You can construct a concrete instance of `EnvVarPatchArrayInput` via:
 //
-//          EnvVarPatchArray{ EnvVarPatchArgs{...} }
+//	EnvVarPatchArray{ EnvVarPatchArgs{...} }
 type EnvVarPatchArrayInput interface {
 	pulumi.Input
 
@@ -14435,7 +14459,7 @@ type EnvVarSource struct {
 // EnvVarSourceInput is an input type that accepts EnvVarSourceArgs and EnvVarSourceOutput values.
 // You can construct a concrete instance of `EnvVarSourceInput` via:
 //
-//          EnvVarSourceArgs{...}
+//	EnvVarSourceArgs{...}
 type EnvVarSourceInput interface {
 	pulumi.Input
 
@@ -14478,11 +14502,11 @@ func (i EnvVarSourceArgs) ToEnvVarSourcePtrOutputWithContext(ctx context.Context
 // EnvVarSourcePtrInput is an input type that accepts EnvVarSourceArgs, EnvVarSourcePtr and EnvVarSourcePtrOutput values.
 // You can construct a concrete instance of `EnvVarSourcePtrInput` via:
 //
-//          EnvVarSourceArgs{...}
+//	        EnvVarSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type EnvVarSourcePtrInput interface {
 	pulumi.Input
 
@@ -14632,7 +14656,7 @@ type EnvVarSourcePatch struct {
 // EnvVarSourcePatchInput is an input type that accepts EnvVarSourcePatchArgs and EnvVarSourcePatchOutput values.
 // You can construct a concrete instance of `EnvVarSourcePatchInput` via:
 //
-//          EnvVarSourcePatchArgs{...}
+//	EnvVarSourcePatchArgs{...}
 type EnvVarSourcePatchInput interface {
 	pulumi.Input
 
@@ -14675,11 +14699,11 @@ func (i EnvVarSourcePatchArgs) ToEnvVarSourcePatchPtrOutputWithContext(ctx conte
 // EnvVarSourcePatchPtrInput is an input type that accepts EnvVarSourcePatchArgs, EnvVarSourcePatchPtr and EnvVarSourcePatchPtrOutput values.
 // You can construct a concrete instance of `EnvVarSourcePatchPtrInput` via:
 //
-//          EnvVarSourcePatchArgs{...}
+//	        EnvVarSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type EnvVarSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -14873,7 +14897,7 @@ type EphemeralContainer struct {
 // EphemeralContainerInput is an input type that accepts EphemeralContainerArgs and EphemeralContainerOutput values.
 // You can construct a concrete instance of `EphemeralContainerInput` via:
 //
-//          EphemeralContainerArgs{...}
+//	EphemeralContainerArgs{...}
 type EphemeralContainerInput interface {
 	pulumi.Input
 
@@ -14952,7 +14976,7 @@ func (i EphemeralContainerArgs) ToEphemeralContainerOutputWithContext(ctx contex
 // EphemeralContainerArrayInput is an input type that accepts EphemeralContainerArray and EphemeralContainerArrayOutput values.
 // You can construct a concrete instance of `EphemeralContainerArrayInput` via:
 //
-//          EphemeralContainerArray{ EphemeralContainerArgs{...} }
+//	EphemeralContainerArray{ EphemeralContainerArgs{...} }
 type EphemeralContainerArrayInput interface {
 	pulumi.Input
 
@@ -15189,7 +15213,7 @@ type EphemeralContainerPatch struct {
 // EphemeralContainerPatchInput is an input type that accepts EphemeralContainerPatchArgs and EphemeralContainerPatchOutput values.
 // You can construct a concrete instance of `EphemeralContainerPatchInput` via:
 //
-//          EphemeralContainerPatchArgs{...}
+//	EphemeralContainerPatchArgs{...}
 type EphemeralContainerPatchInput interface {
 	pulumi.Input
 
@@ -15268,7 +15292,7 @@ func (i EphemeralContainerPatchArgs) ToEphemeralContainerPatchOutputWithContext(
 // EphemeralContainerPatchArrayInput is an input type that accepts EphemeralContainerPatchArray and EphemeralContainerPatchArrayOutput values.
 // You can construct a concrete instance of `EphemeralContainerPatchArrayInput` via:
 //
-//          EphemeralContainerPatchArray{ EphemeralContainerPatchArgs{...} }
+//	EphemeralContainerPatchArray{ EphemeralContainerPatchArgs{...} }
 type EphemeralContainerPatchArrayInput interface {
 	pulumi.Input
 
@@ -15463,7 +15487,7 @@ type EphemeralVolumeSource struct {
 // EphemeralVolumeSourceInput is an input type that accepts EphemeralVolumeSourceArgs and EphemeralVolumeSourceOutput values.
 // You can construct a concrete instance of `EphemeralVolumeSourceInput` via:
 //
-//          EphemeralVolumeSourceArgs{...}
+//	EphemeralVolumeSourceArgs{...}
 type EphemeralVolumeSourceInput interface {
 	pulumi.Input
 
@@ -15508,11 +15532,11 @@ func (i EphemeralVolumeSourceArgs) ToEphemeralVolumeSourcePtrOutputWithContext(c
 // EphemeralVolumeSourcePtrInput is an input type that accepts EphemeralVolumeSourceArgs, EphemeralVolumeSourcePtr and EphemeralVolumeSourcePtrOutput values.
 // You can construct a concrete instance of `EphemeralVolumeSourcePtrInput` via:
 //
-//          EphemeralVolumeSourceArgs{...}
+//	        EphemeralVolumeSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type EphemeralVolumeSourcePtrInput interface {
 	pulumi.Input
 
@@ -15646,7 +15670,7 @@ type EphemeralVolumeSourcePatch struct {
 // EphemeralVolumeSourcePatchInput is an input type that accepts EphemeralVolumeSourcePatchArgs and EphemeralVolumeSourcePatchOutput values.
 // You can construct a concrete instance of `EphemeralVolumeSourcePatchInput` via:
 //
-//          EphemeralVolumeSourcePatchArgs{...}
+//	EphemeralVolumeSourcePatchArgs{...}
 type EphemeralVolumeSourcePatchInput interface {
 	pulumi.Input
 
@@ -15691,11 +15715,11 @@ func (i EphemeralVolumeSourcePatchArgs) ToEphemeralVolumeSourcePatchPtrOutputWit
 // EphemeralVolumeSourcePatchPtrInput is an input type that accepts EphemeralVolumeSourcePatchArgs, EphemeralVolumeSourcePatchPtr and EphemeralVolumeSourcePatchPtrOutput values.
 // You can construct a concrete instance of `EphemeralVolumeSourcePatchPtrInput` via:
 //
-//          EphemeralVolumeSourcePatchArgs{...}
+//	        EphemeralVolumeSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type EphemeralVolumeSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -15853,7 +15877,7 @@ type EventType struct {
 // EventTypeInput is an input type that accepts EventTypeArgs and EventTypeOutput values.
 // You can construct a concrete instance of `EventTypeInput` via:
 //
-//          EventTypeArgs{...}
+//	EventTypeArgs{...}
 type EventTypeInput interface {
 	pulumi.Input
 
@@ -15914,7 +15938,7 @@ func (i EventTypeArgs) ToEventTypeOutputWithContext(ctx context.Context) EventTy
 // EventTypeArrayInput is an input type that accepts EventTypeArray and EventTypeArrayOutput values.
 // You can construct a concrete instance of `EventTypeArrayInput` via:
 //
-//          EventTypeArray{ EventTypeArgs{...} }
+//	EventTypeArray{ EventTypeArgs{...} }
 type EventTypeArrayInput interface {
 	pulumi.Input
 
@@ -16071,7 +16095,7 @@ type EventListType struct {
 // EventListTypeInput is an input type that accepts EventListTypeArgs and EventListTypeOutput values.
 // You can construct a concrete instance of `EventListTypeInput` via:
 //
-//          EventListTypeArgs{...}
+//	EventListTypeArgs{...}
 type EventListTypeInput interface {
 	pulumi.Input
 
@@ -16179,7 +16203,7 @@ type EventPatchType struct {
 // EventPatchTypeInput is an input type that accepts EventPatchTypeArgs and EventPatchTypeOutput values.
 // You can construct a concrete instance of `EventPatchTypeInput` via:
 //
-//          EventPatchTypeArgs{...}
+//	EventPatchTypeArgs{...}
 type EventPatchTypeInput interface {
 	pulumi.Input
 
@@ -16350,7 +16374,7 @@ type EventSeries struct {
 // EventSeriesInput is an input type that accepts EventSeriesArgs and EventSeriesOutput values.
 // You can construct a concrete instance of `EventSeriesInput` via:
 //
-//          EventSeriesArgs{...}
+//	EventSeriesArgs{...}
 type EventSeriesInput interface {
 	pulumi.Input
 
@@ -16391,11 +16415,11 @@ func (i EventSeriesArgs) ToEventSeriesPtrOutputWithContext(ctx context.Context) 
 // EventSeriesPtrInput is an input type that accepts EventSeriesArgs, EventSeriesPtr and EventSeriesPtrOutput values.
 // You can construct a concrete instance of `EventSeriesPtrInput` via:
 //
-//          EventSeriesArgs{...}
+//	        EventSeriesArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type EventSeriesPtrInput interface {
 	pulumi.Input
 
@@ -16528,7 +16552,7 @@ type EventSeriesPatch struct {
 // EventSeriesPatchInput is an input type that accepts EventSeriesPatchArgs and EventSeriesPatchOutput values.
 // You can construct a concrete instance of `EventSeriesPatchInput` via:
 //
-//          EventSeriesPatchArgs{...}
+//	EventSeriesPatchArgs{...}
 type EventSeriesPatchInput interface {
 	pulumi.Input
 
@@ -16569,11 +16593,11 @@ func (i EventSeriesPatchArgs) ToEventSeriesPatchPtrOutputWithContext(ctx context
 // EventSeriesPatchPtrInput is an input type that accepts EventSeriesPatchArgs, EventSeriesPatchPtr and EventSeriesPatchPtrOutput values.
 // You can construct a concrete instance of `EventSeriesPatchPtrInput` via:
 //
-//          EventSeriesPatchArgs{...}
+//	        EventSeriesPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type EventSeriesPatchPtrInput interface {
 	pulumi.Input
 
@@ -16704,7 +16728,7 @@ type EventSource struct {
 // EventSourceInput is an input type that accepts EventSourceArgs and EventSourceOutput values.
 // You can construct a concrete instance of `EventSourceInput` via:
 //
-//          EventSourceArgs{...}
+//	EventSourceArgs{...}
 type EventSourceInput interface {
 	pulumi.Input
 
@@ -16743,11 +16767,11 @@ func (i EventSourceArgs) ToEventSourcePtrOutputWithContext(ctx context.Context) 
 // EventSourcePtrInput is an input type that accepts EventSourceArgs, EventSourcePtr and EventSourcePtrOutput values.
 // You can construct a concrete instance of `EventSourcePtrInput` via:
 //
-//          EventSourceArgs{...}
+//	        EventSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type EventSourcePtrInput interface {
 	pulumi.Input
 
@@ -16863,7 +16887,7 @@ type EventSourcePatch struct {
 // EventSourcePatchInput is an input type that accepts EventSourcePatchArgs and EventSourcePatchOutput values.
 // You can construct a concrete instance of `EventSourcePatchInput` via:
 //
-//          EventSourcePatchArgs{...}
+//	EventSourcePatchArgs{...}
 type EventSourcePatchInput interface {
 	pulumi.Input
 
@@ -16902,11 +16926,11 @@ func (i EventSourcePatchArgs) ToEventSourcePatchPtrOutputWithContext(ctx context
 // EventSourcePatchPtrInput is an input type that accepts EventSourcePatchArgs, EventSourcePatchPtr and EventSourcePatchPtrOutput values.
 // You can construct a concrete instance of `EventSourcePatchPtrInput` via:
 //
-//          EventSourcePatchArgs{...}
+//	        EventSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type EventSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -17020,7 +17044,7 @@ type ExecAction struct {
 // ExecActionInput is an input type that accepts ExecActionArgs and ExecActionOutput values.
 // You can construct a concrete instance of `ExecActionInput` via:
 //
-//          ExecActionArgs{...}
+//	ExecActionArgs{...}
 type ExecActionInput interface {
 	pulumi.Input
 
@@ -17057,11 +17081,11 @@ func (i ExecActionArgs) ToExecActionPtrOutputWithContext(ctx context.Context) Ex
 // ExecActionPtrInput is an input type that accepts ExecActionArgs, ExecActionPtr and ExecActionPtrOutput values.
 // You can construct a concrete instance of `ExecActionPtrInput` via:
 //
-//          ExecActionArgs{...}
+//	        ExecActionArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ExecActionPtrInput interface {
 	pulumi.Input
 
@@ -17160,7 +17184,7 @@ type ExecActionPatch struct {
 // ExecActionPatchInput is an input type that accepts ExecActionPatchArgs and ExecActionPatchOutput values.
 // You can construct a concrete instance of `ExecActionPatchInput` via:
 //
-//          ExecActionPatchArgs{...}
+//	ExecActionPatchArgs{...}
 type ExecActionPatchInput interface {
 	pulumi.Input
 
@@ -17197,11 +17221,11 @@ func (i ExecActionPatchArgs) ToExecActionPatchPtrOutputWithContext(ctx context.C
 // ExecActionPatchPtrInput is an input type that accepts ExecActionPatchArgs, ExecActionPatchPtr and ExecActionPatchPtrOutput values.
 // You can construct a concrete instance of `ExecActionPatchPtrInput` via:
 //
-//          ExecActionPatchArgs{...}
+//	        ExecActionPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ExecActionPatchPtrInput interface {
 	pulumi.Input
 
@@ -17308,7 +17332,7 @@ type FCVolumeSource struct {
 // FCVolumeSourceInput is an input type that accepts FCVolumeSourceArgs and FCVolumeSourceOutput values.
 // You can construct a concrete instance of `FCVolumeSourceInput` via:
 //
-//          FCVolumeSourceArgs{...}
+//	FCVolumeSourceArgs{...}
 type FCVolumeSourceInput interface {
 	pulumi.Input
 
@@ -17353,11 +17377,11 @@ func (i FCVolumeSourceArgs) ToFCVolumeSourcePtrOutputWithContext(ctx context.Con
 // FCVolumeSourcePtrInput is an input type that accepts FCVolumeSourceArgs, FCVolumeSourcePtr and FCVolumeSourcePtrOutput values.
 // You can construct a concrete instance of `FCVolumeSourcePtrInput` via:
 //
-//          FCVolumeSourceArgs{...}
+//	        FCVolumeSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type FCVolumeSourcePtrInput interface {
 	pulumi.Input
 
@@ -17524,7 +17548,7 @@ type FCVolumeSourcePatch struct {
 // FCVolumeSourcePatchInput is an input type that accepts FCVolumeSourcePatchArgs and FCVolumeSourcePatchOutput values.
 // You can construct a concrete instance of `FCVolumeSourcePatchInput` via:
 //
-//          FCVolumeSourcePatchArgs{...}
+//	FCVolumeSourcePatchArgs{...}
 type FCVolumeSourcePatchInput interface {
 	pulumi.Input
 
@@ -17569,11 +17593,11 @@ func (i FCVolumeSourcePatchArgs) ToFCVolumeSourcePatchPtrOutputWithContext(ctx c
 // FCVolumeSourcePatchPtrInput is an input type that accepts FCVolumeSourcePatchArgs, FCVolumeSourcePatchPtr and FCVolumeSourcePatchPtrOutput values.
 // You can construct a concrete instance of `FCVolumeSourcePatchPtrInput` via:
 //
-//          FCVolumeSourcePatchArgs{...}
+//	        FCVolumeSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type FCVolumeSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -17740,7 +17764,7 @@ type FlexPersistentVolumeSource struct {
 // FlexPersistentVolumeSourceInput is an input type that accepts FlexPersistentVolumeSourceArgs and FlexPersistentVolumeSourceOutput values.
 // You can construct a concrete instance of `FlexPersistentVolumeSourceInput` via:
 //
-//          FlexPersistentVolumeSourceArgs{...}
+//	FlexPersistentVolumeSourceArgs{...}
 type FlexPersistentVolumeSourceInput interface {
 	pulumi.Input
 
@@ -17785,11 +17809,11 @@ func (i FlexPersistentVolumeSourceArgs) ToFlexPersistentVolumeSourcePtrOutputWit
 // FlexPersistentVolumeSourcePtrInput is an input type that accepts FlexPersistentVolumeSourceArgs, FlexPersistentVolumeSourcePtr and FlexPersistentVolumeSourcePtrOutput values.
 // You can construct a concrete instance of `FlexPersistentVolumeSourcePtrInput` via:
 //
-//          FlexPersistentVolumeSourceArgs{...}
+//	        FlexPersistentVolumeSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type FlexPersistentVolumeSourcePtrInput interface {
 	pulumi.Input
 
@@ -17956,7 +17980,7 @@ type FlexPersistentVolumeSourcePatch struct {
 // FlexPersistentVolumeSourcePatchInput is an input type that accepts FlexPersistentVolumeSourcePatchArgs and FlexPersistentVolumeSourcePatchOutput values.
 // You can construct a concrete instance of `FlexPersistentVolumeSourcePatchInput` via:
 //
-//          FlexPersistentVolumeSourcePatchArgs{...}
+//	FlexPersistentVolumeSourcePatchArgs{...}
 type FlexPersistentVolumeSourcePatchInput interface {
 	pulumi.Input
 
@@ -18001,11 +18025,11 @@ func (i FlexPersistentVolumeSourcePatchArgs) ToFlexPersistentVolumeSourcePatchPt
 // FlexPersistentVolumeSourcePatchPtrInput is an input type that accepts FlexPersistentVolumeSourcePatchArgs, FlexPersistentVolumeSourcePatchPtr and FlexPersistentVolumeSourcePatchPtrOutput values.
 // You can construct a concrete instance of `FlexPersistentVolumeSourcePatchPtrInput` via:
 //
-//          FlexPersistentVolumeSourcePatchArgs{...}
+//	        FlexPersistentVolumeSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type FlexPersistentVolumeSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -18172,7 +18196,7 @@ type FlexVolumeSource struct {
 // FlexVolumeSourceInput is an input type that accepts FlexVolumeSourceArgs and FlexVolumeSourceOutput values.
 // You can construct a concrete instance of `FlexVolumeSourceInput` via:
 //
-//          FlexVolumeSourceArgs{...}
+//	FlexVolumeSourceArgs{...}
 type FlexVolumeSourceInput interface {
 	pulumi.Input
 
@@ -18217,11 +18241,11 @@ func (i FlexVolumeSourceArgs) ToFlexVolumeSourcePtrOutputWithContext(ctx context
 // FlexVolumeSourcePtrInput is an input type that accepts FlexVolumeSourceArgs, FlexVolumeSourcePtr and FlexVolumeSourcePtrOutput values.
 // You can construct a concrete instance of `FlexVolumeSourcePtrInput` via:
 //
-//          FlexVolumeSourceArgs{...}
+//	        FlexVolumeSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type FlexVolumeSourcePtrInput interface {
 	pulumi.Input
 
@@ -18388,7 +18412,7 @@ type FlexVolumeSourcePatch struct {
 // FlexVolumeSourcePatchInput is an input type that accepts FlexVolumeSourcePatchArgs and FlexVolumeSourcePatchOutput values.
 // You can construct a concrete instance of `FlexVolumeSourcePatchInput` via:
 //
-//          FlexVolumeSourcePatchArgs{...}
+//	FlexVolumeSourcePatchArgs{...}
 type FlexVolumeSourcePatchInput interface {
 	pulumi.Input
 
@@ -18433,11 +18457,11 @@ func (i FlexVolumeSourcePatchArgs) ToFlexVolumeSourcePatchPtrOutputWithContext(c
 // FlexVolumeSourcePatchPtrInput is an input type that accepts FlexVolumeSourcePatchArgs, FlexVolumeSourcePatchPtr and FlexVolumeSourcePatchPtrOutput values.
 // You can construct a concrete instance of `FlexVolumeSourcePatchPtrInput` via:
 //
-//          FlexVolumeSourcePatchArgs{...}
+//	        FlexVolumeSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type FlexVolumeSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -18598,7 +18622,7 @@ type FlockerVolumeSource struct {
 // FlockerVolumeSourceInput is an input type that accepts FlockerVolumeSourceArgs and FlockerVolumeSourceOutput values.
 // You can construct a concrete instance of `FlockerVolumeSourceInput` via:
 //
-//          FlockerVolumeSourceArgs{...}
+//	FlockerVolumeSourceArgs{...}
 type FlockerVolumeSourceInput interface {
 	pulumi.Input
 
@@ -18637,11 +18661,11 @@ func (i FlockerVolumeSourceArgs) ToFlockerVolumeSourcePtrOutputWithContext(ctx c
 // FlockerVolumeSourcePtrInput is an input type that accepts FlockerVolumeSourceArgs, FlockerVolumeSourcePtr and FlockerVolumeSourcePtrOutput values.
 // You can construct a concrete instance of `FlockerVolumeSourcePtrInput` via:
 //
-//          FlockerVolumeSourceArgs{...}
+//	        FlockerVolumeSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type FlockerVolumeSourcePtrInput interface {
 	pulumi.Input
 
@@ -18757,7 +18781,7 @@ type FlockerVolumeSourcePatch struct {
 // FlockerVolumeSourcePatchInput is an input type that accepts FlockerVolumeSourcePatchArgs and FlockerVolumeSourcePatchOutput values.
 // You can construct a concrete instance of `FlockerVolumeSourcePatchInput` via:
 //
-//          FlockerVolumeSourcePatchArgs{...}
+//	FlockerVolumeSourcePatchArgs{...}
 type FlockerVolumeSourcePatchInput interface {
 	pulumi.Input
 
@@ -18796,11 +18820,11 @@ func (i FlockerVolumeSourcePatchArgs) ToFlockerVolumeSourcePatchPtrOutputWithCon
 // FlockerVolumeSourcePatchPtrInput is an input type that accepts FlockerVolumeSourcePatchArgs, FlockerVolumeSourcePatchPtr and FlockerVolumeSourcePatchPtrOutput values.
 // You can construct a concrete instance of `FlockerVolumeSourcePatchPtrInput` via:
 //
-//          FlockerVolumeSourcePatchArgs{...}
+//	        FlockerVolumeSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type FlockerVolumeSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -18922,7 +18946,7 @@ type GCEPersistentDiskVolumeSource struct {
 // GCEPersistentDiskVolumeSourceInput is an input type that accepts GCEPersistentDiskVolumeSourceArgs and GCEPersistentDiskVolumeSourceOutput values.
 // You can construct a concrete instance of `GCEPersistentDiskVolumeSourceInput` via:
 //
-//          GCEPersistentDiskVolumeSourceArgs{...}
+//	GCEPersistentDiskVolumeSourceArgs{...}
 type GCEPersistentDiskVolumeSourceInput interface {
 	pulumi.Input
 
@@ -18967,11 +18991,11 @@ func (i GCEPersistentDiskVolumeSourceArgs) ToGCEPersistentDiskVolumeSourcePtrOut
 // GCEPersistentDiskVolumeSourcePtrInput is an input type that accepts GCEPersistentDiskVolumeSourceArgs, GCEPersistentDiskVolumeSourcePtr and GCEPersistentDiskVolumeSourcePtrOutput values.
 // You can construct a concrete instance of `GCEPersistentDiskVolumeSourcePtrInput` via:
 //
-//          GCEPersistentDiskVolumeSourceArgs{...}
+//	        GCEPersistentDiskVolumeSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type GCEPersistentDiskVolumeSourcePtrInput interface {
 	pulumi.Input
 
@@ -19125,7 +19149,7 @@ type GCEPersistentDiskVolumeSourcePatch struct {
 // GCEPersistentDiskVolumeSourcePatchInput is an input type that accepts GCEPersistentDiskVolumeSourcePatchArgs and GCEPersistentDiskVolumeSourcePatchOutput values.
 // You can construct a concrete instance of `GCEPersistentDiskVolumeSourcePatchInput` via:
 //
-//          GCEPersistentDiskVolumeSourcePatchArgs{...}
+//	GCEPersistentDiskVolumeSourcePatchArgs{...}
 type GCEPersistentDiskVolumeSourcePatchInput interface {
 	pulumi.Input
 
@@ -19170,11 +19194,11 @@ func (i GCEPersistentDiskVolumeSourcePatchArgs) ToGCEPersistentDiskVolumeSourceP
 // GCEPersistentDiskVolumeSourcePatchPtrInput is an input type that accepts GCEPersistentDiskVolumeSourcePatchArgs, GCEPersistentDiskVolumeSourcePatchPtr and GCEPersistentDiskVolumeSourcePatchPtrOutput values.
 // You can construct a concrete instance of `GCEPersistentDiskVolumeSourcePatchPtrInput` via:
 //
-//          GCEPersistentDiskVolumeSourcePatchArgs{...}
+//	        GCEPersistentDiskVolumeSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type GCEPersistentDiskVolumeSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -19323,7 +19347,7 @@ type GRPCAction struct {
 // GRPCActionInput is an input type that accepts GRPCActionArgs and GRPCActionOutput values.
 // You can construct a concrete instance of `GRPCActionInput` via:
 //
-//          GRPCActionArgs{...}
+//	GRPCActionArgs{...}
 type GRPCActionInput interface {
 	pulumi.Input
 
@@ -19363,11 +19387,11 @@ func (i GRPCActionArgs) ToGRPCActionPtrOutputWithContext(ctx context.Context) GR
 // GRPCActionPtrInput is an input type that accepts GRPCActionArgs, GRPCActionPtr and GRPCActionPtrOutput values.
 // You can construct a concrete instance of `GRPCActionPtrInput` via:
 //
-//          GRPCActionArgs{...}
+//	        GRPCActionArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type GRPCActionPtrInput interface {
 	pulumi.Input
 
@@ -19487,7 +19511,7 @@ type GRPCActionPatch struct {
 // GRPCActionPatchInput is an input type that accepts GRPCActionPatchArgs and GRPCActionPatchOutput values.
 // You can construct a concrete instance of `GRPCActionPatchInput` via:
 //
-//          GRPCActionPatchArgs{...}
+//	GRPCActionPatchArgs{...}
 type GRPCActionPatchInput interface {
 	pulumi.Input
 
@@ -19527,11 +19551,11 @@ func (i GRPCActionPatchArgs) ToGRPCActionPatchPtrOutputWithContext(ctx context.C
 // GRPCActionPatchPtrInput is an input type that accepts GRPCActionPatchArgs, GRPCActionPatchPtr and GRPCActionPatchPtrOutput values.
 // You can construct a concrete instance of `GRPCActionPatchPtrInput` via:
 //
-//          GRPCActionPatchArgs{...}
+//	        GRPCActionPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type GRPCActionPatchPtrInput interface {
 	pulumi.Input
 
@@ -19654,7 +19678,7 @@ type GitRepoVolumeSource struct {
 // GitRepoVolumeSourceInput is an input type that accepts GitRepoVolumeSourceArgs and GitRepoVolumeSourceOutput values.
 // You can construct a concrete instance of `GitRepoVolumeSourceInput` via:
 //
-//          GitRepoVolumeSourceArgs{...}
+//	GitRepoVolumeSourceArgs{...}
 type GitRepoVolumeSourceInput interface {
 	pulumi.Input
 
@@ -19697,11 +19721,11 @@ func (i GitRepoVolumeSourceArgs) ToGitRepoVolumeSourcePtrOutputWithContext(ctx c
 // GitRepoVolumeSourcePtrInput is an input type that accepts GitRepoVolumeSourceArgs, GitRepoVolumeSourcePtr and GitRepoVolumeSourcePtrOutput values.
 // You can construct a concrete instance of `GitRepoVolumeSourcePtrInput` via:
 //
-//          GitRepoVolumeSourceArgs{...}
+//	        GitRepoVolumeSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type GitRepoVolumeSourcePtrInput interface {
 	pulumi.Input
 
@@ -19838,7 +19862,7 @@ type GitRepoVolumeSourcePatch struct {
 // GitRepoVolumeSourcePatchInput is an input type that accepts GitRepoVolumeSourcePatchArgs and GitRepoVolumeSourcePatchOutput values.
 // You can construct a concrete instance of `GitRepoVolumeSourcePatchInput` via:
 //
-//          GitRepoVolumeSourcePatchArgs{...}
+//	GitRepoVolumeSourcePatchArgs{...}
 type GitRepoVolumeSourcePatchInput interface {
 	pulumi.Input
 
@@ -19881,11 +19905,11 @@ func (i GitRepoVolumeSourcePatchArgs) ToGitRepoVolumeSourcePatchPtrOutputWithCon
 // GitRepoVolumeSourcePatchPtrInput is an input type that accepts GitRepoVolumeSourcePatchArgs, GitRepoVolumeSourcePatchPtr and GitRepoVolumeSourcePatchPtrOutput values.
 // You can construct a concrete instance of `GitRepoVolumeSourcePatchPtrInput` via:
 //
-//          GitRepoVolumeSourcePatchArgs{...}
+//	        GitRepoVolumeSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type GitRepoVolumeSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -20022,7 +20046,7 @@ type GlusterfsPersistentVolumeSource struct {
 // GlusterfsPersistentVolumeSourceInput is an input type that accepts GlusterfsPersistentVolumeSourceArgs and GlusterfsPersistentVolumeSourceOutput values.
 // You can construct a concrete instance of `GlusterfsPersistentVolumeSourceInput` via:
 //
-//          GlusterfsPersistentVolumeSourceArgs{...}
+//	GlusterfsPersistentVolumeSourceArgs{...}
 type GlusterfsPersistentVolumeSourceInput interface {
 	pulumi.Input
 
@@ -20065,11 +20089,11 @@ func (i GlusterfsPersistentVolumeSourceArgs) ToGlusterfsPersistentVolumeSourcePt
 // GlusterfsPersistentVolumeSourcePtrInput is an input type that accepts GlusterfsPersistentVolumeSourceArgs, GlusterfsPersistentVolumeSourcePtr and GlusterfsPersistentVolumeSourcePtrOutput values.
 // You can construct a concrete instance of `GlusterfsPersistentVolumeSourcePtrInput` via:
 //
-//          GlusterfsPersistentVolumeSourceArgs{...}
+//	        GlusterfsPersistentVolumeSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type GlusterfsPersistentVolumeSourcePtrInput interface {
 	pulumi.Input
 
@@ -20219,7 +20243,7 @@ type GlusterfsPersistentVolumeSourcePatch struct {
 // GlusterfsPersistentVolumeSourcePatchInput is an input type that accepts GlusterfsPersistentVolumeSourcePatchArgs and GlusterfsPersistentVolumeSourcePatchOutput values.
 // You can construct a concrete instance of `GlusterfsPersistentVolumeSourcePatchInput` via:
 //
-//          GlusterfsPersistentVolumeSourcePatchArgs{...}
+//	GlusterfsPersistentVolumeSourcePatchArgs{...}
 type GlusterfsPersistentVolumeSourcePatchInput interface {
 	pulumi.Input
 
@@ -20262,11 +20286,11 @@ func (i GlusterfsPersistentVolumeSourcePatchArgs) ToGlusterfsPersistentVolumeSou
 // GlusterfsPersistentVolumeSourcePatchPtrInput is an input type that accepts GlusterfsPersistentVolumeSourcePatchArgs, GlusterfsPersistentVolumeSourcePatchPtr and GlusterfsPersistentVolumeSourcePatchPtrOutput values.
 // You can construct a concrete instance of `GlusterfsPersistentVolumeSourcePatchPtrInput` via:
 //
-//          GlusterfsPersistentVolumeSourcePatchArgs{...}
+//	        GlusterfsPersistentVolumeSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type GlusterfsPersistentVolumeSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -20414,7 +20438,7 @@ type GlusterfsVolumeSource struct {
 // GlusterfsVolumeSourceInput is an input type that accepts GlusterfsVolumeSourceArgs and GlusterfsVolumeSourceOutput values.
 // You can construct a concrete instance of `GlusterfsVolumeSourceInput` via:
 //
-//          GlusterfsVolumeSourceArgs{...}
+//	GlusterfsVolumeSourceArgs{...}
 type GlusterfsVolumeSourceInput interface {
 	pulumi.Input
 
@@ -20455,11 +20479,11 @@ func (i GlusterfsVolumeSourceArgs) ToGlusterfsVolumeSourcePtrOutputWithContext(c
 // GlusterfsVolumeSourcePtrInput is an input type that accepts GlusterfsVolumeSourceArgs, GlusterfsVolumeSourcePtr and GlusterfsVolumeSourcePtrOutput values.
 // You can construct a concrete instance of `GlusterfsVolumeSourcePtrInput` via:
 //
-//          GlusterfsVolumeSourceArgs{...}
+//	        GlusterfsVolumeSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type GlusterfsVolumeSourcePtrInput interface {
 	pulumi.Input
 
@@ -20592,7 +20616,7 @@ type GlusterfsVolumeSourcePatch struct {
 // GlusterfsVolumeSourcePatchInput is an input type that accepts GlusterfsVolumeSourcePatchArgs and GlusterfsVolumeSourcePatchOutput values.
 // You can construct a concrete instance of `GlusterfsVolumeSourcePatchInput` via:
 //
-//          GlusterfsVolumeSourcePatchArgs{...}
+//	GlusterfsVolumeSourcePatchArgs{...}
 type GlusterfsVolumeSourcePatchInput interface {
 	pulumi.Input
 
@@ -20633,11 +20657,11 @@ func (i GlusterfsVolumeSourcePatchArgs) ToGlusterfsVolumeSourcePatchPtrOutputWit
 // GlusterfsVolumeSourcePatchPtrInput is an input type that accepts GlusterfsVolumeSourcePatchArgs, GlusterfsVolumeSourcePatchPtr and GlusterfsVolumeSourcePatchPtrOutput values.
 // You can construct a concrete instance of `GlusterfsVolumeSourcePatchPtrInput` via:
 //
-//          GlusterfsVolumeSourcePatchArgs{...}
+//	        GlusterfsVolumeSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type GlusterfsVolumeSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -20774,7 +20798,7 @@ type HTTPGetAction struct {
 // HTTPGetActionInput is an input type that accepts HTTPGetActionArgs and HTTPGetActionOutput values.
 // You can construct a concrete instance of `HTTPGetActionInput` via:
 //
-//          HTTPGetActionArgs{...}
+//	HTTPGetActionArgs{...}
 type HTTPGetActionInput interface {
 	pulumi.Input
 
@@ -20819,11 +20843,11 @@ func (i HTTPGetActionArgs) ToHTTPGetActionPtrOutputWithContext(ctx context.Conte
 // HTTPGetActionPtrInput is an input type that accepts HTTPGetActionArgs, HTTPGetActionPtr and HTTPGetActionPtrOutput values.
 // You can construct a concrete instance of `HTTPGetActionPtrInput` via:
 //
-//          HTTPGetActionArgs{...}
+//	        HTTPGetActionArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type HTTPGetActionPtrInput interface {
 	pulumi.Input
 
@@ -20990,7 +21014,7 @@ type HTTPGetActionPatch struct {
 // HTTPGetActionPatchInput is an input type that accepts HTTPGetActionPatchArgs and HTTPGetActionPatchOutput values.
 // You can construct a concrete instance of `HTTPGetActionPatchInput` via:
 //
-//          HTTPGetActionPatchArgs{...}
+//	HTTPGetActionPatchArgs{...}
 type HTTPGetActionPatchInput interface {
 	pulumi.Input
 
@@ -21035,11 +21059,11 @@ func (i HTTPGetActionPatchArgs) ToHTTPGetActionPatchPtrOutputWithContext(ctx con
 // HTTPGetActionPatchPtrInput is an input type that accepts HTTPGetActionPatchArgs, HTTPGetActionPatchPtr and HTTPGetActionPatchPtrOutput values.
 // You can construct a concrete instance of `HTTPGetActionPatchPtrInput` via:
 //
-//          HTTPGetActionPatchArgs{...}
+//	        HTTPGetActionPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type HTTPGetActionPatchPtrInput interface {
 	pulumi.Input
 
@@ -21200,7 +21224,7 @@ type HTTPHeader struct {
 // HTTPHeaderInput is an input type that accepts HTTPHeaderArgs and HTTPHeaderOutput values.
 // You can construct a concrete instance of `HTTPHeaderInput` via:
 //
-//          HTTPHeaderArgs{...}
+//	HTTPHeaderArgs{...}
 type HTTPHeaderInput interface {
 	pulumi.Input
 
@@ -21231,7 +21255,7 @@ func (i HTTPHeaderArgs) ToHTTPHeaderOutputWithContext(ctx context.Context) HTTPH
 // HTTPHeaderArrayInput is an input type that accepts HTTPHeaderArray and HTTPHeaderArrayOutput values.
 // You can construct a concrete instance of `HTTPHeaderArrayInput` via:
 //
-//          HTTPHeaderArray{ HTTPHeaderArgs{...} }
+//	HTTPHeaderArray{ HTTPHeaderArgs{...} }
 type HTTPHeaderArrayInput interface {
 	pulumi.Input
 
@@ -21309,7 +21333,7 @@ type HTTPHeaderPatch struct {
 // HTTPHeaderPatchInput is an input type that accepts HTTPHeaderPatchArgs and HTTPHeaderPatchOutput values.
 // You can construct a concrete instance of `HTTPHeaderPatchInput` via:
 //
-//          HTTPHeaderPatchArgs{...}
+//	HTTPHeaderPatchArgs{...}
 type HTTPHeaderPatchInput interface {
 	pulumi.Input
 
@@ -21340,7 +21364,7 @@ func (i HTTPHeaderPatchArgs) ToHTTPHeaderPatchOutputWithContext(ctx context.Cont
 // HTTPHeaderPatchArrayInput is an input type that accepts HTTPHeaderPatchArray and HTTPHeaderPatchArrayOutput values.
 // You can construct a concrete instance of `HTTPHeaderPatchArrayInput` via:
 //
-//          HTTPHeaderPatchArray{ HTTPHeaderPatchArgs{...} }
+//	HTTPHeaderPatchArray{ HTTPHeaderPatchArgs{...} }
 type HTTPHeaderPatchArrayInput interface {
 	pulumi.Input
 
@@ -21420,7 +21444,7 @@ type Handler struct {
 // HandlerInput is an input type that accepts HandlerArgs and HandlerOutput values.
 // You can construct a concrete instance of `HandlerInput` via:
 //
-//          HandlerArgs{...}
+//	HandlerArgs{...}
 type HandlerInput interface {
 	pulumi.Input
 
@@ -21493,7 +21517,7 @@ type HandlerPatch struct {
 // HandlerPatchInput is an input type that accepts HandlerPatchArgs and HandlerPatchOutput values.
 // You can construct a concrete instance of `HandlerPatchInput` via:
 //
-//          HandlerPatchArgs{...}
+//	HandlerPatchArgs{...}
 type HandlerPatchInput interface {
 	pulumi.Input
 
@@ -21564,7 +21588,7 @@ type HostAlias struct {
 // HostAliasInput is an input type that accepts HostAliasArgs and HostAliasOutput values.
 // You can construct a concrete instance of `HostAliasInput` via:
 //
-//          HostAliasArgs{...}
+//	HostAliasArgs{...}
 type HostAliasInput interface {
 	pulumi.Input
 
@@ -21595,7 +21619,7 @@ func (i HostAliasArgs) ToHostAliasOutputWithContext(ctx context.Context) HostAli
 // HostAliasArrayInput is an input type that accepts HostAliasArray and HostAliasArrayOutput values.
 // You can construct a concrete instance of `HostAliasArrayInput` via:
 //
-//          HostAliasArray{ HostAliasArgs{...} }
+//	HostAliasArray{ HostAliasArgs{...} }
 type HostAliasArrayInput interface {
 	pulumi.Input
 
@@ -21673,7 +21697,7 @@ type HostAliasPatch struct {
 // HostAliasPatchInput is an input type that accepts HostAliasPatchArgs and HostAliasPatchOutput values.
 // You can construct a concrete instance of `HostAliasPatchInput` via:
 //
-//          HostAliasPatchArgs{...}
+//	HostAliasPatchArgs{...}
 type HostAliasPatchInput interface {
 	pulumi.Input
 
@@ -21704,7 +21728,7 @@ func (i HostAliasPatchArgs) ToHostAliasPatchOutputWithContext(ctx context.Contex
 // HostAliasPatchArrayInput is an input type that accepts HostAliasPatchArray and HostAliasPatchArrayOutput values.
 // You can construct a concrete instance of `HostAliasPatchArrayInput` via:
 //
-//          HostAliasPatchArray{ HostAliasPatchArgs{...} }
+//	HostAliasPatchArray{ HostAliasPatchArgs{...} }
 type HostAliasPatchArrayInput interface {
 	pulumi.Input
 
@@ -21782,7 +21806,7 @@ type HostPathVolumeSource struct {
 // HostPathVolumeSourceInput is an input type that accepts HostPathVolumeSourceArgs and HostPathVolumeSourceOutput values.
 // You can construct a concrete instance of `HostPathVolumeSourceInput` via:
 //
-//          HostPathVolumeSourceArgs{...}
+//	HostPathVolumeSourceArgs{...}
 type HostPathVolumeSourceInput interface {
 	pulumi.Input
 
@@ -21821,11 +21845,11 @@ func (i HostPathVolumeSourceArgs) ToHostPathVolumeSourcePtrOutputWithContext(ctx
 // HostPathVolumeSourcePtrInput is an input type that accepts HostPathVolumeSourceArgs, HostPathVolumeSourcePtr and HostPathVolumeSourcePtrOutput values.
 // You can construct a concrete instance of `HostPathVolumeSourcePtrInput` via:
 //
-//          HostPathVolumeSourceArgs{...}
+//	        HostPathVolumeSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type HostPathVolumeSourcePtrInput interface {
 	pulumi.Input
 
@@ -21941,7 +21965,7 @@ type HostPathVolumeSourcePatch struct {
 // HostPathVolumeSourcePatchInput is an input type that accepts HostPathVolumeSourcePatchArgs and HostPathVolumeSourcePatchOutput values.
 // You can construct a concrete instance of `HostPathVolumeSourcePatchInput` via:
 //
-//          HostPathVolumeSourcePatchArgs{...}
+//	HostPathVolumeSourcePatchArgs{...}
 type HostPathVolumeSourcePatchInput interface {
 	pulumi.Input
 
@@ -21980,11 +22004,11 @@ func (i HostPathVolumeSourcePatchArgs) ToHostPathVolumeSourcePatchPtrOutputWithC
 // HostPathVolumeSourcePatchPtrInput is an input type that accepts HostPathVolumeSourcePatchArgs, HostPathVolumeSourcePatchPtr and HostPathVolumeSourcePatchPtrOutput values.
 // You can construct a concrete instance of `HostPathVolumeSourcePatchPtrInput` via:
 //
-//          HostPathVolumeSourcePatchArgs{...}
+//	        HostPathVolumeSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type HostPathVolumeSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -22118,7 +22142,7 @@ type ISCSIPersistentVolumeSource struct {
 // ISCSIPersistentVolumeSourceInput is an input type that accepts ISCSIPersistentVolumeSourceArgs and ISCSIPersistentVolumeSourceOutput values.
 // You can construct a concrete instance of `ISCSIPersistentVolumeSourceInput` via:
 //
-//          ISCSIPersistentVolumeSourceArgs{...}
+//	ISCSIPersistentVolumeSourceArgs{...}
 type ISCSIPersistentVolumeSourceInput interface {
 	pulumi.Input
 
@@ -22175,11 +22199,11 @@ func (i ISCSIPersistentVolumeSourceArgs) ToISCSIPersistentVolumeSourcePtrOutputW
 // ISCSIPersistentVolumeSourcePtrInput is an input type that accepts ISCSIPersistentVolumeSourceArgs, ISCSIPersistentVolumeSourcePtr and ISCSIPersistentVolumeSourcePtrOutput values.
 // You can construct a concrete instance of `ISCSIPersistentVolumeSourcePtrInput` via:
 //
-//          ISCSIPersistentVolumeSourceArgs{...}
+//	        ISCSIPersistentVolumeSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ISCSIPersistentVolumeSourcePtrInput interface {
 	pulumi.Input
 
@@ -22448,7 +22472,7 @@ type ISCSIPersistentVolumeSourcePatch struct {
 // ISCSIPersistentVolumeSourcePatchInput is an input type that accepts ISCSIPersistentVolumeSourcePatchArgs and ISCSIPersistentVolumeSourcePatchOutput values.
 // You can construct a concrete instance of `ISCSIPersistentVolumeSourcePatchInput` via:
 //
-//          ISCSIPersistentVolumeSourcePatchArgs{...}
+//	ISCSIPersistentVolumeSourcePatchArgs{...}
 type ISCSIPersistentVolumeSourcePatchInput interface {
 	pulumi.Input
 
@@ -22505,11 +22529,11 @@ func (i ISCSIPersistentVolumeSourcePatchArgs) ToISCSIPersistentVolumeSourcePatch
 // ISCSIPersistentVolumeSourcePatchPtrInput is an input type that accepts ISCSIPersistentVolumeSourcePatchArgs, ISCSIPersistentVolumeSourcePatchPtr and ISCSIPersistentVolumeSourcePatchPtrOutput values.
 // You can construct a concrete instance of `ISCSIPersistentVolumeSourcePatchPtrInput` via:
 //
-//          ISCSIPersistentVolumeSourcePatchArgs{...}
+//	        ISCSIPersistentVolumeSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ISCSIPersistentVolumeSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -22778,7 +22802,7 @@ type ISCSIVolumeSource struct {
 // ISCSIVolumeSourceInput is an input type that accepts ISCSIVolumeSourceArgs and ISCSIVolumeSourceOutput values.
 // You can construct a concrete instance of `ISCSIVolumeSourceInput` via:
 //
-//          ISCSIVolumeSourceArgs{...}
+//	ISCSIVolumeSourceArgs{...}
 type ISCSIVolumeSourceInput interface {
 	pulumi.Input
 
@@ -22835,11 +22859,11 @@ func (i ISCSIVolumeSourceArgs) ToISCSIVolumeSourcePtrOutputWithContext(ctx conte
 // ISCSIVolumeSourcePtrInput is an input type that accepts ISCSIVolumeSourceArgs, ISCSIVolumeSourcePtr and ISCSIVolumeSourcePtrOutput values.
 // You can construct a concrete instance of `ISCSIVolumeSourcePtrInput` via:
 //
-//          ISCSIVolumeSourceArgs{...}
+//	        ISCSIVolumeSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ISCSIVolumeSourcePtrInput interface {
 	pulumi.Input
 
@@ -23108,7 +23132,7 @@ type ISCSIVolumeSourcePatch struct {
 // ISCSIVolumeSourcePatchInput is an input type that accepts ISCSIVolumeSourcePatchArgs and ISCSIVolumeSourcePatchOutput values.
 // You can construct a concrete instance of `ISCSIVolumeSourcePatchInput` via:
 //
-//          ISCSIVolumeSourcePatchArgs{...}
+//	ISCSIVolumeSourcePatchArgs{...}
 type ISCSIVolumeSourcePatchInput interface {
 	pulumi.Input
 
@@ -23165,11 +23189,11 @@ func (i ISCSIVolumeSourcePatchArgs) ToISCSIVolumeSourcePatchPtrOutputWithContext
 // ISCSIVolumeSourcePatchPtrInput is an input type that accepts ISCSIVolumeSourcePatchArgs, ISCSIVolumeSourcePatchPtr and ISCSIVolumeSourcePatchPtrOutput values.
 // You can construct a concrete instance of `ISCSIVolumeSourcePatchPtrInput` via:
 //
-//          ISCSIVolumeSourcePatchArgs{...}
+//	        ISCSIVolumeSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ISCSIVolumeSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -23422,7 +23446,7 @@ type KeyToPath struct {
 // KeyToPathInput is an input type that accepts KeyToPathArgs and KeyToPathOutput values.
 // You can construct a concrete instance of `KeyToPathInput` via:
 //
-//          KeyToPathArgs{...}
+//	KeyToPathArgs{...}
 type KeyToPathInput interface {
 	pulumi.Input
 
@@ -23455,7 +23479,7 @@ func (i KeyToPathArgs) ToKeyToPathOutputWithContext(ctx context.Context) KeyToPa
 // KeyToPathArrayInput is an input type that accepts KeyToPathArray and KeyToPathArrayOutput values.
 // You can construct a concrete instance of `KeyToPathArrayInput` via:
 //
-//          KeyToPathArray{ KeyToPathArgs{...} }
+//	KeyToPathArray{ KeyToPathArgs{...} }
 type KeyToPathArrayInput interface {
 	pulumi.Input
 
@@ -23540,7 +23564,7 @@ type KeyToPathPatch struct {
 // KeyToPathPatchInput is an input type that accepts KeyToPathPatchArgs and KeyToPathPatchOutput values.
 // You can construct a concrete instance of `KeyToPathPatchInput` via:
 //
-//          KeyToPathPatchArgs{...}
+//	KeyToPathPatchArgs{...}
 type KeyToPathPatchInput interface {
 	pulumi.Input
 
@@ -23573,7 +23597,7 @@ func (i KeyToPathPatchArgs) ToKeyToPathPatchOutputWithContext(ctx context.Contex
 // KeyToPathPatchArrayInput is an input type that accepts KeyToPathPatchArray and KeyToPathPatchArrayOutput values.
 // You can construct a concrete instance of `KeyToPathPatchArrayInput` via:
 //
-//          KeyToPathPatchArray{ KeyToPathPatchArgs{...} }
+//	KeyToPathPatchArray{ KeyToPathPatchArgs{...} }
 type KeyToPathPatchArrayInput interface {
 	pulumi.Input
 
@@ -23656,7 +23680,7 @@ type Lifecycle struct {
 // LifecycleInput is an input type that accepts LifecycleArgs and LifecycleOutput values.
 // You can construct a concrete instance of `LifecycleInput` via:
 //
-//          LifecycleArgs{...}
+//	LifecycleArgs{...}
 type LifecycleInput interface {
 	pulumi.Input
 
@@ -23695,11 +23719,11 @@ func (i LifecycleArgs) ToLifecyclePtrOutputWithContext(ctx context.Context) Life
 // LifecyclePtrInput is an input type that accepts LifecycleArgs, LifecyclePtr and LifecyclePtrOutput values.
 // You can construct a concrete instance of `LifecyclePtrInput` via:
 //
-//          LifecycleArgs{...}
+//	        LifecycleArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type LifecyclePtrInput interface {
 	pulumi.Input
 
@@ -23817,7 +23841,7 @@ type LifecycleHandler struct {
 // LifecycleHandlerInput is an input type that accepts LifecycleHandlerArgs and LifecycleHandlerOutput values.
 // You can construct a concrete instance of `LifecycleHandlerInput` via:
 //
-//          LifecycleHandlerArgs{...}
+//	LifecycleHandlerArgs{...}
 type LifecycleHandlerInput interface {
 	pulumi.Input
 
@@ -23858,11 +23882,11 @@ func (i LifecycleHandlerArgs) ToLifecycleHandlerPtrOutputWithContext(ctx context
 // LifecycleHandlerPtrInput is an input type that accepts LifecycleHandlerArgs, LifecycleHandlerPtr and LifecycleHandlerPtrOutput values.
 // You can construct a concrete instance of `LifecycleHandlerPtrInput` via:
 //
-//          LifecycleHandlerArgs{...}
+//	        LifecycleHandlerArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type LifecycleHandlerPtrInput interface {
 	pulumi.Input
 
@@ -23995,7 +24019,7 @@ type LifecycleHandlerPatch struct {
 // LifecycleHandlerPatchInput is an input type that accepts LifecycleHandlerPatchArgs and LifecycleHandlerPatchOutput values.
 // You can construct a concrete instance of `LifecycleHandlerPatchInput` via:
 //
-//          LifecycleHandlerPatchArgs{...}
+//	LifecycleHandlerPatchArgs{...}
 type LifecycleHandlerPatchInput interface {
 	pulumi.Input
 
@@ -24036,11 +24060,11 @@ func (i LifecycleHandlerPatchArgs) ToLifecycleHandlerPatchPtrOutputWithContext(c
 // LifecycleHandlerPatchPtrInput is an input type that accepts LifecycleHandlerPatchArgs, LifecycleHandlerPatchPtr and LifecycleHandlerPatchPtrOutput values.
 // You can construct a concrete instance of `LifecycleHandlerPatchPtrInput` via:
 //
-//          LifecycleHandlerPatchArgs{...}
+//	        LifecycleHandlerPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type LifecycleHandlerPatchPtrInput interface {
 	pulumi.Input
 
@@ -24171,7 +24195,7 @@ type LifecyclePatch struct {
 // LifecyclePatchInput is an input type that accepts LifecyclePatchArgs and LifecyclePatchOutput values.
 // You can construct a concrete instance of `LifecyclePatchInput` via:
 //
-//          LifecyclePatchArgs{...}
+//	LifecyclePatchArgs{...}
 type LifecyclePatchInput interface {
 	pulumi.Input
 
@@ -24210,11 +24234,11 @@ func (i LifecyclePatchArgs) ToLifecyclePatchPtrOutputWithContext(ctx context.Con
 // LifecyclePatchPtrInput is an input type that accepts LifecyclePatchArgs, LifecyclePatchPtr and LifecyclePatchPtrOutput values.
 // You can construct a concrete instance of `LifecyclePatchPtrInput` via:
 //
-//          LifecyclePatchArgs{...}
+//	        LifecyclePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type LifecyclePatchPtrInput interface {
 	pulumi.Input
 
@@ -24334,7 +24358,7 @@ type LimitRangeType struct {
 // LimitRangeTypeInput is an input type that accepts LimitRangeTypeArgs and LimitRangeTypeOutput values.
 // You can construct a concrete instance of `LimitRangeTypeInput` via:
 //
-//          LimitRangeTypeArgs{...}
+//	LimitRangeTypeArgs{...}
 type LimitRangeTypeInput interface {
 	pulumi.Input
 
@@ -24369,7 +24393,7 @@ func (i LimitRangeTypeArgs) ToLimitRangeTypeOutputWithContext(ctx context.Contex
 // LimitRangeTypeArrayInput is an input type that accepts LimitRangeTypeArray and LimitRangeTypeArrayOutput values.
 // You can construct a concrete instance of `LimitRangeTypeArrayInput` via:
 //
-//          LimitRangeTypeArray{ LimitRangeTypeArgs{...} }
+//	LimitRangeTypeArray{ LimitRangeTypeArgs{...} }
 type LimitRangeTypeArrayInput interface {
 	pulumi.Input
 
@@ -24465,7 +24489,7 @@ type LimitRangeItem struct {
 // LimitRangeItemInput is an input type that accepts LimitRangeItemArgs and LimitRangeItemOutput values.
 // You can construct a concrete instance of `LimitRangeItemInput` via:
 //
-//          LimitRangeItemArgs{...}
+//	LimitRangeItemArgs{...}
 type LimitRangeItemInput interface {
 	pulumi.Input
 
@@ -24504,7 +24528,7 @@ func (i LimitRangeItemArgs) ToLimitRangeItemOutputWithContext(ctx context.Contex
 // LimitRangeItemArrayInput is an input type that accepts LimitRangeItemArray and LimitRangeItemArrayOutput values.
 // You can construct a concrete instance of `LimitRangeItemArrayInput` via:
 //
-//          LimitRangeItemArray{ LimitRangeItemArgs{...} }
+//	LimitRangeItemArray{ LimitRangeItemArgs{...} }
 type LimitRangeItemArrayInput interface {
 	pulumi.Input
 
@@ -24610,7 +24634,7 @@ type LimitRangeItemPatch struct {
 // LimitRangeItemPatchInput is an input type that accepts LimitRangeItemPatchArgs and LimitRangeItemPatchOutput values.
 // You can construct a concrete instance of `LimitRangeItemPatchInput` via:
 //
-//          LimitRangeItemPatchArgs{...}
+//	LimitRangeItemPatchArgs{...}
 type LimitRangeItemPatchInput interface {
 	pulumi.Input
 
@@ -24649,7 +24673,7 @@ func (i LimitRangeItemPatchArgs) ToLimitRangeItemPatchOutputWithContext(ctx cont
 // LimitRangeItemPatchArrayInput is an input type that accepts LimitRangeItemPatchArray and LimitRangeItemPatchArrayOutput values.
 // You can construct a concrete instance of `LimitRangeItemPatchArrayInput` via:
 //
-//          LimitRangeItemPatchArray{ LimitRangeItemPatchArgs{...} }
+//	LimitRangeItemPatchArray{ LimitRangeItemPatchArgs{...} }
 type LimitRangeItemPatchArrayInput interface {
 	pulumi.Input
 
@@ -24751,7 +24775,7 @@ type LimitRangeListType struct {
 // LimitRangeListTypeInput is an input type that accepts LimitRangeListTypeArgs and LimitRangeListTypeOutput values.
 // You can construct a concrete instance of `LimitRangeListTypeInput` via:
 //
-//          LimitRangeListTypeArgs{...}
+//	LimitRangeListTypeArgs{...}
 type LimitRangeListTypeInput interface {
 	pulumi.Input
 
@@ -24833,7 +24857,7 @@ type LimitRangePatchType struct {
 // LimitRangePatchTypeInput is an input type that accepts LimitRangePatchTypeArgs and LimitRangePatchTypeOutput values.
 // You can construct a concrete instance of `LimitRangePatchTypeInput` via:
 //
-//          LimitRangePatchTypeArgs{...}
+//	LimitRangePatchTypeArgs{...}
 type LimitRangePatchTypeInput interface {
 	pulumi.Input
 
@@ -24909,7 +24933,7 @@ type LimitRangeSpec struct {
 // LimitRangeSpecInput is an input type that accepts LimitRangeSpecArgs and LimitRangeSpecOutput values.
 // You can construct a concrete instance of `LimitRangeSpecInput` via:
 //
-//          LimitRangeSpecArgs{...}
+//	LimitRangeSpecArgs{...}
 type LimitRangeSpecInput interface {
 	pulumi.Input
 
@@ -24946,11 +24970,11 @@ func (i LimitRangeSpecArgs) ToLimitRangeSpecPtrOutputWithContext(ctx context.Con
 // LimitRangeSpecPtrInput is an input type that accepts LimitRangeSpecArgs, LimitRangeSpecPtr and LimitRangeSpecPtrOutput values.
 // You can construct a concrete instance of `LimitRangeSpecPtrInput` via:
 //
-//          LimitRangeSpecArgs{...}
+//	        LimitRangeSpecArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type LimitRangeSpecPtrInput interface {
 	pulumi.Input
 
@@ -25049,7 +25073,7 @@ type LimitRangeSpecPatch struct {
 // LimitRangeSpecPatchInput is an input type that accepts LimitRangeSpecPatchArgs and LimitRangeSpecPatchOutput values.
 // You can construct a concrete instance of `LimitRangeSpecPatchInput` via:
 //
-//          LimitRangeSpecPatchArgs{...}
+//	LimitRangeSpecPatchArgs{...}
 type LimitRangeSpecPatchInput interface {
 	pulumi.Input
 
@@ -25086,11 +25110,11 @@ func (i LimitRangeSpecPatchArgs) ToLimitRangeSpecPatchPtrOutputWithContext(ctx c
 // LimitRangeSpecPatchPtrInput is an input type that accepts LimitRangeSpecPatchArgs, LimitRangeSpecPatchPtr and LimitRangeSpecPatchPtrOutput values.
 // You can construct a concrete instance of `LimitRangeSpecPatchPtrInput` via:
 //
-//          LimitRangeSpecPatchArgs{...}
+//	        LimitRangeSpecPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type LimitRangeSpecPatchPtrInput interface {
 	pulumi.Input
 
@@ -25193,7 +25217,7 @@ type LoadBalancerIngress struct {
 // LoadBalancerIngressInput is an input type that accepts LoadBalancerIngressArgs and LoadBalancerIngressOutput values.
 // You can construct a concrete instance of `LoadBalancerIngressInput` via:
 //
-//          LoadBalancerIngressArgs{...}
+//	LoadBalancerIngressArgs{...}
 type LoadBalancerIngressInput interface {
 	pulumi.Input
 
@@ -25226,7 +25250,7 @@ func (i LoadBalancerIngressArgs) ToLoadBalancerIngressOutputWithContext(ctx cont
 // LoadBalancerIngressArrayInput is an input type that accepts LoadBalancerIngressArray and LoadBalancerIngressArrayOutput values.
 // You can construct a concrete instance of `LoadBalancerIngressArrayInput` via:
 //
-//          LoadBalancerIngressArray{ LoadBalancerIngressArgs{...} }
+//	LoadBalancerIngressArray{ LoadBalancerIngressArgs{...} }
 type LoadBalancerIngressArrayInput interface {
 	pulumi.Input
 
@@ -25311,7 +25335,7 @@ type LoadBalancerIngressPatch struct {
 // LoadBalancerIngressPatchInput is an input type that accepts LoadBalancerIngressPatchArgs and LoadBalancerIngressPatchOutput values.
 // You can construct a concrete instance of `LoadBalancerIngressPatchInput` via:
 //
-//          LoadBalancerIngressPatchArgs{...}
+//	LoadBalancerIngressPatchArgs{...}
 type LoadBalancerIngressPatchInput interface {
 	pulumi.Input
 
@@ -25344,7 +25368,7 @@ func (i LoadBalancerIngressPatchArgs) ToLoadBalancerIngressPatchOutputWithContex
 // LoadBalancerIngressPatchArrayInput is an input type that accepts LoadBalancerIngressPatchArray and LoadBalancerIngressPatchArrayOutput values.
 // You can construct a concrete instance of `LoadBalancerIngressPatchArrayInput` via:
 //
-//          LoadBalancerIngressPatchArray{ LoadBalancerIngressPatchArgs{...} }
+//	LoadBalancerIngressPatchArray{ LoadBalancerIngressPatchArgs{...} }
 type LoadBalancerIngressPatchArrayInput interface {
 	pulumi.Input
 
@@ -25425,7 +25449,7 @@ type LoadBalancerStatus struct {
 // LoadBalancerStatusInput is an input type that accepts LoadBalancerStatusArgs and LoadBalancerStatusOutput values.
 // You can construct a concrete instance of `LoadBalancerStatusInput` via:
 //
-//          LoadBalancerStatusArgs{...}
+//	LoadBalancerStatusArgs{...}
 type LoadBalancerStatusInput interface {
 	pulumi.Input
 
@@ -25462,11 +25486,11 @@ func (i LoadBalancerStatusArgs) ToLoadBalancerStatusPtrOutputWithContext(ctx con
 // LoadBalancerStatusPtrInput is an input type that accepts LoadBalancerStatusArgs, LoadBalancerStatusPtr and LoadBalancerStatusPtrOutput values.
 // You can construct a concrete instance of `LoadBalancerStatusPtrInput` via:
 //
-//          LoadBalancerStatusArgs{...}
+//	        LoadBalancerStatusArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type LoadBalancerStatusPtrInput interface {
 	pulumi.Input
 
@@ -25565,7 +25589,7 @@ type LoadBalancerStatusPatch struct {
 // LoadBalancerStatusPatchInput is an input type that accepts LoadBalancerStatusPatchArgs and LoadBalancerStatusPatchOutput values.
 // You can construct a concrete instance of `LoadBalancerStatusPatchInput` via:
 //
-//          LoadBalancerStatusPatchArgs{...}
+//	LoadBalancerStatusPatchArgs{...}
 type LoadBalancerStatusPatchInput interface {
 	pulumi.Input
 
@@ -25602,11 +25626,11 @@ func (i LoadBalancerStatusPatchArgs) ToLoadBalancerStatusPatchPtrOutputWithConte
 // LoadBalancerStatusPatchPtrInput is an input type that accepts LoadBalancerStatusPatchArgs, LoadBalancerStatusPatchPtr and LoadBalancerStatusPatchPtrOutput values.
 // You can construct a concrete instance of `LoadBalancerStatusPatchPtrInput` via:
 //
-//          LoadBalancerStatusPatchArgs{...}
+//	        LoadBalancerStatusPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type LoadBalancerStatusPatchPtrInput interface {
 	pulumi.Input
 
@@ -25705,7 +25729,7 @@ type LocalObjectReference struct {
 // LocalObjectReferenceInput is an input type that accepts LocalObjectReferenceArgs and LocalObjectReferenceOutput values.
 // You can construct a concrete instance of `LocalObjectReferenceInput` via:
 //
-//          LocalObjectReferenceArgs{...}
+//	LocalObjectReferenceArgs{...}
 type LocalObjectReferenceInput interface {
 	pulumi.Input
 
@@ -25742,11 +25766,11 @@ func (i LocalObjectReferenceArgs) ToLocalObjectReferencePtrOutputWithContext(ctx
 // LocalObjectReferencePtrInput is an input type that accepts LocalObjectReferenceArgs, LocalObjectReferencePtr and LocalObjectReferencePtrOutput values.
 // You can construct a concrete instance of `LocalObjectReferencePtrInput` via:
 //
-//          LocalObjectReferenceArgs{...}
+//	        LocalObjectReferenceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type LocalObjectReferencePtrInput interface {
 	pulumi.Input
 
@@ -25775,7 +25799,7 @@ func (i *localObjectReferencePtrType) ToLocalObjectReferencePtrOutputWithContext
 // LocalObjectReferenceArrayInput is an input type that accepts LocalObjectReferenceArray and LocalObjectReferenceArrayOutput values.
 // You can construct a concrete instance of `LocalObjectReferenceArrayInput` via:
 //
-//          LocalObjectReferenceArray{ LocalObjectReferenceArgs{...} }
+//	LocalObjectReferenceArray{ LocalObjectReferenceArgs{...} }
 type LocalObjectReferenceArrayInput interface {
 	pulumi.Input
 
@@ -25890,7 +25914,7 @@ type LocalObjectReferencePatch struct {
 // LocalObjectReferencePatchInput is an input type that accepts LocalObjectReferencePatchArgs and LocalObjectReferencePatchOutput values.
 // You can construct a concrete instance of `LocalObjectReferencePatchInput` via:
 //
-//          LocalObjectReferencePatchArgs{...}
+//	LocalObjectReferencePatchArgs{...}
 type LocalObjectReferencePatchInput interface {
 	pulumi.Input
 
@@ -25927,11 +25951,11 @@ func (i LocalObjectReferencePatchArgs) ToLocalObjectReferencePatchPtrOutputWithC
 // LocalObjectReferencePatchPtrInput is an input type that accepts LocalObjectReferencePatchArgs, LocalObjectReferencePatchPtr and LocalObjectReferencePatchPtrOutput values.
 // You can construct a concrete instance of `LocalObjectReferencePatchPtrInput` via:
 //
-//          LocalObjectReferencePatchArgs{...}
+//	        LocalObjectReferencePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type LocalObjectReferencePatchPtrInput interface {
 	pulumi.Input
 
@@ -25960,7 +25984,7 @@ func (i *localObjectReferencePatchPtrType) ToLocalObjectReferencePatchPtrOutputW
 // LocalObjectReferencePatchArrayInput is an input type that accepts LocalObjectReferencePatchArray and LocalObjectReferencePatchArrayOutput values.
 // You can construct a concrete instance of `LocalObjectReferencePatchArrayInput` via:
 //
-//          LocalObjectReferencePatchArray{ LocalObjectReferencePatchArgs{...} }
+//	LocalObjectReferencePatchArray{ LocalObjectReferencePatchArgs{...} }
 type LocalObjectReferencePatchArrayInput interface {
 	pulumi.Input
 
@@ -26077,7 +26101,7 @@ type LocalVolumeSource struct {
 // LocalVolumeSourceInput is an input type that accepts LocalVolumeSourceArgs and LocalVolumeSourceOutput values.
 // You can construct a concrete instance of `LocalVolumeSourceInput` via:
 //
-//          LocalVolumeSourceArgs{...}
+//	LocalVolumeSourceArgs{...}
 type LocalVolumeSourceInput interface {
 	pulumi.Input
 
@@ -26116,11 +26140,11 @@ func (i LocalVolumeSourceArgs) ToLocalVolumeSourcePtrOutputWithContext(ctx conte
 // LocalVolumeSourcePtrInput is an input type that accepts LocalVolumeSourceArgs, LocalVolumeSourcePtr and LocalVolumeSourcePtrOutput values.
 // You can construct a concrete instance of `LocalVolumeSourcePtrInput` via:
 //
-//          LocalVolumeSourceArgs{...}
+//	        LocalVolumeSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type LocalVolumeSourcePtrInput interface {
 	pulumi.Input
 
@@ -26236,7 +26260,7 @@ type LocalVolumeSourcePatch struct {
 // LocalVolumeSourcePatchInput is an input type that accepts LocalVolumeSourcePatchArgs and LocalVolumeSourcePatchOutput values.
 // You can construct a concrete instance of `LocalVolumeSourcePatchInput` via:
 //
-//          LocalVolumeSourcePatchArgs{...}
+//	LocalVolumeSourcePatchArgs{...}
 type LocalVolumeSourcePatchInput interface {
 	pulumi.Input
 
@@ -26275,11 +26299,11 @@ func (i LocalVolumeSourcePatchArgs) ToLocalVolumeSourcePatchPtrOutputWithContext
 // LocalVolumeSourcePatchPtrInput is an input type that accepts LocalVolumeSourcePatchArgs, LocalVolumeSourcePatchPtr and LocalVolumeSourcePatchPtrOutput values.
 // You can construct a concrete instance of `LocalVolumeSourcePatchPtrInput` via:
 //
-//          LocalVolumeSourcePatchArgs{...}
+//	        LocalVolumeSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type LocalVolumeSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -26397,7 +26421,7 @@ type NFSVolumeSource struct {
 // NFSVolumeSourceInput is an input type that accepts NFSVolumeSourceArgs and NFSVolumeSourceOutput values.
 // You can construct a concrete instance of `NFSVolumeSourceInput` via:
 //
-//          NFSVolumeSourceArgs{...}
+//	NFSVolumeSourceArgs{...}
 type NFSVolumeSourceInput interface {
 	pulumi.Input
 
@@ -26438,11 +26462,11 @@ func (i NFSVolumeSourceArgs) ToNFSVolumeSourcePtrOutputWithContext(ctx context.C
 // NFSVolumeSourcePtrInput is an input type that accepts NFSVolumeSourceArgs, NFSVolumeSourcePtr and NFSVolumeSourcePtrOutput values.
 // You can construct a concrete instance of `NFSVolumeSourcePtrInput` via:
 //
-//          NFSVolumeSourceArgs{...}
+//	        NFSVolumeSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type NFSVolumeSourcePtrInput interface {
 	pulumi.Input
 
@@ -26575,7 +26599,7 @@ type NFSVolumeSourcePatch struct {
 // NFSVolumeSourcePatchInput is an input type that accepts NFSVolumeSourcePatchArgs and NFSVolumeSourcePatchOutput values.
 // You can construct a concrete instance of `NFSVolumeSourcePatchInput` via:
 //
-//          NFSVolumeSourcePatchArgs{...}
+//	NFSVolumeSourcePatchArgs{...}
 type NFSVolumeSourcePatchInput interface {
 	pulumi.Input
 
@@ -26616,11 +26640,11 @@ func (i NFSVolumeSourcePatchArgs) ToNFSVolumeSourcePatchPtrOutputWithContext(ctx
 // NFSVolumeSourcePatchPtrInput is an input type that accepts NFSVolumeSourcePatchArgs, NFSVolumeSourcePatchPtr and NFSVolumeSourcePatchPtrOutput values.
 // You can construct a concrete instance of `NFSVolumeSourcePatchPtrInput` via:
 //
-//          NFSVolumeSourcePatchArgs{...}
+//	        NFSVolumeSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type NFSVolumeSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -26757,7 +26781,7 @@ type NamespaceType struct {
 // NamespaceTypeInput is an input type that accepts NamespaceTypeArgs and NamespaceTypeOutput values.
 // You can construct a concrete instance of `NamespaceTypeInput` via:
 //
-//          NamespaceTypeArgs{...}
+//	NamespaceTypeArgs{...}
 type NamespaceTypeInput interface {
 	pulumi.Input
 
@@ -26794,7 +26818,7 @@ func (i NamespaceTypeArgs) ToNamespaceTypeOutputWithContext(ctx context.Context)
 // NamespaceTypeArrayInput is an input type that accepts NamespaceTypeArray and NamespaceTypeArrayOutput values.
 // You can construct a concrete instance of `NamespaceTypeArrayInput` via:
 //
-//          NamespaceTypeArray{ NamespaceTypeArgs{...} }
+//	NamespaceTypeArray{ NamespaceTypeArgs{...} }
 type NamespaceTypeArrayInput interface {
 	pulumi.Input
 
@@ -26890,7 +26914,7 @@ type NamespaceCondition struct {
 // NamespaceConditionInput is an input type that accepts NamespaceConditionArgs and NamespaceConditionOutput values.
 // You can construct a concrete instance of `NamespaceConditionInput` via:
 //
-//          NamespaceConditionArgs{...}
+//	NamespaceConditionArgs{...}
 type NamespaceConditionInput interface {
 	pulumi.Input
 
@@ -26924,7 +26948,7 @@ func (i NamespaceConditionArgs) ToNamespaceConditionOutputWithContext(ctx contex
 // NamespaceConditionArrayInput is an input type that accepts NamespaceConditionArray and NamespaceConditionArrayOutput values.
 // You can construct a concrete instance of `NamespaceConditionArrayInput` via:
 //
-//          NamespaceConditionArray{ NamespaceConditionArgs{...} }
+//	NamespaceConditionArray{ NamespaceConditionArgs{...} }
 type NamespaceConditionArrayInput interface {
 	pulumi.Input
 
@@ -27017,7 +27041,7 @@ type NamespaceConditionPatch struct {
 // NamespaceConditionPatchInput is an input type that accepts NamespaceConditionPatchArgs and NamespaceConditionPatchOutput values.
 // You can construct a concrete instance of `NamespaceConditionPatchInput` via:
 //
-//          NamespaceConditionPatchArgs{...}
+//	NamespaceConditionPatchArgs{...}
 type NamespaceConditionPatchInput interface {
 	pulumi.Input
 
@@ -27051,7 +27075,7 @@ func (i NamespaceConditionPatchArgs) ToNamespaceConditionPatchOutputWithContext(
 // NamespaceConditionPatchArrayInput is an input type that accepts NamespaceConditionPatchArray and NamespaceConditionPatchArrayOutput values.
 // You can construct a concrete instance of `NamespaceConditionPatchArrayInput` via:
 //
-//          NamespaceConditionPatchArray{ NamespaceConditionPatchArgs{...} }
+//	NamespaceConditionPatchArray{ NamespaceConditionPatchArgs{...} }
 type NamespaceConditionPatchArrayInput interface {
 	pulumi.Input
 
@@ -27145,7 +27169,7 @@ type NamespaceListType struct {
 // NamespaceListTypeInput is an input type that accepts NamespaceListTypeArgs and NamespaceListTypeOutput values.
 // You can construct a concrete instance of `NamespaceListTypeInput` via:
 //
-//          NamespaceListTypeArgs{...}
+//	NamespaceListTypeArgs{...}
 type NamespaceListTypeInput interface {
 	pulumi.Input
 
@@ -27229,7 +27253,7 @@ type NamespacePatchType struct {
 // NamespacePatchTypeInput is an input type that accepts NamespacePatchTypeArgs and NamespacePatchTypeOutput values.
 // You can construct a concrete instance of `NamespacePatchTypeInput` via:
 //
-//          NamespacePatchTypeArgs{...}
+//	NamespacePatchTypeArgs{...}
 type NamespacePatchTypeInput interface {
 	pulumi.Input
 
@@ -27312,7 +27336,7 @@ type NamespaceSpec struct {
 // NamespaceSpecInput is an input type that accepts NamespaceSpecArgs and NamespaceSpecOutput values.
 // You can construct a concrete instance of `NamespaceSpecInput` via:
 //
-//          NamespaceSpecArgs{...}
+//	NamespaceSpecArgs{...}
 type NamespaceSpecInput interface {
 	pulumi.Input
 
@@ -27349,11 +27373,11 @@ func (i NamespaceSpecArgs) ToNamespaceSpecPtrOutputWithContext(ctx context.Conte
 // NamespaceSpecPtrInput is an input type that accepts NamespaceSpecArgs, NamespaceSpecPtr and NamespaceSpecPtrOutput values.
 // You can construct a concrete instance of `NamespaceSpecPtrInput` via:
 //
-//          NamespaceSpecArgs{...}
+//	        NamespaceSpecArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type NamespaceSpecPtrInput interface {
 	pulumi.Input
 
@@ -27452,7 +27476,7 @@ type NamespaceSpecPatch struct {
 // NamespaceSpecPatchInput is an input type that accepts NamespaceSpecPatchArgs and NamespaceSpecPatchOutput values.
 // You can construct a concrete instance of `NamespaceSpecPatchInput` via:
 //
-//          NamespaceSpecPatchArgs{...}
+//	NamespaceSpecPatchArgs{...}
 type NamespaceSpecPatchInput interface {
 	pulumi.Input
 
@@ -27489,11 +27513,11 @@ func (i NamespaceSpecPatchArgs) ToNamespaceSpecPatchPtrOutputWithContext(ctx con
 // NamespaceSpecPatchPtrInput is an input type that accepts NamespaceSpecPatchArgs, NamespaceSpecPatchPtr and NamespaceSpecPatchPtrOutput values.
 // You can construct a concrete instance of `NamespaceSpecPatchPtrInput` via:
 //
-//          NamespaceSpecPatchArgs{...}
+//	        NamespaceSpecPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type NamespaceSpecPatchPtrInput interface {
 	pulumi.Input
 
@@ -27594,7 +27618,7 @@ type NamespaceStatus struct {
 // NamespaceStatusInput is an input type that accepts NamespaceStatusArgs and NamespaceStatusOutput values.
 // You can construct a concrete instance of `NamespaceStatusInput` via:
 //
-//          NamespaceStatusArgs{...}
+//	NamespaceStatusArgs{...}
 type NamespaceStatusInput interface {
 	pulumi.Input
 
@@ -27633,11 +27657,11 @@ func (i NamespaceStatusArgs) ToNamespaceStatusPtrOutputWithContext(ctx context.C
 // NamespaceStatusPtrInput is an input type that accepts NamespaceStatusArgs, NamespaceStatusPtr and NamespaceStatusPtrOutput values.
 // You can construct a concrete instance of `NamespaceStatusPtrInput` via:
 //
-//          NamespaceStatusArgs{...}
+//	        NamespaceStatusArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type NamespaceStatusPtrInput interface {
 	pulumi.Input
 
@@ -27753,7 +27777,7 @@ type NamespaceStatusPatch struct {
 // NamespaceStatusPatchInput is an input type that accepts NamespaceStatusPatchArgs and NamespaceStatusPatchOutput values.
 // You can construct a concrete instance of `NamespaceStatusPatchInput` via:
 //
-//          NamespaceStatusPatchArgs{...}
+//	NamespaceStatusPatchArgs{...}
 type NamespaceStatusPatchInput interface {
 	pulumi.Input
 
@@ -27792,11 +27816,11 @@ func (i NamespaceStatusPatchArgs) ToNamespaceStatusPatchPtrOutputWithContext(ctx
 // NamespaceStatusPatchPtrInput is an input type that accepts NamespaceStatusPatchArgs, NamespaceStatusPatchPtr and NamespaceStatusPatchPtrOutput values.
 // You can construct a concrete instance of `NamespaceStatusPatchPtrInput` via:
 //
-//          NamespaceStatusPatchArgs{...}
+//	        NamespaceStatusPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type NamespaceStatusPatchPtrInput interface {
 	pulumi.Input
 
@@ -27918,7 +27942,7 @@ type NodeType struct {
 // NodeTypeInput is an input type that accepts NodeTypeArgs and NodeTypeOutput values.
 // You can construct a concrete instance of `NodeTypeInput` via:
 //
-//          NodeTypeArgs{...}
+//	NodeTypeArgs{...}
 type NodeTypeInput interface {
 	pulumi.Input
 
@@ -27955,7 +27979,7 @@ func (i NodeTypeArgs) ToNodeTypeOutputWithContext(ctx context.Context) NodeTypeO
 // NodeTypeArrayInput is an input type that accepts NodeTypeArray and NodeTypeArrayOutput values.
 // You can construct a concrete instance of `NodeTypeArrayInput` via:
 //
-//          NodeTypeArray{ NodeTypeArgs{...} }
+//	NodeTypeArray{ NodeTypeArgs{...} }
 type NodeTypeArrayInput interface {
 	pulumi.Input
 
@@ -28048,7 +28072,7 @@ type NodeAddress struct {
 // NodeAddressInput is an input type that accepts NodeAddressArgs and NodeAddressOutput values.
 // You can construct a concrete instance of `NodeAddressInput` via:
 //
-//          NodeAddressArgs{...}
+//	NodeAddressArgs{...}
 type NodeAddressInput interface {
 	pulumi.Input
 
@@ -28079,7 +28103,7 @@ func (i NodeAddressArgs) ToNodeAddressOutputWithContext(ctx context.Context) Nod
 // NodeAddressArrayInput is an input type that accepts NodeAddressArray and NodeAddressArrayOutput values.
 // You can construct a concrete instance of `NodeAddressArrayInput` via:
 //
-//          NodeAddressArray{ NodeAddressArgs{...} }
+//	NodeAddressArray{ NodeAddressArgs{...} }
 type NodeAddressArrayInput interface {
 	pulumi.Input
 
@@ -28157,7 +28181,7 @@ type NodeAddressPatch struct {
 // NodeAddressPatchInput is an input type that accepts NodeAddressPatchArgs and NodeAddressPatchOutput values.
 // You can construct a concrete instance of `NodeAddressPatchInput` via:
 //
-//          NodeAddressPatchArgs{...}
+//	NodeAddressPatchArgs{...}
 type NodeAddressPatchInput interface {
 	pulumi.Input
 
@@ -28188,7 +28212,7 @@ func (i NodeAddressPatchArgs) ToNodeAddressPatchOutputWithContext(ctx context.Co
 // NodeAddressPatchArrayInput is an input type that accepts NodeAddressPatchArray and NodeAddressPatchArrayOutput values.
 // You can construct a concrete instance of `NodeAddressPatchArrayInput` via:
 //
-//          NodeAddressPatchArray{ NodeAddressPatchArgs{...} }
+//	NodeAddressPatchArray{ NodeAddressPatchArgs{...} }
 type NodeAddressPatchArrayInput interface {
 	pulumi.Input
 
@@ -28266,7 +28290,7 @@ type NodeAffinity struct {
 // NodeAffinityInput is an input type that accepts NodeAffinityArgs and NodeAffinityOutput values.
 // You can construct a concrete instance of `NodeAffinityInput` via:
 //
-//          NodeAffinityArgs{...}
+//	NodeAffinityArgs{...}
 type NodeAffinityInput interface {
 	pulumi.Input
 
@@ -28305,11 +28329,11 @@ func (i NodeAffinityArgs) ToNodeAffinityPtrOutputWithContext(ctx context.Context
 // NodeAffinityPtrInput is an input type that accepts NodeAffinityArgs, NodeAffinityPtr and NodeAffinityPtrOutput values.
 // You can construct a concrete instance of `NodeAffinityPtrInput` via:
 //
-//          NodeAffinityArgs{...}
+//	        NodeAffinityArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type NodeAffinityPtrInput interface {
 	pulumi.Input
 
@@ -28427,7 +28451,7 @@ type NodeAffinityPatch struct {
 // NodeAffinityPatchInput is an input type that accepts NodeAffinityPatchArgs and NodeAffinityPatchOutput values.
 // You can construct a concrete instance of `NodeAffinityPatchInput` via:
 //
-//          NodeAffinityPatchArgs{...}
+//	NodeAffinityPatchArgs{...}
 type NodeAffinityPatchInput interface {
 	pulumi.Input
 
@@ -28466,11 +28490,11 @@ func (i NodeAffinityPatchArgs) ToNodeAffinityPatchPtrOutputWithContext(ctx conte
 // NodeAffinityPatchPtrInput is an input type that accepts NodeAffinityPatchArgs, NodeAffinityPatchPtr and NodeAffinityPatchPtrOutput values.
 // You can construct a concrete instance of `NodeAffinityPatchPtrInput` via:
 //
-//          NodeAffinityPatchArgs{...}
+//	        NodeAffinityPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type NodeAffinityPatchPtrInput interface {
 	pulumi.Input
 
@@ -28596,7 +28620,7 @@ type NodeCondition struct {
 // NodeConditionInput is an input type that accepts NodeConditionArgs and NodeConditionOutput values.
 // You can construct a concrete instance of `NodeConditionInput` via:
 //
-//          NodeConditionArgs{...}
+//	NodeConditionArgs{...}
 type NodeConditionInput interface {
 	pulumi.Input
 
@@ -28635,7 +28659,7 @@ func (i NodeConditionArgs) ToNodeConditionOutputWithContext(ctx context.Context)
 // NodeConditionArrayInput is an input type that accepts NodeConditionArray and NodeConditionArrayOutput values.
 // You can construct a concrete instance of `NodeConditionArrayInput` via:
 //
-//          NodeConditionArray{ NodeConditionArgs{...} }
+//	NodeConditionArray{ NodeConditionArgs{...} }
 type NodeConditionArrayInput interface {
 	pulumi.Input
 
@@ -28741,7 +28765,7 @@ type NodeConditionPatch struct {
 // NodeConditionPatchInput is an input type that accepts NodeConditionPatchArgs and NodeConditionPatchOutput values.
 // You can construct a concrete instance of `NodeConditionPatchInput` via:
 //
-//          NodeConditionPatchArgs{...}
+//	NodeConditionPatchArgs{...}
 type NodeConditionPatchInput interface {
 	pulumi.Input
 
@@ -28780,7 +28804,7 @@ func (i NodeConditionPatchArgs) ToNodeConditionPatchOutputWithContext(ctx contex
 // NodeConditionPatchArrayInput is an input type that accepts NodeConditionPatchArray and NodeConditionPatchArrayOutput values.
 // You can construct a concrete instance of `NodeConditionPatchArrayInput` via:
 //
-//          NodeConditionPatchArray{ NodeConditionPatchArgs{...} }
+//	NodeConditionPatchArray{ NodeConditionPatchArgs{...} }
 type NodeConditionPatchArrayInput interface {
 	pulumi.Input
 
@@ -28876,7 +28900,7 @@ type NodeConfigSource struct {
 // NodeConfigSourceInput is an input type that accepts NodeConfigSourceArgs and NodeConfigSourceOutput values.
 // You can construct a concrete instance of `NodeConfigSourceInput` via:
 //
-//          NodeConfigSourceArgs{...}
+//	NodeConfigSourceArgs{...}
 type NodeConfigSourceInput interface {
 	pulumi.Input
 
@@ -28913,11 +28937,11 @@ func (i NodeConfigSourceArgs) ToNodeConfigSourcePtrOutputWithContext(ctx context
 // NodeConfigSourcePtrInput is an input type that accepts NodeConfigSourceArgs, NodeConfigSourcePtr and NodeConfigSourcePtrOutput values.
 // You can construct a concrete instance of `NodeConfigSourcePtrInput` via:
 //
-//          NodeConfigSourceArgs{...}
+//	        NodeConfigSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type NodeConfigSourcePtrInput interface {
 	pulumi.Input
 
@@ -29016,7 +29040,7 @@ type NodeConfigSourcePatch struct {
 // NodeConfigSourcePatchInput is an input type that accepts NodeConfigSourcePatchArgs and NodeConfigSourcePatchOutput values.
 // You can construct a concrete instance of `NodeConfigSourcePatchInput` via:
 //
-//          NodeConfigSourcePatchArgs{...}
+//	NodeConfigSourcePatchArgs{...}
 type NodeConfigSourcePatchInput interface {
 	pulumi.Input
 
@@ -29053,11 +29077,11 @@ func (i NodeConfigSourcePatchArgs) ToNodeConfigSourcePatchPtrOutputWithContext(c
 // NodeConfigSourcePatchPtrInput is an input type that accepts NodeConfigSourcePatchArgs, NodeConfigSourcePatchPtr and NodeConfigSourcePatchPtrOutput values.
 // You can construct a concrete instance of `NodeConfigSourcePatchPtrInput` via:
 //
-//          NodeConfigSourcePatchArgs{...}
+//	        NodeConfigSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type NodeConfigSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -29162,7 +29186,7 @@ type NodeConfigStatus struct {
 // NodeConfigStatusInput is an input type that accepts NodeConfigStatusArgs and NodeConfigStatusOutput values.
 // You can construct a concrete instance of `NodeConfigStatusInput` via:
 //
-//          NodeConfigStatusArgs{...}
+//	NodeConfigStatusArgs{...}
 type NodeConfigStatusInput interface {
 	pulumi.Input
 
@@ -29205,11 +29229,11 @@ func (i NodeConfigStatusArgs) ToNodeConfigStatusPtrOutputWithContext(ctx context
 // NodeConfigStatusPtrInput is an input type that accepts NodeConfigStatusArgs, NodeConfigStatusPtr and NodeConfigStatusPtrOutput values.
 // You can construct a concrete instance of `NodeConfigStatusPtrInput` via:
 //
-//          NodeConfigStatusArgs{...}
+//	        NodeConfigStatusArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type NodeConfigStatusPtrInput interface {
 	pulumi.Input
 
@@ -29359,7 +29383,7 @@ type NodeConfigStatusPatch struct {
 // NodeConfigStatusPatchInput is an input type that accepts NodeConfigStatusPatchArgs and NodeConfigStatusPatchOutput values.
 // You can construct a concrete instance of `NodeConfigStatusPatchInput` via:
 //
-//          NodeConfigStatusPatchArgs{...}
+//	NodeConfigStatusPatchArgs{...}
 type NodeConfigStatusPatchInput interface {
 	pulumi.Input
 
@@ -29402,11 +29426,11 @@ func (i NodeConfigStatusPatchArgs) ToNodeConfigStatusPatchPtrOutputWithContext(c
 // NodeConfigStatusPatchPtrInput is an input type that accepts NodeConfigStatusPatchArgs, NodeConfigStatusPatchPtr and NodeConfigStatusPatchPtrOutput values.
 // You can construct a concrete instance of `NodeConfigStatusPatchPtrInput` via:
 //
-//          NodeConfigStatusPatchArgs{...}
+//	        NodeConfigStatusPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type NodeConfigStatusPatchPtrInput interface {
 	pulumi.Input
 
@@ -29550,7 +29574,7 @@ type NodeDaemonEndpoints struct {
 // NodeDaemonEndpointsInput is an input type that accepts NodeDaemonEndpointsArgs and NodeDaemonEndpointsOutput values.
 // You can construct a concrete instance of `NodeDaemonEndpointsInput` via:
 //
-//          NodeDaemonEndpointsArgs{...}
+//	NodeDaemonEndpointsArgs{...}
 type NodeDaemonEndpointsInput interface {
 	pulumi.Input
 
@@ -29587,11 +29611,11 @@ func (i NodeDaemonEndpointsArgs) ToNodeDaemonEndpointsPtrOutputWithContext(ctx c
 // NodeDaemonEndpointsPtrInput is an input type that accepts NodeDaemonEndpointsArgs, NodeDaemonEndpointsPtr and NodeDaemonEndpointsPtrOutput values.
 // You can construct a concrete instance of `NodeDaemonEndpointsPtrInput` via:
 //
-//          NodeDaemonEndpointsArgs{...}
+//	        NodeDaemonEndpointsArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type NodeDaemonEndpointsPtrInput interface {
 	pulumi.Input
 
@@ -29690,7 +29714,7 @@ type NodeDaemonEndpointsPatch struct {
 // NodeDaemonEndpointsPatchInput is an input type that accepts NodeDaemonEndpointsPatchArgs and NodeDaemonEndpointsPatchOutput values.
 // You can construct a concrete instance of `NodeDaemonEndpointsPatchInput` via:
 //
-//          NodeDaemonEndpointsPatchArgs{...}
+//	NodeDaemonEndpointsPatchArgs{...}
 type NodeDaemonEndpointsPatchInput interface {
 	pulumi.Input
 
@@ -29727,11 +29751,11 @@ func (i NodeDaemonEndpointsPatchArgs) ToNodeDaemonEndpointsPatchPtrOutputWithCon
 // NodeDaemonEndpointsPatchPtrInput is an input type that accepts NodeDaemonEndpointsPatchArgs, NodeDaemonEndpointsPatchPtr and NodeDaemonEndpointsPatchPtrOutput values.
 // You can construct a concrete instance of `NodeDaemonEndpointsPatchPtrInput` via:
 //
-//          NodeDaemonEndpointsPatchArgs{...}
+//	        NodeDaemonEndpointsPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type NodeDaemonEndpointsPatchPtrInput interface {
 	pulumi.Input
 
@@ -29836,7 +29860,7 @@ type NodeListType struct {
 // NodeListTypeInput is an input type that accepts NodeListTypeArgs and NodeListTypeOutput values.
 // You can construct a concrete instance of `NodeListTypeInput` via:
 //
-//          NodeListTypeArgs{...}
+//	NodeListTypeArgs{...}
 type NodeListTypeInput interface {
 	pulumi.Input
 
@@ -29920,7 +29944,7 @@ type NodePatchType struct {
 // NodePatchTypeInput is an input type that accepts NodePatchTypeArgs and NodePatchTypeOutput values.
 // You can construct a concrete instance of `NodePatchTypeInput` via:
 //
-//          NodePatchTypeArgs{...}
+//	NodePatchTypeArgs{...}
 type NodePatchTypeInput interface {
 	pulumi.Input
 
@@ -30003,7 +30027,7 @@ type NodeSelector struct {
 // NodeSelectorInput is an input type that accepts NodeSelectorArgs and NodeSelectorOutput values.
 // You can construct a concrete instance of `NodeSelectorInput` via:
 //
-//          NodeSelectorArgs{...}
+//	NodeSelectorArgs{...}
 type NodeSelectorInput interface {
 	pulumi.Input
 
@@ -30040,11 +30064,11 @@ func (i NodeSelectorArgs) ToNodeSelectorPtrOutputWithContext(ctx context.Context
 // NodeSelectorPtrInput is an input type that accepts NodeSelectorArgs, NodeSelectorPtr and NodeSelectorPtrOutput values.
 // You can construct a concrete instance of `NodeSelectorPtrInput` via:
 //
-//          NodeSelectorArgs{...}
+//	        NodeSelectorArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type NodeSelectorPtrInput interface {
 	pulumi.Input
 
@@ -30143,7 +30167,7 @@ type NodeSelectorPatch struct {
 // NodeSelectorPatchInput is an input type that accepts NodeSelectorPatchArgs and NodeSelectorPatchOutput values.
 // You can construct a concrete instance of `NodeSelectorPatchInput` via:
 //
-//          NodeSelectorPatchArgs{...}
+//	NodeSelectorPatchArgs{...}
 type NodeSelectorPatchInput interface {
 	pulumi.Input
 
@@ -30180,11 +30204,11 @@ func (i NodeSelectorPatchArgs) ToNodeSelectorPatchPtrOutputWithContext(ctx conte
 // NodeSelectorPatchPtrInput is an input type that accepts NodeSelectorPatchArgs, NodeSelectorPatchPtr and NodeSelectorPatchPtrOutput values.
 // You can construct a concrete instance of `NodeSelectorPatchPtrInput` via:
 //
-//          NodeSelectorPatchArgs{...}
+//	        NodeSelectorPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type NodeSelectorPatchPtrInput interface {
 	pulumi.Input
 
@@ -30287,7 +30311,7 @@ type NodeSelectorRequirement struct {
 // NodeSelectorRequirementInput is an input type that accepts NodeSelectorRequirementArgs and NodeSelectorRequirementOutput values.
 // You can construct a concrete instance of `NodeSelectorRequirementInput` via:
 //
-//          NodeSelectorRequirementArgs{...}
+//	NodeSelectorRequirementArgs{...}
 type NodeSelectorRequirementInput interface {
 	pulumi.Input
 
@@ -30320,7 +30344,7 @@ func (i NodeSelectorRequirementArgs) ToNodeSelectorRequirementOutputWithContext(
 // NodeSelectorRequirementArrayInput is an input type that accepts NodeSelectorRequirementArray and NodeSelectorRequirementArrayOutput values.
 // You can construct a concrete instance of `NodeSelectorRequirementArrayInput` via:
 //
-//          NodeSelectorRequirementArray{ NodeSelectorRequirementArgs{...} }
+//	NodeSelectorRequirementArray{ NodeSelectorRequirementArgs{...} }
 type NodeSelectorRequirementArrayInput interface {
 	pulumi.Input
 
@@ -30405,7 +30429,7 @@ type NodeSelectorRequirementPatch struct {
 // NodeSelectorRequirementPatchInput is an input type that accepts NodeSelectorRequirementPatchArgs and NodeSelectorRequirementPatchOutput values.
 // You can construct a concrete instance of `NodeSelectorRequirementPatchInput` via:
 //
-//          NodeSelectorRequirementPatchArgs{...}
+//	NodeSelectorRequirementPatchArgs{...}
 type NodeSelectorRequirementPatchInput interface {
 	pulumi.Input
 
@@ -30438,7 +30462,7 @@ func (i NodeSelectorRequirementPatchArgs) ToNodeSelectorRequirementPatchOutputWi
 // NodeSelectorRequirementPatchArrayInput is an input type that accepts NodeSelectorRequirementPatchArray and NodeSelectorRequirementPatchArrayOutput values.
 // You can construct a concrete instance of `NodeSelectorRequirementPatchArrayInput` via:
 //
-//          NodeSelectorRequirementPatchArray{ NodeSelectorRequirementPatchArgs{...} }
+//	NodeSelectorRequirementPatchArray{ NodeSelectorRequirementPatchArgs{...} }
 type NodeSelectorRequirementPatchArrayInput interface {
 	pulumi.Input
 
@@ -30521,7 +30545,7 @@ type NodeSelectorTerm struct {
 // NodeSelectorTermInput is an input type that accepts NodeSelectorTermArgs and NodeSelectorTermOutput values.
 // You can construct a concrete instance of `NodeSelectorTermInput` via:
 //
-//          NodeSelectorTermArgs{...}
+//	NodeSelectorTermArgs{...}
 type NodeSelectorTermInput interface {
 	pulumi.Input
 
@@ -30552,7 +30576,7 @@ func (i NodeSelectorTermArgs) ToNodeSelectorTermOutputWithContext(ctx context.Co
 // NodeSelectorTermArrayInput is an input type that accepts NodeSelectorTermArray and NodeSelectorTermArrayOutput values.
 // You can construct a concrete instance of `NodeSelectorTermArrayInput` via:
 //
-//          NodeSelectorTermArray{ NodeSelectorTermArgs{...} }
+//	NodeSelectorTermArray{ NodeSelectorTermArgs{...} }
 type NodeSelectorTermArrayInput interface {
 	pulumi.Input
 
@@ -30630,7 +30654,7 @@ type NodeSelectorTermPatch struct {
 // NodeSelectorTermPatchInput is an input type that accepts NodeSelectorTermPatchArgs and NodeSelectorTermPatchOutput values.
 // You can construct a concrete instance of `NodeSelectorTermPatchInput` via:
 //
-//          NodeSelectorTermPatchArgs{...}
+//	NodeSelectorTermPatchArgs{...}
 type NodeSelectorTermPatchInput interface {
 	pulumi.Input
 
@@ -30669,11 +30693,11 @@ func (i NodeSelectorTermPatchArgs) ToNodeSelectorTermPatchPtrOutputWithContext(c
 // NodeSelectorTermPatchPtrInput is an input type that accepts NodeSelectorTermPatchArgs, NodeSelectorTermPatchPtr and NodeSelectorTermPatchPtrOutput values.
 // You can construct a concrete instance of `NodeSelectorTermPatchPtrInput` via:
 //
-//          NodeSelectorTermPatchArgs{...}
+//	        NodeSelectorTermPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type NodeSelectorTermPatchPtrInput interface {
 	pulumi.Input
 
@@ -30702,7 +30726,7 @@ func (i *nodeSelectorTermPatchPtrType) ToNodeSelectorTermPatchPtrOutputWithConte
 // NodeSelectorTermPatchArrayInput is an input type that accepts NodeSelectorTermPatchArray and NodeSelectorTermPatchArrayOutput values.
 // You can construct a concrete instance of `NodeSelectorTermPatchArrayInput` via:
 //
-//          NodeSelectorTermPatchArray{ NodeSelectorTermPatchArgs{...} }
+//	NodeSelectorTermPatchArray{ NodeSelectorTermPatchArgs{...} }
 type NodeSelectorTermPatchArrayInput interface {
 	pulumi.Input
 
@@ -30844,7 +30868,7 @@ type NodeSpec struct {
 // NodeSpecInput is an input type that accepts NodeSpecArgs and NodeSpecOutput values.
 // You can construct a concrete instance of `NodeSpecInput` via:
 //
-//          NodeSpecArgs{...}
+//	NodeSpecArgs{...}
 type NodeSpecInput interface {
 	pulumi.Input
 
@@ -30893,11 +30917,11 @@ func (i NodeSpecArgs) ToNodeSpecPtrOutputWithContext(ctx context.Context) NodeSp
 // NodeSpecPtrInput is an input type that accepts NodeSpecArgs, NodeSpecPtr and NodeSpecPtrOutput values.
 // You can construct a concrete instance of `NodeSpecPtrInput` via:
 //
-//          NodeSpecArgs{...}
+//	        NodeSpecArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type NodeSpecPtrInput interface {
 	pulumi.Input
 
@@ -31098,7 +31122,7 @@ type NodeSpecPatch struct {
 // NodeSpecPatchInput is an input type that accepts NodeSpecPatchArgs and NodeSpecPatchOutput values.
 // You can construct a concrete instance of `NodeSpecPatchInput` via:
 //
-//          NodeSpecPatchArgs{...}
+//	NodeSpecPatchArgs{...}
 type NodeSpecPatchInput interface {
 	pulumi.Input
 
@@ -31147,11 +31171,11 @@ func (i NodeSpecPatchArgs) ToNodeSpecPatchPtrOutputWithContext(ctx context.Conte
 // NodeSpecPatchPtrInput is an input type that accepts NodeSpecPatchArgs, NodeSpecPatchPtr and NodeSpecPatchPtrOutput values.
 // You can construct a concrete instance of `NodeSpecPatchPtrInput` via:
 //
-//          NodeSpecPatchArgs{...}
+//	        NodeSpecPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type NodeSpecPatchPtrInput interface {
 	pulumi.Input
 
@@ -31360,7 +31384,7 @@ type NodeStatus struct {
 // NodeStatusInput is an input type that accepts NodeStatusArgs and NodeStatusOutput values.
 // You can construct a concrete instance of `NodeStatusInput` via:
 //
-//          NodeStatusArgs{...}
+//	NodeStatusArgs{...}
 type NodeStatusInput interface {
 	pulumi.Input
 
@@ -31417,11 +31441,11 @@ func (i NodeStatusArgs) ToNodeStatusPtrOutputWithContext(ctx context.Context) No
 // NodeStatusPtrInput is an input type that accepts NodeStatusArgs, NodeStatusPtr and NodeStatusPtrOutput values.
 // You can construct a concrete instance of `NodeStatusPtrInput` via:
 //
-//          NodeStatusArgs{...}
+//	        NodeStatusArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type NodeStatusPtrInput interface {
 	pulumi.Input
 
@@ -31690,7 +31714,7 @@ type NodeStatusPatch struct {
 // NodeStatusPatchInput is an input type that accepts NodeStatusPatchArgs and NodeStatusPatchOutput values.
 // You can construct a concrete instance of `NodeStatusPatchInput` via:
 //
-//          NodeStatusPatchArgs{...}
+//	NodeStatusPatchArgs{...}
 type NodeStatusPatchInput interface {
 	pulumi.Input
 
@@ -31747,11 +31771,11 @@ func (i NodeStatusPatchArgs) ToNodeStatusPatchPtrOutputWithContext(ctx context.C
 // NodeStatusPatchPtrInput is an input type that accepts NodeStatusPatchArgs, NodeStatusPatchPtr and NodeStatusPatchPtrOutput values.
 // You can construct a concrete instance of `NodeStatusPatchPtrInput` via:
 //
-//          NodeStatusPatchArgs{...}
+//	        NodeStatusPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type NodeStatusPatchPtrInput interface {
 	pulumi.Input
 
@@ -32018,7 +32042,7 @@ type NodeSystemInfo struct {
 // NodeSystemInfoInput is an input type that accepts NodeSystemInfoArgs and NodeSystemInfoOutput values.
 // You can construct a concrete instance of `NodeSystemInfoInput` via:
 //
-//          NodeSystemInfoArgs{...}
+//	NodeSystemInfoArgs{...}
 type NodeSystemInfoInput interface {
 	pulumi.Input
 
@@ -32073,11 +32097,11 @@ func (i NodeSystemInfoArgs) ToNodeSystemInfoPtrOutputWithContext(ctx context.Con
 // NodeSystemInfoPtrInput is an input type that accepts NodeSystemInfoArgs, NodeSystemInfoPtr and NodeSystemInfoPtrOutput values.
 // You can construct a concrete instance of `NodeSystemInfoPtrInput` via:
 //
-//          NodeSystemInfoArgs{...}
+//	        NodeSystemInfoArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type NodeSystemInfoPtrInput interface {
 	pulumi.Input
 
@@ -32329,7 +32353,7 @@ type NodeSystemInfoPatch struct {
 // NodeSystemInfoPatchInput is an input type that accepts NodeSystemInfoPatchArgs and NodeSystemInfoPatchOutput values.
 // You can construct a concrete instance of `NodeSystemInfoPatchInput` via:
 //
-//          NodeSystemInfoPatchArgs{...}
+//	NodeSystemInfoPatchArgs{...}
 type NodeSystemInfoPatchInput interface {
 	pulumi.Input
 
@@ -32384,11 +32408,11 @@ func (i NodeSystemInfoPatchArgs) ToNodeSystemInfoPatchPtrOutputWithContext(ctx c
 // NodeSystemInfoPatchPtrInput is an input type that accepts NodeSystemInfoPatchArgs, NodeSystemInfoPatchPtr and NodeSystemInfoPatchPtrOutput values.
 // You can construct a concrete instance of `NodeSystemInfoPatchPtrInput` via:
 //
-//          NodeSystemInfoPatchArgs{...}
+//	        NodeSystemInfoPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type NodeSystemInfoPatchPtrInput interface {
 	pulumi.Input
 
@@ -32624,7 +32648,7 @@ type ObjectFieldSelector struct {
 // ObjectFieldSelectorInput is an input type that accepts ObjectFieldSelectorArgs and ObjectFieldSelectorOutput values.
 // You can construct a concrete instance of `ObjectFieldSelectorInput` via:
 //
-//          ObjectFieldSelectorArgs{...}
+//	ObjectFieldSelectorArgs{...}
 type ObjectFieldSelectorInput interface {
 	pulumi.Input
 
@@ -32663,11 +32687,11 @@ func (i ObjectFieldSelectorArgs) ToObjectFieldSelectorPtrOutputWithContext(ctx c
 // ObjectFieldSelectorPtrInput is an input type that accepts ObjectFieldSelectorArgs, ObjectFieldSelectorPtr and ObjectFieldSelectorPtrOutput values.
 // You can construct a concrete instance of `ObjectFieldSelectorPtrInput` via:
 //
-//          ObjectFieldSelectorArgs{...}
+//	        ObjectFieldSelectorArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ObjectFieldSelectorPtrInput interface {
 	pulumi.Input
 
@@ -32783,7 +32807,7 @@ type ObjectFieldSelectorPatch struct {
 // ObjectFieldSelectorPatchInput is an input type that accepts ObjectFieldSelectorPatchArgs and ObjectFieldSelectorPatchOutput values.
 // You can construct a concrete instance of `ObjectFieldSelectorPatchInput` via:
 //
-//          ObjectFieldSelectorPatchArgs{...}
+//	ObjectFieldSelectorPatchArgs{...}
 type ObjectFieldSelectorPatchInput interface {
 	pulumi.Input
 
@@ -32822,11 +32846,11 @@ func (i ObjectFieldSelectorPatchArgs) ToObjectFieldSelectorPatchPtrOutputWithCon
 // ObjectFieldSelectorPatchPtrInput is an input type that accepts ObjectFieldSelectorPatchArgs, ObjectFieldSelectorPatchPtr and ObjectFieldSelectorPatchPtrOutput values.
 // You can construct a concrete instance of `ObjectFieldSelectorPatchPtrInput` via:
 //
-//          ObjectFieldSelectorPatchArgs{...}
+//	        ObjectFieldSelectorPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ObjectFieldSelectorPatchPtrInput interface {
 	pulumi.Input
 
@@ -32952,7 +32976,7 @@ type ObjectReference struct {
 // ObjectReferenceInput is an input type that accepts ObjectReferenceArgs and ObjectReferenceOutput values.
 // You can construct a concrete instance of `ObjectReferenceInput` via:
 //
-//          ObjectReferenceArgs{...}
+//	ObjectReferenceArgs{...}
 type ObjectReferenceInput interface {
 	pulumi.Input
 
@@ -33001,11 +33025,11 @@ func (i ObjectReferenceArgs) ToObjectReferencePtrOutputWithContext(ctx context.C
 // ObjectReferencePtrInput is an input type that accepts ObjectReferenceArgs, ObjectReferencePtr and ObjectReferencePtrOutput values.
 // You can construct a concrete instance of `ObjectReferencePtrInput` via:
 //
-//          ObjectReferenceArgs{...}
+//	        ObjectReferenceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ObjectReferencePtrInput interface {
 	pulumi.Input
 
@@ -33034,7 +33058,7 @@ func (i *objectReferencePtrType) ToObjectReferencePtrOutputWithContext(ctx conte
 // ObjectReferenceArrayInput is an input type that accepts ObjectReferenceArray and ObjectReferenceArrayOutput values.
 // You can construct a concrete instance of `ObjectReferenceArrayInput` via:
 //
-//          ObjectReferenceArray{ ObjectReferenceArgs{...} }
+//	ObjectReferenceArray{ ObjectReferenceArgs{...} }
 type ObjectReferenceArrayInput interface {
 	pulumi.Input
 
@@ -33251,7 +33275,7 @@ type ObjectReferencePatch struct {
 // ObjectReferencePatchInput is an input type that accepts ObjectReferencePatchArgs and ObjectReferencePatchOutput values.
 // You can construct a concrete instance of `ObjectReferencePatchInput` via:
 //
-//          ObjectReferencePatchArgs{...}
+//	ObjectReferencePatchArgs{...}
 type ObjectReferencePatchInput interface {
 	pulumi.Input
 
@@ -33300,11 +33324,11 @@ func (i ObjectReferencePatchArgs) ToObjectReferencePatchPtrOutputWithContext(ctx
 // ObjectReferencePatchPtrInput is an input type that accepts ObjectReferencePatchArgs, ObjectReferencePatchPtr and ObjectReferencePatchPtrOutput values.
 // You can construct a concrete instance of `ObjectReferencePatchPtrInput` via:
 //
-//          ObjectReferencePatchArgs{...}
+//	        ObjectReferencePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ObjectReferencePatchPtrInput interface {
 	pulumi.Input
 
@@ -33333,7 +33357,7 @@ func (i *objectReferencePatchPtrType) ToObjectReferencePatchPtrOutputWithContext
 // ObjectReferencePatchArrayInput is an input type that accepts ObjectReferencePatchArray and ObjectReferencePatchArrayOutput values.
 // You can construct a concrete instance of `ObjectReferencePatchArrayInput` via:
 //
-//          ObjectReferencePatchArray{ ObjectReferencePatchArgs{...} }
+//	ObjectReferencePatchArray{ ObjectReferencePatchArgs{...} }
 type ObjectReferencePatchArrayInput interface {
 	pulumi.Input
 
@@ -33546,7 +33570,7 @@ type PersistentVolumeType struct {
 // PersistentVolumeTypeInput is an input type that accepts PersistentVolumeTypeArgs and PersistentVolumeTypeOutput values.
 // You can construct a concrete instance of `PersistentVolumeTypeInput` via:
 //
-//          PersistentVolumeTypeArgs{...}
+//	PersistentVolumeTypeArgs{...}
 type PersistentVolumeTypeInput interface {
 	pulumi.Input
 
@@ -33583,7 +33607,7 @@ func (i PersistentVolumeTypeArgs) ToPersistentVolumeTypeOutputWithContext(ctx co
 // PersistentVolumeTypeArrayInput is an input type that accepts PersistentVolumeTypeArray and PersistentVolumeTypeArrayOutput values.
 // You can construct a concrete instance of `PersistentVolumeTypeArrayInput` via:
 //
-//          PersistentVolumeTypeArray{ PersistentVolumeTypeArgs{...} }
+//	PersistentVolumeTypeArray{ PersistentVolumeTypeArgs{...} }
 type PersistentVolumeTypeArrayInput interface {
 	pulumi.Input
 
@@ -33682,7 +33706,7 @@ type PersistentVolumeClaimType struct {
 // PersistentVolumeClaimTypeInput is an input type that accepts PersistentVolumeClaimTypeArgs and PersistentVolumeClaimTypeOutput values.
 // You can construct a concrete instance of `PersistentVolumeClaimTypeInput` via:
 //
-//          PersistentVolumeClaimTypeArgs{...}
+//	PersistentVolumeClaimTypeArgs{...}
 type PersistentVolumeClaimTypeInput interface {
 	pulumi.Input
 
@@ -33719,7 +33743,7 @@ func (i PersistentVolumeClaimTypeArgs) ToPersistentVolumeClaimTypeOutputWithCont
 // PersistentVolumeClaimTypeArrayInput is an input type that accepts PersistentVolumeClaimTypeArray and PersistentVolumeClaimTypeArrayOutput values.
 // You can construct a concrete instance of `PersistentVolumeClaimTypeArrayInput` via:
 //
-//          PersistentVolumeClaimTypeArray{ PersistentVolumeClaimTypeArgs{...} }
+//	PersistentVolumeClaimTypeArray{ PersistentVolumeClaimTypeArgs{...} }
 type PersistentVolumeClaimTypeArrayInput interface {
 	pulumi.Input
 
@@ -33818,7 +33842,7 @@ type PersistentVolumeClaimCondition struct {
 // PersistentVolumeClaimConditionInput is an input type that accepts PersistentVolumeClaimConditionArgs and PersistentVolumeClaimConditionOutput values.
 // You can construct a concrete instance of `PersistentVolumeClaimConditionInput` via:
 //
-//          PersistentVolumeClaimConditionArgs{...}
+//	PersistentVolumeClaimConditionArgs{...}
 type PersistentVolumeClaimConditionInput interface {
 	pulumi.Input
 
@@ -33855,7 +33879,7 @@ func (i PersistentVolumeClaimConditionArgs) ToPersistentVolumeClaimConditionOutp
 // PersistentVolumeClaimConditionArrayInput is an input type that accepts PersistentVolumeClaimConditionArray and PersistentVolumeClaimConditionArrayOutput values.
 // You can construct a concrete instance of `PersistentVolumeClaimConditionArrayInput` via:
 //
-//          PersistentVolumeClaimConditionArray{ PersistentVolumeClaimConditionArgs{...} }
+//	PersistentVolumeClaimConditionArray{ PersistentVolumeClaimConditionArgs{...} }
 type PersistentVolumeClaimConditionArrayInput interface {
 	pulumi.Input
 
@@ -33957,7 +33981,7 @@ type PersistentVolumeClaimConditionPatch struct {
 // PersistentVolumeClaimConditionPatchInput is an input type that accepts PersistentVolumeClaimConditionPatchArgs and PersistentVolumeClaimConditionPatchOutput values.
 // You can construct a concrete instance of `PersistentVolumeClaimConditionPatchInput` via:
 //
-//          PersistentVolumeClaimConditionPatchArgs{...}
+//	PersistentVolumeClaimConditionPatchArgs{...}
 type PersistentVolumeClaimConditionPatchInput interface {
 	pulumi.Input
 
@@ -33994,7 +34018,7 @@ func (i PersistentVolumeClaimConditionPatchArgs) ToPersistentVolumeClaimConditio
 // PersistentVolumeClaimConditionPatchArrayInput is an input type that accepts PersistentVolumeClaimConditionPatchArray and PersistentVolumeClaimConditionPatchArrayOutput values.
 // You can construct a concrete instance of `PersistentVolumeClaimConditionPatchArrayInput` via:
 //
-//          PersistentVolumeClaimConditionPatchArray{ PersistentVolumeClaimConditionPatchArgs{...} }
+//	PersistentVolumeClaimConditionPatchArray{ PersistentVolumeClaimConditionPatchArgs{...} }
 type PersistentVolumeClaimConditionPatchArrayInput interface {
 	pulumi.Input
 
@@ -34094,7 +34118,7 @@ type PersistentVolumeClaimListType struct {
 // PersistentVolumeClaimListTypeInput is an input type that accepts PersistentVolumeClaimListTypeArgs and PersistentVolumeClaimListTypeOutput values.
 // You can construct a concrete instance of `PersistentVolumeClaimListTypeInput` via:
 //
-//          PersistentVolumeClaimListTypeArgs{...}
+//	PersistentVolumeClaimListTypeArgs{...}
 type PersistentVolumeClaimListTypeInput interface {
 	pulumi.Input
 
@@ -34178,7 +34202,7 @@ type PersistentVolumeClaimPatchType struct {
 // PersistentVolumeClaimPatchTypeInput is an input type that accepts PersistentVolumeClaimPatchTypeArgs and PersistentVolumeClaimPatchTypeOutput values.
 // You can construct a concrete instance of `PersistentVolumeClaimPatchTypeInput` via:
 //
-//          PersistentVolumeClaimPatchTypeArgs{...}
+//	PersistentVolumeClaimPatchTypeArgs{...}
 type PersistentVolumeClaimPatchTypeInput interface {
 	pulumi.Input
 
@@ -34215,7 +34239,7 @@ func (i PersistentVolumeClaimPatchTypeArgs) ToPersistentVolumeClaimPatchTypeOutp
 // PersistentVolumeClaimPatchTypeArrayInput is an input type that accepts PersistentVolumeClaimPatchTypeArray and PersistentVolumeClaimPatchTypeArrayOutput values.
 // You can construct a concrete instance of `PersistentVolumeClaimPatchTypeArrayInput` via:
 //
-//          PersistentVolumeClaimPatchTypeArray{ PersistentVolumeClaimPatchTypeArgs{...} }
+//	PersistentVolumeClaimPatchTypeArray{ PersistentVolumeClaimPatchTypeArgs{...} }
 type PersistentVolumeClaimPatchTypeArrayInput interface {
 	pulumi.Input
 
@@ -34325,7 +34349,7 @@ type PersistentVolumeClaimSpec struct {
 // PersistentVolumeClaimSpecInput is an input type that accepts PersistentVolumeClaimSpecArgs and PersistentVolumeClaimSpecOutput values.
 // You can construct a concrete instance of `PersistentVolumeClaimSpecInput` via:
 //
-//          PersistentVolumeClaimSpecArgs{...}
+//	PersistentVolumeClaimSpecArgs{...}
 type PersistentVolumeClaimSpecInput interface {
 	pulumi.Input
 
@@ -34381,11 +34405,11 @@ func (i PersistentVolumeClaimSpecArgs) ToPersistentVolumeClaimSpecPtrOutputWithC
 // PersistentVolumeClaimSpecPtrInput is an input type that accepts PersistentVolumeClaimSpecArgs, PersistentVolumeClaimSpecPtr and PersistentVolumeClaimSpecPtrOutput values.
 // You can construct a concrete instance of `PersistentVolumeClaimSpecPtrInput` via:
 //
-//          PersistentVolumeClaimSpecArgs{...}
+//	        PersistentVolumeClaimSpecArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PersistentVolumeClaimSpecPtrInput interface {
 	pulumi.Input
 
@@ -34447,11 +34471,12 @@ func (o PersistentVolumeClaimSpecOutput) DataSource() TypedLocalObjectReferenceP
 }
 
 // dataSourceRef specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef
-//   allows any non-core object, as well as PersistentVolumeClaim objects.
-// * While DataSource ignores disallowed values (dropping them), DataSourceRef
-//   preserves all values, and generates an error if a disallowed value is
-//   specified.
-//   (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
+//
+//	allows any non-core object, as well as PersistentVolumeClaim objects.
+//   - While DataSource ignores disallowed values (dropping them), DataSourceRef
+//     preserves all values, and generates an error if a disallowed value is
+//     specified.
+//     (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
 func (o PersistentVolumeClaimSpecOutput) DataSourceRef() TypedLocalObjectReferencePtrOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimSpec) *TypedLocalObjectReference { return v.DataSourceRef }).(TypedLocalObjectReferencePtrOutput)
 }
@@ -34526,11 +34551,12 @@ func (o PersistentVolumeClaimSpecPtrOutput) DataSource() TypedLocalObjectReferen
 }
 
 // dataSourceRef specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef
-//   allows any non-core object, as well as PersistentVolumeClaim objects.
-// * While DataSource ignores disallowed values (dropping them), DataSourceRef
-//   preserves all values, and generates an error if a disallowed value is
-//   specified.
-//   (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
+//
+//	allows any non-core object, as well as PersistentVolumeClaim objects.
+//   - While DataSource ignores disallowed values (dropping them), DataSourceRef
+//     preserves all values, and generates an error if a disallowed value is
+//     specified.
+//     (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
 func (o PersistentVolumeClaimSpecPtrOutput) DataSourceRef() TypedLocalObjectReferencePtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeClaimSpec) *TypedLocalObjectReference {
 		if v == nil {
@@ -34618,7 +34644,7 @@ type PersistentVolumeClaimSpecPatch struct {
 // PersistentVolumeClaimSpecPatchInput is an input type that accepts PersistentVolumeClaimSpecPatchArgs and PersistentVolumeClaimSpecPatchOutput values.
 // You can construct a concrete instance of `PersistentVolumeClaimSpecPatchInput` via:
 //
-//          PersistentVolumeClaimSpecPatchArgs{...}
+//	PersistentVolumeClaimSpecPatchArgs{...}
 type PersistentVolumeClaimSpecPatchInput interface {
 	pulumi.Input
 
@@ -34674,11 +34700,11 @@ func (i PersistentVolumeClaimSpecPatchArgs) ToPersistentVolumeClaimSpecPatchPtrO
 // PersistentVolumeClaimSpecPatchPtrInput is an input type that accepts PersistentVolumeClaimSpecPatchArgs, PersistentVolumeClaimSpecPatchPtr and PersistentVolumeClaimSpecPatchPtrOutput values.
 // You can construct a concrete instance of `PersistentVolumeClaimSpecPatchPtrInput` via:
 //
-//          PersistentVolumeClaimSpecPatchArgs{...}
+//	        PersistentVolumeClaimSpecPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PersistentVolumeClaimSpecPatchPtrInput interface {
 	pulumi.Input
 
@@ -34740,11 +34766,12 @@ func (o PersistentVolumeClaimSpecPatchOutput) DataSource() TypedLocalObjectRefer
 }
 
 // dataSourceRef specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef
-//   allows any non-core object, as well as PersistentVolumeClaim objects.
-// * While DataSource ignores disallowed values (dropping them), DataSourceRef
-//   preserves all values, and generates an error if a disallowed value is
-//   specified.
-//   (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
+//
+//	allows any non-core object, as well as PersistentVolumeClaim objects.
+//   - While DataSource ignores disallowed values (dropping them), DataSourceRef
+//     preserves all values, and generates an error if a disallowed value is
+//     specified.
+//     (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
 func (o PersistentVolumeClaimSpecPatchOutput) DataSourceRef() TypedLocalObjectReferencePatchPtrOutput {
 	return o.ApplyT(func(v PersistentVolumeClaimSpecPatch) *TypedLocalObjectReferencePatch { return v.DataSourceRef }).(TypedLocalObjectReferencePatchPtrOutput)
 }
@@ -34819,11 +34846,12 @@ func (o PersistentVolumeClaimSpecPatchPtrOutput) DataSource() TypedLocalObjectRe
 }
 
 // dataSourceRef specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef
-//   allows any non-core object, as well as PersistentVolumeClaim objects.
-// * While DataSource ignores disallowed values (dropping them), DataSourceRef
-//   preserves all values, and generates an error if a disallowed value is
-//   specified.
-//   (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
+//
+//	allows any non-core object, as well as PersistentVolumeClaim objects.
+//   - While DataSource ignores disallowed values (dropping them), DataSourceRef
+//     preserves all values, and generates an error if a disallowed value is
+//     specified.
+//     (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
 func (o PersistentVolumeClaimSpecPatchPtrOutput) DataSourceRef() TypedLocalObjectReferencePatchPtrOutput {
 	return o.ApplyT(func(v *PersistentVolumeClaimSpecPatch) *TypedLocalObjectReferencePatch {
 		if v == nil {
@@ -34902,7 +34930,7 @@ type PersistentVolumeClaimStatus struct {
 // PersistentVolumeClaimStatusInput is an input type that accepts PersistentVolumeClaimStatusArgs and PersistentVolumeClaimStatusOutput values.
 // You can construct a concrete instance of `PersistentVolumeClaimStatusInput` via:
 //
-//          PersistentVolumeClaimStatusArgs{...}
+//	PersistentVolumeClaimStatusArgs{...}
 type PersistentVolumeClaimStatusInput interface {
 	pulumi.Input
 
@@ -34949,11 +34977,11 @@ func (i PersistentVolumeClaimStatusArgs) ToPersistentVolumeClaimStatusPtrOutputW
 // PersistentVolumeClaimStatusPtrInput is an input type that accepts PersistentVolumeClaimStatusArgs, PersistentVolumeClaimStatusPtr and PersistentVolumeClaimStatusPtrOutput values.
 // You can construct a concrete instance of `PersistentVolumeClaimStatusPtrInput` via:
 //
-//          PersistentVolumeClaimStatusArgs{...}
+//	        PersistentVolumeClaimStatusArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PersistentVolumeClaimStatusPtrInput interface {
 	pulumi.Input
 
@@ -35137,7 +35165,7 @@ type PersistentVolumeClaimStatusPatch struct {
 // PersistentVolumeClaimStatusPatchInput is an input type that accepts PersistentVolumeClaimStatusPatchArgs and PersistentVolumeClaimStatusPatchOutput values.
 // You can construct a concrete instance of `PersistentVolumeClaimStatusPatchInput` via:
 //
-//          PersistentVolumeClaimStatusPatchArgs{...}
+//	PersistentVolumeClaimStatusPatchArgs{...}
 type PersistentVolumeClaimStatusPatchInput interface {
 	pulumi.Input
 
@@ -35184,11 +35212,11 @@ func (i PersistentVolumeClaimStatusPatchArgs) ToPersistentVolumeClaimStatusPatch
 // PersistentVolumeClaimStatusPatchPtrInput is an input type that accepts PersistentVolumeClaimStatusPatchArgs, PersistentVolumeClaimStatusPatchPtr and PersistentVolumeClaimStatusPatchPtrOutput values.
 // You can construct a concrete instance of `PersistentVolumeClaimStatusPatchPtrInput` via:
 //
-//          PersistentVolumeClaimStatusPatchArgs{...}
+//	        PersistentVolumeClaimStatusPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PersistentVolumeClaimStatusPatchPtrInput interface {
 	pulumi.Input
 
@@ -35364,7 +35392,7 @@ type PersistentVolumeClaimTemplate struct {
 // PersistentVolumeClaimTemplateInput is an input type that accepts PersistentVolumeClaimTemplateArgs and PersistentVolumeClaimTemplateOutput values.
 // You can construct a concrete instance of `PersistentVolumeClaimTemplateInput` via:
 //
-//          PersistentVolumeClaimTemplateArgs{...}
+//	PersistentVolumeClaimTemplateArgs{...}
 type PersistentVolumeClaimTemplateInput interface {
 	pulumi.Input
 
@@ -35403,11 +35431,11 @@ func (i PersistentVolumeClaimTemplateArgs) ToPersistentVolumeClaimTemplatePtrOut
 // PersistentVolumeClaimTemplatePtrInput is an input type that accepts PersistentVolumeClaimTemplateArgs, PersistentVolumeClaimTemplatePtr and PersistentVolumeClaimTemplatePtrOutput values.
 // You can construct a concrete instance of `PersistentVolumeClaimTemplatePtrInput` via:
 //
-//          PersistentVolumeClaimTemplateArgs{...}
+//	        PersistentVolumeClaimTemplateArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PersistentVolumeClaimTemplatePtrInput interface {
 	pulumi.Input
 
@@ -35523,7 +35551,7 @@ type PersistentVolumeClaimTemplatePatch struct {
 // PersistentVolumeClaimTemplatePatchInput is an input type that accepts PersistentVolumeClaimTemplatePatchArgs and PersistentVolumeClaimTemplatePatchOutput values.
 // You can construct a concrete instance of `PersistentVolumeClaimTemplatePatchInput` via:
 //
-//          PersistentVolumeClaimTemplatePatchArgs{...}
+//	PersistentVolumeClaimTemplatePatchArgs{...}
 type PersistentVolumeClaimTemplatePatchInput interface {
 	pulumi.Input
 
@@ -35562,11 +35590,11 @@ func (i PersistentVolumeClaimTemplatePatchArgs) ToPersistentVolumeClaimTemplateP
 // PersistentVolumeClaimTemplatePatchPtrInput is an input type that accepts PersistentVolumeClaimTemplatePatchArgs, PersistentVolumeClaimTemplatePatchPtr and PersistentVolumeClaimTemplatePatchPtrOutput values.
 // You can construct a concrete instance of `PersistentVolumeClaimTemplatePatchPtrInput` via:
 //
-//          PersistentVolumeClaimTemplatePatchArgs{...}
+//	        PersistentVolumeClaimTemplatePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PersistentVolumeClaimTemplatePatchPtrInput interface {
 	pulumi.Input
 
@@ -35682,7 +35710,7 @@ type PersistentVolumeClaimVolumeSource struct {
 // PersistentVolumeClaimVolumeSourceInput is an input type that accepts PersistentVolumeClaimVolumeSourceArgs and PersistentVolumeClaimVolumeSourceOutput values.
 // You can construct a concrete instance of `PersistentVolumeClaimVolumeSourceInput` via:
 //
-//          PersistentVolumeClaimVolumeSourceArgs{...}
+//	PersistentVolumeClaimVolumeSourceArgs{...}
 type PersistentVolumeClaimVolumeSourceInput interface {
 	pulumi.Input
 
@@ -35721,11 +35749,11 @@ func (i PersistentVolumeClaimVolumeSourceArgs) ToPersistentVolumeClaimVolumeSour
 // PersistentVolumeClaimVolumeSourcePtrInput is an input type that accepts PersistentVolumeClaimVolumeSourceArgs, PersistentVolumeClaimVolumeSourcePtr and PersistentVolumeClaimVolumeSourcePtrOutput values.
 // You can construct a concrete instance of `PersistentVolumeClaimVolumeSourcePtrInput` via:
 //
-//          PersistentVolumeClaimVolumeSourceArgs{...}
+//	        PersistentVolumeClaimVolumeSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PersistentVolumeClaimVolumeSourcePtrInput interface {
 	pulumi.Input
 
@@ -35841,7 +35869,7 @@ type PersistentVolumeClaimVolumeSourcePatch struct {
 // PersistentVolumeClaimVolumeSourcePatchInput is an input type that accepts PersistentVolumeClaimVolumeSourcePatchArgs and PersistentVolumeClaimVolumeSourcePatchOutput values.
 // You can construct a concrete instance of `PersistentVolumeClaimVolumeSourcePatchInput` via:
 //
-//          PersistentVolumeClaimVolumeSourcePatchArgs{...}
+//	PersistentVolumeClaimVolumeSourcePatchArgs{...}
 type PersistentVolumeClaimVolumeSourcePatchInput interface {
 	pulumi.Input
 
@@ -35880,11 +35908,11 @@ func (i PersistentVolumeClaimVolumeSourcePatchArgs) ToPersistentVolumeClaimVolum
 // PersistentVolumeClaimVolumeSourcePatchPtrInput is an input type that accepts PersistentVolumeClaimVolumeSourcePatchArgs, PersistentVolumeClaimVolumeSourcePatchPtr and PersistentVolumeClaimVolumeSourcePatchPtrOutput values.
 // You can construct a concrete instance of `PersistentVolumeClaimVolumeSourcePatchPtrInput` via:
 //
-//          PersistentVolumeClaimVolumeSourcePatchArgs{...}
+//	        PersistentVolumeClaimVolumeSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PersistentVolumeClaimVolumeSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -36004,7 +36032,7 @@ type PersistentVolumeListType struct {
 // PersistentVolumeListTypeInput is an input type that accepts PersistentVolumeListTypeArgs and PersistentVolumeListTypeOutput values.
 // You can construct a concrete instance of `PersistentVolumeListTypeInput` via:
 //
-//          PersistentVolumeListTypeArgs{...}
+//	PersistentVolumeListTypeArgs{...}
 type PersistentVolumeListTypeInput interface {
 	pulumi.Input
 
@@ -36088,7 +36116,7 @@ type PersistentVolumePatchType struct {
 // PersistentVolumePatchTypeInput is an input type that accepts PersistentVolumePatchTypeArgs and PersistentVolumePatchTypeOutput values.
 // You can construct a concrete instance of `PersistentVolumePatchTypeInput` via:
 //
-//          PersistentVolumePatchTypeArgs{...}
+//	PersistentVolumePatchTypeArgs{...}
 type PersistentVolumePatchTypeInput interface {
 	pulumi.Input
 
@@ -36229,7 +36257,7 @@ type PersistentVolumeSpec struct {
 // PersistentVolumeSpecInput is an input type that accepts PersistentVolumeSpecArgs and PersistentVolumeSpecOutput values.
 // You can construct a concrete instance of `PersistentVolumeSpecInput` via:
 //
-//          PersistentVolumeSpecArgs{...}
+//	PersistentVolumeSpecArgs{...}
 type PersistentVolumeSpecInput interface {
 	pulumi.Input
 
@@ -36324,11 +36352,11 @@ func (i PersistentVolumeSpecArgs) ToPersistentVolumeSpecPtrOutputWithContext(ctx
 // PersistentVolumeSpecPtrInput is an input type that accepts PersistentVolumeSpecArgs, PersistentVolumeSpecPtr and PersistentVolumeSpecPtrOutput values.
 // You can construct a concrete instance of `PersistentVolumeSpecPtrInput` via:
 //
-//          PersistentVolumeSpecArgs{...}
+//	        PersistentVolumeSpecArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PersistentVolumeSpecPtrInput interface {
 	pulumi.Input
 
@@ -36920,7 +36948,7 @@ type PersistentVolumeSpecPatch struct {
 // PersistentVolumeSpecPatchInput is an input type that accepts PersistentVolumeSpecPatchArgs and PersistentVolumeSpecPatchOutput values.
 // You can construct a concrete instance of `PersistentVolumeSpecPatchInput` via:
 //
-//          PersistentVolumeSpecPatchArgs{...}
+//	PersistentVolumeSpecPatchArgs{...}
 type PersistentVolumeSpecPatchInput interface {
 	pulumi.Input
 
@@ -37015,11 +37043,11 @@ func (i PersistentVolumeSpecPatchArgs) ToPersistentVolumeSpecPatchPtrOutputWithC
 // PersistentVolumeSpecPatchPtrInput is an input type that accepts PersistentVolumeSpecPatchArgs, PersistentVolumeSpecPatchPtr and PersistentVolumeSpecPatchPtrOutput values.
 // You can construct a concrete instance of `PersistentVolumeSpecPatchPtrInput` via:
 //
-//          PersistentVolumeSpecPatchArgs{...}
+//	        PersistentVolumeSpecPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PersistentVolumeSpecPatchPtrInput interface {
 	pulumi.Input
 
@@ -37561,7 +37589,7 @@ type PersistentVolumeStatus struct {
 // PersistentVolumeStatusInput is an input type that accepts PersistentVolumeStatusArgs and PersistentVolumeStatusOutput values.
 // You can construct a concrete instance of `PersistentVolumeStatusInput` via:
 //
-//          PersistentVolumeStatusArgs{...}
+//	PersistentVolumeStatusArgs{...}
 type PersistentVolumeStatusInput interface {
 	pulumi.Input
 
@@ -37602,11 +37630,11 @@ func (i PersistentVolumeStatusArgs) ToPersistentVolumeStatusPtrOutputWithContext
 // PersistentVolumeStatusPtrInput is an input type that accepts PersistentVolumeStatusArgs, PersistentVolumeStatusPtr and PersistentVolumeStatusPtrOutput values.
 // You can construct a concrete instance of `PersistentVolumeStatusPtrInput` via:
 //
-//          PersistentVolumeStatusArgs{...}
+//	        PersistentVolumeStatusArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PersistentVolumeStatusPtrInput interface {
 	pulumi.Input
 
@@ -37739,7 +37767,7 @@ type PersistentVolumeStatusPatch struct {
 // PersistentVolumeStatusPatchInput is an input type that accepts PersistentVolumeStatusPatchArgs and PersistentVolumeStatusPatchOutput values.
 // You can construct a concrete instance of `PersistentVolumeStatusPatchInput` via:
 //
-//          PersistentVolumeStatusPatchArgs{...}
+//	PersistentVolumeStatusPatchArgs{...}
 type PersistentVolumeStatusPatchInput interface {
 	pulumi.Input
 
@@ -37780,11 +37808,11 @@ func (i PersistentVolumeStatusPatchArgs) ToPersistentVolumeStatusPatchPtrOutputW
 // PersistentVolumeStatusPatchPtrInput is an input type that accepts PersistentVolumeStatusPatchArgs, PersistentVolumeStatusPatchPtr and PersistentVolumeStatusPatchPtrOutput values.
 // You can construct a concrete instance of `PersistentVolumeStatusPatchPtrInput` via:
 //
-//          PersistentVolumeStatusPatchArgs{...}
+//	        PersistentVolumeStatusPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PersistentVolumeStatusPatchPtrInput interface {
 	pulumi.Input
 
@@ -37915,7 +37943,7 @@ type PhotonPersistentDiskVolumeSource struct {
 // PhotonPersistentDiskVolumeSourceInput is an input type that accepts PhotonPersistentDiskVolumeSourceArgs and PhotonPersistentDiskVolumeSourceOutput values.
 // You can construct a concrete instance of `PhotonPersistentDiskVolumeSourceInput` via:
 //
-//          PhotonPersistentDiskVolumeSourceArgs{...}
+//	PhotonPersistentDiskVolumeSourceArgs{...}
 type PhotonPersistentDiskVolumeSourceInput interface {
 	pulumi.Input
 
@@ -37954,11 +37982,11 @@ func (i PhotonPersistentDiskVolumeSourceArgs) ToPhotonPersistentDiskVolumeSource
 // PhotonPersistentDiskVolumeSourcePtrInput is an input type that accepts PhotonPersistentDiskVolumeSourceArgs, PhotonPersistentDiskVolumeSourcePtr and PhotonPersistentDiskVolumeSourcePtrOutput values.
 // You can construct a concrete instance of `PhotonPersistentDiskVolumeSourcePtrInput` via:
 //
-//          PhotonPersistentDiskVolumeSourceArgs{...}
+//	        PhotonPersistentDiskVolumeSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PhotonPersistentDiskVolumeSourcePtrInput interface {
 	pulumi.Input
 
@@ -38074,7 +38102,7 @@ type PhotonPersistentDiskVolumeSourcePatch struct {
 // PhotonPersistentDiskVolumeSourcePatchInput is an input type that accepts PhotonPersistentDiskVolumeSourcePatchArgs and PhotonPersistentDiskVolumeSourcePatchOutput values.
 // You can construct a concrete instance of `PhotonPersistentDiskVolumeSourcePatchInput` via:
 //
-//          PhotonPersistentDiskVolumeSourcePatchArgs{...}
+//	PhotonPersistentDiskVolumeSourcePatchArgs{...}
 type PhotonPersistentDiskVolumeSourcePatchInput interface {
 	pulumi.Input
 
@@ -38113,11 +38141,11 @@ func (i PhotonPersistentDiskVolumeSourcePatchArgs) ToPhotonPersistentDiskVolumeS
 // PhotonPersistentDiskVolumeSourcePatchPtrInput is an input type that accepts PhotonPersistentDiskVolumeSourcePatchArgs, PhotonPersistentDiskVolumeSourcePatchPtr and PhotonPersistentDiskVolumeSourcePatchPtrOutput values.
 // You can construct a concrete instance of `PhotonPersistentDiskVolumeSourcePatchPtrInput` via:
 //
-//          PhotonPersistentDiskVolumeSourcePatchArgs{...}
+//	        PhotonPersistentDiskVolumeSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PhotonPersistentDiskVolumeSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -38229,11 +38257,11 @@ func (o PhotonPersistentDiskVolumeSourcePatchPtrOutput) PdID() pulumi.StringPtrO
 // The following conditions are used to determine whether the resource creation has
 // succeeded or failed:
 //
-// 1. The Pod is scheduled ("PodScheduled"" '.status.condition' is true).
-// 2. The Pod is initialized ("Initialized" '.status.condition' is true).
-// 3. The Pod is ready ("Ready" '.status.condition' is true) and the '.status.phase' is
-//    set to "Running".
-//    Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").
+//  1. The Pod is scheduled ("PodScheduled"" '.status.condition' is true).
+//  2. The Pod is initialized ("Initialized" '.status.condition' is true).
+//  3. The Pod is ready ("Ready" '.status.condition' is true) and the '.status.phase' is
+//     set to "Running".
+//     Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").
 //
 // If the Pod has not reached a Ready state after 10 minutes, it will
 // time out and mark the resource update as Failed. You can override the default timeout value
@@ -38254,7 +38282,7 @@ type PodType struct {
 // PodTypeInput is an input type that accepts PodTypeArgs and PodTypeOutput values.
 // You can construct a concrete instance of `PodTypeInput` via:
 //
-//          PodTypeArgs{...}
+//	PodTypeArgs{...}
 type PodTypeInput interface {
 	pulumi.Input
 
@@ -38269,11 +38297,11 @@ type PodTypeInput interface {
 // The following conditions are used to determine whether the resource creation has
 // succeeded or failed:
 //
-// 1. The Pod is scheduled ("PodScheduled"" '.status.condition' is true).
-// 2. The Pod is initialized ("Initialized" '.status.condition' is true).
-// 3. The Pod is ready ("Ready" '.status.condition' is true) and the '.status.phase' is
-//    set to "Running".
-//    Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").
+//  1. The Pod is scheduled ("PodScheduled"" '.status.condition' is true).
+//  2. The Pod is initialized ("Initialized" '.status.condition' is true).
+//  3. The Pod is ready ("Ready" '.status.condition' is true) and the '.status.phase' is
+//     set to "Running".
+//     Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").
 //
 // If the Pod has not reached a Ready state after 10 minutes, it will
 // time out and mark the resource update as Failed. You can override the default timeout value
@@ -38306,7 +38334,7 @@ func (i PodTypeArgs) ToPodTypeOutputWithContext(ctx context.Context) PodTypeOutp
 // PodTypeArrayInput is an input type that accepts PodTypeArray and PodTypeArrayOutput values.
 // You can construct a concrete instance of `PodTypeArrayInput` via:
 //
-//          PodTypeArray{ PodTypeArgs{...} }
+//	PodTypeArray{ PodTypeArgs{...} }
 type PodTypeArrayInput interface {
 	pulumi.Input
 
@@ -38335,11 +38363,11 @@ func (i PodTypeArray) ToPodTypeArrayOutputWithContext(ctx context.Context) PodTy
 // The following conditions are used to determine whether the resource creation has
 // succeeded or failed:
 //
-// 1. The Pod is scheduled ("PodScheduled"" '.status.condition' is true).
-// 2. The Pod is initialized ("Initialized" '.status.condition' is true).
-// 3. The Pod is ready ("Ready" '.status.condition' is true) and the '.status.phase' is
-//    set to "Running".
-//    Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").
+//  1. The Pod is scheduled ("PodScheduled"" '.status.condition' is true).
+//  2. The Pod is initialized ("Initialized" '.status.condition' is true).
+//  3. The Pod is ready ("Ready" '.status.condition' is true) and the '.status.phase' is
+//     set to "Running".
+//     Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").
 //
 // If the Pod has not reached a Ready state after 10 minutes, it will
 // time out and mark the resource update as Failed. You can override the default timeout value
@@ -38414,7 +38442,7 @@ type PodAffinity struct {
 // PodAffinityInput is an input type that accepts PodAffinityArgs and PodAffinityOutput values.
 // You can construct a concrete instance of `PodAffinityInput` via:
 //
-//          PodAffinityArgs{...}
+//	PodAffinityArgs{...}
 type PodAffinityInput interface {
 	pulumi.Input
 
@@ -38453,11 +38481,11 @@ func (i PodAffinityArgs) ToPodAffinityPtrOutputWithContext(ctx context.Context) 
 // PodAffinityPtrInput is an input type that accepts PodAffinityArgs, PodAffinityPtr and PodAffinityPtrOutput values.
 // You can construct a concrete instance of `PodAffinityPtrInput` via:
 //
-//          PodAffinityArgs{...}
+//	        PodAffinityArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PodAffinityPtrInput interface {
 	pulumi.Input
 
@@ -38575,7 +38603,7 @@ type PodAffinityPatch struct {
 // PodAffinityPatchInput is an input type that accepts PodAffinityPatchArgs and PodAffinityPatchOutput values.
 // You can construct a concrete instance of `PodAffinityPatchInput` via:
 //
-//          PodAffinityPatchArgs{...}
+//	PodAffinityPatchArgs{...}
 type PodAffinityPatchInput interface {
 	pulumi.Input
 
@@ -38614,11 +38642,11 @@ func (i PodAffinityPatchArgs) ToPodAffinityPatchPtrOutputWithContext(ctx context
 // PodAffinityPatchPtrInput is an input type that accepts PodAffinityPatchArgs, PodAffinityPatchPtr and PodAffinityPatchPtrOutput values.
 // You can construct a concrete instance of `PodAffinityPatchPtrInput` via:
 //
-//          PodAffinityPatchArgs{...}
+//	        PodAffinityPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PodAffinityPatchPtrInput interface {
 	pulumi.Input
 
@@ -38742,7 +38770,7 @@ type PodAffinityTerm struct {
 // PodAffinityTermInput is an input type that accepts PodAffinityTermArgs and PodAffinityTermOutput values.
 // You can construct a concrete instance of `PodAffinityTermInput` via:
 //
-//          PodAffinityTermArgs{...}
+//	PodAffinityTermArgs{...}
 type PodAffinityTermInput interface {
 	pulumi.Input
 
@@ -38777,7 +38805,7 @@ func (i PodAffinityTermArgs) ToPodAffinityTermOutputWithContext(ctx context.Cont
 // PodAffinityTermArrayInput is an input type that accepts PodAffinityTermArray and PodAffinityTermArrayOutput values.
 // You can construct a concrete instance of `PodAffinityTermArrayInput` via:
 //
-//          PodAffinityTermArray{ PodAffinityTermArgs{...} }
+//	PodAffinityTermArray{ PodAffinityTermArgs{...} }
 type PodAffinityTermArrayInput interface {
 	pulumi.Input
 
@@ -38869,7 +38897,7 @@ type PodAffinityTermPatch struct {
 // PodAffinityTermPatchInput is an input type that accepts PodAffinityTermPatchArgs and PodAffinityTermPatchOutput values.
 // You can construct a concrete instance of `PodAffinityTermPatchInput` via:
 //
-//          PodAffinityTermPatchArgs{...}
+//	PodAffinityTermPatchArgs{...}
 type PodAffinityTermPatchInput interface {
 	pulumi.Input
 
@@ -38912,11 +38940,11 @@ func (i PodAffinityTermPatchArgs) ToPodAffinityTermPatchPtrOutputWithContext(ctx
 // PodAffinityTermPatchPtrInput is an input type that accepts PodAffinityTermPatchArgs, PodAffinityTermPatchPtr and PodAffinityTermPatchPtrOutput values.
 // You can construct a concrete instance of `PodAffinityTermPatchPtrInput` via:
 //
-//          PodAffinityTermPatchArgs{...}
+//	        PodAffinityTermPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PodAffinityTermPatchPtrInput interface {
 	pulumi.Input
 
@@ -38945,7 +38973,7 @@ func (i *podAffinityTermPatchPtrType) ToPodAffinityTermPatchPtrOutputWithContext
 // PodAffinityTermPatchArrayInput is an input type that accepts PodAffinityTermPatchArray and PodAffinityTermPatchArrayOutput values.
 // You can construct a concrete instance of `PodAffinityTermPatchArrayInput` via:
 //
-//          PodAffinityTermPatchArray{ PodAffinityTermPatchArgs{...} }
+//	PodAffinityTermPatchArray{ PodAffinityTermPatchArgs{...} }
 type PodAffinityTermPatchArrayInput interface {
 	pulumi.Input
 
@@ -39107,7 +39135,7 @@ type PodAntiAffinity struct {
 // PodAntiAffinityInput is an input type that accepts PodAntiAffinityArgs and PodAntiAffinityOutput values.
 // You can construct a concrete instance of `PodAntiAffinityInput` via:
 //
-//          PodAntiAffinityArgs{...}
+//	PodAntiAffinityArgs{...}
 type PodAntiAffinityInput interface {
 	pulumi.Input
 
@@ -39146,11 +39174,11 @@ func (i PodAntiAffinityArgs) ToPodAntiAffinityPtrOutputWithContext(ctx context.C
 // PodAntiAffinityPtrInput is an input type that accepts PodAntiAffinityArgs, PodAntiAffinityPtr and PodAntiAffinityPtrOutput values.
 // You can construct a concrete instance of `PodAntiAffinityPtrInput` via:
 //
-//          PodAntiAffinityArgs{...}
+//	        PodAntiAffinityArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PodAntiAffinityPtrInput interface {
 	pulumi.Input
 
@@ -39268,7 +39296,7 @@ type PodAntiAffinityPatch struct {
 // PodAntiAffinityPatchInput is an input type that accepts PodAntiAffinityPatchArgs and PodAntiAffinityPatchOutput values.
 // You can construct a concrete instance of `PodAntiAffinityPatchInput` via:
 //
-//          PodAntiAffinityPatchArgs{...}
+//	PodAntiAffinityPatchArgs{...}
 type PodAntiAffinityPatchInput interface {
 	pulumi.Input
 
@@ -39307,11 +39335,11 @@ func (i PodAntiAffinityPatchArgs) ToPodAntiAffinityPatchPtrOutputWithContext(ctx
 // PodAntiAffinityPatchPtrInput is an input type that accepts PodAntiAffinityPatchArgs, PodAntiAffinityPatchPtr and PodAntiAffinityPatchPtrOutput values.
 // You can construct a concrete instance of `PodAntiAffinityPatchPtrInput` via:
 //
-//          PodAntiAffinityPatchArgs{...}
+//	        PodAntiAffinityPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PodAntiAffinityPatchPtrInput interface {
 	pulumi.Input
 
@@ -39439,7 +39467,7 @@ type PodCondition struct {
 // PodConditionInput is an input type that accepts PodConditionArgs and PodConditionOutput values.
 // You can construct a concrete instance of `PodConditionInput` via:
 //
-//          PodConditionArgs{...}
+//	PodConditionArgs{...}
 type PodConditionInput interface {
 	pulumi.Input
 
@@ -39478,7 +39506,7 @@ func (i PodConditionArgs) ToPodConditionOutputWithContext(ctx context.Context) P
 // PodConditionArrayInput is an input type that accepts PodConditionArray and PodConditionArrayOutput values.
 // You can construct a concrete instance of `PodConditionArrayInput` via:
 //
-//          PodConditionArray{ PodConditionArgs{...} }
+//	PodConditionArray{ PodConditionArgs{...} }
 type PodConditionArrayInput interface {
 	pulumi.Input
 
@@ -39584,7 +39612,7 @@ type PodConditionPatch struct {
 // PodConditionPatchInput is an input type that accepts PodConditionPatchArgs and PodConditionPatchOutput values.
 // You can construct a concrete instance of `PodConditionPatchInput` via:
 //
-//          PodConditionPatchArgs{...}
+//	PodConditionPatchArgs{...}
 type PodConditionPatchInput interface {
 	pulumi.Input
 
@@ -39623,7 +39651,7 @@ func (i PodConditionPatchArgs) ToPodConditionPatchOutputWithContext(ctx context.
 // PodConditionPatchArrayInput is an input type that accepts PodConditionPatchArray and PodConditionPatchArrayOutput values.
 // You can construct a concrete instance of `PodConditionPatchArrayInput` via:
 //
-//          PodConditionPatchArray{ PodConditionPatchArgs{...} }
+//	PodConditionPatchArray{ PodConditionPatchArgs{...} }
 type PodConditionPatchArrayInput interface {
 	pulumi.Input
 
@@ -39723,7 +39751,7 @@ type PodDNSConfig struct {
 // PodDNSConfigInput is an input type that accepts PodDNSConfigArgs and PodDNSConfigOutput values.
 // You can construct a concrete instance of `PodDNSConfigInput` via:
 //
-//          PodDNSConfigArgs{...}
+//	PodDNSConfigArgs{...}
 type PodDNSConfigInput interface {
 	pulumi.Input
 
@@ -39764,11 +39792,11 @@ func (i PodDNSConfigArgs) ToPodDNSConfigPtrOutputWithContext(ctx context.Context
 // PodDNSConfigPtrInput is an input type that accepts PodDNSConfigArgs, PodDNSConfigPtr and PodDNSConfigPtrOutput values.
 // You can construct a concrete instance of `PodDNSConfigPtrInput` via:
 //
-//          PodDNSConfigArgs{...}
+//	        PodDNSConfigArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PodDNSConfigPtrInput interface {
 	pulumi.Input
 
@@ -39898,7 +39926,7 @@ type PodDNSConfigOption struct {
 // PodDNSConfigOptionInput is an input type that accepts PodDNSConfigOptionArgs and PodDNSConfigOptionOutput values.
 // You can construct a concrete instance of `PodDNSConfigOptionInput` via:
 //
-//          PodDNSConfigOptionArgs{...}
+//	PodDNSConfigOptionArgs{...}
 type PodDNSConfigOptionInput interface {
 	pulumi.Input
 
@@ -39928,7 +39956,7 @@ func (i PodDNSConfigOptionArgs) ToPodDNSConfigOptionOutputWithContext(ctx contex
 // PodDNSConfigOptionArrayInput is an input type that accepts PodDNSConfigOptionArray and PodDNSConfigOptionArrayOutput values.
 // You can construct a concrete instance of `PodDNSConfigOptionArrayInput` via:
 //
-//          PodDNSConfigOptionArray{ PodDNSConfigOptionArgs{...} }
+//	PodDNSConfigOptionArray{ PodDNSConfigOptionArgs{...} }
 type PodDNSConfigOptionArrayInput interface {
 	pulumi.Input
 
@@ -40004,7 +40032,7 @@ type PodDNSConfigOptionPatch struct {
 // PodDNSConfigOptionPatchInput is an input type that accepts PodDNSConfigOptionPatchArgs and PodDNSConfigOptionPatchOutput values.
 // You can construct a concrete instance of `PodDNSConfigOptionPatchInput` via:
 //
-//          PodDNSConfigOptionPatchArgs{...}
+//	PodDNSConfigOptionPatchArgs{...}
 type PodDNSConfigOptionPatchInput interface {
 	pulumi.Input
 
@@ -40034,7 +40062,7 @@ func (i PodDNSConfigOptionPatchArgs) ToPodDNSConfigOptionPatchOutputWithContext(
 // PodDNSConfigOptionPatchArrayInput is an input type that accepts PodDNSConfigOptionPatchArray and PodDNSConfigOptionPatchArrayOutput values.
 // You can construct a concrete instance of `PodDNSConfigOptionPatchArrayInput` via:
 //
-//          PodDNSConfigOptionPatchArray{ PodDNSConfigOptionPatchArgs{...} }
+//	PodDNSConfigOptionPatchArray{ PodDNSConfigOptionPatchArgs{...} }
 type PodDNSConfigOptionPatchArrayInput interface {
 	pulumi.Input
 
@@ -40113,7 +40141,7 @@ type PodDNSConfigPatch struct {
 // PodDNSConfigPatchInput is an input type that accepts PodDNSConfigPatchArgs and PodDNSConfigPatchOutput values.
 // You can construct a concrete instance of `PodDNSConfigPatchInput` via:
 //
-//          PodDNSConfigPatchArgs{...}
+//	PodDNSConfigPatchArgs{...}
 type PodDNSConfigPatchInput interface {
 	pulumi.Input
 
@@ -40154,11 +40182,11 @@ func (i PodDNSConfigPatchArgs) ToPodDNSConfigPatchPtrOutputWithContext(ctx conte
 // PodDNSConfigPatchPtrInput is an input type that accepts PodDNSConfigPatchArgs, PodDNSConfigPatchPtr and PodDNSConfigPatchPtrOutput values.
 // You can construct a concrete instance of `PodDNSConfigPatchPtrInput` via:
 //
-//          PodDNSConfigPatchArgs{...}
+//	        PodDNSConfigPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PodDNSConfigPatchPtrInput interface {
 	pulumi.Input
 
@@ -40279,7 +40307,8 @@ func (o PodDNSConfigPatchPtrOutput) Searches() pulumi.StringArrayOutput {
 }
 
 // IP address information for entries in the (plural) PodIPs field. Each entry includes:
-//    IP: An IP address allocated to the pod. Routable at least within the cluster.
+//
+//	IP: An IP address allocated to the pod. Routable at least within the cluster.
 type PodIP struct {
 	// ip is an IP address (IPv4 or IPv6) assigned to the pod
 	Ip *string `pulumi:"ip"`
@@ -40288,7 +40317,7 @@ type PodIP struct {
 // PodIPInput is an input type that accepts PodIPArgs and PodIPOutput values.
 // You can construct a concrete instance of `PodIPInput` via:
 //
-//          PodIPArgs{...}
+//	PodIPArgs{...}
 type PodIPInput interface {
 	pulumi.Input
 
@@ -40297,7 +40326,8 @@ type PodIPInput interface {
 }
 
 // IP address information for entries in the (plural) PodIPs field. Each entry includes:
-//    IP: An IP address allocated to the pod. Routable at least within the cluster.
+//
+//	IP: An IP address allocated to the pod. Routable at least within the cluster.
 type PodIPArgs struct {
 	// ip is an IP address (IPv4 or IPv6) assigned to the pod
 	Ip pulumi.StringPtrInput `pulumi:"ip"`
@@ -40318,7 +40348,7 @@ func (i PodIPArgs) ToPodIPOutputWithContext(ctx context.Context) PodIPOutput {
 // PodIPArrayInput is an input type that accepts PodIPArray and PodIPArrayOutput values.
 // You can construct a concrete instance of `PodIPArrayInput` via:
 //
-//          PodIPArray{ PodIPArgs{...} }
+//	PodIPArray{ PodIPArgs{...} }
 type PodIPArrayInput interface {
 	pulumi.Input
 
@@ -40341,7 +40371,8 @@ func (i PodIPArray) ToPodIPArrayOutputWithContext(ctx context.Context) PodIPArra
 }
 
 // IP address information for entries in the (plural) PodIPs field. Each entry includes:
-//    IP: An IP address allocated to the pod. Routable at least within the cluster.
+//
+//	IP: An IP address allocated to the pod. Routable at least within the cluster.
 type PodIPOutput struct{ *pulumi.OutputState }
 
 func (PodIPOutput) ElementType() reflect.Type {
@@ -40382,7 +40413,8 @@ func (o PodIPArrayOutput) Index(i pulumi.IntInput) PodIPOutput {
 }
 
 // IP address information for entries in the (plural) PodIPs field. Each entry includes:
-//    IP: An IP address allocated to the pod. Routable at least within the cluster.
+//
+//	IP: An IP address allocated to the pod. Routable at least within the cluster.
 type PodIPPatch struct {
 	// ip is an IP address (IPv4 or IPv6) assigned to the pod
 	Ip *string `pulumi:"ip"`
@@ -40391,7 +40423,7 @@ type PodIPPatch struct {
 // PodIPPatchInput is an input type that accepts PodIPPatchArgs and PodIPPatchOutput values.
 // You can construct a concrete instance of `PodIPPatchInput` via:
 //
-//          PodIPPatchArgs{...}
+//	PodIPPatchArgs{...}
 type PodIPPatchInput interface {
 	pulumi.Input
 
@@ -40400,7 +40432,8 @@ type PodIPPatchInput interface {
 }
 
 // IP address information for entries in the (plural) PodIPs field. Each entry includes:
-//    IP: An IP address allocated to the pod. Routable at least within the cluster.
+//
+//	IP: An IP address allocated to the pod. Routable at least within the cluster.
 type PodIPPatchArgs struct {
 	// ip is an IP address (IPv4 or IPv6) assigned to the pod
 	Ip pulumi.StringPtrInput `pulumi:"ip"`
@@ -40421,7 +40454,7 @@ func (i PodIPPatchArgs) ToPodIPPatchOutputWithContext(ctx context.Context) PodIP
 // PodIPPatchArrayInput is an input type that accepts PodIPPatchArray and PodIPPatchArrayOutput values.
 // You can construct a concrete instance of `PodIPPatchArrayInput` via:
 //
-//          PodIPPatchArray{ PodIPPatchArgs{...} }
+//	PodIPPatchArray{ PodIPPatchArgs{...} }
 type PodIPPatchArrayInput interface {
 	pulumi.Input
 
@@ -40444,7 +40477,8 @@ func (i PodIPPatchArray) ToPodIPPatchArrayOutputWithContext(ctx context.Context)
 }
 
 // IP address information for entries in the (plural) PodIPs field. Each entry includes:
-//    IP: An IP address allocated to the pod. Routable at least within the cluster.
+//
+//	IP: An IP address allocated to the pod. Routable at least within the cluster.
 type PodIPPatchOutput struct{ *pulumi.OutputState }
 
 func (PodIPPatchOutput) ElementType() reflect.Type {
@@ -40499,7 +40533,7 @@ type PodListType struct {
 // PodListTypeInput is an input type that accepts PodListTypeArgs and PodListTypeOutput values.
 // You can construct a concrete instance of `PodListTypeInput` via:
 //
-//          PodListTypeArgs{...}
+//	PodListTypeArgs{...}
 type PodListTypeInput interface {
 	pulumi.Input
 
@@ -40575,7 +40609,7 @@ type PodOS struct {
 // PodOSInput is an input type that accepts PodOSArgs and PodOSOutput values.
 // You can construct a concrete instance of `PodOSInput` via:
 //
-//          PodOSArgs{...}
+//	PodOSArgs{...}
 type PodOSInput interface {
 	pulumi.Input
 
@@ -40612,11 +40646,11 @@ func (i PodOSArgs) ToPodOSPtrOutputWithContext(ctx context.Context) PodOSPtrOutp
 // PodOSPtrInput is an input type that accepts PodOSArgs, PodOSPtr and PodOSPtrOutput values.
 // You can construct a concrete instance of `PodOSPtrInput` via:
 //
-//          PodOSArgs{...}
+//	        PodOSArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PodOSPtrInput interface {
 	pulumi.Input
 
@@ -40715,7 +40749,7 @@ type PodOSPatch struct {
 // PodOSPatchInput is an input type that accepts PodOSPatchArgs and PodOSPatchOutput values.
 // You can construct a concrete instance of `PodOSPatchInput` via:
 //
-//          PodOSPatchArgs{...}
+//	PodOSPatchArgs{...}
 type PodOSPatchInput interface {
 	pulumi.Input
 
@@ -40752,11 +40786,11 @@ func (i PodOSPatchArgs) ToPodOSPatchPtrOutputWithContext(ctx context.Context) Po
 // PodOSPatchPtrInput is an input type that accepts PodOSPatchArgs, PodOSPatchPtr and PodOSPatchPtrOutput values.
 // You can construct a concrete instance of `PodOSPatchPtrInput` via:
 //
-//          PodOSPatchArgs{...}
+//	        PodOSPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PodOSPatchPtrInput interface {
 	pulumi.Input
 
@@ -40853,11 +40887,11 @@ func (o PodOSPatchPtrOutput) Name() pulumi.StringPtrOutput {
 // The following conditions are used to determine whether the resource creation has
 // succeeded or failed:
 //
-// 1. The Pod is scheduled ("PodScheduled"" '.status.condition' is true).
-// 2. The Pod is initialized ("Initialized" '.status.condition' is true).
-// 3. The Pod is ready ("Ready" '.status.condition' is true) and the '.status.phase' is
-//    set to "Running".
-//    Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").
+//  1. The Pod is scheduled ("PodScheduled"" '.status.condition' is true).
+//  2. The Pod is initialized ("Initialized" '.status.condition' is true).
+//  3. The Pod is ready ("Ready" '.status.condition' is true) and the '.status.phase' is
+//     set to "Running".
+//     Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").
 //
 // If the Pod has not reached a Ready state after 10 minutes, it will
 // time out and mark the resource update as Failed. You can override the default timeout value
@@ -40878,7 +40912,7 @@ type PodPatchType struct {
 // PodPatchTypeInput is an input type that accepts PodPatchTypeArgs and PodPatchTypeOutput values.
 // You can construct a concrete instance of `PodPatchTypeInput` via:
 //
-//          PodPatchTypeArgs{...}
+//	PodPatchTypeArgs{...}
 type PodPatchTypeInput interface {
 	pulumi.Input
 
@@ -40893,11 +40927,11 @@ type PodPatchTypeInput interface {
 // The following conditions are used to determine whether the resource creation has
 // succeeded or failed:
 //
-// 1. The Pod is scheduled ("PodScheduled"" '.status.condition' is true).
-// 2. The Pod is initialized ("Initialized" '.status.condition' is true).
-// 3. The Pod is ready ("Ready" '.status.condition' is true) and the '.status.phase' is
-//    set to "Running".
-//    Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").
+//  1. The Pod is scheduled ("PodScheduled"" '.status.condition' is true).
+//  2. The Pod is initialized ("Initialized" '.status.condition' is true).
+//  3. The Pod is ready ("Ready" '.status.condition' is true) and the '.status.phase' is
+//     set to "Running".
+//     Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").
 //
 // If the Pod has not reached a Ready state after 10 minutes, it will
 // time out and mark the resource update as Failed. You can override the default timeout value
@@ -40934,11 +40968,11 @@ func (i PodPatchTypeArgs) ToPodPatchTypeOutputWithContext(ctx context.Context) P
 // The following conditions are used to determine whether the resource creation has
 // succeeded or failed:
 //
-// 1. The Pod is scheduled ("PodScheduled"" '.status.condition' is true).
-// 2. The Pod is initialized ("Initialized" '.status.condition' is true).
-// 3. The Pod is ready ("Ready" '.status.condition' is true) and the '.status.phase' is
-//    set to "Running".
-//    Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").
+//  1. The Pod is scheduled ("PodScheduled"" '.status.condition' is true).
+//  2. The Pod is initialized ("Initialized" '.status.condition' is true).
+//  3. The Pod is ready ("Ready" '.status.condition' is true) and the '.status.phase' is
+//     set to "Running".
+//     Or (for Jobs): The Pod succeeded ('.status.phase' set to "Succeeded").
 //
 // If the Pod has not reached a Ready state after 10 minutes, it will
 // time out and mark the resource update as Failed. You can override the default timeout value
@@ -40991,7 +41025,7 @@ type PodReadinessGate struct {
 // PodReadinessGateInput is an input type that accepts PodReadinessGateArgs and PodReadinessGateOutput values.
 // You can construct a concrete instance of `PodReadinessGateInput` via:
 //
-//          PodReadinessGateArgs{...}
+//	PodReadinessGateArgs{...}
 type PodReadinessGateInput interface {
 	pulumi.Input
 
@@ -41020,7 +41054,7 @@ func (i PodReadinessGateArgs) ToPodReadinessGateOutputWithContext(ctx context.Co
 // PodReadinessGateArrayInput is an input type that accepts PodReadinessGateArray and PodReadinessGateArrayOutput values.
 // You can construct a concrete instance of `PodReadinessGateArrayInput` via:
 //
-//          PodReadinessGateArray{ PodReadinessGateArgs{...} }
+//	PodReadinessGateArray{ PodReadinessGateArgs{...} }
 type PodReadinessGateArrayInput interface {
 	pulumi.Input
 
@@ -41091,7 +41125,7 @@ type PodReadinessGatePatch struct {
 // PodReadinessGatePatchInput is an input type that accepts PodReadinessGatePatchArgs and PodReadinessGatePatchOutput values.
 // You can construct a concrete instance of `PodReadinessGatePatchInput` via:
 //
-//          PodReadinessGatePatchArgs{...}
+//	PodReadinessGatePatchArgs{...}
 type PodReadinessGatePatchInput interface {
 	pulumi.Input
 
@@ -41120,7 +41154,7 @@ func (i PodReadinessGatePatchArgs) ToPodReadinessGatePatchOutputWithContext(ctx 
 // PodReadinessGatePatchArrayInput is an input type that accepts PodReadinessGatePatchArray and PodReadinessGatePatchArrayOutput values.
 // You can construct a concrete instance of `PodReadinessGatePatchArrayInput` via:
 //
-//          PodReadinessGatePatchArray{ PodReadinessGatePatchArgs{...} }
+//	PodReadinessGatePatchArray{ PodReadinessGatePatchArgs{...} }
 type PodReadinessGatePatchArrayInput interface {
 	pulumi.Input
 
@@ -41213,7 +41247,7 @@ type PodSecurityContext struct {
 // PodSecurityContextInput is an input type that accepts PodSecurityContextArgs and PodSecurityContextOutput values.
 // You can construct a concrete instance of `PodSecurityContextInput` via:
 //
-//          PodSecurityContextArgs{...}
+//	PodSecurityContextArgs{...}
 type PodSecurityContextInput interface {
 	pulumi.Input
 
@@ -41272,11 +41306,11 @@ func (i PodSecurityContextArgs) ToPodSecurityContextPtrOutputWithContext(ctx con
 // PodSecurityContextPtrInput is an input type that accepts PodSecurityContextArgs, PodSecurityContextPtr and PodSecurityContextPtrOutput values.
 // You can construct a concrete instance of `PodSecurityContextPtrInput` via:
 //
-//          PodSecurityContextArgs{...}
+//	        PodSecurityContextArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PodSecurityContextPtrInput interface {
 	pulumi.Input
 
@@ -41540,7 +41574,7 @@ type PodSecurityContextPatch struct {
 // PodSecurityContextPatchInput is an input type that accepts PodSecurityContextPatchArgs and PodSecurityContextPatchOutput values.
 // You can construct a concrete instance of `PodSecurityContextPatchInput` via:
 //
-//          PodSecurityContextPatchArgs{...}
+//	PodSecurityContextPatchArgs{...}
 type PodSecurityContextPatchInput interface {
 	pulumi.Input
 
@@ -41599,11 +41633,11 @@ func (i PodSecurityContextPatchArgs) ToPodSecurityContextPatchPtrOutputWithConte
 // PodSecurityContextPatchPtrInput is an input type that accepts PodSecurityContextPatchArgs, PodSecurityContextPatchPtr and PodSecurityContextPatchPtrOutput values.
 // You can construct a concrete instance of `PodSecurityContextPatchPtrInput` via:
 //
-//          PodSecurityContextPatchArgs{...}
+//	        PodSecurityContextPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PodSecurityContextPatchPtrInput interface {
 	pulumi.Input
 
@@ -41919,7 +41953,7 @@ type PodSpec struct {
 // PodSpecInput is an input type that accepts PodSpecArgs and PodSpecOutput values.
 // You can construct a concrete instance of `PodSpecInput` via:
 //
-//          PodSpecArgs{...}
+//	PodSpecArgs{...}
 type PodSpecInput interface {
 	pulumi.Input
 
@@ -42030,11 +42064,11 @@ func (i PodSpecArgs) ToPodSpecPtrOutputWithContext(ctx context.Context) PodSpecP
 // PodSpecPtrInput is an input type that accepts PodSpecArgs, PodSpecPtr and PodSpecPtrOutput values.
 // You can construct a concrete instance of `PodSpecPtrInput` via:
 //
-//          PodSpecArgs{...}
+//	        PodSpecArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PodSpecPtrInput interface {
 	pulumi.Input
 
@@ -42740,7 +42774,7 @@ type PodSpecPatch struct {
 // PodSpecPatchInput is an input type that accepts PodSpecPatchArgs and PodSpecPatchOutput values.
 // You can construct a concrete instance of `PodSpecPatchInput` via:
 //
-//          PodSpecPatchArgs{...}
+//	PodSpecPatchArgs{...}
 type PodSpecPatchInput interface {
 	pulumi.Input
 
@@ -42851,11 +42885,11 @@ func (i PodSpecPatchArgs) ToPodSpecPatchPtrOutputWithContext(ctx context.Context
 // PodSpecPatchPtrInput is an input type that accepts PodSpecPatchArgs, PodSpecPatchPtr and PodSpecPatchPtrOutput values.
 // You can construct a concrete instance of `PodSpecPatchPtrInput` via:
 //
-//          PodSpecPatchArgs{...}
+//	        PodSpecPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PodSpecPatchPtrInput interface {
 	pulumi.Input
 
@@ -43515,7 +43549,7 @@ type PodStatus struct {
 // PodStatusInput is an input type that accepts PodStatusArgs and PodStatusOutput values.
 // You can construct a concrete instance of `PodStatusInput` via:
 //
-//          PodStatusArgs{...}
+//	PodStatusArgs{...}
 type PodStatusInput interface {
 	pulumi.Input
 
@@ -43580,11 +43614,11 @@ func (i PodStatusArgs) ToPodStatusPtrOutputWithContext(ctx context.Context) PodS
 // PodStatusPtrInput is an input type that accepts PodStatusArgs, PodStatusPtr and PodStatusPtrOutput values.
 // You can construct a concrete instance of `PodStatusPtrInput` via:
 //
-//          PodStatusArgs{...}
+//	        PodStatusArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PodStatusPtrInput interface {
 	pulumi.Input
 
@@ -43899,7 +43933,7 @@ type PodStatusPatch struct {
 // PodStatusPatchInput is an input type that accepts PodStatusPatchArgs and PodStatusPatchOutput values.
 // You can construct a concrete instance of `PodStatusPatchInput` via:
 //
-//          PodStatusPatchArgs{...}
+//	PodStatusPatchArgs{...}
 type PodStatusPatchInput interface {
 	pulumi.Input
 
@@ -43964,11 +43998,11 @@ func (i PodStatusPatchArgs) ToPodStatusPatchPtrOutputWithContext(ctx context.Con
 // PodStatusPatchPtrInput is an input type that accepts PodStatusPatchArgs, PodStatusPatchPtr and PodStatusPatchPtrOutput values.
 // You can construct a concrete instance of `PodStatusPatchPtrInput` via:
 //
-//          PodStatusPatchArgs{...}
+//	        PodStatusPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PodStatusPatchPtrInput interface {
 	pulumi.Input
 
@@ -44261,7 +44295,7 @@ type PodTemplateType struct {
 // PodTemplateTypeInput is an input type that accepts PodTemplateTypeArgs and PodTemplateTypeOutput values.
 // You can construct a concrete instance of `PodTemplateTypeInput` via:
 //
-//          PodTemplateTypeArgs{...}
+//	PodTemplateTypeArgs{...}
 type PodTemplateTypeInput interface {
 	pulumi.Input
 
@@ -44296,7 +44330,7 @@ func (i PodTemplateTypeArgs) ToPodTemplateTypeOutputWithContext(ctx context.Cont
 // PodTemplateTypeArrayInput is an input type that accepts PodTemplateTypeArray and PodTemplateTypeArrayOutput values.
 // You can construct a concrete instance of `PodTemplateTypeArrayInput` via:
 //
-//          PodTemplateTypeArray{ PodTemplateTypeArgs{...} }
+//	PodTemplateTypeArray{ PodTemplateTypeArgs{...} }
 type PodTemplateTypeArrayInput interface {
 	pulumi.Input
 
@@ -44388,7 +44422,7 @@ type PodTemplateListType struct {
 // PodTemplateListTypeInput is an input type that accepts PodTemplateListTypeArgs and PodTemplateListTypeOutput values.
 // You can construct a concrete instance of `PodTemplateListTypeInput` via:
 //
-//          PodTemplateListTypeArgs{...}
+//	PodTemplateListTypeArgs{...}
 type PodTemplateListTypeInput interface {
 	pulumi.Input
 
@@ -44470,7 +44504,7 @@ type PodTemplatePatchType struct {
 // PodTemplatePatchTypeInput is an input type that accepts PodTemplatePatchTypeArgs and PodTemplatePatchTypeOutput values.
 // You can construct a concrete instance of `PodTemplatePatchTypeInput` via:
 //
-//          PodTemplatePatchTypeArgs{...}
+//	PodTemplatePatchTypeArgs{...}
 type PodTemplatePatchTypeInput interface {
 	pulumi.Input
 
@@ -44548,7 +44582,7 @@ type PodTemplateSpec struct {
 // PodTemplateSpecInput is an input type that accepts PodTemplateSpecArgs and PodTemplateSpecOutput values.
 // You can construct a concrete instance of `PodTemplateSpecInput` via:
 //
-//          PodTemplateSpecArgs{...}
+//	PodTemplateSpecArgs{...}
 type PodTemplateSpecInput interface {
 	pulumi.Input
 
@@ -44587,11 +44621,11 @@ func (i PodTemplateSpecArgs) ToPodTemplateSpecPtrOutputWithContext(ctx context.C
 // PodTemplateSpecPtrInput is an input type that accepts PodTemplateSpecArgs, PodTemplateSpecPtr and PodTemplateSpecPtrOutput values.
 // You can construct a concrete instance of `PodTemplateSpecPtrInput` via:
 //
-//          PodTemplateSpecArgs{...}
+//	        PodTemplateSpecArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PodTemplateSpecPtrInput interface {
 	pulumi.Input
 
@@ -44707,7 +44741,7 @@ type PodTemplateSpecPatch struct {
 // PodTemplateSpecPatchInput is an input type that accepts PodTemplateSpecPatchArgs and PodTemplateSpecPatchOutput values.
 // You can construct a concrete instance of `PodTemplateSpecPatchInput` via:
 //
-//          PodTemplateSpecPatchArgs{...}
+//	PodTemplateSpecPatchArgs{...}
 type PodTemplateSpecPatchInput interface {
 	pulumi.Input
 
@@ -44746,11 +44780,11 @@ func (i PodTemplateSpecPatchArgs) ToPodTemplateSpecPatchPtrOutputWithContext(ctx
 // PodTemplateSpecPatchPtrInput is an input type that accepts PodTemplateSpecPatchArgs, PodTemplateSpecPatchPtr and PodTemplateSpecPatchPtrOutput values.
 // You can construct a concrete instance of `PodTemplateSpecPatchPtrInput` via:
 //
-//          PodTemplateSpecPatchArgs{...}
+//	        PodTemplateSpecPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PodTemplateSpecPatchPtrInput interface {
 	pulumi.Input
 
@@ -44870,7 +44904,7 @@ type PortStatus struct {
 // PortStatusInput is an input type that accepts PortStatusArgs and PortStatusOutput values.
 // You can construct a concrete instance of `PortStatusInput` via:
 //
-//          PortStatusArgs{...}
+//	PortStatusArgs{...}
 type PortStatusInput interface {
 	pulumi.Input
 
@@ -44905,7 +44939,7 @@ func (i PortStatusArgs) ToPortStatusOutputWithContext(ctx context.Context) PortS
 // PortStatusArrayInput is an input type that accepts PortStatusArray and PortStatusArrayOutput values.
 // You can construct a concrete instance of `PortStatusArrayInput` via:
 //
-//          PortStatusArray{ PortStatusArgs{...} }
+//	PortStatusArray{ PortStatusArgs{...} }
 type PortStatusArrayInput interface {
 	pulumi.Input
 
@@ -44942,9 +44976,10 @@ func (o PortStatusOutput) ToPortStatusOutputWithContext(ctx context.Context) Por
 }
 
 // Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
-//   CamelCase names
-// - cloud provider specific error values must have names that comply with the
-//   format foo.example.com/CamelCase.
+//
+//	CamelCase names
+//   - cloud provider specific error values must have names that comply with the
+//     format foo.example.com/CamelCase.
 func (o PortStatusOutput) Error() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PortStatus) *string { return v.Error }).(pulumi.StringPtrOutput)
 }
@@ -44994,7 +45029,7 @@ type PortStatusPatch struct {
 // PortStatusPatchInput is an input type that accepts PortStatusPatchArgs and PortStatusPatchOutput values.
 // You can construct a concrete instance of `PortStatusPatchInput` via:
 //
-//          PortStatusPatchArgs{...}
+//	PortStatusPatchArgs{...}
 type PortStatusPatchInput interface {
 	pulumi.Input
 
@@ -45029,7 +45064,7 @@ func (i PortStatusPatchArgs) ToPortStatusPatchOutputWithContext(ctx context.Cont
 // PortStatusPatchArrayInput is an input type that accepts PortStatusPatchArray and PortStatusPatchArrayOutput values.
 // You can construct a concrete instance of `PortStatusPatchArrayInput` via:
 //
-//          PortStatusPatchArray{ PortStatusPatchArgs{...} }
+//	PortStatusPatchArray{ PortStatusPatchArgs{...} }
 type PortStatusPatchArrayInput interface {
 	pulumi.Input
 
@@ -45066,9 +45101,10 @@ func (o PortStatusPatchOutput) ToPortStatusPatchOutputWithContext(ctx context.Co
 }
 
 // Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
-//   CamelCase names
-// - cloud provider specific error values must have names that comply with the
-//   format foo.example.com/CamelCase.
+//
+//	CamelCase names
+//   - cloud provider specific error values must have names that comply with the
+//     format foo.example.com/CamelCase.
 func (o PortStatusPatchOutput) Error() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PortStatusPatch) *string { return v.Error }).(pulumi.StringPtrOutput)
 }
@@ -45116,7 +45152,7 @@ type PortworxVolumeSource struct {
 // PortworxVolumeSourceInput is an input type that accepts PortworxVolumeSourceArgs and PortworxVolumeSourceOutput values.
 // You can construct a concrete instance of `PortworxVolumeSourceInput` via:
 //
-//          PortworxVolumeSourceArgs{...}
+//	PortworxVolumeSourceArgs{...}
 type PortworxVolumeSourceInput interface {
 	pulumi.Input
 
@@ -45157,11 +45193,11 @@ func (i PortworxVolumeSourceArgs) ToPortworxVolumeSourcePtrOutputWithContext(ctx
 // PortworxVolumeSourcePtrInput is an input type that accepts PortworxVolumeSourceArgs, PortworxVolumeSourcePtr and PortworxVolumeSourcePtrOutput values.
 // You can construct a concrete instance of `PortworxVolumeSourcePtrInput` via:
 //
-//          PortworxVolumeSourceArgs{...}
+//	        PortworxVolumeSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PortworxVolumeSourcePtrInput interface {
 	pulumi.Input
 
@@ -45294,7 +45330,7 @@ type PortworxVolumeSourcePatch struct {
 // PortworxVolumeSourcePatchInput is an input type that accepts PortworxVolumeSourcePatchArgs and PortworxVolumeSourcePatchOutput values.
 // You can construct a concrete instance of `PortworxVolumeSourcePatchInput` via:
 //
-//          PortworxVolumeSourcePatchArgs{...}
+//	PortworxVolumeSourcePatchArgs{...}
 type PortworxVolumeSourcePatchInput interface {
 	pulumi.Input
 
@@ -45335,11 +45371,11 @@ func (i PortworxVolumeSourcePatchArgs) ToPortworxVolumeSourcePatchPtrOutputWithC
 // PortworxVolumeSourcePatchPtrInput is an input type that accepts PortworxVolumeSourcePatchArgs, PortworxVolumeSourcePatchPtr and PortworxVolumeSourcePatchPtrOutput values.
 // You can construct a concrete instance of `PortworxVolumeSourcePatchPtrInput` via:
 //
-//          PortworxVolumeSourcePatchArgs{...}
+//	        PortworxVolumeSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type PortworxVolumeSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -45470,7 +45506,7 @@ type PreferredSchedulingTerm struct {
 // PreferredSchedulingTermInput is an input type that accepts PreferredSchedulingTermArgs and PreferredSchedulingTermOutput values.
 // You can construct a concrete instance of `PreferredSchedulingTermInput` via:
 //
-//          PreferredSchedulingTermArgs{...}
+//	PreferredSchedulingTermArgs{...}
 type PreferredSchedulingTermInput interface {
 	pulumi.Input
 
@@ -45501,7 +45537,7 @@ func (i PreferredSchedulingTermArgs) ToPreferredSchedulingTermOutputWithContext(
 // PreferredSchedulingTermArrayInput is an input type that accepts PreferredSchedulingTermArray and PreferredSchedulingTermArrayOutput values.
 // You can construct a concrete instance of `PreferredSchedulingTermArrayInput` via:
 //
-//          PreferredSchedulingTermArray{ PreferredSchedulingTermArgs{...} }
+//	PreferredSchedulingTermArray{ PreferredSchedulingTermArgs{...} }
 type PreferredSchedulingTermArrayInput interface {
 	pulumi.Input
 
@@ -45579,7 +45615,7 @@ type PreferredSchedulingTermPatch struct {
 // PreferredSchedulingTermPatchInput is an input type that accepts PreferredSchedulingTermPatchArgs and PreferredSchedulingTermPatchOutput values.
 // You can construct a concrete instance of `PreferredSchedulingTermPatchInput` via:
 //
-//          PreferredSchedulingTermPatchArgs{...}
+//	PreferredSchedulingTermPatchArgs{...}
 type PreferredSchedulingTermPatchInput interface {
 	pulumi.Input
 
@@ -45610,7 +45646,7 @@ func (i PreferredSchedulingTermPatchArgs) ToPreferredSchedulingTermPatchOutputWi
 // PreferredSchedulingTermPatchArrayInput is an input type that accepts PreferredSchedulingTermPatchArray and PreferredSchedulingTermPatchArrayOutput values.
 // You can construct a concrete instance of `PreferredSchedulingTermPatchArrayInput` via:
 //
-//          PreferredSchedulingTermPatchArray{ PreferredSchedulingTermPatchArgs{...} }
+//	PreferredSchedulingTermPatchArray{ PreferredSchedulingTermPatchArgs{...} }
 type PreferredSchedulingTermPatchArrayInput interface {
 	pulumi.Input
 
@@ -45704,7 +45740,7 @@ type Probe struct {
 // ProbeInput is an input type that accepts ProbeArgs and ProbeOutput values.
 // You can construct a concrete instance of `ProbeInput` via:
 //
-//          ProbeArgs{...}
+//	ProbeArgs{...}
 type ProbeInput interface {
 	pulumi.Input
 
@@ -45759,11 +45795,11 @@ func (i ProbeArgs) ToProbePtrOutputWithContext(ctx context.Context) ProbePtrOutp
 // ProbePtrInput is an input type that accepts ProbeArgs, ProbePtr and ProbePtrOutput values.
 // You can construct a concrete instance of `ProbePtrInput` via:
 //
-//          ProbeArgs{...}
+//	        ProbeArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ProbePtrInput interface {
 	pulumi.Input
 
@@ -46015,7 +46051,7 @@ type ProbePatch struct {
 // ProbePatchInput is an input type that accepts ProbePatchArgs and ProbePatchOutput values.
 // You can construct a concrete instance of `ProbePatchInput` via:
 //
-//          ProbePatchArgs{...}
+//	ProbePatchArgs{...}
 type ProbePatchInput interface {
 	pulumi.Input
 
@@ -46070,11 +46106,11 @@ func (i ProbePatchArgs) ToProbePatchPtrOutputWithContext(ctx context.Context) Pr
 // ProbePatchPtrInput is an input type that accepts ProbePatchArgs, ProbePatchPtr and ProbePatchPtrOutput values.
 // You can construct a concrete instance of `ProbePatchPtrInput` via:
 //
-//          ProbePatchArgs{...}
+//	        ProbePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ProbePatchPtrInput interface {
 	pulumi.Input
 
@@ -46310,7 +46346,7 @@ type ProjectedVolumeSource struct {
 // ProjectedVolumeSourceInput is an input type that accepts ProjectedVolumeSourceArgs and ProjectedVolumeSourceOutput values.
 // You can construct a concrete instance of `ProjectedVolumeSourceInput` via:
 //
-//          ProjectedVolumeSourceArgs{...}
+//	ProjectedVolumeSourceArgs{...}
 type ProjectedVolumeSourceInput interface {
 	pulumi.Input
 
@@ -46349,11 +46385,11 @@ func (i ProjectedVolumeSourceArgs) ToProjectedVolumeSourcePtrOutputWithContext(c
 // ProjectedVolumeSourcePtrInput is an input type that accepts ProjectedVolumeSourceArgs, ProjectedVolumeSourcePtr and ProjectedVolumeSourcePtrOutput values.
 // You can construct a concrete instance of `ProjectedVolumeSourcePtrInput` via:
 //
-//          ProjectedVolumeSourceArgs{...}
+//	        ProjectedVolumeSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ProjectedVolumeSourcePtrInput interface {
 	pulumi.Input
 
@@ -46469,7 +46505,7 @@ type ProjectedVolumeSourcePatch struct {
 // ProjectedVolumeSourcePatchInput is an input type that accepts ProjectedVolumeSourcePatchArgs and ProjectedVolumeSourcePatchOutput values.
 // You can construct a concrete instance of `ProjectedVolumeSourcePatchInput` via:
 //
-//          ProjectedVolumeSourcePatchArgs{...}
+//	ProjectedVolumeSourcePatchArgs{...}
 type ProjectedVolumeSourcePatchInput interface {
 	pulumi.Input
 
@@ -46508,11 +46544,11 @@ func (i ProjectedVolumeSourcePatchArgs) ToProjectedVolumeSourcePatchPtrOutputWit
 // ProjectedVolumeSourcePatchPtrInput is an input type that accepts ProjectedVolumeSourcePatchArgs, ProjectedVolumeSourcePatchPtr and ProjectedVolumeSourcePatchPtrOutput values.
 // You can construct a concrete instance of `ProjectedVolumeSourcePatchPtrInput` via:
 //
-//          ProjectedVolumeSourcePatchArgs{...}
+//	        ProjectedVolumeSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ProjectedVolumeSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -46636,7 +46672,7 @@ type QuobyteVolumeSource struct {
 // QuobyteVolumeSourceInput is an input type that accepts QuobyteVolumeSourceArgs and QuobyteVolumeSourceOutput values.
 // You can construct a concrete instance of `QuobyteVolumeSourceInput` via:
 //
-//          QuobyteVolumeSourceArgs{...}
+//	QuobyteVolumeSourceArgs{...}
 type QuobyteVolumeSourceInput interface {
 	pulumi.Input
 
@@ -46683,11 +46719,11 @@ func (i QuobyteVolumeSourceArgs) ToQuobyteVolumeSourcePtrOutputWithContext(ctx c
 // QuobyteVolumeSourcePtrInput is an input type that accepts QuobyteVolumeSourceArgs, QuobyteVolumeSourcePtr and QuobyteVolumeSourcePtrOutput values.
 // You can construct a concrete instance of `QuobyteVolumeSourcePtrInput` via:
 //
-//          QuobyteVolumeSourceArgs{...}
+//	        QuobyteVolumeSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type QuobyteVolumeSourcePtrInput interface {
 	pulumi.Input
 
@@ -46871,7 +46907,7 @@ type QuobyteVolumeSourcePatch struct {
 // QuobyteVolumeSourcePatchInput is an input type that accepts QuobyteVolumeSourcePatchArgs and QuobyteVolumeSourcePatchOutput values.
 // You can construct a concrete instance of `QuobyteVolumeSourcePatchInput` via:
 //
-//          QuobyteVolumeSourcePatchArgs{...}
+//	QuobyteVolumeSourcePatchArgs{...}
 type QuobyteVolumeSourcePatchInput interface {
 	pulumi.Input
 
@@ -46918,11 +46954,11 @@ func (i QuobyteVolumeSourcePatchArgs) ToQuobyteVolumeSourcePatchPtrOutputWithCon
 // QuobyteVolumeSourcePatchPtrInput is an input type that accepts QuobyteVolumeSourcePatchArgs, QuobyteVolumeSourcePatchPtr and QuobyteVolumeSourcePatchPtrOutput values.
 // You can construct a concrete instance of `QuobyteVolumeSourcePatchPtrInput` via:
 //
-//          QuobyteVolumeSourcePatchArgs{...}
+//	        QuobyteVolumeSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type QuobyteVolumeSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -47110,7 +47146,7 @@ type RBDPersistentVolumeSource struct {
 // RBDPersistentVolumeSourceInput is an input type that accepts RBDPersistentVolumeSourceArgs and RBDPersistentVolumeSourceOutput values.
 // You can construct a concrete instance of `RBDPersistentVolumeSourceInput` via:
 //
-//          RBDPersistentVolumeSourceArgs{...}
+//	RBDPersistentVolumeSourceArgs{...}
 type RBDPersistentVolumeSourceInput interface {
 	pulumi.Input
 
@@ -47161,11 +47197,11 @@ func (i RBDPersistentVolumeSourceArgs) ToRBDPersistentVolumeSourcePtrOutputWithC
 // RBDPersistentVolumeSourcePtrInput is an input type that accepts RBDPersistentVolumeSourceArgs, RBDPersistentVolumeSourcePtr and RBDPersistentVolumeSourcePtrOutput values.
 // You can construct a concrete instance of `RBDPersistentVolumeSourcePtrInput` via:
 //
-//          RBDPersistentVolumeSourceArgs{...}
+//	        RBDPersistentVolumeSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type RBDPersistentVolumeSourcePtrInput interface {
 	pulumi.Input
 
@@ -47383,7 +47419,7 @@ type RBDPersistentVolumeSourcePatch struct {
 // RBDPersistentVolumeSourcePatchInput is an input type that accepts RBDPersistentVolumeSourcePatchArgs and RBDPersistentVolumeSourcePatchOutput values.
 // You can construct a concrete instance of `RBDPersistentVolumeSourcePatchInput` via:
 //
-//          RBDPersistentVolumeSourcePatchArgs{...}
+//	RBDPersistentVolumeSourcePatchArgs{...}
 type RBDPersistentVolumeSourcePatchInput interface {
 	pulumi.Input
 
@@ -47434,11 +47470,11 @@ func (i RBDPersistentVolumeSourcePatchArgs) ToRBDPersistentVolumeSourcePatchPtrO
 // RBDPersistentVolumeSourcePatchPtrInput is an input type that accepts RBDPersistentVolumeSourcePatchArgs, RBDPersistentVolumeSourcePatchPtr and RBDPersistentVolumeSourcePatchPtrOutput values.
 // You can construct a concrete instance of `RBDPersistentVolumeSourcePatchPtrInput` via:
 //
-//          RBDPersistentVolumeSourcePatchArgs{...}
+//	        RBDPersistentVolumeSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type RBDPersistentVolumeSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -47656,7 +47692,7 @@ type RBDVolumeSource struct {
 // RBDVolumeSourceInput is an input type that accepts RBDVolumeSourceArgs and RBDVolumeSourceOutput values.
 // You can construct a concrete instance of `RBDVolumeSourceInput` via:
 //
-//          RBDVolumeSourceArgs{...}
+//	RBDVolumeSourceArgs{...}
 type RBDVolumeSourceInput interface {
 	pulumi.Input
 
@@ -47707,11 +47743,11 @@ func (i RBDVolumeSourceArgs) ToRBDVolumeSourcePtrOutputWithContext(ctx context.C
 // RBDVolumeSourcePtrInput is an input type that accepts RBDVolumeSourceArgs, RBDVolumeSourcePtr and RBDVolumeSourcePtrOutput values.
 // You can construct a concrete instance of `RBDVolumeSourcePtrInput` via:
 //
-//          RBDVolumeSourceArgs{...}
+//	        RBDVolumeSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type RBDVolumeSourcePtrInput interface {
 	pulumi.Input
 
@@ -47929,7 +47965,7 @@ type RBDVolumeSourcePatch struct {
 // RBDVolumeSourcePatchInput is an input type that accepts RBDVolumeSourcePatchArgs and RBDVolumeSourcePatchOutput values.
 // You can construct a concrete instance of `RBDVolumeSourcePatchInput` via:
 //
-//          RBDVolumeSourcePatchArgs{...}
+//	RBDVolumeSourcePatchArgs{...}
 type RBDVolumeSourcePatchInput interface {
 	pulumi.Input
 
@@ -47980,11 +48016,11 @@ func (i RBDVolumeSourcePatchArgs) ToRBDVolumeSourcePatchPtrOutputWithContext(ctx
 // RBDVolumeSourcePatchPtrInput is an input type that accepts RBDVolumeSourcePatchArgs, RBDVolumeSourcePatchPtr and RBDVolumeSourcePatchPtrOutput values.
 // You can construct a concrete instance of `RBDVolumeSourcePatchPtrInput` via:
 //
-//          RBDVolumeSourcePatchArgs{...}
+//	        RBDVolumeSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type RBDVolumeSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -48196,7 +48232,7 @@ type ReplicationControllerType struct {
 // ReplicationControllerTypeInput is an input type that accepts ReplicationControllerTypeArgs and ReplicationControllerTypeOutput values.
 // You can construct a concrete instance of `ReplicationControllerTypeInput` via:
 //
-//          ReplicationControllerTypeArgs{...}
+//	ReplicationControllerTypeArgs{...}
 type ReplicationControllerTypeInput interface {
 	pulumi.Input
 
@@ -48233,7 +48269,7 @@ func (i ReplicationControllerTypeArgs) ToReplicationControllerTypeOutputWithCont
 // ReplicationControllerTypeArrayInput is an input type that accepts ReplicationControllerTypeArray and ReplicationControllerTypeArrayOutput values.
 // You can construct a concrete instance of `ReplicationControllerTypeArrayInput` via:
 //
-//          ReplicationControllerTypeArray{ ReplicationControllerTypeArgs{...} }
+//	ReplicationControllerTypeArray{ ReplicationControllerTypeArgs{...} }
 type ReplicationControllerTypeArrayInput interface {
 	pulumi.Input
 
@@ -48332,7 +48368,7 @@ type ReplicationControllerCondition struct {
 // ReplicationControllerConditionInput is an input type that accepts ReplicationControllerConditionArgs and ReplicationControllerConditionOutput values.
 // You can construct a concrete instance of `ReplicationControllerConditionInput` via:
 //
-//          ReplicationControllerConditionArgs{...}
+//	ReplicationControllerConditionArgs{...}
 type ReplicationControllerConditionInput interface {
 	pulumi.Input
 
@@ -48369,7 +48405,7 @@ func (i ReplicationControllerConditionArgs) ToReplicationControllerConditionOutp
 // ReplicationControllerConditionArrayInput is an input type that accepts ReplicationControllerConditionArray and ReplicationControllerConditionArrayOutput values.
 // You can construct a concrete instance of `ReplicationControllerConditionArrayInput` via:
 //
-//          ReplicationControllerConditionArray{ ReplicationControllerConditionArgs{...} }
+//	ReplicationControllerConditionArray{ ReplicationControllerConditionArgs{...} }
 type ReplicationControllerConditionArrayInput interface {
 	pulumi.Input
 
@@ -48468,7 +48504,7 @@ type ReplicationControllerConditionPatch struct {
 // ReplicationControllerConditionPatchInput is an input type that accepts ReplicationControllerConditionPatchArgs and ReplicationControllerConditionPatchOutput values.
 // You can construct a concrete instance of `ReplicationControllerConditionPatchInput` via:
 //
-//          ReplicationControllerConditionPatchArgs{...}
+//	ReplicationControllerConditionPatchArgs{...}
 type ReplicationControllerConditionPatchInput interface {
 	pulumi.Input
 
@@ -48505,7 +48541,7 @@ func (i ReplicationControllerConditionPatchArgs) ToReplicationControllerConditio
 // ReplicationControllerConditionPatchArrayInput is an input type that accepts ReplicationControllerConditionPatchArray and ReplicationControllerConditionPatchArrayOutput values.
 // You can construct a concrete instance of `ReplicationControllerConditionPatchArrayInput` via:
 //
-//          ReplicationControllerConditionPatchArray{ ReplicationControllerConditionPatchArgs{...} }
+//	ReplicationControllerConditionPatchArray{ ReplicationControllerConditionPatchArgs{...} }
 type ReplicationControllerConditionPatchArrayInput interface {
 	pulumi.Input
 
@@ -48602,7 +48638,7 @@ type ReplicationControllerListType struct {
 // ReplicationControllerListTypeInput is an input type that accepts ReplicationControllerListTypeArgs and ReplicationControllerListTypeOutput values.
 // You can construct a concrete instance of `ReplicationControllerListTypeInput` via:
 //
-//          ReplicationControllerListTypeArgs{...}
+//	ReplicationControllerListTypeArgs{...}
 type ReplicationControllerListTypeInput interface {
 	pulumi.Input
 
@@ -48686,7 +48722,7 @@ type ReplicationControllerPatchType struct {
 // ReplicationControllerPatchTypeInput is an input type that accepts ReplicationControllerPatchTypeArgs and ReplicationControllerPatchTypeOutput values.
 // You can construct a concrete instance of `ReplicationControllerPatchTypeInput` via:
 //
-//          ReplicationControllerPatchTypeArgs{...}
+//	ReplicationControllerPatchTypeArgs{...}
 type ReplicationControllerPatchTypeInput interface {
 	pulumi.Input
 
@@ -48775,7 +48811,7 @@ type ReplicationControllerSpec struct {
 // ReplicationControllerSpecInput is an input type that accepts ReplicationControllerSpecArgs and ReplicationControllerSpecOutput values.
 // You can construct a concrete instance of `ReplicationControllerSpecInput` via:
 //
-//          ReplicationControllerSpecArgs{...}
+//	ReplicationControllerSpecArgs{...}
 type ReplicationControllerSpecInput interface {
 	pulumi.Input
 
@@ -48818,11 +48854,11 @@ func (i ReplicationControllerSpecArgs) ToReplicationControllerSpecPtrOutputWithC
 // ReplicationControllerSpecPtrInput is an input type that accepts ReplicationControllerSpecArgs, ReplicationControllerSpecPtr and ReplicationControllerSpecPtrOutput values.
 // You can construct a concrete instance of `ReplicationControllerSpecPtrInput` via:
 //
-//          ReplicationControllerSpecArgs{...}
+//	        ReplicationControllerSpecArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ReplicationControllerSpecPtrInput interface {
 	pulumi.Input
 
@@ -48972,7 +49008,7 @@ type ReplicationControllerSpecPatch struct {
 // ReplicationControllerSpecPatchInput is an input type that accepts ReplicationControllerSpecPatchArgs and ReplicationControllerSpecPatchOutput values.
 // You can construct a concrete instance of `ReplicationControllerSpecPatchInput` via:
 //
-//          ReplicationControllerSpecPatchArgs{...}
+//	ReplicationControllerSpecPatchArgs{...}
 type ReplicationControllerSpecPatchInput interface {
 	pulumi.Input
 
@@ -49015,11 +49051,11 @@ func (i ReplicationControllerSpecPatchArgs) ToReplicationControllerSpecPatchPtrO
 // ReplicationControllerSpecPatchPtrInput is an input type that accepts ReplicationControllerSpecPatchArgs, ReplicationControllerSpecPatchPtr and ReplicationControllerSpecPatchPtrOutput values.
 // You can construct a concrete instance of `ReplicationControllerSpecPatchPtrInput` via:
 //
-//          ReplicationControllerSpecPatchArgs{...}
+//	        ReplicationControllerSpecPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ReplicationControllerSpecPatchPtrInput interface {
 	pulumi.Input
 
@@ -49173,7 +49209,7 @@ type ReplicationControllerStatus struct {
 // ReplicationControllerStatusInput is an input type that accepts ReplicationControllerStatusArgs and ReplicationControllerStatusOutput values.
 // You can construct a concrete instance of `ReplicationControllerStatusInput` via:
 //
-//          ReplicationControllerStatusArgs{...}
+//	ReplicationControllerStatusArgs{...}
 type ReplicationControllerStatusInput interface {
 	pulumi.Input
 
@@ -49220,11 +49256,11 @@ func (i ReplicationControllerStatusArgs) ToReplicationControllerStatusPtrOutputW
 // ReplicationControllerStatusPtrInput is an input type that accepts ReplicationControllerStatusArgs, ReplicationControllerStatusPtr and ReplicationControllerStatusPtrOutput values.
 // You can construct a concrete instance of `ReplicationControllerStatusPtrInput` via:
 //
-//          ReplicationControllerStatusArgs{...}
+//	        ReplicationControllerStatusArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ReplicationControllerStatusPtrInput interface {
 	pulumi.Input
 
@@ -49408,7 +49444,7 @@ type ReplicationControllerStatusPatch struct {
 // ReplicationControllerStatusPatchInput is an input type that accepts ReplicationControllerStatusPatchArgs and ReplicationControllerStatusPatchOutput values.
 // You can construct a concrete instance of `ReplicationControllerStatusPatchInput` via:
 //
-//          ReplicationControllerStatusPatchArgs{...}
+//	ReplicationControllerStatusPatchArgs{...}
 type ReplicationControllerStatusPatchInput interface {
 	pulumi.Input
 
@@ -49455,11 +49491,11 @@ func (i ReplicationControllerStatusPatchArgs) ToReplicationControllerStatusPatch
 // ReplicationControllerStatusPatchPtrInput is an input type that accepts ReplicationControllerStatusPatchArgs, ReplicationControllerStatusPatchPtr and ReplicationControllerStatusPatchPtrOutput values.
 // You can construct a concrete instance of `ReplicationControllerStatusPatchPtrInput` via:
 //
-//          ReplicationControllerStatusPatchArgs{...}
+//	        ReplicationControllerStatusPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ReplicationControllerStatusPatchPtrInput interface {
 	pulumi.Input
 
@@ -49637,7 +49673,7 @@ type ResourceFieldSelector struct {
 // ResourceFieldSelectorInput is an input type that accepts ResourceFieldSelectorArgs and ResourceFieldSelectorOutput values.
 // You can construct a concrete instance of `ResourceFieldSelectorInput` via:
 //
-//          ResourceFieldSelectorArgs{...}
+//	ResourceFieldSelectorArgs{...}
 type ResourceFieldSelectorInput interface {
 	pulumi.Input
 
@@ -49678,11 +49714,11 @@ func (i ResourceFieldSelectorArgs) ToResourceFieldSelectorPtrOutputWithContext(c
 // ResourceFieldSelectorPtrInput is an input type that accepts ResourceFieldSelectorArgs, ResourceFieldSelectorPtr and ResourceFieldSelectorPtrOutput values.
 // You can construct a concrete instance of `ResourceFieldSelectorPtrInput` via:
 //
-//          ResourceFieldSelectorArgs{...}
+//	        ResourceFieldSelectorArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ResourceFieldSelectorPtrInput interface {
 	pulumi.Input
 
@@ -49815,7 +49851,7 @@ type ResourceFieldSelectorPatch struct {
 // ResourceFieldSelectorPatchInput is an input type that accepts ResourceFieldSelectorPatchArgs and ResourceFieldSelectorPatchOutput values.
 // You can construct a concrete instance of `ResourceFieldSelectorPatchInput` via:
 //
-//          ResourceFieldSelectorPatchArgs{...}
+//	ResourceFieldSelectorPatchArgs{...}
 type ResourceFieldSelectorPatchInput interface {
 	pulumi.Input
 
@@ -49856,11 +49892,11 @@ func (i ResourceFieldSelectorPatchArgs) ToResourceFieldSelectorPatchPtrOutputWit
 // ResourceFieldSelectorPatchPtrInput is an input type that accepts ResourceFieldSelectorPatchArgs, ResourceFieldSelectorPatchPtr and ResourceFieldSelectorPatchPtrOutput values.
 // You can construct a concrete instance of `ResourceFieldSelectorPatchPtrInput` via:
 //
-//          ResourceFieldSelectorPatchArgs{...}
+//	        ResourceFieldSelectorPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ResourceFieldSelectorPatchPtrInput interface {
 	pulumi.Input
 
@@ -49997,7 +50033,7 @@ type ResourceQuotaType struct {
 // ResourceQuotaTypeInput is an input type that accepts ResourceQuotaTypeArgs and ResourceQuotaTypeOutput values.
 // You can construct a concrete instance of `ResourceQuotaTypeInput` via:
 //
-//          ResourceQuotaTypeArgs{...}
+//	ResourceQuotaTypeArgs{...}
 type ResourceQuotaTypeInput interface {
 	pulumi.Input
 
@@ -50034,7 +50070,7 @@ func (i ResourceQuotaTypeArgs) ToResourceQuotaTypeOutputWithContext(ctx context.
 // ResourceQuotaTypeArrayInput is an input type that accepts ResourceQuotaTypeArray and ResourceQuotaTypeArrayOutput values.
 // You can construct a concrete instance of `ResourceQuotaTypeArrayInput` via:
 //
-//          ResourceQuotaTypeArray{ ResourceQuotaTypeArgs{...} }
+//	ResourceQuotaTypeArray{ ResourceQuotaTypeArgs{...} }
 type ResourceQuotaTypeArrayInput interface {
 	pulumi.Input
 
@@ -50131,7 +50167,7 @@ type ResourceQuotaListType struct {
 // ResourceQuotaListTypeInput is an input type that accepts ResourceQuotaListTypeArgs and ResourceQuotaListTypeOutput values.
 // You can construct a concrete instance of `ResourceQuotaListTypeInput` via:
 //
-//          ResourceQuotaListTypeArgs{...}
+//	ResourceQuotaListTypeArgs{...}
 type ResourceQuotaListTypeInput interface {
 	pulumi.Input
 
@@ -50215,7 +50251,7 @@ type ResourceQuotaPatchType struct {
 // ResourceQuotaPatchTypeInput is an input type that accepts ResourceQuotaPatchTypeArgs and ResourceQuotaPatchTypeOutput values.
 // You can construct a concrete instance of `ResourceQuotaPatchTypeInput` via:
 //
-//          ResourceQuotaPatchTypeArgs{...}
+//	ResourceQuotaPatchTypeArgs{...}
 type ResourceQuotaPatchTypeInput interface {
 	pulumi.Input
 
@@ -50302,7 +50338,7 @@ type ResourceQuotaSpec struct {
 // ResourceQuotaSpecInput is an input type that accepts ResourceQuotaSpecArgs and ResourceQuotaSpecOutput values.
 // You can construct a concrete instance of `ResourceQuotaSpecInput` via:
 //
-//          ResourceQuotaSpecArgs{...}
+//	ResourceQuotaSpecArgs{...}
 type ResourceQuotaSpecInput interface {
 	pulumi.Input
 
@@ -50343,11 +50379,11 @@ func (i ResourceQuotaSpecArgs) ToResourceQuotaSpecPtrOutputWithContext(ctx conte
 // ResourceQuotaSpecPtrInput is an input type that accepts ResourceQuotaSpecArgs, ResourceQuotaSpecPtr and ResourceQuotaSpecPtrOutput values.
 // You can construct a concrete instance of `ResourceQuotaSpecPtrInput` via:
 //
-//          ResourceQuotaSpecArgs{...}
+//	        ResourceQuotaSpecArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ResourceQuotaSpecPtrInput interface {
 	pulumi.Input
 
@@ -50480,7 +50516,7 @@ type ResourceQuotaSpecPatch struct {
 // ResourceQuotaSpecPatchInput is an input type that accepts ResourceQuotaSpecPatchArgs and ResourceQuotaSpecPatchOutput values.
 // You can construct a concrete instance of `ResourceQuotaSpecPatchInput` via:
 //
-//          ResourceQuotaSpecPatchArgs{...}
+//	ResourceQuotaSpecPatchArgs{...}
 type ResourceQuotaSpecPatchInput interface {
 	pulumi.Input
 
@@ -50521,11 +50557,11 @@ func (i ResourceQuotaSpecPatchArgs) ToResourceQuotaSpecPatchPtrOutputWithContext
 // ResourceQuotaSpecPatchPtrInput is an input type that accepts ResourceQuotaSpecPatchArgs, ResourceQuotaSpecPatchPtr and ResourceQuotaSpecPatchPtrOutput values.
 // You can construct a concrete instance of `ResourceQuotaSpecPatchPtrInput` via:
 //
-//          ResourceQuotaSpecPatchArgs{...}
+//	        ResourceQuotaSpecPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ResourceQuotaSpecPatchPtrInput interface {
 	pulumi.Input
 
@@ -50656,7 +50692,7 @@ type ResourceQuotaStatus struct {
 // ResourceQuotaStatusInput is an input type that accepts ResourceQuotaStatusArgs and ResourceQuotaStatusOutput values.
 // You can construct a concrete instance of `ResourceQuotaStatusInput` via:
 //
-//          ResourceQuotaStatusArgs{...}
+//	ResourceQuotaStatusArgs{...}
 type ResourceQuotaStatusInput interface {
 	pulumi.Input
 
@@ -50695,11 +50731,11 @@ func (i ResourceQuotaStatusArgs) ToResourceQuotaStatusPtrOutputWithContext(ctx c
 // ResourceQuotaStatusPtrInput is an input type that accepts ResourceQuotaStatusArgs, ResourceQuotaStatusPtr and ResourceQuotaStatusPtrOutput values.
 // You can construct a concrete instance of `ResourceQuotaStatusPtrInput` via:
 //
-//          ResourceQuotaStatusArgs{...}
+//	        ResourceQuotaStatusArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ResourceQuotaStatusPtrInput interface {
 	pulumi.Input
 
@@ -50815,7 +50851,7 @@ type ResourceQuotaStatusPatch struct {
 // ResourceQuotaStatusPatchInput is an input type that accepts ResourceQuotaStatusPatchArgs and ResourceQuotaStatusPatchOutput values.
 // You can construct a concrete instance of `ResourceQuotaStatusPatchInput` via:
 //
-//          ResourceQuotaStatusPatchArgs{...}
+//	ResourceQuotaStatusPatchArgs{...}
 type ResourceQuotaStatusPatchInput interface {
 	pulumi.Input
 
@@ -50854,11 +50890,11 @@ func (i ResourceQuotaStatusPatchArgs) ToResourceQuotaStatusPatchPtrOutputWithCon
 // ResourceQuotaStatusPatchPtrInput is an input type that accepts ResourceQuotaStatusPatchArgs, ResourceQuotaStatusPatchPtr and ResourceQuotaStatusPatchPtrOutput values.
 // You can construct a concrete instance of `ResourceQuotaStatusPatchPtrInput` via:
 //
-//          ResourceQuotaStatusPatchArgs{...}
+//	        ResourceQuotaStatusPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ResourceQuotaStatusPatchPtrInput interface {
 	pulumi.Input
 
@@ -50974,7 +51010,7 @@ type ResourceRequirements struct {
 // ResourceRequirementsInput is an input type that accepts ResourceRequirementsArgs and ResourceRequirementsOutput values.
 // You can construct a concrete instance of `ResourceRequirementsInput` via:
 //
-//          ResourceRequirementsArgs{...}
+//	ResourceRequirementsArgs{...}
 type ResourceRequirementsInput interface {
 	pulumi.Input
 
@@ -51013,11 +51049,11 @@ func (i ResourceRequirementsArgs) ToResourceRequirementsPtrOutputWithContext(ctx
 // ResourceRequirementsPtrInput is an input type that accepts ResourceRequirementsArgs, ResourceRequirementsPtr and ResourceRequirementsPtrOutput values.
 // You can construct a concrete instance of `ResourceRequirementsPtrInput` via:
 //
-//          ResourceRequirementsArgs{...}
+//	        ResourceRequirementsArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ResourceRequirementsPtrInput interface {
 	pulumi.Input
 
@@ -51133,7 +51169,7 @@ type ResourceRequirementsPatch struct {
 // ResourceRequirementsPatchInput is an input type that accepts ResourceRequirementsPatchArgs and ResourceRequirementsPatchOutput values.
 // You can construct a concrete instance of `ResourceRequirementsPatchInput` via:
 //
-//          ResourceRequirementsPatchArgs{...}
+//	ResourceRequirementsPatchArgs{...}
 type ResourceRequirementsPatchInput interface {
 	pulumi.Input
 
@@ -51172,11 +51208,11 @@ func (i ResourceRequirementsPatchArgs) ToResourceRequirementsPatchPtrOutputWithC
 // ResourceRequirementsPatchPtrInput is an input type that accepts ResourceRequirementsPatchArgs, ResourceRequirementsPatchPtr and ResourceRequirementsPatchPtrOutput values.
 // You can construct a concrete instance of `ResourceRequirementsPatchPtrInput` via:
 //
-//          ResourceRequirementsPatchArgs{...}
+//	        ResourceRequirementsPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ResourceRequirementsPatchPtrInput interface {
 	pulumi.Input
 
@@ -51296,7 +51332,7 @@ type SELinuxOptions struct {
 // SELinuxOptionsInput is an input type that accepts SELinuxOptionsArgs and SELinuxOptionsOutput values.
 // You can construct a concrete instance of `SELinuxOptionsInput` via:
 //
-//          SELinuxOptionsArgs{...}
+//	SELinuxOptionsArgs{...}
 type SELinuxOptionsInput interface {
 	pulumi.Input
 
@@ -51339,11 +51375,11 @@ func (i SELinuxOptionsArgs) ToSELinuxOptionsPtrOutputWithContext(ctx context.Con
 // SELinuxOptionsPtrInput is an input type that accepts SELinuxOptionsArgs, SELinuxOptionsPtr and SELinuxOptionsPtrOutput values.
 // You can construct a concrete instance of `SELinuxOptionsPtrInput` via:
 //
-//          SELinuxOptionsArgs{...}
+//	        SELinuxOptionsArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type SELinuxOptionsPtrInput interface {
 	pulumi.Input
 
@@ -51493,7 +51529,7 @@ type SELinuxOptionsPatch struct {
 // SELinuxOptionsPatchInput is an input type that accepts SELinuxOptionsPatchArgs and SELinuxOptionsPatchOutput values.
 // You can construct a concrete instance of `SELinuxOptionsPatchInput` via:
 //
-//          SELinuxOptionsPatchArgs{...}
+//	SELinuxOptionsPatchArgs{...}
 type SELinuxOptionsPatchInput interface {
 	pulumi.Input
 
@@ -51536,11 +51572,11 @@ func (i SELinuxOptionsPatchArgs) ToSELinuxOptionsPatchPtrOutputWithContext(ctx c
 // SELinuxOptionsPatchPtrInput is an input type that accepts SELinuxOptionsPatchArgs, SELinuxOptionsPatchPtr and SELinuxOptionsPatchPtrOutput values.
 // You can construct a concrete instance of `SELinuxOptionsPatchPtrInput` via:
 //
-//          SELinuxOptionsPatchArgs{...}
+//	        SELinuxOptionsPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type SELinuxOptionsPatchPtrInput interface {
 	pulumi.Input
 
@@ -51702,7 +51738,7 @@ type ScaleIOPersistentVolumeSource struct {
 // ScaleIOPersistentVolumeSourceInput is an input type that accepts ScaleIOPersistentVolumeSourceArgs and ScaleIOPersistentVolumeSourceOutput values.
 // You can construct a concrete instance of `ScaleIOPersistentVolumeSourceInput` via:
 //
-//          ScaleIOPersistentVolumeSourceArgs{...}
+//	ScaleIOPersistentVolumeSourceArgs{...}
 type ScaleIOPersistentVolumeSourceInput interface {
 	pulumi.Input
 
@@ -51757,11 +51793,11 @@ func (i ScaleIOPersistentVolumeSourceArgs) ToScaleIOPersistentVolumeSourcePtrOut
 // ScaleIOPersistentVolumeSourcePtrInput is an input type that accepts ScaleIOPersistentVolumeSourceArgs, ScaleIOPersistentVolumeSourcePtr and ScaleIOPersistentVolumeSourcePtrOutput values.
 // You can construct a concrete instance of `ScaleIOPersistentVolumeSourcePtrInput` via:
 //
-//          ScaleIOPersistentVolumeSourceArgs{...}
+//	        ScaleIOPersistentVolumeSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ScaleIOPersistentVolumeSourcePtrInput interface {
 	pulumi.Input
 
@@ -52013,7 +52049,7 @@ type ScaleIOPersistentVolumeSourcePatch struct {
 // ScaleIOPersistentVolumeSourcePatchInput is an input type that accepts ScaleIOPersistentVolumeSourcePatchArgs and ScaleIOPersistentVolumeSourcePatchOutput values.
 // You can construct a concrete instance of `ScaleIOPersistentVolumeSourcePatchInput` via:
 //
-//          ScaleIOPersistentVolumeSourcePatchArgs{...}
+//	ScaleIOPersistentVolumeSourcePatchArgs{...}
 type ScaleIOPersistentVolumeSourcePatchInput interface {
 	pulumi.Input
 
@@ -52068,11 +52104,11 @@ func (i ScaleIOPersistentVolumeSourcePatchArgs) ToScaleIOPersistentVolumeSourceP
 // ScaleIOPersistentVolumeSourcePatchPtrInput is an input type that accepts ScaleIOPersistentVolumeSourcePatchArgs, ScaleIOPersistentVolumeSourcePatchPtr and ScaleIOPersistentVolumeSourcePatchPtrOutput values.
 // You can construct a concrete instance of `ScaleIOPersistentVolumeSourcePatchPtrInput` via:
 //
-//          ScaleIOPersistentVolumeSourcePatchArgs{...}
+//	        ScaleIOPersistentVolumeSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ScaleIOPersistentVolumeSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -52324,7 +52360,7 @@ type ScaleIOVolumeSource struct {
 // ScaleIOVolumeSourceInput is an input type that accepts ScaleIOVolumeSourceArgs and ScaleIOVolumeSourceOutput values.
 // You can construct a concrete instance of `ScaleIOVolumeSourceInput` via:
 //
-//          ScaleIOVolumeSourceArgs{...}
+//	ScaleIOVolumeSourceArgs{...}
 type ScaleIOVolumeSourceInput interface {
 	pulumi.Input
 
@@ -52379,11 +52415,11 @@ func (i ScaleIOVolumeSourceArgs) ToScaleIOVolumeSourcePtrOutputWithContext(ctx c
 // ScaleIOVolumeSourcePtrInput is an input type that accepts ScaleIOVolumeSourceArgs, ScaleIOVolumeSourcePtr and ScaleIOVolumeSourcePtrOutput values.
 // You can construct a concrete instance of `ScaleIOVolumeSourcePtrInput` via:
 //
-//          ScaleIOVolumeSourceArgs{...}
+//	        ScaleIOVolumeSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ScaleIOVolumeSourcePtrInput interface {
 	pulumi.Input
 
@@ -52635,7 +52671,7 @@ type ScaleIOVolumeSourcePatch struct {
 // ScaleIOVolumeSourcePatchInput is an input type that accepts ScaleIOVolumeSourcePatchArgs and ScaleIOVolumeSourcePatchOutput values.
 // You can construct a concrete instance of `ScaleIOVolumeSourcePatchInput` via:
 //
-//          ScaleIOVolumeSourcePatchArgs{...}
+//	ScaleIOVolumeSourcePatchArgs{...}
 type ScaleIOVolumeSourcePatchInput interface {
 	pulumi.Input
 
@@ -52690,11 +52726,11 @@ func (i ScaleIOVolumeSourcePatchArgs) ToScaleIOVolumeSourcePatchPtrOutputWithCon
 // ScaleIOVolumeSourcePatchPtrInput is an input type that accepts ScaleIOVolumeSourcePatchArgs, ScaleIOVolumeSourcePatchPtr and ScaleIOVolumeSourcePatchPtrOutput values.
 // You can construct a concrete instance of `ScaleIOVolumeSourcePatchPtrInput` via:
 //
-//          ScaleIOVolumeSourcePatchArgs{...}
+//	        ScaleIOVolumeSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ScaleIOVolumeSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -52928,7 +52964,7 @@ type ScopeSelector struct {
 // ScopeSelectorInput is an input type that accepts ScopeSelectorArgs and ScopeSelectorOutput values.
 // You can construct a concrete instance of `ScopeSelectorInput` via:
 //
-//          ScopeSelectorArgs{...}
+//	ScopeSelectorArgs{...}
 type ScopeSelectorInput interface {
 	pulumi.Input
 
@@ -52965,11 +53001,11 @@ func (i ScopeSelectorArgs) ToScopeSelectorPtrOutputWithContext(ctx context.Conte
 // ScopeSelectorPtrInput is an input type that accepts ScopeSelectorArgs, ScopeSelectorPtr and ScopeSelectorPtrOutput values.
 // You can construct a concrete instance of `ScopeSelectorPtrInput` via:
 //
-//          ScopeSelectorArgs{...}
+//	        ScopeSelectorArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ScopeSelectorPtrInput interface {
 	pulumi.Input
 
@@ -53068,7 +53104,7 @@ type ScopeSelectorPatch struct {
 // ScopeSelectorPatchInput is an input type that accepts ScopeSelectorPatchArgs and ScopeSelectorPatchOutput values.
 // You can construct a concrete instance of `ScopeSelectorPatchInput` via:
 //
-//          ScopeSelectorPatchArgs{...}
+//	ScopeSelectorPatchArgs{...}
 type ScopeSelectorPatchInput interface {
 	pulumi.Input
 
@@ -53105,11 +53141,11 @@ func (i ScopeSelectorPatchArgs) ToScopeSelectorPatchPtrOutputWithContext(ctx con
 // ScopeSelectorPatchPtrInput is an input type that accepts ScopeSelectorPatchArgs, ScopeSelectorPatchPtr and ScopeSelectorPatchPtrOutput values.
 // You can construct a concrete instance of `ScopeSelectorPatchPtrInput` via:
 //
-//          ScopeSelectorPatchArgs{...}
+//	        ScopeSelectorPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ScopeSelectorPatchPtrInput interface {
 	pulumi.Input
 
@@ -53212,7 +53248,7 @@ type ScopedResourceSelectorRequirement struct {
 // ScopedResourceSelectorRequirementInput is an input type that accepts ScopedResourceSelectorRequirementArgs and ScopedResourceSelectorRequirementOutput values.
 // You can construct a concrete instance of `ScopedResourceSelectorRequirementInput` via:
 //
-//          ScopedResourceSelectorRequirementArgs{...}
+//	ScopedResourceSelectorRequirementArgs{...}
 type ScopedResourceSelectorRequirementInput interface {
 	pulumi.Input
 
@@ -53245,7 +53281,7 @@ func (i ScopedResourceSelectorRequirementArgs) ToScopedResourceSelectorRequireme
 // ScopedResourceSelectorRequirementArrayInput is an input type that accepts ScopedResourceSelectorRequirementArray and ScopedResourceSelectorRequirementArrayOutput values.
 // You can construct a concrete instance of `ScopedResourceSelectorRequirementArrayInput` via:
 //
-//          ScopedResourceSelectorRequirementArray{ ScopedResourceSelectorRequirementArgs{...} }
+//	ScopedResourceSelectorRequirementArray{ ScopedResourceSelectorRequirementArgs{...} }
 type ScopedResourceSelectorRequirementArrayInput interface {
 	pulumi.Input
 
@@ -53330,7 +53366,7 @@ type ScopedResourceSelectorRequirementPatch struct {
 // ScopedResourceSelectorRequirementPatchInput is an input type that accepts ScopedResourceSelectorRequirementPatchArgs and ScopedResourceSelectorRequirementPatchOutput values.
 // You can construct a concrete instance of `ScopedResourceSelectorRequirementPatchInput` via:
 //
-//          ScopedResourceSelectorRequirementPatchArgs{...}
+//	ScopedResourceSelectorRequirementPatchArgs{...}
 type ScopedResourceSelectorRequirementPatchInput interface {
 	pulumi.Input
 
@@ -53363,7 +53399,7 @@ func (i ScopedResourceSelectorRequirementPatchArgs) ToScopedResourceSelectorRequ
 // ScopedResourceSelectorRequirementPatchArrayInput is an input type that accepts ScopedResourceSelectorRequirementPatchArray and ScopedResourceSelectorRequirementPatchArrayOutput values.
 // You can construct a concrete instance of `ScopedResourceSelectorRequirementPatchArrayInput` via:
 //
-//          ScopedResourceSelectorRequirementPatchArray{ ScopedResourceSelectorRequirementPatchArgs{...} }
+//	ScopedResourceSelectorRequirementPatchArray{ ScopedResourceSelectorRequirementPatchArgs{...} }
 type ScopedResourceSelectorRequirementPatchArrayInput interface {
 	pulumi.Input
 
@@ -53448,7 +53484,7 @@ type SeccompProfile struct {
 // SeccompProfileInput is an input type that accepts SeccompProfileArgs and SeccompProfileOutput values.
 // You can construct a concrete instance of `SeccompProfileInput` via:
 //
-//          SeccompProfileArgs{...}
+//	SeccompProfileArgs{...}
 type SeccompProfileInput interface {
 	pulumi.Input
 
@@ -53489,11 +53525,11 @@ func (i SeccompProfileArgs) ToSeccompProfilePtrOutputWithContext(ctx context.Con
 // SeccompProfilePtrInput is an input type that accepts SeccompProfileArgs, SeccompProfilePtr and SeccompProfilePtrOutput values.
 // You can construct a concrete instance of `SeccompProfilePtrInput` via:
 //
-//          SeccompProfileArgs{...}
+//	        SeccompProfileArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type SeccompProfilePtrInput interface {
 	pulumi.Input
 
@@ -53615,7 +53651,7 @@ type SeccompProfilePatch struct {
 // SeccompProfilePatchInput is an input type that accepts SeccompProfilePatchArgs and SeccompProfilePatchOutput values.
 // You can construct a concrete instance of `SeccompProfilePatchInput` via:
 //
-//          SeccompProfilePatchArgs{...}
+//	SeccompProfilePatchArgs{...}
 type SeccompProfilePatchInput interface {
 	pulumi.Input
 
@@ -53656,11 +53692,11 @@ func (i SeccompProfilePatchArgs) ToSeccompProfilePatchPtrOutputWithContext(ctx c
 // SeccompProfilePatchPtrInput is an input type that accepts SeccompProfilePatchArgs, SeccompProfilePatchPtr and SeccompProfilePatchPtrOutput values.
 // You can construct a concrete instance of `SeccompProfilePatchPtrInput` via:
 //
-//          SeccompProfilePatchArgs{...}
+//	        SeccompProfilePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type SeccompProfilePatchPtrInput interface {
 	pulumi.Input
 
@@ -53800,7 +53836,7 @@ type SecretType struct {
 // SecretTypeInput is an input type that accepts SecretTypeArgs and SecretTypeOutput values.
 // You can construct a concrete instance of `SecretTypeInput` via:
 //
-//          SecretTypeArgs{...}
+//	SecretTypeArgs{...}
 type SecretTypeInput interface {
 	pulumi.Input
 
@@ -53851,7 +53887,7 @@ func (i SecretTypeArgs) ToSecretTypeOutputWithContext(ctx context.Context) Secre
 // SecretTypeArrayInput is an input type that accepts SecretTypeArray and SecretTypeArrayOutput values.
 // You can construct a concrete instance of `SecretTypeArrayInput` via:
 //
-//          SecretTypeArray{ SecretTypeArgs{...} }
+//	SecretTypeArray{ SecretTypeArgs{...} }
 type SecretTypeArrayInput interface {
 	pulumi.Input
 
@@ -53966,7 +54002,7 @@ type SecretEnvSource struct {
 // SecretEnvSourceInput is an input type that accepts SecretEnvSourceArgs and SecretEnvSourceOutput values.
 // You can construct a concrete instance of `SecretEnvSourceInput` via:
 //
-//          SecretEnvSourceArgs{...}
+//	SecretEnvSourceArgs{...}
 type SecretEnvSourceInput interface {
 	pulumi.Input
 
@@ -54007,11 +54043,11 @@ func (i SecretEnvSourceArgs) ToSecretEnvSourcePtrOutputWithContext(ctx context.C
 // SecretEnvSourcePtrInput is an input type that accepts SecretEnvSourceArgs, SecretEnvSourcePtr and SecretEnvSourcePtrOutput values.
 // You can construct a concrete instance of `SecretEnvSourcePtrInput` via:
 //
-//          SecretEnvSourceArgs{...}
+//	        SecretEnvSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type SecretEnvSourcePtrInput interface {
 	pulumi.Input
 
@@ -54131,7 +54167,7 @@ type SecretEnvSourcePatch struct {
 // SecretEnvSourcePatchInput is an input type that accepts SecretEnvSourcePatchArgs and SecretEnvSourcePatchOutput values.
 // You can construct a concrete instance of `SecretEnvSourcePatchInput` via:
 //
-//          SecretEnvSourcePatchArgs{...}
+//	SecretEnvSourcePatchArgs{...}
 type SecretEnvSourcePatchInput interface {
 	pulumi.Input
 
@@ -54172,11 +54208,11 @@ func (i SecretEnvSourcePatchArgs) ToSecretEnvSourcePatchPtrOutputWithContext(ctx
 // SecretEnvSourcePatchPtrInput is an input type that accepts SecretEnvSourcePatchArgs, SecretEnvSourcePatchPtr and SecretEnvSourcePatchPtrOutput values.
 // You can construct a concrete instance of `SecretEnvSourcePatchPtrInput` via:
 //
-//          SecretEnvSourcePatchArgs{...}
+//	        SecretEnvSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type SecretEnvSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -54296,7 +54332,7 @@ type SecretKeySelector struct {
 // SecretKeySelectorInput is an input type that accepts SecretKeySelectorArgs and SecretKeySelectorOutput values.
 // You can construct a concrete instance of `SecretKeySelectorInput` via:
 //
-//          SecretKeySelectorArgs{...}
+//	SecretKeySelectorArgs{...}
 type SecretKeySelectorInput interface {
 	pulumi.Input
 
@@ -54337,11 +54373,11 @@ func (i SecretKeySelectorArgs) ToSecretKeySelectorPtrOutputWithContext(ctx conte
 // SecretKeySelectorPtrInput is an input type that accepts SecretKeySelectorArgs, SecretKeySelectorPtr and SecretKeySelectorPtrOutput values.
 // You can construct a concrete instance of `SecretKeySelectorPtrInput` via:
 //
-//          SecretKeySelectorArgs{...}
+//	        SecretKeySelectorArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type SecretKeySelectorPtrInput interface {
 	pulumi.Input
 
@@ -54474,7 +54510,7 @@ type SecretKeySelectorPatch struct {
 // SecretKeySelectorPatchInput is an input type that accepts SecretKeySelectorPatchArgs and SecretKeySelectorPatchOutput values.
 // You can construct a concrete instance of `SecretKeySelectorPatchInput` via:
 //
-//          SecretKeySelectorPatchArgs{...}
+//	SecretKeySelectorPatchArgs{...}
 type SecretKeySelectorPatchInput interface {
 	pulumi.Input
 
@@ -54515,11 +54551,11 @@ func (i SecretKeySelectorPatchArgs) ToSecretKeySelectorPatchPtrOutputWithContext
 // SecretKeySelectorPatchPtrInput is an input type that accepts SecretKeySelectorPatchArgs, SecretKeySelectorPatchPtr and SecretKeySelectorPatchPtrOutput values.
 // You can construct a concrete instance of `SecretKeySelectorPatchPtrInput` via:
 //
-//          SecretKeySelectorPatchArgs{...}
+//	        SecretKeySelectorPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type SecretKeySelectorPatchPtrInput interface {
 	pulumi.Input
 
@@ -54654,7 +54690,7 @@ type SecretListType struct {
 // SecretListTypeInput is an input type that accepts SecretListTypeArgs and SecretListTypeOutput values.
 // You can construct a concrete instance of `SecretListTypeInput` via:
 //
-//          SecretListTypeArgs{...}
+//	SecretListTypeArgs{...}
 type SecretListTypeInput interface {
 	pulumi.Input
 
@@ -54752,7 +54788,7 @@ type SecretPatchType struct {
 // SecretPatchTypeInput is an input type that accepts SecretPatchTypeArgs and SecretPatchTypeOutput values.
 // You can construct a concrete instance of `SecretPatchTypeInput` via:
 //
-//          SecretPatchTypeArgs{...}
+//	SecretPatchTypeArgs{...}
 type SecretPatchTypeInput interface {
 	pulumi.Input
 
@@ -54875,7 +54911,7 @@ type SecretProjection struct {
 // SecretProjectionInput is an input type that accepts SecretProjectionArgs and SecretProjectionOutput values.
 // You can construct a concrete instance of `SecretProjectionInput` via:
 //
-//          SecretProjectionArgs{...}
+//	SecretProjectionArgs{...}
 type SecretProjectionInput interface {
 	pulumi.Input
 
@@ -54918,11 +54954,11 @@ func (i SecretProjectionArgs) ToSecretProjectionPtrOutputWithContext(ctx context
 // SecretProjectionPtrInput is an input type that accepts SecretProjectionArgs, SecretProjectionPtr and SecretProjectionPtrOutput values.
 // You can construct a concrete instance of `SecretProjectionPtrInput` via:
 //
-//          SecretProjectionArgs{...}
+//	        SecretProjectionArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type SecretProjectionPtrInput interface {
 	pulumi.Input
 
@@ -55059,7 +55095,7 @@ type SecretProjectionPatch struct {
 // SecretProjectionPatchInput is an input type that accepts SecretProjectionPatchArgs and SecretProjectionPatchOutput values.
 // You can construct a concrete instance of `SecretProjectionPatchInput` via:
 //
-//          SecretProjectionPatchArgs{...}
+//	SecretProjectionPatchArgs{...}
 type SecretProjectionPatchInput interface {
 	pulumi.Input
 
@@ -55102,11 +55138,11 @@ func (i SecretProjectionPatchArgs) ToSecretProjectionPatchPtrOutputWithContext(c
 // SecretProjectionPatchPtrInput is an input type that accepts SecretProjectionPatchArgs, SecretProjectionPatchPtr and SecretProjectionPatchPtrOutput values.
 // You can construct a concrete instance of `SecretProjectionPatchPtrInput` via:
 //
-//          SecretProjectionPatchArgs{...}
+//	        SecretProjectionPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type SecretProjectionPatchPtrInput interface {
 	pulumi.Input
 
@@ -55239,7 +55275,7 @@ type SecretReference struct {
 // SecretReferenceInput is an input type that accepts SecretReferenceArgs and SecretReferenceOutput values.
 // You can construct a concrete instance of `SecretReferenceInput` via:
 //
-//          SecretReferenceArgs{...}
+//	SecretReferenceArgs{...}
 type SecretReferenceInput interface {
 	pulumi.Input
 
@@ -55278,11 +55314,11 @@ func (i SecretReferenceArgs) ToSecretReferencePtrOutputWithContext(ctx context.C
 // SecretReferencePtrInput is an input type that accepts SecretReferenceArgs, SecretReferencePtr and SecretReferencePtrOutput values.
 // You can construct a concrete instance of `SecretReferencePtrInput` via:
 //
-//          SecretReferenceArgs{...}
+//	        SecretReferenceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type SecretReferencePtrInput interface {
 	pulumi.Input
 
@@ -55398,7 +55434,7 @@ type SecretReferencePatch struct {
 // SecretReferencePatchInput is an input type that accepts SecretReferencePatchArgs and SecretReferencePatchOutput values.
 // You can construct a concrete instance of `SecretReferencePatchInput` via:
 //
-//          SecretReferencePatchArgs{...}
+//	SecretReferencePatchArgs{...}
 type SecretReferencePatchInput interface {
 	pulumi.Input
 
@@ -55437,11 +55473,11 @@ func (i SecretReferencePatchArgs) ToSecretReferencePatchPtrOutputWithContext(ctx
 // SecretReferencePatchPtrInput is an input type that accepts SecretReferencePatchArgs, SecretReferencePatchPtr and SecretReferencePatchPtrOutput values.
 // You can construct a concrete instance of `SecretReferencePatchPtrInput` via:
 //
-//          SecretReferencePatchArgs{...}
+//	        SecretReferencePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type SecretReferencePatchPtrInput interface {
 	pulumi.Input
 
@@ -55563,7 +55599,7 @@ type SecretVolumeSource struct {
 // SecretVolumeSourceInput is an input type that accepts SecretVolumeSourceArgs and SecretVolumeSourceOutput values.
 // You can construct a concrete instance of `SecretVolumeSourceInput` via:
 //
-//          SecretVolumeSourceArgs{...}
+//	SecretVolumeSourceArgs{...}
 type SecretVolumeSourceInput interface {
 	pulumi.Input
 
@@ -55608,11 +55644,11 @@ func (i SecretVolumeSourceArgs) ToSecretVolumeSourcePtrOutputWithContext(ctx con
 // SecretVolumeSourcePtrInput is an input type that accepts SecretVolumeSourceArgs, SecretVolumeSourcePtr and SecretVolumeSourcePtrOutput values.
 // You can construct a concrete instance of `SecretVolumeSourcePtrInput` via:
 //
-//          SecretVolumeSourceArgs{...}
+//	        SecretVolumeSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type SecretVolumeSourcePtrInput interface {
 	pulumi.Input
 
@@ -55766,7 +55802,7 @@ type SecretVolumeSourcePatch struct {
 // SecretVolumeSourcePatchInput is an input type that accepts SecretVolumeSourcePatchArgs and SecretVolumeSourcePatchOutput values.
 // You can construct a concrete instance of `SecretVolumeSourcePatchInput` via:
 //
-//          SecretVolumeSourcePatchArgs{...}
+//	SecretVolumeSourcePatchArgs{...}
 type SecretVolumeSourcePatchInput interface {
 	pulumi.Input
 
@@ -55811,11 +55847,11 @@ func (i SecretVolumeSourcePatchArgs) ToSecretVolumeSourcePatchPtrOutputWithConte
 // SecretVolumeSourcePatchPtrInput is an input type that accepts SecretVolumeSourcePatchArgs, SecretVolumeSourcePatchPtr and SecretVolumeSourcePatchPtrOutput values.
 // You can construct a concrete instance of `SecretVolumeSourcePatchPtrInput` via:
 //
-//          SecretVolumeSourcePatchArgs{...}
+//	        SecretVolumeSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type SecretVolumeSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -55981,7 +56017,7 @@ type SecurityContext struct {
 // SecurityContextInput is an input type that accepts SecurityContextArgs and SecurityContextOutput values.
 // You can construct a concrete instance of `SecurityContextInput` via:
 //
-//          SecurityContextArgs{...}
+//	SecurityContextArgs{...}
 type SecurityContextInput interface {
 	pulumi.Input
 
@@ -56038,11 +56074,11 @@ func (i SecurityContextArgs) ToSecurityContextPtrOutputWithContext(ctx context.C
 // SecurityContextPtrInput is an input type that accepts SecurityContextArgs, SecurityContextPtr and SecurityContextPtrOutput values.
 // You can construct a concrete instance of `SecurityContextPtrInput` via:
 //
-//          SecurityContextArgs{...}
+//	        SecurityContextArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type SecurityContextPtrInput interface {
 	pulumi.Input
 
@@ -56311,7 +56347,7 @@ type SecurityContextPatch struct {
 // SecurityContextPatchInput is an input type that accepts SecurityContextPatchArgs and SecurityContextPatchOutput values.
 // You can construct a concrete instance of `SecurityContextPatchInput` via:
 //
-//          SecurityContextPatchArgs{...}
+//	SecurityContextPatchArgs{...}
 type SecurityContextPatchInput interface {
 	pulumi.Input
 
@@ -56368,11 +56404,11 @@ func (i SecurityContextPatchArgs) ToSecurityContextPatchPtrOutputWithContext(ctx
 // SecurityContextPatchPtrInput is an input type that accepts SecurityContextPatchArgs, SecurityContextPatchPtr and SecurityContextPatchPtrOutput values.
 // You can construct a concrete instance of `SecurityContextPatchPtrInput` via:
 //
-//          SecurityContextPatchArgs{...}
+//	        SecurityContextPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type SecurityContextPatchPtrInput interface {
 	pulumi.Input
 
@@ -56619,12 +56655,12 @@ func (o SecurityContextPatchPtrOutput) WindowsOptions() WindowsSecurityContextOp
 // The following conditions are used to determine whether the resource creation has
 // succeeded or failed:
 //
-// 1. Service object exists.
-// 2. Related Endpoint objects are created. Each time we get an update, wait 10 seconds
-//    for any stragglers.
-// 3. The endpoints objects target some number of living objects (unless the Service is
-//    an "empty headless" Service [1] or a Service with '.spec.type: ExternalName').
-// 4. External IP address is allocated (if Service has '.spec.type: LoadBalancer').
+//  1. Service object exists.
+//  2. Related Endpoint objects are created. Each time we get an update, wait 10 seconds
+//     for any stragglers.
+//  3. The endpoints objects target some number of living objects (unless the Service is
+//     an "empty headless" Service [1] or a Service with '.spec.type: ExternalName').
+//  4. External IP address is allocated (if Service has '.spec.type: LoadBalancer').
 //
 // Known limitations:
 // Services targeting ReplicaSets (and, by extension, Deployments,
@@ -56654,7 +56690,7 @@ type ServiceType struct {
 // ServiceTypeInput is an input type that accepts ServiceTypeArgs and ServiceTypeOutput values.
 // You can construct a concrete instance of `ServiceTypeInput` via:
 //
-//          ServiceTypeArgs{...}
+//	ServiceTypeArgs{...}
 type ServiceTypeInput interface {
 	pulumi.Input
 
@@ -56669,12 +56705,12 @@ type ServiceTypeInput interface {
 // The following conditions are used to determine whether the resource creation has
 // succeeded or failed:
 //
-// 1. Service object exists.
-// 2. Related Endpoint objects are created. Each time we get an update, wait 10 seconds
-//    for any stragglers.
-// 3. The endpoints objects target some number of living objects (unless the Service is
-//    an "empty headless" Service [1] or a Service with '.spec.type: ExternalName').
-// 4. External IP address is allocated (if Service has '.spec.type: LoadBalancer').
+//  1. Service object exists.
+//  2. Related Endpoint objects are created. Each time we get an update, wait 10 seconds
+//     for any stragglers.
+//  3. The endpoints objects target some number of living objects (unless the Service is
+//     an "empty headless" Service [1] or a Service with '.spec.type: ExternalName').
+//  4. External IP address is allocated (if Service has '.spec.type: LoadBalancer').
 //
 // Known limitations:
 // Services targeting ReplicaSets (and, by extension, Deployments,
@@ -56716,7 +56752,7 @@ func (i ServiceTypeArgs) ToServiceTypeOutputWithContext(ctx context.Context) Ser
 // ServiceTypeArrayInput is an input type that accepts ServiceTypeArray and ServiceTypeArrayOutput values.
 // You can construct a concrete instance of `ServiceTypeArrayInput` via:
 //
-//          ServiceTypeArray{ ServiceTypeArgs{...} }
+//	ServiceTypeArray{ ServiceTypeArgs{...} }
 type ServiceTypeArrayInput interface {
 	pulumi.Input
 
@@ -56745,12 +56781,12 @@ func (i ServiceTypeArray) ToServiceTypeArrayOutputWithContext(ctx context.Contex
 // The following conditions are used to determine whether the resource creation has
 // succeeded or failed:
 //
-// 1. Service object exists.
-// 2. Related Endpoint objects are created. Each time we get an update, wait 10 seconds
-//    for any stragglers.
-// 3. The endpoints objects target some number of living objects (unless the Service is
-//    an "empty headless" Service [1] or a Service with '.spec.type: ExternalName').
-// 4. External IP address is allocated (if Service has '.spec.type: LoadBalancer').
+//  1. Service object exists.
+//  2. Related Endpoint objects are created. Each time we get an update, wait 10 seconds
+//     for any stragglers.
+//  3. The endpoints objects target some number of living objects (unless the Service is
+//     an "empty headless" Service [1] or a Service with '.spec.type: ExternalName').
+//  4. External IP address is allocated (if Service has '.spec.type: LoadBalancer').
 //
 // Known limitations:
 // Services targeting ReplicaSets (and, by extension, Deployments,
@@ -56842,7 +56878,7 @@ type ServiceAccountType struct {
 // ServiceAccountTypeInput is an input type that accepts ServiceAccountTypeArgs and ServiceAccountTypeOutput values.
 // You can construct a concrete instance of `ServiceAccountTypeInput` via:
 //
-//          ServiceAccountTypeArgs{...}
+//	ServiceAccountTypeArgs{...}
 type ServiceAccountTypeInput interface {
 	pulumi.Input
 
@@ -56881,7 +56917,7 @@ func (i ServiceAccountTypeArgs) ToServiceAccountTypeOutputWithContext(ctx contex
 // ServiceAccountTypeArrayInput is an input type that accepts ServiceAccountTypeArray and ServiceAccountTypeArrayOutput values.
 // You can construct a concrete instance of `ServiceAccountTypeArrayInput` via:
 //
-//          ServiceAccountTypeArray{ ServiceAccountTypeArgs{...} }
+//	ServiceAccountTypeArray{ ServiceAccountTypeArgs{...} }
 type ServiceAccountTypeArrayInput interface {
 	pulumi.Input
 
@@ -56983,7 +57019,7 @@ type ServiceAccountListType struct {
 // ServiceAccountListTypeInput is an input type that accepts ServiceAccountListTypeArgs and ServiceAccountListTypeOutput values.
 // You can construct a concrete instance of `ServiceAccountListTypeInput` via:
 //
-//          ServiceAccountListTypeArgs{...}
+//	ServiceAccountListTypeArgs{...}
 type ServiceAccountListTypeInput interface {
 	pulumi.Input
 
@@ -57069,7 +57105,7 @@ type ServiceAccountPatchType struct {
 // ServiceAccountPatchTypeInput is an input type that accepts ServiceAccountPatchTypeArgs and ServiceAccountPatchTypeOutput values.
 // You can construct a concrete instance of `ServiceAccountPatchTypeInput` via:
 //
-//          ServiceAccountPatchTypeArgs{...}
+//	ServiceAccountPatchTypeArgs{...}
 type ServiceAccountPatchTypeInput interface {
 	pulumi.Input
 
@@ -57163,7 +57199,7 @@ type ServiceAccountTokenProjection struct {
 // ServiceAccountTokenProjectionInput is an input type that accepts ServiceAccountTokenProjectionArgs and ServiceAccountTokenProjectionOutput values.
 // You can construct a concrete instance of `ServiceAccountTokenProjectionInput` via:
 //
-//          ServiceAccountTokenProjectionArgs{...}
+//	ServiceAccountTokenProjectionArgs{...}
 type ServiceAccountTokenProjectionInput interface {
 	pulumi.Input
 
@@ -57204,11 +57240,11 @@ func (i ServiceAccountTokenProjectionArgs) ToServiceAccountTokenProjectionPtrOut
 // ServiceAccountTokenProjectionPtrInput is an input type that accepts ServiceAccountTokenProjectionArgs, ServiceAccountTokenProjectionPtr and ServiceAccountTokenProjectionPtrOutput values.
 // You can construct a concrete instance of `ServiceAccountTokenProjectionPtrInput` via:
 //
-//          ServiceAccountTokenProjectionArgs{...}
+//	        ServiceAccountTokenProjectionArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ServiceAccountTokenProjectionPtrInput interface {
 	pulumi.Input
 
@@ -57341,7 +57377,7 @@ type ServiceAccountTokenProjectionPatch struct {
 // ServiceAccountTokenProjectionPatchInput is an input type that accepts ServiceAccountTokenProjectionPatchArgs and ServiceAccountTokenProjectionPatchOutput values.
 // You can construct a concrete instance of `ServiceAccountTokenProjectionPatchInput` via:
 //
-//          ServiceAccountTokenProjectionPatchArgs{...}
+//	ServiceAccountTokenProjectionPatchArgs{...}
 type ServiceAccountTokenProjectionPatchInput interface {
 	pulumi.Input
 
@@ -57382,11 +57418,11 @@ func (i ServiceAccountTokenProjectionPatchArgs) ToServiceAccountTokenProjectionP
 // ServiceAccountTokenProjectionPatchPtrInput is an input type that accepts ServiceAccountTokenProjectionPatchArgs, ServiceAccountTokenProjectionPatchPtr and ServiceAccountTokenProjectionPatchPtrOutput values.
 // You can construct a concrete instance of `ServiceAccountTokenProjectionPatchPtrInput` via:
 //
-//          ServiceAccountTokenProjectionPatchArgs{...}
+//	        ServiceAccountTokenProjectionPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ServiceAccountTokenProjectionPatchPtrInput interface {
 	pulumi.Input
 
@@ -57521,7 +57557,7 @@ type ServiceListType struct {
 // ServiceListTypeInput is an input type that accepts ServiceListTypeArgs and ServiceListTypeOutput values.
 // You can construct a concrete instance of `ServiceListTypeInput` via:
 //
-//          ServiceListTypeArgs{...}
+//	ServiceListTypeArgs{...}
 type ServiceListTypeInput interface {
 	pulumi.Input
 
@@ -57595,12 +57631,12 @@ func (o ServiceListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 // The following conditions are used to determine whether the resource creation has
 // succeeded or failed:
 //
-// 1. Service object exists.
-// 2. Related Endpoint objects are created. Each time we get an update, wait 10 seconds
-//    for any stragglers.
-// 3. The endpoints objects target some number of living objects (unless the Service is
-//    an "empty headless" Service [1] or a Service with '.spec.type: ExternalName').
-// 4. External IP address is allocated (if Service has '.spec.type: LoadBalancer').
+//  1. Service object exists.
+//  2. Related Endpoint objects are created. Each time we get an update, wait 10 seconds
+//     for any stragglers.
+//  3. The endpoints objects target some number of living objects (unless the Service is
+//     an "empty headless" Service [1] or a Service with '.spec.type: ExternalName').
+//  4. External IP address is allocated (if Service has '.spec.type: LoadBalancer').
 //
 // Known limitations:
 // Services targeting ReplicaSets (and, by extension, Deployments,
@@ -57630,7 +57666,7 @@ type ServicePatchType struct {
 // ServicePatchTypeInput is an input type that accepts ServicePatchTypeArgs and ServicePatchTypeOutput values.
 // You can construct a concrete instance of `ServicePatchTypeInput` via:
 //
-//          ServicePatchTypeArgs{...}
+//	ServicePatchTypeArgs{...}
 type ServicePatchTypeInput interface {
 	pulumi.Input
 
@@ -57645,12 +57681,12 @@ type ServicePatchTypeInput interface {
 // The following conditions are used to determine whether the resource creation has
 // succeeded or failed:
 //
-// 1. Service object exists.
-// 2. Related Endpoint objects are created. Each time we get an update, wait 10 seconds
-//    for any stragglers.
-// 3. The endpoints objects target some number of living objects (unless the Service is
-//    an "empty headless" Service [1] or a Service with '.spec.type: ExternalName').
-// 4. External IP address is allocated (if Service has '.spec.type: LoadBalancer').
+//  1. Service object exists.
+//  2. Related Endpoint objects are created. Each time we get an update, wait 10 seconds
+//     for any stragglers.
+//  3. The endpoints objects target some number of living objects (unless the Service is
+//     an "empty headless" Service [1] or a Service with '.spec.type: ExternalName').
+//  4. External IP address is allocated (if Service has '.spec.type: LoadBalancer').
 //
 // Known limitations:
 // Services targeting ReplicaSets (and, by extension, Deployments,
@@ -57696,12 +57732,12 @@ func (i ServicePatchTypeArgs) ToServicePatchTypeOutputWithContext(ctx context.Co
 // The following conditions are used to determine whether the resource creation has
 // succeeded or failed:
 //
-// 1. Service object exists.
-// 2. Related Endpoint objects are created. Each time we get an update, wait 10 seconds
-//    for any stragglers.
-// 3. The endpoints objects target some number of living objects (unless the Service is
-//    an "empty headless" Service [1] or a Service with '.spec.type: ExternalName').
-// 4. External IP address is allocated (if Service has '.spec.type: LoadBalancer').
+//  1. Service object exists.
+//  2. Related Endpoint objects are created. Each time we get an update, wait 10 seconds
+//     for any stragglers.
+//  3. The endpoints objects target some number of living objects (unless the Service is
+//     an "empty headless" Service [1] or a Service with '.spec.type: ExternalName').
+//  4. External IP address is allocated (if Service has '.spec.type: LoadBalancer').
 //
 // Known limitations:
 // Services targeting ReplicaSets (and, by extension, Deployments,
@@ -57773,7 +57809,7 @@ type ServicePort struct {
 // ServicePortInput is an input type that accepts ServicePortArgs and ServicePortOutput values.
 // You can construct a concrete instance of `ServicePortInput` via:
 //
-//          ServicePortArgs{...}
+//	ServicePortArgs{...}
 type ServicePortInput interface {
 	pulumi.Input
 
@@ -57812,7 +57848,7 @@ func (i ServicePortArgs) ToServicePortOutputWithContext(ctx context.Context) Ser
 // ServicePortArrayInput is an input type that accepts ServicePortArray and ServicePortArrayOutput values.
 // You can construct a concrete instance of `ServicePortArrayInput` via:
 //
-//          ServicePortArray{ ServicePortArgs{...} }
+//	ServicePortArray{ ServicePortArgs{...} }
 type ServicePortArrayInput interface {
 	pulumi.Input
 
@@ -57918,7 +57954,7 @@ type ServicePortPatch struct {
 // ServicePortPatchInput is an input type that accepts ServicePortPatchArgs and ServicePortPatchOutput values.
 // You can construct a concrete instance of `ServicePortPatchInput` via:
 //
-//          ServicePortPatchArgs{...}
+//	ServicePortPatchArgs{...}
 type ServicePortPatchInput interface {
 	pulumi.Input
 
@@ -57957,7 +57993,7 @@ func (i ServicePortPatchArgs) ToServicePortPatchOutputWithContext(ctx context.Co
 // ServicePortPatchArrayInput is an input type that accepts ServicePortPatchArray and ServicePortPatchArrayOutput values.
 // You can construct a concrete instance of `ServicePortPatchArrayInput` via:
 //
-//          ServicePortPatchArray{ ServicePortPatchArgs{...} }
+//	ServicePortPatchArray{ ServicePortPatchArgs{...} }
 type ServicePortPatchArrayInput interface {
 	pulumi.Input
 
@@ -58097,7 +58133,7 @@ type ServiceSpec struct {
 // ServiceSpecInput is an input type that accepts ServiceSpecArgs and ServiceSpecOutput values.
 // You can construct a concrete instance of `ServiceSpecInput` via:
 //
-//          ServiceSpecArgs{...}
+//	ServiceSpecArgs{...}
 type ServiceSpecInput interface {
 	pulumi.Input
 
@@ -58178,11 +58214,11 @@ func (i ServiceSpecArgs) ToServiceSpecPtrOutputWithContext(ctx context.Context) 
 // ServiceSpecPtrInput is an input type that accepts ServiceSpecArgs, ServiceSpecPtr and ServiceSpecPtrOutput values.
 // You can construct a concrete instance of `ServiceSpecPtrInput` via:
 //
-//          ServiceSpecArgs{...}
+//	        ServiceSpecArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ServiceSpecPtrInput interface {
 	pulumi.Input
 
@@ -58633,7 +58669,7 @@ type ServiceSpecPatch struct {
 // ServiceSpecPatchInput is an input type that accepts ServiceSpecPatchArgs and ServiceSpecPatchOutput values.
 // You can construct a concrete instance of `ServiceSpecPatchInput` via:
 //
-//          ServiceSpecPatchArgs{...}
+//	ServiceSpecPatchArgs{...}
 type ServiceSpecPatchInput interface {
 	pulumi.Input
 
@@ -58714,11 +58750,11 @@ func (i ServiceSpecPatchArgs) ToServiceSpecPatchPtrOutputWithContext(ctx context
 // ServiceSpecPatchPtrInput is an input type that accepts ServiceSpecPatchArgs, ServiceSpecPatchPtr and ServiceSpecPatchPtrOutput values.
 // You can construct a concrete instance of `ServiceSpecPatchPtrInput` via:
 //
-//          ServiceSpecPatchArgs{...}
+//	        ServiceSpecPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ServiceSpecPatchPtrInput interface {
 	pulumi.Input
 
@@ -59127,7 +59163,7 @@ type ServiceStatus struct {
 // ServiceStatusInput is an input type that accepts ServiceStatusArgs and ServiceStatusOutput values.
 // You can construct a concrete instance of `ServiceStatusInput` via:
 //
-//          ServiceStatusArgs{...}
+//	ServiceStatusArgs{...}
 type ServiceStatusInput interface {
 	pulumi.Input
 
@@ -59166,11 +59202,11 @@ func (i ServiceStatusArgs) ToServiceStatusPtrOutputWithContext(ctx context.Conte
 // ServiceStatusPtrInput is an input type that accepts ServiceStatusArgs, ServiceStatusPtr and ServiceStatusPtrOutput values.
 // You can construct a concrete instance of `ServiceStatusPtrInput` via:
 //
-//          ServiceStatusArgs{...}
+//	        ServiceStatusArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ServiceStatusPtrInput interface {
 	pulumi.Input
 
@@ -59286,7 +59322,7 @@ type ServiceStatusPatch struct {
 // ServiceStatusPatchInput is an input type that accepts ServiceStatusPatchArgs and ServiceStatusPatchOutput values.
 // You can construct a concrete instance of `ServiceStatusPatchInput` via:
 //
-//          ServiceStatusPatchArgs{...}
+//	ServiceStatusPatchArgs{...}
 type ServiceStatusPatchInput interface {
 	pulumi.Input
 
@@ -59325,11 +59361,11 @@ func (i ServiceStatusPatchArgs) ToServiceStatusPatchPtrOutputWithContext(ctx con
 // ServiceStatusPatchPtrInput is an input type that accepts ServiceStatusPatchArgs, ServiceStatusPatchPtr and ServiceStatusPatchPtrOutput values.
 // You can construct a concrete instance of `ServiceStatusPatchPtrInput` via:
 //
-//          ServiceStatusPatchArgs{...}
+//	        ServiceStatusPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type ServiceStatusPatchPtrInput interface {
 	pulumi.Input
 
@@ -59443,7 +59479,7 @@ type SessionAffinityConfig struct {
 // SessionAffinityConfigInput is an input type that accepts SessionAffinityConfigArgs and SessionAffinityConfigOutput values.
 // You can construct a concrete instance of `SessionAffinityConfigInput` via:
 //
-//          SessionAffinityConfigArgs{...}
+//	SessionAffinityConfigArgs{...}
 type SessionAffinityConfigInput interface {
 	pulumi.Input
 
@@ -59480,11 +59516,11 @@ func (i SessionAffinityConfigArgs) ToSessionAffinityConfigPtrOutputWithContext(c
 // SessionAffinityConfigPtrInput is an input type that accepts SessionAffinityConfigArgs, SessionAffinityConfigPtr and SessionAffinityConfigPtrOutput values.
 // You can construct a concrete instance of `SessionAffinityConfigPtrInput` via:
 //
-//          SessionAffinityConfigArgs{...}
+//	        SessionAffinityConfigArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type SessionAffinityConfigPtrInput interface {
 	pulumi.Input
 
@@ -59583,7 +59619,7 @@ type SessionAffinityConfigPatch struct {
 // SessionAffinityConfigPatchInput is an input type that accepts SessionAffinityConfigPatchArgs and SessionAffinityConfigPatchOutput values.
 // You can construct a concrete instance of `SessionAffinityConfigPatchInput` via:
 //
-//          SessionAffinityConfigPatchArgs{...}
+//	SessionAffinityConfigPatchArgs{...}
 type SessionAffinityConfigPatchInput interface {
 	pulumi.Input
 
@@ -59620,11 +59656,11 @@ func (i SessionAffinityConfigPatchArgs) ToSessionAffinityConfigPatchPtrOutputWit
 // SessionAffinityConfigPatchPtrInput is an input type that accepts SessionAffinityConfigPatchArgs, SessionAffinityConfigPatchPtr and SessionAffinityConfigPatchPtrOutput values.
 // You can construct a concrete instance of `SessionAffinityConfigPatchPtrInput` via:
 //
-//          SessionAffinityConfigPatchArgs{...}
+//	        SessionAffinityConfigPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type SessionAffinityConfigPatchPtrInput interface {
 	pulumi.Input
 
@@ -59731,7 +59767,7 @@ type StorageOSPersistentVolumeSource struct {
 // StorageOSPersistentVolumeSourceInput is an input type that accepts StorageOSPersistentVolumeSourceArgs and StorageOSPersistentVolumeSourceOutput values.
 // You can construct a concrete instance of `StorageOSPersistentVolumeSourceInput` via:
 //
-//          StorageOSPersistentVolumeSourceArgs{...}
+//	StorageOSPersistentVolumeSourceArgs{...}
 type StorageOSPersistentVolumeSourceInput interface {
 	pulumi.Input
 
@@ -59776,11 +59812,11 @@ func (i StorageOSPersistentVolumeSourceArgs) ToStorageOSPersistentVolumeSourcePt
 // StorageOSPersistentVolumeSourcePtrInput is an input type that accepts StorageOSPersistentVolumeSourceArgs, StorageOSPersistentVolumeSourcePtr and StorageOSPersistentVolumeSourcePtrOutput values.
 // You can construct a concrete instance of `StorageOSPersistentVolumeSourcePtrInput` via:
 //
-//          StorageOSPersistentVolumeSourceArgs{...}
+//	        StorageOSPersistentVolumeSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type StorageOSPersistentVolumeSourcePtrInput interface {
 	pulumi.Input
 
@@ -59947,7 +59983,7 @@ type StorageOSPersistentVolumeSourcePatch struct {
 // StorageOSPersistentVolumeSourcePatchInput is an input type that accepts StorageOSPersistentVolumeSourcePatchArgs and StorageOSPersistentVolumeSourcePatchOutput values.
 // You can construct a concrete instance of `StorageOSPersistentVolumeSourcePatchInput` via:
 //
-//          StorageOSPersistentVolumeSourcePatchArgs{...}
+//	StorageOSPersistentVolumeSourcePatchArgs{...}
 type StorageOSPersistentVolumeSourcePatchInput interface {
 	pulumi.Input
 
@@ -59992,11 +60028,11 @@ func (i StorageOSPersistentVolumeSourcePatchArgs) ToStorageOSPersistentVolumeSou
 // StorageOSPersistentVolumeSourcePatchPtrInput is an input type that accepts StorageOSPersistentVolumeSourcePatchArgs, StorageOSPersistentVolumeSourcePatchPtr and StorageOSPersistentVolumeSourcePatchPtrOutput values.
 // You can construct a concrete instance of `StorageOSPersistentVolumeSourcePatchPtrInput` via:
 //
-//          StorageOSPersistentVolumeSourcePatchArgs{...}
+//	        StorageOSPersistentVolumeSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type StorageOSPersistentVolumeSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -60163,7 +60199,7 @@ type StorageOSVolumeSource struct {
 // StorageOSVolumeSourceInput is an input type that accepts StorageOSVolumeSourceArgs and StorageOSVolumeSourceOutput values.
 // You can construct a concrete instance of `StorageOSVolumeSourceInput` via:
 //
-//          StorageOSVolumeSourceArgs{...}
+//	StorageOSVolumeSourceArgs{...}
 type StorageOSVolumeSourceInput interface {
 	pulumi.Input
 
@@ -60208,11 +60244,11 @@ func (i StorageOSVolumeSourceArgs) ToStorageOSVolumeSourcePtrOutputWithContext(c
 // StorageOSVolumeSourcePtrInput is an input type that accepts StorageOSVolumeSourceArgs, StorageOSVolumeSourcePtr and StorageOSVolumeSourcePtrOutput values.
 // You can construct a concrete instance of `StorageOSVolumeSourcePtrInput` via:
 //
-//          StorageOSVolumeSourceArgs{...}
+//	        StorageOSVolumeSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type StorageOSVolumeSourcePtrInput interface {
 	pulumi.Input
 
@@ -60379,7 +60415,7 @@ type StorageOSVolumeSourcePatch struct {
 // StorageOSVolumeSourcePatchInput is an input type that accepts StorageOSVolumeSourcePatchArgs and StorageOSVolumeSourcePatchOutput values.
 // You can construct a concrete instance of `StorageOSVolumeSourcePatchInput` via:
 //
-//          StorageOSVolumeSourcePatchArgs{...}
+//	StorageOSVolumeSourcePatchArgs{...}
 type StorageOSVolumeSourcePatchInput interface {
 	pulumi.Input
 
@@ -60424,11 +60460,11 @@ func (i StorageOSVolumeSourcePatchArgs) ToStorageOSVolumeSourcePatchPtrOutputWit
 // StorageOSVolumeSourcePatchPtrInput is an input type that accepts StorageOSVolumeSourcePatchArgs, StorageOSVolumeSourcePatchPtr and StorageOSVolumeSourcePatchPtrOutput values.
 // You can construct a concrete instance of `StorageOSVolumeSourcePatchPtrInput` via:
 //
-//          StorageOSVolumeSourcePatchArgs{...}
+//	        StorageOSVolumeSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type StorageOSVolumeSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -60589,7 +60625,7 @@ type Sysctl struct {
 // SysctlInput is an input type that accepts SysctlArgs and SysctlOutput values.
 // You can construct a concrete instance of `SysctlInput` via:
 //
-//          SysctlArgs{...}
+//	SysctlArgs{...}
 type SysctlInput interface {
 	pulumi.Input
 
@@ -60620,7 +60656,7 @@ func (i SysctlArgs) ToSysctlOutputWithContext(ctx context.Context) SysctlOutput 
 // SysctlArrayInput is an input type that accepts SysctlArray and SysctlArrayOutput values.
 // You can construct a concrete instance of `SysctlArrayInput` via:
 //
-//          SysctlArray{ SysctlArgs{...} }
+//	SysctlArray{ SysctlArgs{...} }
 type SysctlArrayInput interface {
 	pulumi.Input
 
@@ -60698,7 +60734,7 @@ type SysctlPatch struct {
 // SysctlPatchInput is an input type that accepts SysctlPatchArgs and SysctlPatchOutput values.
 // You can construct a concrete instance of `SysctlPatchInput` via:
 //
-//          SysctlPatchArgs{...}
+//	SysctlPatchArgs{...}
 type SysctlPatchInput interface {
 	pulumi.Input
 
@@ -60729,7 +60765,7 @@ func (i SysctlPatchArgs) ToSysctlPatchOutputWithContext(ctx context.Context) Sys
 // SysctlPatchArrayInput is an input type that accepts SysctlPatchArray and SysctlPatchArrayOutput values.
 // You can construct a concrete instance of `SysctlPatchArrayInput` via:
 //
-//          SysctlPatchArray{ SysctlPatchArgs{...} }
+//	SysctlPatchArray{ SysctlPatchArgs{...} }
 type SysctlPatchArrayInput interface {
 	pulumi.Input
 
@@ -60807,7 +60843,7 @@ type TCPSocketAction struct {
 // TCPSocketActionInput is an input type that accepts TCPSocketActionArgs and TCPSocketActionOutput values.
 // You can construct a concrete instance of `TCPSocketActionInput` via:
 //
-//          TCPSocketActionArgs{...}
+//	TCPSocketActionArgs{...}
 type TCPSocketActionInput interface {
 	pulumi.Input
 
@@ -60846,11 +60882,11 @@ func (i TCPSocketActionArgs) ToTCPSocketActionPtrOutputWithContext(ctx context.C
 // TCPSocketActionPtrInput is an input type that accepts TCPSocketActionArgs, TCPSocketActionPtr and TCPSocketActionPtrOutput values.
 // You can construct a concrete instance of `TCPSocketActionPtrInput` via:
 //
-//          TCPSocketActionArgs{...}
+//	        TCPSocketActionArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type TCPSocketActionPtrInput interface {
 	pulumi.Input
 
@@ -60966,7 +61002,7 @@ type TCPSocketActionPatch struct {
 // TCPSocketActionPatchInput is an input type that accepts TCPSocketActionPatchArgs and TCPSocketActionPatchOutput values.
 // You can construct a concrete instance of `TCPSocketActionPatchInput` via:
 //
-//          TCPSocketActionPatchArgs{...}
+//	TCPSocketActionPatchArgs{...}
 type TCPSocketActionPatchInput interface {
 	pulumi.Input
 
@@ -61005,11 +61041,11 @@ func (i TCPSocketActionPatchArgs) ToTCPSocketActionPatchPtrOutputWithContext(ctx
 // TCPSocketActionPatchPtrInput is an input type that accepts TCPSocketActionPatchArgs, TCPSocketActionPatchPtr and TCPSocketActionPatchPtrOutput values.
 // You can construct a concrete instance of `TCPSocketActionPatchPtrInput` via:
 //
-//          TCPSocketActionPatchArgs{...}
+//	        TCPSocketActionPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type TCPSocketActionPatchPtrInput interface {
 	pulumi.Input
 
@@ -61129,7 +61165,7 @@ type Taint struct {
 // TaintInput is an input type that accepts TaintArgs and TaintOutput values.
 // You can construct a concrete instance of `TaintInput` via:
 //
-//          TaintArgs{...}
+//	TaintArgs{...}
 type TaintInput interface {
 	pulumi.Input
 
@@ -61164,7 +61200,7 @@ func (i TaintArgs) ToTaintOutputWithContext(ctx context.Context) TaintOutput {
 // TaintArrayInput is an input type that accepts TaintArray and TaintArrayOutput values.
 // You can construct a concrete instance of `TaintArrayInput` via:
 //
-//          TaintArray{ TaintArgs{...} }
+//	TaintArray{ TaintArgs{...} }
 type TaintArrayInput interface {
 	pulumi.Input
 
@@ -61256,7 +61292,7 @@ type TaintPatch struct {
 // TaintPatchInput is an input type that accepts TaintPatchArgs and TaintPatchOutput values.
 // You can construct a concrete instance of `TaintPatchInput` via:
 //
-//          TaintPatchArgs{...}
+//	TaintPatchArgs{...}
 type TaintPatchInput interface {
 	pulumi.Input
 
@@ -61291,7 +61327,7 @@ func (i TaintPatchArgs) ToTaintPatchOutputWithContext(ctx context.Context) Taint
 // TaintPatchArrayInput is an input type that accepts TaintPatchArray and TaintPatchArrayOutput values.
 // You can construct a concrete instance of `TaintPatchArrayInput` via:
 //
-//          TaintPatchArray{ TaintPatchArgs{...} }
+//	TaintPatchArray{ TaintPatchArgs{...} }
 type TaintPatchArrayInput interface {
 	pulumi.Input
 
@@ -61385,7 +61421,7 @@ type Toleration struct {
 // TolerationInput is an input type that accepts TolerationArgs and TolerationOutput values.
 // You can construct a concrete instance of `TolerationInput` via:
 //
-//          TolerationArgs{...}
+//	TolerationArgs{...}
 type TolerationInput interface {
 	pulumi.Input
 
@@ -61422,7 +61458,7 @@ func (i TolerationArgs) ToTolerationOutputWithContext(ctx context.Context) Toler
 // TolerationArrayInput is an input type that accepts TolerationArray and TolerationArrayOutput values.
 // You can construct a concrete instance of `TolerationArrayInput` via:
 //
-//          TolerationArray{ TolerationArgs{...} }
+//	TolerationArray{ TolerationArgs{...} }
 type TolerationArrayInput interface {
 	pulumi.Input
 
@@ -61521,7 +61557,7 @@ type TolerationPatch struct {
 // TolerationPatchInput is an input type that accepts TolerationPatchArgs and TolerationPatchOutput values.
 // You can construct a concrete instance of `TolerationPatchInput` via:
 //
-//          TolerationPatchArgs{...}
+//	TolerationPatchArgs{...}
 type TolerationPatchInput interface {
 	pulumi.Input
 
@@ -61558,7 +61594,7 @@ func (i TolerationPatchArgs) ToTolerationPatchOutputWithContext(ctx context.Cont
 // TolerationPatchArrayInput is an input type that accepts TolerationPatchArray and TolerationPatchArrayOutput values.
 // You can construct a concrete instance of `TolerationPatchArrayInput` via:
 //
-//          TolerationPatchArray{ TolerationPatchArgs{...} }
+//	TolerationPatchArray{ TolerationPatchArgs{...} }
 type TolerationPatchArrayInput interface {
 	pulumi.Input
 
@@ -61651,7 +61687,7 @@ type TopologySelectorLabelRequirement struct {
 // TopologySelectorLabelRequirementInput is an input type that accepts TopologySelectorLabelRequirementArgs and TopologySelectorLabelRequirementOutput values.
 // You can construct a concrete instance of `TopologySelectorLabelRequirementInput` via:
 //
-//          TopologySelectorLabelRequirementArgs{...}
+//	TopologySelectorLabelRequirementArgs{...}
 type TopologySelectorLabelRequirementInput interface {
 	pulumi.Input
 
@@ -61682,7 +61718,7 @@ func (i TopologySelectorLabelRequirementArgs) ToTopologySelectorLabelRequirement
 // TopologySelectorLabelRequirementArrayInput is an input type that accepts TopologySelectorLabelRequirementArray and TopologySelectorLabelRequirementArrayOutput values.
 // You can construct a concrete instance of `TopologySelectorLabelRequirementArrayInput` via:
 //
-//          TopologySelectorLabelRequirementArray{ TopologySelectorLabelRequirementArgs{...} }
+//	TopologySelectorLabelRequirementArray{ TopologySelectorLabelRequirementArgs{...} }
 type TopologySelectorLabelRequirementArrayInput interface {
 	pulumi.Input
 
@@ -61760,7 +61796,7 @@ type TopologySelectorLabelRequirementPatch struct {
 // TopologySelectorLabelRequirementPatchInput is an input type that accepts TopologySelectorLabelRequirementPatchArgs and TopologySelectorLabelRequirementPatchOutput values.
 // You can construct a concrete instance of `TopologySelectorLabelRequirementPatchInput` via:
 //
-//          TopologySelectorLabelRequirementPatchArgs{...}
+//	TopologySelectorLabelRequirementPatchArgs{...}
 type TopologySelectorLabelRequirementPatchInput interface {
 	pulumi.Input
 
@@ -61791,7 +61827,7 @@ func (i TopologySelectorLabelRequirementPatchArgs) ToTopologySelectorLabelRequir
 // TopologySelectorLabelRequirementPatchArrayInput is an input type that accepts TopologySelectorLabelRequirementPatchArray and TopologySelectorLabelRequirementPatchArrayOutput values.
 // You can construct a concrete instance of `TopologySelectorLabelRequirementPatchArrayInput` via:
 //
-//          TopologySelectorLabelRequirementPatchArray{ TopologySelectorLabelRequirementPatchArgs{...} }
+//	TopologySelectorLabelRequirementPatchArray{ TopologySelectorLabelRequirementPatchArgs{...} }
 type TopologySelectorLabelRequirementPatchArrayInput interface {
 	pulumi.Input
 
@@ -61867,7 +61903,7 @@ type TopologySelectorTerm struct {
 // TopologySelectorTermInput is an input type that accepts TopologySelectorTermArgs and TopologySelectorTermOutput values.
 // You can construct a concrete instance of `TopologySelectorTermInput` via:
 //
-//          TopologySelectorTermArgs{...}
+//	TopologySelectorTermArgs{...}
 type TopologySelectorTermInput interface {
 	pulumi.Input
 
@@ -61896,7 +61932,7 @@ func (i TopologySelectorTermArgs) ToTopologySelectorTermOutputWithContext(ctx co
 // TopologySelectorTermArrayInput is an input type that accepts TopologySelectorTermArray and TopologySelectorTermArrayOutput values.
 // You can construct a concrete instance of `TopologySelectorTermArrayInput` via:
 //
-//          TopologySelectorTermArray{ TopologySelectorTermArgs{...} }
+//	TopologySelectorTermArray{ TopologySelectorTermArgs{...} }
 type TopologySelectorTermArrayInput interface {
 	pulumi.Input
 
@@ -61967,7 +62003,7 @@ type TopologySelectorTermPatch struct {
 // TopologySelectorTermPatchInput is an input type that accepts TopologySelectorTermPatchArgs and TopologySelectorTermPatchOutput values.
 // You can construct a concrete instance of `TopologySelectorTermPatchInput` via:
 //
-//          TopologySelectorTermPatchArgs{...}
+//	TopologySelectorTermPatchArgs{...}
 type TopologySelectorTermPatchInput interface {
 	pulumi.Input
 
@@ -61996,7 +62032,7 @@ func (i TopologySelectorTermPatchArgs) ToTopologySelectorTermPatchOutputWithCont
 // TopologySelectorTermPatchArrayInput is an input type that accepts TopologySelectorTermPatchArray and TopologySelectorTermPatchArrayOutput values.
 // You can construct a concrete instance of `TopologySelectorTermPatchArrayInput` via:
 //
-//          TopologySelectorTermPatchArray{ TopologySelectorTermPatchArgs{...} }
+//	TopologySelectorTermPatchArray{ TopologySelectorTermPatchArgs{...} }
 type TopologySelectorTermPatchArrayInput interface {
 	pulumi.Input
 
@@ -62084,7 +62120,7 @@ type TopologySpreadConstraint struct {
 // TopologySpreadConstraintInput is an input type that accepts TopologySpreadConstraintArgs and TopologySpreadConstraintOutput values.
 // You can construct a concrete instance of `TopologySpreadConstraintInput` via:
 //
-//          TopologySpreadConstraintArgs{...}
+//	TopologySpreadConstraintArgs{...}
 type TopologySpreadConstraintInput interface {
 	pulumi.Input
 
@@ -62128,7 +62164,7 @@ func (i TopologySpreadConstraintArgs) ToTopologySpreadConstraintOutputWithContex
 // TopologySpreadConstraintArrayInput is an input type that accepts TopologySpreadConstraintArray and TopologySpreadConstraintArrayOutput values.
 // You can construct a concrete instance of `TopologySpreadConstraintArrayInput` via:
 //
-//          TopologySpreadConstraintArray{ TopologySpreadConstraintArgs{...} }
+//	TopologySpreadConstraintArray{ TopologySpreadConstraintArgs{...} }
 type TopologySpreadConstraintArrayInput interface {
 	pulumi.Input
 
@@ -62190,8 +62226,10 @@ func (o TopologySpreadConstraintOutput) TopologyKey() pulumi.StringOutput {
 }
 
 // WhenUnsatisfiable indicates how to deal with a pod if it doesn't satisfy the spread constraint. - DoNotSchedule (default) tells the scheduler not to schedule it. - ScheduleAnyway tells the scheduler to schedule the pod in any location,
-//   but giving higher precedence to topologies that would help reduce the
-//   skew.
+//
+//	but giving higher precedence to topologies that would help reduce the
+//	skew.
+//
 // A constraint is considered "Unsatisfiable" for an incoming pod if and only if every possible node assignment for that pod would violate "MaxSkew" on some topology. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 3/1/1: | zone1 | zone2 | zone3 | | P P P |   P   |   P   | If WhenUnsatisfiable is set to DoNotSchedule, incoming pod can only be scheduled to zone2(zone3) to become 3/2/1(3/1/2) as ActualSkew(2-1) on zone2(zone3) satisfies MaxSkew(1). In other words, the cluster can still be imbalanced, but scheduler won't make it *more* imbalanced. It's a required field.
 func (o TopologySpreadConstraintOutput) WhenUnsatisfiable() pulumi.StringOutput {
 	return o.ApplyT(func(v TopologySpreadConstraint) string { return v.WhenUnsatisfiable }).(pulumi.StringOutput)
@@ -62241,7 +62279,7 @@ type TopologySpreadConstraintPatch struct {
 // TopologySpreadConstraintPatchInput is an input type that accepts TopologySpreadConstraintPatchArgs and TopologySpreadConstraintPatchOutput values.
 // You can construct a concrete instance of `TopologySpreadConstraintPatchInput` via:
 //
-//          TopologySpreadConstraintPatchArgs{...}
+//	TopologySpreadConstraintPatchArgs{...}
 type TopologySpreadConstraintPatchInput interface {
 	pulumi.Input
 
@@ -62285,7 +62323,7 @@ func (i TopologySpreadConstraintPatchArgs) ToTopologySpreadConstraintPatchOutput
 // TopologySpreadConstraintPatchArrayInput is an input type that accepts TopologySpreadConstraintPatchArray and TopologySpreadConstraintPatchArrayOutput values.
 // You can construct a concrete instance of `TopologySpreadConstraintPatchArrayInput` via:
 //
-//          TopologySpreadConstraintPatchArray{ TopologySpreadConstraintPatchArgs{...} }
+//	TopologySpreadConstraintPatchArray{ TopologySpreadConstraintPatchArgs{...} }
 type TopologySpreadConstraintPatchArrayInput interface {
 	pulumi.Input
 
@@ -62347,8 +62385,10 @@ func (o TopologySpreadConstraintPatchOutput) TopologyKey() pulumi.StringPtrOutpu
 }
 
 // WhenUnsatisfiable indicates how to deal with a pod if it doesn't satisfy the spread constraint. - DoNotSchedule (default) tells the scheduler not to schedule it. - ScheduleAnyway tells the scheduler to schedule the pod in any location,
-//   but giving higher precedence to topologies that would help reduce the
-//   skew.
+//
+//	but giving higher precedence to topologies that would help reduce the
+//	skew.
+//
 // A constraint is considered "Unsatisfiable" for an incoming pod if and only if every possible node assignment for that pod would violate "MaxSkew" on some topology. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 3/1/1: | zone1 | zone2 | zone3 | | P P P |   P   |   P   | If WhenUnsatisfiable is set to DoNotSchedule, incoming pod can only be scheduled to zone2(zone3) to become 3/2/1(3/1/2) as ActualSkew(2-1) on zone2(zone3) satisfies MaxSkew(1). In other words, the cluster can still be imbalanced, but scheduler won't make it *more* imbalanced. It's a required field.
 func (o TopologySpreadConstraintPatchOutput) WhenUnsatisfiable() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v TopologySpreadConstraintPatch) *string { return v.WhenUnsatisfiable }).(pulumi.StringPtrOutput)
@@ -62387,7 +62427,7 @@ type TypedLocalObjectReference struct {
 // TypedLocalObjectReferenceInput is an input type that accepts TypedLocalObjectReferenceArgs and TypedLocalObjectReferenceOutput values.
 // You can construct a concrete instance of `TypedLocalObjectReferenceInput` via:
 //
-//          TypedLocalObjectReferenceArgs{...}
+//	TypedLocalObjectReferenceArgs{...}
 type TypedLocalObjectReferenceInput interface {
 	pulumi.Input
 
@@ -62428,11 +62468,11 @@ func (i TypedLocalObjectReferenceArgs) ToTypedLocalObjectReferencePtrOutputWithC
 // TypedLocalObjectReferencePtrInput is an input type that accepts TypedLocalObjectReferenceArgs, TypedLocalObjectReferencePtr and TypedLocalObjectReferencePtrOutput values.
 // You can construct a concrete instance of `TypedLocalObjectReferencePtrInput` via:
 //
-//          TypedLocalObjectReferenceArgs{...}
+//	        TypedLocalObjectReferenceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type TypedLocalObjectReferencePtrInput interface {
 	pulumi.Input
 
@@ -62565,7 +62605,7 @@ type TypedLocalObjectReferencePatch struct {
 // TypedLocalObjectReferencePatchInput is an input type that accepts TypedLocalObjectReferencePatchArgs and TypedLocalObjectReferencePatchOutput values.
 // You can construct a concrete instance of `TypedLocalObjectReferencePatchInput` via:
 //
-//          TypedLocalObjectReferencePatchArgs{...}
+//	TypedLocalObjectReferencePatchArgs{...}
 type TypedLocalObjectReferencePatchInput interface {
 	pulumi.Input
 
@@ -62606,11 +62646,11 @@ func (i TypedLocalObjectReferencePatchArgs) ToTypedLocalObjectReferencePatchPtrO
 // TypedLocalObjectReferencePatchPtrInput is an input type that accepts TypedLocalObjectReferencePatchArgs, TypedLocalObjectReferencePatchPtr and TypedLocalObjectReferencePatchPtrOutput values.
 // You can construct a concrete instance of `TypedLocalObjectReferencePatchPtrInput` via:
 //
-//          TypedLocalObjectReferencePatchArgs{...}
+//	        TypedLocalObjectReferencePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type TypedLocalObjectReferencePatchPtrInput interface {
 	pulumi.Input
 
@@ -62810,7 +62850,7 @@ type Volume struct {
 // VolumeInput is an input type that accepts VolumeArgs and VolumeOutput values.
 // You can construct a concrete instance of `VolumeInput` via:
 //
-//          VolumeArgs{...}
+//	VolumeArgs{...}
 type VolumeInput interface {
 	pulumi.Input
 
@@ -62910,7 +62950,7 @@ func (i VolumeArgs) ToVolumeOutputWithContext(ctx context.Context) VolumeOutput 
 // VolumeArrayInput is an input type that accepts VolumeArray and VolumeArrayOutput values.
 // You can construct a concrete instance of `VolumeArrayInput` via:
 //
-//          VolumeArray{ VolumeArgs{...} }
+//	VolumeArray{ VolumeArgs{...} }
 type VolumeArrayInput interface {
 	pulumi.Input
 
@@ -62995,11 +63035,14 @@ func (o VolumeOutput) EmptyDir() EmptyDirVolumeSourcePtrOutput {
 // ephemeral represents a volume that is handled by a cluster storage driver. The volume's lifecycle is tied to the pod that defines it - it will be created before the pod starts, and deleted when the pod is removed.
 //
 // Use this if: a) the volume is only needed while the pod runs, b) features of normal volumes like restoring from snapshot or capacity
-//    tracking are needed,
+//
+//	tracking are needed,
+//
 // c) the storage driver is specified through a storage class, and d) the storage driver supports dynamic volume provisioning through
-//    a PersistentVolumeClaim (see EphemeralVolumeSource for more
-//    information on the connection between this volume type
-//    and PersistentVolumeClaim).
+//
+//	a PersistentVolumeClaim (see EphemeralVolumeSource for more
+//	information on the connection between this volume type
+//	and PersistentVolumeClaim).
 //
 // Use PersistentVolumeClaim or one of the vendor-specific APIs for volumes that persist for longer than the lifecycle of an individual pod.
 //
@@ -63141,7 +63184,7 @@ type VolumeDevice struct {
 // VolumeDeviceInput is an input type that accepts VolumeDeviceArgs and VolumeDeviceOutput values.
 // You can construct a concrete instance of `VolumeDeviceInput` via:
 //
-//          VolumeDeviceArgs{...}
+//	VolumeDeviceArgs{...}
 type VolumeDeviceInput interface {
 	pulumi.Input
 
@@ -63172,7 +63215,7 @@ func (i VolumeDeviceArgs) ToVolumeDeviceOutputWithContext(ctx context.Context) V
 // VolumeDeviceArrayInput is an input type that accepts VolumeDeviceArray and VolumeDeviceArrayOutput values.
 // You can construct a concrete instance of `VolumeDeviceArrayInput` via:
 //
-//          VolumeDeviceArray{ VolumeDeviceArgs{...} }
+//	VolumeDeviceArray{ VolumeDeviceArgs{...} }
 type VolumeDeviceArrayInput interface {
 	pulumi.Input
 
@@ -63250,7 +63293,7 @@ type VolumeDevicePatch struct {
 // VolumeDevicePatchInput is an input type that accepts VolumeDevicePatchArgs and VolumeDevicePatchOutput values.
 // You can construct a concrete instance of `VolumeDevicePatchInput` via:
 //
-//          VolumeDevicePatchArgs{...}
+//	VolumeDevicePatchArgs{...}
 type VolumeDevicePatchInput interface {
 	pulumi.Input
 
@@ -63281,7 +63324,7 @@ func (i VolumeDevicePatchArgs) ToVolumeDevicePatchOutputWithContext(ctx context.
 // VolumeDevicePatchArrayInput is an input type that accepts VolumeDevicePatchArray and VolumeDevicePatchArrayOutput values.
 // You can construct a concrete instance of `VolumeDevicePatchArrayInput` via:
 //
-//          VolumeDevicePatchArray{ VolumeDevicePatchArgs{...} }
+//	VolumeDevicePatchArray{ VolumeDevicePatchArgs{...} }
 type VolumeDevicePatchArrayInput interface {
 	pulumi.Input
 
@@ -63367,7 +63410,7 @@ type VolumeMount struct {
 // VolumeMountInput is an input type that accepts VolumeMountArgs and VolumeMountOutput values.
 // You can construct a concrete instance of `VolumeMountInput` via:
 //
-//          VolumeMountArgs{...}
+//	VolumeMountArgs{...}
 type VolumeMountInput interface {
 	pulumi.Input
 
@@ -63406,7 +63449,7 @@ func (i VolumeMountArgs) ToVolumeMountOutputWithContext(ctx context.Context) Vol
 // VolumeMountArrayInput is an input type that accepts VolumeMountArray and VolumeMountArrayOutput values.
 // You can construct a concrete instance of `VolumeMountArrayInput` via:
 //
-//          VolumeMountArray{ VolumeMountArgs{...} }
+//	VolumeMountArray{ VolumeMountArgs{...} }
 type VolumeMountArrayInput interface {
 	pulumi.Input
 
@@ -63512,7 +63555,7 @@ type VolumeMountPatch struct {
 // VolumeMountPatchInput is an input type that accepts VolumeMountPatchArgs and VolumeMountPatchOutput values.
 // You can construct a concrete instance of `VolumeMountPatchInput` via:
 //
-//          VolumeMountPatchArgs{...}
+//	VolumeMountPatchArgs{...}
 type VolumeMountPatchInput interface {
 	pulumi.Input
 
@@ -63551,7 +63594,7 @@ func (i VolumeMountPatchArgs) ToVolumeMountPatchOutputWithContext(ctx context.Co
 // VolumeMountPatchArrayInput is an input type that accepts VolumeMountPatchArray and VolumeMountPatchArrayOutput values.
 // You can construct a concrete instance of `VolumeMountPatchArrayInput` via:
 //
-//          VolumeMountPatchArray{ VolumeMountPatchArgs{...} }
+//	VolumeMountPatchArray{ VolumeMountPatchArgs{...} }
 type VolumeMountPatchArrayInput interface {
 	pulumi.Input
 
@@ -63647,7 +63690,7 @@ type VolumeNodeAffinity struct {
 // VolumeNodeAffinityInput is an input type that accepts VolumeNodeAffinityArgs and VolumeNodeAffinityOutput values.
 // You can construct a concrete instance of `VolumeNodeAffinityInput` via:
 //
-//          VolumeNodeAffinityArgs{...}
+//	VolumeNodeAffinityArgs{...}
 type VolumeNodeAffinityInput interface {
 	pulumi.Input
 
@@ -63684,11 +63727,11 @@ func (i VolumeNodeAffinityArgs) ToVolumeNodeAffinityPtrOutputWithContext(ctx con
 // VolumeNodeAffinityPtrInput is an input type that accepts VolumeNodeAffinityArgs, VolumeNodeAffinityPtr and VolumeNodeAffinityPtrOutput values.
 // You can construct a concrete instance of `VolumeNodeAffinityPtrInput` via:
 //
-//          VolumeNodeAffinityArgs{...}
+//	        VolumeNodeAffinityArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type VolumeNodeAffinityPtrInput interface {
 	pulumi.Input
 
@@ -63787,7 +63830,7 @@ type VolumeNodeAffinityPatch struct {
 // VolumeNodeAffinityPatchInput is an input type that accepts VolumeNodeAffinityPatchArgs and VolumeNodeAffinityPatchOutput values.
 // You can construct a concrete instance of `VolumeNodeAffinityPatchInput` via:
 //
-//          VolumeNodeAffinityPatchArgs{...}
+//	VolumeNodeAffinityPatchArgs{...}
 type VolumeNodeAffinityPatchInput interface {
 	pulumi.Input
 
@@ -63824,11 +63867,11 @@ func (i VolumeNodeAffinityPatchArgs) ToVolumeNodeAffinityPatchPtrOutputWithConte
 // VolumeNodeAffinityPatchPtrInput is an input type that accepts VolumeNodeAffinityPatchArgs, VolumeNodeAffinityPatchPtr and VolumeNodeAffinityPatchPtrOutput values.
 // You can construct a concrete instance of `VolumeNodeAffinityPatchPtrInput` via:
 //
-//          VolumeNodeAffinityPatchArgs{...}
+//	        VolumeNodeAffinityPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type VolumeNodeAffinityPatchPtrInput interface {
 	pulumi.Input
 
@@ -63998,7 +64041,7 @@ type VolumePatch struct {
 // VolumePatchInput is an input type that accepts VolumePatchArgs and VolumePatchOutput values.
 // You can construct a concrete instance of `VolumePatchInput` via:
 //
-//          VolumePatchArgs{...}
+//	VolumePatchArgs{...}
 type VolumePatchInput interface {
 	pulumi.Input
 
@@ -64098,7 +64141,7 @@ func (i VolumePatchArgs) ToVolumePatchOutputWithContext(ctx context.Context) Vol
 // VolumePatchArrayInput is an input type that accepts VolumePatchArray and VolumePatchArrayOutput values.
 // You can construct a concrete instance of `VolumePatchArrayInput` via:
 //
-//          VolumePatchArray{ VolumePatchArgs{...} }
+//	VolumePatchArray{ VolumePatchArgs{...} }
 type VolumePatchArrayInput interface {
 	pulumi.Input
 
@@ -64183,11 +64226,14 @@ func (o VolumePatchOutput) EmptyDir() EmptyDirVolumeSourcePatchPtrOutput {
 // ephemeral represents a volume that is handled by a cluster storage driver. The volume's lifecycle is tied to the pod that defines it - it will be created before the pod starts, and deleted when the pod is removed.
 //
 // Use this if: a) the volume is only needed while the pod runs, b) features of normal volumes like restoring from snapshot or capacity
-//    tracking are needed,
+//
+//	tracking are needed,
+//
 // c) the storage driver is specified through a storage class, and d) the storage driver supports dynamic volume provisioning through
-//    a PersistentVolumeClaim (see EphemeralVolumeSource for more
-//    information on the connection between this volume type
-//    and PersistentVolumeClaim).
+//
+//	a PersistentVolumeClaim (see EphemeralVolumeSource for more
+//	information on the connection between this volume type
+//	and PersistentVolumeClaim).
 //
 // Use PersistentVolumeClaim or one of the vendor-specific APIs for volumes that persist for longer than the lifecycle of an individual pod.
 //
@@ -64333,7 +64379,7 @@ type VolumeProjection struct {
 // VolumeProjectionInput is an input type that accepts VolumeProjectionArgs and VolumeProjectionOutput values.
 // You can construct a concrete instance of `VolumeProjectionInput` via:
 //
-//          VolumeProjectionArgs{...}
+//	VolumeProjectionArgs{...}
 type VolumeProjectionInput interface {
 	pulumi.Input
 
@@ -64368,7 +64414,7 @@ func (i VolumeProjectionArgs) ToVolumeProjectionOutputWithContext(ctx context.Co
 // VolumeProjectionArrayInput is an input type that accepts VolumeProjectionArray and VolumeProjectionArrayOutput values.
 // You can construct a concrete instance of `VolumeProjectionArrayInput` via:
 //
-//          VolumeProjectionArray{ VolumeProjectionArgs{...} }
+//	VolumeProjectionArray{ VolumeProjectionArgs{...} }
 type VolumeProjectionArrayInput interface {
 	pulumi.Input
 
@@ -64460,7 +64506,7 @@ type VolumeProjectionPatch struct {
 // VolumeProjectionPatchInput is an input type that accepts VolumeProjectionPatchArgs and VolumeProjectionPatchOutput values.
 // You can construct a concrete instance of `VolumeProjectionPatchInput` via:
 //
-//          VolumeProjectionPatchArgs{...}
+//	VolumeProjectionPatchArgs{...}
 type VolumeProjectionPatchInput interface {
 	pulumi.Input
 
@@ -64495,7 +64541,7 @@ func (i VolumeProjectionPatchArgs) ToVolumeProjectionPatchOutputWithContext(ctx 
 // VolumeProjectionPatchArrayInput is an input type that accepts VolumeProjectionPatchArray and VolumeProjectionPatchArrayOutput values.
 // You can construct a concrete instance of `VolumeProjectionPatchArrayInput` via:
 //
-//          VolumeProjectionPatchArray{ VolumeProjectionPatchArgs{...} }
+//	VolumeProjectionPatchArray{ VolumeProjectionPatchArgs{...} }
 type VolumeProjectionPatchArrayInput interface {
 	pulumi.Input
 
@@ -64587,7 +64633,7 @@ type VsphereVirtualDiskVolumeSource struct {
 // VsphereVirtualDiskVolumeSourceInput is an input type that accepts VsphereVirtualDiskVolumeSourceArgs and VsphereVirtualDiskVolumeSourceOutput values.
 // You can construct a concrete instance of `VsphereVirtualDiskVolumeSourceInput` via:
 //
-//          VsphereVirtualDiskVolumeSourceArgs{...}
+//	VsphereVirtualDiskVolumeSourceArgs{...}
 type VsphereVirtualDiskVolumeSourceInput interface {
 	pulumi.Input
 
@@ -64630,11 +64676,11 @@ func (i VsphereVirtualDiskVolumeSourceArgs) ToVsphereVirtualDiskVolumeSourcePtrO
 // VsphereVirtualDiskVolumeSourcePtrInput is an input type that accepts VsphereVirtualDiskVolumeSourceArgs, VsphereVirtualDiskVolumeSourcePtr and VsphereVirtualDiskVolumeSourcePtrOutput values.
 // You can construct a concrete instance of `VsphereVirtualDiskVolumeSourcePtrInput` via:
 //
-//          VsphereVirtualDiskVolumeSourceArgs{...}
+//	        VsphereVirtualDiskVolumeSourceArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type VsphereVirtualDiskVolumeSourcePtrInput interface {
 	pulumi.Input
 
@@ -64784,7 +64830,7 @@ type VsphereVirtualDiskVolumeSourcePatch struct {
 // VsphereVirtualDiskVolumeSourcePatchInput is an input type that accepts VsphereVirtualDiskVolumeSourcePatchArgs and VsphereVirtualDiskVolumeSourcePatchOutput values.
 // You can construct a concrete instance of `VsphereVirtualDiskVolumeSourcePatchInput` via:
 //
-//          VsphereVirtualDiskVolumeSourcePatchArgs{...}
+//	VsphereVirtualDiskVolumeSourcePatchArgs{...}
 type VsphereVirtualDiskVolumeSourcePatchInput interface {
 	pulumi.Input
 
@@ -64827,11 +64873,11 @@ func (i VsphereVirtualDiskVolumeSourcePatchArgs) ToVsphereVirtualDiskVolumeSourc
 // VsphereVirtualDiskVolumeSourcePatchPtrInput is an input type that accepts VsphereVirtualDiskVolumeSourcePatchArgs, VsphereVirtualDiskVolumeSourcePatchPtr and VsphereVirtualDiskVolumeSourcePatchPtrOutput values.
 // You can construct a concrete instance of `VsphereVirtualDiskVolumeSourcePatchPtrInput` via:
 //
-//          VsphereVirtualDiskVolumeSourcePatchArgs{...}
+//	        VsphereVirtualDiskVolumeSourcePatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type VsphereVirtualDiskVolumeSourcePatchPtrInput interface {
 	pulumi.Input
 
@@ -64977,7 +65023,7 @@ type WeightedPodAffinityTerm struct {
 // WeightedPodAffinityTermInput is an input type that accepts WeightedPodAffinityTermArgs and WeightedPodAffinityTermOutput values.
 // You can construct a concrete instance of `WeightedPodAffinityTermInput` via:
 //
-//          WeightedPodAffinityTermArgs{...}
+//	WeightedPodAffinityTermArgs{...}
 type WeightedPodAffinityTermInput interface {
 	pulumi.Input
 
@@ -65008,7 +65054,7 @@ func (i WeightedPodAffinityTermArgs) ToWeightedPodAffinityTermOutputWithContext(
 // WeightedPodAffinityTermArrayInput is an input type that accepts WeightedPodAffinityTermArray and WeightedPodAffinityTermArrayOutput values.
 // You can construct a concrete instance of `WeightedPodAffinityTermArrayInput` via:
 //
-//          WeightedPodAffinityTermArray{ WeightedPodAffinityTermArgs{...} }
+//	WeightedPodAffinityTermArray{ WeightedPodAffinityTermArgs{...} }
 type WeightedPodAffinityTermArrayInput interface {
 	pulumi.Input
 
@@ -65086,7 +65132,7 @@ type WeightedPodAffinityTermPatch struct {
 // WeightedPodAffinityTermPatchInput is an input type that accepts WeightedPodAffinityTermPatchArgs and WeightedPodAffinityTermPatchOutput values.
 // You can construct a concrete instance of `WeightedPodAffinityTermPatchInput` via:
 //
-//          WeightedPodAffinityTermPatchArgs{...}
+//	WeightedPodAffinityTermPatchArgs{...}
 type WeightedPodAffinityTermPatchInput interface {
 	pulumi.Input
 
@@ -65117,7 +65163,7 @@ func (i WeightedPodAffinityTermPatchArgs) ToWeightedPodAffinityTermPatchOutputWi
 // WeightedPodAffinityTermPatchArrayInput is an input type that accepts WeightedPodAffinityTermPatchArray and WeightedPodAffinityTermPatchArrayOutput values.
 // You can construct a concrete instance of `WeightedPodAffinityTermPatchArrayInput` via:
 //
-//          WeightedPodAffinityTermPatchArray{ WeightedPodAffinityTermPatchArgs{...} }
+//	WeightedPodAffinityTermPatchArray{ WeightedPodAffinityTermPatchArgs{...} }
 type WeightedPodAffinityTermPatchArrayInput interface {
 	pulumi.Input
 
@@ -65199,7 +65245,7 @@ type WindowsSecurityContextOptions struct {
 // WindowsSecurityContextOptionsInput is an input type that accepts WindowsSecurityContextOptionsArgs and WindowsSecurityContextOptionsOutput values.
 // You can construct a concrete instance of `WindowsSecurityContextOptionsInput` via:
 //
-//          WindowsSecurityContextOptionsArgs{...}
+//	WindowsSecurityContextOptionsArgs{...}
 type WindowsSecurityContextOptionsInput interface {
 	pulumi.Input
 
@@ -65242,11 +65288,11 @@ func (i WindowsSecurityContextOptionsArgs) ToWindowsSecurityContextOptionsPtrOut
 // WindowsSecurityContextOptionsPtrInput is an input type that accepts WindowsSecurityContextOptionsArgs, WindowsSecurityContextOptionsPtr and WindowsSecurityContextOptionsPtrOutput values.
 // You can construct a concrete instance of `WindowsSecurityContextOptionsPtrInput` via:
 //
-//          WindowsSecurityContextOptionsArgs{...}
+//	        WindowsSecurityContextOptionsArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type WindowsSecurityContextOptionsPtrInput interface {
 	pulumi.Input
 
@@ -65396,7 +65442,7 @@ type WindowsSecurityContextOptionsPatch struct {
 // WindowsSecurityContextOptionsPatchInput is an input type that accepts WindowsSecurityContextOptionsPatchArgs and WindowsSecurityContextOptionsPatchOutput values.
 // You can construct a concrete instance of `WindowsSecurityContextOptionsPatchInput` via:
 //
-//          WindowsSecurityContextOptionsPatchArgs{...}
+//	WindowsSecurityContextOptionsPatchArgs{...}
 type WindowsSecurityContextOptionsPatchInput interface {
 	pulumi.Input
 
@@ -65439,11 +65485,11 @@ func (i WindowsSecurityContextOptionsPatchArgs) ToWindowsSecurityContextOptionsP
 // WindowsSecurityContextOptionsPatchPtrInput is an input type that accepts WindowsSecurityContextOptionsPatchArgs, WindowsSecurityContextOptionsPatchPtr and WindowsSecurityContextOptionsPatchPtrOutput values.
 // You can construct a concrete instance of `WindowsSecurityContextOptionsPatchPtrInput` via:
 //
-//          WindowsSecurityContextOptionsPatchArgs{...}
+//	        WindowsSecurityContextOptionsPatchArgs{...}
 //
-//  or:
+//	or:
 //
-//          nil
+//	        nil
 type WindowsSecurityContextOptionsPatchPtrInput interface {
 	pulumi.Input
 
