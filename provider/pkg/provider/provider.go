@@ -677,8 +677,8 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		config, err := kubeconfig.ClientConfig()
 		if err != nil {
 			k.clusterUnreachable = true
-			k.clusterUnreachableReason = fmt.Sprintf(
-				"unable to load Kubernetes client configuration from kubeconfig file: %v", err)
+			k.clusterUnreachableReason = fmt.Sprintf("unable to locate kubeconfig. Make sure you have: \n\n" +
+			" \t • Setup the provider as per https://pulumi.io/install/kubernetes.html \n\n")
 		} else {
 			if kubeClientSettings.Burst != nil {
 				config.Burst = *kubeClientSettings.Burst
