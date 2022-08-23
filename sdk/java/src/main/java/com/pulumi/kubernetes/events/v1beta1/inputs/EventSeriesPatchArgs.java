@@ -21,14 +21,14 @@ public final class EventSeriesPatchArgs extends com.pulumi.resources.ResourceArg
     public static final EventSeriesPatchArgs Empty = new EventSeriesPatchArgs();
 
     /**
-     * count is the number of occurrences in this series up to the last heartbeat time.
+     * Number of occurrences in this series up to the last heartbeat time
      * 
      */
     @Import(name="count")
     private @Nullable Output<Integer> count;
 
     /**
-     * @return count is the number of occurrences in this series up to the last heartbeat time.
+     * @return Number of occurrences in this series up to the last heartbeat time
      * 
      */
     public Optional<Output<Integer>> count() {
@@ -36,14 +36,14 @@ public final class EventSeriesPatchArgs extends com.pulumi.resources.ResourceArg
     }
 
     /**
-     * lastObservedTime is the time when last Event from the series was seen before last heartbeat.
+     * Time when last Event from the series was seen before last heartbeat.
      * 
      */
     @Import(name="lastObservedTime")
     private @Nullable Output<String> lastObservedTime;
 
     /**
-     * @return lastObservedTime is the time when last Event from the series was seen before last heartbeat.
+     * @return Time when last Event from the series was seen before last heartbeat.
      * 
      */
     public Optional<Output<String>> lastObservedTime() {
@@ -92,7 +92,7 @@ public final class EventSeriesPatchArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param count count is the number of occurrences in this series up to the last heartbeat time.
+         * @param count Number of occurrences in this series up to the last heartbeat time
          * 
          * @return builder
          * 
@@ -103,7 +103,7 @@ public final class EventSeriesPatchArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param count count is the number of occurrences in this series up to the last heartbeat time.
+         * @param count Number of occurrences in this series up to the last heartbeat time
          * 
          * @return builder
          * 
@@ -113,7 +113,7 @@ public final class EventSeriesPatchArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param lastObservedTime lastObservedTime is the time when last Event from the series was seen before last heartbeat.
+         * @param lastObservedTime Time when last Event from the series was seen before last heartbeat.
          * 
          * @return builder
          * 
@@ -124,7 +124,7 @@ public final class EventSeriesPatchArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param lastObservedTime lastObservedTime is the time when last Event from the series was seen before last heartbeat.
+         * @param lastObservedTime Time when last Event from the series was seen before last heartbeat.
          * 
          * @return builder
          * 

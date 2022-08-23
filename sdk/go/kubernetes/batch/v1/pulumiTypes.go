@@ -337,7 +337,7 @@ type CronJobSpec struct {
 	SuccessfulJobsHistoryLimit *int `pulumi:"successfulJobsHistoryLimit"`
 	// This flag tells the controller to suspend subsequent executions, it does not apply to already started executions.  Defaults to false.
 	Suspend *bool `pulumi:"suspend"`
-	// The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
+	// The time zone name for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will default to the time zone of the kube-controller-manager process. The set of valid time zone names and the time zone offset is loaded from the system-wide time zone database by the API server during CronJob validation and the controller manager during execution. If no system-wide time zone database can be found a bundled version of the database is used instead. If the time zone name becomes invalid during the lifetime of a CronJob or due to a change in host configuration, the controller will stop creating new new Jobs and will create a system event with the reason UnknownTimeZone. More information can be found in https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#time-zones This is beta field and must be enabled via the `CronJobTimeZone` feature gate.
 	TimeZone *string `pulumi:"timeZone"`
 }
 
@@ -368,7 +368,7 @@ type CronJobSpecArgs struct {
 	SuccessfulJobsHistoryLimit pulumi.IntPtrInput `pulumi:"successfulJobsHistoryLimit"`
 	// This flag tells the controller to suspend subsequent executions, it does not apply to already started executions.  Defaults to false.
 	Suspend pulumi.BoolPtrInput `pulumi:"suspend"`
-	// The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
+	// The time zone name for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will default to the time zone of the kube-controller-manager process. The set of valid time zone names and the time zone offset is loaded from the system-wide time zone database by the API server during CronJob validation and the controller manager during execution. If no system-wide time zone database can be found a bundled version of the database is used instead. If the time zone name becomes invalid during the lifetime of a CronJob or due to a change in host configuration, the controller will stop creating new new Jobs and will create a system event with the reason UnknownTimeZone. More information can be found in https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#time-zones This is beta field and must be enabled via the `CronJobTimeZone` feature gate.
 	TimeZone pulumi.StringPtrInput `pulumi:"timeZone"`
 }
 
@@ -485,7 +485,7 @@ func (o CronJobSpecOutput) Suspend() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v CronJobSpec) *bool { return v.Suspend }).(pulumi.BoolPtrOutput)
 }
 
-// The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
+// The time zone name for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will default to the time zone of the kube-controller-manager process. The set of valid time zone names and the time zone offset is loaded from the system-wide time zone database by the API server during CronJob validation and the controller manager during execution. If no system-wide time zone database can be found a bundled version of the database is used instead. If the time zone name becomes invalid during the lifetime of a CronJob or due to a change in host configuration, the controller will stop creating new new Jobs and will create a system event with the reason UnknownTimeZone. More information can be found in https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#time-zones This is beta field and must be enabled via the `CronJobTimeZone` feature gate.
 func (o CronJobSpecOutput) TimeZone() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CronJobSpec) *string { return v.TimeZone }).(pulumi.StringPtrOutput)
 }
@@ -584,7 +584,7 @@ func (o CronJobSpecPtrOutput) Suspend() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
+// The time zone name for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will default to the time zone of the kube-controller-manager process. The set of valid time zone names and the time zone offset is loaded from the system-wide time zone database by the API server during CronJob validation and the controller manager during execution. If no system-wide time zone database can be found a bundled version of the database is used instead. If the time zone name becomes invalid during the lifetime of a CronJob or due to a change in host configuration, the controller will stop creating new new Jobs and will create a system event with the reason UnknownTimeZone. More information can be found in https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#time-zones This is beta field and must be enabled via the `CronJobTimeZone` feature gate.
 func (o CronJobSpecPtrOutput) TimeZone() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CronJobSpec) *string {
 		if v == nil {
@@ -610,7 +610,7 @@ type CronJobSpecPatch struct {
 	SuccessfulJobsHistoryLimit *int `pulumi:"successfulJobsHistoryLimit"`
 	// This flag tells the controller to suspend subsequent executions, it does not apply to already started executions.  Defaults to false.
 	Suspend *bool `pulumi:"suspend"`
-	// The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
+	// The time zone name for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will default to the time zone of the kube-controller-manager process. The set of valid time zone names and the time zone offset is loaded from the system-wide time zone database by the API server during CronJob validation and the controller manager during execution. If no system-wide time zone database can be found a bundled version of the database is used instead. If the time zone name becomes invalid during the lifetime of a CronJob or due to a change in host configuration, the controller will stop creating new new Jobs and will create a system event with the reason UnknownTimeZone. More information can be found in https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#time-zones This is beta field and must be enabled via the `CronJobTimeZone` feature gate.
 	TimeZone *string `pulumi:"timeZone"`
 }
 
@@ -641,7 +641,7 @@ type CronJobSpecPatchArgs struct {
 	SuccessfulJobsHistoryLimit pulumi.IntPtrInput `pulumi:"successfulJobsHistoryLimit"`
 	// This flag tells the controller to suspend subsequent executions, it does not apply to already started executions.  Defaults to false.
 	Suspend pulumi.BoolPtrInput `pulumi:"suspend"`
-	// The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
+	// The time zone name for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will default to the time zone of the kube-controller-manager process. The set of valid time zone names and the time zone offset is loaded from the system-wide time zone database by the API server during CronJob validation and the controller manager during execution. If no system-wide time zone database can be found a bundled version of the database is used instead. If the time zone name becomes invalid during the lifetime of a CronJob or due to a change in host configuration, the controller will stop creating new new Jobs and will create a system event with the reason UnknownTimeZone. More information can be found in https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#time-zones This is beta field and must be enabled via the `CronJobTimeZone` feature gate.
 	TimeZone pulumi.StringPtrInput `pulumi:"timeZone"`
 }
 
@@ -758,7 +758,7 @@ func (o CronJobSpecPatchOutput) Suspend() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v CronJobSpecPatch) *bool { return v.Suspend }).(pulumi.BoolPtrOutput)
 }
 
-// The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
+// The time zone name for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will default to the time zone of the kube-controller-manager process. The set of valid time zone names and the time zone offset is loaded from the system-wide time zone database by the API server during CronJob validation and the controller manager during execution. If no system-wide time zone database can be found a bundled version of the database is used instead. If the time zone name becomes invalid during the lifetime of a CronJob or due to a change in host configuration, the controller will stop creating new new Jobs and will create a system event with the reason UnknownTimeZone. More information can be found in https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#time-zones This is beta field and must be enabled via the `CronJobTimeZone` feature gate.
 func (o CronJobSpecPatchOutput) TimeZone() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CronJobSpecPatch) *string { return v.TimeZone }).(pulumi.StringPtrOutput)
 }
@@ -857,7 +857,7 @@ func (o CronJobSpecPatchPtrOutput) Suspend() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
+// The time zone name for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will default to the time zone of the kube-controller-manager process. The set of valid time zone names and the time zone offset is loaded from the system-wide time zone database by the API server during CronJob validation and the controller manager during execution. If no system-wide time zone database can be found a bundled version of the database is used instead. If the time zone name becomes invalid during the lifetime of a CronJob or due to a change in host configuration, the controller will stop creating new new Jobs and will create a system event with the reason UnknownTimeZone. More information can be found in https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#time-zones This is beta field and must be enabled via the `CronJobTimeZone` feature gate.
 func (o CronJobSpecPatchPtrOutput) TimeZone() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CronJobSpecPatch) *string {
 		if v == nil {
@@ -1962,6 +1962,10 @@ type JobSpec struct {
 	ManualSelector *bool `pulumi:"manualSelector"`
 	// Specifies the maximum desired number of pods the job should run at any given time. The actual number of pods running in steady state will be less than this number when ((.spec.completions - .status.successful) < .spec.parallelism), i.e. when the work left to do is less than max parallelism. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 	Parallelism *int `pulumi:"parallelism"`
+	// Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs's .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
+	//
+	// This field is alpha-level. To use this field, you must enable the `JobPodFailurePolicy` feature gate (disabled by default).
+	PodFailurePolicy *PodFailurePolicy `pulumi:"podFailurePolicy"`
 	// A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector *metav1.LabelSelector `pulumi:"selector"`
 	// Suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
@@ -2003,6 +2007,10 @@ type JobSpecArgs struct {
 	ManualSelector pulumi.BoolPtrInput `pulumi:"manualSelector"`
 	// Specifies the maximum desired number of pods the job should run at any given time. The actual number of pods running in steady state will be less than this number when ((.spec.completions - .status.successful) < .spec.parallelism), i.e. when the work left to do is less than max parallelism. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 	Parallelism pulumi.IntPtrInput `pulumi:"parallelism"`
+	// Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs's .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
+	//
+	// This field is alpha-level. To use this field, you must enable the `JobPodFailurePolicy` feature gate (disabled by default).
+	PodFailurePolicy PodFailurePolicyPtrInput `pulumi:"podFailurePolicy"`
 	// A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector metav1.LabelSelectorPtrInput `pulumi:"selector"`
 	// Suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
@@ -2127,6 +2135,13 @@ func (o JobSpecOutput) Parallelism() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v JobSpec) *int { return v.Parallelism }).(pulumi.IntPtrOutput)
 }
 
+// Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs's .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
+//
+// This field is alpha-level. To use this field, you must enable the `JobPodFailurePolicy` feature gate (disabled by default).
+func (o JobSpecOutput) PodFailurePolicy() PodFailurePolicyPtrOutput {
+	return o.ApplyT(func(v JobSpec) *PodFailurePolicy { return v.PodFailurePolicy }).(PodFailurePolicyPtrOutput)
+}
+
 // A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 func (o JobSpecOutput) Selector() metav1.LabelSelectorPtrOutput {
 	return o.ApplyT(func(v JobSpec) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
@@ -2237,6 +2252,18 @@ func (o JobSpecPtrOutput) Parallelism() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
+// Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs's .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
+//
+// This field is alpha-level. To use this field, you must enable the `JobPodFailurePolicy` feature gate (disabled by default).
+func (o JobSpecPtrOutput) PodFailurePolicy() PodFailurePolicyPtrOutput {
+	return o.ApplyT(func(v *JobSpec) *PodFailurePolicy {
+		if v == nil {
+			return nil
+		}
+		return v.PodFailurePolicy
+	}).(PodFailurePolicyPtrOutput)
+}
+
 // A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 func (o JobSpecPtrOutput) Selector() metav1.LabelSelectorPtrOutput {
 	return o.ApplyT(func(v *JobSpec) *metav1.LabelSelector {
@@ -2297,6 +2324,10 @@ type JobSpecPatch struct {
 	ManualSelector *bool `pulumi:"manualSelector"`
 	// Specifies the maximum desired number of pods the job should run at any given time. The actual number of pods running in steady state will be less than this number when ((.spec.completions - .status.successful) < .spec.parallelism), i.e. when the work left to do is less than max parallelism. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 	Parallelism *int `pulumi:"parallelism"`
+	// Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs's .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
+	//
+	// This field is alpha-level. To use this field, you must enable the `JobPodFailurePolicy` feature gate (disabled by default).
+	PodFailurePolicy *PodFailurePolicyPatch `pulumi:"podFailurePolicy"`
 	// A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector *metav1.LabelSelectorPatch `pulumi:"selector"`
 	// Suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
@@ -2338,6 +2369,10 @@ type JobSpecPatchArgs struct {
 	ManualSelector pulumi.BoolPtrInput `pulumi:"manualSelector"`
 	// Specifies the maximum desired number of pods the job should run at any given time. The actual number of pods running in steady state will be less than this number when ((.spec.completions - .status.successful) < .spec.parallelism), i.e. when the work left to do is less than max parallelism. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 	Parallelism pulumi.IntPtrInput `pulumi:"parallelism"`
+	// Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs's .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
+	//
+	// This field is alpha-level. To use this field, you must enable the `JobPodFailurePolicy` feature gate (disabled by default).
+	PodFailurePolicy PodFailurePolicyPatchPtrInput `pulumi:"podFailurePolicy"`
 	// A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector metav1.LabelSelectorPatchPtrInput `pulumi:"selector"`
 	// Suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
@@ -2462,6 +2497,13 @@ func (o JobSpecPatchOutput) Parallelism() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v JobSpecPatch) *int { return v.Parallelism }).(pulumi.IntPtrOutput)
 }
 
+// Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs's .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
+//
+// This field is alpha-level. To use this field, you must enable the `JobPodFailurePolicy` feature gate (disabled by default).
+func (o JobSpecPatchOutput) PodFailurePolicy() PodFailurePolicyPatchPtrOutput {
+	return o.ApplyT(func(v JobSpecPatch) *PodFailurePolicyPatch { return v.PodFailurePolicy }).(PodFailurePolicyPatchPtrOutput)
+}
+
 // A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 func (o JobSpecPatchOutput) Selector() metav1.LabelSelectorPatchPtrOutput {
 	return o.ApplyT(func(v JobSpecPatch) *metav1.LabelSelectorPatch { return v.Selector }).(metav1.LabelSelectorPatchPtrOutput)
@@ -2570,6 +2612,18 @@ func (o JobSpecPatchPtrOutput) Parallelism() pulumi.IntPtrOutput {
 		}
 		return v.Parallelism
 	}).(pulumi.IntPtrOutput)
+}
+
+// Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs's .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
+//
+// This field is alpha-level. To use this field, you must enable the `JobPodFailurePolicy` feature gate (disabled by default).
+func (o JobSpecPatchPtrOutput) PodFailurePolicy() PodFailurePolicyPatchPtrOutput {
+	return o.ApplyT(func(v *JobSpecPatch) *PodFailurePolicyPatch {
+		if v == nil {
+			return nil
+		}
+		return v.PodFailurePolicy
+	}).(PodFailurePolicyPatchPtrOutput)
 }
 
 // A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
@@ -3574,6 +3628,1188 @@ func (o JobTemplateSpecPatchPtrOutput) Spec() JobSpecPatchPtrOutput {
 	}).(JobSpecPatchPtrOutput)
 }
 
+// PodFailurePolicy describes how failed pods influence the backoffLimit.
+type PodFailurePolicy struct {
+	// A list of pod failure policy rules. The rules are evaluated in order. Once a rule matches a Pod failure, the remaining of the rules are ignored. When no rule matches the Pod failure, the default handling applies - the counter of pod failures is incremented and it is checked against the backoffLimit. At most 20 elements are allowed.
+	Rules []PodFailurePolicyRule `pulumi:"rules"`
+}
+
+// PodFailurePolicyInput is an input type that accepts PodFailurePolicyArgs and PodFailurePolicyOutput values.
+// You can construct a concrete instance of `PodFailurePolicyInput` via:
+//
+//	PodFailurePolicyArgs{...}
+type PodFailurePolicyInput interface {
+	pulumi.Input
+
+	ToPodFailurePolicyOutput() PodFailurePolicyOutput
+	ToPodFailurePolicyOutputWithContext(context.Context) PodFailurePolicyOutput
+}
+
+// PodFailurePolicy describes how failed pods influence the backoffLimit.
+type PodFailurePolicyArgs struct {
+	// A list of pod failure policy rules. The rules are evaluated in order. Once a rule matches a Pod failure, the remaining of the rules are ignored. When no rule matches the Pod failure, the default handling applies - the counter of pod failures is incremented and it is checked against the backoffLimit. At most 20 elements are allowed.
+	Rules PodFailurePolicyRuleArrayInput `pulumi:"rules"`
+}
+
+func (PodFailurePolicyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodFailurePolicy)(nil)).Elem()
+}
+
+func (i PodFailurePolicyArgs) ToPodFailurePolicyOutput() PodFailurePolicyOutput {
+	return i.ToPodFailurePolicyOutputWithContext(context.Background())
+}
+
+func (i PodFailurePolicyArgs) ToPodFailurePolicyOutputWithContext(ctx context.Context) PodFailurePolicyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodFailurePolicyOutput)
+}
+
+func (i PodFailurePolicyArgs) ToPodFailurePolicyPtrOutput() PodFailurePolicyPtrOutput {
+	return i.ToPodFailurePolicyPtrOutputWithContext(context.Background())
+}
+
+func (i PodFailurePolicyArgs) ToPodFailurePolicyPtrOutputWithContext(ctx context.Context) PodFailurePolicyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodFailurePolicyOutput).ToPodFailurePolicyPtrOutputWithContext(ctx)
+}
+
+// PodFailurePolicyPtrInput is an input type that accepts PodFailurePolicyArgs, PodFailurePolicyPtr and PodFailurePolicyPtrOutput values.
+// You can construct a concrete instance of `PodFailurePolicyPtrInput` via:
+//
+//	        PodFailurePolicyArgs{...}
+//
+//	or:
+//
+//	        nil
+type PodFailurePolicyPtrInput interface {
+	pulumi.Input
+
+	ToPodFailurePolicyPtrOutput() PodFailurePolicyPtrOutput
+	ToPodFailurePolicyPtrOutputWithContext(context.Context) PodFailurePolicyPtrOutput
+}
+
+type podFailurePolicyPtrType PodFailurePolicyArgs
+
+func PodFailurePolicyPtr(v *PodFailurePolicyArgs) PodFailurePolicyPtrInput {
+	return (*podFailurePolicyPtrType)(v)
+}
+
+func (*podFailurePolicyPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodFailurePolicy)(nil)).Elem()
+}
+
+func (i *podFailurePolicyPtrType) ToPodFailurePolicyPtrOutput() PodFailurePolicyPtrOutput {
+	return i.ToPodFailurePolicyPtrOutputWithContext(context.Background())
+}
+
+func (i *podFailurePolicyPtrType) ToPodFailurePolicyPtrOutputWithContext(ctx context.Context) PodFailurePolicyPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodFailurePolicyPtrOutput)
+}
+
+// PodFailurePolicy describes how failed pods influence the backoffLimit.
+type PodFailurePolicyOutput struct{ *pulumi.OutputState }
+
+func (PodFailurePolicyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodFailurePolicy)(nil)).Elem()
+}
+
+func (o PodFailurePolicyOutput) ToPodFailurePolicyOutput() PodFailurePolicyOutput {
+	return o
+}
+
+func (o PodFailurePolicyOutput) ToPodFailurePolicyOutputWithContext(ctx context.Context) PodFailurePolicyOutput {
+	return o
+}
+
+func (o PodFailurePolicyOutput) ToPodFailurePolicyPtrOutput() PodFailurePolicyPtrOutput {
+	return o.ToPodFailurePolicyPtrOutputWithContext(context.Background())
+}
+
+func (o PodFailurePolicyOutput) ToPodFailurePolicyPtrOutputWithContext(ctx context.Context) PodFailurePolicyPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodFailurePolicy) *PodFailurePolicy {
+		return &v
+	}).(PodFailurePolicyPtrOutput)
+}
+
+// A list of pod failure policy rules. The rules are evaluated in order. Once a rule matches a Pod failure, the remaining of the rules are ignored. When no rule matches the Pod failure, the default handling applies - the counter of pod failures is incremented and it is checked against the backoffLimit. At most 20 elements are allowed.
+func (o PodFailurePolicyOutput) Rules() PodFailurePolicyRuleArrayOutput {
+	return o.ApplyT(func(v PodFailurePolicy) []PodFailurePolicyRule { return v.Rules }).(PodFailurePolicyRuleArrayOutput)
+}
+
+type PodFailurePolicyPtrOutput struct{ *pulumi.OutputState }
+
+func (PodFailurePolicyPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodFailurePolicy)(nil)).Elem()
+}
+
+func (o PodFailurePolicyPtrOutput) ToPodFailurePolicyPtrOutput() PodFailurePolicyPtrOutput {
+	return o
+}
+
+func (o PodFailurePolicyPtrOutput) ToPodFailurePolicyPtrOutputWithContext(ctx context.Context) PodFailurePolicyPtrOutput {
+	return o
+}
+
+func (o PodFailurePolicyPtrOutput) Elem() PodFailurePolicyOutput {
+	return o.ApplyT(func(v *PodFailurePolicy) PodFailurePolicy {
+		if v != nil {
+			return *v
+		}
+		var ret PodFailurePolicy
+		return ret
+	}).(PodFailurePolicyOutput)
+}
+
+// A list of pod failure policy rules. The rules are evaluated in order. Once a rule matches a Pod failure, the remaining of the rules are ignored. When no rule matches the Pod failure, the default handling applies - the counter of pod failures is incremented and it is checked against the backoffLimit. At most 20 elements are allowed.
+func (o PodFailurePolicyPtrOutput) Rules() PodFailurePolicyRuleArrayOutput {
+	return o.ApplyT(func(v *PodFailurePolicy) []PodFailurePolicyRule {
+		if v == nil {
+			return nil
+		}
+		return v.Rules
+	}).(PodFailurePolicyRuleArrayOutput)
+}
+
+// PodFailurePolicyOnExitCodesRequirement describes the requirement for handling a failed pod based on its container exit codes. In particular, it lookups the .state.terminated.exitCode for each app container and init container status, represented by the .status.containerStatuses and .status.initContainerStatuses fields in the Pod status, respectively. Containers completed with success (exit code 0) are excluded from the requirement check.
+type PodFailurePolicyOnExitCodesRequirement struct {
+	// Restricts the check for exit codes to the container with the specified name. When null, the rule applies to all containers. When specified, it should match one the container or initContainer names in the pod template.
+	ContainerName *string `pulumi:"containerName"`
+	// Represents the relationship between the container exit code(s) and the specified values. Containers completed with success (exit code 0) are excluded from the requirement check. Possible values are: - In: the requirement is satisfied if at least one container exit code
+	//   (might be multiple if there are multiple containers not restricted
+	//   by the 'containerName' field) is in the set of specified values.
+	// - NotIn: the requirement is satisfied if at least one container exit code
+	//   (might be multiple if there are multiple containers not restricted
+	//   by the 'containerName' field) is not in the set of specified values.
+	//   Additional values are considered to be added in the future. Clients should react to an unknown operator by assuming the requirement is not satisfied.
+	Operator string `pulumi:"operator"`
+	// Specifies the set of values. Each returned container exit code (might be multiple in case of multiple containers) is checked against this set of values with respect to the operator. The list of values must be ordered and must not contain duplicates. Value '0' cannot be used for the In operator. At least one element is required. At most 255 elements are allowed.
+	Values []int `pulumi:"values"`
+}
+
+// PodFailurePolicyOnExitCodesRequirementInput is an input type that accepts PodFailurePolicyOnExitCodesRequirementArgs and PodFailurePolicyOnExitCodesRequirementOutput values.
+// You can construct a concrete instance of `PodFailurePolicyOnExitCodesRequirementInput` via:
+//
+//	PodFailurePolicyOnExitCodesRequirementArgs{...}
+type PodFailurePolicyOnExitCodesRequirementInput interface {
+	pulumi.Input
+
+	ToPodFailurePolicyOnExitCodesRequirementOutput() PodFailurePolicyOnExitCodesRequirementOutput
+	ToPodFailurePolicyOnExitCodesRequirementOutputWithContext(context.Context) PodFailurePolicyOnExitCodesRequirementOutput
+}
+
+// PodFailurePolicyOnExitCodesRequirement describes the requirement for handling a failed pod based on its container exit codes. In particular, it lookups the .state.terminated.exitCode for each app container and init container status, represented by the .status.containerStatuses and .status.initContainerStatuses fields in the Pod status, respectively. Containers completed with success (exit code 0) are excluded from the requirement check.
+type PodFailurePolicyOnExitCodesRequirementArgs struct {
+	// Restricts the check for exit codes to the container with the specified name. When null, the rule applies to all containers. When specified, it should match one the container or initContainer names in the pod template.
+	ContainerName pulumi.StringPtrInput `pulumi:"containerName"`
+	// Represents the relationship between the container exit code(s) and the specified values. Containers completed with success (exit code 0) are excluded from the requirement check. Possible values are: - In: the requirement is satisfied if at least one container exit code
+	//   (might be multiple if there are multiple containers not restricted
+	//   by the 'containerName' field) is in the set of specified values.
+	// - NotIn: the requirement is satisfied if at least one container exit code
+	//   (might be multiple if there are multiple containers not restricted
+	//   by the 'containerName' field) is not in the set of specified values.
+	//   Additional values are considered to be added in the future. Clients should react to an unknown operator by assuming the requirement is not satisfied.
+	Operator pulumi.StringInput `pulumi:"operator"`
+	// Specifies the set of values. Each returned container exit code (might be multiple in case of multiple containers) is checked against this set of values with respect to the operator. The list of values must be ordered and must not contain duplicates. Value '0' cannot be used for the In operator. At least one element is required. At most 255 elements are allowed.
+	Values pulumi.IntArrayInput `pulumi:"values"`
+}
+
+func (PodFailurePolicyOnExitCodesRequirementArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodFailurePolicyOnExitCodesRequirement)(nil)).Elem()
+}
+
+func (i PodFailurePolicyOnExitCodesRequirementArgs) ToPodFailurePolicyOnExitCodesRequirementOutput() PodFailurePolicyOnExitCodesRequirementOutput {
+	return i.ToPodFailurePolicyOnExitCodesRequirementOutputWithContext(context.Background())
+}
+
+func (i PodFailurePolicyOnExitCodesRequirementArgs) ToPodFailurePolicyOnExitCodesRequirementOutputWithContext(ctx context.Context) PodFailurePolicyOnExitCodesRequirementOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodFailurePolicyOnExitCodesRequirementOutput)
+}
+
+func (i PodFailurePolicyOnExitCodesRequirementArgs) ToPodFailurePolicyOnExitCodesRequirementPtrOutput() PodFailurePolicyOnExitCodesRequirementPtrOutput {
+	return i.ToPodFailurePolicyOnExitCodesRequirementPtrOutputWithContext(context.Background())
+}
+
+func (i PodFailurePolicyOnExitCodesRequirementArgs) ToPodFailurePolicyOnExitCodesRequirementPtrOutputWithContext(ctx context.Context) PodFailurePolicyOnExitCodesRequirementPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodFailurePolicyOnExitCodesRequirementOutput).ToPodFailurePolicyOnExitCodesRequirementPtrOutputWithContext(ctx)
+}
+
+// PodFailurePolicyOnExitCodesRequirementPtrInput is an input type that accepts PodFailurePolicyOnExitCodesRequirementArgs, PodFailurePolicyOnExitCodesRequirementPtr and PodFailurePolicyOnExitCodesRequirementPtrOutput values.
+// You can construct a concrete instance of `PodFailurePolicyOnExitCodesRequirementPtrInput` via:
+//
+//	        PodFailurePolicyOnExitCodesRequirementArgs{...}
+//
+//	or:
+//
+//	        nil
+type PodFailurePolicyOnExitCodesRequirementPtrInput interface {
+	pulumi.Input
+
+	ToPodFailurePolicyOnExitCodesRequirementPtrOutput() PodFailurePolicyOnExitCodesRequirementPtrOutput
+	ToPodFailurePolicyOnExitCodesRequirementPtrOutputWithContext(context.Context) PodFailurePolicyOnExitCodesRequirementPtrOutput
+}
+
+type podFailurePolicyOnExitCodesRequirementPtrType PodFailurePolicyOnExitCodesRequirementArgs
+
+func PodFailurePolicyOnExitCodesRequirementPtr(v *PodFailurePolicyOnExitCodesRequirementArgs) PodFailurePolicyOnExitCodesRequirementPtrInput {
+	return (*podFailurePolicyOnExitCodesRequirementPtrType)(v)
+}
+
+func (*podFailurePolicyOnExitCodesRequirementPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodFailurePolicyOnExitCodesRequirement)(nil)).Elem()
+}
+
+func (i *podFailurePolicyOnExitCodesRequirementPtrType) ToPodFailurePolicyOnExitCodesRequirementPtrOutput() PodFailurePolicyOnExitCodesRequirementPtrOutput {
+	return i.ToPodFailurePolicyOnExitCodesRequirementPtrOutputWithContext(context.Background())
+}
+
+func (i *podFailurePolicyOnExitCodesRequirementPtrType) ToPodFailurePolicyOnExitCodesRequirementPtrOutputWithContext(ctx context.Context) PodFailurePolicyOnExitCodesRequirementPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodFailurePolicyOnExitCodesRequirementPtrOutput)
+}
+
+// PodFailurePolicyOnExitCodesRequirement describes the requirement for handling a failed pod based on its container exit codes. In particular, it lookups the .state.terminated.exitCode for each app container and init container status, represented by the .status.containerStatuses and .status.initContainerStatuses fields in the Pod status, respectively. Containers completed with success (exit code 0) are excluded from the requirement check.
+type PodFailurePolicyOnExitCodesRequirementOutput struct{ *pulumi.OutputState }
+
+func (PodFailurePolicyOnExitCodesRequirementOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodFailurePolicyOnExitCodesRequirement)(nil)).Elem()
+}
+
+func (o PodFailurePolicyOnExitCodesRequirementOutput) ToPodFailurePolicyOnExitCodesRequirementOutput() PodFailurePolicyOnExitCodesRequirementOutput {
+	return o
+}
+
+func (o PodFailurePolicyOnExitCodesRequirementOutput) ToPodFailurePolicyOnExitCodesRequirementOutputWithContext(ctx context.Context) PodFailurePolicyOnExitCodesRequirementOutput {
+	return o
+}
+
+func (o PodFailurePolicyOnExitCodesRequirementOutput) ToPodFailurePolicyOnExitCodesRequirementPtrOutput() PodFailurePolicyOnExitCodesRequirementPtrOutput {
+	return o.ToPodFailurePolicyOnExitCodesRequirementPtrOutputWithContext(context.Background())
+}
+
+func (o PodFailurePolicyOnExitCodesRequirementOutput) ToPodFailurePolicyOnExitCodesRequirementPtrOutputWithContext(ctx context.Context) PodFailurePolicyOnExitCodesRequirementPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodFailurePolicyOnExitCodesRequirement) *PodFailurePolicyOnExitCodesRequirement {
+		return &v
+	}).(PodFailurePolicyOnExitCodesRequirementPtrOutput)
+}
+
+// Restricts the check for exit codes to the container with the specified name. When null, the rule applies to all containers. When specified, it should match one the container or initContainer names in the pod template.
+func (o PodFailurePolicyOnExitCodesRequirementOutput) ContainerName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodFailurePolicyOnExitCodesRequirement) *string { return v.ContainerName }).(pulumi.StringPtrOutput)
+}
+
+// Represents the relationship between the container exit code(s) and the specified values. Containers completed with success (exit code 0) are excluded from the requirement check. Possible values are: - In: the requirement is satisfied if at least one container exit code
+//
+//	(might be multiple if there are multiple containers not restricted
+//	by the 'containerName' field) is in the set of specified values.
+//   - NotIn: the requirement is satisfied if at least one container exit code
+//     (might be multiple if there are multiple containers not restricted
+//     by the 'containerName' field) is not in the set of specified values.
+//     Additional values are considered to be added in the future. Clients should react to an unknown operator by assuming the requirement is not satisfied.
+func (o PodFailurePolicyOnExitCodesRequirementOutput) Operator() pulumi.StringOutput {
+	return o.ApplyT(func(v PodFailurePolicyOnExitCodesRequirement) string { return v.Operator }).(pulumi.StringOutput)
+}
+
+// Specifies the set of values. Each returned container exit code (might be multiple in case of multiple containers) is checked against this set of values with respect to the operator. The list of values must be ordered and must not contain duplicates. Value '0' cannot be used for the In operator. At least one element is required. At most 255 elements are allowed.
+func (o PodFailurePolicyOnExitCodesRequirementOutput) Values() pulumi.IntArrayOutput {
+	return o.ApplyT(func(v PodFailurePolicyOnExitCodesRequirement) []int { return v.Values }).(pulumi.IntArrayOutput)
+}
+
+type PodFailurePolicyOnExitCodesRequirementPtrOutput struct{ *pulumi.OutputState }
+
+func (PodFailurePolicyOnExitCodesRequirementPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodFailurePolicyOnExitCodesRequirement)(nil)).Elem()
+}
+
+func (o PodFailurePolicyOnExitCodesRequirementPtrOutput) ToPodFailurePolicyOnExitCodesRequirementPtrOutput() PodFailurePolicyOnExitCodesRequirementPtrOutput {
+	return o
+}
+
+func (o PodFailurePolicyOnExitCodesRequirementPtrOutput) ToPodFailurePolicyOnExitCodesRequirementPtrOutputWithContext(ctx context.Context) PodFailurePolicyOnExitCodesRequirementPtrOutput {
+	return o
+}
+
+func (o PodFailurePolicyOnExitCodesRequirementPtrOutput) Elem() PodFailurePolicyOnExitCodesRequirementOutput {
+	return o.ApplyT(func(v *PodFailurePolicyOnExitCodesRequirement) PodFailurePolicyOnExitCodesRequirement {
+		if v != nil {
+			return *v
+		}
+		var ret PodFailurePolicyOnExitCodesRequirement
+		return ret
+	}).(PodFailurePolicyOnExitCodesRequirementOutput)
+}
+
+// Restricts the check for exit codes to the container with the specified name. When null, the rule applies to all containers. When specified, it should match one the container or initContainer names in the pod template.
+func (o PodFailurePolicyOnExitCodesRequirementPtrOutput) ContainerName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodFailurePolicyOnExitCodesRequirement) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ContainerName
+	}).(pulumi.StringPtrOutput)
+}
+
+// Represents the relationship between the container exit code(s) and the specified values. Containers completed with success (exit code 0) are excluded from the requirement check. Possible values are: - In: the requirement is satisfied if at least one container exit code
+//
+//	(might be multiple if there are multiple containers not restricted
+//	by the 'containerName' field) is in the set of specified values.
+//   - NotIn: the requirement is satisfied if at least one container exit code
+//     (might be multiple if there are multiple containers not restricted
+//     by the 'containerName' field) is not in the set of specified values.
+//     Additional values are considered to be added in the future. Clients should react to an unknown operator by assuming the requirement is not satisfied.
+func (o PodFailurePolicyOnExitCodesRequirementPtrOutput) Operator() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodFailurePolicyOnExitCodesRequirement) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Operator
+	}).(pulumi.StringPtrOutput)
+}
+
+// Specifies the set of values. Each returned container exit code (might be multiple in case of multiple containers) is checked against this set of values with respect to the operator. The list of values must be ordered and must not contain duplicates. Value '0' cannot be used for the In operator. At least one element is required. At most 255 elements are allowed.
+func (o PodFailurePolicyOnExitCodesRequirementPtrOutput) Values() pulumi.IntArrayOutput {
+	return o.ApplyT(func(v *PodFailurePolicyOnExitCodesRequirement) []int {
+		if v == nil {
+			return nil
+		}
+		return v.Values
+	}).(pulumi.IntArrayOutput)
+}
+
+// PodFailurePolicyOnExitCodesRequirement describes the requirement for handling a failed pod based on its container exit codes. In particular, it lookups the .state.terminated.exitCode for each app container and init container status, represented by the .status.containerStatuses and .status.initContainerStatuses fields in the Pod status, respectively. Containers completed with success (exit code 0) are excluded from the requirement check.
+type PodFailurePolicyOnExitCodesRequirementPatch struct {
+	// Restricts the check for exit codes to the container with the specified name. When null, the rule applies to all containers. When specified, it should match one the container or initContainer names in the pod template.
+	ContainerName *string `pulumi:"containerName"`
+	// Represents the relationship between the container exit code(s) and the specified values. Containers completed with success (exit code 0) are excluded from the requirement check. Possible values are: - In: the requirement is satisfied if at least one container exit code
+	//   (might be multiple if there are multiple containers not restricted
+	//   by the 'containerName' field) is in the set of specified values.
+	// - NotIn: the requirement is satisfied if at least one container exit code
+	//   (might be multiple if there are multiple containers not restricted
+	//   by the 'containerName' field) is not in the set of specified values.
+	//   Additional values are considered to be added in the future. Clients should react to an unknown operator by assuming the requirement is not satisfied.
+	Operator *string `pulumi:"operator"`
+	// Specifies the set of values. Each returned container exit code (might be multiple in case of multiple containers) is checked against this set of values with respect to the operator. The list of values must be ordered and must not contain duplicates. Value '0' cannot be used for the In operator. At least one element is required. At most 255 elements are allowed.
+	Values []int `pulumi:"values"`
+}
+
+// PodFailurePolicyOnExitCodesRequirementPatchInput is an input type that accepts PodFailurePolicyOnExitCodesRequirementPatchArgs and PodFailurePolicyOnExitCodesRequirementPatchOutput values.
+// You can construct a concrete instance of `PodFailurePolicyOnExitCodesRequirementPatchInput` via:
+//
+//	PodFailurePolicyOnExitCodesRequirementPatchArgs{...}
+type PodFailurePolicyOnExitCodesRequirementPatchInput interface {
+	pulumi.Input
+
+	ToPodFailurePolicyOnExitCodesRequirementPatchOutput() PodFailurePolicyOnExitCodesRequirementPatchOutput
+	ToPodFailurePolicyOnExitCodesRequirementPatchOutputWithContext(context.Context) PodFailurePolicyOnExitCodesRequirementPatchOutput
+}
+
+// PodFailurePolicyOnExitCodesRequirement describes the requirement for handling a failed pod based on its container exit codes. In particular, it lookups the .state.terminated.exitCode for each app container and init container status, represented by the .status.containerStatuses and .status.initContainerStatuses fields in the Pod status, respectively. Containers completed with success (exit code 0) are excluded from the requirement check.
+type PodFailurePolicyOnExitCodesRequirementPatchArgs struct {
+	// Restricts the check for exit codes to the container with the specified name. When null, the rule applies to all containers. When specified, it should match one the container or initContainer names in the pod template.
+	ContainerName pulumi.StringPtrInput `pulumi:"containerName"`
+	// Represents the relationship between the container exit code(s) and the specified values. Containers completed with success (exit code 0) are excluded from the requirement check. Possible values are: - In: the requirement is satisfied if at least one container exit code
+	//   (might be multiple if there are multiple containers not restricted
+	//   by the 'containerName' field) is in the set of specified values.
+	// - NotIn: the requirement is satisfied if at least one container exit code
+	//   (might be multiple if there are multiple containers not restricted
+	//   by the 'containerName' field) is not in the set of specified values.
+	//   Additional values are considered to be added in the future. Clients should react to an unknown operator by assuming the requirement is not satisfied.
+	Operator pulumi.StringPtrInput `pulumi:"operator"`
+	// Specifies the set of values. Each returned container exit code (might be multiple in case of multiple containers) is checked against this set of values with respect to the operator. The list of values must be ordered and must not contain duplicates. Value '0' cannot be used for the In operator. At least one element is required. At most 255 elements are allowed.
+	Values pulumi.IntArrayInput `pulumi:"values"`
+}
+
+func (PodFailurePolicyOnExitCodesRequirementPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodFailurePolicyOnExitCodesRequirementPatch)(nil)).Elem()
+}
+
+func (i PodFailurePolicyOnExitCodesRequirementPatchArgs) ToPodFailurePolicyOnExitCodesRequirementPatchOutput() PodFailurePolicyOnExitCodesRequirementPatchOutput {
+	return i.ToPodFailurePolicyOnExitCodesRequirementPatchOutputWithContext(context.Background())
+}
+
+func (i PodFailurePolicyOnExitCodesRequirementPatchArgs) ToPodFailurePolicyOnExitCodesRequirementPatchOutputWithContext(ctx context.Context) PodFailurePolicyOnExitCodesRequirementPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodFailurePolicyOnExitCodesRequirementPatchOutput)
+}
+
+func (i PodFailurePolicyOnExitCodesRequirementPatchArgs) ToPodFailurePolicyOnExitCodesRequirementPatchPtrOutput() PodFailurePolicyOnExitCodesRequirementPatchPtrOutput {
+	return i.ToPodFailurePolicyOnExitCodesRequirementPatchPtrOutputWithContext(context.Background())
+}
+
+func (i PodFailurePolicyOnExitCodesRequirementPatchArgs) ToPodFailurePolicyOnExitCodesRequirementPatchPtrOutputWithContext(ctx context.Context) PodFailurePolicyOnExitCodesRequirementPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodFailurePolicyOnExitCodesRequirementPatchOutput).ToPodFailurePolicyOnExitCodesRequirementPatchPtrOutputWithContext(ctx)
+}
+
+// PodFailurePolicyOnExitCodesRequirementPatchPtrInput is an input type that accepts PodFailurePolicyOnExitCodesRequirementPatchArgs, PodFailurePolicyOnExitCodesRequirementPatchPtr and PodFailurePolicyOnExitCodesRequirementPatchPtrOutput values.
+// You can construct a concrete instance of `PodFailurePolicyOnExitCodesRequirementPatchPtrInput` via:
+//
+//	        PodFailurePolicyOnExitCodesRequirementPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type PodFailurePolicyOnExitCodesRequirementPatchPtrInput interface {
+	pulumi.Input
+
+	ToPodFailurePolicyOnExitCodesRequirementPatchPtrOutput() PodFailurePolicyOnExitCodesRequirementPatchPtrOutput
+	ToPodFailurePolicyOnExitCodesRequirementPatchPtrOutputWithContext(context.Context) PodFailurePolicyOnExitCodesRequirementPatchPtrOutput
+}
+
+type podFailurePolicyOnExitCodesRequirementPatchPtrType PodFailurePolicyOnExitCodesRequirementPatchArgs
+
+func PodFailurePolicyOnExitCodesRequirementPatchPtr(v *PodFailurePolicyOnExitCodesRequirementPatchArgs) PodFailurePolicyOnExitCodesRequirementPatchPtrInput {
+	return (*podFailurePolicyOnExitCodesRequirementPatchPtrType)(v)
+}
+
+func (*podFailurePolicyOnExitCodesRequirementPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodFailurePolicyOnExitCodesRequirementPatch)(nil)).Elem()
+}
+
+func (i *podFailurePolicyOnExitCodesRequirementPatchPtrType) ToPodFailurePolicyOnExitCodesRequirementPatchPtrOutput() PodFailurePolicyOnExitCodesRequirementPatchPtrOutput {
+	return i.ToPodFailurePolicyOnExitCodesRequirementPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *podFailurePolicyOnExitCodesRequirementPatchPtrType) ToPodFailurePolicyOnExitCodesRequirementPatchPtrOutputWithContext(ctx context.Context) PodFailurePolicyOnExitCodesRequirementPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodFailurePolicyOnExitCodesRequirementPatchPtrOutput)
+}
+
+// PodFailurePolicyOnExitCodesRequirement describes the requirement for handling a failed pod based on its container exit codes. In particular, it lookups the .state.terminated.exitCode for each app container and init container status, represented by the .status.containerStatuses and .status.initContainerStatuses fields in the Pod status, respectively. Containers completed with success (exit code 0) are excluded from the requirement check.
+type PodFailurePolicyOnExitCodesRequirementPatchOutput struct{ *pulumi.OutputState }
+
+func (PodFailurePolicyOnExitCodesRequirementPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodFailurePolicyOnExitCodesRequirementPatch)(nil)).Elem()
+}
+
+func (o PodFailurePolicyOnExitCodesRequirementPatchOutput) ToPodFailurePolicyOnExitCodesRequirementPatchOutput() PodFailurePolicyOnExitCodesRequirementPatchOutput {
+	return o
+}
+
+func (o PodFailurePolicyOnExitCodesRequirementPatchOutput) ToPodFailurePolicyOnExitCodesRequirementPatchOutputWithContext(ctx context.Context) PodFailurePolicyOnExitCodesRequirementPatchOutput {
+	return o
+}
+
+func (o PodFailurePolicyOnExitCodesRequirementPatchOutput) ToPodFailurePolicyOnExitCodesRequirementPatchPtrOutput() PodFailurePolicyOnExitCodesRequirementPatchPtrOutput {
+	return o.ToPodFailurePolicyOnExitCodesRequirementPatchPtrOutputWithContext(context.Background())
+}
+
+func (o PodFailurePolicyOnExitCodesRequirementPatchOutput) ToPodFailurePolicyOnExitCodesRequirementPatchPtrOutputWithContext(ctx context.Context) PodFailurePolicyOnExitCodesRequirementPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodFailurePolicyOnExitCodesRequirementPatch) *PodFailurePolicyOnExitCodesRequirementPatch {
+		return &v
+	}).(PodFailurePolicyOnExitCodesRequirementPatchPtrOutput)
+}
+
+// Restricts the check for exit codes to the container with the specified name. When null, the rule applies to all containers. When specified, it should match one the container or initContainer names in the pod template.
+func (o PodFailurePolicyOnExitCodesRequirementPatchOutput) ContainerName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodFailurePolicyOnExitCodesRequirementPatch) *string { return v.ContainerName }).(pulumi.StringPtrOutput)
+}
+
+// Represents the relationship between the container exit code(s) and the specified values. Containers completed with success (exit code 0) are excluded from the requirement check. Possible values are: - In: the requirement is satisfied if at least one container exit code
+//
+//	(might be multiple if there are multiple containers not restricted
+//	by the 'containerName' field) is in the set of specified values.
+//   - NotIn: the requirement is satisfied if at least one container exit code
+//     (might be multiple if there are multiple containers not restricted
+//     by the 'containerName' field) is not in the set of specified values.
+//     Additional values are considered to be added in the future. Clients should react to an unknown operator by assuming the requirement is not satisfied.
+func (o PodFailurePolicyOnExitCodesRequirementPatchOutput) Operator() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodFailurePolicyOnExitCodesRequirementPatch) *string { return v.Operator }).(pulumi.StringPtrOutput)
+}
+
+// Specifies the set of values. Each returned container exit code (might be multiple in case of multiple containers) is checked against this set of values with respect to the operator. The list of values must be ordered and must not contain duplicates. Value '0' cannot be used for the In operator. At least one element is required. At most 255 elements are allowed.
+func (o PodFailurePolicyOnExitCodesRequirementPatchOutput) Values() pulumi.IntArrayOutput {
+	return o.ApplyT(func(v PodFailurePolicyOnExitCodesRequirementPatch) []int { return v.Values }).(pulumi.IntArrayOutput)
+}
+
+type PodFailurePolicyOnExitCodesRequirementPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (PodFailurePolicyOnExitCodesRequirementPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodFailurePolicyOnExitCodesRequirementPatch)(nil)).Elem()
+}
+
+func (o PodFailurePolicyOnExitCodesRequirementPatchPtrOutput) ToPodFailurePolicyOnExitCodesRequirementPatchPtrOutput() PodFailurePolicyOnExitCodesRequirementPatchPtrOutput {
+	return o
+}
+
+func (o PodFailurePolicyOnExitCodesRequirementPatchPtrOutput) ToPodFailurePolicyOnExitCodesRequirementPatchPtrOutputWithContext(ctx context.Context) PodFailurePolicyOnExitCodesRequirementPatchPtrOutput {
+	return o
+}
+
+func (o PodFailurePolicyOnExitCodesRequirementPatchPtrOutput) Elem() PodFailurePolicyOnExitCodesRequirementPatchOutput {
+	return o.ApplyT(func(v *PodFailurePolicyOnExitCodesRequirementPatch) PodFailurePolicyOnExitCodesRequirementPatch {
+		if v != nil {
+			return *v
+		}
+		var ret PodFailurePolicyOnExitCodesRequirementPatch
+		return ret
+	}).(PodFailurePolicyOnExitCodesRequirementPatchOutput)
+}
+
+// Restricts the check for exit codes to the container with the specified name. When null, the rule applies to all containers. When specified, it should match one the container or initContainer names in the pod template.
+func (o PodFailurePolicyOnExitCodesRequirementPatchPtrOutput) ContainerName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodFailurePolicyOnExitCodesRequirementPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ContainerName
+	}).(pulumi.StringPtrOutput)
+}
+
+// Represents the relationship between the container exit code(s) and the specified values. Containers completed with success (exit code 0) are excluded from the requirement check. Possible values are: - In: the requirement is satisfied if at least one container exit code
+//
+//	(might be multiple if there are multiple containers not restricted
+//	by the 'containerName' field) is in the set of specified values.
+//   - NotIn: the requirement is satisfied if at least one container exit code
+//     (might be multiple if there are multiple containers not restricted
+//     by the 'containerName' field) is not in the set of specified values.
+//     Additional values are considered to be added in the future. Clients should react to an unknown operator by assuming the requirement is not satisfied.
+func (o PodFailurePolicyOnExitCodesRequirementPatchPtrOutput) Operator() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodFailurePolicyOnExitCodesRequirementPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Operator
+	}).(pulumi.StringPtrOutput)
+}
+
+// Specifies the set of values. Each returned container exit code (might be multiple in case of multiple containers) is checked against this set of values with respect to the operator. The list of values must be ordered and must not contain duplicates. Value '0' cannot be used for the In operator. At least one element is required. At most 255 elements are allowed.
+func (o PodFailurePolicyOnExitCodesRequirementPatchPtrOutput) Values() pulumi.IntArrayOutput {
+	return o.ApplyT(func(v *PodFailurePolicyOnExitCodesRequirementPatch) []int {
+		if v == nil {
+			return nil
+		}
+		return v.Values
+	}).(pulumi.IntArrayOutput)
+}
+
+// PodFailurePolicyOnPodConditionsPattern describes a pattern for matching an actual pod condition type.
+type PodFailurePolicyOnPodConditionsPattern struct {
+	// Specifies the required Pod condition status. To match a pod condition it is required that the specified status equals the pod condition status. Defaults to True.
+	Status string `pulumi:"status"`
+	// Specifies the required Pod condition type. To match a pod condition it is required that specified type equals the pod condition type.
+	Type string `pulumi:"type"`
+}
+
+// PodFailurePolicyOnPodConditionsPatternInput is an input type that accepts PodFailurePolicyOnPodConditionsPatternArgs and PodFailurePolicyOnPodConditionsPatternOutput values.
+// You can construct a concrete instance of `PodFailurePolicyOnPodConditionsPatternInput` via:
+//
+//	PodFailurePolicyOnPodConditionsPatternArgs{...}
+type PodFailurePolicyOnPodConditionsPatternInput interface {
+	pulumi.Input
+
+	ToPodFailurePolicyOnPodConditionsPatternOutput() PodFailurePolicyOnPodConditionsPatternOutput
+	ToPodFailurePolicyOnPodConditionsPatternOutputWithContext(context.Context) PodFailurePolicyOnPodConditionsPatternOutput
+}
+
+// PodFailurePolicyOnPodConditionsPattern describes a pattern for matching an actual pod condition type.
+type PodFailurePolicyOnPodConditionsPatternArgs struct {
+	// Specifies the required Pod condition status. To match a pod condition it is required that the specified status equals the pod condition status. Defaults to True.
+	Status pulumi.StringInput `pulumi:"status"`
+	// Specifies the required Pod condition type. To match a pod condition it is required that specified type equals the pod condition type.
+	Type pulumi.StringInput `pulumi:"type"`
+}
+
+func (PodFailurePolicyOnPodConditionsPatternArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodFailurePolicyOnPodConditionsPattern)(nil)).Elem()
+}
+
+func (i PodFailurePolicyOnPodConditionsPatternArgs) ToPodFailurePolicyOnPodConditionsPatternOutput() PodFailurePolicyOnPodConditionsPatternOutput {
+	return i.ToPodFailurePolicyOnPodConditionsPatternOutputWithContext(context.Background())
+}
+
+func (i PodFailurePolicyOnPodConditionsPatternArgs) ToPodFailurePolicyOnPodConditionsPatternOutputWithContext(ctx context.Context) PodFailurePolicyOnPodConditionsPatternOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodFailurePolicyOnPodConditionsPatternOutput)
+}
+
+// PodFailurePolicyOnPodConditionsPatternArrayInput is an input type that accepts PodFailurePolicyOnPodConditionsPatternArray and PodFailurePolicyOnPodConditionsPatternArrayOutput values.
+// You can construct a concrete instance of `PodFailurePolicyOnPodConditionsPatternArrayInput` via:
+//
+//	PodFailurePolicyOnPodConditionsPatternArray{ PodFailurePolicyOnPodConditionsPatternArgs{...} }
+type PodFailurePolicyOnPodConditionsPatternArrayInput interface {
+	pulumi.Input
+
+	ToPodFailurePolicyOnPodConditionsPatternArrayOutput() PodFailurePolicyOnPodConditionsPatternArrayOutput
+	ToPodFailurePolicyOnPodConditionsPatternArrayOutputWithContext(context.Context) PodFailurePolicyOnPodConditionsPatternArrayOutput
+}
+
+type PodFailurePolicyOnPodConditionsPatternArray []PodFailurePolicyOnPodConditionsPatternInput
+
+func (PodFailurePolicyOnPodConditionsPatternArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodFailurePolicyOnPodConditionsPattern)(nil)).Elem()
+}
+
+func (i PodFailurePolicyOnPodConditionsPatternArray) ToPodFailurePolicyOnPodConditionsPatternArrayOutput() PodFailurePolicyOnPodConditionsPatternArrayOutput {
+	return i.ToPodFailurePolicyOnPodConditionsPatternArrayOutputWithContext(context.Background())
+}
+
+func (i PodFailurePolicyOnPodConditionsPatternArray) ToPodFailurePolicyOnPodConditionsPatternArrayOutputWithContext(ctx context.Context) PodFailurePolicyOnPodConditionsPatternArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodFailurePolicyOnPodConditionsPatternArrayOutput)
+}
+
+// PodFailurePolicyOnPodConditionsPattern describes a pattern for matching an actual pod condition type.
+type PodFailurePolicyOnPodConditionsPatternOutput struct{ *pulumi.OutputState }
+
+func (PodFailurePolicyOnPodConditionsPatternOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodFailurePolicyOnPodConditionsPattern)(nil)).Elem()
+}
+
+func (o PodFailurePolicyOnPodConditionsPatternOutput) ToPodFailurePolicyOnPodConditionsPatternOutput() PodFailurePolicyOnPodConditionsPatternOutput {
+	return o
+}
+
+func (o PodFailurePolicyOnPodConditionsPatternOutput) ToPodFailurePolicyOnPodConditionsPatternOutputWithContext(ctx context.Context) PodFailurePolicyOnPodConditionsPatternOutput {
+	return o
+}
+
+// Specifies the required Pod condition status. To match a pod condition it is required that the specified status equals the pod condition status. Defaults to True.
+func (o PodFailurePolicyOnPodConditionsPatternOutput) Status() pulumi.StringOutput {
+	return o.ApplyT(func(v PodFailurePolicyOnPodConditionsPattern) string { return v.Status }).(pulumi.StringOutput)
+}
+
+// Specifies the required Pod condition type. To match a pod condition it is required that specified type equals the pod condition type.
+func (o PodFailurePolicyOnPodConditionsPatternOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v PodFailurePolicyOnPodConditionsPattern) string { return v.Type }).(pulumi.StringOutput)
+}
+
+type PodFailurePolicyOnPodConditionsPatternArrayOutput struct{ *pulumi.OutputState }
+
+func (PodFailurePolicyOnPodConditionsPatternArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodFailurePolicyOnPodConditionsPattern)(nil)).Elem()
+}
+
+func (o PodFailurePolicyOnPodConditionsPatternArrayOutput) ToPodFailurePolicyOnPodConditionsPatternArrayOutput() PodFailurePolicyOnPodConditionsPatternArrayOutput {
+	return o
+}
+
+func (o PodFailurePolicyOnPodConditionsPatternArrayOutput) ToPodFailurePolicyOnPodConditionsPatternArrayOutputWithContext(ctx context.Context) PodFailurePolicyOnPodConditionsPatternArrayOutput {
+	return o
+}
+
+func (o PodFailurePolicyOnPodConditionsPatternArrayOutput) Index(i pulumi.IntInput) PodFailurePolicyOnPodConditionsPatternOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PodFailurePolicyOnPodConditionsPattern {
+		return vs[0].([]PodFailurePolicyOnPodConditionsPattern)[vs[1].(int)]
+	}).(PodFailurePolicyOnPodConditionsPatternOutput)
+}
+
+// PodFailurePolicyOnPodConditionsPattern describes a pattern for matching an actual pod condition type.
+type PodFailurePolicyOnPodConditionsPatternPatch struct {
+	// Specifies the required Pod condition status. To match a pod condition it is required that the specified status equals the pod condition status. Defaults to True.
+	Status *string `pulumi:"status"`
+	// Specifies the required Pod condition type. To match a pod condition it is required that specified type equals the pod condition type.
+	Type *string `pulumi:"type"`
+}
+
+// PodFailurePolicyOnPodConditionsPatternPatchInput is an input type that accepts PodFailurePolicyOnPodConditionsPatternPatchArgs and PodFailurePolicyOnPodConditionsPatternPatchOutput values.
+// You can construct a concrete instance of `PodFailurePolicyOnPodConditionsPatternPatchInput` via:
+//
+//	PodFailurePolicyOnPodConditionsPatternPatchArgs{...}
+type PodFailurePolicyOnPodConditionsPatternPatchInput interface {
+	pulumi.Input
+
+	ToPodFailurePolicyOnPodConditionsPatternPatchOutput() PodFailurePolicyOnPodConditionsPatternPatchOutput
+	ToPodFailurePolicyOnPodConditionsPatternPatchOutputWithContext(context.Context) PodFailurePolicyOnPodConditionsPatternPatchOutput
+}
+
+// PodFailurePolicyOnPodConditionsPattern describes a pattern for matching an actual pod condition type.
+type PodFailurePolicyOnPodConditionsPatternPatchArgs struct {
+	// Specifies the required Pod condition status. To match a pod condition it is required that the specified status equals the pod condition status. Defaults to True.
+	Status pulumi.StringPtrInput `pulumi:"status"`
+	// Specifies the required Pod condition type. To match a pod condition it is required that specified type equals the pod condition type.
+	Type pulumi.StringPtrInput `pulumi:"type"`
+}
+
+func (PodFailurePolicyOnPodConditionsPatternPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodFailurePolicyOnPodConditionsPatternPatch)(nil)).Elem()
+}
+
+func (i PodFailurePolicyOnPodConditionsPatternPatchArgs) ToPodFailurePolicyOnPodConditionsPatternPatchOutput() PodFailurePolicyOnPodConditionsPatternPatchOutput {
+	return i.ToPodFailurePolicyOnPodConditionsPatternPatchOutputWithContext(context.Background())
+}
+
+func (i PodFailurePolicyOnPodConditionsPatternPatchArgs) ToPodFailurePolicyOnPodConditionsPatternPatchOutputWithContext(ctx context.Context) PodFailurePolicyOnPodConditionsPatternPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodFailurePolicyOnPodConditionsPatternPatchOutput)
+}
+
+// PodFailurePolicyOnPodConditionsPatternPatchArrayInput is an input type that accepts PodFailurePolicyOnPodConditionsPatternPatchArray and PodFailurePolicyOnPodConditionsPatternPatchArrayOutput values.
+// You can construct a concrete instance of `PodFailurePolicyOnPodConditionsPatternPatchArrayInput` via:
+//
+//	PodFailurePolicyOnPodConditionsPatternPatchArray{ PodFailurePolicyOnPodConditionsPatternPatchArgs{...} }
+type PodFailurePolicyOnPodConditionsPatternPatchArrayInput interface {
+	pulumi.Input
+
+	ToPodFailurePolicyOnPodConditionsPatternPatchArrayOutput() PodFailurePolicyOnPodConditionsPatternPatchArrayOutput
+	ToPodFailurePolicyOnPodConditionsPatternPatchArrayOutputWithContext(context.Context) PodFailurePolicyOnPodConditionsPatternPatchArrayOutput
+}
+
+type PodFailurePolicyOnPodConditionsPatternPatchArray []PodFailurePolicyOnPodConditionsPatternPatchInput
+
+func (PodFailurePolicyOnPodConditionsPatternPatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodFailurePolicyOnPodConditionsPatternPatch)(nil)).Elem()
+}
+
+func (i PodFailurePolicyOnPodConditionsPatternPatchArray) ToPodFailurePolicyOnPodConditionsPatternPatchArrayOutput() PodFailurePolicyOnPodConditionsPatternPatchArrayOutput {
+	return i.ToPodFailurePolicyOnPodConditionsPatternPatchArrayOutputWithContext(context.Background())
+}
+
+func (i PodFailurePolicyOnPodConditionsPatternPatchArray) ToPodFailurePolicyOnPodConditionsPatternPatchArrayOutputWithContext(ctx context.Context) PodFailurePolicyOnPodConditionsPatternPatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodFailurePolicyOnPodConditionsPatternPatchArrayOutput)
+}
+
+// PodFailurePolicyOnPodConditionsPattern describes a pattern for matching an actual pod condition type.
+type PodFailurePolicyOnPodConditionsPatternPatchOutput struct{ *pulumi.OutputState }
+
+func (PodFailurePolicyOnPodConditionsPatternPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodFailurePolicyOnPodConditionsPatternPatch)(nil)).Elem()
+}
+
+func (o PodFailurePolicyOnPodConditionsPatternPatchOutput) ToPodFailurePolicyOnPodConditionsPatternPatchOutput() PodFailurePolicyOnPodConditionsPatternPatchOutput {
+	return o
+}
+
+func (o PodFailurePolicyOnPodConditionsPatternPatchOutput) ToPodFailurePolicyOnPodConditionsPatternPatchOutputWithContext(ctx context.Context) PodFailurePolicyOnPodConditionsPatternPatchOutput {
+	return o
+}
+
+// Specifies the required Pod condition status. To match a pod condition it is required that the specified status equals the pod condition status. Defaults to True.
+func (o PodFailurePolicyOnPodConditionsPatternPatchOutput) Status() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodFailurePolicyOnPodConditionsPatternPatch) *string { return v.Status }).(pulumi.StringPtrOutput)
+}
+
+// Specifies the required Pod condition type. To match a pod condition it is required that specified type equals the pod condition type.
+func (o PodFailurePolicyOnPodConditionsPatternPatchOutput) Type() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodFailurePolicyOnPodConditionsPatternPatch) *string { return v.Type }).(pulumi.StringPtrOutput)
+}
+
+type PodFailurePolicyOnPodConditionsPatternPatchArrayOutput struct{ *pulumi.OutputState }
+
+func (PodFailurePolicyOnPodConditionsPatternPatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodFailurePolicyOnPodConditionsPatternPatch)(nil)).Elem()
+}
+
+func (o PodFailurePolicyOnPodConditionsPatternPatchArrayOutput) ToPodFailurePolicyOnPodConditionsPatternPatchArrayOutput() PodFailurePolicyOnPodConditionsPatternPatchArrayOutput {
+	return o
+}
+
+func (o PodFailurePolicyOnPodConditionsPatternPatchArrayOutput) ToPodFailurePolicyOnPodConditionsPatternPatchArrayOutputWithContext(ctx context.Context) PodFailurePolicyOnPodConditionsPatternPatchArrayOutput {
+	return o
+}
+
+func (o PodFailurePolicyOnPodConditionsPatternPatchArrayOutput) Index(i pulumi.IntInput) PodFailurePolicyOnPodConditionsPatternPatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PodFailurePolicyOnPodConditionsPatternPatch {
+		return vs[0].([]PodFailurePolicyOnPodConditionsPatternPatch)[vs[1].(int)]
+	}).(PodFailurePolicyOnPodConditionsPatternPatchOutput)
+}
+
+// PodFailurePolicy describes how failed pods influence the backoffLimit.
+type PodFailurePolicyPatch struct {
+	// A list of pod failure policy rules. The rules are evaluated in order. Once a rule matches a Pod failure, the remaining of the rules are ignored. When no rule matches the Pod failure, the default handling applies - the counter of pod failures is incremented and it is checked against the backoffLimit. At most 20 elements are allowed.
+	Rules []PodFailurePolicyRulePatch `pulumi:"rules"`
+}
+
+// PodFailurePolicyPatchInput is an input type that accepts PodFailurePolicyPatchArgs and PodFailurePolicyPatchOutput values.
+// You can construct a concrete instance of `PodFailurePolicyPatchInput` via:
+//
+//	PodFailurePolicyPatchArgs{...}
+type PodFailurePolicyPatchInput interface {
+	pulumi.Input
+
+	ToPodFailurePolicyPatchOutput() PodFailurePolicyPatchOutput
+	ToPodFailurePolicyPatchOutputWithContext(context.Context) PodFailurePolicyPatchOutput
+}
+
+// PodFailurePolicy describes how failed pods influence the backoffLimit.
+type PodFailurePolicyPatchArgs struct {
+	// A list of pod failure policy rules. The rules are evaluated in order. Once a rule matches a Pod failure, the remaining of the rules are ignored. When no rule matches the Pod failure, the default handling applies - the counter of pod failures is incremented and it is checked against the backoffLimit. At most 20 elements are allowed.
+	Rules PodFailurePolicyRulePatchArrayInput `pulumi:"rules"`
+}
+
+func (PodFailurePolicyPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodFailurePolicyPatch)(nil)).Elem()
+}
+
+func (i PodFailurePolicyPatchArgs) ToPodFailurePolicyPatchOutput() PodFailurePolicyPatchOutput {
+	return i.ToPodFailurePolicyPatchOutputWithContext(context.Background())
+}
+
+func (i PodFailurePolicyPatchArgs) ToPodFailurePolicyPatchOutputWithContext(ctx context.Context) PodFailurePolicyPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodFailurePolicyPatchOutput)
+}
+
+func (i PodFailurePolicyPatchArgs) ToPodFailurePolicyPatchPtrOutput() PodFailurePolicyPatchPtrOutput {
+	return i.ToPodFailurePolicyPatchPtrOutputWithContext(context.Background())
+}
+
+func (i PodFailurePolicyPatchArgs) ToPodFailurePolicyPatchPtrOutputWithContext(ctx context.Context) PodFailurePolicyPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodFailurePolicyPatchOutput).ToPodFailurePolicyPatchPtrOutputWithContext(ctx)
+}
+
+// PodFailurePolicyPatchPtrInput is an input type that accepts PodFailurePolicyPatchArgs, PodFailurePolicyPatchPtr and PodFailurePolicyPatchPtrOutput values.
+// You can construct a concrete instance of `PodFailurePolicyPatchPtrInput` via:
+//
+//	        PodFailurePolicyPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type PodFailurePolicyPatchPtrInput interface {
+	pulumi.Input
+
+	ToPodFailurePolicyPatchPtrOutput() PodFailurePolicyPatchPtrOutput
+	ToPodFailurePolicyPatchPtrOutputWithContext(context.Context) PodFailurePolicyPatchPtrOutput
+}
+
+type podFailurePolicyPatchPtrType PodFailurePolicyPatchArgs
+
+func PodFailurePolicyPatchPtr(v *PodFailurePolicyPatchArgs) PodFailurePolicyPatchPtrInput {
+	return (*podFailurePolicyPatchPtrType)(v)
+}
+
+func (*podFailurePolicyPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodFailurePolicyPatch)(nil)).Elem()
+}
+
+func (i *podFailurePolicyPatchPtrType) ToPodFailurePolicyPatchPtrOutput() PodFailurePolicyPatchPtrOutput {
+	return i.ToPodFailurePolicyPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *podFailurePolicyPatchPtrType) ToPodFailurePolicyPatchPtrOutputWithContext(ctx context.Context) PodFailurePolicyPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodFailurePolicyPatchPtrOutput)
+}
+
+// PodFailurePolicy describes how failed pods influence the backoffLimit.
+type PodFailurePolicyPatchOutput struct{ *pulumi.OutputState }
+
+func (PodFailurePolicyPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodFailurePolicyPatch)(nil)).Elem()
+}
+
+func (o PodFailurePolicyPatchOutput) ToPodFailurePolicyPatchOutput() PodFailurePolicyPatchOutput {
+	return o
+}
+
+func (o PodFailurePolicyPatchOutput) ToPodFailurePolicyPatchOutputWithContext(ctx context.Context) PodFailurePolicyPatchOutput {
+	return o
+}
+
+func (o PodFailurePolicyPatchOutput) ToPodFailurePolicyPatchPtrOutput() PodFailurePolicyPatchPtrOutput {
+	return o.ToPodFailurePolicyPatchPtrOutputWithContext(context.Background())
+}
+
+func (o PodFailurePolicyPatchOutput) ToPodFailurePolicyPatchPtrOutputWithContext(ctx context.Context) PodFailurePolicyPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodFailurePolicyPatch) *PodFailurePolicyPatch {
+		return &v
+	}).(PodFailurePolicyPatchPtrOutput)
+}
+
+// A list of pod failure policy rules. The rules are evaluated in order. Once a rule matches a Pod failure, the remaining of the rules are ignored. When no rule matches the Pod failure, the default handling applies - the counter of pod failures is incremented and it is checked against the backoffLimit. At most 20 elements are allowed.
+func (o PodFailurePolicyPatchOutput) Rules() PodFailurePolicyRulePatchArrayOutput {
+	return o.ApplyT(func(v PodFailurePolicyPatch) []PodFailurePolicyRulePatch { return v.Rules }).(PodFailurePolicyRulePatchArrayOutput)
+}
+
+type PodFailurePolicyPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (PodFailurePolicyPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**PodFailurePolicyPatch)(nil)).Elem()
+}
+
+func (o PodFailurePolicyPatchPtrOutput) ToPodFailurePolicyPatchPtrOutput() PodFailurePolicyPatchPtrOutput {
+	return o
+}
+
+func (o PodFailurePolicyPatchPtrOutput) ToPodFailurePolicyPatchPtrOutputWithContext(ctx context.Context) PodFailurePolicyPatchPtrOutput {
+	return o
+}
+
+func (o PodFailurePolicyPatchPtrOutput) Elem() PodFailurePolicyPatchOutput {
+	return o.ApplyT(func(v *PodFailurePolicyPatch) PodFailurePolicyPatch {
+		if v != nil {
+			return *v
+		}
+		var ret PodFailurePolicyPatch
+		return ret
+	}).(PodFailurePolicyPatchOutput)
+}
+
+// A list of pod failure policy rules. The rules are evaluated in order. Once a rule matches a Pod failure, the remaining of the rules are ignored. When no rule matches the Pod failure, the default handling applies - the counter of pod failures is incremented and it is checked against the backoffLimit. At most 20 elements are allowed.
+func (o PodFailurePolicyPatchPtrOutput) Rules() PodFailurePolicyRulePatchArrayOutput {
+	return o.ApplyT(func(v *PodFailurePolicyPatch) []PodFailurePolicyRulePatch {
+		if v == nil {
+			return nil
+		}
+		return v.Rules
+	}).(PodFailurePolicyRulePatchArrayOutput)
+}
+
+// PodFailurePolicyRule describes how a pod failure is handled when the requirements are met. One of OnExitCodes and onPodConditions, but not both, can be used in each rule.
+type PodFailurePolicyRule struct {
+	// Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are: - FailJob: indicates that the pod's job is marked as Failed and all
+	//   running pods are terminated.
+	// - Ignore: indicates that the counter towards the .backoffLimit is not
+	//   incremented and a replacement pod is created.
+	// - Count: indicates that the pod is handled in the default way - the
+	//   counter towards the .backoffLimit is incremented.
+	//   Additional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.
+	Action string `pulumi:"action"`
+	// Represents the requirement on the container exit codes.
+	OnExitCodes *PodFailurePolicyOnExitCodesRequirement `pulumi:"onExitCodes"`
+	// Represents the requirement on the pod conditions. The requirement is represented as a list of pod condition patterns. The requirement is satisfied if at least one pattern matches an actual pod condition. At most 20 elements are allowed.
+	OnPodConditions []PodFailurePolicyOnPodConditionsPattern `pulumi:"onPodConditions"`
+}
+
+// PodFailurePolicyRuleInput is an input type that accepts PodFailurePolicyRuleArgs and PodFailurePolicyRuleOutput values.
+// You can construct a concrete instance of `PodFailurePolicyRuleInput` via:
+//
+//	PodFailurePolicyRuleArgs{...}
+type PodFailurePolicyRuleInput interface {
+	pulumi.Input
+
+	ToPodFailurePolicyRuleOutput() PodFailurePolicyRuleOutput
+	ToPodFailurePolicyRuleOutputWithContext(context.Context) PodFailurePolicyRuleOutput
+}
+
+// PodFailurePolicyRule describes how a pod failure is handled when the requirements are met. One of OnExitCodes and onPodConditions, but not both, can be used in each rule.
+type PodFailurePolicyRuleArgs struct {
+	// Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are: - FailJob: indicates that the pod's job is marked as Failed and all
+	//   running pods are terminated.
+	// - Ignore: indicates that the counter towards the .backoffLimit is not
+	//   incremented and a replacement pod is created.
+	// - Count: indicates that the pod is handled in the default way - the
+	//   counter towards the .backoffLimit is incremented.
+	//   Additional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.
+	Action pulumi.StringInput `pulumi:"action"`
+	// Represents the requirement on the container exit codes.
+	OnExitCodes PodFailurePolicyOnExitCodesRequirementPtrInput `pulumi:"onExitCodes"`
+	// Represents the requirement on the pod conditions. The requirement is represented as a list of pod condition patterns. The requirement is satisfied if at least one pattern matches an actual pod condition. At most 20 elements are allowed.
+	OnPodConditions PodFailurePolicyOnPodConditionsPatternArrayInput `pulumi:"onPodConditions"`
+}
+
+func (PodFailurePolicyRuleArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodFailurePolicyRule)(nil)).Elem()
+}
+
+func (i PodFailurePolicyRuleArgs) ToPodFailurePolicyRuleOutput() PodFailurePolicyRuleOutput {
+	return i.ToPodFailurePolicyRuleOutputWithContext(context.Background())
+}
+
+func (i PodFailurePolicyRuleArgs) ToPodFailurePolicyRuleOutputWithContext(ctx context.Context) PodFailurePolicyRuleOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodFailurePolicyRuleOutput)
+}
+
+// PodFailurePolicyRuleArrayInput is an input type that accepts PodFailurePolicyRuleArray and PodFailurePolicyRuleArrayOutput values.
+// You can construct a concrete instance of `PodFailurePolicyRuleArrayInput` via:
+//
+//	PodFailurePolicyRuleArray{ PodFailurePolicyRuleArgs{...} }
+type PodFailurePolicyRuleArrayInput interface {
+	pulumi.Input
+
+	ToPodFailurePolicyRuleArrayOutput() PodFailurePolicyRuleArrayOutput
+	ToPodFailurePolicyRuleArrayOutputWithContext(context.Context) PodFailurePolicyRuleArrayOutput
+}
+
+type PodFailurePolicyRuleArray []PodFailurePolicyRuleInput
+
+func (PodFailurePolicyRuleArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodFailurePolicyRule)(nil)).Elem()
+}
+
+func (i PodFailurePolicyRuleArray) ToPodFailurePolicyRuleArrayOutput() PodFailurePolicyRuleArrayOutput {
+	return i.ToPodFailurePolicyRuleArrayOutputWithContext(context.Background())
+}
+
+func (i PodFailurePolicyRuleArray) ToPodFailurePolicyRuleArrayOutputWithContext(ctx context.Context) PodFailurePolicyRuleArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodFailurePolicyRuleArrayOutput)
+}
+
+// PodFailurePolicyRule describes how a pod failure is handled when the requirements are met. One of OnExitCodes and onPodConditions, but not both, can be used in each rule.
+type PodFailurePolicyRuleOutput struct{ *pulumi.OutputState }
+
+func (PodFailurePolicyRuleOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodFailurePolicyRule)(nil)).Elem()
+}
+
+func (o PodFailurePolicyRuleOutput) ToPodFailurePolicyRuleOutput() PodFailurePolicyRuleOutput {
+	return o
+}
+
+func (o PodFailurePolicyRuleOutput) ToPodFailurePolicyRuleOutputWithContext(ctx context.Context) PodFailurePolicyRuleOutput {
+	return o
+}
+
+// Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are: - FailJob: indicates that the pod's job is marked as Failed and all
+//
+//	running pods are terminated.
+//   - Ignore: indicates that the counter towards the .backoffLimit is not
+//     incremented and a replacement pod is created.
+//   - Count: indicates that the pod is handled in the default way - the
+//     counter towards the .backoffLimit is incremented.
+//     Additional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.
+func (o PodFailurePolicyRuleOutput) Action() pulumi.StringOutput {
+	return o.ApplyT(func(v PodFailurePolicyRule) string { return v.Action }).(pulumi.StringOutput)
+}
+
+// Represents the requirement on the container exit codes.
+func (o PodFailurePolicyRuleOutput) OnExitCodes() PodFailurePolicyOnExitCodesRequirementPtrOutput {
+	return o.ApplyT(func(v PodFailurePolicyRule) *PodFailurePolicyOnExitCodesRequirement { return v.OnExitCodes }).(PodFailurePolicyOnExitCodesRequirementPtrOutput)
+}
+
+// Represents the requirement on the pod conditions. The requirement is represented as a list of pod condition patterns. The requirement is satisfied if at least one pattern matches an actual pod condition. At most 20 elements are allowed.
+func (o PodFailurePolicyRuleOutput) OnPodConditions() PodFailurePolicyOnPodConditionsPatternArrayOutput {
+	return o.ApplyT(func(v PodFailurePolicyRule) []PodFailurePolicyOnPodConditionsPattern { return v.OnPodConditions }).(PodFailurePolicyOnPodConditionsPatternArrayOutput)
+}
+
+type PodFailurePolicyRuleArrayOutput struct{ *pulumi.OutputState }
+
+func (PodFailurePolicyRuleArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodFailurePolicyRule)(nil)).Elem()
+}
+
+func (o PodFailurePolicyRuleArrayOutput) ToPodFailurePolicyRuleArrayOutput() PodFailurePolicyRuleArrayOutput {
+	return o
+}
+
+func (o PodFailurePolicyRuleArrayOutput) ToPodFailurePolicyRuleArrayOutputWithContext(ctx context.Context) PodFailurePolicyRuleArrayOutput {
+	return o
+}
+
+func (o PodFailurePolicyRuleArrayOutput) Index(i pulumi.IntInput) PodFailurePolicyRuleOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PodFailurePolicyRule {
+		return vs[0].([]PodFailurePolicyRule)[vs[1].(int)]
+	}).(PodFailurePolicyRuleOutput)
+}
+
+// PodFailurePolicyRule describes how a pod failure is handled when the requirements are met. One of OnExitCodes and onPodConditions, but not both, can be used in each rule.
+type PodFailurePolicyRulePatch struct {
+	// Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are: - FailJob: indicates that the pod's job is marked as Failed and all
+	//   running pods are terminated.
+	// - Ignore: indicates that the counter towards the .backoffLimit is not
+	//   incremented and a replacement pod is created.
+	// - Count: indicates that the pod is handled in the default way - the
+	//   counter towards the .backoffLimit is incremented.
+	//   Additional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.
+	Action *string `pulumi:"action"`
+	// Represents the requirement on the container exit codes.
+	OnExitCodes *PodFailurePolicyOnExitCodesRequirementPatch `pulumi:"onExitCodes"`
+	// Represents the requirement on the pod conditions. The requirement is represented as a list of pod condition patterns. The requirement is satisfied if at least one pattern matches an actual pod condition. At most 20 elements are allowed.
+	OnPodConditions []PodFailurePolicyOnPodConditionsPatternPatch `pulumi:"onPodConditions"`
+}
+
+// PodFailurePolicyRulePatchInput is an input type that accepts PodFailurePolicyRulePatchArgs and PodFailurePolicyRulePatchOutput values.
+// You can construct a concrete instance of `PodFailurePolicyRulePatchInput` via:
+//
+//	PodFailurePolicyRulePatchArgs{...}
+type PodFailurePolicyRulePatchInput interface {
+	pulumi.Input
+
+	ToPodFailurePolicyRulePatchOutput() PodFailurePolicyRulePatchOutput
+	ToPodFailurePolicyRulePatchOutputWithContext(context.Context) PodFailurePolicyRulePatchOutput
+}
+
+// PodFailurePolicyRule describes how a pod failure is handled when the requirements are met. One of OnExitCodes and onPodConditions, but not both, can be used in each rule.
+type PodFailurePolicyRulePatchArgs struct {
+	// Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are: - FailJob: indicates that the pod's job is marked as Failed and all
+	//   running pods are terminated.
+	// - Ignore: indicates that the counter towards the .backoffLimit is not
+	//   incremented and a replacement pod is created.
+	// - Count: indicates that the pod is handled in the default way - the
+	//   counter towards the .backoffLimit is incremented.
+	//   Additional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.
+	Action pulumi.StringPtrInput `pulumi:"action"`
+	// Represents the requirement on the container exit codes.
+	OnExitCodes PodFailurePolicyOnExitCodesRequirementPatchPtrInput `pulumi:"onExitCodes"`
+	// Represents the requirement on the pod conditions. The requirement is represented as a list of pod condition patterns. The requirement is satisfied if at least one pattern matches an actual pod condition. At most 20 elements are allowed.
+	OnPodConditions PodFailurePolicyOnPodConditionsPatternPatchArrayInput `pulumi:"onPodConditions"`
+}
+
+func (PodFailurePolicyRulePatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodFailurePolicyRulePatch)(nil)).Elem()
+}
+
+func (i PodFailurePolicyRulePatchArgs) ToPodFailurePolicyRulePatchOutput() PodFailurePolicyRulePatchOutput {
+	return i.ToPodFailurePolicyRulePatchOutputWithContext(context.Background())
+}
+
+func (i PodFailurePolicyRulePatchArgs) ToPodFailurePolicyRulePatchOutputWithContext(ctx context.Context) PodFailurePolicyRulePatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodFailurePolicyRulePatchOutput)
+}
+
+// PodFailurePolicyRulePatchArrayInput is an input type that accepts PodFailurePolicyRulePatchArray and PodFailurePolicyRulePatchArrayOutput values.
+// You can construct a concrete instance of `PodFailurePolicyRulePatchArrayInput` via:
+//
+//	PodFailurePolicyRulePatchArray{ PodFailurePolicyRulePatchArgs{...} }
+type PodFailurePolicyRulePatchArrayInput interface {
+	pulumi.Input
+
+	ToPodFailurePolicyRulePatchArrayOutput() PodFailurePolicyRulePatchArrayOutput
+	ToPodFailurePolicyRulePatchArrayOutputWithContext(context.Context) PodFailurePolicyRulePatchArrayOutput
+}
+
+type PodFailurePolicyRulePatchArray []PodFailurePolicyRulePatchInput
+
+func (PodFailurePolicyRulePatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodFailurePolicyRulePatch)(nil)).Elem()
+}
+
+func (i PodFailurePolicyRulePatchArray) ToPodFailurePolicyRulePatchArrayOutput() PodFailurePolicyRulePatchArrayOutput {
+	return i.ToPodFailurePolicyRulePatchArrayOutputWithContext(context.Background())
+}
+
+func (i PodFailurePolicyRulePatchArray) ToPodFailurePolicyRulePatchArrayOutputWithContext(ctx context.Context) PodFailurePolicyRulePatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(PodFailurePolicyRulePatchArrayOutput)
+}
+
+// PodFailurePolicyRule describes how a pod failure is handled when the requirements are met. One of OnExitCodes and onPodConditions, but not both, can be used in each rule.
+type PodFailurePolicyRulePatchOutput struct{ *pulumi.OutputState }
+
+func (PodFailurePolicyRulePatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*PodFailurePolicyRulePatch)(nil)).Elem()
+}
+
+func (o PodFailurePolicyRulePatchOutput) ToPodFailurePolicyRulePatchOutput() PodFailurePolicyRulePatchOutput {
+	return o
+}
+
+func (o PodFailurePolicyRulePatchOutput) ToPodFailurePolicyRulePatchOutputWithContext(ctx context.Context) PodFailurePolicyRulePatchOutput {
+	return o
+}
+
+// Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are: - FailJob: indicates that the pod's job is marked as Failed and all
+//
+//	running pods are terminated.
+//   - Ignore: indicates that the counter towards the .backoffLimit is not
+//     incremented and a replacement pod is created.
+//   - Count: indicates that the pod is handled in the default way - the
+//     counter towards the .backoffLimit is incremented.
+//     Additional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.
+func (o PodFailurePolicyRulePatchOutput) Action() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodFailurePolicyRulePatch) *string { return v.Action }).(pulumi.StringPtrOutput)
+}
+
+// Represents the requirement on the container exit codes.
+func (o PodFailurePolicyRulePatchOutput) OnExitCodes() PodFailurePolicyOnExitCodesRequirementPatchPtrOutput {
+	return o.ApplyT(func(v PodFailurePolicyRulePatch) *PodFailurePolicyOnExitCodesRequirementPatch { return v.OnExitCodes }).(PodFailurePolicyOnExitCodesRequirementPatchPtrOutput)
+}
+
+// Represents the requirement on the pod conditions. The requirement is represented as a list of pod condition patterns. The requirement is satisfied if at least one pattern matches an actual pod condition. At most 20 elements are allowed.
+func (o PodFailurePolicyRulePatchOutput) OnPodConditions() PodFailurePolicyOnPodConditionsPatternPatchArrayOutput {
+	return o.ApplyT(func(v PodFailurePolicyRulePatch) []PodFailurePolicyOnPodConditionsPatternPatch {
+		return v.OnPodConditions
+	}).(PodFailurePolicyOnPodConditionsPatternPatchArrayOutput)
+}
+
+type PodFailurePolicyRulePatchArrayOutput struct{ *pulumi.OutputState }
+
+func (PodFailurePolicyRulePatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]PodFailurePolicyRulePatch)(nil)).Elem()
+}
+
+func (o PodFailurePolicyRulePatchArrayOutput) ToPodFailurePolicyRulePatchArrayOutput() PodFailurePolicyRulePatchArrayOutput {
+	return o
+}
+
+func (o PodFailurePolicyRulePatchArrayOutput) ToPodFailurePolicyRulePatchArrayOutputWithContext(ctx context.Context) PodFailurePolicyRulePatchArrayOutput {
+	return o
+}
+
+func (o PodFailurePolicyRulePatchArrayOutput) Index(i pulumi.IntInput) PodFailurePolicyRulePatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) PodFailurePolicyRulePatch {
+		return vs[0].([]PodFailurePolicyRulePatch)[vs[1].(int)]
+	}).(PodFailurePolicyRulePatchOutput)
+}
+
 // UncountedTerminatedPods holds UIDs of Pods that have terminated but haven't been accounted in Job status counters.
 type UncountedTerminatedPods struct {
 	// Failed holds UIDs of failed Pods.
@@ -3925,6 +5161,22 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*JobTemplateSpecPtrInput)(nil)).Elem(), JobTemplateSpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*JobTemplateSpecPatchInput)(nil)).Elem(), JobTemplateSpecPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*JobTemplateSpecPatchPtrInput)(nil)).Elem(), JobTemplateSpecPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodFailurePolicyInput)(nil)).Elem(), PodFailurePolicyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodFailurePolicyPtrInput)(nil)).Elem(), PodFailurePolicyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodFailurePolicyOnExitCodesRequirementInput)(nil)).Elem(), PodFailurePolicyOnExitCodesRequirementArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodFailurePolicyOnExitCodesRequirementPtrInput)(nil)).Elem(), PodFailurePolicyOnExitCodesRequirementArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodFailurePolicyOnExitCodesRequirementPatchInput)(nil)).Elem(), PodFailurePolicyOnExitCodesRequirementPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodFailurePolicyOnExitCodesRequirementPatchPtrInput)(nil)).Elem(), PodFailurePolicyOnExitCodesRequirementPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodFailurePolicyOnPodConditionsPatternInput)(nil)).Elem(), PodFailurePolicyOnPodConditionsPatternArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodFailurePolicyOnPodConditionsPatternArrayInput)(nil)).Elem(), PodFailurePolicyOnPodConditionsPatternArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodFailurePolicyOnPodConditionsPatternPatchInput)(nil)).Elem(), PodFailurePolicyOnPodConditionsPatternPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodFailurePolicyOnPodConditionsPatternPatchArrayInput)(nil)).Elem(), PodFailurePolicyOnPodConditionsPatternPatchArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodFailurePolicyPatchInput)(nil)).Elem(), PodFailurePolicyPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodFailurePolicyPatchPtrInput)(nil)).Elem(), PodFailurePolicyPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodFailurePolicyRuleInput)(nil)).Elem(), PodFailurePolicyRuleArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodFailurePolicyRuleArrayInput)(nil)).Elem(), PodFailurePolicyRuleArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodFailurePolicyRulePatchInput)(nil)).Elem(), PodFailurePolicyRulePatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*PodFailurePolicyRulePatchArrayInput)(nil)).Elem(), PodFailurePolicyRulePatchArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*UncountedTerminatedPodsInput)(nil)).Elem(), UncountedTerminatedPodsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*UncountedTerminatedPodsPtrInput)(nil)).Elem(), UncountedTerminatedPodsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*UncountedTerminatedPodsPatchInput)(nil)).Elem(), UncountedTerminatedPodsPatchArgs{})
@@ -3961,6 +5213,22 @@ func init() {
 	pulumi.RegisterOutputType(JobTemplateSpecPtrOutput{})
 	pulumi.RegisterOutputType(JobTemplateSpecPatchOutput{})
 	pulumi.RegisterOutputType(JobTemplateSpecPatchPtrOutput{})
+	pulumi.RegisterOutputType(PodFailurePolicyOutput{})
+	pulumi.RegisterOutputType(PodFailurePolicyPtrOutput{})
+	pulumi.RegisterOutputType(PodFailurePolicyOnExitCodesRequirementOutput{})
+	pulumi.RegisterOutputType(PodFailurePolicyOnExitCodesRequirementPtrOutput{})
+	pulumi.RegisterOutputType(PodFailurePolicyOnExitCodesRequirementPatchOutput{})
+	pulumi.RegisterOutputType(PodFailurePolicyOnExitCodesRequirementPatchPtrOutput{})
+	pulumi.RegisterOutputType(PodFailurePolicyOnPodConditionsPatternOutput{})
+	pulumi.RegisterOutputType(PodFailurePolicyOnPodConditionsPatternArrayOutput{})
+	pulumi.RegisterOutputType(PodFailurePolicyOnPodConditionsPatternPatchOutput{})
+	pulumi.RegisterOutputType(PodFailurePolicyOnPodConditionsPatternPatchArrayOutput{})
+	pulumi.RegisterOutputType(PodFailurePolicyPatchOutput{})
+	pulumi.RegisterOutputType(PodFailurePolicyPatchPtrOutput{})
+	pulumi.RegisterOutputType(PodFailurePolicyRuleOutput{})
+	pulumi.RegisterOutputType(PodFailurePolicyRuleArrayOutput{})
+	pulumi.RegisterOutputType(PodFailurePolicyRulePatchOutput{})
+	pulumi.RegisterOutputType(PodFailurePolicyRulePatchArrayOutput{})
 	pulumi.RegisterOutputType(UncountedTerminatedPodsOutput{})
 	pulumi.RegisterOutputType(UncountedTerminatedPodsPtrOutput{})
 	pulumi.RegisterOutputType(UncountedTerminatedPodsPatchOutput{})

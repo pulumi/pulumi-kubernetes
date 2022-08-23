@@ -19,7 +19,7 @@ public final class HorizontalPodAutoscalerStatus {
      * @return conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
      * 
      */
-    private @Nullable List<HorizontalPodAutoscalerCondition> conditions;
+    private List<HorizontalPodAutoscalerCondition> conditions;
     /**
      * @return currentMetrics is the last read state of the metrics used by this autoscaler.
      * 
@@ -52,7 +52,7 @@ public final class HorizontalPodAutoscalerStatus {
      * 
      */
     public List<HorizontalPodAutoscalerCondition> conditions() {
-        return this.conditions == null ? List.of() : this.conditions;
+        return this.conditions;
     }
     /**
      * @return currentMetrics is the last read state of the metrics used by this autoscaler.
@@ -99,7 +99,7 @@ public final class HorizontalPodAutoscalerStatus {
     }
     @CustomType.Builder
     public static final class Builder {
-        private @Nullable List<HorizontalPodAutoscalerCondition> conditions;
+        private List<HorizontalPodAutoscalerCondition> conditions;
         private @Nullable List<MetricStatus> currentMetrics;
         private Integer currentReplicas;
         private Integer desiredReplicas;
@@ -117,8 +117,8 @@ public final class HorizontalPodAutoscalerStatus {
         }
 
         @CustomType.Setter
-        public Builder conditions(@Nullable List<HorizontalPodAutoscalerCondition> conditions) {
-            this.conditions = conditions;
+        public Builder conditions(List<HorizontalPodAutoscalerCondition> conditions) {
+            this.conditions = Objects.requireNonNull(conditions);
             return this;
         }
         public Builder conditions(HorizontalPodAutoscalerCondition... conditions) {

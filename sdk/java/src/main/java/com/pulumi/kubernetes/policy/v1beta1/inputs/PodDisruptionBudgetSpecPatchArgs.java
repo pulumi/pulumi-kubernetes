@@ -53,14 +53,14 @@ public final class PodDisruptionBudgetSpecPatchArgs extends com.pulumi.resources
     }
 
     /**
-     * Label query over pods whose evictions are managed by the disruption budget. A null selector selects no pods. An empty selector ({}) also selects no pods, which differs from standard behavior of selecting all pods. In policy/v1, an empty selector will select all pods in the namespace.
+     * Label query over pods whose evictions are managed by the disruption budget.
      * 
      */
     @Import(name="selector")
     private @Nullable Output<LabelSelectorPatchArgs> selector;
 
     /**
-     * @return Label query over pods whose evictions are managed by the disruption budget. A null selector selects no pods. An empty selector ({}) also selects no pods, which differs from standard behavior of selecting all pods. In policy/v1, an empty selector will select all pods in the namespace.
+     * @return Label query over pods whose evictions are managed by the disruption budget.
      * 
      */
     public Optional<Output<LabelSelectorPatchArgs>> selector() {
@@ -176,7 +176,7 @@ public final class PodDisruptionBudgetSpecPatchArgs extends com.pulumi.resources
         }
 
         /**
-         * @param selector Label query over pods whose evictions are managed by the disruption budget. A null selector selects no pods. An empty selector ({}) also selects no pods, which differs from standard behavior of selecting all pods. In policy/v1, an empty selector will select all pods in the namespace.
+         * @param selector Label query over pods whose evictions are managed by the disruption budget.
          * 
          * @return builder
          * 
@@ -187,7 +187,7 @@ public final class PodDisruptionBudgetSpecPatchArgs extends com.pulumi.resources
         }
 
         /**
-         * @param selector Label query over pods whose evictions are managed by the disruption budget. A null selector selects no pods. An empty selector ({}) also selects no pods, which differs from standard behavior of selecting all pods. In policy/v1, an empty selector will select all pods in the namespace.
+         * @param selector Label query over pods whose evictions are managed by the disruption budget.
          * 
          * @return builder
          * 

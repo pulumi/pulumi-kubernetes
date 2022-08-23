@@ -21,20 +21,20 @@ import java.util.Optional;
 import javax.annotation.Nullable;
 
 /**
- * Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system. Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.
+ * Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.
  * 
  */
 @ResourceType(type="kubernetes:events.k8s.io/v1beta1:Event")
 public class Event extends com.pulumi.resources.CustomResource {
     /**
-     * action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
+     * What action was taken/failed regarding to the regarding object.
      * 
      */
     @Export(name="action", type=String.class, parameters={})
     private Output</* @Nullable */ String> action;
 
     /**
-     * @return action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
+     * @return What action was taken/failed regarding to the regarding object.
      * 
      */
     public Output<Optional<String>> action() {
@@ -55,70 +55,70 @@ public class Event extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.apiVersion);
     }
     /**
-     * deprecatedCount is the deprecated field assuring backward compatibility with core.v1 Event type.
+     * Deprecated field assuring backward compatibility with core.v1 Event type
      * 
      */
     @Export(name="deprecatedCount", type=Integer.class, parameters={})
     private Output</* @Nullable */ Integer> deprecatedCount;
 
     /**
-     * @return deprecatedCount is the deprecated field assuring backward compatibility with core.v1 Event type.
+     * @return Deprecated field assuring backward compatibility with core.v1 Event type
      * 
      */
     public Output<Optional<Integer>> deprecatedCount() {
         return Codegen.optional(this.deprecatedCount);
     }
     /**
-     * deprecatedFirstTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
+     * Deprecated field assuring backward compatibility with core.v1 Event type
      * 
      */
     @Export(name="deprecatedFirstTimestamp", type=String.class, parameters={})
     private Output</* @Nullable */ String> deprecatedFirstTimestamp;
 
     /**
-     * @return deprecatedFirstTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
+     * @return Deprecated field assuring backward compatibility with core.v1 Event type
      * 
      */
     public Output<Optional<String>> deprecatedFirstTimestamp() {
         return Codegen.optional(this.deprecatedFirstTimestamp);
     }
     /**
-     * deprecatedLastTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
+     * Deprecated field assuring backward compatibility with core.v1 Event type
      * 
      */
     @Export(name="deprecatedLastTimestamp", type=String.class, parameters={})
     private Output</* @Nullable */ String> deprecatedLastTimestamp;
 
     /**
-     * @return deprecatedLastTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
+     * @return Deprecated field assuring backward compatibility with core.v1 Event type
      * 
      */
     public Output<Optional<String>> deprecatedLastTimestamp() {
         return Codegen.optional(this.deprecatedLastTimestamp);
     }
     /**
-     * deprecatedSource is the deprecated field assuring backward compatibility with core.v1 Event type.
+     * Deprecated field assuring backward compatibility with core.v1 Event type
      * 
      */
     @Export(name="deprecatedSource", type=EventSource.class, parameters={})
     private Output</* @Nullable */ EventSource> deprecatedSource;
 
     /**
-     * @return deprecatedSource is the deprecated field assuring backward compatibility with core.v1 Event type.
+     * @return Deprecated field assuring backward compatibility with core.v1 Event type
      * 
      */
     public Output<Optional<EventSource>> deprecatedSource() {
         return Codegen.optional(this.deprecatedSource);
     }
     /**
-     * eventTime is the time when this Event was first observed. It is required.
+     * Required. Time when this Event was first observed.
      * 
      */
     @Export(name="eventTime", type=String.class, parameters={})
     private Output<String> eventTime;
 
     /**
-     * @return eventTime is the time when this Event was first observed. It is required.
+     * @return Required. Time when this Event was first observed.
      * 
      */
     public Output<String> eventTime() {
@@ -138,127 +138,119 @@ public class Event extends com.pulumi.resources.CustomResource {
     public Output<Optional<String>> kind() {
         return Codegen.optional(this.kind);
     }
-    /**
-     * Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-     * 
-     */
     @Export(name="metadata", type=ObjectMeta.class, parameters={})
     private Output</* @Nullable */ ObjectMeta> metadata;
 
-    /**
-     * @return Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-     * 
-     */
     public Output<Optional<ObjectMeta>> metadata() {
         return Codegen.optional(this.metadata);
     }
     /**
-     * note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
+     * Optional. A human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
      * 
      */
     @Export(name="note", type=String.class, parameters={})
     private Output</* @Nullable */ String> note;
 
     /**
-     * @return note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
+     * @return Optional. A human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
      * 
      */
     public Output<Optional<String>> note() {
         return Codegen.optional(this.note);
     }
     /**
-     * reason is why the action was taken. It is human-readable. This field can have at most 128 characters.
+     * Why the action was taken.
      * 
      */
     @Export(name="reason", type=String.class, parameters={})
     private Output</* @Nullable */ String> reason;
 
     /**
-     * @return reason is why the action was taken. It is human-readable. This field can have at most 128 characters.
+     * @return Why the action was taken.
      * 
      */
     public Output<Optional<String>> reason() {
         return Codegen.optional(this.reason);
     }
     /**
-     * regarding contains the object this Event is about. In most cases it&#39;s an Object reporting controller implements, e.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
+     * The object this Event is about. In most cases it&#39;s an Object reporting controller implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
      * 
      */
     @Export(name="regarding", type=ObjectReference.class, parameters={})
     private Output</* @Nullable */ ObjectReference> regarding;
 
     /**
-     * @return regarding contains the object this Event is about. In most cases it&#39;s an Object reporting controller implements, e.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
+     * @return The object this Event is about. In most cases it&#39;s an Object reporting controller implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
      * 
      */
     public Output<Optional<ObjectReference>> regarding() {
         return Codegen.optional(this.regarding);
     }
     /**
-     * related is the optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
+     * Optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
      * 
      */
     @Export(name="related", type=ObjectReference.class, parameters={})
     private Output</* @Nullable */ ObjectReference> related;
 
     /**
-     * @return related is the optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
+     * @return Optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
      * 
      */
     public Output<Optional<ObjectReference>> related() {
         return Codegen.optional(this.related);
     }
     /**
-     * reportingController is the name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`. This field cannot be empty for new Events.
+     * Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
      * 
      */
     @Export(name="reportingController", type=String.class, parameters={})
     private Output</* @Nullable */ String> reportingController;
 
     /**
-     * @return reportingController is the name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`. This field cannot be empty for new Events.
+     * @return Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
      * 
      */
     public Output<Optional<String>> reportingController() {
         return Codegen.optional(this.reportingController);
     }
     /**
-     * reportingInstance is the ID of the controller instance, e.g. `kubelet-xyzf`. This field cannot be empty for new Events and it can have at most 128 characters.
+     * ID of the controller instance, e.g. `kubelet-xyzf`.
      * 
      */
     @Export(name="reportingInstance", type=String.class, parameters={})
     private Output</* @Nullable */ String> reportingInstance;
 
     /**
-     * @return reportingInstance is the ID of the controller instance, e.g. `kubelet-xyzf`. This field cannot be empty for new Events and it can have at most 128 characters.
+     * @return ID of the controller instance, e.g. `kubelet-xyzf`.
      * 
      */
     public Output<Optional<String>> reportingInstance() {
         return Codegen.optional(this.reportingInstance);
     }
     /**
-     * series is data about the Event series this event represents or nil if it&#39;s a singleton Event.
+     * Data about the Event series this event represents or nil if it&#39;s a singleton Event.
      * 
      */
     @Export(name="series", type=EventSeries.class, parameters={})
     private Output</* @Nullable */ EventSeries> series;
 
     /**
-     * @return series is data about the Event series this event represents or nil if it&#39;s a singleton Event.
+     * @return Data about the Event series this event represents or nil if it&#39;s a singleton Event.
      * 
      */
     public Output<Optional<EventSeries>> series() {
         return Codegen.optional(this.series);
     }
     /**
-     * type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.
+     * Type of this event (Normal, Warning), new types could be added in the future.
      * 
      */
     @Export(name="type", type=String.class, parameters={})
     private Output</* @Nullable */ String> type;
 
     /**
-     * @return type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.
+     * @return Type of this event (Normal, Warning), new types could be added in the future.
      * 
      */
     public Output<Optional<String>> type() {

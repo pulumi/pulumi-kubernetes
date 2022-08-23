@@ -1565,8 +1565,7 @@ type PodDisruptionBudgetType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Kind     *string            `pulumi:"kind"`
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Specification of the desired behavior of the PodDisruptionBudget.
 	Spec *PodDisruptionBudgetSpec `pulumi:"spec"`
@@ -1590,8 +1589,7 @@ type PodDisruptionBudgetTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Kind     pulumi.StringPtrInput     `pulumi:"kind"`
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// Specification of the desired behavior of the PodDisruptionBudget.
 	Spec PodDisruptionBudgetSpecPtrInput `pulumi:"spec"`
@@ -1661,7 +1659,6 @@ func (o PodDisruptionBudgetTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o PodDisruptionBudgetTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
@@ -1699,12 +1696,10 @@ func (o PodDisruptionBudgetTypeArrayOutput) Index(i pulumi.IntInput) PodDisrupti
 // PodDisruptionBudgetList is a collection of PodDisruptionBudgets.
 type PodDisruptionBudgetListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion *string `pulumi:"apiVersion"`
-	// items list individual PodDisruptionBudget objects
-	Items []PodDisruptionBudgetType `pulumi:"items"`
+	ApiVersion *string                   `pulumi:"apiVersion"`
+	Items      []PodDisruptionBudgetType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Kind     *string          `pulumi:"kind"`
 	Metadata *metav1.ListMeta `pulumi:"metadata"`
 }
 
@@ -1722,12 +1717,10 @@ type PodDisruptionBudgetListTypeInput interface {
 // PodDisruptionBudgetList is a collection of PodDisruptionBudgets.
 type PodDisruptionBudgetListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// items list individual PodDisruptionBudget objects
-	Items PodDisruptionBudgetTypeArrayInput `pulumi:"items"`
+	ApiVersion pulumi.StringPtrInput             `pulumi:"apiVersion"`
+	Items      PodDisruptionBudgetTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Kind     pulumi.StringPtrInput   `pulumi:"kind"`
 	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
 }
 
@@ -1763,7 +1756,6 @@ func (o PodDisruptionBudgetListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
-// items list individual PodDisruptionBudget objects
 func (o PodDisruptionBudgetListTypeOutput) Items() PodDisruptionBudgetTypeArrayOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetListType) []PodDisruptionBudgetType { return v.Items }).(PodDisruptionBudgetTypeArrayOutput)
 }
@@ -1773,7 +1765,6 @@ func (o PodDisruptionBudgetListTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o PodDisruptionBudgetListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
@@ -1783,8 +1774,7 @@ type PodDisruptionBudgetPatchType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind *string `pulumi:"kind"`
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Kind     *string                 `pulumi:"kind"`
 	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
 	// Specification of the desired behavior of the PodDisruptionBudget.
 	Spec *PodDisruptionBudgetSpecPatch `pulumi:"spec"`
@@ -1808,8 +1798,7 @@ type PodDisruptionBudgetPatchTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Kind     pulumi.StringPtrInput          `pulumi:"kind"`
 	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
 	// Specification of the desired behavior of the PodDisruptionBudget.
 	Spec PodDisruptionBudgetSpecPatchPtrInput `pulumi:"spec"`
@@ -1854,7 +1843,6 @@ func (o PodDisruptionBudgetPatchTypeOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetPatchType) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o PodDisruptionBudgetPatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetPatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
 }
@@ -1875,7 +1863,7 @@ type PodDisruptionBudgetSpec struct {
 	MaxUnavailable interface{} `pulumi:"maxUnavailable"`
 	// An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
 	MinAvailable interface{} `pulumi:"minAvailable"`
-	// Label query over pods whose evictions are managed by the disruption budget. A null selector selects no pods. An empty selector ({}) also selects no pods, which differs from standard behavior of selecting all pods. In policy/v1, an empty selector will select all pods in the namespace.
+	// Label query over pods whose evictions are managed by the disruption budget.
 	Selector *metav1.LabelSelector `pulumi:"selector"`
 }
 
@@ -1896,7 +1884,7 @@ type PodDisruptionBudgetSpecArgs struct {
 	MaxUnavailable pulumi.Input `pulumi:"maxUnavailable"`
 	// An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
 	MinAvailable pulumi.Input `pulumi:"minAvailable"`
-	// Label query over pods whose evictions are managed by the disruption budget. A null selector selects no pods. An empty selector ({}) also selects no pods, which differs from standard behavior of selecting all pods. In policy/v1, an empty selector will select all pods in the namespace.
+	// Label query over pods whose evictions are managed by the disruption budget.
 	Selector metav1.LabelSelectorPtrInput `pulumi:"selector"`
 }
 
@@ -1988,7 +1976,7 @@ func (o PodDisruptionBudgetSpecOutput) MinAvailable() pulumi.AnyOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetSpec) interface{} { return v.MinAvailable }).(pulumi.AnyOutput)
 }
 
-// Label query over pods whose evictions are managed by the disruption budget. A null selector selects no pods. An empty selector ({}) also selects no pods, which differs from standard behavior of selecting all pods. In policy/v1, an empty selector will select all pods in the namespace.
+// Label query over pods whose evictions are managed by the disruption budget.
 func (o PodDisruptionBudgetSpecOutput) Selector() metav1.LabelSelectorPtrOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetSpec) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
 }
@@ -2037,7 +2025,7 @@ func (o PodDisruptionBudgetSpecPtrOutput) MinAvailable() pulumi.AnyOutput {
 	}).(pulumi.AnyOutput)
 }
 
-// Label query over pods whose evictions are managed by the disruption budget. A null selector selects no pods. An empty selector ({}) also selects no pods, which differs from standard behavior of selecting all pods. In policy/v1, an empty selector will select all pods in the namespace.
+// Label query over pods whose evictions are managed by the disruption budget.
 func (o PodDisruptionBudgetSpecPtrOutput) Selector() metav1.LabelSelectorPtrOutput {
 	return o.ApplyT(func(v *PodDisruptionBudgetSpec) *metav1.LabelSelector {
 		if v == nil {
@@ -2053,7 +2041,7 @@ type PodDisruptionBudgetSpecPatch struct {
 	MaxUnavailable interface{} `pulumi:"maxUnavailable"`
 	// An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
 	MinAvailable interface{} `pulumi:"minAvailable"`
-	// Label query over pods whose evictions are managed by the disruption budget. A null selector selects no pods. An empty selector ({}) also selects no pods, which differs from standard behavior of selecting all pods. In policy/v1, an empty selector will select all pods in the namespace.
+	// Label query over pods whose evictions are managed by the disruption budget.
 	Selector *metav1.LabelSelectorPatch `pulumi:"selector"`
 }
 
@@ -2074,7 +2062,7 @@ type PodDisruptionBudgetSpecPatchArgs struct {
 	MaxUnavailable pulumi.Input `pulumi:"maxUnavailable"`
 	// An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
 	MinAvailable pulumi.Input `pulumi:"minAvailable"`
-	// Label query over pods whose evictions are managed by the disruption budget. A null selector selects no pods. An empty selector ({}) also selects no pods, which differs from standard behavior of selecting all pods. In policy/v1, an empty selector will select all pods in the namespace.
+	// Label query over pods whose evictions are managed by the disruption budget.
 	Selector metav1.LabelSelectorPatchPtrInput `pulumi:"selector"`
 }
 
@@ -2166,7 +2154,7 @@ func (o PodDisruptionBudgetSpecPatchOutput) MinAvailable() pulumi.AnyOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetSpecPatch) interface{} { return v.MinAvailable }).(pulumi.AnyOutput)
 }
 
-// Label query over pods whose evictions are managed by the disruption budget. A null selector selects no pods. An empty selector ({}) also selects no pods, which differs from standard behavior of selecting all pods. In policy/v1, an empty selector will select all pods in the namespace.
+// Label query over pods whose evictions are managed by the disruption budget.
 func (o PodDisruptionBudgetSpecPatchOutput) Selector() metav1.LabelSelectorPatchPtrOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetSpecPatch) *metav1.LabelSelectorPatch { return v.Selector }).(metav1.LabelSelectorPatchPtrOutput)
 }
@@ -2215,7 +2203,7 @@ func (o PodDisruptionBudgetSpecPatchPtrOutput) MinAvailable() pulumi.AnyOutput {
 	}).(pulumi.AnyOutput)
 }
 
-// Label query over pods whose evictions are managed by the disruption budget. A null selector selects no pods. An empty selector ({}) also selects no pods, which differs from standard behavior of selecting all pods. In policy/v1, an empty selector will select all pods in the namespace.
+// Label query over pods whose evictions are managed by the disruption budget.
 func (o PodDisruptionBudgetSpecPatchPtrOutput) Selector() metav1.LabelSelectorPatchPtrOutput {
 	return o.ApplyT(func(v *PodDisruptionBudgetSpecPatch) *metav1.LabelSelectorPatch {
 		if v == nil {
@@ -2227,16 +2215,6 @@ func (o PodDisruptionBudgetSpecPatchPtrOutput) Selector() metav1.LabelSelectorPa
 
 // PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
 type PodDisruptionBudgetStatus struct {
-	// Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn't able to compute
-	//               the number of allowed disruptions. Therefore no disruptions are
-	//               allowed and the status of the condition will be False.
-	// - InsufficientPods: The number of pods are either at or below the number
-	//                     required by the PodDisruptionBudget. No disruptions are
-	//                     allowed and the status of the condition will be False.
-	// - SufficientPods: There are more pods than required by the PodDisruptionBudget.
-	//                   The condition will be True, and the number of allowed
-	//                   disruptions are provided by the disruptionsAllowed property.
-	Conditions []metav1.Condition `pulumi:"conditions"`
 	// current number of healthy pods
 	CurrentHealthy int `pulumi:"currentHealthy"`
 	// minimum desired number of healthy pods
@@ -2247,7 +2225,7 @@ type PodDisruptionBudgetStatus struct {
 	DisruptionsAllowed int `pulumi:"disruptionsAllowed"`
 	// total number of pods counted by this disruption budget
 	ExpectedPods int `pulumi:"expectedPods"`
-	// Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
+	// Most recent generation observed when updating this PDB status. PodDisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
 	ObservedGeneration *int `pulumi:"observedGeneration"`
 }
 
@@ -2264,16 +2242,6 @@ type PodDisruptionBudgetStatusInput interface {
 
 // PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
 type PodDisruptionBudgetStatusArgs struct {
-	// Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn't able to compute
-	//               the number of allowed disruptions. Therefore no disruptions are
-	//               allowed and the status of the condition will be False.
-	// - InsufficientPods: The number of pods are either at or below the number
-	//                     required by the PodDisruptionBudget. No disruptions are
-	//                     allowed and the status of the condition will be False.
-	// - SufficientPods: There are more pods than required by the PodDisruptionBudget.
-	//                   The condition will be True, and the number of allowed
-	//                   disruptions are provided by the disruptionsAllowed property.
-	Conditions metav1.ConditionArrayInput `pulumi:"conditions"`
 	// current number of healthy pods
 	CurrentHealthy pulumi.IntInput `pulumi:"currentHealthy"`
 	// minimum desired number of healthy pods
@@ -2284,7 +2252,7 @@ type PodDisruptionBudgetStatusArgs struct {
 	DisruptionsAllowed pulumi.IntInput `pulumi:"disruptionsAllowed"`
 	// total number of pods counted by this disruption budget
 	ExpectedPods pulumi.IntInput `pulumi:"expectedPods"`
-	// Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
+	// Most recent generation observed when updating this PDB status. PodDisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
 	ObservedGeneration pulumi.IntPtrInput `pulumi:"observedGeneration"`
 }
 
@@ -2366,20 +2334,6 @@ func (o PodDisruptionBudgetStatusOutput) ToPodDisruptionBudgetStatusPtrOutputWit
 	}).(PodDisruptionBudgetStatusPtrOutput)
 }
 
-// Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn't able to compute
-//
-//	the number of allowed disruptions. Therefore no disruptions are
-//	allowed and the status of the condition will be False.
-//   - InsufficientPods: The number of pods are either at or below the number
-//     required by the PodDisruptionBudget. No disruptions are
-//     allowed and the status of the condition will be False.
-//   - SufficientPods: There are more pods than required by the PodDisruptionBudget.
-//     The condition will be True, and the number of allowed
-//     disruptions are provided by the disruptionsAllowed property.
-func (o PodDisruptionBudgetStatusOutput) Conditions() metav1.ConditionArrayOutput {
-	return o.ApplyT(func(v PodDisruptionBudgetStatus) []metav1.Condition { return v.Conditions }).(metav1.ConditionArrayOutput)
-}
-
 // current number of healthy pods
 func (o PodDisruptionBudgetStatusOutput) CurrentHealthy() pulumi.IntOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetStatus) int { return v.CurrentHealthy }).(pulumi.IntOutput)
@@ -2405,7 +2359,7 @@ func (o PodDisruptionBudgetStatusOutput) ExpectedPods() pulumi.IntOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetStatus) int { return v.ExpectedPods }).(pulumi.IntOutput)
 }
 
-// Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
+// Most recent generation observed when updating this PDB status. PodDisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
 func (o PodDisruptionBudgetStatusOutput) ObservedGeneration() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetStatus) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
 }
@@ -2432,25 +2386,6 @@ func (o PodDisruptionBudgetStatusPtrOutput) Elem() PodDisruptionBudgetStatusOutp
 		var ret PodDisruptionBudgetStatus
 		return ret
 	}).(PodDisruptionBudgetStatusOutput)
-}
-
-// Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn't able to compute
-//
-//	the number of allowed disruptions. Therefore no disruptions are
-//	allowed and the status of the condition will be False.
-//   - InsufficientPods: The number of pods are either at or below the number
-//     required by the PodDisruptionBudget. No disruptions are
-//     allowed and the status of the condition will be False.
-//   - SufficientPods: There are more pods than required by the PodDisruptionBudget.
-//     The condition will be True, and the number of allowed
-//     disruptions are provided by the disruptionsAllowed property.
-func (o PodDisruptionBudgetStatusPtrOutput) Conditions() metav1.ConditionArrayOutput {
-	return o.ApplyT(func(v *PodDisruptionBudgetStatus) []metav1.Condition {
-		if v == nil {
-			return nil
-		}
-		return v.Conditions
-	}).(metav1.ConditionArrayOutput)
 }
 
 // current number of healthy pods
@@ -2503,7 +2438,7 @@ func (o PodDisruptionBudgetStatusPtrOutput) ExpectedPods() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
+// Most recent generation observed when updating this PDB status. PodDisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
 func (o PodDisruptionBudgetStatusPtrOutput) ObservedGeneration() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *PodDisruptionBudgetStatus) *int {
 		if v == nil {
@@ -2515,16 +2450,6 @@ func (o PodDisruptionBudgetStatusPtrOutput) ObservedGeneration() pulumi.IntPtrOu
 
 // PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
 type PodDisruptionBudgetStatusPatch struct {
-	// Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn't able to compute
-	//               the number of allowed disruptions. Therefore no disruptions are
-	//               allowed and the status of the condition will be False.
-	// - InsufficientPods: The number of pods are either at or below the number
-	//                     required by the PodDisruptionBudget. No disruptions are
-	//                     allowed and the status of the condition will be False.
-	// - SufficientPods: There are more pods than required by the PodDisruptionBudget.
-	//                   The condition will be True, and the number of allowed
-	//                   disruptions are provided by the disruptionsAllowed property.
-	Conditions []metav1.ConditionPatch `pulumi:"conditions"`
 	// current number of healthy pods
 	CurrentHealthy *int `pulumi:"currentHealthy"`
 	// minimum desired number of healthy pods
@@ -2535,7 +2460,7 @@ type PodDisruptionBudgetStatusPatch struct {
 	DisruptionsAllowed *int `pulumi:"disruptionsAllowed"`
 	// total number of pods counted by this disruption budget
 	ExpectedPods *int `pulumi:"expectedPods"`
-	// Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
+	// Most recent generation observed when updating this PDB status. PodDisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
 	ObservedGeneration *int `pulumi:"observedGeneration"`
 }
 
@@ -2552,16 +2477,6 @@ type PodDisruptionBudgetStatusPatchInput interface {
 
 // PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
 type PodDisruptionBudgetStatusPatchArgs struct {
-	// Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn't able to compute
-	//               the number of allowed disruptions. Therefore no disruptions are
-	//               allowed and the status of the condition will be False.
-	// - InsufficientPods: The number of pods are either at or below the number
-	//                     required by the PodDisruptionBudget. No disruptions are
-	//                     allowed and the status of the condition will be False.
-	// - SufficientPods: There are more pods than required by the PodDisruptionBudget.
-	//                   The condition will be True, and the number of allowed
-	//                   disruptions are provided by the disruptionsAllowed property.
-	Conditions metav1.ConditionPatchArrayInput `pulumi:"conditions"`
 	// current number of healthy pods
 	CurrentHealthy pulumi.IntPtrInput `pulumi:"currentHealthy"`
 	// minimum desired number of healthy pods
@@ -2572,7 +2487,7 @@ type PodDisruptionBudgetStatusPatchArgs struct {
 	DisruptionsAllowed pulumi.IntPtrInput `pulumi:"disruptionsAllowed"`
 	// total number of pods counted by this disruption budget
 	ExpectedPods pulumi.IntPtrInput `pulumi:"expectedPods"`
-	// Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
+	// Most recent generation observed when updating this PDB status. PodDisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
 	ObservedGeneration pulumi.IntPtrInput `pulumi:"observedGeneration"`
 }
 
@@ -2654,20 +2569,6 @@ func (o PodDisruptionBudgetStatusPatchOutput) ToPodDisruptionBudgetStatusPatchPt
 	}).(PodDisruptionBudgetStatusPatchPtrOutput)
 }
 
-// Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn't able to compute
-//
-//	the number of allowed disruptions. Therefore no disruptions are
-//	allowed and the status of the condition will be False.
-//   - InsufficientPods: The number of pods are either at or below the number
-//     required by the PodDisruptionBudget. No disruptions are
-//     allowed and the status of the condition will be False.
-//   - SufficientPods: There are more pods than required by the PodDisruptionBudget.
-//     The condition will be True, and the number of allowed
-//     disruptions are provided by the disruptionsAllowed property.
-func (o PodDisruptionBudgetStatusPatchOutput) Conditions() metav1.ConditionPatchArrayOutput {
-	return o.ApplyT(func(v PodDisruptionBudgetStatusPatch) []metav1.ConditionPatch { return v.Conditions }).(metav1.ConditionPatchArrayOutput)
-}
-
 // current number of healthy pods
 func (o PodDisruptionBudgetStatusPatchOutput) CurrentHealthy() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetStatusPatch) *int { return v.CurrentHealthy }).(pulumi.IntPtrOutput)
@@ -2693,7 +2594,7 @@ func (o PodDisruptionBudgetStatusPatchOutput) ExpectedPods() pulumi.IntPtrOutput
 	return o.ApplyT(func(v PodDisruptionBudgetStatusPatch) *int { return v.ExpectedPods }).(pulumi.IntPtrOutput)
 }
 
-// Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
+// Most recent generation observed when updating this PDB status. PodDisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
 func (o PodDisruptionBudgetStatusPatchOutput) ObservedGeneration() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetStatusPatch) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
 }
@@ -2720,25 +2621,6 @@ func (o PodDisruptionBudgetStatusPatchPtrOutput) Elem() PodDisruptionBudgetStatu
 		var ret PodDisruptionBudgetStatusPatch
 		return ret
 	}).(PodDisruptionBudgetStatusPatchOutput)
-}
-
-// Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn't able to compute
-//
-//	the number of allowed disruptions. Therefore no disruptions are
-//	allowed and the status of the condition will be False.
-//   - InsufficientPods: The number of pods are either at or below the number
-//     required by the PodDisruptionBudget. No disruptions are
-//     allowed and the status of the condition will be False.
-//   - SufficientPods: There are more pods than required by the PodDisruptionBudget.
-//     The condition will be True, and the number of allowed
-//     disruptions are provided by the disruptionsAllowed property.
-func (o PodDisruptionBudgetStatusPatchPtrOutput) Conditions() metav1.ConditionPatchArrayOutput {
-	return o.ApplyT(func(v *PodDisruptionBudgetStatusPatch) []metav1.ConditionPatch {
-		if v == nil {
-			return nil
-		}
-		return v.Conditions
-	}).(metav1.ConditionPatchArrayOutput)
 }
 
 // current number of healthy pods
@@ -2791,7 +2673,7 @@ func (o PodDisruptionBudgetStatusPatchPtrOutput) ExpectedPods() pulumi.IntPtrOut
 	}).(pulumi.IntPtrOutput)
 }
 
-// Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
+// Most recent generation observed when updating this PDB status. PodDisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
 func (o PodDisruptionBudgetStatusPatchPtrOutput) ObservedGeneration() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *PodDisruptionBudgetStatusPatch) *int {
 		if v == nil {
@@ -2801,7 +2683,7 @@ func (o PodDisruptionBudgetStatusPatchPtrOutput) ObservedGeneration() pulumi.Int
 	}).(pulumi.IntPtrOutput)
 }
 
-// PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container. Deprecated in 1.21.
+// PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container.
 type PodSecurityPolicyType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -2824,7 +2706,7 @@ type PodSecurityPolicyTypeInput interface {
 	ToPodSecurityPolicyTypeOutputWithContext(context.Context) PodSecurityPolicyTypeOutput
 }
 
-// PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container. Deprecated in 1.21.
+// PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container.
 type PodSecurityPolicyTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -2873,7 +2755,7 @@ func (i PodSecurityPolicyTypeArray) ToPodSecurityPolicyTypeArrayOutputWithContex
 	return pulumi.ToOutputWithContext(ctx, i).(PodSecurityPolicyTypeArrayOutput)
 }
 
-// PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container. Deprecated in 1.21.
+// PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container.
 type PodSecurityPolicyTypeOutput struct{ *pulumi.OutputState }
 
 func (PodSecurityPolicyTypeOutput) ElementType() reflect.Type {
@@ -3010,7 +2892,7 @@ func (o PodSecurityPolicyListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 	return o.ApplyT(func(v PodSecurityPolicyListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
-// PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container. Deprecated in 1.21.
+// PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container.
 type PodSecurityPolicyPatchType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -3033,7 +2915,7 @@ type PodSecurityPolicyPatchTypeInput interface {
 	ToPodSecurityPolicyPatchTypeOutputWithContext(context.Context) PodSecurityPolicyPatchTypeOutput
 }
 
-// PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container. Deprecated in 1.21.
+// PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container.
 type PodSecurityPolicyPatchTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -3057,7 +2939,7 @@ func (i PodSecurityPolicyPatchTypeArgs) ToPodSecurityPolicyPatchTypeOutputWithCo
 	return pulumi.ToOutputWithContext(ctx, i).(PodSecurityPolicyPatchTypeOutput)
 }
 
-// PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container. Deprecated in 1.21.
+// PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container.
 type PodSecurityPolicyPatchTypeOutput struct{ *pulumi.OutputState }
 
 func (PodSecurityPolicyPatchTypeOutput) ElementType() reflect.Type {
@@ -3096,17 +2978,17 @@ func (o PodSecurityPolicyPatchTypeOutput) Spec() PodSecurityPolicySpecPatchPtrOu
 type PodSecurityPolicySpec struct {
 	// allowPrivilegeEscalation determines if a pod can request to allow privilege escalation. If unspecified, defaults to true.
 	AllowPrivilegeEscalation *bool `pulumi:"allowPrivilegeEscalation"`
-	// AllowedCSIDrivers is an allowlist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is a beta field, and is only honored if the API server enables the CSIInlineVolume feature gate.
+	// AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is an alpha field, and is only honored if the API server enables the CSIInlineVolume feature gate.
 	AllowedCSIDrivers []AllowedCSIDriver `pulumi:"allowedCSIDrivers"`
 	// allowedCapabilities is a list of capabilities that can be requested to add to the container. Capabilities in this field may be added at the pod author's discretion. You must not list a capability in both allowedCapabilities and requiredDropCapabilities.
 	AllowedCapabilities []string `pulumi:"allowedCapabilities"`
-	// allowedFlexVolumes is an allowlist of Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
+	// allowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
 	AllowedFlexVolumes []AllowedFlexVolume `pulumi:"allowedFlexVolumes"`
-	// allowedHostPaths is an allowlist of host paths. Empty indicates that all host paths may be used.
+	// allowedHostPaths is a white list of allowed host paths. Empty indicates that all host paths may be used.
 	AllowedHostPaths []AllowedHostPath `pulumi:"allowedHostPaths"`
-	// AllowedProcMountTypes is an allowlist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
+	// AllowedProcMountTypes is a whitelist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
 	AllowedProcMountTypes []string `pulumi:"allowedProcMountTypes"`
-	// allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to allowlist all allowed unsafe sysctls explicitly to avoid rejection.
+	// allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to whitelist all allowed unsafe sysctls explicitly to avoid rejection.
 	//
 	// Examples: e.g. "foo/*" allows "foo/bar", "foo/baz", etc. e.g. "foo.*" allows "foo.bar", "foo.baz", etc.
 	AllowedUnsafeSysctls []string `pulumi:"allowedUnsafeSysctls"`
@@ -3144,7 +3026,7 @@ type PodSecurityPolicySpec struct {
 	SeLinux SELinuxStrategyOptions `pulumi:"seLinux"`
 	// supplementalGroups is the strategy that will dictate what supplemental groups are used by the SecurityContext.
 	SupplementalGroups SupplementalGroupsStrategyOptions `pulumi:"supplementalGroups"`
-	// volumes is an allowlist of volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
+	// volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
 	Volumes []string `pulumi:"volumes"`
 }
 
@@ -3163,17 +3045,17 @@ type PodSecurityPolicySpecInput interface {
 type PodSecurityPolicySpecArgs struct {
 	// allowPrivilegeEscalation determines if a pod can request to allow privilege escalation. If unspecified, defaults to true.
 	AllowPrivilegeEscalation pulumi.BoolPtrInput `pulumi:"allowPrivilegeEscalation"`
-	// AllowedCSIDrivers is an allowlist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is a beta field, and is only honored if the API server enables the CSIInlineVolume feature gate.
+	// AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is an alpha field, and is only honored if the API server enables the CSIInlineVolume feature gate.
 	AllowedCSIDrivers AllowedCSIDriverArrayInput `pulumi:"allowedCSIDrivers"`
 	// allowedCapabilities is a list of capabilities that can be requested to add to the container. Capabilities in this field may be added at the pod author's discretion. You must not list a capability in both allowedCapabilities and requiredDropCapabilities.
 	AllowedCapabilities pulumi.StringArrayInput `pulumi:"allowedCapabilities"`
-	// allowedFlexVolumes is an allowlist of Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
+	// allowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
 	AllowedFlexVolumes AllowedFlexVolumeArrayInput `pulumi:"allowedFlexVolumes"`
-	// allowedHostPaths is an allowlist of host paths. Empty indicates that all host paths may be used.
+	// allowedHostPaths is a white list of allowed host paths. Empty indicates that all host paths may be used.
 	AllowedHostPaths AllowedHostPathArrayInput `pulumi:"allowedHostPaths"`
-	// AllowedProcMountTypes is an allowlist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
+	// AllowedProcMountTypes is a whitelist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
 	AllowedProcMountTypes pulumi.StringArrayInput `pulumi:"allowedProcMountTypes"`
-	// allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to allowlist all allowed unsafe sysctls explicitly to avoid rejection.
+	// allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to whitelist all allowed unsafe sysctls explicitly to avoid rejection.
 	//
 	// Examples: e.g. "foo/*" allows "foo/bar", "foo/baz", etc. e.g. "foo.*" allows "foo.bar", "foo.baz", etc.
 	AllowedUnsafeSysctls pulumi.StringArrayInput `pulumi:"allowedUnsafeSysctls"`
@@ -3211,7 +3093,7 @@ type PodSecurityPolicySpecArgs struct {
 	SeLinux SELinuxStrategyOptionsInput `pulumi:"seLinux"`
 	// supplementalGroups is the strategy that will dictate what supplemental groups are used by the SecurityContext.
 	SupplementalGroups SupplementalGroupsStrategyOptionsInput `pulumi:"supplementalGroups"`
-	// volumes is an allowlist of volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
+	// volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
 	Volumes pulumi.StringArrayInput `pulumi:"volumes"`
 }
 
@@ -3298,7 +3180,7 @@ func (o PodSecurityPolicySpecOutput) AllowPrivilegeEscalation() pulumi.BoolPtrOu
 	return o.ApplyT(func(v PodSecurityPolicySpec) *bool { return v.AllowPrivilegeEscalation }).(pulumi.BoolPtrOutput)
 }
 
-// AllowedCSIDrivers is an allowlist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is a beta field, and is only honored if the API server enables the CSIInlineVolume feature gate.
+// AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is an alpha field, and is only honored if the API server enables the CSIInlineVolume feature gate.
 func (o PodSecurityPolicySpecOutput) AllowedCSIDrivers() AllowedCSIDriverArrayOutput {
 	return o.ApplyT(func(v PodSecurityPolicySpec) []AllowedCSIDriver { return v.AllowedCSIDrivers }).(AllowedCSIDriverArrayOutput)
 }
@@ -3308,22 +3190,22 @@ func (o PodSecurityPolicySpecOutput) AllowedCapabilities() pulumi.StringArrayOut
 	return o.ApplyT(func(v PodSecurityPolicySpec) []string { return v.AllowedCapabilities }).(pulumi.StringArrayOutput)
 }
 
-// allowedFlexVolumes is an allowlist of Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
+// allowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
 func (o PodSecurityPolicySpecOutput) AllowedFlexVolumes() AllowedFlexVolumeArrayOutput {
 	return o.ApplyT(func(v PodSecurityPolicySpec) []AllowedFlexVolume { return v.AllowedFlexVolumes }).(AllowedFlexVolumeArrayOutput)
 }
 
-// allowedHostPaths is an allowlist of host paths. Empty indicates that all host paths may be used.
+// allowedHostPaths is a white list of allowed host paths. Empty indicates that all host paths may be used.
 func (o PodSecurityPolicySpecOutput) AllowedHostPaths() AllowedHostPathArrayOutput {
 	return o.ApplyT(func(v PodSecurityPolicySpec) []AllowedHostPath { return v.AllowedHostPaths }).(AllowedHostPathArrayOutput)
 }
 
-// AllowedProcMountTypes is an allowlist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
+// AllowedProcMountTypes is a whitelist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
 func (o PodSecurityPolicySpecOutput) AllowedProcMountTypes() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v PodSecurityPolicySpec) []string { return v.AllowedProcMountTypes }).(pulumi.StringArrayOutput)
 }
 
-// allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to allowlist all allowed unsafe sysctls explicitly to avoid rejection.
+// allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to whitelist all allowed unsafe sysctls explicitly to avoid rejection.
 //
 // Examples: e.g. "foo/*" allows "foo/bar", "foo/baz", etc. e.g. "foo.*" allows "foo.bar", "foo.baz", etc.
 func (o PodSecurityPolicySpecOutput) AllowedUnsafeSysctls() pulumi.StringArrayOutput {
@@ -3412,7 +3294,7 @@ func (o PodSecurityPolicySpecOutput) SupplementalGroups() SupplementalGroupsStra
 	return o.ApplyT(func(v PodSecurityPolicySpec) SupplementalGroupsStrategyOptions { return v.SupplementalGroups }).(SupplementalGroupsStrategyOptionsOutput)
 }
 
-// volumes is an allowlist of volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
+// volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
 func (o PodSecurityPolicySpecOutput) Volumes() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v PodSecurityPolicySpec) []string { return v.Volumes }).(pulumi.StringArrayOutput)
 }
@@ -3451,7 +3333,7 @@ func (o PodSecurityPolicySpecPtrOutput) AllowPrivilegeEscalation() pulumi.BoolPt
 	}).(pulumi.BoolPtrOutput)
 }
 
-// AllowedCSIDrivers is an allowlist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is a beta field, and is only honored if the API server enables the CSIInlineVolume feature gate.
+// AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is an alpha field, and is only honored if the API server enables the CSIInlineVolume feature gate.
 func (o PodSecurityPolicySpecPtrOutput) AllowedCSIDrivers() AllowedCSIDriverArrayOutput {
 	return o.ApplyT(func(v *PodSecurityPolicySpec) []AllowedCSIDriver {
 		if v == nil {
@@ -3471,7 +3353,7 @@ func (o PodSecurityPolicySpecPtrOutput) AllowedCapabilities() pulumi.StringArray
 	}).(pulumi.StringArrayOutput)
 }
 
-// allowedFlexVolumes is an allowlist of Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
+// allowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
 func (o PodSecurityPolicySpecPtrOutput) AllowedFlexVolumes() AllowedFlexVolumeArrayOutput {
 	return o.ApplyT(func(v *PodSecurityPolicySpec) []AllowedFlexVolume {
 		if v == nil {
@@ -3481,7 +3363,7 @@ func (o PodSecurityPolicySpecPtrOutput) AllowedFlexVolumes() AllowedFlexVolumeAr
 	}).(AllowedFlexVolumeArrayOutput)
 }
 
-// allowedHostPaths is an allowlist of host paths. Empty indicates that all host paths may be used.
+// allowedHostPaths is a white list of allowed host paths. Empty indicates that all host paths may be used.
 func (o PodSecurityPolicySpecPtrOutput) AllowedHostPaths() AllowedHostPathArrayOutput {
 	return o.ApplyT(func(v *PodSecurityPolicySpec) []AllowedHostPath {
 		if v == nil {
@@ -3491,7 +3373,7 @@ func (o PodSecurityPolicySpecPtrOutput) AllowedHostPaths() AllowedHostPathArrayO
 	}).(AllowedHostPathArrayOutput)
 }
 
-// AllowedProcMountTypes is an allowlist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
+// AllowedProcMountTypes is a whitelist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
 func (o PodSecurityPolicySpecPtrOutput) AllowedProcMountTypes() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *PodSecurityPolicySpec) []string {
 		if v == nil {
@@ -3501,7 +3383,7 @@ func (o PodSecurityPolicySpecPtrOutput) AllowedProcMountTypes() pulumi.StringArr
 	}).(pulumi.StringArrayOutput)
 }
 
-// allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to allowlist all allowed unsafe sysctls explicitly to avoid rejection.
+// allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to whitelist all allowed unsafe sysctls explicitly to avoid rejection.
 //
 // Examples: e.g. "foo/*" allows "foo/bar", "foo/baz", etc. e.g. "foo.*" allows "foo.bar", "foo.baz", etc.
 func (o PodSecurityPolicySpecPtrOutput) AllowedUnsafeSysctls() pulumi.StringArrayOutput {
@@ -3675,7 +3557,7 @@ func (o PodSecurityPolicySpecPtrOutput) SupplementalGroups() SupplementalGroupsS
 	}).(SupplementalGroupsStrategyOptionsPtrOutput)
 }
 
-// volumes is an allowlist of volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
+// volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
 func (o PodSecurityPolicySpecPtrOutput) Volumes() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *PodSecurityPolicySpec) []string {
 		if v == nil {
@@ -3689,17 +3571,17 @@ func (o PodSecurityPolicySpecPtrOutput) Volumes() pulumi.StringArrayOutput {
 type PodSecurityPolicySpecPatch struct {
 	// allowPrivilegeEscalation determines if a pod can request to allow privilege escalation. If unspecified, defaults to true.
 	AllowPrivilegeEscalation *bool `pulumi:"allowPrivilegeEscalation"`
-	// AllowedCSIDrivers is an allowlist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is a beta field, and is only honored if the API server enables the CSIInlineVolume feature gate.
+	// AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is an alpha field, and is only honored if the API server enables the CSIInlineVolume feature gate.
 	AllowedCSIDrivers []AllowedCSIDriverPatch `pulumi:"allowedCSIDrivers"`
 	// allowedCapabilities is a list of capabilities that can be requested to add to the container. Capabilities in this field may be added at the pod author's discretion. You must not list a capability in both allowedCapabilities and requiredDropCapabilities.
 	AllowedCapabilities []string `pulumi:"allowedCapabilities"`
-	// allowedFlexVolumes is an allowlist of Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
+	// allowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
 	AllowedFlexVolumes []AllowedFlexVolumePatch `pulumi:"allowedFlexVolumes"`
-	// allowedHostPaths is an allowlist of host paths. Empty indicates that all host paths may be used.
+	// allowedHostPaths is a white list of allowed host paths. Empty indicates that all host paths may be used.
 	AllowedHostPaths []AllowedHostPathPatch `pulumi:"allowedHostPaths"`
-	// AllowedProcMountTypes is an allowlist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
+	// AllowedProcMountTypes is a whitelist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
 	AllowedProcMountTypes []string `pulumi:"allowedProcMountTypes"`
-	// allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to allowlist all allowed unsafe sysctls explicitly to avoid rejection.
+	// allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to whitelist all allowed unsafe sysctls explicitly to avoid rejection.
 	//
 	// Examples: e.g. "foo/*" allows "foo/bar", "foo/baz", etc. e.g. "foo.*" allows "foo.bar", "foo.baz", etc.
 	AllowedUnsafeSysctls []string `pulumi:"allowedUnsafeSysctls"`
@@ -3737,7 +3619,7 @@ type PodSecurityPolicySpecPatch struct {
 	SeLinux *SELinuxStrategyOptionsPatch `pulumi:"seLinux"`
 	// supplementalGroups is the strategy that will dictate what supplemental groups are used by the SecurityContext.
 	SupplementalGroups *SupplementalGroupsStrategyOptionsPatch `pulumi:"supplementalGroups"`
-	// volumes is an allowlist of volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
+	// volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
 	Volumes []string `pulumi:"volumes"`
 }
 
@@ -3756,17 +3638,17 @@ type PodSecurityPolicySpecPatchInput interface {
 type PodSecurityPolicySpecPatchArgs struct {
 	// allowPrivilegeEscalation determines if a pod can request to allow privilege escalation. If unspecified, defaults to true.
 	AllowPrivilegeEscalation pulumi.BoolPtrInput `pulumi:"allowPrivilegeEscalation"`
-	// AllowedCSIDrivers is an allowlist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is a beta field, and is only honored if the API server enables the CSIInlineVolume feature gate.
+	// AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is an alpha field, and is only honored if the API server enables the CSIInlineVolume feature gate.
 	AllowedCSIDrivers AllowedCSIDriverPatchArrayInput `pulumi:"allowedCSIDrivers"`
 	// allowedCapabilities is a list of capabilities that can be requested to add to the container. Capabilities in this field may be added at the pod author's discretion. You must not list a capability in both allowedCapabilities and requiredDropCapabilities.
 	AllowedCapabilities pulumi.StringArrayInput `pulumi:"allowedCapabilities"`
-	// allowedFlexVolumes is an allowlist of Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
+	// allowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
 	AllowedFlexVolumes AllowedFlexVolumePatchArrayInput `pulumi:"allowedFlexVolumes"`
-	// allowedHostPaths is an allowlist of host paths. Empty indicates that all host paths may be used.
+	// allowedHostPaths is a white list of allowed host paths. Empty indicates that all host paths may be used.
 	AllowedHostPaths AllowedHostPathPatchArrayInput `pulumi:"allowedHostPaths"`
-	// AllowedProcMountTypes is an allowlist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
+	// AllowedProcMountTypes is a whitelist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
 	AllowedProcMountTypes pulumi.StringArrayInput `pulumi:"allowedProcMountTypes"`
-	// allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to allowlist all allowed unsafe sysctls explicitly to avoid rejection.
+	// allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to whitelist all allowed unsafe sysctls explicitly to avoid rejection.
 	//
 	// Examples: e.g. "foo/*" allows "foo/bar", "foo/baz", etc. e.g. "foo.*" allows "foo.bar", "foo.baz", etc.
 	AllowedUnsafeSysctls pulumi.StringArrayInput `pulumi:"allowedUnsafeSysctls"`
@@ -3804,7 +3686,7 @@ type PodSecurityPolicySpecPatchArgs struct {
 	SeLinux SELinuxStrategyOptionsPatchPtrInput `pulumi:"seLinux"`
 	// supplementalGroups is the strategy that will dictate what supplemental groups are used by the SecurityContext.
 	SupplementalGroups SupplementalGroupsStrategyOptionsPatchPtrInput `pulumi:"supplementalGroups"`
-	// volumes is an allowlist of volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
+	// volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
 	Volumes pulumi.StringArrayInput `pulumi:"volumes"`
 }
 
@@ -3891,7 +3773,7 @@ func (o PodSecurityPolicySpecPatchOutput) AllowPrivilegeEscalation() pulumi.Bool
 	return o.ApplyT(func(v PodSecurityPolicySpecPatch) *bool { return v.AllowPrivilegeEscalation }).(pulumi.BoolPtrOutput)
 }
 
-// AllowedCSIDrivers is an allowlist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is a beta field, and is only honored if the API server enables the CSIInlineVolume feature gate.
+// AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is an alpha field, and is only honored if the API server enables the CSIInlineVolume feature gate.
 func (o PodSecurityPolicySpecPatchOutput) AllowedCSIDrivers() AllowedCSIDriverPatchArrayOutput {
 	return o.ApplyT(func(v PodSecurityPolicySpecPatch) []AllowedCSIDriverPatch { return v.AllowedCSIDrivers }).(AllowedCSIDriverPatchArrayOutput)
 }
@@ -3901,22 +3783,22 @@ func (o PodSecurityPolicySpecPatchOutput) AllowedCapabilities() pulumi.StringArr
 	return o.ApplyT(func(v PodSecurityPolicySpecPatch) []string { return v.AllowedCapabilities }).(pulumi.StringArrayOutput)
 }
 
-// allowedFlexVolumes is an allowlist of Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
+// allowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
 func (o PodSecurityPolicySpecPatchOutput) AllowedFlexVolumes() AllowedFlexVolumePatchArrayOutput {
 	return o.ApplyT(func(v PodSecurityPolicySpecPatch) []AllowedFlexVolumePatch { return v.AllowedFlexVolumes }).(AllowedFlexVolumePatchArrayOutput)
 }
 
-// allowedHostPaths is an allowlist of host paths. Empty indicates that all host paths may be used.
+// allowedHostPaths is a white list of allowed host paths. Empty indicates that all host paths may be used.
 func (o PodSecurityPolicySpecPatchOutput) AllowedHostPaths() AllowedHostPathPatchArrayOutput {
 	return o.ApplyT(func(v PodSecurityPolicySpecPatch) []AllowedHostPathPatch { return v.AllowedHostPaths }).(AllowedHostPathPatchArrayOutput)
 }
 
-// AllowedProcMountTypes is an allowlist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
+// AllowedProcMountTypes is a whitelist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
 func (o PodSecurityPolicySpecPatchOutput) AllowedProcMountTypes() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v PodSecurityPolicySpecPatch) []string { return v.AllowedProcMountTypes }).(pulumi.StringArrayOutput)
 }
 
-// allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to allowlist all allowed unsafe sysctls explicitly to avoid rejection.
+// allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to whitelist all allowed unsafe sysctls explicitly to avoid rejection.
 //
 // Examples: e.g. "foo/*" allows "foo/bar", "foo/baz", etc. e.g. "foo.*" allows "foo.bar", "foo.baz", etc.
 func (o PodSecurityPolicySpecPatchOutput) AllowedUnsafeSysctls() pulumi.StringArrayOutput {
@@ -4007,7 +3889,7 @@ func (o PodSecurityPolicySpecPatchOutput) SupplementalGroups() SupplementalGroup
 	}).(SupplementalGroupsStrategyOptionsPatchPtrOutput)
 }
 
-// volumes is an allowlist of volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
+// volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
 func (o PodSecurityPolicySpecPatchOutput) Volumes() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v PodSecurityPolicySpecPatch) []string { return v.Volumes }).(pulumi.StringArrayOutput)
 }
@@ -4046,7 +3928,7 @@ func (o PodSecurityPolicySpecPatchPtrOutput) AllowPrivilegeEscalation() pulumi.B
 	}).(pulumi.BoolPtrOutput)
 }
 
-// AllowedCSIDrivers is an allowlist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is a beta field, and is only honored if the API server enables the CSIInlineVolume feature gate.
+// AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is an alpha field, and is only honored if the API server enables the CSIInlineVolume feature gate.
 func (o PodSecurityPolicySpecPatchPtrOutput) AllowedCSIDrivers() AllowedCSIDriverPatchArrayOutput {
 	return o.ApplyT(func(v *PodSecurityPolicySpecPatch) []AllowedCSIDriverPatch {
 		if v == nil {
@@ -4066,7 +3948,7 @@ func (o PodSecurityPolicySpecPatchPtrOutput) AllowedCapabilities() pulumi.String
 	}).(pulumi.StringArrayOutput)
 }
 
-// allowedFlexVolumes is an allowlist of Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
+// allowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
 func (o PodSecurityPolicySpecPatchPtrOutput) AllowedFlexVolumes() AllowedFlexVolumePatchArrayOutput {
 	return o.ApplyT(func(v *PodSecurityPolicySpecPatch) []AllowedFlexVolumePatch {
 		if v == nil {
@@ -4076,7 +3958,7 @@ func (o PodSecurityPolicySpecPatchPtrOutput) AllowedFlexVolumes() AllowedFlexVol
 	}).(AllowedFlexVolumePatchArrayOutput)
 }
 
-// allowedHostPaths is an allowlist of host paths. Empty indicates that all host paths may be used.
+// allowedHostPaths is a white list of allowed host paths. Empty indicates that all host paths may be used.
 func (o PodSecurityPolicySpecPatchPtrOutput) AllowedHostPaths() AllowedHostPathPatchArrayOutput {
 	return o.ApplyT(func(v *PodSecurityPolicySpecPatch) []AllowedHostPathPatch {
 		if v == nil {
@@ -4086,7 +3968,7 @@ func (o PodSecurityPolicySpecPatchPtrOutput) AllowedHostPaths() AllowedHostPathP
 	}).(AllowedHostPathPatchArrayOutput)
 }
 
-// AllowedProcMountTypes is an allowlist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
+// AllowedProcMountTypes is a whitelist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
 func (o PodSecurityPolicySpecPatchPtrOutput) AllowedProcMountTypes() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *PodSecurityPolicySpecPatch) []string {
 		if v == nil {
@@ -4096,7 +3978,7 @@ func (o PodSecurityPolicySpecPatchPtrOutput) AllowedProcMountTypes() pulumi.Stri
 	}).(pulumi.StringArrayOutput)
 }
 
-// allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to allowlist all allowed unsafe sysctls explicitly to avoid rejection.
+// allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to whitelist all allowed unsafe sysctls explicitly to avoid rejection.
 //
 // Examples: e.g. "foo/*" allows "foo/bar", "foo/baz", etc. e.g. "foo.*" allows "foo.bar", "foo.baz", etc.
 func (o PodSecurityPolicySpecPatchPtrOutput) AllowedUnsafeSysctls() pulumi.StringArrayOutput {
@@ -4270,7 +4152,7 @@ func (o PodSecurityPolicySpecPatchPtrOutput) SupplementalGroups() SupplementalGr
 	}).(SupplementalGroupsStrategyOptionsPatchPtrOutput)
 }
 
-// volumes is an allowlist of volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
+// volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
 func (o PodSecurityPolicySpecPatchPtrOutput) Volumes() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *PodSecurityPolicySpecPatch) []string {
 		if v == nil {
@@ -4918,7 +4800,7 @@ func (o RunAsUserStrategyOptionsPatchPtrOutput) Rule() pulumi.StringPtrOutput {
 
 // RuntimeClassStrategyOptions define the strategy that will dictate the allowable RuntimeClasses for a pod.
 type RuntimeClassStrategyOptions struct {
-	// allowedRuntimeClassNames is an allowlist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
+	// allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
 	AllowedRuntimeClassNames []string `pulumi:"allowedRuntimeClassNames"`
 	// defaultRuntimeClassName is the default RuntimeClassName to set on the pod. The default MUST be allowed by the allowedRuntimeClassNames list. A value of nil does not mutate the Pod.
 	DefaultRuntimeClassName *string `pulumi:"defaultRuntimeClassName"`
@@ -4937,7 +4819,7 @@ type RuntimeClassStrategyOptionsInput interface {
 
 // RuntimeClassStrategyOptions define the strategy that will dictate the allowable RuntimeClasses for a pod.
 type RuntimeClassStrategyOptionsArgs struct {
-	// allowedRuntimeClassNames is an allowlist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
+	// allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
 	AllowedRuntimeClassNames pulumi.StringArrayInput `pulumi:"allowedRuntimeClassNames"`
 	// defaultRuntimeClassName is the default RuntimeClassName to set on the pod. The default MUST be allowed by the allowedRuntimeClassNames list. A value of nil does not mutate the Pod.
 	DefaultRuntimeClassName pulumi.StringPtrInput `pulumi:"defaultRuntimeClassName"`
@@ -5021,7 +4903,7 @@ func (o RuntimeClassStrategyOptionsOutput) ToRuntimeClassStrategyOptionsPtrOutpu
 	}).(RuntimeClassStrategyOptionsPtrOutput)
 }
 
-// allowedRuntimeClassNames is an allowlist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
+// allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
 func (o RuntimeClassStrategyOptionsOutput) AllowedRuntimeClassNames() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v RuntimeClassStrategyOptions) []string { return v.AllowedRuntimeClassNames }).(pulumi.StringArrayOutput)
 }
@@ -5055,7 +4937,7 @@ func (o RuntimeClassStrategyOptionsPtrOutput) Elem() RuntimeClassStrategyOptions
 	}).(RuntimeClassStrategyOptionsOutput)
 }
 
-// allowedRuntimeClassNames is an allowlist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
+// allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
 func (o RuntimeClassStrategyOptionsPtrOutput) AllowedRuntimeClassNames() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *RuntimeClassStrategyOptions) []string {
 		if v == nil {
@@ -5077,7 +4959,7 @@ func (o RuntimeClassStrategyOptionsPtrOutput) DefaultRuntimeClassName() pulumi.S
 
 // RuntimeClassStrategyOptions define the strategy that will dictate the allowable RuntimeClasses for a pod.
 type RuntimeClassStrategyOptionsPatch struct {
-	// allowedRuntimeClassNames is an allowlist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
+	// allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
 	AllowedRuntimeClassNames []string `pulumi:"allowedRuntimeClassNames"`
 	// defaultRuntimeClassName is the default RuntimeClassName to set on the pod. The default MUST be allowed by the allowedRuntimeClassNames list. A value of nil does not mutate the Pod.
 	DefaultRuntimeClassName *string `pulumi:"defaultRuntimeClassName"`
@@ -5096,7 +4978,7 @@ type RuntimeClassStrategyOptionsPatchInput interface {
 
 // RuntimeClassStrategyOptions define the strategy that will dictate the allowable RuntimeClasses for a pod.
 type RuntimeClassStrategyOptionsPatchArgs struct {
-	// allowedRuntimeClassNames is an allowlist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
+	// allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
 	AllowedRuntimeClassNames pulumi.StringArrayInput `pulumi:"allowedRuntimeClassNames"`
 	// defaultRuntimeClassName is the default RuntimeClassName to set on the pod. The default MUST be allowed by the allowedRuntimeClassNames list. A value of nil does not mutate the Pod.
 	DefaultRuntimeClassName pulumi.StringPtrInput `pulumi:"defaultRuntimeClassName"`
@@ -5180,7 +5062,7 @@ func (o RuntimeClassStrategyOptionsPatchOutput) ToRuntimeClassStrategyOptionsPat
 	}).(RuntimeClassStrategyOptionsPatchPtrOutput)
 }
 
-// allowedRuntimeClassNames is an allowlist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
+// allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
 func (o RuntimeClassStrategyOptionsPatchOutput) AllowedRuntimeClassNames() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v RuntimeClassStrategyOptionsPatch) []string { return v.AllowedRuntimeClassNames }).(pulumi.StringArrayOutput)
 }
@@ -5214,7 +5096,7 @@ func (o RuntimeClassStrategyOptionsPatchPtrOutput) Elem() RuntimeClassStrategyOp
 	}).(RuntimeClassStrategyOptionsPatchOutput)
 }
 
-// allowedRuntimeClassNames is an allowlist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
+// allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
 func (o RuntimeClassStrategyOptionsPatchPtrOutput) AllowedRuntimeClassNames() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *RuntimeClassStrategyOptionsPatch) []string {
 		if v == nil {

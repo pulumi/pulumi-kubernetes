@@ -1,5 +1,20 @@
 ## Unreleased
 
+## 3.21.0 (August 23, 2022)
+
+- Update Kubernetes support to Kubernetes v1.25.0 (https://github.com/pulumi/pulumi-kubernetes/pull/2129)
+
+Breaking change note --
+Kubernetes v1.25 dropped a few alpha and beta fields from the API, so the following fields are no longer available in
+the provider SDKs:
+
+* Type "kubernetes:batch/v1beta1:CronJobSpec" dropped property "timeZone"
+* Type "kubernetes:batch/v1beta1:CronJobStatus" dropped property "lastSuccessfulTime"
+* Type "kubernetes:discovery.k8s.io/v1beta1:ForZone" was dropped
+* Type "kubernetes:discovery.k8s.io/v1beta1:Endpoint" dropped property "hints"
+* Type "kubernetes:discovery.k8s.io/v1beta1:EndpointHints" dropped
+* Type "kubernetes:policy/v1beta1:PodDisruptionBudgetStatus" dropped property "conditions"
+
 ## 3.20.5 (August 16, 2022)
 
 - Update autonaming to use NewUniqueName for deterministic update plans. (https://github.com/pulumi/pulumi-kubernetes/pull/2137)

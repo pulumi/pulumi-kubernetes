@@ -21,14 +21,14 @@ public final class RuntimeClassStrategyOptionsArgs extends com.pulumi.resources.
     public static final RuntimeClassStrategyOptionsArgs Empty = new RuntimeClassStrategyOptionsArgs();
 
     /**
-     * allowedRuntimeClassNames is an allowlist of RuntimeClass names that may be specified on a pod. A value of &#34;*&#34; means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
+     * allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of &#34;*&#34; means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
      * 
      */
     @Import(name="allowedRuntimeClassNames", required=true)
     private Output<List<String>> allowedRuntimeClassNames;
 
     /**
-     * @return allowedRuntimeClassNames is an allowlist of RuntimeClass names that may be specified on a pod. A value of &#34;*&#34; means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
+     * @return allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of &#34;*&#34; means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
      * 
      */
     public Output<List<String>> allowedRuntimeClassNames() {
@@ -76,7 +76,7 @@ public final class RuntimeClassStrategyOptionsArgs extends com.pulumi.resources.
         }
 
         /**
-         * @param allowedRuntimeClassNames allowedRuntimeClassNames is an allowlist of RuntimeClass names that may be specified on a pod. A value of &#34;*&#34; means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
+         * @param allowedRuntimeClassNames allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of &#34;*&#34; means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
          * 
          * @return builder
          * 
@@ -87,7 +87,7 @@ public final class RuntimeClassStrategyOptionsArgs extends com.pulumi.resources.
         }
 
         /**
-         * @param allowedRuntimeClassNames allowedRuntimeClassNames is an allowlist of RuntimeClass names that may be specified on a pod. A value of &#34;*&#34; means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
+         * @param allowedRuntimeClassNames allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of &#34;*&#34; means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
          * 
          * @return builder
          * 
@@ -97,7 +97,7 @@ public final class RuntimeClassStrategyOptionsArgs extends com.pulumi.resources.
         }
 
         /**
-         * @param allowedRuntimeClassNames allowedRuntimeClassNames is an allowlist of RuntimeClass names that may be specified on a pod. A value of &#34;*&#34; means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
+         * @param allowedRuntimeClassNames allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of &#34;*&#34; means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
          * 
          * @return builder
          * 

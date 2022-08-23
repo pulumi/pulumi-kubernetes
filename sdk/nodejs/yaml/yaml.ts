@@ -360,6 +360,10 @@ export abstract class CollectionComponentResource extends pulumi.ComponentResour
     public getResource(groupVersionKind: "networking.k8s.io/v1/NetworkPolicy", namespace: string, name: string): pulumi.Output<networking.v1.NetworkPolicy>;
     public getResource(groupVersionKind: "networking.k8s.io/v1/NetworkPolicyList", name: string): pulumi.Output<networking.v1.NetworkPolicyList>;
     public getResource(groupVersionKind: "networking.k8s.io/v1/NetworkPolicyList", namespace: string, name: string): pulumi.Output<networking.v1.NetworkPolicyList>;
+    public getResource(groupVersionKind: "networking.k8s.io/v1alpha1/ClusterCIDR", name: string): pulumi.Output<networking.v1alpha1.ClusterCIDR>;
+    public getResource(groupVersionKind: "networking.k8s.io/v1alpha1/ClusterCIDR", namespace: string, name: string): pulumi.Output<networking.v1alpha1.ClusterCIDR>;
+    public getResource(groupVersionKind: "networking.k8s.io/v1alpha1/ClusterCIDRList", name: string): pulumi.Output<networking.v1alpha1.ClusterCIDRList>;
+    public getResource(groupVersionKind: "networking.k8s.io/v1alpha1/ClusterCIDRList", namespace: string, name: string): pulumi.Output<networking.v1alpha1.ClusterCIDRList>;
     public getResource(groupVersionKind: "networking.k8s.io/v1beta1/Ingress", name: string): pulumi.Output<networking.v1beta1.Ingress>;
     public getResource(groupVersionKind: "networking.k8s.io/v1beta1/Ingress", namespace: string, name: string): pulumi.Output<networking.v1beta1.Ingress>;
     public getResource(groupVersionKind: "networking.k8s.io/v1beta1/IngressClass", name: string): pulumi.Output<networking.v1beta1.IngressClass>;
@@ -1926,6 +1930,22 @@ export abstract class CollectionComponentResource extends pulumi.ComponentResour
     public getResourceProperty(groupVersionKind: "networking.k8s.io/v1/NetworkPolicyList", namespace: string, name: string, property: "kind"): pulumi.Output<"NetworkPolicyList">;
     public getResourceProperty(groupVersionKind: "networking.k8s.io/v1/NetworkPolicyList", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
     public getResourceProperty(groupVersionKind: "networking.k8s.io/v1/NetworkPolicyList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
+    public getResourceProperty(groupVersionKind: "networking.k8s.io/v1alpha1/ClusterCIDR", name: string, property: "apiVersion"): pulumi.Output<"networking.k8s.io/v1alpha1">;
+    public getResourceProperty(groupVersionKind: "networking.k8s.io/v1alpha1/ClusterCIDR", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"networking.k8s.io/v1alpha1">;
+    public getResourceProperty(groupVersionKind: "networking.k8s.io/v1alpha1/ClusterCIDR", name: string, property: "kind"): pulumi.Output<"ClusterCIDR">;
+    public getResourceProperty(groupVersionKind: "networking.k8s.io/v1alpha1/ClusterCIDR", namespace: string, name: string, property: "kind"): pulumi.Output<"ClusterCIDR">;
+    public getResourceProperty(groupVersionKind: "networking.k8s.io/v1alpha1/ClusterCIDR", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
+    public getResourceProperty(groupVersionKind: "networking.k8s.io/v1alpha1/ClusterCIDR", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
+    public getResourceProperty(groupVersionKind: "networking.k8s.io/v1alpha1/ClusterCIDR", name: string, property: "spec"): pulumi.Output<outputs.networking.v1alpha1.ClusterCIDRSpec>;
+    public getResourceProperty(groupVersionKind: "networking.k8s.io/v1alpha1/ClusterCIDR", namespace: string, name: string, property: "spec"): pulumi.Output<outputs.networking.v1alpha1.ClusterCIDRSpec>;
+    public getResourceProperty(groupVersionKind: "networking.k8s.io/v1alpha1/ClusterCIDRList", name: string, property: "apiVersion"): pulumi.Output<"networking.k8s.io/v1alpha1">;
+    public getResourceProperty(groupVersionKind: "networking.k8s.io/v1alpha1/ClusterCIDRList", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"networking.k8s.io/v1alpha1">;
+    public getResourceProperty(groupVersionKind: "networking.k8s.io/v1alpha1/ClusterCIDRList", name: string, property: "items"): pulumi.Output<outputs.networking.v1alpha1.ClusterCIDR[]>;
+    public getResourceProperty(groupVersionKind: "networking.k8s.io/v1alpha1/ClusterCIDRList", namespace: string, name: string, property: "items"): pulumi.Output<outputs.networking.v1alpha1.ClusterCIDR[]>;
+    public getResourceProperty(groupVersionKind: "networking.k8s.io/v1alpha1/ClusterCIDRList", name: string, property: "kind"): pulumi.Output<"ClusterCIDRList">;
+    public getResourceProperty(groupVersionKind: "networking.k8s.io/v1alpha1/ClusterCIDRList", namespace: string, name: string, property: "kind"): pulumi.Output<"ClusterCIDRList">;
+    public getResourceProperty(groupVersionKind: "networking.k8s.io/v1alpha1/ClusterCIDRList", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
+    public getResourceProperty(groupVersionKind: "networking.k8s.io/v1alpha1/ClusterCIDRList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
     public getResourceProperty(groupVersionKind: "networking.k8s.io/v1beta1/Ingress", name: string, property: "apiVersion"): pulumi.Output<"networking.k8s.io/v1beta1">;
     public getResourceProperty(groupVersionKind: "networking.k8s.io/v1beta1/Ingress", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"networking.k8s.io/v1beta1">;
     public getResourceProperty(groupVersionKind: "networking.k8s.io/v1beta1/Ingress", name: string, property: "kind"): pulumi.Output<"Ingress">;
@@ -3105,6 +3125,7 @@ export interface ConfigOpts {
         || (gvk === "networking.k8s.io/v1/IngressClassList")
         || (gvk === "networking.k8s.io/v1/IngressList")
         || (gvk === "networking.k8s.io/v1/NetworkPolicyList")
+        || (gvk === "networking.k8s.io/v1alpha1/ClusterCIDRList")
         || (gvk === "networking.k8s.io/v1beta1/IngressClassList")
         || (gvk === "networking.k8s.io/v1beta1/IngressList")
         || (gvk === "node.k8s.io/v1/RuntimeClassList")
@@ -3567,6 +3588,11 @@ export interface ConfigOpts {
             return [id.apply(id => ({
                 name: `networking.k8s.io/v1/NetworkPolicy::${id}`,
                 resource: new networking.v1.NetworkPolicy(id, obj, opts),
+            }))];
+        case "networking.k8s.io/v1alpha1/ClusterCIDR":
+            return [id.apply(id => ({
+                name: `networking.k8s.io/v1alpha1/ClusterCIDR::${id}`,
+                resource: new networking.v1alpha1.ClusterCIDR(id, obj, opts),
             }))];
         case "networking.k8s.io/v1beta1/Ingress":
             return [id.apply(id => ({

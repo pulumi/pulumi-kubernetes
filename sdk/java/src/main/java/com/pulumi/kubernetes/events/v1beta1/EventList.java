@@ -37,14 +37,14 @@ public class EventList extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.apiVersion);
     }
     /**
-     * items is a list of schema objects.
+     * Items is a list of schema objects.
      * 
      */
     @Export(name="items", type=List.class, parameters={Event.class})
     private Output<List<Event>> items;
 
     /**
-     * @return items is a list of schema objects.
+     * @return Items is a list of schema objects.
      * 
      */
     public Output<List<Event>> items() {

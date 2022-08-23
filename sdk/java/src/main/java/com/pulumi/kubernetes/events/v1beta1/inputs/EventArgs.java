@@ -18,7 +18,7 @@ import javax.annotation.Nullable;
 
 
 /**
- * Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system. Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.
+ * Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.
  * 
  */
 public final class EventArgs extends com.pulumi.resources.ResourceArgs {
@@ -26,14 +26,14 @@ public final class EventArgs extends com.pulumi.resources.ResourceArgs {
     public static final EventArgs Empty = new EventArgs();
 
     /**
-     * action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
+     * What action was taken/failed regarding to the regarding object.
      * 
      */
     @Import(name="action")
     private @Nullable Output<String> action;
 
     /**
-     * @return action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
+     * @return What action was taken/failed regarding to the regarding object.
      * 
      */
     public Optional<Output<String>> action() {
@@ -56,14 +56,14 @@ public final class EventArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * deprecatedCount is the deprecated field assuring backward compatibility with core.v1 Event type.
+     * Deprecated field assuring backward compatibility with core.v1 Event type
      * 
      */
     @Import(name="deprecatedCount")
     private @Nullable Output<Integer> deprecatedCount;
 
     /**
-     * @return deprecatedCount is the deprecated field assuring backward compatibility with core.v1 Event type.
+     * @return Deprecated field assuring backward compatibility with core.v1 Event type
      * 
      */
     public Optional<Output<Integer>> deprecatedCount() {
@@ -71,14 +71,14 @@ public final class EventArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * deprecatedFirstTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
+     * Deprecated field assuring backward compatibility with core.v1 Event type
      * 
      */
     @Import(name="deprecatedFirstTimestamp")
     private @Nullable Output<String> deprecatedFirstTimestamp;
 
     /**
-     * @return deprecatedFirstTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
+     * @return Deprecated field assuring backward compatibility with core.v1 Event type
      * 
      */
     public Optional<Output<String>> deprecatedFirstTimestamp() {
@@ -86,14 +86,14 @@ public final class EventArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * deprecatedLastTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
+     * Deprecated field assuring backward compatibility with core.v1 Event type
      * 
      */
     @Import(name="deprecatedLastTimestamp")
     private @Nullable Output<String> deprecatedLastTimestamp;
 
     /**
-     * @return deprecatedLastTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
+     * @return Deprecated field assuring backward compatibility with core.v1 Event type
      * 
      */
     public Optional<Output<String>> deprecatedLastTimestamp() {
@@ -101,14 +101,14 @@ public final class EventArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * deprecatedSource is the deprecated field assuring backward compatibility with core.v1 Event type.
+     * Deprecated field assuring backward compatibility with core.v1 Event type
      * 
      */
     @Import(name="deprecatedSource")
     private @Nullable Output<EventSourceArgs> deprecatedSource;
 
     /**
-     * @return deprecatedSource is the deprecated field assuring backward compatibility with core.v1 Event type.
+     * @return Deprecated field assuring backward compatibility with core.v1 Event type
      * 
      */
     public Optional<Output<EventSourceArgs>> deprecatedSource() {
@@ -116,14 +116,14 @@ public final class EventArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * eventTime is the time when this Event was first observed. It is required.
+     * Required. Time when this Event was first observed.
      * 
      */
     @Import(name="eventTime", required=true)
     private Output<String> eventTime;
 
     /**
-     * @return eventTime is the time when this Event was first observed. It is required.
+     * @return Required. Time when this Event was first observed.
      * 
      */
     public Output<String> eventTime() {
@@ -145,30 +145,22 @@ public final class EventArgs extends com.pulumi.resources.ResourceArgs {
         return Optional.ofNullable(this.kind);
     }
 
-    /**
-     * Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-     * 
-     */
     @Import(name="metadata")
     private @Nullable Output<ObjectMetaArgs> metadata;
 
-    /**
-     * @return Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-     * 
-     */
     public Optional<Output<ObjectMetaArgs>> metadata() {
         return Optional.ofNullable(this.metadata);
     }
 
     /**
-     * note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
+     * Optional. A human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
      * 
      */
     @Import(name="note")
     private @Nullable Output<String> note;
 
     /**
-     * @return note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
+     * @return Optional. A human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
      * 
      */
     public Optional<Output<String>> note() {
@@ -176,14 +168,14 @@ public final class EventArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * reason is why the action was taken. It is human-readable. This field can have at most 128 characters.
+     * Why the action was taken.
      * 
      */
     @Import(name="reason")
     private @Nullable Output<String> reason;
 
     /**
-     * @return reason is why the action was taken. It is human-readable. This field can have at most 128 characters.
+     * @return Why the action was taken.
      * 
      */
     public Optional<Output<String>> reason() {
@@ -191,14 +183,14 @@ public final class EventArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * regarding contains the object this Event is about. In most cases it&#39;s an Object reporting controller implements, e.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
+     * The object this Event is about. In most cases it&#39;s an Object reporting controller implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
      * 
      */
     @Import(name="regarding")
     private @Nullable Output<ObjectReferenceArgs> regarding;
 
     /**
-     * @return regarding contains the object this Event is about. In most cases it&#39;s an Object reporting controller implements, e.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
+     * @return The object this Event is about. In most cases it&#39;s an Object reporting controller implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
      * 
      */
     public Optional<Output<ObjectReferenceArgs>> regarding() {
@@ -206,14 +198,14 @@ public final class EventArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * related is the optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
+     * Optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
      * 
      */
     @Import(name="related")
     private @Nullable Output<ObjectReferenceArgs> related;
 
     /**
-     * @return related is the optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
+     * @return Optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
      * 
      */
     public Optional<Output<ObjectReferenceArgs>> related() {
@@ -221,14 +213,14 @@ public final class EventArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * reportingController is the name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`. This field cannot be empty for new Events.
+     * Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
      * 
      */
     @Import(name="reportingController")
     private @Nullable Output<String> reportingController;
 
     /**
-     * @return reportingController is the name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`. This field cannot be empty for new Events.
+     * @return Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
      * 
      */
     public Optional<Output<String>> reportingController() {
@@ -236,14 +228,14 @@ public final class EventArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * reportingInstance is the ID of the controller instance, e.g. `kubelet-xyzf`. This field cannot be empty for new Events and it can have at most 128 characters.
+     * ID of the controller instance, e.g. `kubelet-xyzf`.
      * 
      */
     @Import(name="reportingInstance")
     private @Nullable Output<String> reportingInstance;
 
     /**
-     * @return reportingInstance is the ID of the controller instance, e.g. `kubelet-xyzf`. This field cannot be empty for new Events and it can have at most 128 characters.
+     * @return ID of the controller instance, e.g. `kubelet-xyzf`.
      * 
      */
     public Optional<Output<String>> reportingInstance() {
@@ -251,14 +243,14 @@ public final class EventArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * series is data about the Event series this event represents or nil if it&#39;s a singleton Event.
+     * Data about the Event series this event represents or nil if it&#39;s a singleton Event.
      * 
      */
     @Import(name="series")
     private @Nullable Output<EventSeriesArgs> series;
 
     /**
-     * @return series is data about the Event series this event represents or nil if it&#39;s a singleton Event.
+     * @return Data about the Event series this event represents or nil if it&#39;s a singleton Event.
      * 
      */
     public Optional<Output<EventSeriesArgs>> series() {
@@ -266,14 +258,14 @@ public final class EventArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.
+     * Type of this event (Normal, Warning), new types could be added in the future.
      * 
      */
     @Import(name="type")
     private @Nullable Output<String> type;
 
     /**
-     * @return type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.
+     * @return Type of this event (Normal, Warning), new types could be added in the future.
      * 
      */
     public Optional<Output<String>> type() {
@@ -321,7 +313,7 @@ public final class EventArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param action action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
+         * @param action What action was taken/failed regarding to the regarding object.
          * 
          * @return builder
          * 
@@ -332,7 +324,7 @@ public final class EventArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param action action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
+         * @param action What action was taken/failed regarding to the regarding object.
          * 
          * @return builder
          * 
@@ -363,7 +355,7 @@ public final class EventArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param deprecatedCount deprecatedCount is the deprecated field assuring backward compatibility with core.v1 Event type.
+         * @param deprecatedCount Deprecated field assuring backward compatibility with core.v1 Event type
          * 
          * @return builder
          * 
@@ -374,7 +366,7 @@ public final class EventArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param deprecatedCount deprecatedCount is the deprecated field assuring backward compatibility with core.v1 Event type.
+         * @param deprecatedCount Deprecated field assuring backward compatibility with core.v1 Event type
          * 
          * @return builder
          * 
@@ -384,7 +376,7 @@ public final class EventArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param deprecatedFirstTimestamp deprecatedFirstTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
+         * @param deprecatedFirstTimestamp Deprecated field assuring backward compatibility with core.v1 Event type
          * 
          * @return builder
          * 
@@ -395,7 +387,7 @@ public final class EventArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param deprecatedFirstTimestamp deprecatedFirstTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
+         * @param deprecatedFirstTimestamp Deprecated field assuring backward compatibility with core.v1 Event type
          * 
          * @return builder
          * 
@@ -405,7 +397,7 @@ public final class EventArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param deprecatedLastTimestamp deprecatedLastTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
+         * @param deprecatedLastTimestamp Deprecated field assuring backward compatibility with core.v1 Event type
          * 
          * @return builder
          * 
@@ -416,7 +408,7 @@ public final class EventArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param deprecatedLastTimestamp deprecatedLastTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
+         * @param deprecatedLastTimestamp Deprecated field assuring backward compatibility with core.v1 Event type
          * 
          * @return builder
          * 
@@ -426,7 +418,7 @@ public final class EventArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param deprecatedSource deprecatedSource is the deprecated field assuring backward compatibility with core.v1 Event type.
+         * @param deprecatedSource Deprecated field assuring backward compatibility with core.v1 Event type
          * 
          * @return builder
          * 
@@ -437,7 +429,7 @@ public final class EventArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param deprecatedSource deprecatedSource is the deprecated field assuring backward compatibility with core.v1 Event type.
+         * @param deprecatedSource Deprecated field assuring backward compatibility with core.v1 Event type
          * 
          * @return builder
          * 
@@ -447,7 +439,7 @@ public final class EventArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param eventTime eventTime is the time when this Event was first observed. It is required.
+         * @param eventTime Required. Time when this Event was first observed.
          * 
          * @return builder
          * 
@@ -458,7 +450,7 @@ public final class EventArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param eventTime eventTime is the time when this Event was first observed. It is required.
+         * @param eventTime Required. Time when this Event was first observed.
          * 
          * @return builder
          * 
@@ -488,29 +480,17 @@ public final class EventArgs extends com.pulumi.resources.ResourceArgs {
             return kind(Output.of(kind));
         }
 
-        /**
-         * @param metadata Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-         * 
-         * @return builder
-         * 
-         */
         public Builder metadata(@Nullable Output<ObjectMetaArgs> metadata) {
             $.metadata = metadata;
             return this;
         }
 
-        /**
-         * @param metadata Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-         * 
-         * @return builder
-         * 
-         */
         public Builder metadata(ObjectMetaArgs metadata) {
             return metadata(Output.of(metadata));
         }
 
         /**
-         * @param note note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
+         * @param note Optional. A human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
          * 
          * @return builder
          * 
@@ -521,7 +501,7 @@ public final class EventArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param note note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
+         * @param note Optional. A human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
          * 
          * @return builder
          * 
@@ -531,7 +511,7 @@ public final class EventArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param reason reason is why the action was taken. It is human-readable. This field can have at most 128 characters.
+         * @param reason Why the action was taken.
          * 
          * @return builder
          * 
@@ -542,7 +522,7 @@ public final class EventArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param reason reason is why the action was taken. It is human-readable. This field can have at most 128 characters.
+         * @param reason Why the action was taken.
          * 
          * @return builder
          * 
@@ -552,7 +532,7 @@ public final class EventArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param regarding regarding contains the object this Event is about. In most cases it&#39;s an Object reporting controller implements, e.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
+         * @param regarding The object this Event is about. In most cases it&#39;s an Object reporting controller implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
          * 
          * @return builder
          * 
@@ -563,7 +543,7 @@ public final class EventArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param regarding regarding contains the object this Event is about. In most cases it&#39;s an Object reporting controller implements, e.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
+         * @param regarding The object this Event is about. In most cases it&#39;s an Object reporting controller implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
          * 
          * @return builder
          * 
@@ -573,7 +553,7 @@ public final class EventArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param related related is the optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
+         * @param related Optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
          * 
          * @return builder
          * 
@@ -584,7 +564,7 @@ public final class EventArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param related related is the optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
+         * @param related Optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
          * 
          * @return builder
          * 
@@ -594,7 +574,7 @@ public final class EventArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param reportingController reportingController is the name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`. This field cannot be empty for new Events.
+         * @param reportingController Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
          * 
          * @return builder
          * 
@@ -605,7 +585,7 @@ public final class EventArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param reportingController reportingController is the name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`. This field cannot be empty for new Events.
+         * @param reportingController Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
          * 
          * @return builder
          * 
@@ -615,7 +595,7 @@ public final class EventArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param reportingInstance reportingInstance is the ID of the controller instance, e.g. `kubelet-xyzf`. This field cannot be empty for new Events and it can have at most 128 characters.
+         * @param reportingInstance ID of the controller instance, e.g. `kubelet-xyzf`.
          * 
          * @return builder
          * 
@@ -626,7 +606,7 @@ public final class EventArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param reportingInstance reportingInstance is the ID of the controller instance, e.g. `kubelet-xyzf`. This field cannot be empty for new Events and it can have at most 128 characters.
+         * @param reportingInstance ID of the controller instance, e.g. `kubelet-xyzf`.
          * 
          * @return builder
          * 
@@ -636,7 +616,7 @@ public final class EventArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param series series is data about the Event series this event represents or nil if it&#39;s a singleton Event.
+         * @param series Data about the Event series this event represents or nil if it&#39;s a singleton Event.
          * 
          * @return builder
          * 
@@ -647,7 +627,7 @@ public final class EventArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param series series is data about the Event series this event represents or nil if it&#39;s a singleton Event.
+         * @param series Data about the Event series this event represents or nil if it&#39;s a singleton Event.
          * 
          * @return builder
          * 
@@ -657,7 +637,7 @@ public final class EventArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param type type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.
+         * @param type Type of this event (Normal, Warning), new types could be added in the future.
          * 
          * @return builder
          * 
@@ -668,7 +648,7 @@ public final class EventArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param type type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.
+         * @param type Type of this event (Normal, Warning), new types could be added in the future.
          * 
          * @return builder
          * 

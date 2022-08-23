@@ -98,7 +98,7 @@ class PodSecurityPolicy(pulumi.CustomResource):
                  spec: Optional[pulumi.Input[pulumi.InputType['PodSecurityPolicySpecArgs']]] = None,
                  __props__=None):
         """
-        PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container. Deprecated in 1.21.
+        PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container.
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -114,7 +114,7 @@ class PodSecurityPolicy(pulumi.CustomResource):
                  args: Optional[PodSecurityPolicyInitArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container. Deprecated in 1.21.
+        PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container.
 
         :param str resource_name: The name of the resource.
         :param PodSecurityPolicyInitArgs args: The arguments to use to populate this resource's properties.

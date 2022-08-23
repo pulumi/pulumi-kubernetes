@@ -129,8 +129,6 @@ class CronJobSpec(dict):
             suggest = "starting_deadline_seconds"
         elif key == "successfulJobsHistoryLimit":
             suggest = "successful_jobs_history_limit"
-        elif key == "timeZone":
-            suggest = "time_zone"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in CronJobSpec. Access the value via the '{suggest}' property getter instead.")
@@ -150,8 +148,7 @@ class CronJobSpec(dict):
                  failed_jobs_history_limit: Optional[int] = None,
                  starting_deadline_seconds: Optional[int] = None,
                  successful_jobs_history_limit: Optional[int] = None,
-                 suspend: Optional[bool] = None,
-                 time_zone: Optional[str] = None):
+                 suspend: Optional[bool] = None):
         """
         CronJobSpec describes how the job execution will look like and when it will actually run.
         :param 'JobTemplateSpecArgs' job_template: Specifies the job that will be created when executing a CronJob.
@@ -161,7 +158,6 @@ class CronJobSpec(dict):
         :param int starting_deadline_seconds: Optional deadline in seconds for starting the job if it misses scheduled time for any reason.  Missed jobs executions will be counted as failed ones.
         :param int successful_jobs_history_limit: The number of successful finished jobs to retain. This is a pointer to distinguish between explicit zero and not specified. Defaults to 3.
         :param bool suspend: This flag tells the controller to suspend subsequent executions, it does not apply to already started executions.  Defaults to false.
-        :param str time_zone: The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
         """
         pulumi.set(__self__, "job_template", job_template)
         pulumi.set(__self__, "schedule", schedule)
@@ -175,8 +171,6 @@ class CronJobSpec(dict):
             pulumi.set(__self__, "successful_jobs_history_limit", successful_jobs_history_limit)
         if suspend is not None:
             pulumi.set(__self__, "suspend", suspend)
-        if time_zone is not None:
-            pulumi.set(__self__, "time_zone", time_zone)
 
     @property
     @pulumi.getter(name="jobTemplate")
@@ -234,14 +228,6 @@ class CronJobSpec(dict):
         """
         return pulumi.get(self, "suspend")
 
-    @property
-    @pulumi.getter(name="timeZone")
-    def time_zone(self) -> Optional[str]:
-        """
-        The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
-        """
-        return pulumi.get(self, "time_zone")
-
 
 @pulumi.output_type
 class CronJobSpecPatch(dict):
@@ -261,8 +247,6 @@ class CronJobSpecPatch(dict):
             suggest = "starting_deadline_seconds"
         elif key == "successfulJobsHistoryLimit":
             suggest = "successful_jobs_history_limit"
-        elif key == "timeZone":
-            suggest = "time_zone"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in CronJobSpecPatch. Access the value via the '{suggest}' property getter instead.")
@@ -282,8 +266,7 @@ class CronJobSpecPatch(dict):
                  schedule: Optional[str] = None,
                  starting_deadline_seconds: Optional[int] = None,
                  successful_jobs_history_limit: Optional[int] = None,
-                 suspend: Optional[bool] = None,
-                 time_zone: Optional[str] = None):
+                 suspend: Optional[bool] = None):
         """
         CronJobSpec describes how the job execution will look like and when it will actually run.
         :param str concurrency_policy: Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
@@ -293,7 +276,6 @@ class CronJobSpecPatch(dict):
         :param int starting_deadline_seconds: Optional deadline in seconds for starting the job if it misses scheduled time for any reason.  Missed jobs executions will be counted as failed ones.
         :param int successful_jobs_history_limit: The number of successful finished jobs to retain. This is a pointer to distinguish between explicit zero and not specified. Defaults to 3.
         :param bool suspend: This flag tells the controller to suspend subsequent executions, it does not apply to already started executions.  Defaults to false.
-        :param str time_zone: The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
         """
         if concurrency_policy is not None:
             pulumi.set(__self__, "concurrency_policy", concurrency_policy)
@@ -309,8 +291,6 @@ class CronJobSpecPatch(dict):
             pulumi.set(__self__, "successful_jobs_history_limit", successful_jobs_history_limit)
         if suspend is not None:
             pulumi.set(__self__, "suspend", suspend)
-        if time_zone is not None:
-            pulumi.set(__self__, "time_zone", time_zone)
 
     @property
     @pulumi.getter(name="concurrencyPolicy")
@@ -368,14 +348,6 @@ class CronJobSpecPatch(dict):
         """
         return pulumi.get(self, "suspend")
 
-    @property
-    @pulumi.getter(name="timeZone")
-    def time_zone(self) -> Optional[str]:
-        """
-        The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
-        """
-        return pulumi.get(self, "time_zone")
-
 
 @pulumi.output_type
 class CronJobStatus(dict):
@@ -387,8 +359,6 @@ class CronJobStatus(dict):
         suggest = None
         if key == "lastScheduleTime":
             suggest = "last_schedule_time"
-        elif key == "lastSuccessfulTime":
-            suggest = "last_successful_time"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in CronJobStatus. Access the value via the '{suggest}' property getter instead.")
@@ -403,20 +373,16 @@ class CronJobStatus(dict):
 
     def __init__(__self__, *,
                  active: Optional[Sequence['_core.v1.outputs.ObjectReference']] = None,
-                 last_schedule_time: Optional[str] = None,
-                 last_successful_time: Optional[str] = None):
+                 last_schedule_time: Optional[str] = None):
         """
         CronJobStatus represents the current state of a cron job.
         :param Sequence['_core.v1.ObjectReferenceArgs'] active: A list of pointers to currently running jobs.
         :param str last_schedule_time: Information when was the last time the job was successfully scheduled.
-        :param str last_successful_time: Information when was the last time the job successfully completed.
         """
         if active is not None:
             pulumi.set(__self__, "active", active)
         if last_schedule_time is not None:
             pulumi.set(__self__, "last_schedule_time", last_schedule_time)
-        if last_successful_time is not None:
-            pulumi.set(__self__, "last_successful_time", last_successful_time)
 
     @property
     @pulumi.getter
@@ -434,14 +400,6 @@ class CronJobStatus(dict):
         """
         return pulumi.get(self, "last_schedule_time")
 
-    @property
-    @pulumi.getter(name="lastSuccessfulTime")
-    def last_successful_time(self) -> Optional[str]:
-        """
-        Information when was the last time the job successfully completed.
-        """
-        return pulumi.get(self, "last_successful_time")
-
 
 @pulumi.output_type
 class CronJobStatusPatch(dict):
@@ -453,8 +411,6 @@ class CronJobStatusPatch(dict):
         suggest = None
         if key == "lastScheduleTime":
             suggest = "last_schedule_time"
-        elif key == "lastSuccessfulTime":
-            suggest = "last_successful_time"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in CronJobStatusPatch. Access the value via the '{suggest}' property getter instead.")
@@ -469,20 +425,16 @@ class CronJobStatusPatch(dict):
 
     def __init__(__self__, *,
                  active: Optional[Sequence['_core.v1.outputs.ObjectReferencePatch']] = None,
-                 last_schedule_time: Optional[str] = None,
-                 last_successful_time: Optional[str] = None):
+                 last_schedule_time: Optional[str] = None):
         """
         CronJobStatus represents the current state of a cron job.
         :param Sequence['_core.v1.ObjectReferencePatchArgs'] active: A list of pointers to currently running jobs.
         :param str last_schedule_time: Information when was the last time the job was successfully scheduled.
-        :param str last_successful_time: Information when was the last time the job successfully completed.
         """
         if active is not None:
             pulumi.set(__self__, "active", active)
         if last_schedule_time is not None:
             pulumi.set(__self__, "last_schedule_time", last_schedule_time)
-        if last_successful_time is not None:
-            pulumi.set(__self__, "last_successful_time", last_successful_time)
 
     @property
     @pulumi.getter
@@ -499,14 +451,6 @@ class CronJobStatusPatch(dict):
         Information when was the last time the job was successfully scheduled.
         """
         return pulumi.get(self, "last_schedule_time")
-
-    @property
-    @pulumi.getter(name="lastSuccessfulTime")
-    def last_successful_time(self) -> Optional[str]:
-        """
-        Information when was the last time the job successfully completed.
-        """
-        return pulumi.get(self, "last_successful_time")
 
 
 @pulumi.output_type

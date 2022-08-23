@@ -43,7 +43,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.ContainerStatusArgs>? _ephemeralContainerStatuses;
 
         /// <summary>
-        /// Status for any ephemeral containers that have run in this pod. This field is beta-level and available on clusters that haven't disabled the EphemeralContainers feature gate.
+        /// Status for any ephemeral containers that have run in this pod.
         /// </summary>
         public InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.ContainerStatusArgs> EphemeralContainerStatuses
         {

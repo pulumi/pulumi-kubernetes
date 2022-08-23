@@ -15,26 +15,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Policy.V1Beta1
     /// </summary>
     public class PodDisruptionBudgetStatusArgs : global::Pulumi.ResourceArgs
     {
-        [Input("conditions")]
-        private InputList<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ConditionArgs>? _conditions;
-
-        /// <summary>
-        /// Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn't able to compute
-        ///               the number of allowed disruptions. Therefore no disruptions are
-        ///               allowed and the status of the condition will be False.
-        /// - InsufficientPods: The number of pods are either at or below the number
-        ///                     required by the PodDisruptionBudget. No disruptions are
-        ///                     allowed and the status of the condition will be False.
-        /// - SufficientPods: There are more pods than required by the PodDisruptionBudget.
-        ///                   The condition will be True, and the number of allowed
-        ///                   disruptions are provided by the disruptionsAllowed property.
-        /// </summary>
-        public InputList<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ConditionArgs> Conditions
-        {
-            get => _conditions ?? (_conditions = new InputList<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ConditionArgs>());
-            set => _conditions = value;
-        }
-
         /// <summary>
         /// current number of healthy pods
         /// </summary>
@@ -72,7 +52,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Policy.V1Beta1
         public Input<int> ExpectedPods { get; set; } = null!;
 
         /// <summary>
-        /// Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
+        /// Most recent generation observed when updating this PDB status. PodDisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
         /// </summary>
         [Input("observedGeneration")]
         public Input<int>? ObservedGeneration { get; set; }

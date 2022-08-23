@@ -14,7 +14,7 @@ import javax.annotation.Nullable;
 @CustomType
 public final class ContainerImagePatch {
     /**
-     * @return Names by which this image is known. e.g. [&#34;k8s.gcr.io/hyperkube:v1.0.7&#34;, &#34;dockerhub.io/google_containers/hyperkube:v1.0.7&#34;]
+     * @return Names by which this image is known. e.g. [&#34;kubernetes.example/hyperkube:v1.0.7&#34;, &#34;cloud-vendor.registry.example/cloud-vendor/hyperkube:v1.0.7&#34;]
      * 
      */
     private @Nullable List<String> names;
@@ -26,7 +26,7 @@ public final class ContainerImagePatch {
 
     private ContainerImagePatch() {}
     /**
-     * @return Names by which this image is known. e.g. [&#34;k8s.gcr.io/hyperkube:v1.0.7&#34;, &#34;dockerhub.io/google_containers/hyperkube:v1.0.7&#34;]
+     * @return Names by which this image is known. e.g. [&#34;kubernetes.example/hyperkube:v1.0.7&#34;, &#34;cloud-vendor.registry.example/cloud-vendor/hyperkube:v1.0.7&#34;]
      * 
      */
     public List<String> names() {

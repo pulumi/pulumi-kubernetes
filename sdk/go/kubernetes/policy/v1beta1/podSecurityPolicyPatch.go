@@ -17,7 +17,7 @@ import (
 // Conflicts will result in an error by default, but can be forced using the "pulumi.com/patchForce" annotation. See the
 // [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/installation-configuration/#server-side-apply) for
 // additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
-// PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container. Deprecated in 1.21.
+// PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container.
 type PodSecurityPolicyPatch struct {
 	pulumi.CustomResourceState
 

@@ -6,7 +6,6 @@ package com.pulumi.kubernetes.discovery.v1beta1.outputs;
 import com.pulumi.core.annotations.CustomType;
 import com.pulumi.kubernetes.core.v1.outputs.ObjectReferencePatch;
 import com.pulumi.kubernetes.discovery.v1beta1.outputs.EndpointConditionsPatch;
-import com.pulumi.kubernetes.discovery.v1beta1.outputs.EndpointHintsPatch;
 import java.lang.String;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +16,7 @@ import javax.annotation.Nullable;
 @CustomType
 public final class EndpointPatch {
     /**
-     * @return addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100. These are all assumed to be fungible and clients may choose to only use the first element. Refer to: https://issue.k8s.io/106267
+     * @return addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100.
      * 
      */
     private @Nullable List<String> addresses;
@@ -27,12 +26,7 @@ public final class EndpointPatch {
      */
     private @Nullable EndpointConditionsPatch conditions;
     /**
-     * @return hints contains information associated with how an endpoint should be consumed.
-     * 
-     */
-    private @Nullable EndpointHintsPatch hints;
-    /**
-     * @return hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.
+     * @return hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must pass DNS Label (RFC 1123) validation.
      * 
      */
     private @Nullable String hostname;
@@ -54,14 +48,13 @@ public final class EndpointPatch {
      *   endpoint is located. This should match the corresponding node label.
      * * topology.kubernetes.io/region: the value indicates the region where the
      *   endpoint is located. This should match the corresponding node label.
-     *   This field is deprecated and will be removed in future api versions.
      * 
      */
     private @Nullable Map<String,String> topology;
 
     private EndpointPatch() {}
     /**
-     * @return addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100. These are all assumed to be fungible and clients may choose to only use the first element. Refer to: https://issue.k8s.io/106267
+     * @return addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100.
      * 
      */
     public List<String> addresses() {
@@ -75,14 +68,7 @@ public final class EndpointPatch {
         return Optional.ofNullable(this.conditions);
     }
     /**
-     * @return hints contains information associated with how an endpoint should be consumed.
-     * 
-     */
-    public Optional<EndpointHintsPatch> hints() {
-        return Optional.ofNullable(this.hints);
-    }
-    /**
-     * @return hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.
+     * @return hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must pass DNS Label (RFC 1123) validation.
      * 
      */
     public Optional<String> hostname() {
@@ -110,7 +96,6 @@ public final class EndpointPatch {
      *   endpoint is located. This should match the corresponding node label.
      * * topology.kubernetes.io/region: the value indicates the region where the
      *   endpoint is located. This should match the corresponding node label.
-     *   This field is deprecated and will be removed in future api versions.
      * 
      */
     public Map<String,String> topology() {
@@ -128,7 +113,6 @@ public final class EndpointPatch {
     public static final class Builder {
         private @Nullable List<String> addresses;
         private @Nullable EndpointConditionsPatch conditions;
-        private @Nullable EndpointHintsPatch hints;
         private @Nullable String hostname;
         private @Nullable String nodeName;
         private @Nullable ObjectReferencePatch targetRef;
@@ -138,7 +122,6 @@ public final class EndpointPatch {
     	      Objects.requireNonNull(defaults);
     	      this.addresses = defaults.addresses;
     	      this.conditions = defaults.conditions;
-    	      this.hints = defaults.hints;
     	      this.hostname = defaults.hostname;
     	      this.nodeName = defaults.nodeName;
     	      this.targetRef = defaults.targetRef;
@@ -156,11 +139,6 @@ public final class EndpointPatch {
         @CustomType.Setter
         public Builder conditions(@Nullable EndpointConditionsPatch conditions) {
             this.conditions = conditions;
-            return this;
-        }
-        @CustomType.Setter
-        public Builder hints(@Nullable EndpointHintsPatch hints) {
-            this.hints = hints;
             return this;
         }
         @CustomType.Setter
@@ -187,7 +165,6 @@ public final class EndpointPatch {
             final var o = new EndpointPatch();
             o.addresses = addresses;
             o.conditions = conditions;
-            o.hints = hints;
             o.hostname = hostname;
             o.nodeName = nodeName;
             o.targetRef = targetRef;

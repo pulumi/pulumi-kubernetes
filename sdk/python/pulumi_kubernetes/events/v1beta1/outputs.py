@@ -21,7 +21,7 @@ __all__ = [
 @pulumi.output_type
 class Event(dict):
     """
-    Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system. Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.
+    Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -73,24 +73,23 @@ class Event(dict):
                  series: Optional['outputs.EventSeries'] = None,
                  type: Optional[str] = None):
         """
-        Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system. Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.
-        :param str event_time: eventTime is the time when this Event was first observed. It is required.
-        :param str action: action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
+        Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.
+        :param str event_time: Required. Time when this Event was first observed.
+        :param str action: What action was taken/failed regarding to the regarding object.
         :param str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param int deprecated_count: deprecatedCount is the deprecated field assuring backward compatibility with core.v1 Event type.
-        :param str deprecated_first_timestamp: deprecatedFirstTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
-        :param str deprecated_last_timestamp: deprecatedLastTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
-        :param '_core.v1.EventSourceArgs' deprecated_source: deprecatedSource is the deprecated field assuring backward compatibility with core.v1 Event type.
+        :param int deprecated_count: Deprecated field assuring backward compatibility with core.v1 Event type
+        :param str deprecated_first_timestamp: Deprecated field assuring backward compatibility with core.v1 Event type
+        :param str deprecated_last_timestamp: Deprecated field assuring backward compatibility with core.v1 Event type
+        :param '_core.v1.EventSourceArgs' deprecated_source: Deprecated field assuring backward compatibility with core.v1 Event type
         :param str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param str note: note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
-        :param str reason: reason is why the action was taken. It is human-readable. This field can have at most 128 characters.
-        :param '_core.v1.ObjectReferenceArgs' regarding: regarding contains the object this Event is about. In most cases it's an Object reporting controller implements, e.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
-        :param '_core.v1.ObjectReferenceArgs' related: related is the optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
-        :param str reporting_controller: reportingController is the name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`. This field cannot be empty for new Events.
-        :param str reporting_instance: reportingInstance is the ID of the controller instance, e.g. `kubelet-xyzf`. This field cannot be empty for new Events and it can have at most 128 characters.
-        :param 'EventSeriesArgs' series: series is data about the Event series this event represents or nil if it's a singleton Event.
-        :param str type: type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.
+        :param str note: Optional. A human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
+        :param str reason: Why the action was taken.
+        :param '_core.v1.ObjectReferenceArgs' regarding: The object this Event is about. In most cases it's an Object reporting controller implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
+        :param '_core.v1.ObjectReferenceArgs' related: Optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
+        :param str reporting_controller: Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
+        :param str reporting_instance: ID of the controller instance, e.g. `kubelet-xyzf`.
+        :param 'EventSeriesArgs' series: Data about the Event series this event represents or nil if it's a singleton Event.
+        :param str type: Type of this event (Normal, Warning), new types could be added in the future.
         """
         pulumi.set(__self__, "event_time", event_time)
         if action is not None:
@@ -130,7 +129,7 @@ class Event(dict):
     @pulumi.getter(name="eventTime")
     def event_time(self) -> str:
         """
-        eventTime is the time when this Event was first observed. It is required.
+        Required. Time when this Event was first observed.
         """
         return pulumi.get(self, "event_time")
 
@@ -138,7 +137,7 @@ class Event(dict):
     @pulumi.getter
     def action(self) -> Optional[str]:
         """
-        action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
+        What action was taken/failed regarding to the regarding object.
         """
         return pulumi.get(self, "action")
 
@@ -154,7 +153,7 @@ class Event(dict):
     @pulumi.getter(name="deprecatedCount")
     def deprecated_count(self) -> Optional[int]:
         """
-        deprecatedCount is the deprecated field assuring backward compatibility with core.v1 Event type.
+        Deprecated field assuring backward compatibility with core.v1 Event type
         """
         return pulumi.get(self, "deprecated_count")
 
@@ -162,7 +161,7 @@ class Event(dict):
     @pulumi.getter(name="deprecatedFirstTimestamp")
     def deprecated_first_timestamp(self) -> Optional[str]:
         """
-        deprecatedFirstTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
+        Deprecated field assuring backward compatibility with core.v1 Event type
         """
         return pulumi.get(self, "deprecated_first_timestamp")
 
@@ -170,7 +169,7 @@ class Event(dict):
     @pulumi.getter(name="deprecatedLastTimestamp")
     def deprecated_last_timestamp(self) -> Optional[str]:
         """
-        deprecatedLastTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
+        Deprecated field assuring backward compatibility with core.v1 Event type
         """
         return pulumi.get(self, "deprecated_last_timestamp")
 
@@ -178,7 +177,7 @@ class Event(dict):
     @pulumi.getter(name="deprecatedSource")
     def deprecated_source(self) -> Optional['_core.v1.outputs.EventSource']:
         """
-        deprecatedSource is the deprecated field assuring backward compatibility with core.v1 Event type.
+        Deprecated field assuring backward compatibility with core.v1 Event type
         """
         return pulumi.get(self, "deprecated_source")
 
@@ -193,16 +192,13 @@ class Event(dict):
     @property
     @pulumi.getter
     def metadata(self) -> Optional['_meta.v1.outputs.ObjectMeta']:
-        """
-        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        """
         return pulumi.get(self, "metadata")
 
     @property
     @pulumi.getter
     def note(self) -> Optional[str]:
         """
-        note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
+        Optional. A human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
         """
         return pulumi.get(self, "note")
 
@@ -210,7 +206,7 @@ class Event(dict):
     @pulumi.getter
     def reason(self) -> Optional[str]:
         """
-        reason is why the action was taken. It is human-readable. This field can have at most 128 characters.
+        Why the action was taken.
         """
         return pulumi.get(self, "reason")
 
@@ -218,7 +214,7 @@ class Event(dict):
     @pulumi.getter
     def regarding(self) -> Optional['_core.v1.outputs.ObjectReference']:
         """
-        regarding contains the object this Event is about. In most cases it's an Object reporting controller implements, e.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
+        The object this Event is about. In most cases it's an Object reporting controller implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
         """
         return pulumi.get(self, "regarding")
 
@@ -226,7 +222,7 @@ class Event(dict):
     @pulumi.getter
     def related(self) -> Optional['_core.v1.outputs.ObjectReference']:
         """
-        related is the optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
+        Optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
         """
         return pulumi.get(self, "related")
 
@@ -234,7 +230,7 @@ class Event(dict):
     @pulumi.getter(name="reportingController")
     def reporting_controller(self) -> Optional[str]:
         """
-        reportingController is the name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`. This field cannot be empty for new Events.
+        Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
         """
         return pulumi.get(self, "reporting_controller")
 
@@ -242,7 +238,7 @@ class Event(dict):
     @pulumi.getter(name="reportingInstance")
     def reporting_instance(self) -> Optional[str]:
         """
-        reportingInstance is the ID of the controller instance, e.g. `kubelet-xyzf`. This field cannot be empty for new Events and it can have at most 128 characters.
+        ID of the controller instance, e.g. `kubelet-xyzf`.
         """
         return pulumi.get(self, "reporting_instance")
 
@@ -250,7 +246,7 @@ class Event(dict):
     @pulumi.getter
     def series(self) -> Optional['outputs.EventSeries']:
         """
-        series is data about the Event series this event represents or nil if it's a singleton Event.
+        Data about the Event series this event represents or nil if it's a singleton Event.
         """
         return pulumi.get(self, "series")
 
@@ -258,7 +254,7 @@ class Event(dict):
     @pulumi.getter
     def type(self) -> Optional[str]:
         """
-        type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.
+        Type of this event (Normal, Warning), new types could be added in the future.
         """
         return pulumi.get(self, "type")
 
@@ -288,23 +284,22 @@ class EventSeries(dict):
     def __init__(__self__, *,
                  count: int,
                  last_observed_time: str,
-                 state: Optional[str] = None):
+                 state: str):
         """
         EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
-        :param int count: count is the number of occurrences in this series up to the last heartbeat time.
-        :param str last_observed_time: lastObservedTime is the time when last Event from the series was seen before last heartbeat.
+        :param int count: Number of occurrences in this series up to the last heartbeat time
+        :param str last_observed_time: Time when last Event from the series was seen before last heartbeat.
         :param str state: Information whether this series is ongoing or finished. Deprecated. Planned removal for 1.18
         """
         pulumi.set(__self__, "count", count)
         pulumi.set(__self__, "last_observed_time", last_observed_time)
-        if state is not None:
-            pulumi.set(__self__, "state", state)
+        pulumi.set(__self__, "state", state)
 
     @property
     @pulumi.getter
     def count(self) -> int:
         """
-        count is the number of occurrences in this series up to the last heartbeat time.
+        Number of occurrences in this series up to the last heartbeat time
         """
         return pulumi.get(self, "count")
 
@@ -312,13 +307,13 @@ class EventSeries(dict):
     @pulumi.getter(name="lastObservedTime")
     def last_observed_time(self) -> str:
         """
-        lastObservedTime is the time when last Event from the series was seen before last heartbeat.
+        Time when last Event from the series was seen before last heartbeat.
         """
         return pulumi.get(self, "last_observed_time")
 
     @property
     @pulumi.getter
-    def state(self) -> Optional[str]:
+    def state(self) -> str:
         """
         Information whether this series is ongoing or finished. Deprecated. Planned removal for 1.18
         """
@@ -353,8 +348,8 @@ class EventSeriesPatch(dict):
                  state: Optional[str] = None):
         """
         EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
-        :param int count: count is the number of occurrences in this series up to the last heartbeat time.
-        :param str last_observed_time: lastObservedTime is the time when last Event from the series was seen before last heartbeat.
+        :param int count: Number of occurrences in this series up to the last heartbeat time
+        :param str last_observed_time: Time when last Event from the series was seen before last heartbeat.
         :param str state: Information whether this series is ongoing or finished. Deprecated. Planned removal for 1.18
         """
         if count is not None:
@@ -368,7 +363,7 @@ class EventSeriesPatch(dict):
     @pulumi.getter
     def count(self) -> Optional[int]:
         """
-        count is the number of occurrences in this series up to the last heartbeat time.
+        Number of occurrences in this series up to the last heartbeat time
         """
         return pulumi.get(self, "count")
 
@@ -376,7 +371,7 @@ class EventSeriesPatch(dict):
     @pulumi.getter(name="lastObservedTime")
     def last_observed_time(self) -> Optional[str]:
         """
-        lastObservedTime is the time when last Event from the series was seen before last heartbeat.
+        Time when last Event from the series was seen before last heartbeat.
         """
         return pulumi.get(self, "last_observed_time")
 

@@ -19,7 +19,7 @@ import javax.annotation.Nullable;
 @CustomType
 public final class StatefulSetSpecPatch {
     /**
-     * @return Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready) This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate.
+     * @return Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
      * 
      */
     private @Nullable Integer minReadySeconds;
@@ -71,7 +71,7 @@ public final class StatefulSetSpecPatch {
 
     private StatefulSetSpecPatch() {}
     /**
-     * @return Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready) This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate.
+     * @return Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
      * 
      */
     public Optional<Integer> minReadySeconds() {

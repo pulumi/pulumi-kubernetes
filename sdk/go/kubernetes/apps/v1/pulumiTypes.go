@@ -5862,7 +5862,7 @@ func (o ReplicaSetStatusPatchPtrOutput) Replicas() pulumi.IntPtrOutput {
 
 // Spec to control the desired behavior of daemon set rolling update.
 type RollingUpdateDaemonSet struct {
-	// The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediatedly created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption. This is beta field and enabled/disabled by DaemonSetUpdateSurge feature gate.
+	// The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediatedly created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption.
 	MaxSurge interface{} `pulumi:"maxSurge"`
 	// The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0 if MaxSurge is 0 Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
 	MaxUnavailable interface{} `pulumi:"maxUnavailable"`
@@ -5881,7 +5881,7 @@ type RollingUpdateDaemonSetInput interface {
 
 // Spec to control the desired behavior of daemon set rolling update.
 type RollingUpdateDaemonSetArgs struct {
-	// The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediatedly created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption. This is beta field and enabled/disabled by DaemonSetUpdateSurge feature gate.
+	// The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediatedly created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption.
 	MaxSurge pulumi.Input `pulumi:"maxSurge"`
 	// The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0 if MaxSurge is 0 Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
 	MaxUnavailable pulumi.Input `pulumi:"maxUnavailable"`
@@ -5965,7 +5965,7 @@ func (o RollingUpdateDaemonSetOutput) ToRollingUpdateDaemonSetPtrOutputWithConte
 	}).(RollingUpdateDaemonSetPtrOutput)
 }
 
-// The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediatedly created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption. This is beta field and enabled/disabled by DaemonSetUpdateSurge feature gate.
+// The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediatedly created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption.
 func (o RollingUpdateDaemonSetOutput) MaxSurge() pulumi.AnyOutput {
 	return o.ApplyT(func(v RollingUpdateDaemonSet) interface{} { return v.MaxSurge }).(pulumi.AnyOutput)
 }
@@ -5999,7 +5999,7 @@ func (o RollingUpdateDaemonSetPtrOutput) Elem() RollingUpdateDaemonSetOutput {
 	}).(RollingUpdateDaemonSetOutput)
 }
 
-// The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediatedly created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption. This is beta field and enabled/disabled by DaemonSetUpdateSurge feature gate.
+// The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediatedly created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption.
 func (o RollingUpdateDaemonSetPtrOutput) MaxSurge() pulumi.AnyOutput {
 	return o.ApplyT(func(v *RollingUpdateDaemonSet) interface{} {
 		if v == nil {
@@ -6021,7 +6021,7 @@ func (o RollingUpdateDaemonSetPtrOutput) MaxUnavailable() pulumi.AnyOutput {
 
 // Spec to control the desired behavior of daemon set rolling update.
 type RollingUpdateDaemonSetPatch struct {
-	// The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediatedly created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption. This is beta field and enabled/disabled by DaemonSetUpdateSurge feature gate.
+	// The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediatedly created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption.
 	MaxSurge interface{} `pulumi:"maxSurge"`
 	// The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0 if MaxSurge is 0 Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
 	MaxUnavailable interface{} `pulumi:"maxUnavailable"`
@@ -6040,7 +6040,7 @@ type RollingUpdateDaemonSetPatchInput interface {
 
 // Spec to control the desired behavior of daemon set rolling update.
 type RollingUpdateDaemonSetPatchArgs struct {
-	// The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediatedly created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption. This is beta field and enabled/disabled by DaemonSetUpdateSurge feature gate.
+	// The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediatedly created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption.
 	MaxSurge pulumi.Input `pulumi:"maxSurge"`
 	// The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0 if MaxSurge is 0 Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
 	MaxUnavailable pulumi.Input `pulumi:"maxUnavailable"`
@@ -6124,7 +6124,7 @@ func (o RollingUpdateDaemonSetPatchOutput) ToRollingUpdateDaemonSetPatchPtrOutpu
 	}).(RollingUpdateDaemonSetPatchPtrOutput)
 }
 
-// The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediatedly created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption. This is beta field and enabled/disabled by DaemonSetUpdateSurge feature gate.
+// The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediatedly created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption.
 func (o RollingUpdateDaemonSetPatchOutput) MaxSurge() pulumi.AnyOutput {
 	return o.ApplyT(func(v RollingUpdateDaemonSetPatch) interface{} { return v.MaxSurge }).(pulumi.AnyOutput)
 }
@@ -6158,7 +6158,7 @@ func (o RollingUpdateDaemonSetPatchPtrOutput) Elem() RollingUpdateDaemonSetPatch
 	}).(RollingUpdateDaemonSetPatchOutput)
 }
 
-// The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediatedly created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption. This is beta field and enabled/disabled by DaemonSetUpdateSurge feature gate.
+// The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediatedly created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption.
 func (o RollingUpdateDaemonSetPatchPtrOutput) MaxSurge() pulumi.AnyOutput {
 	return o.ApplyT(func(v *RollingUpdateDaemonSetPatch) interface{} {
 		if v == nil {
@@ -6817,7 +6817,8 @@ func (o RollingUpdateStatefulSetStrategyPatchPtrOutput) Partition() pulumi.IntPt
 // StatefulSet represents a set of pods with consistent identities. Identities are defined as:
 //   - Network: A single stable DNS and hostname.
 //   - Storage: As many VolumeClaims as requested.
-//     The StatefulSet guarantees that a given network identity will always map to the same storage identity.
+//
+// The StatefulSet guarantees that a given network identity will always map to the same storage identity.
 //
 // This resource waits until its status is ready before registering success
 // for create/update, and populating output properties from the current state of the resource.
@@ -6858,7 +6859,8 @@ type StatefulSetTypeInput interface {
 // StatefulSet represents a set of pods with consistent identities. Identities are defined as:
 //   - Network: A single stable DNS and hostname.
 //   - Storage: As many VolumeClaims as requested.
-//     The StatefulSet guarantees that a given network identity will always map to the same storage identity.
+//
+// The StatefulSet guarantees that a given network identity will always map to the same storage identity.
 //
 // This resource waits until its status is ready before registering success
 // for create/update, and populating output properties from the current state of the resource.
@@ -6925,7 +6927,8 @@ func (i StatefulSetTypeArray) ToStatefulSetTypeArrayOutputWithContext(ctx contex
 // StatefulSet represents a set of pods with consistent identities. Identities are defined as:
 //   - Network: A single stable DNS and hostname.
 //   - Storage: As many VolumeClaims as requested.
-//     The StatefulSet guarantees that a given network identity will always map to the same storage identity.
+//
+// The StatefulSet guarantees that a given network identity will always map to the same storage identity.
 //
 // This resource waits until its status is ready before registering success
 // for create/update, and populating output properties from the current state of the resource.
@@ -7355,7 +7358,8 @@ func (o StatefulSetListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 // StatefulSet represents a set of pods with consistent identities. Identities are defined as:
 //   - Network: A single stable DNS and hostname.
 //   - Storage: As many VolumeClaims as requested.
-//     The StatefulSet guarantees that a given network identity will always map to the same storage identity.
+//
+// The StatefulSet guarantees that a given network identity will always map to the same storage identity.
 //
 // This resource waits until its status is ready before registering success
 // for create/update, and populating output properties from the current state of the resource.
@@ -7396,7 +7400,8 @@ type StatefulSetPatchTypeInput interface {
 // StatefulSet represents a set of pods with consistent identities. Identities are defined as:
 //   - Network: A single stable DNS and hostname.
 //   - Storage: As many VolumeClaims as requested.
-//     The StatefulSet guarantees that a given network identity will always map to the same storage identity.
+//
+// The StatefulSet guarantees that a given network identity will always map to the same storage identity.
 //
 // This resource waits until its status is ready before registering success
 // for create/update, and populating output properties from the current state of the resource.
@@ -7438,7 +7443,8 @@ func (i StatefulSetPatchTypeArgs) ToStatefulSetPatchTypeOutputWithContext(ctx co
 // StatefulSet represents a set of pods with consistent identities. Identities are defined as:
 //   - Network: A single stable DNS and hostname.
 //   - Storage: As many VolumeClaims as requested.
-//     The StatefulSet guarantees that a given network identity will always map to the same storage identity.
+//
+// The StatefulSet guarantees that a given network identity will always map to the same storage identity.
 //
 // This resource waits until its status is ready before registering success
 // for create/update, and populating output properties from the current state of the resource.
@@ -7811,7 +7817,7 @@ func (o StatefulSetPersistentVolumeClaimRetentionPolicyPatchPtrOutput) WhenScale
 
 // A StatefulSetSpec is the specification of a StatefulSet.
 type StatefulSetSpec struct {
-	// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready) This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate.
+	// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
 	MinReadySeconds *int `pulumi:"minReadySeconds"`
 	// persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is alpha.  +optional
 	PersistentVolumeClaimRetentionPolicy *StatefulSetPersistentVolumeClaimRetentionPolicy `pulumi:"persistentVolumeClaimRetentionPolicy"`
@@ -7846,7 +7852,7 @@ type StatefulSetSpecInput interface {
 
 // A StatefulSetSpec is the specification of a StatefulSet.
 type StatefulSetSpecArgs struct {
-	// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready) This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate.
+	// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
 	MinReadySeconds pulumi.IntPtrInput `pulumi:"minReadySeconds"`
 	// persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is alpha.  +optional
 	PersistentVolumeClaimRetentionPolicy StatefulSetPersistentVolumeClaimRetentionPolicyPtrInput `pulumi:"persistentVolumeClaimRetentionPolicy"`
@@ -7946,7 +7952,7 @@ func (o StatefulSetSpecOutput) ToStatefulSetSpecPtrOutputWithContext(ctx context
 	}).(StatefulSetSpecPtrOutput)
 }
 
-// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready) This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate.
+// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
 func (o StatefulSetSpecOutput) MinReadySeconds() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v StatefulSetSpec) *int { return v.MinReadySeconds }).(pulumi.IntPtrOutput)
 }
@@ -8022,7 +8028,7 @@ func (o StatefulSetSpecPtrOutput) Elem() StatefulSetSpecOutput {
 	}).(StatefulSetSpecOutput)
 }
 
-// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready) This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate.
+// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
 func (o StatefulSetSpecPtrOutput) MinReadySeconds() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *StatefulSetSpec) *int {
 		if v == nil {
@@ -8124,7 +8130,7 @@ func (o StatefulSetSpecPtrOutput) VolumeClaimTemplates() corev1.PersistentVolume
 
 // A StatefulSetSpec is the specification of a StatefulSet.
 type StatefulSetSpecPatch struct {
-	// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready) This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate.
+	// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
 	MinReadySeconds *int `pulumi:"minReadySeconds"`
 	// persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is alpha.  +optional
 	PersistentVolumeClaimRetentionPolicy *StatefulSetPersistentVolumeClaimRetentionPolicyPatch `pulumi:"persistentVolumeClaimRetentionPolicy"`
@@ -8159,7 +8165,7 @@ type StatefulSetSpecPatchInput interface {
 
 // A StatefulSetSpec is the specification of a StatefulSet.
 type StatefulSetSpecPatchArgs struct {
-	// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready) This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate.
+	// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
 	MinReadySeconds pulumi.IntPtrInput `pulumi:"minReadySeconds"`
 	// persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is alpha.  +optional
 	PersistentVolumeClaimRetentionPolicy StatefulSetPersistentVolumeClaimRetentionPolicyPatchPtrInput `pulumi:"persistentVolumeClaimRetentionPolicy"`
@@ -8259,7 +8265,7 @@ func (o StatefulSetSpecPatchOutput) ToStatefulSetSpecPatchPtrOutputWithContext(c
 	}).(StatefulSetSpecPatchPtrOutput)
 }
 
-// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready) This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate.
+// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
 func (o StatefulSetSpecPatchOutput) MinReadySeconds() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v StatefulSetSpecPatch) *int { return v.MinReadySeconds }).(pulumi.IntPtrOutput)
 }
@@ -8335,7 +8341,7 @@ func (o StatefulSetSpecPatchPtrOutput) Elem() StatefulSetSpecPatchOutput {
 	}).(StatefulSetSpecPatchOutput)
 }
 
-// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready) This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate.
+// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
 func (o StatefulSetSpecPatchPtrOutput) MinReadySeconds() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *StatefulSetSpecPatch) *int {
 		if v == nil {
@@ -8437,7 +8443,7 @@ func (o StatefulSetSpecPatchPtrOutput) VolumeClaimTemplates() corev1.PersistentV
 
 // StatefulSetStatus represents the current state of a StatefulSet.
 type StatefulSetStatus struct {
-	// Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset. This is a beta field and enabled/disabled by StatefulSetMinReadySeconds feature gate.
+	// Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset.
 	AvailableReplicas *int `pulumi:"availableReplicas"`
 	// collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
 	CollisionCount *int `pulumi:"collisionCount"`
@@ -8472,7 +8478,7 @@ type StatefulSetStatusInput interface {
 
 // StatefulSetStatus represents the current state of a StatefulSet.
 type StatefulSetStatusArgs struct {
-	// Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset. This is a beta field and enabled/disabled by StatefulSetMinReadySeconds feature gate.
+	// Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset.
 	AvailableReplicas pulumi.IntPtrInput `pulumi:"availableReplicas"`
 	// collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
 	CollisionCount pulumi.IntPtrInput `pulumi:"collisionCount"`
@@ -8572,7 +8578,7 @@ func (o StatefulSetStatusOutput) ToStatefulSetStatusPtrOutputWithContext(ctx con
 	}).(StatefulSetStatusPtrOutput)
 }
 
-// Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset. This is a beta field and enabled/disabled by StatefulSetMinReadySeconds feature gate.
+// Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset.
 func (o StatefulSetStatusOutput) AvailableReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v StatefulSetStatus) *int { return v.AvailableReplicas }).(pulumi.IntPtrOutput)
 }
@@ -8646,7 +8652,7 @@ func (o StatefulSetStatusPtrOutput) Elem() StatefulSetStatusOutput {
 	}).(StatefulSetStatusOutput)
 }
 
-// Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset. This is a beta field and enabled/disabled by StatefulSetMinReadySeconds feature gate.
+// Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset.
 func (o StatefulSetStatusPtrOutput) AvailableReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *StatefulSetStatus) *int {
 		if v == nil {
@@ -8748,7 +8754,7 @@ func (o StatefulSetStatusPtrOutput) UpdatedReplicas() pulumi.IntPtrOutput {
 
 // StatefulSetStatus represents the current state of a StatefulSet.
 type StatefulSetStatusPatch struct {
-	// Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset. This is a beta field and enabled/disabled by StatefulSetMinReadySeconds feature gate.
+	// Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset.
 	AvailableReplicas *int `pulumi:"availableReplicas"`
 	// collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
 	CollisionCount *int `pulumi:"collisionCount"`
@@ -8783,7 +8789,7 @@ type StatefulSetStatusPatchInput interface {
 
 // StatefulSetStatus represents the current state of a StatefulSet.
 type StatefulSetStatusPatchArgs struct {
-	// Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset. This is a beta field and enabled/disabled by StatefulSetMinReadySeconds feature gate.
+	// Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset.
 	AvailableReplicas pulumi.IntPtrInput `pulumi:"availableReplicas"`
 	// collisionCount is the count of hash collisions for the StatefulSet. The StatefulSet controller uses this field as a collision avoidance mechanism when it needs to create the name for the newest ControllerRevision.
 	CollisionCount pulumi.IntPtrInput `pulumi:"collisionCount"`
@@ -8883,7 +8889,7 @@ func (o StatefulSetStatusPatchOutput) ToStatefulSetStatusPatchPtrOutputWithConte
 	}).(StatefulSetStatusPatchPtrOutput)
 }
 
-// Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset. This is a beta field and enabled/disabled by StatefulSetMinReadySeconds feature gate.
+// Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset.
 func (o StatefulSetStatusPatchOutput) AvailableReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v StatefulSetStatusPatch) *int { return v.AvailableReplicas }).(pulumi.IntPtrOutput)
 }
@@ -8957,7 +8963,7 @@ func (o StatefulSetStatusPatchPtrOutput) Elem() StatefulSetStatusPatchOutput {
 	}).(StatefulSetStatusPatchOutput)
 }
 
-// Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset. This is a beta field and enabled/disabled by StatefulSetMinReadySeconds feature gate.
+// Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset.
 func (o StatefulSetStatusPatchPtrOutput) AvailableReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *StatefulSetStatusPatch) *int {
 		if v == nil {

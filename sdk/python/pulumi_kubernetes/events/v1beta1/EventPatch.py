@@ -37,23 +37,22 @@ class EventPatchArgs:
                  type: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a EventPatch resource.
-        :param pulumi.Input[str] action: action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
+        :param pulumi.Input[str] action: What action was taken/failed regarding to the regarding object.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[int] deprecated_count: deprecatedCount is the deprecated field assuring backward compatibility with core.v1 Event type.
-        :param pulumi.Input[str] deprecated_first_timestamp: deprecatedFirstTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
-        :param pulumi.Input[str] deprecated_last_timestamp: deprecatedLastTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
-        :param pulumi.Input['_core.v1.EventSourcePatchArgs'] deprecated_source: deprecatedSource is the deprecated field assuring backward compatibility with core.v1 Event type.
-        :param pulumi.Input[str] event_time: eventTime is the time when this Event was first observed. It is required.
+        :param pulumi.Input[int] deprecated_count: Deprecated field assuring backward compatibility with core.v1 Event type
+        :param pulumi.Input[str] deprecated_first_timestamp: Deprecated field assuring backward compatibility with core.v1 Event type
+        :param pulumi.Input[str] deprecated_last_timestamp: Deprecated field assuring backward compatibility with core.v1 Event type
+        :param pulumi.Input['_core.v1.EventSourcePatchArgs'] deprecated_source: Deprecated field assuring backward compatibility with core.v1 Event type
+        :param pulumi.Input[str] event_time: Required. Time when this Event was first observed.
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input['_meta.v1.ObjectMetaPatchArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input[str] note: note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
-        :param pulumi.Input[str] reason: reason is why the action was taken. It is human-readable. This field can have at most 128 characters.
-        :param pulumi.Input['_core.v1.ObjectReferencePatchArgs'] regarding: regarding contains the object this Event is about. In most cases it's an Object reporting controller implements, e.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
-        :param pulumi.Input['_core.v1.ObjectReferencePatchArgs'] related: related is the optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
-        :param pulumi.Input[str] reporting_controller: reportingController is the name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`. This field cannot be empty for new Events.
-        :param pulumi.Input[str] reporting_instance: reportingInstance is the ID of the controller instance, e.g. `kubelet-xyzf`. This field cannot be empty for new Events and it can have at most 128 characters.
-        :param pulumi.Input['EventSeriesPatchArgs'] series: series is data about the Event series this event represents or nil if it's a singleton Event.
-        :param pulumi.Input[str] type: type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.
+        :param pulumi.Input[str] note: Optional. A human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
+        :param pulumi.Input[str] reason: Why the action was taken.
+        :param pulumi.Input['_core.v1.ObjectReferencePatchArgs'] regarding: The object this Event is about. In most cases it's an Object reporting controller implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
+        :param pulumi.Input['_core.v1.ObjectReferencePatchArgs'] related: Optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
+        :param pulumi.Input[str] reporting_controller: Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
+        :param pulumi.Input[str] reporting_instance: ID of the controller instance, e.g. `kubelet-xyzf`.
+        :param pulumi.Input['EventSeriesPatchArgs'] series: Data about the Event series this event represents or nil if it's a singleton Event.
+        :param pulumi.Input[str] type: Type of this event (Normal, Warning), new types could be added in the future.
         """
         if action is not None:
             pulumi.set(__self__, "action", action)
@@ -94,7 +93,7 @@ class EventPatchArgs:
     @pulumi.getter
     def action(self) -> Optional[pulumi.Input[str]]:
         """
-        action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
+        What action was taken/failed regarding to the regarding object.
         """
         return pulumi.get(self, "action")
 
@@ -118,7 +117,7 @@ class EventPatchArgs:
     @pulumi.getter(name="deprecatedCount")
     def deprecated_count(self) -> Optional[pulumi.Input[int]]:
         """
-        deprecatedCount is the deprecated field assuring backward compatibility with core.v1 Event type.
+        Deprecated field assuring backward compatibility with core.v1 Event type
         """
         return pulumi.get(self, "deprecated_count")
 
@@ -130,7 +129,7 @@ class EventPatchArgs:
     @pulumi.getter(name="deprecatedFirstTimestamp")
     def deprecated_first_timestamp(self) -> Optional[pulumi.Input[str]]:
         """
-        deprecatedFirstTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
+        Deprecated field assuring backward compatibility with core.v1 Event type
         """
         return pulumi.get(self, "deprecated_first_timestamp")
 
@@ -142,7 +141,7 @@ class EventPatchArgs:
     @pulumi.getter(name="deprecatedLastTimestamp")
     def deprecated_last_timestamp(self) -> Optional[pulumi.Input[str]]:
         """
-        deprecatedLastTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
+        Deprecated field assuring backward compatibility with core.v1 Event type
         """
         return pulumi.get(self, "deprecated_last_timestamp")
 
@@ -154,7 +153,7 @@ class EventPatchArgs:
     @pulumi.getter(name="deprecatedSource")
     def deprecated_source(self) -> Optional[pulumi.Input['_core.v1.EventSourcePatchArgs']]:
         """
-        deprecatedSource is the deprecated field assuring backward compatibility with core.v1 Event type.
+        Deprecated field assuring backward compatibility with core.v1 Event type
         """
         return pulumi.get(self, "deprecated_source")
 
@@ -166,7 +165,7 @@ class EventPatchArgs:
     @pulumi.getter(name="eventTime")
     def event_time(self) -> Optional[pulumi.Input[str]]:
         """
-        eventTime is the time when this Event was first observed. It is required.
+        Required. Time when this Event was first observed.
         """
         return pulumi.get(self, "event_time")
 
@@ -189,9 +188,6 @@ class EventPatchArgs:
     @property
     @pulumi.getter
     def metadata(self) -> Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']]:
-        """
-        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        """
         return pulumi.get(self, "metadata")
 
     @metadata.setter
@@ -202,7 +198,7 @@ class EventPatchArgs:
     @pulumi.getter
     def note(self) -> Optional[pulumi.Input[str]]:
         """
-        note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
+        Optional. A human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
         """
         return pulumi.get(self, "note")
 
@@ -214,7 +210,7 @@ class EventPatchArgs:
     @pulumi.getter
     def reason(self) -> Optional[pulumi.Input[str]]:
         """
-        reason is why the action was taken. It is human-readable. This field can have at most 128 characters.
+        Why the action was taken.
         """
         return pulumi.get(self, "reason")
 
@@ -226,7 +222,7 @@ class EventPatchArgs:
     @pulumi.getter
     def regarding(self) -> Optional[pulumi.Input['_core.v1.ObjectReferencePatchArgs']]:
         """
-        regarding contains the object this Event is about. In most cases it's an Object reporting controller implements, e.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
+        The object this Event is about. In most cases it's an Object reporting controller implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
         """
         return pulumi.get(self, "regarding")
 
@@ -238,7 +234,7 @@ class EventPatchArgs:
     @pulumi.getter
     def related(self) -> Optional[pulumi.Input['_core.v1.ObjectReferencePatchArgs']]:
         """
-        related is the optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
+        Optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
         """
         return pulumi.get(self, "related")
 
@@ -250,7 +246,7 @@ class EventPatchArgs:
     @pulumi.getter(name="reportingController")
     def reporting_controller(self) -> Optional[pulumi.Input[str]]:
         """
-        reportingController is the name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`. This field cannot be empty for new Events.
+        Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
         """
         return pulumi.get(self, "reporting_controller")
 
@@ -262,7 +258,7 @@ class EventPatchArgs:
     @pulumi.getter(name="reportingInstance")
     def reporting_instance(self) -> Optional[pulumi.Input[str]]:
         """
-        reportingInstance is the ID of the controller instance, e.g. `kubelet-xyzf`. This field cannot be empty for new Events and it can have at most 128 characters.
+        ID of the controller instance, e.g. `kubelet-xyzf`.
         """
         return pulumi.get(self, "reporting_instance")
 
@@ -274,7 +270,7 @@ class EventPatchArgs:
     @pulumi.getter
     def series(self) -> Optional[pulumi.Input['EventSeriesPatchArgs']]:
         """
-        series is data about the Event series this event represents or nil if it's a singleton Event.
+        Data about the Event series this event represents or nil if it's a singleton Event.
         """
         return pulumi.get(self, "series")
 
@@ -286,7 +282,7 @@ class EventPatchArgs:
     @pulumi.getter
     def type(self) -> Optional[pulumi.Input[str]]:
         """
-        type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.
+        Type of this event (Normal, Warning), new types could be added in the future.
         """
         return pulumi.get(self, "type")
 
@@ -325,27 +321,26 @@ class EventPatch(pulumi.CustomResource):
         Conflicts will result in an error by default, but can be forced using the "pulumi.com/patchForce" annotation. See the
         [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/installation-configuration/#server-side-apply) for
         additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
-        Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system. Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.
+        Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[str] action: action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
+        :param pulumi.Input[str] action: What action was taken/failed regarding to the regarding object.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[int] deprecated_count: deprecatedCount is the deprecated field assuring backward compatibility with core.v1 Event type.
-        :param pulumi.Input[str] deprecated_first_timestamp: deprecatedFirstTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
-        :param pulumi.Input[str] deprecated_last_timestamp: deprecatedLastTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
-        :param pulumi.Input[pulumi.InputType['_core.v1.EventSourcePatchArgs']] deprecated_source: deprecatedSource is the deprecated field assuring backward compatibility with core.v1 Event type.
-        :param pulumi.Input[str] event_time: eventTime is the time when this Event was first observed. It is required.
+        :param pulumi.Input[int] deprecated_count: Deprecated field assuring backward compatibility with core.v1 Event type
+        :param pulumi.Input[str] deprecated_first_timestamp: Deprecated field assuring backward compatibility with core.v1 Event type
+        :param pulumi.Input[str] deprecated_last_timestamp: Deprecated field assuring backward compatibility with core.v1 Event type
+        :param pulumi.Input[pulumi.InputType['_core.v1.EventSourcePatchArgs']] deprecated_source: Deprecated field assuring backward compatibility with core.v1 Event type
+        :param pulumi.Input[str] event_time: Required. Time when this Event was first observed.
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaPatchArgs']] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input[str] note: note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
-        :param pulumi.Input[str] reason: reason is why the action was taken. It is human-readable. This field can have at most 128 characters.
-        :param pulumi.Input[pulumi.InputType['_core.v1.ObjectReferencePatchArgs']] regarding: regarding contains the object this Event is about. In most cases it's an Object reporting controller implements, e.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
-        :param pulumi.Input[pulumi.InputType['_core.v1.ObjectReferencePatchArgs']] related: related is the optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
-        :param pulumi.Input[str] reporting_controller: reportingController is the name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`. This field cannot be empty for new Events.
-        :param pulumi.Input[str] reporting_instance: reportingInstance is the ID of the controller instance, e.g. `kubelet-xyzf`. This field cannot be empty for new Events and it can have at most 128 characters.
-        :param pulumi.Input[pulumi.InputType['EventSeriesPatchArgs']] series: series is data about the Event series this event represents or nil if it's a singleton Event.
-        :param pulumi.Input[str] type: type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.
+        :param pulumi.Input[str] note: Optional. A human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
+        :param pulumi.Input[str] reason: Why the action was taken.
+        :param pulumi.Input[pulumi.InputType['_core.v1.ObjectReferencePatchArgs']] regarding: The object this Event is about. In most cases it's an Object reporting controller implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
+        :param pulumi.Input[pulumi.InputType['_core.v1.ObjectReferencePatchArgs']] related: Optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
+        :param pulumi.Input[str] reporting_controller: Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
+        :param pulumi.Input[str] reporting_instance: ID of the controller instance, e.g. `kubelet-xyzf`.
+        :param pulumi.Input[pulumi.InputType['EventSeriesPatchArgs']] series: Data about the Event series this event represents or nil if it's a singleton Event.
+        :param pulumi.Input[str] type: Type of this event (Normal, Warning), new types could be added in the future.
         """
         ...
     @overload
@@ -360,7 +355,7 @@ class EventPatch(pulumi.CustomResource):
         Conflicts will result in an error by default, but can be forced using the "pulumi.com/patchForce" annotation. See the
         [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/installation-configuration/#server-side-apply) for
         additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
-        Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system. Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.
+        Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.
 
         :param str resource_name: The name of the resource.
         :param EventPatchArgs args: The arguments to use to populate this resource's properties.
@@ -467,7 +462,7 @@ class EventPatch(pulumi.CustomResource):
     @pulumi.getter
     def action(self) -> pulumi.Output[Optional[str]]:
         """
-        action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
+        What action was taken/failed regarding to the regarding object.
         """
         return pulumi.get(self, "action")
 
@@ -483,7 +478,7 @@ class EventPatch(pulumi.CustomResource):
     @pulumi.getter(name="deprecatedCount")
     def deprecated_count(self) -> pulumi.Output[Optional[int]]:
         """
-        deprecatedCount is the deprecated field assuring backward compatibility with core.v1 Event type.
+        Deprecated field assuring backward compatibility with core.v1 Event type
         """
         return pulumi.get(self, "deprecated_count")
 
@@ -491,7 +486,7 @@ class EventPatch(pulumi.CustomResource):
     @pulumi.getter(name="deprecatedFirstTimestamp")
     def deprecated_first_timestamp(self) -> pulumi.Output[Optional[str]]:
         """
-        deprecatedFirstTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
+        Deprecated field assuring backward compatibility with core.v1 Event type
         """
         return pulumi.get(self, "deprecated_first_timestamp")
 
@@ -499,7 +494,7 @@ class EventPatch(pulumi.CustomResource):
     @pulumi.getter(name="deprecatedLastTimestamp")
     def deprecated_last_timestamp(self) -> pulumi.Output[Optional[str]]:
         """
-        deprecatedLastTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
+        Deprecated field assuring backward compatibility with core.v1 Event type
         """
         return pulumi.get(self, "deprecated_last_timestamp")
 
@@ -507,7 +502,7 @@ class EventPatch(pulumi.CustomResource):
     @pulumi.getter(name="deprecatedSource")
     def deprecated_source(self) -> pulumi.Output[Optional['_core.v1.outputs.EventSourcePatch']]:
         """
-        deprecatedSource is the deprecated field assuring backward compatibility with core.v1 Event type.
+        Deprecated field assuring backward compatibility with core.v1 Event type
         """
         return pulumi.get(self, "deprecated_source")
 
@@ -515,7 +510,7 @@ class EventPatch(pulumi.CustomResource):
     @pulumi.getter(name="eventTime")
     def event_time(self) -> pulumi.Output[Optional[str]]:
         """
-        eventTime is the time when this Event was first observed. It is required.
+        Required. Time when this Event was first observed.
         """
         return pulumi.get(self, "event_time")
 
@@ -530,16 +525,13 @@ class EventPatch(pulumi.CustomResource):
     @property
     @pulumi.getter
     def metadata(self) -> pulumi.Output[Optional['_meta.v1.outputs.ObjectMetaPatch']]:
-        """
-        Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        """
         return pulumi.get(self, "metadata")
 
     @property
     @pulumi.getter
     def note(self) -> pulumi.Output[Optional[str]]:
         """
-        note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
+        Optional. A human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
         """
         return pulumi.get(self, "note")
 
@@ -547,7 +539,7 @@ class EventPatch(pulumi.CustomResource):
     @pulumi.getter
     def reason(self) -> pulumi.Output[Optional[str]]:
         """
-        reason is why the action was taken. It is human-readable. This field can have at most 128 characters.
+        Why the action was taken.
         """
         return pulumi.get(self, "reason")
 
@@ -555,7 +547,7 @@ class EventPatch(pulumi.CustomResource):
     @pulumi.getter
     def regarding(self) -> pulumi.Output[Optional['_core.v1.outputs.ObjectReferencePatch']]:
         """
-        regarding contains the object this Event is about. In most cases it's an Object reporting controller implements, e.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
+        The object this Event is about. In most cases it's an Object reporting controller implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
         """
         return pulumi.get(self, "regarding")
 
@@ -563,7 +555,7 @@ class EventPatch(pulumi.CustomResource):
     @pulumi.getter
     def related(self) -> pulumi.Output[Optional['_core.v1.outputs.ObjectReferencePatch']]:
         """
-        related is the optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
+        Optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
         """
         return pulumi.get(self, "related")
 
@@ -571,7 +563,7 @@ class EventPatch(pulumi.CustomResource):
     @pulumi.getter(name="reportingController")
     def reporting_controller(self) -> pulumi.Output[Optional[str]]:
         """
-        reportingController is the name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`. This field cannot be empty for new Events.
+        Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
         """
         return pulumi.get(self, "reporting_controller")
 
@@ -579,7 +571,7 @@ class EventPatch(pulumi.CustomResource):
     @pulumi.getter(name="reportingInstance")
     def reporting_instance(self) -> pulumi.Output[Optional[str]]:
         """
-        reportingInstance is the ID of the controller instance, e.g. `kubelet-xyzf`. This field cannot be empty for new Events and it can have at most 128 characters.
+        ID of the controller instance, e.g. `kubelet-xyzf`.
         """
         return pulumi.get(self, "reporting_instance")
 
@@ -587,7 +579,7 @@ class EventPatch(pulumi.CustomResource):
     @pulumi.getter
     def series(self) -> pulumi.Output[Optional['outputs.EventSeriesPatch']]:
         """
-        series is data about the Event series this event represents or nil if it's a singleton Event.
+        Data about the Event series this event represents or nil if it's a singleton Event.
         """
         return pulumi.get(self, "series")
 
@@ -595,7 +587,7 @@ class EventPatch(pulumi.CustomResource):
     @pulumi.getter
     def type(self) -> pulumi.Output[Optional[str]]:
         """
-        type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.
+        Type of this event (Normal, Warning), new types could be added in the future.
         """
         return pulumi.get(self, "type")
 

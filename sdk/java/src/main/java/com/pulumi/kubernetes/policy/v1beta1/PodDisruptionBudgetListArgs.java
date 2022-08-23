@@ -34,17 +34,9 @@ public final class PodDisruptionBudgetListArgs extends com.pulumi.resources.Reso
         return Optional.ofNullable(this.apiVersion);
     }
 
-    /**
-     * items list individual PodDisruptionBudget objects
-     * 
-     */
     @Import(name="items", required=true)
     private Output<List<PodDisruptionBudgetArgs>> items;
 
-    /**
-     * @return items list individual PodDisruptionBudget objects
-     * 
-     */
     public Output<List<PodDisruptionBudgetArgs>> items() {
         return this.items;
     }
@@ -64,17 +56,9 @@ public final class PodDisruptionBudgetListArgs extends com.pulumi.resources.Reso
         return Optional.ofNullable(this.kind);
     }
 
-    /**
-     * Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-     * 
-     */
     @Import(name="metadata")
     private @Nullable Output<ListMetaArgs> metadata;
 
-    /**
-     * @return Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-     * 
-     */
     public Optional<Output<ListMetaArgs>> metadata() {
         return Optional.ofNullable(this.metadata);
     }
@@ -127,33 +111,15 @@ public final class PodDisruptionBudgetListArgs extends com.pulumi.resources.Reso
             return apiVersion(Output.of(apiVersion));
         }
 
-        /**
-         * @param items items list individual PodDisruptionBudget objects
-         * 
-         * @return builder
-         * 
-         */
         public Builder items(Output<List<PodDisruptionBudgetArgs>> items) {
             $.items = items;
             return this;
         }
 
-        /**
-         * @param items items list individual PodDisruptionBudget objects
-         * 
-         * @return builder
-         * 
-         */
         public Builder items(List<PodDisruptionBudgetArgs> items) {
             return items(Output.of(items));
         }
 
-        /**
-         * @param items items list individual PodDisruptionBudget objects
-         * 
-         * @return builder
-         * 
-         */
         public Builder items(PodDisruptionBudgetArgs... items) {
             return items(List.of(items));
         }
@@ -179,23 +145,11 @@ public final class PodDisruptionBudgetListArgs extends com.pulumi.resources.Reso
             return kind(Output.of(kind));
         }
 
-        /**
-         * @param metadata Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-         * 
-         * @return builder
-         * 
-         */
         public Builder metadata(@Nullable Output<ListMetaArgs> metadata) {
             $.metadata = metadata;
             return this;
         }
 
-        /**
-         * @param metadata Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-         * 
-         * @return builder
-         * 
-         */
         public Builder metadata(ListMetaArgs metadata) {
             return metadata(Output.of(metadata));
         }

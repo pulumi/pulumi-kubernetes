@@ -47,14 +47,14 @@ public final class PodSecurityPolicySpecPatchArgs extends com.pulumi.resources.R
     }
 
     /**
-     * AllowedCSIDrivers is an allowlist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is a beta field, and is only honored if the API server enables the CSIInlineVolume feature gate.
+     * AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is an alpha field, and is only honored if the API server enables the CSIInlineVolume feature gate.
      * 
      */
     @Import(name="allowedCSIDrivers")
     private @Nullable Output<List<AllowedCSIDriverPatchArgs>> allowedCSIDrivers;
 
     /**
-     * @return AllowedCSIDrivers is an allowlist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is a beta field, and is only honored if the API server enables the CSIInlineVolume feature gate.
+     * @return AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is an alpha field, and is only honored if the API server enables the CSIInlineVolume feature gate.
      * 
      */
     public Optional<Output<List<AllowedCSIDriverPatchArgs>>> allowedCSIDrivers() {
@@ -77,14 +77,14 @@ public final class PodSecurityPolicySpecPatchArgs extends com.pulumi.resources.R
     }
 
     /**
-     * allowedFlexVolumes is an allowlist of Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the &#34;volumes&#34; field.
+     * allowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the &#34;volumes&#34; field.
      * 
      */
     @Import(name="allowedFlexVolumes")
     private @Nullable Output<List<AllowedFlexVolumePatchArgs>> allowedFlexVolumes;
 
     /**
-     * @return allowedFlexVolumes is an allowlist of Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the &#34;volumes&#34; field.
+     * @return allowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the &#34;volumes&#34; field.
      * 
      */
     public Optional<Output<List<AllowedFlexVolumePatchArgs>>> allowedFlexVolumes() {
@@ -92,14 +92,14 @@ public final class PodSecurityPolicySpecPatchArgs extends com.pulumi.resources.R
     }
 
     /**
-     * allowedHostPaths is an allowlist of host paths. Empty indicates that all host paths may be used.
+     * allowedHostPaths is a white list of allowed host paths. Empty indicates that all host paths may be used.
      * 
      */
     @Import(name="allowedHostPaths")
     private @Nullable Output<List<AllowedHostPathPatchArgs>> allowedHostPaths;
 
     /**
-     * @return allowedHostPaths is an allowlist of host paths. Empty indicates that all host paths may be used.
+     * @return allowedHostPaths is a white list of allowed host paths. Empty indicates that all host paths may be used.
      * 
      */
     public Optional<Output<List<AllowedHostPathPatchArgs>>> allowedHostPaths() {
@@ -107,14 +107,14 @@ public final class PodSecurityPolicySpecPatchArgs extends com.pulumi.resources.R
     }
 
     /**
-     * AllowedProcMountTypes is an allowlist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
+     * AllowedProcMountTypes is a whitelist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
      * 
      */
     @Import(name="allowedProcMountTypes")
     private @Nullable Output<List<String>> allowedProcMountTypes;
 
     /**
-     * @return AllowedProcMountTypes is an allowlist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
+     * @return AllowedProcMountTypes is a whitelist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
      * 
      */
     public Optional<Output<List<String>>> allowedProcMountTypes() {
@@ -122,7 +122,7 @@ public final class PodSecurityPolicySpecPatchArgs extends com.pulumi.resources.R
     }
 
     /**
-     * allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in &#34;*&#34; in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to allowlist all allowed unsafe sysctls explicitly to avoid rejection.
+     * allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in &#34;*&#34; in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to whitelist all allowed unsafe sysctls explicitly to avoid rejection.
      * 
      * Examples: e.g. &#34;foo/*&#34; allows &#34;foo/bar&#34;, &#34;foo/baz&#34;, etc. e.g. &#34;foo.*&#34; allows &#34;foo.bar&#34;, &#34;foo.baz&#34;, etc.
      * 
@@ -131,7 +131,7 @@ public final class PodSecurityPolicySpecPatchArgs extends com.pulumi.resources.R
     private @Nullable Output<List<String>> allowedUnsafeSysctls;
 
     /**
-     * @return allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in &#34;*&#34; in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to allowlist all allowed unsafe sysctls explicitly to avoid rejection.
+     * @return allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in &#34;*&#34; in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to whitelist all allowed unsafe sysctls explicitly to avoid rejection.
      * 
      * Examples: e.g. &#34;foo/*&#34; allows &#34;foo/bar&#34;, &#34;foo/baz&#34;, etc. e.g. &#34;foo.*&#34; allows &#34;foo.bar&#34;, &#34;foo.baz&#34;, etc.
      * 
@@ -385,14 +385,14 @@ public final class PodSecurityPolicySpecPatchArgs extends com.pulumi.resources.R
     }
 
     /**
-     * volumes is an allowlist of volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use &#39;*&#39;.
+     * volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use &#39;*&#39;.
      * 
      */
     @Import(name="volumes")
     private @Nullable Output<List<String>> volumes;
 
     /**
-     * @return volumes is an allowlist of volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use &#39;*&#39;.
+     * @return volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use &#39;*&#39;.
      * 
      */
     public Optional<Output<List<String>>> volumes() {
@@ -468,7 +468,7 @@ public final class PodSecurityPolicySpecPatchArgs extends com.pulumi.resources.R
         }
 
         /**
-         * @param allowedCSIDrivers AllowedCSIDrivers is an allowlist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is a beta field, and is only honored if the API server enables the CSIInlineVolume feature gate.
+         * @param allowedCSIDrivers AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is an alpha field, and is only honored if the API server enables the CSIInlineVolume feature gate.
          * 
          * @return builder
          * 
@@ -479,7 +479,7 @@ public final class PodSecurityPolicySpecPatchArgs extends com.pulumi.resources.R
         }
 
         /**
-         * @param allowedCSIDrivers AllowedCSIDrivers is an allowlist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is a beta field, and is only honored if the API server enables the CSIInlineVolume feature gate.
+         * @param allowedCSIDrivers AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is an alpha field, and is only honored if the API server enables the CSIInlineVolume feature gate.
          * 
          * @return builder
          * 
@@ -489,7 +489,7 @@ public final class PodSecurityPolicySpecPatchArgs extends com.pulumi.resources.R
         }
 
         /**
-         * @param allowedCSIDrivers AllowedCSIDrivers is an allowlist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is a beta field, and is only honored if the API server enables the CSIInlineVolume feature gate.
+         * @param allowedCSIDrivers AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is an alpha field, and is only honored if the API server enables the CSIInlineVolume feature gate.
          * 
          * @return builder
          * 
@@ -530,7 +530,7 @@ public final class PodSecurityPolicySpecPatchArgs extends com.pulumi.resources.R
         }
 
         /**
-         * @param allowedFlexVolumes allowedFlexVolumes is an allowlist of Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the &#34;volumes&#34; field.
+         * @param allowedFlexVolumes allowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the &#34;volumes&#34; field.
          * 
          * @return builder
          * 
@@ -541,7 +541,7 @@ public final class PodSecurityPolicySpecPatchArgs extends com.pulumi.resources.R
         }
 
         /**
-         * @param allowedFlexVolumes allowedFlexVolumes is an allowlist of Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the &#34;volumes&#34; field.
+         * @param allowedFlexVolumes allowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the &#34;volumes&#34; field.
          * 
          * @return builder
          * 
@@ -551,7 +551,7 @@ public final class PodSecurityPolicySpecPatchArgs extends com.pulumi.resources.R
         }
 
         /**
-         * @param allowedFlexVolumes allowedFlexVolumes is an allowlist of Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the &#34;volumes&#34; field.
+         * @param allowedFlexVolumes allowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the &#34;volumes&#34; field.
          * 
          * @return builder
          * 
@@ -561,7 +561,7 @@ public final class PodSecurityPolicySpecPatchArgs extends com.pulumi.resources.R
         }
 
         /**
-         * @param allowedHostPaths allowedHostPaths is an allowlist of host paths. Empty indicates that all host paths may be used.
+         * @param allowedHostPaths allowedHostPaths is a white list of allowed host paths. Empty indicates that all host paths may be used.
          * 
          * @return builder
          * 
@@ -572,7 +572,7 @@ public final class PodSecurityPolicySpecPatchArgs extends com.pulumi.resources.R
         }
 
         /**
-         * @param allowedHostPaths allowedHostPaths is an allowlist of host paths. Empty indicates that all host paths may be used.
+         * @param allowedHostPaths allowedHostPaths is a white list of allowed host paths. Empty indicates that all host paths may be used.
          * 
          * @return builder
          * 
@@ -582,7 +582,7 @@ public final class PodSecurityPolicySpecPatchArgs extends com.pulumi.resources.R
         }
 
         /**
-         * @param allowedHostPaths allowedHostPaths is an allowlist of host paths. Empty indicates that all host paths may be used.
+         * @param allowedHostPaths allowedHostPaths is a white list of allowed host paths. Empty indicates that all host paths may be used.
          * 
          * @return builder
          * 
@@ -592,7 +592,7 @@ public final class PodSecurityPolicySpecPatchArgs extends com.pulumi.resources.R
         }
 
         /**
-         * @param allowedProcMountTypes AllowedProcMountTypes is an allowlist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
+         * @param allowedProcMountTypes AllowedProcMountTypes is a whitelist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
          * 
          * @return builder
          * 
@@ -603,7 +603,7 @@ public final class PodSecurityPolicySpecPatchArgs extends com.pulumi.resources.R
         }
 
         /**
-         * @param allowedProcMountTypes AllowedProcMountTypes is an allowlist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
+         * @param allowedProcMountTypes AllowedProcMountTypes is a whitelist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
          * 
          * @return builder
          * 
@@ -613,7 +613,7 @@ public final class PodSecurityPolicySpecPatchArgs extends com.pulumi.resources.R
         }
 
         /**
-         * @param allowedProcMountTypes AllowedProcMountTypes is an allowlist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
+         * @param allowedProcMountTypes AllowedProcMountTypes is a whitelist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
          * 
          * @return builder
          * 
@@ -623,7 +623,7 @@ public final class PodSecurityPolicySpecPatchArgs extends com.pulumi.resources.R
         }
 
         /**
-         * @param allowedUnsafeSysctls allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in &#34;*&#34; in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to allowlist all allowed unsafe sysctls explicitly to avoid rejection.
+         * @param allowedUnsafeSysctls allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in &#34;*&#34; in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to whitelist all allowed unsafe sysctls explicitly to avoid rejection.
          * 
          * Examples: e.g. &#34;foo/*&#34; allows &#34;foo/bar&#34;, &#34;foo/baz&#34;, etc. e.g. &#34;foo.*&#34; allows &#34;foo.bar&#34;, &#34;foo.baz&#34;, etc.
          * 
@@ -636,7 +636,7 @@ public final class PodSecurityPolicySpecPatchArgs extends com.pulumi.resources.R
         }
 
         /**
-         * @param allowedUnsafeSysctls allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in &#34;*&#34; in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to allowlist all allowed unsafe sysctls explicitly to avoid rejection.
+         * @param allowedUnsafeSysctls allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in &#34;*&#34; in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to whitelist all allowed unsafe sysctls explicitly to avoid rejection.
          * 
          * Examples: e.g. &#34;foo/*&#34; allows &#34;foo/bar&#34;, &#34;foo/baz&#34;, etc. e.g. &#34;foo.*&#34; allows &#34;foo.bar&#34;, &#34;foo.baz&#34;, etc.
          * 
@@ -648,7 +648,7 @@ public final class PodSecurityPolicySpecPatchArgs extends com.pulumi.resources.R
         }
 
         /**
-         * @param allowedUnsafeSysctls allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in &#34;*&#34; in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to allowlist all allowed unsafe sysctls explicitly to avoid rejection.
+         * @param allowedUnsafeSysctls allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in &#34;*&#34; in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to whitelist all allowed unsafe sysctls explicitly to avoid rejection.
          * 
          * Examples: e.g. &#34;foo/*&#34; allows &#34;foo/bar&#34;, &#34;foo/baz&#34;, etc. e.g. &#34;foo.*&#34; allows &#34;foo.bar&#34;, &#34;foo.baz&#34;, etc.
          * 
@@ -1042,7 +1042,7 @@ public final class PodSecurityPolicySpecPatchArgs extends com.pulumi.resources.R
         }
 
         /**
-         * @param volumes volumes is an allowlist of volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use &#39;*&#39;.
+         * @param volumes volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use &#39;*&#39;.
          * 
          * @return builder
          * 
@@ -1053,7 +1053,7 @@ public final class PodSecurityPolicySpecPatchArgs extends com.pulumi.resources.R
         }
 
         /**
-         * @param volumes volumes is an allowlist of volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use &#39;*&#39;.
+         * @param volumes volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use &#39;*&#39;.
          * 
          * @return builder
          * 
@@ -1063,7 +1063,7 @@ public final class PodSecurityPolicySpecPatchArgs extends com.pulumi.resources.R
         }
 
         /**
-         * @param volumes volumes is an allowlist of volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use &#39;*&#39;.
+         * @param volumes volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use &#39;*&#39;.
          * 
          * @return builder
          * 

@@ -724,9 +724,7 @@ class ObjectMetaPatchArgs:
         """
         ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] annotations: Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
-        :param pulumi.Input[str] cluster_name: Deprecated: ClusterName is a legacy field that was always cleared by the system and never used; it will be removed completely in 1.25.
-               
-               The name in the go struct is changed to help clients detect accidental use.
+        :param pulumi.Input[str] cluster_name: The name of the cluster which the object belongs to. This is used to distinguish resources with same name and namespace in different clusters. This field is not set anywhere right now and apiserver is going to ignore it if set in create or update request.
         :param pulumi.Input[str] creation_timestamp: CreationTimestamp is a timestamp representing the server time when this object was created. It is not guaranteed to be set in happens-before order across separate operations. Clients may not set this value. It is represented in RFC3339 form and is in UTC.
                
                Populated by the system. Read-only. Null for lists. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -805,9 +803,7 @@ class ObjectMetaPatchArgs:
     @pulumi.getter(name="clusterName")
     def cluster_name(self) -> Optional[pulumi.Input[str]]:
         """
-        Deprecated: ClusterName is a legacy field that was always cleared by the system and never used; it will be removed completely in 1.25.
-
-        The name in the go struct is changed to help clients detect accidental use.
+        The name of the cluster which the object belongs to. This is used to distinguish resources with same name and namespace in different clusters. This field is not set anywhere right now and apiserver is going to ignore it if set in create or update request.
         """
         return pulumi.get(self, "cluster_name")
 
@@ -1020,9 +1016,7 @@ class ObjectMetaArgs:
         """
         ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] annotations: Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
-        :param pulumi.Input[str] cluster_name: Deprecated: ClusterName is a legacy field that was always cleared by the system and never used; it will be removed completely in 1.25.
-               
-               The name in the go struct is changed to help clients detect accidental use.
+        :param pulumi.Input[str] cluster_name: The name of the cluster which the object belongs to. This is used to distinguish resources with same name and namespace in different clusters. This field is not set anywhere right now and apiserver is going to ignore it if set in create or update request.
         :param pulumi.Input[str] creation_timestamp: CreationTimestamp is a timestamp representing the server time when this object was created. It is not guaranteed to be set in happens-before order across separate operations. Clients may not set this value. It is represented in RFC3339 form and is in UTC.
                
                Populated by the system. Read-only. Null for lists. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -1101,9 +1095,7 @@ class ObjectMetaArgs:
     @pulumi.getter(name="clusterName")
     def cluster_name(self) -> Optional[pulumi.Input[str]]:
         """
-        Deprecated: ClusterName is a legacy field that was always cleared by the system and never used; it will be removed completely in 1.25.
-
-        The name in the go struct is changed to help clients detect accidental use.
+        The name of the cluster which the object belongs to. This is used to distinguish resources with same name and namespace in different clusters. This field is not set anywhere right now and apiserver is going to ignore it if set in create or update request.
         """
         return pulumi.get(self, "cluster_name")
 

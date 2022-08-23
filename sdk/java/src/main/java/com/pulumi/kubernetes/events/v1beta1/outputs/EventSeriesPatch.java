@@ -13,12 +13,12 @@ import javax.annotation.Nullable;
 @CustomType
 public final class EventSeriesPatch {
     /**
-     * @return count is the number of occurrences in this series up to the last heartbeat time.
+     * @return Number of occurrences in this series up to the last heartbeat time
      * 
      */
     private @Nullable Integer count;
     /**
-     * @return lastObservedTime is the time when last Event from the series was seen before last heartbeat.
+     * @return Time when last Event from the series was seen before last heartbeat.
      * 
      */
     private @Nullable String lastObservedTime;
@@ -30,14 +30,14 @@ public final class EventSeriesPatch {
 
     private EventSeriesPatch() {}
     /**
-     * @return count is the number of occurrences in this series up to the last heartbeat time.
+     * @return Number of occurrences in this series up to the last heartbeat time
      * 
      */
     public Optional<Integer> count() {
         return Optional.ofNullable(this.count);
     }
     /**
-     * @return lastObservedTime is the time when last Event from the series was seen before last heartbeat.
+     * @return Time when last Event from the series was seen before last heartbeat.
      * 
      */
     public Optional<String> lastObservedTime() {

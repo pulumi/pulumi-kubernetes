@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.batch.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.kubernetes.batch.v1.outputs.PodFailurePolicyPatch;
 import com.pulumi.kubernetes.core.v1.outputs.PodTemplateSpecPatch;
 import com.pulumi.kubernetes.meta.v1.outputs.LabelSelectorPatch;
 import java.lang.Boolean;
@@ -51,6 +52,13 @@ public final class JobSpecPatch {
      * 
      */
     private @Nullable Integer parallelism;
+    /**
+     * @return Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs&#39;s .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
+     * 
+     * This field is alpha-level. To use this field, you must enable the `JobPodFailurePolicy` feature gate (disabled by default).
+     * 
+     */
+    private @Nullable PodFailurePolicyPatch podFailurePolicy;
     /**
      * @return A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
      * 
@@ -122,6 +130,15 @@ public final class JobSpecPatch {
         return Optional.ofNullable(this.parallelism);
     }
     /**
+     * @return Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs&#39;s .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
+     * 
+     * This field is alpha-level. To use this field, you must enable the `JobPodFailurePolicy` feature gate (disabled by default).
+     * 
+     */
+    public Optional<PodFailurePolicyPatch> podFailurePolicy() {
+        return Optional.ofNullable(this.podFailurePolicy);
+    }
+    /**
      * @return A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
      * 
      */
@@ -165,6 +182,7 @@ public final class JobSpecPatch {
         private @Nullable Integer completions;
         private @Nullable Boolean manualSelector;
         private @Nullable Integer parallelism;
+        private @Nullable PodFailurePolicyPatch podFailurePolicy;
         private @Nullable LabelSelectorPatch selector;
         private @Nullable Boolean suspend;
         private @Nullable PodTemplateSpecPatch template;
@@ -178,6 +196,7 @@ public final class JobSpecPatch {
     	      this.completions = defaults.completions;
     	      this.manualSelector = defaults.manualSelector;
     	      this.parallelism = defaults.parallelism;
+    	      this.podFailurePolicy = defaults.podFailurePolicy;
     	      this.selector = defaults.selector;
     	      this.suspend = defaults.suspend;
     	      this.template = defaults.template;
@@ -215,6 +234,11 @@ public final class JobSpecPatch {
             return this;
         }
         @CustomType.Setter
+        public Builder podFailurePolicy(@Nullable PodFailurePolicyPatch podFailurePolicy) {
+            this.podFailurePolicy = podFailurePolicy;
+            return this;
+        }
+        @CustomType.Setter
         public Builder selector(@Nullable LabelSelectorPatch selector) {
             this.selector = selector;
             return this;
@@ -242,6 +266,7 @@ public final class JobSpecPatch {
             o.completions = completions;
             o.manualSelector = manualSelector;
             o.parallelism = parallelism;
+            o.podFailurePolicy = podFailurePolicy;
             o.selector = selector;
             o.suspend = suspend;
             o.template = template;

@@ -58,7 +58,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Discovery.V1
         public Input<string>? Hostname { get; set; }
 
         /// <summary>
-        /// nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
+        /// nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node.
         /// </summary>
         [Input("nodeName")]
         public Input<string>? NodeName { get; set; }

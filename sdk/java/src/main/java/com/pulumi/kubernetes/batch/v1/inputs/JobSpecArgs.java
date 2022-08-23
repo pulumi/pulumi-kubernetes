@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.batch.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.kubernetes.batch.v1.inputs.PodFailurePolicyArgs;
 import com.pulumi.kubernetes.core.v1.inputs.PodTemplateSpecArgs;
 import com.pulumi.kubernetes.meta.v1.inputs.LabelSelectorArgs;
 import java.lang.Boolean;
@@ -126,6 +127,25 @@ public final class JobSpecArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs&#39;s .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
+     * 
+     * This field is alpha-level. To use this field, you must enable the `JobPodFailurePolicy` feature gate (disabled by default).
+     * 
+     */
+    @Import(name="podFailurePolicy")
+    private @Nullable Output<PodFailurePolicyArgs> podFailurePolicy;
+
+    /**
+     * @return Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs&#39;s .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
+     * 
+     * This field is alpha-level. To use this field, you must enable the `JobPodFailurePolicy` feature gate (disabled by default).
+     * 
+     */
+    public Optional<Output<PodFailurePolicyArgs>> podFailurePolicy() {
+        return Optional.ofNullable(this.podFailurePolicy);
+    }
+
+    /**
      * A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
      * 
      */
@@ -194,6 +214,7 @@ public final class JobSpecArgs extends com.pulumi.resources.ResourceArgs {
         this.completions = $.completions;
         this.manualSelector = $.manualSelector;
         this.parallelism = $.parallelism;
+        this.podFailurePolicy = $.podFailurePolicy;
         this.selector = $.selector;
         this.suspend = $.suspend;
         this.template = $.template;
@@ -354,6 +375,31 @@ public final class JobSpecArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder parallelism(Integer parallelism) {
             return parallelism(Output.of(parallelism));
+        }
+
+        /**
+         * @param podFailurePolicy Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs&#39;s .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
+         * 
+         * This field is alpha-level. To use this field, you must enable the `JobPodFailurePolicy` feature gate (disabled by default).
+         * 
+         * @return builder
+         * 
+         */
+        public Builder podFailurePolicy(@Nullable Output<PodFailurePolicyArgs> podFailurePolicy) {
+            $.podFailurePolicy = podFailurePolicy;
+            return this;
+        }
+
+        /**
+         * @param podFailurePolicy Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs&#39;s .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
+         * 
+         * This field is alpha-level. To use this field, you must enable the `JobPodFailurePolicy` feature gate (disabled by default).
+         * 
+         * @return builder
+         * 
+         */
+        public Builder podFailurePolicy(PodFailurePolicyArgs podFailurePolicy) {
+            return podFailurePolicy(Output.of(podFailurePolicy));
         }
 
         /**

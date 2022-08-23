@@ -3789,7 +3789,7 @@ export namespace apps {
          */
         export interface RollingUpdateDaemonSet {
             /**
-             * The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediatedly created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption. This is beta field and enabled/disabled by DaemonSetUpdateSurge feature gate.
+             * The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediatedly created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption.
              */
             maxSurge?: pulumi.Input<number | string>;
             /**
@@ -3803,7 +3803,7 @@ export namespace apps {
          */
         export interface RollingUpdateDaemonSetPatch {
             /**
-             * The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediatedly created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption. This is beta field and enabled/disabled by DaemonSetUpdateSurge feature gate.
+             * The maximum number of nodes with an existing available DaemonSet pod that can have an updated DaemonSet pod during during an update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up to a minimum of 1. Default value is 0. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their a new pod created before the old pod is marked as deleted. The update starts by launching new pods on 30% of nodes. Once an updated pod is available (Ready for at least minReadySeconds) the old DaemonSet pod on that node is marked deleted. If the old pod becomes unavailable for any reason (Ready transitions to false, is evicted, or is drained) an updated pod is immediatedly created on that node without considering surge limits. Allowing surge implies the possibility that the resources consumed by the daemonset on any given node can double if the readiness check fails, and so resource intensive daemonsets should take into account that they may cause evictions during disruption.
              */
             maxSurge?: pulumi.Input<number | string>;
             /**
@@ -3870,8 +3870,9 @@ export namespace apps {
 
         /**
          * StatefulSet represents a set of pods with consistent identities. Identities are defined as:
-         *  - Network: A single stable DNS and hostname.
-         *  - Storage: As many VolumeClaims as requested.
+         *   - Network: A single stable DNS and hostname.
+         *   - Storage: As many VolumeClaims as requested.
+         *
          * The StatefulSet guarantees that a given network identity will always map to the same storage identity.
          *
          * This resource waits until its status is ready before registering success
@@ -3969,7 +3970,7 @@ export namespace apps {
          */
         export interface StatefulSetSpec {
             /**
-             * Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready) This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate.
+             * Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
              */
             minReadySeconds?: pulumi.Input<number>;
             /**
@@ -4015,7 +4016,7 @@ export namespace apps {
          */
         export interface StatefulSetSpecPatch {
             /**
-             * Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready) This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate.
+             * Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
              */
             minReadySeconds?: pulumi.Input<number>;
             /**
@@ -4061,7 +4062,7 @@ export namespace apps {
          */
         export interface StatefulSetStatus {
             /**
-             * Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset. This is a beta field and enabled/disabled by StatefulSetMinReadySeconds feature gate.
+             * Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset.
              */
             availableReplicas?: pulumi.Input<number>;
             /**
@@ -5788,7 +5789,7 @@ export namespace authentication {
          */
         export interface TokenRequestSpec {
             /**
-             * Audiences are the intendend audiences of the token. A recipient of a token must identitfy themself with an identifier in the list of audiences of the token, and otherwise should reject the token. A token issued for multiple audiences may be used to authenticate against any of the audiences listed but implies a high degree of trust between the target audiences.
+             * Audiences are the intendend audiences of the token. A recipient of a token must identify themself with an identifier in the list of audiences of the token, and otherwise should reject the token. A token issued for multiple audiences may be used to authenticate against any of the audiences listed but implies a high degree of trust between the target audiences.
              */
             audiences: pulumi.Input<pulumi.Input<string>[]>;
             /**
@@ -5806,7 +5807,7 @@ export namespace authentication {
          */
         export interface TokenRequestSpecPatch {
             /**
-             * Audiences are the intendend audiences of the token. A recipient of a token must identitfy themself with an identifier in the list of audiences of the token, and otherwise should reject the token. A token issued for multiple audiences may be used to authenticate against any of the audiences listed but implies a high degree of trust between the target audiences.
+             * Audiences are the intendend audiences of the token. A recipient of a token must identify themself with an identifier in the list of audiences of the token, and otherwise should reject the token. A token issued for multiple audiences may be used to authenticate against any of the audiences listed but implies a high degree of trust between the target audiences.
              */
             audiences?: pulumi.Input<pulumi.Input<string>[]>;
             /**
@@ -7392,7 +7393,7 @@ export namespace autoscaling {
             /**
              * conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
              */
-            conditions?: pulumi.Input<pulumi.Input<inputs.autoscaling.v2beta1.HorizontalPodAutoscalerCondition>[]>;
+            conditions: pulumi.Input<pulumi.Input<inputs.autoscaling.v2beta1.HorizontalPodAutoscalerCondition>[]>;
             /**
              * currentMetrics is the last read state of the metrics used by this autoscaler.
              */
@@ -7440,7 +7441,7 @@ export namespace autoscaling {
              */
             resource?: pulumi.Input<inputs.autoscaling.v2beta1.ResourceMetricSource>;
             /**
-             * type is the type of metric source.  It should be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each mapping to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
+             * type is the type of metric source.  It should be one of "Object", "Pods" or "Resource", each mapping to a matching field in the object.
              */
             type: pulumi.Input<string>;
         }
@@ -7470,7 +7471,7 @@ export namespace autoscaling {
              */
             resource?: pulumi.Input<inputs.autoscaling.v2beta1.ResourceMetricSourcePatch>;
             /**
-             * type is the type of metric source.  It should be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each mapping to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
+             * type is the type of metric source.  It should be one of "Object", "Pods" or "Resource", each mapping to a matching field in the object.
              */
             type?: pulumi.Input<string>;
         }
@@ -7500,7 +7501,7 @@ export namespace autoscaling {
              */
             resource?: pulumi.Input<inputs.autoscaling.v2beta1.ResourceMetricStatus>;
             /**
-             * type is the type of metric source.  It will be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each corresponds to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
+             * type is the type of metric source.  It will be one of "Object", "Pods" or "Resource", each corresponds to a matching field in the object.
              */
             type: pulumi.Input<string>;
         }
@@ -8439,7 +8440,7 @@ export namespace batch {
              */
             suspend?: pulumi.Input<boolean>;
             /**
-             * The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
+             * The time zone name for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will default to the time zone of the kube-controller-manager process. The set of valid time zone names and the time zone offset is loaded from the system-wide time zone database by the API server during CronJob validation and the controller manager during execution. If no system-wide time zone database can be found a bundled version of the database is used instead. If the time zone name becomes invalid during the lifetime of a CronJob or due to a change in host configuration, the controller will stop creating new new Jobs and will create a system event with the reason UnknownTimeZone. More information can be found in https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#time-zones This is beta field and must be enabled via the `CronJobTimeZone` feature gate.
              */
             timeZone?: pulumi.Input<string>;
         }
@@ -8477,7 +8478,7 @@ export namespace batch {
              */
             suspend?: pulumi.Input<boolean>;
             /**
-             * The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
+             * The time zone name for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will default to the time zone of the kube-controller-manager process. The set of valid time zone names and the time zone offset is loaded from the system-wide time zone database by the API server during CronJob validation and the controller manager during execution. If no system-wide time zone database can be found a bundled version of the database is used instead. If the time zone name becomes invalid during the lifetime of a CronJob or due to a change in host configuration, the controller will stop creating new new Jobs and will create a system event with the reason UnknownTimeZone. More information can be found in https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#time-zones This is beta field and must be enabled via the `CronJobTimeZone` feature gate.
              */
             timeZone?: pulumi.Input<string>;
         }
@@ -8611,6 +8612,12 @@ export namespace batch {
              */
             parallelism?: pulumi.Input<number>;
             /**
+             * Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs's .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
+             *
+             * This field is alpha-level. To use this field, you must enable the `JobPodFailurePolicy` feature gate (disabled by default).
+             */
+            podFailurePolicy?: pulumi.Input<inputs.batch.v1.PodFailurePolicy>;
+            /**
              * A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
              */
             selector?: pulumi.Input<inputs.meta.v1.LabelSelector>;
@@ -8662,6 +8669,12 @@ export namespace batch {
              * Specifies the maximum desired number of pods the job should run at any given time. The actual number of pods running in steady state will be less than this number when ((.spec.completions - .status.successful) < .spec.parallelism), i.e. when the work left to do is less than max parallelism. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
              */
             parallelism?: pulumi.Input<number>;
+            /**
+             * Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs's .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
+             *
+             * This field is alpha-level. To use this field, you must enable the `JobPodFailurePolicy` feature gate (disabled by default).
+             */
+            podFailurePolicy?: pulumi.Input<inputs.batch.v1.PodFailurePolicyPatch>;
             /**
              * A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
              */
@@ -8758,6 +8771,150 @@ export namespace batch {
         }
 
         /**
+         * PodFailurePolicy describes how failed pods influence the backoffLimit.
+         */
+        export interface PodFailurePolicy {
+            /**
+             * A list of pod failure policy rules. The rules are evaluated in order. Once a rule matches a Pod failure, the remaining of the rules are ignored. When no rule matches the Pod failure, the default handling applies - the counter of pod failures is incremented and it is checked against the backoffLimit. At most 20 elements are allowed.
+             */
+            rules: pulumi.Input<pulumi.Input<inputs.batch.v1.PodFailurePolicyRule>[]>;
+        }
+
+        /**
+         * PodFailurePolicyOnExitCodesRequirement describes the requirement for handling a failed pod based on its container exit codes. In particular, it lookups the .state.terminated.exitCode for each app container and init container status, represented by the .status.containerStatuses and .status.initContainerStatuses fields in the Pod status, respectively. Containers completed with success (exit code 0) are excluded from the requirement check.
+         */
+        export interface PodFailurePolicyOnExitCodesRequirement {
+            /**
+             * Restricts the check for exit codes to the container with the specified name. When null, the rule applies to all containers. When specified, it should match one the container or initContainer names in the pod template.
+             */
+            containerName?: pulumi.Input<string>;
+            /**
+             * Represents the relationship between the container exit code(s) and the specified values. Containers completed with success (exit code 0) are excluded from the requirement check. Possible values are: - In: the requirement is satisfied if at least one container exit code
+             *   (might be multiple if there are multiple containers not restricted
+             *   by the 'containerName' field) is in the set of specified values.
+             * - NotIn: the requirement is satisfied if at least one container exit code
+             *   (might be multiple if there are multiple containers not restricted
+             *   by the 'containerName' field) is not in the set of specified values.
+             * Additional values are considered to be added in the future. Clients should react to an unknown operator by assuming the requirement is not satisfied.
+             */
+            operator: pulumi.Input<string>;
+            /**
+             * Specifies the set of values. Each returned container exit code (might be multiple in case of multiple containers) is checked against this set of values with respect to the operator. The list of values must be ordered and must not contain duplicates. Value '0' cannot be used for the In operator. At least one element is required. At most 255 elements are allowed.
+             */
+            values: pulumi.Input<pulumi.Input<number>[]>;
+        }
+
+        /**
+         * PodFailurePolicyOnExitCodesRequirement describes the requirement for handling a failed pod based on its container exit codes. In particular, it lookups the .state.terminated.exitCode for each app container and init container status, represented by the .status.containerStatuses and .status.initContainerStatuses fields in the Pod status, respectively. Containers completed with success (exit code 0) are excluded from the requirement check.
+         */
+        export interface PodFailurePolicyOnExitCodesRequirementPatch {
+            /**
+             * Restricts the check for exit codes to the container with the specified name. When null, the rule applies to all containers. When specified, it should match one the container or initContainer names in the pod template.
+             */
+            containerName?: pulumi.Input<string>;
+            /**
+             * Represents the relationship between the container exit code(s) and the specified values. Containers completed with success (exit code 0) are excluded from the requirement check. Possible values are: - In: the requirement is satisfied if at least one container exit code
+             *   (might be multiple if there are multiple containers not restricted
+             *   by the 'containerName' field) is in the set of specified values.
+             * - NotIn: the requirement is satisfied if at least one container exit code
+             *   (might be multiple if there are multiple containers not restricted
+             *   by the 'containerName' field) is not in the set of specified values.
+             * Additional values are considered to be added in the future. Clients should react to an unknown operator by assuming the requirement is not satisfied.
+             */
+            operator?: pulumi.Input<string>;
+            /**
+             * Specifies the set of values. Each returned container exit code (might be multiple in case of multiple containers) is checked against this set of values with respect to the operator. The list of values must be ordered and must not contain duplicates. Value '0' cannot be used for the In operator. At least one element is required. At most 255 elements are allowed.
+             */
+            values?: pulumi.Input<pulumi.Input<number>[]>;
+        }
+
+        /**
+         * PodFailurePolicyOnPodConditionsPattern describes a pattern for matching an actual pod condition type.
+         */
+        export interface PodFailurePolicyOnPodConditionsPattern {
+            /**
+             * Specifies the required Pod condition status. To match a pod condition it is required that the specified status equals the pod condition status. Defaults to True.
+             */
+            status: pulumi.Input<string>;
+            /**
+             * Specifies the required Pod condition type. To match a pod condition it is required that specified type equals the pod condition type.
+             */
+            type: pulumi.Input<string>;
+        }
+
+        /**
+         * PodFailurePolicyOnPodConditionsPattern describes a pattern for matching an actual pod condition type.
+         */
+        export interface PodFailurePolicyOnPodConditionsPatternPatch {
+            /**
+             * Specifies the required Pod condition status. To match a pod condition it is required that the specified status equals the pod condition status. Defaults to True.
+             */
+            status?: pulumi.Input<string>;
+            /**
+             * Specifies the required Pod condition type. To match a pod condition it is required that specified type equals the pod condition type.
+             */
+            type?: pulumi.Input<string>;
+        }
+
+        /**
+         * PodFailurePolicy describes how failed pods influence the backoffLimit.
+         */
+        export interface PodFailurePolicyPatch {
+            /**
+             * A list of pod failure policy rules. The rules are evaluated in order. Once a rule matches a Pod failure, the remaining of the rules are ignored. When no rule matches the Pod failure, the default handling applies - the counter of pod failures is incremented and it is checked against the backoffLimit. At most 20 elements are allowed.
+             */
+            rules?: pulumi.Input<pulumi.Input<inputs.batch.v1.PodFailurePolicyRulePatch>[]>;
+        }
+
+        /**
+         * PodFailurePolicyRule describes how a pod failure is handled when the requirements are met. One of OnExitCodes and onPodConditions, but not both, can be used in each rule.
+         */
+        export interface PodFailurePolicyRule {
+            /**
+             * Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are: - FailJob: indicates that the pod's job is marked as Failed and all
+             *   running pods are terminated.
+             * - Ignore: indicates that the counter towards the .backoffLimit is not
+             *   incremented and a replacement pod is created.
+             * - Count: indicates that the pod is handled in the default way - the
+             *   counter towards the .backoffLimit is incremented.
+             * Additional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.
+             */
+            action: pulumi.Input<string>;
+            /**
+             * Represents the requirement on the container exit codes.
+             */
+            onExitCodes?: pulumi.Input<inputs.batch.v1.PodFailurePolicyOnExitCodesRequirement>;
+            /**
+             * Represents the requirement on the pod conditions. The requirement is represented as a list of pod condition patterns. The requirement is satisfied if at least one pattern matches an actual pod condition. At most 20 elements are allowed.
+             */
+            onPodConditions: pulumi.Input<pulumi.Input<inputs.batch.v1.PodFailurePolicyOnPodConditionsPattern>[]>;
+        }
+
+        /**
+         * PodFailurePolicyRule describes how a pod failure is handled when the requirements are met. One of OnExitCodes and onPodConditions, but not both, can be used in each rule.
+         */
+        export interface PodFailurePolicyRulePatch {
+            /**
+             * Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are: - FailJob: indicates that the pod's job is marked as Failed and all
+             *   running pods are terminated.
+             * - Ignore: indicates that the counter towards the .backoffLimit is not
+             *   incremented and a replacement pod is created.
+             * - Count: indicates that the pod is handled in the default way - the
+             *   counter towards the .backoffLimit is incremented.
+             * Additional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.
+             */
+            action?: pulumi.Input<string>;
+            /**
+             * Represents the requirement on the container exit codes.
+             */
+            onExitCodes?: pulumi.Input<inputs.batch.v1.PodFailurePolicyOnExitCodesRequirementPatch>;
+            /**
+             * Represents the requirement on the pod conditions. The requirement is represented as a list of pod condition patterns. The requirement is satisfied if at least one pattern matches an actual pod condition. At most 20 elements are allowed.
+             */
+            onPodConditions?: pulumi.Input<pulumi.Input<inputs.batch.v1.PodFailurePolicyOnPodConditionsPatternPatch>[]>;
+        }
+
+        /**
          * UncountedTerminatedPods holds UIDs of Pods that have terminated but haven't been accounted in Job status counters.
          */
         export interface UncountedTerminatedPods {
@@ -8832,10 +8989,6 @@ export namespace batch {
              * This flag tells the controller to suspend subsequent executions, it does not apply to already started executions.  Defaults to false.
              */
             suspend?: pulumi.Input<boolean>;
-            /**
-             * The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
-             */
-            timeZone?: pulumi.Input<string>;
         }
 
         /**
@@ -8870,10 +9023,6 @@ export namespace batch {
              * This flag tells the controller to suspend subsequent executions, it does not apply to already started executions.  Defaults to false.
              */
             suspend?: pulumi.Input<boolean>;
-            /**
-             * The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
-             */
-            timeZone?: pulumi.Input<string>;
         }
 
         /**
@@ -8888,10 +9037,6 @@ export namespace batch {
              * Information when was the last time the job was successfully scheduled.
              */
             lastScheduleTime?: pulumi.Input<string>;
-            /**
-             * Information when was the last time the job successfully completed.
-             */
-            lastSuccessfulTime?: pulumi.Input<string>;
         }
 
         /**
@@ -9880,7 +10025,7 @@ export namespace core {
          */
         export interface CSIPersistentVolumeSource {
             /**
-             * controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an alpha field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+             * controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an beta field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
              */
             controllerExpandSecretRef?: pulumi.Input<inputs.core.v1.SecretReference>;
             /**
@@ -9895,6 +10040,10 @@ export namespace core {
              * fsType to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
              */
             fsType?: pulumi.Input<string>;
+            /**
+             * nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is an alpha field and requires enabling CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+             */
+            nodeExpandSecretRef?: pulumi.Input<inputs.core.v1.SecretReference>;
             /**
              * nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
              */
@@ -9922,7 +10071,7 @@ export namespace core {
          */
         export interface CSIPersistentVolumeSourcePatch {
             /**
-             * controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an alpha field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+             * controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an beta field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
              */
             controllerExpandSecretRef?: pulumi.Input<inputs.core.v1.SecretReferencePatch>;
             /**
@@ -9937,6 +10086,10 @@ export namespace core {
              * fsType to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
              */
             fsType?: pulumi.Input<string>;
+            /**
+             * nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is an alpha field and requires enabling CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+             */
+            nodeExpandSecretRef?: pulumi.Input<inputs.core.v1.SecretReferencePatch>;
             /**
              * nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
              */
@@ -10546,7 +10699,7 @@ export namespace core {
              */
             name: pulumi.Input<string>;
             /**
-             * List of ports to expose from the container. Exposing a port here gives the system additional information about the network connections a container uses, but is primarily informational. Not specifying a port here DOES NOT prevent that port from being exposed. Any port which is listening on the default "0.0.0.0" address inside a container will be accessible from the network. Cannot be updated.
+             * List of ports to expose from the container. Not specifying a port here DOES NOT prevent that port from being exposed. Any port which is listening on the default "0.0.0.0" address inside a container will be accessible from the network. Modifying this array with strategic merge patch may corrupt the data. For more information See https://github.com/kubernetes/kubernetes/issues/108255. Cannot be updated.
              */
             ports?: pulumi.Input<pulumi.Input<inputs.core.v1.ContainerPort>[]>;
             /**
@@ -10604,7 +10757,7 @@ export namespace core {
          */
         export interface ContainerImage {
             /**
-             * Names by which this image is known. e.g. ["k8s.gcr.io/hyperkube:v1.0.7", "dockerhub.io/google_containers/hyperkube:v1.0.7"]
+             * Names by which this image is known. e.g. ["kubernetes.example/hyperkube:v1.0.7", "cloud-vendor.registry.example/cloud-vendor/hyperkube:v1.0.7"]
              */
             names: pulumi.Input<pulumi.Input<string>[]>;
             /**
@@ -10654,7 +10807,7 @@ export namespace core {
              */
             name?: pulumi.Input<string>;
             /**
-             * List of ports to expose from the container. Exposing a port here gives the system additional information about the network connections a container uses, but is primarily informational. Not specifying a port here DOES NOT prevent that port from being exposed. Any port which is listening on the default "0.0.0.0" address inside a container will be accessible from the network. Cannot be updated.
+             * List of ports to expose from the container. Not specifying a port here DOES NOT prevent that port from being exposed. Any port which is listening on the default "0.0.0.0" address inside a container will be accessible from the network. Modifying this array with strategic merge patch may corrupt the data. For more information See https://github.com/kubernetes/kubernetes/issues/108255. Cannot be updated.
              */
             ports?: pulumi.Input<pulumi.Input<inputs.core.v1.ContainerPortPatch>[]>;
             /**
@@ -11097,13 +11250,16 @@ export namespace core {
 
         /**
          * EndpointSubset is a group of addresses with a common set of ports. The expanded set of endpoints is the Cartesian product of Addresses x Ports. For example, given:
-         *   {
-         *     Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
-         *     Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
-         *   }
+         *
+         * 	{
+         * 	  Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+         * 	  Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+         * 	}
+         *
          * The resulting set of endpoints can be viewed as:
-         *     a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
-         *     b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+         *
+         * 	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
+         * 	b: [ 10.10.1.1:309, 10.10.2.2:309 ]
          */
         export interface EndpointSubset {
             /**
@@ -11122,13 +11278,16 @@ export namespace core {
 
         /**
          * EndpointSubset is a group of addresses with a common set of ports. The expanded set of endpoints is the Cartesian product of Addresses x Ports. For example, given:
-         *   {
-         *     Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
-         *     Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
-         *   }
+         *
+         * 	{
+         * 	  Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+         * 	  Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+         * 	}
+         *
          * The resulting set of endpoints can be viewed as:
-         *     a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
-         *     b: [ 10.10.1.1:309, 10.10.2.2:309 ]
+         *
+         * 	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
+         * 	b: [ 10.10.1.1:309, 10.10.2.2:309 ]
          */
         export interface EndpointSubsetPatch {
             /**
@@ -11147,17 +11306,18 @@ export namespace core {
 
         /**
          * Endpoints is a collection of endpoints that implement the actual service. Example:
-         *   Name: "mysvc",
-         *   Subsets: [
-         *     {
-         *       Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
-         *       Ports: [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
-         *     },
-         *     {
-         *       Addresses: [{"ip": "10.10.3.3"}],
-         *       Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
-         *     },
-         *  ]
+         *
+         * 	 Name: "mysvc",
+         * 	 Subsets: [
+         * 	   {
+         * 	     Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+         * 	     Ports: [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+         * 	   },
+         * 	   {
+         * 	     Addresses: [{"ip": "10.10.3.3"}],
+         * 	     Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
+         * 	   },
+         * 	]
          */
         export interface Endpoints {
             /**
@@ -11298,8 +11458,6 @@ export namespace core {
          * An EphemeralContainer is a temporary container that you may add to an existing Pod for user-initiated activities such as debugging. Ephemeral containers have no resource or scheduling guarantees, and they will not be restarted when they exit or when a Pod is removed or restarted. The kubelet may evict a Pod if an ephemeral container causes the Pod to exceed its resource allocation.
          *
          * To add an ephemeral container, use the ephemeralcontainers subresource of an existing Pod. Ephemeral containers may not be removed or restarted.
-         *
-         * This is a beta feature available on clusters that haven't disabled the EphemeralContainers feature gate.
          */
         export interface EphemeralContainer {
             /**
@@ -11402,8 +11560,6 @@ export namespace core {
          * An EphemeralContainer is a temporary container that you may add to an existing Pod for user-initiated activities such as debugging. Ephemeral containers have no resource or scheduling guarantees, and they will not be restarted when they exit or when a Pod is removed or restarted. The kubelet may evict a Pod if an ephemeral container causes the Pod to exceed its resource allocation.
          *
          * To add an ephemeral container, use the ephemeralcontainers subresource of an existing Pod. Ephemeral containers may not be removed or restarted.
-         *
-         * This is a beta feature available on clusters that haven't disabled the EphemeralContainers feature gate.
          */
         export interface EphemeralContainerPatch {
             /**
@@ -14156,7 +14312,8 @@ export namespace core {
 
         /**
          * IP address information for entries in the (plural) PodIPs field. Each entry includes:
-         *    IP: An IP address allocated to the pod. Routable at least within the cluster.
+         *
+         * 	IP: An IP address allocated to the pod. Routable at least within the cluster.
          */
         export interface PodIP {
             /**
@@ -14338,7 +14495,7 @@ export namespace core {
              */
             enableServiceLinks?: pulumi.Input<boolean>;
             /**
-             * List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource. This field is beta-level and available on clusters that haven't disabled the EphemeralContainers feature gate.
+             * List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource.
              */
             ephemeralContainers?: pulumi.Input<pulumi.Input<inputs.core.v1.EphemeralContainer>[]>;
             /**
@@ -14357,6 +14514,10 @@ export namespace core {
              * Use the host's pid namespace. Optional: Default to false.
              */
             hostPID?: pulumi.Input<boolean>;
+            /**
+             * Use the host's user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host. This field is alpha-level and is only honored by servers that enable the UserNamespacesSupport feature.
+             */
+            hostUsers?: pulumi.Input<boolean>;
             /**
              * Specifies the hostname of the Pod If not specified, the pod's hostname will be set to a system-defined value.
              */
@@ -14382,7 +14543,7 @@ export namespace core {
              *
              * If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
              *
-             * If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup This is a beta field and requires the IdentifyPodOS feature
+             * If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
              */
             os?: pulumi.Input<inputs.core.v1.PodOS>;
             /**
@@ -14492,7 +14653,7 @@ export namespace core {
              */
             enableServiceLinks?: pulumi.Input<boolean>;
             /**
-             * List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource. This field is beta-level and available on clusters that haven't disabled the EphemeralContainers feature gate.
+             * List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource.
              */
             ephemeralContainers?: pulumi.Input<pulumi.Input<inputs.core.v1.EphemeralContainerPatch>[]>;
             /**
@@ -14511,6 +14672,10 @@ export namespace core {
              * Use the host's pid namespace. Optional: Default to false.
              */
             hostPID?: pulumi.Input<boolean>;
+            /**
+             * Use the host's user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host. This field is alpha-level and is only honored by servers that enable the UserNamespacesSupport feature.
+             */
+            hostUsers?: pulumi.Input<boolean>;
             /**
              * Specifies the hostname of the Pod If not specified, the pod's hostname will be set to a system-defined value.
              */
@@ -14536,7 +14701,7 @@ export namespace core {
              *
              * If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
              *
-             * If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup This is a beta field and requires the IdentifyPodOS feature
+             * If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
              */
             os?: pulumi.Input<inputs.core.v1.PodOSPatch>;
             /**
@@ -14626,7 +14791,7 @@ export namespace core {
              */
             containerStatuses?: pulumi.Input<pulumi.Input<inputs.core.v1.ContainerStatus>[]>;
             /**
-             * Status for any ephemeral containers that have run in this pod. This field is beta-level and available on clusters that haven't disabled the EphemeralContainers feature gate.
+             * Status for any ephemeral containers that have run in this pod.
              */
             ephemeralContainerStatuses?: pulumi.Input<pulumi.Input<inputs.core.v1.ContainerStatus>[]>;
             /**
@@ -16253,15 +16418,15 @@ export namespace core {
              */
             externalName?: pulumi.Input<string>;
             /**
-             * externalTrafficPolicy denotes if this Service desires to route external traffic to node-local or cluster-wide endpoints. "Local" preserves the client source IP and avoids a second hop for LoadBalancer and Nodeport type services, but risks potentially imbalanced traffic spreading. "Cluster" obscures the client source IP and may cause a second hop to another node, but should have good overall load-spreading.
+             * externalTrafficPolicy describes how nodes distribute service traffic they receive on one of the Service's "externally-facing" addresses (NodePorts, ExternalIPs, and LoadBalancer IPs). If set to "Local", the proxy will configure the service in a way that assumes that external load balancers will take care of balancing the service traffic between nodes, and so each node will deliver traffic only to the node-local endpoints of the service, without masquerading the client source IP. (Traffic mistakenly sent to a node with no endpoints will be dropped.) The default value, "Cluster", uses the standard behavior of routing to all endpoints evenly (possibly modified by topology and other features). Note that traffic sent to an External IP or LoadBalancer IP from within the cluster will always get "Cluster" semantics, but clients sending to a NodePort from within the cluster may need to take traffic policy into account when picking a node.
              */
             externalTrafficPolicy?: pulumi.Input<string>;
             /**
-             * healthCheckNodePort specifies the healthcheck nodePort for the service. This only applies when type is set to LoadBalancer and externalTrafficPolicy is set to Local. If a value is specified, is in-range, and is not in use, it will be used.  If not specified, a value will be automatically allocated.  External systems (e.g. load-balancers) can use this port to determine if a given node holds endpoints for this service or not.  If this field is specified when creating a Service which does not need it, creation will fail. This field will be wiped when updating a Service to no longer need it (e.g. changing type).
+             * healthCheckNodePort specifies the healthcheck nodePort for the service. This only applies when type is set to LoadBalancer and externalTrafficPolicy is set to Local. If a value is specified, is in-range, and is not in use, it will be used.  If not specified, a value will be automatically allocated.  External systems (e.g. load-balancers) can use this port to determine if a given node holds endpoints for this service or not.  If this field is specified when creating a Service which does not need it, creation will fail. This field will be wiped when updating a Service to no longer need it (e.g. changing type). This field cannot be updated once set.
              */
             healthCheckNodePort?: pulumi.Input<number>;
             /**
-             * InternalTrafficPolicy specifies if the cluster internal traffic should be routed to all endpoints or node-local endpoints only. "Cluster" routes internal traffic to a Service to all endpoints. "Local" routes traffic to node-local endpoints only, traffic is dropped if no node-local endpoints are ready. The default value is "Cluster".
+             * InternalTrafficPolicy describes how nodes distribute service traffic they receive on the ClusterIP. If set to "Local", the proxy will assume that pods only want to talk to endpoints of the service on the same node as the pod, dropping the traffic if there are no local endpoints. The default value, "Cluster", uses the standard behavior of routing to all endpoints evenly (possibly modified by topology and other features).
              */
             internalTrafficPolicy?: pulumi.Input<string>;
             /**
@@ -16347,15 +16512,15 @@ export namespace core {
              */
             externalName?: pulumi.Input<string>;
             /**
-             * externalTrafficPolicy denotes if this Service desires to route external traffic to node-local or cluster-wide endpoints. "Local" preserves the client source IP and avoids a second hop for LoadBalancer and Nodeport type services, but risks potentially imbalanced traffic spreading. "Cluster" obscures the client source IP and may cause a second hop to another node, but should have good overall load-spreading.
+             * externalTrafficPolicy describes how nodes distribute service traffic they receive on one of the Service's "externally-facing" addresses (NodePorts, ExternalIPs, and LoadBalancer IPs). If set to "Local", the proxy will configure the service in a way that assumes that external load balancers will take care of balancing the service traffic between nodes, and so each node will deliver traffic only to the node-local endpoints of the service, without masquerading the client source IP. (Traffic mistakenly sent to a node with no endpoints will be dropped.) The default value, "Cluster", uses the standard behavior of routing to all endpoints evenly (possibly modified by topology and other features). Note that traffic sent to an External IP or LoadBalancer IP from within the cluster will always get "Cluster" semantics, but clients sending to a NodePort from within the cluster may need to take traffic policy into account when picking a node.
              */
             externalTrafficPolicy?: pulumi.Input<string>;
             /**
-             * healthCheckNodePort specifies the healthcheck nodePort for the service. This only applies when type is set to LoadBalancer and externalTrafficPolicy is set to Local. If a value is specified, is in-range, and is not in use, it will be used.  If not specified, a value will be automatically allocated.  External systems (e.g. load-balancers) can use this port to determine if a given node holds endpoints for this service or not.  If this field is specified when creating a Service which does not need it, creation will fail. This field will be wiped when updating a Service to no longer need it (e.g. changing type).
+             * healthCheckNodePort specifies the healthcheck nodePort for the service. This only applies when type is set to LoadBalancer and externalTrafficPolicy is set to Local. If a value is specified, is in-range, and is not in use, it will be used.  If not specified, a value will be automatically allocated.  External systems (e.g. load-balancers) can use this port to determine if a given node holds endpoints for this service or not.  If this field is specified when creating a Service which does not need it, creation will fail. This field will be wiped when updating a Service to no longer need it (e.g. changing type). This field cannot be updated once set.
              */
             healthCheckNodePort?: pulumi.Input<number>;
             /**
-             * InternalTrafficPolicy specifies if the cluster internal traffic should be routed to all endpoints or node-local endpoints only. "Cluster" routes internal traffic to a Service to all endpoints. "Local" routes traffic to node-local endpoints only, traffic is dropped if no node-local endpoints are ready. The default value is "Cluster".
+             * InternalTrafficPolicy describes how nodes distribute service traffic they receive on the ClusterIP. If set to "Local", the proxy will assume that pods only want to talk to endpoints of the service on the same node as the pod, dropping the traffic if there are no local endpoints. The default value, "Cluster", uses the standard behavior of routing to all endpoints evenly (possibly modified by topology and other features).
              */
             internalTrafficPolicy?: pulumi.Input<string>;
             /**
@@ -16761,6 +16926,10 @@ export namespace core {
              */
             labelSelector?: pulumi.Input<inputs.meta.v1.LabelSelector>;
             /**
+             * MatchLabelKeys is a set of pod label keys to select the pods over which spreading will be calculated. The keys are used to lookup values from the incoming pod labels, those key-value labels are ANDed with labelSelector to select the group of existing pods over which spreading will be calculated for the incoming pod. Keys that don't exist in the incoming pod labels will be ignored. A null or empty list means only match against labelSelector.
+             */
+            matchLabelKeys?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
              * MaxSkew describes the degree to which pods may be unevenly distributed. When `whenUnsatisfiable=DoNotSchedule`, it is the maximum permitted difference between the number of matching pods in the target topology and the global minimum. The global minimum is the minimum number of matching pods in an eligible domain or zero if the number of eligible domains is less than MinDomains. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 2/2/1: In this case, the global minimum is 1. | zone1 | zone2 | zone3 | |  P P  |  P P  |   P   | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 2/2/2; scheduling it onto zone1(zone2) would make the ActualSkew(3-1) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. When `whenUnsatisfiable=ScheduleAnyway`, it is used to give higher precedence to topologies that satisfy it. It's a required field. Default value is 1 and 0 is not allowed.
              */
             maxSkew: pulumi.Input<number>;
@@ -16769,11 +16938,23 @@ export namespace core {
              *
              * For example, in a 3-zone cluster, MaxSkew is set to 2, MinDomains is set to 5 and pods with the same labelSelector spread as 2/2/2: | zone1 | zone2 | zone3 | |  P P  |  P P  |  P P  | The number of domains is less than 5(MinDomains), so "global minimum" is treated as 0. In this situation, new pod with the same labelSelector cannot be scheduled, because computed skew will be 3(3 - 0) if new Pod is scheduled to any of the three zones, it will violate MaxSkew.
              *
-             * This is an alpha field and requires enabling MinDomainsInPodTopologySpread feature gate.
+             * This is a beta field and requires the MinDomainsInPodTopologySpread feature gate to be enabled (enabled by default).
              */
             minDomains?: pulumi.Input<number>;
             /**
-             * TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put balanced number of pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes match the node selector. e.g. If TopologyKey is "kubernetes.io/hostname", each Node is a domain of that topology. And, if TopologyKey is "topology.kubernetes.io/zone", each zone is a domain of that topology. It's a required field.
+             * NodeAffinityPolicy indicates how we will treat Pod's nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.
+             *
+             * If this value is nil, the behavior is equivalent to the Honor policy. This is a alpha-level feature enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+             */
+            nodeAffinityPolicy?: pulumi.Input<string>;
+            /**
+             * NodeTaintsPolicy indicates how we will treat node taints when calculating pod topology spread skew. Options are: - Honor: nodes without taints, along with tainted nodes for which the incoming pod has a toleration, are included. - Ignore: node taints are ignored. All nodes are included.
+             *
+             * If this value is nil, the behavior is equivalent to the Ignore policy. This is a alpha-level feature enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+             */
+            nodeTaintsPolicy?: pulumi.Input<string>;
+            /**
+             * TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put balanced number of pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes meet the requirements of nodeAffinityPolicy and nodeTaintsPolicy. e.g. If TopologyKey is "kubernetes.io/hostname", each Node is a domain of that topology. And, if TopologyKey is "topology.kubernetes.io/zone", each zone is a domain of that topology. It's a required field.
              */
             topologyKey: pulumi.Input<string>;
             /**
@@ -16794,6 +16975,10 @@ export namespace core {
              */
             labelSelector?: pulumi.Input<inputs.meta.v1.LabelSelectorPatch>;
             /**
+             * MatchLabelKeys is a set of pod label keys to select the pods over which spreading will be calculated. The keys are used to lookup values from the incoming pod labels, those key-value labels are ANDed with labelSelector to select the group of existing pods over which spreading will be calculated for the incoming pod. Keys that don't exist in the incoming pod labels will be ignored. A null or empty list means only match against labelSelector.
+             */
+            matchLabelKeys?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
              * MaxSkew describes the degree to which pods may be unevenly distributed. When `whenUnsatisfiable=DoNotSchedule`, it is the maximum permitted difference between the number of matching pods in the target topology and the global minimum. The global minimum is the minimum number of matching pods in an eligible domain or zero if the number of eligible domains is less than MinDomains. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 2/2/1: In this case, the global minimum is 1. | zone1 | zone2 | zone3 | |  P P  |  P P  |   P   | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 2/2/2; scheduling it onto zone1(zone2) would make the ActualSkew(3-1) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. When `whenUnsatisfiable=ScheduleAnyway`, it is used to give higher precedence to topologies that satisfy it. It's a required field. Default value is 1 and 0 is not allowed.
              */
             maxSkew?: pulumi.Input<number>;
@@ -16802,11 +16987,23 @@ export namespace core {
              *
              * For example, in a 3-zone cluster, MaxSkew is set to 2, MinDomains is set to 5 and pods with the same labelSelector spread as 2/2/2: | zone1 | zone2 | zone3 | |  P P  |  P P  |  P P  | The number of domains is less than 5(MinDomains), so "global minimum" is treated as 0. In this situation, new pod with the same labelSelector cannot be scheduled, because computed skew will be 3(3 - 0) if new Pod is scheduled to any of the three zones, it will violate MaxSkew.
              *
-             * This is an alpha field and requires enabling MinDomainsInPodTopologySpread feature gate.
+             * This is a beta field and requires the MinDomainsInPodTopologySpread feature gate to be enabled (enabled by default).
              */
             minDomains?: pulumi.Input<number>;
             /**
-             * TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put balanced number of pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes match the node selector. e.g. If TopologyKey is "kubernetes.io/hostname", each Node is a domain of that topology. And, if TopologyKey is "topology.kubernetes.io/zone", each zone is a domain of that topology. It's a required field.
+             * NodeAffinityPolicy indicates how we will treat Pod's nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.
+             *
+             * If this value is nil, the behavior is equivalent to the Honor policy. This is a alpha-level feature enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+             */
+            nodeAffinityPolicy?: pulumi.Input<string>;
+            /**
+             * NodeTaintsPolicy indicates how we will treat node taints when calculating pod topology spread skew. Options are: - Honor: nodes without taints, along with tainted nodes for which the incoming pod has a toleration, are included. - Ignore: node taints are ignored. All nodes are included.
+             *
+             * If this value is nil, the behavior is equivalent to the Ignore policy. This is a alpha-level feature enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+             */
+            nodeTaintsPolicy?: pulumi.Input<string>;
+            /**
+             * TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each <key, value> as a "bucket", and try to put balanced number of pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes meet the requirements of nodeAffinityPolicy and nodeTaintsPolicy. e.g. If TopologyKey is "kubernetes.io/hostname", each Node is a domain of that topology. And, if TopologyKey is "topology.kubernetes.io/zone", each zone is a domain of that topology. It's a required field.
              */
             topologyKey?: pulumi.Input<string>;
             /**
@@ -17429,7 +17626,7 @@ export namespace discovery {
              */
             hostname?: pulumi.Input<string>;
             /**
-             * nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
+             * nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node.
              */
             nodeName?: pulumi.Input<string>;
             /**
@@ -17523,7 +17720,7 @@ export namespace discovery {
              */
             hostname?: pulumi.Input<string>;
             /**
-             * nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
+             * nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node.
              */
             nodeName?: pulumi.Input<string>;
             /**
@@ -17637,7 +17834,7 @@ export namespace discovery {
          */
         export interface Endpoint {
             /**
-             * addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100. These are all assumed to be fungible and clients may choose to only use the first element. Refer to: https://issue.k8s.io/106267
+             * addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100.
              */
             addresses: pulumi.Input<pulumi.Input<string>[]>;
             /**
@@ -17645,11 +17842,7 @@ export namespace discovery {
              */
             conditions?: pulumi.Input<inputs.discovery.v1beta1.EndpointConditions>;
             /**
-             * hints contains information associated with how an endpoint should be consumed.
-             */
-            hints?: pulumi.Input<inputs.discovery.v1beta1.EndpointHints>;
-            /**
-             * hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.
+             * hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must pass DNS Label (RFC 1123) validation.
              */
             hostname?: pulumi.Input<string>;
             /**
@@ -17668,7 +17861,6 @@ export namespace discovery {
              *   endpoint is located. This should match the corresponding node label.
              * * topology.kubernetes.io/region: the value indicates the region where the
              *   endpoint is located. This should match the corresponding node label.
-             * This field is deprecated and will be removed in future api versions.
              */
             topology?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
         }
@@ -17678,7 +17870,7 @@ export namespace discovery {
          */
         export interface EndpointConditions {
             /**
-             * ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be "true" for terminating endpoints.
+             * ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready.
              */
             ready?: pulumi.Input<boolean>;
             /**
@@ -17696,7 +17888,7 @@ export namespace discovery {
          */
         export interface EndpointConditionsPatch {
             /**
-             * ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be "true" for terminating endpoints.
+             * ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready.
              */
             ready?: pulumi.Input<boolean>;
             /**
@@ -17710,31 +17902,11 @@ export namespace discovery {
         }
 
         /**
-         * EndpointHints provides hints describing how an endpoint should be consumed.
-         */
-        export interface EndpointHints {
-            /**
-             * forZones indicates the zone(s) this endpoint should be consumed by to enable topology aware routing. May contain a maximum of 8 entries.
-             */
-            forZones?: pulumi.Input<pulumi.Input<inputs.discovery.v1beta1.ForZone>[]>;
-        }
-
-        /**
-         * EndpointHints provides hints describing how an endpoint should be consumed.
-         */
-        export interface EndpointHintsPatch {
-            /**
-             * forZones indicates the zone(s) this endpoint should be consumed by to enable topology aware routing. May contain a maximum of 8 entries.
-             */
-            forZones?: pulumi.Input<pulumi.Input<inputs.discovery.v1beta1.ForZonePatch>[]>;
-        }
-
-        /**
          * Endpoint represents a single logical "backend" implementing a service.
          */
         export interface EndpointPatch {
             /**
-             * addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100. These are all assumed to be fungible and clients may choose to only use the first element. Refer to: https://issue.k8s.io/106267
+             * addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100.
              */
             addresses?: pulumi.Input<pulumi.Input<string>[]>;
             /**
@@ -17742,11 +17914,7 @@ export namespace discovery {
              */
             conditions?: pulumi.Input<inputs.discovery.v1beta1.EndpointConditionsPatch>;
             /**
-             * hints contains information associated with how an endpoint should be consumed.
-             */
-            hints?: pulumi.Input<inputs.discovery.v1beta1.EndpointHintsPatch>;
-            /**
-             * hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must be lowercase and pass DNS Label (RFC 1123) validation.
+             * hostname of this endpoint. This field may be used by consumers of endpoints to distinguish endpoints from each other (e.g. in DNS names). Multiple endpoints which use the same hostname should be considered fungible (e.g. multiple A values in DNS). Must pass DNS Label (RFC 1123) validation.
              */
             hostname?: pulumi.Input<string>;
             /**
@@ -17765,7 +17933,6 @@ export namespace discovery {
              *   endpoint is located. This should match the corresponding node label.
              * * topology.kubernetes.io/region: the value indicates the region where the
              *   endpoint is located. This should match the corresponding node label.
-             * This field is deprecated and will be removed in future api versions.
              */
             topology?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
         }
@@ -17775,7 +17942,7 @@ export namespace discovery {
          */
         export interface EndpointPort {
             /**
-             * The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+             * The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names. Default is empty string.
              */
             appProtocol?: pulumi.Input<string>;
             /**
@@ -17797,7 +17964,7 @@ export namespace discovery {
          */
         export interface EndpointPortPatch {
             /**
-             * The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+             * The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names. Default is empty string.
              */
             appProtocol?: pulumi.Input<string>;
             /**
@@ -17844,25 +18011,6 @@ export namespace discovery {
             ports?: pulumi.Input<pulumi.Input<inputs.discovery.v1beta1.EndpointPort>[]>;
         }
 
-        /**
-         * ForZone provides information about which zones should consume this endpoint.
-         */
-        export interface ForZone {
-            /**
-             * name represents the name of the zone.
-             */
-            name: pulumi.Input<string>;
-        }
-
-        /**
-         * ForZone provides information about which zones should consume this endpoint.
-         */
-        export interface ForZonePatch {
-            /**
-             * name represents the name of the zone.
-             */
-            name?: pulumi.Input<string>;
-        }
     }
 }
 
@@ -17973,11 +18121,11 @@ export namespace events {
 
     export namespace v1beta1 {
         /**
-         * Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system. Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.
+         * Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.
          */
         export interface Event {
             /**
-             * action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
+             * What action was taken/failed regarding to the regarding object.
              */
             action?: pulumi.Input<string>;
             /**
@@ -17985,63 +18133,60 @@ export namespace events {
              */
             apiVersion?: pulumi.Input<"events.k8s.io/v1beta1">;
             /**
-             * deprecatedCount is the deprecated field assuring backward compatibility with core.v1 Event type.
+             * Deprecated field assuring backward compatibility with core.v1 Event type
              */
             deprecatedCount?: pulumi.Input<number>;
             /**
-             * deprecatedFirstTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
+             * Deprecated field assuring backward compatibility with core.v1 Event type
              */
             deprecatedFirstTimestamp?: pulumi.Input<string>;
             /**
-             * deprecatedLastTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
+             * Deprecated field assuring backward compatibility with core.v1 Event type
              */
             deprecatedLastTimestamp?: pulumi.Input<string>;
             /**
-             * deprecatedSource is the deprecated field assuring backward compatibility with core.v1 Event type.
+             * Deprecated field assuring backward compatibility with core.v1 Event type
              */
             deprecatedSource?: pulumi.Input<inputs.core.v1.EventSource>;
             /**
-             * eventTime is the time when this Event was first observed. It is required.
+             * Required. Time when this Event was first observed.
              */
             eventTime: pulumi.Input<string>;
             /**
              * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
              */
             kind?: pulumi.Input<"Event">;
-            /**
-             * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-             */
             metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
             /**
-             * note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
+             * Optional. A human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
              */
             note?: pulumi.Input<string>;
             /**
-             * reason is why the action was taken. It is human-readable. This field can have at most 128 characters.
+             * Why the action was taken.
              */
             reason?: pulumi.Input<string>;
             /**
-             * regarding contains the object this Event is about. In most cases it's an Object reporting controller implements, e.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
+             * The object this Event is about. In most cases it's an Object reporting controller implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
              */
             regarding?: pulumi.Input<inputs.core.v1.ObjectReference>;
             /**
-             * related is the optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
+             * Optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
              */
             related?: pulumi.Input<inputs.core.v1.ObjectReference>;
             /**
-             * reportingController is the name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`. This field cannot be empty for new Events.
+             * Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
              */
             reportingController?: pulumi.Input<string>;
             /**
-             * reportingInstance is the ID of the controller instance, e.g. `kubelet-xyzf`. This field cannot be empty for new Events and it can have at most 128 characters.
+             * ID of the controller instance, e.g. `kubelet-xyzf`.
              */
             reportingInstance?: pulumi.Input<string>;
             /**
-             * series is data about the Event series this event represents or nil if it's a singleton Event.
+             * Data about the Event series this event represents or nil if it's a singleton Event.
              */
             series?: pulumi.Input<inputs.events.v1beta1.EventSeries>;
             /**
-             * type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.
+             * Type of this event (Normal, Warning), new types could be added in the future.
              */
             type?: pulumi.Input<string>;
         }
@@ -18051,17 +18196,17 @@ export namespace events {
          */
         export interface EventSeries {
             /**
-             * count is the number of occurrences in this series up to the last heartbeat time.
+             * Number of occurrences in this series up to the last heartbeat time
              */
             count: pulumi.Input<number>;
             /**
-             * lastObservedTime is the time when last Event from the series was seen before last heartbeat.
+             * Time when last Event from the series was seen before last heartbeat.
              */
             lastObservedTime: pulumi.Input<string>;
             /**
              * Information whether this series is ongoing or finished. Deprecated. Planned removal for 1.18
              */
-            state?: pulumi.Input<string>;
+            state: pulumi.Input<string>;
         }
 
         /**
@@ -18069,11 +18214,11 @@ export namespace events {
          */
         export interface EventSeriesPatch {
             /**
-             * count is the number of occurrences in this series up to the last heartbeat time.
+             * Number of occurrences in this series up to the last heartbeat time
              */
             count?: pulumi.Input<number>;
             /**
-             * lastObservedTime is the time when last Event from the series was seen before last heartbeat.
+             * Time when last Event from the series was seen before last heartbeat.
              */
             lastObservedTime?: pulumi.Input<string>;
             /**
@@ -20450,8 +20595,8 @@ export namespace flowcontrol {
 
         /**
          * LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
-         *  * How are requests for this priority level limited?
-         *  * What should be done with requests that exceed the limit?
+         *   - How are requests for this priority level limited?
+         *   - What should be done with requests that exceed the limit?
          */
         export interface LimitedPriorityLevelConfiguration {
             /**
@@ -20470,8 +20615,8 @@ export namespace flowcontrol {
 
         /**
          * LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
-         *  * How are requests for this priority level limited?
-         *  * What should be done with requests that exceed the limit?
+         *   - How are requests for this priority level limited?
+         *   - What should be done with requests that exceed the limit?
          */
         export interface LimitedPriorityLevelConfigurationPatch {
             /**
@@ -21032,8 +21177,8 @@ export namespace flowcontrol {
 
         /**
          * LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
-         *  * How are requests for this priority level limited?
-         *  * What should be done with requests that exceed the limit?
+         *   - How are requests for this priority level limited?
+         *   - What should be done with requests that exceed the limit?
          */
         export interface LimitedPriorityLevelConfiguration {
             /**
@@ -21052,8 +21197,8 @@ export namespace flowcontrol {
 
         /**
          * LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
-         *  * How are requests for this priority level limited?
-         *  * What should be done with requests that exceed the limit?
+         *   - How are requests for this priority level limited?
+         *   - What should be done with requests that exceed the limit?
          */
         export interface LimitedPriorityLevelConfigurationPatch {
             /**
@@ -21689,9 +21834,7 @@ export namespace meta {
              */
             annotations?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
             /**
-             * Deprecated: ClusterName is a legacy field that was always cleared by the system and never used; it will be removed completely in 1.25.
-             *
-             * The name in the go struct is changed to help clients detect accidental use.
+             * The name of the cluster which the object belongs to. This is used to distinguish resources with same name and namespace in different clusters. This field is not set anywhere right now and apiserver is going to ignore it if set in create or update request.
              */
             clusterName?: pulumi.Input<string>;
             /**
@@ -21775,9 +21918,7 @@ export namespace meta {
              */
             annotations?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
             /**
-             * Deprecated: ClusterName is a legacy field that was always cleared by the system and never used; it will be removed completely in 1.25.
-             *
-             * The name in the go struct is changed to help clients detect accidental use.
+             * The name of the cluster which the object belongs to. This is used to distinguish resources with same name and namespace in different clusters. This field is not set anywhere right now and apiserver is going to ignore it if set in create or update request.
              */
             clusterName?: pulumi.Input<string>;
             /**
@@ -22368,7 +22509,7 @@ export namespace networking {
              */
             defaultBackend?: pulumi.Input<inputs.networking.v1.IngressBackend>;
             /**
-             * IngressClassName is the name of the IngressClass cluster resource. The associated IngressClass defines which controller will implement the resource. This replaces the deprecated `kubernetes.io/ingress.class` annotation. For backwards compatibility, when that annotation is set, it must be given precedence over this field. The controller may emit a warning if the field and annotation have different values. Implementations of this API should ignore Ingresses without a class specified. An IngressClass resource may be marked as default, which can be used to set a default value for this field. For more information, refer to the IngressClass documentation.
+             * IngressClassName is the name of an IngressClass cluster resource. Ingress controller implementations use this field to know whether they should be serving this Ingress resource, by a transitive connection (controller -> IngressClass -> Ingress resource). Although the `kubernetes.io/ingress.class` annotation (simple constant name) was never formally defined, it was widely supported by Ingress controllers to create a direct binding between Ingress controller and Ingress resources. Newly created Ingress resources should prefer using the field. However, even though the annotation is officially deprecated, for backwards compatibility reasons, ingress controllers should still honor that annotation if present.
              */
             ingressClassName?: pulumi.Input<string>;
             /**
@@ -22390,7 +22531,7 @@ export namespace networking {
              */
             defaultBackend?: pulumi.Input<inputs.networking.v1.IngressBackendPatch>;
             /**
-             * IngressClassName is the name of the IngressClass cluster resource. The associated IngressClass defines which controller will implement the resource. This replaces the deprecated `kubernetes.io/ingress.class` annotation. For backwards compatibility, when that annotation is set, it must be given precedence over this field. The controller may emit a warning if the field and annotation have different values. Implementations of this API should ignore Ingresses without a class specified. An IngressClass resource may be marked as default, which can be used to set a default value for this field. For more information, refer to the IngressClass documentation.
+             * IngressClassName is the name of an IngressClass cluster resource. Ingress controller implementations use this field to know whether they should be serving this Ingress resource, by a transitive connection (controller -> IngressClass -> Ingress resource). Although the `kubernetes.io/ingress.class` annotation (simple constant name) was never formally defined, it was widely supported by Ingress controllers to create a direct binding between Ingress controller and Ingress resources. Newly created Ingress resources should prefer using the field. However, even though the annotation is officially deprecated, for backwards compatibility reasons, ingress controllers should still honor that annotation if present.
              */
             ingressClassName?: pulumi.Input<string>;
             /**
@@ -22572,7 +22713,7 @@ export namespace networking {
          */
         export interface NetworkPolicyPort {
             /**
-             * If set, indicates that the range of ports from port to endPort, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port. This feature is in Beta state and is enabled by default. It can be disabled using the Feature Gate "NetworkPolicyEndPort".
+             * If set, indicates that the range of ports from port to endPort, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port.
              */
             endPort?: pulumi.Input<number>;
             /**
@@ -22590,7 +22731,7 @@ export namespace networking {
          */
         export interface NetworkPolicyPortPatch {
             /**
-             * If set, indicates that the range of ports from port to endPort, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port. This feature is in Beta state and is enabled by default. It can be disabled using the Feature Gate "NetworkPolicyEndPort".
+             * If set, indicates that the range of ports from port to endPort, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port.
              */
             endPort?: pulumi.Input<number>;
             /**
@@ -22683,6 +22824,74 @@ export namespace networking {
              * Number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with "Name".
              */
             number?: pulumi.Input<number>;
+        }
+    }
+
+    export namespace v1alpha1 {
+        /**
+         * ClusterCIDR represents a single configuration for per-Node Pod CIDR allocations when the MultiCIDRRangeAllocator is enabled (see the config for kube-controller-manager).  A cluster may have any number of ClusterCIDR resources, all of which will be considered when allocating a CIDR for a Node.  A ClusterCIDR is eligible to be used for a given Node when the node selector matches the node in question and has free CIDRs to allocate.  In case of multiple matching ClusterCIDR resources, the allocator will attempt to break ties using internal heuristics, but any ClusterCIDR whose node selector matches the Node may be used.
+         */
+        export interface ClusterCIDR {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion?: pulumi.Input<"networking.k8s.io/v1alpha1">;
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind?: pulumi.Input<"ClusterCIDR">;
+            /**
+             * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+             */
+            metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
+            /**
+             * Spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+             */
+            spec?: pulumi.Input<inputs.networking.v1alpha1.ClusterCIDRSpec>;
+        }
+
+        /**
+         * ClusterCIDRSpec defines the desired state of ClusterCIDR.
+         */
+        export interface ClusterCIDRSpec {
+            /**
+             * IPv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+             */
+            ipv4?: pulumi.Input<string>;
+            /**
+             * IPv6 defines an IPv6 IP block in CIDR notation(e.g. "fd12:3456:789a:1::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+             */
+            ipv6?: pulumi.Input<string>;
+            /**
+             * NodeSelector defines which nodes the config is applicable to. An empty or nil NodeSelector selects all nodes. This field is immutable.
+             */
+            nodeSelector?: pulumi.Input<inputs.core.v1.NodeSelector>;
+            /**
+             * PerNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
+             */
+            perNodeHostBits: pulumi.Input<number>;
+        }
+
+        /**
+         * ClusterCIDRSpec defines the desired state of ClusterCIDR.
+         */
+        export interface ClusterCIDRSpecPatch {
+            /**
+             * IPv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+             */
+            ipv4?: pulumi.Input<string>;
+            /**
+             * IPv6 defines an IPv6 IP block in CIDR notation(e.g. "fd12:3456:789a:1::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+             */
+            ipv6?: pulumi.Input<string>;
+            /**
+             * NodeSelector defines which nodes the config is applicable to. An empty or nil NodeSelector selects all nodes. This field is immutable.
+             */
+            nodeSelector?: pulumi.Input<inputs.core.v1.NodeSelectorPatch>;
+            /**
+             * PerNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
+             */
+            perNodeHostBits?: pulumi.Input<number>;
         }
     }
 
@@ -23217,7 +23426,7 @@ export namespace node {
         }
 
         /**
-         * RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a pod. RuntimeClasses are (currently) manually defined by a user or cluster provisioner, and referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName reference before running the pod.  For more details, see https://git.k8s.io/enhancements/keps/sig-node/585-runtime-class
+         * RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a pod. RuntimeClasses are (currently) manually defined by a user or cluster provisioner, and referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName reference before running the pod.  For more details, see https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md
          */
         export interface RuntimeClass {
             /**
@@ -23225,7 +23434,7 @@ export namespace node {
              */
             apiVersion?: pulumi.Input<"node.k8s.io/v1beta1">;
             /**
-             * Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called "runc" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable.
+             * Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called "runc" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must conform to the DNS Label (RFC 1123) requirements, and is immutable.
              */
             handler: pulumi.Input<string>;
             /**
@@ -23237,7 +23446,7 @@ export namespace node {
              */
             metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
             /**
-             * Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md
+             * Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the PodOverhead feature.
              */
             overhead?: pulumi.Input<inputs.node.v1beta1.Overhead>;
             /**
@@ -23558,9 +23767,6 @@ export namespace policy {
              * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
              */
             kind?: pulumi.Input<"PodDisruptionBudget">;
-            /**
-             * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-             */
             metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
             /**
              * Specification of the desired behavior of the PodDisruptionBudget.
@@ -23585,7 +23791,7 @@ export namespace policy {
              */
             minAvailable?: pulumi.Input<number | string>;
             /**
-             * Label query over pods whose evictions are managed by the disruption budget. A null selector selects no pods. An empty selector ({}) also selects no pods, which differs from standard behavior of selecting all pods. In policy/v1, an empty selector will select all pods in the namespace.
+             * Label query over pods whose evictions are managed by the disruption budget.
              */
             selector?: pulumi.Input<inputs.meta.v1.LabelSelector>;
         }
@@ -23603,7 +23809,7 @@ export namespace policy {
              */
             minAvailable?: pulumi.Input<number | string>;
             /**
-             * Label query over pods whose evictions are managed by the disruption budget. A null selector selects no pods. An empty selector ({}) also selects no pods, which differs from standard behavior of selecting all pods. In policy/v1, an empty selector will select all pods in the namespace.
+             * Label query over pods whose evictions are managed by the disruption budget.
              */
             selector?: pulumi.Input<inputs.meta.v1.LabelSelectorPatch>;
         }
@@ -23612,18 +23818,6 @@ export namespace policy {
          * PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
          */
         export interface PodDisruptionBudgetStatus {
-            /**
-             * Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn't able to compute
-             *               the number of allowed disruptions. Therefore no disruptions are
-             *               allowed and the status of the condition will be False.
-             * - InsufficientPods: The number of pods are either at or below the number
-             *                     required by the PodDisruptionBudget. No disruptions are
-             *                     allowed and the status of the condition will be False.
-             * - SufficientPods: There are more pods than required by the PodDisruptionBudget.
-             *                   The condition will be True, and the number of allowed
-             *                   disruptions are provided by the disruptionsAllowed property.
-             */
-            conditions?: pulumi.Input<pulumi.Input<inputs.meta.v1.Condition>[]>;
             /**
              * current number of healthy pods
              */
@@ -23645,13 +23839,13 @@ export namespace policy {
              */
             expectedPods: pulumi.Input<number>;
             /**
-             * Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
+             * Most recent generation observed when updating this PDB status. PodDisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
              */
             observedGeneration?: pulumi.Input<number>;
         }
 
         /**
-         * PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container. Deprecated in 1.21.
+         * PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container.
          */
         export interface PodSecurityPolicy {
             /**
@@ -23681,7 +23875,7 @@ export namespace policy {
              */
             allowPrivilegeEscalation?: pulumi.Input<boolean>;
             /**
-             * AllowedCSIDrivers is an allowlist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is a beta field, and is only honored if the API server enables the CSIInlineVolume feature gate.
+             * AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is an alpha field, and is only honored if the API server enables the CSIInlineVolume feature gate.
              */
             allowedCSIDrivers?: pulumi.Input<pulumi.Input<inputs.policy.v1beta1.AllowedCSIDriver>[]>;
             /**
@@ -23689,19 +23883,19 @@ export namespace policy {
              */
             allowedCapabilities?: pulumi.Input<pulumi.Input<string>[]>;
             /**
-             * allowedFlexVolumes is an allowlist of Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
+             * allowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
              */
             allowedFlexVolumes?: pulumi.Input<pulumi.Input<inputs.policy.v1beta1.AllowedFlexVolume>[]>;
             /**
-             * allowedHostPaths is an allowlist of host paths. Empty indicates that all host paths may be used.
+             * allowedHostPaths is a white list of allowed host paths. Empty indicates that all host paths may be used.
              */
             allowedHostPaths?: pulumi.Input<pulumi.Input<inputs.policy.v1beta1.AllowedHostPath>[]>;
             /**
-             * AllowedProcMountTypes is an allowlist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
+             * AllowedProcMountTypes is a whitelist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
              */
             allowedProcMountTypes?: pulumi.Input<pulumi.Input<string>[]>;
             /**
-             * allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to allowlist all allowed unsafe sysctls explicitly to avoid rejection.
+             * allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to whitelist all allowed unsafe sysctls explicitly to avoid rejection.
              *
              * Examples: e.g. "foo/*" allows "foo/bar", "foo/baz", etc. e.g. "foo.*" allows "foo.bar", "foo.baz", etc.
              */
@@ -23773,7 +23967,7 @@ export namespace policy {
              */
             supplementalGroups: pulumi.Input<inputs.policy.v1beta1.SupplementalGroupsStrategyOptions>;
             /**
-             * volumes is an allowlist of volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
+             * volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
              */
             volumes?: pulumi.Input<pulumi.Input<string>[]>;
         }
@@ -23787,7 +23981,7 @@ export namespace policy {
              */
             allowPrivilegeEscalation?: pulumi.Input<boolean>;
             /**
-             * AllowedCSIDrivers is an allowlist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is a beta field, and is only honored if the API server enables the CSIInlineVolume feature gate.
+             * AllowedCSIDrivers is a whitelist of inline CSI drivers that must be explicitly set to be embedded within a pod spec. An empty value indicates that any CSI driver can be used for inline ephemeral volumes. This is an alpha field, and is only honored if the API server enables the CSIInlineVolume feature gate.
              */
             allowedCSIDrivers?: pulumi.Input<pulumi.Input<inputs.policy.v1beta1.AllowedCSIDriverPatch>[]>;
             /**
@@ -23795,19 +23989,19 @@ export namespace policy {
              */
             allowedCapabilities?: pulumi.Input<pulumi.Input<string>[]>;
             /**
-             * allowedFlexVolumes is an allowlist of Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
+             * allowedFlexVolumes is a whitelist of allowed Flexvolumes.  Empty or nil indicates that all Flexvolumes may be used.  This parameter is effective only when the usage of the Flexvolumes is allowed in the "volumes" field.
              */
             allowedFlexVolumes?: pulumi.Input<pulumi.Input<inputs.policy.v1beta1.AllowedFlexVolumePatch>[]>;
             /**
-             * allowedHostPaths is an allowlist of host paths. Empty indicates that all host paths may be used.
+             * allowedHostPaths is a white list of allowed host paths. Empty indicates that all host paths may be used.
              */
             allowedHostPaths?: pulumi.Input<pulumi.Input<inputs.policy.v1beta1.AllowedHostPathPatch>[]>;
             /**
-             * AllowedProcMountTypes is an allowlist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
+             * AllowedProcMountTypes is a whitelist of allowed ProcMountTypes. Empty or nil indicates that only the DefaultProcMountType may be used. This requires the ProcMountType feature flag to be enabled.
              */
             allowedProcMountTypes?: pulumi.Input<pulumi.Input<string>[]>;
             /**
-             * allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to allowlist all allowed unsafe sysctls explicitly to avoid rejection.
+             * allowedUnsafeSysctls is a list of explicitly allowed unsafe sysctls, defaults to none. Each entry is either a plain sysctl name or ends in "*" in which case it is considered as a prefix of allowed sysctls. Single * means all unsafe sysctls are allowed. Kubelet has to whitelist all allowed unsafe sysctls explicitly to avoid rejection.
              *
              * Examples: e.g. "foo/*" allows "foo/bar", "foo/baz", etc. e.g. "foo.*" allows "foo.bar", "foo.baz", etc.
              */
@@ -23879,7 +24073,7 @@ export namespace policy {
              */
             supplementalGroups?: pulumi.Input<inputs.policy.v1beta1.SupplementalGroupsStrategyOptionsPatch>;
             /**
-             * volumes is an allowlist of volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
+             * volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
              */
             volumes?: pulumi.Input<pulumi.Input<string>[]>;
         }
@@ -23945,7 +24139,7 @@ export namespace policy {
          */
         export interface RuntimeClassStrategyOptions {
             /**
-             * allowedRuntimeClassNames is an allowlist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
+             * allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
              */
             allowedRuntimeClassNames: pulumi.Input<pulumi.Input<string>[]>;
             /**
@@ -23959,7 +24153,7 @@ export namespace policy {
          */
         export interface RuntimeClassStrategyOptionsPatch {
             /**
-             * allowedRuntimeClassNames is an allowlist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
+             * allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
              */
             allowedRuntimeClassNames?: pulumi.Input<pulumi.Input<string>[]>;
             /**
@@ -24105,7 +24299,7 @@ export namespace rbac {
          */
         export interface PolicyRule {
             /**
-             * APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.
+             * APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. "" represents the core API group and "*" represents all API groups.
              */
             apiGroups?: pulumi.Input<pulumi.Input<string>[]>;
             /**
@@ -24131,7 +24325,7 @@ export namespace rbac {
          */
         export interface PolicyRulePatch {
             /**
-             * APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.
+             * APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. "" represents the core API group and "*" represents all API groups.
              */
             apiGroups?: pulumi.Input<pulumi.Input<string>[]>;
             /**
@@ -25033,6 +25227,16 @@ export namespace storage {
              */
             requiresRepublish?: pulumi.Input<boolean>;
             /**
+             * SELinuxMount specifies if the CSI driver supports "-o context" mount option.
+             *
+             * When "true", the CSI driver must ensure that all volumes provided by this CSI driver can be mounted separately with different `-o context` options. This is typical for storage backends that provide volumes as filesystems on block devices or as independent shared volumes. Kubernetes will call NodeStage / NodePublish with "-o context=xyz" mount option when mounting a ReadWriteOncePod volume used in Pod that has explicitly set SELinux context. In the future, it may be expanded to other volume AccessModes. In any case, Kubernetes will ensure that the volume is mounted only with a single SELinux context.
+             *
+             * When "false", Kubernetes won't pass any special SELinux mount options to the driver. This is typical for volumes that represent subdirectories of a bigger shared filesystem.
+             *
+             * Default is "false".
+             */
+            seLinuxMount?: pulumi.Input<boolean>;
+            /**
              * If set to true, storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information.
              *
              * The check can be enabled immediately when deploying a driver. In that case, provisioning new volumes with late binding will pause until the driver deployment has published some suitable CSIStorageCapacity object.
@@ -25095,6 +25299,16 @@ export namespace storage {
              * Note: After a successful initial NodePublishVolume call, subsequent calls to NodePublishVolume should only update the contents of the volume. New mount points will not be seen by a running container.
              */
             requiresRepublish?: pulumi.Input<boolean>;
+            /**
+             * SELinuxMount specifies if the CSI driver supports "-o context" mount option.
+             *
+             * When "true", the CSI driver must ensure that all volumes provided by this CSI driver can be mounted separately with different `-o context` options. This is typical for storage backends that provide volumes as filesystems on block devices or as independent shared volumes. Kubernetes will call NodeStage / NodePublish with "-o context=xyz" mount option when mounting a ReadWriteOncePod volume used in Pod that has explicitly set SELinux context. In the future, it may be expanded to other volume AccessModes. In any case, Kubernetes will ensure that the volume is mounted only with a single SELinux context.
+             *
+             * When "false", Kubernetes won't pass any special SELinux mount options to the driver. This is typical for volumes that represent subdirectories of a bigger shared filesystem.
+             *
+             * Default is "false".
+             */
+            seLinuxMount?: pulumi.Input<boolean>;
             /**
              * If set to true, storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information.
              *

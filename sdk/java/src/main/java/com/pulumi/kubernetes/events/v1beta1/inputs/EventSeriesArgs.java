@@ -8,8 +8,6 @@ import com.pulumi.core.annotations.Import;
 import java.lang.Integer;
 import java.lang.String;
 import java.util.Objects;
-import java.util.Optional;
-import javax.annotation.Nullable;
 
 
 /**
@@ -21,14 +19,14 @@ public final class EventSeriesArgs extends com.pulumi.resources.ResourceArgs {
     public static final EventSeriesArgs Empty = new EventSeriesArgs();
 
     /**
-     * count is the number of occurrences in this series up to the last heartbeat time.
+     * Number of occurrences in this series up to the last heartbeat time
      * 
      */
     @Import(name="count", required=true)
     private Output<Integer> count;
 
     /**
-     * @return count is the number of occurrences in this series up to the last heartbeat time.
+     * @return Number of occurrences in this series up to the last heartbeat time
      * 
      */
     public Output<Integer> count() {
@@ -36,14 +34,14 @@ public final class EventSeriesArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * lastObservedTime is the time when last Event from the series was seen before last heartbeat.
+     * Time when last Event from the series was seen before last heartbeat.
      * 
      */
     @Import(name="lastObservedTime", required=true)
     private Output<String> lastObservedTime;
 
     /**
-     * @return lastObservedTime is the time when last Event from the series was seen before last heartbeat.
+     * @return Time when last Event from the series was seen before last heartbeat.
      * 
      */
     public Output<String> lastObservedTime() {
@@ -54,15 +52,15 @@ public final class EventSeriesArgs extends com.pulumi.resources.ResourceArgs {
      * Information whether this series is ongoing or finished. Deprecated. Planned removal for 1.18
      * 
      */
-    @Import(name="state")
-    private @Nullable Output<String> state;
+    @Import(name="state", required=true)
+    private Output<String> state;
 
     /**
      * @return Information whether this series is ongoing or finished. Deprecated. Planned removal for 1.18
      * 
      */
-    public Optional<Output<String>> state() {
-        return Optional.ofNullable(this.state);
+    public Output<String> state() {
+        return this.state;
     }
 
     private EventSeriesArgs() {}
@@ -92,7 +90,7 @@ public final class EventSeriesArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param count count is the number of occurrences in this series up to the last heartbeat time.
+         * @param count Number of occurrences in this series up to the last heartbeat time
          * 
          * @return builder
          * 
@@ -103,7 +101,7 @@ public final class EventSeriesArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param count count is the number of occurrences in this series up to the last heartbeat time.
+         * @param count Number of occurrences in this series up to the last heartbeat time
          * 
          * @return builder
          * 
@@ -113,7 +111,7 @@ public final class EventSeriesArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param lastObservedTime lastObservedTime is the time when last Event from the series was seen before last heartbeat.
+         * @param lastObservedTime Time when last Event from the series was seen before last heartbeat.
          * 
          * @return builder
          * 
@@ -124,7 +122,7 @@ public final class EventSeriesArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param lastObservedTime lastObservedTime is the time when last Event from the series was seen before last heartbeat.
+         * @param lastObservedTime Time when last Event from the series was seen before last heartbeat.
          * 
          * @return builder
          * 
@@ -139,7 +137,7 @@ public final class EventSeriesArgs extends com.pulumi.resources.ResourceArgs {
          * @return builder
          * 
          */
-        public Builder state(@Nullable Output<String> state) {
+        public Builder state(Output<String> state) {
             $.state = state;
             return this;
         }
@@ -157,6 +155,7 @@ public final class EventSeriesArgs extends com.pulumi.resources.ResourceArgs {
         public EventSeriesArgs build() {
             $.count = Objects.requireNonNull($.count, "expected parameter 'count' to be non-null");
             $.lastObservedTime = Objects.requireNonNull($.lastObservedTime, "expected parameter 'lastObservedTime' to be non-null");
+            $.state = Objects.requireNonNull($.state, "expected parameter 'state' to be non-null");
             return $;
         }
     }

@@ -6,7 +6,7 @@ import { input as inputs, output as outputs, enums } from "../../types";
 import * as utilities from "../../utilities";
 
 /**
- * Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system. Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.
+ * Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.
  */
 export class Event extends pulumi.CustomResource {
     /**
@@ -36,7 +36,7 @@ export class Event extends pulumi.CustomResource {
     }
 
     /**
-     * action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
+     * What action was taken/failed regarding to the regarding object.
      */
     public readonly action!: pulumi.Output<string>;
     /**
@@ -44,63 +44,60 @@ export class Event extends pulumi.CustomResource {
      */
     public readonly apiVersion!: pulumi.Output<"events.k8s.io/v1beta1">;
     /**
-     * deprecatedCount is the deprecated field assuring backward compatibility with core.v1 Event type.
+     * Deprecated field assuring backward compatibility with core.v1 Event type
      */
     public readonly deprecatedCount!: pulumi.Output<number>;
     /**
-     * deprecatedFirstTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
+     * Deprecated field assuring backward compatibility with core.v1 Event type
      */
     public readonly deprecatedFirstTimestamp!: pulumi.Output<string>;
     /**
-     * deprecatedLastTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
+     * Deprecated field assuring backward compatibility with core.v1 Event type
      */
     public readonly deprecatedLastTimestamp!: pulumi.Output<string>;
     /**
-     * deprecatedSource is the deprecated field assuring backward compatibility with core.v1 Event type.
+     * Deprecated field assuring backward compatibility with core.v1 Event type
      */
     public readonly deprecatedSource!: pulumi.Output<outputs.core.v1.EventSource>;
     /**
-     * eventTime is the time when this Event was first observed. It is required.
+     * Required. Time when this Event was first observed.
      */
     public readonly eventTime!: pulumi.Output<string>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
     public readonly kind!: pulumi.Output<"Event">;
-    /**
-     * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-     */
     public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMeta>;
     /**
-     * note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
+     * Optional. A human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
      */
     public readonly note!: pulumi.Output<string>;
     /**
-     * reason is why the action was taken. It is human-readable. This field can have at most 128 characters.
+     * Why the action was taken.
      */
     public readonly reason!: pulumi.Output<string>;
     /**
-     * regarding contains the object this Event is about. In most cases it's an Object reporting controller implements, e.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
+     * The object this Event is about. In most cases it's an Object reporting controller implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
      */
     public readonly regarding!: pulumi.Output<outputs.core.v1.ObjectReference>;
     /**
-     * related is the optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
+     * Optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
      */
     public readonly related!: pulumi.Output<outputs.core.v1.ObjectReference>;
     /**
-     * reportingController is the name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`. This field cannot be empty for new Events.
+     * Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
      */
     public readonly reportingController!: pulumi.Output<string>;
     /**
-     * reportingInstance is the ID of the controller instance, e.g. `kubelet-xyzf`. This field cannot be empty for new Events and it can have at most 128 characters.
+     * ID of the controller instance, e.g. `kubelet-xyzf`.
      */
     public readonly reportingInstance!: pulumi.Output<string>;
     /**
-     * series is data about the Event series this event represents or nil if it's a singleton Event.
+     * Data about the Event series this event represents or nil if it's a singleton Event.
      */
     public readonly series!: pulumi.Output<outputs.events.v1beta1.EventSeries>;
     /**
-     * type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.
+     * Type of this event (Normal, Warning), new types could be added in the future.
      */
     public readonly type!: pulumi.Output<string>;
 
@@ -166,7 +163,7 @@ export class Event extends pulumi.CustomResource {
  */
 export interface EventArgs {
     /**
-     * action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
+     * What action was taken/failed regarding to the regarding object.
      */
     action?: pulumi.Input<string>;
     /**
@@ -174,63 +171,60 @@ export interface EventArgs {
      */
     apiVersion?: pulumi.Input<"events.k8s.io/v1beta1">;
     /**
-     * deprecatedCount is the deprecated field assuring backward compatibility with core.v1 Event type.
+     * Deprecated field assuring backward compatibility with core.v1 Event type
      */
     deprecatedCount?: pulumi.Input<number>;
     /**
-     * deprecatedFirstTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
+     * Deprecated field assuring backward compatibility with core.v1 Event type
      */
     deprecatedFirstTimestamp?: pulumi.Input<string>;
     /**
-     * deprecatedLastTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
+     * Deprecated field assuring backward compatibility with core.v1 Event type
      */
     deprecatedLastTimestamp?: pulumi.Input<string>;
     /**
-     * deprecatedSource is the deprecated field assuring backward compatibility with core.v1 Event type.
+     * Deprecated field assuring backward compatibility with core.v1 Event type
      */
     deprecatedSource?: pulumi.Input<inputs.core.v1.EventSource>;
     /**
-     * eventTime is the time when this Event was first observed. It is required.
+     * Required. Time when this Event was first observed.
      */
     eventTime: pulumi.Input<string>;
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
     kind?: pulumi.Input<"Event">;
-    /**
-     * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-     */
     metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
     /**
-     * note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
+     * Optional. A human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
      */
     note?: pulumi.Input<string>;
     /**
-     * reason is why the action was taken. It is human-readable. This field can have at most 128 characters.
+     * Why the action was taken.
      */
     reason?: pulumi.Input<string>;
     /**
-     * regarding contains the object this Event is about. In most cases it's an Object reporting controller implements, e.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
+     * The object this Event is about. In most cases it's an Object reporting controller implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
      */
     regarding?: pulumi.Input<inputs.core.v1.ObjectReference>;
     /**
-     * related is the optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
+     * Optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
      */
     related?: pulumi.Input<inputs.core.v1.ObjectReference>;
     /**
-     * reportingController is the name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`. This field cannot be empty for new Events.
+     * Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
      */
     reportingController?: pulumi.Input<string>;
     /**
-     * reportingInstance is the ID of the controller instance, e.g. `kubelet-xyzf`. This field cannot be empty for new Events and it can have at most 128 characters.
+     * ID of the controller instance, e.g. `kubelet-xyzf`.
      */
     reportingInstance?: pulumi.Input<string>;
     /**
-     * series is data about the Event series this event represents or nil if it's a singleton Event.
+     * Data about the Event series this event represents or nil if it's a singleton Event.
      */
     series?: pulumi.Input<inputs.events.v1beta1.EventSeries>;
     /**
-     * type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.
+     * Type of this event (Normal, Warning), new types could be added in the future.
      */
     type?: pulumi.Input<string>;
 }

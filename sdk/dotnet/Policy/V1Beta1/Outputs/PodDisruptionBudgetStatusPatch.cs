@@ -17,18 +17,6 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy.V1Beta1
     public sealed class PodDisruptionBudgetStatusPatch
     {
         /// <summary>
-        /// Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn't able to compute
-        ///               the number of allowed disruptions. Therefore no disruptions are
-        ///               allowed and the status of the condition will be False.
-        /// - InsufficientPods: The number of pods are either at or below the number
-        ///                     required by the PodDisruptionBudget. No disruptions are
-        ///                     allowed and the status of the condition will be False.
-        /// - SufficientPods: There are more pods than required by the PodDisruptionBudget.
-        ///                   The condition will be True, and the number of allowed
-        ///                   disruptions are provided by the disruptionsAllowed property.
-        /// </summary>
-        public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Meta.V1.ConditionPatch> Conditions;
-        /// <summary>
         /// current number of healthy pods
         /// </summary>
         public readonly int CurrentHealthy;
@@ -49,14 +37,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy.V1Beta1
         /// </summary>
         public readonly int ExpectedPods;
         /// <summary>
-        /// Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
+        /// Most recent generation observed when updating this PDB status. PodDisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
         /// </summary>
         public readonly int ObservedGeneration;
 
         [OutputConstructor]
         private PodDisruptionBudgetStatusPatch(
-            ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Meta.V1.ConditionPatch> conditions,
-
             int currentHealthy,
 
             int desiredHealthy,
@@ -69,7 +55,6 @@ namespace Pulumi.Kubernetes.Types.Outputs.Policy.V1Beta1
 
             int observedGeneration)
         {
-            Conditions = conditions;
             CurrentHealthy = currentHealthy;
             DesiredHealthy = desiredHealthy;
             DisruptedPods = disruptedPods;

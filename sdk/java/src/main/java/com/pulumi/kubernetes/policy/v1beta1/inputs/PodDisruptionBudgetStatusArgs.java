@@ -5,10 +5,8 @@ package com.pulumi.kubernetes.policy.v1beta1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
-import com.pulumi.kubernetes.meta.v1.inputs.ConditionArgs;
 import java.lang.Integer;
 import java.lang.String;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -22,37 +20,6 @@ import javax.annotation.Nullable;
 public final class PodDisruptionBudgetStatusArgs extends com.pulumi.resources.ResourceArgs {
 
     public static final PodDisruptionBudgetStatusArgs Empty = new PodDisruptionBudgetStatusArgs();
-
-    /**
-     * Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn&#39;t able to compute
-     *               the number of allowed disruptions. Therefore no disruptions are
-     *               allowed and the status of the condition will be False.
-     * - InsufficientPods: The number of pods are either at or below the number
-     *                     required by the PodDisruptionBudget. No disruptions are
-     *                     allowed and the status of the condition will be False.
-     * - SufficientPods: There are more pods than required by the PodDisruptionBudget.
-     *                   The condition will be True, and the number of allowed
-     *                   disruptions are provided by the disruptionsAllowed property.
-     * 
-     */
-    @Import(name="conditions")
-    private @Nullable Output<List<ConditionArgs>> conditions;
-
-    /**
-     * @return Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn&#39;t able to compute
-     *               the number of allowed disruptions. Therefore no disruptions are
-     *               allowed and the status of the condition will be False.
-     * - InsufficientPods: The number of pods are either at or below the number
-     *                     required by the PodDisruptionBudget. No disruptions are
-     *                     allowed and the status of the condition will be False.
-     * - SufficientPods: There are more pods than required by the PodDisruptionBudget.
-     *                   The condition will be True, and the number of allowed
-     *                   disruptions are provided by the disruptionsAllowed property.
-     * 
-     */
-    public Optional<Output<List<ConditionArgs>>> conditions() {
-        return Optional.ofNullable(this.conditions);
-    }
 
     /**
      * current number of healthy pods
@@ -130,14 +97,14 @@ public final class PodDisruptionBudgetStatusArgs extends com.pulumi.resources.Re
     }
 
     /**
-     * Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB&#39;s object generation.
+     * Most recent generation observed when updating this PDB status. PodDisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB&#39;s object generation.
      * 
      */
     @Import(name="observedGeneration")
     private @Nullable Output<Integer> observedGeneration;
 
     /**
-     * @return Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB&#39;s object generation.
+     * @return Most recent generation observed when updating this PDB status. PodDisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB&#39;s object generation.
      * 
      */
     public Optional<Output<Integer>> observedGeneration() {
@@ -147,7 +114,6 @@ public final class PodDisruptionBudgetStatusArgs extends com.pulumi.resources.Re
     private PodDisruptionBudgetStatusArgs() {}
 
     private PodDisruptionBudgetStatusArgs(PodDisruptionBudgetStatusArgs $) {
-        this.conditions = $.conditions;
         this.currentHealthy = $.currentHealthy;
         this.desiredHealthy = $.desiredHealthy;
         this.disruptedPods = $.disruptedPods;
@@ -172,61 +138,6 @@ public final class PodDisruptionBudgetStatusArgs extends com.pulumi.resources.Re
 
         public Builder(PodDisruptionBudgetStatusArgs defaults) {
             $ = new PodDisruptionBudgetStatusArgs(Objects.requireNonNull(defaults));
-        }
-
-        /**
-         * @param conditions Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn&#39;t able to compute
-         *               the number of allowed disruptions. Therefore no disruptions are
-         *               allowed and the status of the condition will be False.
-         * - InsufficientPods: The number of pods are either at or below the number
-         *                     required by the PodDisruptionBudget. No disruptions are
-         *                     allowed and the status of the condition will be False.
-         * - SufficientPods: There are more pods than required by the PodDisruptionBudget.
-         *                   The condition will be True, and the number of allowed
-         *                   disruptions are provided by the disruptionsAllowed property.
-         * 
-         * @return builder
-         * 
-         */
-        public Builder conditions(@Nullable Output<List<ConditionArgs>> conditions) {
-            $.conditions = conditions;
-            return this;
-        }
-
-        /**
-         * @param conditions Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn&#39;t able to compute
-         *               the number of allowed disruptions. Therefore no disruptions are
-         *               allowed and the status of the condition will be False.
-         * - InsufficientPods: The number of pods are either at or below the number
-         *                     required by the PodDisruptionBudget. No disruptions are
-         *                     allowed and the status of the condition will be False.
-         * - SufficientPods: There are more pods than required by the PodDisruptionBudget.
-         *                   The condition will be True, and the number of allowed
-         *                   disruptions are provided by the disruptionsAllowed property.
-         * 
-         * @return builder
-         * 
-         */
-        public Builder conditions(List<ConditionArgs> conditions) {
-            return conditions(Output.of(conditions));
-        }
-
-        /**
-         * @param conditions Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn&#39;t able to compute
-         *               the number of allowed disruptions. Therefore no disruptions are
-         *               allowed and the status of the condition will be False.
-         * - InsufficientPods: The number of pods are either at or below the number
-         *                     required by the PodDisruptionBudget. No disruptions are
-         *                     allowed and the status of the condition will be False.
-         * - SufficientPods: There are more pods than required by the PodDisruptionBudget.
-         *                   The condition will be True, and the number of allowed
-         *                   disruptions are provided by the disruptionsAllowed property.
-         * 
-         * @return builder
-         * 
-         */
-        public Builder conditions(ConditionArgs... conditions) {
-            return conditions(List.of(conditions));
         }
 
         /**
@@ -335,7 +246,7 @@ public final class PodDisruptionBudgetStatusArgs extends com.pulumi.resources.Re
         }
 
         /**
-         * @param observedGeneration Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB&#39;s object generation.
+         * @param observedGeneration Most recent generation observed when updating this PDB status. PodDisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB&#39;s object generation.
          * 
          * @return builder
          * 
@@ -346,7 +257,7 @@ public final class PodDisruptionBudgetStatusArgs extends com.pulumi.resources.Re
         }
 
         /**
-         * @param observedGeneration Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB&#39;s object generation.
+         * @param observedGeneration Most recent generation observed when updating this PDB status. PodDisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB&#39;s object generation.
          * 
          * @return builder
          * 

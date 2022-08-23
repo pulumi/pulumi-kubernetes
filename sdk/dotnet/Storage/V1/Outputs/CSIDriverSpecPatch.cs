@@ -46,6 +46,16 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage.V1
         /// </summary>
         public readonly bool RequiresRepublish;
         /// <summary>
+        /// SELinuxMount specifies if the CSI driver supports "-o context" mount option.
+        /// 
+        /// When "true", the CSI driver must ensure that all volumes provided by this CSI driver can be mounted separately with different `-o context` options. This is typical for storage backends that provide volumes as filesystems on block devices or as independent shared volumes. Kubernetes will call NodeStage / NodePublish with "-o context=xyz" mount option when mounting a ReadWriteOncePod volume used in Pod that has explicitly set SELinux context. In the future, it may be expanded to other volume AccessModes. In any case, Kubernetes will ensure that the volume is mounted only with a single SELinux context.
+        /// 
+        /// When "false", Kubernetes won't pass any special SELinux mount options to the driver. This is typical for volumes that represent subdirectories of a bigger shared filesystem.
+        /// 
+        /// Default is "false".
+        /// </summary>
+        public readonly bool SeLinuxMount;
+        /// <summary>
         /// If set to true, storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information.
         /// 
         /// The check can be enabled immediately when deploying a driver. In that case, provisioning new volumes with late binding will pause until the driver deployment has published some suitable CSIStorageCapacity object.
@@ -84,6 +94,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage.V1
 
             bool requiresRepublish,
 
+            bool seLinuxMount,
+
             bool storageCapacity,
 
             ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Storage.V1.TokenRequestPatch> tokenRequests,
@@ -94,6 +106,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage.V1
             FsGroupPolicy = fsGroupPolicy;
             PodInfoOnMount = podInfoOnMount;
             RequiresRepublish = requiresRepublish;
+            SeLinuxMount = seLinuxMount;
             StorageCapacity = storageCapacity;
             TokenRequests = tokenRequests;
             VolumeLifecycleModes = volumeLifecycleModes;

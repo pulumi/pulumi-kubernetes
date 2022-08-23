@@ -17,7 +17,7 @@ import javax.annotation.Nullable;
 @CustomType
 public final class Event {
     /**
-     * @return action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
+     * @return What action was taken/failed regarding to the regarding object.
      * 
      */
     private @Nullable String action;
@@ -27,27 +27,27 @@ public final class Event {
      */
     private @Nullable String apiVersion;
     /**
-     * @return deprecatedCount is the deprecated field assuring backward compatibility with core.v1 Event type.
+     * @return Deprecated field assuring backward compatibility with core.v1 Event type
      * 
      */
     private @Nullable Integer deprecatedCount;
     /**
-     * @return deprecatedFirstTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
+     * @return Deprecated field assuring backward compatibility with core.v1 Event type
      * 
      */
     private @Nullable String deprecatedFirstTimestamp;
     /**
-     * @return deprecatedLastTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
+     * @return Deprecated field assuring backward compatibility with core.v1 Event type
      * 
      */
     private @Nullable String deprecatedLastTimestamp;
     /**
-     * @return deprecatedSource is the deprecated field assuring backward compatibility with core.v1 Event type.
+     * @return Deprecated field assuring backward compatibility with core.v1 Event type
      * 
      */
     private @Nullable EventSource deprecatedSource;
     /**
-     * @return eventTime is the time when this Event was first observed. It is required.
+     * @return Required. Time when this Event was first observed.
      * 
      */
     private String eventTime;
@@ -56,55 +56,51 @@ public final class Event {
      * 
      */
     private @Nullable String kind;
-    /**
-     * @return Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-     * 
-     */
     private @Nullable ObjectMeta metadata;
     /**
-     * @return note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
+     * @return Optional. A human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
      * 
      */
     private @Nullable String note;
     /**
-     * @return reason is why the action was taken. It is human-readable. This field can have at most 128 characters.
+     * @return Why the action was taken.
      * 
      */
     private @Nullable String reason;
     /**
-     * @return regarding contains the object this Event is about. In most cases it&#39;s an Object reporting controller implements, e.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
+     * @return The object this Event is about. In most cases it&#39;s an Object reporting controller implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
      * 
      */
     private @Nullable ObjectReference regarding;
     /**
-     * @return related is the optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
+     * @return Optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
      * 
      */
     private @Nullable ObjectReference related;
     /**
-     * @return reportingController is the name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`. This field cannot be empty for new Events.
+     * @return Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
      * 
      */
     private @Nullable String reportingController;
     /**
-     * @return reportingInstance is the ID of the controller instance, e.g. `kubelet-xyzf`. This field cannot be empty for new Events and it can have at most 128 characters.
+     * @return ID of the controller instance, e.g. `kubelet-xyzf`.
      * 
      */
     private @Nullable String reportingInstance;
     /**
-     * @return series is data about the Event series this event represents or nil if it&#39;s a singleton Event.
+     * @return Data about the Event series this event represents or nil if it&#39;s a singleton Event.
      * 
      */
     private @Nullable EventSeries series;
     /**
-     * @return type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.
+     * @return Type of this event (Normal, Warning), new types could be added in the future.
      * 
      */
     private @Nullable String type;
 
     private Event() {}
     /**
-     * @return action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
+     * @return What action was taken/failed regarding to the regarding object.
      * 
      */
     public Optional<String> action() {
@@ -118,35 +114,35 @@ public final class Event {
         return Optional.ofNullable(this.apiVersion);
     }
     /**
-     * @return deprecatedCount is the deprecated field assuring backward compatibility with core.v1 Event type.
+     * @return Deprecated field assuring backward compatibility with core.v1 Event type
      * 
      */
     public Optional<Integer> deprecatedCount() {
         return Optional.ofNullable(this.deprecatedCount);
     }
     /**
-     * @return deprecatedFirstTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
+     * @return Deprecated field assuring backward compatibility with core.v1 Event type
      * 
      */
     public Optional<String> deprecatedFirstTimestamp() {
         return Optional.ofNullable(this.deprecatedFirstTimestamp);
     }
     /**
-     * @return deprecatedLastTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
+     * @return Deprecated field assuring backward compatibility with core.v1 Event type
      * 
      */
     public Optional<String> deprecatedLastTimestamp() {
         return Optional.ofNullable(this.deprecatedLastTimestamp);
     }
     /**
-     * @return deprecatedSource is the deprecated field assuring backward compatibility with core.v1 Event type.
+     * @return Deprecated field assuring backward compatibility with core.v1 Event type
      * 
      */
     public Optional<EventSource> deprecatedSource() {
         return Optional.ofNullable(this.deprecatedSource);
     }
     /**
-     * @return eventTime is the time when this Event was first observed. It is required.
+     * @return Required. Time when this Event was first observed.
      * 
      */
     public String eventTime() {
@@ -159,64 +155,60 @@ public final class Event {
     public Optional<String> kind() {
         return Optional.ofNullable(this.kind);
     }
-    /**
-     * @return Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-     * 
-     */
     public Optional<ObjectMeta> metadata() {
         return Optional.ofNullable(this.metadata);
     }
     /**
-     * @return note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
+     * @return Optional. A human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
      * 
      */
     public Optional<String> note() {
         return Optional.ofNullable(this.note);
     }
     /**
-     * @return reason is why the action was taken. It is human-readable. This field can have at most 128 characters.
+     * @return Why the action was taken.
      * 
      */
     public Optional<String> reason() {
         return Optional.ofNullable(this.reason);
     }
     /**
-     * @return regarding contains the object this Event is about. In most cases it&#39;s an Object reporting controller implements, e.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
+     * @return The object this Event is about. In most cases it&#39;s an Object reporting controller implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
      * 
      */
     public Optional<ObjectReference> regarding() {
         return Optional.ofNullable(this.regarding);
     }
     /**
-     * @return related is the optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
+     * @return Optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
      * 
      */
     public Optional<ObjectReference> related() {
         return Optional.ofNullable(this.related);
     }
     /**
-     * @return reportingController is the name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`. This field cannot be empty for new Events.
+     * @return Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
      * 
      */
     public Optional<String> reportingController() {
         return Optional.ofNullable(this.reportingController);
     }
     /**
-     * @return reportingInstance is the ID of the controller instance, e.g. `kubelet-xyzf`. This field cannot be empty for new Events and it can have at most 128 characters.
+     * @return ID of the controller instance, e.g. `kubelet-xyzf`.
      * 
      */
     public Optional<String> reportingInstance() {
         return Optional.ofNullable(this.reportingInstance);
     }
     /**
-     * @return series is data about the Event series this event represents or nil if it&#39;s a singleton Event.
+     * @return Data about the Event series this event represents or nil if it&#39;s a singleton Event.
      * 
      */
     public Optional<EventSeries> series() {
         return Optional.ofNullable(this.series);
     }
     /**
-     * @return type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.
+     * @return Type of this event (Normal, Warning), new types could be added in the future.
      * 
      */
     public Optional<String> type() {

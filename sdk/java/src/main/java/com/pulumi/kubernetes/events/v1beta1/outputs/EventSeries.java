@@ -7,18 +7,16 @@ import com.pulumi.core.annotations.CustomType;
 import java.lang.Integer;
 import java.lang.String;
 import java.util.Objects;
-import java.util.Optional;
-import javax.annotation.Nullable;
 
 @CustomType
 public final class EventSeries {
     /**
-     * @return count is the number of occurrences in this series up to the last heartbeat time.
+     * @return Number of occurrences in this series up to the last heartbeat time
      * 
      */
     private Integer count;
     /**
-     * @return lastObservedTime is the time when last Event from the series was seen before last heartbeat.
+     * @return Time when last Event from the series was seen before last heartbeat.
      * 
      */
     private String lastObservedTime;
@@ -26,18 +24,18 @@ public final class EventSeries {
      * @return Information whether this series is ongoing or finished. Deprecated. Planned removal for 1.18
      * 
      */
-    private @Nullable String state;
+    private String state;
 
     private EventSeries() {}
     /**
-     * @return count is the number of occurrences in this series up to the last heartbeat time.
+     * @return Number of occurrences in this series up to the last heartbeat time
      * 
      */
     public Integer count() {
         return this.count;
     }
     /**
-     * @return lastObservedTime is the time when last Event from the series was seen before last heartbeat.
+     * @return Time when last Event from the series was seen before last heartbeat.
      * 
      */
     public String lastObservedTime() {
@@ -47,8 +45,8 @@ public final class EventSeries {
      * @return Information whether this series is ongoing or finished. Deprecated. Planned removal for 1.18
      * 
      */
-    public Optional<String> state() {
-        return Optional.ofNullable(this.state);
+    public String state() {
+        return this.state;
     }
 
     public static Builder builder() {
@@ -62,7 +60,7 @@ public final class EventSeries {
     public static final class Builder {
         private Integer count;
         private String lastObservedTime;
-        private @Nullable String state;
+        private String state;
         public Builder() {}
         public Builder(EventSeries defaults) {
     	      Objects.requireNonNull(defaults);
@@ -82,8 +80,8 @@ public final class EventSeries {
             return this;
         }
         @CustomType.Setter
-        public Builder state(@Nullable String state) {
-            this.state = state;
+        public Builder state(String state) {
+            this.state = Objects.requireNonNull(state);
             return this;
         }
         public EventSeries build() {

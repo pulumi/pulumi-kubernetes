@@ -10,13 +10,13 @@ using Pulumi.Serialization;
 namespace Pulumi.Kubernetes.Events.V1Beta1
 {
     /// <summary>
-    /// Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system. Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.
+    /// Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.
     /// </summary>
     [KubernetesResourceType("kubernetes:events.k8s.io/v1beta1:Event")]
     public partial class Event : KubernetesResource
     {
         /// <summary>
-        /// action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
+        /// What action was taken/failed regarding to the regarding object.
         /// </summary>
         [Output("action")]
         public Output<string> Action { get; private set; } = null!;
@@ -28,31 +28,31 @@ namespace Pulumi.Kubernetes.Events.V1Beta1
         public Output<string> ApiVersion { get; private set; } = null!;
 
         /// <summary>
-        /// deprecatedCount is the deprecated field assuring backward compatibility with core.v1 Event type.
+        /// Deprecated field assuring backward compatibility with core.v1 Event type
         /// </summary>
         [Output("deprecatedCount")]
         public Output<int> DeprecatedCount { get; private set; } = null!;
 
         /// <summary>
-        /// deprecatedFirstTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
+        /// Deprecated field assuring backward compatibility with core.v1 Event type
         /// </summary>
         [Output("deprecatedFirstTimestamp")]
         public Output<string> DeprecatedFirstTimestamp { get; private set; } = null!;
 
         /// <summary>
-        /// deprecatedLastTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
+        /// Deprecated field assuring backward compatibility with core.v1 Event type
         /// </summary>
         [Output("deprecatedLastTimestamp")]
         public Output<string> DeprecatedLastTimestamp { get; private set; } = null!;
 
         /// <summary>
-        /// deprecatedSource is the deprecated field assuring backward compatibility with core.v1 Event type.
+        /// Deprecated field assuring backward compatibility with core.v1 Event type
         /// </summary>
         [Output("deprecatedSource")]
         public Output<Pulumi.Kubernetes.Types.Outputs.Core.V1.EventSource> DeprecatedSource { get; private set; } = null!;
 
         /// <summary>
-        /// eventTime is the time when this Event was first observed. It is required.
+        /// Required. Time when this Event was first observed.
         /// </summary>
         [Output("eventTime")]
         public Output<string> EventTime { get; private set; } = null!;
@@ -63,56 +63,53 @@ namespace Pulumi.Kubernetes.Events.V1Beta1
         [Output("kind")]
         public Output<string> Kind { get; private set; } = null!;
 
-        /// <summary>
-        /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        /// </summary>
         [Output("metadata")]
         public Output<Pulumi.Kubernetes.Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
-        /// note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
+        /// Optional. A human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
         /// </summary>
         [Output("note")]
         public Output<string> Note { get; private set; } = null!;
 
         /// <summary>
-        /// reason is why the action was taken. It is human-readable. This field can have at most 128 characters.
+        /// Why the action was taken.
         /// </summary>
         [Output("reason")]
         public Output<string> Reason { get; private set; } = null!;
 
         /// <summary>
-        /// regarding contains the object this Event is about. In most cases it's an Object reporting controller implements, e.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
+        /// The object this Event is about. In most cases it's an Object reporting controller implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
         /// </summary>
         [Output("regarding")]
         public Output<Pulumi.Kubernetes.Types.Outputs.Core.V1.ObjectReference> Regarding { get; private set; } = null!;
 
         /// <summary>
-        /// related is the optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
+        /// Optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
         /// </summary>
         [Output("related")]
         public Output<Pulumi.Kubernetes.Types.Outputs.Core.V1.ObjectReference> Related { get; private set; } = null!;
 
         /// <summary>
-        /// reportingController is the name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`. This field cannot be empty for new Events.
+        /// Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
         /// </summary>
         [Output("reportingController")]
         public Output<string> ReportingController { get; private set; } = null!;
 
         /// <summary>
-        /// reportingInstance is the ID of the controller instance, e.g. `kubelet-xyzf`. This field cannot be empty for new Events and it can have at most 128 characters.
+        /// ID of the controller instance, e.g. `kubelet-xyzf`.
         /// </summary>
         [Output("reportingInstance")]
         public Output<string> ReportingInstance { get; private set; } = null!;
 
         /// <summary>
-        /// series is data about the Event series this event represents or nil if it's a singleton Event.
+        /// Data about the Event series this event represents or nil if it's a singleton Event.
         /// </summary>
         [Output("series")]
         public Output<Pulumi.Kubernetes.Types.Outputs.Events.V1Beta1.EventSeries> Series { get; private set; } = null!;
 
         /// <summary>
-        /// type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.
+        /// Type of this event (Normal, Warning), new types could be added in the future.
         /// </summary>
         [Output("type")]
         public Output<string> Type { get; private set; } = null!;
@@ -183,7 +180,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Events.V1Beta1
     public class EventArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field can have at most 128 characters.
+        /// What action was taken/failed regarding to the regarding object.
         /// </summary>
         [Input("action")]
         public Input<string>? Action { get; set; }
@@ -195,31 +192,31 @@ namespace Pulumi.Kubernetes.Types.Inputs.Events.V1Beta1
         public Input<string>? ApiVersion { get; set; }
 
         /// <summary>
-        /// deprecatedCount is the deprecated field assuring backward compatibility with core.v1 Event type.
+        /// Deprecated field assuring backward compatibility with core.v1 Event type
         /// </summary>
         [Input("deprecatedCount")]
         public Input<int>? DeprecatedCount { get; set; }
 
         /// <summary>
-        /// deprecatedFirstTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
+        /// Deprecated field assuring backward compatibility with core.v1 Event type
         /// </summary>
         [Input("deprecatedFirstTimestamp")]
         public Input<string>? DeprecatedFirstTimestamp { get; set; }
 
         /// <summary>
-        /// deprecatedLastTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
+        /// Deprecated field assuring backward compatibility with core.v1 Event type
         /// </summary>
         [Input("deprecatedLastTimestamp")]
         public Input<string>? DeprecatedLastTimestamp { get; set; }
 
         /// <summary>
-        /// deprecatedSource is the deprecated field assuring backward compatibility with core.v1 Event type.
+        /// Deprecated field assuring backward compatibility with core.v1 Event type
         /// </summary>
         [Input("deprecatedSource")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.EventSourceArgs>? DeprecatedSource { get; set; }
 
         /// <summary>
-        /// eventTime is the time when this Event was first observed. It is required.
+        /// Required. Time when this Event was first observed.
         /// </summary>
         [Input("eventTime", required: true)]
         public Input<string> EventTime { get; set; } = null!;
@@ -230,56 +227,53 @@ namespace Pulumi.Kubernetes.Types.Inputs.Events.V1Beta1
         [Input("kind")]
         public Input<string>? Kind { get; set; }
 
-        /// <summary>
-        /// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        /// </summary>
         [Input("metadata")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs>? Metadata { get; set; }
 
         /// <summary>
-        /// note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
+        /// Optional. A human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
         /// </summary>
         [Input("note")]
         public Input<string>? Note { get; set; }
 
         /// <summary>
-        /// reason is why the action was taken. It is human-readable. This field can have at most 128 characters.
+        /// Why the action was taken.
         /// </summary>
         [Input("reason")]
         public Input<string>? Reason { get; set; }
 
         /// <summary>
-        /// regarding contains the object this Event is about. In most cases it's an Object reporting controller implements, e.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
+        /// The object this Event is about. In most cases it's an Object reporting controller implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
         /// </summary>
         [Input("regarding")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.ObjectReferenceArgs>? Regarding { get; set; }
 
         /// <summary>
-        /// related is the optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
+        /// Optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
         /// </summary>
         [Input("related")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.ObjectReferenceArgs>? Related { get; set; }
 
         /// <summary>
-        /// reportingController is the name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`. This field cannot be empty for new Events.
+        /// Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
         /// </summary>
         [Input("reportingController")]
         public Input<string>? ReportingController { get; set; }
 
         /// <summary>
-        /// reportingInstance is the ID of the controller instance, e.g. `kubelet-xyzf`. This field cannot be empty for new Events and it can have at most 128 characters.
+        /// ID of the controller instance, e.g. `kubelet-xyzf`.
         /// </summary>
         [Input("reportingInstance")]
         public Input<string>? ReportingInstance { get; set; }
 
         /// <summary>
-        /// series is data about the Event series this event represents or nil if it's a singleton Event.
+        /// Data about the Event series this event represents or nil if it's a singleton Event.
         /// </summary>
         [Input("series")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Events.V1Beta1.EventSeriesArgs>? Series { get; set; }
 
         /// <summary>
-        /// type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable.
+        /// Type of this event (Normal, Warning), new types could be added in the future.
         /// </summary>
         [Input("type")]
         public Input<string>? Type { get; set; }

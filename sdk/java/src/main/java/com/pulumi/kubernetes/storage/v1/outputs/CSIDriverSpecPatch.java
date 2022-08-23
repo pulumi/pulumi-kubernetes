@@ -48,6 +48,17 @@ public final class CSIDriverSpecPatch {
      */
     private @Nullable Boolean requiresRepublish;
     /**
+     * @return SELinuxMount specifies if the CSI driver supports &#34;-o context&#34; mount option.
+     * 
+     * When &#34;true&#34;, the CSI driver must ensure that all volumes provided by this CSI driver can be mounted separately with different `-o context` options. This is typical for storage backends that provide volumes as filesystems on block devices or as independent shared volumes. Kubernetes will call NodeStage / NodePublish with &#34;-o context=xyz&#34; mount option when mounting a ReadWriteOncePod volume used in Pod that has explicitly set SELinux context. In the future, it may be expanded to other volume AccessModes. In any case, Kubernetes will ensure that the volume is mounted only with a single SELinux context.
+     * 
+     * When &#34;false&#34;, Kubernetes won&#39;t pass any special SELinux mount options to the driver. This is typical for volumes that represent subdirectories of a bigger shared filesystem.
+     * 
+     * Default is &#34;false&#34;.
+     * 
+     */
+    private @Nullable Boolean seLinuxMount;
+    /**
      * @return If set to true, storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information.
      * 
      * The check can be enabled immediately when deploying a driver. In that case, provisioning new volumes with late binding will pause until the driver deployment has published some suitable CSIStorageCapacity object.
@@ -122,6 +133,19 @@ public final class CSIDriverSpecPatch {
         return Optional.ofNullable(this.requiresRepublish);
     }
     /**
+     * @return SELinuxMount specifies if the CSI driver supports &#34;-o context&#34; mount option.
+     * 
+     * When &#34;true&#34;, the CSI driver must ensure that all volumes provided by this CSI driver can be mounted separately with different `-o context` options. This is typical for storage backends that provide volumes as filesystems on block devices or as independent shared volumes. Kubernetes will call NodeStage / NodePublish with &#34;-o context=xyz&#34; mount option when mounting a ReadWriteOncePod volume used in Pod that has explicitly set SELinux context. In the future, it may be expanded to other volume AccessModes. In any case, Kubernetes will ensure that the volume is mounted only with a single SELinux context.
+     * 
+     * When &#34;false&#34;, Kubernetes won&#39;t pass any special SELinux mount options to the driver. This is typical for volumes that represent subdirectories of a bigger shared filesystem.
+     * 
+     * Default is &#34;false&#34;.
+     * 
+     */
+    public Optional<Boolean> seLinuxMount() {
+        return Optional.ofNullable(this.seLinuxMount);
+    }
+    /**
      * @return If set to true, storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information.
      * 
      * The check can be enabled immediately when deploying a driver. In that case, provisioning new volumes with late binding will pause until the driver deployment has published some suitable CSIStorageCapacity object.
@@ -172,6 +196,7 @@ public final class CSIDriverSpecPatch {
         private @Nullable String fsGroupPolicy;
         private @Nullable Boolean podInfoOnMount;
         private @Nullable Boolean requiresRepublish;
+        private @Nullable Boolean seLinuxMount;
         private @Nullable Boolean storageCapacity;
         private @Nullable List<TokenRequestPatch> tokenRequests;
         private @Nullable List<String> volumeLifecycleModes;
@@ -182,6 +207,7 @@ public final class CSIDriverSpecPatch {
     	      this.fsGroupPolicy = defaults.fsGroupPolicy;
     	      this.podInfoOnMount = defaults.podInfoOnMount;
     	      this.requiresRepublish = defaults.requiresRepublish;
+    	      this.seLinuxMount = defaults.seLinuxMount;
     	      this.storageCapacity = defaults.storageCapacity;
     	      this.tokenRequests = defaults.tokenRequests;
     	      this.volumeLifecycleModes = defaults.volumeLifecycleModes;
@@ -205,6 +231,11 @@ public final class CSIDriverSpecPatch {
         @CustomType.Setter
         public Builder requiresRepublish(@Nullable Boolean requiresRepublish) {
             this.requiresRepublish = requiresRepublish;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder seLinuxMount(@Nullable Boolean seLinuxMount) {
+            this.seLinuxMount = seLinuxMount;
             return this;
         }
         @CustomType.Setter
@@ -234,6 +265,7 @@ public final class CSIDriverSpecPatch {
             o.fsGroupPolicy = fsGroupPolicy;
             o.podInfoOnMount = podInfoOnMount;
             o.requiresRepublish = requiresRepublish;
+            o.seLinuxMount = seLinuxMount;
             o.storageCapacity = storageCapacity;
             o.tokenRequests = tokenRequests;
             o.volumeLifecycleModes = volumeLifecycleModes;

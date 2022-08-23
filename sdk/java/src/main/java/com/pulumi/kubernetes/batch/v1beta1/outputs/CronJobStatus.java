@@ -23,11 +23,6 @@ public final class CronJobStatus {
      * 
      */
     private @Nullable String lastScheduleTime;
-    /**
-     * @return Information when was the last time the job successfully completed.
-     * 
-     */
-    private @Nullable String lastSuccessfulTime;
 
     private CronJobStatus() {}
     /**
@@ -44,13 +39,6 @@ public final class CronJobStatus {
     public Optional<String> lastScheduleTime() {
         return Optional.ofNullable(this.lastScheduleTime);
     }
-    /**
-     * @return Information when was the last time the job successfully completed.
-     * 
-     */
-    public Optional<String> lastSuccessfulTime() {
-        return Optional.ofNullable(this.lastSuccessfulTime);
-    }
 
     public static Builder builder() {
         return new Builder();
@@ -63,13 +51,11 @@ public final class CronJobStatus {
     public static final class Builder {
         private @Nullable List<ObjectReference> active;
         private @Nullable String lastScheduleTime;
-        private @Nullable String lastSuccessfulTime;
         public Builder() {}
         public Builder(CronJobStatus defaults) {
     	      Objects.requireNonNull(defaults);
     	      this.active = defaults.active;
     	      this.lastScheduleTime = defaults.lastScheduleTime;
-    	      this.lastSuccessfulTime = defaults.lastSuccessfulTime;
         }
 
         @CustomType.Setter
@@ -85,16 +71,10 @@ public final class CronJobStatus {
             this.lastScheduleTime = lastScheduleTime;
             return this;
         }
-        @CustomType.Setter
-        public Builder lastSuccessfulTime(@Nullable String lastSuccessfulTime) {
-            this.lastSuccessfulTime = lastSuccessfulTime;
-            return this;
-        }
         public CronJobStatus build() {
             final var o = new CronJobStatus();
             o.active = active;
             o.lastScheduleTime = lastScheduleTime;
-            o.lastSuccessfulTime = lastSuccessfulTime;
             return o;
         }
     }

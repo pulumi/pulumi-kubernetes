@@ -803,31 +803,42 @@ class HorizontalPodAutoscalerSpecArgs:
 @pulumi.input_type
 class HorizontalPodAutoscalerStatusArgs:
     def __init__(__self__, *,
+                 conditions: pulumi.Input[Sequence[pulumi.Input['HorizontalPodAutoscalerConditionArgs']]],
                  current_replicas: pulumi.Input[int],
                  desired_replicas: pulumi.Input[int],
-                 conditions: Optional[pulumi.Input[Sequence[pulumi.Input['HorizontalPodAutoscalerConditionArgs']]]] = None,
                  current_metrics: Optional[pulumi.Input[Sequence[pulumi.Input['MetricStatusArgs']]]] = None,
                  last_scale_time: Optional[pulumi.Input[str]] = None,
                  observed_generation: Optional[pulumi.Input[int]] = None):
         """
         HorizontalPodAutoscalerStatus describes the current status of a horizontal pod autoscaler.
+        :param pulumi.Input[Sequence[pulumi.Input['HorizontalPodAutoscalerConditionArgs']]] conditions: conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
         :param pulumi.Input[int] current_replicas: currentReplicas is current number of replicas of pods managed by this autoscaler, as last seen by the autoscaler.
         :param pulumi.Input[int] desired_replicas: desiredReplicas is the desired number of replicas of pods managed by this autoscaler, as last calculated by the autoscaler.
-        :param pulumi.Input[Sequence[pulumi.Input['HorizontalPodAutoscalerConditionArgs']]] conditions: conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
         :param pulumi.Input[Sequence[pulumi.Input['MetricStatusArgs']]] current_metrics: currentMetrics is the last read state of the metrics used by this autoscaler.
         :param pulumi.Input[str] last_scale_time: lastScaleTime is the last time the HorizontalPodAutoscaler scaled the number of pods, used by the autoscaler to control how often the number of pods is changed.
         :param pulumi.Input[int] observed_generation: observedGeneration is the most recent generation observed by this autoscaler.
         """
+        pulumi.set(__self__, "conditions", conditions)
         pulumi.set(__self__, "current_replicas", current_replicas)
         pulumi.set(__self__, "desired_replicas", desired_replicas)
-        if conditions is not None:
-            pulumi.set(__self__, "conditions", conditions)
         if current_metrics is not None:
             pulumi.set(__self__, "current_metrics", current_metrics)
         if last_scale_time is not None:
             pulumi.set(__self__, "last_scale_time", last_scale_time)
         if observed_generation is not None:
             pulumi.set(__self__, "observed_generation", observed_generation)
+
+    @property
+    @pulumi.getter
+    def conditions(self) -> pulumi.Input[Sequence[pulumi.Input['HorizontalPodAutoscalerConditionArgs']]]:
+        """
+        conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
+        """
+        return pulumi.get(self, "conditions")
+
+    @conditions.setter
+    def conditions(self, value: pulumi.Input[Sequence[pulumi.Input['HorizontalPodAutoscalerConditionArgs']]]):
+        pulumi.set(self, "conditions", value)
 
     @property
     @pulumi.getter(name="currentReplicas")
@@ -852,18 +863,6 @@ class HorizontalPodAutoscalerStatusArgs:
     @desired_replicas.setter
     def desired_replicas(self, value: pulumi.Input[int]):
         pulumi.set(self, "desired_replicas", value)
-
-    @property
-    @pulumi.getter
-    def conditions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['HorizontalPodAutoscalerConditionArgs']]]]:
-        """
-        conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
-        """
-        return pulumi.get(self, "conditions")
-
-    @conditions.setter
-    def conditions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['HorizontalPodAutoscalerConditionArgs']]]]):
-        pulumi.set(self, "conditions", value)
 
     @property
     @pulumi.getter(name="currentMetrics")
@@ -1006,7 +1005,7 @@ class MetricSpecPatchArgs:
         :param pulumi.Input['ObjectMetricSourcePatchArgs'] object: object refers to a metric describing a single kubernetes object (for example, hits-per-second on an Ingress object).
         :param pulumi.Input['PodsMetricSourcePatchArgs'] pods: pods refers to a metric describing each pod in the current scale target (for example, transactions-processed-per-second).  The values will be averaged together before being compared to the target value.
         :param pulumi.Input['ResourceMetricSourcePatchArgs'] resource: resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
-        :param pulumi.Input[str] type: type is the type of metric source.  It should be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each mapping to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
+        :param pulumi.Input[str] type: type is the type of metric source.  It should be one of "Object", "Pods" or "Resource", each mapping to a matching field in the object.
         """
         if container_resource is not None:
             pulumi.set(__self__, "container_resource", container_resource)
@@ -1085,7 +1084,7 @@ class MetricSpecPatchArgs:
     @pulumi.getter
     def type(self) -> Optional[pulumi.Input[str]]:
         """
-        type is the type of metric source.  It should be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each mapping to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
+        type is the type of metric source.  It should be one of "Object", "Pods" or "Resource", each mapping to a matching field in the object.
         """
         return pulumi.get(self, "type")
 
@@ -1105,7 +1104,7 @@ class MetricSpecArgs:
                  resource: Optional[pulumi.Input['ResourceMetricSourceArgs']] = None):
         """
         MetricSpec specifies how to scale based on a single metric (only `type` and one other matching field should be set at once).
-        :param pulumi.Input[str] type: type is the type of metric source.  It should be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each mapping to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
+        :param pulumi.Input[str] type: type is the type of metric source.  It should be one of "Object", "Pods" or "Resource", each mapping to a matching field in the object.
         :param pulumi.Input['ContainerResourceMetricSourceArgs'] container_resource: container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod of the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source. This is an alpha feature and can be enabled by the HPAContainerMetrics feature flag.
         :param pulumi.Input['ExternalMetricSourceArgs'] external: external refers to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information coming from components running outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
         :param pulumi.Input['ObjectMetricSourceArgs'] object: object refers to a metric describing a single kubernetes object (for example, hits-per-second on an Ingress object).
@@ -1128,7 +1127,7 @@ class MetricSpecArgs:
     @pulumi.getter
     def type(self) -> pulumi.Input[str]:
         """
-        type is the type of metric source.  It should be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each mapping to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
+        type is the type of metric source.  It should be one of "Object", "Pods" or "Resource", each mapping to a matching field in the object.
         """
         return pulumi.get(self, "type")
 
@@ -1208,7 +1207,7 @@ class MetricStatusArgs:
                  resource: Optional[pulumi.Input['ResourceMetricStatusArgs']] = None):
         """
         MetricStatus describes the last-read state of a single metric.
-        :param pulumi.Input[str] type: type is the type of metric source.  It will be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each corresponds to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
+        :param pulumi.Input[str] type: type is the type of metric source.  It will be one of "Object", "Pods" or "Resource", each corresponds to a matching field in the object.
         :param pulumi.Input['ContainerResourceMetricStatusArgs'] container_resource: container resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing a single container in each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
         :param pulumi.Input['ExternalMetricStatusArgs'] external: external refers to a global metric that is not associated with any Kubernetes object. It allows autoscaling based on information coming from components running outside of cluster (for example length of queue in cloud messaging service, or QPS from loadbalancer running outside of cluster).
         :param pulumi.Input['ObjectMetricStatusArgs'] object: object refers to a metric describing a single kubernetes object (for example, hits-per-second on an Ingress object).
@@ -1231,7 +1230,7 @@ class MetricStatusArgs:
     @pulumi.getter
     def type(self) -> pulumi.Input[str]:
         """
-        type is the type of metric source.  It will be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each corresponds to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
+        type is the type of metric source.  It will be one of "Object", "Pods" or "Resource", each corresponds to a matching field in the object.
         """
         return pulumi.get(self, "type")
 

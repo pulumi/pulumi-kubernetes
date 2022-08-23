@@ -57,12 +57,6 @@ namespace Pulumi.Kubernetes.Types.Inputs.Batch.V1Beta1
         [Input("suspend")]
         public Input<bool>? Suspend { get; set; }
 
-        /// <summary>
-        /// The time zone for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will rely on the time zone of the kube-controller-manager process. ALPHA: This field is in alpha and must be enabled via the `CronJobTimeZone` feature gate.
-        /// </summary>
-        [Input("timeZone")]
-        public Input<string>? TimeZone { get; set; }
-
         public CronJobSpecPatchArgs()
         {
         }

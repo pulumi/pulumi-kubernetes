@@ -21,14 +21,14 @@ public final class PolicyRulePatchArgs extends com.pulumi.resources.ResourceArgs
     public static final PolicyRulePatchArgs Empty = new PolicyRulePatchArgs();
 
     /**
-     * APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.
+     * APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. &#34;&#34; represents the core API group and &#34;*&#34; represents all API groups.
      * 
      */
     @Import(name="apiGroups")
     private @Nullable Output<List<String>> apiGroups;
 
     /**
-     * @return APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.
+     * @return APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. &#34;&#34; represents the core API group and &#34;*&#34; represents all API groups.
      * 
      */
     public Optional<Output<List<String>>> apiGroups() {
@@ -124,7 +124,7 @@ public final class PolicyRulePatchArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param apiGroups APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.
+         * @param apiGroups APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. &#34;&#34; represents the core API group and &#34;*&#34; represents all API groups.
          * 
          * @return builder
          * 
@@ -135,7 +135,7 @@ public final class PolicyRulePatchArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param apiGroups APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.
+         * @param apiGroups APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. &#34;&#34; represents the core API group and &#34;*&#34; represents all API groups.
          * 
          * @return builder
          * 
@@ -145,7 +145,7 @@ public final class PolicyRulePatchArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param apiGroups APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.
+         * @param apiGroups APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. &#34;&#34; represents the core API group and &#34;*&#34; represents all API groups.
          * 
          * @return builder
          * 

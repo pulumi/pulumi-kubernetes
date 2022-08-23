@@ -100,14 +100,14 @@ public final class EndpointPatchArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
+     * nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node.
      * 
      */
     @Import(name="nodeName")
     private @Nullable Output<String> nodeName;
 
     /**
-     * @return nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
+     * @return nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node.
      * 
      */
     public Optional<Output<String>> nodeName() {
@@ -291,7 +291,7 @@ public final class EndpointPatchArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param nodeName nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
+         * @param nodeName nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node.
          * 
          * @return builder
          * 
@@ -302,7 +302,7 @@ public final class EndpointPatchArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param nodeName nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
+         * @param nodeName nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node.
          * 
          * @return builder
          * 

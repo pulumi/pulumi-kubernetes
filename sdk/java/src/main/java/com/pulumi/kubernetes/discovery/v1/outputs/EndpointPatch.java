@@ -42,7 +42,7 @@ public final class EndpointPatch {
      */
     private @Nullable String hostname;
     /**
-     * @return nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
+     * @return nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node.
      * 
      */
     private @Nullable String nodeName;
@@ -94,7 +94,7 @@ public final class EndpointPatch {
         return Optional.ofNullable(this.hostname);
     }
     /**
-     * @return nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
+     * @return nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node.
      * 
      */
     public Optional<String> nodeName() {
