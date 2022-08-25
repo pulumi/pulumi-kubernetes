@@ -1,5 +1,7 @@
 ## Unreleased
 
+- Update Helm and Kubernetes module dependencies (https://github.com/pulumi/pulumi-kubernetes/pull/2152)
+
 ## 3.21.0 (August 23, 2022)
 
 - Update Kubernetes support to Kubernetes v1.25.0 (https://github.com/pulumi/pulumi-kubernetes/pull/2129)
