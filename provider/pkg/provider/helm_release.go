@@ -33,6 +33,7 @@ import (
 	"github.com/imdario/mergo"
 	"github.com/mitchellh/mapstructure"
 	pkgerrors "github.com/pkg/errors"
+	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
 	"github.com/pulumi/pulumi/pkg/v3/resource/provider"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
@@ -175,6 +176,7 @@ type helmReleaseProvider struct {
 	apiConfig                *api.Config
 	defaultOverrides         *clientcmd.ConfigOverrides
 	restConfig               *rest.Config
+	clientSet                *clients.DynamicClientSet
 	defaultNamespace         string
 	enableSecrets            bool
 	clusterUnreachable       bool
@@ -188,6 +190,7 @@ func newHelmReleaseProvider(
 	apiConfig *api.Config,
 	defaultOverrides *clientcmd.ConfigOverrides,
 	restConfig *rest.Config,
+	clientSet *clients.DynamicClientSet,
 	helmDriver,
 	namespace string,
 	enableSecrets bool,
@@ -210,6 +213,7 @@ func newHelmReleaseProvider(
 		apiConfig:                apiConfig,
 		defaultOverrides:         defaultOverrides,
 		restConfig:               restConfig,
+		clientSet:                clientSet,
 		helmDriver:               helmDriver,
 		defaultNamespace:         namespace,
 		enableSecrets:            enableSecrets,
@@ -347,7 +351,7 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 			return nil, err
 		}
 
-		resourceNames, err := r.computeResourceNames(new)
+		resourceNames, err := r.computeResourceNames(new, r.clientSet)
 		if err != nil && errors.Is(err, fs.ErrNotExist) {
 			// Likely because the chart is not readily available (e.g. import of chart where no repo info is stored).
 			// Declare bankruptcy in being able to determine the underlying resources and hope for the best
@@ -1082,12 +1086,12 @@ func (r *helmReleaseProvider) Delete(ctx context.Context, req *pulumirpc.DeleteR
 	return &pbempty.Empty{}, nil
 }
 
-func (r *helmReleaseProvider) computeResourceNames(rel *Release) (map[string][]string, error) {
+func (r *helmReleaseProvider) computeResourceNames(rel *Release, clientSet *clients.DynamicClientSet) (map[string][]string, error) {
 	logger.V(9).Infof("Looking up resource names for release: %q: %#v", rel.Name, rel)
 	helmChartOpts := r.chartOptsFromRelease(rel)
 
 	logger.V(9).Infof("About to template: %+v", helmChartOpts)
-	templ, err := helmTemplate(helmChartOpts)
+	templ, err := helmTemplate(helmChartOpts, clientSet)
 	if err != nil {
 		return nil, err
 	}
