@@ -43,6 +43,7 @@ import * as rbac from "../rbac";
 import * as scheduling from "../scheduling";
 import * as settings from "../settings";
 import * as storage from "../storage";
+import * as provider from "../provider";
 import * as outputs from "../types/output";
 import { getVersion } from "../utilities";
 
@@ -2910,10 +2911,13 @@ export interface ConfigOpts {
 }
 
 /** @ignore */ function yamlLoadAll(text: string, opts?: pulumi.ComponentResourceOptions): Promise<any[]> {
-    // Rather than using the default provider for the following invoke call, use the version specified
-    // in package.json.
     let invokeOpts: pulumi.InvokeOptions = { async: true, version: getVersion(), provider: opts?.provider };
 
+    if (provider.Provider.isInstance(invokeOpts.provider)) {
+        const prov: provider.Provider = invokeOpts.provider as provider.Provider;
+        // return prov.kubeconfig.apply(_ => pulumi.runtime.invoke("kubernetes:yaml:decode", {text}, invokeOpts)
+        //            .then((p => p.result)));
+    }
     return pulumi.runtime.invoke("kubernetes:yaml:decode", {text}, invokeOpts)
         .then((p => p.result));
 }
@@ -3009,9 +3013,9 @@ export interface ConfigOpts {
     opts?: pulumi.CustomResourceOptions,
 ):  pulumi.Output<{[key: string]: pulumi.CustomResource}> {
     const objs = config.objs.then(configObjs => {
-        return configObjs
+        return Array.isArray(configObjs) ? configObjs
             .map(obj => parseYamlObject(obj, config.transformations, config.resourcePrefix, opts))
-            .reduce((array, objs) => (array.concat(...objs)), []);
+            .reduce((array, objs) => (array.concat(...objs)), []) : [];
     });
     return pulumi.output(objs).apply(objs => objs
             .reduce((map: {[key: string]: pulumi.CustomResource}, val) => (map[val.name] = val.resource, map), {}));
