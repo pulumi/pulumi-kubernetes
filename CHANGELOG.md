@@ -4,6 +4,7 @@
 
 - Update Helm and Kubernetes module dependencies (https://github.com/pulumi/pulumi-kubernetes/pull/2152)
 - Automatically fill in .Capabilities in Helm Charts (https://github.com/pulumi/pulumi-kubernetes/pull/2155)
+- Fix yaml bug resulting in `TypeError: Cannot read properties of undefined` (https://github.com/pulumi/pulumi-kubernetes/pull/2156)
 
 ## 3.21.0 (August 23, 2022)
 
