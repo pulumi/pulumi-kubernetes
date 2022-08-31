@@ -726,6 +726,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		apiConfig,
 		overrides,
 		k.config,
+		k.clientSet,
 		k.helmDriver,
 		k.defaultNamespace,
 		k.enableSecrets,
@@ -802,7 +803,7 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 			return nil, pkgerrors.Wrap(err, "failed to unmarshal 'jsonOpts'")
 		}
 
-		text, err := helmTemplate(opts)
+		text, err := helmTemplate(opts, k.clientSet)
 		if err != nil {
 			return nil, pkgerrors.Wrap(err, "failed to generate YAML for specified Helm chart")
 		}

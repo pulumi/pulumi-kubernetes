@@ -24,6 +24,7 @@ import (
 	"strings"
 
 	pkgerrors "github.com/pkg/errors"
+	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	"helm.sh/helm/v3/pkg/action"
 	"helm.sh/helm/v3/pkg/chart/loader"
@@ -32,6 +33,7 @@ import (
 	"helm.sh/helm/v3/pkg/registry"
 	"helm.sh/helm/v3/pkg/storage"
 	"helm.sh/helm/v3/pkg/storage/driver"
+	"k8s.io/client-go/discovery"
 )
 
 // testHookAnnotation matches test-related Helm hook annotations (test, test-success, test-failure)
@@ -73,7 +75,7 @@ type HelmChartOpts struct {
 
 // helmTemplate performs Helm fetch/pull + template operations and returns the resulting YAML manifest based on the
 // provided chart options.
-func helmTemplate(opts HelmChartOpts) (string, error) {
+func helmTemplate(opts HelmChartOpts, clientSet *clients.DynamicClientSet) (string, error) {
 	tempDir, err := ioutil.TempDir("", "helm")
 	if err != nil {
 		return "", err
@@ -114,7 +116,7 @@ func helmTemplate(opts HelmChartOpts) (string, error) {
 		}
 	}
 
-	result, err := chart.template()
+	result, err := chart.template(clientSet)
 	if err != nil {
 		return "", err
 	}
@@ -212,7 +214,7 @@ func normalizeChartRef(repoName string, repoURL string, originalChartRef string)
 }
 
 // template runs the `helm template` action to produce YAML from the Chart configuration.
-func (c *chart) template() (string, error) {
+func (c *chart) template(clientSet *clients.DynamicClientSet) (string, error) {
 	registryClient, err := registry.NewClient(
 		registry.ClientOptDebug(c.opts.HelmChartDebug),
 		registry.ClientOptCredentialsFile(c.opts.HelmRegistryConfig),
@@ -222,12 +224,8 @@ func (c *chart) template() (string, error) {
 	}
 
 	cfg := &action.Configuration{
-		Capabilities:   chartutil.DefaultCapabilities,
 		Releases:       storage.Init(driver.NewMemory()),
 		RegistryClient: registryClient,
-	}
-	if len(c.opts.APIVersions) > 0 {
-		cfg.Capabilities.APIVersions = append(cfg.Capabilities.APIVersions, c.opts.APIVersions...)
 	}
 
 	// If the namespace isn't set, explicitly set it to "default".
@@ -236,7 +234,6 @@ func (c *chart) template() (string, error) {
 	}
 
 	installAction := action.NewInstall(cfg)
-	installAction.APIVersions = c.opts.APIVersions
 	installAction.ClientOnly = true
 	installAction.DryRun = true
 	installAction.IncludeCRDs = !c.opts.SkipCRDRendering
@@ -244,6 +241,41 @@ func (c *chart) template() (string, error) {
 	installAction.NameTemplate = c.opts.ReleaseName
 	installAction.ReleaseName = c.opts.ReleaseName
 	installAction.Version = c.opts.Version
+
+	// Preserve backward compatibility
+	if len(c.opts.APIVersions) > 0 {
+		installAction.APIVersions = c.opts.APIVersions
+	} else if clientSet != nil {
+		// The following code to discover Kubernetes version and API versions comes
+		//  from the Helm project:
+		// https://github.com/helm/helm/blob/d7b4c38c42cb0b77f1bcebf9bb4ae7695a10da0b/pkg/action/action.go#L239
+
+		dc := clientSet.DiscoveryClientCached
+
+		dc.Invalidate()
+		kubeVersion, err := dc.ServerVersion()
+		if err != nil {
+			return "", fmt.Errorf("could not get server version from Kubernetes: %w", err)
+		}
+		// Client-Go emits an error when an API service is registered but unimplemented.
+		// Since the discovery client continues building the API object, it is correctly
+		// populated with all valid APIs.
+		// See https://github.com/kubernetes/kubernetes/issues/72051#issuecomment-521157642
+		apiVersions, err := action.GetVersionSet(dc)
+		if err != nil {
+			if !discovery.IsGroupDiscoveryFailedError(err) {
+				return "", fmt.Errorf("could not get apiVersions from Kubernetes: %w", err)
+			}
+		}
+
+		installAction.KubeVersion = &chartutil.KubeVersion{
+			Version: kubeVersion.GitVersion,
+			Major:   kubeVersion.Major,
+			Minor:   kubeVersion.Minor,
+		}
+
+		installAction.APIVersions = apiVersions
+	}
 
 	chartName, err := func() (string, error) {
 		if registry.IsOCI(c.opts.Chart) {
