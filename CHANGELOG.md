@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 3.21.1 (August 31, 2022)
+
 - Update Helm and Kubernetes module dependencies (https://github.com/pulumi/pulumi-kubernetes/pull/2152)
 - Automatically fill in .Capabilities in Helm Charts (https://github.com/pulumi/pulumi-kubernetes/pull/2155)
 
