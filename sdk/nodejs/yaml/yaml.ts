@@ -2827,13 +2827,22 @@ export class ConfigFile extends CollectionComponentResource {
             transformations.push(skipAwait);
         }
 
-        this.resources = pulumi.output(text.then(t => {
+       this.resources = pulumi.output(text.then(t => {
             try {
-                return parseYamlDocument({
+                const parsed = parseYamlDocument({
                     objs: yamlLoadAll(t, opts),
                     transformations,
                     resourcePrefix: config && config.resourcePrefix || undefined
-                }, {...opts, parent: this})
+                }, {...opts, parent: this});
+                // If the provider is not fully initialized, the engine skips invoking on the provider and returns an
+                // empty result. This may change based on how https://github.com/pulumi/pulumi/issues/10209 is addressed.
+                parsed.apply(p => {
+                    if (opts?.provider !== undefined && (Object.entries(p).length == 0)) {
+                        pulumi.log.info("Can't decode yaml config when provider is not fully initialized. " +
+                         "This can result in empty previews but should resolve correctly during apply.", this);
+                    }
+                });
+                return parsed;
             } catch (e) {
                 throw Error(`Error fetching YAML file '${fileId}': ${e}`);
             }
@@ -2913,13 +2922,8 @@ export interface ConfigOpts {
 /** @ignore */ function yamlLoadAll(text: string, opts?: pulumi.ComponentResourceOptions): Promise<any[]> {
     let invokeOpts: pulumi.InvokeOptions = { async: true, version: getVersion(), provider: opts?.provider };
 
-    if (provider.Provider.isInstance(invokeOpts.provider)) {
-        const prov: provider.Provider = invokeOpts.provider as provider.Provider;
-        // return prov.kubeconfig.apply(_ => pulumi.runtime.invoke("kubernetes:yaml:decode", {text}, invokeOpts)
-        //            .then((p => p.result)));
-    }
     return pulumi.runtime.invoke("kubernetes:yaml:decode", {text}, invokeOpts)
-        .then((p => p.result));
+        .then(p => p.result);
 }
 
 /** @ignore */ export function skipAwait(o: any, opts: pulumi.ComponentResourceOptions) {
