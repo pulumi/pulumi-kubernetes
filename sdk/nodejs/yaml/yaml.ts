@@ -43,6 +43,7 @@ import * as rbac from "../rbac";
 import * as scheduling from "../scheduling";
 import * as settings from "../settings";
 import * as storage from "../storage";
+import * as provider from "../provider";
 import * as outputs from "../types/output";
 import { getVersion } from "../utilities";
 
@@ -2826,13 +2827,22 @@ export class ConfigFile extends CollectionComponentResource {
             transformations.push(skipAwait);
         }
 
-        this.resources = pulumi.output(text.then(t => {
+       this.resources = pulumi.output(text.then(t => {
             try {
-                return parseYamlDocument({
+                const parsed = parseYamlDocument({
                     objs: yamlLoadAll(t, opts),
                     transformations,
                     resourcePrefix: config && config.resourcePrefix || undefined
-                }, {...opts, parent: this})
+                }, {...opts, parent: this});
+                // If the provider is not fully initialized, the engine skips invoking on the provider and returns an
+                // empty result. This may change based on how https://github.com/pulumi/pulumi/issues/10209 is addressed.
+                parsed.apply(p => {
+                    if (opts?.provider !== undefined && (Object.entries(p).length == 0)) {
+                        pulumi.log.info("Can't decode yaml config when provider is not fully initialized. " +
+                         "This can result in empty previews but should resolve correctly during apply.", this);
+                    }
+                });
+                return parsed;
             } catch (e) {
                 throw Error(`Error fetching YAML file '${fileId}': ${e}`);
             }
@@ -2910,12 +2920,10 @@ export interface ConfigOpts {
 }
 
 /** @ignore */ function yamlLoadAll(text: string, opts?: pulumi.ComponentResourceOptions): Promise<any[]> {
-    // Rather than using the default provider for the following invoke call, use the version specified
-    // in package.json.
     let invokeOpts: pulumi.InvokeOptions = { async: true, version: getVersion(), provider: opts?.provider };
 
     return pulumi.runtime.invoke("kubernetes:yaml:decode", {text}, invokeOpts)
-        .then((p => p.result));
+        .then(p => p.result);
 }
 
 /** @ignore */ export function skipAwait(o: any, opts: pulumi.ComponentResourceOptions) {
@@ -3009,9 +3017,9 @@ export interface ConfigOpts {
     opts?: pulumi.CustomResourceOptions,
 ):  pulumi.Output<{[key: string]: pulumi.CustomResource}> {
     const objs = config.objs.then(configObjs => {
-        return configObjs
+        return Array.isArray(configObjs) ? configObjs
             .map(obj => parseYamlObject(obj, config.transformations, config.resourcePrefix, opts))
-            .reduce((array, objs) => (array.concat(...objs)), []);
+            .reduce((array, objs) => (array.concat(...objs)), []) : [];
     });
     return pulumi.output(objs).apply(objs => objs
             .reduce((map: {[key: string]: pulumi.CustomResource}, val) => (map[val.name] = val.resource, map), {}));
