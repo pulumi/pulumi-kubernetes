@@ -344,8 +344,10 @@ class ConfigFile(pulumi.ComponentResource):
         # in package.json.
         invoke_opts = pulumi.InvokeOptions(version=_utilities.get_version(),
                                            provider=opts.provider if opts.provider else None)
-
-        __ret__ = pulumi.runtime.invoke('kubernetes:yaml:decode', {'text': text}, invoke_opts).value['result']
+        def invoke_yaml_decode(text):
+            inv = pulumi.runtime.invoke('kubernetes:yaml:decode', {'text': text}, invoke_opts)
+            return inv.value['result'] if inv is not None and inv.value is not None else []
+        __ret__ = invoke_yaml_decode(text)
 
         # Note: Unlike NodeJS, Python requires that we "pull" on our futures in order to get them scheduled for
         # execution. In order to do this, we leverage the engine's RegisterResourceOutputs to wait for the
