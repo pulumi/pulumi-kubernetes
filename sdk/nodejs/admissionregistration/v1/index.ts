@@ -5,20 +5,36 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../../utilities";
 
 // Export members:
-export * from "./mutatingWebhookConfiguration";
-export * from "./mutatingWebhookConfigurationList";
-export * from "./mutatingWebhookConfigurationPatch";
-export * from "./validatingWebhookConfiguration";
-export * from "./validatingWebhookConfigurationList";
-export * from "./validatingWebhookConfigurationPatch";
+export { MutatingWebhookConfigurationArgs } from "./mutatingWebhookConfiguration";
+export type MutatingWebhookConfiguration = import("./mutatingWebhookConfiguration").MutatingWebhookConfiguration;
+export const MutatingWebhookConfiguration: typeof import("./mutatingWebhookConfiguration").MutatingWebhookConfiguration = null as any;
 
-// Import resources to register:
-import { MutatingWebhookConfiguration } from "./mutatingWebhookConfiguration";
-import { MutatingWebhookConfigurationList } from "./mutatingWebhookConfigurationList";
-import { MutatingWebhookConfigurationPatch } from "./mutatingWebhookConfigurationPatch";
-import { ValidatingWebhookConfiguration } from "./validatingWebhookConfiguration";
-import { ValidatingWebhookConfigurationList } from "./validatingWebhookConfigurationList";
-import { ValidatingWebhookConfigurationPatch } from "./validatingWebhookConfigurationPatch";
+export { MutatingWebhookConfigurationListArgs } from "./mutatingWebhookConfigurationList";
+export type MutatingWebhookConfigurationList = import("./mutatingWebhookConfigurationList").MutatingWebhookConfigurationList;
+export const MutatingWebhookConfigurationList: typeof import("./mutatingWebhookConfigurationList").MutatingWebhookConfigurationList = null as any;
+
+export { MutatingWebhookConfigurationPatchArgs } from "./mutatingWebhookConfigurationPatch";
+export type MutatingWebhookConfigurationPatch = import("./mutatingWebhookConfigurationPatch").MutatingWebhookConfigurationPatch;
+export const MutatingWebhookConfigurationPatch: typeof import("./mutatingWebhookConfigurationPatch").MutatingWebhookConfigurationPatch = null as any;
+
+export { ValidatingWebhookConfigurationArgs } from "./validatingWebhookConfiguration";
+export type ValidatingWebhookConfiguration = import("./validatingWebhookConfiguration").ValidatingWebhookConfiguration;
+export const ValidatingWebhookConfiguration: typeof import("./validatingWebhookConfiguration").ValidatingWebhookConfiguration = null as any;
+
+export { ValidatingWebhookConfigurationListArgs } from "./validatingWebhookConfigurationList";
+export type ValidatingWebhookConfigurationList = import("./validatingWebhookConfigurationList").ValidatingWebhookConfigurationList;
+export const ValidatingWebhookConfigurationList: typeof import("./validatingWebhookConfigurationList").ValidatingWebhookConfigurationList = null as any;
+
+export { ValidatingWebhookConfigurationPatchArgs } from "./validatingWebhookConfigurationPatch";
+export type ValidatingWebhookConfigurationPatch = import("./validatingWebhookConfigurationPatch").ValidatingWebhookConfigurationPatch;
+export const ValidatingWebhookConfigurationPatch: typeof import("./validatingWebhookConfigurationPatch").ValidatingWebhookConfigurationPatch = null as any;
+
+utilities.lazyLoad(exports, ["MutatingWebhookConfiguration"], () => require("./mutatingWebhookConfiguration"));
+utilities.lazyLoad(exports, ["MutatingWebhookConfigurationList"], () => require("./mutatingWebhookConfigurationList"));
+utilities.lazyLoad(exports, ["MutatingWebhookConfigurationPatch"], () => require("./mutatingWebhookConfigurationPatch"));
+utilities.lazyLoad(exports, ["ValidatingWebhookConfiguration"], () => require("./validatingWebhookConfiguration"));
+utilities.lazyLoad(exports, ["ValidatingWebhookConfigurationList"], () => require("./validatingWebhookConfigurationList"));
+utilities.lazyLoad(exports, ["ValidatingWebhookConfigurationPatch"], () => require("./validatingWebhookConfigurationPatch"));
 
 const _module = {
     version: utilities.getVersion(),

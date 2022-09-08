@@ -5,26 +5,51 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../../utilities";
 
 // Export members:
-export * from "./controllerRevision";
-export * from "./controllerRevisionList";
-export * from "./controllerRevisionPatch";
-export * from "./deployment";
-export * from "./deploymentList";
-export * from "./deploymentPatch";
-export * from "./statefulSet";
-export * from "./statefulSetList";
-export * from "./statefulSetPatch";
+export { ControllerRevisionArgs } from "./controllerRevision";
+export type ControllerRevision = import("./controllerRevision").ControllerRevision;
+export const ControllerRevision: typeof import("./controllerRevision").ControllerRevision = null as any;
 
-// Import resources to register:
-import { ControllerRevision } from "./controllerRevision";
-import { ControllerRevisionList } from "./controllerRevisionList";
-import { ControllerRevisionPatch } from "./controllerRevisionPatch";
-import { Deployment } from "./deployment";
-import { DeploymentList } from "./deploymentList";
-import { DeploymentPatch } from "./deploymentPatch";
-import { StatefulSet } from "./statefulSet";
-import { StatefulSetList } from "./statefulSetList";
-import { StatefulSetPatch } from "./statefulSetPatch";
+export { ControllerRevisionListArgs } from "./controllerRevisionList";
+export type ControllerRevisionList = import("./controllerRevisionList").ControllerRevisionList;
+export const ControllerRevisionList: typeof import("./controllerRevisionList").ControllerRevisionList = null as any;
+
+export { ControllerRevisionPatchArgs } from "./controllerRevisionPatch";
+export type ControllerRevisionPatch = import("./controllerRevisionPatch").ControllerRevisionPatch;
+export const ControllerRevisionPatch: typeof import("./controllerRevisionPatch").ControllerRevisionPatch = null as any;
+
+export { DeploymentArgs } from "./deployment";
+export type Deployment = import("./deployment").Deployment;
+export const Deployment: typeof import("./deployment").Deployment = null as any;
+
+export { DeploymentListArgs } from "./deploymentList";
+export type DeploymentList = import("./deploymentList").DeploymentList;
+export const DeploymentList: typeof import("./deploymentList").DeploymentList = null as any;
+
+export { DeploymentPatchArgs } from "./deploymentPatch";
+export type DeploymentPatch = import("./deploymentPatch").DeploymentPatch;
+export const DeploymentPatch: typeof import("./deploymentPatch").DeploymentPatch = null as any;
+
+export { StatefulSetArgs } from "./statefulSet";
+export type StatefulSet = import("./statefulSet").StatefulSet;
+export const StatefulSet: typeof import("./statefulSet").StatefulSet = null as any;
+
+export { StatefulSetListArgs } from "./statefulSetList";
+export type StatefulSetList = import("./statefulSetList").StatefulSetList;
+export const StatefulSetList: typeof import("./statefulSetList").StatefulSetList = null as any;
+
+export { StatefulSetPatchArgs } from "./statefulSetPatch";
+export type StatefulSetPatch = import("./statefulSetPatch").StatefulSetPatch;
+export const StatefulSetPatch: typeof import("./statefulSetPatch").StatefulSetPatch = null as any;
+
+utilities.lazyLoad(exports, ["ControllerRevision"], () => require("./controllerRevision"));
+utilities.lazyLoad(exports, ["ControllerRevisionList"], () => require("./controllerRevisionList"));
+utilities.lazyLoad(exports, ["ControllerRevisionPatch"], () => require("./controllerRevisionPatch"));
+utilities.lazyLoad(exports, ["Deployment"], () => require("./deployment"));
+utilities.lazyLoad(exports, ["DeploymentList"], () => require("./deploymentList"));
+utilities.lazyLoad(exports, ["DeploymentPatch"], () => require("./deploymentPatch"));
+utilities.lazyLoad(exports, ["StatefulSet"], () => require("./statefulSet"));
+utilities.lazyLoad(exports, ["StatefulSetList"], () => require("./statefulSetList"));
+utilities.lazyLoad(exports, ["StatefulSetPatch"], () => require("./statefulSetPatch"));
 
 const _module = {
     version: utilities.getVersion(),
