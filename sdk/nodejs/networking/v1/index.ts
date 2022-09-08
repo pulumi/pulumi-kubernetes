@@ -5,26 +5,51 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../../utilities";
 
 // Export members:
-export * from "./ingress";
-export * from "./ingressClass";
-export * from "./ingressClassList";
-export * from "./ingressClassPatch";
-export * from "./ingressList";
-export * from "./ingressPatch";
-export * from "./networkPolicy";
-export * from "./networkPolicyList";
-export * from "./networkPolicyPatch";
+export { IngressArgs } from "./ingress";
+export type Ingress = import("./ingress").Ingress;
+export const Ingress: typeof import("./ingress").Ingress = null as any;
 
-// Import resources to register:
-import { Ingress } from "./ingress";
-import { IngressClass } from "./ingressClass";
-import { IngressClassList } from "./ingressClassList";
-import { IngressClassPatch } from "./ingressClassPatch";
-import { IngressList } from "./ingressList";
-import { IngressPatch } from "./ingressPatch";
-import { NetworkPolicy } from "./networkPolicy";
-import { NetworkPolicyList } from "./networkPolicyList";
-import { NetworkPolicyPatch } from "./networkPolicyPatch";
+export { IngressClassArgs } from "./ingressClass";
+export type IngressClass = import("./ingressClass").IngressClass;
+export const IngressClass: typeof import("./ingressClass").IngressClass = null as any;
+
+export { IngressClassListArgs } from "./ingressClassList";
+export type IngressClassList = import("./ingressClassList").IngressClassList;
+export const IngressClassList: typeof import("./ingressClassList").IngressClassList = null as any;
+
+export { IngressClassPatchArgs } from "./ingressClassPatch";
+export type IngressClassPatch = import("./ingressClassPatch").IngressClassPatch;
+export const IngressClassPatch: typeof import("./ingressClassPatch").IngressClassPatch = null as any;
+
+export { IngressListArgs } from "./ingressList";
+export type IngressList = import("./ingressList").IngressList;
+export const IngressList: typeof import("./ingressList").IngressList = null as any;
+
+export { IngressPatchArgs } from "./ingressPatch";
+export type IngressPatch = import("./ingressPatch").IngressPatch;
+export const IngressPatch: typeof import("./ingressPatch").IngressPatch = null as any;
+
+export { NetworkPolicyArgs } from "./networkPolicy";
+export type NetworkPolicy = import("./networkPolicy").NetworkPolicy;
+export const NetworkPolicy: typeof import("./networkPolicy").NetworkPolicy = null as any;
+
+export { NetworkPolicyListArgs } from "./networkPolicyList";
+export type NetworkPolicyList = import("./networkPolicyList").NetworkPolicyList;
+export const NetworkPolicyList: typeof import("./networkPolicyList").NetworkPolicyList = null as any;
+
+export { NetworkPolicyPatchArgs } from "./networkPolicyPatch";
+export type NetworkPolicyPatch = import("./networkPolicyPatch").NetworkPolicyPatch;
+export const NetworkPolicyPatch: typeof import("./networkPolicyPatch").NetworkPolicyPatch = null as any;
+
+utilities.lazyLoad(exports, ["Ingress"], () => require("./ingress"));
+utilities.lazyLoad(exports, ["IngressClass"], () => require("./ingressClass"));
+utilities.lazyLoad(exports, ["IngressClassList"], () => require("./ingressClassList"));
+utilities.lazyLoad(exports, ["IngressClassPatch"], () => require("./ingressClassPatch"));
+utilities.lazyLoad(exports, ["IngressList"], () => require("./ingressList"));
+utilities.lazyLoad(exports, ["IngressPatch"], () => require("./ingressPatch"));
+utilities.lazyLoad(exports, ["NetworkPolicy"], () => require("./networkPolicy"));
+utilities.lazyLoad(exports, ["NetworkPolicyList"], () => require("./networkPolicyList"));
+utilities.lazyLoad(exports, ["NetworkPolicyPatch"], () => require("./networkPolicyPatch"));
 
 const _module = {
     version: utilities.getVersion(),

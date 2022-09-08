@@ -6,10 +6,11 @@ import * as utilities from "../../utilities";
 
 // Export members:
 export * from "./helm";
-export * from "./release";
+export { ReleaseArgs } from "./release";
+export type Release = import("./release").Release;
+export const Release: typeof import("./release").Release = null as any;
 
-// Import resources to register:
-import { Release } from "./release";
+utilities.lazyLoad(exports, ["Release"], () => require("./release"));
 
 const _module = {
     version: utilities.getVersion(),

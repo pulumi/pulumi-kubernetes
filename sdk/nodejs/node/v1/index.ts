@@ -5,14 +5,21 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../../utilities";
 
 // Export members:
-export * from "./runtimeClass";
-export * from "./runtimeClassList";
-export * from "./runtimeClassPatch";
+export { RuntimeClassArgs } from "./runtimeClass";
+export type RuntimeClass = import("./runtimeClass").RuntimeClass;
+export const RuntimeClass: typeof import("./runtimeClass").RuntimeClass = null as any;
 
-// Import resources to register:
-import { RuntimeClass } from "./runtimeClass";
-import { RuntimeClassList } from "./runtimeClassList";
-import { RuntimeClassPatch } from "./runtimeClassPatch";
+export { RuntimeClassListArgs } from "./runtimeClassList";
+export type RuntimeClassList = import("./runtimeClassList").RuntimeClassList;
+export const RuntimeClassList: typeof import("./runtimeClassList").RuntimeClassList = null as any;
+
+export { RuntimeClassPatchArgs } from "./runtimeClassPatch";
+export type RuntimeClassPatch = import("./runtimeClassPatch").RuntimeClassPatch;
+export const RuntimeClassPatch: typeof import("./runtimeClassPatch").RuntimeClassPatch = null as any;
+
+utilities.lazyLoad(exports, ["RuntimeClass"], () => require("./runtimeClass"));
+utilities.lazyLoad(exports, ["RuntimeClassList"], () => require("./runtimeClassList"));
+utilities.lazyLoad(exports, ["RuntimeClassPatch"], () => require("./runtimeClassPatch"));
 
 const _module = {
     version: utilities.getVersion(),

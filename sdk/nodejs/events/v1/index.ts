@@ -5,14 +5,21 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../../utilities";
 
 // Export members:
-export * from "./event";
-export * from "./eventList";
-export * from "./eventPatch";
+export { EventArgs } from "./event";
+export type Event = import("./event").Event;
+export const Event: typeof import("./event").Event = null as any;
 
-// Import resources to register:
-import { Event } from "./event";
-import { EventList } from "./eventList";
-import { EventPatch } from "./eventPatch";
+export { EventListArgs } from "./eventList";
+export type EventList = import("./eventList").EventList;
+export const EventList: typeof import("./eventList").EventList = null as any;
+
+export { EventPatchArgs } from "./eventPatch";
+export type EventPatch = import("./eventPatch").EventPatch;
+export const EventPatch: typeof import("./eventPatch").EventPatch = null as any;
+
+utilities.lazyLoad(exports, ["Event"], () => require("./event"));
+utilities.lazyLoad(exports, ["EventList"], () => require("./eventList"));
+utilities.lazyLoad(exports, ["EventPatch"], () => require("./eventPatch"));
 
 const _module = {
     version: utilities.getVersion(),
