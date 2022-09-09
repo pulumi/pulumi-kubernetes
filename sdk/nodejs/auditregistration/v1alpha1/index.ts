@@ -5,14 +5,21 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../../utilities";
 
 // Export members:
-export * from "./auditSink";
-export * from "./auditSinkList";
-export * from "./auditSinkPatch";
+export { AuditSinkArgs } from "./auditSink";
+export type AuditSink = import("./auditSink").AuditSink;
+export const AuditSink: typeof import("./auditSink").AuditSink = null as any;
 
-// Import resources to register:
-import { AuditSink } from "./auditSink";
-import { AuditSinkList } from "./auditSinkList";
-import { AuditSinkPatch } from "./auditSinkPatch";
+export { AuditSinkListArgs } from "./auditSinkList";
+export type AuditSinkList = import("./auditSinkList").AuditSinkList;
+export const AuditSinkList: typeof import("./auditSinkList").AuditSinkList = null as any;
+
+export { AuditSinkPatchArgs } from "./auditSinkPatch";
+export type AuditSinkPatch = import("./auditSinkPatch").AuditSinkPatch;
+export const AuditSinkPatch: typeof import("./auditSinkPatch").AuditSinkPatch = null as any;
+
+utilities.lazyLoad(exports, ["AuditSink"], () => require("./auditSink"));
+utilities.lazyLoad(exports, ["AuditSinkList"], () => require("./auditSinkList"));
+utilities.lazyLoad(exports, ["AuditSinkPatch"], () => require("./auditSinkPatch"));
 
 const _module = {
     version: utilities.getVersion(),

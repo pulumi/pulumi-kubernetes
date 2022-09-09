@@ -5,14 +5,21 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../../utilities";
 
 // Export members:
-export * from "./volumeAttachment";
-export * from "./volumeAttachmentList";
-export * from "./volumeAttachmentPatch";
+export { VolumeAttachmentArgs } from "./volumeAttachment";
+export type VolumeAttachment = import("./volumeAttachment").VolumeAttachment;
+export const VolumeAttachment: typeof import("./volumeAttachment").VolumeAttachment = null as any;
 
-// Import resources to register:
-import { VolumeAttachment } from "./volumeAttachment";
-import { VolumeAttachmentList } from "./volumeAttachmentList";
-import { VolumeAttachmentPatch } from "./volumeAttachmentPatch";
+export { VolumeAttachmentListArgs } from "./volumeAttachmentList";
+export type VolumeAttachmentList = import("./volumeAttachmentList").VolumeAttachmentList;
+export const VolumeAttachmentList: typeof import("./volumeAttachmentList").VolumeAttachmentList = null as any;
+
+export { VolumeAttachmentPatchArgs } from "./volumeAttachmentPatch";
+export type VolumeAttachmentPatch = import("./volumeAttachmentPatch").VolumeAttachmentPatch;
+export const VolumeAttachmentPatch: typeof import("./volumeAttachmentPatch").VolumeAttachmentPatch = null as any;
+
+utilities.lazyLoad(exports, ["VolumeAttachment"], () => require("./volumeAttachment"));
+utilities.lazyLoad(exports, ["VolumeAttachmentList"], () => require("./volumeAttachmentList"));
+utilities.lazyLoad(exports, ["VolumeAttachmentPatch"], () => require("./volumeAttachmentPatch"));
 
 const _module = {
     version: utilities.getVersion(),
