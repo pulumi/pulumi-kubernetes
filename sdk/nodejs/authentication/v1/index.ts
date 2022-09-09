@@ -5,16 +5,26 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../../utilities";
 
 // Export members:
-export * from "./tokenRequest";
-export * from "./tokenRequestPatch";
-export * from "./tokenReview";
-export * from "./tokenReviewPatch";
+export { TokenRequestArgs } from "./tokenRequest";
+export type TokenRequest = import("./tokenRequest").TokenRequest;
+export const TokenRequest: typeof import("./tokenRequest").TokenRequest = null as any;
 
-// Import resources to register:
-import { TokenRequest } from "./tokenRequest";
-import { TokenRequestPatch } from "./tokenRequestPatch";
-import { TokenReview } from "./tokenReview";
-import { TokenReviewPatch } from "./tokenReviewPatch";
+export { TokenRequestPatchArgs } from "./tokenRequestPatch";
+export type TokenRequestPatch = import("./tokenRequestPatch").TokenRequestPatch;
+export const TokenRequestPatch: typeof import("./tokenRequestPatch").TokenRequestPatch = null as any;
+
+export { TokenReviewArgs } from "./tokenReview";
+export type TokenReview = import("./tokenReview").TokenReview;
+export const TokenReview: typeof import("./tokenReview").TokenReview = null as any;
+
+export { TokenReviewPatchArgs } from "./tokenReviewPatch";
+export type TokenReviewPatch = import("./tokenReviewPatch").TokenReviewPatch;
+export const TokenReviewPatch: typeof import("./tokenReviewPatch").TokenReviewPatch = null as any;
+
+utilities.lazyLoad(exports, ["TokenRequest"], () => require("./tokenRequest"));
+utilities.lazyLoad(exports, ["TokenRequestPatch"], () => require("./tokenRequestPatch"));
+utilities.lazyLoad(exports, ["TokenReview"], () => require("./tokenReview"));
+utilities.lazyLoad(exports, ["TokenReviewPatch"], () => require("./tokenReviewPatch"));
 
 const _module = {
     version: utilities.getVersion(),

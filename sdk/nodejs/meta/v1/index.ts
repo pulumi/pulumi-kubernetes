@@ -5,12 +5,16 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../../utilities";
 
 // Export members:
-export * from "./status";
-export * from "./statusPatch";
+export { StatusArgs } from "./status";
+export type Status = import("./status").Status;
+export const Status: typeof import("./status").Status = null as any;
 
-// Import resources to register:
-import { Status } from "./status";
-import { StatusPatch } from "./statusPatch";
+export { StatusPatchArgs } from "./statusPatch";
+export type StatusPatch = import("./statusPatch").StatusPatch;
+export const StatusPatch: typeof import("./statusPatch").StatusPatch = null as any;
+
+utilities.lazyLoad(exports, ["Status"], () => require("./status"));
+utilities.lazyLoad(exports, ["StatusPatch"], () => require("./statusPatch"));
 
 const _module = {
     version: utilities.getVersion(),

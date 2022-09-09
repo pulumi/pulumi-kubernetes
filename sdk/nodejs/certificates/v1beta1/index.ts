@@ -5,14 +5,21 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../../utilities";
 
 // Export members:
-export * from "./certificateSigningRequest";
-export * from "./certificateSigningRequestList";
-export * from "./certificateSigningRequestPatch";
+export { CertificateSigningRequestArgs } from "./certificateSigningRequest";
+export type CertificateSigningRequest = import("./certificateSigningRequest").CertificateSigningRequest;
+export const CertificateSigningRequest: typeof import("./certificateSigningRequest").CertificateSigningRequest = null as any;
 
-// Import resources to register:
-import { CertificateSigningRequest } from "./certificateSigningRequest";
-import { CertificateSigningRequestList } from "./certificateSigningRequestList";
-import { CertificateSigningRequestPatch } from "./certificateSigningRequestPatch";
+export { CertificateSigningRequestListArgs } from "./certificateSigningRequestList";
+export type CertificateSigningRequestList = import("./certificateSigningRequestList").CertificateSigningRequestList;
+export const CertificateSigningRequestList: typeof import("./certificateSigningRequestList").CertificateSigningRequestList = null as any;
+
+export { CertificateSigningRequestPatchArgs } from "./certificateSigningRequestPatch";
+export type CertificateSigningRequestPatch = import("./certificateSigningRequestPatch").CertificateSigningRequestPatch;
+export const CertificateSigningRequestPatch: typeof import("./certificateSigningRequestPatch").CertificateSigningRequestPatch = null as any;
+
+utilities.lazyLoad(exports, ["CertificateSigningRequest"], () => require("./certificateSigningRequest"));
+utilities.lazyLoad(exports, ["CertificateSigningRequestList"], () => require("./certificateSigningRequestList"));
+utilities.lazyLoad(exports, ["CertificateSigningRequestPatch"], () => require("./certificateSigningRequestPatch"));
 
 const _module = {
     version: utilities.getVersion(),
