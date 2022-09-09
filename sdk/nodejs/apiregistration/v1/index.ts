@@ -5,21 +5,14 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../../utilities";
 
 // Export members:
-export { APIServiceArgs } from "./apiservice";
-export type APIService = import("./apiservice").APIService;
-export const APIService: typeof import("./apiservice").APIService = null as any;
+export * from "./apiservice";
+export * from "./apiserviceList";
+export * from "./apiservicePatch";
 
-export { APIServiceListArgs } from "./apiserviceList";
-export type APIServiceList = import("./apiserviceList").APIServiceList;
-export const APIServiceList: typeof import("./apiserviceList").APIServiceList = null as any;
-
-export { APIServicePatchArgs } from "./apiservicePatch";
-export type APIServicePatch = import("./apiservicePatch").APIServicePatch;
-export const APIServicePatch: typeof import("./apiservicePatch").APIServicePatch = null as any;
-
-utilities.lazyLoad(exports, ["APIService"], () => require("./apiservice"));
-utilities.lazyLoad(exports, ["APIServiceList"], () => require("./apiserviceList"));
-utilities.lazyLoad(exports, ["APIServicePatch"], () => require("./apiservicePatch"));
+// Import resources to register:
+import { APIService } from "./apiservice";
+import { APIServiceList } from "./apiserviceList";
+import { APIServicePatch } from "./apiservicePatch";
 
 const _module = {
     version: utilities.getVersion(),

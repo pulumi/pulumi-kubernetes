@@ -5,21 +5,14 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../../utilities";
 
 // Export members:
-export { PriorityClassArgs } from "./priorityClass";
-export type PriorityClass = import("./priorityClass").PriorityClass;
-export const PriorityClass: typeof import("./priorityClass").PriorityClass = null as any;
+export * from "./priorityClass";
+export * from "./priorityClassList";
+export * from "./priorityClassPatch";
 
-export { PriorityClassListArgs } from "./priorityClassList";
-export type PriorityClassList = import("./priorityClassList").PriorityClassList;
-export const PriorityClassList: typeof import("./priorityClassList").PriorityClassList = null as any;
-
-export { PriorityClassPatchArgs } from "./priorityClassPatch";
-export type PriorityClassPatch = import("./priorityClassPatch").PriorityClassPatch;
-export const PriorityClassPatch: typeof import("./priorityClassPatch").PriorityClassPatch = null as any;
-
-utilities.lazyLoad(exports, ["PriorityClass"], () => require("./priorityClass"));
-utilities.lazyLoad(exports, ["PriorityClassList"], () => require("./priorityClassList"));
-utilities.lazyLoad(exports, ["PriorityClassPatch"], () => require("./priorityClassPatch"));
+// Import resources to register:
+import { PriorityClass } from "./priorityClass";
+import { PriorityClassList } from "./priorityClassList";
+import { PriorityClassPatch } from "./priorityClassPatch";
 
 const _module = {
     version: utilities.getVersion(),

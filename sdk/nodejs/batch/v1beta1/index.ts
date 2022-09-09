@@ -5,21 +5,14 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../../utilities";
 
 // Export members:
-export { CronJobArgs } from "./cronJob";
-export type CronJob = import("./cronJob").CronJob;
-export const CronJob: typeof import("./cronJob").CronJob = null as any;
+export * from "./cronJob";
+export * from "./cronJobList";
+export * from "./cronJobPatch";
 
-export { CronJobListArgs } from "./cronJobList";
-export type CronJobList = import("./cronJobList").CronJobList;
-export const CronJobList: typeof import("./cronJobList").CronJobList = null as any;
-
-export { CronJobPatchArgs } from "./cronJobPatch";
-export type CronJobPatch = import("./cronJobPatch").CronJobPatch;
-export const CronJobPatch: typeof import("./cronJobPatch").CronJobPatch = null as any;
-
-utilities.lazyLoad(exports, ["CronJob"], () => require("./cronJob"));
-utilities.lazyLoad(exports, ["CronJobList"], () => require("./cronJobList"));
-utilities.lazyLoad(exports, ["CronJobPatch"], () => require("./cronJobPatch"));
+// Import resources to register:
+import { CronJob } from "./cronJob";
+import { CronJobList } from "./cronJobList";
+import { CronJobPatch } from "./cronJobPatch";
 
 const _module = {
     version: utilities.getVersion(),

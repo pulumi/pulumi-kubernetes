@@ -5,16 +5,12 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../../utilities";
 
 // Export members:
-export { TokenReviewArgs } from "./tokenReview";
-export type TokenReview = import("./tokenReview").TokenReview;
-export const TokenReview: typeof import("./tokenReview").TokenReview = null as any;
+export * from "./tokenReview";
+export * from "./tokenReviewPatch";
 
-export { TokenReviewPatchArgs } from "./tokenReviewPatch";
-export type TokenReviewPatch = import("./tokenReviewPatch").TokenReviewPatch;
-export const TokenReviewPatch: typeof import("./tokenReviewPatch").TokenReviewPatch = null as any;
-
-utilities.lazyLoad(exports, ["TokenReview"], () => require("./tokenReview"));
-utilities.lazyLoad(exports, ["TokenReviewPatch"], () => require("./tokenReviewPatch"));
+// Import resources to register:
+import { TokenReview } from "./tokenReview";
+import { TokenReviewPatch } from "./tokenReviewPatch";
 
 const _module = {
     version: utilities.getVersion(),

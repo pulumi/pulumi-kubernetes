@@ -5,81 +5,38 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../../utilities";
 
 // Export members:
-export { CSIDriverArgs } from "./csidriver";
-export type CSIDriver = import("./csidriver").CSIDriver;
-export const CSIDriver: typeof import("./csidriver").CSIDriver = null as any;
+export * from "./csidriver";
+export * from "./csidriverList";
+export * from "./csidriverPatch";
+export * from "./csinode";
+export * from "./csinodeList";
+export * from "./csinodePatch";
+export * from "./csistorageCapacity";
+export * from "./csistorageCapacityList";
+export * from "./csistorageCapacityPatch";
+export * from "./storageClass";
+export * from "./storageClassList";
+export * from "./storageClassPatch";
+export * from "./volumeAttachment";
+export * from "./volumeAttachmentList";
+export * from "./volumeAttachmentPatch";
 
-export { CSIDriverListArgs } from "./csidriverList";
-export type CSIDriverList = import("./csidriverList").CSIDriverList;
-export const CSIDriverList: typeof import("./csidriverList").CSIDriverList = null as any;
-
-export { CSIDriverPatchArgs } from "./csidriverPatch";
-export type CSIDriverPatch = import("./csidriverPatch").CSIDriverPatch;
-export const CSIDriverPatch: typeof import("./csidriverPatch").CSIDriverPatch = null as any;
-
-export { CSINodeArgs } from "./csinode";
-export type CSINode = import("./csinode").CSINode;
-export const CSINode: typeof import("./csinode").CSINode = null as any;
-
-export { CSINodeListArgs } from "./csinodeList";
-export type CSINodeList = import("./csinodeList").CSINodeList;
-export const CSINodeList: typeof import("./csinodeList").CSINodeList = null as any;
-
-export { CSINodePatchArgs } from "./csinodePatch";
-export type CSINodePatch = import("./csinodePatch").CSINodePatch;
-export const CSINodePatch: typeof import("./csinodePatch").CSINodePatch = null as any;
-
-export { CSIStorageCapacityArgs } from "./csistorageCapacity";
-export type CSIStorageCapacity = import("./csistorageCapacity").CSIStorageCapacity;
-export const CSIStorageCapacity: typeof import("./csistorageCapacity").CSIStorageCapacity = null as any;
-
-export { CSIStorageCapacityListArgs } from "./csistorageCapacityList";
-export type CSIStorageCapacityList = import("./csistorageCapacityList").CSIStorageCapacityList;
-export const CSIStorageCapacityList: typeof import("./csistorageCapacityList").CSIStorageCapacityList = null as any;
-
-export { CSIStorageCapacityPatchArgs } from "./csistorageCapacityPatch";
-export type CSIStorageCapacityPatch = import("./csistorageCapacityPatch").CSIStorageCapacityPatch;
-export const CSIStorageCapacityPatch: typeof import("./csistorageCapacityPatch").CSIStorageCapacityPatch = null as any;
-
-export { StorageClassArgs } from "./storageClass";
-export type StorageClass = import("./storageClass").StorageClass;
-export const StorageClass: typeof import("./storageClass").StorageClass = null as any;
-
-export { StorageClassListArgs } from "./storageClassList";
-export type StorageClassList = import("./storageClassList").StorageClassList;
-export const StorageClassList: typeof import("./storageClassList").StorageClassList = null as any;
-
-export { StorageClassPatchArgs } from "./storageClassPatch";
-export type StorageClassPatch = import("./storageClassPatch").StorageClassPatch;
-export const StorageClassPatch: typeof import("./storageClassPatch").StorageClassPatch = null as any;
-
-export { VolumeAttachmentArgs } from "./volumeAttachment";
-export type VolumeAttachment = import("./volumeAttachment").VolumeAttachment;
-export const VolumeAttachment: typeof import("./volumeAttachment").VolumeAttachment = null as any;
-
-export { VolumeAttachmentListArgs } from "./volumeAttachmentList";
-export type VolumeAttachmentList = import("./volumeAttachmentList").VolumeAttachmentList;
-export const VolumeAttachmentList: typeof import("./volumeAttachmentList").VolumeAttachmentList = null as any;
-
-export { VolumeAttachmentPatchArgs } from "./volumeAttachmentPatch";
-export type VolumeAttachmentPatch = import("./volumeAttachmentPatch").VolumeAttachmentPatch;
-export const VolumeAttachmentPatch: typeof import("./volumeAttachmentPatch").VolumeAttachmentPatch = null as any;
-
-utilities.lazyLoad(exports, ["CSIDriver"], () => require("./csidriver"));
-utilities.lazyLoad(exports, ["CSIDriverList"], () => require("./csidriverList"));
-utilities.lazyLoad(exports, ["CSIDriverPatch"], () => require("./csidriverPatch"));
-utilities.lazyLoad(exports, ["CSINode"], () => require("./csinode"));
-utilities.lazyLoad(exports, ["CSINodeList"], () => require("./csinodeList"));
-utilities.lazyLoad(exports, ["CSINodePatch"], () => require("./csinodePatch"));
-utilities.lazyLoad(exports, ["CSIStorageCapacity"], () => require("./csistorageCapacity"));
-utilities.lazyLoad(exports, ["CSIStorageCapacityList"], () => require("./csistorageCapacityList"));
-utilities.lazyLoad(exports, ["CSIStorageCapacityPatch"], () => require("./csistorageCapacityPatch"));
-utilities.lazyLoad(exports, ["StorageClass"], () => require("./storageClass"));
-utilities.lazyLoad(exports, ["StorageClassList"], () => require("./storageClassList"));
-utilities.lazyLoad(exports, ["StorageClassPatch"], () => require("./storageClassPatch"));
-utilities.lazyLoad(exports, ["VolumeAttachment"], () => require("./volumeAttachment"));
-utilities.lazyLoad(exports, ["VolumeAttachmentList"], () => require("./volumeAttachmentList"));
-utilities.lazyLoad(exports, ["VolumeAttachmentPatch"], () => require("./volumeAttachmentPatch"));
+// Import resources to register:
+import { CSIDriver } from "./csidriver";
+import { CSIDriverList } from "./csidriverList";
+import { CSIDriverPatch } from "./csidriverPatch";
+import { CSINode } from "./csinode";
+import { CSINodeList } from "./csinodeList";
+import { CSINodePatch } from "./csinodePatch";
+import { CSIStorageCapacity } from "./csistorageCapacity";
+import { CSIStorageCapacityList } from "./csistorageCapacityList";
+import { CSIStorageCapacityPatch } from "./csistorageCapacityPatch";
+import { StorageClass } from "./storageClass";
+import { StorageClassList } from "./storageClassList";
+import { StorageClassPatch } from "./storageClassPatch";
+import { VolumeAttachment } from "./volumeAttachment";
+import { VolumeAttachmentList } from "./volumeAttachmentList";
+import { VolumeAttachmentPatch } from "./volumeAttachmentPatch";
 
 const _module = {
     version: utilities.getVersion(),

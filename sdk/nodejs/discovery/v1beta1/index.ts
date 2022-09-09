@@ -5,21 +5,14 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../../utilities";
 
 // Export members:
-export { EndpointSliceArgs } from "./endpointSlice";
-export type EndpointSlice = import("./endpointSlice").EndpointSlice;
-export const EndpointSlice: typeof import("./endpointSlice").EndpointSlice = null as any;
+export * from "./endpointSlice";
+export * from "./endpointSliceList";
+export * from "./endpointSlicePatch";
 
-export { EndpointSliceListArgs } from "./endpointSliceList";
-export type EndpointSliceList = import("./endpointSliceList").EndpointSliceList;
-export const EndpointSliceList: typeof import("./endpointSliceList").EndpointSliceList = null as any;
-
-export { EndpointSlicePatchArgs } from "./endpointSlicePatch";
-export type EndpointSlicePatch = import("./endpointSlicePatch").EndpointSlicePatch;
-export const EndpointSlicePatch: typeof import("./endpointSlicePatch").EndpointSlicePatch = null as any;
-
-utilities.lazyLoad(exports, ["EndpointSlice"], () => require("./endpointSlice"));
-utilities.lazyLoad(exports, ["EndpointSliceList"], () => require("./endpointSliceList"));
-utilities.lazyLoad(exports, ["EndpointSlicePatch"], () => require("./endpointSlicePatch"));
+// Import resources to register:
+import { EndpointSlice } from "./endpointSlice";
+import { EndpointSliceList } from "./endpointSliceList";
+import { EndpointSlicePatch } from "./endpointSlicePatch";
 
 const _module = {
     version: utilities.getVersion(),
