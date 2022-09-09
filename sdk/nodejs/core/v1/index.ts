@@ -5,244 +5,105 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../../utilities";
 
 // Export members:
-export { BindingArgs } from "./binding";
-export type Binding = import("./binding").Binding;
-export const Binding: typeof import("./binding").Binding = null as any;
-
-export { BindingPatchArgs } from "./bindingPatch";
-export type BindingPatch = import("./bindingPatch").BindingPatch;
-export const BindingPatch: typeof import("./bindingPatch").BindingPatch = null as any;
-
-export { ConfigMapArgs } from "./configMap";
-export type ConfigMap = import("./configMap").ConfigMap;
-export const ConfigMap: typeof import("./configMap").ConfigMap = null as any;
-
-export { ConfigMapListArgs } from "./configMapList";
-export type ConfigMapList = import("./configMapList").ConfigMapList;
-export const ConfigMapList: typeof import("./configMapList").ConfigMapList = null as any;
-
-export { ConfigMapPatchArgs } from "./configMapPatch";
-export type ConfigMapPatch = import("./configMapPatch").ConfigMapPatch;
-export const ConfigMapPatch: typeof import("./configMapPatch").ConfigMapPatch = null as any;
-
-export { EndpointsArgs } from "./endpoints";
-export type Endpoints = import("./endpoints").Endpoints;
-export const Endpoints: typeof import("./endpoints").Endpoints = null as any;
-
-export { EndpointsListArgs } from "./endpointsList";
-export type EndpointsList = import("./endpointsList").EndpointsList;
-export const EndpointsList: typeof import("./endpointsList").EndpointsList = null as any;
-
-export { EndpointsPatchArgs } from "./endpointsPatch";
-export type EndpointsPatch = import("./endpointsPatch").EndpointsPatch;
-export const EndpointsPatch: typeof import("./endpointsPatch").EndpointsPatch = null as any;
-
-export { EventArgs } from "./event";
-export type Event = import("./event").Event;
-export const Event: typeof import("./event").Event = null as any;
-
-export { EventListArgs } from "./eventList";
-export type EventList = import("./eventList").EventList;
-export const EventList: typeof import("./eventList").EventList = null as any;
-
-export { EventPatchArgs } from "./eventPatch";
-export type EventPatch = import("./eventPatch").EventPatch;
-export const EventPatch: typeof import("./eventPatch").EventPatch = null as any;
-
-export { LimitRangeArgs } from "./limitRange";
-export type LimitRange = import("./limitRange").LimitRange;
-export const LimitRange: typeof import("./limitRange").LimitRange = null as any;
-
-export { LimitRangeListArgs } from "./limitRangeList";
-export type LimitRangeList = import("./limitRangeList").LimitRangeList;
-export const LimitRangeList: typeof import("./limitRangeList").LimitRangeList = null as any;
-
-export { LimitRangePatchArgs } from "./limitRangePatch";
-export type LimitRangePatch = import("./limitRangePatch").LimitRangePatch;
-export const LimitRangePatch: typeof import("./limitRangePatch").LimitRangePatch = null as any;
-
-export { NamespaceArgs } from "./namespace";
-export type Namespace = import("./namespace").Namespace;
-export const Namespace: typeof import("./namespace").Namespace = null as any;
-
-export { NamespaceListArgs } from "./namespaceList";
-export type NamespaceList = import("./namespaceList").NamespaceList;
-export const NamespaceList: typeof import("./namespaceList").NamespaceList = null as any;
-
-export { NamespacePatchArgs } from "./namespacePatch";
-export type NamespacePatch = import("./namespacePatch").NamespacePatch;
-export const NamespacePatch: typeof import("./namespacePatch").NamespacePatch = null as any;
-
-export { NodeArgs } from "./node";
-export type Node = import("./node").Node;
-export const Node: typeof import("./node").Node = null as any;
-
-export { NodeListArgs } from "./nodeList";
-export type NodeList = import("./nodeList").NodeList;
-export const NodeList: typeof import("./nodeList").NodeList = null as any;
-
-export { NodePatchArgs } from "./nodePatch";
-export type NodePatch = import("./nodePatch").NodePatch;
-export const NodePatch: typeof import("./nodePatch").NodePatch = null as any;
-
-export { PersistentVolumeArgs } from "./persistentVolume";
-export type PersistentVolume = import("./persistentVolume").PersistentVolume;
-export const PersistentVolume: typeof import("./persistentVolume").PersistentVolume = null as any;
-
-export { PersistentVolumeClaimArgs } from "./persistentVolumeClaim";
-export type PersistentVolumeClaim = import("./persistentVolumeClaim").PersistentVolumeClaim;
-export const PersistentVolumeClaim: typeof import("./persistentVolumeClaim").PersistentVolumeClaim = null as any;
-
-export { PersistentVolumeClaimListArgs } from "./persistentVolumeClaimList";
-export type PersistentVolumeClaimList = import("./persistentVolumeClaimList").PersistentVolumeClaimList;
-export const PersistentVolumeClaimList: typeof import("./persistentVolumeClaimList").PersistentVolumeClaimList = null as any;
-
-export { PersistentVolumeClaimPatchArgs } from "./persistentVolumeClaimPatch";
-export type PersistentVolumeClaimPatch = import("./persistentVolumeClaimPatch").PersistentVolumeClaimPatch;
-export const PersistentVolumeClaimPatch: typeof import("./persistentVolumeClaimPatch").PersistentVolumeClaimPatch = null as any;
-
-export { PersistentVolumeListArgs } from "./persistentVolumeList";
-export type PersistentVolumeList = import("./persistentVolumeList").PersistentVolumeList;
-export const PersistentVolumeList: typeof import("./persistentVolumeList").PersistentVolumeList = null as any;
-
-export { PersistentVolumePatchArgs } from "./persistentVolumePatch";
-export type PersistentVolumePatch = import("./persistentVolumePatch").PersistentVolumePatch;
-export const PersistentVolumePatch: typeof import("./persistentVolumePatch").PersistentVolumePatch = null as any;
-
-export { PodArgs } from "./pod";
-export type Pod = import("./pod").Pod;
-export const Pod: typeof import("./pod").Pod = null as any;
-
-export { PodListArgs } from "./podList";
-export type PodList = import("./podList").PodList;
-export const PodList: typeof import("./podList").PodList = null as any;
-
-export { PodPatchArgs } from "./podPatch";
-export type PodPatch = import("./podPatch").PodPatch;
-export const PodPatch: typeof import("./podPatch").PodPatch = null as any;
-
-export { PodTemplateArgs } from "./podTemplate";
-export type PodTemplate = import("./podTemplate").PodTemplate;
-export const PodTemplate: typeof import("./podTemplate").PodTemplate = null as any;
-
-export { PodTemplateListArgs } from "./podTemplateList";
-export type PodTemplateList = import("./podTemplateList").PodTemplateList;
-export const PodTemplateList: typeof import("./podTemplateList").PodTemplateList = null as any;
-
-export { PodTemplatePatchArgs } from "./podTemplatePatch";
-export type PodTemplatePatch = import("./podTemplatePatch").PodTemplatePatch;
-export const PodTemplatePatch: typeof import("./podTemplatePatch").PodTemplatePatch = null as any;
-
-export { ReplicationControllerArgs } from "./replicationController";
-export type ReplicationController = import("./replicationController").ReplicationController;
-export const ReplicationController: typeof import("./replicationController").ReplicationController = null as any;
-
-export { ReplicationControllerListArgs } from "./replicationControllerList";
-export type ReplicationControllerList = import("./replicationControllerList").ReplicationControllerList;
-export const ReplicationControllerList: typeof import("./replicationControllerList").ReplicationControllerList = null as any;
-
-export { ReplicationControllerPatchArgs } from "./replicationControllerPatch";
-export type ReplicationControllerPatch = import("./replicationControllerPatch").ReplicationControllerPatch;
-export const ReplicationControllerPatch: typeof import("./replicationControllerPatch").ReplicationControllerPatch = null as any;
-
-export { ResourceQuotaArgs } from "./resourceQuota";
-export type ResourceQuota = import("./resourceQuota").ResourceQuota;
-export const ResourceQuota: typeof import("./resourceQuota").ResourceQuota = null as any;
-
-export { ResourceQuotaListArgs } from "./resourceQuotaList";
-export type ResourceQuotaList = import("./resourceQuotaList").ResourceQuotaList;
-export const ResourceQuotaList: typeof import("./resourceQuotaList").ResourceQuotaList = null as any;
-
-export { ResourceQuotaPatchArgs } from "./resourceQuotaPatch";
-export type ResourceQuotaPatch = import("./resourceQuotaPatch").ResourceQuotaPatch;
-export const ResourceQuotaPatch: typeof import("./resourceQuotaPatch").ResourceQuotaPatch = null as any;
-
-export { SecretArgs } from "./secret";
-export type Secret = import("./secret").Secret;
-export const Secret: typeof import("./secret").Secret = null as any;
-
-export { SecretListArgs } from "./secretList";
-export type SecretList = import("./secretList").SecretList;
-export const SecretList: typeof import("./secretList").SecretList = null as any;
-
-export { SecretPatchArgs } from "./secretPatch";
-export type SecretPatch = import("./secretPatch").SecretPatch;
-export const SecretPatch: typeof import("./secretPatch").SecretPatch = null as any;
-
-export { ServiceArgs } from "./service";
-export type Service = import("./service").Service;
-export const Service: typeof import("./service").Service = null as any;
-
-export { ServiceAccountArgs } from "./serviceAccount";
-export type ServiceAccount = import("./serviceAccount").ServiceAccount;
-export const ServiceAccount: typeof import("./serviceAccount").ServiceAccount = null as any;
-
-export { ServiceAccountListArgs } from "./serviceAccountList";
-export type ServiceAccountList = import("./serviceAccountList").ServiceAccountList;
-export const ServiceAccountList: typeof import("./serviceAccountList").ServiceAccountList = null as any;
-
-export { ServiceAccountPatchArgs } from "./serviceAccountPatch";
-export type ServiceAccountPatch = import("./serviceAccountPatch").ServiceAccountPatch;
-export const ServiceAccountPatch: typeof import("./serviceAccountPatch").ServiceAccountPatch = null as any;
-
-export { ServiceListArgs } from "./serviceList";
-export type ServiceList = import("./serviceList").ServiceList;
-export const ServiceList: typeof import("./serviceList").ServiceList = null as any;
-
-export { ServicePatchArgs } from "./servicePatch";
-export type ServicePatch = import("./servicePatch").ServicePatch;
-export const ServicePatch: typeof import("./servicePatch").ServicePatch = null as any;
-
-utilities.lazyLoad(exports, ["Binding"], () => require("./binding"));
-utilities.lazyLoad(exports, ["BindingPatch"], () => require("./bindingPatch"));
-utilities.lazyLoad(exports, ["ConfigMap"], () => require("./configMap"));
-utilities.lazyLoad(exports, ["ConfigMapList"], () => require("./configMapList"));
-utilities.lazyLoad(exports, ["ConfigMapPatch"], () => require("./configMapPatch"));
-utilities.lazyLoad(exports, ["Endpoints"], () => require("./endpoints"));
-utilities.lazyLoad(exports, ["EndpointsList"], () => require("./endpointsList"));
-utilities.lazyLoad(exports, ["EndpointsPatch"], () => require("./endpointsPatch"));
-utilities.lazyLoad(exports, ["Event"], () => require("./event"));
-utilities.lazyLoad(exports, ["EventList"], () => require("./eventList"));
-utilities.lazyLoad(exports, ["EventPatch"], () => require("./eventPatch"));
-utilities.lazyLoad(exports, ["LimitRange"], () => require("./limitRange"));
-utilities.lazyLoad(exports, ["LimitRangeList"], () => require("./limitRangeList"));
-utilities.lazyLoad(exports, ["LimitRangePatch"], () => require("./limitRangePatch"));
-utilities.lazyLoad(exports, ["Namespace"], () => require("./namespace"));
-utilities.lazyLoad(exports, ["NamespaceList"], () => require("./namespaceList"));
-utilities.lazyLoad(exports, ["NamespacePatch"], () => require("./namespacePatch"));
-utilities.lazyLoad(exports, ["Node"], () => require("./node"));
-utilities.lazyLoad(exports, ["NodeList"], () => require("./nodeList"));
-utilities.lazyLoad(exports, ["NodePatch"], () => require("./nodePatch"));
-utilities.lazyLoad(exports, ["PersistentVolume"], () => require("./persistentVolume"));
-utilities.lazyLoad(exports, ["PersistentVolumeClaim"], () => require("./persistentVolumeClaim"));
-utilities.lazyLoad(exports, ["PersistentVolumeClaimList"], () => require("./persistentVolumeClaimList"));
-utilities.lazyLoad(exports, ["PersistentVolumeClaimPatch"], () => require("./persistentVolumeClaimPatch"));
-utilities.lazyLoad(exports, ["PersistentVolumeList"], () => require("./persistentVolumeList"));
-utilities.lazyLoad(exports, ["PersistentVolumePatch"], () => require("./persistentVolumePatch"));
-utilities.lazyLoad(exports, ["Pod"], () => require("./pod"));
-utilities.lazyLoad(exports, ["PodList"], () => require("./podList"));
-utilities.lazyLoad(exports, ["PodPatch"], () => require("./podPatch"));
-utilities.lazyLoad(exports, ["PodTemplate"], () => require("./podTemplate"));
-utilities.lazyLoad(exports, ["PodTemplateList"], () => require("./podTemplateList"));
-utilities.lazyLoad(exports, ["PodTemplatePatch"], () => require("./podTemplatePatch"));
-utilities.lazyLoad(exports, ["ReplicationController"], () => require("./replicationController"));
-utilities.lazyLoad(exports, ["ReplicationControllerList"], () => require("./replicationControllerList"));
-utilities.lazyLoad(exports, ["ReplicationControllerPatch"], () => require("./replicationControllerPatch"));
-utilities.lazyLoad(exports, ["ResourceQuota"], () => require("./resourceQuota"));
-utilities.lazyLoad(exports, ["ResourceQuotaList"], () => require("./resourceQuotaList"));
-utilities.lazyLoad(exports, ["ResourceQuotaPatch"], () => require("./resourceQuotaPatch"));
-utilities.lazyLoad(exports, ["Secret"], () => require("./secret"));
-utilities.lazyLoad(exports, ["SecretList"], () => require("./secretList"));
-utilities.lazyLoad(exports, ["SecretPatch"], () => require("./secretPatch"));
-utilities.lazyLoad(exports, ["Service"], () => require("./service"));
-utilities.lazyLoad(exports, ["ServiceAccount"], () => require("./serviceAccount"));
-utilities.lazyLoad(exports, ["ServiceAccountList"], () => require("./serviceAccountList"));
-utilities.lazyLoad(exports, ["ServiceAccountPatch"], () => require("./serviceAccountPatch"));
-utilities.lazyLoad(exports, ["ServiceList"], () => require("./serviceList"));
-utilities.lazyLoad(exports, ["ServicePatch"], () => require("./servicePatch"));
+export * from "./binding";
+export * from "./bindingPatch";
+export * from "./configMap";
+export * from "./configMapList";
+export * from "./configMapPatch";
+export * from "./endpoints";
+export * from "./endpointsList";
+export * from "./endpointsPatch";
+export * from "./event";
+export * from "./eventList";
+export * from "./eventPatch";
+export * from "./limitRange";
+export * from "./limitRangeList";
+export * from "./limitRangePatch";
+export * from "./namespace";
+export * from "./namespaceList";
+export * from "./namespacePatch";
+export * from "./node";
+export * from "./nodeList";
+export * from "./nodePatch";
+export * from "./persistentVolume";
+export * from "./persistentVolumeClaim";
+export * from "./persistentVolumeClaimList";
+export * from "./persistentVolumeClaimPatch";
+export * from "./persistentVolumeList";
+export * from "./persistentVolumePatch";
+export * from "./pod";
+export * from "./podList";
+export * from "./podPatch";
+export * from "./podTemplate";
+export * from "./podTemplateList";
+export * from "./podTemplatePatch";
+export * from "./replicationController";
+export * from "./replicationControllerList";
+export * from "./replicationControllerPatch";
+export * from "./resourceQuota";
+export * from "./resourceQuotaList";
+export * from "./resourceQuotaPatch";
+export * from "./secret";
+export * from "./secretList";
+export * from "./secretPatch";
+export * from "./service";
+export * from "./serviceAccount";
+export * from "./serviceAccountList";
+export * from "./serviceAccountPatch";
+export * from "./serviceList";
+export * from "./servicePatch";
 
 // Export enums:
 export * from "../../types/enums/core/v1";
+
+// Import resources to register:
+import { Binding } from "./binding";
+import { BindingPatch } from "./bindingPatch";
+import { ConfigMap } from "./configMap";
+import { ConfigMapList } from "./configMapList";
+import { ConfigMapPatch } from "./configMapPatch";
+import { Endpoints } from "./endpoints";
+import { EndpointsList } from "./endpointsList";
+import { EndpointsPatch } from "./endpointsPatch";
+import { Event } from "./event";
+import { EventList } from "./eventList";
+import { EventPatch } from "./eventPatch";
+import { LimitRange } from "./limitRange";
+import { LimitRangeList } from "./limitRangeList";
+import { LimitRangePatch } from "./limitRangePatch";
+import { Namespace } from "./namespace";
+import { NamespaceList } from "./namespaceList";
+import { NamespacePatch } from "./namespacePatch";
+import { Node } from "./node";
+import { NodeList } from "./nodeList";
+import { NodePatch } from "./nodePatch";
+import { PersistentVolume } from "./persistentVolume";
+import { PersistentVolumeClaim } from "./persistentVolumeClaim";
+import { PersistentVolumeClaimList } from "./persistentVolumeClaimList";
+import { PersistentVolumeClaimPatch } from "./persistentVolumeClaimPatch";
+import { PersistentVolumeList } from "./persistentVolumeList";
+import { PersistentVolumePatch } from "./persistentVolumePatch";
+import { Pod } from "./pod";
+import { PodList } from "./podList";
+import { PodPatch } from "./podPatch";
+import { PodTemplate } from "./podTemplate";
+import { PodTemplateList } from "./podTemplateList";
+import { PodTemplatePatch } from "./podTemplatePatch";
+import { ReplicationController } from "./replicationController";
+import { ReplicationControllerList } from "./replicationControllerList";
+import { ReplicationControllerPatch } from "./replicationControllerPatch";
+import { ResourceQuota } from "./resourceQuota";
+import { ResourceQuotaList } from "./resourceQuotaList";
+import { ResourceQuotaPatch } from "./resourceQuotaPatch";
+import { Secret } from "./secret";
+import { SecretList } from "./secretList";
+import { SecretPatch } from "./secretPatch";
+import { Service } from "./service";
+import { ServiceAccount } from "./serviceAccount";
+import { ServiceAccountList } from "./serviceAccountList";
+import { ServiceAccountPatch } from "./serviceAccountPatch";
+import { ServiceList } from "./serviceList";
+import { ServicePatch } from "./servicePatch";
 
 const _module = {
     version: utilities.getVersion(),

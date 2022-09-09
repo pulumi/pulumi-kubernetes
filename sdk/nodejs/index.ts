@@ -5,11 +5,7 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
 // Export members:
-export { ProviderArgs } from "./provider";
-export type Provider = import("./provider").Provider;
-export const Provider: typeof import("./provider").Provider = null as any;
-
-utilities.lazyLoad(exports, ["Provider"], () => require("./provider"));
+export * from "./provider";
 
 // Export sub-modules:
 import * as admissionregistration from "./admissionregistration";
@@ -71,6 +67,9 @@ export {
     types,
     yaml,
 };
+
+import { Provider } from "./provider";
+
 pulumi.runtime.registerResourcePackage("kubernetes", {
     version: utilities.getVersion(),
     constructProvider: (name: string, type: string, urn: string): pulumi.ProviderResource => {

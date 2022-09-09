@@ -5,21 +5,14 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../../utilities";
 
 // Export members:
-export { PodPresetArgs } from "./podPreset";
-export type PodPreset = import("./podPreset").PodPreset;
-export const PodPreset: typeof import("./podPreset").PodPreset = null as any;
+export * from "./podPreset";
+export * from "./podPresetList";
+export * from "./podPresetPatch";
 
-export { PodPresetListArgs } from "./podPresetList";
-export type PodPresetList = import("./podPresetList").PodPresetList;
-export const PodPresetList: typeof import("./podPresetList").PodPresetList = null as any;
-
-export { PodPresetPatchArgs } from "./podPresetPatch";
-export type PodPresetPatch = import("./podPresetPatch").PodPresetPatch;
-export const PodPresetPatch: typeof import("./podPresetPatch").PodPresetPatch = null as any;
-
-utilities.lazyLoad(exports, ["PodPreset"], () => require("./podPreset"));
-utilities.lazyLoad(exports, ["PodPresetList"], () => require("./podPresetList"));
-utilities.lazyLoad(exports, ["PodPresetPatch"], () => require("./podPresetPatch"));
+// Import resources to register:
+import { PodPreset } from "./podPreset";
+import { PodPresetList } from "./podPresetList";
+import { PodPresetPatch } from "./podPresetPatch";
 
 const _module = {
     version: utilities.getVersion(),

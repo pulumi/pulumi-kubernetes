@@ -5,36 +5,20 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../../utilities";
 
 // Export members:
-export { FlowSchemaArgs } from "./flowSchema";
-export type FlowSchema = import("./flowSchema").FlowSchema;
-export const FlowSchema: typeof import("./flowSchema").FlowSchema = null as any;
+export * from "./flowSchema";
+export * from "./flowSchemaList";
+export * from "./flowSchemaPatch";
+export * from "./priorityLevelConfiguration";
+export * from "./priorityLevelConfigurationList";
+export * from "./priorityLevelConfigurationPatch";
 
-export { FlowSchemaListArgs } from "./flowSchemaList";
-export type FlowSchemaList = import("./flowSchemaList").FlowSchemaList;
-export const FlowSchemaList: typeof import("./flowSchemaList").FlowSchemaList = null as any;
-
-export { FlowSchemaPatchArgs } from "./flowSchemaPatch";
-export type FlowSchemaPatch = import("./flowSchemaPatch").FlowSchemaPatch;
-export const FlowSchemaPatch: typeof import("./flowSchemaPatch").FlowSchemaPatch = null as any;
-
-export { PriorityLevelConfigurationArgs } from "./priorityLevelConfiguration";
-export type PriorityLevelConfiguration = import("./priorityLevelConfiguration").PriorityLevelConfiguration;
-export const PriorityLevelConfiguration: typeof import("./priorityLevelConfiguration").PriorityLevelConfiguration = null as any;
-
-export { PriorityLevelConfigurationListArgs } from "./priorityLevelConfigurationList";
-export type PriorityLevelConfigurationList = import("./priorityLevelConfigurationList").PriorityLevelConfigurationList;
-export const PriorityLevelConfigurationList: typeof import("./priorityLevelConfigurationList").PriorityLevelConfigurationList = null as any;
-
-export { PriorityLevelConfigurationPatchArgs } from "./priorityLevelConfigurationPatch";
-export type PriorityLevelConfigurationPatch = import("./priorityLevelConfigurationPatch").PriorityLevelConfigurationPatch;
-export const PriorityLevelConfigurationPatch: typeof import("./priorityLevelConfigurationPatch").PriorityLevelConfigurationPatch = null as any;
-
-utilities.lazyLoad(exports, ["FlowSchema"], () => require("./flowSchema"));
-utilities.lazyLoad(exports, ["FlowSchemaList"], () => require("./flowSchemaList"));
-utilities.lazyLoad(exports, ["FlowSchemaPatch"], () => require("./flowSchemaPatch"));
-utilities.lazyLoad(exports, ["PriorityLevelConfiguration"], () => require("./priorityLevelConfiguration"));
-utilities.lazyLoad(exports, ["PriorityLevelConfigurationList"], () => require("./priorityLevelConfigurationList"));
-utilities.lazyLoad(exports, ["PriorityLevelConfigurationPatch"], () => require("./priorityLevelConfigurationPatch"));
+// Import resources to register:
+import { FlowSchema } from "./flowSchema";
+import { FlowSchemaList } from "./flowSchemaList";
+import { FlowSchemaPatch } from "./flowSchemaPatch";
+import { PriorityLevelConfiguration } from "./priorityLevelConfiguration";
+import { PriorityLevelConfigurationList } from "./priorityLevelConfigurationList";
+import { PriorityLevelConfigurationPatch } from "./priorityLevelConfigurationPatch";
 
 const _module = {
     version: utilities.getVersion(),

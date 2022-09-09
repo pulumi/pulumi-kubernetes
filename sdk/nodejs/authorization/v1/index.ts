@@ -5,46 +5,24 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../../utilities";
 
 // Export members:
-export { LocalSubjectAccessReviewArgs } from "./localSubjectAccessReview";
-export type LocalSubjectAccessReview = import("./localSubjectAccessReview").LocalSubjectAccessReview;
-export const LocalSubjectAccessReview: typeof import("./localSubjectAccessReview").LocalSubjectAccessReview = null as any;
+export * from "./localSubjectAccessReview";
+export * from "./localSubjectAccessReviewPatch";
+export * from "./selfSubjectAccessReview";
+export * from "./selfSubjectAccessReviewPatch";
+export * from "./selfSubjectRulesReview";
+export * from "./selfSubjectRulesReviewPatch";
+export * from "./subjectAccessReview";
+export * from "./subjectAccessReviewPatch";
 
-export { LocalSubjectAccessReviewPatchArgs } from "./localSubjectAccessReviewPatch";
-export type LocalSubjectAccessReviewPatch = import("./localSubjectAccessReviewPatch").LocalSubjectAccessReviewPatch;
-export const LocalSubjectAccessReviewPatch: typeof import("./localSubjectAccessReviewPatch").LocalSubjectAccessReviewPatch = null as any;
-
-export { SelfSubjectAccessReviewArgs } from "./selfSubjectAccessReview";
-export type SelfSubjectAccessReview = import("./selfSubjectAccessReview").SelfSubjectAccessReview;
-export const SelfSubjectAccessReview: typeof import("./selfSubjectAccessReview").SelfSubjectAccessReview = null as any;
-
-export { SelfSubjectAccessReviewPatchArgs } from "./selfSubjectAccessReviewPatch";
-export type SelfSubjectAccessReviewPatch = import("./selfSubjectAccessReviewPatch").SelfSubjectAccessReviewPatch;
-export const SelfSubjectAccessReviewPatch: typeof import("./selfSubjectAccessReviewPatch").SelfSubjectAccessReviewPatch = null as any;
-
-export { SelfSubjectRulesReviewArgs } from "./selfSubjectRulesReview";
-export type SelfSubjectRulesReview = import("./selfSubjectRulesReview").SelfSubjectRulesReview;
-export const SelfSubjectRulesReview: typeof import("./selfSubjectRulesReview").SelfSubjectRulesReview = null as any;
-
-export { SelfSubjectRulesReviewPatchArgs } from "./selfSubjectRulesReviewPatch";
-export type SelfSubjectRulesReviewPatch = import("./selfSubjectRulesReviewPatch").SelfSubjectRulesReviewPatch;
-export const SelfSubjectRulesReviewPatch: typeof import("./selfSubjectRulesReviewPatch").SelfSubjectRulesReviewPatch = null as any;
-
-export { SubjectAccessReviewArgs } from "./subjectAccessReview";
-export type SubjectAccessReview = import("./subjectAccessReview").SubjectAccessReview;
-export const SubjectAccessReview: typeof import("./subjectAccessReview").SubjectAccessReview = null as any;
-
-export { SubjectAccessReviewPatchArgs } from "./subjectAccessReviewPatch";
-export type SubjectAccessReviewPatch = import("./subjectAccessReviewPatch").SubjectAccessReviewPatch;
-export const SubjectAccessReviewPatch: typeof import("./subjectAccessReviewPatch").SubjectAccessReviewPatch = null as any;
-
-utilities.lazyLoad(exports, ["LocalSubjectAccessReview"], () => require("./localSubjectAccessReview"));
-utilities.lazyLoad(exports, ["LocalSubjectAccessReviewPatch"], () => require("./localSubjectAccessReviewPatch"));
-utilities.lazyLoad(exports, ["SelfSubjectAccessReview"], () => require("./selfSubjectAccessReview"));
-utilities.lazyLoad(exports, ["SelfSubjectAccessReviewPatch"], () => require("./selfSubjectAccessReviewPatch"));
-utilities.lazyLoad(exports, ["SelfSubjectRulesReview"], () => require("./selfSubjectRulesReview"));
-utilities.lazyLoad(exports, ["SelfSubjectRulesReviewPatch"], () => require("./selfSubjectRulesReviewPatch"));
-utilities.lazyLoad(exports, ["SubjectAccessReview"], () => require("./subjectAccessReview"));
-utilities.lazyLoad(exports, ["SubjectAccessReviewPatch"], () => require("./subjectAccessReviewPatch"));
+// Import resources to register:
+import { LocalSubjectAccessReview } from "./localSubjectAccessReview";
+import { LocalSubjectAccessReviewPatch } from "./localSubjectAccessReviewPatch";
+import { SelfSubjectAccessReview } from "./selfSubjectAccessReview";
+import { SelfSubjectAccessReviewPatch } from "./selfSubjectAccessReviewPatch";
+import { SelfSubjectRulesReview } from "./selfSubjectRulesReview";
+import { SelfSubjectRulesReviewPatch } from "./selfSubjectRulesReviewPatch";
+import { SubjectAccessReview } from "./subjectAccessReview";
+import { SubjectAccessReviewPatch } from "./subjectAccessReviewPatch";
 
 const _module = {
     version: utilities.getVersion(),

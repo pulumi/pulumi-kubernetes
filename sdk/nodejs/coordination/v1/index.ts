@@ -5,21 +5,14 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../../utilities";
 
 // Export members:
-export { LeaseArgs } from "./lease";
-export type Lease = import("./lease").Lease;
-export const Lease: typeof import("./lease").Lease = null as any;
+export * from "./lease";
+export * from "./leaseList";
+export * from "./leasePatch";
 
-export { LeaseListArgs } from "./leaseList";
-export type LeaseList = import("./leaseList").LeaseList;
-export const LeaseList: typeof import("./leaseList").LeaseList = null as any;
-
-export { LeasePatchArgs } from "./leasePatch";
-export type LeasePatch = import("./leasePatch").LeasePatch;
-export const LeasePatch: typeof import("./leasePatch").LeasePatch = null as any;
-
-utilities.lazyLoad(exports, ["Lease"], () => require("./lease"));
-utilities.lazyLoad(exports, ["LeaseList"], () => require("./leaseList"));
-utilities.lazyLoad(exports, ["LeasePatch"], () => require("./leasePatch"));
+// Import resources to register:
+import { Lease } from "./lease";
+import { LeaseList } from "./leaseList";
+import { LeasePatch } from "./leasePatch";
 
 const _module = {
     version: utilities.getVersion(),

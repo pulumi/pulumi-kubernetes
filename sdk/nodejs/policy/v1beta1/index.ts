@@ -5,36 +5,20 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../../utilities";
 
 // Export members:
-export { PodDisruptionBudgetArgs } from "./podDisruptionBudget";
-export type PodDisruptionBudget = import("./podDisruptionBudget").PodDisruptionBudget;
-export const PodDisruptionBudget: typeof import("./podDisruptionBudget").PodDisruptionBudget = null as any;
+export * from "./podDisruptionBudget";
+export * from "./podDisruptionBudgetList";
+export * from "./podDisruptionBudgetPatch";
+export * from "./podSecurityPolicy";
+export * from "./podSecurityPolicyList";
+export * from "./podSecurityPolicyPatch";
 
-export { PodDisruptionBudgetListArgs } from "./podDisruptionBudgetList";
-export type PodDisruptionBudgetList = import("./podDisruptionBudgetList").PodDisruptionBudgetList;
-export const PodDisruptionBudgetList: typeof import("./podDisruptionBudgetList").PodDisruptionBudgetList = null as any;
-
-export { PodDisruptionBudgetPatchArgs } from "./podDisruptionBudgetPatch";
-export type PodDisruptionBudgetPatch = import("./podDisruptionBudgetPatch").PodDisruptionBudgetPatch;
-export const PodDisruptionBudgetPatch: typeof import("./podDisruptionBudgetPatch").PodDisruptionBudgetPatch = null as any;
-
-export { PodSecurityPolicyArgs } from "./podSecurityPolicy";
-export type PodSecurityPolicy = import("./podSecurityPolicy").PodSecurityPolicy;
-export const PodSecurityPolicy: typeof import("./podSecurityPolicy").PodSecurityPolicy = null as any;
-
-export { PodSecurityPolicyListArgs } from "./podSecurityPolicyList";
-export type PodSecurityPolicyList = import("./podSecurityPolicyList").PodSecurityPolicyList;
-export const PodSecurityPolicyList: typeof import("./podSecurityPolicyList").PodSecurityPolicyList = null as any;
-
-export { PodSecurityPolicyPatchArgs } from "./podSecurityPolicyPatch";
-export type PodSecurityPolicyPatch = import("./podSecurityPolicyPatch").PodSecurityPolicyPatch;
-export const PodSecurityPolicyPatch: typeof import("./podSecurityPolicyPatch").PodSecurityPolicyPatch = null as any;
-
-utilities.lazyLoad(exports, ["PodDisruptionBudget"], () => require("./podDisruptionBudget"));
-utilities.lazyLoad(exports, ["PodDisruptionBudgetList"], () => require("./podDisruptionBudgetList"));
-utilities.lazyLoad(exports, ["PodDisruptionBudgetPatch"], () => require("./podDisruptionBudgetPatch"));
-utilities.lazyLoad(exports, ["PodSecurityPolicy"], () => require("./podSecurityPolicy"));
-utilities.lazyLoad(exports, ["PodSecurityPolicyList"], () => require("./podSecurityPolicyList"));
-utilities.lazyLoad(exports, ["PodSecurityPolicyPatch"], () => require("./podSecurityPolicyPatch"));
+// Import resources to register:
+import { PodDisruptionBudget } from "./podDisruptionBudget";
+import { PodDisruptionBudgetList } from "./podDisruptionBudgetList";
+import { PodDisruptionBudgetPatch } from "./podDisruptionBudgetPatch";
+import { PodSecurityPolicy } from "./podSecurityPolicy";
+import { PodSecurityPolicyList } from "./podSecurityPolicyList";
+import { PodSecurityPolicyPatch } from "./podSecurityPolicyPatch";
 
 const _module = {
     version: utilities.getVersion(),

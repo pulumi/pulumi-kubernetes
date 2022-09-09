@@ -5,21 +5,14 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../../utilities";
 
 // Export members:
-export { CustomResourceDefinitionArgs } from "./customResourceDefinition";
-export type CustomResourceDefinition = import("./customResourceDefinition").CustomResourceDefinition;
-export const CustomResourceDefinition: typeof import("./customResourceDefinition").CustomResourceDefinition = null as any;
+export * from "./customResourceDefinition";
+export * from "./customResourceDefinitionList";
+export * from "./customResourceDefinitionPatch";
 
-export { CustomResourceDefinitionListArgs } from "./customResourceDefinitionList";
-export type CustomResourceDefinitionList = import("./customResourceDefinitionList").CustomResourceDefinitionList;
-export const CustomResourceDefinitionList: typeof import("./customResourceDefinitionList").CustomResourceDefinitionList = null as any;
-
-export { CustomResourceDefinitionPatchArgs } from "./customResourceDefinitionPatch";
-export type CustomResourceDefinitionPatch = import("./customResourceDefinitionPatch").CustomResourceDefinitionPatch;
-export const CustomResourceDefinitionPatch: typeof import("./customResourceDefinitionPatch").CustomResourceDefinitionPatch = null as any;
-
-utilities.lazyLoad(exports, ["CustomResourceDefinition"], () => require("./customResourceDefinition"));
-utilities.lazyLoad(exports, ["CustomResourceDefinitionList"], () => require("./customResourceDefinitionList"));
-utilities.lazyLoad(exports, ["CustomResourceDefinitionPatch"], () => require("./customResourceDefinitionPatch"));
+// Import resources to register:
+import { CustomResourceDefinition } from "./customResourceDefinition";
+import { CustomResourceDefinitionList } from "./customResourceDefinitionList";
+import { CustomResourceDefinitionPatch } from "./customResourceDefinitionPatch";
 
 const _module = {
     version: utilities.getVersion(),
