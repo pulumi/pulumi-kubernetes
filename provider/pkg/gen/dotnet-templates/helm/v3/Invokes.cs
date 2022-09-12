@@ -27,7 +27,16 @@ namespace Pulumi.Kubernetes.Helm
         internal static Output<ImmutableArray<ImmutableDictionary<string, object>>> HelmTemplate(HelmTemplateArgs args,
             InvokeOptions? options = null)
             => Output.Create(Deployment.Instance.InvokeAsync<HelmTemplateResult>("kubernetes:helm:template", args,
-                options.WithDefaults())).Apply(r => r.Result.ToImmutableArray());
+                               options.WithDefaults())).Apply(r =>
+                              {
+                                /// Invoke on an unconfigured provider results in an empty response.
+                                /// TODO Change this based on how https://github.com/pulumi/pulumi/issues/10209
+                                /// is addressed.
+                                if (r.Result.IsDefaultOrEmpty) {
+                                    return ImmutableArray.Create<ImmutableDictionary<string,object>>();
+                                }
+                                return r.Result;
+                              });
     }
 
     internal class HelmTemplateArgs : InvokeArgs
