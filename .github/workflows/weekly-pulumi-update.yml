@@ -143,12 +143,13 @@ jobs:
         github_token: ${{ secrets.PULUMI_BOT_TOKEN }}
       env:
         GITHUB_TOKEN: ${{ secrets.PULUMI_BOT_TOKEN }}
-    - name: Set AutoMerge
-      if: steps.create-pr.outputs.has_changed_files
-      uses: peter-evans/enable-pull-request-automerge@v1
-      with:
-        token: ${{ secrets.PULUMI_BOT_TOKEN }}
-        pull-request-number: ${{ steps.create-pr.outputs.pr_number }}
-        repository: ${{ github.repository }}
-        merge-method: squash
+#     Temporarily disabled until https://github.com/pulumi/pulumi-kubernetes/issues/2169 is fixed.
+#     - name: Set AutoMerge
+#       if: steps.create-pr.outputs.has_changed_files
+#       uses: peter-evans/enable-pull-request-automerge@v1
+#       with:
+#         token: ${{ secrets.PULUMI_BOT_TOKEN }}
+#         pull-request-number: ${{ steps.create-pr.outputs.pr_number }}
+#         repository: ${{ github.repository }}
+#         merge-method: squash
     name: weekly-pulumi-update
