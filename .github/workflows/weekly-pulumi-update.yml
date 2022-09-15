@@ -24,6 +24,10 @@ env:
   PULUMI_TEST_OWNER: moolumi
   GOLANGCI_LINT_VERSION: v1.46.2
   GOLANGCI_LINT_TIMEOUT: 10m
+  GOOGLE_CI_SERVICE_ACCOUNT_EMAIL: pulumi-ci@pulumi-k8s-provider.iam.gserviceaccount.com
+  GOOGLE_CI_WORKLOAD_IDENTITY_POOL: pulumi-ci
+  GOOGLE_CI_WORKLOAD_IDENTITY_PROVIDER: pulumi-ci
+  GOOGLE_PROJECT_NUMBER: 637339343727
 jobs:
   weekly-pulumi-update:
     runs-on: ubuntu-latest
@@ -40,7 +44,7 @@ jobs:
         - 14.x
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         lfs: true
     - name: Unshallow clone for tags

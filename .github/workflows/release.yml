@@ -25,6 +25,10 @@ env:
   PULUMI_TEST_OWNER: moolumi
   GOLANGCI_LINT_VERSION: v1.46.2
   GOLANGCI_LINT_TIMEOUT: 10m
+  GOOGLE_CI_SERVICE_ACCOUNT_EMAIL: pulumi-ci@pulumi-k8s-provider.iam.gserviceaccount.com
+  GOOGLE_CI_WORKLOAD_IDENTITY_POOL: pulumi-ci
+  GOOGLE_CI_WORKLOAD_IDENTITY_PROVIDER: pulumi-ci
+  GOOGLE_PROJECT_NUMBER: 637339343727
 jobs:
   prerequisites:
     runs-on: ubuntu-latest
@@ -42,11 +46,11 @@ jobs:
     name: prerequisites
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         lfs: true
     - name: Checkout Scripts Repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         path: ci-scripts
         repository: pulumi/scripts
@@ -146,11 +150,11 @@ jobs:
     name: build_sdks
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         lfs: true
     - name: Checkout Scripts Repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         path: ci-scripts
         repository: pulumi/scripts
@@ -240,13 +244,16 @@ jobs:
         - go
         - java
     name: test
+    permissions:
+      contents: read
+      id-token: write
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         lfs: true
     - name: Checkout Scripts Repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         path: ci-scripts
         repository: pulumi/scripts
@@ -327,13 +334,18 @@ jobs:
         role-duration-seconds: 3600
         role-session-name: ${{ env.PROVIDER }}@githubActions
         role-to-assume: ${{ secrets.AWS_CI_ROLE_ARN }}
-    - name: Configure GCP credentials
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v0
+      with:
+        workload_identity_provider: projects/${{ env.GOOGLE_PROJECT_NUMBER
+          }}/locations/global/workloadIdentityPools/${{
+          env.GOOGLE_CI_WORKLOAD_IDENTITY_POOL }}/providers/${{
+          env.GOOGLE_CI_WORKLOAD_IDENTITY_PROVIDER }}
+        service_account: ${{ env.GOOGLE_CI_SERVICE_ACCOUNT_EMAIL }}
+    - name: Setup gcloud auth
       uses: google-github-actions/setup-gcloud@v0
       with:
-        project_id: ${{ env.GOOGLE_PROJECT }}
-        service_account_email: ${{ secrets.GCP_SA_EMAIL }}
-        service_account_key: ${{ secrets.GCP_SA_KEY }}
-        export_default_credentials: true
+        install_components: gke-gcloud-auth-plugin
     - name: Install Kubectl
       run: >
         curl -LO
@@ -383,7 +395,7 @@ jobs:
     name: publish
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         lfs: true
     - name: Unshallow clone for tags
@@ -442,11 +454,11 @@ jobs:
     name: publish_sdks
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         lfs: true
     - name: Checkout Scripts Repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         path: ci-scripts
         repository: pulumi/scripts
@@ -540,7 +552,7 @@ jobs:
     needs: publish_sdk
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         lfs: true
     - name: Install pulumictl
@@ -581,9 +593,12 @@ jobs:
     name: build-test-cluster
     outputs:
       stack-name: ${{ steps.stackname.outputs.stack-name }}
+    permissions:
+      contents: read
+      id-token: write
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         lfs: true
     - name: Install Go
@@ -609,13 +624,18 @@ jobs:
       run: |-
         pip3 install virtualenv==20.0.23
         pip3 install pipenv
-    - name: Configure GCP credentials
+    - name: Authenticate to Google Cloud
+      uses: google-github-actions/auth@v0
+      with:
+        workload_identity_provider: projects/${{ env.GOOGLE_PROJECT_NUMBER
+          }}/locations/global/workloadIdentityPools/${{
+          env.GOOGLE_CI_WORKLOAD_IDENTITY_POOL }}/providers/${{
+          env.GOOGLE_CI_WORKLOAD_IDENTITY_PROVIDER }}
+        service_account: ${{ env.GOOGLE_CI_SERVICE_ACCOUNT_EMAIL }}
+    - name: Setup gcloud auth
       uses: google-github-actions/setup-gcloud@v0
       with:
-        project_id: ${{ env.GOOGLE_PROJECT }}
-        service_account_email: ${{ secrets.GCP_SA_EMAIL }}
-        service_account_key: ${{ secrets.GCP_SA_KEY }}
-        export_default_credentials: true
+        install_components: gke-gcloud-auth-plugin
     - name: Install Kubectl
       run: >
         curl -LO
@@ -659,7 +679,7 @@ jobs:
       github.repository
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         lfs: true
     - name: Install Go
@@ -685,13 +705,10 @@ jobs:
       run: |-
         pip3 install virtualenv==20.0.23
         pip3 install pipenv
-    - name: Configure GCP credentials
+    - name: Setup gcloud auth
       uses: google-github-actions/setup-gcloud@v0
       with:
-        project_id: ${{ env.GOOGLE_PROJECT }}
-        service_account_email: ${{ secrets.GCP_SA_EMAIL }}
-        service_account_key: ${{ secrets.GCP_SA_KEY }}
-        export_default_credentials: true
+        install_components: gke-gcloud-auth-plugin
     - name: Install Kubectl
       run: >
         curl -LO
