@@ -26,11 +26,8 @@ export class GkeCluster extends pulumi.ComponentResource {
                 opts: pulumi.ComponentResourceOptions = {}) {
         super("pulumi-kubernetes:ci:GkeCluster", name, {}, opts);
 
-        // Find the latest 1.21.x engine version.
-        const engineVersion = gcp.container.getEngineVersions({
-            location: config.gcpLocation,
-            project: config.gcpProject,
-        }).then(v => v.validMasterVersions.filter(v => v.startsWith("1.21"))[0]);
+        // Use the latest 1.21.x engine version.
+        const engineVersion = "1.21";
 
         // Create the GKE cluster.
         const k8sCluster = new gcp.container.Cluster("ephemeral-ci-cluster", {
@@ -73,14 +70,12 @@ preferences: {}
 users:
 - name: ${context}
   user:
-    auth-provider:
-      config:
-        cmd-args: config config-helper --format=json
-        cmd-path: gcloud
-        expiry-key: '{.credential.token_expiry}'
-        token-key: '{.credential.access_token}'
-      name: gcp
-`;
+    exec:
+      apiVersion: client.authentication.k8s.io/v1beta1
+      command: gke-gcloud-auth-plugin
+      installHint: Install gke-gcloud-auth-plugin for use with kubectl by following
+        https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke
+      provideClusterInfo: true`;
             });
 
         // Export a Kubernetes provider instance that uses our cluster from above.
