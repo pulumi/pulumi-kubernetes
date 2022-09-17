@@ -30,7 +30,7 @@ openapi_file::
 	test -f $(OPENAPI_FILE) || curl -s -L $(SWAGGER_URL) > $(OPENAPI_FILE)
 
 ensure::
-	cd provider && go mod tidy -compat=1.17
+	cd provider && go mod tidy
 	cd sdk && go mod tidy
 	cd tests && go mod tidy
 
