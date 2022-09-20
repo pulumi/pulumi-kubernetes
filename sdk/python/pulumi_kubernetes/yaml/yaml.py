@@ -1808,14 +1808,14 @@ def _parse_yaml_object(
     if gvk == "apiextensions.k8s.io/v1/CustomResourceDefinition":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.apiextensions.v1 import CustomResourceDefinition
-        del obj["status"] # Delete output-only status field to avoid errors.
+        obj.pop("status", None) # Delete output-only status field to avoid errors.
         return [identifier.apply(
             lambda x: (f"apiextensions.k8s.io/v1/CustomResourceDefinition:{x}",
                        CustomResourceDefinition(f"{x}", opts, **obj)))]
     if gvk == "apiextensions.k8s.io/v1beta1/CustomResourceDefinition":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.apiextensions.v1beta1 import CustomResourceDefinition
-        del obj["status"] # Delete output-only status field to avoid errors.
+        obj.pop("status", None) # Delete output-only status field to avoid errors.
         return [identifier.apply(
             lambda x: (f"apiextensions.k8s.io/v1beta1/CustomResourceDefinition:{x}",
                        CustomResourceDefinition(f"{x}", opts, **obj)))]
