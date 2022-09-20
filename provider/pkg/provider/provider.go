@@ -597,7 +597,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		usr, _ := user.Current()
 		return usr.HomeDir
 	}
-	if pathOrContents, ok := vars["kubernetes:config:kubeconfig"]; ok {
+	if pathOrContents, ok := vars["kubernetes:config:kubeconfig"]; ok && pathOrContents != "" {
 		var contents string
 
 		// Handle the '~' character if it is set in the config string. Normally, this would be expanded by the shell

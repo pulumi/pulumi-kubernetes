@@ -14,9 +14,7 @@
 
 import * as k8s from '@pulumi/kubernetes'
 
-const k8sProvider = new k8s.Provider(`k8s-provider`, {
-    kubeconfig: '~/.kube/config',
-})
+const k8sProvider = new k8s.Provider(`k8s-provider`, {})
 
 const namespace = new k8s.core.v1.Namespace("release-ns");
 

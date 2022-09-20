@@ -26,9 +26,7 @@ import (
 
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
-		provider, err := k8s.NewProvider(ctx, "k8s", &k8s.ProviderArgs{
-			Kubeconfig: pulumi.String("~/.kube/config"),
-		})
+		provider, err := k8s.NewProvider(ctx, "k8s", &k8s.ProviderArgs{})
 		if err != nil {
 			return err
 		}

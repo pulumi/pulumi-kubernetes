@@ -15,7 +15,6 @@ func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
 		provider, err := kubernetes.NewProvider(ctx, "k8s", &kubernetes.ProviderArgs{
 			EnableServerSideApply: pulumi.BoolPtr(true),
-			Kubeconfig:            pulumi.String("~/.kube/config"),
 		})
 		if err != nil {
 			return err
