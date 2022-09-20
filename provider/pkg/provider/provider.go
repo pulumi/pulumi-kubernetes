@@ -1209,7 +1209,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		return k.helmReleaseProvider.Check(ctx, req)
 	}
 
-	if !k.serverSideApplyMode && strings.HasSuffix(urn.Type().String(), "Patch") {
+	if !k.serverSideApplyMode && isPatchURN(urn) {
 		return nil, fmt.Errorf("patch resources require Server-side Apply mode, which is enabled using the " +
 			"`enableServerSideApply` Provider config")
 	}
@@ -1263,7 +1263,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	oldInputs := propMapToUnstructured(olds)
 	newInputs := propMapToUnstructured(news)
 
-	if k.serverSideApplyMode && strings.HasSuffix(urn.Type().String(), "Patch") {
+	if k.serverSideApplyMode && isPatchURN(urn) {
 		if len(newInputs.GetName()) == 0 {
 			return nil, fmt.Errorf("patch resources require the resource `.metadata.name` to be set")
 		}
@@ -1717,12 +1717,16 @@ func (k *kubeProvider) Create(
 
 	newInputs := propMapToUnstructured(newResInputs)
 
-	// If this is a preview and the input values contain unknowns, return them as-is. This is compatible with
-	// prior behavior implemented by the Pulumi engine. Similarly, if the server does not support server-side
-	// dry run, return the inputs as-is.
-	if req.GetPreview() &&
-		(hasComputedValue(newInputs) || !k.supportsDryRun(newInputs.GroupVersionKind())) {
-
+	// Skip if:
+	// 1: The input values contain unknowns
+	// 2: The server does not support server-side dry run
+	// 3: The resource is a Patch resource
+	skipPreview := hasComputedValue(newInputs) ||
+		!k.supportsDryRun(newInputs.GroupVersionKind()) ||
+		isPatchURN(urn)
+	// If this is a preview and the input meets one of the skip criteria, then return them as-is. This is compatible
+	// with prior behavior implemented by the Pulumi engine.
+	if req.GetPreview() && skipPreview {
 		logger.V(9).Infof("cannot preview Create(%v)", urn)
 		return &pulumirpc.CreateResponse{Id: "", Properties: req.GetProperties()}, nil
 	}
@@ -2438,7 +2442,7 @@ func (k *kubeProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest)
 			// to consider the CR to be deleted as well in this case.
 			return &pbempty.Empty{}, nil
 		}
-		if strings.HasSuffix(urn.Type().String(), "Patch") && await.IsDeleteRequiredFieldErr(awaitErr) {
+		if isPatchURN(urn) && await.IsDeleteRequiredFieldErr(awaitErr) {
 			if cause, ok := errors.StatusCause(awaitErr, metav1.CauseTypeFieldValueRequired); ok {
 				awaitErr = fmt.Errorf(
 					"this Patch resource is currently managing a required field, so it can't be deleted "+
@@ -2471,6 +2475,11 @@ func (k *kubeProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest)
 	}
 
 	return &pbempty.Empty{}, nil
+}
+
+// isPatchURN returns true if the URN is for a Patch resource.
+func isPatchURN(urn resource.URN) bool {
+	return strings.HasSuffix(urn.Type().String(), "Patch")
 }
 
 // GetPluginInfo returns generic information about this plugin, like its version.
