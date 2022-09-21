@@ -245,6 +245,9 @@ func writePythonClient(pkg *schema.Package, outdir string, templateDir string) {
 		if resourcesToFilterFromTemplate.Has(tok) {
 			continue
 		}
+		if resource.Name == "CustomResourceDefinition" { // Use manual overlay in yaml.tmpl
+			continue
+		}
 		if strings.HasSuffix(resource.Name, "Patch") {
 			continue
 		}

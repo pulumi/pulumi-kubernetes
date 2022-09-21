@@ -539,24 +539,12 @@ def _parse_yaml_object(
         return [identifier.apply(
             lambda x: (f"admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfigurationList:{x}",
                        ValidatingWebhookConfigurationList(f"{x}", opts, **obj)))]
-    if gvk == "apiextensions.k8s.io/v1/CustomResourceDefinition":
-        # Import locally to avoid name collisions.
-        from pulumi_kubernetes.apiextensions.v1 import CustomResourceDefinition
-        return [identifier.apply(
-            lambda x: (f"apiextensions.k8s.io/v1/CustomResourceDefinition:{x}",
-                       CustomResourceDefinition(f"{x}", opts, **obj)))]
     if gvk == "apiextensions.k8s.io/v1/CustomResourceDefinitionList":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.apiextensions.v1 import CustomResourceDefinitionList
         return [identifier.apply(
             lambda x: (f"apiextensions.k8s.io/v1/CustomResourceDefinitionList:{x}",
                        CustomResourceDefinitionList(f"{x}", opts, **obj)))]
-    if gvk == "apiextensions.k8s.io/v1beta1/CustomResourceDefinition":
-        # Import locally to avoid name collisions.
-        from pulumi_kubernetes.apiextensions.v1beta1 import CustomResourceDefinition
-        return [identifier.apply(
-            lambda x: (f"apiextensions.k8s.io/v1beta1/CustomResourceDefinition:{x}",
-                       CustomResourceDefinition(f"{x}", opts, **obj)))]
     if gvk == "apiextensions.k8s.io/v1beta1/CustomResourceDefinitionList":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.apiextensions.v1beta1 import CustomResourceDefinitionList
@@ -1817,6 +1805,20 @@ def _parse_yaml_object(
         return [identifier.apply(
             lambda x: (f"storage.k8s.io/v1beta1/VolumeAttachmentList:{x}",
                        VolumeAttachmentList(f"{x}", opts, **obj)))]
+    if gvk == "apiextensions.k8s.io/v1/CustomResourceDefinition":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.apiextensions.v1 import CustomResourceDefinition
+        obj.pop("status", None) # Delete output-only status field to avoid errors.
+        return [identifier.apply(
+            lambda x: (f"apiextensions.k8s.io/v1/CustomResourceDefinition:{x}",
+                       CustomResourceDefinition(f"{x}", opts, **obj)))]
+    if gvk == "apiextensions.k8s.io/v1beta1/CustomResourceDefinition":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.apiextensions.v1beta1 import CustomResourceDefinition
+        obj.pop("status", None) # Delete output-only status field to avoid errors.
+        return [identifier.apply(
+            lambda x: (f"apiextensions.k8s.io/v1beta1/CustomResourceDefinition:{x}",
+                       CustomResourceDefinition(f"{x}", opts, **obj)))]
     return [identifier.apply(
         lambda x: (f"{gvk}:{x}",
                    CustomResource(f"{x}", api_version, kind, spec, metadata, opts)))]

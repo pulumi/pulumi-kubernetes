@@ -1,5 +1,7 @@
 ## Unreleased
+
 - Fix Helm Chart preview with unconfigured provider (C#) (https://github.com/pulumi/pulumi-kubernetes/issues/2162)
+- [sdk/python] Handle CRDs with status field input (https://github.com/pulumi/pulumi-kubernetes/issues/2183)
 
 ## 3.21.2 (September 1, 2022)
 
