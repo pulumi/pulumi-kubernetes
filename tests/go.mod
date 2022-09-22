@@ -12,8 +12,8 @@ replace (
 require (
 	github.com/pulumi/pulumi-kubernetes/provider/v3 v3.0.0-rc.1
 	github.com/pulumi/pulumi-kubernetes/sdk/v3 v3.0.0-rc.1
-	github.com/pulumi/pulumi/pkg/v3 v3.40.0
-	github.com/pulumi/pulumi/sdk/v3 v3.40.0
+	github.com/pulumi/pulumi/pkg/v3 v3.40.1
+	github.com/pulumi/pulumi/sdk/v3 v3.40.1
 	github.com/stretchr/testify v1.8.0
 	helm.sh/helm/v3 v3.9.4
 	k8s.io/apimachinery v0.24.2
