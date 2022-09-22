@@ -572,12 +572,6 @@ jobs:
     - name: Uncompress java SDK
       run: tar -zxf ${{github.workspace}}/sdk/java.tar.gz -C
         ${{github.workspace}}/sdk/java
-    - name: Install Twine
-      run: python -m pip install pip twine
-    - name: Publish SDKs
-      run: ./ci-scripts/ci/publish-tfgen-package ${{ github.workspace }}
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     - name: Set PACKAGE_VERSION to Env
       run: echo "PACKAGE_VERSION=$(pulumictl get version --language generic)" >>
         $GITHUB_ENV
