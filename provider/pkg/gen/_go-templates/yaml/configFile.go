@@ -33,24 +33,27 @@ import (
 // package main
 //
 // import (
-//     "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/yaml"
-//     "github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/yaml"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-//     pulumi.Run(func(ctx *pulumi.Context) error {
-//         _, err := yaml.NewConfigFile(ctx, "example",
-//             &yaml.ConfigFileArgs{
-//                 File: "foo.yaml",
-//             },
-//         )
-//         if err != nil {
-//             return err
-//         }
+//	func main() {
+//	    pulumi.Run(func(ctx *pulumi.Context) error {
+//	        _, err := yaml.NewConfigFile(ctx, "example",
+//	            &yaml.ConfigFileArgs{
+//	                File: "foo.yaml",
+//	            },
+//	        )
+//	        if err != nil {
+//	            return err
+//	        }
 //
-//         return nil
-//     })
-// }
+//	        return nil
+//	    })
+//	}
+//
 // ```
 // ### YAML with Transformations
 //
@@ -58,56 +61,59 @@ import (
 // package main
 //
 // import (
-//     "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/yaml"
-//     "github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
+//	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/yaml"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//
 // )
 //
-// func main() {
-//     pulumi.Run(func(ctx *pulumi.Context) error {
-//         _, err := yaml.NewConfigFile(ctx, "example",
-//             &yaml.ConfigFileArgs{
-//                 File: "foo.yaml",
-//                 Transformations: []yaml.Transformation{
-//                     // Make every service private to the cluster, i.e., turn all services into ClusterIP
-//                     // instead of LoadBalancer.
-//                     func(state map[string]interface{}, opts ...pulumi.ResourceOption) {
-//                         if state["kind"] == "Service" {
-//                             spec := state["spec"].(map[string]interface{})
-//                             spec["type"] = "ClusterIP"
-//                         }
-//                     },
+//	func main() {
+//	    pulumi.Run(func(ctx *pulumi.Context) error {
+//	        _, err := yaml.NewConfigFile(ctx, "example",
+//	            &yaml.ConfigFileArgs{
+//	                File: "foo.yaml",
+//	                Transformations: []yaml.Transformation{
+//	                    // Make every service private to the cluster, i.e., turn all services into ClusterIP
+//	                    // instead of LoadBalancer.
+//	                    func(state map[string]interface{}, opts ...pulumi.ResourceOption) {
+//	                        if state["kind"] == "Service" {
+//	                            spec := state["spec"].(map[string]interface{})
+//	                            spec["type"] = "ClusterIP"
+//	                        }
+//	                    },
 //
-//                     // Set a resource alias for a previous name.
-//                     func(state map[string]interface{}, opts ...pulumi.ResourceOption) {
-//                         if state["kind"] == "Deployment" {
-//                             aliases := pulumi.Aliases([]pulumi.Alias{
-//                                 {
-//                                     Name: pulumi.String("oldName"),
-//                                 },
-//                             })
-//                             opts = append(opts, aliases)
-//                         }
-//                     },
+//	                    // Set a resource alias for a previous name.
+//	                    func(state map[string]interface{}, opts ...pulumi.ResourceOption) {
+//	                        if state["kind"] == "Deployment" {
+//	                            aliases := pulumi.Aliases([]pulumi.Alias{
+//	                                {
+//	                                    Name: pulumi.String("oldName"),
+//	                                },
+//	                            })
+//	                            opts = append(opts, aliases)
+//	                        }
+//	                    },
 //
-//                     // Omit a resource from the Chart by transforming the specified resource definition
-//                     // to an empty List.
-//                     func(state map[string]interface{}, opts ...pulumi.ResourceOption) {
-//                         name := state["metadata"].(map[string]interface{})["name"]
-//                         if state["kind"] == "Pod" && name == "test" {
-//                             state["apiVersion"] = "core/v1"
-//                             state["kind"] = "List"
-//                         }
-//                     },
-//                 },
-//             },
-//         )
-//         if err != nil {
-//             return err
-//         }
+//	                    // Omit a resource from the Chart by transforming the specified resource definition
+//	                    // to an empty List.
+//	                    func(state map[string]interface{}, opts ...pulumi.ResourceOption) {
+//	                        name := state["metadata"].(map[string]interface{})["name"]
+//	                        if state["kind"] == "Pod" && name == "test" {
+//	                            state["apiVersion"] = "core/v1"
+//	                            state["kind"] = "List"
+//	                        }
+//	                    },
+//	                },
+//	            },
+//	        )
+//	        if err != nil {
+//	            return err
+//	        }
 //
-//         return nil
-//     })
-// }
+//	        return nil
+//	    })
+//	}
+//
 // ```
 type ConfigFile struct {
 	pulumi.ResourceState
@@ -168,11 +174,11 @@ func NewConfigFile(ctx *pulumi.Context,
 		configFile.Resources = rs
 	}
 
-    // Finally, register all of the resources found.
-    err = ctx.RegisterResourceOutputs(configFile, pulumi.Map{})
-    if err != nil {
-        return nil, errors.Wrapf(err, "registering child resources")
-    }
+	// Finally, register all of the resources found.
+	err = ctx.RegisterResourceOutputs(configFile, pulumi.Map{})
+	if err != nil {
+		return nil, errors.Wrapf(err, "registering child resources")
+	}
 
 	return configFile, nil
 }

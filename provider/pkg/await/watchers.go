@@ -153,14 +153,15 @@ func (pa *PodAggregator) ResultChan() <-chan logging.Messages {
 // ResourceID, false otherwise.
 //
 // Example ownerReference:
-// {
-//     "apiVersion": "batch/v1",
-//     "blockOwnerDeletion": true,
-//     "controller": true,
-//     "kind": "Job",
-//     "name": "foo",
-//     "uid": "14ba58cc-cf83-11e9-8c3a-025000000001"
-// }
+//
+//	{
+//	    "apiVersion": "batch/v1",
+//	    "blockOwnerDeletion": true,
+//	    "controller": true,
+//	    "kind": "Job",
+//	    "name": "foo",
+//	    "uid": "14ba58cc-cf83-11e9-8c3a-025000000001"
+//	}
 func relatedResource(owner ResourceID, object metav1.Object) bool {
 	if owner.Namespace != object.GetNamespace() {
 		return false

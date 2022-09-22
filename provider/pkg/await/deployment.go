@@ -376,13 +376,13 @@ func (dia *deploymentInitAwaiter) await(
 // Check whether we've succeeded, log the result as a status message to the provider. There are two
 // cases:
 //
-//   1. If the generation of the Deployment is > 1, we need to check that (1) the Deployment is
-//      marked as available, (2) the ReplicaSet we're trying to roll to is marked as Available,
-//      and (3) the Deployment has marked the new ReplicaSet as "ready".
-//   2. If it's the first generation of the Deployment, the object is simply created, rather than
-//      rolled out. This means there is no rollout to be marked as "progressing", so we need only
-//      check that the Deployment was created, and the corresponding ReplicaSet needs to be marked
-//      available.
+//  1. If the generation of the Deployment is > 1, we need to check that (1) the Deployment is
+//     marked as available, (2) the ReplicaSet we're trying to roll to is marked as Available,
+//     and (3) the Deployment has marked the new ReplicaSet as "ready".
+//  2. If it's the first generation of the Deployment, the object is simply created, rather than
+//     rolled out. This means there is no rollout to be marked as "progressing", so we need only
+//     check that the Deployment was created, and the corresponding ReplicaSet needs to be marked
+//     available.
 func (dia *deploymentInitAwaiter) isEveryPVCReady() bool {
 	if len(dia.pvcs) == 0 || (len(dia.pvcs) > 0 && dia.pvcsAvailable) {
 		return true
@@ -878,7 +878,7 @@ func (dia *deploymentInitAwaiter) errorMessages() []string {
 	return messages
 }
 
-//nolint: nakedret
+// nolint: nakedret
 func (dia *deploymentInitAwaiter) makeClients() (
 	deploymentClient, replicaSetClient, podClient, pvcClient dynamic.ResourceInterface, err error,
 ) {
