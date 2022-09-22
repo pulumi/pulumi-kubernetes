@@ -30,7 +30,7 @@ namespace Pulumi.Kubernetes
             }
         }
 
-        private static readonly Pulumi.Config __config = new Pulumi.Config("kubernetes");
+        private static readonly global::Pulumi.Config __config = new global::Pulumi.Config("kubernetes");
 
         private static readonly __Value<string?> _cluster = new __Value<string?>(() => __config.Get("cluster"));
         /// <summary>
