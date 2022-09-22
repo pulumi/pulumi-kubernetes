@@ -1,5 +1,9 @@
 ## Unreleased
 
+## 3.21.4 (September 22, 2022)
+
+New tag to fix a publishing error for the Java SDK
+
 ## 3.21.3 (September 22, 2022)
 
 - Fix Helm Chart preview with unconfigured provider (C#) (https://github.com/pulumi/pulumi-kubernetes/issues/2162)
