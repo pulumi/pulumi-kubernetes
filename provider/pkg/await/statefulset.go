@@ -151,9 +151,9 @@ func makeStatefulSetInitAwaiter(c updateAwaitConfig) *statefulsetInitAwaiter {
 //
 // We succeed when only when all of the following are true:
 //
-//   1. The value of `spec.replicas` matches `.status.replicas`, `.status.currentReplicas`,
-//      and `.status.readyReplicas`.
-//   2. The value of `.status.updateRevision` matches `.status.currentRevision`.
+//  1. The value of `spec.replicas` matches `.status.replicas`, `.status.currentReplicas`,
+//     and `.status.readyReplicas`.
+//  2. The value of `.status.updateRevision` matches `.status.currentRevision`.
 func (sia *statefulsetInitAwaiter) Await() error {
 	stopper := make(chan struct{})
 	defer close(stopper)

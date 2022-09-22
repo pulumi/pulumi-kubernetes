@@ -86,3 +86,13 @@ func (mri *mockResourceInterface) Patch(
 ) (*unstructured.Unstructured, error) {
 	panic("Patch not implemented")
 }
+
+func (mri *mockResourceInterface) Apply(ctx context.Context, name string, obj *unstructured.Unstructured, options metav1.ApplyOptions, subresources ...string,
+) (*unstructured.Unstructured, error) {
+	panic("Apply not implemented")
+}
+
+func (mri *mockResourceInterface) ApplyStatus(ctx context.Context, name string, obj *unstructured.Unstructured, options metav1.ApplyOptions,
+) (*unstructured.Unstructured, error) {
+	panic("ApplyStatus not implemented")
+}
