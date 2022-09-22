@@ -597,6 +597,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		usr, _ := user.Current()
 		return usr.HomeDir
 	}
+	// Note: the Python SDK was setting the kubeconfig value to "" by default, so explicitly check for empty string.
 	if pathOrContents, ok := vars["kubernetes:config:kubeconfig"]; ok && pathOrContents != "" {
 		var contents string
 
