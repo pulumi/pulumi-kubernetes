@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 3.21.3 (September 22, 2022)
+
 - Fix Helm Chart preview with unconfigured provider (C#) (https://github.com/pulumi/pulumi-kubernetes/issues/2162)
 - Load default kubeconfig if not specified in provider (https://github.com/pulumi/pulumi-kubernetes/issues/2180)
 - Skip computing a preview for Patch resources (https://github.com/pulumi/pulumi-kubernetes/issues/2182)
