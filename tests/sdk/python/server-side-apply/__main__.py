@@ -11,16 +11,11 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-from os import path
 
 import pulumi
 import pulumi_kubernetes as k8s
 
-kubeconfig_file = path.join(path.expanduser("~"), ".kube", "config")
-with open(kubeconfig_file) as f:
-    kubeconfig = f.read()
-
-provider = k8s.Provider("myk8s", kubeconfig=kubeconfig, enable_server_side_apply=True)
+provider = k8s.Provider("myk8s", enable_server_side_apply=True)
 
 ns = k8s.core.v1.Namespace("test", opts=pulumi.ResourceOptions(provider=provider))
 
