@@ -1,5 +1,7 @@
 ## Unreleased
 
+- Fix values precedence in helm release (https://github.com/pulumi/pulumi-kubernetes/pull/2191)
+
 ## 3.21.4 (September 22, 2022)
 
 New tag to fix a publishing error for the Java SDK
