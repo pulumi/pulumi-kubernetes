@@ -173,19 +173,23 @@ jobs:
       uses: pulumi/action-install-pulumi-cli@v2
     - name: Setup Node
       uses: actions/setup-node@v2
+      if: ${{matrix.language}} == 'nodejs'
       with:
         node-version: ${{matrix.nodeversion}}
         registry-url: https://registry.npmjs.org
     - name: Setup DotNet
       uses: actions/setup-dotnet@v1
+      if: ${{matrix.language}} == 'dotnet'
       with:
         dotnet-version: ${{matrix.dotnetversion}}
     - name: Setup Python
       uses: actions/setup-python@v2
+      if: ${{matrix.language}} == 'python'
       with:
         python-version: ${{matrix.pythonversion}}
     - name: Setup Java
       uses: actions/setup-java@v3
+      if: ${{matrix.language}} == 'java'
       with:
         java-version: ${{matrix.javaversion}}
         distribution: temurin
@@ -272,19 +276,23 @@ jobs:
       uses: pulumi/action-install-pulumi-cli@v2
     - name: Setup Node
       uses: actions/setup-node@v2
+      if: ${{matrix.language}} == 'nodejs'
       with:
         node-version: ${{matrix.nodeversion}}
         registry-url: https://registry.npmjs.org
     - name: Setup DotNet
       uses: actions/setup-dotnet@v1
+      if: ${{matrix.language}} == 'dotnet'
       with:
         dotnet-version: ${{matrix.dotnetversion}}
     - name: Setup Python
       uses: actions/setup-python@v2
+      if: ${{matrix.language}} == 'python'
       with:
         python-version: ${{matrix.pythonversion}}
     - name: Setup Java
       uses: actions/setup-java@v3
+      if: ${{matrix.language}} == 'java'
       with:
         java-version: ${{matrix.javaversion}}
         distribution: temurin
@@ -469,15 +477,18 @@ jobs:
       uses: pulumi/action-install-pulumi-cli@v2
     - name: Setup Node
       uses: actions/setup-node@v2
+      if: ${{matrix.language}} == 'nodejs'
       with:
         node-version: ${{matrix.nodeversion}}
         registry-url: https://registry.npmjs.org
     - name: Setup DotNet
       uses: actions/setup-dotnet@v1
+      if: ${{matrix.language}} == 'dotnet'
       with:
         dotnet-version: ${{matrix.dotnetversion}}
     - name: Setup Python
       uses: actions/setup-python@v2
+      if: ${{matrix.language}} == 'python'
       with:
         python-version: ${{matrix.pythonversion}}
     - name: Download python SDK
@@ -553,6 +564,7 @@ jobs:
       uses: pulumi/action-install-pulumi-cli@v2
     - name: Setup Java
       uses: actions/setup-java@v3
+      if: ${{matrix.language}} == 'java'
       with:
         java-version: ${{matrix.javaversion}}
         distribution: temurin
@@ -606,6 +618,7 @@ jobs:
       uses: pulumi/action-install-pulumi-cli@v2
     - name: Setup Node
       uses: actions/setup-node@v2
+      if: ${{matrix.language}} == 'nodejs'
       with:
         node-version: ${{matrix.nodeversion}}
         registry-url: https://registry.npmjs.org
@@ -678,6 +691,7 @@ jobs:
       uses: pulumi/action-install-pulumi-cli@v2
     - name: Setup Node
       uses: actions/setup-node@v2
+      if: ${{matrix.language}} == 'nodejs'
       with:
         node-version: ${{matrix.nodeversion}}
         registry-url: https://registry.npmjs.org
