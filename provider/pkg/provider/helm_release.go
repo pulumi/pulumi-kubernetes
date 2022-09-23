@@ -304,7 +304,7 @@ func decodeRelease(pm resource.PropertyMap, label string) (*Release, error) {
 	if err = mapstructure.Decode(stripped, &release); err != nil {
 		return nil, fmt.Errorf("decoding failure: %w", err)
 	}
-	release.Values, err = mergeMaps(release.Values, values)
+	release.Values, err = mergeMaps(values, release.Values)
 	if err != nil {
 		return nil, err
 	}
