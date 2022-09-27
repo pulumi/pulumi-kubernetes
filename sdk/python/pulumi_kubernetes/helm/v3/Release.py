@@ -18,6 +18,7 @@ class ReleaseArgs:
     def __init__(__self__, *,
                  chart: pulumi.Input[str],
                  atomic: Optional[pulumi.Input[bool]] = None,
+                 allow_null_values: Optional[pulumi.Input[bool]] = False,
                  cleanup_on_fail: Optional[pulumi.Input[bool]] = None,
                  compat: Optional[pulumi.Input[str]] = None,
                  create_namespace: Optional[pulumi.Input[bool]] = None,
@@ -54,6 +55,7 @@ class ReleaseArgs:
         The set of arguments for constructing a Release resource.
         :param pulumi.Input[str] chart: Chart name to be installed. A path may be used.
         :param pulumi.Input[bool] atomic: If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
+        :param pulumi.Input[bool] allow_null_values: If true, allows null values in helm values when merging values
         :param pulumi.Input[bool] cleanup_on_fail: Allow deletion of new resources created in this upgrade when upgrade fails.
         :param pulumi.Input[bool] create_namespace: Create the namespace if it does not exist.
         :param pulumi.Input[bool] dependency_update: Run helm dependency update before installing the chart.
@@ -89,6 +91,8 @@ class ReleaseArgs:
         pulumi.set(__self__, "chart", chart)
         if atomic is not None:
             pulumi.set(__self__, "atomic", atomic)
+        if allow_null_values is not None:
+            pulumi.set(__self__, "allow_null_values", allow_null_values)
         if cleanup_on_fail is not None:
             pulumi.set(__self__, "cleanup_on_fail", cleanup_on_fail)
         if compat is not None:
@@ -177,6 +181,18 @@ class ReleaseArgs:
     @atomic.setter
     def atomic(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "atomic", value)
+
+    @property
+    @pulumi.getter
+    def allow_null_values(self) -> Optional[pulumi.Input[bool]]:
+        """
+        If true, allows null values in helm values when merging values
+        """
+        return pulumi.get(self, "allow_null_values")
+
+    @allow_null_values.setter
+    def allow_null_values(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "allow_null_values", value)
 
     @property
     @pulumi.getter(name="cleanupOnFail")
