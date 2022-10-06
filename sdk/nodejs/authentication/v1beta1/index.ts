@@ -8,13 +8,13 @@ import * as utilities from "../../utilities";
 export { TokenReviewArgs } from "./tokenReview";
 export type TokenReview = import("./tokenReview").TokenReview;
 export const TokenReview: typeof import("./tokenReview").TokenReview = null as any;
+utilities.lazyLoad(exports, ["TokenReview"], () => require("./tokenReview"));
 
 export { TokenReviewPatchArgs } from "./tokenReviewPatch";
 export type TokenReviewPatch = import("./tokenReviewPatch").TokenReviewPatch;
 export const TokenReviewPatch: typeof import("./tokenReviewPatch").TokenReviewPatch = null as any;
-
-utilities.lazyLoad(exports, ["TokenReview"], () => require("./tokenReview"));
 utilities.lazyLoad(exports, ["TokenReviewPatch"], () => require("./tokenReviewPatch"));
+
 
 const _module = {
     version: utilities.getVersion(),

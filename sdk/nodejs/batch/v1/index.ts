@@ -8,33 +8,33 @@ import * as utilities from "../../utilities";
 export { CronJobArgs } from "./cronJob";
 export type CronJob = import("./cronJob").CronJob;
 export const CronJob: typeof import("./cronJob").CronJob = null as any;
+utilities.lazyLoad(exports, ["CronJob"], () => require("./cronJob"));
 
 export { CronJobListArgs } from "./cronJobList";
 export type CronJobList = import("./cronJobList").CronJobList;
 export const CronJobList: typeof import("./cronJobList").CronJobList = null as any;
+utilities.lazyLoad(exports, ["CronJobList"], () => require("./cronJobList"));
 
 export { CronJobPatchArgs } from "./cronJobPatch";
 export type CronJobPatch = import("./cronJobPatch").CronJobPatch;
 export const CronJobPatch: typeof import("./cronJobPatch").CronJobPatch = null as any;
+utilities.lazyLoad(exports, ["CronJobPatch"], () => require("./cronJobPatch"));
 
 export { JobArgs } from "./job";
 export type Job = import("./job").Job;
 export const Job: typeof import("./job").Job = null as any;
+utilities.lazyLoad(exports, ["Job"], () => require("./job"));
 
 export { JobListArgs } from "./jobList";
 export type JobList = import("./jobList").JobList;
 export const JobList: typeof import("./jobList").JobList = null as any;
+utilities.lazyLoad(exports, ["JobList"], () => require("./jobList"));
 
 export { JobPatchArgs } from "./jobPatch";
 export type JobPatch = import("./jobPatch").JobPatch;
 export const JobPatch: typeof import("./jobPatch").JobPatch = null as any;
-
-utilities.lazyLoad(exports, ["CronJob"], () => require("./cronJob"));
-utilities.lazyLoad(exports, ["CronJobList"], () => require("./cronJobList"));
-utilities.lazyLoad(exports, ["CronJobPatch"], () => require("./cronJobPatch"));
-utilities.lazyLoad(exports, ["Job"], () => require("./job"));
-utilities.lazyLoad(exports, ["JobList"], () => require("./jobList"));
 utilities.lazyLoad(exports, ["JobPatch"], () => require("./jobPatch"));
+
 
 const _module = {
     version: utilities.getVersion(),

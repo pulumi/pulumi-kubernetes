@@ -8,43 +8,43 @@ import * as utilities from "../../utilities";
 export { LocalSubjectAccessReviewArgs } from "./localSubjectAccessReview";
 export type LocalSubjectAccessReview = import("./localSubjectAccessReview").LocalSubjectAccessReview;
 export const LocalSubjectAccessReview: typeof import("./localSubjectAccessReview").LocalSubjectAccessReview = null as any;
+utilities.lazyLoad(exports, ["LocalSubjectAccessReview"], () => require("./localSubjectAccessReview"));
 
 export { LocalSubjectAccessReviewPatchArgs } from "./localSubjectAccessReviewPatch";
 export type LocalSubjectAccessReviewPatch = import("./localSubjectAccessReviewPatch").LocalSubjectAccessReviewPatch;
 export const LocalSubjectAccessReviewPatch: typeof import("./localSubjectAccessReviewPatch").LocalSubjectAccessReviewPatch = null as any;
+utilities.lazyLoad(exports, ["LocalSubjectAccessReviewPatch"], () => require("./localSubjectAccessReviewPatch"));
 
 export { SelfSubjectAccessReviewArgs } from "./selfSubjectAccessReview";
 export type SelfSubjectAccessReview = import("./selfSubjectAccessReview").SelfSubjectAccessReview;
 export const SelfSubjectAccessReview: typeof import("./selfSubjectAccessReview").SelfSubjectAccessReview = null as any;
+utilities.lazyLoad(exports, ["SelfSubjectAccessReview"], () => require("./selfSubjectAccessReview"));
 
 export { SelfSubjectAccessReviewPatchArgs } from "./selfSubjectAccessReviewPatch";
 export type SelfSubjectAccessReviewPatch = import("./selfSubjectAccessReviewPatch").SelfSubjectAccessReviewPatch;
 export const SelfSubjectAccessReviewPatch: typeof import("./selfSubjectAccessReviewPatch").SelfSubjectAccessReviewPatch = null as any;
+utilities.lazyLoad(exports, ["SelfSubjectAccessReviewPatch"], () => require("./selfSubjectAccessReviewPatch"));
 
 export { SelfSubjectRulesReviewArgs } from "./selfSubjectRulesReview";
 export type SelfSubjectRulesReview = import("./selfSubjectRulesReview").SelfSubjectRulesReview;
 export const SelfSubjectRulesReview: typeof import("./selfSubjectRulesReview").SelfSubjectRulesReview = null as any;
+utilities.lazyLoad(exports, ["SelfSubjectRulesReview"], () => require("./selfSubjectRulesReview"));
 
 export { SelfSubjectRulesReviewPatchArgs } from "./selfSubjectRulesReviewPatch";
 export type SelfSubjectRulesReviewPatch = import("./selfSubjectRulesReviewPatch").SelfSubjectRulesReviewPatch;
 export const SelfSubjectRulesReviewPatch: typeof import("./selfSubjectRulesReviewPatch").SelfSubjectRulesReviewPatch = null as any;
+utilities.lazyLoad(exports, ["SelfSubjectRulesReviewPatch"], () => require("./selfSubjectRulesReviewPatch"));
 
 export { SubjectAccessReviewArgs } from "./subjectAccessReview";
 export type SubjectAccessReview = import("./subjectAccessReview").SubjectAccessReview;
 export const SubjectAccessReview: typeof import("./subjectAccessReview").SubjectAccessReview = null as any;
+utilities.lazyLoad(exports, ["SubjectAccessReview"], () => require("./subjectAccessReview"));
 
 export { SubjectAccessReviewPatchArgs } from "./subjectAccessReviewPatch";
 export type SubjectAccessReviewPatch = import("./subjectAccessReviewPatch").SubjectAccessReviewPatch;
 export const SubjectAccessReviewPatch: typeof import("./subjectAccessReviewPatch").SubjectAccessReviewPatch = null as any;
-
-utilities.lazyLoad(exports, ["LocalSubjectAccessReview"], () => require("./localSubjectAccessReview"));
-utilities.lazyLoad(exports, ["LocalSubjectAccessReviewPatch"], () => require("./localSubjectAccessReviewPatch"));
-utilities.lazyLoad(exports, ["SelfSubjectAccessReview"], () => require("./selfSubjectAccessReview"));
-utilities.lazyLoad(exports, ["SelfSubjectAccessReviewPatch"], () => require("./selfSubjectAccessReviewPatch"));
-utilities.lazyLoad(exports, ["SelfSubjectRulesReview"], () => require("./selfSubjectRulesReview"));
-utilities.lazyLoad(exports, ["SelfSubjectRulesReviewPatch"], () => require("./selfSubjectRulesReviewPatch"));
-utilities.lazyLoad(exports, ["SubjectAccessReview"], () => require("./subjectAccessReview"));
 utilities.lazyLoad(exports, ["SubjectAccessReviewPatch"], () => require("./subjectAccessReviewPatch"));
+
 
 const _module = {
     version: utilities.getVersion(),

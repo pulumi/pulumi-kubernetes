@@ -8,63 +8,63 @@ import * as utilities from "../../utilities";
 export { ClusterRoleArgs } from "./clusterRole";
 export type ClusterRole = import("./clusterRole").ClusterRole;
 export const ClusterRole: typeof import("./clusterRole").ClusterRole = null as any;
+utilities.lazyLoad(exports, ["ClusterRole"], () => require("./clusterRole"));
 
 export { ClusterRoleBindingArgs } from "./clusterRoleBinding";
 export type ClusterRoleBinding = import("./clusterRoleBinding").ClusterRoleBinding;
 export const ClusterRoleBinding: typeof import("./clusterRoleBinding").ClusterRoleBinding = null as any;
+utilities.lazyLoad(exports, ["ClusterRoleBinding"], () => require("./clusterRoleBinding"));
 
 export { ClusterRoleBindingListArgs } from "./clusterRoleBindingList";
 export type ClusterRoleBindingList = import("./clusterRoleBindingList").ClusterRoleBindingList;
 export const ClusterRoleBindingList: typeof import("./clusterRoleBindingList").ClusterRoleBindingList = null as any;
+utilities.lazyLoad(exports, ["ClusterRoleBindingList"], () => require("./clusterRoleBindingList"));
 
 export { ClusterRoleBindingPatchArgs } from "./clusterRoleBindingPatch";
 export type ClusterRoleBindingPatch = import("./clusterRoleBindingPatch").ClusterRoleBindingPatch;
 export const ClusterRoleBindingPatch: typeof import("./clusterRoleBindingPatch").ClusterRoleBindingPatch = null as any;
+utilities.lazyLoad(exports, ["ClusterRoleBindingPatch"], () => require("./clusterRoleBindingPatch"));
 
 export { ClusterRoleListArgs } from "./clusterRoleList";
 export type ClusterRoleList = import("./clusterRoleList").ClusterRoleList;
 export const ClusterRoleList: typeof import("./clusterRoleList").ClusterRoleList = null as any;
+utilities.lazyLoad(exports, ["ClusterRoleList"], () => require("./clusterRoleList"));
 
 export { ClusterRolePatchArgs } from "./clusterRolePatch";
 export type ClusterRolePatch = import("./clusterRolePatch").ClusterRolePatch;
 export const ClusterRolePatch: typeof import("./clusterRolePatch").ClusterRolePatch = null as any;
+utilities.lazyLoad(exports, ["ClusterRolePatch"], () => require("./clusterRolePatch"));
 
 export { RoleArgs } from "./role";
 export type Role = import("./role").Role;
 export const Role: typeof import("./role").Role = null as any;
+utilities.lazyLoad(exports, ["Role"], () => require("./role"));
 
 export { RoleBindingArgs } from "./roleBinding";
 export type RoleBinding = import("./roleBinding").RoleBinding;
 export const RoleBinding: typeof import("./roleBinding").RoleBinding = null as any;
+utilities.lazyLoad(exports, ["RoleBinding"], () => require("./roleBinding"));
 
 export { RoleBindingListArgs } from "./roleBindingList";
 export type RoleBindingList = import("./roleBindingList").RoleBindingList;
 export const RoleBindingList: typeof import("./roleBindingList").RoleBindingList = null as any;
+utilities.lazyLoad(exports, ["RoleBindingList"], () => require("./roleBindingList"));
 
 export { RoleBindingPatchArgs } from "./roleBindingPatch";
 export type RoleBindingPatch = import("./roleBindingPatch").RoleBindingPatch;
 export const RoleBindingPatch: typeof import("./roleBindingPatch").RoleBindingPatch = null as any;
+utilities.lazyLoad(exports, ["RoleBindingPatch"], () => require("./roleBindingPatch"));
 
 export { RoleListArgs } from "./roleList";
 export type RoleList = import("./roleList").RoleList;
 export const RoleList: typeof import("./roleList").RoleList = null as any;
+utilities.lazyLoad(exports, ["RoleList"], () => require("./roleList"));
 
 export { RolePatchArgs } from "./rolePatch";
 export type RolePatch = import("./rolePatch").RolePatch;
 export const RolePatch: typeof import("./rolePatch").RolePatch = null as any;
-
-utilities.lazyLoad(exports, ["ClusterRole"], () => require("./clusterRole"));
-utilities.lazyLoad(exports, ["ClusterRoleBinding"], () => require("./clusterRoleBinding"));
-utilities.lazyLoad(exports, ["ClusterRoleBindingList"], () => require("./clusterRoleBindingList"));
-utilities.lazyLoad(exports, ["ClusterRoleBindingPatch"], () => require("./clusterRoleBindingPatch"));
-utilities.lazyLoad(exports, ["ClusterRoleList"], () => require("./clusterRoleList"));
-utilities.lazyLoad(exports, ["ClusterRolePatch"], () => require("./clusterRolePatch"));
-utilities.lazyLoad(exports, ["Role"], () => require("./role"));
-utilities.lazyLoad(exports, ["RoleBinding"], () => require("./roleBinding"));
-utilities.lazyLoad(exports, ["RoleBindingList"], () => require("./roleBindingList"));
-utilities.lazyLoad(exports, ["RoleBindingPatch"], () => require("./roleBindingPatch"));
-utilities.lazyLoad(exports, ["RoleList"], () => require("./roleList"));
 utilities.lazyLoad(exports, ["RolePatch"], () => require("./rolePatch"));
+
 
 const _module = {
     version: utilities.getVersion(),

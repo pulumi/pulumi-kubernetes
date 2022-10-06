@@ -8,238 +8,238 @@ import * as utilities from "../../utilities";
 export { BindingArgs } from "./binding";
 export type Binding = import("./binding").Binding;
 export const Binding: typeof import("./binding").Binding = null as any;
+utilities.lazyLoad(exports, ["Binding"], () => require("./binding"));
 
 export { BindingPatchArgs } from "./bindingPatch";
 export type BindingPatch = import("./bindingPatch").BindingPatch;
 export const BindingPatch: typeof import("./bindingPatch").BindingPatch = null as any;
+utilities.lazyLoad(exports, ["BindingPatch"], () => require("./bindingPatch"));
 
 export { ConfigMapArgs } from "./configMap";
 export type ConfigMap = import("./configMap").ConfigMap;
 export const ConfigMap: typeof import("./configMap").ConfigMap = null as any;
+utilities.lazyLoad(exports, ["ConfigMap"], () => require("./configMap"));
 
 export { ConfigMapListArgs } from "./configMapList";
 export type ConfigMapList = import("./configMapList").ConfigMapList;
 export const ConfigMapList: typeof import("./configMapList").ConfigMapList = null as any;
+utilities.lazyLoad(exports, ["ConfigMapList"], () => require("./configMapList"));
 
 export { ConfigMapPatchArgs } from "./configMapPatch";
 export type ConfigMapPatch = import("./configMapPatch").ConfigMapPatch;
 export const ConfigMapPatch: typeof import("./configMapPatch").ConfigMapPatch = null as any;
+utilities.lazyLoad(exports, ["ConfigMapPatch"], () => require("./configMapPatch"));
 
 export { EndpointsArgs } from "./endpoints";
 export type Endpoints = import("./endpoints").Endpoints;
 export const Endpoints: typeof import("./endpoints").Endpoints = null as any;
+utilities.lazyLoad(exports, ["Endpoints"], () => require("./endpoints"));
 
 export { EndpointsListArgs } from "./endpointsList";
 export type EndpointsList = import("./endpointsList").EndpointsList;
 export const EndpointsList: typeof import("./endpointsList").EndpointsList = null as any;
+utilities.lazyLoad(exports, ["EndpointsList"], () => require("./endpointsList"));
 
 export { EndpointsPatchArgs } from "./endpointsPatch";
 export type EndpointsPatch = import("./endpointsPatch").EndpointsPatch;
 export const EndpointsPatch: typeof import("./endpointsPatch").EndpointsPatch = null as any;
+utilities.lazyLoad(exports, ["EndpointsPatch"], () => require("./endpointsPatch"));
 
 export { EventArgs } from "./event";
 export type Event = import("./event").Event;
 export const Event: typeof import("./event").Event = null as any;
+utilities.lazyLoad(exports, ["Event"], () => require("./event"));
 
 export { EventListArgs } from "./eventList";
 export type EventList = import("./eventList").EventList;
 export const EventList: typeof import("./eventList").EventList = null as any;
+utilities.lazyLoad(exports, ["EventList"], () => require("./eventList"));
 
 export { EventPatchArgs } from "./eventPatch";
 export type EventPatch = import("./eventPatch").EventPatch;
 export const EventPatch: typeof import("./eventPatch").EventPatch = null as any;
+utilities.lazyLoad(exports, ["EventPatch"], () => require("./eventPatch"));
 
 export { LimitRangeArgs } from "./limitRange";
 export type LimitRange = import("./limitRange").LimitRange;
 export const LimitRange: typeof import("./limitRange").LimitRange = null as any;
+utilities.lazyLoad(exports, ["LimitRange"], () => require("./limitRange"));
 
 export { LimitRangeListArgs } from "./limitRangeList";
 export type LimitRangeList = import("./limitRangeList").LimitRangeList;
 export const LimitRangeList: typeof import("./limitRangeList").LimitRangeList = null as any;
+utilities.lazyLoad(exports, ["LimitRangeList"], () => require("./limitRangeList"));
 
 export { LimitRangePatchArgs } from "./limitRangePatch";
 export type LimitRangePatch = import("./limitRangePatch").LimitRangePatch;
 export const LimitRangePatch: typeof import("./limitRangePatch").LimitRangePatch = null as any;
+utilities.lazyLoad(exports, ["LimitRangePatch"], () => require("./limitRangePatch"));
 
 export { NamespaceArgs } from "./namespace";
 export type Namespace = import("./namespace").Namespace;
 export const Namespace: typeof import("./namespace").Namespace = null as any;
+utilities.lazyLoad(exports, ["Namespace"], () => require("./namespace"));
 
 export { NamespaceListArgs } from "./namespaceList";
 export type NamespaceList = import("./namespaceList").NamespaceList;
 export const NamespaceList: typeof import("./namespaceList").NamespaceList = null as any;
+utilities.lazyLoad(exports, ["NamespaceList"], () => require("./namespaceList"));
 
 export { NamespacePatchArgs } from "./namespacePatch";
 export type NamespacePatch = import("./namespacePatch").NamespacePatch;
 export const NamespacePatch: typeof import("./namespacePatch").NamespacePatch = null as any;
+utilities.lazyLoad(exports, ["NamespacePatch"], () => require("./namespacePatch"));
 
 export { NodeArgs } from "./node";
 export type Node = import("./node").Node;
 export const Node: typeof import("./node").Node = null as any;
+utilities.lazyLoad(exports, ["Node"], () => require("./node"));
 
 export { NodeListArgs } from "./nodeList";
 export type NodeList = import("./nodeList").NodeList;
 export const NodeList: typeof import("./nodeList").NodeList = null as any;
+utilities.lazyLoad(exports, ["NodeList"], () => require("./nodeList"));
 
 export { NodePatchArgs } from "./nodePatch";
 export type NodePatch = import("./nodePatch").NodePatch;
 export const NodePatch: typeof import("./nodePatch").NodePatch = null as any;
+utilities.lazyLoad(exports, ["NodePatch"], () => require("./nodePatch"));
 
 export { PersistentVolumeArgs } from "./persistentVolume";
 export type PersistentVolume = import("./persistentVolume").PersistentVolume;
 export const PersistentVolume: typeof import("./persistentVolume").PersistentVolume = null as any;
+utilities.lazyLoad(exports, ["PersistentVolume"], () => require("./persistentVolume"));
 
 export { PersistentVolumeClaimArgs } from "./persistentVolumeClaim";
 export type PersistentVolumeClaim = import("./persistentVolumeClaim").PersistentVolumeClaim;
 export const PersistentVolumeClaim: typeof import("./persistentVolumeClaim").PersistentVolumeClaim = null as any;
+utilities.lazyLoad(exports, ["PersistentVolumeClaim"], () => require("./persistentVolumeClaim"));
 
 export { PersistentVolumeClaimListArgs } from "./persistentVolumeClaimList";
 export type PersistentVolumeClaimList = import("./persistentVolumeClaimList").PersistentVolumeClaimList;
 export const PersistentVolumeClaimList: typeof import("./persistentVolumeClaimList").PersistentVolumeClaimList = null as any;
+utilities.lazyLoad(exports, ["PersistentVolumeClaimList"], () => require("./persistentVolumeClaimList"));
 
 export { PersistentVolumeClaimPatchArgs } from "./persistentVolumeClaimPatch";
 export type PersistentVolumeClaimPatch = import("./persistentVolumeClaimPatch").PersistentVolumeClaimPatch;
 export const PersistentVolumeClaimPatch: typeof import("./persistentVolumeClaimPatch").PersistentVolumeClaimPatch = null as any;
+utilities.lazyLoad(exports, ["PersistentVolumeClaimPatch"], () => require("./persistentVolumeClaimPatch"));
 
 export { PersistentVolumeListArgs } from "./persistentVolumeList";
 export type PersistentVolumeList = import("./persistentVolumeList").PersistentVolumeList;
 export const PersistentVolumeList: typeof import("./persistentVolumeList").PersistentVolumeList = null as any;
+utilities.lazyLoad(exports, ["PersistentVolumeList"], () => require("./persistentVolumeList"));
 
 export { PersistentVolumePatchArgs } from "./persistentVolumePatch";
 export type PersistentVolumePatch = import("./persistentVolumePatch").PersistentVolumePatch;
 export const PersistentVolumePatch: typeof import("./persistentVolumePatch").PersistentVolumePatch = null as any;
+utilities.lazyLoad(exports, ["PersistentVolumePatch"], () => require("./persistentVolumePatch"));
 
 export { PodArgs } from "./pod";
 export type Pod = import("./pod").Pod;
 export const Pod: typeof import("./pod").Pod = null as any;
+utilities.lazyLoad(exports, ["Pod"], () => require("./pod"));
 
 export { PodListArgs } from "./podList";
 export type PodList = import("./podList").PodList;
 export const PodList: typeof import("./podList").PodList = null as any;
+utilities.lazyLoad(exports, ["PodList"], () => require("./podList"));
 
 export { PodPatchArgs } from "./podPatch";
 export type PodPatch = import("./podPatch").PodPatch;
 export const PodPatch: typeof import("./podPatch").PodPatch = null as any;
+utilities.lazyLoad(exports, ["PodPatch"], () => require("./podPatch"));
 
 export { PodTemplateArgs } from "./podTemplate";
 export type PodTemplate = import("./podTemplate").PodTemplate;
 export const PodTemplate: typeof import("./podTemplate").PodTemplate = null as any;
+utilities.lazyLoad(exports, ["PodTemplate"], () => require("./podTemplate"));
 
 export { PodTemplateListArgs } from "./podTemplateList";
 export type PodTemplateList = import("./podTemplateList").PodTemplateList;
 export const PodTemplateList: typeof import("./podTemplateList").PodTemplateList = null as any;
+utilities.lazyLoad(exports, ["PodTemplateList"], () => require("./podTemplateList"));
 
 export { PodTemplatePatchArgs } from "./podTemplatePatch";
 export type PodTemplatePatch = import("./podTemplatePatch").PodTemplatePatch;
 export const PodTemplatePatch: typeof import("./podTemplatePatch").PodTemplatePatch = null as any;
+utilities.lazyLoad(exports, ["PodTemplatePatch"], () => require("./podTemplatePatch"));
 
 export { ReplicationControllerArgs } from "./replicationController";
 export type ReplicationController = import("./replicationController").ReplicationController;
 export const ReplicationController: typeof import("./replicationController").ReplicationController = null as any;
+utilities.lazyLoad(exports, ["ReplicationController"], () => require("./replicationController"));
 
 export { ReplicationControllerListArgs } from "./replicationControllerList";
 export type ReplicationControllerList = import("./replicationControllerList").ReplicationControllerList;
 export const ReplicationControllerList: typeof import("./replicationControllerList").ReplicationControllerList = null as any;
+utilities.lazyLoad(exports, ["ReplicationControllerList"], () => require("./replicationControllerList"));
 
 export { ReplicationControllerPatchArgs } from "./replicationControllerPatch";
 export type ReplicationControllerPatch = import("./replicationControllerPatch").ReplicationControllerPatch;
 export const ReplicationControllerPatch: typeof import("./replicationControllerPatch").ReplicationControllerPatch = null as any;
+utilities.lazyLoad(exports, ["ReplicationControllerPatch"], () => require("./replicationControllerPatch"));
 
 export { ResourceQuotaArgs } from "./resourceQuota";
 export type ResourceQuota = import("./resourceQuota").ResourceQuota;
 export const ResourceQuota: typeof import("./resourceQuota").ResourceQuota = null as any;
+utilities.lazyLoad(exports, ["ResourceQuota"], () => require("./resourceQuota"));
 
 export { ResourceQuotaListArgs } from "./resourceQuotaList";
 export type ResourceQuotaList = import("./resourceQuotaList").ResourceQuotaList;
 export const ResourceQuotaList: typeof import("./resourceQuotaList").ResourceQuotaList = null as any;
+utilities.lazyLoad(exports, ["ResourceQuotaList"], () => require("./resourceQuotaList"));
 
 export { ResourceQuotaPatchArgs } from "./resourceQuotaPatch";
 export type ResourceQuotaPatch = import("./resourceQuotaPatch").ResourceQuotaPatch;
 export const ResourceQuotaPatch: typeof import("./resourceQuotaPatch").ResourceQuotaPatch = null as any;
+utilities.lazyLoad(exports, ["ResourceQuotaPatch"], () => require("./resourceQuotaPatch"));
 
 export { SecretArgs } from "./secret";
 export type Secret = import("./secret").Secret;
 export const Secret: typeof import("./secret").Secret = null as any;
+utilities.lazyLoad(exports, ["Secret"], () => require("./secret"));
 
 export { SecretListArgs } from "./secretList";
 export type SecretList = import("./secretList").SecretList;
 export const SecretList: typeof import("./secretList").SecretList = null as any;
+utilities.lazyLoad(exports, ["SecretList"], () => require("./secretList"));
 
 export { SecretPatchArgs } from "./secretPatch";
 export type SecretPatch = import("./secretPatch").SecretPatch;
 export const SecretPatch: typeof import("./secretPatch").SecretPatch = null as any;
+utilities.lazyLoad(exports, ["SecretPatch"], () => require("./secretPatch"));
 
 export { ServiceArgs } from "./service";
 export type Service = import("./service").Service;
 export const Service: typeof import("./service").Service = null as any;
+utilities.lazyLoad(exports, ["Service"], () => require("./service"));
 
 export { ServiceAccountArgs } from "./serviceAccount";
 export type ServiceAccount = import("./serviceAccount").ServiceAccount;
 export const ServiceAccount: typeof import("./serviceAccount").ServiceAccount = null as any;
+utilities.lazyLoad(exports, ["ServiceAccount"], () => require("./serviceAccount"));
 
 export { ServiceAccountListArgs } from "./serviceAccountList";
 export type ServiceAccountList = import("./serviceAccountList").ServiceAccountList;
 export const ServiceAccountList: typeof import("./serviceAccountList").ServiceAccountList = null as any;
+utilities.lazyLoad(exports, ["ServiceAccountList"], () => require("./serviceAccountList"));
 
 export { ServiceAccountPatchArgs } from "./serviceAccountPatch";
 export type ServiceAccountPatch = import("./serviceAccountPatch").ServiceAccountPatch;
 export const ServiceAccountPatch: typeof import("./serviceAccountPatch").ServiceAccountPatch = null as any;
+utilities.lazyLoad(exports, ["ServiceAccountPatch"], () => require("./serviceAccountPatch"));
 
 export { ServiceListArgs } from "./serviceList";
 export type ServiceList = import("./serviceList").ServiceList;
 export const ServiceList: typeof import("./serviceList").ServiceList = null as any;
+utilities.lazyLoad(exports, ["ServiceList"], () => require("./serviceList"));
 
 export { ServicePatchArgs } from "./servicePatch";
 export type ServicePatch = import("./servicePatch").ServicePatch;
 export const ServicePatch: typeof import("./servicePatch").ServicePatch = null as any;
-
-utilities.lazyLoad(exports, ["Binding"], () => require("./binding"));
-utilities.lazyLoad(exports, ["BindingPatch"], () => require("./bindingPatch"));
-utilities.lazyLoad(exports, ["ConfigMap"], () => require("./configMap"));
-utilities.lazyLoad(exports, ["ConfigMapList"], () => require("./configMapList"));
-utilities.lazyLoad(exports, ["ConfigMapPatch"], () => require("./configMapPatch"));
-utilities.lazyLoad(exports, ["Endpoints"], () => require("./endpoints"));
-utilities.lazyLoad(exports, ["EndpointsList"], () => require("./endpointsList"));
-utilities.lazyLoad(exports, ["EndpointsPatch"], () => require("./endpointsPatch"));
-utilities.lazyLoad(exports, ["Event"], () => require("./event"));
-utilities.lazyLoad(exports, ["EventList"], () => require("./eventList"));
-utilities.lazyLoad(exports, ["EventPatch"], () => require("./eventPatch"));
-utilities.lazyLoad(exports, ["LimitRange"], () => require("./limitRange"));
-utilities.lazyLoad(exports, ["LimitRangeList"], () => require("./limitRangeList"));
-utilities.lazyLoad(exports, ["LimitRangePatch"], () => require("./limitRangePatch"));
-utilities.lazyLoad(exports, ["Namespace"], () => require("./namespace"));
-utilities.lazyLoad(exports, ["NamespaceList"], () => require("./namespaceList"));
-utilities.lazyLoad(exports, ["NamespacePatch"], () => require("./namespacePatch"));
-utilities.lazyLoad(exports, ["Node"], () => require("./node"));
-utilities.lazyLoad(exports, ["NodeList"], () => require("./nodeList"));
-utilities.lazyLoad(exports, ["NodePatch"], () => require("./nodePatch"));
-utilities.lazyLoad(exports, ["PersistentVolume"], () => require("./persistentVolume"));
-utilities.lazyLoad(exports, ["PersistentVolumeClaim"], () => require("./persistentVolumeClaim"));
-utilities.lazyLoad(exports, ["PersistentVolumeClaimList"], () => require("./persistentVolumeClaimList"));
-utilities.lazyLoad(exports, ["PersistentVolumeClaimPatch"], () => require("./persistentVolumeClaimPatch"));
-utilities.lazyLoad(exports, ["PersistentVolumeList"], () => require("./persistentVolumeList"));
-utilities.lazyLoad(exports, ["PersistentVolumePatch"], () => require("./persistentVolumePatch"));
-utilities.lazyLoad(exports, ["Pod"], () => require("./pod"));
-utilities.lazyLoad(exports, ["PodList"], () => require("./podList"));
-utilities.lazyLoad(exports, ["PodPatch"], () => require("./podPatch"));
-utilities.lazyLoad(exports, ["PodTemplate"], () => require("./podTemplate"));
-utilities.lazyLoad(exports, ["PodTemplateList"], () => require("./podTemplateList"));
-utilities.lazyLoad(exports, ["PodTemplatePatch"], () => require("./podTemplatePatch"));
-utilities.lazyLoad(exports, ["ReplicationController"], () => require("./replicationController"));
-utilities.lazyLoad(exports, ["ReplicationControllerList"], () => require("./replicationControllerList"));
-utilities.lazyLoad(exports, ["ReplicationControllerPatch"], () => require("./replicationControllerPatch"));
-utilities.lazyLoad(exports, ["ResourceQuota"], () => require("./resourceQuota"));
-utilities.lazyLoad(exports, ["ResourceQuotaList"], () => require("./resourceQuotaList"));
-utilities.lazyLoad(exports, ["ResourceQuotaPatch"], () => require("./resourceQuotaPatch"));
-utilities.lazyLoad(exports, ["Secret"], () => require("./secret"));
-utilities.lazyLoad(exports, ["SecretList"], () => require("./secretList"));
-utilities.lazyLoad(exports, ["SecretPatch"], () => require("./secretPatch"));
-utilities.lazyLoad(exports, ["Service"], () => require("./service"));
-utilities.lazyLoad(exports, ["ServiceAccount"], () => require("./serviceAccount"));
-utilities.lazyLoad(exports, ["ServiceAccountList"], () => require("./serviceAccountList"));
-utilities.lazyLoad(exports, ["ServiceAccountPatch"], () => require("./serviceAccountPatch"));
-utilities.lazyLoad(exports, ["ServiceList"], () => require("./serviceList"));
 utilities.lazyLoad(exports, ["ServicePatch"], () => require("./servicePatch"));
+
 
 // Export enums:
 export * from "../../types/enums/core/v1";

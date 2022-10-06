@@ -8,18 +8,18 @@ import * as utilities from "../../utilities";
 export { CustomResourceDefinitionArgs } from "./customResourceDefinition";
 export type CustomResourceDefinition = import("./customResourceDefinition").CustomResourceDefinition;
 export const CustomResourceDefinition: typeof import("./customResourceDefinition").CustomResourceDefinition = null as any;
+utilities.lazyLoad(exports, ["CustomResourceDefinition"], () => require("./customResourceDefinition"));
 
 export { CustomResourceDefinitionListArgs } from "./customResourceDefinitionList";
 export type CustomResourceDefinitionList = import("./customResourceDefinitionList").CustomResourceDefinitionList;
 export const CustomResourceDefinitionList: typeof import("./customResourceDefinitionList").CustomResourceDefinitionList = null as any;
+utilities.lazyLoad(exports, ["CustomResourceDefinitionList"], () => require("./customResourceDefinitionList"));
 
 export { CustomResourceDefinitionPatchArgs } from "./customResourceDefinitionPatch";
 export type CustomResourceDefinitionPatch = import("./customResourceDefinitionPatch").CustomResourceDefinitionPatch;
 export const CustomResourceDefinitionPatch: typeof import("./customResourceDefinitionPatch").CustomResourceDefinitionPatch = null as any;
-
-utilities.lazyLoad(exports, ["CustomResourceDefinition"], () => require("./customResourceDefinition"));
-utilities.lazyLoad(exports, ["CustomResourceDefinitionList"], () => require("./customResourceDefinitionList"));
 utilities.lazyLoad(exports, ["CustomResourceDefinitionPatch"], () => require("./customResourceDefinitionPatch"));
+
 
 const _module = {
     version: utilities.getVersion(),

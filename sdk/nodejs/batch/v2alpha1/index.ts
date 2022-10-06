@@ -8,18 +8,18 @@ import * as utilities from "../../utilities";
 export { CronJobArgs } from "./cronJob";
 export type CronJob = import("./cronJob").CronJob;
 export const CronJob: typeof import("./cronJob").CronJob = null as any;
+utilities.lazyLoad(exports, ["CronJob"], () => require("./cronJob"));
 
 export { CronJobListArgs } from "./cronJobList";
 export type CronJobList = import("./cronJobList").CronJobList;
 export const CronJobList: typeof import("./cronJobList").CronJobList = null as any;
+utilities.lazyLoad(exports, ["CronJobList"], () => require("./cronJobList"));
 
 export { CronJobPatchArgs } from "./cronJobPatch";
 export type CronJobPatch = import("./cronJobPatch").CronJobPatch;
 export const CronJobPatch: typeof import("./cronJobPatch").CronJobPatch = null as any;
-
-utilities.lazyLoad(exports, ["CronJob"], () => require("./cronJob"));
-utilities.lazyLoad(exports, ["CronJobList"], () => require("./cronJobList"));
 utilities.lazyLoad(exports, ["CronJobPatch"], () => require("./cronJobPatch"));
+
 
 const _module = {
     version: utilities.getVersion(),

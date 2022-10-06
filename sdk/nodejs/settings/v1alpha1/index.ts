@@ -8,18 +8,18 @@ import * as utilities from "../../utilities";
 export { PodPresetArgs } from "./podPreset";
 export type PodPreset = import("./podPreset").PodPreset;
 export const PodPreset: typeof import("./podPreset").PodPreset = null as any;
+utilities.lazyLoad(exports, ["PodPreset"], () => require("./podPreset"));
 
 export { PodPresetListArgs } from "./podPresetList";
 export type PodPresetList = import("./podPresetList").PodPresetList;
 export const PodPresetList: typeof import("./podPresetList").PodPresetList = null as any;
+utilities.lazyLoad(exports, ["PodPresetList"], () => require("./podPresetList"));
 
 export { PodPresetPatchArgs } from "./podPresetPatch";
 export type PodPresetPatch = import("./podPresetPatch").PodPresetPatch;
 export const PodPresetPatch: typeof import("./podPresetPatch").PodPresetPatch = null as any;
-
-utilities.lazyLoad(exports, ["PodPreset"], () => require("./podPreset"));
-utilities.lazyLoad(exports, ["PodPresetList"], () => require("./podPresetList"));
 utilities.lazyLoad(exports, ["PodPresetPatch"], () => require("./podPresetPatch"));
+
 
 const _module = {
     version: utilities.getVersion(),

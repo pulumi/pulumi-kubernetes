@@ -9,8 +9,8 @@ export * from "./helm";
 export { ReleaseArgs } from "./release";
 export type Release = import("./release").Release;
 export const Release: typeof import("./release").Release = null as any;
-
 utilities.lazyLoad(exports, ["Release"], () => require("./release"));
+
 
 const _module = {
     version: utilities.getVersion(),

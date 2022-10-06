@@ -8,13 +8,13 @@ import * as utilities from "../../utilities";
 export { StatusArgs } from "./status";
 export type Status = import("./status").Status;
 export const Status: typeof import("./status").Status = null as any;
+utilities.lazyLoad(exports, ["Status"], () => require("./status"));
 
 export { StatusPatchArgs } from "./statusPatch";
 export type StatusPatch = import("./statusPatch").StatusPatch;
 export const StatusPatch: typeof import("./statusPatch").StatusPatch = null as any;
-
-utilities.lazyLoad(exports, ["Status"], () => require("./status"));
 utilities.lazyLoad(exports, ["StatusPatch"], () => require("./statusPatch"));
+
 
 const _module = {
     version: utilities.getVersion(),
