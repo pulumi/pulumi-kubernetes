@@ -8,78 +8,78 @@ import * as utilities from "../../utilities";
 export { CSIDriverArgs } from "./csidriver";
 export type CSIDriver = import("./csidriver").CSIDriver;
 export const CSIDriver: typeof import("./csidriver").CSIDriver = null as any;
+utilities.lazyLoad(exports, ["CSIDriver"], () => require("./csidriver"));
 
 export { CSIDriverListArgs } from "./csidriverList";
 export type CSIDriverList = import("./csidriverList").CSIDriverList;
 export const CSIDriverList: typeof import("./csidriverList").CSIDriverList = null as any;
+utilities.lazyLoad(exports, ["CSIDriverList"], () => require("./csidriverList"));
 
 export { CSIDriverPatchArgs } from "./csidriverPatch";
 export type CSIDriverPatch = import("./csidriverPatch").CSIDriverPatch;
 export const CSIDriverPatch: typeof import("./csidriverPatch").CSIDriverPatch = null as any;
+utilities.lazyLoad(exports, ["CSIDriverPatch"], () => require("./csidriverPatch"));
 
 export { CSINodeArgs } from "./csinode";
 export type CSINode = import("./csinode").CSINode;
 export const CSINode: typeof import("./csinode").CSINode = null as any;
+utilities.lazyLoad(exports, ["CSINode"], () => require("./csinode"));
 
 export { CSINodeListArgs } from "./csinodeList";
 export type CSINodeList = import("./csinodeList").CSINodeList;
 export const CSINodeList: typeof import("./csinodeList").CSINodeList = null as any;
+utilities.lazyLoad(exports, ["CSINodeList"], () => require("./csinodeList"));
 
 export { CSINodePatchArgs } from "./csinodePatch";
 export type CSINodePatch = import("./csinodePatch").CSINodePatch;
 export const CSINodePatch: typeof import("./csinodePatch").CSINodePatch = null as any;
+utilities.lazyLoad(exports, ["CSINodePatch"], () => require("./csinodePatch"));
 
 export { CSIStorageCapacityArgs } from "./csistorageCapacity";
 export type CSIStorageCapacity = import("./csistorageCapacity").CSIStorageCapacity;
 export const CSIStorageCapacity: typeof import("./csistorageCapacity").CSIStorageCapacity = null as any;
+utilities.lazyLoad(exports, ["CSIStorageCapacity"], () => require("./csistorageCapacity"));
 
 export { CSIStorageCapacityListArgs } from "./csistorageCapacityList";
 export type CSIStorageCapacityList = import("./csistorageCapacityList").CSIStorageCapacityList;
 export const CSIStorageCapacityList: typeof import("./csistorageCapacityList").CSIStorageCapacityList = null as any;
+utilities.lazyLoad(exports, ["CSIStorageCapacityList"], () => require("./csistorageCapacityList"));
 
 export { CSIStorageCapacityPatchArgs } from "./csistorageCapacityPatch";
 export type CSIStorageCapacityPatch = import("./csistorageCapacityPatch").CSIStorageCapacityPatch;
 export const CSIStorageCapacityPatch: typeof import("./csistorageCapacityPatch").CSIStorageCapacityPatch = null as any;
+utilities.lazyLoad(exports, ["CSIStorageCapacityPatch"], () => require("./csistorageCapacityPatch"));
 
 export { StorageClassArgs } from "./storageClass";
 export type StorageClass = import("./storageClass").StorageClass;
 export const StorageClass: typeof import("./storageClass").StorageClass = null as any;
+utilities.lazyLoad(exports, ["StorageClass"], () => require("./storageClass"));
 
 export { StorageClassListArgs } from "./storageClassList";
 export type StorageClassList = import("./storageClassList").StorageClassList;
 export const StorageClassList: typeof import("./storageClassList").StorageClassList = null as any;
+utilities.lazyLoad(exports, ["StorageClassList"], () => require("./storageClassList"));
 
 export { StorageClassPatchArgs } from "./storageClassPatch";
 export type StorageClassPatch = import("./storageClassPatch").StorageClassPatch;
 export const StorageClassPatch: typeof import("./storageClassPatch").StorageClassPatch = null as any;
+utilities.lazyLoad(exports, ["StorageClassPatch"], () => require("./storageClassPatch"));
 
 export { VolumeAttachmentArgs } from "./volumeAttachment";
 export type VolumeAttachment = import("./volumeAttachment").VolumeAttachment;
 export const VolumeAttachment: typeof import("./volumeAttachment").VolumeAttachment = null as any;
+utilities.lazyLoad(exports, ["VolumeAttachment"], () => require("./volumeAttachment"));
 
 export { VolumeAttachmentListArgs } from "./volumeAttachmentList";
 export type VolumeAttachmentList = import("./volumeAttachmentList").VolumeAttachmentList;
 export const VolumeAttachmentList: typeof import("./volumeAttachmentList").VolumeAttachmentList = null as any;
+utilities.lazyLoad(exports, ["VolumeAttachmentList"], () => require("./volumeAttachmentList"));
 
 export { VolumeAttachmentPatchArgs } from "./volumeAttachmentPatch";
 export type VolumeAttachmentPatch = import("./volumeAttachmentPatch").VolumeAttachmentPatch;
 export const VolumeAttachmentPatch: typeof import("./volumeAttachmentPatch").VolumeAttachmentPatch = null as any;
-
-utilities.lazyLoad(exports, ["CSIDriver"], () => require("./csidriver"));
-utilities.lazyLoad(exports, ["CSIDriverList"], () => require("./csidriverList"));
-utilities.lazyLoad(exports, ["CSIDriverPatch"], () => require("./csidriverPatch"));
-utilities.lazyLoad(exports, ["CSINode"], () => require("./csinode"));
-utilities.lazyLoad(exports, ["CSINodeList"], () => require("./csinodeList"));
-utilities.lazyLoad(exports, ["CSINodePatch"], () => require("./csinodePatch"));
-utilities.lazyLoad(exports, ["CSIStorageCapacity"], () => require("./csistorageCapacity"));
-utilities.lazyLoad(exports, ["CSIStorageCapacityList"], () => require("./csistorageCapacityList"));
-utilities.lazyLoad(exports, ["CSIStorageCapacityPatch"], () => require("./csistorageCapacityPatch"));
-utilities.lazyLoad(exports, ["StorageClass"], () => require("./storageClass"));
-utilities.lazyLoad(exports, ["StorageClassList"], () => require("./storageClassList"));
-utilities.lazyLoad(exports, ["StorageClassPatch"], () => require("./storageClassPatch"));
-utilities.lazyLoad(exports, ["VolumeAttachment"], () => require("./volumeAttachment"));
-utilities.lazyLoad(exports, ["VolumeAttachmentList"], () => require("./volumeAttachmentList"));
 utilities.lazyLoad(exports, ["VolumeAttachmentPatch"], () => require("./volumeAttachmentPatch"));
+
 
 const _module = {
     version: utilities.getVersion(),

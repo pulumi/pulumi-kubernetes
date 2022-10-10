@@ -8,23 +8,23 @@ import * as utilities from "../../utilities";
 export { TokenRequestArgs } from "./tokenRequest";
 export type TokenRequest = import("./tokenRequest").TokenRequest;
 export const TokenRequest: typeof import("./tokenRequest").TokenRequest = null as any;
+utilities.lazyLoad(exports, ["TokenRequest"], () => require("./tokenRequest"));
 
 export { TokenRequestPatchArgs } from "./tokenRequestPatch";
 export type TokenRequestPatch = import("./tokenRequestPatch").TokenRequestPatch;
 export const TokenRequestPatch: typeof import("./tokenRequestPatch").TokenRequestPatch = null as any;
+utilities.lazyLoad(exports, ["TokenRequestPatch"], () => require("./tokenRequestPatch"));
 
 export { TokenReviewArgs } from "./tokenReview";
 export type TokenReview = import("./tokenReview").TokenReview;
 export const TokenReview: typeof import("./tokenReview").TokenReview = null as any;
+utilities.lazyLoad(exports, ["TokenReview"], () => require("./tokenReview"));
 
 export { TokenReviewPatchArgs } from "./tokenReviewPatch";
 export type TokenReviewPatch = import("./tokenReviewPatch").TokenReviewPatch;
 export const TokenReviewPatch: typeof import("./tokenReviewPatch").TokenReviewPatch = null as any;
-
-utilities.lazyLoad(exports, ["TokenRequest"], () => require("./tokenRequest"));
-utilities.lazyLoad(exports, ["TokenRequestPatch"], () => require("./tokenRequestPatch"));
-utilities.lazyLoad(exports, ["TokenReview"], () => require("./tokenReview"));
 utilities.lazyLoad(exports, ["TokenReviewPatch"], () => require("./tokenReviewPatch"));
+
 
 const _module = {
     version: utilities.getVersion(),

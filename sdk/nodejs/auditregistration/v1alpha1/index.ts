@@ -8,18 +8,18 @@ import * as utilities from "../../utilities";
 export { AuditSinkArgs } from "./auditSink";
 export type AuditSink = import("./auditSink").AuditSink;
 export const AuditSink: typeof import("./auditSink").AuditSink = null as any;
+utilities.lazyLoad(exports, ["AuditSink"], () => require("./auditSink"));
 
 export { AuditSinkListArgs } from "./auditSinkList";
 export type AuditSinkList = import("./auditSinkList").AuditSinkList;
 export const AuditSinkList: typeof import("./auditSinkList").AuditSinkList = null as any;
+utilities.lazyLoad(exports, ["AuditSinkList"], () => require("./auditSinkList"));
 
 export { AuditSinkPatchArgs } from "./auditSinkPatch";
 export type AuditSinkPatch = import("./auditSinkPatch").AuditSinkPatch;
 export const AuditSinkPatch: typeof import("./auditSinkPatch").AuditSinkPatch = null as any;
-
-utilities.lazyLoad(exports, ["AuditSink"], () => require("./auditSink"));
-utilities.lazyLoad(exports, ["AuditSinkList"], () => require("./auditSinkList"));
 utilities.lazyLoad(exports, ["AuditSinkPatch"], () => require("./auditSinkPatch"));
+
 
 const _module = {
     version: utilities.getVersion(),

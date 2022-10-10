@@ -8,18 +8,18 @@ import * as utilities from "../../utilities";
 export { HorizontalPodAutoscalerArgs } from "./horizontalPodAutoscaler";
 export type HorizontalPodAutoscaler = import("./horizontalPodAutoscaler").HorizontalPodAutoscaler;
 export const HorizontalPodAutoscaler: typeof import("./horizontalPodAutoscaler").HorizontalPodAutoscaler = null as any;
+utilities.lazyLoad(exports, ["HorizontalPodAutoscaler"], () => require("./horizontalPodAutoscaler"));
 
 export { HorizontalPodAutoscalerListArgs } from "./horizontalPodAutoscalerList";
 export type HorizontalPodAutoscalerList = import("./horizontalPodAutoscalerList").HorizontalPodAutoscalerList;
 export const HorizontalPodAutoscalerList: typeof import("./horizontalPodAutoscalerList").HorizontalPodAutoscalerList = null as any;
+utilities.lazyLoad(exports, ["HorizontalPodAutoscalerList"], () => require("./horizontalPodAutoscalerList"));
 
 export { HorizontalPodAutoscalerPatchArgs } from "./horizontalPodAutoscalerPatch";
 export type HorizontalPodAutoscalerPatch = import("./horizontalPodAutoscalerPatch").HorizontalPodAutoscalerPatch;
 export const HorizontalPodAutoscalerPatch: typeof import("./horizontalPodAutoscalerPatch").HorizontalPodAutoscalerPatch = null as any;
-
-utilities.lazyLoad(exports, ["HorizontalPodAutoscaler"], () => require("./horizontalPodAutoscaler"));
-utilities.lazyLoad(exports, ["HorizontalPodAutoscalerList"], () => require("./horizontalPodAutoscalerList"));
 utilities.lazyLoad(exports, ["HorizontalPodAutoscalerPatch"], () => require("./horizontalPodAutoscalerPatch"));
+
 
 const _module = {
     version: utilities.getVersion(),

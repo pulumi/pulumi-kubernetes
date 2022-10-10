@@ -8,93 +8,93 @@ import * as utilities from "../../utilities";
 export { DaemonSetArgs } from "./daemonSet";
 export type DaemonSet = import("./daemonSet").DaemonSet;
 export const DaemonSet: typeof import("./daemonSet").DaemonSet = null as any;
+utilities.lazyLoad(exports, ["DaemonSet"], () => require("./daemonSet"));
 
 export { DaemonSetListArgs } from "./daemonSetList";
 export type DaemonSetList = import("./daemonSetList").DaemonSetList;
 export const DaemonSetList: typeof import("./daemonSetList").DaemonSetList = null as any;
+utilities.lazyLoad(exports, ["DaemonSetList"], () => require("./daemonSetList"));
 
 export { DaemonSetPatchArgs } from "./daemonSetPatch";
 export type DaemonSetPatch = import("./daemonSetPatch").DaemonSetPatch;
 export const DaemonSetPatch: typeof import("./daemonSetPatch").DaemonSetPatch = null as any;
+utilities.lazyLoad(exports, ["DaemonSetPatch"], () => require("./daemonSetPatch"));
 
 export { DeploymentArgs } from "./deployment";
 export type Deployment = import("./deployment").Deployment;
 export const Deployment: typeof import("./deployment").Deployment = null as any;
+utilities.lazyLoad(exports, ["Deployment"], () => require("./deployment"));
 
 export { DeploymentListArgs } from "./deploymentList";
 export type DeploymentList = import("./deploymentList").DeploymentList;
 export const DeploymentList: typeof import("./deploymentList").DeploymentList = null as any;
+utilities.lazyLoad(exports, ["DeploymentList"], () => require("./deploymentList"));
 
 export { DeploymentPatchArgs } from "./deploymentPatch";
 export type DeploymentPatch = import("./deploymentPatch").DeploymentPatch;
 export const DeploymentPatch: typeof import("./deploymentPatch").DeploymentPatch = null as any;
+utilities.lazyLoad(exports, ["DeploymentPatch"], () => require("./deploymentPatch"));
 
 export { IngressArgs } from "./ingress";
 export type Ingress = import("./ingress").Ingress;
 export const Ingress: typeof import("./ingress").Ingress = null as any;
+utilities.lazyLoad(exports, ["Ingress"], () => require("./ingress"));
 
 export { IngressListArgs } from "./ingressList";
 export type IngressList = import("./ingressList").IngressList;
 export const IngressList: typeof import("./ingressList").IngressList = null as any;
+utilities.lazyLoad(exports, ["IngressList"], () => require("./ingressList"));
 
 export { IngressPatchArgs } from "./ingressPatch";
 export type IngressPatch = import("./ingressPatch").IngressPatch;
 export const IngressPatch: typeof import("./ingressPatch").IngressPatch = null as any;
+utilities.lazyLoad(exports, ["IngressPatch"], () => require("./ingressPatch"));
 
 export { NetworkPolicyArgs } from "./networkPolicy";
 export type NetworkPolicy = import("./networkPolicy").NetworkPolicy;
 export const NetworkPolicy: typeof import("./networkPolicy").NetworkPolicy = null as any;
+utilities.lazyLoad(exports, ["NetworkPolicy"], () => require("./networkPolicy"));
 
 export { NetworkPolicyListArgs } from "./networkPolicyList";
 export type NetworkPolicyList = import("./networkPolicyList").NetworkPolicyList;
 export const NetworkPolicyList: typeof import("./networkPolicyList").NetworkPolicyList = null as any;
+utilities.lazyLoad(exports, ["NetworkPolicyList"], () => require("./networkPolicyList"));
 
 export { NetworkPolicyPatchArgs } from "./networkPolicyPatch";
 export type NetworkPolicyPatch = import("./networkPolicyPatch").NetworkPolicyPatch;
 export const NetworkPolicyPatch: typeof import("./networkPolicyPatch").NetworkPolicyPatch = null as any;
+utilities.lazyLoad(exports, ["NetworkPolicyPatch"], () => require("./networkPolicyPatch"));
 
 export { PodSecurityPolicyArgs } from "./podSecurityPolicy";
 export type PodSecurityPolicy = import("./podSecurityPolicy").PodSecurityPolicy;
 export const PodSecurityPolicy: typeof import("./podSecurityPolicy").PodSecurityPolicy = null as any;
+utilities.lazyLoad(exports, ["PodSecurityPolicy"], () => require("./podSecurityPolicy"));
 
 export { PodSecurityPolicyListArgs } from "./podSecurityPolicyList";
 export type PodSecurityPolicyList = import("./podSecurityPolicyList").PodSecurityPolicyList;
 export const PodSecurityPolicyList: typeof import("./podSecurityPolicyList").PodSecurityPolicyList = null as any;
+utilities.lazyLoad(exports, ["PodSecurityPolicyList"], () => require("./podSecurityPolicyList"));
 
 export { PodSecurityPolicyPatchArgs } from "./podSecurityPolicyPatch";
 export type PodSecurityPolicyPatch = import("./podSecurityPolicyPatch").PodSecurityPolicyPatch;
 export const PodSecurityPolicyPatch: typeof import("./podSecurityPolicyPatch").PodSecurityPolicyPatch = null as any;
+utilities.lazyLoad(exports, ["PodSecurityPolicyPatch"], () => require("./podSecurityPolicyPatch"));
 
 export { ReplicaSetArgs } from "./replicaSet";
 export type ReplicaSet = import("./replicaSet").ReplicaSet;
 export const ReplicaSet: typeof import("./replicaSet").ReplicaSet = null as any;
+utilities.lazyLoad(exports, ["ReplicaSet"], () => require("./replicaSet"));
 
 export { ReplicaSetListArgs } from "./replicaSetList";
 export type ReplicaSetList = import("./replicaSetList").ReplicaSetList;
 export const ReplicaSetList: typeof import("./replicaSetList").ReplicaSetList = null as any;
+utilities.lazyLoad(exports, ["ReplicaSetList"], () => require("./replicaSetList"));
 
 export { ReplicaSetPatchArgs } from "./replicaSetPatch";
 export type ReplicaSetPatch = import("./replicaSetPatch").ReplicaSetPatch;
 export const ReplicaSetPatch: typeof import("./replicaSetPatch").ReplicaSetPatch = null as any;
-
-utilities.lazyLoad(exports, ["DaemonSet"], () => require("./daemonSet"));
-utilities.lazyLoad(exports, ["DaemonSetList"], () => require("./daemonSetList"));
-utilities.lazyLoad(exports, ["DaemonSetPatch"], () => require("./daemonSetPatch"));
-utilities.lazyLoad(exports, ["Deployment"], () => require("./deployment"));
-utilities.lazyLoad(exports, ["DeploymentList"], () => require("./deploymentList"));
-utilities.lazyLoad(exports, ["DeploymentPatch"], () => require("./deploymentPatch"));
-utilities.lazyLoad(exports, ["Ingress"], () => require("./ingress"));
-utilities.lazyLoad(exports, ["IngressList"], () => require("./ingressList"));
-utilities.lazyLoad(exports, ["IngressPatch"], () => require("./ingressPatch"));
-utilities.lazyLoad(exports, ["NetworkPolicy"], () => require("./networkPolicy"));
-utilities.lazyLoad(exports, ["NetworkPolicyList"], () => require("./networkPolicyList"));
-utilities.lazyLoad(exports, ["NetworkPolicyPatch"], () => require("./networkPolicyPatch"));
-utilities.lazyLoad(exports, ["PodSecurityPolicy"], () => require("./podSecurityPolicy"));
-utilities.lazyLoad(exports, ["PodSecurityPolicyList"], () => require("./podSecurityPolicyList"));
-utilities.lazyLoad(exports, ["PodSecurityPolicyPatch"], () => require("./podSecurityPolicyPatch"));
-utilities.lazyLoad(exports, ["ReplicaSet"], () => require("./replicaSet"));
-utilities.lazyLoad(exports, ["ReplicaSetList"], () => require("./replicaSetList"));
 utilities.lazyLoad(exports, ["ReplicaSetPatch"], () => require("./replicaSetPatch"));
+
 
 const _module = {
     version: utilities.getVersion(),

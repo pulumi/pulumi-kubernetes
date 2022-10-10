@@ -8,18 +8,18 @@ import * as utilities from "../../utilities";
 export { RuntimeClassArgs } from "./runtimeClass";
 export type RuntimeClass = import("./runtimeClass").RuntimeClass;
 export const RuntimeClass: typeof import("./runtimeClass").RuntimeClass = null as any;
+utilities.lazyLoad(exports, ["RuntimeClass"], () => require("./runtimeClass"));
 
 export { RuntimeClassListArgs } from "./runtimeClassList";
 export type RuntimeClassList = import("./runtimeClassList").RuntimeClassList;
 export const RuntimeClassList: typeof import("./runtimeClassList").RuntimeClassList = null as any;
+utilities.lazyLoad(exports, ["RuntimeClassList"], () => require("./runtimeClassList"));
 
 export { RuntimeClassPatchArgs } from "./runtimeClassPatch";
 export type RuntimeClassPatch = import("./runtimeClassPatch").RuntimeClassPatch;
 export const RuntimeClassPatch: typeof import("./runtimeClassPatch").RuntimeClassPatch = null as any;
-
-utilities.lazyLoad(exports, ["RuntimeClass"], () => require("./runtimeClass"));
-utilities.lazyLoad(exports, ["RuntimeClassList"], () => require("./runtimeClassList"));
 utilities.lazyLoad(exports, ["RuntimeClassPatch"], () => require("./runtimeClassPatch"));
+
 
 const _module = {
     version: utilities.getVersion(),

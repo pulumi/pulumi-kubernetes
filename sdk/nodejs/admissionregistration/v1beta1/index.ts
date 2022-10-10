@@ -8,33 +8,33 @@ import * as utilities from "../../utilities";
 export { MutatingWebhookConfigurationArgs } from "./mutatingWebhookConfiguration";
 export type MutatingWebhookConfiguration = import("./mutatingWebhookConfiguration").MutatingWebhookConfiguration;
 export const MutatingWebhookConfiguration: typeof import("./mutatingWebhookConfiguration").MutatingWebhookConfiguration = null as any;
+utilities.lazyLoad(exports, ["MutatingWebhookConfiguration"], () => require("./mutatingWebhookConfiguration"));
 
 export { MutatingWebhookConfigurationListArgs } from "./mutatingWebhookConfigurationList";
 export type MutatingWebhookConfigurationList = import("./mutatingWebhookConfigurationList").MutatingWebhookConfigurationList;
 export const MutatingWebhookConfigurationList: typeof import("./mutatingWebhookConfigurationList").MutatingWebhookConfigurationList = null as any;
+utilities.lazyLoad(exports, ["MutatingWebhookConfigurationList"], () => require("./mutatingWebhookConfigurationList"));
 
 export { MutatingWebhookConfigurationPatchArgs } from "./mutatingWebhookConfigurationPatch";
 export type MutatingWebhookConfigurationPatch = import("./mutatingWebhookConfigurationPatch").MutatingWebhookConfigurationPatch;
 export const MutatingWebhookConfigurationPatch: typeof import("./mutatingWebhookConfigurationPatch").MutatingWebhookConfigurationPatch = null as any;
+utilities.lazyLoad(exports, ["MutatingWebhookConfigurationPatch"], () => require("./mutatingWebhookConfigurationPatch"));
 
 export { ValidatingWebhookConfigurationArgs } from "./validatingWebhookConfiguration";
 export type ValidatingWebhookConfiguration = import("./validatingWebhookConfiguration").ValidatingWebhookConfiguration;
 export const ValidatingWebhookConfiguration: typeof import("./validatingWebhookConfiguration").ValidatingWebhookConfiguration = null as any;
+utilities.lazyLoad(exports, ["ValidatingWebhookConfiguration"], () => require("./validatingWebhookConfiguration"));
 
 export { ValidatingWebhookConfigurationListArgs } from "./validatingWebhookConfigurationList";
 export type ValidatingWebhookConfigurationList = import("./validatingWebhookConfigurationList").ValidatingWebhookConfigurationList;
 export const ValidatingWebhookConfigurationList: typeof import("./validatingWebhookConfigurationList").ValidatingWebhookConfigurationList = null as any;
+utilities.lazyLoad(exports, ["ValidatingWebhookConfigurationList"], () => require("./validatingWebhookConfigurationList"));
 
 export { ValidatingWebhookConfigurationPatchArgs } from "./validatingWebhookConfigurationPatch";
 export type ValidatingWebhookConfigurationPatch = import("./validatingWebhookConfigurationPatch").ValidatingWebhookConfigurationPatch;
 export const ValidatingWebhookConfigurationPatch: typeof import("./validatingWebhookConfigurationPatch").ValidatingWebhookConfigurationPatch = null as any;
-
-utilities.lazyLoad(exports, ["MutatingWebhookConfiguration"], () => require("./mutatingWebhookConfiguration"));
-utilities.lazyLoad(exports, ["MutatingWebhookConfigurationList"], () => require("./mutatingWebhookConfigurationList"));
-utilities.lazyLoad(exports, ["MutatingWebhookConfigurationPatch"], () => require("./mutatingWebhookConfigurationPatch"));
-utilities.lazyLoad(exports, ["ValidatingWebhookConfiguration"], () => require("./validatingWebhookConfiguration"));
-utilities.lazyLoad(exports, ["ValidatingWebhookConfigurationList"], () => require("./validatingWebhookConfigurationList"));
 utilities.lazyLoad(exports, ["ValidatingWebhookConfigurationPatch"], () => require("./validatingWebhookConfigurationPatch"));
+
 
 const _module = {
     version: utilities.getVersion(),

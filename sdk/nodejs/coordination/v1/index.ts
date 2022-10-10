@@ -8,18 +8,18 @@ import * as utilities from "../../utilities";
 export { LeaseArgs } from "./lease";
 export type Lease = import("./lease").Lease;
 export const Lease: typeof import("./lease").Lease = null as any;
+utilities.lazyLoad(exports, ["Lease"], () => require("./lease"));
 
 export { LeaseListArgs } from "./leaseList";
 export type LeaseList = import("./leaseList").LeaseList;
 export const LeaseList: typeof import("./leaseList").LeaseList = null as any;
+utilities.lazyLoad(exports, ["LeaseList"], () => require("./leaseList"));
 
 export { LeasePatchArgs } from "./leasePatch";
 export type LeasePatch = import("./leasePatch").LeasePatch;
 export const LeasePatch: typeof import("./leasePatch").LeasePatch = null as any;
-
-utilities.lazyLoad(exports, ["Lease"], () => require("./lease"));
-utilities.lazyLoad(exports, ["LeaseList"], () => require("./leaseList"));
 utilities.lazyLoad(exports, ["LeasePatch"], () => require("./leasePatch"));
+
 
 const _module = {
     version: utilities.getVersion(),
