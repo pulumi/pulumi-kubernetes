@@ -442,8 +442,8 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		if enabled, exists := os.LookupEnv("PULUMI_K8S_ENABLE_SERVER_SIDE_APPLY"); exists {
 			return enabled == trueStr
 		}
-		// Default to false.
-		return false
+		// Default to true.
+		return true
 	}
 	if enableServerSideApply() {
 		k.enableDryRun = true

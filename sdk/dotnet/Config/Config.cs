@@ -99,9 +99,8 @@ namespace Pulumi.Kubernetes
 
         private static readonly __Value<bool?> _enableServerSideApply = new __Value<bool?>(() => __config.GetBoolean("enableServerSideApply"));
         /// <summary>
-        /// BETA FEATURE - If present and set to true, enable Server-Side Apply mode.
+        /// If present and set to true, enable Server-Side Apply mode.
         /// See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
-        /// This feature is in developer preview, and is disabled by default.
         /// </summary>
         public static bool? EnableServerSideApply
         {

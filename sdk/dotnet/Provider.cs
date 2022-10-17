@@ -88,9 +88,8 @@ namespace Pulumi.Kubernetes
         public Input<bool>? EnableReplaceCRD { get; set; }
 
         /// <summary>
-        /// BETA FEATURE - If present and set to true, enable Server-Side Apply mode.
+        /// If present and set to true, enable Server-Side Apply mode.
         /// See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
-        /// This feature is in developer preview, and is disabled by default.
         /// </summary>
         [Input("enableServerSideApply", json: true)]
         public Input<bool>? EnableServerSideApply { get; set; }
