@@ -136,7 +136,7 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * If present and set to true, enable Server-Side Apply mode.
+     * If present and set to false, disable Server-Side Apply mode.
      * See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
      * 
      */
@@ -144,7 +144,7 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
     private @Nullable Output<Boolean> enableServerSideApply;
 
     /**
-     * @return If present and set to true, enable Server-Side Apply mode.
+     * @return If present and set to false, disable Server-Side Apply mode.
      * See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
      * 
      */
@@ -471,7 +471,7 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param enableServerSideApply If present and set to true, enable Server-Side Apply mode.
+         * @param enableServerSideApply If present and set to false, disable Server-Side Apply mode.
          * See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
          * 
          * @return builder
@@ -483,7 +483,7 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param enableServerSideApply If present and set to true, enable Server-Side Apply mode.
+         * @param enableServerSideApply If present and set to false, disable Server-Side Apply mode.
          * See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
          * 
          * @return builder

@@ -401,6 +401,8 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		CurrentContext: vars["kubernetes:config:context"],
 	}
 
+	// TODO: Simplify / factor out the provider flag parsing. Currently lots of error-prone copy-paste code here.
+
 	deleteUnreachable := func() bool {
 		// If the provider flag is set, use that value to determine behavior. This will override the ENV var.
 		if enabled, exists := vars["kubernetes:config:deleteUnreachable"]; exists {
@@ -442,7 +444,6 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		if enabled, exists := os.LookupEnv("PULUMI_K8S_ENABLE_SERVER_SIDE_APPLY"); exists {
 			return enabled == trueStr
 		}
-		// Default to true.
 		return true
 	}
 	if enableServerSideApply() {

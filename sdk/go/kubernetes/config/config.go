@@ -47,7 +47,7 @@ func GetEnableReplaceCRD(ctx *pulumi.Context) bool {
 	return config.GetBool(ctx, "kubernetes:enableReplaceCRD")
 }
 
-// If present and set to true, enable Server-Side Apply mode.
+// If present and set to false, disable Server-Side Apply mode.
 // See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
 func GetEnableServerSideApply(ctx *pulumi.Context) bool {
 	return config.GetBool(ctx, "kubernetes:enableServerSideApply")

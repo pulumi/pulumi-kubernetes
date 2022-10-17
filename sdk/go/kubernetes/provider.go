@@ -79,7 +79,7 @@ type providerArgs struct {
 	//
 	// Deprecated: This option is deprecated, and will be removed in a future release.
 	EnableReplaceCRD *bool `pulumi:"enableReplaceCRD"`
-	// If present and set to true, enable Server-Side Apply mode.
+	// If present and set to false, disable Server-Side Apply mode.
 	// See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
 	EnableServerSideApply *bool `pulumi:"enableServerSideApply"`
 	// Options to configure the Helm Release resource.
@@ -133,7 +133,7 @@ type ProviderArgs struct {
 	//
 	// Deprecated: This option is deprecated, and will be removed in a future release.
 	EnableReplaceCRD pulumi.BoolPtrInput
-	// If present and set to true, enable Server-Side Apply mode.
+	// If present and set to false, disable Server-Side Apply mode.
 	// See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
 	EnableServerSideApply pulumi.BoolPtrInput
 	// Options to configure the Helm Release resource.
