@@ -1,6 +1,6 @@
 ## Unreleased
 
-## 3.22.0 (October 20, 2022)
+## 3.22.0 (October 21, 2022)
 
 Important Note -- This release changes the Provider default to enable Server-Side Apply mode. This change is
 backward compatible, and should not require further action from users. The `enableServerSideApply` flag is
