@@ -22,7 +22,7 @@ Run the following command to build and install the source.
 The output will be stored in `/opt/pulumi/node_modules/@pulumi/kubernetes`.
 
 ```bash
-$ make build && make install
+$ make ensure build install
 ```
 
 `cd` into your Pulumi program directory.  After `make` has completed,
