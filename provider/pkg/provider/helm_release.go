@@ -66,6 +66,8 @@ var errReleaseNotFound = errors.New("release not found")
 
 // Release should explicitly track the shape of helm.sh/v3:Release resource
 type Release struct {
+	// When combinging Values with mergeMaps, allow Nulls
+	AllowNullValues bool `json:"allowNullValues,omitempty"`
 	// If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used
 	Atomic bool `json:"atomic,omitempty"`
 	// Chart name to be installed. A path may be used.
@@ -114,8 +116,6 @@ type Release struct {
 	ReuseValues bool `json:"reuseValues,omitempty"`
 	// Custom values to be merged with items loaded from values.
 	Values map[string]interface{} `json:"values,omitempty"`
-	// When combinging Values with mergeMaps, allow Nulls
-	AllowNullValues bool `json:"allowNullValues,omitempty"`
 	// If set, no CRDs will be installed. By default, CRDs are installed if not already present
 	SkipCrds bool `json:"skipCrds,omitempty"`
 	// Time in seconds to wait for any individual kubernetes operation.
