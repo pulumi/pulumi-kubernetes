@@ -8,33 +8,33 @@ import * as utilities from "../../utilities";
 export { IngressArgs } from "./ingress";
 export type Ingress = import("./ingress").Ingress;
 export const Ingress: typeof import("./ingress").Ingress = null as any;
+utilities.lazyLoad(exports, ["Ingress"], () => require("./ingress"));
 
 export { IngressClassArgs } from "./ingressClass";
 export type IngressClass = import("./ingressClass").IngressClass;
 export const IngressClass: typeof import("./ingressClass").IngressClass = null as any;
+utilities.lazyLoad(exports, ["IngressClass"], () => require("./ingressClass"));
 
 export { IngressClassListArgs } from "./ingressClassList";
 export type IngressClassList = import("./ingressClassList").IngressClassList;
 export const IngressClassList: typeof import("./ingressClassList").IngressClassList = null as any;
+utilities.lazyLoad(exports, ["IngressClassList"], () => require("./ingressClassList"));
 
 export { IngressClassPatchArgs } from "./ingressClassPatch";
 export type IngressClassPatch = import("./ingressClassPatch").IngressClassPatch;
 export const IngressClassPatch: typeof import("./ingressClassPatch").IngressClassPatch = null as any;
+utilities.lazyLoad(exports, ["IngressClassPatch"], () => require("./ingressClassPatch"));
 
 export { IngressListArgs } from "./ingressList";
 export type IngressList = import("./ingressList").IngressList;
 export const IngressList: typeof import("./ingressList").IngressList = null as any;
+utilities.lazyLoad(exports, ["IngressList"], () => require("./ingressList"));
 
 export { IngressPatchArgs } from "./ingressPatch";
 export type IngressPatch = import("./ingressPatch").IngressPatch;
 export const IngressPatch: typeof import("./ingressPatch").IngressPatch = null as any;
-
-utilities.lazyLoad(exports, ["Ingress"], () => require("./ingress"));
-utilities.lazyLoad(exports, ["IngressClass"], () => require("./ingressClass"));
-utilities.lazyLoad(exports, ["IngressClassList"], () => require("./ingressClassList"));
-utilities.lazyLoad(exports, ["IngressClassPatch"], () => require("./ingressClassPatch"));
-utilities.lazyLoad(exports, ["IngressList"], () => require("./ingressList"));
 utilities.lazyLoad(exports, ["IngressPatch"], () => require("./ingressPatch"));
+
 
 const _module = {
     version: utilities.getVersion(),

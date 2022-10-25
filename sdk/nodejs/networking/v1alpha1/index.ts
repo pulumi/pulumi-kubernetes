@@ -8,18 +8,18 @@ import * as utilities from "../../utilities";
 export { ClusterCIDRArgs } from "./clusterCIDR";
 export type ClusterCIDR = import("./clusterCIDR").ClusterCIDR;
 export const ClusterCIDR: typeof import("./clusterCIDR").ClusterCIDR = null as any;
+utilities.lazyLoad(exports, ["ClusterCIDR"], () => require("./clusterCIDR"));
 
 export { ClusterCIDRListArgs } from "./clusterCIDRList";
 export type ClusterCIDRList = import("./clusterCIDRList").ClusterCIDRList;
 export const ClusterCIDRList: typeof import("./clusterCIDRList").ClusterCIDRList = null as any;
+utilities.lazyLoad(exports, ["ClusterCIDRList"], () => require("./clusterCIDRList"));
 
 export { ClusterCIDRPatchArgs } from "./clusterCIDRPatch";
 export type ClusterCIDRPatch = import("./clusterCIDRPatch").ClusterCIDRPatch;
 export const ClusterCIDRPatch: typeof import("./clusterCIDRPatch").ClusterCIDRPatch = null as any;
-
-utilities.lazyLoad(exports, ["ClusterCIDR"], () => require("./clusterCIDR"));
-utilities.lazyLoad(exports, ["ClusterCIDRList"], () => require("./clusterCIDRList"));
 utilities.lazyLoad(exports, ["ClusterCIDRPatch"], () => require("./clusterCIDRPatch"));
+
 
 const _module = {
     version: utilities.getVersion(),

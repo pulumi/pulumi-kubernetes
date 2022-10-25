@@ -8,18 +8,18 @@ import * as utilities from "../../utilities";
 export { APIServiceArgs } from "./apiservice";
 export type APIService = import("./apiservice").APIService;
 export const APIService: typeof import("./apiservice").APIService = null as any;
+utilities.lazyLoad(exports, ["APIService"], () => require("./apiservice"));
 
 export { APIServiceListArgs } from "./apiserviceList";
 export type APIServiceList = import("./apiserviceList").APIServiceList;
 export const APIServiceList: typeof import("./apiserviceList").APIServiceList = null as any;
+utilities.lazyLoad(exports, ["APIServiceList"], () => require("./apiserviceList"));
 
 export { APIServicePatchArgs } from "./apiservicePatch";
 export type APIServicePatch = import("./apiservicePatch").APIServicePatch;
 export const APIServicePatch: typeof import("./apiservicePatch").APIServicePatch = null as any;
-
-utilities.lazyLoad(exports, ["APIService"], () => require("./apiservice"));
-utilities.lazyLoad(exports, ["APIServiceList"], () => require("./apiserviceList"));
 utilities.lazyLoad(exports, ["APIServicePatch"], () => require("./apiservicePatch"));
+
 
 const _module = {
     version: utilities.getVersion(),

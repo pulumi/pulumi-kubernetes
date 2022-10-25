@@ -8,18 +8,18 @@ import * as utilities from "../../utilities";
 export { PodDisruptionBudgetArgs } from "./podDisruptionBudget";
 export type PodDisruptionBudget = import("./podDisruptionBudget").PodDisruptionBudget;
 export const PodDisruptionBudget: typeof import("./podDisruptionBudget").PodDisruptionBudget = null as any;
+utilities.lazyLoad(exports, ["PodDisruptionBudget"], () => require("./podDisruptionBudget"));
 
 export { PodDisruptionBudgetListArgs } from "./podDisruptionBudgetList";
 export type PodDisruptionBudgetList = import("./podDisruptionBudgetList").PodDisruptionBudgetList;
 export const PodDisruptionBudgetList: typeof import("./podDisruptionBudgetList").PodDisruptionBudgetList = null as any;
+utilities.lazyLoad(exports, ["PodDisruptionBudgetList"], () => require("./podDisruptionBudgetList"));
 
 export { PodDisruptionBudgetPatchArgs } from "./podDisruptionBudgetPatch";
 export type PodDisruptionBudgetPatch = import("./podDisruptionBudgetPatch").PodDisruptionBudgetPatch;
 export const PodDisruptionBudgetPatch: typeof import("./podDisruptionBudgetPatch").PodDisruptionBudgetPatch = null as any;
-
-utilities.lazyLoad(exports, ["PodDisruptionBudget"], () => require("./podDisruptionBudget"));
-utilities.lazyLoad(exports, ["PodDisruptionBudgetList"], () => require("./podDisruptionBudgetList"));
 utilities.lazyLoad(exports, ["PodDisruptionBudgetPatch"], () => require("./podDisruptionBudgetPatch"));
+
 
 const _module = {
     version: utilities.getVersion(),

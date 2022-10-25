@@ -136,18 +136,16 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * BETA FEATURE - If present and set to true, enable Server-Side Apply mode.
+     * If present and set to false, disable Server-Side Apply mode.
      * See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
-     * This feature is in developer preview, and is disabled by default.
      * 
      */
     @Import(name="enableServerSideApply", json=true)
     private @Nullable Output<Boolean> enableServerSideApply;
 
     /**
-     * @return BETA FEATURE - If present and set to true, enable Server-Side Apply mode.
+     * @return If present and set to false, disable Server-Side Apply mode.
      * See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
-     * This feature is in developer preview, and is disabled by default.
      * 
      */
     public Optional<Output<Boolean>> enableServerSideApply() {
@@ -473,9 +471,8 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param enableServerSideApply BETA FEATURE - If present and set to true, enable Server-Side Apply mode.
+         * @param enableServerSideApply If present and set to false, disable Server-Side Apply mode.
          * See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
-         * This feature is in developer preview, and is disabled by default.
          * 
          * @return builder
          * 
@@ -486,9 +483,8 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param enableServerSideApply BETA FEATURE - If present and set to true, enable Server-Side Apply mode.
+         * @param enableServerSideApply If present and set to false, disable Server-Side Apply mode.
          * See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
-         * This feature is in developer preview, and is disabled by default.
          * 
          * @return builder
          * 

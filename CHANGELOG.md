@@ -1,6 +1,15 @@
 ## Unreleased
 
+## 3.22.0 (October 21, 2022)
+
+Important Note -- This release changes the Provider default to enable Server-Side Apply mode. This change is
+backward compatible, and should not require further action from users. The `enableServerSideApply` flag is
+still present, so you may explicitly opt out if you run into any problems. This flag will be removed in the
+next major release (`v4`) of the provider. See https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/managing-resources-with-server-side-apply/
+for additional information about using Server-Side Apply with Pulumi's Kubernetes provider.
+
 - Fix values precedence in helm release (https://github.com/pulumi/pulumi-kubernetes/pull/2191)
+- Enable Server-Side Apply mode by default (https://github.com/pulumi/pulumi-kubernetes/pull/2206)
 - Add allowNullValues boolean option to pass Null values through helm configs without having them scrubbed (https://github.com/pulumi/pulumi-kubernetes/issues/2089)
 
 ## 3.21.4 (September 22, 2022)

@@ -8,18 +8,18 @@ import * as utilities from "../../utilities";
 export { VolumeAttachmentArgs } from "./volumeAttachment";
 export type VolumeAttachment = import("./volumeAttachment").VolumeAttachment;
 export const VolumeAttachment: typeof import("./volumeAttachment").VolumeAttachment = null as any;
+utilities.lazyLoad(exports, ["VolumeAttachment"], () => require("./volumeAttachment"));
 
 export { VolumeAttachmentListArgs } from "./volumeAttachmentList";
 export type VolumeAttachmentList = import("./volumeAttachmentList").VolumeAttachmentList;
 export const VolumeAttachmentList: typeof import("./volumeAttachmentList").VolumeAttachmentList = null as any;
+utilities.lazyLoad(exports, ["VolumeAttachmentList"], () => require("./volumeAttachmentList"));
 
 export { VolumeAttachmentPatchArgs } from "./volumeAttachmentPatch";
 export type VolumeAttachmentPatch = import("./volumeAttachmentPatch").VolumeAttachmentPatch;
 export const VolumeAttachmentPatch: typeof import("./volumeAttachmentPatch").VolumeAttachmentPatch = null as any;
-
-utilities.lazyLoad(exports, ["VolumeAttachment"], () => require("./volumeAttachment"));
-utilities.lazyLoad(exports, ["VolumeAttachmentList"], () => require("./volumeAttachmentList"));
 utilities.lazyLoad(exports, ["VolumeAttachmentPatch"], () => require("./volumeAttachmentPatch"));
+
 
 const _module = {
     version: utilities.getVersion(),

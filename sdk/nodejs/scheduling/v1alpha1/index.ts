@@ -8,18 +8,18 @@ import * as utilities from "../../utilities";
 export { PriorityClassArgs } from "./priorityClass";
 export type PriorityClass = import("./priorityClass").PriorityClass;
 export const PriorityClass: typeof import("./priorityClass").PriorityClass = null as any;
+utilities.lazyLoad(exports, ["PriorityClass"], () => require("./priorityClass"));
 
 export { PriorityClassListArgs } from "./priorityClassList";
 export type PriorityClassList = import("./priorityClassList").PriorityClassList;
 export const PriorityClassList: typeof import("./priorityClassList").PriorityClassList = null as any;
+utilities.lazyLoad(exports, ["PriorityClassList"], () => require("./priorityClassList"));
 
 export { PriorityClassPatchArgs } from "./priorityClassPatch";
 export type PriorityClassPatch = import("./priorityClassPatch").PriorityClassPatch;
 export const PriorityClassPatch: typeof import("./priorityClassPatch").PriorityClassPatch = null as any;
-
-utilities.lazyLoad(exports, ["PriorityClass"], () => require("./priorityClass"));
-utilities.lazyLoad(exports, ["PriorityClassList"], () => require("./priorityClassList"));
 utilities.lazyLoad(exports, ["PriorityClassPatch"], () => require("./priorityClassPatch"));
+
 
 const _module = {
     version: utilities.getVersion(),

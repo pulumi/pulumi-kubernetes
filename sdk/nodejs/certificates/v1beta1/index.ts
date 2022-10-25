@@ -8,18 +8,18 @@ import * as utilities from "../../utilities";
 export { CertificateSigningRequestArgs } from "./certificateSigningRequest";
 export type CertificateSigningRequest = import("./certificateSigningRequest").CertificateSigningRequest;
 export const CertificateSigningRequest: typeof import("./certificateSigningRequest").CertificateSigningRequest = null as any;
+utilities.lazyLoad(exports, ["CertificateSigningRequest"], () => require("./certificateSigningRequest"));
 
 export { CertificateSigningRequestListArgs } from "./certificateSigningRequestList";
 export type CertificateSigningRequestList = import("./certificateSigningRequestList").CertificateSigningRequestList;
 export const CertificateSigningRequestList: typeof import("./certificateSigningRequestList").CertificateSigningRequestList = null as any;
+utilities.lazyLoad(exports, ["CertificateSigningRequestList"], () => require("./certificateSigningRequestList"));
 
 export { CertificateSigningRequestPatchArgs } from "./certificateSigningRequestPatch";
 export type CertificateSigningRequestPatch = import("./certificateSigningRequestPatch").CertificateSigningRequestPatch;
 export const CertificateSigningRequestPatch: typeof import("./certificateSigningRequestPatch").CertificateSigningRequestPatch = null as any;
-
-utilities.lazyLoad(exports, ["CertificateSigningRequest"], () => require("./certificateSigningRequest"));
-utilities.lazyLoad(exports, ["CertificateSigningRequestList"], () => require("./certificateSigningRequestList"));
 utilities.lazyLoad(exports, ["CertificateSigningRequestPatch"], () => require("./certificateSigningRequestPatch"));
+
 
 const _module = {
     version: utilities.getVersion(),
