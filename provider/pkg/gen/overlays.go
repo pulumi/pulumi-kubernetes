@@ -545,7 +545,6 @@ var helmV3ReleaseResource = pschema.ResourceSpec{
 				},
 				Description: "Specification defining the Helm chart repository to use.",
 			},
-
 			"chart": {
 				TypeSpec: pschema.TypeSpec{
 					Type: "string",
@@ -752,6 +751,12 @@ var helmV3ReleaseResource = pschema.ResourceSpec{
 					Ref: "#/types/kubernetes:helm.sh/v3:ReleaseStatus",
 				},
 				Description: "Status of the deployed release.",
+			},
+			"allowNullValues": {
+				TypeSpec: pschema.TypeSpec{
+					Type: "boolean",
+				},
+				Description: "Whether to allow Null values in helm chart configs.",
 			},
 		},
 		Type: "object",
