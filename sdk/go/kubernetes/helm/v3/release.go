@@ -294,6 +294,8 @@ import (
 type Release struct {
 	pulumi.CustomResourceState
 
+	// Whether to allow Null values in helm chart configs.
+	AllowNullValues pulumi.BoolPtrOutput `pulumi:"allowNullValues"`
 	// If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
 	Atomic pulumi.BoolPtrOutput `pulumi:"atomic"`
 	// Chart name to be installed. A path may be used.
@@ -632,6 +634,11 @@ func (o ReleaseOutput) ToReleaseOutput() ReleaseOutput {
 
 func (o ReleaseOutput) ToReleaseOutputWithContext(ctx context.Context) ReleaseOutput {
 	return o
+}
+
+// Whether to allow Null values in helm chart configs.
+func (o ReleaseOutput) AllowNullValues() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *Release) pulumi.BoolPtrOutput { return v.AllowNullValues }).(pulumi.BoolPtrOutput)
 }
 
 // If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
