@@ -43,6 +43,20 @@ import javax.annotation.Nullable;
 @ResourceType(type="kubernetes:helm.sh/v3:Release")
 public class Release extends com.pulumi.resources.CustomResource {
     /**
+     * Whether to allow Null values in helm chart configs.
+     * 
+     */
+    @Export(name="allowNullValues", type=Boolean.class, parameters={})
+    private Output</* @Nullable */ Boolean> allowNullValues;
+
+    /**
+     * @return Whether to allow Null values in helm chart configs.
+     * 
+     */
+    public Output<Optional<Boolean>> allowNullValues() {
+        return Codegen.optional(this.allowNullValues);
+    }
+    /**
      * If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
      * 
      */

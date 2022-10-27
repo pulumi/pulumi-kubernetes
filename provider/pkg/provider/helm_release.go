@@ -66,6 +66,8 @@ var errReleaseNotFound = errors.New("release not found")
 
 // Release should explicitly track the shape of helm.sh/v3:Release resource
 type Release struct {
+	// When combinging Values with mergeMaps, allow Nulls
+	AllowNullValues bool `json:"allowNullValues,omitempty"`
 	// If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used
 	Atomic bool `json:"atomic,omitempty"`
 	// Chart name to be installed. A path may be used.
@@ -304,7 +306,7 @@ func decodeRelease(pm resource.PropertyMap, label string) (*Release, error) {
 	if err = mapstructure.Decode(stripped, &release); err != nil {
 		return nil, fmt.Errorf("decoding failure: %w", err)
 	}
-	release.Values, err = mergeMaps(values, release.Values)
+	release.Values, err = mergeMaps(values, release.Values, release.AllowNullValues)
 	if err != nil {
 		return nil, err
 	}
@@ -1178,7 +1180,7 @@ func setReleaseAttributes(release *Release, r *release.Release, isPreview bool) 
 	}
 	var err error
 	logger.V(9).Infof("Setting release values: %+v", r.Config)
-	release.Values, err = mergeMaps(release.Values, r.Config)
+	release.Values, err = mergeMaps(release.Values, r.Config, release.AllowNullValues)
 	if err != nil {
 		return err
 	}
@@ -1266,7 +1268,7 @@ func isChartInstallable(ch *helmchart.Chart) error {
 func getValues(release *Release) (map[string]interface{}, error) {
 	var err error
 	base := map[string]interface{}{}
-	base, err = mergeMaps(base, release.Values)
+	base, err = mergeMaps(base, release.Values, release.AllowNullValues)
 	if err != nil {
 		return nil, err
 	}
@@ -1296,10 +1298,14 @@ func logValues(values map[string]interface{}) error {
 }
 
 // Merges a and b map, preferring values from b map
-func mergeMaps(a, b map[string]interface{}) (map[string]interface{}, error) {
-	a = excludeNulls(a).(map[string]interface{})
-	b = excludeNulls(b).(map[string]interface{})
-
+func mergeMaps(a, b map[string]interface{}, allowNullValues bool) (map[string]interface{}, error) {
+	if allowNullValues {
+		a = mapToInterface(a).(map[string]interface{})
+		b = mapToInterface(b).(map[string]interface{})
+	} else {
+		a = excludeNulls(a).(map[string]interface{})
+		b = excludeNulls(b).(map[string]interface{})
+	}
 	if err := mergo.Merge(&a, b, mergo.WithOverride, mergo.WithTypeCheck); err != nil {
 		return nil, err
 	}
@@ -1331,6 +1337,29 @@ func excludeNulls(in interface{}) interface{} {
 			if i != nil {
 				out = append(out, excludeNulls(i))
 			}
+		}
+		return out
+	}
+	return in
+}
+
+func mapToInterface(in interface{}) interface{} {
+	switch reflect.TypeOf(in).Kind() {
+	case reflect.Map:
+		out := map[string]interface{}{}
+		m := in.(map[string]interface{})
+		for k, v := range m {
+			val := reflect.ValueOf(v)
+			if val.IsValid() {
+				out[k] = mapToInterface(v)
+			}
+		}
+		return out
+	case reflect.Slice, reflect.Array:
+		var out []interface{}
+		s := in.([]interface{})
+		for _, i := range s {
+			out = append(out, mapToInterface(i))
 		}
 		return out
 	}

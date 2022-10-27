@@ -10,6 +10,7 @@ for additional information about using Server-Side Apply with Pulumi's Kubernete
 
 - Fix values precedence in helm release (https://github.com/pulumi/pulumi-kubernetes/pull/2191)
 - Enable Server-Side Apply mode by default (https://github.com/pulumi/pulumi-kubernetes/pull/2206)
+- Add allowNullValues boolean option to pass Null values through helm configs without having them scrubbed (https://github.com/pulumi/pulumi-kubernetes/issues/2089)
 
 ## 3.21.4 (September 22, 2022)
 
