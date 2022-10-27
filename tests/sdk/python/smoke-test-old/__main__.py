@@ -27,4 +27,4 @@ pod = Pod(
         ]
     })
 
-pulumi.export("ip", pod.status.apply(lambda s: s.pod_ip))
+pulumi.export("ip", pod.status["pod_ip"])

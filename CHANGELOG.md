@@ -1,5 +1,13 @@
 ## Unreleased
 
+## 3.22.1 (October 26, 2022)
+
+Note: Enabling SSA mode by default was causing problems for a number of users, so we decided to revert this change.
+We plan to re-enable this as the default behavior in the next major (`v4.0.0`) release with additional documentation
+about the expected differences.
+
+- Revert: Enable Server-Side Apply mode by default (https://github.com/pulumi/pulumi-kubernetes/pull/2216)
+
 ## 3.22.0 (October 21, 2022)
 
 Important Note -- This release changes the Provider default to enable Server-Side Apply mode. This change is
