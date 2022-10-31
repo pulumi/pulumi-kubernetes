@@ -89,7 +89,7 @@ func Test_MergeMaps(t *testing.T) {
 		},
 	} {
 		t.Run(test.name, func(t *testing.T) {
-			merged, err := mergeMaps(test.dest, test.src)
+			merged, err := mergeMaps(test.dest, test.src, false)
 			require.NoError(t, err)
 			assert.Equal(t, test.expected, merged)
 		})
