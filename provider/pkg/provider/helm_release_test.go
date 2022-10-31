@@ -35,13 +35,15 @@ func Test_MergeMaps(t *testing.T) {
 	}{
 		{
 			name:     "Precedence",
+			allowNil: false,
 			dest:     m,
 			src:      override,
 			expected: override, // Expect the override to take precedence
 		},
 		{
-			name: "Merge maps",
-			dest: m,
+			name:     "Merge maps",
+			allowNil: false,
+			dest:     m,
 			src: map[string]interface{}{
 				"a": map[string]interface{}{
 					"b": map[string]interface{}{
@@ -67,8 +69,9 @@ func Test_MergeMaps(t *testing.T) {
 			},
 		},
 		{
-			name: "Dest Has Nil Values",
-			dest: m,
+			name:     "Dest Has Nil Values- disallow nil",
+			allowNil: false,
+			dest:     m,
 			src: map[string]interface{}{
 				"a": map[string]interface{}{
 					"b": map[string]interface{}{
@@ -87,9 +90,33 @@ func Test_MergeMaps(t *testing.T) {
 				},
 			},
 		},
+		{
+			name:     "Dest Has Nil Values- allow nil",
+			allowNil: true,
+			dest:     m,
+			src: map[string]interface{}{
+				"a": map[string]interface{}{
+					"b": map[string]interface{}{
+						"c": interface{}(nil),
+						"e": (*interface{})(nil),
+					},
+				},
+			},
+			expected: map[string]interface{}{
+				"a": map[string]interface{}{
+					"b": map[string]interface{}{
+						"c": interface{}(nil),
+						"e": (*interface{})(nil),
+						"d": []interface{}{
+							"1", "2",
+						},
+					},
+				},
+			},
+		},
 	} {
 		t.Run(test.name, func(t *testing.T) {
-			merged, err := mergeMaps(test.dest, test.src, false)
+			merged, err := mergeMaps(test.dest, test.src, test.allowNil)
 			require.NoError(t, err)
 			assert.Equal(t, test.expected, merged)
 		})
