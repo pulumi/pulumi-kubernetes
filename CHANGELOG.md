@@ -2,14 +2,25 @@
 
 - Add allowNullValues boolean option to pass Null values through helm configs without having them scrubbed (https://github.com/pulumi/pulumi-kubernetes/issues/2089)
 
+## 3.22.1 (October 26, 2022)
+
+Note: Enabling SSA mode by default was causing problems for a number of users, so we decided to revert this change.
+We plan to re-enable this as the default behavior in the next major (`v4.0.0`) release with additional documentation
+about the expected differences.
+
+- Revert: Enable Server-Side Apply mode by default (https://github.com/pulumi/pulumi-kubernetes/pull/2216)
 
 ## 3.22.0 (October 21, 2022)
 
 Important Note -- This release changes the Provider default to enable Server-Side Apply mode. This change is
 backward compatible, and should not require further action from users. The `enableServerSideApply` flag is
-still present, so you may explicitly opt out if you run into any problems. This flag will be removed in the
-next major release (`v4`) of the provider. See https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/managing-resources-with-server-side-apply/
-for additional information about using Server-Side Apply with Pulumi's Kubernetes provider.
+still present, so you may explicitly opt out if you run into any problems using one of the following methods:
+
+1. Set the [enableServerSideApply](https://www.pulumi.com/registry/packages/kubernetes/api-docs/provider/#enable_server_side_apply_python)  parameter to `false` on your Provider resource.
+2. Set the environment variable `PULUMI_K8S_ENABLE_SERVER_SIDE_APPLY="false"`
+3. Set the stack config `pulumi config set kubernetes:enableServerSideApply false`
+
+See the [how-to guide](https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/managing-resources-with-server-side-apply/) for additional information about using Server-Side Apply with Pulumi's Kubernetes provider.
 
 - Fix values precedence in helm release (https://github.com/pulumi/pulumi-kubernetes/pull/2191)
 - Enable Server-Side Apply mode by default (https://github.com/pulumi/pulumi-kubernetes/pull/2206)
