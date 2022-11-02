@@ -29,6 +29,7 @@ func Test_MergeMaps(t *testing.T) {
 
 	for _, test := range []struct {
 		name     string
+		allowNil bool
 		dest     map[string]interface{}
 		src      map[string]interface{}
 		expected map[string]interface{}
