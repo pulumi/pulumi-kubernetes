@@ -1908,7 +1908,8 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 		_ = k.host.Log(ctx, diag.Warning, urn, fmt.Sprintf(
 			"configured Kubernetes cluster is unreachable: %s", k.clusterUnreachableReason))
 		return nil, fmt.Errorf("failed to read resource state due to unreachable cluster. " +
-			"If the cluster has been deleted, you can edit the pulumi state to remove this resource")
+			"If the cluster has been deleted, you can edit the pulumi state to remove this resource or retry " +
+			"with the PULUMI_K8S_DELETE_UNREACHABLE environment variable set to true.")
 	}
 
 	if isHelmRelease(urn) {
