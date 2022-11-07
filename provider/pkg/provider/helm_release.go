@@ -1351,9 +1351,11 @@ func mapToInterface(in interface{}) interface{} {
 		for k, v := range m {
 			val := reflect.ValueOf(v)
 			if val.IsValid() {
-				out[k] = mapToInterface(v)
-			} else if v == nil {
-				out[k] = v
+				if val.IsNil() {
+					out[k] = nil
+				} else {
+					out[k] = mapToInterface(v)
+				}
 			}
 		}
 		return out
