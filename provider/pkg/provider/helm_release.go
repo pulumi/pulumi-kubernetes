@@ -1,4 +1,4 @@
-// Copyright 2016-2021, Pulumi Corporation.
+// Copyright 2016-2022, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -1350,13 +1350,11 @@ func mapToInterface(in interface{}) interface{} {
 		m := in.(map[string]interface{})
 		for k, v := range m {
 			val := reflect.ValueOf(v)
-			if val.IsValid() {
-				if val.IsNil() {
-					out[k] = nil
-				} else {
-					out[k] = mapToInterface(v)
-				}
+			if !val.IsValid() {
+				out[k] = v
+				continue
 			}
+			out[k] = mapToInterface(v)
 		}
 		return out
 	case reflect.Slice, reflect.Array:
