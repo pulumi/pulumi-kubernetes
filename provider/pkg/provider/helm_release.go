@@ -1352,6 +1352,8 @@ func mapToInterface(in interface{}) interface{} {
 			val := reflect.ValueOf(v)
 			if val.IsValid() {
 				out[k] = mapToInterface(v)
+			} else if v == nil {
+				out[k] = v
 			}
 		}
 		return out
