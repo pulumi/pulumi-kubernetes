@@ -186,6 +186,10 @@ export class Release extends pulumi.CustomResource {
     }
 
     /**
+     * Whether to allow Null values in helm chart configs.
+     */
+    public /*out*/ readonly allowNullValues!: pulumi.Output<boolean>;
+    /**
      * If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
      */
     public readonly atomic!: pulumi.Output<boolean>;
@@ -370,8 +374,10 @@ export class Release extends pulumi.CustomResource {
             resourceInputs["verify"] = args ? args.verify : undefined;
             resourceInputs["version"] = args ? args.version : undefined;
             resourceInputs["waitForJobs"] = args ? args.waitForJobs : undefined;
+            resourceInputs["allowNullValues"] = undefined /*out*/;
             resourceInputs["status"] = undefined /*out*/;
         } else {
+            resourceInputs["allowNullValues"] = undefined /*out*/;
             resourceInputs["atomic"] = undefined /*out*/;
             resourceInputs["chart"] = undefined /*out*/;
             resourceInputs["cleanupOnFail"] = undefined /*out*/;

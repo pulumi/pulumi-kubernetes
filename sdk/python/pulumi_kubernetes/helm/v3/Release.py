@@ -1062,6 +1062,7 @@ class Release(pulumi.CustomResource):
             __props__.__dict__["verify"] = verify
             __props__.__dict__["version"] = version
             __props__.__dict__["wait_for_jobs"] = wait_for_jobs
+            __props__.__dict__["allow_null_values"] = None
             __props__.__dict__["status"] = None
         super(Release, __self__).__init__(
             'kubernetes:helm.sh/v3:Release',
@@ -1085,6 +1086,7 @@ class Release(pulumi.CustomResource):
 
         __props__ = ReleaseArgs.__new__(ReleaseArgs)
 
+        __props__.__dict__["allow_null_values"] = None
         __props__.__dict__["atomic"] = None
         __props__.__dict__["chart"] = None
         __props__.__dict__["cleanup_on_fail"] = None
@@ -1120,6 +1122,14 @@ class Release(pulumi.CustomResource):
         __props__.__dict__["version"] = None
         __props__.__dict__["wait_for_jobs"] = None
         return Release(resource_name, opts=opts, __props__=__props__)
+
+    @property
+    @pulumi.getter(name="allowNullValues")
+    def allow_null_values(self) -> pulumi.Output[Optional[bool]]:
+        """
+        Whether to allow Null values in helm chart configs.
+        """
+        return pulumi.get(self, "allow_null_values")
 
     @property
     @pulumi.getter
