@@ -116,7 +116,7 @@ For .NET, dependencies will be automatically installed as part of your Pulumi de
 
 To use from Go, use `go get` to grab the latest version of the library
 
-    $ go get github.com/pulumi/pulumi-kubernetes/sdk/v3/go/...
+    $ go install github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes@latest
 
 ## Quick Examples
 
