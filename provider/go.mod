@@ -11,8 +11,8 @@ require (
 	github.com/mitchellh/mapstructure v1.4.3
 	github.com/pkg/errors v0.9.1
 	github.com/pulumi/cloud-ready-checks v1.0.1-0.20220105213132-0fbbc00d3335
-	github.com/pulumi/pulumi/pkg/v3 v3.46.0
-	github.com/pulumi/pulumi/sdk/v3 v3.46.0
+	github.com/pulumi/pulumi/pkg/v3 v3.46.1
+	github.com/pulumi/pulumi/sdk/v3 v3.46.1
 	github.com/stretchr/testify v1.8.0
 	golang.org/x/crypto v0.0.0-20220824171710-5757bc0c5503
 	google.golang.org/grpc v1.49.0
@@ -217,7 +217,6 @@ require (
 	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/genproto v0.0.0-20220802133213-ce4fa296bf78 // indirect
 	google.golang.org/protobuf v1.28.1 // indirect
-	gopkg.in/AlecAivazis/survey.v1 v1.8.9-0.20200217094205-6773bdf39b7f // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/square/go-jose.v2 v2.6.0 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
@@ -234,6 +233,7 @@ require (
 )
 
 require (
+	github.com/AlecAivazis/survey/v2 v2.0.5 // indirect
 	github.com/Azure/azure-sdk-for-go/sdk/azcore v1.1.1 // indirect
 	github.com/Azure/azure-sdk-for-go/sdk/azidentity v1.0.0 // indirect
 	github.com/Azure/azure-sdk-for-go/sdk/internal v1.0.0 // indirect
@@ -263,6 +263,7 @@ require (
 	github.com/klauspost/compress v1.15.1 // indirect
 	github.com/kylelemons/godebug v1.1.0 // indirect
 	github.com/moby/sys/mountinfo v0.6.0 // indirect
+	github.com/muesli/cancelreader v0.2.2 // indirect
 	github.com/natefinch/atomic v1.0.1 // indirect
 	github.com/pkg/browser v0.0.0-20210115035449-ce105d075bb4 // indirect
 	go.etcd.io/etcd/api/v3 v3.5.4 // indirect
