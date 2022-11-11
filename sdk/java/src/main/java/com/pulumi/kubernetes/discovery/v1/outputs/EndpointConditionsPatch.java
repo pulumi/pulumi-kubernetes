@@ -17,12 +17,12 @@ public final class EndpointConditionsPatch {
      */
     private @Nullable Boolean ready;
     /**
-     * @return serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+     * @return serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition.
      * 
      */
     private @Nullable Boolean serving;
     /**
-     * @return terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+     * @return terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating.
      * 
      */
     private @Nullable Boolean terminating;
@@ -36,14 +36,14 @@ public final class EndpointConditionsPatch {
         return Optional.ofNullable(this.ready);
     }
     /**
-     * @return serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+     * @return serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition.
      * 
      */
     public Optional<Boolean> serving() {
         return Optional.ofNullable(this.serving);
     }
     /**
-     * @return terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+     * @return terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating.
      * 
      */
     public Optional<Boolean> terminating() {

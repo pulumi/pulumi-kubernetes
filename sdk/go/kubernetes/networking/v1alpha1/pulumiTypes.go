@@ -307,7 +307,7 @@ func (o ClusterCIDRPatchTypeOutput) Spec() ClusterCIDRSpecPatchPtrOutput {
 type ClusterCIDRSpec struct {
 	// IPv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
 	Ipv4 *string `pulumi:"ipv4"`
-	// IPv6 defines an IPv6 IP block in CIDR notation(e.g. "fd12:3456:789a:1::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+	// IPv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
 	Ipv6 *string `pulumi:"ipv6"`
 	// NodeSelector defines which nodes the config is applicable to. An empty or nil NodeSelector selects all nodes. This field is immutable.
 	NodeSelector *corev1.NodeSelector `pulumi:"nodeSelector"`
@@ -330,7 +330,7 @@ type ClusterCIDRSpecInput interface {
 type ClusterCIDRSpecArgs struct {
 	// IPv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
 	Ipv4 pulumi.StringPtrInput `pulumi:"ipv4"`
-	// IPv6 defines an IPv6 IP block in CIDR notation(e.g. "fd12:3456:789a:1::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+	// IPv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
 	Ipv6 pulumi.StringPtrInput `pulumi:"ipv6"`
 	// NodeSelector defines which nodes the config is applicable to. An empty or nil NodeSelector selects all nodes. This field is immutable.
 	NodeSelector corev1.NodeSelectorPtrInput `pulumi:"nodeSelector"`
@@ -421,7 +421,7 @@ func (o ClusterCIDRSpecOutput) Ipv4() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ClusterCIDRSpec) *string { return v.Ipv4 }).(pulumi.StringPtrOutput)
 }
 
-// IPv6 defines an IPv6 IP block in CIDR notation(e.g. "fd12:3456:789a:1::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+// IPv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
 func (o ClusterCIDRSpecOutput) Ipv6() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ClusterCIDRSpec) *string { return v.Ipv6 }).(pulumi.StringPtrOutput)
 }
@@ -470,7 +470,7 @@ func (o ClusterCIDRSpecPtrOutput) Ipv4() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// IPv6 defines an IPv6 IP block in CIDR notation(e.g. "fd12:3456:789a:1::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+// IPv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
 func (o ClusterCIDRSpecPtrOutput) Ipv6() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ClusterCIDRSpec) *string {
 		if v == nil {
@@ -504,7 +504,7 @@ func (o ClusterCIDRSpecPtrOutput) PerNodeHostBits() pulumi.IntPtrOutput {
 type ClusterCIDRSpecPatch struct {
 	// IPv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
 	Ipv4 *string `pulumi:"ipv4"`
-	// IPv6 defines an IPv6 IP block in CIDR notation(e.g. "fd12:3456:789a:1::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+	// IPv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
 	Ipv6 *string `pulumi:"ipv6"`
 	// NodeSelector defines which nodes the config is applicable to. An empty or nil NodeSelector selects all nodes. This field is immutable.
 	NodeSelector *corev1.NodeSelectorPatch `pulumi:"nodeSelector"`
@@ -527,7 +527,7 @@ type ClusterCIDRSpecPatchInput interface {
 type ClusterCIDRSpecPatchArgs struct {
 	// IPv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
 	Ipv4 pulumi.StringPtrInput `pulumi:"ipv4"`
-	// IPv6 defines an IPv6 IP block in CIDR notation(e.g. "fd12:3456:789a:1::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+	// IPv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
 	Ipv6 pulumi.StringPtrInput `pulumi:"ipv6"`
 	// NodeSelector defines which nodes the config is applicable to. An empty or nil NodeSelector selects all nodes. This field is immutable.
 	NodeSelector corev1.NodeSelectorPatchPtrInput `pulumi:"nodeSelector"`
@@ -618,7 +618,7 @@ func (o ClusterCIDRSpecPatchOutput) Ipv4() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ClusterCIDRSpecPatch) *string { return v.Ipv4 }).(pulumi.StringPtrOutput)
 }
 
-// IPv6 defines an IPv6 IP block in CIDR notation(e.g. "fd12:3456:789a:1::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+// IPv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
 func (o ClusterCIDRSpecPatchOutput) Ipv6() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ClusterCIDRSpecPatch) *string { return v.Ipv6 }).(pulumi.StringPtrOutput)
 }
@@ -667,7 +667,7 @@ func (o ClusterCIDRSpecPatchPtrOutput) Ipv4() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// IPv6 defines an IPv6 IP block in CIDR notation(e.g. "fd12:3456:789a:1::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+// IPv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
 func (o ClusterCIDRSpecPatchPtrOutput) Ipv6() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ClusterCIDRSpecPatch) *string {
 		if v == nil {

@@ -15,6 +15,22 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// </summary>
     public class ResourceRequirementsPatchArgs : global::Pulumi.ResourceArgs
     {
+        [Input("claims")]
+        private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.ResourceClaimPatchArgs>? _claims;
+
+        /// <summary>
+        /// Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
+        /// 
+        /// This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+        /// 
+        /// This field is immutable.
+        /// </summary>
+        public InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.ResourceClaimPatchArgs> Claims
+        {
+            get => _claims ?? (_claims = new InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.ResourceClaimPatchArgs>());
+            set => _claims = value;
+        }
+
         [Input("limits")]
         private InputMap<string>? _limits;
 

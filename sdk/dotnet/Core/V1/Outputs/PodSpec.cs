@@ -117,6 +117,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.PodReadinessGate> ReadinessGates;
         /// <summary>
+        /// ResourceClaims defines which ResourceClaims must be allocated and reserved before the Pod is allowed to start. The resources will be made available to those containers which consume them by name.
+        /// 
+        /// This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+        /// 
+        /// This field is immutable.
+        /// </summary>
+        public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.PodResourceClaim> ResourceClaims;
+        /// <summary>
         /// Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
         /// </summary>
         public readonly string RestartPolicy;
@@ -128,6 +136,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// If specified, the pod will be dispatched by specified scheduler. If not specified, the pod will be dispatched by default scheduler.
         /// </summary>
         public readonly string SchedulerName;
+        /// <summary>
+        /// SchedulingGates is an opaque list of values that if specified will block scheduling the pod. More info:  https://git.k8s.io/enhancements/keps/sig-scheduling/3521-pod-scheduling-readiness.
+        /// 
+        /// This is an alpha-level feature enabled by PodSchedulingReadiness feature gate.
+        /// </summary>
+        public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.PodSchedulingGate> SchedulingGates;
         /// <summary>
         /// SecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty.  See type description for default values of each field.
         /// </summary>
@@ -219,11 +233,15 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
             ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.PodReadinessGate> readinessGates,
 
+            ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.PodResourceClaim> resourceClaims,
+
             string restartPolicy,
 
             string runtimeClassName,
 
             string schedulerName,
+
+            ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.PodSchedulingGate> schedulingGates,
 
             Pulumi.Kubernetes.Types.Outputs.Core.V1.PodSecurityContext securityContext,
 
@@ -269,9 +287,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
             Priority = priority;
             PriorityClassName = priorityClassName;
             ReadinessGates = readinessGates;
+            ResourceClaims = resourceClaims;
             RestartPolicy = restartPolicy;
             RuntimeClassName = runtimeClassName;
             SchedulerName = schedulerName;
+            SchedulingGates = schedulingGates;
             SecurityContext = securityContext;
             ServiceAccount = serviceAccount;
             ServiceAccountName = serviceAccountName;

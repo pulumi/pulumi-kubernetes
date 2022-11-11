@@ -14,53 +14,29 @@ import javax.annotation.Nullable;
 
 @CustomType
 public final class Subject {
-    /**
-     * @return `group` matches based on user group name.
-     * 
-     */
     private @Nullable GroupSubject group;
     /**
-     * @return `kind` indicates which one of the other fields is non-empty. Required
+     * @return Required
      * 
      */
     private String kind;
-    /**
-     * @return `serviceAccount` matches ServiceAccounts.
-     * 
-     */
     private @Nullable ServiceAccountSubject serviceAccount;
-    /**
-     * @return `user` matches based on username.
-     * 
-     */
     private @Nullable UserSubject user;
 
     private Subject() {}
-    /**
-     * @return `group` matches based on user group name.
-     * 
-     */
     public Optional<GroupSubject> group() {
         return Optional.ofNullable(this.group);
     }
     /**
-     * @return `kind` indicates which one of the other fields is non-empty. Required
+     * @return Required
      * 
      */
     public String kind() {
         return this.kind;
     }
-    /**
-     * @return `serviceAccount` matches ServiceAccounts.
-     * 
-     */
     public Optional<ServiceAccountSubject> serviceAccount() {
         return Optional.ofNullable(this.serviceAccount);
     }
-    /**
-     * @return `user` matches based on username.
-     * 
-     */
     public Optional<UserSubject> user() {
         return Optional.ofNullable(this.user);
     }

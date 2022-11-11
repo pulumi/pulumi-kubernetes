@@ -37,7 +37,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps.V1
         /// </summary>
         public readonly int ReadyReplicas;
         /// <summary>
-        /// Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+        /// Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
         /// </summary>
         public readonly int Replicas;
 

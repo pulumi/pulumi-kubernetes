@@ -25,6 +25,9 @@ __all__ = [
     'IngressClassSpecPatchArgs',
     'IngressClassSpecArgs',
     'IngressClassArgs',
+    'IngressLoadBalancerIngressArgs',
+    'IngressLoadBalancerStatusArgs',
+    'IngressPortStatusArgs',
     'IngressRulePatchArgs',
     'IngressRuleArgs',
     'IngressServiceBackendPatchArgs',
@@ -254,9 +257,9 @@ class IPBlockPatchArgs:
                  cidr: Optional[pulumi.Input[str]] = None,
                  except_: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
-        IPBlock describes a particular CIDR (Ex. "192.168.1.1/24","2001:db9::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
-        :param pulumi.Input[str] cidr: CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64"
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] except_: Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64" Except values will be rejected if they are outside the CIDR range
+        IPBlock describes a particular CIDR (Ex. "192.168.1.0/24","2001:db8::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
+        :param pulumi.Input[str] cidr: CIDR is a string representing the IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64"
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] except_: Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the CIDR range
         """
         if cidr is not None:
             pulumi.set(__self__, "cidr", cidr)
@@ -267,7 +270,7 @@ class IPBlockPatchArgs:
     @pulumi.getter
     def cidr(self) -> Optional[pulumi.Input[str]]:
         """
-        CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64"
+        CIDR is a string representing the IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64"
         """
         return pulumi.get(self, "cidr")
 
@@ -279,7 +282,7 @@ class IPBlockPatchArgs:
     @pulumi.getter(name="except")
     def except_(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
-        Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64" Except values will be rejected if they are outside the CIDR range
+        Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the CIDR range
         """
         return pulumi.get(self, "except_")
 
@@ -294,9 +297,9 @@ class IPBlockArgs:
                  cidr: pulumi.Input[str],
                  except_: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
-        IPBlock describes a particular CIDR (Ex. "192.168.1.1/24","2001:db9::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
-        :param pulumi.Input[str] cidr: CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64"
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] except_: Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64" Except values will be rejected if they are outside the CIDR range
+        IPBlock describes a particular CIDR (Ex. "192.168.1.0/24","2001:db8::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
+        :param pulumi.Input[str] cidr: CIDR is a string representing the IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64"
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] except_: Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the CIDR range
         """
         pulumi.set(__self__, "cidr", cidr)
         if except_ is not None:
@@ -306,7 +309,7 @@ class IPBlockArgs:
     @pulumi.getter
     def cidr(self) -> pulumi.Input[str]:
         """
-        CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64"
+        CIDR is a string representing the IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64"
         """
         return pulumi.get(self, "cidr")
 
@@ -318,7 +321,7 @@ class IPBlockArgs:
     @pulumi.getter(name="except")
     def except_(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
-        Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64" Except values will be rejected if they are outside the CIDR range
+        Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the CIDR range
         """
         return pulumi.get(self, "except_")
 
@@ -734,6 +737,146 @@ class IngressClassArgs:
 
 
 @pulumi.input_type
+class IngressLoadBalancerIngressArgs:
+    def __init__(__self__, *,
+                 hostname: Optional[pulumi.Input[str]] = None,
+                 ip: Optional[pulumi.Input[str]] = None,
+                 ports: Optional[pulumi.Input[Sequence[pulumi.Input['IngressPortStatusArgs']]]] = None):
+        """
+        IngressLoadBalancerIngress represents the status of a load-balancer ingress point.
+        :param pulumi.Input[str] hostname: Hostname is set for load-balancer ingress points that are DNS based.
+        :param pulumi.Input[str] ip: IP is set for load-balancer ingress points that are IP based.
+        :param pulumi.Input[Sequence[pulumi.Input['IngressPortStatusArgs']]] ports: Ports provides information about the ports exposed by this LoadBalancer.
+        """
+        if hostname is not None:
+            pulumi.set(__self__, "hostname", hostname)
+        if ip is not None:
+            pulumi.set(__self__, "ip", ip)
+        if ports is not None:
+            pulumi.set(__self__, "ports", ports)
+
+    @property
+    @pulumi.getter
+    def hostname(self) -> Optional[pulumi.Input[str]]:
+        """
+        Hostname is set for load-balancer ingress points that are DNS based.
+        """
+        return pulumi.get(self, "hostname")
+
+    @hostname.setter
+    def hostname(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "hostname", value)
+
+    @property
+    @pulumi.getter
+    def ip(self) -> Optional[pulumi.Input[str]]:
+        """
+        IP is set for load-balancer ingress points that are IP based.
+        """
+        return pulumi.get(self, "ip")
+
+    @ip.setter
+    def ip(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "ip", value)
+
+    @property
+    @pulumi.getter
+    def ports(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['IngressPortStatusArgs']]]]:
+        """
+        Ports provides information about the ports exposed by this LoadBalancer.
+        """
+        return pulumi.get(self, "ports")
+
+    @ports.setter
+    def ports(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['IngressPortStatusArgs']]]]):
+        pulumi.set(self, "ports", value)
+
+
+@pulumi.input_type
+class IngressLoadBalancerStatusArgs:
+    def __init__(__self__, *,
+                 ingress: Optional[pulumi.Input[Sequence[pulumi.Input['IngressLoadBalancerIngressArgs']]]] = None):
+        """
+        IngressLoadBalancerStatus represents the status of a load-balancer.
+        :param pulumi.Input[Sequence[pulumi.Input['IngressLoadBalancerIngressArgs']]] ingress: Ingress is a list containing ingress points for the load-balancer.
+        """
+        if ingress is not None:
+            pulumi.set(__self__, "ingress", ingress)
+
+    @property
+    @pulumi.getter
+    def ingress(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['IngressLoadBalancerIngressArgs']]]]:
+        """
+        Ingress is a list containing ingress points for the load-balancer.
+        """
+        return pulumi.get(self, "ingress")
+
+    @ingress.setter
+    def ingress(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['IngressLoadBalancerIngressArgs']]]]):
+        pulumi.set(self, "ingress", value)
+
+
+@pulumi.input_type
+class IngressPortStatusArgs:
+    def __init__(__self__, *,
+                 port: pulumi.Input[int],
+                 protocol: pulumi.Input[str],
+                 error: Optional[pulumi.Input[str]] = None):
+        """
+        IngressPortStatus represents the error condition of a service port
+        :param pulumi.Input[int] port: Port is the port number of the ingress port.
+        :param pulumi.Input[str] protocol: Protocol is the protocol of the ingress port. The supported values are: "TCP", "UDP", "SCTP"
+        :param pulumi.Input[str] error: Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
+                 CamelCase names
+               - cloud provider specific error values must have names that comply with the
+                 format foo.example.com/CamelCase.
+        """
+        pulumi.set(__self__, "port", port)
+        pulumi.set(__self__, "protocol", protocol)
+        if error is not None:
+            pulumi.set(__self__, "error", error)
+
+    @property
+    @pulumi.getter
+    def port(self) -> pulumi.Input[int]:
+        """
+        Port is the port number of the ingress port.
+        """
+        return pulumi.get(self, "port")
+
+    @port.setter
+    def port(self, value: pulumi.Input[int]):
+        pulumi.set(self, "port", value)
+
+    @property
+    @pulumi.getter
+    def protocol(self) -> pulumi.Input[str]:
+        """
+        Protocol is the protocol of the ingress port. The supported values are: "TCP", "UDP", "SCTP"
+        """
+        return pulumi.get(self, "protocol")
+
+    @protocol.setter
+    def protocol(self, value: pulumi.Input[str]):
+        pulumi.set(self, "protocol", value)
+
+    @property
+    @pulumi.getter
+    def error(self) -> Optional[pulumi.Input[str]]:
+        """
+        Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
+          CamelCase names
+        - cloud provider specific error values must have names that comply with the
+          format foo.example.com/CamelCase.
+        """
+        return pulumi.get(self, "error")
+
+    @error.setter
+    def error(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "error", value)
+
+
+@pulumi.input_type
 class IngressRulePatchArgs:
     def __init__(__self__, *,
                  host: Optional[pulumi.Input[str]] = None,
@@ -1059,24 +1202,24 @@ class IngressSpecArgs:
 @pulumi.input_type
 class IngressStatusArgs:
     def __init__(__self__, *,
-                 load_balancer: Optional[pulumi.Input['_core.v1.LoadBalancerStatusArgs']] = None):
+                 load_balancer: Optional[pulumi.Input['IngressLoadBalancerStatusArgs']] = None):
         """
         IngressStatus describe the current state of the Ingress.
-        :param pulumi.Input['_core.v1.LoadBalancerStatusArgs'] load_balancer: LoadBalancer contains the current status of the load-balancer.
+        :param pulumi.Input['IngressLoadBalancerStatusArgs'] load_balancer: LoadBalancer contains the current status of the load-balancer.
         """
         if load_balancer is not None:
             pulumi.set(__self__, "load_balancer", load_balancer)
 
     @property
     @pulumi.getter(name="loadBalancer")
-    def load_balancer(self) -> Optional[pulumi.Input['_core.v1.LoadBalancerStatusArgs']]:
+    def load_balancer(self) -> Optional[pulumi.Input['IngressLoadBalancerStatusArgs']]:
         """
         LoadBalancer contains the current status of the load-balancer.
         """
         return pulumi.get(self, "load_balancer")
 
     @load_balancer.setter
-    def load_balancer(self, value: Optional[pulumi.Input['_core.v1.LoadBalancerStatusArgs']]):
+    def load_balancer(self, value: Optional[pulumi.Input['IngressLoadBalancerStatusArgs']]):
         pulumi.set(self, "load_balancer", value)
 
 

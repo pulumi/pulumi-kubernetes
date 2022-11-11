@@ -12,6 +12,8 @@ import com.pulumi.kubernetes.core.v1.outputs.LocalObjectReference;
 import com.pulumi.kubernetes.core.v1.outputs.PodDNSConfig;
 import com.pulumi.kubernetes.core.v1.outputs.PodOS;
 import com.pulumi.kubernetes.core.v1.outputs.PodReadinessGate;
+import com.pulumi.kubernetes.core.v1.outputs.PodResourceClaim;
+import com.pulumi.kubernetes.core.v1.outputs.PodSchedulingGate;
 import com.pulumi.kubernetes.core.v1.outputs.PodSecurityContext;
 import com.pulumi.kubernetes.core.v1.outputs.Toleration;
 import com.pulumi.kubernetes.core.v1.outputs.TopologySpreadConstraint;
@@ -152,6 +154,15 @@ public final class PodSpec {
      */
     private @Nullable List<PodReadinessGate> readinessGates;
     /**
+     * @return ResourceClaims defines which ResourceClaims must be allocated and reserved before the Pod is allowed to start. The resources will be made available to those containers which consume them by name.
+     * 
+     * This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+     * 
+     * This field is immutable.
+     * 
+     */
+    private @Nullable List<PodResourceClaim> resourceClaims;
+    /**
      * @return Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
      * 
      */
@@ -166,6 +177,13 @@ public final class PodSpec {
      * 
      */
     private @Nullable String schedulerName;
+    /**
+     * @return SchedulingGates is an opaque list of values that if specified will block scheduling the pod. More info:  https://git.k8s.io/enhancements/keps/sig-scheduling/3521-pod-scheduling-readiness.
+     * 
+     * This is an alpha-level feature enabled by PodSchedulingReadiness feature gate.
+     * 
+     */
+    private @Nullable List<PodSchedulingGate> schedulingGates;
     /**
      * @return SecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty.  See type description for default values of each field.
      * 
@@ -391,6 +409,17 @@ public final class PodSpec {
         return this.readinessGates == null ? List.of() : this.readinessGates;
     }
     /**
+     * @return ResourceClaims defines which ResourceClaims must be allocated and reserved before the Pod is allowed to start. The resources will be made available to those containers which consume them by name.
+     * 
+     * This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+     * 
+     * This field is immutable.
+     * 
+     */
+    public List<PodResourceClaim> resourceClaims() {
+        return this.resourceClaims == null ? List.of() : this.resourceClaims;
+    }
+    /**
      * @return Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
      * 
      */
@@ -410,6 +439,15 @@ public final class PodSpec {
      */
     public Optional<String> schedulerName() {
         return Optional.ofNullable(this.schedulerName);
+    }
+    /**
+     * @return SchedulingGates is an opaque list of values that if specified will block scheduling the pod. More info:  https://git.k8s.io/enhancements/keps/sig-scheduling/3521-pod-scheduling-readiness.
+     * 
+     * This is an alpha-level feature enabled by PodSchedulingReadiness feature gate.
+     * 
+     */
+    public List<PodSchedulingGate> schedulingGates() {
+        return this.schedulingGates == null ? List.of() : this.schedulingGates;
     }
     /**
      * @return SecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty.  See type description for default values of each field.
@@ -515,9 +553,11 @@ public final class PodSpec {
         private @Nullable Integer priority;
         private @Nullable String priorityClassName;
         private @Nullable List<PodReadinessGate> readinessGates;
+        private @Nullable List<PodResourceClaim> resourceClaims;
         private @Nullable String restartPolicy;
         private @Nullable String runtimeClassName;
         private @Nullable String schedulerName;
+        private @Nullable List<PodSchedulingGate> schedulingGates;
         private @Nullable PodSecurityContext securityContext;
         private @Nullable String serviceAccount;
         private @Nullable String serviceAccountName;
@@ -555,9 +595,11 @@ public final class PodSpec {
     	      this.priority = defaults.priority;
     	      this.priorityClassName = defaults.priorityClassName;
     	      this.readinessGates = defaults.readinessGates;
+    	      this.resourceClaims = defaults.resourceClaims;
     	      this.restartPolicy = defaults.restartPolicy;
     	      this.runtimeClassName = defaults.runtimeClassName;
     	      this.schedulerName = defaults.schedulerName;
+    	      this.schedulingGates = defaults.schedulingGates;
     	      this.securityContext = defaults.securityContext;
     	      this.serviceAccount = defaults.serviceAccount;
     	      this.serviceAccountName = defaults.serviceAccountName;
@@ -709,6 +751,14 @@ public final class PodSpec {
             return readinessGates(List.of(readinessGates));
         }
         @CustomType.Setter
+        public Builder resourceClaims(@Nullable List<PodResourceClaim> resourceClaims) {
+            this.resourceClaims = resourceClaims;
+            return this;
+        }
+        public Builder resourceClaims(PodResourceClaim... resourceClaims) {
+            return resourceClaims(List.of(resourceClaims));
+        }
+        @CustomType.Setter
         public Builder restartPolicy(@Nullable String restartPolicy) {
             this.restartPolicy = restartPolicy;
             return this;
@@ -722,6 +772,14 @@ public final class PodSpec {
         public Builder schedulerName(@Nullable String schedulerName) {
             this.schedulerName = schedulerName;
             return this;
+        }
+        @CustomType.Setter
+        public Builder schedulingGates(@Nullable List<PodSchedulingGate> schedulingGates) {
+            this.schedulingGates = schedulingGates;
+            return this;
+        }
+        public Builder schedulingGates(PodSchedulingGate... schedulingGates) {
+            return schedulingGates(List.of(schedulingGates));
         }
         @CustomType.Setter
         public Builder securityContext(@Nullable PodSecurityContext securityContext) {
@@ -808,9 +866,11 @@ public final class PodSpec {
             o.priority = priority;
             o.priorityClassName = priorityClassName;
             o.readinessGates = readinessGates;
+            o.resourceClaims = resourceClaims;
             o.restartPolicy = restartPolicy;
             o.runtimeClassName = runtimeClassName;
             o.schedulerName = schedulerName;
+            o.schedulingGates = schedulingGates;
             o.securityContext = securityContext;
             o.serviceAccount = serviceAccount;
             o.serviceAccountName = serviceAccountName;

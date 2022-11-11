@@ -40,6 +40,7 @@ import * as networking from "../networking";
 import * as node from "../node";
 import * as policy from "../policy";
 import * as rbac from "../rbac";
+import * as resource from "../resource";
 import * as scheduling from "../scheduling";
 import * as settings from "../settings";
 import * as storage from "../storage";
@@ -71,6 +72,14 @@ export abstract class CollectionComponentResource extends pulumi.ComponentResour
     public getResource(groupVersionKind: "admissionregistration.k8s.io/v1/ValidatingWebhookConfiguration", namespace: string, name: string): pulumi.Output<admissionregistration.v1.ValidatingWebhookConfiguration>;
     public getResource(groupVersionKind: "admissionregistration.k8s.io/v1/ValidatingWebhookConfigurationList", name: string): pulumi.Output<admissionregistration.v1.ValidatingWebhookConfigurationList>;
     public getResource(groupVersionKind: "admissionregistration.k8s.io/v1/ValidatingWebhookConfigurationList", namespace: string, name: string): pulumi.Output<admissionregistration.v1.ValidatingWebhookConfigurationList>;
+    public getResource(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicy", name: string): pulumi.Output<admissionregistration.v1alpha1.ValidatingAdmissionPolicy>;
+    public getResource(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicy", namespace: string, name: string): pulumi.Output<admissionregistration.v1alpha1.ValidatingAdmissionPolicy>;
+    public getResource(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyBinding", name: string): pulumi.Output<admissionregistration.v1alpha1.ValidatingAdmissionPolicyBinding>;
+    public getResource(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyBinding", namespace: string, name: string): pulumi.Output<admissionregistration.v1alpha1.ValidatingAdmissionPolicyBinding>;
+    public getResource(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyBindingList", name: string): pulumi.Output<admissionregistration.v1alpha1.ValidatingAdmissionPolicyBindingList>;
+    public getResource(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyBindingList", namespace: string, name: string): pulumi.Output<admissionregistration.v1alpha1.ValidatingAdmissionPolicyBindingList>;
+    public getResource(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyList", name: string): pulumi.Output<admissionregistration.v1alpha1.ValidatingAdmissionPolicyList>;
+    public getResource(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyList", namespace: string, name: string): pulumi.Output<admissionregistration.v1alpha1.ValidatingAdmissionPolicyList>;
     public getResource(groupVersionKind: "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfiguration", name: string): pulumi.Output<admissionregistration.v1beta1.MutatingWebhookConfiguration>;
     public getResource(groupVersionKind: "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfiguration", namespace: string, name: string): pulumi.Output<admissionregistration.v1beta1.MutatingWebhookConfiguration>;
     public getResource(groupVersionKind: "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfigurationList", name: string): pulumi.Output<admissionregistration.v1beta1.MutatingWebhookConfigurationList>;
@@ -155,6 +164,8 @@ export abstract class CollectionComponentResource extends pulumi.ComponentResour
     public getResource(groupVersionKind: "authentication.k8s.io/v1/TokenRequest", namespace: string, name: string): pulumi.Output<authentication.v1.TokenRequest>;
     public getResource(groupVersionKind: "authentication.k8s.io/v1/TokenReview", name: string): pulumi.Output<authentication.v1.TokenReview>;
     public getResource(groupVersionKind: "authentication.k8s.io/v1/TokenReview", namespace: string, name: string): pulumi.Output<authentication.v1.TokenReview>;
+    public getResource(groupVersionKind: "authentication.k8s.io/v1alpha1/SelfSubjectReview", name: string): pulumi.Output<authentication.v1alpha1.SelfSubjectReview>;
+    public getResource(groupVersionKind: "authentication.k8s.io/v1alpha1/SelfSubjectReview", namespace: string, name: string): pulumi.Output<authentication.v1alpha1.SelfSubjectReview>;
     public getResource(groupVersionKind: "authentication.k8s.io/v1beta1/TokenReview", name: string): pulumi.Output<authentication.v1beta1.TokenReview>;
     public getResource(groupVersionKind: "authentication.k8s.io/v1beta1/TokenReview", namespace: string, name: string): pulumi.Output<authentication.v1beta1.TokenReview>;
     public getResource(groupVersionKind: "authorization.k8s.io/v1/LocalSubjectAccessReview", name: string): pulumi.Output<authorization.v1.LocalSubjectAccessReview>;
@@ -347,6 +358,14 @@ export abstract class CollectionComponentResource extends pulumi.ComponentResour
     public getResource(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta2/PriorityLevelConfiguration", namespace: string, name: string): pulumi.Output<flowcontrol.v1beta2.PriorityLevelConfiguration>;
     public getResource(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta2/PriorityLevelConfigurationList", name: string): pulumi.Output<flowcontrol.v1beta2.PriorityLevelConfigurationList>;
     public getResource(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta2/PriorityLevelConfigurationList", namespace: string, name: string): pulumi.Output<flowcontrol.v1beta2.PriorityLevelConfigurationList>;
+    public getResource(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta3/FlowSchema", name: string): pulumi.Output<flowcontrol.v1beta3.FlowSchema>;
+    public getResource(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta3/FlowSchema", namespace: string, name: string): pulumi.Output<flowcontrol.v1beta3.FlowSchema>;
+    public getResource(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta3/FlowSchemaList", name: string): pulumi.Output<flowcontrol.v1beta3.FlowSchemaList>;
+    public getResource(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta3/FlowSchemaList", namespace: string, name: string): pulumi.Output<flowcontrol.v1beta3.FlowSchemaList>;
+    public getResource(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta3/PriorityLevelConfiguration", name: string): pulumi.Output<flowcontrol.v1beta3.PriorityLevelConfiguration>;
+    public getResource(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta3/PriorityLevelConfiguration", namespace: string, name: string): pulumi.Output<flowcontrol.v1beta3.PriorityLevelConfiguration>;
+    public getResource(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta3/PriorityLevelConfigurationList", name: string): pulumi.Output<flowcontrol.v1beta3.PriorityLevelConfigurationList>;
+    public getResource(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta3/PriorityLevelConfigurationList", namespace: string, name: string): pulumi.Output<flowcontrol.v1beta3.PriorityLevelConfigurationList>;
     public getResource(groupVersionKind: "meta/v1/Status", name: string): pulumi.Output<meta.v1.Status>;
     public getResource(groupVersionKind: "meta/v1/Status", namespace: string, name: string): pulumi.Output<meta.v1.Status>;
     public getResource(groupVersionKind: "networking.k8s.io/v1/Ingress", name: string): pulumi.Output<networking.v1.Ingress>;
@@ -445,6 +464,22 @@ export abstract class CollectionComponentResource extends pulumi.ComponentResour
     public getResource(groupVersionKind: "rbac.authorization.k8s.io/v1beta1/RoleBindingList", namespace: string, name: string): pulumi.Output<rbac.v1beta1.RoleBindingList>;
     public getResource(groupVersionKind: "rbac.authorization.k8s.io/v1beta1/RoleList", name: string): pulumi.Output<rbac.v1beta1.RoleList>;
     public getResource(groupVersionKind: "rbac.authorization.k8s.io/v1beta1/RoleList", namespace: string, name: string): pulumi.Output<rbac.v1beta1.RoleList>;
+    public getResource(groupVersionKind: "resource.k8s.io/v1alpha1/PodScheduling", name: string): pulumi.Output<resource.v1alpha1.PodScheduling>;
+    public getResource(groupVersionKind: "resource.k8s.io/v1alpha1/PodScheduling", namespace: string, name: string): pulumi.Output<resource.v1alpha1.PodScheduling>;
+    public getResource(groupVersionKind: "resource.k8s.io/v1alpha1/PodSchedulingList", name: string): pulumi.Output<resource.v1alpha1.PodSchedulingList>;
+    public getResource(groupVersionKind: "resource.k8s.io/v1alpha1/PodSchedulingList", namespace: string, name: string): pulumi.Output<resource.v1alpha1.PodSchedulingList>;
+    public getResource(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClaim", name: string): pulumi.Output<resource.v1alpha1.ResourceClaim>;
+    public getResource(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClaim", namespace: string, name: string): pulumi.Output<resource.v1alpha1.ResourceClaim>;
+    public getResource(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClaimList", name: string): pulumi.Output<resource.v1alpha1.ResourceClaimList>;
+    public getResource(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClaimList", namespace: string, name: string): pulumi.Output<resource.v1alpha1.ResourceClaimList>;
+    public getResource(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClaimTemplate", name: string): pulumi.Output<resource.v1alpha1.ResourceClaimTemplate>;
+    public getResource(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClaimTemplate", namespace: string, name: string): pulumi.Output<resource.v1alpha1.ResourceClaimTemplate>;
+    public getResource(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClaimTemplateList", name: string): pulumi.Output<resource.v1alpha1.ResourceClaimTemplateList>;
+    public getResource(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClaimTemplateList", namespace: string, name: string): pulumi.Output<resource.v1alpha1.ResourceClaimTemplateList>;
+    public getResource(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClass", name: string): pulumi.Output<resource.v1alpha1.ResourceClass>;
+    public getResource(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClass", namespace: string, name: string): pulumi.Output<resource.v1alpha1.ResourceClass>;
+    public getResource(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClassList", name: string): pulumi.Output<resource.v1alpha1.ResourceClassList>;
+    public getResource(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClassList", namespace: string, name: string): pulumi.Output<resource.v1alpha1.ResourceClassList>;
     public getResource(groupVersionKind: "scheduling.k8s.io/v1/PriorityClass", name: string): pulumi.Output<scheduling.v1.PriorityClass>;
     public getResource(groupVersionKind: "scheduling.k8s.io/v1/PriorityClass", namespace: string, name: string): pulumi.Output<scheduling.v1.PriorityClass>;
     public getResource(groupVersionKind: "scheduling.k8s.io/v1/PriorityClassList", name: string): pulumi.Output<scheduling.v1.PriorityClassList>;
@@ -547,6 +582,38 @@ export abstract class CollectionComponentResource extends pulumi.ComponentResour
     public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1/ValidatingWebhookConfigurationList", namespace: string, name: string, property: "kind"): pulumi.Output<"ValidatingWebhookConfigurationList">;
     public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1/ValidatingWebhookConfigurationList", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
     public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1/ValidatingWebhookConfigurationList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicy", name: string, property: "apiVersion"): pulumi.Output<"admissionregistration.k8s.io/v1alpha1">;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicy", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"admissionregistration.k8s.io/v1alpha1">;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicy", name: string, property: "kind"): pulumi.Output<"ValidatingAdmissionPolicy">;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicy", namespace: string, name: string, property: "kind"): pulumi.Output<"ValidatingAdmissionPolicy">;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicy", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicy", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicy", name: string, property: "spec"): pulumi.Output<outputs.admissionregistration.v1alpha1.ValidatingAdmissionPolicySpec>;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicy", namespace: string, name: string, property: "spec"): pulumi.Output<outputs.admissionregistration.v1alpha1.ValidatingAdmissionPolicySpec>;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyBinding", name: string, property: "apiVersion"): pulumi.Output<"admissionregistration.k8s.io/v1alpha1">;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyBinding", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"admissionregistration.k8s.io/v1alpha1">;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyBinding", name: string, property: "kind"): pulumi.Output<"ValidatingAdmissionPolicyBinding">;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyBinding", namespace: string, name: string, property: "kind"): pulumi.Output<"ValidatingAdmissionPolicyBinding">;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyBinding", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyBinding", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyBinding", name: string, property: "spec"): pulumi.Output<outputs.admissionregistration.v1alpha1.ValidatingAdmissionPolicyBindingSpec>;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyBinding", namespace: string, name: string, property: "spec"): pulumi.Output<outputs.admissionregistration.v1alpha1.ValidatingAdmissionPolicyBindingSpec>;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyBindingList", name: string, property: "apiVersion"): pulumi.Output<"admissionregistration.k8s.io/v1alpha1">;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyBindingList", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"admissionregistration.k8s.io/v1alpha1">;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyBindingList", name: string, property: "items"): pulumi.Output<outputs.admissionregistration.v1alpha1.ValidatingAdmissionPolicyBinding[]>;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyBindingList", namespace: string, name: string, property: "items"): pulumi.Output<outputs.admissionregistration.v1alpha1.ValidatingAdmissionPolicyBinding[]>;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyBindingList", name: string, property: "kind"): pulumi.Output<"ValidatingAdmissionPolicyBindingList">;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyBindingList", namespace: string, name: string, property: "kind"): pulumi.Output<"ValidatingAdmissionPolicyBindingList">;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyBindingList", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyBindingList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyList", name: string, property: "apiVersion"): pulumi.Output<"admissionregistration.k8s.io/v1alpha1">;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyList", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"admissionregistration.k8s.io/v1alpha1">;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyList", name: string, property: "items"): pulumi.Output<outputs.admissionregistration.v1alpha1.ValidatingAdmissionPolicy[]>;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyList", namespace: string, name: string, property: "items"): pulumi.Output<outputs.admissionregistration.v1alpha1.ValidatingAdmissionPolicy[]>;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyList", name: string, property: "kind"): pulumi.Output<"ValidatingAdmissionPolicyList">;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyList", namespace: string, name: string, property: "kind"): pulumi.Output<"ValidatingAdmissionPolicyList">;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyList", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
     public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfiguration", name: string, property: "apiVersion"): pulumi.Output<"admissionregistration.k8s.io/v1beta1">;
     public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfiguration", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"admissionregistration.k8s.io/v1beta1">;
     public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfiguration", name: string, property: "kind"): pulumi.Output<"MutatingWebhookConfiguration">;
@@ -921,6 +988,14 @@ export abstract class CollectionComponentResource extends pulumi.ComponentResour
     public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1/TokenReview", namespace: string, name: string, property: "spec"): pulumi.Output<outputs.authentication.v1.TokenReviewSpec>;
     public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1/TokenReview", name: string, property: "status"): pulumi.Output<outputs.authentication.v1.TokenReviewStatus>;
     public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1/TokenReview", namespace: string, name: string, property: "status"): pulumi.Output<outputs.authentication.v1.TokenReviewStatus>;
+    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1alpha1/SelfSubjectReview", name: string, property: "apiVersion"): pulumi.Output<"authentication.k8s.io/v1alpha1">;
+    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1alpha1/SelfSubjectReview", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"authentication.k8s.io/v1alpha1">;
+    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1alpha1/SelfSubjectReview", name: string, property: "kind"): pulumi.Output<"SelfSubjectReview">;
+    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1alpha1/SelfSubjectReview", namespace: string, name: string, property: "kind"): pulumi.Output<"SelfSubjectReview">;
+    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1alpha1/SelfSubjectReview", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
+    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1alpha1/SelfSubjectReview", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
+    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1alpha1/SelfSubjectReview", name: string, property: "status"): pulumi.Output<outputs.authentication.v1alpha1.SelfSubjectReviewStatus>;
+    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1alpha1/SelfSubjectReview", namespace: string, name: string, property: "status"): pulumi.Output<outputs.authentication.v1alpha1.SelfSubjectReviewStatus>;
     public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1beta1/TokenReview", name: string, property: "apiVersion"): pulumi.Output<"authentication.k8s.io/v1beta1">;
     public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1beta1/TokenReview", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"authentication.k8s.io/v1beta1">;
     public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1beta1/TokenReview", name: string, property: "kind"): pulumi.Output<"TokenReview">;
@@ -1863,6 +1938,42 @@ export abstract class CollectionComponentResource extends pulumi.ComponentResour
     public getResourceProperty(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta2/PriorityLevelConfigurationList", namespace: string, name: string, property: "kind"): pulumi.Output<"PriorityLevelConfigurationList">;
     public getResourceProperty(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta2/PriorityLevelConfigurationList", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
     public getResourceProperty(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta2/PriorityLevelConfigurationList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
+    public getResourceProperty(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta3/FlowSchema", name: string, property: "apiVersion"): pulumi.Output<"flowcontrol.apiserver.k8s.io/v1beta3">;
+    public getResourceProperty(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta3/FlowSchema", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"flowcontrol.apiserver.k8s.io/v1beta3">;
+    public getResourceProperty(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta3/FlowSchema", name: string, property: "kind"): pulumi.Output<"FlowSchema">;
+    public getResourceProperty(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta3/FlowSchema", namespace: string, name: string, property: "kind"): pulumi.Output<"FlowSchema">;
+    public getResourceProperty(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta3/FlowSchema", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
+    public getResourceProperty(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta3/FlowSchema", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
+    public getResourceProperty(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta3/FlowSchema", name: string, property: "spec"): pulumi.Output<outputs.flowcontrol.v1beta3.FlowSchemaSpec>;
+    public getResourceProperty(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta3/FlowSchema", namespace: string, name: string, property: "spec"): pulumi.Output<outputs.flowcontrol.v1beta3.FlowSchemaSpec>;
+    public getResourceProperty(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta3/FlowSchema", name: string, property: "status"): pulumi.Output<outputs.flowcontrol.v1beta3.FlowSchemaStatus>;
+    public getResourceProperty(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta3/FlowSchema", namespace: string, name: string, property: "status"): pulumi.Output<outputs.flowcontrol.v1beta3.FlowSchemaStatus>;
+    public getResourceProperty(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta3/FlowSchemaList", name: string, property: "apiVersion"): pulumi.Output<"flowcontrol.apiserver.k8s.io/v1beta3">;
+    public getResourceProperty(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta3/FlowSchemaList", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"flowcontrol.apiserver.k8s.io/v1beta3">;
+    public getResourceProperty(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta3/FlowSchemaList", name: string, property: "items"): pulumi.Output<outputs.flowcontrol.v1beta3.FlowSchema[]>;
+    public getResourceProperty(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta3/FlowSchemaList", namespace: string, name: string, property: "items"): pulumi.Output<outputs.flowcontrol.v1beta3.FlowSchema[]>;
+    public getResourceProperty(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta3/FlowSchemaList", name: string, property: "kind"): pulumi.Output<"FlowSchemaList">;
+    public getResourceProperty(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta3/FlowSchemaList", namespace: string, name: string, property: "kind"): pulumi.Output<"FlowSchemaList">;
+    public getResourceProperty(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta3/FlowSchemaList", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
+    public getResourceProperty(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta3/FlowSchemaList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
+    public getResourceProperty(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta3/PriorityLevelConfiguration", name: string, property: "apiVersion"): pulumi.Output<"flowcontrol.apiserver.k8s.io/v1beta3">;
+    public getResourceProperty(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta3/PriorityLevelConfiguration", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"flowcontrol.apiserver.k8s.io/v1beta3">;
+    public getResourceProperty(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta3/PriorityLevelConfiguration", name: string, property: "kind"): pulumi.Output<"PriorityLevelConfiguration">;
+    public getResourceProperty(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta3/PriorityLevelConfiguration", namespace: string, name: string, property: "kind"): pulumi.Output<"PriorityLevelConfiguration">;
+    public getResourceProperty(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta3/PriorityLevelConfiguration", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
+    public getResourceProperty(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta3/PriorityLevelConfiguration", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
+    public getResourceProperty(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta3/PriorityLevelConfiguration", name: string, property: "spec"): pulumi.Output<outputs.flowcontrol.v1beta3.PriorityLevelConfigurationSpec>;
+    public getResourceProperty(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta3/PriorityLevelConfiguration", namespace: string, name: string, property: "spec"): pulumi.Output<outputs.flowcontrol.v1beta3.PriorityLevelConfigurationSpec>;
+    public getResourceProperty(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta3/PriorityLevelConfiguration", name: string, property: "status"): pulumi.Output<outputs.flowcontrol.v1beta3.PriorityLevelConfigurationStatus>;
+    public getResourceProperty(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta3/PriorityLevelConfiguration", namespace: string, name: string, property: "status"): pulumi.Output<outputs.flowcontrol.v1beta3.PriorityLevelConfigurationStatus>;
+    public getResourceProperty(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta3/PriorityLevelConfigurationList", name: string, property: "apiVersion"): pulumi.Output<"flowcontrol.apiserver.k8s.io/v1beta3">;
+    public getResourceProperty(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta3/PriorityLevelConfigurationList", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"flowcontrol.apiserver.k8s.io/v1beta3">;
+    public getResourceProperty(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta3/PriorityLevelConfigurationList", name: string, property: "items"): pulumi.Output<outputs.flowcontrol.v1beta3.PriorityLevelConfiguration[]>;
+    public getResourceProperty(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta3/PriorityLevelConfigurationList", namespace: string, name: string, property: "items"): pulumi.Output<outputs.flowcontrol.v1beta3.PriorityLevelConfiguration[]>;
+    public getResourceProperty(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta3/PriorityLevelConfigurationList", name: string, property: "kind"): pulumi.Output<"PriorityLevelConfigurationList">;
+    public getResourceProperty(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta3/PriorityLevelConfigurationList", namespace: string, name: string, property: "kind"): pulumi.Output<"PriorityLevelConfigurationList">;
+    public getResourceProperty(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta3/PriorityLevelConfigurationList", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
+    public getResourceProperty(groupVersionKind: "flowcontrol.apiserver.k8s.io/v1beta3/PriorityLevelConfigurationList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
     public getResourceProperty(groupVersionKind: "meta/v1/Status", name: string, property: "apiVersion"): pulumi.Output<"v1">;
     public getResourceProperty(groupVersionKind: "meta/v1/Status", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"v1">;
     public getResourceProperty(groupVersionKind: "meta/v1/Status", name: string, property: "code"): pulumi.Output<number>;
@@ -2299,6 +2410,78 @@ export abstract class CollectionComponentResource extends pulumi.ComponentResour
     public getResourceProperty(groupVersionKind: "rbac.authorization.k8s.io/v1beta1/RoleList", namespace: string, name: string, property: "kind"): pulumi.Output<"RoleList">;
     public getResourceProperty(groupVersionKind: "rbac.authorization.k8s.io/v1beta1/RoleList", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
     public getResourceProperty(groupVersionKind: "rbac.authorization.k8s.io/v1beta1/RoleList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/PodScheduling", name: string, property: "apiVersion"): pulumi.Output<"resource.k8s.io/v1alpha1">;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/PodScheduling", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"resource.k8s.io/v1alpha1">;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/PodScheduling", name: string, property: "kind"): pulumi.Output<"PodScheduling">;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/PodScheduling", namespace: string, name: string, property: "kind"): pulumi.Output<"PodScheduling">;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/PodScheduling", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/PodScheduling", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/PodScheduling", name: string, property: "spec"): pulumi.Output<outputs.resource.v1alpha1.PodSchedulingSpec>;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/PodScheduling", namespace: string, name: string, property: "spec"): pulumi.Output<outputs.resource.v1alpha1.PodSchedulingSpec>;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/PodScheduling", name: string, property: "status"): pulumi.Output<outputs.resource.v1alpha1.PodSchedulingStatus>;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/PodScheduling", namespace: string, name: string, property: "status"): pulumi.Output<outputs.resource.v1alpha1.PodSchedulingStatus>;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/PodSchedulingList", name: string, property: "apiVersion"): pulumi.Output<"resource.k8s.io/v1alpha1">;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/PodSchedulingList", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"resource.k8s.io/v1alpha1">;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/PodSchedulingList", name: string, property: "items"): pulumi.Output<outputs.resource.v1alpha1.PodScheduling[]>;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/PodSchedulingList", namespace: string, name: string, property: "items"): pulumi.Output<outputs.resource.v1alpha1.PodScheduling[]>;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/PodSchedulingList", name: string, property: "kind"): pulumi.Output<"PodSchedulingList">;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/PodSchedulingList", namespace: string, name: string, property: "kind"): pulumi.Output<"PodSchedulingList">;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/PodSchedulingList", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/PodSchedulingList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClaim", name: string, property: "apiVersion"): pulumi.Output<"resource.k8s.io/v1alpha1">;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClaim", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"resource.k8s.io/v1alpha1">;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClaim", name: string, property: "kind"): pulumi.Output<"ResourceClaim">;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClaim", namespace: string, name: string, property: "kind"): pulumi.Output<"ResourceClaim">;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClaim", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClaim", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClaim", name: string, property: "spec"): pulumi.Output<outputs.resource.v1alpha1.ResourceClaimSpec>;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClaim", namespace: string, name: string, property: "spec"): pulumi.Output<outputs.resource.v1alpha1.ResourceClaimSpec>;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClaim", name: string, property: "status"): pulumi.Output<outputs.resource.v1alpha1.ResourceClaimStatus>;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClaim", namespace: string, name: string, property: "status"): pulumi.Output<outputs.resource.v1alpha1.ResourceClaimStatus>;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClaimList", name: string, property: "apiVersion"): pulumi.Output<"resource.k8s.io/v1alpha1">;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClaimList", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"resource.k8s.io/v1alpha1">;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClaimList", name: string, property: "items"): pulumi.Output<outputs.resource.v1alpha1.ResourceClaim[]>;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClaimList", namespace: string, name: string, property: "items"): pulumi.Output<outputs.resource.v1alpha1.ResourceClaim[]>;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClaimList", name: string, property: "kind"): pulumi.Output<"ResourceClaimList">;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClaimList", namespace: string, name: string, property: "kind"): pulumi.Output<"ResourceClaimList">;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClaimList", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClaimList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClaimTemplate", name: string, property: "apiVersion"): pulumi.Output<"resource.k8s.io/v1alpha1">;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClaimTemplate", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"resource.k8s.io/v1alpha1">;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClaimTemplate", name: string, property: "kind"): pulumi.Output<"ResourceClaimTemplate">;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClaimTemplate", namespace: string, name: string, property: "kind"): pulumi.Output<"ResourceClaimTemplate">;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClaimTemplate", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClaimTemplate", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClaimTemplate", name: string, property: "spec"): pulumi.Output<outputs.resource.v1alpha1.ResourceClaimTemplateSpec>;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClaimTemplate", namespace: string, name: string, property: "spec"): pulumi.Output<outputs.resource.v1alpha1.ResourceClaimTemplateSpec>;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClaimTemplateList", name: string, property: "apiVersion"): pulumi.Output<"resource.k8s.io/v1alpha1">;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClaimTemplateList", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"resource.k8s.io/v1alpha1">;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClaimTemplateList", name: string, property: "items"): pulumi.Output<outputs.resource.v1alpha1.ResourceClaimTemplate[]>;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClaimTemplateList", namespace: string, name: string, property: "items"): pulumi.Output<outputs.resource.v1alpha1.ResourceClaimTemplate[]>;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClaimTemplateList", name: string, property: "kind"): pulumi.Output<"ResourceClaimTemplateList">;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClaimTemplateList", namespace: string, name: string, property: "kind"): pulumi.Output<"ResourceClaimTemplateList">;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClaimTemplateList", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClaimTemplateList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClass", name: string, property: "apiVersion"): pulumi.Output<"resource.k8s.io/v1alpha1">;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClass", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"resource.k8s.io/v1alpha1">;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClass", name: string, property: "driverName"): pulumi.Output<string>;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClass", namespace: string, name: string, property: "driverName"): pulumi.Output<string>;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClass", name: string, property: "kind"): pulumi.Output<"ResourceClass">;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClass", namespace: string, name: string, property: "kind"): pulumi.Output<"ResourceClass">;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClass", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClass", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClass", name: string, property: "parametersRef"): pulumi.Output<outputs.resource.v1alpha1.ResourceClassParametersReference>;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClass", namespace: string, name: string, property: "parametersRef"): pulumi.Output<outputs.resource.v1alpha1.ResourceClassParametersReference>;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClass", name: string, property: "suitableNodes"): pulumi.Output<outputs.core.v1.NodeSelector>;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClass", namespace: string, name: string, property: "suitableNodes"): pulumi.Output<outputs.core.v1.NodeSelector>;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClassList", name: string, property: "apiVersion"): pulumi.Output<"resource.k8s.io/v1alpha1">;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClassList", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"resource.k8s.io/v1alpha1">;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClassList", name: string, property: "items"): pulumi.Output<outputs.resource.v1alpha1.ResourceClass[]>;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClassList", namespace: string, name: string, property: "items"): pulumi.Output<outputs.resource.v1alpha1.ResourceClass[]>;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClassList", name: string, property: "kind"): pulumi.Output<"ResourceClassList">;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClassList", namespace: string, name: string, property: "kind"): pulumi.Output<"ResourceClassList">;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClassList", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
+    public getResourceProperty(groupVersionKind: "resource.k8s.io/v1alpha1/ResourceClassList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
     public getResourceProperty(groupVersionKind: "scheduling.k8s.io/v1/PriorityClass", name: string, property: "apiVersion"): pulumi.Output<"scheduling.k8s.io/v1">;
     public getResourceProperty(groupVersionKind: "scheduling.k8s.io/v1/PriorityClass", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"scheduling.k8s.io/v1">;
     public getResourceProperty(groupVersionKind: "scheduling.k8s.io/v1/PriorityClass", name: string, property: "description"): pulumi.Output<string>;
@@ -3067,6 +3250,8 @@ export interface ConfigOpts {
            (gvk === "v1/List")
         || (gvk === "admissionregistration.k8s.io/v1/MutatingWebhookConfigurationList")
         || (gvk === "admissionregistration.k8s.io/v1/ValidatingWebhookConfigurationList")
+        || (gvk === "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyBindingList")
+        || (gvk === "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyList")
         || (gvk === "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfigurationList")
         || (gvk === "admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfigurationList")
         || (gvk === "apiextensions.k8s.io/v1/CustomResourceDefinitionList")
@@ -3130,6 +3315,8 @@ export interface ConfigOpts {
         || (gvk === "flowcontrol.apiserver.k8s.io/v1beta1/PriorityLevelConfigurationList")
         || (gvk === "flowcontrol.apiserver.k8s.io/v1beta2/FlowSchemaList")
         || (gvk === "flowcontrol.apiserver.k8s.io/v1beta2/PriorityLevelConfigurationList")
+        || (gvk === "flowcontrol.apiserver.k8s.io/v1beta3/FlowSchemaList")
+        || (gvk === "flowcontrol.apiserver.k8s.io/v1beta3/PriorityLevelConfigurationList")
         || (gvk === "networking.k8s.io/v1/IngressClassList")
         || (gvk === "networking.k8s.io/v1/IngressList")
         || (gvk === "networking.k8s.io/v1/NetworkPolicyList")
@@ -3154,6 +3341,10 @@ export interface ConfigOpts {
         || (gvk === "rbac.authorization.k8s.io/v1beta1/ClusterRoleList")
         || (gvk === "rbac.authorization.k8s.io/v1beta1/RoleBindingList")
         || (gvk === "rbac.authorization.k8s.io/v1beta1/RoleList")
+        || (gvk === "resource.k8s.io/v1alpha1/PodSchedulingList")
+        || (gvk === "resource.k8s.io/v1alpha1/ResourceClaimList")
+        || (gvk === "resource.k8s.io/v1alpha1/ResourceClaimTemplateList")
+        || (gvk === "resource.k8s.io/v1alpha1/ResourceClassList")
         || (gvk === "scheduling.k8s.io/v1/PriorityClassList")
         || (gvk === "scheduling.k8s.io/v1alpha1/PriorityClassList")
         || (gvk === "scheduling.k8s.io/v1beta1/PriorityClassList")
@@ -3201,6 +3392,16 @@ export interface ConfigOpts {
             return [id.apply(id => ({
                 name: `admissionregistration.k8s.io/v1/ValidatingWebhookConfiguration::${id}`,
                 resource: new admissionregistration.v1.ValidatingWebhookConfiguration(id, obj, opts),
+            }))];
+        case "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicy":
+            return [id.apply(id => ({
+                name: `admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicy::${id}`,
+                resource: new admissionregistration.v1alpha1.ValidatingAdmissionPolicy(id, obj, opts),
+            }))];
+        case "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyBinding":
+            return [id.apply(id => ({
+                name: `admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyBinding::${id}`,
+                resource: new admissionregistration.v1alpha1.ValidatingAdmissionPolicyBinding(id, obj, opts),
             }))];
         case "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfiguration":
             return [id.apply(id => ({
@@ -3311,6 +3512,11 @@ export interface ConfigOpts {
             return [id.apply(id => ({
                 name: `authentication.k8s.io/v1/TokenReview::${id}`,
                 resource: new authentication.v1.TokenReview(id, obj, opts),
+            }))];
+        case "authentication.k8s.io/v1alpha1/SelfSubjectReview":
+            return [id.apply(id => ({
+                name: `authentication.k8s.io/v1alpha1/SelfSubjectReview::${id}`,
+                resource: new authentication.v1alpha1.SelfSubjectReview(id, obj, opts),
             }))];
         case "authentication.k8s.io/v1beta1/TokenReview":
             return [id.apply(id => ({
@@ -3577,6 +3783,16 @@ export interface ConfigOpts {
                 name: `flowcontrol.apiserver.k8s.io/v1beta2/PriorityLevelConfiguration::${id}`,
                 resource: new flowcontrol.v1beta2.PriorityLevelConfiguration(id, obj, opts),
             }))];
+        case "flowcontrol.apiserver.k8s.io/v1beta3/FlowSchema":
+            return [id.apply(id => ({
+                name: `flowcontrol.apiserver.k8s.io/v1beta3/FlowSchema::${id}`,
+                resource: new flowcontrol.v1beta3.FlowSchema(id, obj, opts),
+            }))];
+        case "flowcontrol.apiserver.k8s.io/v1beta3/PriorityLevelConfiguration":
+            return [id.apply(id => ({
+                name: `flowcontrol.apiserver.k8s.io/v1beta3/PriorityLevelConfiguration::${id}`,
+                resource: new flowcontrol.v1beta3.PriorityLevelConfiguration(id, obj, opts),
+            }))];
         case "meta/v1/Status":
             return [id.apply(id => ({
                 name: `meta/v1/Status::${id}`,
@@ -3701,6 +3917,26 @@ export interface ConfigOpts {
             return [id.apply(id => ({
                 name: `rbac.authorization.k8s.io/v1beta1/RoleBinding::${id}`,
                 resource: new rbac.v1beta1.RoleBinding(id, obj, opts),
+            }))];
+        case "resource.k8s.io/v1alpha1/PodScheduling":
+            return [id.apply(id => ({
+                name: `resource.k8s.io/v1alpha1/PodScheduling::${id}`,
+                resource: new resource.v1alpha1.PodScheduling(id, obj, opts),
+            }))];
+        case "resource.k8s.io/v1alpha1/ResourceClaim":
+            return [id.apply(id => ({
+                name: `resource.k8s.io/v1alpha1/ResourceClaim::${id}`,
+                resource: new resource.v1alpha1.ResourceClaim(id, obj, opts),
+            }))];
+        case "resource.k8s.io/v1alpha1/ResourceClaimTemplate":
+            return [id.apply(id => ({
+                name: `resource.k8s.io/v1alpha1/ResourceClaimTemplate::${id}`,
+                resource: new resource.v1alpha1.ResourceClaimTemplate(id, obj, opts),
+            }))];
+        case "resource.k8s.io/v1alpha1/ResourceClass":
+            return [id.apply(id => ({
+                name: `resource.k8s.io/v1alpha1/ResourceClass::${id}`,
+                resource: new resource.v1alpha1.ResourceClass(id, obj, opts),
             }))];
         case "scheduling.k8s.io/v1/PriorityClass":
             return [id.apply(id => ({

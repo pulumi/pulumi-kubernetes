@@ -183,8 +183,8 @@ export interface LimitResponsePatch {
 
 /**
  * LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
- *   - How are requests for this priority level limited?
- *   - What should be done with requests that exceed the limit?
+ *  * How are requests for this priority level limited?
+ *  * What should be done with requests that exceed the limit?
  */
 export interface LimitedPriorityLevelConfiguration {
     /**
@@ -203,8 +203,8 @@ export interface LimitedPriorityLevelConfiguration {
 
 /**
  * LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
- *   - How are requests for this priority level limited?
- *   - What should be done with requests that exceed the limit?
+ *  * How are requests for this priority level limited?
+ *  * What should be done with requests that exceed the limit?
  */
 export interface LimitedPriorityLevelConfigurationPatch {
     /**
@@ -444,7 +444,7 @@ export interface QueuingConfigurationPatch {
 }
 
 /**
- * ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) either (d1) the request does not specify a namespace (i.e., `Namespace==""`) and clusterScope is true or (d2) the request specifies a namespace and least one member of namespaces matches the request's namespace.
+ * ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) least one member of namespaces matches the request.
  */
 export interface ResourcePolicyRule {
     /**
@@ -470,7 +470,7 @@ export interface ResourcePolicyRule {
 }
 
 /**
- * ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) either (d1) the request does not specify a namespace (i.e., `Namespace==""`) and clusterScope is true or (d2) the request specifies a namespace and least one member of namespaces matches the request's namespace.
+ * ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) least one member of namespaces matches the request.
  */
 export interface ResourcePolicyRulePatch {
     /**
@@ -527,21 +527,12 @@ export interface ServiceAccountSubjectPatch {
  * Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.
  */
 export interface Subject {
-    /**
-     * `group` matches based on user group name.
-     */
     group?: pulumi.Input<inputs.flowcontrol.v1beta1.GroupSubject>;
     /**
-     * `kind` indicates which one of the other fields is non-empty. Required
+     * Required
      */
     kind: pulumi.Input<string>;
-    /**
-     * `serviceAccount` matches ServiceAccounts.
-     */
     serviceAccount?: pulumi.Input<inputs.flowcontrol.v1beta1.ServiceAccountSubject>;
-    /**
-     * `user` matches based on username.
-     */
     user?: pulumi.Input<inputs.flowcontrol.v1beta1.UserSubject>;
 }
 
@@ -549,21 +540,12 @@ export interface Subject {
  * Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.
  */
 export interface SubjectPatch {
-    /**
-     * `group` matches based on user group name.
-     */
     group?: pulumi.Input<inputs.flowcontrol.v1beta1.GroupSubjectPatch>;
     /**
-     * `kind` indicates which one of the other fields is non-empty. Required
+     * Required
      */
     kind?: pulumi.Input<string>;
-    /**
-     * `serviceAccount` matches ServiceAccounts.
-     */
     serviceAccount?: pulumi.Input<inputs.flowcontrol.v1beta1.ServiceAccountSubjectPatch>;
-    /**
-     * `user` matches based on username.
-     */
     user?: pulumi.Input<inputs.flowcontrol.v1beta1.UserSubjectPatch>;
 }
 

@@ -492,6 +492,18 @@ type PodDisruptionBudgetSpec struct {
 	MinAvailable interface{} `pulumi:"minAvailable"`
 	// Label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
 	Selector *metav1.LabelSelector `pulumi:"selector"`
+	// UnhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
+	//
+	// Valid policies are IfHealthyBudget and AlwaysAllow. If no policy is specified, the default behavior will be used, which corresponds to the IfHealthyBudget policy.
+	//
+	// IfHealthyBudget policy means that running pods (status.phase="Running"), but not yet healthy can be evicted only if the guarded application is not disrupted (status.currentHealthy is at least equal to status.desiredHealthy). Healthy pods will be subject to the PDB for eviction.
+	//
+	// AlwaysAllow policy means that all running pods (status.phase="Running"), but not yet healthy are considered disrupted and can be evicted regardless of whether the criteria in a PDB is met. This means perspective running pods of a disrupted application might not get a chance to become healthy. Healthy pods will be subject to the PDB for eviction.
+	//
+	// Additional policies may be added in the future. Clients making eviction decisions should disallow eviction of unhealthy pods if they encounter an unrecognized policy in this field.
+	//
+	// This field is alpha-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (disabled by default).
+	UnhealthyPodEvictionPolicy *string `pulumi:"unhealthyPodEvictionPolicy"`
 }
 
 // PodDisruptionBudgetSpecInput is an input type that accepts PodDisruptionBudgetSpecArgs and PodDisruptionBudgetSpecOutput values.
@@ -513,6 +525,18 @@ type PodDisruptionBudgetSpecArgs struct {
 	MinAvailable pulumi.Input `pulumi:"minAvailable"`
 	// Label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
 	Selector metav1.LabelSelectorPtrInput `pulumi:"selector"`
+	// UnhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
+	//
+	// Valid policies are IfHealthyBudget and AlwaysAllow. If no policy is specified, the default behavior will be used, which corresponds to the IfHealthyBudget policy.
+	//
+	// IfHealthyBudget policy means that running pods (status.phase="Running"), but not yet healthy can be evicted only if the guarded application is not disrupted (status.currentHealthy is at least equal to status.desiredHealthy). Healthy pods will be subject to the PDB for eviction.
+	//
+	// AlwaysAllow policy means that all running pods (status.phase="Running"), but not yet healthy are considered disrupted and can be evicted regardless of whether the criteria in a PDB is met. This means perspective running pods of a disrupted application might not get a chance to become healthy. Healthy pods will be subject to the PDB for eviction.
+	//
+	// Additional policies may be added in the future. Clients making eviction decisions should disallow eviction of unhealthy pods if they encounter an unrecognized policy in this field.
+	//
+	// This field is alpha-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (disabled by default).
+	UnhealthyPodEvictionPolicy pulumi.StringPtrInput `pulumi:"unhealthyPodEvictionPolicy"`
 }
 
 func (PodDisruptionBudgetSpecArgs) ElementType() reflect.Type {
@@ -608,6 +632,21 @@ func (o PodDisruptionBudgetSpecOutput) Selector() metav1.LabelSelectorPtrOutput 
 	return o.ApplyT(func(v PodDisruptionBudgetSpec) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
 }
 
+// UnhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
+//
+// Valid policies are IfHealthyBudget and AlwaysAllow. If no policy is specified, the default behavior will be used, which corresponds to the IfHealthyBudget policy.
+//
+// IfHealthyBudget policy means that running pods (status.phase="Running"), but not yet healthy can be evicted only if the guarded application is not disrupted (status.currentHealthy is at least equal to status.desiredHealthy). Healthy pods will be subject to the PDB for eviction.
+//
+// AlwaysAllow policy means that all running pods (status.phase="Running"), but not yet healthy are considered disrupted and can be evicted regardless of whether the criteria in a PDB is met. This means perspective running pods of a disrupted application might not get a chance to become healthy. Healthy pods will be subject to the PDB for eviction.
+//
+// Additional policies may be added in the future. Clients making eviction decisions should disallow eviction of unhealthy pods if they encounter an unrecognized policy in this field.
+//
+// This field is alpha-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (disabled by default).
+func (o PodDisruptionBudgetSpecOutput) UnhealthyPodEvictionPolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodDisruptionBudgetSpec) *string { return v.UnhealthyPodEvictionPolicy }).(pulumi.StringPtrOutput)
+}
+
 type PodDisruptionBudgetSpecPtrOutput struct{ *pulumi.OutputState }
 
 func (PodDisruptionBudgetSpecPtrOutput) ElementType() reflect.Type {
@@ -662,6 +701,26 @@ func (o PodDisruptionBudgetSpecPtrOutput) Selector() metav1.LabelSelectorPtrOutp
 	}).(metav1.LabelSelectorPtrOutput)
 }
 
+// UnhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
+//
+// Valid policies are IfHealthyBudget and AlwaysAllow. If no policy is specified, the default behavior will be used, which corresponds to the IfHealthyBudget policy.
+//
+// IfHealthyBudget policy means that running pods (status.phase="Running"), but not yet healthy can be evicted only if the guarded application is not disrupted (status.currentHealthy is at least equal to status.desiredHealthy). Healthy pods will be subject to the PDB for eviction.
+//
+// AlwaysAllow policy means that all running pods (status.phase="Running"), but not yet healthy are considered disrupted and can be evicted regardless of whether the criteria in a PDB is met. This means perspective running pods of a disrupted application might not get a chance to become healthy. Healthy pods will be subject to the PDB for eviction.
+//
+// Additional policies may be added in the future. Clients making eviction decisions should disallow eviction of unhealthy pods if they encounter an unrecognized policy in this field.
+//
+// This field is alpha-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (disabled by default).
+func (o PodDisruptionBudgetSpecPtrOutput) UnhealthyPodEvictionPolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodDisruptionBudgetSpec) *string {
+		if v == nil {
+			return nil
+		}
+		return v.UnhealthyPodEvictionPolicy
+	}).(pulumi.StringPtrOutput)
+}
+
 // PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
 type PodDisruptionBudgetSpecPatch struct {
 	// An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
@@ -670,6 +729,18 @@ type PodDisruptionBudgetSpecPatch struct {
 	MinAvailable interface{} `pulumi:"minAvailable"`
 	// Label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
 	Selector *metav1.LabelSelectorPatch `pulumi:"selector"`
+	// UnhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
+	//
+	// Valid policies are IfHealthyBudget and AlwaysAllow. If no policy is specified, the default behavior will be used, which corresponds to the IfHealthyBudget policy.
+	//
+	// IfHealthyBudget policy means that running pods (status.phase="Running"), but not yet healthy can be evicted only if the guarded application is not disrupted (status.currentHealthy is at least equal to status.desiredHealthy). Healthy pods will be subject to the PDB for eviction.
+	//
+	// AlwaysAllow policy means that all running pods (status.phase="Running"), but not yet healthy are considered disrupted and can be evicted regardless of whether the criteria in a PDB is met. This means perspective running pods of a disrupted application might not get a chance to become healthy. Healthy pods will be subject to the PDB for eviction.
+	//
+	// Additional policies may be added in the future. Clients making eviction decisions should disallow eviction of unhealthy pods if they encounter an unrecognized policy in this field.
+	//
+	// This field is alpha-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (disabled by default).
+	UnhealthyPodEvictionPolicy *string `pulumi:"unhealthyPodEvictionPolicy"`
 }
 
 // PodDisruptionBudgetSpecPatchInput is an input type that accepts PodDisruptionBudgetSpecPatchArgs and PodDisruptionBudgetSpecPatchOutput values.
@@ -691,6 +762,18 @@ type PodDisruptionBudgetSpecPatchArgs struct {
 	MinAvailable pulumi.Input `pulumi:"minAvailable"`
 	// Label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
 	Selector metav1.LabelSelectorPatchPtrInput `pulumi:"selector"`
+	// UnhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
+	//
+	// Valid policies are IfHealthyBudget and AlwaysAllow. If no policy is specified, the default behavior will be used, which corresponds to the IfHealthyBudget policy.
+	//
+	// IfHealthyBudget policy means that running pods (status.phase="Running"), but not yet healthy can be evicted only if the guarded application is not disrupted (status.currentHealthy is at least equal to status.desiredHealthy). Healthy pods will be subject to the PDB for eviction.
+	//
+	// AlwaysAllow policy means that all running pods (status.phase="Running"), but not yet healthy are considered disrupted and can be evicted regardless of whether the criteria in a PDB is met. This means perspective running pods of a disrupted application might not get a chance to become healthy. Healthy pods will be subject to the PDB for eviction.
+	//
+	// Additional policies may be added in the future. Clients making eviction decisions should disallow eviction of unhealthy pods if they encounter an unrecognized policy in this field.
+	//
+	// This field is alpha-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (disabled by default).
+	UnhealthyPodEvictionPolicy pulumi.StringPtrInput `pulumi:"unhealthyPodEvictionPolicy"`
 }
 
 func (PodDisruptionBudgetSpecPatchArgs) ElementType() reflect.Type {
@@ -786,6 +869,21 @@ func (o PodDisruptionBudgetSpecPatchOutput) Selector() metav1.LabelSelectorPatch
 	return o.ApplyT(func(v PodDisruptionBudgetSpecPatch) *metav1.LabelSelectorPatch { return v.Selector }).(metav1.LabelSelectorPatchPtrOutput)
 }
 
+// UnhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
+//
+// Valid policies are IfHealthyBudget and AlwaysAllow. If no policy is specified, the default behavior will be used, which corresponds to the IfHealthyBudget policy.
+//
+// IfHealthyBudget policy means that running pods (status.phase="Running"), but not yet healthy can be evicted only if the guarded application is not disrupted (status.currentHealthy is at least equal to status.desiredHealthy). Healthy pods will be subject to the PDB for eviction.
+//
+// AlwaysAllow policy means that all running pods (status.phase="Running"), but not yet healthy are considered disrupted and can be evicted regardless of whether the criteria in a PDB is met. This means perspective running pods of a disrupted application might not get a chance to become healthy. Healthy pods will be subject to the PDB for eviction.
+//
+// Additional policies may be added in the future. Clients making eviction decisions should disallow eviction of unhealthy pods if they encounter an unrecognized policy in this field.
+//
+// This field is alpha-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (disabled by default).
+func (o PodDisruptionBudgetSpecPatchOutput) UnhealthyPodEvictionPolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodDisruptionBudgetSpecPatch) *string { return v.UnhealthyPodEvictionPolicy }).(pulumi.StringPtrOutput)
+}
+
 type PodDisruptionBudgetSpecPatchPtrOutput struct{ *pulumi.OutputState }
 
 func (PodDisruptionBudgetSpecPatchPtrOutput) ElementType() reflect.Type {
@@ -838,6 +936,26 @@ func (o PodDisruptionBudgetSpecPatchPtrOutput) Selector() metav1.LabelSelectorPa
 		}
 		return v.Selector
 	}).(metav1.LabelSelectorPatchPtrOutput)
+}
+
+// UnhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
+//
+// Valid policies are IfHealthyBudget and AlwaysAllow. If no policy is specified, the default behavior will be used, which corresponds to the IfHealthyBudget policy.
+//
+// IfHealthyBudget policy means that running pods (status.phase="Running"), but not yet healthy can be evicted only if the guarded application is not disrupted (status.currentHealthy is at least equal to status.desiredHealthy). Healthy pods will be subject to the PDB for eviction.
+//
+// AlwaysAllow policy means that all running pods (status.phase="Running"), but not yet healthy are considered disrupted and can be evicted regardless of whether the criteria in a PDB is met. This means perspective running pods of a disrupted application might not get a chance to become healthy. Healthy pods will be subject to the PDB for eviction.
+//
+// Additional policies may be added in the future. Clients making eviction decisions should disallow eviction of unhealthy pods if they encounter an unrecognized policy in this field.
+//
+// This field is alpha-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (disabled by default).
+func (o PodDisruptionBudgetSpecPatchPtrOutput) UnhealthyPodEvictionPolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodDisruptionBudgetSpecPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.UnhealthyPodEvictionPolicy
+	}).(pulumi.StringPtrOutput)
 }
 
 // PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.

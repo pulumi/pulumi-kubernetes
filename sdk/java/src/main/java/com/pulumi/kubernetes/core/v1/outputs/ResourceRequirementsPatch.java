@@ -4,13 +4,24 @@
 package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.kubernetes.core.v1.outputs.ResourceClaimPatch;
 import java.lang.String;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import javax.annotation.Nullable;
 
 @CustomType
 public final class ResourceRequirementsPatch {
+    /**
+     * @return Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
+     * 
+     * This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+     * 
+     * This field is immutable.
+     * 
+     */
+    private @Nullable List<ResourceClaimPatch> claims;
     /**
      * @return Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
      * 
@@ -23,6 +34,17 @@ public final class ResourceRequirementsPatch {
     private @Nullable Map<String,String> requests;
 
     private ResourceRequirementsPatch() {}
+    /**
+     * @return Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
+     * 
+     * This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+     * 
+     * This field is immutable.
+     * 
+     */
+    public List<ResourceClaimPatch> claims() {
+        return this.claims == null ? List.of() : this.claims;
+    }
     /**
      * @return Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
      * 
@@ -47,15 +69,25 @@ public final class ResourceRequirementsPatch {
     }
     @CustomType.Builder
     public static final class Builder {
+        private @Nullable List<ResourceClaimPatch> claims;
         private @Nullable Map<String,String> limits;
         private @Nullable Map<String,String> requests;
         public Builder() {}
         public Builder(ResourceRequirementsPatch defaults) {
     	      Objects.requireNonNull(defaults);
+    	      this.claims = defaults.claims;
     	      this.limits = defaults.limits;
     	      this.requests = defaults.requests;
         }
 
+        @CustomType.Setter
+        public Builder claims(@Nullable List<ResourceClaimPatch> claims) {
+            this.claims = claims;
+            return this;
+        }
+        public Builder claims(ResourceClaimPatch... claims) {
+            return claims(List.of(claims));
+        }
         @CustomType.Setter
         public Builder limits(@Nullable Map<String,String> limits) {
             this.limits = limits;
@@ -68,6 +100,7 @@ public final class ResourceRequirementsPatch {
         }
         public ResourceRequirementsPatch build() {
             final var o = new ResourceRequirementsPatch();
+            o.claims = claims;
             o.limits = limits;
             o.requests = requests;
             return o;

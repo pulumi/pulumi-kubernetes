@@ -28,7 +28,7 @@ class CrossVersionObjectReferencePatchArgs:
         """
         CrossVersionObjectReference contains enough information to let you identify the referred resource.
         :param pulumi.Input[str] api_version: API version of the referent
-        :param pulumi.Input[str] kind: Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+        :param pulumi.Input[str] kind: Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input[str] name: Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
         """
         if api_version is not None:
@@ -54,7 +54,7 @@ class CrossVersionObjectReferencePatchArgs:
     @pulumi.getter
     def kind(self) -> Optional[pulumi.Input[str]]:
         """
-        Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+        Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 
@@ -83,7 +83,7 @@ class CrossVersionObjectReferenceArgs:
                  api_version: Optional[pulumi.Input[str]] = None):
         """
         CrossVersionObjectReference contains enough information to let you identify the referred resource.
-        :param pulumi.Input[str] kind: Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+        :param pulumi.Input[str] kind: Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input[str] name: Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
         :param pulumi.Input[str] api_version: API version of the referent
         """
@@ -96,7 +96,7 @@ class CrossVersionObjectReferenceArgs:
     @pulumi.getter
     def kind(self) -> pulumi.Input[str]:
         """
-        Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+        Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 

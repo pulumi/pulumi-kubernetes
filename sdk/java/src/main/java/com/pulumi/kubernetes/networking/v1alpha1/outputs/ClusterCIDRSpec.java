@@ -19,7 +19,7 @@ public final class ClusterCIDRSpec {
      */
     private @Nullable String ipv4;
     /**
-     * @return IPv6 defines an IPv6 IP block in CIDR notation(e.g. &#34;fd12:3456:789a:1::/64&#34;). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+     * @return IPv6 defines an IPv6 IP block in CIDR notation(e.g. &#34;2001:db8::/64&#34;). At least one of IPv4 and IPv6 must be specified. This field is immutable.
      * 
      */
     private @Nullable String ipv6;
@@ -43,7 +43,7 @@ public final class ClusterCIDRSpec {
         return Optional.ofNullable(this.ipv4);
     }
     /**
-     * @return IPv6 defines an IPv6 IP block in CIDR notation(e.g. &#34;fd12:3456:789a:1::/64&#34;). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+     * @return IPv6 defines an IPv6 IP block in CIDR notation(e.g. &#34;2001:db8::/64&#34;). At least one of IPv4 and IPv6 must be specified. This field is immutable.
      * 
      */
     public Optional<String> ipv6() {

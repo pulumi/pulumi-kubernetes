@@ -356,7 +356,7 @@ export interface HorizontalPodAutoscalerStatus {
     /**
      * conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
      */
-    conditions?: pulumi.Input<pulumi.Input<inputs.autoscaling.v2beta2.HorizontalPodAutoscalerCondition>[]>;
+    conditions: pulumi.Input<pulumi.Input<inputs.autoscaling.v2beta2.HorizontalPodAutoscalerCondition>[]>;
     /**
      * currentMetrics is the last read state of the metrics used by this autoscaler.
      */
@@ -432,7 +432,7 @@ export interface MetricSpec {
      */
     resource?: pulumi.Input<inputs.autoscaling.v2beta2.ResourceMetricSource>;
     /**
-     * type is the type of metric source.  It should be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each mapping to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
+     * type is the type of metric source.  It should be one of "Object", "Pods" or "Resource", each mapping to a matching field in the object.
      */
     type: pulumi.Input<string>;
 }
@@ -462,7 +462,7 @@ export interface MetricSpecPatch {
      */
     resource?: pulumi.Input<inputs.autoscaling.v2beta2.ResourceMetricSourcePatch>;
     /**
-     * type is the type of metric source.  It should be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each mapping to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
+     * type is the type of metric source.  It should be one of "Object", "Pods" or "Resource", each mapping to a matching field in the object.
      */
     type?: pulumi.Input<string>;
 }
@@ -492,7 +492,7 @@ export interface MetricStatus {
      */
     resource?: pulumi.Input<inputs.autoscaling.v2beta2.ResourceMetricStatus>;
     /**
-     * type is the type of metric source.  It will be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each corresponds to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
+     * type is the type of metric source.  It will be one of "Object", "Pods" or "Resource", each corresponds to a matching field in the object.
      */
     type: pulumi.Input<string>;
 }

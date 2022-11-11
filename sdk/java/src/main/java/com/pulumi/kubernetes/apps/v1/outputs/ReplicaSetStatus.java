@@ -39,7 +39,7 @@ public final class ReplicaSetStatus {
      */
     private @Nullable Integer readyReplicas;
     /**
-     * @return Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+     * @return Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
      * 
      */
     private Integer replicas;
@@ -81,7 +81,7 @@ public final class ReplicaSetStatus {
         return Optional.ofNullable(this.readyReplicas);
     }
     /**
-     * @return Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+     * @return Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
      * 
      */
     public Integer replicas() {

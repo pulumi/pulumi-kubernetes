@@ -520,7 +520,7 @@ export interface MetricSpec {
      */
     resource: outputs.autoscaling.v2beta2.ResourceMetricSource;
     /**
-     * type is the type of metric source.  It should be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each mapping to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
+     * type is the type of metric source.  It should be one of "Object", "Pods" or "Resource", each mapping to a matching field in the object.
      */
     type: string;
 }
@@ -550,7 +550,7 @@ export interface MetricSpecPatch {
      */
     resource: outputs.autoscaling.v2beta2.ResourceMetricSourcePatch;
     /**
-     * type is the type of metric source.  It should be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each mapping to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
+     * type is the type of metric source.  It should be one of "Object", "Pods" or "Resource", each mapping to a matching field in the object.
      */
     type: string;
 }
@@ -580,7 +580,7 @@ export interface MetricStatus {
      */
     resource: outputs.autoscaling.v2beta2.ResourceMetricStatus;
     /**
-     * type is the type of metric source.  It will be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each corresponds to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
+     * type is the type of metric source.  It will be one of "Object", "Pods" or "Resource", each corresponds to a matching field in the object.
      */
     type: string;
 }
@@ -610,7 +610,7 @@ export interface MetricStatusPatch {
      */
     resource: outputs.autoscaling.v2beta2.ResourceMetricStatusPatch;
     /**
-     * type is the type of metric source.  It will be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each corresponds to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
+     * type is the type of metric source.  It will be one of "Object", "Pods" or "Resource", each corresponds to a matching field in the object.
      */
     type: string;
 }

@@ -30,6 +30,7 @@ export * as node from "./node/output";
 export * as pkg from "./pkg/output";
 export * as policy from "./policy/output";
 export * as rbac from "./rbac/output";
+export * as resource from "./resource/output";
 export * as scheduling from "./scheduling/output";
 export * as settings from "./settings/output";
 export * as storage from "./storage/output";

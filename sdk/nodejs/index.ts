@@ -35,6 +35,7 @@ import * as networking from "./networking";
 import * as node from "./node";
 import * as policy from "./policy";
 import * as rbac from "./rbac";
+import * as resource from "./resource";
 import * as scheduling from "./scheduling";
 import * as settings from "./settings";
 import * as storage from "./storage";
@@ -65,6 +66,7 @@ export {
     node,
     policy,
     rbac,
+    resource,
     scheduling,
     settings,
     storage,

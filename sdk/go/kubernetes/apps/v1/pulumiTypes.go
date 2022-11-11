@@ -5402,7 +5402,7 @@ type ReplicaSetStatus struct {
 	ObservedGeneration *int `pulumi:"observedGeneration"`
 	// readyReplicas is the number of pods targeted by this ReplicaSet with a Ready Condition.
 	ReadyReplicas *int `pulumi:"readyReplicas"`
-	// Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+	// Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
 	Replicas int `pulumi:"replicas"`
 }
 
@@ -5429,7 +5429,7 @@ type ReplicaSetStatusArgs struct {
 	ObservedGeneration pulumi.IntPtrInput `pulumi:"observedGeneration"`
 	// readyReplicas is the number of pods targeted by this ReplicaSet with a Ready Condition.
 	ReadyReplicas pulumi.IntPtrInput `pulumi:"readyReplicas"`
-	// Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+	// Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
 	Replicas pulumi.IntInput `pulumi:"replicas"`
 }
 
@@ -5536,7 +5536,7 @@ func (o ReplicaSetStatusOutput) ReadyReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ReplicaSetStatus) *int { return v.ReadyReplicas }).(pulumi.IntPtrOutput)
 }
 
-// Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+// Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
 func (o ReplicaSetStatusOutput) Replicas() pulumi.IntOutput {
 	return o.ApplyT(func(v ReplicaSetStatus) int { return v.Replicas }).(pulumi.IntOutput)
 }
@@ -5615,7 +5615,7 @@ func (o ReplicaSetStatusPtrOutput) ReadyReplicas() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+// Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
 func (o ReplicaSetStatusPtrOutput) Replicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *ReplicaSetStatus) *int {
 		if v == nil {
@@ -5637,7 +5637,7 @@ type ReplicaSetStatusPatch struct {
 	ObservedGeneration *int `pulumi:"observedGeneration"`
 	// readyReplicas is the number of pods targeted by this ReplicaSet with a Ready Condition.
 	ReadyReplicas *int `pulumi:"readyReplicas"`
-	// Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+	// Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
 	Replicas *int `pulumi:"replicas"`
 }
 
@@ -5664,7 +5664,7 @@ type ReplicaSetStatusPatchArgs struct {
 	ObservedGeneration pulumi.IntPtrInput `pulumi:"observedGeneration"`
 	// readyReplicas is the number of pods targeted by this ReplicaSet with a Ready Condition.
 	ReadyReplicas pulumi.IntPtrInput `pulumi:"readyReplicas"`
-	// Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+	// Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
 	Replicas pulumi.IntPtrInput `pulumi:"replicas"`
 }
 
@@ -5771,7 +5771,7 @@ func (o ReplicaSetStatusPatchOutput) ReadyReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ReplicaSetStatusPatch) *int { return v.ReadyReplicas }).(pulumi.IntPtrOutput)
 }
 
-// Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+// Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
 func (o ReplicaSetStatusPatchOutput) Replicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ReplicaSetStatusPatch) *int { return v.Replicas }).(pulumi.IntPtrOutput)
 }
@@ -5850,7 +5850,7 @@ func (o ReplicaSetStatusPatchPtrOutput) ReadyReplicas() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+// Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
 func (o ReplicaSetStatusPatchPtrOutput) Replicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *ReplicaSetStatusPatch) *int {
 		if v == nil {
@@ -7355,6 +7355,322 @@ func (o StatefulSetListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 	return o.ApplyT(func(v StatefulSetListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
+// StatefulSetOrdinals describes the policy used for replica ordinal assignment in this StatefulSet.
+type StatefulSetOrdinals struct {
+	// start is the number representing the first replica's index. It may be used to number replicas from an alternate index (eg: 1-indexed) over the default 0-indexed names, or to orchestrate progressive movement of replicas from one StatefulSet to another. If set, replica indices will be in the range:
+	//   [.spec.ordinals.start, .spec.ordinals.start + .spec.replicas).
+	// If unset, defaults to 0. Replica indices will be in the range:
+	//   [0, .spec.replicas).
+	Start *int `pulumi:"start"`
+}
+
+// StatefulSetOrdinalsInput is an input type that accepts StatefulSetOrdinalsArgs and StatefulSetOrdinalsOutput values.
+// You can construct a concrete instance of `StatefulSetOrdinalsInput` via:
+//
+//	StatefulSetOrdinalsArgs{...}
+type StatefulSetOrdinalsInput interface {
+	pulumi.Input
+
+	ToStatefulSetOrdinalsOutput() StatefulSetOrdinalsOutput
+	ToStatefulSetOrdinalsOutputWithContext(context.Context) StatefulSetOrdinalsOutput
+}
+
+// StatefulSetOrdinals describes the policy used for replica ordinal assignment in this StatefulSet.
+type StatefulSetOrdinalsArgs struct {
+	// start is the number representing the first replica's index. It may be used to number replicas from an alternate index (eg: 1-indexed) over the default 0-indexed names, or to orchestrate progressive movement of replicas from one StatefulSet to another. If set, replica indices will be in the range:
+	//   [.spec.ordinals.start, .spec.ordinals.start + .spec.replicas).
+	// If unset, defaults to 0. Replica indices will be in the range:
+	//   [0, .spec.replicas).
+	Start pulumi.IntPtrInput `pulumi:"start"`
+}
+
+func (StatefulSetOrdinalsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*StatefulSetOrdinals)(nil)).Elem()
+}
+
+func (i StatefulSetOrdinalsArgs) ToStatefulSetOrdinalsOutput() StatefulSetOrdinalsOutput {
+	return i.ToStatefulSetOrdinalsOutputWithContext(context.Background())
+}
+
+func (i StatefulSetOrdinalsArgs) ToStatefulSetOrdinalsOutputWithContext(ctx context.Context) StatefulSetOrdinalsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StatefulSetOrdinalsOutput)
+}
+
+func (i StatefulSetOrdinalsArgs) ToStatefulSetOrdinalsPtrOutput() StatefulSetOrdinalsPtrOutput {
+	return i.ToStatefulSetOrdinalsPtrOutputWithContext(context.Background())
+}
+
+func (i StatefulSetOrdinalsArgs) ToStatefulSetOrdinalsPtrOutputWithContext(ctx context.Context) StatefulSetOrdinalsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StatefulSetOrdinalsOutput).ToStatefulSetOrdinalsPtrOutputWithContext(ctx)
+}
+
+// StatefulSetOrdinalsPtrInput is an input type that accepts StatefulSetOrdinalsArgs, StatefulSetOrdinalsPtr and StatefulSetOrdinalsPtrOutput values.
+// You can construct a concrete instance of `StatefulSetOrdinalsPtrInput` via:
+//
+//	        StatefulSetOrdinalsArgs{...}
+//
+//	or:
+//
+//	        nil
+type StatefulSetOrdinalsPtrInput interface {
+	pulumi.Input
+
+	ToStatefulSetOrdinalsPtrOutput() StatefulSetOrdinalsPtrOutput
+	ToStatefulSetOrdinalsPtrOutputWithContext(context.Context) StatefulSetOrdinalsPtrOutput
+}
+
+type statefulSetOrdinalsPtrType StatefulSetOrdinalsArgs
+
+func StatefulSetOrdinalsPtr(v *StatefulSetOrdinalsArgs) StatefulSetOrdinalsPtrInput {
+	return (*statefulSetOrdinalsPtrType)(v)
+}
+
+func (*statefulSetOrdinalsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**StatefulSetOrdinals)(nil)).Elem()
+}
+
+func (i *statefulSetOrdinalsPtrType) ToStatefulSetOrdinalsPtrOutput() StatefulSetOrdinalsPtrOutput {
+	return i.ToStatefulSetOrdinalsPtrOutputWithContext(context.Background())
+}
+
+func (i *statefulSetOrdinalsPtrType) ToStatefulSetOrdinalsPtrOutputWithContext(ctx context.Context) StatefulSetOrdinalsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StatefulSetOrdinalsPtrOutput)
+}
+
+// StatefulSetOrdinals describes the policy used for replica ordinal assignment in this StatefulSet.
+type StatefulSetOrdinalsOutput struct{ *pulumi.OutputState }
+
+func (StatefulSetOrdinalsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*StatefulSetOrdinals)(nil)).Elem()
+}
+
+func (o StatefulSetOrdinalsOutput) ToStatefulSetOrdinalsOutput() StatefulSetOrdinalsOutput {
+	return o
+}
+
+func (o StatefulSetOrdinalsOutput) ToStatefulSetOrdinalsOutputWithContext(ctx context.Context) StatefulSetOrdinalsOutput {
+	return o
+}
+
+func (o StatefulSetOrdinalsOutput) ToStatefulSetOrdinalsPtrOutput() StatefulSetOrdinalsPtrOutput {
+	return o.ToStatefulSetOrdinalsPtrOutputWithContext(context.Background())
+}
+
+func (o StatefulSetOrdinalsOutput) ToStatefulSetOrdinalsPtrOutputWithContext(ctx context.Context) StatefulSetOrdinalsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v StatefulSetOrdinals) *StatefulSetOrdinals {
+		return &v
+	}).(StatefulSetOrdinalsPtrOutput)
+}
+
+// start is the number representing the first replica's index. It may be used to number replicas from an alternate index (eg: 1-indexed) over the default 0-indexed names, or to orchestrate progressive movement of replicas from one StatefulSet to another. If set, replica indices will be in the range:
+//
+//	[.spec.ordinals.start, .spec.ordinals.start + .spec.replicas).
+//
+// If unset, defaults to 0. Replica indices will be in the range:
+//
+//	[0, .spec.replicas).
+func (o StatefulSetOrdinalsOutput) Start() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v StatefulSetOrdinals) *int { return v.Start }).(pulumi.IntPtrOutput)
+}
+
+type StatefulSetOrdinalsPtrOutput struct{ *pulumi.OutputState }
+
+func (StatefulSetOrdinalsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**StatefulSetOrdinals)(nil)).Elem()
+}
+
+func (o StatefulSetOrdinalsPtrOutput) ToStatefulSetOrdinalsPtrOutput() StatefulSetOrdinalsPtrOutput {
+	return o
+}
+
+func (o StatefulSetOrdinalsPtrOutput) ToStatefulSetOrdinalsPtrOutputWithContext(ctx context.Context) StatefulSetOrdinalsPtrOutput {
+	return o
+}
+
+func (o StatefulSetOrdinalsPtrOutput) Elem() StatefulSetOrdinalsOutput {
+	return o.ApplyT(func(v *StatefulSetOrdinals) StatefulSetOrdinals {
+		if v != nil {
+			return *v
+		}
+		var ret StatefulSetOrdinals
+		return ret
+	}).(StatefulSetOrdinalsOutput)
+}
+
+// start is the number representing the first replica's index. It may be used to number replicas from an alternate index (eg: 1-indexed) over the default 0-indexed names, or to orchestrate progressive movement of replicas from one StatefulSet to another. If set, replica indices will be in the range:
+//
+//	[.spec.ordinals.start, .spec.ordinals.start + .spec.replicas).
+//
+// If unset, defaults to 0. Replica indices will be in the range:
+//
+//	[0, .spec.replicas).
+func (o StatefulSetOrdinalsPtrOutput) Start() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *StatefulSetOrdinals) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Start
+	}).(pulumi.IntPtrOutput)
+}
+
+// StatefulSetOrdinals describes the policy used for replica ordinal assignment in this StatefulSet.
+type StatefulSetOrdinalsPatch struct {
+	// start is the number representing the first replica's index. It may be used to number replicas from an alternate index (eg: 1-indexed) over the default 0-indexed names, or to orchestrate progressive movement of replicas from one StatefulSet to another. If set, replica indices will be in the range:
+	//   [.spec.ordinals.start, .spec.ordinals.start + .spec.replicas).
+	// If unset, defaults to 0. Replica indices will be in the range:
+	//   [0, .spec.replicas).
+	Start *int `pulumi:"start"`
+}
+
+// StatefulSetOrdinalsPatchInput is an input type that accepts StatefulSetOrdinalsPatchArgs and StatefulSetOrdinalsPatchOutput values.
+// You can construct a concrete instance of `StatefulSetOrdinalsPatchInput` via:
+//
+//	StatefulSetOrdinalsPatchArgs{...}
+type StatefulSetOrdinalsPatchInput interface {
+	pulumi.Input
+
+	ToStatefulSetOrdinalsPatchOutput() StatefulSetOrdinalsPatchOutput
+	ToStatefulSetOrdinalsPatchOutputWithContext(context.Context) StatefulSetOrdinalsPatchOutput
+}
+
+// StatefulSetOrdinals describes the policy used for replica ordinal assignment in this StatefulSet.
+type StatefulSetOrdinalsPatchArgs struct {
+	// start is the number representing the first replica's index. It may be used to number replicas from an alternate index (eg: 1-indexed) over the default 0-indexed names, or to orchestrate progressive movement of replicas from one StatefulSet to another. If set, replica indices will be in the range:
+	//   [.spec.ordinals.start, .spec.ordinals.start + .spec.replicas).
+	// If unset, defaults to 0. Replica indices will be in the range:
+	//   [0, .spec.replicas).
+	Start pulumi.IntPtrInput `pulumi:"start"`
+}
+
+func (StatefulSetOrdinalsPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*StatefulSetOrdinalsPatch)(nil)).Elem()
+}
+
+func (i StatefulSetOrdinalsPatchArgs) ToStatefulSetOrdinalsPatchOutput() StatefulSetOrdinalsPatchOutput {
+	return i.ToStatefulSetOrdinalsPatchOutputWithContext(context.Background())
+}
+
+func (i StatefulSetOrdinalsPatchArgs) ToStatefulSetOrdinalsPatchOutputWithContext(ctx context.Context) StatefulSetOrdinalsPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StatefulSetOrdinalsPatchOutput)
+}
+
+func (i StatefulSetOrdinalsPatchArgs) ToStatefulSetOrdinalsPatchPtrOutput() StatefulSetOrdinalsPatchPtrOutput {
+	return i.ToStatefulSetOrdinalsPatchPtrOutputWithContext(context.Background())
+}
+
+func (i StatefulSetOrdinalsPatchArgs) ToStatefulSetOrdinalsPatchPtrOutputWithContext(ctx context.Context) StatefulSetOrdinalsPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StatefulSetOrdinalsPatchOutput).ToStatefulSetOrdinalsPatchPtrOutputWithContext(ctx)
+}
+
+// StatefulSetOrdinalsPatchPtrInput is an input type that accepts StatefulSetOrdinalsPatchArgs, StatefulSetOrdinalsPatchPtr and StatefulSetOrdinalsPatchPtrOutput values.
+// You can construct a concrete instance of `StatefulSetOrdinalsPatchPtrInput` via:
+//
+//	        StatefulSetOrdinalsPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type StatefulSetOrdinalsPatchPtrInput interface {
+	pulumi.Input
+
+	ToStatefulSetOrdinalsPatchPtrOutput() StatefulSetOrdinalsPatchPtrOutput
+	ToStatefulSetOrdinalsPatchPtrOutputWithContext(context.Context) StatefulSetOrdinalsPatchPtrOutput
+}
+
+type statefulSetOrdinalsPatchPtrType StatefulSetOrdinalsPatchArgs
+
+func StatefulSetOrdinalsPatchPtr(v *StatefulSetOrdinalsPatchArgs) StatefulSetOrdinalsPatchPtrInput {
+	return (*statefulSetOrdinalsPatchPtrType)(v)
+}
+
+func (*statefulSetOrdinalsPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**StatefulSetOrdinalsPatch)(nil)).Elem()
+}
+
+func (i *statefulSetOrdinalsPatchPtrType) ToStatefulSetOrdinalsPatchPtrOutput() StatefulSetOrdinalsPatchPtrOutput {
+	return i.ToStatefulSetOrdinalsPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *statefulSetOrdinalsPatchPtrType) ToStatefulSetOrdinalsPatchPtrOutputWithContext(ctx context.Context) StatefulSetOrdinalsPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(StatefulSetOrdinalsPatchPtrOutput)
+}
+
+// StatefulSetOrdinals describes the policy used for replica ordinal assignment in this StatefulSet.
+type StatefulSetOrdinalsPatchOutput struct{ *pulumi.OutputState }
+
+func (StatefulSetOrdinalsPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*StatefulSetOrdinalsPatch)(nil)).Elem()
+}
+
+func (o StatefulSetOrdinalsPatchOutput) ToStatefulSetOrdinalsPatchOutput() StatefulSetOrdinalsPatchOutput {
+	return o
+}
+
+func (o StatefulSetOrdinalsPatchOutput) ToStatefulSetOrdinalsPatchOutputWithContext(ctx context.Context) StatefulSetOrdinalsPatchOutput {
+	return o
+}
+
+func (o StatefulSetOrdinalsPatchOutput) ToStatefulSetOrdinalsPatchPtrOutput() StatefulSetOrdinalsPatchPtrOutput {
+	return o.ToStatefulSetOrdinalsPatchPtrOutputWithContext(context.Background())
+}
+
+func (o StatefulSetOrdinalsPatchOutput) ToStatefulSetOrdinalsPatchPtrOutputWithContext(ctx context.Context) StatefulSetOrdinalsPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v StatefulSetOrdinalsPatch) *StatefulSetOrdinalsPatch {
+		return &v
+	}).(StatefulSetOrdinalsPatchPtrOutput)
+}
+
+// start is the number representing the first replica's index. It may be used to number replicas from an alternate index (eg: 1-indexed) over the default 0-indexed names, or to orchestrate progressive movement of replicas from one StatefulSet to another. If set, replica indices will be in the range:
+//
+//	[.spec.ordinals.start, .spec.ordinals.start + .spec.replicas).
+//
+// If unset, defaults to 0. Replica indices will be in the range:
+//
+//	[0, .spec.replicas).
+func (o StatefulSetOrdinalsPatchOutput) Start() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v StatefulSetOrdinalsPatch) *int { return v.Start }).(pulumi.IntPtrOutput)
+}
+
+type StatefulSetOrdinalsPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (StatefulSetOrdinalsPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**StatefulSetOrdinalsPatch)(nil)).Elem()
+}
+
+func (o StatefulSetOrdinalsPatchPtrOutput) ToStatefulSetOrdinalsPatchPtrOutput() StatefulSetOrdinalsPatchPtrOutput {
+	return o
+}
+
+func (o StatefulSetOrdinalsPatchPtrOutput) ToStatefulSetOrdinalsPatchPtrOutputWithContext(ctx context.Context) StatefulSetOrdinalsPatchPtrOutput {
+	return o
+}
+
+func (o StatefulSetOrdinalsPatchPtrOutput) Elem() StatefulSetOrdinalsPatchOutput {
+	return o.ApplyT(func(v *StatefulSetOrdinalsPatch) StatefulSetOrdinalsPatch {
+		if v != nil {
+			return *v
+		}
+		var ret StatefulSetOrdinalsPatch
+		return ret
+	}).(StatefulSetOrdinalsPatchOutput)
+}
+
+// start is the number representing the first replica's index. It may be used to number replicas from an alternate index (eg: 1-indexed) over the default 0-indexed names, or to orchestrate progressive movement of replicas from one StatefulSet to another. If set, replica indices will be in the range:
+//
+//	[.spec.ordinals.start, .spec.ordinals.start + .spec.replicas).
+//
+// If unset, defaults to 0. Replica indices will be in the range:
+//
+//	[0, .spec.replicas).
+func (o StatefulSetOrdinalsPatchPtrOutput) Start() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *StatefulSetOrdinalsPatch) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Start
+	}).(pulumi.IntPtrOutput)
+}
+
 // StatefulSet represents a set of pods with consistent identities. Identities are defined as:
 //   - Network: A single stable DNS and hostname.
 //   - Storage: As many VolumeClaims as requested.
@@ -7819,6 +8135,8 @@ func (o StatefulSetPersistentVolumeClaimRetentionPolicyPatchPtrOutput) WhenScale
 type StatefulSetSpec struct {
 	// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
 	MinReadySeconds *int `pulumi:"minReadySeconds"`
+	// ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is alpha.
+	Ordinals *StatefulSetOrdinals `pulumi:"ordinals"`
 	// persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is alpha.  +optional
 	PersistentVolumeClaimRetentionPolicy *StatefulSetPersistentVolumeClaimRetentionPolicy `pulumi:"persistentVolumeClaimRetentionPolicy"`
 	// podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is `Parallel` which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.
@@ -7831,7 +8149,7 @@ type StatefulSetSpec struct {
 	Selector metav1.LabelSelector `pulumi:"selector"`
 	// serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.
 	ServiceName string `pulumi:"serviceName"`
-	// template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet.
+	// template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format <statefulsetname>-<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3".
 	Template corev1.PodTemplateSpec `pulumi:"template"`
 	// updateStrategy indicates the StatefulSetUpdateStrategy that will be employed to update Pods in the StatefulSet when a revision is made to Template.
 	UpdateStrategy *StatefulSetUpdateStrategy `pulumi:"updateStrategy"`
@@ -7854,6 +8172,8 @@ type StatefulSetSpecInput interface {
 type StatefulSetSpecArgs struct {
 	// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
 	MinReadySeconds pulumi.IntPtrInput `pulumi:"minReadySeconds"`
+	// ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is alpha.
+	Ordinals StatefulSetOrdinalsPtrInput `pulumi:"ordinals"`
 	// persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is alpha.  +optional
 	PersistentVolumeClaimRetentionPolicy StatefulSetPersistentVolumeClaimRetentionPolicyPtrInput `pulumi:"persistentVolumeClaimRetentionPolicy"`
 	// podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is `Parallel` which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.
@@ -7866,7 +8186,7 @@ type StatefulSetSpecArgs struct {
 	Selector metav1.LabelSelectorInput `pulumi:"selector"`
 	// serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.
 	ServiceName pulumi.StringInput `pulumi:"serviceName"`
-	// template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet.
+	// template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format <statefulsetname>-<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3".
 	Template corev1.PodTemplateSpecInput `pulumi:"template"`
 	// updateStrategy indicates the StatefulSetUpdateStrategy that will be employed to update Pods in the StatefulSet when a revision is made to Template.
 	UpdateStrategy StatefulSetUpdateStrategyPtrInput `pulumi:"updateStrategy"`
@@ -7957,6 +8277,11 @@ func (o StatefulSetSpecOutput) MinReadySeconds() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v StatefulSetSpec) *int { return v.MinReadySeconds }).(pulumi.IntPtrOutput)
 }
 
+// ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is alpha.
+func (o StatefulSetSpecOutput) Ordinals() StatefulSetOrdinalsPtrOutput {
+	return o.ApplyT(func(v StatefulSetSpec) *StatefulSetOrdinals { return v.Ordinals }).(StatefulSetOrdinalsPtrOutput)
+}
+
 // persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is alpha.  +optional
 func (o StatefulSetSpecOutput) PersistentVolumeClaimRetentionPolicy() StatefulSetPersistentVolumeClaimRetentionPolicyPtrOutput {
 	return o.ApplyT(func(v StatefulSetSpec) *StatefulSetPersistentVolumeClaimRetentionPolicy {
@@ -7989,7 +8314,7 @@ func (o StatefulSetSpecOutput) ServiceName() pulumi.StringOutput {
 	return o.ApplyT(func(v StatefulSetSpec) string { return v.ServiceName }).(pulumi.StringOutput)
 }
 
-// template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet.
+// template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format <statefulsetname>-<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3".
 func (o StatefulSetSpecOutput) Template() corev1.PodTemplateSpecOutput {
 	return o.ApplyT(func(v StatefulSetSpec) corev1.PodTemplateSpec { return v.Template }).(corev1.PodTemplateSpecOutput)
 }
@@ -8036,6 +8361,16 @@ func (o StatefulSetSpecPtrOutput) MinReadySeconds() pulumi.IntPtrOutput {
 		}
 		return v.MinReadySeconds
 	}).(pulumi.IntPtrOutput)
+}
+
+// ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is alpha.
+func (o StatefulSetSpecPtrOutput) Ordinals() StatefulSetOrdinalsPtrOutput {
+	return o.ApplyT(func(v *StatefulSetSpec) *StatefulSetOrdinals {
+		if v == nil {
+			return nil
+		}
+		return v.Ordinals
+	}).(StatefulSetOrdinalsPtrOutput)
 }
 
 // persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is alpha.  +optional
@@ -8098,7 +8433,7 @@ func (o StatefulSetSpecPtrOutput) ServiceName() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet.
+// template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format <statefulsetname>-<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3".
 func (o StatefulSetSpecPtrOutput) Template() corev1.PodTemplateSpecPtrOutput {
 	return o.ApplyT(func(v *StatefulSetSpec) *corev1.PodTemplateSpec {
 		if v == nil {
@@ -8132,6 +8467,8 @@ func (o StatefulSetSpecPtrOutput) VolumeClaimTemplates() corev1.PersistentVolume
 type StatefulSetSpecPatch struct {
 	// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
 	MinReadySeconds *int `pulumi:"minReadySeconds"`
+	// ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is alpha.
+	Ordinals *StatefulSetOrdinalsPatch `pulumi:"ordinals"`
 	// persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is alpha.  +optional
 	PersistentVolumeClaimRetentionPolicy *StatefulSetPersistentVolumeClaimRetentionPolicyPatch `pulumi:"persistentVolumeClaimRetentionPolicy"`
 	// podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is `Parallel` which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.
@@ -8144,7 +8481,7 @@ type StatefulSetSpecPatch struct {
 	Selector *metav1.LabelSelectorPatch `pulumi:"selector"`
 	// serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.
 	ServiceName *string `pulumi:"serviceName"`
-	// template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet.
+	// template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format <statefulsetname>-<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3".
 	Template *corev1.PodTemplateSpecPatch `pulumi:"template"`
 	// updateStrategy indicates the StatefulSetUpdateStrategy that will be employed to update Pods in the StatefulSet when a revision is made to Template.
 	UpdateStrategy *StatefulSetUpdateStrategyPatch `pulumi:"updateStrategy"`
@@ -8167,6 +8504,8 @@ type StatefulSetSpecPatchInput interface {
 type StatefulSetSpecPatchArgs struct {
 	// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
 	MinReadySeconds pulumi.IntPtrInput `pulumi:"minReadySeconds"`
+	// ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is alpha.
+	Ordinals StatefulSetOrdinalsPatchPtrInput `pulumi:"ordinals"`
 	// persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is alpha.  +optional
 	PersistentVolumeClaimRetentionPolicy StatefulSetPersistentVolumeClaimRetentionPolicyPatchPtrInput `pulumi:"persistentVolumeClaimRetentionPolicy"`
 	// podManagementPolicy controls how pods are created during initial scale up, when replacing pods on nodes, or when scaling down. The default policy is `OrderedReady`, where pods are created in increasing order (pod-0, then pod-1, etc) and the controller will wait until each pod is ready before continuing. When scaling down, the pods are removed in the opposite order. The alternative policy is `Parallel` which will create pods in parallel to match the desired scale without waiting, and on scale down will delete all pods at once.
@@ -8179,7 +8518,7 @@ type StatefulSetSpecPatchArgs struct {
 	Selector metav1.LabelSelectorPatchPtrInput `pulumi:"selector"`
 	// serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.
 	ServiceName pulumi.StringPtrInput `pulumi:"serviceName"`
-	// template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet.
+	// template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format <statefulsetname>-<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3".
 	Template corev1.PodTemplateSpecPatchPtrInput `pulumi:"template"`
 	// updateStrategy indicates the StatefulSetUpdateStrategy that will be employed to update Pods in the StatefulSet when a revision is made to Template.
 	UpdateStrategy StatefulSetUpdateStrategyPatchPtrInput `pulumi:"updateStrategy"`
@@ -8270,6 +8609,11 @@ func (o StatefulSetSpecPatchOutput) MinReadySeconds() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v StatefulSetSpecPatch) *int { return v.MinReadySeconds }).(pulumi.IntPtrOutput)
 }
 
+// ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is alpha.
+func (o StatefulSetSpecPatchOutput) Ordinals() StatefulSetOrdinalsPatchPtrOutput {
+	return o.ApplyT(func(v StatefulSetSpecPatch) *StatefulSetOrdinalsPatch { return v.Ordinals }).(StatefulSetOrdinalsPatchPtrOutput)
+}
+
 // persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is alpha.  +optional
 func (o StatefulSetSpecPatchOutput) PersistentVolumeClaimRetentionPolicy() StatefulSetPersistentVolumeClaimRetentionPolicyPatchPtrOutput {
 	return o.ApplyT(func(v StatefulSetSpecPatch) *StatefulSetPersistentVolumeClaimRetentionPolicyPatch {
@@ -8302,7 +8646,7 @@ func (o StatefulSetSpecPatchOutput) ServiceName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v StatefulSetSpecPatch) *string { return v.ServiceName }).(pulumi.StringPtrOutput)
 }
 
-// template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet.
+// template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format <statefulsetname>-<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3".
 func (o StatefulSetSpecPatchOutput) Template() corev1.PodTemplateSpecPatchPtrOutput {
 	return o.ApplyT(func(v StatefulSetSpecPatch) *corev1.PodTemplateSpecPatch { return v.Template }).(corev1.PodTemplateSpecPatchPtrOutput)
 }
@@ -8349,6 +8693,16 @@ func (o StatefulSetSpecPatchPtrOutput) MinReadySeconds() pulumi.IntPtrOutput {
 		}
 		return v.MinReadySeconds
 	}).(pulumi.IntPtrOutput)
+}
+
+// ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is alpha.
+func (o StatefulSetSpecPatchPtrOutput) Ordinals() StatefulSetOrdinalsPatchPtrOutput {
+	return o.ApplyT(func(v *StatefulSetSpecPatch) *StatefulSetOrdinalsPatch {
+		if v == nil {
+			return nil
+		}
+		return v.Ordinals
+	}).(StatefulSetOrdinalsPatchPtrOutput)
 }
 
 // persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is alpha.  +optional
@@ -8411,7 +8765,7 @@ func (o StatefulSetSpecPatchPtrOutput) ServiceName() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet.
+// template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format <statefulsetname>-<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3".
 func (o StatefulSetSpecPatchPtrOutput) Template() corev1.PodTemplateSpecPatchPtrOutput {
 	return o.ApplyT(func(v *StatefulSetSpecPatch) *corev1.PodTemplateSpecPatch {
 		if v == nil {
@@ -9461,6 +9815,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*StatefulSetConditionPatchInput)(nil)).Elem(), StatefulSetConditionPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*StatefulSetConditionPatchArrayInput)(nil)).Elem(), StatefulSetConditionPatchArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*StatefulSetListTypeInput)(nil)).Elem(), StatefulSetListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StatefulSetOrdinalsInput)(nil)).Elem(), StatefulSetOrdinalsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StatefulSetOrdinalsPtrInput)(nil)).Elem(), StatefulSetOrdinalsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StatefulSetOrdinalsPatchInput)(nil)).Elem(), StatefulSetOrdinalsPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*StatefulSetOrdinalsPatchPtrInput)(nil)).Elem(), StatefulSetOrdinalsPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*StatefulSetPatchTypeInput)(nil)).Elem(), StatefulSetPatchTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*StatefulSetPersistentVolumeClaimRetentionPolicyInput)(nil)).Elem(), StatefulSetPersistentVolumeClaimRetentionPolicyArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*StatefulSetPersistentVolumeClaimRetentionPolicyPtrInput)(nil)).Elem(), StatefulSetPersistentVolumeClaimRetentionPolicyArgs{})
@@ -9557,6 +9915,10 @@ func init() {
 	pulumi.RegisterOutputType(StatefulSetConditionPatchOutput{})
 	pulumi.RegisterOutputType(StatefulSetConditionPatchArrayOutput{})
 	pulumi.RegisterOutputType(StatefulSetListTypeOutput{})
+	pulumi.RegisterOutputType(StatefulSetOrdinalsOutput{})
+	pulumi.RegisterOutputType(StatefulSetOrdinalsPtrOutput{})
+	pulumi.RegisterOutputType(StatefulSetOrdinalsPatchOutput{})
+	pulumi.RegisterOutputType(StatefulSetOrdinalsPatchPtrOutput{})
 	pulumi.RegisterOutputType(StatefulSetPatchTypeOutput{})
 	pulumi.RegisterOutputType(StatefulSetPersistentVolumeClaimRetentionPolicyOutput{})
 	pulumi.RegisterOutputType(StatefulSetPersistentVolumeClaimRetentionPolicyPtrOutput{})

@@ -35,14 +35,14 @@ public final class CrossVersionObjectReferenceArgs extends com.pulumi.resources.
     }
 
     /**
-     * Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds&#34;
+     * Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
     @Import(name="kind", required=true)
     private Output<String> kind;
 
     /**
-     * @return Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds&#34;
+     * @return Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
     public Output<String> kind() {
@@ -112,7 +112,7 @@ public final class CrossVersionObjectReferenceArgs extends com.pulumi.resources.
         }
 
         /**
-         * @param kind Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds&#34;
+         * @param kind Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
          * 
          * @return builder
          * 
@@ -123,7 +123,7 @@ public final class CrossVersionObjectReferenceArgs extends com.pulumi.resources.
         }
 
         /**
-         * @param kind Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds&#34;
+         * @param kind Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
          * 
          * @return builder
          * 

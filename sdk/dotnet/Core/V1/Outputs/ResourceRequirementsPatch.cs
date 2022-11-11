@@ -17,6 +17,14 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
     public sealed class ResourceRequirementsPatch
     {
         /// <summary>
+        /// Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
+        /// 
+        /// This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+        /// 
+        /// This field is immutable.
+        /// </summary>
+        public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.ResourceClaimPatch> Claims;
+        /// <summary>
         /// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
         /// </summary>
         public readonly ImmutableDictionary<string, string> Limits;
@@ -27,10 +35,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
         [OutputConstructor]
         private ResourceRequirementsPatch(
+            ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.ResourceClaimPatch> claims,
+
             ImmutableDictionary<string, string> limits,
 
             ImmutableDictionary<string, string> requests)
         {
+            Claims = claims;
             Limits = limits;
             Requests = requests;
         }

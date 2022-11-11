@@ -143,7 +143,8 @@ public class PriorityLevelConfigurationPatch extends com.pulumi.resources.Custom
             .version(Utilities.getVersion())
             .aliases(List.of(
                 Output.of(Alias.builder().type("kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:PriorityLevelConfigurationPatch").build()),
-                Output.of(Alias.builder().type("kubernetes:flowcontrol.apiserver.k8s.io/v1beta2:PriorityLevelConfigurationPatch").build())
+                Output.of(Alias.builder().type("kubernetes:flowcontrol.apiserver.k8s.io/v1beta2:PriorityLevelConfigurationPatch").build()),
+                Output.of(Alias.builder().type("kubernetes:flowcontrol.apiserver.k8s.io/v1beta3:PriorityLevelConfigurationPatch").build())
             ))
             .build();
         return com.pulumi.resources.CustomResourceOptions.merge(defaultOptions, options, id);

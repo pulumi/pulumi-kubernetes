@@ -10,3 +10,4 @@ import * as utilities from "../../utilities";
 export * as v1alpha1 from "./v1alpha1/input";
 export * as v1beta1 from "./v1beta1/input";
 export * as v1beta2 from "./v1beta2/input";
+export * as v1beta3 from "./v1beta3/input";

@@ -88,7 +88,7 @@ export interface CrossVersionObjectReference {
      */
     apiVersion: string;
     /**
-     * Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+     * Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
     kind: string;
     /**
@@ -106,7 +106,7 @@ export interface CrossVersionObjectReferencePatch {
      */
     apiVersion: string;
     /**
-     * Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+     * Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
     kind: string;
     /**

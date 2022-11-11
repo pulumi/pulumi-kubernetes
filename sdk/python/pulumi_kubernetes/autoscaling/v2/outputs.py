@@ -269,7 +269,7 @@ class CrossVersionObjectReference(dict):
                  api_version: Optional[str] = None):
         """
         CrossVersionObjectReference contains enough information to let you identify the referred resource.
-        :param str kind: Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+        :param str kind: Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param str name: Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
         :param str api_version: API version of the referent
         """
@@ -282,7 +282,7 @@ class CrossVersionObjectReference(dict):
     @pulumi.getter
     def kind(self) -> str:
         """
-        Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+        Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 
@@ -332,7 +332,7 @@ class CrossVersionObjectReferencePatch(dict):
         """
         CrossVersionObjectReference contains enough information to let you identify the referred resource.
         :param str api_version: API version of the referent
-        :param str kind: Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+        :param str kind: Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param str name: Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
         """
         if api_version is not None:
@@ -354,7 +354,7 @@ class CrossVersionObjectReferencePatch(dict):
     @pulumi.getter
     def kind(self) -> Optional[str]:
         """
-        Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+        Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 

@@ -4,7 +4,7 @@
 package com.pulumi.kubernetes.networking.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
-import com.pulumi.kubernetes.core.v1.outputs.LoadBalancerStatus;
+import com.pulumi.kubernetes.networking.v1.outputs.IngressLoadBalancerStatus;
 import java.util.Objects;
 import java.util.Optional;
 import javax.annotation.Nullable;
@@ -15,14 +15,14 @@ public final class IngressStatus {
      * @return LoadBalancer contains the current status of the load-balancer.
      * 
      */
-    private @Nullable LoadBalancerStatus loadBalancer;
+    private @Nullable IngressLoadBalancerStatus loadBalancer;
 
     private IngressStatus() {}
     /**
      * @return LoadBalancer contains the current status of the load-balancer.
      * 
      */
-    public Optional<LoadBalancerStatus> loadBalancer() {
+    public Optional<IngressLoadBalancerStatus> loadBalancer() {
         return Optional.ofNullable(this.loadBalancer);
     }
 
@@ -35,7 +35,7 @@ public final class IngressStatus {
     }
     @CustomType.Builder
     public static final class Builder {
-        private @Nullable LoadBalancerStatus loadBalancer;
+        private @Nullable IngressLoadBalancerStatus loadBalancer;
         public Builder() {}
         public Builder(IngressStatus defaults) {
     	      Objects.requireNonNull(defaults);
@@ -43,7 +43,7 @@ public final class IngressStatus {
         }
 
         @CustomType.Setter
-        public Builder loadBalancer(@Nullable LoadBalancerStatus loadBalancer) {
+        public Builder loadBalancer(@Nullable IngressLoadBalancerStatus loadBalancer) {
             this.loadBalancer = loadBalancer;
             return this;
         }

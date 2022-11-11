@@ -515,6 +515,30 @@ def _parse_yaml_object(
         return [identifier.apply(
             lambda x: (f"admissionregistration.k8s.io/v1/ValidatingWebhookConfigurationList:{x}",
                        ValidatingWebhookConfigurationList(f"{x}", opts, **obj)))]
+    if gvk == "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicy":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.admissionregistration.v1alpha1 import ValidatingAdmissionPolicy
+        return [identifier.apply(
+            lambda x: (f"admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicy:{x}",
+                       ValidatingAdmissionPolicy(f"{x}", opts, **obj)))]
+    if gvk == "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyBinding":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.admissionregistration.v1alpha1 import ValidatingAdmissionPolicyBinding
+        return [identifier.apply(
+            lambda x: (f"admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyBinding:{x}",
+                       ValidatingAdmissionPolicyBinding(f"{x}", opts, **obj)))]
+    if gvk == "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyBindingList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.admissionregistration.v1alpha1 import ValidatingAdmissionPolicyBindingList
+        return [identifier.apply(
+            lambda x: (f"admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyBindingList:{x}",
+                       ValidatingAdmissionPolicyBindingList(f"{x}", opts, **obj)))]
+    if gvk == "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.admissionregistration.v1alpha1 import ValidatingAdmissionPolicyList
+        return [identifier.apply(
+            lambda x: (f"admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyList:{x}",
+                       ValidatingAdmissionPolicyList(f"{x}", opts, **obj)))]
     if gvk == "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfiguration":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.admissionregistration.v1beta1 import MutatingWebhookConfiguration
@@ -755,6 +779,12 @@ def _parse_yaml_object(
         return [identifier.apply(
             lambda x: (f"authentication.k8s.io/v1/TokenReview:{x}",
                        TokenReview(f"{x}", opts, **obj)))]
+    if gvk == "authentication.k8s.io/v1alpha1/SelfSubjectReview":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.authentication.v1alpha1 import SelfSubjectReview
+        return [identifier.apply(
+            lambda x: (f"authentication.k8s.io/v1alpha1/SelfSubjectReview:{x}",
+                       SelfSubjectReview(f"{x}", opts, **obj)))]
     if gvk == "authentication.k8s.io/v1beta1/TokenReview":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.authentication.v1beta1 import TokenReview
@@ -1331,6 +1361,30 @@ def _parse_yaml_object(
         return [identifier.apply(
             lambda x: (f"flowcontrol.apiserver.k8s.io/v1beta2/PriorityLevelConfigurationList:{x}",
                        PriorityLevelConfigurationList(f"{x}", opts, **obj)))]
+    if gvk == "flowcontrol.apiserver.k8s.io/v1beta3/FlowSchema":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.flowcontrol.v1beta3 import FlowSchema
+        return [identifier.apply(
+            lambda x: (f"flowcontrol.apiserver.k8s.io/v1beta3/FlowSchema:{x}",
+                       FlowSchema(f"{x}", opts, **obj)))]
+    if gvk == "flowcontrol.apiserver.k8s.io/v1beta3/FlowSchemaList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.flowcontrol.v1beta3 import FlowSchemaList
+        return [identifier.apply(
+            lambda x: (f"flowcontrol.apiserver.k8s.io/v1beta3/FlowSchemaList:{x}",
+                       FlowSchemaList(f"{x}", opts, **obj)))]
+    if gvk == "flowcontrol.apiserver.k8s.io/v1beta3/PriorityLevelConfiguration":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.flowcontrol.v1beta3 import PriorityLevelConfiguration
+        return [identifier.apply(
+            lambda x: (f"flowcontrol.apiserver.k8s.io/v1beta3/PriorityLevelConfiguration:{x}",
+                       PriorityLevelConfiguration(f"{x}", opts, **obj)))]
+    if gvk == "flowcontrol.apiserver.k8s.io/v1beta3/PriorityLevelConfigurationList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.flowcontrol.v1beta3 import PriorityLevelConfigurationList
+        return [identifier.apply(
+            lambda x: (f"flowcontrol.apiserver.k8s.io/v1beta3/PriorityLevelConfigurationList:{x}",
+                       PriorityLevelConfigurationList(f"{x}", opts, **obj)))]
     if gvk == "meta/v1/Status":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.meta.v1 import Status
@@ -1625,6 +1679,54 @@ def _parse_yaml_object(
         return [identifier.apply(
             lambda x: (f"rbac.authorization.k8s.io/v1beta1/RoleList:{x}",
                        RoleList(f"{x}", opts, **obj)))]
+    if gvk == "resource.k8s.io/v1alpha1/PodScheduling":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.resource.v1alpha1 import PodScheduling
+        return [identifier.apply(
+            lambda x: (f"resource.k8s.io/v1alpha1/PodScheduling:{x}",
+                       PodScheduling(f"{x}", opts, **obj)))]
+    if gvk == "resource.k8s.io/v1alpha1/PodSchedulingList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.resource.v1alpha1 import PodSchedulingList
+        return [identifier.apply(
+            lambda x: (f"resource.k8s.io/v1alpha1/PodSchedulingList:{x}",
+                       PodSchedulingList(f"{x}", opts, **obj)))]
+    if gvk == "resource.k8s.io/v1alpha1/ResourceClaim":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.resource.v1alpha1 import ResourceClaim
+        return [identifier.apply(
+            lambda x: (f"resource.k8s.io/v1alpha1/ResourceClaim:{x}",
+                       ResourceClaim(f"{x}", opts, **obj)))]
+    if gvk == "resource.k8s.io/v1alpha1/ResourceClaimList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.resource.v1alpha1 import ResourceClaimList
+        return [identifier.apply(
+            lambda x: (f"resource.k8s.io/v1alpha1/ResourceClaimList:{x}",
+                       ResourceClaimList(f"{x}", opts, **obj)))]
+    if gvk == "resource.k8s.io/v1alpha1/ResourceClaimTemplate":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.resource.v1alpha1 import ResourceClaimTemplate
+        return [identifier.apply(
+            lambda x: (f"resource.k8s.io/v1alpha1/ResourceClaimTemplate:{x}",
+                       ResourceClaimTemplate(f"{x}", opts, **obj)))]
+    if gvk == "resource.k8s.io/v1alpha1/ResourceClaimTemplateList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.resource.v1alpha1 import ResourceClaimTemplateList
+        return [identifier.apply(
+            lambda x: (f"resource.k8s.io/v1alpha1/ResourceClaimTemplateList:{x}",
+                       ResourceClaimTemplateList(f"{x}", opts, **obj)))]
+    if gvk == "resource.k8s.io/v1alpha1/ResourceClass":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.resource.v1alpha1 import ResourceClass
+        return [identifier.apply(
+            lambda x: (f"resource.k8s.io/v1alpha1/ResourceClass:{x}",
+                       ResourceClass(f"{x}", opts, **obj)))]
+    if gvk == "resource.k8s.io/v1alpha1/ResourceClassList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.resource.v1alpha1 import ResourceClassList
+        return [identifier.apply(
+            lambda x: (f"resource.k8s.io/v1alpha1/ResourceClassList:{x}",
+                       ResourceClassList(f"{x}", opts, **obj)))]
     if gvk == "scheduling.k8s.io/v1/PriorityClass":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.scheduling.v1 import PriorityClass

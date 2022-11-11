@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.apps.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.kubernetes.apps.v1.inputs.StatefulSetOrdinalsArgs;
 import com.pulumi.kubernetes.apps.v1.inputs.StatefulSetPersistentVolumeClaimRetentionPolicyArgs;
 import com.pulumi.kubernetes.apps.v1.inputs.StatefulSetUpdateStrategyArgs;
 import com.pulumi.kubernetes.core.v1.inputs.PersistentVolumeClaimArgs;
@@ -39,6 +40,21 @@ public final class StatefulSetSpecArgs extends com.pulumi.resources.ResourceArgs
      */
     public Optional<Output<Integer>> minReadySeconds() {
         return Optional.ofNullable(this.minReadySeconds);
+    }
+
+    /**
+     * ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a &#34;0&#34; index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is alpha.
+     * 
+     */
+    @Import(name="ordinals")
+    private @Nullable Output<StatefulSetOrdinalsArgs> ordinals;
+
+    /**
+     * @return ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a &#34;0&#34; index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is alpha.
+     * 
+     */
+    public Optional<Output<StatefulSetOrdinalsArgs>> ordinals() {
+        return Optional.ofNullable(this.ordinals);
     }
 
     /**
@@ -132,14 +148,14 @@ public final class StatefulSetSpecArgs extends com.pulumi.resources.ResourceArgs
     }
 
     /**
-     * template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet.
+     * template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format &lt;statefulsetname&gt;-&lt;podindex&gt;. For example, a pod in a StatefulSet named &#34;web&#34; with index number &#34;3&#34; would be named &#34;web-3&#34;.
      * 
      */
     @Import(name="template", required=true)
     private Output<PodTemplateSpecArgs> template;
 
     /**
-     * @return template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet.
+     * @return template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format &lt;statefulsetname&gt;-&lt;podindex&gt;. For example, a pod in a StatefulSet named &#34;web&#34; with index number &#34;3&#34; would be named &#34;web-3&#34;.
      * 
      */
     public Output<PodTemplateSpecArgs> template() {
@@ -180,6 +196,7 @@ public final class StatefulSetSpecArgs extends com.pulumi.resources.ResourceArgs
 
     private StatefulSetSpecArgs(StatefulSetSpecArgs $) {
         this.minReadySeconds = $.minReadySeconds;
+        this.ordinals = $.ordinals;
         this.persistentVolumeClaimRetentionPolicy = $.persistentVolumeClaimRetentionPolicy;
         this.podManagementPolicy = $.podManagementPolicy;
         this.replicas = $.replicas;
@@ -228,6 +245,27 @@ public final class StatefulSetSpecArgs extends com.pulumi.resources.ResourceArgs
          */
         public Builder minReadySeconds(Integer minReadySeconds) {
             return minReadySeconds(Output.of(minReadySeconds));
+        }
+
+        /**
+         * @param ordinals ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a &#34;0&#34; index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is alpha.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder ordinals(@Nullable Output<StatefulSetOrdinalsArgs> ordinals) {
+            $.ordinals = ordinals;
+            return this;
+        }
+
+        /**
+         * @param ordinals ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a &#34;0&#34; index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is alpha.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder ordinals(StatefulSetOrdinalsArgs ordinals) {
+            return ordinals(Output.of(ordinals));
         }
 
         /**
@@ -357,7 +395,7 @@ public final class StatefulSetSpecArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param template template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet.
+         * @param template template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format &lt;statefulsetname&gt;-&lt;podindex&gt;. For example, a pod in a StatefulSet named &#34;web&#34; with index number &#34;3&#34; would be named &#34;web-3&#34;.
          * 
          * @return builder
          * 
@@ -368,7 +406,7 @@ public final class StatefulSetSpecArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param template template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet.
+         * @param template template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format &lt;statefulsetname&gt;-&lt;podindex&gt;. For example, a pod in a StatefulSet named &#34;web&#34; with index number &#34;3&#34; would be named &#34;web-3&#34;.
          * 
          * @return builder
          * 
