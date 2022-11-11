@@ -114,7 +114,7 @@ pip install pulumi-kubernetes
 
 For .NET, dependencies will be automatically installed as part of your Pulumi deployments using `dotnet build`.
 
-To use from Go, use `go get` to grab the latest version of the library
+To use from Go, use `go install` to grab the latest version of the library
 
     $ go install github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes@latest
 
