@@ -2756,10 +2756,11 @@ func (k *kubeProvider) tryServerSidePatch(
 		return nil, nil, false, err
 	}
 	if se, isStatusError := err.(*errors.StatusError); isStatusError {
-		// If the resource field is immutable.
 		if se.Status().Code == http.StatusUnprocessableEntity ||
 			strings.Contains(se.ErrStatus.Message, "field is immutable") {
-			return nil, nil, false, err
+			// This error occurs if the resource field is immutable.
+			// Ignore this error since this case is handled by the replacement logic.
+			return nil, nil, false, nil
 		}
 	}
 	if err.Error() == "name is required" {
