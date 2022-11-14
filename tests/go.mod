@@ -13,7 +13,7 @@ require (
 	github.com/pulumi/pulumi/pkg/v3 v3.46.1
 	github.com/pulumi/pulumi/sdk/v3 v3.46.1
 	github.com/stretchr/testify v1.8.0
-	helm.sh/helm/v3 v3.10.1
+	helm.sh/helm/v3 v3.10.2
 	k8s.io/apimachinery v0.25.2
 	k8s.io/client-go v0.25.2
 )
