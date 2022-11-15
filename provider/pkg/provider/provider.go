@@ -2756,7 +2756,7 @@ func (k *kubeProvider) tryServerSidePatch(
 		return nil, nil, false, err
 	}
 	if se, isStatusError := err.(*errors.StatusError); isStatusError {
-		if se.Status().Code == http.StatusUnprocessableEntity ||
+		if se.Status().Code == http.StatusUnprocessableEntity &&
 			strings.Contains(se.ErrStatus.Message, "field is immutable") {
 			// This error occurs if the resource field is immutable.
 			// Ignore this error since this case is handled by the replacement logic.
