@@ -57,3 +57,32 @@ func Relinquish(
 
 	return err
 }
+
+func UpdateFieldManager(
+	ctx context.Context,
+	client dynamic.ResourceInterface,
+	input *unstructured.Unstructured,
+	fieldManager string,
+) error {
+	obj, err := client.Get(ctx, input.GetName(), metav1.GetOptions{})
+	if err != nil {
+		return err
+	}
+	//obj := input.DeepCopy()
+	obj.SetManagedFields(nil)
+	delete(obj.Object, "__fieldManager")
+	delete(obj.Object, "__initialApiVersion")
+	delete(obj.Object, "status")
+
+	yamlObj, err := yaml.Marshal(obj)
+	if err != nil {
+		return err
+	}
+
+	_, err = client.Patch(ctx, input.GetName(), types.ApplyPatchType, yamlObj,
+		metav1.PatchOptions{
+			FieldManager: fieldManager,
+		})
+
+	return err
+}

@@ -547,7 +547,15 @@ func Deletion(c DeleteConfig) error {
 
 	patchResource := strings.HasSuffix(c.URN.Type().String(), "Patch")
 	if c.ServerSideApply && patchResource {
+		// Optionally switch field manager
+		err = ssa.UpdateFieldManager(c.Context, client, c.Inputs, "override")
+		if err != nil {
+			return err
+		}
 		err = ssa.Relinquish(c.Context, client, c.Inputs, c.FieldManager)
+		if errors.IsInvalid(err) {
+			// TODO: something?
+		}
 		return err
 	}
 
