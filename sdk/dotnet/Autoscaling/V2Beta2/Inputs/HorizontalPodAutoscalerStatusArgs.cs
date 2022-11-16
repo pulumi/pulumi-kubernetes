@@ -15,7 +15,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2Beta2
     /// </summary>
     public class HorizontalPodAutoscalerStatusArgs : global::Pulumi.ResourceArgs
     {
-        [Input("conditions")]
+        [Input("conditions", required: true)]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2Beta2.HorizontalPodAutoscalerConditionArgs>? _conditions;
 
         /// <summary>

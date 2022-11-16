@@ -46,6 +46,48 @@ public final class LimitedPriorityLevelConfigurationPatchArgs extends com.pulumi
     }
 
     /**
+     * `borrowingLimitPercent`, if present, configures a limit on how many seats this priority level can borrow from other priority levels. The limit is known as this level&#39;s BorrowingConcurrencyLimit (BorrowingCL) and is a limit on the total number of seats that this level may borrow at any one time. This field holds the ratio of that limit to the level&#39;s nominal concurrency limit. When this field is non-nil, it must hold a non-negative integer and the limit is calculated as follows.
+     * 
+     * BorrowingCL(i) = round( NominalCL(i) * borrowingLimitPercent(i)/100.0 )
+     * 
+     * The value of this field can be more than 100, implying that this priority level can borrow a number of seats that is greater than its own nominal concurrency limit (NominalCL). When this field is left `nil`, the limit is effectively infinite.
+     * 
+     */
+    @Import(name="borrowingLimitPercent")
+    private @Nullable Output<Integer> borrowingLimitPercent;
+
+    /**
+     * @return `borrowingLimitPercent`, if present, configures a limit on how many seats this priority level can borrow from other priority levels. The limit is known as this level&#39;s BorrowingConcurrencyLimit (BorrowingCL) and is a limit on the total number of seats that this level may borrow at any one time. This field holds the ratio of that limit to the level&#39;s nominal concurrency limit. When this field is non-nil, it must hold a non-negative integer and the limit is calculated as follows.
+     * 
+     * BorrowingCL(i) = round( NominalCL(i) * borrowingLimitPercent(i)/100.0 )
+     * 
+     * The value of this field can be more than 100, implying that this priority level can borrow a number of seats that is greater than its own nominal concurrency limit (NominalCL). When this field is left `nil`, the limit is effectively infinite.
+     * 
+     */
+    public Optional<Output<Integer>> borrowingLimitPercent() {
+        return Optional.ofNullable(this.borrowingLimitPercent);
+    }
+
+    /**
+     * `lendablePercent` prescribes the fraction of the level&#39;s NominalCL that can be borrowed by other priority levels. The value of this field must be between 0 and 100, inclusive, and it defaults to 0. The number of seats that other levels can borrow from this level, known as this level&#39;s LendableConcurrencyLimit (LendableCL), is defined as follows.
+     * 
+     * LendableCL(i) = round( NominalCL(i) * lendablePercent(i)/100.0 )
+     * 
+     */
+    @Import(name="lendablePercent")
+    private @Nullable Output<Integer> lendablePercent;
+
+    /**
+     * @return `lendablePercent` prescribes the fraction of the level&#39;s NominalCL that can be borrowed by other priority levels. The value of this field must be between 0 and 100, inclusive, and it defaults to 0. The number of seats that other levels can borrow from this level, known as this level&#39;s LendableConcurrencyLimit (LendableCL), is defined as follows.
+     * 
+     * LendableCL(i) = round( NominalCL(i) * lendablePercent(i)/100.0 )
+     * 
+     */
+    public Optional<Output<Integer>> lendablePercent() {
+        return Optional.ofNullable(this.lendablePercent);
+    }
+
+    /**
      * `limitResponse` indicates what to do with requests that can not be executed right now
      * 
      */
@@ -64,6 +106,8 @@ public final class LimitedPriorityLevelConfigurationPatchArgs extends com.pulumi
 
     private LimitedPriorityLevelConfigurationPatchArgs(LimitedPriorityLevelConfigurationPatchArgs $) {
         this.assuredConcurrencyShares = $.assuredConcurrencyShares;
+        this.borrowingLimitPercent = $.borrowingLimitPercent;
+        this.lendablePercent = $.lendablePercent;
         this.limitResponse = $.limitResponse;
     }
 
@@ -112,6 +156,60 @@ public final class LimitedPriorityLevelConfigurationPatchArgs extends com.pulumi
          */
         public Builder assuredConcurrencyShares(Integer assuredConcurrencyShares) {
             return assuredConcurrencyShares(Output.of(assuredConcurrencyShares));
+        }
+
+        /**
+         * @param borrowingLimitPercent `borrowingLimitPercent`, if present, configures a limit on how many seats this priority level can borrow from other priority levels. The limit is known as this level&#39;s BorrowingConcurrencyLimit (BorrowingCL) and is a limit on the total number of seats that this level may borrow at any one time. This field holds the ratio of that limit to the level&#39;s nominal concurrency limit. When this field is non-nil, it must hold a non-negative integer and the limit is calculated as follows.
+         * 
+         * BorrowingCL(i) = round( NominalCL(i) * borrowingLimitPercent(i)/100.0 )
+         * 
+         * The value of this field can be more than 100, implying that this priority level can borrow a number of seats that is greater than its own nominal concurrency limit (NominalCL). When this field is left `nil`, the limit is effectively infinite.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder borrowingLimitPercent(@Nullable Output<Integer> borrowingLimitPercent) {
+            $.borrowingLimitPercent = borrowingLimitPercent;
+            return this;
+        }
+
+        /**
+         * @param borrowingLimitPercent `borrowingLimitPercent`, if present, configures a limit on how many seats this priority level can borrow from other priority levels. The limit is known as this level&#39;s BorrowingConcurrencyLimit (BorrowingCL) and is a limit on the total number of seats that this level may borrow at any one time. This field holds the ratio of that limit to the level&#39;s nominal concurrency limit. When this field is non-nil, it must hold a non-negative integer and the limit is calculated as follows.
+         * 
+         * BorrowingCL(i) = round( NominalCL(i) * borrowingLimitPercent(i)/100.0 )
+         * 
+         * The value of this field can be more than 100, implying that this priority level can borrow a number of seats that is greater than its own nominal concurrency limit (NominalCL). When this field is left `nil`, the limit is effectively infinite.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder borrowingLimitPercent(Integer borrowingLimitPercent) {
+            return borrowingLimitPercent(Output.of(borrowingLimitPercent));
+        }
+
+        /**
+         * @param lendablePercent `lendablePercent` prescribes the fraction of the level&#39;s NominalCL that can be borrowed by other priority levels. The value of this field must be between 0 and 100, inclusive, and it defaults to 0. The number of seats that other levels can borrow from this level, known as this level&#39;s LendableConcurrencyLimit (LendableCL), is defined as follows.
+         * 
+         * LendableCL(i) = round( NominalCL(i) * lendablePercent(i)/100.0 )
+         * 
+         * @return builder
+         * 
+         */
+        public Builder lendablePercent(@Nullable Output<Integer> lendablePercent) {
+            $.lendablePercent = lendablePercent;
+            return this;
+        }
+
+        /**
+         * @param lendablePercent `lendablePercent` prescribes the fraction of the level&#39;s NominalCL that can be borrowed by other priority levels. The value of this field must be between 0 and 100, inclusive, and it defaults to 0. The number of seats that other levels can borrow from this level, known as this level&#39;s LendableConcurrencyLimit (LendableCL), is defined as follows.
+         * 
+         * LendableCL(i) = round( NominalCL(i) * lendablePercent(i)/100.0 )
+         * 
+         * @return builder
+         * 
+         */
+        public Builder lendablePercent(Integer lendablePercent) {
+            return lendablePercent(Output.of(lendablePercent));
         }
 
         /**

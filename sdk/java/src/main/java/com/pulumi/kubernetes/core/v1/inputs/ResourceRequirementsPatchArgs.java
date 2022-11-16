@@ -5,7 +5,9 @@ package com.pulumi.kubernetes.core.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.kubernetes.core.v1.inputs.ResourceClaimPatchArgs;
 import java.lang.String;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -19,6 +21,29 @@ import javax.annotation.Nullable;
 public final class ResourceRequirementsPatchArgs extends com.pulumi.resources.ResourceArgs {
 
     public static final ResourceRequirementsPatchArgs Empty = new ResourceRequirementsPatchArgs();
+
+    /**
+     * Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
+     * 
+     * This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+     * 
+     * This field is immutable.
+     * 
+     */
+    @Import(name="claims")
+    private @Nullable Output<List<ResourceClaimPatchArgs>> claims;
+
+    /**
+     * @return Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
+     * 
+     * This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+     * 
+     * This field is immutable.
+     * 
+     */
+    public Optional<Output<List<ResourceClaimPatchArgs>>> claims() {
+        return Optional.ofNullable(this.claims);
+    }
 
     /**
      * Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
@@ -53,6 +78,7 @@ public final class ResourceRequirementsPatchArgs extends com.pulumi.resources.Re
     private ResourceRequirementsPatchArgs() {}
 
     private ResourceRequirementsPatchArgs(ResourceRequirementsPatchArgs $) {
+        this.claims = $.claims;
         this.limits = $.limits;
         this.requests = $.requests;
     }
@@ -73,6 +99,49 @@ public final class ResourceRequirementsPatchArgs extends com.pulumi.resources.Re
 
         public Builder(ResourceRequirementsPatchArgs defaults) {
             $ = new ResourceRequirementsPatchArgs(Objects.requireNonNull(defaults));
+        }
+
+        /**
+         * @param claims Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
+         * 
+         * This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+         * 
+         * This field is immutable.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder claims(@Nullable Output<List<ResourceClaimPatchArgs>> claims) {
+            $.claims = claims;
+            return this;
+        }
+
+        /**
+         * @param claims Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
+         * 
+         * This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+         * 
+         * This field is immutable.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder claims(List<ResourceClaimPatchArgs> claims) {
+            return claims(Output.of(claims));
+        }
+
+        /**
+         * @param claims Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
+         * 
+         * This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+         * 
+         * This field is immutable.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder claims(ResourceClaimPatchArgs... claims) {
+            return claims(List.of(claims));
         }
 
         /**

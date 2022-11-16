@@ -1690,7 +1690,7 @@ type CustomResourceDefinitionSpec struct {
 	Group string `pulumi:"group"`
 	// names specify the resource and kind names for the custom resource.
 	Names CustomResourceDefinitionNames `pulumi:"names"`
-	// preserveUnknownFields indicates that object fields which are not specified in the OpenAPI schema should be preserved when persisting to storage. apiVersion, kind, metadata and known fields inside metadata are always preserved. This field is deprecated in favor of setting `x-preserve-unknown-fields` to true in `spec.versions[*].schema.openAPIV3Schema`. See https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/#pruning-versus-preserving-unknown-fields for details.
+	// preserveUnknownFields indicates that object fields which are not specified in the OpenAPI schema should be preserved when persisting to storage. apiVersion, kind, metadata and known fields inside metadata are always preserved. This field is deprecated in favor of setting `x-preserve-unknown-fields` to true in `spec.versions[*].schema.openAPIV3Schema`. See https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#field-pruning for details.
 	PreserveUnknownFields *bool `pulumi:"preserveUnknownFields"`
 	// scope indicates whether the defined custom resource is cluster- or namespace-scoped. Allowed values are `Cluster` and `Namespaced`.
 	Scope string `pulumi:"scope"`
@@ -1717,7 +1717,7 @@ type CustomResourceDefinitionSpecArgs struct {
 	Group pulumi.StringInput `pulumi:"group"`
 	// names specify the resource and kind names for the custom resource.
 	Names CustomResourceDefinitionNamesInput `pulumi:"names"`
-	// preserveUnknownFields indicates that object fields which are not specified in the OpenAPI schema should be preserved when persisting to storage. apiVersion, kind, metadata and known fields inside metadata are always preserved. This field is deprecated in favor of setting `x-preserve-unknown-fields` to true in `spec.versions[*].schema.openAPIV3Schema`. See https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/#pruning-versus-preserving-unknown-fields for details.
+	// preserveUnknownFields indicates that object fields which are not specified in the OpenAPI schema should be preserved when persisting to storage. apiVersion, kind, metadata and known fields inside metadata are always preserved. This field is deprecated in favor of setting `x-preserve-unknown-fields` to true in `spec.versions[*].schema.openAPIV3Schema`. See https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#field-pruning for details.
 	PreserveUnknownFields pulumi.BoolPtrInput `pulumi:"preserveUnknownFields"`
 	// scope indicates whether the defined custom resource is cluster- or namespace-scoped. Allowed values are `Cluster` and `Namespaced`.
 	Scope pulumi.StringInput `pulumi:"scope"`
@@ -1767,7 +1767,7 @@ func (o CustomResourceDefinitionSpecOutput) Names() CustomResourceDefinitionName
 	return o.ApplyT(func(v CustomResourceDefinitionSpec) CustomResourceDefinitionNames { return v.Names }).(CustomResourceDefinitionNamesOutput)
 }
 
-// preserveUnknownFields indicates that object fields which are not specified in the OpenAPI schema should be preserved when persisting to storage. apiVersion, kind, metadata and known fields inside metadata are always preserved. This field is deprecated in favor of setting `x-preserve-unknown-fields` to true in `spec.versions[*].schema.openAPIV3Schema`. See https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/#pruning-versus-preserving-unknown-fields for details.
+// preserveUnknownFields indicates that object fields which are not specified in the OpenAPI schema should be preserved when persisting to storage. apiVersion, kind, metadata and known fields inside metadata are always preserved. This field is deprecated in favor of setting `x-preserve-unknown-fields` to true in `spec.versions[*].schema.openAPIV3Schema`. See https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#field-pruning for details.
 func (o CustomResourceDefinitionSpecOutput) PreserveUnknownFields() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v CustomResourceDefinitionSpec) *bool { return v.PreserveUnknownFields }).(pulumi.BoolPtrOutput)
 }
@@ -1790,7 +1790,7 @@ type CustomResourceDefinitionSpecPatch struct {
 	Group *string `pulumi:"group"`
 	// names specify the resource and kind names for the custom resource.
 	Names *CustomResourceDefinitionNamesPatch `pulumi:"names"`
-	// preserveUnknownFields indicates that object fields which are not specified in the OpenAPI schema should be preserved when persisting to storage. apiVersion, kind, metadata and known fields inside metadata are always preserved. This field is deprecated in favor of setting `x-preserve-unknown-fields` to true in `spec.versions[*].schema.openAPIV3Schema`. See https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/#pruning-versus-preserving-unknown-fields for details.
+	// preserveUnknownFields indicates that object fields which are not specified in the OpenAPI schema should be preserved when persisting to storage. apiVersion, kind, metadata and known fields inside metadata are always preserved. This field is deprecated in favor of setting `x-preserve-unknown-fields` to true in `spec.versions[*].schema.openAPIV3Schema`. See https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#field-pruning for details.
 	PreserveUnknownFields *bool `pulumi:"preserveUnknownFields"`
 	// scope indicates whether the defined custom resource is cluster- or namespace-scoped. Allowed values are `Cluster` and `Namespaced`.
 	Scope *string `pulumi:"scope"`
@@ -1817,7 +1817,7 @@ type CustomResourceDefinitionSpecPatchArgs struct {
 	Group pulumi.StringPtrInput `pulumi:"group"`
 	// names specify the resource and kind names for the custom resource.
 	Names CustomResourceDefinitionNamesPatchPtrInput `pulumi:"names"`
-	// preserveUnknownFields indicates that object fields which are not specified in the OpenAPI schema should be preserved when persisting to storage. apiVersion, kind, metadata and known fields inside metadata are always preserved. This field is deprecated in favor of setting `x-preserve-unknown-fields` to true in `spec.versions[*].schema.openAPIV3Schema`. See https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/#pruning-versus-preserving-unknown-fields for details.
+	// preserveUnknownFields indicates that object fields which are not specified in the OpenAPI schema should be preserved when persisting to storage. apiVersion, kind, metadata and known fields inside metadata are always preserved. This field is deprecated in favor of setting `x-preserve-unknown-fields` to true in `spec.versions[*].schema.openAPIV3Schema`. See https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#field-pruning for details.
 	PreserveUnknownFields pulumi.BoolPtrInput `pulumi:"preserveUnknownFields"`
 	// scope indicates whether the defined custom resource is cluster- or namespace-scoped. Allowed values are `Cluster` and `Namespaced`.
 	Scope pulumi.StringPtrInput `pulumi:"scope"`
@@ -1918,7 +1918,7 @@ func (o CustomResourceDefinitionSpecPatchOutput) Names() CustomResourceDefinitio
 	return o.ApplyT(func(v CustomResourceDefinitionSpecPatch) *CustomResourceDefinitionNamesPatch { return v.Names }).(CustomResourceDefinitionNamesPatchPtrOutput)
 }
 
-// preserveUnknownFields indicates that object fields which are not specified in the OpenAPI schema should be preserved when persisting to storage. apiVersion, kind, metadata and known fields inside metadata are always preserved. This field is deprecated in favor of setting `x-preserve-unknown-fields` to true in `spec.versions[*].schema.openAPIV3Schema`. See https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/#pruning-versus-preserving-unknown-fields for details.
+// preserveUnknownFields indicates that object fields which are not specified in the OpenAPI schema should be preserved when persisting to storage. apiVersion, kind, metadata and known fields inside metadata are always preserved. This field is deprecated in favor of setting `x-preserve-unknown-fields` to true in `spec.versions[*].schema.openAPIV3Schema`. See https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#field-pruning for details.
 func (o CustomResourceDefinitionSpecPatchOutput) PreserveUnknownFields() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v CustomResourceDefinitionSpecPatch) *bool { return v.PreserveUnknownFields }).(pulumi.BoolPtrOutput)
 }
@@ -1987,7 +1987,7 @@ func (o CustomResourceDefinitionSpecPatchPtrOutput) Names() CustomResourceDefini
 	}).(CustomResourceDefinitionNamesPatchPtrOutput)
 }
 
-// preserveUnknownFields indicates that object fields which are not specified in the OpenAPI schema should be preserved when persisting to storage. apiVersion, kind, metadata and known fields inside metadata are always preserved. This field is deprecated in favor of setting `x-preserve-unknown-fields` to true in `spec.versions[*].schema.openAPIV3Schema`. See https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/#pruning-versus-preserving-unknown-fields for details.
+// preserveUnknownFields indicates that object fields which are not specified in the OpenAPI schema should be preserved when persisting to storage. apiVersion, kind, metadata and known fields inside metadata are always preserved. This field is deprecated in favor of setting `x-preserve-unknown-fields` to true in `spec.versions[*].schema.openAPIV3Schema`. See https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#field-pruning for details.
 func (o CustomResourceDefinitionSpecPatchPtrOutput) PreserveUnknownFields() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *CustomResourceDefinitionSpecPatch) *bool {
 		if v == nil {

@@ -633,6 +633,460 @@ export namespace admissionregistration {
         }
     }
 
+    export namespace v1alpha1 {
+        /**
+         * MatchResources decides whether to run the admission control policy on an object based on whether it meets the match criteria. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
+         */
+        export interface MatchResources {
+            /**
+             * ExcludeResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
+             */
+            excludeResourceRules?: pulumi.Input<pulumi.Input<inputs.admissionregistration.v1alpha1.NamedRuleWithOperations>[]>;
+            /**
+             * matchPolicy defines how the "MatchResources" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
+             *
+             * - Exact: match a request only if it exactly matches a specified rule. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, but "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would not be sent to the ValidatingAdmissionPolicy.
+             *
+             * - Equivalent: match a request if modifies a resource listed in rules, even via another API group or version. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, and "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would be converted to apps/v1 and sent to the ValidatingAdmissionPolicy.
+             *
+             * Defaults to "Equivalent"
+             */
+            matchPolicy?: pulumi.Input<string>;
+            /**
+             * NamespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
+             *
+             * For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
+             *   "matchExpressions": [
+             *     {
+             *       "key": "runlevel",
+             *       "operator": "NotIn",
+             *       "values": [
+             *         "0",
+             *         "1"
+             *       ]
+             *     }
+             *   ]
+             * }
+             *
+             * If instead you want to only run the policy on any objects whose namespace is associated with the "environment" of "prod" or "staging"; you will set the selector as follows: "namespaceSelector": {
+             *   "matchExpressions": [
+             *     {
+             *       "key": "environment",
+             *       "operator": "In",
+             *       "values": [
+             *         "prod",
+             *         "staging"
+             *       ]
+             *     }
+             *   ]
+             * }
+             *
+             * See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ for more examples of label selectors.
+             *
+             * Default to the empty LabelSelector, which matches everything.
+             */
+            namespaceSelector?: pulumi.Input<inputs.meta.v1.LabelSelector>;
+            /**
+             * ObjectSelector decides whether to run the validation based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the cel validation, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
+             */
+            objectSelector?: pulumi.Input<inputs.meta.v1.LabelSelector>;
+            /**
+             * ResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy matches. The policy cares about an operation if it matches _any_ Rule.
+             */
+            resourceRules?: pulumi.Input<pulumi.Input<inputs.admissionregistration.v1alpha1.NamedRuleWithOperations>[]>;
+        }
+
+        /**
+         * MatchResources decides whether to run the admission control policy on an object based on whether it meets the match criteria. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
+         */
+        export interface MatchResourcesPatch {
+            /**
+             * ExcludeResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
+             */
+            excludeResourceRules?: pulumi.Input<pulumi.Input<inputs.admissionregistration.v1alpha1.NamedRuleWithOperationsPatch>[]>;
+            /**
+             * matchPolicy defines how the "MatchResources" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
+             *
+             * - Exact: match a request only if it exactly matches a specified rule. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, but "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would not be sent to the ValidatingAdmissionPolicy.
+             *
+             * - Equivalent: match a request if modifies a resource listed in rules, even via another API group or version. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, and "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would be converted to apps/v1 and sent to the ValidatingAdmissionPolicy.
+             *
+             * Defaults to "Equivalent"
+             */
+            matchPolicy?: pulumi.Input<string>;
+            /**
+             * NamespaceSelector decides whether to run the admission control policy on an object based on whether the namespace for that object matches the selector. If the object itself is a namespace, the matching is performed on object.metadata.labels. If the object is another cluster scoped resource, it never skips the policy.
+             *
+             * For example, to run the webhook on any objects whose namespace is not associated with "runlevel" of "0" or "1";  you will set the selector as follows: "namespaceSelector": {
+             *   "matchExpressions": [
+             *     {
+             *       "key": "runlevel",
+             *       "operator": "NotIn",
+             *       "values": [
+             *         "0",
+             *         "1"
+             *       ]
+             *     }
+             *   ]
+             * }
+             *
+             * If instead you want to only run the policy on any objects whose namespace is associated with the "environment" of "prod" or "staging"; you will set the selector as follows: "namespaceSelector": {
+             *   "matchExpressions": [
+             *     {
+             *       "key": "environment",
+             *       "operator": "In",
+             *       "values": [
+             *         "prod",
+             *         "staging"
+             *       ]
+             *     }
+             *   ]
+             * }
+             *
+             * See https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ for more examples of label selectors.
+             *
+             * Default to the empty LabelSelector, which matches everything.
+             */
+            namespaceSelector?: pulumi.Input<inputs.meta.v1.LabelSelectorPatch>;
+            /**
+             * ObjectSelector decides whether to run the validation based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the cel validation, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
+             */
+            objectSelector?: pulumi.Input<inputs.meta.v1.LabelSelectorPatch>;
+            /**
+             * ResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy matches. The policy cares about an operation if it matches _any_ Rule.
+             */
+            resourceRules?: pulumi.Input<pulumi.Input<inputs.admissionregistration.v1alpha1.NamedRuleWithOperationsPatch>[]>;
+        }
+
+        /**
+         * NamedRuleWithOperations is a tuple of Operations and Resources with ResourceNames.
+         */
+        export interface NamedRuleWithOperations {
+            /**
+             * APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
+             */
+            apiGroups?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
+             */
+            apiVersions?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
+             */
+            operations?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+             */
+            resourceNames?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * Resources is a list of resources this rule applies to.
+             *
+             * For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all resources, but not subresources. 'pods/*' means all subresources of pods. '*&#47;scale' means all scale subresources. '*&#47;*' means all resources and their subresources.
+             *
+             * If wildcard is present, the validation rule will ensure resources do not overlap with each other.
+             *
+             * Depending on the enclosing object, subresources might not be allowed. Required.
+             */
+            resources?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * scope specifies the scope of this rule. Valid values are "Cluster", "Namespaced", and "*" "Cluster" means that only cluster-scoped resources will match this rule. Namespace API objects are cluster-scoped. "Namespaced" means that only namespaced resources will match this rule. "*" means that there are no scope restrictions. Subresources match the scope of their parent resource. Default is "*".
+             */
+            scope?: pulumi.Input<string>;
+        }
+
+        /**
+         * NamedRuleWithOperations is a tuple of Operations and Resources with ResourceNames.
+         */
+        export interface NamedRuleWithOperationsPatch {
+            /**
+             * APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
+             */
+            apiGroups?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
+             */
+            apiVersions?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
+             */
+            operations?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+             */
+            resourceNames?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * Resources is a list of resources this rule applies to.
+             *
+             * For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all resources, but not subresources. 'pods/*' means all subresources of pods. '*&#47;scale' means all scale subresources. '*&#47;*' means all resources and their subresources.
+             *
+             * If wildcard is present, the validation rule will ensure resources do not overlap with each other.
+             *
+             * Depending on the enclosing object, subresources might not be allowed. Required.
+             */
+            resources?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * scope specifies the scope of this rule. Valid values are "Cluster", "Namespaced", and "*" "Cluster" means that only cluster-scoped resources will match this rule. Namespace API objects are cluster-scoped. "Namespaced" means that only namespaced resources will match this rule. "*" means that there are no scope restrictions. Subresources match the scope of their parent resource. Default is "*".
+             */
+            scope?: pulumi.Input<string>;
+        }
+
+        /**
+         * ParamKind is a tuple of Group Kind and Version.
+         */
+        export interface ParamKind {
+            /**
+             * APIVersion is the API group version the resources belong to. In format of "group/version". Required.
+             */
+            apiVersion?: pulumi.Input<string>;
+            /**
+             * Kind is the API kind the resources belong to. Required.
+             */
+            kind?: pulumi.Input<string>;
+        }
+
+        /**
+         * ParamKind is a tuple of Group Kind and Version.
+         */
+        export interface ParamKindPatch {
+            /**
+             * APIVersion is the API group version the resources belong to. In format of "group/version". Required.
+             */
+            apiVersion?: pulumi.Input<string>;
+            /**
+             * Kind is the API kind the resources belong to. Required.
+             */
+            kind?: pulumi.Input<string>;
+        }
+
+        /**
+         * ParamRef references a parameter resource
+         */
+        export interface ParamRef {
+            /**
+             * Name of the resource being referenced.
+             */
+            name?: pulumi.Input<string>;
+            /**
+             * Namespace of the referenced resource. Should be empty for the cluster-scoped resources
+             */
+            namespace?: pulumi.Input<string>;
+        }
+
+        /**
+         * ParamRef references a parameter resource
+         */
+        export interface ParamRefPatch {
+            /**
+             * Name of the resource being referenced.
+             */
+            name?: pulumi.Input<string>;
+            /**
+             * Namespace of the referenced resource. Should be empty for the cluster-scoped resources
+             */
+            namespace?: pulumi.Input<string>;
+        }
+
+        /**
+         * ValidatingAdmissionPolicy describes the definition of an admission validation policy that accepts or rejects an object without changing it.
+         */
+        export interface ValidatingAdmissionPolicy {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion?: pulumi.Input<"admissionregistration.k8s.io/v1alpha1">;
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind?: pulumi.Input<"ValidatingAdmissionPolicy">;
+            /**
+             * Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+             */
+            metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
+            /**
+             * Specification of the desired behavior of the ValidatingAdmissionPolicy.
+             */
+            spec?: pulumi.Input<inputs.admissionregistration.v1alpha1.ValidatingAdmissionPolicySpec>;
+        }
+
+        /**
+         * ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with paramerized resources. ValidatingAdmissionPolicyBinding and parameter CRDs together define how cluster administrators configure policies for clusters.
+         */
+        export interface ValidatingAdmissionPolicyBinding {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion?: pulumi.Input<"admissionregistration.k8s.io/v1alpha1">;
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind?: pulumi.Input<"ValidatingAdmissionPolicyBinding">;
+            /**
+             * Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
+             */
+            metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
+            /**
+             * Specification of the desired behavior of the ValidatingAdmissionPolicyBinding.
+             */
+            spec?: pulumi.Input<inputs.admissionregistration.v1alpha1.ValidatingAdmissionPolicyBindingSpec>;
+        }
+
+        /**
+         * ValidatingAdmissionPolicyBindingSpec is the specification of the ValidatingAdmissionPolicyBinding.
+         */
+        export interface ValidatingAdmissionPolicyBindingSpec {
+            /**
+             * MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy's matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
+             */
+            matchResources?: pulumi.Input<inputs.admissionregistration.v1alpha1.MatchResources>;
+            /**
+             * ParamRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied.
+             */
+            paramRef?: pulumi.Input<inputs.admissionregistration.v1alpha1.ParamRef>;
+            /**
+             * PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
+             */
+            policyName?: pulumi.Input<string>;
+        }
+
+        /**
+         * ValidatingAdmissionPolicyBindingSpec is the specification of the ValidatingAdmissionPolicyBinding.
+         */
+        export interface ValidatingAdmissionPolicyBindingSpecPatch {
+            /**
+             * MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy's matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
+             */
+            matchResources?: pulumi.Input<inputs.admissionregistration.v1alpha1.MatchResourcesPatch>;
+            /**
+             * ParamRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied.
+             */
+            paramRef?: pulumi.Input<inputs.admissionregistration.v1alpha1.ParamRefPatch>;
+            /**
+             * PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
+             */
+            policyName?: pulumi.Input<string>;
+        }
+
+        /**
+         * ValidatingAdmissionPolicySpec is the specification of the desired behavior of the AdmissionPolicy.
+         */
+        export interface ValidatingAdmissionPolicySpec {
+            /**
+             * FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
+             */
+            failurePolicy?: pulumi.Input<string>;
+            /**
+             * MatchConstraints specifies what resources this policy is designed to validate. The AdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API ValidatingAdmissionPolicy cannot match ValidatingAdmissionPolicy and ValidatingAdmissionPolicyBinding. Required.
+             */
+            matchConstraints?: pulumi.Input<inputs.admissionregistration.v1alpha1.MatchResources>;
+            /**
+             * ParamKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If ParamKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in ValidatingAdmissionPolicyBinding, the params variable will be null.
+             */
+            paramKind?: pulumi.Input<inputs.admissionregistration.v1alpha1.ParamKind>;
+            /**
+             * Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
+             */
+            validations: pulumi.Input<pulumi.Input<inputs.admissionregistration.v1alpha1.Validation>[]>;
+        }
+
+        /**
+         * ValidatingAdmissionPolicySpec is the specification of the desired behavior of the AdmissionPolicy.
+         */
+        export interface ValidatingAdmissionPolicySpecPatch {
+            /**
+             * FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
+             */
+            failurePolicy?: pulumi.Input<string>;
+            /**
+             * MatchConstraints specifies what resources this policy is designed to validate. The AdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API ValidatingAdmissionPolicy cannot match ValidatingAdmissionPolicy and ValidatingAdmissionPolicyBinding. Required.
+             */
+            matchConstraints?: pulumi.Input<inputs.admissionregistration.v1alpha1.MatchResourcesPatch>;
+            /**
+             * ParamKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If ParamKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in ValidatingAdmissionPolicyBinding, the params variable will be null.
+             */
+            paramKind?: pulumi.Input<inputs.admissionregistration.v1alpha1.ParamKindPatch>;
+            /**
+             * Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
+             */
+            validations?: pulumi.Input<pulumi.Input<inputs.admissionregistration.v1alpha1.ValidationPatch>[]>;
+        }
+
+        /**
+         * Validation specifies the CEL expression which is used to apply the validation.
+         */
+        export interface Validation {
+            /**
+             * Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the Admission request/response, organized into CEL variables as well as some other useful variables:
+             *
+             * 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind.
+             *
+             * The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
+             *
+             * Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Accessible property names are escaped according to the following rules when accessed in the expression: - '__' escapes to '__underscores__' - '.' escapes to '__dot__' - '-' escapes to '__dash__' - '/' escapes to '__slash__' - Property names that exactly match a CEL RESERVED keyword escape to '__{keyword}__'. The keywords are:
+             * 	  "true", "false", "null", "in", "as", "break", "const", "continue", "else", "for", "function", "if",
+             * 	  "import", "let", "loop", "package", "namespace", "return".
+             * Examples:
+             *   - Expression accessing a property named "namespace": {"Expression": "object.__namespace__ > 0"}
+             *   - Expression accessing a property named "x-prop": {"Expression": "object.x__dash__prop > 0"}
+             *   - Expression accessing a property named "redact__d": {"Expression": "object.redact__underscores__d > 0"}
+             *
+             * Equality on arrays with list type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1]. Concatenation on arrays with x-kubernetes-list-type use the semantics of the list type:
+             *   - 'set': `X + Y` performs a union where the array positions of all elements in `X` are preserved and
+             *     non-intersecting elements in `Y` are appended, retaining their partial order.
+             *   - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
+             *     are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
+             *     non-intersecting keys are appended, retaining their partial order.
+             * Required.
+             */
+            expression: pulumi.Input<string>;
+            /**
+             * Message represents the message displayed when validation fails. The message is required if the Expression contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host" If the Expression contains line breaks. Message is required. The message must not contain line breaks. If unset, the message is "failed Expression: {Expression}".
+             */
+            message?: pulumi.Input<string>;
+            /**
+             * Reason represents a machine-readable description of why this validation failed. If this is the first validation in the list to fail, this reason, as well as the corresponding HTTP response code, are used in the HTTP response to the client. The currently supported reasons are: "Unauthorized", "Forbidden", "Invalid", "RequestEntityTooLarge". If not set, StatusReasonInvalid is used in the response to the client.
+             */
+            reason?: pulumi.Input<string>;
+        }
+
+        /**
+         * Validation specifies the CEL expression which is used to apply the validation.
+         */
+        export interface ValidationPatch {
+            /**
+             * Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the Admission request/response, organized into CEL variables as well as some other useful variables:
+             *
+             * 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind.
+             *
+             * The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
+             *
+             * Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Accessible property names are escaped according to the following rules when accessed in the expression: - '__' escapes to '__underscores__' - '.' escapes to '__dot__' - '-' escapes to '__dash__' - '/' escapes to '__slash__' - Property names that exactly match a CEL RESERVED keyword escape to '__{keyword}__'. The keywords are:
+             * 	  "true", "false", "null", "in", "as", "break", "const", "continue", "else", "for", "function", "if",
+             * 	  "import", "let", "loop", "package", "namespace", "return".
+             * Examples:
+             *   - Expression accessing a property named "namespace": {"Expression": "object.__namespace__ > 0"}
+             *   - Expression accessing a property named "x-prop": {"Expression": "object.x__dash__prop > 0"}
+             *   - Expression accessing a property named "redact__d": {"Expression": "object.redact__underscores__d > 0"}
+             *
+             * Equality on arrays with list type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1]. Concatenation on arrays with x-kubernetes-list-type use the semantics of the list type:
+             *   - 'set': `X + Y` performs a union where the array positions of all elements in `X` are preserved and
+             *     non-intersecting elements in `Y` are appended, retaining their partial order.
+             *   - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
+             *     are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
+             *     non-intersecting keys are appended, retaining their partial order.
+             * Required.
+             */
+            expression?: pulumi.Input<string>;
+            /**
+             * Message represents the message displayed when validation fails. The message is required if the Expression contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host" If the Expression contains line breaks. Message is required. The message must not contain line breaks. If unset, the message is "failed Expression: {Expression}".
+             */
+            message?: pulumi.Input<string>;
+            /**
+             * Reason represents a machine-readable description of why this validation failed. If this is the first validation in the list to fail, this reason, as well as the corresponding HTTP response code, are used in the HTTP response to the client. The currently supported reasons are: "Unauthorized", "Forbidden", "Invalid", "RequestEntityTooLarge". If not set, StatusReasonInvalid is used in the response to the client.
+             */
+            reason?: pulumi.Input<string>;
+        }
+    }
+
     export namespace v1beta1 {
         /**
          * MutatingWebhook describes an admission webhook and the resources and operations it applies to.
@@ -1417,7 +1871,7 @@ export namespace apiextensions {
              */
             names: pulumi.Input<inputs.apiextensions.v1.CustomResourceDefinitionNames>;
             /**
-             * preserveUnknownFields indicates that object fields which are not specified in the OpenAPI schema should be preserved when persisting to storage. apiVersion, kind, metadata and known fields inside metadata are always preserved. This field is deprecated in favor of setting `x-preserve-unknown-fields` to true in `spec.versions[*].schema.openAPIV3Schema`. See https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/#pruning-versus-preserving-unknown-fields for details.
+             * preserveUnknownFields indicates that object fields which are not specified in the OpenAPI schema should be preserved when persisting to storage. apiVersion, kind, metadata and known fields inside metadata are always preserved. This field is deprecated in favor of setting `x-preserve-unknown-fields` to true in `spec.versions[*].schema.openAPIV3Schema`. See https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#field-pruning for details.
              */
             preserveUnknownFields?: pulumi.Input<boolean>;
             /**
@@ -1447,7 +1901,7 @@ export namespace apiextensions {
              */
             names?: pulumi.Input<inputs.apiextensions.v1.CustomResourceDefinitionNamesPatch>;
             /**
-             * preserveUnknownFields indicates that object fields which are not specified in the OpenAPI schema should be preserved when persisting to storage. apiVersion, kind, metadata and known fields inside metadata are always preserved. This field is deprecated in favor of setting `x-preserve-unknown-fields` to true in `spec.versions[*].schema.openAPIV3Schema`. See https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/#pruning-versus-preserving-unknown-fields for details.
+             * preserveUnknownFields indicates that object fields which are not specified in the OpenAPI schema should be preserved when persisting to storage. apiVersion, kind, metadata and known fields inside metadata are always preserved. This field is deprecated in favor of setting `x-preserve-unknown-fields` to true in `spec.versions[*].schema.openAPIV3Schema`. See https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#field-pruning for details.
              */
             preserveUnknownFields?: pulumi.Input<boolean>;
             /**
@@ -3781,7 +4235,7 @@ export namespace apps {
              */
             readyReplicas?: pulumi.Input<number>;
             /**
-             * Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+             * Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
              */
             replicas: pulumi.Input<number>;
         }
@@ -3940,6 +4394,32 @@ export namespace apps {
         }
 
         /**
+         * StatefulSetOrdinals describes the policy used for replica ordinal assignment in this StatefulSet.
+         */
+        export interface StatefulSetOrdinals {
+            /**
+             * start is the number representing the first replica's index. It may be used to number replicas from an alternate index (eg: 1-indexed) over the default 0-indexed names, or to orchestrate progressive movement of replicas from one StatefulSet to another. If set, replica indices will be in the range:
+             *   [.spec.ordinals.start, .spec.ordinals.start + .spec.replicas).
+             * If unset, defaults to 0. Replica indices will be in the range:
+             *   [0, .spec.replicas).
+             */
+            start?: pulumi.Input<number>;
+        }
+
+        /**
+         * StatefulSetOrdinals describes the policy used for replica ordinal assignment in this StatefulSet.
+         */
+        export interface StatefulSetOrdinalsPatch {
+            /**
+             * start is the number representing the first replica's index. It may be used to number replicas from an alternate index (eg: 1-indexed) over the default 0-indexed names, or to orchestrate progressive movement of replicas from one StatefulSet to another. If set, replica indices will be in the range:
+             *   [.spec.ordinals.start, .spec.ordinals.start + .spec.replicas).
+             * If unset, defaults to 0. Replica indices will be in the range:
+             *   [0, .spec.replicas).
+             */
+            start?: pulumi.Input<number>;
+        }
+
+        /**
          * StatefulSetPersistentVolumeClaimRetentionPolicy describes the policy used for PVCs created from the StatefulSet VolumeClaimTemplates.
          */
         export interface StatefulSetPersistentVolumeClaimRetentionPolicy {
@@ -3976,6 +4456,10 @@ export namespace apps {
              */
             minReadySeconds?: pulumi.Input<number>;
             /**
+             * ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is alpha.
+             */
+            ordinals?: pulumi.Input<inputs.apps.v1.StatefulSetOrdinals>;
+            /**
              * persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is alpha.  +optional
              */
             persistentVolumeClaimRetentionPolicy?: pulumi.Input<inputs.apps.v1.StatefulSetPersistentVolumeClaimRetentionPolicy>;
@@ -4000,7 +4484,7 @@ export namespace apps {
              */
             serviceName: pulumi.Input<string>;
             /**
-             * template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet.
+             * template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format <statefulsetname>-<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3".
              */
             template: pulumi.Input<inputs.core.v1.PodTemplateSpec>;
             /**
@@ -4021,6 +4505,10 @@ export namespace apps {
              * Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
              */
             minReadySeconds?: pulumi.Input<number>;
+            /**
+             * ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is alpha.
+             */
+            ordinals?: pulumi.Input<inputs.apps.v1.StatefulSetOrdinalsPatch>;
             /**
              * persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is alpha.  +optional
              */
@@ -4046,7 +4534,7 @@ export namespace apps {
              */
             serviceName?: pulumi.Input<string>;
             /**
-             * template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet.
+             * template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format <statefulsetname>-<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3".
              */
             template?: pulumi.Input<inputs.core.v1.PodTemplateSpecPatch>;
             /**
@@ -5852,6 +6340,9 @@ export namespace authentication {
 
     }
 
+    export namespace v1alpha1 {
+    }
+
     export namespace v1beta1 {
         /**
          * TokenReviewSpec is a description of the token authentication request.
@@ -6305,7 +6796,7 @@ export namespace autoscaling {
              */
             apiVersion?: pulumi.Input<string>;
             /**
-             * Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+             * Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
              */
             kind: pulumi.Input<string>;
             /**
@@ -6323,7 +6814,7 @@ export namespace autoscaling {
              */
             apiVersion?: pulumi.Input<string>;
             /**
-             * Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+             * Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
              */
             kind?: pulumi.Input<string>;
             /**
@@ -6494,7 +6985,7 @@ export namespace autoscaling {
              */
             apiVersion?: pulumi.Input<string>;
             /**
-             * Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+             * Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
              */
             kind: pulumi.Input<string>;
             /**
@@ -6512,7 +7003,7 @@ export namespace autoscaling {
              */
             apiVersion?: pulumi.Input<string>;
             /**
-             * Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+             * Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
              */
             kind?: pulumi.Input<string>;
             /**
@@ -8046,7 +8537,7 @@ export namespace autoscaling {
             /**
              * conditions is the set of conditions required for this autoscaler to scale its target, and indicates whether or not those conditions are met.
              */
-            conditions?: pulumi.Input<pulumi.Input<inputs.autoscaling.v2beta2.HorizontalPodAutoscalerCondition>[]>;
+            conditions: pulumi.Input<pulumi.Input<inputs.autoscaling.v2beta2.HorizontalPodAutoscalerCondition>[]>;
             /**
              * currentMetrics is the last read state of the metrics used by this autoscaler.
              */
@@ -8122,7 +8613,7 @@ export namespace autoscaling {
              */
             resource?: pulumi.Input<inputs.autoscaling.v2beta2.ResourceMetricSource>;
             /**
-             * type is the type of metric source.  It should be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each mapping to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
+             * type is the type of metric source.  It should be one of "Object", "Pods" or "Resource", each mapping to a matching field in the object.
              */
             type: pulumi.Input<string>;
         }
@@ -8152,7 +8643,7 @@ export namespace autoscaling {
              */
             resource?: pulumi.Input<inputs.autoscaling.v2beta2.ResourceMetricSourcePatch>;
             /**
-             * type is the type of metric source.  It should be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each mapping to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
+             * type is the type of metric source.  It should be one of "Object", "Pods" or "Resource", each mapping to a matching field in the object.
              */
             type?: pulumi.Input<string>;
         }
@@ -8182,7 +8673,7 @@ export namespace autoscaling {
              */
             resource?: pulumi.Input<inputs.autoscaling.v2beta2.ResourceMetricStatus>;
             /**
-             * type is the type of metric source.  It will be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each corresponds to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
+             * type is the type of metric source.  It will be one of "Object", "Pods" or "Resource", each corresponds to a matching field in the object.
              */
             type: pulumi.Input<string>;
         }
@@ -8739,7 +9230,7 @@ export namespace batch {
              * The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status: (1) Add the pod UID to the arrays in this field. (2) Remove the pod finalizer. (3) Remove the pod UID from the arrays while increasing the corresponding
              *     counter.
              *
-             * This field is beta-level. The job controller only makes use of this field when the feature gate JobTrackingWithFinalizers is enabled (enabled by default). Old jobs might not be tracked using this field, in which case the field remains null.
+             * Old jobs might not be tracked using this field, in which case the field remains null.
              */
             uncountedTerminatedPods?: pulumi.Input<inputs.batch.v1.UncountedTerminatedPods>;
         }
@@ -10400,6 +10891,50 @@ export namespace core {
              * volumeID used to identify the volume in cinder. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
              */
             volumeID?: pulumi.Input<string>;
+        }
+
+        /**
+         * ClaimSource describes a reference to a ResourceClaim.
+         *
+         * Exactly one of these fields should be set.  Consumers of this type must treat an empty object as if it has an unknown value.
+         */
+        export interface ClaimSource {
+            /**
+             * ResourceClaimName is the name of a ResourceClaim object in the same namespace as this pod.
+             */
+            resourceClaimName?: pulumi.Input<string>;
+            /**
+             * ResourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this pod.
+             *
+             * The template will be used to create a new ResourceClaim, which will be bound to this pod. When this pod is deleted, the ResourceClaim will also be deleted. The name of the ResourceClaim will be <pod name>-<resource name>, where <resource name> is the PodResourceClaim.Name. Pod validation will reject the pod if the concatenated name is not valid for a ResourceClaim (e.g. too long).
+             *
+             * An existing ResourceClaim with that name that is not owned by the pod will not be used for the pod to avoid using an unrelated resource by mistake. Scheduling and pod startup are then blocked until the unrelated ResourceClaim is removed.
+             *
+             * This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.
+             */
+            resourceClaimTemplateName?: pulumi.Input<string>;
+        }
+
+        /**
+         * ClaimSource describes a reference to a ResourceClaim.
+         *
+         * Exactly one of these fields should be set.  Consumers of this type must treat an empty object as if it has an unknown value.
+         */
+        export interface ClaimSourcePatch {
+            /**
+             * ResourceClaimName is the name of a ResourceClaim object in the same namespace as this pod.
+             */
+            resourceClaimName?: pulumi.Input<string>;
+            /**
+             * ResourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this pod.
+             *
+             * The template will be used to create a new ResourceClaim, which will be bound to this pod. When this pod is deleted, the ResourceClaim will also be deleted. The name of the ResourceClaim will be <pod name>-<resource name>, where <resource name> is the PodResourceClaim.Name. Pod validation will reject the pod if the concatenated name is not valid for a ResourceClaim (e.g. too long).
+             *
+             * An existing ResourceClaim with that name that is not owned by the pod will not be used for the pod to avoid using an unrelated resource by mistake. Scheduling and pod startup are then blocked until the unrelated ResourceClaim is removed.
+             *
+             * This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.
+             */
+            resourceClaimTemplateName?: pulumi.Input<string>;
         }
 
         /**
@@ -13202,7 +13737,7 @@ export namespace core {
          */
         export interface NodeSpec {
             /**
-             * Deprecated: Previously used to specify the source of the node's configuration for the DynamicKubeletConfig feature. This feature is removed from Kubelets as of 1.24 and will be fully removed in 1.26.
+             * Deprecated: Previously used to specify the source of the node's configuration for the DynamicKubeletConfig feature. This feature is removed.
              */
             configSource?: pulumi.Input<inputs.core.v1.NodeConfigSource>;
             /**
@@ -13236,7 +13771,7 @@ export namespace core {
          */
         export interface NodeSpecPatch {
             /**
-             * Deprecated: Previously used to specify the source of the node's configuration for the DynamicKubeletConfig feature. This feature is removed from Kubelets as of 1.24 and will be fully removed in 1.26.
+             * Deprecated: Previously used to specify the source of the node's configuration for the DynamicKubeletConfig feature. This feature is removed.
              */
             configSource?: pulumi.Input<inputs.core.v1.NodeConfigSourcePatch>;
             /**
@@ -13270,7 +13805,7 @@ export namespace core {
          */
         export interface NodeStatus {
             /**
-             * List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See http://pr.k8s.io/79391 for an example.
+             * List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example.
              */
             addresses?: pulumi.Input<pulumi.Input<inputs.core.v1.NodeAddress>[]>;
             /**
@@ -13592,18 +14127,20 @@ export namespace core {
              */
             accessModes?: pulumi.Input<pulumi.Input<string>[]>;
             /**
-             * dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
+             * dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. When the AnyVolumeDataSource feature gate is enabled, dataSource contents will be copied to dataSourceRef, and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified. If the namespace is specified, then dataSourceRef will not be copied to dataSource.
              */
             dataSource?: pulumi.Input<inputs.core.v1.TypedLocalObjectReference>;
             /**
-             * dataSourceRef specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef
+             * dataSourceRef specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the dataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, when namespace isn't specified in dataSourceRef, both fields (dataSource and dataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. When namespace is specified in dataSourceRef, dataSource isn't set to the same value and must be empty. There are three important differences between dataSource and dataSourceRef: * While dataSource only allows two specific types of objects, dataSourceRef
              *   allows any non-core object, as well as PersistentVolumeClaim objects.
-             * * While DataSource ignores disallowed values (dropping them), DataSourceRef
+             * * While dataSource ignores disallowed values (dropping them), dataSourceRef
              *   preserves all values, and generates an error if a disallowed value is
              *   specified.
-             * (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
+             * * While dataSource only allows local objects, dataSourceRef allows objects
+             *   in any namespaces.
+             * (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
              */
-            dataSourceRef?: pulumi.Input<inputs.core.v1.TypedLocalObjectReference>;
+            dataSourceRef?: pulumi.Input<inputs.core.v1.TypedObjectReference>;
             /**
              * resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
              */
@@ -13635,18 +14172,20 @@ export namespace core {
              */
             accessModes?: pulumi.Input<pulumi.Input<string>[]>;
             /**
-             * dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
+             * dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. When the AnyVolumeDataSource feature gate is enabled, dataSource contents will be copied to dataSourceRef, and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified. If the namespace is specified, then dataSourceRef will not be copied to dataSource.
              */
             dataSource?: pulumi.Input<inputs.core.v1.TypedLocalObjectReferencePatch>;
             /**
-             * dataSourceRef specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef
+             * dataSourceRef specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the dataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, when namespace isn't specified in dataSourceRef, both fields (dataSource and dataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. When namespace is specified in dataSourceRef, dataSource isn't set to the same value and must be empty. There are three important differences between dataSource and dataSourceRef: * While dataSource only allows two specific types of objects, dataSourceRef
              *   allows any non-core object, as well as PersistentVolumeClaim objects.
-             * * While DataSource ignores disallowed values (dropping them), DataSourceRef
+             * * While dataSource ignores disallowed values (dropping them), dataSourceRef
              *   preserves all values, and generates an error if a disallowed value is
              *   specified.
-             * (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
+             * * While dataSource only allows local objects, dataSourceRef allows objects
+             *   in any namespaces.
+             * (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
              */
-            dataSourceRef?: pulumi.Input<inputs.core.v1.TypedLocalObjectReferencePatch>;
+            dataSourceRef?: pulumi.Input<inputs.core.v1.TypedObjectReferencePatch>;
             /**
              * resources represents the minimum resources the volume should have. If RecoverVolumeExpansionFailure feature is enabled users are allowed to specify resource requirements that are lower than previous value but must still be higher than capacity recorded in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources
              */
@@ -14365,6 +14904,54 @@ export namespace core {
         }
 
         /**
+         * PodResourceClaim references exactly one ResourceClaim through a ClaimSource. It adds a name to it that uniquely identifies the ResourceClaim inside the Pod. Containers that need access to the ResourceClaim reference it with this name.
+         */
+        export interface PodResourceClaim {
+            /**
+             * Name uniquely identifies this resource claim inside the pod. This must be a DNS_LABEL.
+             */
+            name: pulumi.Input<string>;
+            /**
+             * Source describes where to find the ResourceClaim.
+             */
+            source?: pulumi.Input<inputs.core.v1.ClaimSource>;
+        }
+
+        /**
+         * PodResourceClaim references exactly one ResourceClaim through a ClaimSource. It adds a name to it that uniquely identifies the ResourceClaim inside the Pod. Containers that need access to the ResourceClaim reference it with this name.
+         */
+        export interface PodResourceClaimPatch {
+            /**
+             * Name uniquely identifies this resource claim inside the pod. This must be a DNS_LABEL.
+             */
+            name?: pulumi.Input<string>;
+            /**
+             * Source describes where to find the ResourceClaim.
+             */
+            source?: pulumi.Input<inputs.core.v1.ClaimSourcePatch>;
+        }
+
+        /**
+         * PodSchedulingGate is associated to a Pod to guard its scheduling.
+         */
+        export interface PodSchedulingGate {
+            /**
+             * Name of the scheduling gate. Each scheduling gate must have a unique name field.
+             */
+            name: pulumi.Input<string>;
+        }
+
+        /**
+         * PodSchedulingGate is associated to a Pod to guard its scheduling.
+         */
+        export interface PodSchedulingGatePatch {
+            /**
+             * Name of the scheduling gate. Each scheduling gate must have a unique name field.
+             */
+            name?: pulumi.Input<string>;
+        }
+
+        /**
          * PodSecurityContext holds pod-level security attributes and common container settings. Some fields are also present in container.securityContext.  Field values of container.securityContext take precedence over field values of PodSecurityContext.
          */
         export interface PodSecurityContext {
@@ -14401,7 +14988,7 @@ export namespace core {
              */
             seccompProfile?: pulumi.Input<inputs.core.v1.SeccompProfile>;
             /**
-             * A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container. Note that this field cannot be set when spec.os.name is windows.
+             * A list of groups applied to the first process run in each container, in addition to the container's primary GID, the fsGroup (if specified), and group memberships defined in the container image for the uid of the container process. If unspecified, no additional groups are added to any container. Note that group memberships defined in the container image for the uid of the container process are still effective, even if they are not included in this list. Note that this field cannot be set when spec.os.name is windows.
              */
             supplementalGroups?: pulumi.Input<pulumi.Input<number>[]>;
             /**
@@ -14451,7 +15038,7 @@ export namespace core {
              */
             seccompProfile?: pulumi.Input<inputs.core.v1.SeccompProfilePatch>;
             /**
-             * A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container. Note that this field cannot be set when spec.os.name is windows.
+             * A list of groups applied to the first process run in each container, in addition to the container's primary GID, the fsGroup (if specified), and group memberships defined in the container image for the uid of the container process. If unspecified, no additional groups are added to any container. Note that group memberships defined in the container image for the uid of the container process are still effective, even if they are not included in this list. Note that this field cannot be set when spec.os.name is windows.
              */
             supplementalGroups?: pulumi.Input<pulumi.Input<number>[]>;
             /**
@@ -14569,6 +15156,14 @@ export namespace core {
              */
             readinessGates?: pulumi.Input<pulumi.Input<inputs.core.v1.PodReadinessGate>[]>;
             /**
+             * ResourceClaims defines which ResourceClaims must be allocated and reserved before the Pod is allowed to start. The resources will be made available to those containers which consume them by name.
+             *
+             * This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+             *
+             * This field is immutable.
+             */
+            resourceClaims?: pulumi.Input<pulumi.Input<inputs.core.v1.PodResourceClaim>[]>;
+            /**
              * Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
              */
             restartPolicy?: pulumi.Input<string>;
@@ -14580,6 +15175,12 @@ export namespace core {
              * If specified, the pod will be dispatched by specified scheduler. If not specified, the pod will be dispatched by default scheduler.
              */
             schedulerName?: pulumi.Input<string>;
+            /**
+             * SchedulingGates is an opaque list of values that if specified will block scheduling the pod. More info:  https://git.k8s.io/enhancements/keps/sig-scheduling/3521-pod-scheduling-readiness.
+             *
+             * This is an alpha-level feature enabled by PodSchedulingReadiness feature gate.
+             */
+            schedulingGates?: pulumi.Input<pulumi.Input<inputs.core.v1.PodSchedulingGate>[]>;
             /**
              * SecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty.  See type description for default values of each field.
              */
@@ -14727,6 +15328,14 @@ export namespace core {
              */
             readinessGates?: pulumi.Input<pulumi.Input<inputs.core.v1.PodReadinessGatePatch>[]>;
             /**
+             * ResourceClaims defines which ResourceClaims must be allocated and reserved before the Pod is allowed to start. The resources will be made available to those containers which consume them by name.
+             *
+             * This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+             *
+             * This field is immutable.
+             */
+            resourceClaims?: pulumi.Input<pulumi.Input<inputs.core.v1.PodResourceClaimPatch>[]>;
+            /**
              * Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
              */
             restartPolicy?: pulumi.Input<string>;
@@ -14738,6 +15347,12 @@ export namespace core {
              * If specified, the pod will be dispatched by specified scheduler. If not specified, the pod will be dispatched by default scheduler.
              */
             schedulerName?: pulumi.Input<string>;
+            /**
+             * SchedulingGates is an opaque list of values that if specified will block scheduling the pod. More info:  https://git.k8s.io/enhancements/keps/sig-scheduling/3521-pod-scheduling-readiness.
+             *
+             * This is an alpha-level feature enabled by PodSchedulingReadiness feature gate.
+             */
+            schedulingGates?: pulumi.Input<pulumi.Input<inputs.core.v1.PodSchedulingGatePatch>[]>;
             /**
              * SecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty.  See type description for default values of each field.
              */
@@ -15427,9 +16042,29 @@ export namespace core {
              */
             readyReplicas?: pulumi.Input<number>;
             /**
-             * Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#what-is-a-replicationcontroller
+             * Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#what-is-a-replicationcontroller
              */
             replicas: pulumi.Input<number>;
+        }
+
+        /**
+         * ResourceClaim references one entry in PodSpec.ResourceClaims.
+         */
+        export interface ResourceClaim {
+            /**
+             * Name must match the name of one entry in pod.spec.resourceClaims of the Pod where this field is used. It makes that resource available inside a container.
+             */
+            name: pulumi.Input<string>;
+        }
+
+        /**
+         * ResourceClaim references one entry in PodSpec.ResourceClaims.
+         */
+        export interface ResourceClaimPatch {
+            /**
+             * Name must match the name of one entry in pod.spec.resourceClaims of the Pod where this field is used. It makes that resource available inside a container.
+             */
+            name?: pulumi.Input<string>;
         }
 
         /**
@@ -15549,6 +16184,14 @@ export namespace core {
          */
         export interface ResourceRequirements {
             /**
+             * Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
+             *
+             * This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+             *
+             * This field is immutable.
+             */
+            claims?: pulumi.Input<pulumi.Input<inputs.core.v1.ResourceClaim>[]>;
+            /**
              * Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
              */
             limits?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
@@ -15562,6 +16205,14 @@ export namespace core {
          * ResourceRequirements describes the compute resource requirements.
          */
         export interface ResourceRequirementsPatch {
+            /**
+             * Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
+             *
+             * This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+             *
+             * This field is immutable.
+             */
+            claims?: pulumi.Input<pulumi.Input<inputs.core.v1.ResourceClaimPatch>[]>;
             /**
              * Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
              */
@@ -16946,13 +17597,13 @@ export namespace core {
             /**
              * NodeAffinityPolicy indicates how we will treat Pod's nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.
              *
-             * If this value is nil, the behavior is equivalent to the Honor policy. This is a alpha-level feature enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+             * If this value is nil, the behavior is equivalent to the Honor policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
              */
             nodeAffinityPolicy?: pulumi.Input<string>;
             /**
              * NodeTaintsPolicy indicates how we will treat node taints when calculating pod topology spread skew. Options are: - Honor: nodes without taints, along with tainted nodes for which the incoming pod has a toleration, are included. - Ignore: node taints are ignored. All nodes are included.
              *
-             * If this value is nil, the behavior is equivalent to the Ignore policy. This is a alpha-level feature enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+             * If this value is nil, the behavior is equivalent to the Ignore policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
              */
             nodeTaintsPolicy?: pulumi.Input<string>;
             /**
@@ -16995,13 +17646,13 @@ export namespace core {
             /**
              * NodeAffinityPolicy indicates how we will treat Pod's nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.
              *
-             * If this value is nil, the behavior is equivalent to the Honor policy. This is a alpha-level feature enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+             * If this value is nil, the behavior is equivalent to the Honor policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
              */
             nodeAffinityPolicy?: pulumi.Input<string>;
             /**
              * NodeTaintsPolicy indicates how we will treat node taints when calculating pod topology spread skew. Options are: - Honor: nodes without taints, along with tainted nodes for which the incoming pod has a toleration, are included. - Ignore: node taints are ignored. All nodes are included.
              *
-             * If this value is nil, the behavior is equivalent to the Ignore policy. This is a alpha-level feature enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+             * If this value is nil, the behavior is equivalent to the Ignore policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
              */
             nodeTaintsPolicy?: pulumi.Input<string>;
             /**
@@ -17051,6 +17702,44 @@ export namespace core {
              * Name is the name of resource being referenced
              */
             name?: pulumi.Input<string>;
+        }
+
+        export interface TypedObjectReference {
+            /**
+             * APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
+             */
+            apiGroup?: pulumi.Input<string>;
+            /**
+             * Kind is the type of resource being referenced
+             */
+            kind: pulumi.Input<string>;
+            /**
+             * Name is the name of resource being referenced
+             */
+            name: pulumi.Input<string>;
+            /**
+             * Namespace is the namespace of resource being referenced Note that when a namespace is specified, a gateway.networking.k8s.io/ReferenceGrant object is required in the referent namespace to allow that namespace's owner to accept the reference. See the ReferenceGrant documentation for details. (Alpha) This field requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
+             */
+            namespace?: pulumi.Input<string>;
+        }
+
+        export interface TypedObjectReferencePatch {
+            /**
+             * APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
+             */
+            apiGroup?: pulumi.Input<string>;
+            /**
+             * Kind is the type of resource being referenced
+             */
+            kind?: pulumi.Input<string>;
+            /**
+             * Name is the name of resource being referenced
+             */
+            name?: pulumi.Input<string>;
+            /**
+             * Namespace is the namespace of resource being referenced Note that when a namespace is specified, a gateway.networking.k8s.io/ReferenceGrant object is required in the referent namespace to allow that namespace's owner to accept the reference. See the ReferenceGrant documentation for details. (Alpha) This field requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
+             */
+            namespace?: pulumi.Input<string>;
         }
 
         /**
@@ -17650,11 +18339,11 @@ export namespace discovery {
              */
             ready?: pulumi.Input<boolean>;
             /**
-             * serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+             * serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition.
              */
             serving?: pulumi.Input<boolean>;
             /**
-             * terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+             * terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating.
              */
             terminating?: pulumi.Input<boolean>;
         }
@@ -17668,11 +18357,11 @@ export namespace discovery {
              */
             ready?: pulumi.Input<boolean>;
             /**
-             * serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+             * serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition.
              */
             serving?: pulumi.Input<boolean>;
             /**
-             * terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+             * terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating.
              */
             terminating?: pulumi.Input<boolean>;
         }
@@ -20597,8 +21286,8 @@ export namespace flowcontrol {
 
         /**
          * LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
-         *   - How are requests for this priority level limited?
-         *   - What should be done with requests that exceed the limit?
+         *  * How are requests for this priority level limited?
+         *  * What should be done with requests that exceed the limit?
          */
         export interface LimitedPriorityLevelConfiguration {
             /**
@@ -20617,8 +21306,8 @@ export namespace flowcontrol {
 
         /**
          * LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
-         *   - How are requests for this priority level limited?
-         *   - What should be done with requests that exceed the limit?
+         *  * How are requests for this priority level limited?
+         *  * What should be done with requests that exceed the limit?
          */
         export interface LimitedPriorityLevelConfigurationPatch {
             /**
@@ -20858,7 +21547,7 @@ export namespace flowcontrol {
         }
 
         /**
-         * ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) either (d1) the request does not specify a namespace (i.e., `Namespace==""`) and clusterScope is true or (d2) the request specifies a namespace and least one member of namespaces matches the request's namespace.
+         * ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) least one member of namespaces matches the request.
          */
         export interface ResourcePolicyRule {
             /**
@@ -20884,7 +21573,7 @@ export namespace flowcontrol {
         }
 
         /**
-         * ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) either (d1) the request does not specify a namespace (i.e., `Namespace==""`) and clusterScope is true or (d2) the request specifies a namespace and least one member of namespaces matches the request's namespace.
+         * ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) least one member of namespaces matches the request.
          */
         export interface ResourcePolicyRulePatch {
             /**
@@ -20941,21 +21630,12 @@ export namespace flowcontrol {
          * Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.
          */
         export interface Subject {
-            /**
-             * `group` matches based on user group name.
-             */
             group?: pulumi.Input<inputs.flowcontrol.v1beta1.GroupSubject>;
             /**
-             * `kind` indicates which one of the other fields is non-empty. Required
+             * Required
              */
             kind: pulumi.Input<string>;
-            /**
-             * `serviceAccount` matches ServiceAccounts.
-             */
             serviceAccount?: pulumi.Input<inputs.flowcontrol.v1beta1.ServiceAccountSubject>;
-            /**
-             * `user` matches based on username.
-             */
             user?: pulumi.Input<inputs.flowcontrol.v1beta1.UserSubject>;
         }
 
@@ -20963,21 +21643,12 @@ export namespace flowcontrol {
          * Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.
          */
         export interface SubjectPatch {
-            /**
-             * `group` matches based on user group name.
-             */
             group?: pulumi.Input<inputs.flowcontrol.v1beta1.GroupSubjectPatch>;
             /**
-             * `kind` indicates which one of the other fields is non-empty. Required
+             * Required
              */
             kind?: pulumi.Input<string>;
-            /**
-             * `serviceAccount` matches ServiceAccounts.
-             */
             serviceAccount?: pulumi.Input<inputs.flowcontrol.v1beta1.ServiceAccountSubjectPatch>;
-            /**
-             * `user` matches based on username.
-             */
             user?: pulumi.Input<inputs.flowcontrol.v1beta1.UserSubjectPatch>;
         }
 
@@ -21192,6 +21863,20 @@ export namespace flowcontrol {
              */
             assuredConcurrencyShares?: pulumi.Input<number>;
             /**
+             * `borrowingLimitPercent`, if present, configures a limit on how many seats this priority level can borrow from other priority levels. The limit is known as this level's BorrowingConcurrencyLimit (BorrowingCL) and is a limit on the total number of seats that this level may borrow at any one time. This field holds the ratio of that limit to the level's nominal concurrency limit. When this field is non-nil, it must hold a non-negative integer and the limit is calculated as follows.
+             *
+             * BorrowingCL(i) = round( NominalCL(i) * borrowingLimitPercent(i)/100.0 )
+             *
+             * The value of this field can be more than 100, implying that this priority level can borrow a number of seats that is greater than its own nominal concurrency limit (NominalCL). When this field is left `nil`, the limit is effectively infinite.
+             */
+            borrowingLimitPercent?: pulumi.Input<number>;
+            /**
+             * `lendablePercent` prescribes the fraction of the level's NominalCL that can be borrowed by other priority levels. The value of this field must be between 0 and 100, inclusive, and it defaults to 0. The number of seats that other levels can borrow from this level, known as this level's LendableConcurrencyLimit (LendableCL), is defined as follows.
+             *
+             * LendableCL(i) = round( NominalCL(i) * lendablePercent(i)/100.0 )
+             */
+            lendablePercent?: pulumi.Input<number>;
+            /**
              * `limitResponse` indicates what to do with requests that can not be executed right now
              */
             limitResponse?: pulumi.Input<inputs.flowcontrol.v1beta2.LimitResponse>;
@@ -21211,6 +21896,20 @@ export namespace flowcontrol {
              * bigger numbers of ACS mean more reserved concurrent requests (at the expense of every other PL). This field has a default value of 30.
              */
             assuredConcurrencyShares?: pulumi.Input<number>;
+            /**
+             * `borrowingLimitPercent`, if present, configures a limit on how many seats this priority level can borrow from other priority levels. The limit is known as this level's BorrowingConcurrencyLimit (BorrowingCL) and is a limit on the total number of seats that this level may borrow at any one time. This field holds the ratio of that limit to the level's nominal concurrency limit. When this field is non-nil, it must hold a non-negative integer and the limit is calculated as follows.
+             *
+             * BorrowingCL(i) = round( NominalCL(i) * borrowingLimitPercent(i)/100.0 )
+             *
+             * The value of this field can be more than 100, implying that this priority level can borrow a number of seats that is greater than its own nominal concurrency limit (NominalCL). When this field is left `nil`, the limit is effectively infinite.
+             */
+            borrowingLimitPercent?: pulumi.Input<number>;
+            /**
+             * `lendablePercent` prescribes the fraction of the level's NominalCL that can be borrowed by other priority levels. The value of this field must be between 0 and 100, inclusive, and it defaults to 0. The number of seats that other levels can borrow from this level, known as this level's LendableConcurrencyLimit (LendableCL), is defined as follows.
+             *
+             * LendableCL(i) = round( NominalCL(i) * lendablePercent(i)/100.0 )
+             */
+            lendablePercent?: pulumi.Input<number>;
             /**
              * `limitResponse` indicates what to do with requests that can not be executed right now
              */
@@ -21561,6 +22260,616 @@ export namespace flowcontrol {
              * `user` matches based on username.
              */
             user?: pulumi.Input<inputs.flowcontrol.v1beta2.UserSubjectPatch>;
+        }
+
+        /**
+         * UserSubject holds detailed information for user-kind subject.
+         */
+        export interface UserSubject {
+            /**
+             * `name` is the username that matches, or "*" to match all usernames. Required.
+             */
+            name: pulumi.Input<string>;
+        }
+
+        /**
+         * UserSubject holds detailed information for user-kind subject.
+         */
+        export interface UserSubjectPatch {
+            /**
+             * `name` is the username that matches, or "*" to match all usernames. Required.
+             */
+            name?: pulumi.Input<string>;
+        }
+    }
+
+    export namespace v1beta3 {
+        /**
+         * FlowDistinguisherMethod specifies the method of a flow distinguisher.
+         */
+        export interface FlowDistinguisherMethod {
+            /**
+             * `type` is the type of flow distinguisher method The supported types are "ByUser" and "ByNamespace". Required.
+             */
+            type: pulumi.Input<string>;
+        }
+
+        /**
+         * FlowDistinguisherMethod specifies the method of a flow distinguisher.
+         */
+        export interface FlowDistinguisherMethodPatch {
+            /**
+             * `type` is the type of flow distinguisher method The supported types are "ByUser" and "ByNamespace". Required.
+             */
+            type?: pulumi.Input<string>;
+        }
+
+        /**
+         * FlowSchema defines the schema of a group of flows. Note that a flow is made up of a set of inbound API requests with similar attributes and is identified by a pair of strings: the name of the FlowSchema and a "flow distinguisher".
+         */
+        export interface FlowSchema {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion?: pulumi.Input<"flowcontrol.apiserver.k8s.io/v1beta3">;
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind?: pulumi.Input<"FlowSchema">;
+            /**
+             * `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+             */
+            metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
+            /**
+             * `spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+             */
+            spec?: pulumi.Input<inputs.flowcontrol.v1beta3.FlowSchemaSpec>;
+            /**
+             * `status` is the current status of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+             */
+            status?: pulumi.Input<inputs.flowcontrol.v1beta3.FlowSchemaStatus>;
+        }
+
+        /**
+         * FlowSchemaCondition describes conditions for a FlowSchema.
+         */
+        export interface FlowSchemaCondition {
+            /**
+             * `lastTransitionTime` is the last time the condition transitioned from one status to another.
+             */
+            lastTransitionTime?: pulumi.Input<string>;
+            /**
+             * `message` is a human-readable message indicating details about last transition.
+             */
+            message?: pulumi.Input<string>;
+            /**
+             * `reason` is a unique, one-word, CamelCase reason for the condition's last transition.
+             */
+            reason?: pulumi.Input<string>;
+            /**
+             * `status` is the status of the condition. Can be True, False, Unknown. Required.
+             */
+            status?: pulumi.Input<string>;
+            /**
+             * `type` is the type of the condition. Required.
+             */
+            type?: pulumi.Input<string>;
+        }
+
+        /**
+         * FlowSchemaSpec describes how the FlowSchema's specification looks like.
+         */
+        export interface FlowSchemaSpec {
+            /**
+             * `distinguisherMethod` defines how to compute the flow distinguisher for requests that match this schema. `nil` specifies that the distinguisher is disabled and thus will always be the empty string.
+             */
+            distinguisherMethod?: pulumi.Input<inputs.flowcontrol.v1beta3.FlowDistinguisherMethod>;
+            /**
+             * `matchingPrecedence` is used to choose among the FlowSchemas that match a given request. The chosen FlowSchema is among those with the numerically lowest (which we take to be logically highest) MatchingPrecedence.  Each MatchingPrecedence value must be ranged in [1,10000]. Note that if the precedence is not specified, it will be set to 1000 as default.
+             */
+            matchingPrecedence?: pulumi.Input<number>;
+            /**
+             * `priorityLevelConfiguration` should reference a PriorityLevelConfiguration in the cluster. If the reference cannot be resolved, the FlowSchema will be ignored and marked as invalid in its status. Required.
+             */
+            priorityLevelConfiguration: pulumi.Input<inputs.flowcontrol.v1beta3.PriorityLevelConfigurationReference>;
+            /**
+             * `rules` describes which requests will match this flow schema. This FlowSchema matches a request if and only if at least one member of rules matches the request. if it is an empty slice, there will be no requests matching the FlowSchema.
+             */
+            rules?: pulumi.Input<pulumi.Input<inputs.flowcontrol.v1beta3.PolicyRulesWithSubjects>[]>;
+        }
+
+        /**
+         * FlowSchemaSpec describes how the FlowSchema's specification looks like.
+         */
+        export interface FlowSchemaSpecPatch {
+            /**
+             * `distinguisherMethod` defines how to compute the flow distinguisher for requests that match this schema. `nil` specifies that the distinguisher is disabled and thus will always be the empty string.
+             */
+            distinguisherMethod?: pulumi.Input<inputs.flowcontrol.v1beta3.FlowDistinguisherMethodPatch>;
+            /**
+             * `matchingPrecedence` is used to choose among the FlowSchemas that match a given request. The chosen FlowSchema is among those with the numerically lowest (which we take to be logically highest) MatchingPrecedence.  Each MatchingPrecedence value must be ranged in [1,10000]. Note that if the precedence is not specified, it will be set to 1000 as default.
+             */
+            matchingPrecedence?: pulumi.Input<number>;
+            /**
+             * `priorityLevelConfiguration` should reference a PriorityLevelConfiguration in the cluster. If the reference cannot be resolved, the FlowSchema will be ignored and marked as invalid in its status. Required.
+             */
+            priorityLevelConfiguration?: pulumi.Input<inputs.flowcontrol.v1beta3.PriorityLevelConfigurationReferencePatch>;
+            /**
+             * `rules` describes which requests will match this flow schema. This FlowSchema matches a request if and only if at least one member of rules matches the request. if it is an empty slice, there will be no requests matching the FlowSchema.
+             */
+            rules?: pulumi.Input<pulumi.Input<inputs.flowcontrol.v1beta3.PolicyRulesWithSubjectsPatch>[]>;
+        }
+
+        /**
+         * FlowSchemaStatus represents the current state of a FlowSchema.
+         */
+        export interface FlowSchemaStatus {
+            /**
+             * `conditions` is a list of the current states of FlowSchema.
+             */
+            conditions?: pulumi.Input<pulumi.Input<inputs.flowcontrol.v1beta3.FlowSchemaCondition>[]>;
+        }
+
+        /**
+         * GroupSubject holds detailed information for group-kind subject.
+         */
+        export interface GroupSubject {
+            /**
+             * name is the user group that matches, or "*" to match all user groups. See https://github.com/kubernetes/apiserver/blob/master/pkg/authentication/user/user.go for some well-known group names. Required.
+             */
+            name: pulumi.Input<string>;
+        }
+
+        /**
+         * GroupSubject holds detailed information for group-kind subject.
+         */
+        export interface GroupSubjectPatch {
+            /**
+             * name is the user group that matches, or "*" to match all user groups. See https://github.com/kubernetes/apiserver/blob/master/pkg/authentication/user/user.go for some well-known group names. Required.
+             */
+            name?: pulumi.Input<string>;
+        }
+
+        /**
+         * LimitResponse defines how to handle requests that can not be executed right now.
+         */
+        export interface LimitResponse {
+            /**
+             * `queuing` holds the configuration parameters for queuing. This field may be non-empty only if `type` is `"Queue"`.
+             */
+            queuing?: pulumi.Input<inputs.flowcontrol.v1beta3.QueuingConfiguration>;
+            /**
+             * `type` is "Queue" or "Reject". "Queue" means that requests that can not be executed upon arrival are held in a queue until they can be executed or a queuing limit is reached. "Reject" means that requests that can not be executed upon arrival are rejected. Required.
+             */
+            type: pulumi.Input<string>;
+        }
+
+        /**
+         * LimitResponse defines how to handle requests that can not be executed right now.
+         */
+        export interface LimitResponsePatch {
+            /**
+             * `queuing` holds the configuration parameters for queuing. This field may be non-empty only if `type` is `"Queue"`.
+             */
+            queuing?: pulumi.Input<inputs.flowcontrol.v1beta3.QueuingConfigurationPatch>;
+            /**
+             * `type` is "Queue" or "Reject". "Queue" means that requests that can not be executed upon arrival are held in a queue until they can be executed or a queuing limit is reached. "Reject" means that requests that can not be executed upon arrival are rejected. Required.
+             */
+            type?: pulumi.Input<string>;
+        }
+
+        /**
+         * LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
+         *   - How are requests for this priority level limited?
+         *   - What should be done with requests that exceed the limit?
+         */
+        export interface LimitedPriorityLevelConfiguration {
+            /**
+             * `borrowingLimitPercent`, if present, configures a limit on how many seats this priority level can borrow from other priority levels. The limit is known as this level's BorrowingConcurrencyLimit (BorrowingCL) and is a limit on the total number of seats that this level may borrow at any one time. This field holds the ratio of that limit to the level's nominal concurrency limit. When this field is non-nil, it must hold a non-negative integer and the limit is calculated as follows.
+             *
+             * BorrowingCL(i) = round( NominalCL(i) * borrowingLimitPercent(i)/100.0 )
+             *
+             * The value of this field can be more than 100, implying that this priority level can borrow a number of seats that is greater than its own nominal concurrency limit (NominalCL). When this field is left `nil`, the limit is effectively infinite.
+             */
+            borrowingLimitPercent?: pulumi.Input<number>;
+            /**
+             * `lendablePercent` prescribes the fraction of the level's NominalCL that can be borrowed by other priority levels. The value of this field must be between 0 and 100, inclusive, and it defaults to 0. The number of seats that other levels can borrow from this level, known as this level's LendableConcurrencyLimit (LendableCL), is defined as follows.
+             *
+             * LendableCL(i) = round( NominalCL(i) * lendablePercent(i)/100.0 )
+             */
+            lendablePercent?: pulumi.Input<number>;
+            /**
+             * `limitResponse` indicates what to do with requests that can not be executed right now
+             */
+            limitResponse?: pulumi.Input<inputs.flowcontrol.v1beta3.LimitResponse>;
+            /**
+             * `nominalConcurrencyShares` (NCS) contributes to the computation of the NominalConcurrencyLimit (NominalCL) of this level. This is the number of execution seats available at this priority level. This is used both for requests dispatched from this priority level as well as requests dispatched from other priority levels borrowing seats from this level. The server's concurrency limit (ServerCL) is divided among the Limited priority levels in proportion to their NCS values:
+             *
+             * NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[limited priority level k] NCS(k)
+             *
+             * Bigger numbers mean a larger nominal concurrency limit, at the expense of every other Limited priority level. This field has a default value of 30.
+             */
+            nominalConcurrencyShares?: pulumi.Input<number>;
+        }
+
+        /**
+         * LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
+         *   - How are requests for this priority level limited?
+         *   - What should be done with requests that exceed the limit?
+         */
+        export interface LimitedPriorityLevelConfigurationPatch {
+            /**
+             * `borrowingLimitPercent`, if present, configures a limit on how many seats this priority level can borrow from other priority levels. The limit is known as this level's BorrowingConcurrencyLimit (BorrowingCL) and is a limit on the total number of seats that this level may borrow at any one time. This field holds the ratio of that limit to the level's nominal concurrency limit. When this field is non-nil, it must hold a non-negative integer and the limit is calculated as follows.
+             *
+             * BorrowingCL(i) = round( NominalCL(i) * borrowingLimitPercent(i)/100.0 )
+             *
+             * The value of this field can be more than 100, implying that this priority level can borrow a number of seats that is greater than its own nominal concurrency limit (NominalCL). When this field is left `nil`, the limit is effectively infinite.
+             */
+            borrowingLimitPercent?: pulumi.Input<number>;
+            /**
+             * `lendablePercent` prescribes the fraction of the level's NominalCL that can be borrowed by other priority levels. The value of this field must be between 0 and 100, inclusive, and it defaults to 0. The number of seats that other levels can borrow from this level, known as this level's LendableConcurrencyLimit (LendableCL), is defined as follows.
+             *
+             * LendableCL(i) = round( NominalCL(i) * lendablePercent(i)/100.0 )
+             */
+            lendablePercent?: pulumi.Input<number>;
+            /**
+             * `limitResponse` indicates what to do with requests that can not be executed right now
+             */
+            limitResponse?: pulumi.Input<inputs.flowcontrol.v1beta3.LimitResponsePatch>;
+            /**
+             * `nominalConcurrencyShares` (NCS) contributes to the computation of the NominalConcurrencyLimit (NominalCL) of this level. This is the number of execution seats available at this priority level. This is used both for requests dispatched from this priority level as well as requests dispatched from other priority levels borrowing seats from this level. The server's concurrency limit (ServerCL) is divided among the Limited priority levels in proportion to their NCS values:
+             *
+             * NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[limited priority level k] NCS(k)
+             *
+             * Bigger numbers mean a larger nominal concurrency limit, at the expense of every other Limited priority level. This field has a default value of 30.
+             */
+            nominalConcurrencyShares?: pulumi.Input<number>;
+        }
+
+        /**
+         * NonResourcePolicyRule is a predicate that matches non-resource requests according to their verb and the target non-resource URL. A NonResourcePolicyRule matches a request if and only if both (a) at least one member of verbs matches the request and (b) at least one member of nonResourceURLs matches the request.
+         */
+        export interface NonResourcePolicyRule {
+            /**
+             * `nonResourceURLs` is a set of url prefixes that a user should have access to and may not be empty. For example:
+             *   - "/healthz" is legal
+             *   - "/hea*" is illegal
+             *   - "/hea" is legal but matches nothing
+             *   - "/hea/*" also matches nothing
+             *   - "/healthz/*" matches all per-component health checks.
+             * "*" matches all non-resource urls. if it is present, it must be the only entry. Required.
+             */
+            nonResourceURLs: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * `verbs` is a list of matching verbs and may not be empty. "*" matches all verbs. If it is present, it must be the only entry. Required.
+             */
+            verbs: pulumi.Input<pulumi.Input<string>[]>;
+        }
+
+        /**
+         * NonResourcePolicyRule is a predicate that matches non-resource requests according to their verb and the target non-resource URL. A NonResourcePolicyRule matches a request if and only if both (a) at least one member of verbs matches the request and (b) at least one member of nonResourceURLs matches the request.
+         */
+        export interface NonResourcePolicyRulePatch {
+            /**
+             * `nonResourceURLs` is a set of url prefixes that a user should have access to and may not be empty. For example:
+             *   - "/healthz" is legal
+             *   - "/hea*" is illegal
+             *   - "/hea" is legal but matches nothing
+             *   - "/hea/*" also matches nothing
+             *   - "/healthz/*" matches all per-component health checks.
+             * "*" matches all non-resource urls. if it is present, it must be the only entry. Required.
+             */
+            nonResourceURLs?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * `verbs` is a list of matching verbs and may not be empty. "*" matches all verbs. If it is present, it must be the only entry. Required.
+             */
+            verbs?: pulumi.Input<pulumi.Input<string>[]>;
+        }
+
+        /**
+         * PolicyRulesWithSubjects prescribes a test that applies to a request to an apiserver. The test considers the subject making the request, the verb being requested, and the resource to be acted upon. This PolicyRulesWithSubjects matches a request if and only if both (a) at least one member of subjects matches the request and (b) at least one member of resourceRules or nonResourceRules matches the request.
+         */
+        export interface PolicyRulesWithSubjects {
+            /**
+             * `nonResourceRules` is a list of NonResourcePolicyRules that identify matching requests according to their verb and the target non-resource URL.
+             */
+            nonResourceRules?: pulumi.Input<pulumi.Input<inputs.flowcontrol.v1beta3.NonResourcePolicyRule>[]>;
+            /**
+             * `resourceRules` is a slice of ResourcePolicyRules that identify matching requests according to their verb and the target resource. At least one of `resourceRules` and `nonResourceRules` has to be non-empty.
+             */
+            resourceRules?: pulumi.Input<pulumi.Input<inputs.flowcontrol.v1beta3.ResourcePolicyRule>[]>;
+            /**
+             * subjects is the list of normal user, serviceaccount, or group that this rule cares about. There must be at least one member in this slice. A slice that includes both the system:authenticated and system:unauthenticated user groups matches every request. Required.
+             */
+            subjects: pulumi.Input<pulumi.Input<inputs.flowcontrol.v1beta3.Subject>[]>;
+        }
+
+        /**
+         * PolicyRulesWithSubjects prescribes a test that applies to a request to an apiserver. The test considers the subject making the request, the verb being requested, and the resource to be acted upon. This PolicyRulesWithSubjects matches a request if and only if both (a) at least one member of subjects matches the request and (b) at least one member of resourceRules or nonResourceRules matches the request.
+         */
+        export interface PolicyRulesWithSubjectsPatch {
+            /**
+             * `nonResourceRules` is a list of NonResourcePolicyRules that identify matching requests according to their verb and the target non-resource URL.
+             */
+            nonResourceRules?: pulumi.Input<pulumi.Input<inputs.flowcontrol.v1beta3.NonResourcePolicyRulePatch>[]>;
+            /**
+             * `resourceRules` is a slice of ResourcePolicyRules that identify matching requests according to their verb and the target resource. At least one of `resourceRules` and `nonResourceRules` has to be non-empty.
+             */
+            resourceRules?: pulumi.Input<pulumi.Input<inputs.flowcontrol.v1beta3.ResourcePolicyRulePatch>[]>;
+            /**
+             * subjects is the list of normal user, serviceaccount, or group that this rule cares about. There must be at least one member in this slice. A slice that includes both the system:authenticated and system:unauthenticated user groups matches every request. Required.
+             */
+            subjects?: pulumi.Input<pulumi.Input<inputs.flowcontrol.v1beta3.SubjectPatch>[]>;
+        }
+
+        /**
+         * PriorityLevelConfiguration represents the configuration of a priority level.
+         */
+        export interface PriorityLevelConfiguration {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion?: pulumi.Input<"flowcontrol.apiserver.k8s.io/v1beta3">;
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind?: pulumi.Input<"PriorityLevelConfiguration">;
+            /**
+             * `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+             */
+            metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
+            /**
+             * `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+             */
+            spec?: pulumi.Input<inputs.flowcontrol.v1beta3.PriorityLevelConfigurationSpec>;
+            /**
+             * `status` is the current status of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+             */
+            status?: pulumi.Input<inputs.flowcontrol.v1beta3.PriorityLevelConfigurationStatus>;
+        }
+
+        /**
+         * PriorityLevelConfigurationCondition defines the condition of priority level.
+         */
+        export interface PriorityLevelConfigurationCondition {
+            /**
+             * `lastTransitionTime` is the last time the condition transitioned from one status to another.
+             */
+            lastTransitionTime?: pulumi.Input<string>;
+            /**
+             * `message` is a human-readable message indicating details about last transition.
+             */
+            message?: pulumi.Input<string>;
+            /**
+             * `reason` is a unique, one-word, CamelCase reason for the condition's last transition.
+             */
+            reason?: pulumi.Input<string>;
+            /**
+             * `status` is the status of the condition. Can be True, False, Unknown. Required.
+             */
+            status?: pulumi.Input<string>;
+            /**
+             * `type` is the type of the condition. Required.
+             */
+            type?: pulumi.Input<string>;
+        }
+
+        /**
+         * PriorityLevelConfigurationReference contains information that points to the "request-priority" being used.
+         */
+        export interface PriorityLevelConfigurationReference {
+            /**
+             * `name` is the name of the priority level configuration being referenced Required.
+             */
+            name: pulumi.Input<string>;
+        }
+
+        /**
+         * PriorityLevelConfigurationReference contains information that points to the "request-priority" being used.
+         */
+        export interface PriorityLevelConfigurationReferencePatch {
+            /**
+             * `name` is the name of the priority level configuration being referenced Required.
+             */
+            name?: pulumi.Input<string>;
+        }
+
+        /**
+         * PriorityLevelConfigurationSpec specifies the configuration of a priority level.
+         */
+        export interface PriorityLevelConfigurationSpec {
+            /**
+             * `limited` specifies how requests are handled for a Limited priority level. This field must be non-empty if and only if `type` is `"Limited"`.
+             */
+            limited?: pulumi.Input<inputs.flowcontrol.v1beta3.LimitedPriorityLevelConfiguration>;
+            /**
+             * `type` indicates whether this priority level is subject to limitation on request execution.  A value of `"Exempt"` means that requests of this priority level are not subject to a limit (and thus are never queued) and do not detract from the capacity made available to other priority levels.  A value of `"Limited"` means that (a) requests of this priority level _are_ subject to limits and (b) some of the server's limited capacity is made available exclusively to this priority level. Required.
+             */
+            type: pulumi.Input<string>;
+        }
+
+        /**
+         * PriorityLevelConfigurationSpec specifies the configuration of a priority level.
+         */
+        export interface PriorityLevelConfigurationSpecPatch {
+            /**
+             * `limited` specifies how requests are handled for a Limited priority level. This field must be non-empty if and only if `type` is `"Limited"`.
+             */
+            limited?: pulumi.Input<inputs.flowcontrol.v1beta3.LimitedPriorityLevelConfigurationPatch>;
+            /**
+             * `type` indicates whether this priority level is subject to limitation on request execution.  A value of `"Exempt"` means that requests of this priority level are not subject to a limit (and thus are never queued) and do not detract from the capacity made available to other priority levels.  A value of `"Limited"` means that (a) requests of this priority level _are_ subject to limits and (b) some of the server's limited capacity is made available exclusively to this priority level. Required.
+             */
+            type?: pulumi.Input<string>;
+        }
+
+        /**
+         * PriorityLevelConfigurationStatus represents the current state of a "request-priority".
+         */
+        export interface PriorityLevelConfigurationStatus {
+            /**
+             * `conditions` is the current state of "request-priority".
+             */
+            conditions?: pulumi.Input<pulumi.Input<inputs.flowcontrol.v1beta3.PriorityLevelConfigurationCondition>[]>;
+        }
+
+        /**
+         * QueuingConfiguration holds the configuration parameters for queuing
+         */
+        export interface QueuingConfiguration {
+            /**
+             * `handSize` is a small positive number that configures the shuffle sharding of requests into queues.  When enqueuing a request at this priority level the request's flow identifier (a string pair) is hashed and the hash value is used to shuffle the list of queues and deal a hand of the size specified here.  The request is put into one of the shortest queues in that hand. `handSize` must be no larger than `queues`, and should be significantly smaller (so that a few heavy flows do not saturate most of the queues).  See the user-facing documentation for more extensive guidance on setting this field.  This field has a default value of 8.
+             */
+            handSize?: pulumi.Input<number>;
+            /**
+             * `queueLengthLimit` is the maximum number of requests allowed to be waiting in a given queue of this priority level at a time; excess requests are rejected.  This value must be positive.  If not specified, it will be defaulted to 50.
+             */
+            queueLengthLimit?: pulumi.Input<number>;
+            /**
+             * `queues` is the number of queues for this priority level. The queues exist independently at each apiserver. The value must be positive.  Setting it to 1 effectively precludes shufflesharding and thus makes the distinguisher method of associated flow schemas irrelevant.  This field has a default value of 64.
+             */
+            queues?: pulumi.Input<number>;
+        }
+
+        /**
+         * QueuingConfiguration holds the configuration parameters for queuing
+         */
+        export interface QueuingConfigurationPatch {
+            /**
+             * `handSize` is a small positive number that configures the shuffle sharding of requests into queues.  When enqueuing a request at this priority level the request's flow identifier (a string pair) is hashed and the hash value is used to shuffle the list of queues and deal a hand of the size specified here.  The request is put into one of the shortest queues in that hand. `handSize` must be no larger than `queues`, and should be significantly smaller (so that a few heavy flows do not saturate most of the queues).  See the user-facing documentation for more extensive guidance on setting this field.  This field has a default value of 8.
+             */
+            handSize?: pulumi.Input<number>;
+            /**
+             * `queueLengthLimit` is the maximum number of requests allowed to be waiting in a given queue of this priority level at a time; excess requests are rejected.  This value must be positive.  If not specified, it will be defaulted to 50.
+             */
+            queueLengthLimit?: pulumi.Input<number>;
+            /**
+             * `queues` is the number of queues for this priority level. The queues exist independently at each apiserver. The value must be positive.  Setting it to 1 effectively precludes shufflesharding and thus makes the distinguisher method of associated flow schemas irrelevant.  This field has a default value of 64.
+             */
+            queues?: pulumi.Input<number>;
+        }
+
+        /**
+         * ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) either (d1) the request does not specify a namespace (i.e., `Namespace==""`) and clusterScope is true or (d2) the request specifies a namespace and least one member of namespaces matches the request's namespace.
+         */
+        export interface ResourcePolicyRule {
+            /**
+             * `apiGroups` is a list of matching API groups and may not be empty. "*" matches all API groups and, if present, must be the only entry. Required.
+             */
+            apiGroups: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * `clusterScope` indicates whether to match requests that do not specify a namespace (which happens either because the resource is not namespaced or the request targets all namespaces). If this field is omitted or false then the `namespaces` field must contain a non-empty list.
+             */
+            clusterScope?: pulumi.Input<boolean>;
+            /**
+             * `namespaces` is a list of target namespaces that restricts matches.  A request that specifies a target namespace matches only if either (a) this list contains that target namespace or (b) this list contains "*".  Note that "*" matches any specified namespace but does not match a request that _does not specify_ a namespace (see the `clusterScope` field for that). This list may be empty, but only if `clusterScope` is true.
+             */
+            namespaces?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * `resources` is a list of matching resources (i.e., lowercase and plural) with, if desired, subresource.  For example, [ "services", "nodes/status" ].  This list may not be empty. "*" matches all resources and, if present, must be the only entry. Required.
+             */
+            resources: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * `verbs` is a list of matching verbs and may not be empty. "*" matches all verbs and, if present, must be the only entry. Required.
+             */
+            verbs: pulumi.Input<pulumi.Input<string>[]>;
+        }
+
+        /**
+         * ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) either (d1) the request does not specify a namespace (i.e., `Namespace==""`) and clusterScope is true or (d2) the request specifies a namespace and least one member of namespaces matches the request's namespace.
+         */
+        export interface ResourcePolicyRulePatch {
+            /**
+             * `apiGroups` is a list of matching API groups and may not be empty. "*" matches all API groups and, if present, must be the only entry. Required.
+             */
+            apiGroups?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * `clusterScope` indicates whether to match requests that do not specify a namespace (which happens either because the resource is not namespaced or the request targets all namespaces). If this field is omitted or false then the `namespaces` field must contain a non-empty list.
+             */
+            clusterScope?: pulumi.Input<boolean>;
+            /**
+             * `namespaces` is a list of target namespaces that restricts matches.  A request that specifies a target namespace matches only if either (a) this list contains that target namespace or (b) this list contains "*".  Note that "*" matches any specified namespace but does not match a request that _does not specify_ a namespace (see the `clusterScope` field for that). This list may be empty, but only if `clusterScope` is true.
+             */
+            namespaces?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * `resources` is a list of matching resources (i.e., lowercase and plural) with, if desired, subresource.  For example, [ "services", "nodes/status" ].  This list may not be empty. "*" matches all resources and, if present, must be the only entry. Required.
+             */
+            resources?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * `verbs` is a list of matching verbs and may not be empty. "*" matches all verbs and, if present, must be the only entry. Required.
+             */
+            verbs?: pulumi.Input<pulumi.Input<string>[]>;
+        }
+
+        /**
+         * ServiceAccountSubject holds detailed information for service-account-kind subject.
+         */
+        export interface ServiceAccountSubject {
+            /**
+             * `name` is the name of matching ServiceAccount objects, or "*" to match regardless of name. Required.
+             */
+            name: pulumi.Input<string>;
+            /**
+             * `namespace` is the namespace of matching ServiceAccount objects. Required.
+             */
+            namespace: pulumi.Input<string>;
+        }
+
+        /**
+         * ServiceAccountSubject holds detailed information for service-account-kind subject.
+         */
+        export interface ServiceAccountSubjectPatch {
+            /**
+             * `name` is the name of matching ServiceAccount objects, or "*" to match regardless of name. Required.
+             */
+            name?: pulumi.Input<string>;
+            /**
+             * `namespace` is the namespace of matching ServiceAccount objects. Required.
+             */
+            namespace?: pulumi.Input<string>;
+        }
+
+        /**
+         * Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.
+         */
+        export interface Subject {
+            /**
+             * `group` matches based on user group name.
+             */
+            group?: pulumi.Input<inputs.flowcontrol.v1beta3.GroupSubject>;
+            /**
+             * `kind` indicates which one of the other fields is non-empty. Required
+             */
+            kind: pulumi.Input<string>;
+            /**
+             * `serviceAccount` matches ServiceAccounts.
+             */
+            serviceAccount?: pulumi.Input<inputs.flowcontrol.v1beta3.ServiceAccountSubject>;
+            /**
+             * `user` matches based on username.
+             */
+            user?: pulumi.Input<inputs.flowcontrol.v1beta3.UserSubject>;
+        }
+
+        /**
+         * Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.
+         */
+        export interface SubjectPatch {
+            /**
+             * `group` matches based on user group name.
+             */
+            group?: pulumi.Input<inputs.flowcontrol.v1beta3.GroupSubjectPatch>;
+            /**
+             * `kind` indicates which one of the other fields is non-empty. Required
+             */
+            kind?: pulumi.Input<string>;
+            /**
+             * `serviceAccount` matches ServiceAccounts.
+             */
+            serviceAccount?: pulumi.Input<inputs.flowcontrol.v1beta3.ServiceAccountSubjectPatch>;
+            /**
+             * `user` matches based on username.
+             */
+            user?: pulumi.Input<inputs.flowcontrol.v1beta3.UserSubjectPatch>;
         }
 
         /**
@@ -22241,29 +23550,29 @@ export namespace networking {
         }
 
         /**
-         * IPBlock describes a particular CIDR (Ex. "192.168.1.1/24","2001:db9::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
+         * IPBlock describes a particular CIDR (Ex. "192.168.1.0/24","2001:db8::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
          */
         export interface IPBlock {
             /**
-             * CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64"
+             * CIDR is a string representing the IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64"
              */
             cidr: pulumi.Input<string>;
             /**
-             * Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64" Except values will be rejected if they are outside the CIDR range
+             * Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the CIDR range
              */
             except?: pulumi.Input<pulumi.Input<string>[]>;
         }
 
         /**
-         * IPBlock describes a particular CIDR (Ex. "192.168.1.1/24","2001:db9::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
+         * IPBlock describes a particular CIDR (Ex. "192.168.1.0/24","2001:db8::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
          */
         export interface IPBlockPatch {
             /**
-             * CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64"
+             * CIDR is a string representing the IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64"
              */
             cidr?: pulumi.Input<string>;
             /**
-             * Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64" Except values will be rejected if they are outside the CIDR range
+             * Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the CIDR range
              */
             except?: pulumi.Input<pulumi.Input<string>[]>;
         }
@@ -22439,6 +23748,55 @@ export namespace networking {
         }
 
         /**
+         * IngressLoadBalancerIngress represents the status of a load-balancer ingress point.
+         */
+        export interface IngressLoadBalancerIngress {
+            /**
+             * Hostname is set for load-balancer ingress points that are DNS based.
+             */
+            hostname?: pulumi.Input<string>;
+            /**
+             * IP is set for load-balancer ingress points that are IP based.
+             */
+            ip?: pulumi.Input<string>;
+            /**
+             * Ports provides information about the ports exposed by this LoadBalancer.
+             */
+            ports?: pulumi.Input<pulumi.Input<inputs.networking.v1.IngressPortStatus>[]>;
+        }
+
+        /**
+         * IngressLoadBalancerStatus represents the status of a load-balancer.
+         */
+        export interface IngressLoadBalancerStatus {
+            /**
+             * Ingress is a list containing ingress points for the load-balancer.
+             */
+            ingress?: pulumi.Input<pulumi.Input<inputs.networking.v1.IngressLoadBalancerIngress>[]>;
+        }
+
+        /**
+         * IngressPortStatus represents the error condition of a service port
+         */
+        export interface IngressPortStatus {
+            /**
+             * Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
+             *   CamelCase names
+             * - cloud provider specific error values must have names that comply with the
+             *   format foo.example.com/CamelCase.
+             */
+            error?: pulumi.Input<string>;
+            /**
+             * Port is the port number of the ingress port.
+             */
+            port: pulumi.Input<number>;
+            /**
+             * Protocol is the protocol of the ingress port. The supported values are: "TCP", "UDP", "SCTP"
+             */
+            protocol: pulumi.Input<string>;
+        }
+
+        /**
          * IngressRule represents the rules mapping the paths under a specified host to the related backend services. Incoming requests are first evaluated for a host match, then routed to the backend associated with the matching IngressRuleValue.
          */
         export interface IngressRule {
@@ -22553,7 +23911,7 @@ export namespace networking {
             /**
              * LoadBalancer contains the current status of the load-balancer.
              */
-            loadBalancer?: pulumi.Input<inputs.core.v1.LoadBalancerStatus>;
+            loadBalancer?: pulumi.Input<inputs.networking.v1.IngressLoadBalancerStatus>;
         }
 
         /**
@@ -22861,7 +24219,7 @@ export namespace networking {
              */
             ipv4?: pulumi.Input<string>;
             /**
-             * IPv6 defines an IPv6 IP block in CIDR notation(e.g. "fd12:3456:789a:1::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+             * IPv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
              */
             ipv6?: pulumi.Input<string>;
             /**
@@ -22883,7 +24241,7 @@ export namespace networking {
              */
             ipv4?: pulumi.Input<string>;
             /**
-             * IPv6 defines an IPv6 IP block in CIDR notation(e.g. "fd12:3456:789a:1::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+             * IPv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
              */
             ipv6?: pulumi.Input<string>;
             /**
@@ -23536,6 +24894,20 @@ export namespace policy {
              * Label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
              */
             selector?: pulumi.Input<inputs.meta.v1.LabelSelector>;
+            /**
+             * UnhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
+             *
+             * Valid policies are IfHealthyBudget and AlwaysAllow. If no policy is specified, the default behavior will be used, which corresponds to the IfHealthyBudget policy.
+             *
+             * IfHealthyBudget policy means that running pods (status.phase="Running"), but not yet healthy can be evicted only if the guarded application is not disrupted (status.currentHealthy is at least equal to status.desiredHealthy). Healthy pods will be subject to the PDB for eviction.
+             *
+             * AlwaysAllow policy means that all running pods (status.phase="Running"), but not yet healthy are considered disrupted and can be evicted regardless of whether the criteria in a PDB is met. This means perspective running pods of a disrupted application might not get a chance to become healthy. Healthy pods will be subject to the PDB for eviction.
+             *
+             * Additional policies may be added in the future. Clients making eviction decisions should disallow eviction of unhealthy pods if they encounter an unrecognized policy in this field.
+             *
+             * This field is alpha-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (disabled by default).
+             */
+            unhealthyPodEvictionPolicy?: pulumi.Input<string>;
         }
 
         /**
@@ -23554,6 +24926,20 @@ export namespace policy {
              * Label query over pods whose evictions are managed by the disruption budget. A null selector will match no pods, while an empty ({}) selector will select all pods within the namespace.
              */
             selector?: pulumi.Input<inputs.meta.v1.LabelSelectorPatch>;
+            /**
+             * UnhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
+             *
+             * Valid policies are IfHealthyBudget and AlwaysAllow. If no policy is specified, the default behavior will be used, which corresponds to the IfHealthyBudget policy.
+             *
+             * IfHealthyBudget policy means that running pods (status.phase="Running"), but not yet healthy can be evicted only if the guarded application is not disrupted (status.currentHealthy is at least equal to status.desiredHealthy). Healthy pods will be subject to the PDB for eviction.
+             *
+             * AlwaysAllow policy means that all running pods (status.phase="Running"), but not yet healthy are considered disrupted and can be evicted regardless of whether the criteria in a PDB is met. This means perspective running pods of a disrupted application might not get a chance to become healthy. Healthy pods will be subject to the PDB for eviction.
+             *
+             * Additional policies may be added in the future. Clients making eviction decisions should disallow eviction of unhealthy pods if they encounter an unrecognized policy in this field.
+             *
+             * This field is alpha-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (disabled by default).
+             */
+            unhealthyPodEvictionPolicy?: pulumi.Input<string>;
         }
 
         /**
@@ -24983,6 +26369,405 @@ export namespace rbac {
              */
             namespace?: pulumi.Input<string>;
         }
+    }
+}
+
+export namespace resource {
+    export namespace v1alpha1 {
+        /**
+         * AllocationResult contains attributed of an allocated resource.
+         */
+        export interface AllocationResult {
+            /**
+             * This field will get set by the resource driver after it has allocated the resource driver to inform the scheduler where it can schedule Pods using the ResourceClaim.
+             *
+             * Setting this field is optional. If null, the resource is available everywhere.
+             */
+            availableOnNodes?: pulumi.Input<inputs.core.v1.NodeSelector>;
+            /**
+             * ResourceHandle contains arbitrary data returned by the driver after a successful allocation. This is opaque for Kubernetes. Driver documentation may explain to users how to interpret this data if needed.
+             *
+             * The maximum size of this field is 16KiB. This may get increased in the future, but not reduced.
+             */
+            resourceHandle?: pulumi.Input<string>;
+            /**
+             * Shareable determines whether the resource supports more than one consumer at a time.
+             */
+            shareable?: pulumi.Input<boolean>;
+        }
+
+        /**
+         * PodScheduling objects hold information that is needed to schedule a Pod with ResourceClaims that use "WaitForFirstConsumer" allocation mode.
+         *
+         * This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
+         */
+        export interface PodScheduling {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion?: pulumi.Input<"resource.k8s.io/v1alpha1">;
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind?: pulumi.Input<"PodScheduling">;
+            /**
+             * Standard object metadata
+             */
+            metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
+            /**
+             * Spec describes where resources for the Pod are needed.
+             */
+            spec: pulumi.Input<inputs.resource.v1alpha1.PodSchedulingSpec>;
+            /**
+             * Status describes where resources for the Pod can be allocated.
+             */
+            status?: pulumi.Input<inputs.resource.v1alpha1.PodSchedulingStatus>;
+        }
+
+        /**
+         * PodSchedulingSpec describes where resources for the Pod are needed.
+         */
+        export interface PodSchedulingSpec {
+            /**
+             * PotentialNodes lists nodes where the Pod might be able to run.
+             *
+             * The size of this field is limited to 128. This is large enough for many clusters. Larger clusters may need more attempts to find a node that suits all pending resources. This may get increased in the future, but not reduced.
+             */
+            potentialNodes?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * SelectedNode is the node for which allocation of ResourceClaims that are referenced by the Pod and that use "WaitForFirstConsumer" allocation is to be attempted.
+             */
+            selectedNode?: pulumi.Input<string>;
+        }
+
+        /**
+         * PodSchedulingSpec describes where resources for the Pod are needed.
+         */
+        export interface PodSchedulingSpecPatch {
+            /**
+             * PotentialNodes lists nodes where the Pod might be able to run.
+             *
+             * The size of this field is limited to 128. This is large enough for many clusters. Larger clusters may need more attempts to find a node that suits all pending resources. This may get increased in the future, but not reduced.
+             */
+            potentialNodes?: pulumi.Input<pulumi.Input<string>[]>;
+            /**
+             * SelectedNode is the node for which allocation of ResourceClaims that are referenced by the Pod and that use "WaitForFirstConsumer" allocation is to be attempted.
+             */
+            selectedNode?: pulumi.Input<string>;
+        }
+
+        /**
+         * PodSchedulingStatus describes where resources for the Pod can be allocated.
+         */
+        export interface PodSchedulingStatus {
+            /**
+             * ResourceClaims describes resource availability for each pod.spec.resourceClaim entry where the corresponding ResourceClaim uses "WaitForFirstConsumer" allocation mode.
+             */
+            resourceClaims?: pulumi.Input<pulumi.Input<inputs.resource.v1alpha1.ResourceClaimSchedulingStatus>[]>;
+        }
+
+        /**
+         * ResourceClaim describes which resources are needed by a resource consumer. Its status tracks whether the resource has been allocated and what the resulting attributes are.
+         *
+         * This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
+         */
+        export interface ResourceClaim {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion?: pulumi.Input<"resource.k8s.io/v1alpha1">;
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind?: pulumi.Input<"ResourceClaim">;
+            /**
+             * Standard object metadata
+             */
+            metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
+            /**
+             * Spec describes the desired attributes of a resource that then needs to be allocated. It can only be set once when creating the ResourceClaim.
+             */
+            spec: pulumi.Input<inputs.resource.v1alpha1.ResourceClaimSpec>;
+            /**
+             * Status describes whether the resource is available and with which attributes.
+             */
+            status?: pulumi.Input<inputs.resource.v1alpha1.ResourceClaimStatus>;
+        }
+
+        /**
+         * ResourceClaimConsumerReference contains enough information to let you locate the consumer of a ResourceClaim. The user must be a resource in the same namespace as the ResourceClaim.
+         */
+        export interface ResourceClaimConsumerReference {
+            /**
+             * APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
+             */
+            apiGroup?: pulumi.Input<string>;
+            /**
+             * Name is the name of resource being referenced.
+             */
+            name: pulumi.Input<string>;
+            /**
+             * Resource is the type of resource being referenced, for example "pods".
+             */
+            resource: pulumi.Input<string>;
+            /**
+             * UID identifies exactly one incarnation of the resource.
+             */
+            uid: pulumi.Input<string>;
+        }
+
+        /**
+         * ResourceClaimParametersReference contains enough information to let you locate the parameters for a ResourceClaim. The object must be in the same namespace as the ResourceClaim.
+         */
+        export interface ResourceClaimParametersReference {
+            /**
+             * APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
+             */
+            apiGroup?: pulumi.Input<string>;
+            /**
+             * Kind is the type of resource being referenced. This is the same value as in the parameter object's metadata, for example "ConfigMap".
+             */
+            kind: pulumi.Input<string>;
+            /**
+             * Name is the name of resource being referenced.
+             */
+            name: pulumi.Input<string>;
+        }
+
+        /**
+         * ResourceClaimParametersReference contains enough information to let you locate the parameters for a ResourceClaim. The object must be in the same namespace as the ResourceClaim.
+         */
+        export interface ResourceClaimParametersReferencePatch {
+            /**
+             * APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
+             */
+            apiGroup?: pulumi.Input<string>;
+            /**
+             * Kind is the type of resource being referenced. This is the same value as in the parameter object's metadata, for example "ConfigMap".
+             */
+            kind?: pulumi.Input<string>;
+            /**
+             * Name is the name of resource being referenced.
+             */
+            name?: pulumi.Input<string>;
+        }
+
+        /**
+         * ResourceClaimSchedulingStatus contains information about one particular ResourceClaim with "WaitForFirstConsumer" allocation mode.
+         */
+        export interface ResourceClaimSchedulingStatus {
+            /**
+             * Name matches the pod.spec.resourceClaims[*].Name field.
+             */
+            name?: pulumi.Input<string>;
+            /**
+             * UnsuitableNodes lists nodes that the ResourceClaim cannot be allocated for.
+             *
+             * The size of this field is limited to 128, the same as for PodSchedulingSpec.PotentialNodes. This may get increased in the future, but not reduced.
+             */
+            unsuitableNodes?: pulumi.Input<pulumi.Input<string>[]>;
+        }
+
+        /**
+         * ResourceClaimSpec defines how a resource is to be allocated.
+         */
+        export interface ResourceClaimSpec {
+            /**
+             * Allocation can start immediately or when a Pod wants to use the resource. "WaitForFirstConsumer" is the default.
+             */
+            allocationMode?: pulumi.Input<string>;
+            /**
+             * ParametersRef references a separate object with arbitrary parameters that will be used by the driver when allocating a resource for the claim.
+             *
+             * The object must be in the same namespace as the ResourceClaim.
+             */
+            parametersRef?: pulumi.Input<inputs.resource.v1alpha1.ResourceClaimParametersReference>;
+            /**
+             * ResourceClassName references the driver and additional parameters via the name of a ResourceClass that was created as part of the driver deployment.
+             */
+            resourceClassName: pulumi.Input<string>;
+        }
+
+        /**
+         * ResourceClaimSpec defines how a resource is to be allocated.
+         */
+        export interface ResourceClaimSpecPatch {
+            /**
+             * Allocation can start immediately or when a Pod wants to use the resource. "WaitForFirstConsumer" is the default.
+             */
+            allocationMode?: pulumi.Input<string>;
+            /**
+             * ParametersRef references a separate object with arbitrary parameters that will be used by the driver when allocating a resource for the claim.
+             *
+             * The object must be in the same namespace as the ResourceClaim.
+             */
+            parametersRef?: pulumi.Input<inputs.resource.v1alpha1.ResourceClaimParametersReferencePatch>;
+            /**
+             * ResourceClassName references the driver and additional parameters via the name of a ResourceClass that was created as part of the driver deployment.
+             */
+            resourceClassName?: pulumi.Input<string>;
+        }
+
+        /**
+         * ResourceClaimStatus tracks whether the resource has been allocated and what the resulting attributes are.
+         */
+        export interface ResourceClaimStatus {
+            /**
+             * Allocation is set by the resource driver once a resource has been allocated successfully. If this is not specified, the resource is not yet allocated.
+             */
+            allocation?: pulumi.Input<inputs.resource.v1alpha1.AllocationResult>;
+            /**
+             * DeallocationRequested indicates that a ResourceClaim is to be deallocated.
+             *
+             * The driver then must deallocate this claim and reset the field together with clearing the Allocation field.
+             *
+             * While DeallocationRequested is set, no new consumers may be added to ReservedFor.
+             */
+            deallocationRequested?: pulumi.Input<boolean>;
+            /**
+             * DriverName is a copy of the driver name from the ResourceClass at the time when allocation started.
+             */
+            driverName?: pulumi.Input<string>;
+            /**
+             * ReservedFor indicates which entities are currently allowed to use the claim. A Pod which references a ResourceClaim which is not reserved for that Pod will not be started.
+             *
+             * There can be at most 32 such reservations. This may get increased in the future, but not reduced.
+             */
+            reservedFor?: pulumi.Input<pulumi.Input<inputs.resource.v1alpha1.ResourceClaimConsumerReference>[]>;
+        }
+
+        /**
+         * ResourceClaimTemplate is used to produce ResourceClaim objects.
+         */
+        export interface ResourceClaimTemplate {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion?: pulumi.Input<"resource.k8s.io/v1alpha1">;
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind?: pulumi.Input<"ResourceClaimTemplate">;
+            /**
+             * Standard object metadata
+             */
+            metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
+            /**
+             * Describes the ResourceClaim that is to be generated.
+             *
+             * This field is immutable. A ResourceClaim will get created by the control plane for a Pod when needed and then not get updated anymore.
+             */
+            spec: pulumi.Input<inputs.resource.v1alpha1.ResourceClaimTemplateSpec>;
+        }
+
+        /**
+         * ResourceClaimTemplateSpec contains the metadata and fields for a ResourceClaim.
+         */
+        export interface ResourceClaimTemplateSpec {
+            /**
+             * ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+             */
+            metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
+            /**
+             * Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
+             */
+            spec: pulumi.Input<inputs.resource.v1alpha1.ResourceClaimSpec>;
+        }
+
+        /**
+         * ResourceClaimTemplateSpec contains the metadata and fields for a ResourceClaim.
+         */
+        export interface ResourceClaimTemplateSpecPatch {
+            /**
+             * ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+             */
+            metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
+            /**
+             * Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
+             */
+            spec?: pulumi.Input<inputs.resource.v1alpha1.ResourceClaimSpecPatch>;
+        }
+
+        /**
+         * ResourceClass is used by administrators to influence how resources are allocated.
+         *
+         * This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
+         */
+        export interface ResourceClass {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion?: pulumi.Input<"resource.k8s.io/v1alpha1">;
+            /**
+             * DriverName defines the name of the dynamic resource driver that is used for allocation of a ResourceClaim that uses this class.
+             *
+             * Resource drivers have a unique name in forward domain order (acme.example.com).
+             */
+            driverName: pulumi.Input<string>;
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind?: pulumi.Input<"ResourceClass">;
+            /**
+             * Standard object metadata
+             */
+            metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
+            /**
+             * ParametersRef references an arbitrary separate object that may hold parameters that will be used by the driver when allocating a resource that uses this class. A dynamic resource driver can distinguish between parameters stored here and and those stored in ResourceClaimSpec.
+             */
+            parametersRef?: pulumi.Input<inputs.resource.v1alpha1.ResourceClassParametersReference>;
+            /**
+             * Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a ResourceClaim that has not been allocated yet.
+             *
+             * Setting this field is optional. If null, all nodes are candidates.
+             */
+            suitableNodes?: pulumi.Input<inputs.core.v1.NodeSelector>;
+        }
+
+        /**
+         * ResourceClassParametersReference contains enough information to let you locate the parameters for a ResourceClass.
+         */
+        export interface ResourceClassParametersReference {
+            /**
+             * APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
+             */
+            apiGroup?: pulumi.Input<string>;
+            /**
+             * Kind is the type of resource being referenced. This is the same value as in the parameter object's metadata.
+             */
+            kind: pulumi.Input<string>;
+            /**
+             * Name is the name of resource being referenced.
+             */
+            name: pulumi.Input<string>;
+            /**
+             * Namespace that contains the referenced resource. Must be empty for cluster-scoped resources and non-empty for namespaced resources.
+             */
+            namespace?: pulumi.Input<string>;
+        }
+
+        /**
+         * ResourceClassParametersReference contains enough information to let you locate the parameters for a ResourceClass.
+         */
+        export interface ResourceClassParametersReferencePatch {
+            /**
+             * APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
+             */
+            apiGroup?: pulumi.Input<string>;
+            /**
+             * Kind is the type of resource being referenced. This is the same value as in the parameter object's metadata.
+             */
+            kind?: pulumi.Input<string>;
+            /**
+             * Name is the name of resource being referenced.
+             */
+            name?: pulumi.Input<string>;
+            /**
+             * Namespace that contains the referenced resource. Must be empty for cluster-scoped resources and non-empty for namespaced resources.
+             */
+            namespace?: pulumi.Input<string>;
+        }
+
     }
 }
 

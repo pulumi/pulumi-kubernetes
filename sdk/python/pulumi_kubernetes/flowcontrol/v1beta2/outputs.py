@@ -692,6 +692,10 @@ class LimitedPriorityLevelConfiguration(dict):
         suggest = None
         if key == "assuredConcurrencyShares":
             suggest = "assured_concurrency_shares"
+        elif key == "borrowingLimitPercent":
+            suggest = "borrowing_limit_percent"
+        elif key == "lendablePercent":
+            suggest = "lendable_percent"
         elif key == "limitResponse":
             suggest = "limit_response"
 
@@ -708,6 +712,8 @@ class LimitedPriorityLevelConfiguration(dict):
 
     def __init__(__self__, *,
                  assured_concurrency_shares: Optional[int] = None,
+                 borrowing_limit_percent: Optional[int] = None,
+                 lendable_percent: Optional[int] = None,
                  limit_response: Optional['outputs.LimitResponse'] = None):
         """
         LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
@@ -718,10 +724,22 @@ class LimitedPriorityLevelConfiguration(dict):
                            ACV(l) = ceil( SCL * ACS(l) / ( sum[priority levels k] ACS(k) ) )
                
                bigger numbers of ACS mean more reserved concurrent requests (at the expense of every other PL). This field has a default value of 30.
+        :param int borrowing_limit_percent: `borrowingLimitPercent`, if present, configures a limit on how many seats this priority level can borrow from other priority levels. The limit is known as this level's BorrowingConcurrencyLimit (BorrowingCL) and is a limit on the total number of seats that this level may borrow at any one time. This field holds the ratio of that limit to the level's nominal concurrency limit. When this field is non-nil, it must hold a non-negative integer and the limit is calculated as follows.
+               
+               BorrowingCL(i) = round( NominalCL(i) * borrowingLimitPercent(i)/100.0 )
+               
+               The value of this field can be more than 100, implying that this priority level can borrow a number of seats that is greater than its own nominal concurrency limit (NominalCL). When this field is left `nil`, the limit is effectively infinite.
+        :param int lendable_percent: `lendablePercent` prescribes the fraction of the level's NominalCL that can be borrowed by other priority levels. The value of this field must be between 0 and 100, inclusive, and it defaults to 0. The number of seats that other levels can borrow from this level, known as this level's LendableConcurrencyLimit (LendableCL), is defined as follows.
+               
+               LendableCL(i) = round( NominalCL(i) * lendablePercent(i)/100.0 )
         :param 'LimitResponseArgs' limit_response: `limitResponse` indicates what to do with requests that can not be executed right now
         """
         if assured_concurrency_shares is not None:
             pulumi.set(__self__, "assured_concurrency_shares", assured_concurrency_shares)
+        if borrowing_limit_percent is not None:
+            pulumi.set(__self__, "borrowing_limit_percent", borrowing_limit_percent)
+        if lendable_percent is not None:
+            pulumi.set(__self__, "lendable_percent", lendable_percent)
         if limit_response is not None:
             pulumi.set(__self__, "limit_response", limit_response)
 
@@ -736,6 +754,28 @@ class LimitedPriorityLevelConfiguration(dict):
         bigger numbers of ACS mean more reserved concurrent requests (at the expense of every other PL). This field has a default value of 30.
         """
         return pulumi.get(self, "assured_concurrency_shares")
+
+    @property
+    @pulumi.getter(name="borrowingLimitPercent")
+    def borrowing_limit_percent(self) -> Optional[int]:
+        """
+        `borrowingLimitPercent`, if present, configures a limit on how many seats this priority level can borrow from other priority levels. The limit is known as this level's BorrowingConcurrencyLimit (BorrowingCL) and is a limit on the total number of seats that this level may borrow at any one time. This field holds the ratio of that limit to the level's nominal concurrency limit. When this field is non-nil, it must hold a non-negative integer and the limit is calculated as follows.
+
+        BorrowingCL(i) = round( NominalCL(i) * borrowingLimitPercent(i)/100.0 )
+
+        The value of this field can be more than 100, implying that this priority level can borrow a number of seats that is greater than its own nominal concurrency limit (NominalCL). When this field is left `nil`, the limit is effectively infinite.
+        """
+        return pulumi.get(self, "borrowing_limit_percent")
+
+    @property
+    @pulumi.getter(name="lendablePercent")
+    def lendable_percent(self) -> Optional[int]:
+        """
+        `lendablePercent` prescribes the fraction of the level's NominalCL that can be borrowed by other priority levels. The value of this field must be between 0 and 100, inclusive, and it defaults to 0. The number of seats that other levels can borrow from this level, known as this level's LendableConcurrencyLimit (LendableCL), is defined as follows.
+
+        LendableCL(i) = round( NominalCL(i) * lendablePercent(i)/100.0 )
+        """
+        return pulumi.get(self, "lendable_percent")
 
     @property
     @pulumi.getter(name="limitResponse")
@@ -758,6 +798,10 @@ class LimitedPriorityLevelConfigurationPatch(dict):
         suggest = None
         if key == "assuredConcurrencyShares":
             suggest = "assured_concurrency_shares"
+        elif key == "borrowingLimitPercent":
+            suggest = "borrowing_limit_percent"
+        elif key == "lendablePercent":
+            suggest = "lendable_percent"
         elif key == "limitResponse":
             suggest = "limit_response"
 
@@ -774,6 +818,8 @@ class LimitedPriorityLevelConfigurationPatch(dict):
 
     def __init__(__self__, *,
                  assured_concurrency_shares: Optional[int] = None,
+                 borrowing_limit_percent: Optional[int] = None,
+                 lendable_percent: Optional[int] = None,
                  limit_response: Optional['outputs.LimitResponsePatch'] = None):
         """
         LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
@@ -784,10 +830,22 @@ class LimitedPriorityLevelConfigurationPatch(dict):
                            ACV(l) = ceil( SCL * ACS(l) / ( sum[priority levels k] ACS(k) ) )
                
                bigger numbers of ACS mean more reserved concurrent requests (at the expense of every other PL). This field has a default value of 30.
+        :param int borrowing_limit_percent: `borrowingLimitPercent`, if present, configures a limit on how many seats this priority level can borrow from other priority levels. The limit is known as this level's BorrowingConcurrencyLimit (BorrowingCL) and is a limit on the total number of seats that this level may borrow at any one time. This field holds the ratio of that limit to the level's nominal concurrency limit. When this field is non-nil, it must hold a non-negative integer and the limit is calculated as follows.
+               
+               BorrowingCL(i) = round( NominalCL(i) * borrowingLimitPercent(i)/100.0 )
+               
+               The value of this field can be more than 100, implying that this priority level can borrow a number of seats that is greater than its own nominal concurrency limit (NominalCL). When this field is left `nil`, the limit is effectively infinite.
+        :param int lendable_percent: `lendablePercent` prescribes the fraction of the level's NominalCL that can be borrowed by other priority levels. The value of this field must be between 0 and 100, inclusive, and it defaults to 0. The number of seats that other levels can borrow from this level, known as this level's LendableConcurrencyLimit (LendableCL), is defined as follows.
+               
+               LendableCL(i) = round( NominalCL(i) * lendablePercent(i)/100.0 )
         :param 'LimitResponsePatchArgs' limit_response: `limitResponse` indicates what to do with requests that can not be executed right now
         """
         if assured_concurrency_shares is not None:
             pulumi.set(__self__, "assured_concurrency_shares", assured_concurrency_shares)
+        if borrowing_limit_percent is not None:
+            pulumi.set(__self__, "borrowing_limit_percent", borrowing_limit_percent)
+        if lendable_percent is not None:
+            pulumi.set(__self__, "lendable_percent", lendable_percent)
         if limit_response is not None:
             pulumi.set(__self__, "limit_response", limit_response)
 
@@ -802,6 +860,28 @@ class LimitedPriorityLevelConfigurationPatch(dict):
         bigger numbers of ACS mean more reserved concurrent requests (at the expense of every other PL). This field has a default value of 30.
         """
         return pulumi.get(self, "assured_concurrency_shares")
+
+    @property
+    @pulumi.getter(name="borrowingLimitPercent")
+    def borrowing_limit_percent(self) -> Optional[int]:
+        """
+        `borrowingLimitPercent`, if present, configures a limit on how many seats this priority level can borrow from other priority levels. The limit is known as this level's BorrowingConcurrencyLimit (BorrowingCL) and is a limit on the total number of seats that this level may borrow at any one time. This field holds the ratio of that limit to the level's nominal concurrency limit. When this field is non-nil, it must hold a non-negative integer and the limit is calculated as follows.
+
+        BorrowingCL(i) = round( NominalCL(i) * borrowingLimitPercent(i)/100.0 )
+
+        The value of this field can be more than 100, implying that this priority level can borrow a number of seats that is greater than its own nominal concurrency limit (NominalCL). When this field is left `nil`, the limit is effectively infinite.
+        """
+        return pulumi.get(self, "borrowing_limit_percent")
+
+    @property
+    @pulumi.getter(name="lendablePercent")
+    def lendable_percent(self) -> Optional[int]:
+        """
+        `lendablePercent` prescribes the fraction of the level's NominalCL that can be borrowed by other priority levels. The value of this field must be between 0 and 100, inclusive, and it defaults to 0. The number of seats that other levels can borrow from this level, known as this level's LendableConcurrencyLimit (LendableCL), is defined as follows.
+
+        LendableCL(i) = round( NominalCL(i) * lendablePercent(i)/100.0 )
+        """
+        return pulumi.get(self, "lendable_percent")
 
     @property
     @pulumi.getter(name="limitResponse")

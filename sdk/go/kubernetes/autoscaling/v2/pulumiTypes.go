@@ -727,7 +727,7 @@ func (o ContainerResourceMetricStatusPatchPtrOutput) Name() pulumi.StringPtrOutp
 type CrossVersionObjectReference struct {
 	// API version of the referent
 	ApiVersion *string `pulumi:"apiVersion"`
-	// Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+	// Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind string `pulumi:"kind"`
 	// Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
 	Name string `pulumi:"name"`
@@ -748,7 +748,7 @@ type CrossVersionObjectReferenceInput interface {
 type CrossVersionObjectReferenceArgs struct {
 	// API version of the referent
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+	// Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringInput `pulumi:"kind"`
 	// Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
 	Name pulumi.StringInput `pulumi:"name"`
@@ -837,7 +837,7 @@ func (o CrossVersionObjectReferenceOutput) ApiVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CrossVersionObjectReference) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
-// Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+// Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 func (o CrossVersionObjectReferenceOutput) Kind() pulumi.StringOutput {
 	return o.ApplyT(func(v CrossVersionObjectReference) string { return v.Kind }).(pulumi.StringOutput)
 }
@@ -881,7 +881,7 @@ func (o CrossVersionObjectReferencePtrOutput) ApiVersion() pulumi.StringPtrOutpu
 	}).(pulumi.StringPtrOutput)
 }
 
-// Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+// Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 func (o CrossVersionObjectReferencePtrOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CrossVersionObjectReference) *string {
 		if v == nil {
@@ -905,7 +905,7 @@ func (o CrossVersionObjectReferencePtrOutput) Name() pulumi.StringPtrOutput {
 type CrossVersionObjectReferencePatch struct {
 	// API version of the referent
 	ApiVersion *string `pulumi:"apiVersion"`
-	// Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+	// Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
 	// Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
 	Name *string `pulumi:"name"`
@@ -926,7 +926,7 @@ type CrossVersionObjectReferencePatchInput interface {
 type CrossVersionObjectReferencePatchArgs struct {
 	// API version of the referent
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+	// Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
 	Name pulumi.StringPtrInput `pulumi:"name"`
@@ -1015,7 +1015,7 @@ func (o CrossVersionObjectReferencePatchOutput) ApiVersion() pulumi.StringPtrOut
 	return o.ApplyT(func(v CrossVersionObjectReferencePatch) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
-// Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+// Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 func (o CrossVersionObjectReferencePatchOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CrossVersionObjectReferencePatch) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
@@ -1059,7 +1059,7 @@ func (o CrossVersionObjectReferencePatchPtrOutput) ApiVersion() pulumi.StringPtr
 	}).(pulumi.StringPtrOutput)
 }
 
-// Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+// Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 func (o CrossVersionObjectReferencePatchPtrOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CrossVersionObjectReferencePatch) *string {
 		if v == nil {

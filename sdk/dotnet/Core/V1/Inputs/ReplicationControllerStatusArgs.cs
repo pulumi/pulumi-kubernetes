@@ -52,7 +52,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public Input<int>? ReadyReplicas { get; set; }
 
         /// <summary>
-        /// Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#what-is-a-replicationcontroller
+        /// Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#what-is-a-replicationcontroller
         /// </summary>
         [Input("replicas", required: true)]
         public Input<int> Replicas { get; set; } = null!;

@@ -37,14 +37,14 @@ public final class ClusterCIDRSpecPatchArgs extends com.pulumi.resources.Resourc
     }
 
     /**
-     * IPv6 defines an IPv6 IP block in CIDR notation(e.g. &#34;fd12:3456:789a:1::/64&#34;). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+     * IPv6 defines an IPv6 IP block in CIDR notation(e.g. &#34;2001:db8::/64&#34;). At least one of IPv4 and IPv6 must be specified. This field is immutable.
      * 
      */
     @Import(name="ipv6")
     private @Nullable Output<String> ipv6;
 
     /**
-     * @return IPv6 defines an IPv6 IP block in CIDR notation(e.g. &#34;fd12:3456:789a:1::/64&#34;). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+     * @return IPv6 defines an IPv6 IP block in CIDR notation(e.g. &#34;2001:db8::/64&#34;). At least one of IPv4 and IPv6 must be specified. This field is immutable.
      * 
      */
     public Optional<Output<String>> ipv6() {
@@ -130,7 +130,7 @@ public final class ClusterCIDRSpecPatchArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param ipv6 IPv6 defines an IPv6 IP block in CIDR notation(e.g. &#34;fd12:3456:789a:1::/64&#34;). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+         * @param ipv6 IPv6 defines an IPv6 IP block in CIDR notation(e.g. &#34;2001:db8::/64&#34;). At least one of IPv4 and IPv6 must be specified. This field is immutable.
          * 
          * @return builder
          * 
@@ -141,7 +141,7 @@ public final class ClusterCIDRSpecPatchArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param ipv6 IPv6 defines an IPv6 IP block in CIDR notation(e.g. &#34;fd12:3456:789a:1::/64&#34;). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+         * @param ipv6 IPv6 defines an IPv6 IP block in CIDR notation(e.g. &#34;2001:db8::/64&#34;). At least one of IPv4 and IPv6 must be specified. This field is immutable.
          * 
          * @return builder
          * 

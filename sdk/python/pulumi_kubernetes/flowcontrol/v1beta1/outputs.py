@@ -684,8 +684,8 @@ class LimitResponsePatch(dict):
 class LimitedPriorityLevelConfiguration(dict):
     """
     LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
-      - How are requests for this priority level limited?
-      - What should be done with requests that exceed the limit?
+     * How are requests for this priority level limited?
+     * What should be done with requests that exceed the limit?
     """
     @staticmethod
     def __key_warning(key: str):
@@ -711,8 +711,8 @@ class LimitedPriorityLevelConfiguration(dict):
                  limit_response: Optional['outputs.LimitResponse'] = None):
         """
         LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
-          - How are requests for this priority level limited?
-          - What should be done with requests that exceed the limit?
+         * How are requests for this priority level limited?
+         * What should be done with requests that exceed the limit?
         :param int assured_concurrency_shares: `assuredConcurrencyShares` (ACS) configures the execution limit, which is a limit on the number of requests of this priority level that may be exeucting at a given time.  ACS must be a positive number. The server's concurrency limit (SCL) is divided among the concurrency-controlled priority levels in proportion to their assured concurrency shares. This produces the assured concurrency value (ACV) --- the number of requests that may be executing at a time --- for each such priority level:
                
                            ACV(l) = ceil( SCL * ACS(l) / ( sum[priority levels k] ACS(k) ) )
@@ -750,8 +750,8 @@ class LimitedPriorityLevelConfiguration(dict):
 class LimitedPriorityLevelConfigurationPatch(dict):
     """
     LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
-      - How are requests for this priority level limited?
-      - What should be done with requests that exceed the limit?
+     * How are requests for this priority level limited?
+     * What should be done with requests that exceed the limit?
     """
     @staticmethod
     def __key_warning(key: str):
@@ -777,8 +777,8 @@ class LimitedPriorityLevelConfigurationPatch(dict):
                  limit_response: Optional['outputs.LimitResponsePatch'] = None):
         """
         LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
-          - How are requests for this priority level limited?
-          - What should be done with requests that exceed the limit?
+         * How are requests for this priority level limited?
+         * What should be done with requests that exceed the limit?
         :param int assured_concurrency_shares: `assuredConcurrencyShares` (ACS) configures the execution limit, which is a limit on the number of requests of this priority level that may be exeucting at a given time.  ACS must be a positive number. The server's concurrency limit (SCL) is divided among the concurrency-controlled priority levels in proportion to their assured concurrency shares. This produces the assured concurrency value (ACV) --- the number of requests that may be executing at a time --- for each such priority level:
                
                            ACV(l) = ceil( SCL * ACS(l) / ( sum[priority levels k] ACS(k) ) )
@@ -1628,7 +1628,7 @@ class QueuingConfigurationPatch(dict):
 @pulumi.output_type
 class ResourcePolicyRule(dict):
     """
-    ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) either (d1) the request does not specify a namespace (i.e., `Namespace==""`) and clusterScope is true or (d2) the request specifies a namespace and least one member of namespaces matches the request's namespace.
+    ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) least one member of namespaces matches the request.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -1656,7 +1656,7 @@ class ResourcePolicyRule(dict):
                  cluster_scope: Optional[bool] = None,
                  namespaces: Optional[Sequence[str]] = None):
         """
-        ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) either (d1) the request does not specify a namespace (i.e., `Namespace==""`) and clusterScope is true or (d2) the request specifies a namespace and least one member of namespaces matches the request's namespace.
+        ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) least one member of namespaces matches the request.
         :param Sequence[str] api_groups: `apiGroups` is a list of matching API groups and may not be empty. "*" matches all API groups and, if present, must be the only entry. Required.
         :param Sequence[str] resources: `resources` is a list of matching resources (i.e., lowercase and plural) with, if desired, subresource.  For example, [ "services", "nodes/status" ].  This list may not be empty. "*" matches all resources and, if present, must be the only entry. Required.
         :param Sequence[str] verbs: `verbs` is a list of matching verbs and may not be empty. "*" matches all verbs and, if present, must be the only entry. Required.
@@ -1715,7 +1715,7 @@ class ResourcePolicyRule(dict):
 @pulumi.output_type
 class ResourcePolicyRulePatch(dict):
     """
-    ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) either (d1) the request does not specify a namespace (i.e., `Namespace==""`) and clusterScope is true or (d2) the request specifies a namespace and least one member of namespaces matches the request's namespace.
+    ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) least one member of namespaces matches the request.
     """
     @staticmethod
     def __key_warning(key: str):
@@ -1743,7 +1743,7 @@ class ResourcePolicyRulePatch(dict):
                  resources: Optional[Sequence[str]] = None,
                  verbs: Optional[Sequence[str]] = None):
         """
-        ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) either (d1) the request does not specify a namespace (i.e., `Namespace==""`) and clusterScope is true or (d2) the request specifies a namespace and least one member of namespaces matches the request's namespace.
+        ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) least one member of namespaces matches the request.
         :param Sequence[str] api_groups: `apiGroups` is a list of matching API groups and may not be empty. "*" matches all API groups and, if present, must be the only entry. Required.
         :param bool cluster_scope: `clusterScope` indicates whether to match requests that do not specify a namespace (which happens either because the resource is not namespaced or the request targets all namespaces). If this field is omitted or false then the `namespaces` field must contain a non-empty list.
         :param Sequence[str] namespaces: `namespaces` is a list of target namespaces that restricts matches.  A request that specifies a target namespace matches only if either (a) this list contains that target namespace or (b) this list contains "*".  Note that "*" matches any specified namespace but does not match a request that _does not specify_ a namespace (see the `clusterScope` field for that). This list may be empty, but only if `clusterScope` is true.
@@ -1899,10 +1899,7 @@ class Subject(dict):
                  user: Optional['outputs.UserSubject'] = None):
         """
         Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.
-        :param str kind: `kind` indicates which one of the other fields is non-empty. Required
-        :param 'GroupSubjectArgs' group: `group` matches based on user group name.
-        :param 'ServiceAccountSubjectArgs' service_account: `serviceAccount` matches ServiceAccounts.
-        :param 'UserSubjectArgs' user: `user` matches based on username.
+        :param str kind: Required
         """
         pulumi.set(__self__, "kind", kind)
         if group is not None:
@@ -1916,32 +1913,23 @@ class Subject(dict):
     @pulumi.getter
     def kind(self) -> str:
         """
-        `kind` indicates which one of the other fields is non-empty. Required
+        Required
         """
         return pulumi.get(self, "kind")
 
     @property
     @pulumi.getter
     def group(self) -> Optional['outputs.GroupSubject']:
-        """
-        `group` matches based on user group name.
-        """
         return pulumi.get(self, "group")
 
     @property
     @pulumi.getter(name="serviceAccount")
     def service_account(self) -> Optional['outputs.ServiceAccountSubject']:
-        """
-        `serviceAccount` matches ServiceAccounts.
-        """
         return pulumi.get(self, "service_account")
 
     @property
     @pulumi.getter
     def user(self) -> Optional['outputs.UserSubject']:
-        """
-        `user` matches based on username.
-        """
         return pulumi.get(self, "user")
 
 
@@ -1974,10 +1962,7 @@ class SubjectPatch(dict):
                  user: Optional['outputs.UserSubjectPatch'] = None):
         """
         Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.
-        :param 'GroupSubjectPatchArgs' group: `group` matches based on user group name.
-        :param str kind: `kind` indicates which one of the other fields is non-empty. Required
-        :param 'ServiceAccountSubjectPatchArgs' service_account: `serviceAccount` matches ServiceAccounts.
-        :param 'UserSubjectPatchArgs' user: `user` matches based on username.
+        :param str kind: Required
         """
         if group is not None:
             pulumi.set(__self__, "group", group)
@@ -1991,33 +1976,24 @@ class SubjectPatch(dict):
     @property
     @pulumi.getter
     def group(self) -> Optional['outputs.GroupSubjectPatch']:
-        """
-        `group` matches based on user group name.
-        """
         return pulumi.get(self, "group")
 
     @property
     @pulumi.getter
     def kind(self) -> Optional[str]:
         """
-        `kind` indicates which one of the other fields is non-empty. Required
+        Required
         """
         return pulumi.get(self, "kind")
 
     @property
     @pulumi.getter(name="serviceAccount")
     def service_account(self) -> Optional['outputs.ServiceAccountSubjectPatch']:
-        """
-        `serviceAccount` matches ServiceAccounts.
-        """
         return pulumi.get(self, "service_account")
 
     @property
     @pulumi.getter
     def user(self) -> Optional['outputs.UserSubjectPatch']:
-        """
-        `user` matches based on username.
-        """
         return pulumi.get(self, "user")
 
 

@@ -17,7 +17,7 @@ public final class CrossVersionObjectReference {
      */
     private @Nullable String apiVersion;
     /**
-     * @return Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds&#34;
+     * @return Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
     private String kind;
@@ -36,7 +36,7 @@ public final class CrossVersionObjectReference {
         return Optional.ofNullable(this.apiVersion);
     }
     /**
-     * @return Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds&#34;
+     * @return Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
     public String kind() {

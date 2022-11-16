@@ -4464,7 +4464,7 @@ type MetricSpec struct {
 	Pods *PodsMetricSource `pulumi:"pods"`
 	// resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
 	Resource *ResourceMetricSource `pulumi:"resource"`
-	// type is the type of metric source.  It should be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each mapping to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
+	// type is the type of metric source.  It should be one of "Object", "Pods" or "Resource", each mapping to a matching field in the object.
 	Type string `pulumi:"type"`
 }
 
@@ -4491,7 +4491,7 @@ type MetricSpecArgs struct {
 	Pods PodsMetricSourcePtrInput `pulumi:"pods"`
 	// resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
 	Resource ResourceMetricSourcePtrInput `pulumi:"resource"`
-	// type is the type of metric source.  It should be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each mapping to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
+	// type is the type of metric source.  It should be one of "Object", "Pods" or "Resource", each mapping to a matching field in the object.
 	Type pulumi.StringInput `pulumi:"type"`
 }
 
@@ -4572,7 +4572,7 @@ func (o MetricSpecOutput) Resource() ResourceMetricSourcePtrOutput {
 	return o.ApplyT(func(v MetricSpec) *ResourceMetricSource { return v.Resource }).(ResourceMetricSourcePtrOutput)
 }
 
-// type is the type of metric source.  It should be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each mapping to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
+// type is the type of metric source.  It should be one of "Object", "Pods" or "Resource", each mapping to a matching field in the object.
 func (o MetricSpecOutput) Type() pulumi.StringOutput {
 	return o.ApplyT(func(v MetricSpec) string { return v.Type }).(pulumi.StringOutput)
 }
@@ -4609,7 +4609,7 @@ type MetricSpecPatch struct {
 	Pods *PodsMetricSourcePatch `pulumi:"pods"`
 	// resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
 	Resource *ResourceMetricSourcePatch `pulumi:"resource"`
-	// type is the type of metric source.  It should be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each mapping to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
+	// type is the type of metric source.  It should be one of "Object", "Pods" or "Resource", each mapping to a matching field in the object.
 	Type *string `pulumi:"type"`
 }
 
@@ -4636,7 +4636,7 @@ type MetricSpecPatchArgs struct {
 	Pods PodsMetricSourcePatchPtrInput `pulumi:"pods"`
 	// resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
 	Resource ResourceMetricSourcePatchPtrInput `pulumi:"resource"`
-	// type is the type of metric source.  It should be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each mapping to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
+	// type is the type of metric source.  It should be one of "Object", "Pods" or "Resource", each mapping to a matching field in the object.
 	Type pulumi.StringPtrInput `pulumi:"type"`
 }
 
@@ -4717,7 +4717,7 @@ func (o MetricSpecPatchOutput) Resource() ResourceMetricSourcePatchPtrOutput {
 	return o.ApplyT(func(v MetricSpecPatch) *ResourceMetricSourcePatch { return v.Resource }).(ResourceMetricSourcePatchPtrOutput)
 }
 
-// type is the type of metric source.  It should be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each mapping to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
+// type is the type of metric source.  It should be one of "Object", "Pods" or "Resource", each mapping to a matching field in the object.
 func (o MetricSpecPatchOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v MetricSpecPatch) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
@@ -4754,7 +4754,7 @@ type MetricStatus struct {
 	Pods *PodsMetricStatus `pulumi:"pods"`
 	// resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
 	Resource *ResourceMetricStatus `pulumi:"resource"`
-	// type is the type of metric source.  It will be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each corresponds to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
+	// type is the type of metric source.  It will be one of "Object", "Pods" or "Resource", each corresponds to a matching field in the object.
 	Type string `pulumi:"type"`
 }
 
@@ -4781,7 +4781,7 @@ type MetricStatusArgs struct {
 	Pods PodsMetricStatusPtrInput `pulumi:"pods"`
 	// resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
 	Resource ResourceMetricStatusPtrInput `pulumi:"resource"`
-	// type is the type of metric source.  It will be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each corresponds to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
+	// type is the type of metric source.  It will be one of "Object", "Pods" or "Resource", each corresponds to a matching field in the object.
 	Type pulumi.StringInput `pulumi:"type"`
 }
 
@@ -4862,7 +4862,7 @@ func (o MetricStatusOutput) Resource() ResourceMetricStatusPtrOutput {
 	return o.ApplyT(func(v MetricStatus) *ResourceMetricStatus { return v.Resource }).(ResourceMetricStatusPtrOutput)
 }
 
-// type is the type of metric source.  It will be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each corresponds to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
+// type is the type of metric source.  It will be one of "Object", "Pods" or "Resource", each corresponds to a matching field in the object.
 func (o MetricStatusOutput) Type() pulumi.StringOutput {
 	return o.ApplyT(func(v MetricStatus) string { return v.Type }).(pulumi.StringOutput)
 }
@@ -4899,7 +4899,7 @@ type MetricStatusPatch struct {
 	Pods *PodsMetricStatusPatch `pulumi:"pods"`
 	// resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
 	Resource *ResourceMetricStatusPatch `pulumi:"resource"`
-	// type is the type of metric source.  It will be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each corresponds to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
+	// type is the type of metric source.  It will be one of "Object", "Pods" or "Resource", each corresponds to a matching field in the object.
 	Type *string `pulumi:"type"`
 }
 
@@ -4926,7 +4926,7 @@ type MetricStatusPatchArgs struct {
 	Pods PodsMetricStatusPatchPtrInput `pulumi:"pods"`
 	// resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
 	Resource ResourceMetricStatusPatchPtrInput `pulumi:"resource"`
-	// type is the type of metric source.  It will be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each corresponds to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
+	// type is the type of metric source.  It will be one of "Object", "Pods" or "Resource", each corresponds to a matching field in the object.
 	Type pulumi.StringPtrInput `pulumi:"type"`
 }
 
@@ -5007,7 +5007,7 @@ func (o MetricStatusPatchOutput) Resource() ResourceMetricStatusPatchPtrOutput {
 	return o.ApplyT(func(v MetricStatusPatch) *ResourceMetricStatusPatch { return v.Resource }).(ResourceMetricStatusPatchPtrOutput)
 }
 
-// type is the type of metric source.  It will be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each corresponds to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
+// type is the type of metric source.  It will be one of "Object", "Pods" or "Resource", each corresponds to a matching field in the object.
 func (o MetricStatusPatchOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v MetricStatusPatch) *string { return v.Type }).(pulumi.StringPtrOutput)
 }

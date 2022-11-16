@@ -100,14 +100,14 @@ public final class MetricSpecArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * type is the type of metric source.  It should be one of &#34;ContainerResource&#34;, &#34;External&#34;, &#34;Object&#34;, &#34;Pods&#34; or &#34;Resource&#34;, each mapping to a matching field in the object. Note: &#34;ContainerResource&#34; type is available on when the feature-gate HPAContainerMetrics is enabled
+     * type is the type of metric source.  It should be one of &#34;Object&#34;, &#34;Pods&#34; or &#34;Resource&#34;, each mapping to a matching field in the object.
      * 
      */
     @Import(name="type", required=true)
     private Output<String> type;
 
     /**
-     * @return type is the type of metric source.  It should be one of &#34;ContainerResource&#34;, &#34;External&#34;, &#34;Object&#34;, &#34;Pods&#34; or &#34;Resource&#34;, each mapping to a matching field in the object. Note: &#34;ContainerResource&#34; type is available on when the feature-gate HPAContainerMetrics is enabled
+     * @return type is the type of metric source.  It should be one of &#34;Object&#34;, &#34;Pods&#34; or &#34;Resource&#34;, each mapping to a matching field in the object.
      * 
      */
     public Output<String> type() {
@@ -249,7 +249,7 @@ public final class MetricSpecArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param type type is the type of metric source.  It should be one of &#34;ContainerResource&#34;, &#34;External&#34;, &#34;Object&#34;, &#34;Pods&#34; or &#34;Resource&#34;, each mapping to a matching field in the object. Note: &#34;ContainerResource&#34; type is available on when the feature-gate HPAContainerMetrics is enabled
+         * @param type type is the type of metric source.  It should be one of &#34;Object&#34;, &#34;Pods&#34; or &#34;Resource&#34;, each mapping to a matching field in the object.
          * 
          * @return builder
          * 
@@ -260,7 +260,7 @@ public final class MetricSpecArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param type type is the type of metric source.  It should be one of &#34;ContainerResource&#34;, &#34;External&#34;, &#34;Object&#34;, &#34;Pods&#34; or &#34;Resource&#34;, each mapping to a matching field in the object. Note: &#34;ContainerResource&#34; type is available on when the feature-gate HPAContainerMetrics is enabled
+         * @param type type is the type of metric source.  It should be one of &#34;Object&#34;, &#34;Pods&#34; or &#34;Resource&#34;, each mapping to a matching field in the object.
          * 
          * @return builder
          * 

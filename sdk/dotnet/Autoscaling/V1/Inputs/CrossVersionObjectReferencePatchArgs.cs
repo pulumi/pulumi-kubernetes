@@ -22,7 +22,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V1
         public Input<string>? ApiVersion { get; set; }
 
         /// <summary>
-        /// Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+        /// Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         /// </summary>
         [Input("kind")]
         public Input<string>? Kind { get; set; }

@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.apps.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.kubernetes.apps.v1.outputs.StatefulSetOrdinals;
 import com.pulumi.kubernetes.apps.v1.outputs.StatefulSetPersistentVolumeClaimRetentionPolicy;
 import com.pulumi.kubernetes.apps.v1.outputs.StatefulSetUpdateStrategy;
 import com.pulumi.kubernetes.core.v1.outputs.PersistentVolumeClaim;
@@ -23,6 +24,11 @@ public final class StatefulSetSpec {
      * 
      */
     private @Nullable Integer minReadySeconds;
+    /**
+     * @return ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a &#34;0&#34; index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is alpha.
+     * 
+     */
+    private @Nullable StatefulSetOrdinals ordinals;
     /**
      * @return persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is alpha.  +optional
      * 
@@ -54,7 +60,7 @@ public final class StatefulSetSpec {
      */
     private String serviceName;
     /**
-     * @return template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet.
+     * @return template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format &lt;statefulsetname&gt;-&lt;podindex&gt;. For example, a pod in a StatefulSet named &#34;web&#34; with index number &#34;3&#34; would be named &#34;web-3&#34;.
      * 
      */
     private PodTemplateSpec template;
@@ -76,6 +82,13 @@ public final class StatefulSetSpec {
      */
     public Optional<Integer> minReadySeconds() {
         return Optional.ofNullable(this.minReadySeconds);
+    }
+    /**
+     * @return ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a &#34;0&#34; index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is alpha.
+     * 
+     */
+    public Optional<StatefulSetOrdinals> ordinals() {
+        return Optional.ofNullable(this.ordinals);
     }
     /**
      * @return persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is alpha.  +optional
@@ -120,7 +133,7 @@ public final class StatefulSetSpec {
         return this.serviceName;
     }
     /**
-     * @return template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet.
+     * @return template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format &lt;statefulsetname&gt;-&lt;podindex&gt;. For example, a pod in a StatefulSet named &#34;web&#34; with index number &#34;3&#34; would be named &#34;web-3&#34;.
      * 
      */
     public PodTemplateSpec template() {
@@ -151,6 +164,7 @@ public final class StatefulSetSpec {
     @CustomType.Builder
     public static final class Builder {
         private @Nullable Integer minReadySeconds;
+        private @Nullable StatefulSetOrdinals ordinals;
         private @Nullable StatefulSetPersistentVolumeClaimRetentionPolicy persistentVolumeClaimRetentionPolicy;
         private @Nullable String podManagementPolicy;
         private @Nullable Integer replicas;
@@ -164,6 +178,7 @@ public final class StatefulSetSpec {
         public Builder(StatefulSetSpec defaults) {
     	      Objects.requireNonNull(defaults);
     	      this.minReadySeconds = defaults.minReadySeconds;
+    	      this.ordinals = defaults.ordinals;
     	      this.persistentVolumeClaimRetentionPolicy = defaults.persistentVolumeClaimRetentionPolicy;
     	      this.podManagementPolicy = defaults.podManagementPolicy;
     	      this.replicas = defaults.replicas;
@@ -178,6 +193,11 @@ public final class StatefulSetSpec {
         @CustomType.Setter
         public Builder minReadySeconds(@Nullable Integer minReadySeconds) {
             this.minReadySeconds = minReadySeconds;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder ordinals(@Nullable StatefulSetOrdinals ordinals) {
+            this.ordinals = ordinals;
             return this;
         }
         @CustomType.Setter
@@ -231,6 +251,7 @@ public final class StatefulSetSpec {
         public StatefulSetSpec build() {
             final var o = new StatefulSetSpec();
             o.minReadySeconds = minReadySeconds;
+            o.ordinals = ordinals;
             o.persistentVolumeClaimRetentionPolicy = persistentVolumeClaimRetentionPolicy;
             o.podManagementPolicy = podManagementPolicy;
             o.replicas = replicas;

@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
 @CustomType
 public final class NodeSpec {
     /**
-     * @return Deprecated: Previously used to specify the source of the node&#39;s configuration for the DynamicKubeletConfig feature. This feature is removed from Kubelets as of 1.24 and will be fully removed in 1.26.
+     * @return Deprecated: Previously used to specify the source of the node&#39;s configuration for the DynamicKubeletConfig feature. This feature is removed.
      * 
      */
     private @Nullable NodeConfigSource configSource;
@@ -53,7 +53,7 @@ public final class NodeSpec {
 
     private NodeSpec() {}
     /**
-     * @return Deprecated: Previously used to specify the source of the node&#39;s configuration for the DynamicKubeletConfig feature. This feature is removed from Kubelets as of 1.24 and will be fully removed in 1.26.
+     * @return Deprecated: Previously used to specify the source of the node&#39;s configuration for the DynamicKubeletConfig feature. This feature is removed.
      * 
      */
     public Optional<NodeConfigSource> configSource() {

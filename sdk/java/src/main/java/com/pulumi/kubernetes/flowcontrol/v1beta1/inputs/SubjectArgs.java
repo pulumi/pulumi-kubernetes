@@ -22,62 +22,38 @@ public final class SubjectArgs extends com.pulumi.resources.ResourceArgs {
 
     public static final SubjectArgs Empty = new SubjectArgs();
 
-    /**
-     * `group` matches based on user group name.
-     * 
-     */
     @Import(name="group")
     private @Nullable Output<GroupSubjectArgs> group;
 
-    /**
-     * @return `group` matches based on user group name.
-     * 
-     */
     public Optional<Output<GroupSubjectArgs>> group() {
         return Optional.ofNullable(this.group);
     }
 
     /**
-     * `kind` indicates which one of the other fields is non-empty. Required
+     * Required
      * 
      */
     @Import(name="kind", required=true)
     private Output<String> kind;
 
     /**
-     * @return `kind` indicates which one of the other fields is non-empty. Required
+     * @return Required
      * 
      */
     public Output<String> kind() {
         return this.kind;
     }
 
-    /**
-     * `serviceAccount` matches ServiceAccounts.
-     * 
-     */
     @Import(name="serviceAccount")
     private @Nullable Output<ServiceAccountSubjectArgs> serviceAccount;
 
-    /**
-     * @return `serviceAccount` matches ServiceAccounts.
-     * 
-     */
     public Optional<Output<ServiceAccountSubjectArgs>> serviceAccount() {
         return Optional.ofNullable(this.serviceAccount);
     }
 
-    /**
-     * `user` matches based on username.
-     * 
-     */
     @Import(name="user")
     private @Nullable Output<UserSubjectArgs> user;
 
-    /**
-     * @return `user` matches based on username.
-     * 
-     */
     public Optional<Output<UserSubjectArgs>> user() {
         return Optional.ofNullable(this.user);
     }
@@ -109,29 +85,17 @@ public final class SubjectArgs extends com.pulumi.resources.ResourceArgs {
             $ = new SubjectArgs(Objects.requireNonNull(defaults));
         }
 
-        /**
-         * @param group `group` matches based on user group name.
-         * 
-         * @return builder
-         * 
-         */
         public Builder group(@Nullable Output<GroupSubjectArgs> group) {
             $.group = group;
             return this;
         }
 
-        /**
-         * @param group `group` matches based on user group name.
-         * 
-         * @return builder
-         * 
-         */
         public Builder group(GroupSubjectArgs group) {
             return group(Output.of(group));
         }
 
         /**
-         * @param kind `kind` indicates which one of the other fields is non-empty. Required
+         * @param kind Required
          * 
          * @return builder
          * 
@@ -142,7 +106,7 @@ public final class SubjectArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param kind `kind` indicates which one of the other fields is non-empty. Required
+         * @param kind Required
          * 
          * @return builder
          * 
@@ -151,44 +115,20 @@ public final class SubjectArgs extends com.pulumi.resources.ResourceArgs {
             return kind(Output.of(kind));
         }
 
-        /**
-         * @param serviceAccount `serviceAccount` matches ServiceAccounts.
-         * 
-         * @return builder
-         * 
-         */
         public Builder serviceAccount(@Nullable Output<ServiceAccountSubjectArgs> serviceAccount) {
             $.serviceAccount = serviceAccount;
             return this;
         }
 
-        /**
-         * @param serviceAccount `serviceAccount` matches ServiceAccounts.
-         * 
-         * @return builder
-         * 
-         */
         public Builder serviceAccount(ServiceAccountSubjectArgs serviceAccount) {
             return serviceAccount(Output.of(serviceAccount));
         }
 
-        /**
-         * @param user `user` matches based on username.
-         * 
-         * @return builder
-         * 
-         */
         public Builder user(@Nullable Output<UserSubjectArgs> user) {
             $.user = user;
             return this;
         }
 
-        /**
-         * @param user `user` matches based on username.
-         * 
-         * @return builder
-         * 
-         */
         public Builder user(UserSubjectArgs user) {
             return user(Output.of(user));
         }

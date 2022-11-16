@@ -2691,7 +2691,7 @@ type JobStatus struct {
 	// The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status: (1) Add the pod UID to the arrays in this field. (2) Remove the pod finalizer. (3) Remove the pod UID from the arrays while increasing the corresponding
 	//     counter.
 	//
-	// This field is beta-level. The job controller only makes use of this field when the feature gate JobTrackingWithFinalizers is enabled (enabled by default). Old jobs might not be tracked using this field, in which case the field remains null.
+	// Old jobs might not be tracked using this field, in which case the field remains null.
 	UncountedTerminatedPods *UncountedTerminatedPods `pulumi:"uncountedTerminatedPods"`
 }
 
@@ -2731,7 +2731,7 @@ type JobStatusArgs struct {
 	// The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status: (1) Add the pod UID to the arrays in this field. (2) Remove the pod finalizer. (3) Remove the pod UID from the arrays while increasing the corresponding
 	//     counter.
 	//
-	// This field is beta-level. The job controller only makes use of this field when the feature gate JobTrackingWithFinalizers is enabled (enabled by default). Old jobs might not be tracked using this field, in which case the field remains null.
+	// Old jobs might not be tracked using this field, in which case the field remains null.
 	UncountedTerminatedPods UncountedTerminatedPodsPtrInput `pulumi:"uncountedTerminatedPods"`
 }
 
@@ -2861,7 +2861,7 @@ func (o JobStatusOutput) Succeeded() pulumi.IntPtrOutput {
 //
 //	counter.
 //
-// This field is beta-level. The job controller only makes use of this field when the feature gate JobTrackingWithFinalizers is enabled (enabled by default). Old jobs might not be tracked using this field, in which case the field remains null.
+// Old jobs might not be tracked using this field, in which case the field remains null.
 func (o JobStatusOutput) UncountedTerminatedPods() UncountedTerminatedPodsPtrOutput {
 	return o.ApplyT(func(v JobStatus) *UncountedTerminatedPods { return v.UncountedTerminatedPods }).(UncountedTerminatedPodsPtrOutput)
 }
@@ -2978,7 +2978,7 @@ func (o JobStatusPtrOutput) Succeeded() pulumi.IntPtrOutput {
 //
 //	counter.
 //
-// This field is beta-level. The job controller only makes use of this field when the feature gate JobTrackingWithFinalizers is enabled (enabled by default). Old jobs might not be tracked using this field, in which case the field remains null.
+// Old jobs might not be tracked using this field, in which case the field remains null.
 func (o JobStatusPtrOutput) UncountedTerminatedPods() UncountedTerminatedPodsPtrOutput {
 	return o.ApplyT(func(v *JobStatus) *UncountedTerminatedPods {
 		if v == nil {
@@ -3013,7 +3013,7 @@ type JobStatusPatch struct {
 	// The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status: (1) Add the pod UID to the arrays in this field. (2) Remove the pod finalizer. (3) Remove the pod UID from the arrays while increasing the corresponding
 	//     counter.
 	//
-	// This field is beta-level. The job controller only makes use of this field when the feature gate JobTrackingWithFinalizers is enabled (enabled by default). Old jobs might not be tracked using this field, in which case the field remains null.
+	// Old jobs might not be tracked using this field, in which case the field remains null.
 	UncountedTerminatedPods *UncountedTerminatedPodsPatch `pulumi:"uncountedTerminatedPods"`
 }
 
@@ -3053,7 +3053,7 @@ type JobStatusPatchArgs struct {
 	// The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status: (1) Add the pod UID to the arrays in this field. (2) Remove the pod finalizer. (3) Remove the pod UID from the arrays while increasing the corresponding
 	//     counter.
 	//
-	// This field is beta-level. The job controller only makes use of this field when the feature gate JobTrackingWithFinalizers is enabled (enabled by default). Old jobs might not be tracked using this field, in which case the field remains null.
+	// Old jobs might not be tracked using this field, in which case the field remains null.
 	UncountedTerminatedPods UncountedTerminatedPodsPatchPtrInput `pulumi:"uncountedTerminatedPods"`
 }
 
@@ -3183,7 +3183,7 @@ func (o JobStatusPatchOutput) Succeeded() pulumi.IntPtrOutput {
 //
 //	counter.
 //
-// This field is beta-level. The job controller only makes use of this field when the feature gate JobTrackingWithFinalizers is enabled (enabled by default). Old jobs might not be tracked using this field, in which case the field remains null.
+// Old jobs might not be tracked using this field, in which case the field remains null.
 func (o JobStatusPatchOutput) UncountedTerminatedPods() UncountedTerminatedPodsPatchPtrOutput {
 	return o.ApplyT(func(v JobStatusPatch) *UncountedTerminatedPodsPatch { return v.UncountedTerminatedPods }).(UncountedTerminatedPodsPatchPtrOutput)
 }
@@ -3300,7 +3300,7 @@ func (o JobStatusPatchPtrOutput) Succeeded() pulumi.IntPtrOutput {
 //
 //	counter.
 //
-// This field is beta-level. The job controller only makes use of this field when the feature gate JobTrackingWithFinalizers is enabled (enabled by default). Old jobs might not be tracked using this field, in which case the field remains null.
+// Old jobs might not be tracked using this field, in which case the field remains null.
 func (o JobStatusPatchPtrOutput) UncountedTerminatedPods() UncountedTerminatedPodsPatchPtrOutput {
 	return o.ApplyT(func(v *JobStatusPatch) *UncountedTerminatedPodsPatch {
 		if v == nil {

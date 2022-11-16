@@ -22,62 +22,38 @@ public final class SubjectPatchArgs extends com.pulumi.resources.ResourceArgs {
 
     public static final SubjectPatchArgs Empty = new SubjectPatchArgs();
 
-    /**
-     * `group` matches based on user group name.
-     * 
-     */
     @Import(name="group")
     private @Nullable Output<GroupSubjectPatchArgs> group;
 
-    /**
-     * @return `group` matches based on user group name.
-     * 
-     */
     public Optional<Output<GroupSubjectPatchArgs>> group() {
         return Optional.ofNullable(this.group);
     }
 
     /**
-     * `kind` indicates which one of the other fields is non-empty. Required
+     * Required
      * 
      */
     @Import(name="kind")
     private @Nullable Output<String> kind;
 
     /**
-     * @return `kind` indicates which one of the other fields is non-empty. Required
+     * @return Required
      * 
      */
     public Optional<Output<String>> kind() {
         return Optional.ofNullable(this.kind);
     }
 
-    /**
-     * `serviceAccount` matches ServiceAccounts.
-     * 
-     */
     @Import(name="serviceAccount")
     private @Nullable Output<ServiceAccountSubjectPatchArgs> serviceAccount;
 
-    /**
-     * @return `serviceAccount` matches ServiceAccounts.
-     * 
-     */
     public Optional<Output<ServiceAccountSubjectPatchArgs>> serviceAccount() {
         return Optional.ofNullable(this.serviceAccount);
     }
 
-    /**
-     * `user` matches based on username.
-     * 
-     */
     @Import(name="user")
     private @Nullable Output<UserSubjectPatchArgs> user;
 
-    /**
-     * @return `user` matches based on username.
-     * 
-     */
     public Optional<Output<UserSubjectPatchArgs>> user() {
         return Optional.ofNullable(this.user);
     }
@@ -109,29 +85,17 @@ public final class SubjectPatchArgs extends com.pulumi.resources.ResourceArgs {
             $ = new SubjectPatchArgs(Objects.requireNonNull(defaults));
         }
 
-        /**
-         * @param group `group` matches based on user group name.
-         * 
-         * @return builder
-         * 
-         */
         public Builder group(@Nullable Output<GroupSubjectPatchArgs> group) {
             $.group = group;
             return this;
         }
 
-        /**
-         * @param group `group` matches based on user group name.
-         * 
-         * @return builder
-         * 
-         */
         public Builder group(GroupSubjectPatchArgs group) {
             return group(Output.of(group));
         }
 
         /**
-         * @param kind `kind` indicates which one of the other fields is non-empty. Required
+         * @param kind Required
          * 
          * @return builder
          * 
@@ -142,7 +106,7 @@ public final class SubjectPatchArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param kind `kind` indicates which one of the other fields is non-empty. Required
+         * @param kind Required
          * 
          * @return builder
          * 
@@ -151,44 +115,20 @@ public final class SubjectPatchArgs extends com.pulumi.resources.ResourceArgs {
             return kind(Output.of(kind));
         }
 
-        /**
-         * @param serviceAccount `serviceAccount` matches ServiceAccounts.
-         * 
-         * @return builder
-         * 
-         */
         public Builder serviceAccount(@Nullable Output<ServiceAccountSubjectPatchArgs> serviceAccount) {
             $.serviceAccount = serviceAccount;
             return this;
         }
 
-        /**
-         * @param serviceAccount `serviceAccount` matches ServiceAccounts.
-         * 
-         * @return builder
-         * 
-         */
         public Builder serviceAccount(ServiceAccountSubjectPatchArgs serviceAccount) {
             return serviceAccount(Output.of(serviceAccount));
         }
 
-        /**
-         * @param user `user` matches based on username.
-         * 
-         * @return builder
-         * 
-         */
         public Builder user(@Nullable Output<UserSubjectPatchArgs> user) {
             $.user = user;
             return this;
         }
 
-        /**
-         * @param user `user` matches based on username.
-         * 
-         * @return builder
-         * 
-         */
         public Builder user(UserSubjectPatchArgs user) {
             return user(Output.of(user));
         }

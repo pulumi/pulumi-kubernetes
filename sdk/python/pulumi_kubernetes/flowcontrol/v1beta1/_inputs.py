@@ -570,8 +570,8 @@ class LimitedPriorityLevelConfigurationPatchArgs:
                  limit_response: Optional[pulumi.Input['LimitResponsePatchArgs']] = None):
         """
         LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
-          - How are requests for this priority level limited?
-          - What should be done with requests that exceed the limit?
+         * How are requests for this priority level limited?
+         * What should be done with requests that exceed the limit?
         :param pulumi.Input[int] assured_concurrency_shares: `assuredConcurrencyShares` (ACS) configures the execution limit, which is a limit on the number of requests of this priority level that may be exeucting at a given time.  ACS must be a positive number. The server's concurrency limit (SCL) is divided among the concurrency-controlled priority levels in proportion to their assured concurrency shares. This produces the assured concurrency value (ACV) --- the number of requests that may be executing at a time --- for each such priority level:
                
                            ACV(l) = ceil( SCL * ACS(l) / ( sum[priority levels k] ACS(k) ) )
@@ -620,8 +620,8 @@ class LimitedPriorityLevelConfigurationArgs:
                  limit_response: Optional[pulumi.Input['LimitResponseArgs']] = None):
         """
         LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
-          - How are requests for this priority level limited?
-          - What should be done with requests that exceed the limit?
+         * How are requests for this priority level limited?
+         * What should be done with requests that exceed the limit?
         :param pulumi.Input[int] assured_concurrency_shares: `assuredConcurrencyShares` (ACS) configures the execution limit, which is a limit on the number of requests of this priority level that may be exeucting at a given time.  ACS must be a positive number. The server's concurrency limit (SCL) is divided among the concurrency-controlled priority levels in proportion to their assured concurrency shares. This produces the assured concurrency value (ACV) --- the number of requests that may be executing at a time --- for each such priority level:
                
                            ACV(l) = ceil( SCL * ACS(l) / ( sum[priority levels k] ACS(k) ) )
@@ -1323,7 +1323,7 @@ class ResourcePolicyRulePatchArgs:
                  resources: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  verbs: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
-        ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) either (d1) the request does not specify a namespace (i.e., `Namespace==""`) and clusterScope is true or (d2) the request specifies a namespace and least one member of namespaces matches the request's namespace.
+        ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) least one member of namespaces matches the request.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] api_groups: `apiGroups` is a list of matching API groups and may not be empty. "*" matches all API groups and, if present, must be the only entry. Required.
         :param pulumi.Input[bool] cluster_scope: `clusterScope` indicates whether to match requests that do not specify a namespace (which happens either because the resource is not namespaced or the request targets all namespaces). If this field is omitted or false then the `namespaces` field must contain a non-empty list.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] namespaces: `namespaces` is a list of target namespaces that restricts matches.  A request that specifies a target namespace matches only if either (a) this list contains that target namespace or (b) this list contains "*".  Note that "*" matches any specified namespace but does not match a request that _does not specify_ a namespace (see the `clusterScope` field for that). This list may be empty, but only if `clusterScope` is true.
@@ -1411,7 +1411,7 @@ class ResourcePolicyRuleArgs:
                  cluster_scope: Optional[pulumi.Input[bool]] = None,
                  namespaces: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
-        ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) either (d1) the request does not specify a namespace (i.e., `Namespace==""`) and clusterScope is true or (d2) the request specifies a namespace and least one member of namespaces matches the request's namespace.
+        ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) least one member of namespaces matches the request.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] api_groups: `apiGroups` is a list of matching API groups and may not be empty. "*" matches all API groups and, if present, must be the only entry. Required.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] resources: `resources` is a list of matching resources (i.e., lowercase and plural) with, if desired, subresource.  For example, [ "services", "nodes/status" ].  This list may not be empty. "*" matches all resources and, if present, must be the only entry. Required.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] verbs: `verbs` is a list of matching verbs and may not be empty. "*" matches all verbs and, if present, must be the only entry. Required.
@@ -1574,10 +1574,7 @@ class SubjectPatchArgs:
                  user: Optional[pulumi.Input['UserSubjectPatchArgs']] = None):
         """
         Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.
-        :param pulumi.Input['GroupSubjectPatchArgs'] group: `group` matches based on user group name.
-        :param pulumi.Input[str] kind: `kind` indicates which one of the other fields is non-empty. Required
-        :param pulumi.Input['ServiceAccountSubjectPatchArgs'] service_account: `serviceAccount` matches ServiceAccounts.
-        :param pulumi.Input['UserSubjectPatchArgs'] user: `user` matches based on username.
+        :param pulumi.Input[str] kind: Required
         """
         if group is not None:
             pulumi.set(__self__, "group", group)
@@ -1591,9 +1588,6 @@ class SubjectPatchArgs:
     @property
     @pulumi.getter
     def group(self) -> Optional[pulumi.Input['GroupSubjectPatchArgs']]:
-        """
-        `group` matches based on user group name.
-        """
         return pulumi.get(self, "group")
 
     @group.setter
@@ -1604,7 +1598,7 @@ class SubjectPatchArgs:
     @pulumi.getter
     def kind(self) -> Optional[pulumi.Input[str]]:
         """
-        `kind` indicates which one of the other fields is non-empty. Required
+        Required
         """
         return pulumi.get(self, "kind")
 
@@ -1615,9 +1609,6 @@ class SubjectPatchArgs:
     @property
     @pulumi.getter(name="serviceAccount")
     def service_account(self) -> Optional[pulumi.Input['ServiceAccountSubjectPatchArgs']]:
-        """
-        `serviceAccount` matches ServiceAccounts.
-        """
         return pulumi.get(self, "service_account")
 
     @service_account.setter
@@ -1627,9 +1618,6 @@ class SubjectPatchArgs:
     @property
     @pulumi.getter
     def user(self) -> Optional[pulumi.Input['UserSubjectPatchArgs']]:
-        """
-        `user` matches based on username.
-        """
         return pulumi.get(self, "user")
 
     @user.setter
@@ -1646,10 +1634,7 @@ class SubjectArgs:
                  user: Optional[pulumi.Input['UserSubjectArgs']] = None):
         """
         Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.
-        :param pulumi.Input[str] kind: `kind` indicates which one of the other fields is non-empty. Required
-        :param pulumi.Input['GroupSubjectArgs'] group: `group` matches based on user group name.
-        :param pulumi.Input['ServiceAccountSubjectArgs'] service_account: `serviceAccount` matches ServiceAccounts.
-        :param pulumi.Input['UserSubjectArgs'] user: `user` matches based on username.
+        :param pulumi.Input[str] kind: Required
         """
         pulumi.set(__self__, "kind", kind)
         if group is not None:
@@ -1663,7 +1648,7 @@ class SubjectArgs:
     @pulumi.getter
     def kind(self) -> pulumi.Input[str]:
         """
-        `kind` indicates which one of the other fields is non-empty. Required
+        Required
         """
         return pulumi.get(self, "kind")
 
@@ -1674,9 +1659,6 @@ class SubjectArgs:
     @property
     @pulumi.getter
     def group(self) -> Optional[pulumi.Input['GroupSubjectArgs']]:
-        """
-        `group` matches based on user group name.
-        """
         return pulumi.get(self, "group")
 
     @group.setter
@@ -1686,9 +1668,6 @@ class SubjectArgs:
     @property
     @pulumi.getter(name="serviceAccount")
     def service_account(self) -> Optional[pulumi.Input['ServiceAccountSubjectArgs']]:
-        """
-        `serviceAccount` matches ServiceAccounts.
-        """
         return pulumi.get(self, "service_account")
 
     @service_account.setter
@@ -1698,9 +1677,6 @@ class SubjectArgs:
     @property
     @pulumi.getter
     def user(self) -> Optional[pulumi.Input['UserSubjectArgs']]:
-        """
-        `user` matches based on username.
-        """
         return pulumi.get(self, "user")
 
     @user.setter

@@ -22,6 +22,22 @@ public final class LimitedPriorityLevelConfigurationPatch {
      */
     private @Nullable Integer assuredConcurrencyShares;
     /**
+     * @return `borrowingLimitPercent`, if present, configures a limit on how many seats this priority level can borrow from other priority levels. The limit is known as this level&#39;s BorrowingConcurrencyLimit (BorrowingCL) and is a limit on the total number of seats that this level may borrow at any one time. This field holds the ratio of that limit to the level&#39;s nominal concurrency limit. When this field is non-nil, it must hold a non-negative integer and the limit is calculated as follows.
+     * 
+     * BorrowingCL(i) = round( NominalCL(i) * borrowingLimitPercent(i)/100.0 )
+     * 
+     * The value of this field can be more than 100, implying that this priority level can borrow a number of seats that is greater than its own nominal concurrency limit (NominalCL). When this field is left `nil`, the limit is effectively infinite.
+     * 
+     */
+    private @Nullable Integer borrowingLimitPercent;
+    /**
+     * @return `lendablePercent` prescribes the fraction of the level&#39;s NominalCL that can be borrowed by other priority levels. The value of this field must be between 0 and 100, inclusive, and it defaults to 0. The number of seats that other levels can borrow from this level, known as this level&#39;s LendableConcurrencyLimit (LendableCL), is defined as follows.
+     * 
+     * LendableCL(i) = round( NominalCL(i) * lendablePercent(i)/100.0 )
+     * 
+     */
+    private @Nullable Integer lendablePercent;
+    /**
      * @return `limitResponse` indicates what to do with requests that can not be executed right now
      * 
      */
@@ -38,6 +54,26 @@ public final class LimitedPriorityLevelConfigurationPatch {
      */
     public Optional<Integer> assuredConcurrencyShares() {
         return Optional.ofNullable(this.assuredConcurrencyShares);
+    }
+    /**
+     * @return `borrowingLimitPercent`, if present, configures a limit on how many seats this priority level can borrow from other priority levels. The limit is known as this level&#39;s BorrowingConcurrencyLimit (BorrowingCL) and is a limit on the total number of seats that this level may borrow at any one time. This field holds the ratio of that limit to the level&#39;s nominal concurrency limit. When this field is non-nil, it must hold a non-negative integer and the limit is calculated as follows.
+     * 
+     * BorrowingCL(i) = round( NominalCL(i) * borrowingLimitPercent(i)/100.0 )
+     * 
+     * The value of this field can be more than 100, implying that this priority level can borrow a number of seats that is greater than its own nominal concurrency limit (NominalCL). When this field is left `nil`, the limit is effectively infinite.
+     * 
+     */
+    public Optional<Integer> borrowingLimitPercent() {
+        return Optional.ofNullable(this.borrowingLimitPercent);
+    }
+    /**
+     * @return `lendablePercent` prescribes the fraction of the level&#39;s NominalCL that can be borrowed by other priority levels. The value of this field must be between 0 and 100, inclusive, and it defaults to 0. The number of seats that other levels can borrow from this level, known as this level&#39;s LendableConcurrencyLimit (LendableCL), is defined as follows.
+     * 
+     * LendableCL(i) = round( NominalCL(i) * lendablePercent(i)/100.0 )
+     * 
+     */
+    public Optional<Integer> lendablePercent() {
+        return Optional.ofNullable(this.lendablePercent);
     }
     /**
      * @return `limitResponse` indicates what to do with requests that can not be executed right now
@@ -57,17 +93,31 @@ public final class LimitedPriorityLevelConfigurationPatch {
     @CustomType.Builder
     public static final class Builder {
         private @Nullable Integer assuredConcurrencyShares;
+        private @Nullable Integer borrowingLimitPercent;
+        private @Nullable Integer lendablePercent;
         private @Nullable LimitResponsePatch limitResponse;
         public Builder() {}
         public Builder(LimitedPriorityLevelConfigurationPatch defaults) {
     	      Objects.requireNonNull(defaults);
     	      this.assuredConcurrencyShares = defaults.assuredConcurrencyShares;
+    	      this.borrowingLimitPercent = defaults.borrowingLimitPercent;
+    	      this.lendablePercent = defaults.lendablePercent;
     	      this.limitResponse = defaults.limitResponse;
         }
 
         @CustomType.Setter
         public Builder assuredConcurrencyShares(@Nullable Integer assuredConcurrencyShares) {
             this.assuredConcurrencyShares = assuredConcurrencyShares;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder borrowingLimitPercent(@Nullable Integer borrowingLimitPercent) {
+            this.borrowingLimitPercent = borrowingLimitPercent;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder lendablePercent(@Nullable Integer lendablePercent) {
+            this.lendablePercent = lendablePercent;
             return this;
         }
         @CustomType.Setter
@@ -78,6 +128,8 @@ public final class LimitedPriorityLevelConfigurationPatch {
         public LimitedPriorityLevelConfigurationPatch build() {
             final var o = new LimitedPriorityLevelConfigurationPatch();
             o.assuredConcurrencyShares = assuredConcurrencyShares;
+            o.borrowingLimitPercent = borrowingLimitPercent;
+            o.lendablePercent = lendablePercent;
             o.limitResponse = limitResponse;
             return o;
         }

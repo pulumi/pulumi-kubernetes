@@ -19,10 +19,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking.V1
         /// <summary>
         /// LoadBalancer contains the current status of the load-balancer.
         /// </summary>
-        public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.LoadBalancerStatusPatch LoadBalancer;
+        public readonly Pulumi.Kubernetes.Types.Outputs.Networking.V1.IngressLoadBalancerStatusPatch LoadBalancer;
 
         [OutputConstructor]
-        private IngressStatusPatch(Pulumi.Kubernetes.Types.Outputs.Core.V1.LoadBalancerStatusPatch loadBalancer)
+        private IngressStatusPatch(Pulumi.Kubernetes.Types.Outputs.Networking.V1.IngressLoadBalancerStatusPatch loadBalancer)
         {
             LoadBalancer = loadBalancer;
         }

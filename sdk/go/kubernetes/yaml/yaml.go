@@ -27,6 +27,7 @@ import (
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes"
 	admissionregistrationv1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/admissionregistration/v1"
+	admissionregistrationv1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/admissionregistration/v1alpha1"
 	admissionregistrationv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/admissionregistration/v1beta1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/apiextensions"
 	apiextensionsv1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/apiextensions/v1"
@@ -38,6 +39,7 @@ import (
 	appsv1beta2 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/apps/v1beta2"
 	auditregistrationv1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/auditregistration/v1alpha1"
 	authenticationv1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/authentication/v1"
+	authenticationv1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/authentication/v1alpha1"
 	authenticationv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/authentication/v1beta1"
 	authorizationv1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/authorization/v1"
 	authorizationv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/authorization/v1beta1"
@@ -61,6 +63,7 @@ import (
 	flowcontrolv1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/flowcontrol/v1alpha1"
 	flowcontrolv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/flowcontrol/v1beta1"
 	flowcontrolv1beta2 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/flowcontrol/v1beta2"
+	flowcontrolv1beta3 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/flowcontrol/v1beta3"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
 	networkingv1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/networking/v1"
 	networkingv1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/networking/v1alpha1"
@@ -73,6 +76,7 @@ import (
 	rbacv1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/rbac/v1"
 	rbacv1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/rbac/v1alpha1"
 	rbacv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/rbac/v1beta1"
+	resourcev1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/resource/v1alpha1"
 	schedulingv1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/scheduling/v1"
 	schedulingv1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/scheduling/v1alpha1"
 	schedulingv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/scheduling/v1beta1"
@@ -244,6 +248,8 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 	case "v1/List",
 		"admissionregistration.k8s.io/v1/MutatingWebhookConfigurationList",
 		"admissionregistration.k8s.io/v1/ValidatingWebhookConfigurationList",
+		"admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyBindingList",
+		"admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyList",
 		"admissionregistration.k8s.io/v1beta1/MutatingWebhookConfigurationList",
 		"admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfigurationList",
 		"apiextensions.k8s.io/v1/CustomResourceDefinitionList",
@@ -307,6 +313,8 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		"flowcontrol.apiserver.k8s.io/v1beta1/PriorityLevelConfigurationList",
 		"flowcontrol.apiserver.k8s.io/v1beta2/FlowSchemaList",
 		"flowcontrol.apiserver.k8s.io/v1beta2/PriorityLevelConfigurationList",
+		"flowcontrol.apiserver.k8s.io/v1beta3/FlowSchemaList",
+		"flowcontrol.apiserver.k8s.io/v1beta3/PriorityLevelConfigurationList",
 		"networking.k8s.io/v1/IngressClassList",
 		"networking.k8s.io/v1/IngressList",
 		"networking.k8s.io/v1/NetworkPolicyList",
@@ -331,6 +339,10 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		"rbac.authorization.k8s.io/v1beta1/ClusterRoleList",
 		"rbac.authorization.k8s.io/v1beta1/RoleBindingList",
 		"rbac.authorization.k8s.io/v1beta1/RoleList",
+		"resource.k8s.io/v1alpha1/PodSchedulingList",
+		"resource.k8s.io/v1alpha1/ResourceClaimList",
+		"resource.k8s.io/v1alpha1/ResourceClaimTemplateList",
+		"resource.k8s.io/v1alpha1/ResourceClassList",
 		"scheduling.k8s.io/v1/PriorityClassList",
 		"scheduling.k8s.io/v1alpha1/PriorityClassList",
 		"scheduling.k8s.io/v1beta1/PriorityClassList",
@@ -411,6 +423,20 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 	case "admissionregistration.k8s.io/v1/ValidatingWebhookConfiguration":
 		var res admissionregistrationv1.ValidatingWebhookConfiguration
 		err := ctx.RegisterResource("kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfiguration", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicy":
+		var res admissionregistrationv1alpha1.ValidatingAdmissionPolicy
+		err := ctx.RegisterResource("kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicy", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyBinding":
+		var res admissionregistrationv1alpha1.ValidatingAdmissionPolicyBinding
+		err := ctx.RegisterResource("kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicyBinding", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -565,6 +591,13 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 	case "authentication.k8s.io/v1/TokenReview":
 		var res authenticationv1.TokenReview
 		err := ctx.RegisterResource("kubernetes:authentication.k8s.io/v1:TokenReview", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "authentication.k8s.io/v1alpha1/SelfSubjectReview":
+		var res authenticationv1alpha1.SelfSubjectReview
+		err := ctx.RegisterResource("kubernetes:authentication.k8s.io/v1alpha1:SelfSubjectReview", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}
@@ -940,6 +973,20 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "flowcontrol.apiserver.k8s.io/v1beta3/FlowSchema":
+		var res flowcontrolv1beta3.FlowSchema
+		err := ctx.RegisterResource("kubernetes:flowcontrol.apiserver.k8s.io/v1beta3:FlowSchema", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "flowcontrol.apiserver.k8s.io/v1beta3/PriorityLevelConfiguration":
+		var res flowcontrolv1beta3.PriorityLevelConfiguration
+		err := ctx.RegisterResource("kubernetes:flowcontrol.apiserver.k8s.io/v1beta3:PriorityLevelConfiguration", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "meta/v1/Status":
 		var res metav1.Status
 		err := ctx.RegisterResource("kubernetes:meta/v1:Status", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
@@ -1111,6 +1158,34 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 	case "rbac.authorization.k8s.io/v1beta1/RoleBinding":
 		var res rbacv1beta1.RoleBinding
 		err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBinding", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "resource.k8s.io/v1alpha1/PodScheduling":
+		var res resourcev1alpha1.PodScheduling
+		err := ctx.RegisterResource("kubernetes:resource.k8s.io/v1alpha1:PodScheduling", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "resource.k8s.io/v1alpha1/ResourceClaim":
+		var res resourcev1alpha1.ResourceClaim
+		err := ctx.RegisterResource("kubernetes:resource.k8s.io/v1alpha1:ResourceClaim", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "resource.k8s.io/v1alpha1/ResourceClaimTemplate":
+		var res resourcev1alpha1.ResourceClaimTemplate
+		err := ctx.RegisterResource("kubernetes:resource.k8s.io/v1alpha1:ResourceClaimTemplate", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "resource.k8s.io/v1alpha1/ResourceClass":
+		var res resourcev1alpha1.ResourceClass
+		err := ctx.RegisterResource("kubernetes:resource.k8s.io/v1alpha1:ResourceClass", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}

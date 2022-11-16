@@ -35,14 +35,14 @@ public final class EndpointConditionsPatchArgs extends com.pulumi.resources.Reso
     }
 
     /**
-     * serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+     * serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition.
      * 
      */
     @Import(name="serving")
     private @Nullable Output<Boolean> serving;
 
     /**
-     * @return serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+     * @return serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition.
      * 
      */
     public Optional<Output<Boolean>> serving() {
@@ -50,14 +50,14 @@ public final class EndpointConditionsPatchArgs extends com.pulumi.resources.Reso
     }
 
     /**
-     * terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+     * terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating.
      * 
      */
     @Import(name="terminating")
     private @Nullable Output<Boolean> terminating;
 
     /**
-     * @return terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+     * @return terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating.
      * 
      */
     public Optional<Output<Boolean>> terminating() {
@@ -112,7 +112,7 @@ public final class EndpointConditionsPatchArgs extends com.pulumi.resources.Reso
         }
 
         /**
-         * @param serving serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+         * @param serving serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition.
          * 
          * @return builder
          * 
@@ -123,7 +123,7 @@ public final class EndpointConditionsPatchArgs extends com.pulumi.resources.Reso
         }
 
         /**
-         * @param serving serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+         * @param serving serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition.
          * 
          * @return builder
          * 
@@ -133,7 +133,7 @@ public final class EndpointConditionsPatchArgs extends com.pulumi.resources.Reso
         }
 
         /**
-         * @param terminating terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+         * @param terminating terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating.
          * 
          * @return builder
          * 
@@ -144,7 +144,7 @@ public final class EndpointConditionsPatchArgs extends com.pulumi.resources.Reso
         }
 
         /**
-         * @param terminating terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+         * @param terminating terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating.
          * 
          * @return builder
          * 

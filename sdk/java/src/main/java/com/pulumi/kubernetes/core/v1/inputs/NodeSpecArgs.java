@@ -24,14 +24,14 @@ public final class NodeSpecArgs extends com.pulumi.resources.ResourceArgs {
     public static final NodeSpecArgs Empty = new NodeSpecArgs();
 
     /**
-     * Deprecated: Previously used to specify the source of the node&#39;s configuration for the DynamicKubeletConfig feature. This feature is removed from Kubelets as of 1.24 and will be fully removed in 1.26.
+     * Deprecated: Previously used to specify the source of the node&#39;s configuration for the DynamicKubeletConfig feature. This feature is removed.
      * 
      */
     @Import(name="configSource")
     private @Nullable Output<NodeConfigSourceArgs> configSource;
 
     /**
-     * @return Deprecated: Previously used to specify the source of the node&#39;s configuration for the DynamicKubeletConfig feature. This feature is removed from Kubelets as of 1.24 and will be fully removed in 1.26.
+     * @return Deprecated: Previously used to specify the source of the node&#39;s configuration for the DynamicKubeletConfig feature. This feature is removed.
      * 
      */
     public Optional<Output<NodeConfigSourceArgs>> configSource() {
@@ -159,7 +159,7 @@ public final class NodeSpecArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param configSource Deprecated: Previously used to specify the source of the node&#39;s configuration for the DynamicKubeletConfig feature. This feature is removed from Kubelets as of 1.24 and will be fully removed in 1.26.
+         * @param configSource Deprecated: Previously used to specify the source of the node&#39;s configuration for the DynamicKubeletConfig feature. This feature is removed.
          * 
          * @return builder
          * 
@@ -170,7 +170,7 @@ public final class NodeSpecArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param configSource Deprecated: Previously used to specify the source of the node&#39;s configuration for the DynamicKubeletConfig feature. This feature is removed from Kubelets as of 1.24 and will be fully removed in 1.26.
+         * @param configSource Deprecated: Previously used to specify the source of the node&#39;s configuration for the DynamicKubeletConfig feature. This feature is removed.
          * 
          * @return builder
          * 
