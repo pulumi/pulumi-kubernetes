@@ -16,7 +16,7 @@ package ssa
 
 import (
 	"context"
-	"regexp"
+	"strconv"
 	"strings"
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -79,14 +79,11 @@ func UpdateFieldManager(
 		return err
 	}
 
+	// Transfer ownership of any required fields.
 	for _, field := range requiredFields {
-		// TODO: check if field is present on live object
-		obj.Object[field] = liveObj.Object[field]
+		setRequiredField(liveObj.Object, obj.Object, field)
+		// TODO: handle failures
 	}
-	//obj.SetManagedFields(nil)
-	//delete(obj.Object, "__fieldManager")
-	//delete(obj.Object, "__initialApiVersion")
-	//delete(obj.Object, "status")
 
 	yamlObj, err := yaml.Marshal(obj)
 	if err != nil {
@@ -111,30 +108,66 @@ func UpdateFieldManager(
 // Example: a.b.c
 // Example: a
 // Example: a1.b2
-var fieldRegex = regexp.MustCompile(`^(?:[a-zA-Z][a-zA-Z0-9]*.?)+[^.]$`)
+// Example: a.b[0].c
+// TODO: update regex to allow slices
+//var fieldRegex = regexp.MustCompile(`^(?:[a-zA-Z][a-zA-Z0-9]*.?)+[^.]$`)
 
 // setRequiredField takes a field describing the element in a map, reads that element from the live map, and then sets
 // the corresponding value on the obj map. The function returns true if the operation was successful, false otherwise.
 func setRequiredField(live, obj map[string]interface{}, field string) bool {
-	if !fieldRegex.MatchString(field) {
-		return false
+	//if !fieldRegex.MatchString(field) {
+	//	return false
+	//}
+	var path []string
+	dotPath := strings.Split(field, ".")
+	for _, p := range dotPath {
+		if i := strings.Index(p, "["); i >= 0 {
+			path = append(path, p[:i])
+			path = append(path, p[i:])
+		} else {
+			path = append(path, p)
+		}
+		//path = append(path, strings.Split(p, "[")...)
 	}
-	path := strings.Split(field, ".")
+
+	// TODO: example: spec.template.spec.containers[0].image
 
 	// Traverse to the specified element in the live map.
+	var err error
 	var liveCursor interface{} = live
 	for _, component := range path {
-		// Make sure we can actually dot into the current element.
-		currObj, isMap := liveCursor.(map[string]interface{})
-		if !isMap {
-			return false
-		}
+		// Make sure we can actually traverse to the current element.
+		if strings.Contains(component, "[") {
+			idxStr := component[strings.LastIndex(component, "[")+1 : len(component)-1]
+			var idx int
+			idx, err = strconv.Atoi(idxStr)
+			if err != nil {
+				return false
+			}
 
-		// Attempt to dot into the current element.
-		var exists bool
-		liveCursor, exists = currObj[component]
-		if !exists {
-			return false
+			// Make sure we can actually slice into the current element.
+			switch currObj := liveCursor.(type) {
+			case []string:
+				if idx > len(currObj)-1 {
+					return false
+				}
+
+				liveCursor = currObj[idx]
+			}
+
+		} else {
+			// Make sure we can actually dot into the current element.
+			currObj, isMap := liveCursor.(map[string]interface{})
+			if !isMap {
+				return false
+			}
+
+			// Attempt to dot into the current element.
+			var exists bool
+			liveCursor, exists = currObj[component]
+			if !exists {
+				return false
+			}
 		}
 	}
 
@@ -163,4 +196,11 @@ func setRequiredField(live, obj map[string]interface{}, field string) bool {
 	}
 
 	return true
+}
+
+func slice[T any](input any) ([]T, bool) {
+	if v, ok := input.([]T); ok {
+		return v, true
+	}
+	return nil, false
 }

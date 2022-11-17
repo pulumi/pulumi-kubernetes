@@ -16,7 +16,7 @@ package await
 
 import (
 	"context"
-	errors2 "errors"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -32,7 +32,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
-	"k8s.io/apimachinery/pkg/api/errors"
+	k8serrors "k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/api/meta"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
@@ -198,7 +198,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 				outputs, err = client.Patch(
 					c.Context, c.Inputs.GetName(), types.ApplyPatchType, objYAML, options)
 
-				if errors.IsConflict(err) {
+				if k8serrors.IsConflict(err) {
 					err = fmt.Errorf(`use the "pulumi.com/patchForce" annotation if you want to overwrite the existing values: %w`, err)
 				}
 			} else {
@@ -225,7 +225,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 		}).
 		WithMaxRetries(5).
 		WithBackoffFactor(2).
-		Do(errors.IsNotFound, meta.IsNoMatchError)
+		Do(k8serrors.IsNotFound, meta.IsNoMatchError)
 	if err != nil {
 		return nil, err
 	}
@@ -435,7 +435,7 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 			// a replace (i.e., destroy and create).
 			currentOutputs, err = client.Patch(c.Context, c.Inputs.GetName(), types.ApplyPatchType, objYAML, options)
 			if err != nil {
-				if errors.IsConflict(err) {
+				if k8serrors.IsConflict(err) {
 					err = fmt.Errorf("use `pulumi.com/patchForce` to override the conflict: %w", err)
 				}
 				return nil, err
@@ -522,7 +522,7 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 // (1) the Kubernetes resource is reported to be deleted; (2) the initialization timeout has
 // occurred; or (3) an error has occurred while the resource was being deleted.
 func Deletion(c DeleteConfig) error {
-	// nilIfGVKDeleted takes an error and returns nil if `errors.IsNotFound`; otherwise, it returns
+	// nilIfGVKDeleted takes an error and returns nil if `k8serrors.IsNotFound`; otherwise, it returns
 	// the error argument unchanged.
 	//
 	// Rationale: If we have gotten to this point, this resource was successfully created and is now
@@ -534,7 +534,7 @@ func Deletion(c DeleteConfig) error {
 	// Helm charts), and it is acceptable for other resources because it is semantically like
 	// running `refresh` before deletion.
 	nilIfGVKDeleted := func(err error) error {
-		if errors.IsNotFound(err) {
+		if k8serrors.IsNotFound(err) {
 			return nil
 		}
 		return err
@@ -550,9 +550,11 @@ func Deletion(c DeleteConfig) error {
 	if c.ServerSideApply && patchResource {
 		// Want: 1. Relinquish 2. if error, optionally transfer field manager for any conflicts
 		err = ssa.Relinquish(c.Context, client, c.Inputs, c.FieldManager)
-		if errors.IsInvalid(err) {
-			var statusErr *errors.StatusError
-			if errors2.As(err, &statusErr) {
+
+		// TODO: only if transfer option is specified
+		if k8serrors.IsInvalid(err) {
+			var statusErr *k8serrors.StatusError
+			if errors.As(err, &statusErr) {
 				var requiredFields []string
 				for _, cause := range statusErr.Status().Details.Causes {
 					if cause.Type != metav1.CauseTypeFieldValueRequired {
@@ -561,7 +563,6 @@ func Deletion(c DeleteConfig) error {
 					requiredFields = append(requiredFields, cause.Field)
 				}
 
-				// Optionally switch field manager
 				err = ssa.UpdateFieldManager(c.Context, client, c.Inputs, requiredFields, "override")
 				if err != nil {
 					return err
@@ -646,7 +647,7 @@ func Deletion(c DeleteConfig) error {
 					}
 					return &initializationError{
 						object:    obj,
-						subErrors: []string{errors.FromObject(event.Object).Error()},
+						subErrors: []string{k8serrors.FromObject(event.Object).Error()},
 					}
 				}
 			case <-c.Context.Done(): // Handle user cancellation during watch for deletion.
