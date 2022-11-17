@@ -196,6 +196,10 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 				}
 				outputs, err = client.Patch(
 					c.Context, c.Inputs.GetName(), types.ApplyPatchType, objYAML, options)
+
+				if errors.IsConflict(err) {
+					err = fmt.Errorf(`use the "pulumi.com/patchForce" annotation if you want to overwrite the existing values: %w`, err)
+				}
 			} else {
 				var options metav1.CreateOptions
 				if c.Preview {
