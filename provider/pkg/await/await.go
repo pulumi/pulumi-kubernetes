@@ -16,6 +16,7 @@ package await
 
 import (
 	"context"
+	errors2 "errors"
 	"fmt"
 	"strings"
 
@@ -547,15 +548,28 @@ func Deletion(c DeleteConfig) error {
 
 	patchResource := strings.HasSuffix(c.URN.Type().String(), "Patch")
 	if c.ServerSideApply && patchResource {
-		// Optionally switch field manager
-		err = ssa.UpdateFieldManager(c.Context, client, c.Inputs, "override")
-		if err != nil {
-			return err
-		}
+		// Want: 1. Relinquish 2. if error, optionally transfer field manager for any conflicts
 		err = ssa.Relinquish(c.Context, client, c.Inputs, c.FieldManager)
 		if errors.IsInvalid(err) {
-			// TODO: something?
+			var statusErr *errors.StatusError
+			if errors2.As(err, &statusErr) {
+				var requiredFields []string
+				for _, cause := range statusErr.Status().Details.Causes {
+					if cause.Type != metav1.CauseTypeFieldValueRequired {
+						continue
+					}
+					requiredFields = append(requiredFields, cause.Field)
+				}
+
+				// Optionally switch field manager
+				err = ssa.UpdateFieldManager(c.Context, client, c.Inputs, requiredFields, "override")
+				if err != nil {
+					return err
+				}
+
+			}
 		}
+
 		return err
 	}
 

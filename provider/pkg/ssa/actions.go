@@ -16,6 +16,8 @@ package ssa
 
 import (
 	"context"
+	"regexp"
+	"strings"
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
@@ -62,17 +64,29 @@ func UpdateFieldManager(
 	ctx context.Context,
 	client dynamic.ResourceInterface,
 	input *unstructured.Unstructured,
+	requiredFields []string,
 	fieldManager string,
 ) error {
-	obj, err := client.Get(ctx, input.GetName(), metav1.GetOptions{})
+	// Create a minimal resource spec with the same identity as the input resource.
+	obj := unstructured.Unstructured{}
+	obj.SetAPIVersion(input.GetAPIVersion())
+	obj.SetKind(input.GetKind())
+	obj.SetNamespace(input.GetNamespace())
+	obj.SetName(input.GetName())
+
+	liveObj, err := client.Get(ctx, input.GetName(), metav1.GetOptions{})
 	if err != nil {
 		return err
 	}
-	//obj := input.DeepCopy()
-	obj.SetManagedFields(nil)
-	delete(obj.Object, "__fieldManager")
-	delete(obj.Object, "__initialApiVersion")
-	delete(obj.Object, "status")
+
+	for _, field := range requiredFields {
+		// TODO: check if field is present on live object
+		obj.Object[field] = liveObj.Object[field]
+	}
+	//obj.SetManagedFields(nil)
+	//delete(obj.Object, "__fieldManager")
+	//delete(obj.Object, "__initialApiVersion")
+	//delete(obj.Object, "status")
 
 	yamlObj, err := yaml.Marshal(obj)
 	if err != nil {
@@ -85,4 +99,68 @@ func UpdateFieldManager(
 		})
 
 	return err
+}
+
+// Input: live, new, field
+// 0. Convert field to slice of path fragments
+// 1. Look up value in live object
+// 2. Ensure value exists in new object
+// Return new, bool
+
+// fieldRegex matches valid field specifiers.
+// Example: a.b.c
+// Example: a
+// Example: a1.b2
+var fieldRegex = regexp.MustCompile(`^(?:[a-zA-Z][a-zA-Z0-9]*.?)+[^.]$`)
+
+// setRequiredField takes a field describing the element in a map, reads that element from the live map, and then sets
+// the corresponding value on the obj map. The function returns true if the operation was successful, false otherwise.
+func setRequiredField(live, obj map[string]interface{}, field string) bool {
+	if !fieldRegex.MatchString(field) {
+		return false
+	}
+	path := strings.Split(field, ".")
+
+	// Traverse to the specified element in the live map.
+	var liveCursor interface{} = live
+	for _, component := range path {
+		// Make sure we can actually dot into the current element.
+		currObj, isMap := liveCursor.(map[string]interface{})
+		if !isMap {
+			return false
+		}
+
+		// Attempt to dot into the current element.
+		var exists bool
+		liveCursor, exists = currObj[component]
+		if !exists {
+			return false
+		}
+	}
+
+	// 1. Traverse to the specified element in the obj map.
+	// 2. If the element does not exist, create it.
+	// 3. Set the last element of the path to the liveCursor value.
+	var objCursor interface{} = obj
+	for i, component := range path {
+		// Make sure we can actually dot into the current element.
+		currObj, isMap := objCursor.(map[string]interface{})
+		if !isMap {
+			return false
+		}
+
+		// Attempt to dot into the current element.
+		var exists bool
+		objCursor, exists = currObj[component]
+		if !exists {
+			currObj[component] = map[string]interface{}{}
+			objCursor = currObj[component]
+			if i == len(path)-1 {
+				currObj[component] = liveCursor
+			}
+		}
+
+	}
+
+	return true
 }
