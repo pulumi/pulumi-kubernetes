@@ -24,7 +24,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Text.Json;
-using Pulumi;
+using Pu = Pulumi;
 using Pulumi.Kubernetes.Yaml;
 using Pulumi.Utilities;
 
@@ -260,8 +260,8 @@ namespace Pulumi.Kubernetes.Helm
         }
 
         private Output<ImmutableDictionary<string, KubernetesResource>> ParseTemplate(string text,
-            List<TransformationAction> transformations, string? resourcePrefix, ImmutableHashSet<Resource> dependsOn,
-            string? defaultNamespace, Pulumi.ProviderResource provider)
+            List<TransformationAction> transformations, string? resourcePrefix, ImmutableHashSet<Pu.Resource> dependsOn,
+            string? defaultNamespace, Pu.ProviderResource provider)
         {
             return Yaml.Invokes
                 .YamlDecode(new YamlDecodeArgs { Text = text, DefaultNamespace = defaultNamespace }, new InvokeOptions { Provider = provider })
