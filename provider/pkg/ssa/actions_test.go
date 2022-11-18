@@ -28,8 +28,8 @@ func Test_setRequiredFields(t *testing.T) {
 	tests := []struct {
 		name     string
 		args     args
-		expected map[string]interface{}
-		want     bool
+		wantMap  map[string]interface{}
+		wantBool bool
 	}{
 		{
 			name: "nested value",
@@ -43,12 +43,12 @@ func Test_setRequiredFields(t *testing.T) {
 				obj:   map[string]interface{}{},
 				field: "a.b",
 			},
-			expected: map[string]interface{}{
+			wantMap: map[string]interface{}{
 				"a": map[string]interface{}{
 					"b": "c",
 				},
 			},
-			want: true,
+			wantBool: true,
 		},
 		{
 			name: "nested map",
@@ -64,14 +64,14 @@ func Test_setRequiredFields(t *testing.T) {
 				obj:   map[string]interface{}{},
 				field: "a.b",
 			},
-			expected: map[string]interface{}{
+			wantMap: map[string]interface{}{
 				"a": map[string]interface{}{
 					"b": map[string]interface{}{
 						"c": "d",
 					},
 				},
 			},
-			want: true,
+			wantBool: true,
 		},
 		{
 			name: "top level field",
@@ -82,10 +82,10 @@ func Test_setRequiredFields(t *testing.T) {
 				obj:   map[string]interface{}{},
 				field: "a",
 			},
-			expected: map[string]interface{}{
+			wantMap: map[string]interface{}{
 				"a": "b",
 			},
-			want: true,
+			wantBool: true,
 		},
 		{
 			name: "sliced string value",
@@ -99,12 +99,12 @@ func Test_setRequiredFields(t *testing.T) {
 				obj:   map[string]interface{}{},
 				field: "a.b[1]",
 			},
-			expected: map[string]interface{}{
+			wantMap: map[string]interface{}{
 				"a": map[string]interface{}{
 					"b": []interface{}{nil, "d"},
 				},
 			},
-			want: true,
+			wantBool: true,
 		},
 		{
 			name: "sliced int value",
@@ -118,12 +118,12 @@ func Test_setRequiredFields(t *testing.T) {
 				obj:   map[string]interface{}{},
 				field: "a.b[1]",
 			},
-			expected: map[string]interface{}{
+			wantMap: map[string]interface{}{
 				"a": map[string]interface{}{
 					"b": []interface{}{nil, 2},
 				},
 			},
-			want: true,
+			wantBool: true,
 		},
 		{
 			name: "sliced map value",
@@ -141,7 +141,7 @@ func Test_setRequiredFields(t *testing.T) {
 				obj:   map[string]interface{}{},
 				field: "a.b[0]",
 			},
-			expected: map[string]interface{}{
+			wantMap: map[string]interface{}{
 				"a": map[string]interface{}{
 					"b": []interface{}{
 						map[string]interface{}{
@@ -150,7 +150,7 @@ func Test_setRequiredFields(t *testing.T) {
 					},
 				},
 			},
-			want: true,
+			wantBool: true,
 		},
 		{
 			name: "invalid path",
@@ -159,18 +159,30 @@ func Test_setRequiredFields(t *testing.T) {
 				obj:   map[string]interface{}{},
 				field: "a",
 			},
-			expected: map[string]interface{}{},
-			want:     false,
+			wantMap:  nil,
+			wantBool: false,
+		},
+		{
+			name: "invalid index",
+			args: args{
+				live: map[string]interface{}{
+					"a": []interface{}{},
+				},
+				obj:   map[string]interface{}{},
+				field: "a[1]",
+			},
+			wantMap:  nil,
+			wantBool: false,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got := setRequiredField(tt.args.live, tt.args.obj, tt.args.field)
-			if !reflect.DeepEqual(tt.args.obj, tt.expected) {
-				t.Errorf("setRequiredField() got = %v, want %v", tt.args.obj, tt.expected)
+			gotMap, gotBool := setRequiredField(tt.args.live, tt.args.obj, tt.args.field)
+			if !reflect.DeepEqual(gotMap, tt.wantMap) {
+				t.Errorf("setRequiredField() gotMap = %v, want %v", gotMap, tt.wantMap)
 			}
-			if got != tt.want {
-				t.Errorf("setRequiredField() got1 = %v, want %v", got, tt.want)
+			if gotBool != tt.wantBool {
+				t.Errorf("setRequiredField() gotBool = %v, want %v", gotBool, tt.wantBool)
 			}
 		})
 	}

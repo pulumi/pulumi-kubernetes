@@ -20,6 +20,8 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/deepcopy"
+
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/types"
@@ -99,12 +101,6 @@ func UpdateFieldManager(
 	return err
 }
 
-// Input: live, new, field
-// 0. Convert field to slice of path fragments
-// 1. Look up value in live object
-// 2. Ensure value exists in new object
-// Return new, bool
-
 // fieldRegex matches valid field specifiers.
 // Example: a.b.c
 // Example: a
@@ -116,9 +112,9 @@ var fieldRegex = regexp.MustCompile(`^(?:\w+(?:\[\d+])?\.?)+$`)
 
 // setRequiredField takes a field describing the element in a map, reads that element from the live map, and then sets
 // the corresponding value on the obj map. The function returns true if the operation was successful, false otherwise.
-func setRequiredField(live, obj map[string]interface{}, field string) bool {
+func setRequiredField(live, obj map[string]interface{}, field string) (map[string]interface{}, bool) {
 	if !fieldRegex.MatchString(field) {
-		return false
+		return nil, false
 	}
 
 	type pathToken struct {
@@ -134,7 +130,7 @@ func setRequiredField(live, obj map[string]interface{}, field string) bool {
 			tokens = append(tokens, pathToken{IsSlice: false, Key: p[:i]})
 			idxStr := p[i+1 : len(p)-1]
 			if idx, err := strconv.Atoi(idxStr); err != nil {
-				return false
+				return nil, false
 			} else {
 				tokens = append(tokens, pathToken{IsSlice: true, Index: idx})
 			}
@@ -145,33 +141,26 @@ func setRequiredField(live, obj map[string]interface{}, field string) bool {
 
 	// TODO: example: spec.template.spec.containers[0].image
 
-	/*
-		1. Tokenize
-		2. For each fragment
-			1. Check if next initialized
-			2. If key
-				1. Create map if not exists
-				2. Dot into
-			3. If slice
-				1. Create slice if not exists
-				2. Slice into
-	*/
+	resultObj := deepcopy.Copy(obj).(map[string]interface{})
 
 	// Traverse to the specified element in the live map.
 	var liveCursor interface{} = live
-	var objCursor interface{} = obj
+	var objCursor interface{} = resultObj
 	for i, token := range tokens {
 		if token.IsSlice {
 			liveSlice, ok := liveCursor.([]interface{})
 			if !ok || token.Index > len(liveSlice)-1 {
-				return false
+				return nil, false
 			}
 
 			objSlice, ok := objCursor.([]interface{})
 			if !ok {
-				return false
+				return nil, false
 			}
 			if i == len(tokens)-1 {
+				if token.Index > len(liveSlice)-1 {
+					return nil, false
+				}
 				objSlice[token.Index] = liveSlice[token.Index]
 				break
 			}
@@ -188,14 +177,17 @@ func setRequiredField(live, obj map[string]interface{}, field string) bool {
 		} else {
 			liveMap, ok := liveCursor.(map[string]interface{})
 			if !ok {
-				return false
+				return nil, false
 			}
 
 			objMap, ok := objCursor.(map[string]interface{})
 			if !ok {
-				return false
+				return nil, false
 			}
 			if i == len(tokens)-1 {
+				if _, exists := liveMap[token.Key]; !exists {
+					return nil, false
+				}
 				objMap[token.Key] = liveMap[token.Key]
 				break
 			}
@@ -211,96 +203,6 @@ func setRequiredField(live, obj map[string]interface{}, field string) bool {
 			objCursor = objMap[token.Key]
 		}
 	}
-	//for _, component := range path {
-	//	// Make sure we can actually traverse to the current element.
-	//	if strings.Contains(component, "[") {
-	//		idxStr := component[strings.LastIndex(component, "[")+1 : len(component)-1]
-	//		var idx int
-	//		idx, err = strconv.Atoi(idxStr)
-	//		if err != nil {
-	//			return false
-	//		}
-	//
-	//		// Make sure we can actually slice into the current element.
-	//		currObj, isSlice := liveCursor.([]interface{})
-	//		if !isSlice {
-	//			return false
-	//		}
-	//		if idx > len(currObj)-1 {
-	//			return false
-	//		}
-	//
-	//		liveCursor = currObj[idx]
-	//	} else {
-	//		// Make sure we can actually dot into the current element.
-	//		currObj, isMap := liveCursor.(map[string]interface{})
-	//		if !isMap {
-	//			return false
-	//		}
-	//
-	//		// Attempt to dot into the current element.
-	//		var exists bool
-	//		liveCursor, exists = currObj[component]
-	//		if !exists {
-	//			return false
-	//		}
-	//	}
-	//}
-	//
-	//// 1. Traverse to the specified element in the obj map.
-	//// 2. If the element does not exist, create it.
-	//// 3. Set the last element of the path to the liveCursor value.
-	//var objCursor interface{} = obj
-	//for i, component := range path {
-	//	// Make sure we can actually traverse to the current element.
-	//	if strings.Contains(component, "[") {
-	//		idxStr := component[strings.LastIndex(component, "[")+1 : len(component)-1]
-	//		var idx int
-	//		idx, err = strconv.Atoi(idxStr)
-	//		if err != nil {
-	//			return false
-	//		}
-	//
-	//		// Make sure we can actually slice into the current element.
-	//		//currObj, isSlice := objCursor.([]interface{})
-	//		//if !isSlice {
-	//		//	return false
-	//		//}
-	//		switch currObj := objCursor.(type) {
-	//		case []interface{}:
-	//			if idx > len(currObj)-1 {
-	//				return false
-	//			}
-	//
-	//			objCursor = currObj[idx]
-	//		default:
-	//			s := make([]interface{}, idx+1)
-	//			s[idx] = liveCursor
-	//			temp := objCursor.([]interface{})
-	//			if i == len(path)-1 {
-	//				temp[idx] = liveCursor
-	//			}
-	//		}
-	//	} else {
-	//		// Make sure we can actually dot into the current element.
-	//		currObj, isMap := objCursor.(map[string]interface{})
-	//		if !isMap {
-	//			return false
-	//		}
-	//
-	//		// Attempt to dot into the current element.
-	//		var exists bool
-	//		objCursor, exists = currObj[component]
-	//		if !exists {
-	//			// TODO: this could be a slice rather than a map
-	//			currObj[component] = map[string]interface{}{}
-	//			objCursor = currObj[component]
-	//			if i == len(path)-1 {
-	//				currObj[component] = liveCursor
-	//			}
-	//		}
-	//	}
-	//}
 
-	return true
+	return resultObj, true
 }
