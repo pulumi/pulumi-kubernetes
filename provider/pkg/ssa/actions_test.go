@@ -92,7 +92,7 @@ func Test_setRequiredFields(t *testing.T) {
 			args: args{
 				live: map[string]interface{}{
 					"a": map[string]interface{}{
-						"b": []string{"c", "d"}, // should return the second element of this slice
+						"b": []interface{}{"c", "d"}, // should return the second element of this slice
 						"e": "f", // should be ignored
 					},
 				},
@@ -101,7 +101,7 @@ func Test_setRequiredFields(t *testing.T) {
 			},
 			expected: map[string]interface{}{
 					"a": map[string]interface{}{
-						"b": []string{"d"},
+						"b": []interface{}{"d"},
 					},
 				},
 			want: true,

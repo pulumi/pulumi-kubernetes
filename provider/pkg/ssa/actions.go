@@ -16,6 +16,7 @@ package ssa
 
 import (
 	"context"
+	"regexp"
 	"strconv"
 	"strings"
 
@@ -108,16 +109,18 @@ func UpdateFieldManager(
 // Example: a.b.c
 // Example: a
 // Example: a1.b2
+// Example: a[0]
+// Example: a.b[0]
 // Example: a.b[0].c
-// TODO: update regex to allow slices
-//var fieldRegex = regexp.MustCompile(`^(?:[a-zA-Z][a-zA-Z0-9]*.?)+[^.]$`)
+var fieldRegex = regexp.MustCompile(`^(?:\w+(?:\[\d+])?\.?)+$`)
 
 // setRequiredField takes a field describing the element in a map, reads that element from the live map, and then sets
 // the corresponding value on the obj map. The function returns true if the operation was successful, false otherwise.
 func setRequiredField(live, obj map[string]interface{}, field string) bool {
-	//if !fieldRegex.MatchString(field) {
-	//	return false
-	//}
+	if !fieldRegex.MatchString(field) {
+		return false
+	}
+
 	var path []string
 	dotPath := strings.Split(field, ".")
 	for _, p := range dotPath {
@@ -146,15 +149,15 @@ func setRequiredField(live, obj map[string]interface{}, field string) bool {
 			}
 
 			// Make sure we can actually slice into the current element.
-			switch currObj := liveCursor.(type) {
-			case []string:
-				if idx > len(currObj)-1 {
-					return false
-				}
-
-				liveCursor = currObj[idx]
+			currObj, isSlice := liveCursor.([]interface{})
+			if !isSlice {
+				return false
+			}
+			if idx > len(currObj)-1 {
+				return false
 			}
 
+			liveCursor = currObj[idx]
 		} else {
 			// Make sure we can actually dot into the current element.
 			currObj, isMap := liveCursor.(map[string]interface{})
@@ -176,31 +179,51 @@ func setRequiredField(live, obj map[string]interface{}, field string) bool {
 	// 3. Set the last element of the path to the liveCursor value.
 	var objCursor interface{} = obj
 	for i, component := range path {
-		// Make sure we can actually dot into the current element.
-		currObj, isMap := objCursor.(map[string]interface{})
-		if !isMap {
-			return false
-		}
+		// Make sure we can actually traverse to the current element.
+		if strings.Contains(component, "[") {
+			idxStr := component[strings.LastIndex(component, "[")+1 : len(component)-1]
+			var idx int
+			idx, err = strconv.Atoi(idxStr)
+			if err != nil {
+				return false
+			}
 
-		// Attempt to dot into the current element.
-		var exists bool
-		objCursor, exists = currObj[component]
-		if !exists {
-			currObj[component] = map[string]interface{}{}
-			objCursor = currObj[component]
-			if i == len(path)-1 {
-				currObj[component] = liveCursor
+			// Make sure we can actually slice into the current element.
+			switch currObj := objCursor.(type) {
+			case []interface{}:
+				if idx > len(currObj)-1 {
+					return false
+				}
+
+				objCursor = currObj[idx]
+			default:
+				s := make([]interface{}, idx+1)
+				s[idx] = liveCursor
+				temp := objCursor.([]interface{})
+				if i == len(path)-1 {
+					temp[idx] = liveCursor
+				}
+			}
+		} else {
+			// Make sure we can actually dot into the current element.
+			currObj, isMap := objCursor.(map[string]interface{})
+			if !isMap {
+				return false
+			}
+
+			// Attempt to dot into the current element.
+			var exists bool
+			objCursor, exists = currObj[component]
+			if !exists {
+				// TODO: this could be a slice rather than a map
+				currObj[component] = map[string]interface{}{}
+				objCursor = currObj[component]
+				if i == len(path)-1 {
+					currObj[component] = liveCursor
+				}
 			}
 		}
-
 	}
 
 	return true
-}
-
-func slice[T any](input any) ([]T, bool) {
-	if v, ok := input.([]T); ok {
-		return v, true
-	}
-	return nil, false
 }
