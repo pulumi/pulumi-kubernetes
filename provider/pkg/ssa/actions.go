@@ -121,109 +121,186 @@ func setRequiredField(live, obj map[string]interface{}, field string) bool {
 		return false
 	}
 
-	var path []string
+	type pathToken struct {
+		IsSlice bool
+		Key     string
+		Index   int
+	}
+	var tokens []pathToken
+
 	dotPath := strings.Split(field, ".")
 	for _, p := range dotPath {
 		if i := strings.Index(p, "["); i >= 0 {
-			path = append(path, p[:i])
-			path = append(path, p[i:])
+			tokens = append(tokens, pathToken{IsSlice: false, Key: p[:i]})
+			idxStr := p[i+1 : len(p)-1]
+			if idx, err := strconv.Atoi(idxStr); err != nil {
+				return false
+			} else {
+				tokens = append(tokens, pathToken{IsSlice: true, Index: idx})
+			}
 		} else {
-			path = append(path, p)
+			tokens = append(tokens, pathToken{IsSlice: false, Key: p})
 		}
-		//path = append(path, strings.Split(p, "[")...)
 	}
 
 	// TODO: example: spec.template.spec.containers[0].image
 
+	/*
+		1. Tokenize
+		2. For each fragment
+			1. Check if next initialized
+			2. If key
+				1. Create map if not exists
+				2. Dot into
+			3. If slice
+				1. Create slice if not exists
+				2. Slice into
+	*/
+
 	// Traverse to the specified element in the live map.
-	var err error
 	var liveCursor interface{} = live
-	for _, component := range path {
-		// Make sure we can actually traverse to the current element.
-		if strings.Contains(component, "[") {
-			idxStr := component[strings.LastIndex(component, "[")+1 : len(component)-1]
-			var idx int
-			idx, err = strconv.Atoi(idxStr)
-			if err != nil {
-				return false
-			}
-
-			// Make sure we can actually slice into the current element.
-			currObj, isSlice := liveCursor.([]interface{})
-			if !isSlice {
-				return false
-			}
-			if idx > len(currObj)-1 {
-				return false
-			}
-
-			liveCursor = currObj[idx]
-		} else {
-			// Make sure we can actually dot into the current element.
-			currObj, isMap := liveCursor.(map[string]interface{})
-			if !isMap {
-				return false
-			}
-
-			// Attempt to dot into the current element.
-			var exists bool
-			liveCursor, exists = currObj[component]
-			if !exists {
-				return false
-			}
-		}
-	}
-
-	// 1. Traverse to the specified element in the obj map.
-	// 2. If the element does not exist, create it.
-	// 3. Set the last element of the path to the liveCursor value.
 	var objCursor interface{} = obj
-	for i, component := range path {
-		// Make sure we can actually traverse to the current element.
-		if strings.Contains(component, "[") {
-			idxStr := component[strings.LastIndex(component, "[")+1 : len(component)-1]
-			var idx int
-			idx, err = strconv.Atoi(idxStr)
-			if err != nil {
+	for i, token := range tokens {
+		if token.IsSlice {
+			liveSlice, ok := liveCursor.([]interface{})
+			if !ok || token.Index > len(liveSlice)-1 {
 				return false
 			}
 
-			// Make sure we can actually slice into the current element.
-			switch currObj := objCursor.(type) {
-			case []interface{}:
-				if idx > len(currObj)-1 {
-					return false
-				}
+			objSlice, ok := objCursor.([]interface{})
+			if !ok {
+				return false
+			}
+			if i == len(tokens)-1 {
+				objSlice[token.Index] = liveSlice[token.Index]
+				break
+			}
 
-				objCursor = currObj[idx]
-			default:
-				s := make([]interface{}, idx+1)
-				s[idx] = liveCursor
-				temp := objCursor.([]interface{})
-				if i == len(path)-1 {
-					temp[idx] = liveCursor
+			if v := objSlice[token.Index]; v == nil {
+				if tokens[i+1].IsSlice {
+					objSlice[token.Index] = make([]interface{}, len(liveSlice[token.Index].([]interface{})))
+				} else {
+					objSlice[token.Index] = map[string]interface{}{}
 				}
 			}
+			liveCursor = liveSlice[token.Index]
+			objCursor = objSlice[token.Index]
 		} else {
-			// Make sure we can actually dot into the current element.
-			currObj, isMap := objCursor.(map[string]interface{})
-			if !isMap {
+			liveMap, ok := liveCursor.(map[string]interface{})
+			if !ok {
 				return false
 			}
 
-			// Attempt to dot into the current element.
-			var exists bool
-			objCursor, exists = currObj[component]
-			if !exists {
-				// TODO: this could be a slice rather than a map
-				currObj[component] = map[string]interface{}{}
-				objCursor = currObj[component]
-				if i == len(path)-1 {
-					currObj[component] = liveCursor
+			objMap, ok := objCursor.(map[string]interface{})
+			if !ok {
+				return false
+			}
+			if i == len(tokens)-1 {
+				objMap[token.Key] = liveMap[token.Key]
+				break
+			}
+
+			if _, exists := objMap[token.Key]; !exists {
+				if tokens[i+1].IsSlice {
+					objMap[token.Key] = make([]interface{}, len(liveMap[token.Key].([]interface{})))
+				} else {
+					objMap[token.Key] = map[string]interface{}{}
 				}
 			}
+			liveCursor = liveMap[token.Key]
+			objCursor = objMap[token.Key]
 		}
 	}
+	//for _, component := range path {
+	//	// Make sure we can actually traverse to the current element.
+	//	if strings.Contains(component, "[") {
+	//		idxStr := component[strings.LastIndex(component, "[")+1 : len(component)-1]
+	//		var idx int
+	//		idx, err = strconv.Atoi(idxStr)
+	//		if err != nil {
+	//			return false
+	//		}
+	//
+	//		// Make sure we can actually slice into the current element.
+	//		currObj, isSlice := liveCursor.([]interface{})
+	//		if !isSlice {
+	//			return false
+	//		}
+	//		if idx > len(currObj)-1 {
+	//			return false
+	//		}
+	//
+	//		liveCursor = currObj[idx]
+	//	} else {
+	//		// Make sure we can actually dot into the current element.
+	//		currObj, isMap := liveCursor.(map[string]interface{})
+	//		if !isMap {
+	//			return false
+	//		}
+	//
+	//		// Attempt to dot into the current element.
+	//		var exists bool
+	//		liveCursor, exists = currObj[component]
+	//		if !exists {
+	//			return false
+	//		}
+	//	}
+	//}
+	//
+	//// 1. Traverse to the specified element in the obj map.
+	//// 2. If the element does not exist, create it.
+	//// 3. Set the last element of the path to the liveCursor value.
+	//var objCursor interface{} = obj
+	//for i, component := range path {
+	//	// Make sure we can actually traverse to the current element.
+	//	if strings.Contains(component, "[") {
+	//		idxStr := component[strings.LastIndex(component, "[")+1 : len(component)-1]
+	//		var idx int
+	//		idx, err = strconv.Atoi(idxStr)
+	//		if err != nil {
+	//			return false
+	//		}
+	//
+	//		// Make sure we can actually slice into the current element.
+	//		//currObj, isSlice := objCursor.([]interface{})
+	//		//if !isSlice {
+	//		//	return false
+	//		//}
+	//		switch currObj := objCursor.(type) {
+	//		case []interface{}:
+	//			if idx > len(currObj)-1 {
+	//				return false
+	//			}
+	//
+	//			objCursor = currObj[idx]
+	//		default:
+	//			s := make([]interface{}, idx+1)
+	//			s[idx] = liveCursor
+	//			temp := objCursor.([]interface{})
+	//			if i == len(path)-1 {
+	//				temp[idx] = liveCursor
+	//			}
+	//		}
+	//	} else {
+	//		// Make sure we can actually dot into the current element.
+	//		currObj, isMap := objCursor.(map[string]interface{})
+	//		if !isMap {
+	//			return false
+	//		}
+	//
+	//		// Attempt to dot into the current element.
+	//		var exists bool
+	//		objCursor, exists = currObj[component]
+	//		if !exists {
+	//			// TODO: this could be a slice rather than a map
+	//			currObj[component] = map[string]interface{}{}
+	//			objCursor = currObj[component]
+	//			if i == len(path)-1 {
+	//				currObj[component] = liveCursor
+	//			}
+	//		}
+	//	}
+	//}
 
 	return true
 }

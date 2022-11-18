@@ -88,22 +88,68 @@ func Test_setRequiredFields(t *testing.T) {
 			want: true,
 		},
 		{
-			name: "sliced value",
+			name: "sliced string value",
 			args: args{
 				live: map[string]interface{}{
 					"a": map[string]interface{}{
 						"b": []interface{}{"c", "d"}, // should return the second element of this slice
-						"e": "f", // should be ignored
+						"e": "f",                     // should be ignored
 					},
 				},
 				obj:   map[string]interface{}{},
 				field: "a.b[1]",
 			},
 			expected: map[string]interface{}{
+				"a": map[string]interface{}{
+					"b": []interface{}{nil, "d"},
+				},
+			},
+			want: true,
+		},
+		{
+			name: "sliced int value",
+			args: args{
+				live: map[string]interface{}{
 					"a": map[string]interface{}{
-						"b": []interface{}{"d"},
+						"b": []interface{}{1, 2}, // should return the second element of this slice
+						"e": "f",                 // should be ignored
 					},
 				},
+				obj:   map[string]interface{}{},
+				field: "a.b[1]",
+			},
+			expected: map[string]interface{}{
+				"a": map[string]interface{}{
+					"b": []interface{}{nil, 2},
+				},
+			},
+			want: true,
+		},
+		{
+			name: "sliced map value",
+			args: args{
+				live: map[string]interface{}{
+					"a": map[string]interface{}{
+						"b": []interface{}{ // should return the first element of this slice
+							map[string]interface{}{
+								"c": "d",
+							},
+						},
+						"e": "f", // should be ignored
+					},
+				},
+				obj:   map[string]interface{}{},
+				field: "a.b[0]",
+			},
+			expected: map[string]interface{}{
+				"a": map[string]interface{}{
+					"b": []interface{}{
+						map[string]interface{}{
+							"c": "d",
+						},
+					},
+				},
+			},
 			want: true,
 		},
 		{
