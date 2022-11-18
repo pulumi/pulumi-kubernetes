@@ -394,16 +394,9 @@ jobs:
         sudo mv linux-amd64/helm /usr/local/bin
         helm repo add stable https://charts.helm.sh/stable
         helm repo update
-    - name: Install gotestfmt
-      uses: GoTestTools/gotestfmt-action@v2
-      with:
-        version: v2.4.0
-        token: ${{ secrets.GITHUB_TOKEN }}
     - name: Run tests
       run: >-
-        set -euo pipefail
-
-        cd tests/sdk/${{ matrix.language }} && go test -v -json -count=1 -cover -timeout 2h -parallel 4 ./... 2>&1 | tee /tmp/gotest.log | gotestfmt
+        cd tests/sdk/${{ matrix.language }} && go test -v -count=1 -cover -timeout 2h -parallel 4 ./...
     - if: failure() && github.event_name == 'push'
       name: Notify Slack
       uses: 8398a7/action-slack@v3
