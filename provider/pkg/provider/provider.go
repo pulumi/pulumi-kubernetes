@@ -2726,6 +2726,11 @@ func (k *kubeProvider) isDryRunDisabledError(err error) bool {
 }
 
 // tryServerSidePatch attempts to compute a server-side patch. Returns true iff the operation succeeded.
+// The following are expected ways in which the server-side apply can not work;
+// we return no error, but a `false` value indicating that there's no result either.
+// The caller will fall back to using the client-side diff. In the particular case of an
+// update to an immutable field, it is already known from the schema when
+// replacement will be necessary.
 func (k *kubeProvider) tryServerSidePatch(
 	oldInputs, newInputs *unstructured.Unstructured,
 	gvk schema.GroupVersionKind,
