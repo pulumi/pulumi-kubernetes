@@ -16,9 +16,13 @@ package ssa
 
 import (
 	"context"
+	"errors"
+	"fmt"
 	"regexp"
 	"strconv"
 	"strings"
+
+	k8serrors "k8s.io/apimachinery/pkg/api/errors"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/deepcopy"
 
@@ -82,13 +86,19 @@ func UpdateFieldManager(
 		return err
 	}
 
+REQUIRED:
 	// Transfer ownership of any required fields.
 	for _, field := range requiredFields {
-		setRequiredField(liveObj.Object, obj.Object, field)
-		// TODO: handle failures
+		var ok bool
+		// TODO: wrong Object?
+		obj.Object, ok = setRequiredField(liveObj.Object, obj.Object, field)
+		if !ok {
+			// TODO: better handle failures
+			return fmt.Errorf("failed to update field manager")
+		}
 	}
 
-	yamlObj, err := yaml.Marshal(obj)
+	yamlObj, err := yaml.Marshal(obj.Object)
 	if err != nil {
 		return err
 	}
@@ -97,6 +107,18 @@ func UpdateFieldManager(
 		metav1.PatchOptions{
 			FieldManager: fieldManager,
 		})
+	if k8serrors.IsInvalid(err) {
+		var statusErr *k8serrors.StatusError
+		if errors.As(err, &statusErr) {
+			for _, cause := range statusErr.Status().Details.Causes {
+				if cause.Type != metav1.CauseTypeFieldValueRequired {
+					continue
+				}
+				requiredFields = append(requiredFields, cause.Field)
+			}
+		}
+		goto REQUIRED
+	}
 
 	return err
 }
@@ -157,23 +179,23 @@ func setRequiredField(live, obj map[string]interface{}, field string) (map[strin
 			if !ok {
 				return nil, false
 			}
-			if i == len(tokens)-1 {
-				if token.Index > len(liveSlice)-1 {
-					return nil, false
-				}
-				objSlice[token.Index] = liveSlice[token.Index]
-				break
+			//if i == len(tokens)-1 {
+			if token.Index > len(liveSlice)-1 {
+				return nil, false
 			}
+			objSlice[token.Index] = liveSlice[token.Index]
+			break
+			//}
 
-			if v := objSlice[token.Index]; v == nil {
-				if tokens[i+1].IsSlice {
-					objSlice[token.Index] = make([]interface{}, len(liveSlice[token.Index].([]interface{})))
-				} else {
-					objSlice[token.Index] = map[string]interface{}{}
-				}
-			}
-			liveCursor = liveSlice[token.Index]
-			objCursor = objSlice[token.Index]
+			//if v := objSlice[token.Index]; v == nil {
+			//	if tokens[i+1].IsSlice {
+			//		objSlice[token.Index] = make([]interface{}, len(liveSlice[token.Index].([]interface{})))
+			//	} else {
+			//		objSlice[token.Index] = map[string]interface{}{}
+			//	}
+			//}
+			//liveCursor = liveSlice[token.Index]
+			//objCursor = objSlice[token.Index]
 		} else {
 			liveMap, ok := liveCursor.(map[string]interface{})
 			if !ok {

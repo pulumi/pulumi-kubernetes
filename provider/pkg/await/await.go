@@ -563,7 +563,12 @@ func Deletion(c DeleteConfig) error {
 					requiredFields = append(requiredFields, cause.Field)
 				}
 
+				// TODO: the conflicts in the error message don't seem to be comprehensive. may need to populate this from the values set by pulumi
 				err = ssa.UpdateFieldManager(c.Context, client, c.Inputs, requiredFields, "override")
+				if err != nil {
+					return err
+				}
+				err = ssa.Relinquish(c.Context, client, c.Inputs, c.FieldManager)
 				if err != nil {
 					return err
 				}
