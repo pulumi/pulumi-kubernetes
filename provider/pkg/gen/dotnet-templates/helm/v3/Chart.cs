@@ -23,6 +23,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Pulumi.Kubernetes.Yaml;
 using Pulumi.Utilities;
+using Pu = Pulumi;
 
 namespace Pulumi.Kubernetes.Helm.V3
 {
@@ -289,7 +290,7 @@ namespace Pulumi.Kubernetes.Helm.V3
             return string.IsNullOrEmpty(prefix) ? releaseName : $"{prefix}-{releaseName}";
         }
 
-        private Output<ImmutableDictionary<string, KubernetesResource>> ParseTemplate(Union<ChartArgsUnwrap, LocalChartArgsUnwrap> args, string releaseName, ImmutableHashSet<Resource> dependsOn, ComponentResourceOptions? options)
+        private Output<ImmutableDictionary<string, KubernetesResource>> ParseTemplate(Union<ChartArgsUnwrap, LocalChartArgsUnwrap> args, string releaseName, ImmutableHashSet<Pu.Resource> dependsOn, ComponentResourceOptions? options)
         {
             // Build JSON args to Helm provider invoke.
             var serializeOptions = new JsonSerializerOptions
