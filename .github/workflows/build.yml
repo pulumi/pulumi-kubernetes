@@ -157,6 +157,7 @@ jobs:
     - name: Unshallow clone for tags
       run: git fetch --prune --unshallow --tags
     - name: Install Go
+      if: ${{ matrix.language == 'go' }}
       uses: actions/setup-go@v2
       with:
         go-version: ${{ env.GOVERSION }}
@@ -167,19 +168,23 @@ jobs:
     - name: Install Pulumi CLI
       uses: pulumi/action-install-pulumi-cli@v2
     - name: Setup Node
+      if: ${{ matrix.language == 'nodejs' }}
       uses: actions/setup-node@v2
       with:
         node-version: ${{ env.NODEVERSION }}
         registry-url: https://registry.npmjs.org
     - name: Setup DotNet
+      if: ${{ matrix.language == 'dotnet' }}
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: ${{ env.DOTNETVERSION }}
     - name: Setup Python
+      if: ${{ matrix.language == 'python' }}
       uses: actions/setup-python@v2
       with:
         python-version: ${{ env.PYTHONVERSION }}
     - name: Setup Java
+      if: ${{ matrix.language == 'java' }}
       uses: actions/setup-java@v3
       with:
         java-version: ${{ env.JAVAVERSION }}
@@ -246,6 +251,7 @@ jobs:
     - name: Unshallow clone for tags
       run: git fetch --prune --unshallow --tags
     - name: Install Go
+      if: ${{ matrix.language == 'go' }}
       uses: actions/setup-go@v2
       with:
         go-version: ${{ env.GOVERSION }}
@@ -256,19 +262,23 @@ jobs:
     - name: Install Pulumi CLI
       uses: pulumi/action-install-pulumi-cli@v2
     - name: Setup Node
+      if: ${{ matrix.language == 'nodejs' }}
       uses: actions/setup-node@v2
       with:
         node-version: ${{ env.NODEVERSION }}
         registry-url: https://registry.npmjs.org
     - name: Setup DotNet
+      if: ${{ matrix.language == 'dotnet' }}
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: ${{ env.DOTNETVERSION }}
     - name: Setup Python
+      if: ${{ matrix.language == 'python' }}
       uses: actions/setup-python@v2
       with:
         python-version: ${{ env.PYTHONVERSION }}
     - name: Setup Java
+      if: ${{ matrix.language == 'java' }}
       uses: actions/setup-java@v3
       with:
         java-version: ${{ env.JAVAVERSION }}
