@@ -22,6 +22,7 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using GlobExpressions;
+using Pu = Pulumi;
 
 #pragma warning disable CS0618
 
@@ -740,9 +741,9 @@ namespace Pulumi.Kubernetes.Yaml
         /// <summary>
         /// Returns an array of ready resources to be used by DependsOn.
         /// </summary>
-        public Output<ImmutableArray<Resource>> Ready()
+        public Output<ImmutableArray<Pu.Resource>> Ready()
         {
-            return Resources.Apply(resources => resources.Values.Cast<Resource>().ToImmutableArray());
+            return Resources.Apply(resources => resources.Values.Cast<Pu.Resource>().ToImmutableArray());
         }
 
         /// <summary>
@@ -891,7 +892,7 @@ namespace Pulumi.Kubernetes.Yaml
             var opts = new CustomResourceOptions
             {
                 Parent = options?.Parent,
-                DependsOn = options?.DependsOn ?? new InputList<Resource>(),
+                DependsOn = options?.DependsOn ?? new InputList<Pu.Resource>(),
                 IgnoreChanges = options?.IgnoreChanges ?? new List<string>(),
                 Version = options?.Version,
                 Provider = options?.Provider,
