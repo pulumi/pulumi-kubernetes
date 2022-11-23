@@ -2,6 +2,8 @@
 
 - Add allowNullValues boolean option to pass Null values through helm configs without having them
   scrubbed (https://github.com/pulumi/pulumi-kubernetes/issues/2089)
+- Fix replacement behavior for immutable fields in SSA mode
+  (https://github.com/pulumi/pulumi-kubernetes/issues/2235)
 - For SSA conflicts, add a note to the error message about how to resolve
   (https://github.com/pulumi/pulumi-kubernetes/issues/2235)
 - Make room for the `resource` API in Kubernetes 1.26.0 by qualifying the type of the same name in
