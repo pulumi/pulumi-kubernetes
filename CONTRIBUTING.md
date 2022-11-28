@@ -45,6 +45,8 @@ clusters. Since the Pulumi Kubernetes provider uses the same
 [client-go](https://github.com/kubernetes/client-go) library as `kubectl`,
 if your cluster works with `kubectl`, it will also work with Pulumi.
 
+You will need `$PWD/bin` on your PATH for the provider executable to be found.
+
 ```bash
-$ make test_all
+$ PATH=$PATH:$PWD/bin make test_all
 ```
