@@ -246,7 +246,7 @@ jobs:
     needs:
     - build_sdks
     strategy:
-      fail-fast: true
+# keep showing all failures, for now -- fail-fast: true
       matrix:
         language:
         - nodejs
@@ -380,6 +380,13 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
     - name: Run kind cluster
       uses: helm/kind-action@v1.4.0
+      with:
+        config: ./tests/kind.config
+    - name: Install ingress controller
+      run: |
+        helm repo add nginx-stable https://helm.nginx.com/stable
+        helm repo update
+        helm install ingress-controller nginx-stable/nginx-ingress
     - name: Run tests
       run: cd tests/sdk/${{ matrix.language }} && go test -v -count=1 -cover -timeout
         2h -parallel 4 ./...
