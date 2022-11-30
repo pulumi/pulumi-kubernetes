@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 3.22.2 (November 30, 2022)
+
 - Add allowNullValues boolean option to pass Null values through helm configs without having them
   scrubbed (https://github.com/pulumi/pulumi-kubernetes/issues/2089)
 - Fix replacement behavior for immutable fields in SSA mode
