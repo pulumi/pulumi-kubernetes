@@ -17,6 +17,7 @@ __all__ = ['ReleaseArgs', 'Release']
 class ReleaseArgs:
     def __init__(__self__, *,
                  chart: pulumi.Input[str],
+                 allow_null_values: Optional[pulumi.Input[bool]] = None,
                  atomic: Optional[pulumi.Input[bool]] = None,
                  cleanup_on_fail: Optional[pulumi.Input[bool]] = None,
                  compat: Optional[pulumi.Input[str]] = None,
@@ -53,6 +54,7 @@ class ReleaseArgs:
         """
         The set of arguments for constructing a Release resource.
         :param pulumi.Input[str] chart: Chart name to be installed. A path may be used.
+        :param pulumi.Input[bool] allow_null_values: Whether to allow Null values in helm chart configs.
         :param pulumi.Input[bool] atomic: If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
         :param pulumi.Input[bool] cleanup_on_fail: Allow deletion of new resources created in this upgrade when upgrade fails.
         :param pulumi.Input[bool] create_namespace: Create the namespace if it does not exist.
@@ -87,6 +89,8 @@ class ReleaseArgs:
         :param pulumi.Input[bool] wait_for_jobs: Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipAwait` is enabled.
         """
         pulumi.set(__self__, "chart", chart)
+        if allow_null_values is not None:
+            pulumi.set(__self__, "allow_null_values", allow_null_values)
         if atomic is not None:
             pulumi.set(__self__, "atomic", atomic)
         if cleanup_on_fail is not None:
@@ -165,6 +169,18 @@ class ReleaseArgs:
     @chart.setter
     def chart(self, value: pulumi.Input[str]):
         pulumi.set(self, "chart", value)
+
+    @property
+    @pulumi.getter(name="allowNullValues")
+    def allow_null_values(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Whether to allow Null values in helm chart configs.
+        """
+        return pulumi.get(self, "allow_null_values")
+
+    @allow_null_values.setter
+    def allow_null_values(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "allow_null_values", value)
 
     @property
     @pulumi.getter
@@ -565,6 +581,7 @@ class Release(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 allow_null_values: Optional[pulumi.Input[bool]] = None,
                  atomic: Optional[pulumi.Input[bool]] = None,
                  chart: Optional[pulumi.Input[str]] = None,
                  cleanup_on_fail: Optional[pulumi.Input[bool]] = None,
@@ -765,6 +782,7 @@ class Release(pulumi.CustomResource):
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[bool] allow_null_values: Whether to allow Null values in helm chart configs.
         :param pulumi.Input[bool] atomic: If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
         :param pulumi.Input[str] chart: Chart name to be installed. A path may be used.
         :param pulumi.Input[bool] cleanup_on_fail: Allow deletion of new resources created in this upgrade when upgrade fails.
@@ -983,6 +1001,7 @@ class Release(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 allow_null_values: Optional[pulumi.Input[bool]] = None,
                  atomic: Optional[pulumi.Input[bool]] = None,
                  chart: Optional[pulumi.Input[str]] = None,
                  cleanup_on_fail: Optional[pulumi.Input[bool]] = None,
@@ -1026,6 +1045,7 @@ class Release(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = ReleaseArgs.__new__(ReleaseArgs)
 
+            __props__.__dict__["allow_null_values"] = allow_null_values
             __props__.__dict__["atomic"] = atomic
             if chart is None and not opts.urn:
                 raise TypeError("Missing required property 'chart'")
@@ -1062,7 +1082,6 @@ class Release(pulumi.CustomResource):
             __props__.__dict__["verify"] = verify
             __props__.__dict__["version"] = version
             __props__.__dict__["wait_for_jobs"] = wait_for_jobs
-            __props__.__dict__["allow_null_values"] = None
             __props__.__dict__["status"] = None
         super(Release, __self__).__init__(
             'kubernetes:helm.sh/v3:Release',

@@ -409,6 +409,8 @@ func (ReleaseState) ElementType() reflect.Type {
 }
 
 type releaseArgs struct {
+	// Whether to allow Null values in helm chart configs.
+	AllowNullValues *bool `pulumi:"allowNullValues"`
 	// If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
 	Atomic *bool `pulumi:"atomic"`
 	// Chart name to be installed. A path may be used.
@@ -480,6 +482,8 @@ type releaseArgs struct {
 
 // The set of arguments for constructing a Release resource.
 type ReleaseArgs struct {
+	// Whether to allow Null values in helm chart configs.
+	AllowNullValues pulumi.BoolPtrInput
 	// If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
 	Atomic pulumi.BoolPtrInput
 	// Chart name to be installed. A path may be used.

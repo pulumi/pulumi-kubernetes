@@ -188,7 +188,7 @@ export class Release extends pulumi.CustomResource {
     /**
      * Whether to allow Null values in helm chart configs.
      */
-    public /*out*/ readonly allowNullValues!: pulumi.Output<boolean>;
+    public readonly allowNullValues!: pulumi.Output<boolean>;
     /**
      * If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
      */
@@ -340,6 +340,7 @@ export class Release extends pulumi.CustomResource {
             if ((!args || args.chart === undefined) && !opts.urn) {
                 throw new Error("Missing required property 'chart'");
             }
+            resourceInputs["allowNullValues"] = args ? args.allowNullValues : undefined;
             resourceInputs["atomic"] = args ? args.atomic : undefined;
             resourceInputs["chart"] = args ? args.chart : undefined;
             resourceInputs["cleanupOnFail"] = args ? args.cleanupOnFail : undefined;
@@ -374,7 +375,6 @@ export class Release extends pulumi.CustomResource {
             resourceInputs["verify"] = args ? args.verify : undefined;
             resourceInputs["version"] = args ? args.version : undefined;
             resourceInputs["waitForJobs"] = args ? args.waitForJobs : undefined;
-            resourceInputs["allowNullValues"] = undefined /*out*/;
             resourceInputs["status"] = undefined /*out*/;
         } else {
             resourceInputs["allowNullValues"] = undefined /*out*/;
@@ -422,6 +422,10 @@ export class Release extends pulumi.CustomResource {
  * The set of arguments for constructing a Release resource.
  */
 export interface ReleaseArgs {
+    /**
+     * Whether to allow Null values in helm chart configs.
+     */
+    allowNullValues?: pulumi.Input<boolean>;
     /**
      * If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
      */
