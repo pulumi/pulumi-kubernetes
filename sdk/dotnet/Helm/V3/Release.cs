@@ -523,6 +523,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Helm.V3
     public class ReleaseArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
+        /// Whether to allow Null values in helm chart configs.
+        /// </summary>
+        [Input("allowNullValues")]
+        public Input<bool>? AllowNullValues { get; set; }
+
+        /// <summary>
         /// If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
         /// </summary>
         [Input("atomic")]

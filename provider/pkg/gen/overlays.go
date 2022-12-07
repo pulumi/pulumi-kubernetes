@@ -1024,6 +1024,12 @@ var helmV3ReleaseResource = pschema.ResourceSpec{
 			},
 			Const: "true",
 		},
+		"allowNullValues": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "boolean",
+			},
+			Description: "Whether to allow Null values in helm chart configs.",
+		},
 	},
 	RequiredInputs: []string{
 		"chart",

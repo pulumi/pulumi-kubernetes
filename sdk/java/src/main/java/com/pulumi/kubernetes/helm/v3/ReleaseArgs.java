@@ -24,6 +24,21 @@ public final class ReleaseArgs extends com.pulumi.resources.ResourceArgs {
     public static final ReleaseArgs Empty = new ReleaseArgs();
 
     /**
+     * Whether to allow Null values in helm chart configs.
+     * 
+     */
+    @Import(name="allowNullValues")
+    private @Nullable Output<Boolean> allowNullValues;
+
+    /**
+     * @return Whether to allow Null values in helm chart configs.
+     * 
+     */
+    public Optional<Output<Boolean>> allowNullValues() {
+        return Optional.ofNullable(this.allowNullValues);
+    }
+
+    /**
      * If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
      * 
      */
@@ -528,6 +543,7 @@ public final class ReleaseArgs extends com.pulumi.resources.ResourceArgs {
     private ReleaseArgs() {}
 
     private ReleaseArgs(ReleaseArgs $) {
+        this.allowNullValues = $.allowNullValues;
         this.atomic = $.atomic;
         this.chart = $.chart;
         this.cleanupOnFail = $.cleanupOnFail;
@@ -580,6 +596,27 @@ public final class ReleaseArgs extends com.pulumi.resources.ResourceArgs {
 
         public Builder(ReleaseArgs defaults) {
             $ = new ReleaseArgs(Objects.requireNonNull(defaults));
+        }
+
+        /**
+         * @param allowNullValues Whether to allow Null values in helm chart configs.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder allowNullValues(@Nullable Output<Boolean> allowNullValues) {
+            $.allowNullValues = allowNullValues;
+            return this;
+        }
+
+        /**
+         * @param allowNullValues Whether to allow Null values in helm chart configs.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder allowNullValues(Boolean allowNullValues) {
+            return allowNullValues(Output.of(allowNullValues));
         }
 
         /**
