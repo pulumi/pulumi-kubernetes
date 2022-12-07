@@ -205,6 +205,12 @@ func (k *kubeProvider) Call(ctx context.Context, req *pulumirpc.CallRequest) (*p
 	return nil, status.Error(codes.Unimplemented, "Call is not yet implemented")
 }
 
+// GetMapping fetches the mapping for this resource provider, if any. A provider should return an empty
+// response (not an error) if it doesn't have a mapping for the given key.
+func (k *kubeProvider) GetMapping(ctx context.Context, req *pulumirpc.GetMappingRequest) (*GetMappingResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "GetMapping is not yet implemented")
+}
+
 // Construct creates a new instance of the provided component resource and returns its state.
 func (k *kubeProvider) Construct(ctx context.Context, req *pulumirpc.ConstructRequest) (*pulumirpc.ConstructResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "Construct is not yet implemented")
