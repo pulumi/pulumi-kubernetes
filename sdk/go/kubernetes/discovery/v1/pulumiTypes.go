@@ -179,9 +179,9 @@ func (o EndpointArrayOutput) Index(i pulumi.IntInput) EndpointOutput {
 type EndpointConditions struct {
 	// ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be "true" for terminating endpoints.
 	Ready *bool `pulumi:"ready"`
-	// serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+	// serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition.
 	Serving *bool `pulumi:"serving"`
-	// terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+	// terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating.
 	Terminating *bool `pulumi:"terminating"`
 }
 
@@ -200,9 +200,9 @@ type EndpointConditionsInput interface {
 type EndpointConditionsArgs struct {
 	// ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be "true" for terminating endpoints.
 	Ready pulumi.BoolPtrInput `pulumi:"ready"`
-	// serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+	// serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition.
 	Serving pulumi.BoolPtrInput `pulumi:"serving"`
-	// terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+	// terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating.
 	Terminating pulumi.BoolPtrInput `pulumi:"terminating"`
 }
 
@@ -289,12 +289,12 @@ func (o EndpointConditionsOutput) Ready() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v EndpointConditions) *bool { return v.Ready }).(pulumi.BoolPtrOutput)
 }
 
-// serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+// serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition.
 func (o EndpointConditionsOutput) Serving() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v EndpointConditions) *bool { return v.Serving }).(pulumi.BoolPtrOutput)
 }
 
-// terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+// terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating.
 func (o EndpointConditionsOutput) Terminating() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v EndpointConditions) *bool { return v.Terminating }).(pulumi.BoolPtrOutput)
 }
@@ -333,7 +333,7 @@ func (o EndpointConditionsPtrOutput) Ready() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+// serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition.
 func (o EndpointConditionsPtrOutput) Serving() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *EndpointConditions) *bool {
 		if v == nil {
@@ -343,7 +343,7 @@ func (o EndpointConditionsPtrOutput) Serving() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+// terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating.
 func (o EndpointConditionsPtrOutput) Terminating() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *EndpointConditions) *bool {
 		if v == nil {
@@ -357,9 +357,9 @@ func (o EndpointConditionsPtrOutput) Terminating() pulumi.BoolPtrOutput {
 type EndpointConditionsPatch struct {
 	// ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be "true" for terminating endpoints.
 	Ready *bool `pulumi:"ready"`
-	// serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+	// serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition.
 	Serving *bool `pulumi:"serving"`
-	// terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+	// terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating.
 	Terminating *bool `pulumi:"terminating"`
 }
 
@@ -378,9 +378,9 @@ type EndpointConditionsPatchInput interface {
 type EndpointConditionsPatchArgs struct {
 	// ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be "true" for terminating endpoints.
 	Ready pulumi.BoolPtrInput `pulumi:"ready"`
-	// serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+	// serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition.
 	Serving pulumi.BoolPtrInput `pulumi:"serving"`
-	// terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+	// terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating.
 	Terminating pulumi.BoolPtrInput `pulumi:"terminating"`
 }
 
@@ -467,12 +467,12 @@ func (o EndpointConditionsPatchOutput) Ready() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v EndpointConditionsPatch) *bool { return v.Ready }).(pulumi.BoolPtrOutput)
 }
 
-// serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+// serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition.
 func (o EndpointConditionsPatchOutput) Serving() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v EndpointConditionsPatch) *bool { return v.Serving }).(pulumi.BoolPtrOutput)
 }
 
-// terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+// terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating.
 func (o EndpointConditionsPatchOutput) Terminating() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v EndpointConditionsPatch) *bool { return v.Terminating }).(pulumi.BoolPtrOutput)
 }
@@ -511,7 +511,7 @@ func (o EndpointConditionsPatchPtrOutput) Ready() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+// serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition.
 func (o EndpointConditionsPatchPtrOutput) Serving() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *EndpointConditionsPatch) *bool {
 		if v == nil {
@@ -521,7 +521,7 @@ func (o EndpointConditionsPatchPtrOutput) Serving() pulumi.BoolPtrOutput {
 	}).(pulumi.BoolPtrOutput)
 }
 
-// terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+// terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating.
 func (o EndpointConditionsPatchPtrOutput) Terminating() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *EndpointConditionsPatch) *bool {
 		if v == nil {

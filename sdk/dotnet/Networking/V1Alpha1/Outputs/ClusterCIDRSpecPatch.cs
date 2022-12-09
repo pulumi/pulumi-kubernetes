@@ -21,7 +21,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking.V1Alpha1
         /// </summary>
         public readonly string Ipv4;
         /// <summary>
-        /// IPv6 defines an IPv6 IP block in CIDR notation(e.g. "fd12:3456:789a:1::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+        /// IPv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
         /// </summary>
         public readonly string Ipv6;
         /// <summary>

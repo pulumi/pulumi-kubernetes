@@ -13,6 +13,8 @@ import com.pulumi.kubernetes.core.v1.inputs.LocalObjectReferencePatchArgs;
 import com.pulumi.kubernetes.core.v1.inputs.PodDNSConfigPatchArgs;
 import com.pulumi.kubernetes.core.v1.inputs.PodOSPatchArgs;
 import com.pulumi.kubernetes.core.v1.inputs.PodReadinessGatePatchArgs;
+import com.pulumi.kubernetes.core.v1.inputs.PodResourceClaimPatchArgs;
+import com.pulumi.kubernetes.core.v1.inputs.PodSchedulingGatePatchArgs;
 import com.pulumi.kubernetes.core.v1.inputs.PodSecurityContextPatchArgs;
 import com.pulumi.kubernetes.core.v1.inputs.TolerationPatchArgs;
 import com.pulumi.kubernetes.core.v1.inputs.TopologySpreadConstraintPatchArgs;
@@ -404,6 +406,29 @@ public final class PodSpecPatchArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * ResourceClaims defines which ResourceClaims must be allocated and reserved before the Pod is allowed to start. The resources will be made available to those containers which consume them by name.
+     * 
+     * This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+     * 
+     * This field is immutable.
+     * 
+     */
+    @Import(name="resourceClaims")
+    private @Nullable Output<List<PodResourceClaimPatchArgs>> resourceClaims;
+
+    /**
+     * @return ResourceClaims defines which ResourceClaims must be allocated and reserved before the Pod is allowed to start. The resources will be made available to those containers which consume them by name.
+     * 
+     * This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+     * 
+     * This field is immutable.
+     * 
+     */
+    public Optional<Output<List<PodResourceClaimPatchArgs>>> resourceClaims() {
+        return Optional.ofNullable(this.resourceClaims);
+    }
+
+    /**
      * Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
      * 
      */
@@ -446,6 +471,25 @@ public final class PodSpecPatchArgs extends com.pulumi.resources.ResourceArgs {
      */
     public Optional<Output<String>> schedulerName() {
         return Optional.ofNullable(this.schedulerName);
+    }
+
+    /**
+     * SchedulingGates is an opaque list of values that if specified will block scheduling the pod. More info:  https://git.k8s.io/enhancements/keps/sig-scheduling/3521-pod-scheduling-readiness.
+     * 
+     * This is an alpha-level feature enabled by PodSchedulingReadiness feature gate.
+     * 
+     */
+    @Import(name="schedulingGates")
+    private @Nullable Output<List<PodSchedulingGatePatchArgs>> schedulingGates;
+
+    /**
+     * @return SchedulingGates is an opaque list of values that if specified will block scheduling the pod. More info:  https://git.k8s.io/enhancements/keps/sig-scheduling/3521-pod-scheduling-readiness.
+     * 
+     * This is an alpha-level feature enabled by PodSchedulingReadiness feature gate.
+     * 
+     */
+    public Optional<Output<List<PodSchedulingGatePatchArgs>>> schedulingGates() {
+        return Optional.ofNullable(this.schedulingGates);
     }
 
     /**
@@ -625,9 +669,11 @@ public final class PodSpecPatchArgs extends com.pulumi.resources.ResourceArgs {
         this.priority = $.priority;
         this.priorityClassName = $.priorityClassName;
         this.readinessGates = $.readinessGates;
+        this.resourceClaims = $.resourceClaims;
         this.restartPolicy = $.restartPolicy;
         this.runtimeClassName = $.runtimeClassName;
         this.schedulerName = $.schedulerName;
+        this.schedulingGates = $.schedulingGates;
         this.securityContext = $.securityContext;
         this.serviceAccount = $.serviceAccount;
         this.serviceAccountName = $.serviceAccountName;
@@ -1231,6 +1277,49 @@ public final class PodSpecPatchArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
+         * @param resourceClaims ResourceClaims defines which ResourceClaims must be allocated and reserved before the Pod is allowed to start. The resources will be made available to those containers which consume them by name.
+         * 
+         * This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+         * 
+         * This field is immutable.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder resourceClaims(@Nullable Output<List<PodResourceClaimPatchArgs>> resourceClaims) {
+            $.resourceClaims = resourceClaims;
+            return this;
+        }
+
+        /**
+         * @param resourceClaims ResourceClaims defines which ResourceClaims must be allocated and reserved before the Pod is allowed to start. The resources will be made available to those containers which consume them by name.
+         * 
+         * This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+         * 
+         * This field is immutable.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder resourceClaims(List<PodResourceClaimPatchArgs> resourceClaims) {
+            return resourceClaims(Output.of(resourceClaims));
+        }
+
+        /**
+         * @param resourceClaims ResourceClaims defines which ResourceClaims must be allocated and reserved before the Pod is allowed to start. The resources will be made available to those containers which consume them by name.
+         * 
+         * This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+         * 
+         * This field is immutable.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder resourceClaims(PodResourceClaimPatchArgs... resourceClaims) {
+            return resourceClaims(List.of(resourceClaims));
+        }
+
+        /**
          * @param restartPolicy Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
          * 
          * @return builder
@@ -1291,6 +1380,43 @@ public final class PodSpecPatchArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder schedulerName(String schedulerName) {
             return schedulerName(Output.of(schedulerName));
+        }
+
+        /**
+         * @param schedulingGates SchedulingGates is an opaque list of values that if specified will block scheduling the pod. More info:  https://git.k8s.io/enhancements/keps/sig-scheduling/3521-pod-scheduling-readiness.
+         * 
+         * This is an alpha-level feature enabled by PodSchedulingReadiness feature gate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder schedulingGates(@Nullable Output<List<PodSchedulingGatePatchArgs>> schedulingGates) {
+            $.schedulingGates = schedulingGates;
+            return this;
+        }
+
+        /**
+         * @param schedulingGates SchedulingGates is an opaque list of values that if specified will block scheduling the pod. More info:  https://git.k8s.io/enhancements/keps/sig-scheduling/3521-pod-scheduling-readiness.
+         * 
+         * This is an alpha-level feature enabled by PodSchedulingReadiness feature gate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder schedulingGates(List<PodSchedulingGatePatchArgs> schedulingGates) {
+            return schedulingGates(Output.of(schedulingGates));
+        }
+
+        /**
+         * @param schedulingGates SchedulingGates is an opaque list of values that if specified will block scheduling the pod. More info:  https://git.k8s.io/enhancements/keps/sig-scheduling/3521-pod-scheduling-readiness.
+         * 
+         * This is an alpha-level feature enabled by PodSchedulingReadiness feature gate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder schedulingGates(PodSchedulingGatePatchArgs... schedulingGates) {
+            return schedulingGates(List.of(schedulingGates));
         }
 
         /**

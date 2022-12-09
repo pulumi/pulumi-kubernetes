@@ -4815,7 +4815,7 @@ func (o QueuingConfigurationPatchPtrOutput) Queues() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) either (d1) the request does not specify a namespace (i.e., `Namespace==""`) and clusterScope is true or (d2) the request specifies a namespace and least one member of namespaces matches the request's namespace.
+// ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) least one member of namespaces matches the request.
 type ResourcePolicyRule struct {
 	// `apiGroups` is a list of matching API groups and may not be empty. "*" matches all API groups and, if present, must be the only entry. Required.
 	ApiGroups []string `pulumi:"apiGroups"`
@@ -4840,7 +4840,7 @@ type ResourcePolicyRuleInput interface {
 	ToResourcePolicyRuleOutputWithContext(context.Context) ResourcePolicyRuleOutput
 }
 
-// ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) either (d1) the request does not specify a namespace (i.e., `Namespace==""`) and clusterScope is true or (d2) the request specifies a namespace and least one member of namespaces matches the request's namespace.
+// ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) least one member of namespaces matches the request.
 type ResourcePolicyRuleArgs struct {
 	// `apiGroups` is a list of matching API groups and may not be empty. "*" matches all API groups and, if present, must be the only entry. Required.
 	ApiGroups pulumi.StringArrayInput `pulumi:"apiGroups"`
@@ -4891,7 +4891,7 @@ func (i ResourcePolicyRuleArray) ToResourcePolicyRuleArrayOutputWithContext(ctx 
 	return pulumi.ToOutputWithContext(ctx, i).(ResourcePolicyRuleArrayOutput)
 }
 
-// ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) either (d1) the request does not specify a namespace (i.e., `Namespace==""`) and clusterScope is true or (d2) the request specifies a namespace and least one member of namespaces matches the request's namespace.
+// ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) least one member of namespaces matches the request.
 type ResourcePolicyRuleOutput struct{ *pulumi.OutputState }
 
 func (ResourcePolicyRuleOutput) ElementType() reflect.Type {
@@ -4951,7 +4951,7 @@ func (o ResourcePolicyRuleArrayOutput) Index(i pulumi.IntInput) ResourcePolicyRu
 	}).(ResourcePolicyRuleOutput)
 }
 
-// ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) either (d1) the request does not specify a namespace (i.e., `Namespace==""`) and clusterScope is true or (d2) the request specifies a namespace and least one member of namespaces matches the request's namespace.
+// ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) least one member of namespaces matches the request.
 type ResourcePolicyRulePatch struct {
 	// `apiGroups` is a list of matching API groups and may not be empty. "*" matches all API groups and, if present, must be the only entry. Required.
 	ApiGroups []string `pulumi:"apiGroups"`
@@ -4976,7 +4976,7 @@ type ResourcePolicyRulePatchInput interface {
 	ToResourcePolicyRulePatchOutputWithContext(context.Context) ResourcePolicyRulePatchOutput
 }
 
-// ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) either (d1) the request does not specify a namespace (i.e., `Namespace==""`) and clusterScope is true or (d2) the request specifies a namespace and least one member of namespaces matches the request's namespace.
+// ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) least one member of namespaces matches the request.
 type ResourcePolicyRulePatchArgs struct {
 	// `apiGroups` is a list of matching API groups and may not be empty. "*" matches all API groups and, if present, must be the only entry. Required.
 	ApiGroups pulumi.StringArrayInput `pulumi:"apiGroups"`
@@ -5027,7 +5027,7 @@ func (i ResourcePolicyRulePatchArray) ToResourcePolicyRulePatchArrayOutputWithCo
 	return pulumi.ToOutputWithContext(ctx, i).(ResourcePolicyRulePatchArrayOutput)
 }
 
-// ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) either (d1) the request does not specify a namespace (i.e., `Namespace==""`) and clusterScope is true or (d2) the request specifies a namespace and least one member of namespaces matches the request's namespace.
+// ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) least one member of namespaces matches the request.
 type ResourcePolicyRulePatchOutput struct{ *pulumi.OutputState }
 
 func (ResourcePolicyRulePatchOutput) ElementType() reflect.Type {
@@ -5407,14 +5407,11 @@ func (o ServiceAccountSubjectPatchPtrOutput) Namespace() pulumi.StringPtrOutput 
 
 // Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.
 type Subject struct {
-	// `group` matches based on user group name.
 	Group *GroupSubject `pulumi:"group"`
-	// `kind` indicates which one of the other fields is non-empty. Required
-	Kind string `pulumi:"kind"`
-	// `serviceAccount` matches ServiceAccounts.
+	// Required
+	Kind           string                 `pulumi:"kind"`
 	ServiceAccount *ServiceAccountSubject `pulumi:"serviceAccount"`
-	// `user` matches based on username.
-	User *UserSubject `pulumi:"user"`
+	User           *UserSubject           `pulumi:"user"`
 }
 
 // SubjectInput is an input type that accepts SubjectArgs and SubjectOutput values.
@@ -5430,14 +5427,11 @@ type SubjectInput interface {
 
 // Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.
 type SubjectArgs struct {
-	// `group` matches based on user group name.
 	Group GroupSubjectPtrInput `pulumi:"group"`
-	// `kind` indicates which one of the other fields is non-empty. Required
-	Kind pulumi.StringInput `pulumi:"kind"`
-	// `serviceAccount` matches ServiceAccounts.
+	// Required
+	Kind           pulumi.StringInput            `pulumi:"kind"`
 	ServiceAccount ServiceAccountSubjectPtrInput `pulumi:"serviceAccount"`
-	// `user` matches based on username.
-	User UserSubjectPtrInput `pulumi:"user"`
+	User           UserSubjectPtrInput           `pulumi:"user"`
 }
 
 func (SubjectArgs) ElementType() reflect.Type {
@@ -5492,22 +5486,19 @@ func (o SubjectOutput) ToSubjectOutputWithContext(ctx context.Context) SubjectOu
 	return o
 }
 
-// `group` matches based on user group name.
 func (o SubjectOutput) Group() GroupSubjectPtrOutput {
 	return o.ApplyT(func(v Subject) *GroupSubject { return v.Group }).(GroupSubjectPtrOutput)
 }
 
-// `kind` indicates which one of the other fields is non-empty. Required
+// Required
 func (o SubjectOutput) Kind() pulumi.StringOutput {
 	return o.ApplyT(func(v Subject) string { return v.Kind }).(pulumi.StringOutput)
 }
 
-// `serviceAccount` matches ServiceAccounts.
 func (o SubjectOutput) ServiceAccount() ServiceAccountSubjectPtrOutput {
 	return o.ApplyT(func(v Subject) *ServiceAccountSubject { return v.ServiceAccount }).(ServiceAccountSubjectPtrOutput)
 }
 
-// `user` matches based on username.
 func (o SubjectOutput) User() UserSubjectPtrOutput {
 	return o.ApplyT(func(v Subject) *UserSubject { return v.User }).(UserSubjectPtrOutput)
 }
@@ -5534,14 +5525,11 @@ func (o SubjectArrayOutput) Index(i pulumi.IntInput) SubjectOutput {
 
 // Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.
 type SubjectPatch struct {
-	// `group` matches based on user group name.
 	Group *GroupSubjectPatch `pulumi:"group"`
-	// `kind` indicates which one of the other fields is non-empty. Required
-	Kind *string `pulumi:"kind"`
-	// `serviceAccount` matches ServiceAccounts.
+	// Required
+	Kind           *string                     `pulumi:"kind"`
 	ServiceAccount *ServiceAccountSubjectPatch `pulumi:"serviceAccount"`
-	// `user` matches based on username.
-	User *UserSubjectPatch `pulumi:"user"`
+	User           *UserSubjectPatch           `pulumi:"user"`
 }
 
 // SubjectPatchInput is an input type that accepts SubjectPatchArgs and SubjectPatchOutput values.
@@ -5557,14 +5545,11 @@ type SubjectPatchInput interface {
 
 // Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.
 type SubjectPatchArgs struct {
-	// `group` matches based on user group name.
 	Group GroupSubjectPatchPtrInput `pulumi:"group"`
-	// `kind` indicates which one of the other fields is non-empty. Required
-	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// `serviceAccount` matches ServiceAccounts.
+	// Required
+	Kind           pulumi.StringPtrInput              `pulumi:"kind"`
 	ServiceAccount ServiceAccountSubjectPatchPtrInput `pulumi:"serviceAccount"`
-	// `user` matches based on username.
-	User UserSubjectPatchPtrInput `pulumi:"user"`
+	User           UserSubjectPatchPtrInput           `pulumi:"user"`
 }
 
 func (SubjectPatchArgs) ElementType() reflect.Type {
@@ -5619,22 +5604,19 @@ func (o SubjectPatchOutput) ToSubjectPatchOutputWithContext(ctx context.Context)
 	return o
 }
 
-// `group` matches based on user group name.
 func (o SubjectPatchOutput) Group() GroupSubjectPatchPtrOutput {
 	return o.ApplyT(func(v SubjectPatch) *GroupSubjectPatch { return v.Group }).(GroupSubjectPatchPtrOutput)
 }
 
-// `kind` indicates which one of the other fields is non-empty. Required
+// Required
 func (o SubjectPatchOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v SubjectPatch) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// `serviceAccount` matches ServiceAccounts.
 func (o SubjectPatchOutput) ServiceAccount() ServiceAccountSubjectPatchPtrOutput {
 	return o.ApplyT(func(v SubjectPatch) *ServiceAccountSubjectPatch { return v.ServiceAccount }).(ServiceAccountSubjectPatchPtrOutput)
 }
 
-// `user` matches based on username.
 func (o SubjectPatchOutput) User() UserSubjectPatchPtrOutput {
 	return o.ApplyT(func(v SubjectPatch) *UserSubjectPatch { return v.User }).(UserSubjectPatchPtrOutput)
 }

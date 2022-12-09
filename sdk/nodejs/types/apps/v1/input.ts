@@ -552,7 +552,7 @@ export interface ReplicaSetStatus {
      */
     readyReplicas?: pulumi.Input<number>;
     /**
-     * Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+     * Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
      */
     replicas: pulumi.Input<number>;
 }
@@ -711,6 +711,32 @@ export interface StatefulSetCondition {
 }
 
 /**
+ * StatefulSetOrdinals describes the policy used for replica ordinal assignment in this StatefulSet.
+ */
+export interface StatefulSetOrdinals {
+    /**
+     * start is the number representing the first replica's index. It may be used to number replicas from an alternate index (eg: 1-indexed) over the default 0-indexed names, or to orchestrate progressive movement of replicas from one StatefulSet to another. If set, replica indices will be in the range:
+     *   [.spec.ordinals.start, .spec.ordinals.start + .spec.replicas).
+     * If unset, defaults to 0. Replica indices will be in the range:
+     *   [0, .spec.replicas).
+     */
+    start?: pulumi.Input<number>;
+}
+
+/**
+ * StatefulSetOrdinals describes the policy used for replica ordinal assignment in this StatefulSet.
+ */
+export interface StatefulSetOrdinalsPatch {
+    /**
+     * start is the number representing the first replica's index. It may be used to number replicas from an alternate index (eg: 1-indexed) over the default 0-indexed names, or to orchestrate progressive movement of replicas from one StatefulSet to another. If set, replica indices will be in the range:
+     *   [.spec.ordinals.start, .spec.ordinals.start + .spec.replicas).
+     * If unset, defaults to 0. Replica indices will be in the range:
+     *   [0, .spec.replicas).
+     */
+    start?: pulumi.Input<number>;
+}
+
+/**
  * StatefulSetPersistentVolumeClaimRetentionPolicy describes the policy used for PVCs created from the StatefulSet VolumeClaimTemplates.
  */
 export interface StatefulSetPersistentVolumeClaimRetentionPolicy {
@@ -747,6 +773,10 @@ export interface StatefulSetSpec {
      */
     minReadySeconds?: pulumi.Input<number>;
     /**
+     * ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is alpha.
+     */
+    ordinals?: pulumi.Input<inputs.apps.v1.StatefulSetOrdinals>;
+    /**
      * persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is alpha.  +optional
      */
     persistentVolumeClaimRetentionPolicy?: pulumi.Input<inputs.apps.v1.StatefulSetPersistentVolumeClaimRetentionPolicy>;
@@ -771,7 +801,7 @@ export interface StatefulSetSpec {
      */
     serviceName: pulumi.Input<string>;
     /**
-     * template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet.
+     * template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format <statefulsetname>-<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3".
      */
     template: pulumi.Input<inputs.core.v1.PodTemplateSpec>;
     /**
@@ -792,6 +822,10 @@ export interface StatefulSetSpecPatch {
      * Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
      */
     minReadySeconds?: pulumi.Input<number>;
+    /**
+     * ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is alpha.
+     */
+    ordinals?: pulumi.Input<inputs.apps.v1.StatefulSetOrdinalsPatch>;
     /**
      * persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is alpha.  +optional
      */
@@ -817,7 +851,7 @@ export interface StatefulSetSpecPatch {
      */
     serviceName?: pulumi.Input<string>;
     /**
-     * template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet.
+     * template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format <statefulsetname>-<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3".
      */
     template?: pulumi.Input<inputs.core.v1.PodTemplateSpecPatch>;
     /**

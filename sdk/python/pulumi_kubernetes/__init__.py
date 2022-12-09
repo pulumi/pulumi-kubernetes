@@ -56,6 +56,8 @@ if typing.TYPE_CHECKING:
     policy = __policy
     import pulumi_kubernetes.rbac as __rbac
     rbac = __rbac
+    import pulumi_kubernetes.resource as __resource
+    resource = __resource
     import pulumi_kubernetes.scheduling as __scheduling
     scheduling = __scheduling
     import pulumi_kubernetes.settings as __settings
@@ -88,6 +90,7 @@ else:
     node = _utilities.lazy_import('pulumi_kubernetes.node')
     policy = _utilities.lazy_import('pulumi_kubernetes.policy')
     rbac = _utilities.lazy_import('pulumi_kubernetes.rbac')
+    resource = _utilities.lazy_import('pulumi_kubernetes.resource')
     scheduling = _utilities.lazy_import('pulumi_kubernetes.scheduling')
     settings = _utilities.lazy_import('pulumi_kubernetes.settings')
     storage = _utilities.lazy_import('pulumi_kubernetes.storage')
@@ -107,6 +110,19 @@ _utilities.register(
    "kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfiguration": "ValidatingWebhookConfiguration",
    "kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfigurationList": "ValidatingWebhookConfigurationList",
    "kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfigurationPatch": "ValidatingWebhookConfigurationPatch"
+  }
+ },
+ {
+  "pkg": "kubernetes",
+  "mod": "admissionregistration.k8s.io/v1alpha1",
+  "fqn": "pulumi_kubernetes.admissionregistration.v1alpha1",
+  "classes": {
+   "kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicy": "ValidatingAdmissionPolicy",
+   "kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicyBinding": "ValidatingAdmissionPolicyBinding",
+   "kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicyBindingList": "ValidatingAdmissionPolicyBindingList",
+   "kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicyBindingPatch": "ValidatingAdmissionPolicyBindingPatch",
+   "kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicyList": "ValidatingAdmissionPolicyList",
+   "kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicyPatch": "ValidatingAdmissionPolicyPatch"
   }
  },
  {
@@ -241,6 +257,15 @@ _utilities.register(
    "kubernetes:authentication.k8s.io/v1:TokenRequestPatch": "TokenRequestPatch",
    "kubernetes:authentication.k8s.io/v1:TokenReview": "TokenReview",
    "kubernetes:authentication.k8s.io/v1:TokenReviewPatch": "TokenReviewPatch"
+  }
+ },
+ {
+  "pkg": "kubernetes",
+  "mod": "authentication.k8s.io/v1alpha1",
+  "fqn": "pulumi_kubernetes.authentication.v1alpha1",
+  "classes": {
+   "kubernetes:authentication.k8s.io/v1alpha1:SelfSubjectReview": "SelfSubjectReview",
+   "kubernetes:authentication.k8s.io/v1alpha1:SelfSubjectReviewPatch": "SelfSubjectReviewPatch"
   }
  },
  {
@@ -555,6 +580,19 @@ _utilities.register(
  },
  {
   "pkg": "kubernetes",
+  "mod": "flowcontrol.apiserver.k8s.io/v1beta3",
+  "fqn": "pulumi_kubernetes.flowcontrol.v1beta3",
+  "classes": {
+   "kubernetes:flowcontrol.apiserver.k8s.io/v1beta3:FlowSchema": "FlowSchema",
+   "kubernetes:flowcontrol.apiserver.k8s.io/v1beta3:FlowSchemaList": "FlowSchemaList",
+   "kubernetes:flowcontrol.apiserver.k8s.io/v1beta3:FlowSchemaPatch": "FlowSchemaPatch",
+   "kubernetes:flowcontrol.apiserver.k8s.io/v1beta3:PriorityLevelConfiguration": "PriorityLevelConfiguration",
+   "kubernetes:flowcontrol.apiserver.k8s.io/v1beta3:PriorityLevelConfigurationList": "PriorityLevelConfigurationList",
+   "kubernetes:flowcontrol.apiserver.k8s.io/v1beta3:PriorityLevelConfigurationPatch": "PriorityLevelConfigurationPatch"
+  }
+ },
+ {
+  "pkg": "kubernetes",
   "mod": "helm.sh/v3",
   "fqn": "pulumi_kubernetes.helm.v3",
   "classes": {
@@ -717,6 +755,25 @@ _utilities.register(
    "kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBindingPatch": "RoleBindingPatch",
    "kubernetes:rbac.authorization.k8s.io/v1beta1:RoleList": "RoleList",
    "kubernetes:rbac.authorization.k8s.io/v1beta1:RolePatch": "RolePatch"
+  }
+ },
+ {
+  "pkg": "kubernetes",
+  "mod": "resource.k8s.io/v1alpha1",
+  "fqn": "pulumi_kubernetes.resource.v1alpha1",
+  "classes": {
+   "kubernetes:resource.k8s.io/v1alpha1:PodScheduling": "PodScheduling",
+   "kubernetes:resource.k8s.io/v1alpha1:PodSchedulingList": "PodSchedulingList",
+   "kubernetes:resource.k8s.io/v1alpha1:PodSchedulingPatch": "PodSchedulingPatch",
+   "kubernetes:resource.k8s.io/v1alpha1:ResourceClaim": "ResourceClaim",
+   "kubernetes:resource.k8s.io/v1alpha1:ResourceClaimList": "ResourceClaimList",
+   "kubernetes:resource.k8s.io/v1alpha1:ResourceClaimPatch": "ResourceClaimPatch",
+   "kubernetes:resource.k8s.io/v1alpha1:ResourceClaimTemplate": "ResourceClaimTemplate",
+   "kubernetes:resource.k8s.io/v1alpha1:ResourceClaimTemplateList": "ResourceClaimTemplateList",
+   "kubernetes:resource.k8s.io/v1alpha1:ResourceClaimTemplatePatch": "ResourceClaimTemplatePatch",
+   "kubernetes:resource.k8s.io/v1alpha1:ResourceClass": "ResourceClass",
+   "kubernetes:resource.k8s.io/v1alpha1:ResourceClassList": "ResourceClassList",
+   "kubernetes:resource.k8s.io/v1alpha1:ResourceClassPatch": "ResourceClassPatch"
   }
  },
  {

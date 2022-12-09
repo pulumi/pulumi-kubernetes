@@ -590,11 +590,11 @@ func (o HTTPIngressRuleValuePatchPtrOutput) Paths() HTTPIngressPathPatchArrayOut
 	}).(HTTPIngressPathPatchArrayOutput)
 }
 
-// IPBlock describes a particular CIDR (Ex. "192.168.1.1/24","2001:db9::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
+// IPBlock describes a particular CIDR (Ex. "192.168.1.0/24","2001:db8::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
 type IPBlock struct {
-	// CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64"
+	// CIDR is a string representing the IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64"
 	Cidr string `pulumi:"cidr"`
-	// Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64" Except values will be rejected if they are outside the CIDR range
+	// Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the CIDR range
 	Except []string `pulumi:"except"`
 }
 
@@ -609,11 +609,11 @@ type IPBlockInput interface {
 	ToIPBlockOutputWithContext(context.Context) IPBlockOutput
 }
 
-// IPBlock describes a particular CIDR (Ex. "192.168.1.1/24","2001:db9::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
+// IPBlock describes a particular CIDR (Ex. "192.168.1.0/24","2001:db8::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
 type IPBlockArgs struct {
-	// CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64"
+	// CIDR is a string representing the IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64"
 	Cidr pulumi.StringInput `pulumi:"cidr"`
-	// Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64" Except values will be rejected if they are outside the CIDR range
+	// Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the CIDR range
 	Except pulumi.StringArrayInput `pulumi:"except"`
 }
 
@@ -670,7 +670,7 @@ func (i *ipblockPtrType) ToIPBlockPtrOutputWithContext(ctx context.Context) IPBl
 	return pulumi.ToOutputWithContext(ctx, i).(IPBlockPtrOutput)
 }
 
-// IPBlock describes a particular CIDR (Ex. "192.168.1.1/24","2001:db9::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
+// IPBlock describes a particular CIDR (Ex. "192.168.1.0/24","2001:db8::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
 type IPBlockOutput struct{ *pulumi.OutputState }
 
 func (IPBlockOutput) ElementType() reflect.Type {
@@ -695,12 +695,12 @@ func (o IPBlockOutput) ToIPBlockPtrOutputWithContext(ctx context.Context) IPBloc
 	}).(IPBlockPtrOutput)
 }
 
-// CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64"
+// CIDR is a string representing the IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64"
 func (o IPBlockOutput) Cidr() pulumi.StringOutput {
 	return o.ApplyT(func(v IPBlock) string { return v.Cidr }).(pulumi.StringOutput)
 }
 
-// Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64" Except values will be rejected if they are outside the CIDR range
+// Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the CIDR range
 func (o IPBlockOutput) Except() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v IPBlock) []string { return v.Except }).(pulumi.StringArrayOutput)
 }
@@ -729,7 +729,7 @@ func (o IPBlockPtrOutput) Elem() IPBlockOutput {
 	}).(IPBlockOutput)
 }
 
-// CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64"
+// CIDR is a string representing the IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64"
 func (o IPBlockPtrOutput) Cidr() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *IPBlock) *string {
 		if v == nil {
@@ -739,7 +739,7 @@ func (o IPBlockPtrOutput) Cidr() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64" Except values will be rejected if they are outside the CIDR range
+// Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the CIDR range
 func (o IPBlockPtrOutput) Except() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *IPBlock) []string {
 		if v == nil {
@@ -749,11 +749,11 @@ func (o IPBlockPtrOutput) Except() pulumi.StringArrayOutput {
 	}).(pulumi.StringArrayOutput)
 }
 
-// IPBlock describes a particular CIDR (Ex. "192.168.1.1/24","2001:db9::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
+// IPBlock describes a particular CIDR (Ex. "192.168.1.0/24","2001:db8::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
 type IPBlockPatch struct {
-	// CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64"
+	// CIDR is a string representing the IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64"
 	Cidr *string `pulumi:"cidr"`
-	// Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64" Except values will be rejected if they are outside the CIDR range
+	// Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the CIDR range
 	Except []string `pulumi:"except"`
 }
 
@@ -768,11 +768,11 @@ type IPBlockPatchInput interface {
 	ToIPBlockPatchOutputWithContext(context.Context) IPBlockPatchOutput
 }
 
-// IPBlock describes a particular CIDR (Ex. "192.168.1.1/24","2001:db9::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
+// IPBlock describes a particular CIDR (Ex. "192.168.1.0/24","2001:db8::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
 type IPBlockPatchArgs struct {
-	// CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64"
+	// CIDR is a string representing the IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64"
 	Cidr pulumi.StringPtrInput `pulumi:"cidr"`
-	// Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64" Except values will be rejected if they are outside the CIDR range
+	// Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the CIDR range
 	Except pulumi.StringArrayInput `pulumi:"except"`
 }
 
@@ -829,7 +829,7 @@ func (i *ipblockPatchPtrType) ToIPBlockPatchPtrOutputWithContext(ctx context.Con
 	return pulumi.ToOutputWithContext(ctx, i).(IPBlockPatchPtrOutput)
 }
 
-// IPBlock describes a particular CIDR (Ex. "192.168.1.1/24","2001:db9::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
+// IPBlock describes a particular CIDR (Ex. "192.168.1.0/24","2001:db8::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
 type IPBlockPatchOutput struct{ *pulumi.OutputState }
 
 func (IPBlockPatchOutput) ElementType() reflect.Type {
@@ -854,12 +854,12 @@ func (o IPBlockPatchOutput) ToIPBlockPatchPtrOutputWithContext(ctx context.Conte
 	}).(IPBlockPatchPtrOutput)
 }
 
-// CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64"
+// CIDR is a string representing the IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64"
 func (o IPBlockPatchOutput) Cidr() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IPBlockPatch) *string { return v.Cidr }).(pulumi.StringPtrOutput)
 }
 
-// Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64" Except values will be rejected if they are outside the CIDR range
+// Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the CIDR range
 func (o IPBlockPatchOutput) Except() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v IPBlockPatch) []string { return v.Except }).(pulumi.StringArrayOutput)
 }
@@ -888,7 +888,7 @@ func (o IPBlockPatchPtrOutput) Elem() IPBlockPatchOutput {
 	}).(IPBlockPatchOutput)
 }
 
-// CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64"
+// CIDR is a string representing the IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64"
 func (o IPBlockPatchPtrOutput) Cidr() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *IPBlockPatch) *string {
 		if v == nil {
@@ -898,7 +898,7 @@ func (o IPBlockPatchPtrOutput) Cidr() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64" Except values will be rejected if they are outside the CIDR range
+// Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the CIDR range
 func (o IPBlockPatchPtrOutput) Except() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *IPBlockPatch) []string {
 		if v == nil {
@@ -2527,6 +2527,522 @@ func (o IngressListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 	return o.ApplyT(func(v IngressListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
 }
 
+// IngressLoadBalancerIngress represents the status of a load-balancer ingress point.
+type IngressLoadBalancerIngress struct {
+	// Hostname is set for load-balancer ingress points that are DNS based.
+	Hostname *string `pulumi:"hostname"`
+	// IP is set for load-balancer ingress points that are IP based.
+	Ip *string `pulumi:"ip"`
+	// Ports provides information about the ports exposed by this LoadBalancer.
+	Ports []IngressPortStatus `pulumi:"ports"`
+}
+
+// IngressLoadBalancerIngressInput is an input type that accepts IngressLoadBalancerIngressArgs and IngressLoadBalancerIngressOutput values.
+// You can construct a concrete instance of `IngressLoadBalancerIngressInput` via:
+//
+//	IngressLoadBalancerIngressArgs{...}
+type IngressLoadBalancerIngressInput interface {
+	pulumi.Input
+
+	ToIngressLoadBalancerIngressOutput() IngressLoadBalancerIngressOutput
+	ToIngressLoadBalancerIngressOutputWithContext(context.Context) IngressLoadBalancerIngressOutput
+}
+
+// IngressLoadBalancerIngress represents the status of a load-balancer ingress point.
+type IngressLoadBalancerIngressArgs struct {
+	// Hostname is set for load-balancer ingress points that are DNS based.
+	Hostname pulumi.StringPtrInput `pulumi:"hostname"`
+	// IP is set for load-balancer ingress points that are IP based.
+	Ip pulumi.StringPtrInput `pulumi:"ip"`
+	// Ports provides information about the ports exposed by this LoadBalancer.
+	Ports IngressPortStatusArrayInput `pulumi:"ports"`
+}
+
+func (IngressLoadBalancerIngressArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*IngressLoadBalancerIngress)(nil)).Elem()
+}
+
+func (i IngressLoadBalancerIngressArgs) ToIngressLoadBalancerIngressOutput() IngressLoadBalancerIngressOutput {
+	return i.ToIngressLoadBalancerIngressOutputWithContext(context.Background())
+}
+
+func (i IngressLoadBalancerIngressArgs) ToIngressLoadBalancerIngressOutputWithContext(ctx context.Context) IngressLoadBalancerIngressOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IngressLoadBalancerIngressOutput)
+}
+
+// IngressLoadBalancerIngressArrayInput is an input type that accepts IngressLoadBalancerIngressArray and IngressLoadBalancerIngressArrayOutput values.
+// You can construct a concrete instance of `IngressLoadBalancerIngressArrayInput` via:
+//
+//	IngressLoadBalancerIngressArray{ IngressLoadBalancerIngressArgs{...} }
+type IngressLoadBalancerIngressArrayInput interface {
+	pulumi.Input
+
+	ToIngressLoadBalancerIngressArrayOutput() IngressLoadBalancerIngressArrayOutput
+	ToIngressLoadBalancerIngressArrayOutputWithContext(context.Context) IngressLoadBalancerIngressArrayOutput
+}
+
+type IngressLoadBalancerIngressArray []IngressLoadBalancerIngressInput
+
+func (IngressLoadBalancerIngressArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]IngressLoadBalancerIngress)(nil)).Elem()
+}
+
+func (i IngressLoadBalancerIngressArray) ToIngressLoadBalancerIngressArrayOutput() IngressLoadBalancerIngressArrayOutput {
+	return i.ToIngressLoadBalancerIngressArrayOutputWithContext(context.Background())
+}
+
+func (i IngressLoadBalancerIngressArray) ToIngressLoadBalancerIngressArrayOutputWithContext(ctx context.Context) IngressLoadBalancerIngressArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IngressLoadBalancerIngressArrayOutput)
+}
+
+// IngressLoadBalancerIngress represents the status of a load-balancer ingress point.
+type IngressLoadBalancerIngressOutput struct{ *pulumi.OutputState }
+
+func (IngressLoadBalancerIngressOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IngressLoadBalancerIngress)(nil)).Elem()
+}
+
+func (o IngressLoadBalancerIngressOutput) ToIngressLoadBalancerIngressOutput() IngressLoadBalancerIngressOutput {
+	return o
+}
+
+func (o IngressLoadBalancerIngressOutput) ToIngressLoadBalancerIngressOutputWithContext(ctx context.Context) IngressLoadBalancerIngressOutput {
+	return o
+}
+
+// Hostname is set for load-balancer ingress points that are DNS based.
+func (o IngressLoadBalancerIngressOutput) Hostname() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IngressLoadBalancerIngress) *string { return v.Hostname }).(pulumi.StringPtrOutput)
+}
+
+// IP is set for load-balancer ingress points that are IP based.
+func (o IngressLoadBalancerIngressOutput) Ip() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IngressLoadBalancerIngress) *string { return v.Ip }).(pulumi.StringPtrOutput)
+}
+
+// Ports provides information about the ports exposed by this LoadBalancer.
+func (o IngressLoadBalancerIngressOutput) Ports() IngressPortStatusArrayOutput {
+	return o.ApplyT(func(v IngressLoadBalancerIngress) []IngressPortStatus { return v.Ports }).(IngressPortStatusArrayOutput)
+}
+
+type IngressLoadBalancerIngressArrayOutput struct{ *pulumi.OutputState }
+
+func (IngressLoadBalancerIngressArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]IngressLoadBalancerIngress)(nil)).Elem()
+}
+
+func (o IngressLoadBalancerIngressArrayOutput) ToIngressLoadBalancerIngressArrayOutput() IngressLoadBalancerIngressArrayOutput {
+	return o
+}
+
+func (o IngressLoadBalancerIngressArrayOutput) ToIngressLoadBalancerIngressArrayOutputWithContext(ctx context.Context) IngressLoadBalancerIngressArrayOutput {
+	return o
+}
+
+func (o IngressLoadBalancerIngressArrayOutput) Index(i pulumi.IntInput) IngressLoadBalancerIngressOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) IngressLoadBalancerIngress {
+		return vs[0].([]IngressLoadBalancerIngress)[vs[1].(int)]
+	}).(IngressLoadBalancerIngressOutput)
+}
+
+// IngressLoadBalancerIngress represents the status of a load-balancer ingress point.
+type IngressLoadBalancerIngressPatch struct {
+	// Hostname is set for load-balancer ingress points that are DNS based.
+	Hostname *string `pulumi:"hostname"`
+	// IP is set for load-balancer ingress points that are IP based.
+	Ip *string `pulumi:"ip"`
+	// Ports provides information about the ports exposed by this LoadBalancer.
+	Ports []IngressPortStatusPatch `pulumi:"ports"`
+}
+
+// IngressLoadBalancerIngressPatchInput is an input type that accepts IngressLoadBalancerIngressPatchArgs and IngressLoadBalancerIngressPatchOutput values.
+// You can construct a concrete instance of `IngressLoadBalancerIngressPatchInput` via:
+//
+//	IngressLoadBalancerIngressPatchArgs{...}
+type IngressLoadBalancerIngressPatchInput interface {
+	pulumi.Input
+
+	ToIngressLoadBalancerIngressPatchOutput() IngressLoadBalancerIngressPatchOutput
+	ToIngressLoadBalancerIngressPatchOutputWithContext(context.Context) IngressLoadBalancerIngressPatchOutput
+}
+
+// IngressLoadBalancerIngress represents the status of a load-balancer ingress point.
+type IngressLoadBalancerIngressPatchArgs struct {
+	// Hostname is set for load-balancer ingress points that are DNS based.
+	Hostname pulumi.StringPtrInput `pulumi:"hostname"`
+	// IP is set for load-balancer ingress points that are IP based.
+	Ip pulumi.StringPtrInput `pulumi:"ip"`
+	// Ports provides information about the ports exposed by this LoadBalancer.
+	Ports IngressPortStatusPatchArrayInput `pulumi:"ports"`
+}
+
+func (IngressLoadBalancerIngressPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*IngressLoadBalancerIngressPatch)(nil)).Elem()
+}
+
+func (i IngressLoadBalancerIngressPatchArgs) ToIngressLoadBalancerIngressPatchOutput() IngressLoadBalancerIngressPatchOutput {
+	return i.ToIngressLoadBalancerIngressPatchOutputWithContext(context.Background())
+}
+
+func (i IngressLoadBalancerIngressPatchArgs) ToIngressLoadBalancerIngressPatchOutputWithContext(ctx context.Context) IngressLoadBalancerIngressPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IngressLoadBalancerIngressPatchOutput)
+}
+
+// IngressLoadBalancerIngressPatchArrayInput is an input type that accepts IngressLoadBalancerIngressPatchArray and IngressLoadBalancerIngressPatchArrayOutput values.
+// You can construct a concrete instance of `IngressLoadBalancerIngressPatchArrayInput` via:
+//
+//	IngressLoadBalancerIngressPatchArray{ IngressLoadBalancerIngressPatchArgs{...} }
+type IngressLoadBalancerIngressPatchArrayInput interface {
+	pulumi.Input
+
+	ToIngressLoadBalancerIngressPatchArrayOutput() IngressLoadBalancerIngressPatchArrayOutput
+	ToIngressLoadBalancerIngressPatchArrayOutputWithContext(context.Context) IngressLoadBalancerIngressPatchArrayOutput
+}
+
+type IngressLoadBalancerIngressPatchArray []IngressLoadBalancerIngressPatchInput
+
+func (IngressLoadBalancerIngressPatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]IngressLoadBalancerIngressPatch)(nil)).Elem()
+}
+
+func (i IngressLoadBalancerIngressPatchArray) ToIngressLoadBalancerIngressPatchArrayOutput() IngressLoadBalancerIngressPatchArrayOutput {
+	return i.ToIngressLoadBalancerIngressPatchArrayOutputWithContext(context.Background())
+}
+
+func (i IngressLoadBalancerIngressPatchArray) ToIngressLoadBalancerIngressPatchArrayOutputWithContext(ctx context.Context) IngressLoadBalancerIngressPatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IngressLoadBalancerIngressPatchArrayOutput)
+}
+
+// IngressLoadBalancerIngress represents the status of a load-balancer ingress point.
+type IngressLoadBalancerIngressPatchOutput struct{ *pulumi.OutputState }
+
+func (IngressLoadBalancerIngressPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IngressLoadBalancerIngressPatch)(nil)).Elem()
+}
+
+func (o IngressLoadBalancerIngressPatchOutput) ToIngressLoadBalancerIngressPatchOutput() IngressLoadBalancerIngressPatchOutput {
+	return o
+}
+
+func (o IngressLoadBalancerIngressPatchOutput) ToIngressLoadBalancerIngressPatchOutputWithContext(ctx context.Context) IngressLoadBalancerIngressPatchOutput {
+	return o
+}
+
+// Hostname is set for load-balancer ingress points that are DNS based.
+func (o IngressLoadBalancerIngressPatchOutput) Hostname() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IngressLoadBalancerIngressPatch) *string { return v.Hostname }).(pulumi.StringPtrOutput)
+}
+
+// IP is set for load-balancer ingress points that are IP based.
+func (o IngressLoadBalancerIngressPatchOutput) Ip() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IngressLoadBalancerIngressPatch) *string { return v.Ip }).(pulumi.StringPtrOutput)
+}
+
+// Ports provides information about the ports exposed by this LoadBalancer.
+func (o IngressLoadBalancerIngressPatchOutput) Ports() IngressPortStatusPatchArrayOutput {
+	return o.ApplyT(func(v IngressLoadBalancerIngressPatch) []IngressPortStatusPatch { return v.Ports }).(IngressPortStatusPatchArrayOutput)
+}
+
+type IngressLoadBalancerIngressPatchArrayOutput struct{ *pulumi.OutputState }
+
+func (IngressLoadBalancerIngressPatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]IngressLoadBalancerIngressPatch)(nil)).Elem()
+}
+
+func (o IngressLoadBalancerIngressPatchArrayOutput) ToIngressLoadBalancerIngressPatchArrayOutput() IngressLoadBalancerIngressPatchArrayOutput {
+	return o
+}
+
+func (o IngressLoadBalancerIngressPatchArrayOutput) ToIngressLoadBalancerIngressPatchArrayOutputWithContext(ctx context.Context) IngressLoadBalancerIngressPatchArrayOutput {
+	return o
+}
+
+func (o IngressLoadBalancerIngressPatchArrayOutput) Index(i pulumi.IntInput) IngressLoadBalancerIngressPatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) IngressLoadBalancerIngressPatch {
+		return vs[0].([]IngressLoadBalancerIngressPatch)[vs[1].(int)]
+	}).(IngressLoadBalancerIngressPatchOutput)
+}
+
+// IngressLoadBalancerStatus represents the status of a load-balancer.
+type IngressLoadBalancerStatus struct {
+	// Ingress is a list containing ingress points for the load-balancer.
+	Ingress []IngressLoadBalancerIngress `pulumi:"ingress"`
+}
+
+// IngressLoadBalancerStatusInput is an input type that accepts IngressLoadBalancerStatusArgs and IngressLoadBalancerStatusOutput values.
+// You can construct a concrete instance of `IngressLoadBalancerStatusInput` via:
+//
+//	IngressLoadBalancerStatusArgs{...}
+type IngressLoadBalancerStatusInput interface {
+	pulumi.Input
+
+	ToIngressLoadBalancerStatusOutput() IngressLoadBalancerStatusOutput
+	ToIngressLoadBalancerStatusOutputWithContext(context.Context) IngressLoadBalancerStatusOutput
+}
+
+// IngressLoadBalancerStatus represents the status of a load-balancer.
+type IngressLoadBalancerStatusArgs struct {
+	// Ingress is a list containing ingress points for the load-balancer.
+	Ingress IngressLoadBalancerIngressArrayInput `pulumi:"ingress"`
+}
+
+func (IngressLoadBalancerStatusArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*IngressLoadBalancerStatus)(nil)).Elem()
+}
+
+func (i IngressLoadBalancerStatusArgs) ToIngressLoadBalancerStatusOutput() IngressLoadBalancerStatusOutput {
+	return i.ToIngressLoadBalancerStatusOutputWithContext(context.Background())
+}
+
+func (i IngressLoadBalancerStatusArgs) ToIngressLoadBalancerStatusOutputWithContext(ctx context.Context) IngressLoadBalancerStatusOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IngressLoadBalancerStatusOutput)
+}
+
+func (i IngressLoadBalancerStatusArgs) ToIngressLoadBalancerStatusPtrOutput() IngressLoadBalancerStatusPtrOutput {
+	return i.ToIngressLoadBalancerStatusPtrOutputWithContext(context.Background())
+}
+
+func (i IngressLoadBalancerStatusArgs) ToIngressLoadBalancerStatusPtrOutputWithContext(ctx context.Context) IngressLoadBalancerStatusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IngressLoadBalancerStatusOutput).ToIngressLoadBalancerStatusPtrOutputWithContext(ctx)
+}
+
+// IngressLoadBalancerStatusPtrInput is an input type that accepts IngressLoadBalancerStatusArgs, IngressLoadBalancerStatusPtr and IngressLoadBalancerStatusPtrOutput values.
+// You can construct a concrete instance of `IngressLoadBalancerStatusPtrInput` via:
+//
+//	        IngressLoadBalancerStatusArgs{...}
+//
+//	or:
+//
+//	        nil
+type IngressLoadBalancerStatusPtrInput interface {
+	pulumi.Input
+
+	ToIngressLoadBalancerStatusPtrOutput() IngressLoadBalancerStatusPtrOutput
+	ToIngressLoadBalancerStatusPtrOutputWithContext(context.Context) IngressLoadBalancerStatusPtrOutput
+}
+
+type ingressLoadBalancerStatusPtrType IngressLoadBalancerStatusArgs
+
+func IngressLoadBalancerStatusPtr(v *IngressLoadBalancerStatusArgs) IngressLoadBalancerStatusPtrInput {
+	return (*ingressLoadBalancerStatusPtrType)(v)
+}
+
+func (*ingressLoadBalancerStatusPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**IngressLoadBalancerStatus)(nil)).Elem()
+}
+
+func (i *ingressLoadBalancerStatusPtrType) ToIngressLoadBalancerStatusPtrOutput() IngressLoadBalancerStatusPtrOutput {
+	return i.ToIngressLoadBalancerStatusPtrOutputWithContext(context.Background())
+}
+
+func (i *ingressLoadBalancerStatusPtrType) ToIngressLoadBalancerStatusPtrOutputWithContext(ctx context.Context) IngressLoadBalancerStatusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IngressLoadBalancerStatusPtrOutput)
+}
+
+// IngressLoadBalancerStatus represents the status of a load-balancer.
+type IngressLoadBalancerStatusOutput struct{ *pulumi.OutputState }
+
+func (IngressLoadBalancerStatusOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IngressLoadBalancerStatus)(nil)).Elem()
+}
+
+func (o IngressLoadBalancerStatusOutput) ToIngressLoadBalancerStatusOutput() IngressLoadBalancerStatusOutput {
+	return o
+}
+
+func (o IngressLoadBalancerStatusOutput) ToIngressLoadBalancerStatusOutputWithContext(ctx context.Context) IngressLoadBalancerStatusOutput {
+	return o
+}
+
+func (o IngressLoadBalancerStatusOutput) ToIngressLoadBalancerStatusPtrOutput() IngressLoadBalancerStatusPtrOutput {
+	return o.ToIngressLoadBalancerStatusPtrOutputWithContext(context.Background())
+}
+
+func (o IngressLoadBalancerStatusOutput) ToIngressLoadBalancerStatusPtrOutputWithContext(ctx context.Context) IngressLoadBalancerStatusPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v IngressLoadBalancerStatus) *IngressLoadBalancerStatus {
+		return &v
+	}).(IngressLoadBalancerStatusPtrOutput)
+}
+
+// Ingress is a list containing ingress points for the load-balancer.
+func (o IngressLoadBalancerStatusOutput) Ingress() IngressLoadBalancerIngressArrayOutput {
+	return o.ApplyT(func(v IngressLoadBalancerStatus) []IngressLoadBalancerIngress { return v.Ingress }).(IngressLoadBalancerIngressArrayOutput)
+}
+
+type IngressLoadBalancerStatusPtrOutput struct{ *pulumi.OutputState }
+
+func (IngressLoadBalancerStatusPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**IngressLoadBalancerStatus)(nil)).Elem()
+}
+
+func (o IngressLoadBalancerStatusPtrOutput) ToIngressLoadBalancerStatusPtrOutput() IngressLoadBalancerStatusPtrOutput {
+	return o
+}
+
+func (o IngressLoadBalancerStatusPtrOutput) ToIngressLoadBalancerStatusPtrOutputWithContext(ctx context.Context) IngressLoadBalancerStatusPtrOutput {
+	return o
+}
+
+func (o IngressLoadBalancerStatusPtrOutput) Elem() IngressLoadBalancerStatusOutput {
+	return o.ApplyT(func(v *IngressLoadBalancerStatus) IngressLoadBalancerStatus {
+		if v != nil {
+			return *v
+		}
+		var ret IngressLoadBalancerStatus
+		return ret
+	}).(IngressLoadBalancerStatusOutput)
+}
+
+// Ingress is a list containing ingress points for the load-balancer.
+func (o IngressLoadBalancerStatusPtrOutput) Ingress() IngressLoadBalancerIngressArrayOutput {
+	return o.ApplyT(func(v *IngressLoadBalancerStatus) []IngressLoadBalancerIngress {
+		if v == nil {
+			return nil
+		}
+		return v.Ingress
+	}).(IngressLoadBalancerIngressArrayOutput)
+}
+
+// IngressLoadBalancerStatus represents the status of a load-balancer.
+type IngressLoadBalancerStatusPatch struct {
+	// Ingress is a list containing ingress points for the load-balancer.
+	Ingress []IngressLoadBalancerIngressPatch `pulumi:"ingress"`
+}
+
+// IngressLoadBalancerStatusPatchInput is an input type that accepts IngressLoadBalancerStatusPatchArgs and IngressLoadBalancerStatusPatchOutput values.
+// You can construct a concrete instance of `IngressLoadBalancerStatusPatchInput` via:
+//
+//	IngressLoadBalancerStatusPatchArgs{...}
+type IngressLoadBalancerStatusPatchInput interface {
+	pulumi.Input
+
+	ToIngressLoadBalancerStatusPatchOutput() IngressLoadBalancerStatusPatchOutput
+	ToIngressLoadBalancerStatusPatchOutputWithContext(context.Context) IngressLoadBalancerStatusPatchOutput
+}
+
+// IngressLoadBalancerStatus represents the status of a load-balancer.
+type IngressLoadBalancerStatusPatchArgs struct {
+	// Ingress is a list containing ingress points for the load-balancer.
+	Ingress IngressLoadBalancerIngressPatchArrayInput `pulumi:"ingress"`
+}
+
+func (IngressLoadBalancerStatusPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*IngressLoadBalancerStatusPatch)(nil)).Elem()
+}
+
+func (i IngressLoadBalancerStatusPatchArgs) ToIngressLoadBalancerStatusPatchOutput() IngressLoadBalancerStatusPatchOutput {
+	return i.ToIngressLoadBalancerStatusPatchOutputWithContext(context.Background())
+}
+
+func (i IngressLoadBalancerStatusPatchArgs) ToIngressLoadBalancerStatusPatchOutputWithContext(ctx context.Context) IngressLoadBalancerStatusPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IngressLoadBalancerStatusPatchOutput)
+}
+
+func (i IngressLoadBalancerStatusPatchArgs) ToIngressLoadBalancerStatusPatchPtrOutput() IngressLoadBalancerStatusPatchPtrOutput {
+	return i.ToIngressLoadBalancerStatusPatchPtrOutputWithContext(context.Background())
+}
+
+func (i IngressLoadBalancerStatusPatchArgs) ToIngressLoadBalancerStatusPatchPtrOutputWithContext(ctx context.Context) IngressLoadBalancerStatusPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IngressLoadBalancerStatusPatchOutput).ToIngressLoadBalancerStatusPatchPtrOutputWithContext(ctx)
+}
+
+// IngressLoadBalancerStatusPatchPtrInput is an input type that accepts IngressLoadBalancerStatusPatchArgs, IngressLoadBalancerStatusPatchPtr and IngressLoadBalancerStatusPatchPtrOutput values.
+// You can construct a concrete instance of `IngressLoadBalancerStatusPatchPtrInput` via:
+//
+//	        IngressLoadBalancerStatusPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type IngressLoadBalancerStatusPatchPtrInput interface {
+	pulumi.Input
+
+	ToIngressLoadBalancerStatusPatchPtrOutput() IngressLoadBalancerStatusPatchPtrOutput
+	ToIngressLoadBalancerStatusPatchPtrOutputWithContext(context.Context) IngressLoadBalancerStatusPatchPtrOutput
+}
+
+type ingressLoadBalancerStatusPatchPtrType IngressLoadBalancerStatusPatchArgs
+
+func IngressLoadBalancerStatusPatchPtr(v *IngressLoadBalancerStatusPatchArgs) IngressLoadBalancerStatusPatchPtrInput {
+	return (*ingressLoadBalancerStatusPatchPtrType)(v)
+}
+
+func (*ingressLoadBalancerStatusPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**IngressLoadBalancerStatusPatch)(nil)).Elem()
+}
+
+func (i *ingressLoadBalancerStatusPatchPtrType) ToIngressLoadBalancerStatusPatchPtrOutput() IngressLoadBalancerStatusPatchPtrOutput {
+	return i.ToIngressLoadBalancerStatusPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *ingressLoadBalancerStatusPatchPtrType) ToIngressLoadBalancerStatusPatchPtrOutputWithContext(ctx context.Context) IngressLoadBalancerStatusPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IngressLoadBalancerStatusPatchPtrOutput)
+}
+
+// IngressLoadBalancerStatus represents the status of a load-balancer.
+type IngressLoadBalancerStatusPatchOutput struct{ *pulumi.OutputState }
+
+func (IngressLoadBalancerStatusPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IngressLoadBalancerStatusPatch)(nil)).Elem()
+}
+
+func (o IngressLoadBalancerStatusPatchOutput) ToIngressLoadBalancerStatusPatchOutput() IngressLoadBalancerStatusPatchOutput {
+	return o
+}
+
+func (o IngressLoadBalancerStatusPatchOutput) ToIngressLoadBalancerStatusPatchOutputWithContext(ctx context.Context) IngressLoadBalancerStatusPatchOutput {
+	return o
+}
+
+func (o IngressLoadBalancerStatusPatchOutput) ToIngressLoadBalancerStatusPatchPtrOutput() IngressLoadBalancerStatusPatchPtrOutput {
+	return o.ToIngressLoadBalancerStatusPatchPtrOutputWithContext(context.Background())
+}
+
+func (o IngressLoadBalancerStatusPatchOutput) ToIngressLoadBalancerStatusPatchPtrOutputWithContext(ctx context.Context) IngressLoadBalancerStatusPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v IngressLoadBalancerStatusPatch) *IngressLoadBalancerStatusPatch {
+		return &v
+	}).(IngressLoadBalancerStatusPatchPtrOutput)
+}
+
+// Ingress is a list containing ingress points for the load-balancer.
+func (o IngressLoadBalancerStatusPatchOutput) Ingress() IngressLoadBalancerIngressPatchArrayOutput {
+	return o.ApplyT(func(v IngressLoadBalancerStatusPatch) []IngressLoadBalancerIngressPatch { return v.Ingress }).(IngressLoadBalancerIngressPatchArrayOutput)
+}
+
+type IngressLoadBalancerStatusPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (IngressLoadBalancerStatusPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**IngressLoadBalancerStatusPatch)(nil)).Elem()
+}
+
+func (o IngressLoadBalancerStatusPatchPtrOutput) ToIngressLoadBalancerStatusPatchPtrOutput() IngressLoadBalancerStatusPatchPtrOutput {
+	return o
+}
+
+func (o IngressLoadBalancerStatusPatchPtrOutput) ToIngressLoadBalancerStatusPatchPtrOutputWithContext(ctx context.Context) IngressLoadBalancerStatusPatchPtrOutput {
+	return o
+}
+
+func (o IngressLoadBalancerStatusPatchPtrOutput) Elem() IngressLoadBalancerStatusPatchOutput {
+	return o.ApplyT(func(v *IngressLoadBalancerStatusPatch) IngressLoadBalancerStatusPatch {
+		if v != nil {
+			return *v
+		}
+		var ret IngressLoadBalancerStatusPatch
+		return ret
+	}).(IngressLoadBalancerStatusPatchOutput)
+}
+
+// Ingress is a list containing ingress points for the load-balancer.
+func (o IngressLoadBalancerStatusPatchPtrOutput) Ingress() IngressLoadBalancerIngressPatchArrayOutput {
+	return o.ApplyT(func(v *IngressLoadBalancerStatusPatch) []IngressLoadBalancerIngressPatch {
+		if v == nil {
+			return nil
+		}
+		return v.Ingress
+	}).(IngressLoadBalancerIngressPatchArrayOutput)
+}
+
 // Ingress is a collection of rules that allow inbound connections to reach the endpoints defined by a backend. An Ingress can be configured to give services externally-reachable urls, load balance traffic, terminate SSL, offer name based virtual hosting etc.
 //
 // This resource waits until its status is ready before registering success
@@ -2658,6 +3174,262 @@ func (o IngressPatchTypeOutput) Spec() IngressSpecPatchPtrOutput {
 // Status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 func (o IngressPatchTypeOutput) Status() IngressStatusPatchPtrOutput {
 	return o.ApplyT(func(v IngressPatchType) *IngressStatusPatch { return v.Status }).(IngressStatusPatchPtrOutput)
+}
+
+// IngressPortStatus represents the error condition of a service port
+type IngressPortStatus struct {
+	// Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
+	//   CamelCase names
+	// - cloud provider specific error values must have names that comply with the
+	//   format foo.example.com/CamelCase.
+	Error *string `pulumi:"error"`
+	// Port is the port number of the ingress port.
+	Port int `pulumi:"port"`
+	// Protocol is the protocol of the ingress port. The supported values are: "TCP", "UDP", "SCTP"
+	Protocol string `pulumi:"protocol"`
+}
+
+// IngressPortStatusInput is an input type that accepts IngressPortStatusArgs and IngressPortStatusOutput values.
+// You can construct a concrete instance of `IngressPortStatusInput` via:
+//
+//	IngressPortStatusArgs{...}
+type IngressPortStatusInput interface {
+	pulumi.Input
+
+	ToIngressPortStatusOutput() IngressPortStatusOutput
+	ToIngressPortStatusOutputWithContext(context.Context) IngressPortStatusOutput
+}
+
+// IngressPortStatus represents the error condition of a service port
+type IngressPortStatusArgs struct {
+	// Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
+	//   CamelCase names
+	// - cloud provider specific error values must have names that comply with the
+	//   format foo.example.com/CamelCase.
+	Error pulumi.StringPtrInput `pulumi:"error"`
+	// Port is the port number of the ingress port.
+	Port pulumi.IntInput `pulumi:"port"`
+	// Protocol is the protocol of the ingress port. The supported values are: "TCP", "UDP", "SCTP"
+	Protocol pulumi.StringInput `pulumi:"protocol"`
+}
+
+func (IngressPortStatusArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*IngressPortStatus)(nil)).Elem()
+}
+
+func (i IngressPortStatusArgs) ToIngressPortStatusOutput() IngressPortStatusOutput {
+	return i.ToIngressPortStatusOutputWithContext(context.Background())
+}
+
+func (i IngressPortStatusArgs) ToIngressPortStatusOutputWithContext(ctx context.Context) IngressPortStatusOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IngressPortStatusOutput)
+}
+
+// IngressPortStatusArrayInput is an input type that accepts IngressPortStatusArray and IngressPortStatusArrayOutput values.
+// You can construct a concrete instance of `IngressPortStatusArrayInput` via:
+//
+//	IngressPortStatusArray{ IngressPortStatusArgs{...} }
+type IngressPortStatusArrayInput interface {
+	pulumi.Input
+
+	ToIngressPortStatusArrayOutput() IngressPortStatusArrayOutput
+	ToIngressPortStatusArrayOutputWithContext(context.Context) IngressPortStatusArrayOutput
+}
+
+type IngressPortStatusArray []IngressPortStatusInput
+
+func (IngressPortStatusArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]IngressPortStatus)(nil)).Elem()
+}
+
+func (i IngressPortStatusArray) ToIngressPortStatusArrayOutput() IngressPortStatusArrayOutput {
+	return i.ToIngressPortStatusArrayOutputWithContext(context.Background())
+}
+
+func (i IngressPortStatusArray) ToIngressPortStatusArrayOutputWithContext(ctx context.Context) IngressPortStatusArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IngressPortStatusArrayOutput)
+}
+
+// IngressPortStatus represents the error condition of a service port
+type IngressPortStatusOutput struct{ *pulumi.OutputState }
+
+func (IngressPortStatusOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IngressPortStatus)(nil)).Elem()
+}
+
+func (o IngressPortStatusOutput) ToIngressPortStatusOutput() IngressPortStatusOutput {
+	return o
+}
+
+func (o IngressPortStatusOutput) ToIngressPortStatusOutputWithContext(ctx context.Context) IngressPortStatusOutput {
+	return o
+}
+
+// Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
+//
+//	CamelCase names
+//   - cloud provider specific error values must have names that comply with the
+//     format foo.example.com/CamelCase.
+func (o IngressPortStatusOutput) Error() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IngressPortStatus) *string { return v.Error }).(pulumi.StringPtrOutput)
+}
+
+// Port is the port number of the ingress port.
+func (o IngressPortStatusOutput) Port() pulumi.IntOutput {
+	return o.ApplyT(func(v IngressPortStatus) int { return v.Port }).(pulumi.IntOutput)
+}
+
+// Protocol is the protocol of the ingress port. The supported values are: "TCP", "UDP", "SCTP"
+func (o IngressPortStatusOutput) Protocol() pulumi.StringOutput {
+	return o.ApplyT(func(v IngressPortStatus) string { return v.Protocol }).(pulumi.StringOutput)
+}
+
+type IngressPortStatusArrayOutput struct{ *pulumi.OutputState }
+
+func (IngressPortStatusArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]IngressPortStatus)(nil)).Elem()
+}
+
+func (o IngressPortStatusArrayOutput) ToIngressPortStatusArrayOutput() IngressPortStatusArrayOutput {
+	return o
+}
+
+func (o IngressPortStatusArrayOutput) ToIngressPortStatusArrayOutputWithContext(ctx context.Context) IngressPortStatusArrayOutput {
+	return o
+}
+
+func (o IngressPortStatusArrayOutput) Index(i pulumi.IntInput) IngressPortStatusOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) IngressPortStatus {
+		return vs[0].([]IngressPortStatus)[vs[1].(int)]
+	}).(IngressPortStatusOutput)
+}
+
+// IngressPortStatus represents the error condition of a service port
+type IngressPortStatusPatch struct {
+	// Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
+	//   CamelCase names
+	// - cloud provider specific error values must have names that comply with the
+	//   format foo.example.com/CamelCase.
+	Error *string `pulumi:"error"`
+	// Port is the port number of the ingress port.
+	Port *int `pulumi:"port"`
+	// Protocol is the protocol of the ingress port. The supported values are: "TCP", "UDP", "SCTP"
+	Protocol *string `pulumi:"protocol"`
+}
+
+// IngressPortStatusPatchInput is an input type that accepts IngressPortStatusPatchArgs and IngressPortStatusPatchOutput values.
+// You can construct a concrete instance of `IngressPortStatusPatchInput` via:
+//
+//	IngressPortStatusPatchArgs{...}
+type IngressPortStatusPatchInput interface {
+	pulumi.Input
+
+	ToIngressPortStatusPatchOutput() IngressPortStatusPatchOutput
+	ToIngressPortStatusPatchOutputWithContext(context.Context) IngressPortStatusPatchOutput
+}
+
+// IngressPortStatus represents the error condition of a service port
+type IngressPortStatusPatchArgs struct {
+	// Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
+	//   CamelCase names
+	// - cloud provider specific error values must have names that comply with the
+	//   format foo.example.com/CamelCase.
+	Error pulumi.StringPtrInput `pulumi:"error"`
+	// Port is the port number of the ingress port.
+	Port pulumi.IntPtrInput `pulumi:"port"`
+	// Protocol is the protocol of the ingress port. The supported values are: "TCP", "UDP", "SCTP"
+	Protocol pulumi.StringPtrInput `pulumi:"protocol"`
+}
+
+func (IngressPortStatusPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*IngressPortStatusPatch)(nil)).Elem()
+}
+
+func (i IngressPortStatusPatchArgs) ToIngressPortStatusPatchOutput() IngressPortStatusPatchOutput {
+	return i.ToIngressPortStatusPatchOutputWithContext(context.Background())
+}
+
+func (i IngressPortStatusPatchArgs) ToIngressPortStatusPatchOutputWithContext(ctx context.Context) IngressPortStatusPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IngressPortStatusPatchOutput)
+}
+
+// IngressPortStatusPatchArrayInput is an input type that accepts IngressPortStatusPatchArray and IngressPortStatusPatchArrayOutput values.
+// You can construct a concrete instance of `IngressPortStatusPatchArrayInput` via:
+//
+//	IngressPortStatusPatchArray{ IngressPortStatusPatchArgs{...} }
+type IngressPortStatusPatchArrayInput interface {
+	pulumi.Input
+
+	ToIngressPortStatusPatchArrayOutput() IngressPortStatusPatchArrayOutput
+	ToIngressPortStatusPatchArrayOutputWithContext(context.Context) IngressPortStatusPatchArrayOutput
+}
+
+type IngressPortStatusPatchArray []IngressPortStatusPatchInput
+
+func (IngressPortStatusPatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]IngressPortStatusPatch)(nil)).Elem()
+}
+
+func (i IngressPortStatusPatchArray) ToIngressPortStatusPatchArrayOutput() IngressPortStatusPatchArrayOutput {
+	return i.ToIngressPortStatusPatchArrayOutputWithContext(context.Background())
+}
+
+func (i IngressPortStatusPatchArray) ToIngressPortStatusPatchArrayOutputWithContext(ctx context.Context) IngressPortStatusPatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IngressPortStatusPatchArrayOutput)
+}
+
+// IngressPortStatus represents the error condition of a service port
+type IngressPortStatusPatchOutput struct{ *pulumi.OutputState }
+
+func (IngressPortStatusPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IngressPortStatusPatch)(nil)).Elem()
+}
+
+func (o IngressPortStatusPatchOutput) ToIngressPortStatusPatchOutput() IngressPortStatusPatchOutput {
+	return o
+}
+
+func (o IngressPortStatusPatchOutput) ToIngressPortStatusPatchOutputWithContext(ctx context.Context) IngressPortStatusPatchOutput {
+	return o
+}
+
+// Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
+//
+//	CamelCase names
+//   - cloud provider specific error values must have names that comply with the
+//     format foo.example.com/CamelCase.
+func (o IngressPortStatusPatchOutput) Error() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IngressPortStatusPatch) *string { return v.Error }).(pulumi.StringPtrOutput)
+}
+
+// Port is the port number of the ingress port.
+func (o IngressPortStatusPatchOutput) Port() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v IngressPortStatusPatch) *int { return v.Port }).(pulumi.IntPtrOutput)
+}
+
+// Protocol is the protocol of the ingress port. The supported values are: "TCP", "UDP", "SCTP"
+func (o IngressPortStatusPatchOutput) Protocol() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IngressPortStatusPatch) *string { return v.Protocol }).(pulumi.StringPtrOutput)
+}
+
+type IngressPortStatusPatchArrayOutput struct{ *pulumi.OutputState }
+
+func (IngressPortStatusPatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]IngressPortStatusPatch)(nil)).Elem()
+}
+
+func (o IngressPortStatusPatchArrayOutput) ToIngressPortStatusPatchArrayOutput() IngressPortStatusPatchArrayOutput {
+	return o
+}
+
+func (o IngressPortStatusPatchArrayOutput) ToIngressPortStatusPatchArrayOutputWithContext(ctx context.Context) IngressPortStatusPatchArrayOutput {
+	return o
+}
+
+func (o IngressPortStatusPatchArrayOutput) Index(i pulumi.IntInput) IngressPortStatusPatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) IngressPortStatusPatch {
+		return vs[0].([]IngressPortStatusPatch)[vs[1].(int)]
+	}).(IngressPortStatusPatchOutput)
 }
 
 // IngressRule represents the rules mapping the paths under a specified host to the related backend services. Incoming requests are first evaluated for a host match, then routed to the backend associated with the matching IngressRuleValue.
@@ -3633,7 +4405,7 @@ func (o IngressSpecPatchPtrOutput) Tls() IngressTLSPatchArrayOutput {
 // IngressStatus describe the current state of the Ingress.
 type IngressStatus struct {
 	// LoadBalancer contains the current status of the load-balancer.
-	LoadBalancer *corev1.LoadBalancerStatus `pulumi:"loadBalancer"`
+	LoadBalancer *IngressLoadBalancerStatus `pulumi:"loadBalancer"`
 }
 
 // IngressStatusInput is an input type that accepts IngressStatusArgs and IngressStatusOutput values.
@@ -3650,7 +4422,7 @@ type IngressStatusInput interface {
 // IngressStatus describe the current state of the Ingress.
 type IngressStatusArgs struct {
 	// LoadBalancer contains the current status of the load-balancer.
-	LoadBalancer corev1.LoadBalancerStatusPtrInput `pulumi:"loadBalancer"`
+	LoadBalancer IngressLoadBalancerStatusPtrInput `pulumi:"loadBalancer"`
 }
 
 func (IngressStatusArgs) ElementType() reflect.Type {
@@ -3732,8 +4504,8 @@ func (o IngressStatusOutput) ToIngressStatusPtrOutputWithContext(ctx context.Con
 }
 
 // LoadBalancer contains the current status of the load-balancer.
-func (o IngressStatusOutput) LoadBalancer() corev1.LoadBalancerStatusPtrOutput {
-	return o.ApplyT(func(v IngressStatus) *corev1.LoadBalancerStatus { return v.LoadBalancer }).(corev1.LoadBalancerStatusPtrOutput)
+func (o IngressStatusOutput) LoadBalancer() IngressLoadBalancerStatusPtrOutput {
+	return o.ApplyT(func(v IngressStatus) *IngressLoadBalancerStatus { return v.LoadBalancer }).(IngressLoadBalancerStatusPtrOutput)
 }
 
 type IngressStatusPtrOutput struct{ *pulumi.OutputState }
@@ -3761,19 +4533,19 @@ func (o IngressStatusPtrOutput) Elem() IngressStatusOutput {
 }
 
 // LoadBalancer contains the current status of the load-balancer.
-func (o IngressStatusPtrOutput) LoadBalancer() corev1.LoadBalancerStatusPtrOutput {
-	return o.ApplyT(func(v *IngressStatus) *corev1.LoadBalancerStatus {
+func (o IngressStatusPtrOutput) LoadBalancer() IngressLoadBalancerStatusPtrOutput {
+	return o.ApplyT(func(v *IngressStatus) *IngressLoadBalancerStatus {
 		if v == nil {
 			return nil
 		}
 		return v.LoadBalancer
-	}).(corev1.LoadBalancerStatusPtrOutput)
+	}).(IngressLoadBalancerStatusPtrOutput)
 }
 
 // IngressStatus describe the current state of the Ingress.
 type IngressStatusPatch struct {
 	// LoadBalancer contains the current status of the load-balancer.
-	LoadBalancer *corev1.LoadBalancerStatusPatch `pulumi:"loadBalancer"`
+	LoadBalancer *IngressLoadBalancerStatusPatch `pulumi:"loadBalancer"`
 }
 
 // IngressStatusPatchInput is an input type that accepts IngressStatusPatchArgs and IngressStatusPatchOutput values.
@@ -3790,7 +4562,7 @@ type IngressStatusPatchInput interface {
 // IngressStatus describe the current state of the Ingress.
 type IngressStatusPatchArgs struct {
 	// LoadBalancer contains the current status of the load-balancer.
-	LoadBalancer corev1.LoadBalancerStatusPatchPtrInput `pulumi:"loadBalancer"`
+	LoadBalancer IngressLoadBalancerStatusPatchPtrInput `pulumi:"loadBalancer"`
 }
 
 func (IngressStatusPatchArgs) ElementType() reflect.Type {
@@ -3872,8 +4644,8 @@ func (o IngressStatusPatchOutput) ToIngressStatusPatchPtrOutputWithContext(ctx c
 }
 
 // LoadBalancer contains the current status of the load-balancer.
-func (o IngressStatusPatchOutput) LoadBalancer() corev1.LoadBalancerStatusPatchPtrOutput {
-	return o.ApplyT(func(v IngressStatusPatch) *corev1.LoadBalancerStatusPatch { return v.LoadBalancer }).(corev1.LoadBalancerStatusPatchPtrOutput)
+func (o IngressStatusPatchOutput) LoadBalancer() IngressLoadBalancerStatusPatchPtrOutput {
+	return o.ApplyT(func(v IngressStatusPatch) *IngressLoadBalancerStatusPatch { return v.LoadBalancer }).(IngressLoadBalancerStatusPatchPtrOutput)
 }
 
 type IngressStatusPatchPtrOutput struct{ *pulumi.OutputState }
@@ -3901,13 +4673,13 @@ func (o IngressStatusPatchPtrOutput) Elem() IngressStatusPatchOutput {
 }
 
 // LoadBalancer contains the current status of the load-balancer.
-func (o IngressStatusPatchPtrOutput) LoadBalancer() corev1.LoadBalancerStatusPatchPtrOutput {
-	return o.ApplyT(func(v *IngressStatusPatch) *corev1.LoadBalancerStatusPatch {
+func (o IngressStatusPatchPtrOutput) LoadBalancer() IngressLoadBalancerStatusPatchPtrOutput {
+	return o.ApplyT(func(v *IngressStatusPatch) *IngressLoadBalancerStatusPatch {
 		if v == nil {
 			return nil
 		}
 		return v.LoadBalancer
-	}).(corev1.LoadBalancerStatusPatchPtrOutput)
+	}).(IngressLoadBalancerStatusPatchPtrOutput)
 }
 
 // IngressTLS describes the transport layer security associated with an Ingress.
@@ -6393,7 +7165,19 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*IngressClassSpecPatchInput)(nil)).Elem(), IngressClassSpecPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*IngressClassSpecPatchPtrInput)(nil)).Elem(), IngressClassSpecPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*IngressListTypeInput)(nil)).Elem(), IngressListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IngressLoadBalancerIngressInput)(nil)).Elem(), IngressLoadBalancerIngressArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IngressLoadBalancerIngressArrayInput)(nil)).Elem(), IngressLoadBalancerIngressArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IngressLoadBalancerIngressPatchInput)(nil)).Elem(), IngressLoadBalancerIngressPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IngressLoadBalancerIngressPatchArrayInput)(nil)).Elem(), IngressLoadBalancerIngressPatchArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IngressLoadBalancerStatusInput)(nil)).Elem(), IngressLoadBalancerStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IngressLoadBalancerStatusPtrInput)(nil)).Elem(), IngressLoadBalancerStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IngressLoadBalancerStatusPatchInput)(nil)).Elem(), IngressLoadBalancerStatusPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IngressLoadBalancerStatusPatchPtrInput)(nil)).Elem(), IngressLoadBalancerStatusPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*IngressPatchTypeInput)(nil)).Elem(), IngressPatchTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IngressPortStatusInput)(nil)).Elem(), IngressPortStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IngressPortStatusArrayInput)(nil)).Elem(), IngressPortStatusArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IngressPortStatusPatchInput)(nil)).Elem(), IngressPortStatusPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IngressPortStatusPatchArrayInput)(nil)).Elem(), IngressPortStatusPatchArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*IngressRuleInput)(nil)).Elem(), IngressRuleArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*IngressRuleArrayInput)(nil)).Elem(), IngressRuleArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*IngressRulePatchInput)(nil)).Elem(), IngressRulePatchArgs{})
@@ -6477,7 +7261,19 @@ func init() {
 	pulumi.RegisterOutputType(IngressClassSpecPatchOutput{})
 	pulumi.RegisterOutputType(IngressClassSpecPatchPtrOutput{})
 	pulumi.RegisterOutputType(IngressListTypeOutput{})
+	pulumi.RegisterOutputType(IngressLoadBalancerIngressOutput{})
+	pulumi.RegisterOutputType(IngressLoadBalancerIngressArrayOutput{})
+	pulumi.RegisterOutputType(IngressLoadBalancerIngressPatchOutput{})
+	pulumi.RegisterOutputType(IngressLoadBalancerIngressPatchArrayOutput{})
+	pulumi.RegisterOutputType(IngressLoadBalancerStatusOutput{})
+	pulumi.RegisterOutputType(IngressLoadBalancerStatusPtrOutput{})
+	pulumi.RegisterOutputType(IngressLoadBalancerStatusPatchOutput{})
+	pulumi.RegisterOutputType(IngressLoadBalancerStatusPatchPtrOutput{})
 	pulumi.RegisterOutputType(IngressPatchTypeOutput{})
+	pulumi.RegisterOutputType(IngressPortStatusOutput{})
+	pulumi.RegisterOutputType(IngressPortStatusArrayOutput{})
+	pulumi.RegisterOutputType(IngressPortStatusPatchOutput{})
+	pulumi.RegisterOutputType(IngressPortStatusPatchArrayOutput{})
 	pulumi.RegisterOutputType(IngressRuleOutput{})
 	pulumi.RegisterOutputType(IngressRuleArrayOutput{})
 	pulumi.RegisterOutputType(IngressRulePatchOutput{})

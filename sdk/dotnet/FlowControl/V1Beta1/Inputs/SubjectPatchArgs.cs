@@ -15,27 +15,18 @@ namespace Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Beta1
     /// </summary>
     public class SubjectPatchArgs : global::Pulumi.ResourceArgs
     {
-        /// <summary>
-        /// `group` matches based on user group name.
-        /// </summary>
         [Input("group")]
         public Input<Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Beta1.GroupSubjectPatchArgs>? Group { get; set; }
 
         /// <summary>
-        /// `kind` indicates which one of the other fields is non-empty. Required
+        /// Required
         /// </summary>
         [Input("kind")]
         public Input<string>? Kind { get; set; }
 
-        /// <summary>
-        /// `serviceAccount` matches ServiceAccounts.
-        /// </summary>
         [Input("serviceAccount")]
         public Input<Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Beta1.ServiceAccountSubjectPatchArgs>? ServiceAccount { get; set; }
 
-        /// <summary>
-        /// `user` matches based on username.
-        /// </summary>
         [Input("user")]
         public Input<Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Beta1.UserSubjectPatchArgs>? User { get; set; }
 

@@ -16,7 +16,7 @@ export interface CrossVersionObjectReference {
      */
     apiVersion?: pulumi.Input<string>;
     /**
-     * Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+     * Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
     kind: pulumi.Input<string>;
     /**
@@ -34,7 +34,7 @@ export interface CrossVersionObjectReferencePatch {
      */
     apiVersion?: pulumi.Input<string>;
     /**
-     * Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds"
+     * Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      */
     kind?: pulumi.Input<string>;
     /**

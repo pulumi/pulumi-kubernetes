@@ -5,7 +5,7 @@ package com.pulumi.kubernetes.networking.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
-import com.pulumi.kubernetes.core.v1.inputs.LoadBalancerStatusArgs;
+import com.pulumi.kubernetes.networking.v1.inputs.IngressLoadBalancerStatusArgs;
 import java.util.Objects;
 import java.util.Optional;
 import javax.annotation.Nullable;
@@ -24,13 +24,13 @@ public final class IngressStatusArgs extends com.pulumi.resources.ResourceArgs {
      * 
      */
     @Import(name="loadBalancer")
-    private @Nullable Output<LoadBalancerStatusArgs> loadBalancer;
+    private @Nullable Output<IngressLoadBalancerStatusArgs> loadBalancer;
 
     /**
      * @return LoadBalancer contains the current status of the load-balancer.
      * 
      */
-    public Optional<Output<LoadBalancerStatusArgs>> loadBalancer() {
+    public Optional<Output<IngressLoadBalancerStatusArgs>> loadBalancer() {
         return Optional.ofNullable(this.loadBalancer);
     }
 
@@ -64,7 +64,7 @@ public final class IngressStatusArgs extends com.pulumi.resources.ResourceArgs {
          * @return builder
          * 
          */
-        public Builder loadBalancer(@Nullable Output<LoadBalancerStatusArgs> loadBalancer) {
+        public Builder loadBalancer(@Nullable Output<IngressLoadBalancerStatusArgs> loadBalancer) {
             $.loadBalancer = loadBalancer;
             return this;
         }
@@ -75,7 +75,7 @@ public final class IngressStatusArgs extends com.pulumi.resources.ResourceArgs {
          * @return builder
          * 
          */
-        public Builder loadBalancer(LoadBalancerStatusArgs loadBalancer) {
+        public Builder loadBalancer(IngressLoadBalancerStatusArgs loadBalancer) {
             return loadBalancer(Output.of(loadBalancer));
         }
 

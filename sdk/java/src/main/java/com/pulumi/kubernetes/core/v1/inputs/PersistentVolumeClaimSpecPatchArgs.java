@@ -7,6 +7,7 @@ import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.kubernetes.core.v1.inputs.ResourceRequirementsPatchArgs;
 import com.pulumi.kubernetes.core.v1.inputs.TypedLocalObjectReferencePatchArgs;
+import com.pulumi.kubernetes.core.v1.inputs.TypedObjectReferencePatchArgs;
 import com.pulumi.kubernetes.meta.v1.inputs.LabelSelectorPatchArgs;
 import java.lang.String;
 import java.util.List;
@@ -39,14 +40,14 @@ public final class PersistentVolumeClaimSpecPatchArgs extends com.pulumi.resourc
     }
 
     /**
-     * dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
+     * dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. When the AnyVolumeDataSource feature gate is enabled, dataSource contents will be copied to dataSourceRef, and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified. If the namespace is specified, then dataSourceRef will not be copied to dataSource.
      * 
      */
     @Import(name="dataSource")
     private @Nullable Output<TypedLocalObjectReferencePatchArgs> dataSource;
 
     /**
-     * @return dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
+     * @return dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. When the AnyVolumeDataSource feature gate is enabled, dataSource contents will be copied to dataSourceRef, and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified. If the namespace is specified, then dataSourceRef will not be copied to dataSource.
      * 
      */
     public Optional<Output<TypedLocalObjectReferencePatchArgs>> dataSource() {
@@ -54,27 +55,31 @@ public final class PersistentVolumeClaimSpecPatchArgs extends com.pulumi.resourc
     }
 
     /**
-     * dataSourceRef specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef
+     * dataSourceRef specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the dataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, when namespace isn&#39;t specified in dataSourceRef, both fields (dataSource and dataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. When namespace is specified in dataSourceRef, dataSource isn&#39;t set to the same value and must be empty. There are three important differences between dataSource and dataSourceRef: * While dataSource only allows two specific types of objects, dataSourceRef
      *   allows any non-core object, as well as PersistentVolumeClaim objects.
-     * * While DataSource ignores disallowed values (dropping them), DataSourceRef
+     * * While dataSource ignores disallowed values (dropping them), dataSourceRef
      *   preserves all values, and generates an error if a disallowed value is
      *   specified.
-     *   (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
+     * * While dataSource only allows local objects, dataSourceRef allows objects
+     *   in any namespaces.
+     *   (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
      * 
      */
     @Import(name="dataSourceRef")
-    private @Nullable Output<TypedLocalObjectReferencePatchArgs> dataSourceRef;
+    private @Nullable Output<TypedObjectReferencePatchArgs> dataSourceRef;
 
     /**
-     * @return dataSourceRef specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef
+     * @return dataSourceRef specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the dataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, when namespace isn&#39;t specified in dataSourceRef, both fields (dataSource and dataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. When namespace is specified in dataSourceRef, dataSource isn&#39;t set to the same value and must be empty. There are three important differences between dataSource and dataSourceRef: * While dataSource only allows two specific types of objects, dataSourceRef
      *   allows any non-core object, as well as PersistentVolumeClaim objects.
-     * * While DataSource ignores disallowed values (dropping them), DataSourceRef
+     * * While dataSource ignores disallowed values (dropping them), dataSourceRef
      *   preserves all values, and generates an error if a disallowed value is
      *   specified.
-     *   (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
+     * * While dataSource only allows local objects, dataSourceRef allows objects
+     *   in any namespaces.
+     *   (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
      * 
      */
-    public Optional<Output<TypedLocalObjectReferencePatchArgs>> dataSourceRef() {
+    public Optional<Output<TypedObjectReferencePatchArgs>> dataSourceRef() {
         return Optional.ofNullable(this.dataSourceRef);
     }
 
@@ -216,7 +221,7 @@ public final class PersistentVolumeClaimSpecPatchArgs extends com.pulumi.resourc
         }
 
         /**
-         * @param dataSource dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
+         * @param dataSource dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. When the AnyVolumeDataSource feature gate is enabled, dataSource contents will be copied to dataSourceRef, and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified. If the namespace is specified, then dataSourceRef will not be copied to dataSource.
          * 
          * @return builder
          * 
@@ -227,7 +232,7 @@ public final class PersistentVolumeClaimSpecPatchArgs extends com.pulumi.resourc
         }
 
         /**
-         * @param dataSource dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. If the AnyVolumeDataSource feature gate is enabled, this field will always have the same contents as the DataSourceRef field.
+         * @param dataSource dataSource field can be used to specify either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot) * An existing PVC (PersistentVolumeClaim) If the provisioner or an external controller can support the specified data source, it will create a new volume based on the contents of the specified data source. When the AnyVolumeDataSource feature gate is enabled, dataSource contents will be copied to dataSourceRef, and dataSourceRef contents will be copied to dataSource when dataSourceRef.namespace is not specified. If the namespace is specified, then dataSourceRef will not be copied to dataSource.
          * 
          * @return builder
          * 
@@ -237,33 +242,37 @@ public final class PersistentVolumeClaimSpecPatchArgs extends com.pulumi.resourc
         }
 
         /**
-         * @param dataSourceRef dataSourceRef specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef
+         * @param dataSourceRef dataSourceRef specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the dataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, when namespace isn&#39;t specified in dataSourceRef, both fields (dataSource and dataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. When namespace is specified in dataSourceRef, dataSource isn&#39;t set to the same value and must be empty. There are three important differences between dataSource and dataSourceRef: * While dataSource only allows two specific types of objects, dataSourceRef
          *   allows any non-core object, as well as PersistentVolumeClaim objects.
-         * * While DataSource ignores disallowed values (dropping them), DataSourceRef
+         * * While dataSource ignores disallowed values (dropping them), dataSourceRef
          *   preserves all values, and generates an error if a disallowed value is
          *   specified.
-         *   (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
+         * * While dataSource only allows local objects, dataSourceRef allows objects
+         *   in any namespaces.
+         *   (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
          * 
          * @return builder
          * 
          */
-        public Builder dataSourceRef(@Nullable Output<TypedLocalObjectReferencePatchArgs> dataSourceRef) {
+        public Builder dataSourceRef(@Nullable Output<TypedObjectReferencePatchArgs> dataSourceRef) {
             $.dataSourceRef = dataSourceRef;
             return this;
         }
 
         /**
-         * @param dataSourceRef dataSourceRef specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any local object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the DataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, both fields (DataSource and DataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. There are two important differences between DataSource and DataSourceRef: * While DataSource only allows two specific types of objects, DataSourceRef
+         * @param dataSourceRef dataSourceRef specifies the object from which to populate the volume with data, if a non-empty volume is desired. This may be any object from a non-empty API group (non core object) or a PersistentVolumeClaim object. When this field is specified, volume binding will only succeed if the type of the specified object matches some installed volume populator or dynamic provisioner. This field will replace the functionality of the dataSource field and as such if both fields are non-empty, they must have the same value. For backwards compatibility, when namespace isn&#39;t specified in dataSourceRef, both fields (dataSource and dataSourceRef) will be set to the same value automatically if one of them is empty and the other is non-empty. When namespace is specified in dataSourceRef, dataSource isn&#39;t set to the same value and must be empty. There are three important differences between dataSource and dataSourceRef: * While dataSource only allows two specific types of objects, dataSourceRef
          *   allows any non-core object, as well as PersistentVolumeClaim objects.
-         * * While DataSource ignores disallowed values (dropping them), DataSourceRef
+         * * While dataSource ignores disallowed values (dropping them), dataSourceRef
          *   preserves all values, and generates an error if a disallowed value is
          *   specified.
-         *   (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled.
+         * * While dataSource only allows local objects, dataSourceRef allows objects
+         *   in any namespaces.
+         *   (Beta) Using this field requires the AnyVolumeDataSource feature gate to be enabled. (Alpha) Using the namespace field of dataSourceRef requires the CrossNamespaceVolumeDataSource feature gate to be enabled.
          * 
          * @return builder
          * 
          */
-        public Builder dataSourceRef(TypedLocalObjectReferencePatchArgs dataSourceRef) {
+        public Builder dataSourceRef(TypedObjectReferencePatchArgs dataSourceRef) {
             return dataSourceRef(Output.of(dataSourceRef));
         }
 

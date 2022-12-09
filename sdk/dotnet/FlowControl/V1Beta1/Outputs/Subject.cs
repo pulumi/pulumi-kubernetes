@@ -16,21 +16,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.FlowControl.V1Beta1
     [OutputType]
     public sealed class Subject
     {
-        /// <summary>
-        /// `group` matches based on user group name.
-        /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.FlowControl.V1Beta1.GroupSubject Group;
         /// <summary>
-        /// `kind` indicates which one of the other fields is non-empty. Required
+        /// Required
         /// </summary>
         public readonly string Kind;
-        /// <summary>
-        /// `serviceAccount` matches ServiceAccounts.
-        /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.FlowControl.V1Beta1.ServiceAccountSubject ServiceAccount;
-        /// <summary>
-        /// `user` matches based on username.
-        /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.FlowControl.V1Beta1.UserSubject User;
 
         [OutputConstructor]

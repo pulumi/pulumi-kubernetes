@@ -8,4 +8,5 @@ import * as enums from "../../types/enums";
 import * as utilities from "../../utilities";
 
 export * as v1 from "./v1/output";
+export * as v1alpha1 from "./v1alpha1/output";
 export * as v1beta1 from "./v1beta1/output";

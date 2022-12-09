@@ -90,6 +90,7 @@ namespace Pulumi.Kubernetes.FlowControl.V1Alpha1
                 {
                     new global::Pulumi.Alias { Type = "kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:FlowSchemaPatch"},
                     new global::Pulumi.Alias { Type = "kubernetes:flowcontrol.apiserver.k8s.io/v1beta2:FlowSchemaPatch"},
+                    new global::Pulumi.Alias { Type = "kubernetes:flowcontrol.apiserver.k8s.io/v1beta3:FlowSchemaPatch"},
                 },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);

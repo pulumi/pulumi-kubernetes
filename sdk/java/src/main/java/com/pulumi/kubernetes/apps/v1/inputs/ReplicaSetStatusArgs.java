@@ -97,14 +97,14 @@ public final class ReplicaSetStatusArgs extends com.pulumi.resources.ResourceArg
     }
 
     /**
-     * Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+     * Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
      * 
      */
     @Import(name="replicas", required=true)
     private Output<Integer> replicas;
 
     /**
-     * @return Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+     * @return Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
      * 
      */
     public Output<Integer> replicas() {
@@ -256,7 +256,7 @@ public final class ReplicaSetStatusArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param replicas Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+         * @param replicas Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
          * 
          * @return builder
          * 
@@ -267,7 +267,7 @@ public final class ReplicaSetStatusArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param replicas Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
+         * @param replicas Replicas is the most recently observed number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
          * 
          * @return builder
          * 

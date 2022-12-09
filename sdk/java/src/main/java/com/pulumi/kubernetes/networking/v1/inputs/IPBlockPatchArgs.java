@@ -13,7 +13,7 @@ import javax.annotation.Nullable;
 
 
 /**
- * IPBlock describes a particular CIDR (Ex. &#34;192.168.1.1/24&#34;,&#34;2001:db9::/64&#34;) that is allowed to the pods matched by a NetworkPolicySpec&#39;s podSelector. The except entry describes CIDRs that should not be included within this rule.
+ * IPBlock describes a particular CIDR (Ex. &#34;192.168.1.0/24&#34;,&#34;2001:db8::/64&#34;) that is allowed to the pods matched by a NetworkPolicySpec&#39;s podSelector. The except entry describes CIDRs that should not be included within this rule.
  * 
  */
 public final class IPBlockPatchArgs extends com.pulumi.resources.ResourceArgs {
@@ -21,14 +21,14 @@ public final class IPBlockPatchArgs extends com.pulumi.resources.ResourceArgs {
     public static final IPBlockPatchArgs Empty = new IPBlockPatchArgs();
 
     /**
-     * CIDR is a string representing the IP Block Valid examples are &#34;192.168.1.1/24&#34; or &#34;2001:db9::/64&#34;
+     * CIDR is a string representing the IP Block Valid examples are &#34;192.168.1.0/24&#34; or &#34;2001:db8::/64&#34;
      * 
      */
     @Import(name="cidr")
     private @Nullable Output<String> cidr;
 
     /**
-     * @return CIDR is a string representing the IP Block Valid examples are &#34;192.168.1.1/24&#34; or &#34;2001:db9::/64&#34;
+     * @return CIDR is a string representing the IP Block Valid examples are &#34;192.168.1.0/24&#34; or &#34;2001:db8::/64&#34;
      * 
      */
     public Optional<Output<String>> cidr() {
@@ -36,14 +36,14 @@ public final class IPBlockPatchArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Except is a slice of CIDRs that should not be included within an IP Block Valid examples are &#34;192.168.1.1/24&#34; or &#34;2001:db9::/64&#34; Except values will be rejected if they are outside the CIDR range
+     * Except is a slice of CIDRs that should not be included within an IP Block Valid examples are &#34;192.168.1.0/24&#34; or &#34;2001:db8::/64&#34; Except values will be rejected if they are outside the CIDR range
      * 
      */
     @Import(name="except")
     private @Nullable Output<List<String>> except;
 
     /**
-     * @return Except is a slice of CIDRs that should not be included within an IP Block Valid examples are &#34;192.168.1.1/24&#34; or &#34;2001:db9::/64&#34; Except values will be rejected if they are outside the CIDR range
+     * @return Except is a slice of CIDRs that should not be included within an IP Block Valid examples are &#34;192.168.1.0/24&#34; or &#34;2001:db8::/64&#34; Except values will be rejected if they are outside the CIDR range
      * 
      */
     public Optional<Output<List<String>>> except() {
@@ -76,7 +76,7 @@ public final class IPBlockPatchArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param cidr CIDR is a string representing the IP Block Valid examples are &#34;192.168.1.1/24&#34; or &#34;2001:db9::/64&#34;
+         * @param cidr CIDR is a string representing the IP Block Valid examples are &#34;192.168.1.0/24&#34; or &#34;2001:db8::/64&#34;
          * 
          * @return builder
          * 
@@ -87,7 +87,7 @@ public final class IPBlockPatchArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param cidr CIDR is a string representing the IP Block Valid examples are &#34;192.168.1.1/24&#34; or &#34;2001:db9::/64&#34;
+         * @param cidr CIDR is a string representing the IP Block Valid examples are &#34;192.168.1.0/24&#34; or &#34;2001:db8::/64&#34;
          * 
          * @return builder
          * 
@@ -97,7 +97,7 @@ public final class IPBlockPatchArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param except Except is a slice of CIDRs that should not be included within an IP Block Valid examples are &#34;192.168.1.1/24&#34; or &#34;2001:db9::/64&#34; Except values will be rejected if they are outside the CIDR range
+         * @param except Except is a slice of CIDRs that should not be included within an IP Block Valid examples are &#34;192.168.1.0/24&#34; or &#34;2001:db8::/64&#34; Except values will be rejected if they are outside the CIDR range
          * 
          * @return builder
          * 
@@ -108,7 +108,7 @@ public final class IPBlockPatchArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param except Except is a slice of CIDRs that should not be included within an IP Block Valid examples are &#34;192.168.1.1/24&#34; or &#34;2001:db9::/64&#34; Except values will be rejected if they are outside the CIDR range
+         * @param except Except is a slice of CIDRs that should not be included within an IP Block Valid examples are &#34;192.168.1.0/24&#34; or &#34;2001:db8::/64&#34; Except values will be rejected if they are outside the CIDR range
          * 
          * @return builder
          * 
@@ -118,7 +118,7 @@ public final class IPBlockPatchArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param except Except is a slice of CIDRs that should not be included within an IP Block Valid examples are &#34;192.168.1.1/24&#34; or &#34;2001:db9::/64&#34; Except values will be rejected if they are outside the CIDR range
+         * @param except Except is a slice of CIDRs that should not be included within an IP Block Valid examples are &#34;192.168.1.0/24&#34; or &#34;2001:db8::/64&#34; Except values will be rejected if they are outside the CIDR range
          * 
          * @return builder
          * 

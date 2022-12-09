@@ -22,6 +22,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1
         public Input<int>? MinReadySeconds { get; set; }
 
         /// <summary>
+        /// ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is alpha.
+        /// </summary>
+        [Input("ordinals")]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Apps.V1.StatefulSetOrdinalsPatchArgs>? Ordinals { get; set; }
+
+        /// <summary>
         /// persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is alpha.  +optional
         /// </summary>
         [Input("persistentVolumeClaimRetentionPolicy")]
@@ -58,7 +64,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1
         public Input<string>? ServiceName { get; set; }
 
         /// <summary>
-        /// template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet.
+        /// template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format &lt;statefulsetname&gt;-&lt;podindex&gt;. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3".
         /// </summary>
         [Input("template")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.PodTemplateSpecPatchArgs>? Template { get; set; }

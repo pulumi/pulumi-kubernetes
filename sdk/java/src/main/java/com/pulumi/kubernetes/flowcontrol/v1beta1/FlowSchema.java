@@ -137,7 +137,8 @@ public class FlowSchema extends com.pulumi.resources.CustomResource {
             .version(Utilities.getVersion())
             .aliases(List.of(
                 Output.of(Alias.builder().type("kubernetes:flowcontrol.apiserver.k8s.io/v1alpha1:FlowSchema").build()),
-                Output.of(Alias.builder().type("kubernetes:flowcontrol.apiserver.k8s.io/v1beta2:FlowSchema").build())
+                Output.of(Alias.builder().type("kubernetes:flowcontrol.apiserver.k8s.io/v1beta2:FlowSchema").build()),
+                Output.of(Alias.builder().type("kubernetes:flowcontrol.apiserver.k8s.io/v1beta3:FlowSchema").build())
             ))
             .build();
         return com.pulumi.resources.CustomResourceOptions.merge(defaultOptions, options, id);

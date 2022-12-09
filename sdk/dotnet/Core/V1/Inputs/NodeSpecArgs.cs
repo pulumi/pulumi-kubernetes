@@ -16,7 +16,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     public class NodeSpecArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Deprecated: Previously used to specify the source of the node's configuration for the DynamicKubeletConfig feature. This feature is removed from Kubelets as of 1.24 and will be fully removed in 1.26.
+        /// Deprecated: Previously used to specify the source of the node's configuration for the DynamicKubeletConfig feature. This feature is removed.
         /// </summary>
         [Input("configSource")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.NodeConfigSourceArgs>? ConfigSource { get; set; }

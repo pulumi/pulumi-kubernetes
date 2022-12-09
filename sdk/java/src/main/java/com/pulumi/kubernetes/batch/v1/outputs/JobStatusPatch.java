@@ -63,7 +63,7 @@ public final class JobStatusPatch {
      * The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status: (1) Add the pod UID to the arrays in this field. (2) Remove the pod finalizer. (3) Remove the pod UID from the arrays while increasing the corresponding
      *     counter.
      * 
-     * This field is beta-level. The job controller only makes use of this field when the feature gate JobTrackingWithFinalizers is enabled (enabled by default). Old jobs might not be tracked using this field, in which case the field remains null.
+     * Old jobs might not be tracked using this field, in which case the field remains null.
      * 
      */
     private @Nullable UncountedTerminatedPodsPatch uncountedTerminatedPods;
@@ -133,7 +133,7 @@ public final class JobStatusPatch {
      * The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status: (1) Add the pod UID to the arrays in this field. (2) Remove the pod finalizer. (3) Remove the pod UID from the arrays while increasing the corresponding
      *     counter.
      * 
-     * This field is beta-level. The job controller only makes use of this field when the feature gate JobTrackingWithFinalizers is enabled (enabled by default). Old jobs might not be tracked using this field, in which case the field remains null.
+     * Old jobs might not be tracked using this field, in which case the field remains null.
      * 
      */
     public Optional<UncountedTerminatedPodsPatch> uncountedTerminatedPods() {

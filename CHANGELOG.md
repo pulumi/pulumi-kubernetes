@@ -1,6 +1,9 @@
 ## Unreleased
 
+## 3.23.0 (December 8, 2022)
+
 - Expose the allowNullValues boolean as an InputProperty so that it can be set in SDKs (https://github.com/pulumi/pulumi-kubernetes/pulls/2255)
+- Update Kubernetes support to Kubernetes v1.26.0 (https://github.com/pulumi/pulumi-kubernetes/pull/2230)
 
 ## 3.22.2 (November 30, 2022)
 

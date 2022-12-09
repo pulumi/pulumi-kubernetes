@@ -84,29 +84,29 @@ export interface HTTPIngressRuleValuePatch {
 }
 
 /**
- * IPBlock describes a particular CIDR (Ex. "192.168.1.1/24","2001:db9::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
+ * IPBlock describes a particular CIDR (Ex. "192.168.1.0/24","2001:db8::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
  */
 export interface IPBlock {
     /**
-     * CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64"
+     * CIDR is a string representing the IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64"
      */
     cidr: pulumi.Input<string>;
     /**
-     * Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64" Except values will be rejected if they are outside the CIDR range
+     * Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the CIDR range
      */
     except?: pulumi.Input<pulumi.Input<string>[]>;
 }
 
 /**
- * IPBlock describes a particular CIDR (Ex. "192.168.1.1/24","2001:db9::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
+ * IPBlock describes a particular CIDR (Ex. "192.168.1.0/24","2001:db8::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
  */
 export interface IPBlockPatch {
     /**
-     * CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64"
+     * CIDR is a string representing the IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64"
      */
     cidr?: pulumi.Input<string>;
     /**
-     * Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64" Except values will be rejected if they are outside the CIDR range
+     * Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the CIDR range
      */
     except?: pulumi.Input<pulumi.Input<string>[]>;
 }
@@ -282,6 +282,55 @@ export interface IngressClassSpecPatch {
 }
 
 /**
+ * IngressLoadBalancerIngress represents the status of a load-balancer ingress point.
+ */
+export interface IngressLoadBalancerIngress {
+    /**
+     * Hostname is set for load-balancer ingress points that are DNS based.
+     */
+    hostname?: pulumi.Input<string>;
+    /**
+     * IP is set for load-balancer ingress points that are IP based.
+     */
+    ip?: pulumi.Input<string>;
+    /**
+     * Ports provides information about the ports exposed by this LoadBalancer.
+     */
+    ports?: pulumi.Input<pulumi.Input<inputs.networking.v1.IngressPortStatus>[]>;
+}
+
+/**
+ * IngressLoadBalancerStatus represents the status of a load-balancer.
+ */
+export interface IngressLoadBalancerStatus {
+    /**
+     * Ingress is a list containing ingress points for the load-balancer.
+     */
+    ingress?: pulumi.Input<pulumi.Input<inputs.networking.v1.IngressLoadBalancerIngress>[]>;
+}
+
+/**
+ * IngressPortStatus represents the error condition of a service port
+ */
+export interface IngressPortStatus {
+    /**
+     * Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
+     *   CamelCase names
+     * - cloud provider specific error values must have names that comply with the
+     *   format foo.example.com/CamelCase.
+     */
+    error?: pulumi.Input<string>;
+    /**
+     * Port is the port number of the ingress port.
+     */
+    port: pulumi.Input<number>;
+    /**
+     * Protocol is the protocol of the ingress port. The supported values are: "TCP", "UDP", "SCTP"
+     */
+    protocol: pulumi.Input<string>;
+}
+
+/**
  * IngressRule represents the rules mapping the paths under a specified host to the related backend services. Incoming requests are first evaluated for a host match, then routed to the backend associated with the matching IngressRuleValue.
  */
 export interface IngressRule {
@@ -396,7 +445,7 @@ export interface IngressStatus {
     /**
      * LoadBalancer contains the current status of the load-balancer.
      */
-    loadBalancer?: pulumi.Input<inputs.core.v1.LoadBalancerStatus>;
+    loadBalancer?: pulumi.Input<inputs.networking.v1.IngressLoadBalancerStatus>;
 }
 
 /**

@@ -71,6 +71,18 @@ namespace Pulumi.Kubernetes.Yaml
                 case var t when t == typeof(AdmissionRegistration.V1.ValidatingWebhookConfigurationList):
                     groupVersionKind = "admissionregistration.k8s.io/v1/ValidatingWebhookConfigurationList";
                     break;
+                case var t when t == typeof(AdmissionRegistration.V1Alpha1.ValidatingAdmissionPolicy):
+                    groupVersionKind = "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicy";
+                    break;
+                case var t when t == typeof(AdmissionRegistration.V1Alpha1.ValidatingAdmissionPolicyBinding):
+                    groupVersionKind = "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyBinding";
+                    break;
+                case var t when t == typeof(AdmissionRegistration.V1Alpha1.ValidatingAdmissionPolicyBindingList):
+                    groupVersionKind = "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyBindingList";
+                    break;
+                case var t when t == typeof(AdmissionRegistration.V1Alpha1.ValidatingAdmissionPolicyList):
+                    groupVersionKind = "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyList";
+                    break;
                 case var t when t == typeof(AdmissionRegistration.V1Beta1.MutatingWebhookConfiguration):
                     groupVersionKind = "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfiguration";
                     break;
@@ -196,6 +208,9 @@ namespace Pulumi.Kubernetes.Yaml
                     break;
                 case var t when t == typeof(Authentication.V1.TokenReview):
                     groupVersionKind = "authentication.k8s.io/v1/TokenReview";
+                    break;
+                case var t when t == typeof(Authentication.V1Alpha1.SelfSubjectReview):
+                    groupVersionKind = "authentication.k8s.io/v1alpha1/SelfSubjectReview";
                     break;
                 case var t when t == typeof(Authentication.V1Beta1.TokenReview):
                     groupVersionKind = "authentication.k8s.io/v1beta1/TokenReview";
@@ -485,6 +500,18 @@ namespace Pulumi.Kubernetes.Yaml
                 case var t when t == typeof(FlowControl.V1Beta2.PriorityLevelConfigurationList):
                     groupVersionKind = "flowcontrol.apiserver.k8s.io/v1beta2/PriorityLevelConfigurationList";
                     break;
+                case var t when t == typeof(FlowControl.V1Beta3.FlowSchema):
+                    groupVersionKind = "flowcontrol.apiserver.k8s.io/v1beta3/FlowSchema";
+                    break;
+                case var t when t == typeof(FlowControl.V1Beta3.FlowSchemaList):
+                    groupVersionKind = "flowcontrol.apiserver.k8s.io/v1beta3/FlowSchemaList";
+                    break;
+                case var t when t == typeof(FlowControl.V1Beta3.PriorityLevelConfiguration):
+                    groupVersionKind = "flowcontrol.apiserver.k8s.io/v1beta3/PriorityLevelConfiguration";
+                    break;
+                case var t when t == typeof(FlowControl.V1Beta3.PriorityLevelConfigurationList):
+                    groupVersionKind = "flowcontrol.apiserver.k8s.io/v1beta3/PriorityLevelConfigurationList";
+                    break;
                 case var t when t == typeof(Meta.V1.Status):
                     groupVersionKind = "meta/v1/Status";
                     break;
@@ -631,6 +658,30 @@ namespace Pulumi.Kubernetes.Yaml
                     break;
                 case var t when t == typeof(Rbac.V1Beta1.RoleList):
                     groupVersionKind = "rbac.authorization.k8s.io/v1beta1/RoleList";
+                    break;
+                case var t when t == typeof(Resource.V1Alpha1.PodScheduling):
+                    groupVersionKind = "resource.k8s.io/v1alpha1/PodScheduling";
+                    break;
+                case var t when t == typeof(Resource.V1Alpha1.PodSchedulingList):
+                    groupVersionKind = "resource.k8s.io/v1alpha1/PodSchedulingList";
+                    break;
+                case var t when t == typeof(Resource.V1Alpha1.ResourceClaim):
+                    groupVersionKind = "resource.k8s.io/v1alpha1/ResourceClaim";
+                    break;
+                case var t when t == typeof(Resource.V1Alpha1.ResourceClaimList):
+                    groupVersionKind = "resource.k8s.io/v1alpha1/ResourceClaimList";
+                    break;
+                case var t when t == typeof(Resource.V1Alpha1.ResourceClaimTemplate):
+                    groupVersionKind = "resource.k8s.io/v1alpha1/ResourceClaimTemplate";
+                    break;
+                case var t when t == typeof(Resource.V1Alpha1.ResourceClaimTemplateList):
+                    groupVersionKind = "resource.k8s.io/v1alpha1/ResourceClaimTemplateList";
+                    break;
+                case var t when t == typeof(Resource.V1Alpha1.ResourceClass):
+                    groupVersionKind = "resource.k8s.io/v1alpha1/ResourceClass";
+                    break;
+                case var t when t == typeof(Resource.V1Alpha1.ResourceClassList):
+                    groupVersionKind = "resource.k8s.io/v1alpha1/ResourceClassList";
                     break;
                 case var t when t == typeof(Scheduling.V1.PriorityClass):
                     groupVersionKind = "scheduling.k8s.io/v1/PriorityClass";
@@ -932,6 +983,8 @@ namespace Pulumi.Kubernetes.Yaml
                 gvk == "v1/List"
                 || gvk == "admissionregistration.k8s.io/v1/MutatingWebhookConfigurationList"
                 || gvk == "admissionregistration.k8s.io/v1/ValidatingWebhookConfigurationList"
+                || gvk == "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyBindingList"
+                || gvk == "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyList"
                 || gvk == "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfigurationList"
                 || gvk == "admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfigurationList"
                 || gvk == "apiextensions.k8s.io/v1/CustomResourceDefinitionList"
@@ -995,6 +1048,8 @@ namespace Pulumi.Kubernetes.Yaml
                 || gvk == "flowcontrol.apiserver.k8s.io/v1beta1/PriorityLevelConfigurationList"
                 || gvk == "flowcontrol.apiserver.k8s.io/v1beta2/FlowSchemaList"
                 || gvk == "flowcontrol.apiserver.k8s.io/v1beta2/PriorityLevelConfigurationList"
+                || gvk == "flowcontrol.apiserver.k8s.io/v1beta3/FlowSchemaList"
+                || gvk == "flowcontrol.apiserver.k8s.io/v1beta3/PriorityLevelConfigurationList"
                 || gvk == "networking.k8s.io/v1/IngressClassList"
                 || gvk == "networking.k8s.io/v1/IngressList"
                 || gvk == "networking.k8s.io/v1/NetworkPolicyList"
@@ -1019,6 +1074,10 @@ namespace Pulumi.Kubernetes.Yaml
                 || gvk == "rbac.authorization.k8s.io/v1beta1/ClusterRoleList"
                 || gvk == "rbac.authorization.k8s.io/v1beta1/RoleBindingList"
                 || gvk == "rbac.authorization.k8s.io/v1beta1/RoleList"
+                || gvk == "resource.k8s.io/v1alpha1/PodSchedulingList"
+                || gvk == "resource.k8s.io/v1alpha1/ResourceClaimList"
+                || gvk == "resource.k8s.io/v1alpha1/ResourceClaimTemplateList"
+                || gvk == "resource.k8s.io/v1alpha1/ResourceClassList"
                 || gvk == "scheduling.k8s.io/v1/PriorityClassList"
                 || gvk == "scheduling.k8s.io/v1alpha1/PriorityClassList"
                 || gvk == "scheduling.k8s.io/v1beta1/PriorityClassList"
@@ -1084,6 +1143,18 @@ namespace Pulumi.Kubernetes.Yaml
                         {
                             id.Apply(id => ($"admissionregistration.k8s.io/v1/ValidatingWebhookConfiguration::{id}",
                                 new AdmissionRegistration.V1.ValidatingWebhookConfiguration(id, obj!, opts) as KubernetesResource))
+                        };
+                    case "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicy":
+                        return new[]
+                        {
+                            id.Apply(id => ($"admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicy::{id}",
+                                new AdmissionRegistration.V1Alpha1.ValidatingAdmissionPolicy(id, obj!, opts) as KubernetesResource))
+                        };
+                    case "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyBinding":
+                        return new[]
+                        {
+                            id.Apply(id => ($"admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyBinding::{id}",
+                                new AdmissionRegistration.V1Alpha1.ValidatingAdmissionPolicyBinding(id, obj!, opts) as KubernetesResource))
                         };
                     case "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfiguration":
                         return new[]
@@ -1216,6 +1287,12 @@ namespace Pulumi.Kubernetes.Yaml
                         {
                             id.Apply(id => ($"authentication.k8s.io/v1/TokenReview::{id}",
                                 new Authentication.V1.TokenReview(id, obj!, opts) as KubernetesResource))
+                        };
+                    case "authentication.k8s.io/v1alpha1/SelfSubjectReview":
+                        return new[]
+                        {
+                            id.Apply(id => ($"authentication.k8s.io/v1alpha1/SelfSubjectReview::{id}",
+                                new Authentication.V1Alpha1.SelfSubjectReview(id, obj!, opts) as KubernetesResource))
                         };
                     case "authentication.k8s.io/v1beta1/TokenReview":
                         return new[]
@@ -1535,6 +1612,18 @@ namespace Pulumi.Kubernetes.Yaml
                             id.Apply(id => ($"flowcontrol.apiserver.k8s.io/v1beta2/PriorityLevelConfiguration::{id}",
                                 new FlowControl.V1Beta2.PriorityLevelConfiguration(id, obj!, opts) as KubernetesResource))
                         };
+                    case "flowcontrol.apiserver.k8s.io/v1beta3/FlowSchema":
+                        return new[]
+                        {
+                            id.Apply(id => ($"flowcontrol.apiserver.k8s.io/v1beta3/FlowSchema::{id}",
+                                new FlowControl.V1Beta3.FlowSchema(id, obj!, opts) as KubernetesResource))
+                        };
+                    case "flowcontrol.apiserver.k8s.io/v1beta3/PriorityLevelConfiguration":
+                        return new[]
+                        {
+                            id.Apply(id => ($"flowcontrol.apiserver.k8s.io/v1beta3/PriorityLevelConfiguration::{id}",
+                                new FlowControl.V1Beta3.PriorityLevelConfiguration(id, obj!, opts) as KubernetesResource))
+                        };
                     case "meta/v1/Status":
                         return new[]
                         {
@@ -1684,6 +1773,30 @@ namespace Pulumi.Kubernetes.Yaml
                         {
                             id.Apply(id => ($"rbac.authorization.k8s.io/v1beta1/RoleBinding::{id}",
                                 new Rbac.V1Beta1.RoleBinding(id, obj!, opts) as KubernetesResource))
+                        };
+                    case "resource.k8s.io/v1alpha1/PodScheduling":
+                        return new[]
+                        {
+                            id.Apply(id => ($"resource.k8s.io/v1alpha1/PodScheduling::{id}",
+                                new Resource.V1Alpha1.PodScheduling(id, obj!, opts) as KubernetesResource))
+                        };
+                    case "resource.k8s.io/v1alpha1/ResourceClaim":
+                        return new[]
+                        {
+                            id.Apply(id => ($"resource.k8s.io/v1alpha1/ResourceClaim::{id}",
+                                new Resource.V1Alpha1.ResourceClaim(id, obj!, opts) as KubernetesResource))
+                        };
+                    case "resource.k8s.io/v1alpha1/ResourceClaimTemplate":
+                        return new[]
+                        {
+                            id.Apply(id => ($"resource.k8s.io/v1alpha1/ResourceClaimTemplate::{id}",
+                                new Resource.V1Alpha1.ResourceClaimTemplate(id, obj!, opts) as KubernetesResource))
+                        };
+                    case "resource.k8s.io/v1alpha1/ResourceClass":
+                        return new[]
+                        {
+                            id.Apply(id => ($"resource.k8s.io/v1alpha1/ResourceClass::{id}",
+                                new Resource.V1Alpha1.ResourceClass(id, obj!, opts) as KubernetesResource))
                         };
                     case "scheduling.k8s.io/v1/PriorityClass":
                         return new[]
