@@ -207,7 +207,7 @@ func (k *kubeProvider) Call(ctx context.Context, req *pulumirpc.CallRequest) (*p
 
 // GetMapping fetches the mapping for this resource provider, if any. A provider should return an empty
 // response (not an error) if it doesn't have a mapping for the given key.
-func (k *kubeProvider) GetMapping(ctx context.Context, req *pulumirpc.GetMappingRequest) (*GetMappingResponse, error) {
+func (k *kubeProvider) GetMapping(ctx context.Context, req *pulumirpc.GetMappingRequest) (*pulumirpc.GetMappingResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "GetMapping is not yet implemented")
 }
 
