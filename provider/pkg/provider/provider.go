@@ -114,6 +114,8 @@ type kubeOpts struct {
 }
 
 type kubeProvider struct {
+	pulumirpc.UnimplementedResourceProviderServer
+
 	host             *provider.HostClient
 	canceler         *cancellationContext
 	name             string
