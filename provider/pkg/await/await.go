@@ -139,6 +139,8 @@ func skipRetry(gvk schema.GroupVersionKind, k8sVersion *cluster.ServerVersion, e
 	return false, nil
 }
 
+const ssaConflictDocLink = "https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/managing-resources-with-server-side-apply/#handle-field-conflicts-on-existing-resources"
+
 // Creation (as the usage, `await.Creation`, implies) will block until one of the following is true:
 // (1) the Kubernetes resource is reported to be initialized; (2) the initialization timeout has
 // occurred; or (3) an error has occurred while the resource was being initialized.
@@ -199,7 +201,8 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 					c.Context, c.Inputs.GetName(), types.ApplyPatchType, objYAML, options)
 
 				if errors.IsConflict(err) {
-					err = fmt.Errorf(`use the "pulumi.com/patchForce" annotation if you want to overwrite the existing values: %w`, err)
+					err = fmt.Errorf("conflict detected. see %s for troubleshooting help: %w",
+						ssaConflictDocLink, err)
 				}
 			} else {
 				var options metav1.CreateOptions
@@ -436,7 +439,8 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 			currentOutputs, err = client.Patch(c.Context, c.Inputs.GetName(), types.ApplyPatchType, objYAML, options)
 			if err != nil {
 				if errors.IsConflict(err) {
-					err = fmt.Errorf("use `pulumi.com/patchForce` to override the conflict: %w", err)
+					err = fmt.Errorf("conflict detected. see %s for troubleshooting help: %w",
+						ssaConflictDocLink, err)
 				}
 				return nil, err
 			}
