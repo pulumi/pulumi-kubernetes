@@ -1,6 +1,7 @@
 ## Unreleased
 
 - Add `PULUMI_K8S_ENABLE_PATCH_FORCE` env var support (https://github.com/pulumi/pulumi-kubernetes/pulls/2260)
+- Add link to resolution guide for SSA conflicts (https://github.com/pulumi/pulumi-kubernetes/pulls/2265)
 
 ## 3.23.0 (December 8, 2022)
 
