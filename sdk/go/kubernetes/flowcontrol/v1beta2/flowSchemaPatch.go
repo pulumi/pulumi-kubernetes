@@ -15,7 +15,7 @@ import (
 // Server-Side Apply updates. The name of the resource must be specified, but all other properties are optional. More than
 // one patch may be applied to the same resource, and a random FieldManager name will be used for each Patch resource.
 // Conflicts will result in an error by default, but can be forced using the "pulumi.com/patchForce" annotation. See the
-// [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/installation-configuration/#server-side-apply) for
+// [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/managing-resources-with-server-side-apply/) for
 // additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
 // FlowSchema defines the schema of a group of flows. Note that a flow is made up of a set of inbound API requests with similar attributes and is identified by a pair of strings: the name of the FlowSchema and a "flow distinguisher".
 type FlowSchemaPatch struct {

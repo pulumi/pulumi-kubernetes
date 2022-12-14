@@ -322,7 +322,7 @@ class EventPatch(pulumi.CustomResource):
         Server-Side Apply updates. The name of the resource must be specified, but all other properties are optional. More than
         one patch may be applied to the same resource, and a random FieldManager name will be used for each Patch resource.
         Conflicts will result in an error by default, but can be forced using the "pulumi.com/patchForce" annotation. See the
-        [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/installation-configuration/#server-side-apply) for
+        [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/managing-resources-with-server-side-apply/) for
         additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
         Event is a report of an event somewhere in the cluster.  Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.
 
@@ -357,7 +357,7 @@ class EventPatch(pulumi.CustomResource):
         Server-Side Apply updates. The name of the resource must be specified, but all other properties are optional. More than
         one patch may be applied to the same resource, and a random FieldManager name will be used for each Patch resource.
         Conflicts will result in an error by default, but can be forced using the "pulumi.com/patchForce" annotation. See the
-        [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/installation-configuration/#server-side-apply) for
+        [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/managing-resources-with-server-side-apply/) for
         additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
         Event is a report of an event somewhere in the cluster.  Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.
 

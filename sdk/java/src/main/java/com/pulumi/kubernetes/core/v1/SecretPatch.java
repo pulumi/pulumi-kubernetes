@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
  * Server-Side Apply updates. The name of the resource must be specified, but all other properties are optional. More than
  * one patch may be applied to the same resource, and a random FieldManager name will be used for each Patch resource.
  * Conflicts will result in an error by default, but can be forced using the &#34;pulumi.com/patchForce&#34; annotation. See the
- * [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/installation-configuration/#server-side-apply) for
+ * [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/managing-resources-with-server-side-apply/) for
  * additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
  * Secret holds secret data of a certain type. The total bytes of the values in the Data field must be less than MaxSecretSize bytes.
  * 
