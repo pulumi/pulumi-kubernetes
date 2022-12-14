@@ -1,5 +1,7 @@
 ## Unreleased
 
+- Add `PULUMI_K8S_ENABLE_PATCH_FORCE` env var support (https://github.com/pulumi/pulumi-kubernetes/pulls/2260)
+
 ## 3.23.0 (December 8, 2022)
 
 - Expose the allowNullValues boolean as an InputProperty so that it can be set in SDKs (https://github.com/pulumi/pulumi-kubernetes/pulls/2255)

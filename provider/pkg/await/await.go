@@ -17,6 +17,7 @@ package await
 import (
 	"context"
 	"fmt"
+	"os"
 	"strings"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
@@ -180,7 +181,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 
 			if c.ServerSideApply {
 				// Always force on preview to avoid erroneous conflict errors for resource replacements
-				force := c.Preview || metadata.IsAnnotationTrue(c.Inputs, metadata.AnnotationPatchForce)
+				force := c.Preview || patchForce(c.Inputs)
 				options := metav1.PatchOptions{
 					FieldManager:    c.FieldManager,
 					Force:           &force,
@@ -420,7 +421,7 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 			if err != nil {
 				return nil, err
 			}
-			force := metadata.IsAnnotationTrue(c.Inputs, metadata.AnnotationPatchForce)
+			force := patchForce(c.Inputs)
 			options := metav1.PatchOptions{
 				FieldManager: c.FieldManager,
 				Force:        &force,
@@ -690,4 +691,15 @@ func checkIfResourceDeleted(
 // clearStatus will clear the `Info` column of the CLI of all statuses and messages.
 func clearStatus(context context.Context, host *pulumiprovider.HostClient, urn resource.URN) error {
 	return host.LogStatus(context, diag.Info, urn, "")
+}
+
+// patchForce decides whether to overwrite patch conflicts.
+func patchForce(obj *unstructured.Unstructured) bool {
+	if metadata.IsAnnotationTrue(obj, metadata.AnnotationPatchForce) {
+		return true
+	}
+	if enabled, exists := os.LookupEnv("PULUMI_K8S_ENABLE_PATCH_FORCE"); exists {
+		return enabled == "true"
+	}
+	return false
 }
