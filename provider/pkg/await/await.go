@@ -201,7 +201,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 					c.Context, c.Inputs.GetName(), types.ApplyPatchType, objYAML, options)
 
 				if errors.IsConflict(err) {
-					err = fmt.Errorf("conflict detected. see %s for troubleshooting help: %w",
+					err = fmt.Errorf("SSA field conflict detected. see %s for troubleshooting help\n: %w",
 						ssaConflictDocLink, err)
 				}
 			} else {
@@ -439,7 +439,7 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 			currentOutputs, err = client.Patch(c.Context, c.Inputs.GetName(), types.ApplyPatchType, objYAML, options)
 			if err != nil {
 				if errors.IsConflict(err) {
-					err = fmt.Errorf("conflict detected. see %s for troubleshooting help: %w",
+					err = fmt.Errorf("SSA field conflict detected. see %s for troubleshooting help\n: %w",
 						ssaConflictDocLink, err)
 				}
 				return nil, err
