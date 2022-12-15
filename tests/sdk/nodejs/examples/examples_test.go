@@ -191,7 +191,7 @@ func TestAccIngress(t *testing.T) {
 
 				integration.AssertHTTPResultWithRetry(t,
 					fmt.Sprintf("%s/index.html", stackInfo.Outputs["ingressIp"]),
-					nil, 5*time.Minute, func(body string) bool {
+					nil, 10*time.Minute, func(body string) bool {
 						return assert.NotEmpty(t, body, "Body should not be empty")
 					})
 
