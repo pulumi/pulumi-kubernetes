@@ -1600,7 +1600,6 @@ github.com/pulumi/cloud-ready-checks v1.0.1-0.20220105213132-0fbbc00d3335 h1:Luj
 github.com/pulumi/cloud-ready-checks v1.0.1-0.20220105213132-0fbbc00d3335/go.mod h1:C6HmNtth9oPAWKyRJveZSU4rK/tvzhSGuoOV5y+S17g=
 github.com/pulumi/pulumi/pkg/v3 v3.49.0 h1:oglXej8JG8gQ9zwUWPtkUYYfbVB1Td2dqa+GzJhlJkg=
 github.com/pulumi/pulumi/pkg/v3 v3.49.0/go.mod h1:4metm4SXH718jHxL3kQwWTzyJMFEVARH4L5zF1qnCek=
-github.com/pulumi/pulumi/sdk/v3 v3.48.0/go.mod h1:n5EPRVFDh+EFwYZ+oaZmEtwgVN1A6NnI82B7ks/bmTU=
 github.com/pulumi/pulumi/sdk/v3 v3.49.0 h1:DSIeLJVPj7H+9fWjx/LguqDclzhiz90uhxERbMiHM+A=
 github.com/pulumi/pulumi/sdk/v3 v3.49.0/go.mod h1:58NOiU6vEdA0S8KFiFt4/eqH7vKtWhDFsEGCUFRBovw=
 github.com/rakyll/embedmd v0.0.0-20171029212350-c8060a0752a2/go.mod h1:7jOTMgqac46PZcF54q6l2hkLEG8op93fZu61KmxWDV4=
