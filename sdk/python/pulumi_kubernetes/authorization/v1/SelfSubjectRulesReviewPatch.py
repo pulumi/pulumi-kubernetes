@@ -101,7 +101,7 @@ class SelfSubjectRulesReviewPatch(pulumi.CustomResource):
         Server-Side Apply updates. The name of the resource must be specified, but all other properties are optional. More than
         one patch may be applied to the same resource, and a random FieldManager name will be used for each Patch resource.
         Conflicts will result in an error by default, but can be forced using the "pulumi.com/patchForce" annotation. See the
-        [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/installation-configuration/#server-side-apply) for
+        [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/managing-resources-with-server-side-apply/) for
         additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
         SelfSubjectRulesReview enumerates the set of actions the current user can perform within a namespace. The returned list of actions may be incomplete depending on the server's authorization mode, and any errors experienced during the evaluation. SelfSubjectRulesReview should be used by UIs to show/hide actions, or to quickly let an end user reason about their permissions. It should NOT Be used by external systems to drive authorization decisions as this raises confused deputy, cache lifetime/revocation, and correctness concerns. SubjectAccessReview, and LocalAccessReview are the correct way to defer authorization decisions to the API server.
 
@@ -123,7 +123,7 @@ class SelfSubjectRulesReviewPatch(pulumi.CustomResource):
         Server-Side Apply updates. The name of the resource must be specified, but all other properties are optional. More than
         one patch may be applied to the same resource, and a random FieldManager name will be used for each Patch resource.
         Conflicts will result in an error by default, but can be forced using the "pulumi.com/patchForce" annotation. See the
-        [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/installation-configuration/#server-side-apply) for
+        [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/managing-resources-with-server-side-apply/) for
         additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
         SelfSubjectRulesReview enumerates the set of actions the current user can perform within a namespace. The returned list of actions may be incomplete depending on the server's authorization mode, and any errors experienced during the evaluation. SelfSubjectRulesReview should be used by UIs to show/hide actions, or to quickly let an end user reason about their permissions. It should NOT Be used by external systems to drive authorization decisions as this raises confused deputy, cache lifetime/revocation, and correctness concerns. SubjectAccessReview, and LocalAccessReview are the correct way to defer authorization decisions to the API server.
 

@@ -102,7 +102,7 @@ class RuntimeClassPatch(pulumi.CustomResource):
         Server-Side Apply updates. The name of the resource must be specified, but all other properties are optional. More than
         one patch may be applied to the same resource, and a random FieldManager name will be used for each Patch resource.
         Conflicts will result in an error by default, but can be forced using the "pulumi.com/patchForce" annotation. See the
-        [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/installation-configuration/#server-side-apply) for
+        [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/managing-resources-with-server-side-apply/) for
         additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
         RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a pod. RuntimeClasses are (currently) manually defined by a user or cluster provisioner, and referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName reference before running the pod.  For more details, see https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md
 
@@ -124,7 +124,7 @@ class RuntimeClassPatch(pulumi.CustomResource):
         Server-Side Apply updates. The name of the resource must be specified, but all other properties are optional. More than
         one patch may be applied to the same resource, and a random FieldManager name will be used for each Patch resource.
         Conflicts will result in an error by default, but can be forced using the "pulumi.com/patchForce" annotation. See the
-        [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/installation-configuration/#server-side-apply) for
+        [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/managing-resources-with-server-side-apply/) for
         additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
         RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a pod. RuntimeClasses are (currently) manually defined by a user or cluster provisioner, and referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName reference before running the pod.  For more details, see https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md
 

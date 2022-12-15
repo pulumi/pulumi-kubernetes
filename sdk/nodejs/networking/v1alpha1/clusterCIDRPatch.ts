@@ -12,7 +12,7 @@ import * as utilities from "../../utilities";
  * Server-Side Apply updates. The name of the resource must be specified, but all other properties are optional. More than
  * one patch may be applied to the same resource, and a random FieldManager name will be used for each Patch resource.
  * Conflicts will result in an error by default, but can be forced using the "pulumi.com/patchForce" annotation. See the
- * [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/installation-configuration/#server-side-apply) for
+ * [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/managing-resources-with-server-side-apply/) for
  * additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
  * ClusterCIDR represents a single configuration for per-Node Pod CIDR allocations when the MultiCIDRRangeAllocator is enabled (see the config for kube-controller-manager).  A cluster may have any number of ClusterCIDR resources, all of which will be considered when allocating a CIDR for a Node.  A ClusterCIDR is eligible to be used for a given Node when the node selector matches the node in question and has free CIDRs to allocate.  In case of multiple matching ClusterCIDR resources, the allocator will attempt to break ties using internal heuristics, but any ClusterCIDR whose node selector matches the Node may be used.
  */
