@@ -205,7 +205,9 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 						ssaConflictDocLink, err)
 				}
 			} else {
-				var options metav1.CreateOptions
+				options := metav1.CreateOptions{
+					FieldManager: c.FieldManager,
+				}
 				if c.Preview {
 					options.DryRun = []string{metav1.DryRunAll}
 				}
@@ -452,7 +454,9 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 				return nil, err
 			}
 
-			var options metav1.PatchOptions
+			options := metav1.PatchOptions{
+				FieldManager: c.FieldManager,
+			}
 			if c.Preview {
 				options.DryRun = []string{metav1.DryRunAll}
 			}

@@ -1552,7 +1552,7 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 			newInputs.GetNamespace(), newInputs.GetName())
 	}
 
-	fieldManager := fieldManagerName(nil, newResInputs, newInputs)
+	fieldManager := fieldManagerName(nil, newResInputs, newInputs, k.serverSideApplyMode)
 
 	// Try to compute a server-side patch.
 	ssPatch, ssPatchBase, ssPatchOk, err := k.tryServerSidePatch(oldInputs, newInputs, gvk, fieldManager)
@@ -1749,7 +1749,7 @@ func (k *kubeProvider) Create(
 	}
 
 	initialAPIVersion := newInputs.GetAPIVersion()
-	fieldManager := fieldManagerName(nil, newResInputs, newInputs)
+	fieldManager := fieldManagerName(nil, newResInputs, newInputs, k.serverSideApplyMode)
 
 	if k.yamlRenderMode {
 		if newResInputs.ContainsSecrets() {
@@ -1974,7 +1974,7 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	if err != nil {
 		return nil, err
 	}
-	fieldManager := fieldManagerName(nil, oldState, oldInputs)
+	fieldManager := fieldManagerName(nil, oldState, oldInputs, k.serverSideApplyMode)
 
 	if k.yamlRenderMode {
 		// Return a new "checkpoint object".
@@ -2243,8 +2243,8 @@ func (k *kubeProvider) Update(
 		return nil, err
 	}
 
-	fieldManagerOld := fieldManagerName(nil, oldState, oldInputs)
-	fieldManager := fieldManagerName(nil, oldState, newInputs)
+	fieldManagerOld := fieldManagerName(nil, oldState, oldInputs, k.serverSideApplyMode)
+	fieldManager := fieldManagerName(nil, oldState, newInputs, k.serverSideApplyMode)
 
 	if k.yamlRenderMode {
 		if newResInputs.ContainsSecrets() {
@@ -2421,7 +2421,7 @@ func (k *kubeProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest)
 	if err != nil {
 		return nil, err
 	}
-	fieldManager := fieldManagerName(nil, oldState, oldInputs)
+	fieldManager := fieldManagerName(nil, oldState, oldInputs, k.serverSideApplyMode)
 	resources, err := k.getResources()
 	if err != nil {
 		return nil, pkgerrors.Wrapf(err, "Failed to fetch OpenAPI schema from the API server")
@@ -2903,7 +2903,12 @@ func initialAPIVersion(state resource.PropertyMap, oldConfig *unstructured.Unstr
 // 1. Resource annotation (this will likely change to a typed option field in the next major release)
 // 2. Value from the Pulumi state
 // 3. Randomly generated name
-func fieldManagerName(randomSeed []byte, state resource.PropertyMap, inputs *unstructured.Unstructured) string {
+func fieldManagerName(
+	randomSeed []byte, state resource.PropertyMap, inputs *unstructured.Unstructured, serverSideApplyMode bool,
+) string {
+	if !serverSideApplyMode {
+		return "pulumi-kubernetes"
+	}
 	if v := metadata.GetAnnotationValue(inputs, metadata.AnnotationPatchFieldManager); len(v) > 0 {
 		return v
 	}
