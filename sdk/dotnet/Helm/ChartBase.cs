@@ -421,6 +421,11 @@ namespace Pulumi.Kubernetes.Helm
         // </summary>
         public Input<bool>? SkipAwait { get; set; }
 
+        // <summary>
+        // Manually override to tell the provider to run helm template w/ --is-upgrade.
+        // </summary>
+        public Input<bool>? IsUpgrade { get; set; }
+
         /// <summary>
         /// The optional namespace to install chart resources into.
         /// </summary>

@@ -71,6 +71,7 @@ type HelmChartOpts struct {
 	Version                  string                 `json:"version,omitempty"`
 	HelmChartDebug           bool                   `json:"helm_chart_debug,omitempty"`
 	HelmRegistryConfig       string                 `json:"helm_registry_config,omitempty"`
+	IsUpgrade                bool                   `json:"is_upgrade,omitempty"`
 }
 
 // helmTemplate performs Helm fetch/pull + template operations and returns the resulting YAML manifest based on the
@@ -241,6 +242,9 @@ func (c *chart) template(clientSet *clients.DynamicClientSet) (string, error) {
 	installAction.NameTemplate = c.opts.ReleaseName
 	installAction.ReleaseName = c.opts.ReleaseName
 	installAction.Version = c.opts.Version
+	if c.opts.IsUpgrade {
+		installAction.IsUpgrade = c.opts.IsUpgrade
+	}
 
 	// Preserve backward compatibility
 	if len(c.opts.APIVersions) > 0 {

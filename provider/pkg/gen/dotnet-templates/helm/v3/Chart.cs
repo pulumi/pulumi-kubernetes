@@ -313,6 +313,7 @@ namespace Pulumi.Kubernetes.Helm.V3
                     ApiVersions = cfgBase.ApiVersions,
                     IncludeTestHookResources = cfgBase.IncludeTestHookResources,
                     SkipCRDRendering = cfgBase.SkipCRDRendering,
+                    IsUpgrade = cfgBase.IsUpgrade,
                     Namespace = cfgBase.Namespace,
                     Values = cfgBase.Values,
                     ReleaseName = releaseName,
@@ -351,6 +352,7 @@ namespace Pulumi.Kubernetes.Helm.V3
                     ApiVersions = cfgBase.ApiVersions,
                     IncludeTestHookResources = cfgBase.IncludeTestHookResources,
                     SkipCRDRendering = cfgBase.SkipCRDRendering,
+                    IsUpgrade = cfgBase.IsUpgrade,
                     Namespace = cfgBase.Namespace,
                     Values = cfgBase.Values,
                     ReleaseName = releaseName,
@@ -399,6 +401,8 @@ namespace Pulumi.Kubernetes.Helm.V3
             public string? Version { get; set; }
             [JsonPropertyName("fetch_opts")]
             public JsonOptsFetch? FetchOptions { get; set; }
+            [JsonPropertyName("is_upgrade")]
+            public bool? IsUpgrade { get; set; }
             [JsonPropertyName("path")]
             public string? Path { get; set; }
             [JsonPropertyName("release_name")]

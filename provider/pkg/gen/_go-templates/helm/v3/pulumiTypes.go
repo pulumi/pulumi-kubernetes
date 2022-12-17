@@ -125,6 +125,8 @@ type ChartArgs struct {
 	SkipAwait pulumi.BoolInput
 	// By default CRDs are also rendered along side templates. Set this to skip CRDs.
 	SkipCRDRendering pulumi.BoolInput
+	// Manually override to tell the provider to run helm template w/ --is-upgrade.
+	IsUpgrade pulumi.BoolInput
 	// The optional namespace to install chart resources into.
 	Namespace pulumi.StringInput
 	// Overrides for chart values.
@@ -168,6 +170,7 @@ type chartArgs struct {
 	Chart                    string                 `json:"chart,omitempty" pulumi:"chart"`
 	Version                  string                 `json:"version,omitempty" pulumi:"version"`
 	FetchArgs                fetchArgs              `json:"fetch_opts,omitempty" pulumi:"fetchArgs"`
+	IsUpgrade                bool                   `json:"is_upgrade,omitempty" pulumi:"isUpgrade"`
 	Path                     string                 `json:"path,omitempty" pulumi:"path"`
 }
 

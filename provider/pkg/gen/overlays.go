@@ -173,6 +173,12 @@ var helmV3ChartResource = pschema.ResourceSpec{
 			},
 			Description: "Additional options to customize the fetching of the Helm chart.",
 		},
+		"isUpgrade": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "boolean",
+			},
+			Description: "Manually override to tell the provider to run helm template w/ --is-upgrade.",
+		},
 		"path": {
 			TypeSpec: pschema.TypeSpec{
 				Type: "string",

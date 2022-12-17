@@ -201,6 +201,10 @@ export class Chart extends yaml.CollectionComponentResource {
                                 obj["fetch_opts"] = value;
                                 break;
                             }
+                            case "isUpgrade": {
+                                obj["is_upgrade"] = value;
+                                break;
+                            }
                             case "includeTestHookResources": {
                                 obj["include_test_hook_resources"] = value;
                                 break;
@@ -296,6 +300,10 @@ interface BaseChartOpts {
      * Warning: This option should not be used if you have resources depending on Outputs from the Chart.
      */
     skipAwait?: pulumi.Input<boolean>;
+    /**
+     * Manually override to tell the provider to run helm template w/ --is-upgrade.
+     */
+    isUpgrade?: pulumi.Input<boolean>;
 }
 
 /**
