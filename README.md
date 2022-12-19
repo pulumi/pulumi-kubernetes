@@ -76,7 +76,7 @@ for more details.
 ## Prerequisites
 
 1. [Install Pulumi](https://www.pulumi.com/docs/get-started/kubernetes/install-pulumi/).
-1. Install a language runtime such as [Node.js](https://nodejs.org/en/download), [Python](https://www.python.org/downloads/) or [.NET](https://dotnet.microsoft.com/download/dotnet-core/3.0).
+1. Install a language runtime such as [Node.js](https://nodejs.org/en/download), [Python](https://www.python.org/downloads/) or [.NET](https://dotnet.microsoft.com/download/dotnet-core/3.1).
 1. Install a package manager
     * For Node.js, use [NPM](https://www.npmjs.com/get-npm) or [Yarn](https://yarnpkg.com/lang/en/docs/install).
     * For Python, use [pip](https://pip.pypa.io/en/stable/installing/).

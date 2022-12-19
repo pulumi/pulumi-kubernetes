@@ -7,7 +7,8 @@
 1. Python: `python-setuptools`, `pip`
 1. Go: [golangci-lint](https://github.com/golangci/golangci-lint)
 1. JS: `npm`, `yarn`
-1. .NET: [.NET SDK 3.0](https://dotnet.microsoft.com/download/dotnet-core/3.0)
+1. .NET: [.NET SDK 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1)
+1. [pulumictl](https://github.com/pulumi/pulumictl)
 
 ### Restore Vendor Dependencies
 
