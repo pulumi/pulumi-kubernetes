@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 3.23.1 (December 19, 2022)
+
 - Add `PULUMI_K8S_ENABLE_PATCH_FORCE` env var support (https://github.com/pulumi/pulumi-kubernetes/pulls/2260)
 - Add link to resolution guide for SSA conflicts (https://github.com/pulumi/pulumi-kubernetes/pulls/2265)
 - Always set a field manager name to avoid conflicts in Client-Side Apply mode (https://github.com/pulumi/pulumi-kubernetes/pulls/2271)
