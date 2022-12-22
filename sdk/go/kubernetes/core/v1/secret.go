@@ -51,10 +51,10 @@ func NewSecret(ctx *pulumi.Context,
 	args.ApiVersion = pulumi.StringPtr("v1")
 	args.Kind = pulumi.StringPtr("Secret")
 	if args.Data != nil {
-		args.Data = pulumi.ToSecret(args.Data).(pulumi.StringMapOutput)
+		args.Data = pulumi.ToSecret(args.Data).(pulumi.StringMapInput)
 	}
 	if args.StringData != nil {
-		args.StringData = pulumi.ToSecret(args.StringData).(pulumi.StringMapOutput)
+		args.StringData = pulumi.ToSecret(args.StringData).(pulumi.StringMapInput)
 	}
 	secrets := pulumi.AdditionalSecretOutputs([]string{
 		"data",
