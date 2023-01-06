@@ -11,6 +11,8 @@ require (
 	github.com/mitchellh/mapstructure v1.5.0
 	github.com/pkg/errors v0.9.1
 	github.com/pulumi/cloud-ready-checks v1.0.1-0.20220105213132-0fbbc00d3335
+	github.com/pulumi/pulumi-go-provider v0.9.0
+	github.com/pulumi/pulumi-kubernetes/sdk/v3 v3.23.1
 	github.com/pulumi/pulumi/pkg/v3 v3.51.0
 	github.com/pulumi/pulumi/sdk/v3 v3.51.0
 	github.com/stretchr/testify v1.8.1
@@ -49,7 +51,6 @@ require (
 	github.com/Azure/go-autorest/logger v0.2.1 // indirect
 	github.com/Azure/go-autorest/tracing v0.6.0 // indirect
 	github.com/BurntSushi/toml v1.1.0 // indirect
-	github.com/HdrHistogram/hdrhistogram-go v1.1.2 // indirect
 	github.com/MakeNowJust/heredoc v1.0.0 // indirect
 	github.com/Masterminds/goutils v1.1.1 // indirect
 	github.com/Masterminds/semver/v3 v3.1.1 // indirect

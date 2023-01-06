@@ -31,6 +31,10 @@ import (
 	"strings"
 	"sync"
 
+	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/mlc"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	pulumiprovider "github.com/pulumi/pulumi/sdk/v3/go/pulumi/provider"
+
 	jsonpatch "github.com/evanphx/json-patch"
 	"github.com/golang/protobuf/ptypes/empty"
 	pbempty "github.com/golang/protobuf/ptypes/empty"
@@ -215,7 +219,50 @@ func (k *kubeProvider) GetMapping(ctx context.Context, req *pulumirpc.GetMapping
 
 // Construct creates a new instance of the provided component resource and returns its state.
 func (k *kubeProvider) Construct(ctx context.Context, req *pulumirpc.ConstructRequest) (*pulumirpc.ConstructResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "Construct is not yet implemented")
+	return pulumiprovider.Construct(ctx, req, k.host.EngineConn(), func(ctx *pulumi.Context, typ, name string,
+		inputs pulumiprovider.ConstructInputs, options pulumi.ResourceOption) (*pulumiprovider.ConstructResult, error) {
+
+		//if typ != "testcomponent:index:Component" {
+		//	return nil, fmt.Errorf("unknown resource type %s", typ)
+		//}
+
+		comp := &mlc.ConfigFileState{}
+		err := ctx.RegisterComponentResource(typ, name, comp, options)
+		if err != nil {
+			return nil, err
+		}
+
+		args := &mlc.ConfigFileArgs{}
+		if err := inputs.CopyTo(args); err != nil {
+			return nil, fmt.Errorf("setting args: %w", err)
+		}
+		// Creating resources inside an Apply, but since this is a separate MLC, the gRPC boundary solves the dependency
+		// ordering problem.
+		resources := pulumi.All(args.File, args.ResourcePrefix).ApplyTWithContext(ctx.Context(), func(_ context.Context, args []any) (pulumi.MapOutput, error) {
+			var file, resourcePrefix string
+			if v, ok := args[0].(string); ok {
+				file = v
+			}
+			if v, ok := args[1].(string); ok {
+				resourcePrefix = v
+			}
+			resources, err := mlc.ParseDecodeYamlFiles(ctx, &mlc.ConfigGroupArgs{
+				Files:          []string{file},
+				ResourcePrefix: resourcePrefix,
+			}, true, pulumi.Parent(comp))
+			if err != nil {
+				return pulumi.MapOutput{}, err
+			}
+
+			return resources, nil
+		}).(pulumi.MapOutput)
+		comp.Resources = resources
+		if err != nil {
+			return nil, err
+		}
+
+		return pulumiprovider.NewConstructResult(comp)
+	})
 }
 
 // GetSchema returns the JSON-encoded schema for this provider's package.
@@ -751,6 +798,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 
 	return &pulumirpc.ConfigureResponse{
 		AcceptSecrets:   true,
+		AcceptOutputs:   true,
 		SupportsPreview: true,
 	}, nil
 }

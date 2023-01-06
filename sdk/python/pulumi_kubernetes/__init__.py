@@ -593,14 +593,6 @@ _utilities.register(
  },
  {
   "pkg": "kubernetes",
-  "mod": "helm.sh/v3",
-  "fqn": "pulumi_kubernetes.helm.v3",
-  "classes": {
-   "kubernetes:helm.sh/v3:Release": "Release"
-  }
- },
- {
-  "pkg": "kubernetes",
   "mod": "meta/v1",
   "fqn": "pulumi_kubernetes.meta.v1",
   "classes": {
@@ -868,6 +860,14 @@ _utilities.register(
    "kubernetes:storage.k8s.io/v1beta1:VolumeAttachment": "VolumeAttachment",
    "kubernetes:storage.k8s.io/v1beta1:VolumeAttachmentList": "VolumeAttachmentList",
    "kubernetes:storage.k8s.io/v1beta1:VolumeAttachmentPatch": "VolumeAttachmentPatch"
+  }
+ },
+ {
+  "pkg": "kubernetes",
+  "mod": "yaml",
+  "fqn": "pulumi_kubernetes.yaml",
+  "classes": {
+   "kubernetes:yaml:ConfigFile": "ConfigFile"
   }
  }
 ]

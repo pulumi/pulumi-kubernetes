@@ -301,15 +301,7 @@
         "flowcontrol/v1beta3/priorityLevelConfiguration.ts",
         "flowcontrol/v1beta3/priorityLevelConfigurationList.ts",
         "flowcontrol/v1beta3/priorityLevelConfigurationPatch.ts",
-        "helm/index.ts",
-        "helm/v2/helm.ts",
-        "helm/v2/index.ts",
-        "helm/v3/helm.ts",
-        "helm/v3/index.ts",
-        "helm/v3/release.ts",
         "index.ts",
-        "kustomize/index.ts",
-        "kustomize/kustomize.ts",
         "meta/index.ts",
         "meta/v1/index.ts",
         "meta/v1/status.ts",
@@ -478,7 +470,7 @@
         "types/input.ts",
         "types/output.ts",
         "utilities.ts",
-        "yaml/index.ts",
-        "yaml/yaml.ts"
+        "yaml/configFile.ts",
+        "yaml/index.ts"
     ]
 }

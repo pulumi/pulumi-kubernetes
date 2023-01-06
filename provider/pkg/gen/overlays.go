@@ -1106,7 +1106,6 @@ var configFileMD string
 var yamlConfigFileResource = pschema.ResourceSpec{
 	IsComponent: true,
 	ObjectTypeSpec: pschema.ObjectTypeSpec{
-		IsOverlay:   true,
 		Description: configFileMD,
 		Properties: map[string]pschema.PropertySpec{
 			"resources": {
@@ -1130,15 +1129,6 @@ var yamlConfigFileResource = pschema.ResourceSpec{
 				Type: "string",
 			},
 			Description: "An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix=\"foo\" would produce a resource named \"foo-resourceName\".",
-		},
-		"transformations": {
-			TypeSpec: pschema.TypeSpec{
-				Type: "array",
-				Items: &pschema.TypeSpec{
-					Ref: "pulumi.json#/Any",
-				},
-			},
-			Description: "A set of transformations to apply to Kubernetes resource definitions before registering with engine.",
 		},
 	},
 	RequiredInputs: []string{
@@ -1364,8 +1354,8 @@ var apiextentionsCustomResourcePatch = pschema.ResourceSpec{
 func init() {
 	typeOverlays["kubernetes:core/v1:ServiceSpec"] = serviceSpec
 	typeOverlays["kubernetes:core/v1:ServiceSpecType"] = serviceSpecType
-	typeOverlays["kubernetes:helm.sh/v2:FetchOpts"] = helmV2FetchOpts
-	typeOverlays["kubernetes:helm.sh/v3:FetchOpts"] = helmV2FetchOpts // v2 fetch opts are identical to v3
+	//typeOverlays["kubernetes:helm.sh/v2:FetchOpts"] = helmV2FetchOpts
+	//typeOverlays["kubernetes:helm.sh/v3:FetchOpts"] = helmV2FetchOpts // v2 fetch opts are identical to v3
 	typeOverlays["kubernetes:helm.sh/v3:RepositoryOpts"] = helmV3RepoOpts
 	typeOverlays["kubernetes:helm.sh/v3:ReleaseStatus"] = helmV3ReleaseStatus
 	typeOverlays["kubernetes:index:KubeClientSettings"] = kubeClientSettings
@@ -1373,10 +1363,10 @@ func init() {
 
 	resourceOverlays["kubernetes:apiextensions.k8s.io:CustomResource"] = apiextentionsCustomResource
 	resourceOverlays["kubernetes:apiextensions.k8s.io:CustomResourcePatch"] = apiextentionsCustomResourcePatch
-	resourceOverlays["kubernetes:helm.sh/v2:Chart"] = helmV2ChartResource
-	resourceOverlays["kubernetes:helm.sh/v3:Chart"] = helmV3ChartResource
-	resourceOverlays["kubernetes:helm.sh/v3:Release"] = helmV3ReleaseResource
-	resourceOverlays["kubernetes:kustomize:Directory"] = kustomizeDirectoryResource
+	//resourceOverlays["kubernetes:helm.sh/v2:Chart"] = helmV2ChartResource
+	//resourceOverlays["kubernetes:helm.sh/v3:Chart"] = helmV3ChartResource
+	//resourceOverlays["kubernetes:helm.sh/v3:Release"] = helmV3ReleaseResource
+	//resourceOverlays["kubernetes:kustomize:Directory"] = kustomizeDirectoryResource
 	resourceOverlays["kubernetes:yaml:ConfigFile"] = yamlConfigFileResource
-	resourceOverlays["kubernetes:yaml:ConfigGroup"] = yamlConfigGroupResource
+	//resourceOverlays["kubernetes:yaml:ConfigGroup"] = yamlConfigGroupResource
 }

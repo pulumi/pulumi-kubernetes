@@ -217,10 +217,10 @@ func writeNodeJSClient(pkg *schema.Package, outdir, templateDir string) {
 	overlays := map[string][]byte{
 		"apiextensions/customResource.ts":      mustLoadFile(filepath.Join(templateDir, "apiextensions", "customResource.ts")),
 		"apiextensions/customResourcePatch.ts": mustLoadFile(filepath.Join(templateDir, "apiextensions", "customResourcePatch.ts")),
-		"helm/v2/helm.ts":                      mustLoadFile(filepath.Join(templateDir, "helm", "v2", "helm.ts")),
-		"helm/v3/helm.ts":                      mustLoadFile(filepath.Join(templateDir, "helm", "v3", "helm.ts")),
-		"kustomize/kustomize.ts":               mustLoadFile(filepath.Join(templateDir, "kustomize", "kustomize.ts")),
-		"yaml/yaml.ts":                         mustRenderTemplate(filepath.Join(templateDir, "yaml", "yaml.tmpl"), templateResources),
+		//"helm/v2/helm.ts":                      mustLoadFile(filepath.Join(templateDir, "helm", "v2", "helm.ts")),
+		//"helm/v3/helm.ts":                      mustLoadFile(filepath.Join(templateDir, "helm", "v3", "helm.ts")),
+		//"kustomize/kustomize.ts":               mustLoadFile(filepath.Join(templateDir, "kustomize", "kustomize.ts")),
+		//"yaml/yaml.ts":                         mustRenderTemplate(filepath.Join(templateDir, "yaml", "yaml.tmpl"), templateResources),
 	}
 	files, err := nodejsgen.GeneratePackage("pulumigen", pkg, overlays)
 	if err != nil {
@@ -358,9 +358,9 @@ func writeGoClient(pkg *schema.Package, outdir string, templateDir string) {
 	// Go codegen maps package to "v3" for Helm Release. Manually rename to
 	// helm to avoid conflict with existing templates.
 	renamePackage([]string{
-		"kubernetes/helm/v3/pulumiTypes.go",
-		"kubernetes/helm/v3/init.go",
-		"kubernetes/helm/v3/release.go",
+		//"kubernetes/helm/v3/pulumiTypes.go",
+		//"kubernetes/helm/v3/init.go",
+		//"kubernetes/helm/v3/release.go",
 	},
 		"package v3",
 		"package helm")
@@ -393,17 +393,17 @@ func writeGoClient(pkg *schema.Package, outdir string, templateDir string) {
 	files["kubernetes/customPulumiTypes.go"] = mustLoadGoFile(filepath.Join(templateDir, "customPulumiTypes.go"))
 	files["kubernetes/apiextensions/customResource.go"] = mustLoadGoFile(filepath.Join(templateDir, "apiextensions", "customResource.go"))
 	files["kubernetes/apiextensions/customResourcePatch.go"] = mustLoadGoFile(filepath.Join(templateDir, "apiextensions", "customResourcePatch.go"))
-	files["kubernetes/helm/v2/chart.go"] = mustLoadGoFile(filepath.Join(templateDir, "helm", "v2", "chart.go"))
-	files["kubernetes/helm/v2/pulumiTypes.go"] = mustLoadGoFile(filepath.Join(templateDir, "helm", "v2", "pulumiTypes.go"))
-	files["kubernetes/helm/v3/chart.go"] = mustLoadGoFile(filepath.Join(templateDir, "helm", "v3", "chart.go"))
+	//files["kubernetes/helm/v2/chart.go"] = mustLoadGoFile(filepath.Join(templateDir, "helm", "v2", "chart.go"))
+	//files["kubernetes/helm/v2/pulumiTypes.go"] = mustLoadGoFile(filepath.Join(templateDir, "helm", "v2", "pulumiTypes.go"))
+	//files["kubernetes/helm/v3/chart.go"] = mustLoadGoFile(filepath.Join(templateDir, "helm", "v3", "chart.go"))
 	// Rename pulumiTypes.go to avoid conflict with schema generated Helm Release types.
-	files["kubernetes/helm/v3/chartPulumiTypes.go"] = mustLoadGoFile(filepath.Join(templateDir, "helm", "v3", "pulumiTypes.go"))
-	files["kubernetes/kustomize/directory.go"] = mustLoadGoFile(filepath.Join(templateDir, "kustomize", "directory.go"))
-	files["kubernetes/kustomize/pulumiTypes.go"] = mustLoadGoFile(filepath.Join(templateDir, "kustomize", "pulumiTypes.go"))
-	files["kubernetes/yaml/configFile.go"] = mustLoadGoFile(filepath.Join(templateDir, "yaml", "configFile.go"))
-	files["kubernetes/yaml/configGroup.go"] = mustLoadGoFile(filepath.Join(templateDir, "yaml", "configGroup.go"))
-	files["kubernetes/yaml/transformation.go"] = mustLoadGoFile(filepath.Join(templateDir, "yaml", "transformation.go"))
-	files["kubernetes/yaml/yaml.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "yaml", "yaml.tmpl"), templateResources)
+	//files["kubernetes/helm/v3/chartPulumiTypes.go"] = mustLoadGoFile(filepath.Join(templateDir, "helm", "v3", "pulumiTypes.go"))
+	//files["kubernetes/kustomize/directory.go"] = mustLoadGoFile(filepath.Join(templateDir, "kustomize", "directory.go"))
+	//files["kubernetes/kustomize/pulumiTypes.go"] = mustLoadGoFile(filepath.Join(templateDir, "kustomize", "pulumiTypes.go"))
+	//files["kubernetes/yaml/configFile.go"] = mustLoadGoFile(filepath.Join(templateDir, "yaml", "configFile.go"))
+	//files["kubernetes/yaml/configGroup.go"] = mustLoadGoFile(filepath.Join(templateDir, "yaml", "configGroup.go"))
+	//files["kubernetes/yaml/transformation.go"] = mustLoadGoFile(filepath.Join(templateDir, "yaml", "transformation.go"))
+	//files["kubernetes/yaml/yaml.go"] = mustRenderGoTemplate(filepath.Join(templateDir, "yaml", "yaml.tmpl"), templateResources)
 
 	mustWriteFiles(outdir, files)
 }
@@ -458,6 +458,9 @@ func genK8sResourceTypes(pkg *schema.Package) {
 		groupVersion, kind := parts[1], parts[2]
 
 		if resource.IsOverlay {
+			continue
+		}
+		if groupVersion == "yaml" {
 			continue
 		}
 		if strings.HasSuffix(kind, "Patch") {

@@ -1907,6 +1907,12 @@ def _parse_yaml_object(
         return [identifier.apply(
             lambda x: (f"storage.k8s.io/v1beta1/VolumeAttachmentList:{x}",
                        VolumeAttachmentList(f"{x}", opts, **obj)))]
+    if gvk == "yaml/ConfigFile":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.yaml import ConfigFile
+        return [identifier.apply(
+            lambda x: (f"yaml/ConfigFile:{x}",
+                       ConfigFile(f"{x}", opts, **obj)))]
     if gvk == "apiextensions.k8s.io/v1/CustomResourceDefinition":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.apiextensions.v1 import CustomResourceDefinition

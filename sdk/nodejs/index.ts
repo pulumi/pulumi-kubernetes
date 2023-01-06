@@ -28,8 +28,6 @@ import * as discovery from "./discovery";
 import * as events from "./events";
 import * as extensions from "./extensions";
 import * as flowcontrol from "./flowcontrol";
-import * as helm from "./helm";
-import * as kustomize from "./kustomize";
 import * as meta from "./meta";
 import * as networking from "./networking";
 import * as node from "./node";
@@ -59,8 +57,6 @@ export {
     events,
     extensions,
     flowcontrol,
-    helm,
-    kustomize,
     meta,
     networking,
     node,

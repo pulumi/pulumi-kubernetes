@@ -104,7 +104,7 @@ bin/pulumi-java-gen::
 	$(shell pulumictl download-binary -n pulumi-language-java -v $(JAVA_GEN_VERSION) -r pulumi/pulumi-java)
 
 .PHONY: build
-build:: k8sgen openapi_file schema k8sprovider nodejs_sdk go_sdk python_sdk dotnet_sdk java_sdk
+build:: k8sgen openapi_file schema k8sprovider nodejs_sdk go_sdk
 
 # Required for the codegen action that runs in pulumi/pulumi
 only_build:: build
