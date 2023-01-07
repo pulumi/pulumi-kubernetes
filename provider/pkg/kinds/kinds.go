@@ -47,6 +47,7 @@ const (
 	ClusterRoleBinding                   Kind = "ClusterRoleBinding"
 	ClusterRoleBindingList               Kind = "ClusterRoleBindingList"
 	ClusterRoleList                      Kind = "ClusterRoleList"
+	ConfigFile                           Kind = "ConfigFile"
 	ConfigMap                            Kind = "ConfigMap"
 	ConfigMapList                        Kind = "ConfigMapList"
 	ControllerRevision                   Kind = "ControllerRevision"
@@ -279,6 +280,7 @@ const (
 	StorageV1                 groupVersion = "storage.k8s.io/v1"
 	StorageV1A1               groupVersion = "storage.k8s.io/v1alpha1"
 	StorageV1B1               groupVersion = "storage.k8s.io/v1beta1"
+	YamlV2                    groupVersion = "yaml/v2"
 )
 
 // toGVK is a helper function that converts the internal groupVersion and Kind types to a schema.GroupVersionKind
@@ -352,5 +354,6 @@ var KnownGroupVersions = codegen.NewStringSet(
 	"storage.k8s.io/v1",
 	"storage.k8s.io/v1alpha1",
 	"storage.k8s.io/v1beta1",
+	"yaml/v2",
 	"v1", // alias for "core/v1"
 )

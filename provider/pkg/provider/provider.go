@@ -31,6 +31,8 @@ import (
 	"strings"
 	"sync"
 
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/internals"
+
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/mlc"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	pulumiprovider "github.com/pulumi/pulumi/sdk/v3/go/pulumi/provider"
@@ -236,6 +238,18 @@ func (k *kubeProvider) Construct(ctx context.Context, req *pulumirpc.ConstructRe
 		if err := inputs.CopyTo(args); err != nil {
 			return nil, fmt.Errorf("setting args: %w", err)
 		}
+
+		// Check if all the required args have resolved, and print a warning if not.
+		result, err := internals.UnsafeAwaitOutput(ctx.Context(), pulumi.All(args.File, args.ResourcePrefix))
+		if err != nil {
+			return nil, err
+		}
+		if !result.Known {
+			msg := fmt.Sprintf("%s:%s -- Required input arguments have not resolved. Preview is incomplete.\n", typ, name)
+			ctx.Log.Warn(msg, nil)
+			//fmt.Printf("%s:%s -- Required input arguments have not resolved. Preview will be incomplete.\n", typ, name)
+		}
+
 		// Creating resources inside an Apply, but since this is a separate MLC, the gRPC boundary solves the dependency
 		// ordering problem.
 		resources := pulumi.All(args.File, args.ResourcePrefix).ApplyTWithContext(ctx.Context(), func(_ context.Context, args []any) (pulumi.MapOutput, error) {
@@ -249,7 +263,7 @@ func (k *kubeProvider) Construct(ctx context.Context, req *pulumirpc.ConstructRe
 			resources, err := mlc.ParseDecodeYamlFiles(ctx, &mlc.ConfigGroupArgs{
 				Files:          []string{file},
 				ResourcePrefix: resourcePrefix,
-			}, true, pulumi.Parent(comp))
+			}, true, k.clientSet, pulumi.Parent(comp))
 			if err != nil {
 				return pulumi.MapOutput{}, err
 			}
@@ -820,32 +834,6 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 	}
 
 	switch tok {
-	case invokeDecodeYaml:
-		var text, defaultNamespace string
-		if textArg := args["text"]; textArg.HasValue() && textArg.IsString() {
-			text = textArg.StringValue()
-		} else {
-			return nil, pkgerrors.New("missing required field 'text' of type string")
-		}
-		if defaultNsArg := args["defaultNamespace"]; defaultNsArg.HasValue() && defaultNsArg.IsString() {
-			defaultNamespace = defaultNsArg.StringValue()
-		}
-
-		result, err := decodeYaml(text, defaultNamespace, k.clientSet)
-		if err != nil {
-			return nil, err
-		}
-
-		objProps, err := plugin.MarshalProperties(
-			resource.NewPropertyMapFromMap(map[string]interface{}{"result": result}),
-			plugin.MarshalOptions{
-				Label: label, KeepUnknowns: true, SkipNulls: true,
-			})
-		if err != nil {
-			return nil, err
-		}
-
-		return &pulumirpc.InvokeResponse{Return: objProps}, nil
 	case invokeHelmTemplate:
 		var jsonOpts string
 		if jsonOptsArgs := args["jsonOpts"]; jsonOptsArgs.HasValue() && jsonOptsArgs.IsString() {

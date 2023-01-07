@@ -1367,6 +1367,6 @@ func init() {
 	//resourceOverlays["kubernetes:helm.sh/v3:Chart"] = helmV3ChartResource
 	//resourceOverlays["kubernetes:helm.sh/v3:Release"] = helmV3ReleaseResource
 	//resourceOverlays["kubernetes:kustomize:Directory"] = kustomizeDirectoryResource
-	resourceOverlays["kubernetes:yaml:ConfigFile"] = yamlConfigFileResource
+	resourceOverlays["kubernetes:yaml/v2:ConfigFile"] = yamlConfigFileResource
 	//resourceOverlays["kubernetes:yaml:ConfigGroup"] = yamlConfigGroupResource
 }

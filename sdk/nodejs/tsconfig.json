@@ -470,7 +470,8 @@
         "types/input.ts",
         "types/output.ts",
         "utilities.ts",
-        "yaml/configFile.ts",
-        "yaml/index.ts"
+        "yaml/index.ts",
+        "yaml/v2/configFile.ts",
+        "yaml/v2/index.ts"
     ]
 }

@@ -25,6 +25,8 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
+
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes"
 	admissionregistrationv1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/admissionregistration/v1"
@@ -88,7 +90,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-func ParseDecodeYamlFiles(ctx *pulumi.Context, args *ConfigGroupArgs, glob bool, opts ...pulumi.ResourceOption,
+func ParseDecodeYamlFiles(ctx *pulumi.Context, args *ConfigGroupArgs, glob bool, clientSet *clients.DynamicClientSet, opts ...pulumi.ResourceOption,
 ) (pulumi.MapOutput, error) {
 
 	// Start with the provided objects and YAML arrays, if any, and we'll append to them.
@@ -134,18 +136,10 @@ func ParseDecodeYamlFiles(ctx *pulumi.Context, args *ConfigGroupArgs, glob bool,
 		}
 	}
 
-	// Find options which are also Invoke options, and prepare them to pass to Invoke functions
-	var invokeOpts []pulumi.InvokeOption
-	for _, opt := range opts {
-		if invokeOpt, ok := opt.(pulumi.InvokeOption); ok {
-			invokeOpts = append(invokeOpts, invokeOpt)
-		}
-	}
-
 	// Next parse all YAML documents into objects.
 	for _, yaml := range yamls {
 		// Parse the resulting YAML bytes and turn them into raw Kubernetes objects.
-		dec, err := yamlDecode(ctx, yaml, invokeOpts...)
+		dec, err := yamlDecode(yaml, clientSet)
 		if err != nil {
 			return pulumi.MapOutput{}, errors.Wrapf(err, "decoding YAML")
 		}
@@ -157,18 +151,13 @@ func ParseDecodeYamlFiles(ctx *pulumi.Context, args *ConfigGroupArgs, glob bool,
 }
 
 // yamlDecode invokes the function to decode a single YAML file and decompose it into object structures.
-func yamlDecode(ctx *pulumi.Context, text string, opts ...pulumi.InvokeOption) ([]map[string]interface{}, error) {
-	args := struct {
-		Text string `pulumi:"text"`
-	}{Text: text}
-	var ret struct {
-		Result []map[string]interface{} `pulumi:"result"`
-	}
-
-	if err := ctx.Invoke("kubernetes:yaml:decode", &args, &ret, opts...); err != nil {
+func yamlDecode(text string, clientSet *clients.DynamicClientSet) ([]map[string]interface{}, error) {
+	result, err := DecodeYaml(text, "", clientSet)
+	if err != nil {
 		return nil, err
 	}
-	return ret.Result, nil
+
+	return result, nil
 }
 
 func ParseYamlObjects(
