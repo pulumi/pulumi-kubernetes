@@ -30,6 +30,7 @@ env:
   GOOGLE_CI_WORKLOAD_IDENTITY_POOL: pulumi-ci
   GOOGLE_CI_WORKLOAD_IDENTITY_PROVIDER: pulumi-ci
   GOOGLE_PROJECT_NUMBER: 637339343727
+  IS_PRERELEASE: true
 jobs:
   prerequisites:
     runs-on: ubuntu-latest
