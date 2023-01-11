@@ -40,7 +40,9 @@ jobs:
         goversion:
         - 1.19.x
         dotnetversion:
-        - 3.1.301
+        - |
+          6.0.x
+          3.1.301
         pythonversion:
         - "3.7"
         nodeversion:
@@ -136,7 +138,9 @@ jobs:
         goversion:
         - 1.19.x
         dotnetversion:
-        - 3.1.301
+        - |
+          6.0.x
+          3.1.301
         pythonversion:
         - "3.7"
         nodeversion:
@@ -232,7 +236,9 @@ jobs:
         goversion:
         - 1.19.x
         dotnetversion:
-        - 3.1.301
+        - |
+          6.0.x
+          3.1.301
         pythonversion:
         - "3.7"
         nodeversion:
@@ -388,7 +394,9 @@ jobs:
         goversion:
         - 1.19.x
         dotnetversion:
-        - 3.1.301
+        - |
+          6.0.x
+          3.1.301
         pythonversion:
         - "3.7"
         nodeversion:
@@ -445,7 +453,9 @@ jobs:
         goversion:
         - 1.19.x
         dotnetversion:
-        - 3.1.301
+        - |
+          6.0.x
+          3.1.301
         pythonversion:
         - "3.7"
         nodeversion:
@@ -618,7 +628,9 @@ jobs:
         goversion:
         - 1.19.x
         dotnetversion:
-        - 3.1.301
+        - |
+          6.0.x
+          3.1.301
         pythonversion:
         - "3.7"
         nodeversion:
@@ -687,7 +699,9 @@ jobs:
         goversion:
         - 1.19.x
         dotnetversion:
-        - 3.1.301
+        - |
+          6.0.x
+          3.1.301
         pythonversion:
         - "3.7"
         nodeversion:
