@@ -31,6 +31,11 @@ env:
   SIGNING_KEY_ID: ${{ secrets.JAVA_SIGNING_KEY_ID }}
   SIGNING_KEY: ${{ secrets.JAVA_SIGNING_KEY }}
   SIGNING_PASSWORD: ${{ secrets.JAVA_SIGNING_PASSWORD }}
+  GOVERSION: 1.19.x
+  NODEVERSION: 16.x
+  PYTHONVERSION: "3.7"
+  DOTNETVERSION: 3.1.301
+  JAVAVERSION: "11"
   AWS_REGION: us-west-2
   PULUMI_TEST_OWNER: moolumi
   GOLANGCI_LINT_VERSION: v1.46.2
@@ -42,19 +47,6 @@ env:
 jobs:
   prerequisites:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: true
-      matrix:
-        goversion:
-        - 1.19.x
-        dotnetversion:
-        - |
-          6.0.x
-          3.1.301
-        pythonversion:
-        - "3.7"
-        nodeversion:
-        - 14.x
     name: prerequisites
     steps:
     - name: Checkout Repo
@@ -71,7 +63,7 @@ jobs:
     - name: Install Go
       uses: actions/setup-go@v2
       with:
-        go-version: ${{matrix.goversion}}
+        go-version: ${{ env.GOVERSION }}
     - name: Install pulumictl
       uses: jaxxstorm/action-install-gh-release@v1.5.0
       with:
@@ -143,18 +135,6 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        goversion:
-        - 1.19.x
-        dotnetversion:
-        - |
-          6.0.x
-          3.1.301
-        pythonversion:
-        - "3.7"
-        nodeversion:
-        - 14.x
-        javaversion:
-        - "11"
         language:
         - nodejs
         - python
@@ -177,7 +157,7 @@ jobs:
     - name: Install Go
       uses: actions/setup-go@v2
       with:
-        go-version: ${{matrix.goversion}}
+        go-version: ${{ env.GOVERSION }}
     - name: Install pulumictl
       uses: jaxxstorm/action-install-gh-release@v1.5.0
       with:
@@ -187,20 +167,20 @@ jobs:
     - name: Setup Node
       uses: actions/setup-node@v2
       with:
-        node-version: ${{matrix.nodeversion}}
+        node-version: ${{ env.NODEVERSION }}
         registry-url: https://registry.npmjs.org
     - name: Setup DotNet
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: ${{matrix.dotnetversion}}
+        dotnet-version: ${{ env.DOTNETVERSION }}
     - name: Setup Python
       uses: actions/setup-python@v2
       with:
-        python-version: ${{matrix.pythonversion}}
+        python-version: ${{ env.PYTHONVERSION }}
     - name: Setup Java
       uses: actions/setup-java@v3
       with:
-        java-version: ${{matrix.javaversion}}
+        java-version: ${{ env.JAVAVERSION }}
         distribution: temurin
         cache: gradle
     - name: Download provider + tfgen binaries
@@ -241,18 +221,6 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        goversion:
-        - 1.19.x
-        dotnetversion:
-        - |
-          6.0.x
-          3.1.301
-        pythonversion:
-        - "3.7"
-        nodeversion:
-        - 14.x
-        javaversion:
-        - "11"
         language:
         - nodejs
         - python
@@ -278,7 +246,7 @@ jobs:
     - name: Install Go
       uses: actions/setup-go@v2
       with:
-        go-version: ${{matrix.goversion}}
+        go-version: ${{ env.GOVERSION }}
     - name: Install pulumictl
       uses: jaxxstorm/action-install-gh-release@v1.5.0
       with:
@@ -288,20 +256,20 @@ jobs:
     - name: Setup Node
       uses: actions/setup-node@v2
       with:
-        node-version: ${{matrix.nodeversion}}
+        node-version: ${{ env.NODEVERSION }}
         registry-url: https://registry.npmjs.org
     - name: Setup DotNet
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: ${{matrix.dotnetversion}}
+        dotnet-version: ${{ env.DOTNETVERSION }}
     - name: Setup Python
       uses: actions/setup-python@v2
       with:
-        python-version: ${{matrix.pythonversion}}
+        python-version: ${{ env.PYTHONVERSION }}
     - name: Setup Java
       uses: actions/setup-java@v3
       with:
-        java-version: ${{matrix.javaversion}}
+        java-version: ${{ env.JAVAVERSION }}
         distribution: temurin
         cache: gradle
     - name: Download provider + tfgen binaries
@@ -396,10 +364,6 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     needs: test
-    strategy:
-      matrix:
-        goversion:
-        - 1.19.x
     name: publish
     steps:
     - name: Checkout Repo
@@ -411,7 +375,7 @@ jobs:
     - name: Install Go
       uses: actions/setup-go@v2
       with:
-        go-version: ${{matrix.goversion}}
+        go-version: ${{ env.GOVERSION }}
     - name: Install pulumictl
       uses: jaxxstorm/action-install-gh-release@v1.5.0
       with:
@@ -447,19 +411,6 @@ jobs:
   publish_sdk:
     runs-on: ubuntu-latest
     needs: publish
-    strategy:
-      fail-fast: true
-      matrix:
-        goversion:
-        - 1.19.x
-        dotnetversion:
-        - |
-          6.0.x
-          3.1.301
-        pythonversion:
-        - "3.7"
-        nodeversion:
-        - 14.x
     name: publish_sdk
     steps:
     - name: Checkout Repo
@@ -476,7 +427,7 @@ jobs:
     - name: Install Go
       uses: actions/setup-go@v2
       with:
-        go-version: ${{matrix.goversion}}
+        go-version: ${{ env.GOVERSION }}
     - name: Install pulumictl
       uses: jaxxstorm/action-install-gh-release@v1.5.0
       with:
@@ -486,16 +437,16 @@ jobs:
     - name: Setup Node
       uses: actions/setup-node@v2
       with:
-        node-version: ${{matrix.nodeversion}}
+        node-version: ${{ env.NODEVERSION }}
         registry-url: https://registry.npmjs.org
     - name: Setup DotNet
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: ${{matrix.dotnetversion}}
+        dotnet-version: ${{ env.DOTNETVERSION }}
     - name: Setup Python
       uses: actions/setup-python@v2
       with:
-        python-version: ${{matrix.pythonversion}}
+        python-version: ${{ env.PYTHONVERSION }}
     - name: Download python SDK
       uses: actions/download-artifact@v2
       with:
@@ -537,13 +488,6 @@ jobs:
     runs-on: ubuntu-latest
     continue-on-error: true
     needs: publish
-    strategy:
-      fail-fast: true
-      matrix:
-        goversion:
-        - 1.19.x
-        javaversion:
-        - "11"
     name: publish_java_sdk
     steps:
     - name: Checkout Repo
@@ -560,7 +504,7 @@ jobs:
     - name: Install Go
       uses: actions/setup-go@v2
       with:
-        go-version: ${{matrix.goversion}}
+        go-version: ${{ env.GOVERSION }}
     - name: Install pulumictl
       uses: jaxxstorm/action-install-gh-release@v1.5.0
       with:
@@ -570,7 +514,7 @@ jobs:
     - name: Setup Java
       uses: actions/setup-java@v3
       with:
-        java-version: ${{matrix.javaversion}}
+        java-version: ${{ env.JAVAVERSION }}
         distribution: temurin
         cache: gradle
     - name: Download java SDK
@@ -592,19 +536,6 @@ jobs:
         gradle-version: 7.4.1
   build-test-cluster:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: true
-      matrix:
-        goversion:
-        - 1.19.x
-        dotnetversion:
-        - |
-          6.0.x
-          3.1.301
-        pythonversion:
-        - "3.7"
-        nodeversion:
-        - 14.x
     name: build-test-cluster
     outputs:
       stack-name: ${{ steps.stackname.outputs.stack-name }}
@@ -619,13 +550,13 @@ jobs:
     - name: Install Go
       uses: actions/setup-go@v2
       with:
-        go-version: ${{matrix.goversion}}
+        go-version: ${{ env.GOVERSION }}
     - name: Install Pulumi CLI
       uses: pulumi/action-install-pulumi-cli@v2
     - name: Setup Node
       uses: actions/setup-node@v2
       with:
-        node-version: ${{matrix.nodeversion}}
+        node-version: ${{ env.NODEVERSION }}
         registry-url: https://registry.npmjs.org
     - name: Authenticate to Google Cloud
       uses: google-github-actions/auth@v0
@@ -663,19 +594,6 @@ jobs:
         path: ~/.kube/config
   destroy-test-cluster:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        goversion:
-        - 1.19.x
-        dotnetversion:
-        - |
-          6.0.x
-          3.1.301
-        pythonversion:
-        - "3.7"
-        nodeversion:
-        - 14.x
     name: teardown-test-cluster
     needs:
     - build-test-cluster
@@ -693,13 +611,13 @@ jobs:
     - name: Install Go
       uses: actions/setup-go@v2
       with:
-        go-version: ${{matrix.goversion}}
+        go-version: ${{ env.GOVERSION }}
     - name: Install Pulumi CLI
       uses: pulumi/action-install-pulumi-cli@v2
     - name: Setup Node
       uses: actions/setup-node@v2
       with:
-        node-version: ${{matrix.nodeversion}}
+        node-version: ${{ env.NODEVERSION }}
         registry-url: https://registry.npmjs.org
     - name: Authenticate to Google Cloud
       uses: google-github-actions/auth@v0
@@ -732,11 +650,6 @@ jobs:
         name: config
   lint:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: true
-      matrix:
-        goversion:
-        - 1.19.x
     steps:
     - name: Checkout Repo
       uses: actions/checkout@v3
@@ -746,7 +659,7 @@ jobs:
     - name: Install Go
       uses: actions/setup-go@v2
       with:
-        go-version: ${{matrix.goversion}}
+        go-version: ${{ env.GOVERSION }}
     - name: golangci-lint provider pkg
       uses: golangci/golangci-lint-action@v3
       with:
