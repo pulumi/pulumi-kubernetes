@@ -1,5 +1,7 @@
 ## Unreleased
 
+- Upgrade to latest helm and k8s client dependencies (https://github.com/pulumi/pulumi-kubernetes/pulls/2292)
+
 ## 3.23.1 (December 19, 2022)
 
 - Add `PULUMI_K8S_ENABLE_PATCH_FORCE` env var support (https://github.com/pulumi/pulumi-kubernetes/pulls/2260)
