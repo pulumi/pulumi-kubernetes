@@ -4,6 +4,7 @@ package informers
 
 import (
 	"fmt"
+
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/watch"
@@ -100,7 +101,7 @@ func New(
 	informer := informerFactory.ForResource(options.gvr)
 
 	if options.informChan != nil {
-		informer.Informer().AddEventHandler(cache.ResourceEventHandlerFuncs{
+		_, err := informer.Informer().AddEventHandler(cache.ResourceEventHandlerFuncs{
 			AddFunc: func(obj interface{}) {
 				options.informChan <- watch.Event{
 					Object: obj.(*unstructured.Unstructured),
@@ -127,6 +128,9 @@ func New(
 				}
 			},
 		})
+		if err != nil {
+			return nil, err
+		}
 	}
 	return informer, nil
 }
