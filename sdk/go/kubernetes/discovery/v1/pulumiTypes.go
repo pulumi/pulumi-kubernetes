@@ -976,13 +976,13 @@ func (o EndpointPatchArrayOutput) Index(i pulumi.IntInput) EndpointPatchOutput {
 
 // EndpointPort represents a Port used by an EndpointSlice
 type EndpointPort struct {
-	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+	// appProtocol represents the application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
 	AppProtocol *string `pulumi:"appProtocol"`
-	// The name of this port. All ports in an EndpointSlice must have a unique name. If the EndpointSlice is dervied from a Kubernetes service, this corresponds to the Service.ports[].name. Name must either be an empty string or pass DNS_LABEL validation: * must be no more than 63 characters long. * must consist of lower case alphanumeric characters or '-'. * must start and end with an alphanumeric character. Default is empty string.
+	// name represents the name of this port. All ports in an EndpointSlice must have a unique name. If the EndpointSlice is dervied from a Kubernetes service, this corresponds to the Service.ports[].name. Name must either be an empty string or pass DNS_LABEL validation: * must be no more than 63 characters long. * must consist of lower case alphanumeric characters or '-'. * must start and end with an alphanumeric character. Default is empty string.
 	Name *string `pulumi:"name"`
-	// The port number of the endpoint. If this is not specified, ports are not restricted and must be interpreted in the context of the specific consumer.
+	// port represents the port number of the endpoint. If this is not specified, ports are not restricted and must be interpreted in the context of the specific consumer.
 	Port *int `pulumi:"port"`
-	// The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
+	// protocol represents the IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
 	Protocol *string `pulumi:"protocol"`
 }
 
@@ -999,13 +999,13 @@ type EndpointPortInput interface {
 
 // EndpointPort represents a Port used by an EndpointSlice
 type EndpointPortArgs struct {
-	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+	// appProtocol represents the application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
 	AppProtocol pulumi.StringPtrInput `pulumi:"appProtocol"`
-	// The name of this port. All ports in an EndpointSlice must have a unique name. If the EndpointSlice is dervied from a Kubernetes service, this corresponds to the Service.ports[].name. Name must either be an empty string or pass DNS_LABEL validation: * must be no more than 63 characters long. * must consist of lower case alphanumeric characters or '-'. * must start and end with an alphanumeric character. Default is empty string.
+	// name represents the name of this port. All ports in an EndpointSlice must have a unique name. If the EndpointSlice is dervied from a Kubernetes service, this corresponds to the Service.ports[].name. Name must either be an empty string or pass DNS_LABEL validation: * must be no more than 63 characters long. * must consist of lower case alphanumeric characters or '-'. * must start and end with an alphanumeric character. Default is empty string.
 	Name pulumi.StringPtrInput `pulumi:"name"`
-	// The port number of the endpoint. If this is not specified, ports are not restricted and must be interpreted in the context of the specific consumer.
+	// port represents the port number of the endpoint. If this is not specified, ports are not restricted and must be interpreted in the context of the specific consumer.
 	Port pulumi.IntPtrInput `pulumi:"port"`
-	// The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
+	// protocol represents the IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
 	Protocol pulumi.StringPtrInput `pulumi:"protocol"`
 }
 
@@ -1061,22 +1061,22 @@ func (o EndpointPortOutput) ToEndpointPortOutputWithContext(ctx context.Context)
 	return o
 }
 
-// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+// appProtocol represents the application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
 func (o EndpointPortOutput) AppProtocol() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EndpointPort) *string { return v.AppProtocol }).(pulumi.StringPtrOutput)
 }
 
-// The name of this port. All ports in an EndpointSlice must have a unique name. If the EndpointSlice is dervied from a Kubernetes service, this corresponds to the Service.ports[].name. Name must either be an empty string or pass DNS_LABEL validation: * must be no more than 63 characters long. * must consist of lower case alphanumeric characters or '-'. * must start and end with an alphanumeric character. Default is empty string.
+// name represents the name of this port. All ports in an EndpointSlice must have a unique name. If the EndpointSlice is dervied from a Kubernetes service, this corresponds to the Service.ports[].name. Name must either be an empty string or pass DNS_LABEL validation: * must be no more than 63 characters long. * must consist of lower case alphanumeric characters or '-'. * must start and end with an alphanumeric character. Default is empty string.
 func (o EndpointPortOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EndpointPort) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-// The port number of the endpoint. If this is not specified, ports are not restricted and must be interpreted in the context of the specific consumer.
+// port represents the port number of the endpoint. If this is not specified, ports are not restricted and must be interpreted in the context of the specific consumer.
 func (o EndpointPortOutput) Port() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v EndpointPort) *int { return v.Port }).(pulumi.IntPtrOutput)
 }
 
-// The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
+// protocol represents the IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
 func (o EndpointPortOutput) Protocol() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EndpointPort) *string { return v.Protocol }).(pulumi.StringPtrOutput)
 }
@@ -1103,13 +1103,13 @@ func (o EndpointPortArrayOutput) Index(i pulumi.IntInput) EndpointPortOutput {
 
 // EndpointPort represents a Port used by an EndpointSlice
 type EndpointPortPatch struct {
-	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+	// appProtocol represents the application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
 	AppProtocol *string `pulumi:"appProtocol"`
-	// The name of this port. All ports in an EndpointSlice must have a unique name. If the EndpointSlice is dervied from a Kubernetes service, this corresponds to the Service.ports[].name. Name must either be an empty string or pass DNS_LABEL validation: * must be no more than 63 characters long. * must consist of lower case alphanumeric characters or '-'. * must start and end with an alphanumeric character. Default is empty string.
+	// name represents the name of this port. All ports in an EndpointSlice must have a unique name. If the EndpointSlice is dervied from a Kubernetes service, this corresponds to the Service.ports[].name. Name must either be an empty string or pass DNS_LABEL validation: * must be no more than 63 characters long. * must consist of lower case alphanumeric characters or '-'. * must start and end with an alphanumeric character. Default is empty string.
 	Name *string `pulumi:"name"`
-	// The port number of the endpoint. If this is not specified, ports are not restricted and must be interpreted in the context of the specific consumer.
+	// port represents the port number of the endpoint. If this is not specified, ports are not restricted and must be interpreted in the context of the specific consumer.
 	Port *int `pulumi:"port"`
-	// The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
+	// protocol represents the IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
 	Protocol *string `pulumi:"protocol"`
 }
 
@@ -1126,13 +1126,13 @@ type EndpointPortPatchInput interface {
 
 // EndpointPort represents a Port used by an EndpointSlice
 type EndpointPortPatchArgs struct {
-	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+	// appProtocol represents the application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
 	AppProtocol pulumi.StringPtrInput `pulumi:"appProtocol"`
-	// The name of this port. All ports in an EndpointSlice must have a unique name. If the EndpointSlice is dervied from a Kubernetes service, this corresponds to the Service.ports[].name. Name must either be an empty string or pass DNS_LABEL validation: * must be no more than 63 characters long. * must consist of lower case alphanumeric characters or '-'. * must start and end with an alphanumeric character. Default is empty string.
+	// name represents the name of this port. All ports in an EndpointSlice must have a unique name. If the EndpointSlice is dervied from a Kubernetes service, this corresponds to the Service.ports[].name. Name must either be an empty string or pass DNS_LABEL validation: * must be no more than 63 characters long. * must consist of lower case alphanumeric characters or '-'. * must start and end with an alphanumeric character. Default is empty string.
 	Name pulumi.StringPtrInput `pulumi:"name"`
-	// The port number of the endpoint. If this is not specified, ports are not restricted and must be interpreted in the context of the specific consumer.
+	// port represents the port number of the endpoint. If this is not specified, ports are not restricted and must be interpreted in the context of the specific consumer.
 	Port pulumi.IntPtrInput `pulumi:"port"`
-	// The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
+	// protocol represents the IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
 	Protocol pulumi.StringPtrInput `pulumi:"protocol"`
 }
 
@@ -1188,22 +1188,22 @@ func (o EndpointPortPatchOutput) ToEndpointPortPatchOutputWithContext(ctx contex
 	return o
 }
 
-// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+// appProtocol represents the application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
 func (o EndpointPortPatchOutput) AppProtocol() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EndpointPortPatch) *string { return v.AppProtocol }).(pulumi.StringPtrOutput)
 }
 
-// The name of this port. All ports in an EndpointSlice must have a unique name. If the EndpointSlice is dervied from a Kubernetes service, this corresponds to the Service.ports[].name. Name must either be an empty string or pass DNS_LABEL validation: * must be no more than 63 characters long. * must consist of lower case alphanumeric characters or '-'. * must start and end with an alphanumeric character. Default is empty string.
+// name represents the name of this port. All ports in an EndpointSlice must have a unique name. If the EndpointSlice is dervied from a Kubernetes service, this corresponds to the Service.ports[].name. Name must either be an empty string or pass DNS_LABEL validation: * must be no more than 63 characters long. * must consist of lower case alphanumeric characters or '-'. * must start and end with an alphanumeric character. Default is empty string.
 func (o EndpointPortPatchOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EndpointPortPatch) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-// The port number of the endpoint. If this is not specified, ports are not restricted and must be interpreted in the context of the specific consumer.
+// port represents the port number of the endpoint. If this is not specified, ports are not restricted and must be interpreted in the context of the specific consumer.
 func (o EndpointPortPatchOutput) Port() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v EndpointPortPatch) *int { return v.Port }).(pulumi.IntPtrOutput)
 }
 
-// The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
+// protocol represents the IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
 func (o EndpointPortPatchOutput) Protocol() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EndpointPortPatch) *string { return v.Protocol }).(pulumi.StringPtrOutput)
 }
@@ -1377,7 +1377,7 @@ func (o EndpointSliceTypeArrayOutput) Index(i pulumi.IntInput) EndpointSliceType
 type EndpointSliceListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
-	// List of endpoint slices
+	// items is the list of endpoint slices
 	Items []EndpointSliceType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
@@ -1400,7 +1400,7 @@ type EndpointSliceListTypeInput interface {
 type EndpointSliceListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// List of endpoint slices
+	// items is the list of endpoint slices
 	Items EndpointSliceTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
@@ -1440,7 +1440,7 @@ func (o EndpointSliceListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EndpointSliceListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
-// List of endpoint slices
+// items is the list of endpoint slices
 func (o EndpointSliceListTypeOutput) Items() EndpointSliceTypeArrayOutput {
 	return o.ApplyT(func(v EndpointSliceListType) []EndpointSliceType { return v.Items }).(EndpointSliceTypeArrayOutput)
 }

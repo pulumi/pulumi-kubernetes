@@ -28,7 +28,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Coordination.V1
         public Input<string>? HolderIdentity { get; set; }
 
         /// <summary>
-        /// leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed RenewTime.
+        /// leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed renewTime.
         /// </summary>
         [Input("leaseDurationSeconds")]
         public Input<int>? LeaseDurationSeconds { get; set; }

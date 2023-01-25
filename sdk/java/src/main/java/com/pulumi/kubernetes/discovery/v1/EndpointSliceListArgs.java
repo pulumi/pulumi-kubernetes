@@ -35,14 +35,14 @@ public final class EndpointSliceListArgs extends com.pulumi.resources.ResourceAr
     }
 
     /**
-     * List of endpoint slices
+     * items is the list of endpoint slices
      * 
      */
     @Import(name="items", required=true)
     private Output<List<EndpointSliceArgs>> items;
 
     /**
-     * @return List of endpoint slices
+     * @return items is the list of endpoint slices
      * 
      */
     public Output<List<EndpointSliceArgs>> items() {
@@ -128,7 +128,7 @@ public final class EndpointSliceListArgs extends com.pulumi.resources.ResourceAr
         }
 
         /**
-         * @param items List of endpoint slices
+         * @param items items is the list of endpoint slices
          * 
          * @return builder
          * 
@@ -139,7 +139,7 @@ public final class EndpointSliceListArgs extends com.pulumi.resources.ResourceAr
         }
 
         /**
-         * @param items List of endpoint slices
+         * @param items items is the list of endpoint slices
          * 
          * @return builder
          * 
@@ -149,7 +149,7 @@ public final class EndpointSliceListArgs extends com.pulumi.resources.ResourceAr
         }
 
         /**
-         * @param items List of endpoint slices
+         * @param items items is the list of endpoint slices
          * 
          * @return builder
          * 

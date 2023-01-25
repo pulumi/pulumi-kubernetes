@@ -42,7 +42,7 @@ export class StorageClassList extends pulumi.CustomResource {
      */
     public readonly apiVersion!: pulumi.Output<"storage.k8s.io/v1">;
     /**
-     * Items is the list of StorageClasses
+     * items is the list of StorageClasses
      */
     public readonly items!: pulumi.Output<outputs.storage.v1.StorageClass[]>;
     /**
@@ -92,7 +92,7 @@ export interface StorageClassListArgs {
      */
     apiVersion?: pulumi.Input<"storage.k8s.io/v1">;
     /**
-     * Items is the list of StorageClasses
+     * items is the list of StorageClasses
      */
     items: pulumi.Input<pulumi.Input<inputs.storage.v1.StorageClass>[]>;
     /**

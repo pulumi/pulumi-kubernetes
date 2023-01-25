@@ -42,7 +42,7 @@ export class VolumeAttachmentList extends pulumi.CustomResource {
      */
     public readonly apiVersion!: pulumi.Output<"storage.k8s.io/v1">;
     /**
-     * Items is the list of VolumeAttachments
+     * items is the list of VolumeAttachments
      */
     public readonly items!: pulumi.Output<outputs.storage.v1.VolumeAttachment[]>;
     /**
@@ -92,7 +92,7 @@ export interface VolumeAttachmentListArgs {
      */
     apiVersion?: pulumi.Input<"storage.k8s.io/v1">;
     /**
-     * Items is the list of VolumeAttachments
+     * items is the list of VolumeAttachments
      */
     items: pulumi.Input<pulumi.Input<inputs.storage.v1.VolumeAttachment>[]>;
     /**

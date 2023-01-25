@@ -17,7 +17,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking.V1
     public sealed class IngressStatusPatch
     {
         /// <summary>
-        /// LoadBalancer contains the current status of the load-balancer.
+        /// loadBalancer contains the current status of the load-balancer.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Networking.V1.IngressLoadBalancerStatusPatch LoadBalancer;
 

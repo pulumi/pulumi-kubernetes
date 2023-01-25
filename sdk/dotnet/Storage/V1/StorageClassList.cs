@@ -22,7 +22,7 @@ namespace Pulumi.Kubernetes.Storage.V1
         public Output<string> ApiVersion { get; private set; } = null!;
 
         /// <summary>
-        /// Items is the list of StorageClasses
+        /// items is the list of StorageClasses
         /// </summary>
         [Output("items")]
         public Output<ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Storage.V1.StorageClass>> Items { get; private set; } = null!;
@@ -109,7 +109,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1
         private InputList<Pulumi.Kubernetes.Types.Inputs.Storage.V1.StorageClassArgs>? _items;
 
         /// <summary>
-        /// Items is the list of StorageClasses
+        /// items is the list of StorageClasses
         /// </summary>
         public InputList<Pulumi.Kubernetes.Types.Inputs.Storage.V1.StorageClassArgs> Items
         {

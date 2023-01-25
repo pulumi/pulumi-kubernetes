@@ -24,13 +24,13 @@ namespace Pulumi.Kubernetes.Storage.V1
     public partial class StorageClassPatch : KubernetesResource
     {
         /// <summary>
-        /// AllowVolumeExpansion shows whether the storage class allow volume expand
+        /// allowVolumeExpansion shows whether the storage class allow volume expand.
         /// </summary>
         [Output("allowVolumeExpansion")]
         public Output<bool> AllowVolumeExpansion { get; private set; } = null!;
 
         /// <summary>
-        /// Restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
+        /// allowedTopologies restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
         /// </summary>
         [Output("allowedTopologies")]
         public Output<ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.TopologySelectorTermPatch>> AllowedTopologies { get; private set; } = null!;
@@ -54,31 +54,31 @@ namespace Pulumi.Kubernetes.Storage.V1
         public Output<Pulumi.Kubernetes.Types.Outputs.Meta.V1.ObjectMetaPatch> Metadata { get; private set; } = null!;
 
         /// <summary>
-        /// Dynamically provisioned PersistentVolumes of this storage class are created with these mountOptions, e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
+        /// mountOptions controls the mountOptions for dynamically provisioned PersistentVolumes of this storage class. e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
         /// </summary>
         [Output("mountOptions")]
         public Output<ImmutableArray<string>> MountOptions { get; private set; } = null!;
 
         /// <summary>
-        /// Parameters holds the parameters for the provisioner that should create volumes of this storage class.
+        /// parameters holds the parameters for the provisioner that should create volumes of this storage class.
         /// </summary>
         [Output("parameters")]
         public Output<ImmutableDictionary<string, string>> Parameters { get; private set; } = null!;
 
         /// <summary>
-        /// Provisioner indicates the type of the provisioner.
+        /// provisioner indicates the type of the provisioner.
         /// </summary>
         [Output("provisioner")]
         public Output<string> Provisioner { get; private set; } = null!;
 
         /// <summary>
-        /// Dynamically provisioned PersistentVolumes of this storage class are created with this reclaimPolicy. Defaults to Delete.
+        /// reclaimPolicy controls the reclaimPolicy for dynamically provisioned PersistentVolumes of this storage class. Defaults to Delete.
         /// </summary>
         [Output("reclaimPolicy")]
         public Output<string> ReclaimPolicy { get; private set; } = null!;
 
         /// <summary>
-        /// VolumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
+        /// volumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
         /// </summary>
         [Output("volumeBindingMode")]
         public Output<string> VolumeBindingMode { get; private set; } = null!;
@@ -148,7 +148,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1
     public class StorageClassPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// AllowVolumeExpansion shows whether the storage class allow volume expand
+        /// allowVolumeExpansion shows whether the storage class allow volume expand.
         /// </summary>
         [Input("allowVolumeExpansion")]
         public Input<bool>? AllowVolumeExpansion { get; set; }
@@ -157,7 +157,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1
         private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.TopologySelectorTermPatchArgs>? _allowedTopologies;
 
         /// <summary>
-        /// Restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
+        /// allowedTopologies restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
         /// </summary>
         public InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.TopologySelectorTermPatchArgs> AllowedTopologies
         {
@@ -187,7 +187,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1
         private InputList<string>? _mountOptions;
 
         /// <summary>
-        /// Dynamically provisioned PersistentVolumes of this storage class are created with these mountOptions, e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
+        /// mountOptions controls the mountOptions for dynamically provisioned PersistentVolumes of this storage class. e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
         /// </summary>
         public InputList<string> MountOptions
         {
@@ -199,7 +199,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1
         private InputMap<string>? _parameters;
 
         /// <summary>
-        /// Parameters holds the parameters for the provisioner that should create volumes of this storage class.
+        /// parameters holds the parameters for the provisioner that should create volumes of this storage class.
         /// </summary>
         public InputMap<string> Parameters
         {
@@ -208,19 +208,19 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1
         }
 
         /// <summary>
-        /// Provisioner indicates the type of the provisioner.
+        /// provisioner indicates the type of the provisioner.
         /// </summary>
         [Input("provisioner")]
         public Input<string>? Provisioner { get; set; }
 
         /// <summary>
-        /// Dynamically provisioned PersistentVolumes of this storage class are created with this reclaimPolicy. Defaults to Delete.
+        /// reclaimPolicy controls the reclaimPolicy for dynamically provisioned PersistentVolumes of this storage class. Defaults to Delete.
         /// </summary>
         [Input("reclaimPolicy")]
         public Input<string>? ReclaimPolicy { get; set; }
 
         /// <summary>
-        /// VolumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
+        /// volumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
         /// </summary>
         [Input("volumeBindingMode")]
         public Input<string>? VolumeBindingMode { get; set; }

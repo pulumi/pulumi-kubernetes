@@ -11,13 +11,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking.V1
 {
 
     /// <summary>
-    /// NetworkPolicyStatus describe the current state of the NetworkPolicy.
+    /// NetworkPolicyStatus describes the current state of the NetworkPolicy.
     /// </summary>
     [OutputType]
     public sealed class NetworkPolicyStatus
     {
         /// <summary>
-        /// Conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
+        /// conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Meta.V1.Condition> Conditions;
 

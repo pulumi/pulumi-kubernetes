@@ -19,7 +19,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
         private InputList<Pulumi.Kubernetes.Types.Inputs.Networking.V1.IngressLoadBalancerIngressArgs>? _ingress;
 
         /// <summary>
-        /// Ingress is a list containing ingress points for the load-balancer.
+        /// ingress is a list containing ingress points for the load-balancer.
         /// </summary>
         public InputList<Pulumi.Kubernetes.Types.Inputs.Networking.V1.IngressLoadBalancerIngressArgs> Ingress
         {

@@ -13,7 +13,7 @@ import javax.annotation.Nullable;
 
 
 /**
- * IngressTLS describes the transport layer security associated with an Ingress.
+ * IngressTLS describes the transport layer security associated with an ingress.
  * 
  */
 public final class IngressTLSPatchArgs extends com.pulumi.resources.ResourceArgs {
@@ -21,14 +21,14 @@ public final class IngressTLSPatchArgs extends com.pulumi.resources.ResourceArgs
     public static final IngressTLSPatchArgs Empty = new IngressTLSPatchArgs();
 
     /**
-     * Hosts are a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
+     * hosts is a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
      * 
      */
     @Import(name="hosts")
     private @Nullable Output<List<String>> hosts;
 
     /**
-     * @return Hosts are a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
+     * @return hosts is a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
      * 
      */
     public Optional<Output<List<String>>> hosts() {
@@ -36,14 +36,14 @@ public final class IngressTLSPatchArgs extends com.pulumi.resources.ResourceArgs
     }
 
     /**
-     * SecretName is the name of the secret used to terminate TLS traffic on port 443. Field is left optional to allow TLS routing based on SNI hostname alone. If the SNI host in a listener conflicts with the &#34;Host&#34; header field used by an IngressRule, the SNI host is used for termination and value of the Host header is used for routing.
+     * secretName is the name of the secret used to terminate TLS traffic on port 443. Field is left optional to allow TLS routing based on SNI hostname alone. If the SNI host in a listener conflicts with the &#34;Host&#34; header field used by an IngressRule, the SNI host is used for termination and value of the &#34;Host&#34; header is used for routing.
      * 
      */
     @Import(name="secretName")
     private @Nullable Output<String> secretName;
 
     /**
-     * @return SecretName is the name of the secret used to terminate TLS traffic on port 443. Field is left optional to allow TLS routing based on SNI hostname alone. If the SNI host in a listener conflicts with the &#34;Host&#34; header field used by an IngressRule, the SNI host is used for termination and value of the Host header is used for routing.
+     * @return secretName is the name of the secret used to terminate TLS traffic on port 443. Field is left optional to allow TLS routing based on SNI hostname alone. If the SNI host in a listener conflicts with the &#34;Host&#34; header field used by an IngressRule, the SNI host is used for termination and value of the &#34;Host&#34; header is used for routing.
      * 
      */
     public Optional<Output<String>> secretName() {
@@ -76,7 +76,7 @@ public final class IngressTLSPatchArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param hosts Hosts are a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
+         * @param hosts hosts is a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
          * 
          * @return builder
          * 
@@ -87,7 +87,7 @@ public final class IngressTLSPatchArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param hosts Hosts are a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
+         * @param hosts hosts is a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
          * 
          * @return builder
          * 
@@ -97,7 +97,7 @@ public final class IngressTLSPatchArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param hosts Hosts are a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
+         * @param hosts hosts is a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
          * 
          * @return builder
          * 
@@ -107,7 +107,7 @@ public final class IngressTLSPatchArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param secretName SecretName is the name of the secret used to terminate TLS traffic on port 443. Field is left optional to allow TLS routing based on SNI hostname alone. If the SNI host in a listener conflicts with the &#34;Host&#34; header field used by an IngressRule, the SNI host is used for termination and value of the Host header is used for routing.
+         * @param secretName secretName is the name of the secret used to terminate TLS traffic on port 443. Field is left optional to allow TLS routing based on SNI hostname alone. If the SNI host in a listener conflicts with the &#34;Host&#34; header field used by an IngressRule, the SNI host is used for termination and value of the &#34;Host&#34; header is used for routing.
          * 
          * @return builder
          * 
@@ -118,7 +118,7 @@ public final class IngressTLSPatchArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param secretName SecretName is the name of the secret used to terminate TLS traffic on port 443. Field is left optional to allow TLS routing based on SNI hostname alone. If the SNI host in a listener conflicts with the &#34;Host&#34; header field used by an IngressRule, the SNI host is used for termination and value of the Host header is used for routing.
+         * @param secretName secretName is the name of the secret used to terminate TLS traffic on port 443. Field is left optional to allow TLS routing based on SNI hostname alone. If the SNI host in a listener conflicts with the &#34;Host&#34; header field used by an IngressRule, the SNI host is used for termination and value of the &#34;Host&#34; header is used for routing.
          * 
          * @return builder
          * 

@@ -13,38 +13,38 @@ import javax.annotation.Nullable;
 @CustomType
 public final class VolumeAttachmentSpecPatch {
     /**
-     * @return Attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
+     * @return attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
      * 
      */
     private @Nullable String attacher;
     /**
-     * @return The node that the volume should be attached to.
+     * @return nodeName represents the node that the volume should be attached to.
      * 
      */
     private @Nullable String nodeName;
     /**
-     * @return Source represents the volume that should be attached.
+     * @return source represents the volume that should be attached.
      * 
      */
     private @Nullable VolumeAttachmentSourcePatch source;
 
     private VolumeAttachmentSpecPatch() {}
     /**
-     * @return Attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
+     * @return attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
      * 
      */
     public Optional<String> attacher() {
         return Optional.ofNullable(this.attacher);
     }
     /**
-     * @return The node that the volume should be attached to.
+     * @return nodeName represents the node that the volume should be attached to.
      * 
      */
     public Optional<String> nodeName() {
         return Optional.ofNullable(this.nodeName);
     }
     /**
-     * @return Source represents the volume that should be attached.
+     * @return source represents the volume that should be attached.
      * 
      */
     public Optional<VolumeAttachmentSourcePatch> source() {

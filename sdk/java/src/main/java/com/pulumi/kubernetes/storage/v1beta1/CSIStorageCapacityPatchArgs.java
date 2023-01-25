@@ -34,7 +34,7 @@ public final class CSIStorageCapacityPatchArgs extends com.pulumi.resources.Reso
     }
 
     /**
-     * Capacity is the value reported by the CSI driver in its GetCapacityResponse for a GetCapacityRequest with topology and parameters that match the previous fields.
+     * capacity is the value reported by the CSI driver in its GetCapacityResponse for a GetCapacityRequest with topology and parameters that match the previous fields.
      * 
      * The semantic is currently (CSI spec 1.2) defined as: The available capacity, in bytes, of the storage that can be used to provision volumes. If not set, that information is currently unavailable.
      * 
@@ -43,7 +43,7 @@ public final class CSIStorageCapacityPatchArgs extends com.pulumi.resources.Reso
     private @Nullable Output<String> capacity;
 
     /**
-     * @return Capacity is the value reported by the CSI driver in its GetCapacityResponse for a GetCapacityRequest with topology and parameters that match the previous fields.
+     * @return capacity is the value reported by the CSI driver in its GetCapacityResponse for a GetCapacityRequest with topology and parameters that match the previous fields.
      * 
      * The semantic is currently (CSI spec 1.2) defined as: The available capacity, in bytes, of the storage that can be used to provision volumes. If not set, that information is currently unavailable.
      * 
@@ -68,7 +68,7 @@ public final class CSIStorageCapacityPatchArgs extends com.pulumi.resources.Reso
     }
 
     /**
-     * MaximumVolumeSize is the value reported by the CSI driver in its GetCapacityResponse for a GetCapacityRequest with topology and parameters that match the previous fields.
+     * maximumVolumeSize is the value reported by the CSI driver in its GetCapacityResponse for a GetCapacityRequest with topology and parameters that match the previous fields.
      * 
      * This is defined since CSI spec 1.4.0 as the largest size that may be used in a CreateVolumeRequest.capacity_range.required_bytes field to create a volume with the same parameters as those in GetCapacityRequest. The corresponding value in the Kubernetes API is ResourceRequirements.Requests in a volume claim.
      * 
@@ -77,7 +77,7 @@ public final class CSIStorageCapacityPatchArgs extends com.pulumi.resources.Reso
     private @Nullable Output<String> maximumVolumeSize;
 
     /**
-     * @return MaximumVolumeSize is the value reported by the CSI driver in its GetCapacityResponse for a GetCapacityRequest with topology and parameters that match the previous fields.
+     * @return maximumVolumeSize is the value reported by the CSI driver in its GetCapacityResponse for a GetCapacityRequest with topology and parameters that match the previous fields.
      * 
      * This is defined since CSI spec 1.4.0 as the largest size that may be used in a CreateVolumeRequest.capacity_range.required_bytes field to create a volume with the same parameters as those in GetCapacityRequest. The corresponding value in the Kubernetes API is ResourceRequirements.Requests in a volume claim.
      * 
@@ -110,14 +110,14 @@ public final class CSIStorageCapacityPatchArgs extends com.pulumi.resources.Reso
     }
 
     /**
-     * NodeTopology defines which nodes have access to the storage for which capacity was reported. If not set, the storage is not accessible from any node in the cluster. If empty, the storage is accessible from all nodes. This field is immutable.
+     * nodeTopology defines which nodes have access to the storage for which capacity was reported. If not set, the storage is not accessible from any node in the cluster. If empty, the storage is accessible from all nodes. This field is immutable.
      * 
      */
     @Import(name="nodeTopology")
     private @Nullable Output<LabelSelectorPatchArgs> nodeTopology;
 
     /**
-     * @return NodeTopology defines which nodes have access to the storage for which capacity was reported. If not set, the storage is not accessible from any node in the cluster. If empty, the storage is accessible from all nodes. This field is immutable.
+     * @return nodeTopology defines which nodes have access to the storage for which capacity was reported. If not set, the storage is not accessible from any node in the cluster. If empty, the storage is accessible from all nodes. This field is immutable.
      * 
      */
     public Optional<Output<LabelSelectorPatchArgs>> nodeTopology() {
@@ -125,14 +125,14 @@ public final class CSIStorageCapacityPatchArgs extends com.pulumi.resources.Reso
     }
 
     /**
-     * The name of the StorageClass that the reported capacity applies to. It must meet the same requirements as the name of a StorageClass object (non-empty, DNS subdomain). If that object no longer exists, the CSIStorageCapacity object is obsolete and should be removed by its creator. This field is immutable.
+     * storageClassName represents the name of the StorageClass that the reported capacity applies to. It must meet the same requirements as the name of a StorageClass object (non-empty, DNS subdomain). If that object no longer exists, the CSIStorageCapacity object is obsolete and should be removed by its creator. This field is immutable.
      * 
      */
     @Import(name="storageClassName")
     private @Nullable Output<String> storageClassName;
 
     /**
-     * @return The name of the StorageClass that the reported capacity applies to. It must meet the same requirements as the name of a StorageClass object (non-empty, DNS subdomain). If that object no longer exists, the CSIStorageCapacity object is obsolete and should be removed by its creator. This field is immutable.
+     * @return storageClassName represents the name of the StorageClass that the reported capacity applies to. It must meet the same requirements as the name of a StorageClass object (non-empty, DNS subdomain). If that object no longer exists, the CSIStorageCapacity object is obsolete and should be removed by its creator. This field is immutable.
      * 
      */
     public Optional<Output<String>> storageClassName() {
@@ -191,7 +191,7 @@ public final class CSIStorageCapacityPatchArgs extends com.pulumi.resources.Reso
         }
 
         /**
-         * @param capacity Capacity is the value reported by the CSI driver in its GetCapacityResponse for a GetCapacityRequest with topology and parameters that match the previous fields.
+         * @param capacity capacity is the value reported by the CSI driver in its GetCapacityResponse for a GetCapacityRequest with topology and parameters that match the previous fields.
          * 
          * The semantic is currently (CSI spec 1.2) defined as: The available capacity, in bytes, of the storage that can be used to provision volumes. If not set, that information is currently unavailable.
          * 
@@ -204,7 +204,7 @@ public final class CSIStorageCapacityPatchArgs extends com.pulumi.resources.Reso
         }
 
         /**
-         * @param capacity Capacity is the value reported by the CSI driver in its GetCapacityResponse for a GetCapacityRequest with topology and parameters that match the previous fields.
+         * @param capacity capacity is the value reported by the CSI driver in its GetCapacityResponse for a GetCapacityRequest with topology and parameters that match the previous fields.
          * 
          * The semantic is currently (CSI spec 1.2) defined as: The available capacity, in bytes, of the storage that can be used to provision volumes. If not set, that information is currently unavailable.
          * 
@@ -237,7 +237,7 @@ public final class CSIStorageCapacityPatchArgs extends com.pulumi.resources.Reso
         }
 
         /**
-         * @param maximumVolumeSize MaximumVolumeSize is the value reported by the CSI driver in its GetCapacityResponse for a GetCapacityRequest with topology and parameters that match the previous fields.
+         * @param maximumVolumeSize maximumVolumeSize is the value reported by the CSI driver in its GetCapacityResponse for a GetCapacityRequest with topology and parameters that match the previous fields.
          * 
          * This is defined since CSI spec 1.4.0 as the largest size that may be used in a CreateVolumeRequest.capacity_range.required_bytes field to create a volume with the same parameters as those in GetCapacityRequest. The corresponding value in the Kubernetes API is ResourceRequirements.Requests in a volume claim.
          * 
@@ -250,7 +250,7 @@ public final class CSIStorageCapacityPatchArgs extends com.pulumi.resources.Reso
         }
 
         /**
-         * @param maximumVolumeSize MaximumVolumeSize is the value reported by the CSI driver in its GetCapacityResponse for a GetCapacityRequest with topology and parameters that match the previous fields.
+         * @param maximumVolumeSize maximumVolumeSize is the value reported by the CSI driver in its GetCapacityResponse for a GetCapacityRequest with topology and parameters that match the previous fields.
          * 
          * This is defined since CSI spec 1.4.0 as the largest size that may be used in a CreateVolumeRequest.capacity_range.required_bytes field to create a volume with the same parameters as those in GetCapacityRequest. The corresponding value in the Kubernetes API is ResourceRequirements.Requests in a volume claim.
          * 
@@ -291,7 +291,7 @@ public final class CSIStorageCapacityPatchArgs extends com.pulumi.resources.Reso
         }
 
         /**
-         * @param nodeTopology NodeTopology defines which nodes have access to the storage for which capacity was reported. If not set, the storage is not accessible from any node in the cluster. If empty, the storage is accessible from all nodes. This field is immutable.
+         * @param nodeTopology nodeTopology defines which nodes have access to the storage for which capacity was reported. If not set, the storage is not accessible from any node in the cluster. If empty, the storage is accessible from all nodes. This field is immutable.
          * 
          * @return builder
          * 
@@ -302,7 +302,7 @@ public final class CSIStorageCapacityPatchArgs extends com.pulumi.resources.Reso
         }
 
         /**
-         * @param nodeTopology NodeTopology defines which nodes have access to the storage for which capacity was reported. If not set, the storage is not accessible from any node in the cluster. If empty, the storage is accessible from all nodes. This field is immutable.
+         * @param nodeTopology nodeTopology defines which nodes have access to the storage for which capacity was reported. If not set, the storage is not accessible from any node in the cluster. If empty, the storage is accessible from all nodes. This field is immutable.
          * 
          * @return builder
          * 
@@ -312,7 +312,7 @@ public final class CSIStorageCapacityPatchArgs extends com.pulumi.resources.Reso
         }
 
         /**
-         * @param storageClassName The name of the StorageClass that the reported capacity applies to. It must meet the same requirements as the name of a StorageClass object (non-empty, DNS subdomain). If that object no longer exists, the CSIStorageCapacity object is obsolete and should be removed by its creator. This field is immutable.
+         * @param storageClassName storageClassName represents the name of the StorageClass that the reported capacity applies to. It must meet the same requirements as the name of a StorageClass object (non-empty, DNS subdomain). If that object no longer exists, the CSIStorageCapacity object is obsolete and should be removed by its creator. This field is immutable.
          * 
          * @return builder
          * 
@@ -323,7 +323,7 @@ public final class CSIStorageCapacityPatchArgs extends com.pulumi.resources.Reso
         }
 
         /**
-         * @param storageClassName The name of the StorageClass that the reported capacity applies to. It must meet the same requirements as the name of a StorageClass object (non-empty, DNS subdomain). If that object no longer exists, the CSIStorageCapacity object is obsolete and should be removed by its creator. This field is immutable.
+         * @param storageClassName storageClassName represents the name of the StorageClass that the reported capacity applies to. It must meet the same requirements as the name of a StorageClass object (non-empty, DNS subdomain). If that object no longer exists, the CSIStorageCapacity object is obsolete and should be removed by its creator. This field is immutable.
          * 
          * @return builder
          * 

@@ -21,14 +21,14 @@ public final class OverheadArgs extends com.pulumi.resources.ResourceArgs {
     public static final OverheadArgs Empty = new OverheadArgs();
 
     /**
-     * PodFixed represents the fixed resource overhead associated with running a pod.
+     * podFixed represents the fixed resource overhead associated with running a pod.
      * 
      */
     @Import(name="podFixed")
     private @Nullable Output<Map<String,String>> podFixed;
 
     /**
-     * @return PodFixed represents the fixed resource overhead associated with running a pod.
+     * @return podFixed represents the fixed resource overhead associated with running a pod.
      * 
      */
     public Optional<Output<Map<String,String>>> podFixed() {
@@ -60,7 +60,7 @@ public final class OverheadArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param podFixed PodFixed represents the fixed resource overhead associated with running a pod.
+         * @param podFixed podFixed represents the fixed resource overhead associated with running a pod.
          * 
          * @return builder
          * 
@@ -71,7 +71,7 @@ public final class OverheadArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param podFixed PodFixed represents the fixed resource overhead associated with running a pod.
+         * @param podFixed podFixed represents the fixed resource overhead associated with running a pod.
          * 
          * @return builder
          * 

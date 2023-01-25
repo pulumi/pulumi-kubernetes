@@ -13,7 +13,7 @@ import javax.annotation.Nullable;
 @CustomType
 public final class IngressPortStatusPatch {
     /**
-     * @return Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
+     * @return error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
      *   CamelCase names
      * - cloud provider specific error values must have names that comply with the
      *   format foo.example.com/CamelCase.
@@ -21,19 +21,19 @@ public final class IngressPortStatusPatch {
      */
     private @Nullable String error;
     /**
-     * @return Port is the port number of the ingress port.
+     * @return port is the port number of the ingress port.
      * 
      */
     private @Nullable Integer port;
     /**
-     * @return Protocol is the protocol of the ingress port. The supported values are: &#34;TCP&#34;, &#34;UDP&#34;, &#34;SCTP&#34;
+     * @return protocol is the protocol of the ingress port. The supported values are: &#34;TCP&#34;, &#34;UDP&#34;, &#34;SCTP&#34;
      * 
      */
     private @Nullable String protocol;
 
     private IngressPortStatusPatch() {}
     /**
-     * @return Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
+     * @return error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
      *   CamelCase names
      * - cloud provider specific error values must have names that comply with the
      *   format foo.example.com/CamelCase.
@@ -43,14 +43,14 @@ public final class IngressPortStatusPatch {
         return Optional.ofNullable(this.error);
     }
     /**
-     * @return Port is the port number of the ingress port.
+     * @return port is the port number of the ingress port.
      * 
      */
     public Optional<Integer> port() {
         return Optional.ofNullable(this.port);
     }
     /**
-     * @return Protocol is the protocol of the ingress port. The supported values are: &#34;TCP&#34;, &#34;UDP&#34;, &#34;SCTP&#34;
+     * @return protocol is the protocol of the ingress port. The supported values are: &#34;TCP&#34;, &#34;UDP&#34;, &#34;SCTP&#34;
      * 
      */
     public Optional<String> protocol() {

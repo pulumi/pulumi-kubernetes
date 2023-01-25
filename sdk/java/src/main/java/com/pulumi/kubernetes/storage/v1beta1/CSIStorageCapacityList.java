@@ -37,14 +37,14 @@ public class CSIStorageCapacityList extends com.pulumi.resources.CustomResource 
         return Codegen.optional(this.apiVersion);
     }
     /**
-     * Items is the list of CSIStorageCapacity objects.
+     * items is the list of CSIStorageCapacity objects.
      * 
      */
     @Export(name="items", refs={List.class,CSIStorageCapacity.class}, tree="[0,1]")
     private Output<List<CSIStorageCapacity>> items;
 
     /**
-     * @return Items is the list of CSIStorageCapacity objects.
+     * @return items is the list of CSIStorageCapacity objects.
      * 
      */
     public Output<List<CSIStorageCapacity>> items() {

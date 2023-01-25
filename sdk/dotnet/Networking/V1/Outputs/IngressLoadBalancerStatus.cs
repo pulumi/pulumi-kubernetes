@@ -17,7 +17,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking.V1
     public sealed class IngressLoadBalancerStatus
     {
         /// <summary>
-        /// Ingress is a list containing ingress points for the load-balancer.
+        /// ingress is a list containing ingress points for the load-balancer.
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Networking.V1.IngressLoadBalancerIngress> Ingress;
 

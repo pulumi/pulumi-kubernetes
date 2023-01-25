@@ -68,14 +68,14 @@ public final class CSIDriverArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Specification of the CSI Driver.
+     * spec represents the specification of the CSI Driver.
      * 
      */
     @Import(name="spec", required=true)
     private Output<CSIDriverSpecArgs> spec;
 
     /**
-     * @return Specification of the CSI Driver.
+     * @return spec represents the specification of the CSI Driver.
      * 
      */
     public Output<CSIDriverSpecArgs> spec() {
@@ -173,7 +173,7 @@ public final class CSIDriverArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param spec Specification of the CSI Driver.
+         * @param spec spec represents the specification of the CSI Driver.
          * 
          * @return builder
          * 
@@ -184,7 +184,7 @@ public final class CSIDriverArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param spec Specification of the CSI Driver.
+         * @param spec spec represents the specification of the CSI Driver.
          * 
          * @return builder
          * 

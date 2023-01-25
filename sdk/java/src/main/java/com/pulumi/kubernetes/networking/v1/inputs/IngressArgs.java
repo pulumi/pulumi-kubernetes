@@ -83,14 +83,14 @@ public final class IngressArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+     * spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
     @Import(name="spec")
     private @Nullable Output<IngressSpecArgs> spec;
 
     /**
-     * @return Spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+     * @return spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
     public Optional<Output<IngressSpecArgs>> spec() {
@@ -98,14 +98,14 @@ public final class IngressArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+     * status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
     @Import(name="status")
     private @Nullable Output<IngressStatusArgs> status;
 
     /**
-     * @return Status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+     * @return status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
     public Optional<Output<IngressStatusArgs>> status() {
@@ -204,7 +204,7 @@ public final class IngressArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param spec Spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+         * @param spec spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
          * 
          * @return builder
          * 
@@ -215,7 +215,7 @@ public final class IngressArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param spec Spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+         * @param spec spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
          * 
          * @return builder
          * 
@@ -225,7 +225,7 @@ public final class IngressArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param status Status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+         * @param status status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
          * 
          * @return builder
          * 
@@ -236,7 +236,7 @@ public final class IngressArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param status Status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+         * @param status status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
          * 
          * @return builder
          * 

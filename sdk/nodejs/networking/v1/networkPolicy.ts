@@ -50,11 +50,11 @@ export class NetworkPolicy extends pulumi.CustomResource {
      */
     public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMeta>;
     /**
-     * Specification of the desired behavior for this NetworkPolicy.
+     * spec represents the specification of the desired behavior for this NetworkPolicy.
      */
     public readonly spec!: pulumi.Output<outputs.networking.v1.NetworkPolicySpec>;
     /**
-     * Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+     * status represents the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      */
     public /*out*/ readonly status!: pulumi.Output<outputs.networking.v1.NetworkPolicyStatus>;
 
@@ -105,7 +105,7 @@ export interface NetworkPolicyArgs {
      */
     metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
     /**
-     * Specification of the desired behavior for this NetworkPolicy.
+     * spec represents the specification of the desired behavior for this NetworkPolicy.
      */
     spec?: pulumi.Input<inputs.networking.v1.NetworkPolicySpec>;
 }

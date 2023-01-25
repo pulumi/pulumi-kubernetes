@@ -16,13 +16,13 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
     public class IngressBackendPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with "Service".
+        /// resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with "Service".
         /// </summary>
         [Input("resource")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.TypedLocalObjectReferencePatchArgs>? Resource { get; set; }
 
         /// <summary>
-        /// Service references a Service as a Backend. This is a mutually exclusive setting with "Resource".
+        /// service references a service as a backend. This is a mutually exclusive setting with "Resource".
         /// </summary>
         [Input("service")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Networking.V1.IngressServiceBackendPatchArgs>? Service { get; set; }

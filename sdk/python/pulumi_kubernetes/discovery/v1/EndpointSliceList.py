@@ -24,7 +24,7 @@ class EndpointSliceListArgs:
                  metadata: Optional[pulumi.Input['_meta.v1.ListMetaArgs']] = None):
         """
         The set of arguments for constructing a EndpointSliceList resource.
-        :param pulumi.Input[Sequence[pulumi.Input['EndpointSliceArgs']]] items: List of endpoint slices
+        :param pulumi.Input[Sequence[pulumi.Input['EndpointSliceArgs']]] items: items is the list of endpoint slices
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ListMetaArgs'] metadata: Standard list metadata.
@@ -41,7 +41,7 @@ class EndpointSliceListArgs:
     @pulumi.getter
     def items(self) -> pulumi.Input[Sequence[pulumi.Input['EndpointSliceArgs']]]:
         """
-        List of endpoint slices
+        items is the list of endpoint slices
         """
         return pulumi.get(self, "items")
 
@@ -102,7 +102,7 @@ class EndpointSliceList(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['EndpointSliceArgs']]]] items: List of endpoint slices
+        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['EndpointSliceArgs']]]] items: items is the list of endpoint slices
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input[pulumi.InputType['_meta.v1.ListMetaArgs']] metadata: Standard list metadata.
         """
@@ -189,7 +189,7 @@ class EndpointSliceList(pulumi.CustomResource):
     @pulumi.getter
     def items(self) -> pulumi.Output[Sequence['outputs.EndpointSlice']]:
         """
-        List of endpoint slices
+        items is the list of endpoint slices
         """
         return pulumi.get(self, "items")
 

@@ -11,38 +11,38 @@ import java.util.Objects;
 @CustomType
 public final class VolumeAttachmentSpec {
     /**
-     * @return Attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
+     * @return attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
      * 
      */
     private String attacher;
     /**
-     * @return The node that the volume should be attached to.
+     * @return nodeName represents the node that the volume should be attached to.
      * 
      */
     private String nodeName;
     /**
-     * @return Source represents the volume that should be attached.
+     * @return source represents the volume that should be attached.
      * 
      */
     private VolumeAttachmentSource source;
 
     private VolumeAttachmentSpec() {}
     /**
-     * @return Attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
+     * @return attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
      * 
      */
     public String attacher() {
         return this.attacher;
     }
     /**
-     * @return The node that the volume should be attached to.
+     * @return nodeName represents the node that the volume should be attached to.
      * 
      */
     public String nodeName() {
         return this.nodeName;
     }
     /**
-     * @return Source represents the volume that should be attached.
+     * @return source represents the volume that should be attached.
      * 
      */
     public VolumeAttachmentSource source() {

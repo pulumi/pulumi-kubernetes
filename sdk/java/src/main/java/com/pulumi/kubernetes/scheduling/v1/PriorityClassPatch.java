@@ -101,28 +101,28 @@ public class PriorityClassPatch extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.metadata);
     }
     /**
-     * PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+     * preemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
      * 
      */
     @Export(name="preemptionPolicy", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> preemptionPolicy;
 
     /**
-     * @return PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+     * @return preemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
      * 
      */
     public Output<Optional<String>> preemptionPolicy() {
         return Codegen.optional(this.preemptionPolicy);
     }
     /**
-     * The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
+     * value represents the integer value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
      * 
      */
     @Export(name="value", refs={Integer.class}, tree="[0]")
     private Output</* @Nullable */ Integer> value;
 
     /**
-     * @return The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
+     * @return value represents the integer value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
      * 
      */
     public Output<Optional<Integer>> value() {

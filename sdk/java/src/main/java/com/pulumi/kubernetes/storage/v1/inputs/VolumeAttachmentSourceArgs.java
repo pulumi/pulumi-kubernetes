@@ -36,14 +36,14 @@ public final class VolumeAttachmentSourceArgs extends com.pulumi.resources.Resou
     }
 
     /**
-     * Name of the persistent volume to attach.
+     * persistentVolumeName represents the name of the persistent volume to attach.
      * 
      */
     @Import(name="persistentVolumeName")
     private @Nullable Output<String> persistentVolumeName;
 
     /**
-     * @return Name of the persistent volume to attach.
+     * @return persistentVolumeName represents the name of the persistent volume to attach.
      * 
      */
     public Optional<Output<String>> persistentVolumeName() {
@@ -97,7 +97,7 @@ public final class VolumeAttachmentSourceArgs extends com.pulumi.resources.Resou
         }
 
         /**
-         * @param persistentVolumeName Name of the persistent volume to attach.
+         * @param persistentVolumeName persistentVolumeName represents the name of the persistent volume to attach.
          * 
          * @return builder
          * 
@@ -108,7 +108,7 @@ public final class VolumeAttachmentSourceArgs extends com.pulumi.resources.Resou
         }
 
         /**
-         * @param persistentVolumeName Name of the persistent volume to attach.
+         * @param persistentVolumeName persistentVolumeName represents the name of the persistent volume to attach.
          * 
          * @return builder
          * 

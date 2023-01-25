@@ -29,7 +29,7 @@ public final class CSIDriver {
      */
     private @Nullable ObjectMeta metadata;
     /**
-     * @return Specification of the CSI Driver.
+     * @return spec represents the specification of the CSI Driver.
      * 
      */
     private CSIDriverSpec spec;
@@ -57,7 +57,7 @@ public final class CSIDriver {
         return Optional.ofNullable(this.metadata);
     }
     /**
-     * @return Specification of the CSI Driver.
+     * @return spec represents the specification of the CSI Driver.
      * 
      */
     public CSIDriverSpec spec() {

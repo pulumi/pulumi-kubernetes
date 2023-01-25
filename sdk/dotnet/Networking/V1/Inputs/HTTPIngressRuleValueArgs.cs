@@ -19,7 +19,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
         private InputList<Pulumi.Kubernetes.Types.Inputs.Networking.V1.HTTPIngressPathArgs>? _paths;
 
         /// <summary>
-        /// A collection of paths that map requests to backends.
+        /// paths is a collection of paths that map requests to backends.
         /// </summary>
         public InputList<Pulumi.Kubernetes.Types.Inputs.Networking.V1.HTTPIngressPathArgs> Paths
         {

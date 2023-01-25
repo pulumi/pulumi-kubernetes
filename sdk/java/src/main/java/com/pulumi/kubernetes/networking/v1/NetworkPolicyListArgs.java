@@ -35,14 +35,14 @@ public final class NetworkPolicyListArgs extends com.pulumi.resources.ResourceAr
     }
 
     /**
-     * Items is a list of schema objects.
+     * items is a list of schema objects.
      * 
      */
     @Import(name="items", required=true)
     private Output<List<NetworkPolicyArgs>> items;
 
     /**
-     * @return Items is a list of schema objects.
+     * @return items is a list of schema objects.
      * 
      */
     public Output<List<NetworkPolicyArgs>> items() {
@@ -128,7 +128,7 @@ public final class NetworkPolicyListArgs extends com.pulumi.resources.ResourceAr
         }
 
         /**
-         * @param items Items is a list of schema objects.
+         * @param items items is a list of schema objects.
          * 
          * @return builder
          * 
@@ -139,7 +139,7 @@ public final class NetworkPolicyListArgs extends com.pulumi.resources.ResourceAr
         }
 
         /**
-         * @param items Items is a list of schema objects.
+         * @param items items is a list of schema objects.
          * 
          * @return builder
          * 
@@ -149,7 +149,7 @@ public final class NetworkPolicyListArgs extends com.pulumi.resources.ResourceAr
         }
 
         /**
-         * @param items Items is a list of schema objects.
+         * @param items items is a list of schema objects.
          * 
          * @return builder
          * 

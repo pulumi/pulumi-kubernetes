@@ -21,14 +21,14 @@ public final class NetworkPolicyPeerArgs extends com.pulumi.resources.ResourceAr
     public static final NetworkPolicyPeerArgs Empty = new NetworkPolicyPeerArgs();
 
     /**
-     * IPBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
+     * ipBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
      * 
      */
     @Import(name="ipBlock")
     private @Nullable Output<IPBlockArgs> ipBlock;
 
     /**
-     * @return IPBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
+     * @return ipBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
      * 
      */
     public Optional<Output<IPBlockArgs>> ipBlock() {
@@ -36,18 +36,18 @@ public final class NetworkPolicyPeerArgs extends com.pulumi.resources.ResourceAr
     }
 
     /**
-     * Selects Namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
+     * namespaceSelector selects namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
      * 
-     * If PodSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects all Pods in the Namespaces selected by NamespaceSelector.
+     * If podSelector is also set, then the NetworkPolicyPeer as a whole selects the pods matching podSelector in the namespaces selected by namespaceSelector. Otherwise it selects all pods in the namespaces selected by namespaceSelector.
      * 
      */
     @Import(name="namespaceSelector")
     private @Nullable Output<LabelSelectorArgs> namespaceSelector;
 
     /**
-     * @return Selects Namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
+     * @return namespaceSelector selects namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
      * 
-     * If PodSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects all Pods in the Namespaces selected by NamespaceSelector.
+     * If podSelector is also set, then the NetworkPolicyPeer as a whole selects the pods matching podSelector in the namespaces selected by namespaceSelector. Otherwise it selects all pods in the namespaces selected by namespaceSelector.
      * 
      */
     public Optional<Output<LabelSelectorArgs>> namespaceSelector() {
@@ -55,18 +55,18 @@ public final class NetworkPolicyPeerArgs extends com.pulumi.resources.ResourceAr
     }
 
     /**
-     * This is a label selector which selects Pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
+     * podSelector is a label selector which selects pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
      * 
-     * If NamespaceSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects the Pods matching PodSelector in the policy&#39;s own Namespace.
+     * If namespaceSelector is also set, then the NetworkPolicyPeer as a whole selects the pods matching podSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects the pods matching podSelector in the policy&#39;s own namespace.
      * 
      */
     @Import(name="podSelector")
     private @Nullable Output<LabelSelectorArgs> podSelector;
 
     /**
-     * @return This is a label selector which selects Pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
+     * @return podSelector is a label selector which selects pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
      * 
-     * If NamespaceSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects the Pods matching PodSelector in the policy&#39;s own Namespace.
+     * If namespaceSelector is also set, then the NetworkPolicyPeer as a whole selects the pods matching podSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects the pods matching podSelector in the policy&#39;s own namespace.
      * 
      */
     public Optional<Output<LabelSelectorArgs>> podSelector() {
@@ -100,7 +100,7 @@ public final class NetworkPolicyPeerArgs extends com.pulumi.resources.ResourceAr
         }
 
         /**
-         * @param ipBlock IPBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
+         * @param ipBlock ipBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
          * 
          * @return builder
          * 
@@ -111,7 +111,7 @@ public final class NetworkPolicyPeerArgs extends com.pulumi.resources.ResourceAr
         }
 
         /**
-         * @param ipBlock IPBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
+         * @param ipBlock ipBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
          * 
          * @return builder
          * 
@@ -121,9 +121,9 @@ public final class NetworkPolicyPeerArgs extends com.pulumi.resources.ResourceAr
         }
 
         /**
-         * @param namespaceSelector Selects Namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
+         * @param namespaceSelector namespaceSelector selects namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
          * 
-         * If PodSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects all Pods in the Namespaces selected by NamespaceSelector.
+         * If podSelector is also set, then the NetworkPolicyPeer as a whole selects the pods matching podSelector in the namespaces selected by namespaceSelector. Otherwise it selects all pods in the namespaces selected by namespaceSelector.
          * 
          * @return builder
          * 
@@ -134,9 +134,9 @@ public final class NetworkPolicyPeerArgs extends com.pulumi.resources.ResourceAr
         }
 
         /**
-         * @param namespaceSelector Selects Namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
+         * @param namespaceSelector namespaceSelector selects namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
          * 
-         * If PodSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects all Pods in the Namespaces selected by NamespaceSelector.
+         * If podSelector is also set, then the NetworkPolicyPeer as a whole selects the pods matching podSelector in the namespaces selected by namespaceSelector. Otherwise it selects all pods in the namespaces selected by namespaceSelector.
          * 
          * @return builder
          * 
@@ -146,9 +146,9 @@ public final class NetworkPolicyPeerArgs extends com.pulumi.resources.ResourceAr
         }
 
         /**
-         * @param podSelector This is a label selector which selects Pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
+         * @param podSelector podSelector is a label selector which selects pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
          * 
-         * If NamespaceSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects the Pods matching PodSelector in the policy&#39;s own Namespace.
+         * If namespaceSelector is also set, then the NetworkPolicyPeer as a whole selects the pods matching podSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects the pods matching podSelector in the policy&#39;s own namespace.
          * 
          * @return builder
          * 
@@ -159,9 +159,9 @@ public final class NetworkPolicyPeerArgs extends com.pulumi.resources.ResourceAr
         }
 
         /**
-         * @param podSelector This is a label selector which selects Pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
+         * @param podSelector podSelector is a label selector which selects pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
          * 
-         * If NamespaceSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects the Pods matching PodSelector in the policy&#39;s own Namespace.
+         * If namespaceSelector is also set, then the NetworkPolicyPeer as a whole selects the pods matching podSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects the pods matching podSelector in the policy&#39;s own namespace.
          * 
          * @return builder
          * 

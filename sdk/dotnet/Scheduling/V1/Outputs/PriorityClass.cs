@@ -37,11 +37,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.Scheduling.V1
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Meta.V1.ObjectMeta Metadata;
         /// <summary>
-        /// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+        /// preemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
         /// </summary>
         public readonly string PreemptionPolicy;
         /// <summary>
-        /// The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
+        /// value represents the integer value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
         /// </summary>
         public readonly int Value;
 

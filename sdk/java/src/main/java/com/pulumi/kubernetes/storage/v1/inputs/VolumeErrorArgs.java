@@ -20,14 +20,14 @@ public final class VolumeErrorArgs extends com.pulumi.resources.ResourceArgs {
     public static final VolumeErrorArgs Empty = new VolumeErrorArgs();
 
     /**
-     * String detailing the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
+     * message represents the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
      * 
      */
     @Import(name="message")
     private @Nullable Output<String> message;
 
     /**
-     * @return String detailing the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
+     * @return message represents the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
      * 
      */
     public Optional<Output<String>> message() {
@@ -35,14 +35,14 @@ public final class VolumeErrorArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Time the error was encountered.
+     * time represents the time the error was encountered.
      * 
      */
     @Import(name="time")
     private @Nullable Output<String> time;
 
     /**
-     * @return Time the error was encountered.
+     * @return time represents the time the error was encountered.
      * 
      */
     public Optional<Output<String>> time() {
@@ -75,7 +75,7 @@ public final class VolumeErrorArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param message String detailing the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
+         * @param message message represents the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
          * 
          * @return builder
          * 
@@ -86,7 +86,7 @@ public final class VolumeErrorArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param message String detailing the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
+         * @param message message represents the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
          * 
          * @return builder
          * 
@@ -96,7 +96,7 @@ public final class VolumeErrorArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param time Time the error was encountered.
+         * @param time time represents the time the error was encountered.
          * 
          * @return builder
          * 
@@ -107,7 +107,7 @@ public final class VolumeErrorArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param time Time the error was encountered.
+         * @param time time represents the time the error was encountered.
          * 
          * @return builder
          * 

@@ -20,7 +20,7 @@ type ClusterCIDRType struct {
 	Kind *string `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-	// Spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	// spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec *ClusterCIDRSpec `pulumi:"spec"`
 }
 
@@ -43,7 +43,7 @@ type ClusterCIDRTypeArgs struct {
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
-	// Spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	// spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec ClusterCIDRSpecPtrInput `pulumi:"spec"`
 }
 
@@ -114,7 +114,7 @@ func (o ClusterCIDRTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v ClusterCIDRType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
-// Spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+// spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 func (o ClusterCIDRTypeOutput) Spec() ClusterCIDRSpecPtrOutput {
 	return o.ApplyT(func(v ClusterCIDRType) *ClusterCIDRSpec { return v.Spec }).(ClusterCIDRSpecPtrOutput)
 }
@@ -143,7 +143,7 @@ func (o ClusterCIDRTypeArrayOutput) Index(i pulumi.IntInput) ClusterCIDRTypeOutp
 type ClusterCIDRListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
-	// Items is the list of ClusterCIDRs.
+	// items is the list of ClusterCIDRs.
 	Items []ClusterCIDRType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
@@ -166,7 +166,7 @@ type ClusterCIDRListTypeInput interface {
 type ClusterCIDRListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// Items is the list of ClusterCIDRs.
+	// items is the list of ClusterCIDRs.
 	Items ClusterCIDRTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
@@ -206,7 +206,7 @@ func (o ClusterCIDRListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ClusterCIDRListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
-// Items is the list of ClusterCIDRs.
+// items is the list of ClusterCIDRs.
 func (o ClusterCIDRListTypeOutput) Items() ClusterCIDRTypeArrayOutput {
 	return o.ApplyT(func(v ClusterCIDRListType) []ClusterCIDRType { return v.Items }).(ClusterCIDRTypeArrayOutput)
 }
@@ -229,7 +229,7 @@ type ClusterCIDRPatchType struct {
 	Kind *string `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
-	// Spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	// spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec *ClusterCIDRSpecPatch `pulumi:"spec"`
 }
 
@@ -252,7 +252,7 @@ type ClusterCIDRPatchTypeArgs struct {
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
-	// Spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	// spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec ClusterCIDRSpecPatchPtrInput `pulumi:"spec"`
 }
 
@@ -298,20 +298,20 @@ func (o ClusterCIDRPatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
 	return o.ApplyT(func(v ClusterCIDRPatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
 }
 
-// Spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+// spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 func (o ClusterCIDRPatchTypeOutput) Spec() ClusterCIDRSpecPatchPtrOutput {
 	return o.ApplyT(func(v ClusterCIDRPatchType) *ClusterCIDRSpecPatch { return v.Spec }).(ClusterCIDRSpecPatchPtrOutput)
 }
 
 // ClusterCIDRSpec defines the desired state of ClusterCIDR.
 type ClusterCIDRSpec struct {
-	// IPv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+	// ipv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of ipv4 and ipv6 must be specified. This field is immutable.
 	Ipv4 *string `pulumi:"ipv4"`
-	// IPv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+	// ipv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of ipv4 and ipv6 must be specified. This field is immutable.
 	Ipv6 *string `pulumi:"ipv6"`
-	// NodeSelector defines which nodes the config is applicable to. An empty or nil NodeSelector selects all nodes. This field is immutable.
+	// nodeSelector defines which nodes the config is applicable to. An empty or nil nodeSelector selects all nodes. This field is immutable.
 	NodeSelector *corev1.NodeSelector `pulumi:"nodeSelector"`
-	// PerNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
+	// perNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
 	PerNodeHostBits int `pulumi:"perNodeHostBits"`
 }
 
@@ -328,13 +328,13 @@ type ClusterCIDRSpecInput interface {
 
 // ClusterCIDRSpec defines the desired state of ClusterCIDR.
 type ClusterCIDRSpecArgs struct {
-	// IPv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+	// ipv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of ipv4 and ipv6 must be specified. This field is immutable.
 	Ipv4 pulumi.StringPtrInput `pulumi:"ipv4"`
-	// IPv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+	// ipv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of ipv4 and ipv6 must be specified. This field is immutable.
 	Ipv6 pulumi.StringPtrInput `pulumi:"ipv6"`
-	// NodeSelector defines which nodes the config is applicable to. An empty or nil NodeSelector selects all nodes. This field is immutable.
+	// nodeSelector defines which nodes the config is applicable to. An empty or nil nodeSelector selects all nodes. This field is immutable.
 	NodeSelector corev1.NodeSelectorPtrInput `pulumi:"nodeSelector"`
-	// PerNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
+	// perNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
 	PerNodeHostBits pulumi.IntInput `pulumi:"perNodeHostBits"`
 }
 
@@ -416,22 +416,22 @@ func (o ClusterCIDRSpecOutput) ToClusterCIDRSpecPtrOutputWithContext(ctx context
 	}).(ClusterCIDRSpecPtrOutput)
 }
 
-// IPv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+// ipv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of ipv4 and ipv6 must be specified. This field is immutable.
 func (o ClusterCIDRSpecOutput) Ipv4() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ClusterCIDRSpec) *string { return v.Ipv4 }).(pulumi.StringPtrOutput)
 }
 
-// IPv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+// ipv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of ipv4 and ipv6 must be specified. This field is immutable.
 func (o ClusterCIDRSpecOutput) Ipv6() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ClusterCIDRSpec) *string { return v.Ipv6 }).(pulumi.StringPtrOutput)
 }
 
-// NodeSelector defines which nodes the config is applicable to. An empty or nil NodeSelector selects all nodes. This field is immutable.
+// nodeSelector defines which nodes the config is applicable to. An empty or nil nodeSelector selects all nodes. This field is immutable.
 func (o ClusterCIDRSpecOutput) NodeSelector() corev1.NodeSelectorPtrOutput {
 	return o.ApplyT(func(v ClusterCIDRSpec) *corev1.NodeSelector { return v.NodeSelector }).(corev1.NodeSelectorPtrOutput)
 }
 
-// PerNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
+// perNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
 func (o ClusterCIDRSpecOutput) PerNodeHostBits() pulumi.IntOutput {
 	return o.ApplyT(func(v ClusterCIDRSpec) int { return v.PerNodeHostBits }).(pulumi.IntOutput)
 }
@@ -460,7 +460,7 @@ func (o ClusterCIDRSpecPtrOutput) Elem() ClusterCIDRSpecOutput {
 	}).(ClusterCIDRSpecOutput)
 }
 
-// IPv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+// ipv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of ipv4 and ipv6 must be specified. This field is immutable.
 func (o ClusterCIDRSpecPtrOutput) Ipv4() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ClusterCIDRSpec) *string {
 		if v == nil {
@@ -470,7 +470,7 @@ func (o ClusterCIDRSpecPtrOutput) Ipv4() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// IPv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+// ipv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of ipv4 and ipv6 must be specified. This field is immutable.
 func (o ClusterCIDRSpecPtrOutput) Ipv6() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ClusterCIDRSpec) *string {
 		if v == nil {
@@ -480,7 +480,7 @@ func (o ClusterCIDRSpecPtrOutput) Ipv6() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// NodeSelector defines which nodes the config is applicable to. An empty or nil NodeSelector selects all nodes. This field is immutable.
+// nodeSelector defines which nodes the config is applicable to. An empty or nil nodeSelector selects all nodes. This field is immutable.
 func (o ClusterCIDRSpecPtrOutput) NodeSelector() corev1.NodeSelectorPtrOutput {
 	return o.ApplyT(func(v *ClusterCIDRSpec) *corev1.NodeSelector {
 		if v == nil {
@@ -490,7 +490,7 @@ func (o ClusterCIDRSpecPtrOutput) NodeSelector() corev1.NodeSelectorPtrOutput {
 	}).(corev1.NodeSelectorPtrOutput)
 }
 
-// PerNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
+// perNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
 func (o ClusterCIDRSpecPtrOutput) PerNodeHostBits() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *ClusterCIDRSpec) *int {
 		if v == nil {
@@ -502,13 +502,13 @@ func (o ClusterCIDRSpecPtrOutput) PerNodeHostBits() pulumi.IntPtrOutput {
 
 // ClusterCIDRSpec defines the desired state of ClusterCIDR.
 type ClusterCIDRSpecPatch struct {
-	// IPv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+	// ipv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of ipv4 and ipv6 must be specified. This field is immutable.
 	Ipv4 *string `pulumi:"ipv4"`
-	// IPv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+	// ipv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of ipv4 and ipv6 must be specified. This field is immutable.
 	Ipv6 *string `pulumi:"ipv6"`
-	// NodeSelector defines which nodes the config is applicable to. An empty or nil NodeSelector selects all nodes. This field is immutable.
+	// nodeSelector defines which nodes the config is applicable to. An empty or nil nodeSelector selects all nodes. This field is immutable.
 	NodeSelector *corev1.NodeSelectorPatch `pulumi:"nodeSelector"`
-	// PerNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
+	// perNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
 	PerNodeHostBits *int `pulumi:"perNodeHostBits"`
 }
 
@@ -525,13 +525,13 @@ type ClusterCIDRSpecPatchInput interface {
 
 // ClusterCIDRSpec defines the desired state of ClusterCIDR.
 type ClusterCIDRSpecPatchArgs struct {
-	// IPv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+	// ipv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of ipv4 and ipv6 must be specified. This field is immutable.
 	Ipv4 pulumi.StringPtrInput `pulumi:"ipv4"`
-	// IPv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+	// ipv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of ipv4 and ipv6 must be specified. This field is immutable.
 	Ipv6 pulumi.StringPtrInput `pulumi:"ipv6"`
-	// NodeSelector defines which nodes the config is applicable to. An empty or nil NodeSelector selects all nodes. This field is immutable.
+	// nodeSelector defines which nodes the config is applicable to. An empty or nil nodeSelector selects all nodes. This field is immutable.
 	NodeSelector corev1.NodeSelectorPatchPtrInput `pulumi:"nodeSelector"`
-	// PerNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
+	// perNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
 	PerNodeHostBits pulumi.IntPtrInput `pulumi:"perNodeHostBits"`
 }
 
@@ -613,22 +613,22 @@ func (o ClusterCIDRSpecPatchOutput) ToClusterCIDRSpecPatchPtrOutputWithContext(c
 	}).(ClusterCIDRSpecPatchPtrOutput)
 }
 
-// IPv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+// ipv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of ipv4 and ipv6 must be specified. This field is immutable.
 func (o ClusterCIDRSpecPatchOutput) Ipv4() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ClusterCIDRSpecPatch) *string { return v.Ipv4 }).(pulumi.StringPtrOutput)
 }
 
-// IPv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+// ipv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of ipv4 and ipv6 must be specified. This field is immutable.
 func (o ClusterCIDRSpecPatchOutput) Ipv6() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ClusterCIDRSpecPatch) *string { return v.Ipv6 }).(pulumi.StringPtrOutput)
 }
 
-// NodeSelector defines which nodes the config is applicable to. An empty or nil NodeSelector selects all nodes. This field is immutable.
+// nodeSelector defines which nodes the config is applicable to. An empty or nil nodeSelector selects all nodes. This field is immutable.
 func (o ClusterCIDRSpecPatchOutput) NodeSelector() corev1.NodeSelectorPatchPtrOutput {
 	return o.ApplyT(func(v ClusterCIDRSpecPatch) *corev1.NodeSelectorPatch { return v.NodeSelector }).(corev1.NodeSelectorPatchPtrOutput)
 }
 
-// PerNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
+// perNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
 func (o ClusterCIDRSpecPatchOutput) PerNodeHostBits() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ClusterCIDRSpecPatch) *int { return v.PerNodeHostBits }).(pulumi.IntPtrOutput)
 }
@@ -657,7 +657,7 @@ func (o ClusterCIDRSpecPatchPtrOutput) Elem() ClusterCIDRSpecPatchOutput {
 	}).(ClusterCIDRSpecPatchOutput)
 }
 
-// IPv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+// ipv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of ipv4 and ipv6 must be specified. This field is immutable.
 func (o ClusterCIDRSpecPatchPtrOutput) Ipv4() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ClusterCIDRSpecPatch) *string {
 		if v == nil {
@@ -667,7 +667,7 @@ func (o ClusterCIDRSpecPatchPtrOutput) Ipv4() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// IPv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+// ipv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of ipv4 and ipv6 must be specified. This field is immutable.
 func (o ClusterCIDRSpecPatchPtrOutput) Ipv6() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ClusterCIDRSpecPatch) *string {
 		if v == nil {
@@ -677,7 +677,7 @@ func (o ClusterCIDRSpecPatchPtrOutput) Ipv6() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// NodeSelector defines which nodes the config is applicable to. An empty or nil NodeSelector selects all nodes. This field is immutable.
+// nodeSelector defines which nodes the config is applicable to. An empty or nil nodeSelector selects all nodes. This field is immutable.
 func (o ClusterCIDRSpecPatchPtrOutput) NodeSelector() corev1.NodeSelectorPatchPtrOutput {
 	return o.ApplyT(func(v *ClusterCIDRSpecPatch) *corev1.NodeSelectorPatch {
 		if v == nil {
@@ -687,7 +687,7 @@ func (o ClusterCIDRSpecPatchPtrOutput) NodeSelector() corev1.NodeSelectorPatchPt
 	}).(corev1.NodeSelectorPatchPtrOutput)
 }
 
-// PerNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
+// perNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
 func (o ClusterCIDRSpecPatchPtrOutput) PerNodeHostBits() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *ClusterCIDRSpecPatch) *int {
 		if v == nil {

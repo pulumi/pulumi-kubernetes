@@ -22,7 +22,9 @@ namespace Pulumi.Kubernetes.Types.Inputs.Batch.V1
         public Input<string>? ContainerName { get; set; }
 
         /// <summary>
-        /// Represents the relationship between the container exit code(s) and the specified values. Containers completed with success (exit code 0) are excluded from the requirement check. Possible values are: - In: the requirement is satisfied if at least one container exit code
+        /// Represents the relationship between the container exit code(s) and the specified values. Containers completed with success (exit code 0) are excluded from the requirement check. Possible values are:
+        /// 
+        /// - In: the requirement is satisfied if at least one container exit code
         ///   (might be multiple if there are multiple containers not restricted
         ///   by the 'containerName' field) is in the set of specified values.
         /// - NotIn: the requirement is satisfied if at least one container exit code

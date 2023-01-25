@@ -18,7 +18,7 @@ public final class VolumeAttachmentSourcePatch {
      */
     private @Nullable PersistentVolumeSpecPatch inlineVolumeSpec;
     /**
-     * @return Name of the persistent volume to attach.
+     * @return persistentVolumeName represents the name of the persistent volume to attach.
      * 
      */
     private @Nullable String persistentVolumeName;
@@ -32,7 +32,7 @@ public final class VolumeAttachmentSourcePatch {
         return Optional.ofNullable(this.inlineVolumeSpec);
     }
     /**
-     * @return Name of the persistent volume to attach.
+     * @return persistentVolumeName represents the name of the persistent volume to attach.
      * 
      */
     public Optional<String> persistentVolumeName() {

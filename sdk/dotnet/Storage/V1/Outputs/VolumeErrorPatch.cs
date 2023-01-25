@@ -17,11 +17,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage.V1
     public sealed class VolumeErrorPatch
     {
         /// <summary>
-        /// String detailing the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
+        /// message represents the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
         /// </summary>
         public readonly string Message;
         /// <summary>
-        /// Time the error was encountered.
+        /// time represents the time the error was encountered.
         /// </summary>
         public readonly string Time;
 

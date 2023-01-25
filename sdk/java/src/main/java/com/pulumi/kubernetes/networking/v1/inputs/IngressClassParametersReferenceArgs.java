@@ -20,14 +20,14 @@ public final class IngressClassParametersReferenceArgs extends com.pulumi.resour
     public static final IngressClassParametersReferenceArgs Empty = new IngressClassParametersReferenceArgs();
 
     /**
-     * APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
+     * apiGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
      * 
      */
     @Import(name="apiGroup")
     private @Nullable Output<String> apiGroup;
 
     /**
-     * @return APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
+     * @return apiGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
      * 
      */
     public Optional<Output<String>> apiGroup() {
@@ -35,14 +35,14 @@ public final class IngressClassParametersReferenceArgs extends com.pulumi.resour
     }
 
     /**
-     * Kind is the type of resource being referenced.
+     * kind is the type of resource being referenced.
      * 
      */
     @Import(name="kind", required=true)
     private Output<String> kind;
 
     /**
-     * @return Kind is the type of resource being referenced.
+     * @return kind is the type of resource being referenced.
      * 
      */
     public Output<String> kind() {
@@ -50,14 +50,14 @@ public final class IngressClassParametersReferenceArgs extends com.pulumi.resour
     }
 
     /**
-     * Name is the name of resource being referenced.
+     * name is the name of resource being referenced.
      * 
      */
     @Import(name="name", required=true)
     private Output<String> name;
 
     /**
-     * @return Name is the name of resource being referenced.
+     * @return name is the name of resource being referenced.
      * 
      */
     public Output<String> name() {
@@ -65,14 +65,14 @@ public final class IngressClassParametersReferenceArgs extends com.pulumi.resour
     }
 
     /**
-     * Namespace is the namespace of the resource being referenced. This field is required when scope is set to &#34;Namespace&#34; and must be unset when scope is set to &#34;Cluster&#34;.
+     * namespace is the namespace of the resource being referenced. This field is required when scope is set to &#34;Namespace&#34; and must be unset when scope is set to &#34;Cluster&#34;.
      * 
      */
     @Import(name="namespace")
     private @Nullable Output<String> namespace;
 
     /**
-     * @return Namespace is the namespace of the resource being referenced. This field is required when scope is set to &#34;Namespace&#34; and must be unset when scope is set to &#34;Cluster&#34;.
+     * @return namespace is the namespace of the resource being referenced. This field is required when scope is set to &#34;Namespace&#34; and must be unset when scope is set to &#34;Cluster&#34;.
      * 
      */
     public Optional<Output<String>> namespace() {
@@ -80,14 +80,14 @@ public final class IngressClassParametersReferenceArgs extends com.pulumi.resour
     }
 
     /**
-     * Scope represents if this refers to a cluster or namespace scoped resource. This may be set to &#34;Cluster&#34; (default) or &#34;Namespace&#34;.
+     * scope represents if this refers to a cluster or namespace scoped resource. This may be set to &#34;Cluster&#34; (default) or &#34;Namespace&#34;.
      * 
      */
     @Import(name="scope")
     private @Nullable Output<String> scope;
 
     /**
-     * @return Scope represents if this refers to a cluster or namespace scoped resource. This may be set to &#34;Cluster&#34; (default) or &#34;Namespace&#34;.
+     * @return scope represents if this refers to a cluster or namespace scoped resource. This may be set to &#34;Cluster&#34; (default) or &#34;Namespace&#34;.
      * 
      */
     public Optional<Output<String>> scope() {
@@ -123,7 +123,7 @@ public final class IngressClassParametersReferenceArgs extends com.pulumi.resour
         }
 
         /**
-         * @param apiGroup APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
+         * @param apiGroup apiGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
          * 
          * @return builder
          * 
@@ -134,7 +134,7 @@ public final class IngressClassParametersReferenceArgs extends com.pulumi.resour
         }
 
         /**
-         * @param apiGroup APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
+         * @param apiGroup apiGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
          * 
          * @return builder
          * 
@@ -144,7 +144,7 @@ public final class IngressClassParametersReferenceArgs extends com.pulumi.resour
         }
 
         /**
-         * @param kind Kind is the type of resource being referenced.
+         * @param kind kind is the type of resource being referenced.
          * 
          * @return builder
          * 
@@ -155,7 +155,7 @@ public final class IngressClassParametersReferenceArgs extends com.pulumi.resour
         }
 
         /**
-         * @param kind Kind is the type of resource being referenced.
+         * @param kind kind is the type of resource being referenced.
          * 
          * @return builder
          * 
@@ -165,7 +165,7 @@ public final class IngressClassParametersReferenceArgs extends com.pulumi.resour
         }
 
         /**
-         * @param name Name is the name of resource being referenced.
+         * @param name name is the name of resource being referenced.
          * 
          * @return builder
          * 
@@ -176,7 +176,7 @@ public final class IngressClassParametersReferenceArgs extends com.pulumi.resour
         }
 
         /**
-         * @param name Name is the name of resource being referenced.
+         * @param name name is the name of resource being referenced.
          * 
          * @return builder
          * 
@@ -186,7 +186,7 @@ public final class IngressClassParametersReferenceArgs extends com.pulumi.resour
         }
 
         /**
-         * @param namespace Namespace is the namespace of the resource being referenced. This field is required when scope is set to &#34;Namespace&#34; and must be unset when scope is set to &#34;Cluster&#34;.
+         * @param namespace namespace is the namespace of the resource being referenced. This field is required when scope is set to &#34;Namespace&#34; and must be unset when scope is set to &#34;Cluster&#34;.
          * 
          * @return builder
          * 
@@ -197,7 +197,7 @@ public final class IngressClassParametersReferenceArgs extends com.pulumi.resour
         }
 
         /**
-         * @param namespace Namespace is the namespace of the resource being referenced. This field is required when scope is set to &#34;Namespace&#34; and must be unset when scope is set to &#34;Cluster&#34;.
+         * @param namespace namespace is the namespace of the resource being referenced. This field is required when scope is set to &#34;Namespace&#34; and must be unset when scope is set to &#34;Cluster&#34;.
          * 
          * @return builder
          * 
@@ -207,7 +207,7 @@ public final class IngressClassParametersReferenceArgs extends com.pulumi.resour
         }
 
         /**
-         * @param scope Scope represents if this refers to a cluster or namespace scoped resource. This may be set to &#34;Cluster&#34; (default) or &#34;Namespace&#34;.
+         * @param scope scope represents if this refers to a cluster or namespace scoped resource. This may be set to &#34;Cluster&#34; (default) or &#34;Namespace&#34;.
          * 
          * @return builder
          * 
@@ -218,7 +218,7 @@ public final class IngressClassParametersReferenceArgs extends com.pulumi.resour
         }
 
         /**
-         * @param scope Scope represents if this refers to a cluster or namespace scoped resource. This may be set to &#34;Cluster&#34; (default) or &#34;Namespace&#34;.
+         * @param scope scope represents if this refers to a cluster or namespace scoped resource. This may be set to &#34;Cluster&#34; (default) or &#34;Namespace&#34;.
          * 
          * @return builder
          * 

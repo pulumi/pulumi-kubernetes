@@ -26,9 +26,9 @@ type PriorityClass struct {
 	Kind pulumi.StringPtrOutput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
-	// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+	// preemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
 	PreemptionPolicy pulumi.StringPtrOutput `pulumi:"preemptionPolicy"`
-	// The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
+	// value represents the integer value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
 	Value pulumi.IntOutput `pulumi:"value"`
 }
 
@@ -95,9 +95,9 @@ type priorityClassArgs struct {
 	Kind *string `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-	// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+	// preemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
 	PreemptionPolicy *string `pulumi:"preemptionPolicy"`
-	// The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
+	// value represents the integer value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
 	Value int `pulumi:"value"`
 }
 
@@ -113,9 +113,9 @@ type PriorityClassArgs struct {
 	Kind pulumi.StringPtrInput
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput
-	// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+	// preemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
 	PreemptionPolicy pulumi.StringPtrInput
-	// The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
+	// value represents the integer value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
 	Value pulumi.IntInput
 }
 
@@ -231,12 +231,12 @@ func (o PriorityClassOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v *PriorityClass) metav1.ObjectMetaPtrOutput { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
-// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+// preemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
 func (o PriorityClassOutput) PreemptionPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PriorityClass) pulumi.StringPtrOutput { return v.PreemptionPolicy }).(pulumi.StringPtrOutput)
 }
 
-// The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
+// value represents the integer value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
 func (o PriorityClassOutput) Value() pulumi.IntOutput {
 	return o.ApplyT(func(v *PriorityClass) pulumi.IntOutput { return v.Value }).(pulumi.IntOutput)
 }

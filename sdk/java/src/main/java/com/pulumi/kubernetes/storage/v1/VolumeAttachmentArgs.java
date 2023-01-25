@@ -64,14 +64,14 @@ public final class VolumeAttachmentArgs extends com.pulumi.resources.ResourceArg
     }
 
     /**
-     * Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
+     * spec represents specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
      * 
      */
     @Import(name="spec", required=true)
     private Output<VolumeAttachmentSpecArgs> spec;
 
     /**
-     * @return Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
+     * @return spec represents specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
      * 
      */
     public Output<VolumeAttachmentSpecArgs> spec() {
@@ -169,7 +169,7 @@ public final class VolumeAttachmentArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param spec Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
+         * @param spec spec represents specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
          * 
          * @return builder
          * 
@@ -180,7 +180,7 @@ public final class VolumeAttachmentArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param spec Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
+         * @param spec spec represents specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
          * 
          * @return builder
          * 

@@ -37,14 +37,14 @@ public class VolumeAttachmentList extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.apiVersion);
     }
     /**
-     * Items is the list of VolumeAttachments
+     * items is the list of VolumeAttachments
      * 
      */
     @Export(name="items", refs={List.class,VolumeAttachment.class}, tree="[0,1]")
     private Output<List<VolumeAttachment>> items;
 
     /**
-     * @return Items is the list of VolumeAttachments
+     * @return items is the list of VolumeAttachments
      * 
      */
     public Output<List<VolumeAttachment>> items() {

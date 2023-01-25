@@ -12,14 +12,14 @@ import javax.annotation.Nullable;
 @CustomType
 public final class HTTPIngressRuleValuePatch {
     /**
-     * @return A collection of paths that map requests to backends.
+     * @return paths is a collection of paths that map requests to backends.
      * 
      */
     private @Nullable List<HTTPIngressPathPatch> paths;
 
     private HTTPIngressRuleValuePatch() {}
     /**
-     * @return A collection of paths that map requests to backends.
+     * @return paths is a collection of paths that map requests to backends.
      * 
      */
     public List<HTTPIngressPathPatch> paths() {

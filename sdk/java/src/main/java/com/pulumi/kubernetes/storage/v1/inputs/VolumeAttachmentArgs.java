@@ -71,14 +71,14 @@ public final class VolumeAttachmentArgs extends com.pulumi.resources.ResourceArg
     }
 
     /**
-     * Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
+     * spec represents specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
      * 
      */
     @Import(name="spec", required=true)
     private Output<VolumeAttachmentSpecArgs> spec;
 
     /**
-     * @return Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
+     * @return spec represents specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
      * 
      */
     public Output<VolumeAttachmentSpecArgs> spec() {
@@ -86,14 +86,14 @@ public final class VolumeAttachmentArgs extends com.pulumi.resources.ResourceArg
     }
 
     /**
-     * Status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
+     * status represents status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
      * 
      */
     @Import(name="status")
     private @Nullable Output<VolumeAttachmentStatusArgs> status;
 
     /**
-     * @return Status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
+     * @return status represents status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
      * 
      */
     public Optional<Output<VolumeAttachmentStatusArgs>> status() {
@@ -192,7 +192,7 @@ public final class VolumeAttachmentArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param spec Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
+         * @param spec spec represents specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
          * 
          * @return builder
          * 
@@ -203,7 +203,7 @@ public final class VolumeAttachmentArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param spec Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
+         * @param spec spec represents specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
          * 
          * @return builder
          * 
@@ -213,7 +213,7 @@ public final class VolumeAttachmentArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param status Status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
+         * @param status status represents status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
          * 
          * @return builder
          * 
@@ -224,7 +224,7 @@ public final class VolumeAttachmentArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param status Status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
+         * @param status status represents status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
          * 
          * @return builder
          * 

@@ -323,7 +323,9 @@ func (o CronJobPatchTypeOutput) Status() CronJobStatusPatchPtrOutput {
 
 // CronJobSpec describes how the job execution will look like and when it will actually run.
 type CronJobSpec struct {
-	// Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
+	// Specifies how to treat concurrent executions of a Job. Valid values are:
+	//
+	// - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
 	ConcurrencyPolicy *string `pulumi:"concurrencyPolicy"`
 	// The number of failed finished jobs to retain. Value must be non-negative integer. Defaults to 1.
 	FailedJobsHistoryLimit *int `pulumi:"failedJobsHistoryLimit"`
@@ -354,7 +356,9 @@ type CronJobSpecInput interface {
 
 // CronJobSpec describes how the job execution will look like and when it will actually run.
 type CronJobSpecArgs struct {
-	// Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
+	// Specifies how to treat concurrent executions of a Job. Valid values are:
+	//
+	// - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
 	ConcurrencyPolicy pulumi.StringPtrInput `pulumi:"concurrencyPolicy"`
 	// The number of failed finished jobs to retain. Value must be non-negative integer. Defaults to 1.
 	FailedJobsHistoryLimit pulumi.IntPtrInput `pulumi:"failedJobsHistoryLimit"`
@@ -450,7 +454,9 @@ func (o CronJobSpecOutput) ToCronJobSpecPtrOutputWithContext(ctx context.Context
 	}).(CronJobSpecPtrOutput)
 }
 
-// Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
+// Specifies how to treat concurrent executions of a Job. Valid values are:
+//
+// - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
 func (o CronJobSpecOutput) ConcurrencyPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CronJobSpec) *string { return v.ConcurrencyPolicy }).(pulumi.StringPtrOutput)
 }
@@ -514,7 +520,9 @@ func (o CronJobSpecPtrOutput) Elem() CronJobSpecOutput {
 	}).(CronJobSpecOutput)
 }
 
-// Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
+// Specifies how to treat concurrent executions of a Job. Valid values are:
+//
+// - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
 func (o CronJobSpecPtrOutput) ConcurrencyPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CronJobSpec) *string {
 		if v == nil {
@@ -596,7 +604,9 @@ func (o CronJobSpecPtrOutput) TimeZone() pulumi.StringPtrOutput {
 
 // CronJobSpec describes how the job execution will look like and when it will actually run.
 type CronJobSpecPatch struct {
-	// Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
+	// Specifies how to treat concurrent executions of a Job. Valid values are:
+	//
+	// - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
 	ConcurrencyPolicy *string `pulumi:"concurrencyPolicy"`
 	// The number of failed finished jobs to retain. Value must be non-negative integer. Defaults to 1.
 	FailedJobsHistoryLimit *int `pulumi:"failedJobsHistoryLimit"`
@@ -627,7 +637,9 @@ type CronJobSpecPatchInput interface {
 
 // CronJobSpec describes how the job execution will look like and when it will actually run.
 type CronJobSpecPatchArgs struct {
-	// Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
+	// Specifies how to treat concurrent executions of a Job. Valid values are:
+	//
+	// - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
 	ConcurrencyPolicy pulumi.StringPtrInput `pulumi:"concurrencyPolicy"`
 	// The number of failed finished jobs to retain. Value must be non-negative integer. Defaults to 1.
 	FailedJobsHistoryLimit pulumi.IntPtrInput `pulumi:"failedJobsHistoryLimit"`
@@ -723,7 +735,9 @@ func (o CronJobSpecPatchOutput) ToCronJobSpecPatchPtrOutputWithContext(ctx conte
 	}).(CronJobSpecPatchPtrOutput)
 }
 
-// Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
+// Specifies how to treat concurrent executions of a Job. Valid values are:
+//
+// - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
 func (o CronJobSpecPatchOutput) ConcurrencyPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CronJobSpecPatch) *string { return v.ConcurrencyPolicy }).(pulumi.StringPtrOutput)
 }
@@ -787,7 +801,9 @@ func (o CronJobSpecPatchPtrOutput) Elem() CronJobSpecPatchOutput {
 	}).(CronJobSpecPatchOutput)
 }
 
-// Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
+// Specifies how to treat concurrent executions of a Job. Valid values are:
+//
+// - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
 func (o CronJobSpecPatchPtrOutput) ConcurrencyPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CronJobSpecPatch) *string {
 		if v == nil {
@@ -1948,7 +1964,7 @@ type JobSpec struct {
 	ActiveDeadlineSeconds *int `pulumi:"activeDeadlineSeconds"`
 	// Specifies the number of retries before marking this job failed. Defaults to 6
 	BackoffLimit *int `pulumi:"backoffLimit"`
-	// CompletionMode specifies how Pod completions are tracked. It can be `NonIndexed` (default) or `Indexed`.
+	// completionMode specifies how Pod completions are tracked. It can be `NonIndexed` (default) or `Indexed`.
 	//
 	// `NonIndexed` means that the Job is considered complete when there have been .spec.completions successfully completed Pods. Each Pod completion is homologous to each other.
 	//
@@ -1956,7 +1972,7 @@ type JobSpec struct {
 	//
 	// More completion modes can be added in the future. If the Job controller observes a mode that it doesn't recognize, which is possible during upgrades due to version skew, the controller skips updates for the Job.
 	CompletionMode *string `pulumi:"completionMode"`
-	// Specifies the desired number of successfully finished pods the job should be run with.  Setting to nil means that the success of any pod signals the success of all pods, and allows parallelism to have any positive value.  Setting to 1 means that parallelism is limited to 1 and the success of that pod signals the success of the job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+	// Specifies the desired number of successfully finished pods the job should be run with.  Setting to null means that the success of any pod signals the success of all pods, and allows parallelism to have any positive value.  Setting to 1 means that parallelism is limited to 1 and the success of that pod signals the success of the job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 	Completions *int `pulumi:"completions"`
 	// manualSelector controls generation of pod labels and pod selectors. Leave `manualSelector` unset unless you are certain what you are doing. When false or unset, the system pick labels unique to this job and appends those labels to the pod template.  When true, the user is responsible for picking unique labels and specifying the selector.  Failure to pick a unique label may cause this and other jobs to not function correctly.  However, You may see `manualSelector=true` in jobs that were created with the old `extensions/v1beta1` API. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector
 	ManualSelector *bool `pulumi:"manualSelector"`
@@ -1968,7 +1984,7 @@ type JobSpec struct {
 	PodFailurePolicy *PodFailurePolicy `pulumi:"podFailurePolicy"`
 	// A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector *metav1.LabelSelector `pulumi:"selector"`
-	// Suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
+	// suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
 	Suspend *bool `pulumi:"suspend"`
 	// Describes the pod that will be created when executing a job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 	Template corev1.PodTemplateSpec `pulumi:"template"`
@@ -1993,7 +2009,7 @@ type JobSpecArgs struct {
 	ActiveDeadlineSeconds pulumi.IntPtrInput `pulumi:"activeDeadlineSeconds"`
 	// Specifies the number of retries before marking this job failed. Defaults to 6
 	BackoffLimit pulumi.IntPtrInput `pulumi:"backoffLimit"`
-	// CompletionMode specifies how Pod completions are tracked. It can be `NonIndexed` (default) or `Indexed`.
+	// completionMode specifies how Pod completions are tracked. It can be `NonIndexed` (default) or `Indexed`.
 	//
 	// `NonIndexed` means that the Job is considered complete when there have been .spec.completions successfully completed Pods. Each Pod completion is homologous to each other.
 	//
@@ -2001,7 +2017,7 @@ type JobSpecArgs struct {
 	//
 	// More completion modes can be added in the future. If the Job controller observes a mode that it doesn't recognize, which is possible during upgrades due to version skew, the controller skips updates for the Job.
 	CompletionMode pulumi.StringPtrInput `pulumi:"completionMode"`
-	// Specifies the desired number of successfully finished pods the job should be run with.  Setting to nil means that the success of any pod signals the success of all pods, and allows parallelism to have any positive value.  Setting to 1 means that parallelism is limited to 1 and the success of that pod signals the success of the job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+	// Specifies the desired number of successfully finished pods the job should be run with.  Setting to null means that the success of any pod signals the success of all pods, and allows parallelism to have any positive value.  Setting to 1 means that parallelism is limited to 1 and the success of that pod signals the success of the job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 	Completions pulumi.IntPtrInput `pulumi:"completions"`
 	// manualSelector controls generation of pod labels and pod selectors. Leave `manualSelector` unset unless you are certain what you are doing. When false or unset, the system pick labels unique to this job and appends those labels to the pod template.  When true, the user is responsible for picking unique labels and specifying the selector.  Failure to pick a unique label may cause this and other jobs to not function correctly.  However, You may see `manualSelector=true` in jobs that were created with the old `extensions/v1beta1` API. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector
 	ManualSelector pulumi.BoolPtrInput `pulumi:"manualSelector"`
@@ -2013,7 +2029,7 @@ type JobSpecArgs struct {
 	PodFailurePolicy PodFailurePolicyPtrInput `pulumi:"podFailurePolicy"`
 	// A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector metav1.LabelSelectorPtrInput `pulumi:"selector"`
-	// Suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
+	// suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
 	Suspend pulumi.BoolPtrInput `pulumi:"suspend"`
 	// Describes the pod that will be created when executing a job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 	Template corev1.PodTemplateSpecInput `pulumi:"template"`
@@ -2109,7 +2125,7 @@ func (o JobSpecOutput) BackoffLimit() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v JobSpec) *int { return v.BackoffLimit }).(pulumi.IntPtrOutput)
 }
 
-// CompletionMode specifies how Pod completions are tracked. It can be `NonIndexed` (default) or `Indexed`.
+// completionMode specifies how Pod completions are tracked. It can be `NonIndexed` (default) or `Indexed`.
 //
 // `NonIndexed` means that the Job is considered complete when there have been .spec.completions successfully completed Pods. Each Pod completion is homologous to each other.
 //
@@ -2120,7 +2136,7 @@ func (o JobSpecOutput) CompletionMode() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v JobSpec) *string { return v.CompletionMode }).(pulumi.StringPtrOutput)
 }
 
-// Specifies the desired number of successfully finished pods the job should be run with.  Setting to nil means that the success of any pod signals the success of all pods, and allows parallelism to have any positive value.  Setting to 1 means that parallelism is limited to 1 and the success of that pod signals the success of the job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+// Specifies the desired number of successfully finished pods the job should be run with.  Setting to null means that the success of any pod signals the success of all pods, and allows parallelism to have any positive value.  Setting to 1 means that parallelism is limited to 1 and the success of that pod signals the success of the job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 func (o JobSpecOutput) Completions() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v JobSpec) *int { return v.Completions }).(pulumi.IntPtrOutput)
 }
@@ -2147,7 +2163,7 @@ func (o JobSpecOutput) Selector() metav1.LabelSelectorPtrOutput {
 	return o.ApplyT(func(v JobSpec) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
 }
 
-// Suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
+// suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
 func (o JobSpecOutput) Suspend() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v JobSpec) *bool { return v.Suspend }).(pulumi.BoolPtrOutput)
 }
@@ -2206,7 +2222,7 @@ func (o JobSpecPtrOutput) BackoffLimit() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// CompletionMode specifies how Pod completions are tracked. It can be `NonIndexed` (default) or `Indexed`.
+// completionMode specifies how Pod completions are tracked. It can be `NonIndexed` (default) or `Indexed`.
 //
 // `NonIndexed` means that the Job is considered complete when there have been .spec.completions successfully completed Pods. Each Pod completion is homologous to each other.
 //
@@ -2222,7 +2238,7 @@ func (o JobSpecPtrOutput) CompletionMode() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Specifies the desired number of successfully finished pods the job should be run with.  Setting to nil means that the success of any pod signals the success of all pods, and allows parallelism to have any positive value.  Setting to 1 means that parallelism is limited to 1 and the success of that pod signals the success of the job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+// Specifies the desired number of successfully finished pods the job should be run with.  Setting to null means that the success of any pod signals the success of all pods, and allows parallelism to have any positive value.  Setting to 1 means that parallelism is limited to 1 and the success of that pod signals the success of the job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 func (o JobSpecPtrOutput) Completions() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *JobSpec) *int {
 		if v == nil {
@@ -2274,7 +2290,7 @@ func (o JobSpecPtrOutput) Selector() metav1.LabelSelectorPtrOutput {
 	}).(metav1.LabelSelectorPtrOutput)
 }
 
-// Suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
+// suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
 func (o JobSpecPtrOutput) Suspend() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *JobSpec) *bool {
 		if v == nil {
@@ -2310,7 +2326,7 @@ type JobSpecPatch struct {
 	ActiveDeadlineSeconds *int `pulumi:"activeDeadlineSeconds"`
 	// Specifies the number of retries before marking this job failed. Defaults to 6
 	BackoffLimit *int `pulumi:"backoffLimit"`
-	// CompletionMode specifies how Pod completions are tracked. It can be `NonIndexed` (default) or `Indexed`.
+	// completionMode specifies how Pod completions are tracked. It can be `NonIndexed` (default) or `Indexed`.
 	//
 	// `NonIndexed` means that the Job is considered complete when there have been .spec.completions successfully completed Pods. Each Pod completion is homologous to each other.
 	//
@@ -2318,7 +2334,7 @@ type JobSpecPatch struct {
 	//
 	// More completion modes can be added in the future. If the Job controller observes a mode that it doesn't recognize, which is possible during upgrades due to version skew, the controller skips updates for the Job.
 	CompletionMode *string `pulumi:"completionMode"`
-	// Specifies the desired number of successfully finished pods the job should be run with.  Setting to nil means that the success of any pod signals the success of all pods, and allows parallelism to have any positive value.  Setting to 1 means that parallelism is limited to 1 and the success of that pod signals the success of the job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+	// Specifies the desired number of successfully finished pods the job should be run with.  Setting to null means that the success of any pod signals the success of all pods, and allows parallelism to have any positive value.  Setting to 1 means that parallelism is limited to 1 and the success of that pod signals the success of the job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 	Completions *int `pulumi:"completions"`
 	// manualSelector controls generation of pod labels and pod selectors. Leave `manualSelector` unset unless you are certain what you are doing. When false or unset, the system pick labels unique to this job and appends those labels to the pod template.  When true, the user is responsible for picking unique labels and specifying the selector.  Failure to pick a unique label may cause this and other jobs to not function correctly.  However, You may see `manualSelector=true` in jobs that were created with the old `extensions/v1beta1` API. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector
 	ManualSelector *bool `pulumi:"manualSelector"`
@@ -2330,7 +2346,7 @@ type JobSpecPatch struct {
 	PodFailurePolicy *PodFailurePolicyPatch `pulumi:"podFailurePolicy"`
 	// A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector *metav1.LabelSelectorPatch `pulumi:"selector"`
-	// Suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
+	// suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
 	Suspend *bool `pulumi:"suspend"`
 	// Describes the pod that will be created when executing a job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 	Template *corev1.PodTemplateSpecPatch `pulumi:"template"`
@@ -2355,7 +2371,7 @@ type JobSpecPatchArgs struct {
 	ActiveDeadlineSeconds pulumi.IntPtrInput `pulumi:"activeDeadlineSeconds"`
 	// Specifies the number of retries before marking this job failed. Defaults to 6
 	BackoffLimit pulumi.IntPtrInput `pulumi:"backoffLimit"`
-	// CompletionMode specifies how Pod completions are tracked. It can be `NonIndexed` (default) or `Indexed`.
+	// completionMode specifies how Pod completions are tracked. It can be `NonIndexed` (default) or `Indexed`.
 	//
 	// `NonIndexed` means that the Job is considered complete when there have been .spec.completions successfully completed Pods. Each Pod completion is homologous to each other.
 	//
@@ -2363,7 +2379,7 @@ type JobSpecPatchArgs struct {
 	//
 	// More completion modes can be added in the future. If the Job controller observes a mode that it doesn't recognize, which is possible during upgrades due to version skew, the controller skips updates for the Job.
 	CompletionMode pulumi.StringPtrInput `pulumi:"completionMode"`
-	// Specifies the desired number of successfully finished pods the job should be run with.  Setting to nil means that the success of any pod signals the success of all pods, and allows parallelism to have any positive value.  Setting to 1 means that parallelism is limited to 1 and the success of that pod signals the success of the job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+	// Specifies the desired number of successfully finished pods the job should be run with.  Setting to null means that the success of any pod signals the success of all pods, and allows parallelism to have any positive value.  Setting to 1 means that parallelism is limited to 1 and the success of that pod signals the success of the job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 	Completions pulumi.IntPtrInput `pulumi:"completions"`
 	// manualSelector controls generation of pod labels and pod selectors. Leave `manualSelector` unset unless you are certain what you are doing. When false or unset, the system pick labels unique to this job and appends those labels to the pod template.  When true, the user is responsible for picking unique labels and specifying the selector.  Failure to pick a unique label may cause this and other jobs to not function correctly.  However, You may see `manualSelector=true` in jobs that were created with the old `extensions/v1beta1` API. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector
 	ManualSelector pulumi.BoolPtrInput `pulumi:"manualSelector"`
@@ -2375,7 +2391,7 @@ type JobSpecPatchArgs struct {
 	PodFailurePolicy PodFailurePolicyPatchPtrInput `pulumi:"podFailurePolicy"`
 	// A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector metav1.LabelSelectorPatchPtrInput `pulumi:"selector"`
-	// Suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
+	// suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
 	Suspend pulumi.BoolPtrInput `pulumi:"suspend"`
 	// Describes the pod that will be created when executing a job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 	Template corev1.PodTemplateSpecPatchPtrInput `pulumi:"template"`
@@ -2471,7 +2487,7 @@ func (o JobSpecPatchOutput) BackoffLimit() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v JobSpecPatch) *int { return v.BackoffLimit }).(pulumi.IntPtrOutput)
 }
 
-// CompletionMode specifies how Pod completions are tracked. It can be `NonIndexed` (default) or `Indexed`.
+// completionMode specifies how Pod completions are tracked. It can be `NonIndexed` (default) or `Indexed`.
 //
 // `NonIndexed` means that the Job is considered complete when there have been .spec.completions successfully completed Pods. Each Pod completion is homologous to each other.
 //
@@ -2482,7 +2498,7 @@ func (o JobSpecPatchOutput) CompletionMode() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v JobSpecPatch) *string { return v.CompletionMode }).(pulumi.StringPtrOutput)
 }
 
-// Specifies the desired number of successfully finished pods the job should be run with.  Setting to nil means that the success of any pod signals the success of all pods, and allows parallelism to have any positive value.  Setting to 1 means that parallelism is limited to 1 and the success of that pod signals the success of the job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+// Specifies the desired number of successfully finished pods the job should be run with.  Setting to null means that the success of any pod signals the success of all pods, and allows parallelism to have any positive value.  Setting to 1 means that parallelism is limited to 1 and the success of that pod signals the success of the job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 func (o JobSpecPatchOutput) Completions() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v JobSpecPatch) *int { return v.Completions }).(pulumi.IntPtrOutput)
 }
@@ -2509,7 +2525,7 @@ func (o JobSpecPatchOutput) Selector() metav1.LabelSelectorPatchPtrOutput {
 	return o.ApplyT(func(v JobSpecPatch) *metav1.LabelSelectorPatch { return v.Selector }).(metav1.LabelSelectorPatchPtrOutput)
 }
 
-// Suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
+// suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
 func (o JobSpecPatchOutput) Suspend() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v JobSpecPatch) *bool { return v.Suspend }).(pulumi.BoolPtrOutput)
 }
@@ -2568,7 +2584,7 @@ func (o JobSpecPatchPtrOutput) BackoffLimit() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// CompletionMode specifies how Pod completions are tracked. It can be `NonIndexed` (default) or `Indexed`.
+// completionMode specifies how Pod completions are tracked. It can be `NonIndexed` (default) or `Indexed`.
 //
 // `NonIndexed` means that the Job is considered complete when there have been .spec.completions successfully completed Pods. Each Pod completion is homologous to each other.
 //
@@ -2584,7 +2600,7 @@ func (o JobSpecPatchPtrOutput) CompletionMode() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Specifies the desired number of successfully finished pods the job should be run with.  Setting to nil means that the success of any pod signals the success of all pods, and allows parallelism to have any positive value.  Setting to 1 means that parallelism is limited to 1 and the success of that pod signals the success of the job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+// Specifies the desired number of successfully finished pods the job should be run with.  Setting to null means that the success of any pod signals the success of all pods, and allows parallelism to have any positive value.  Setting to 1 means that parallelism is limited to 1 and the success of that pod signals the success of the job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
 func (o JobSpecPatchPtrOutput) Completions() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *JobSpecPatch) *int {
 		if v == nil {
@@ -2636,7 +2652,7 @@ func (o JobSpecPatchPtrOutput) Selector() metav1.LabelSelectorPatchPtrOutput {
 	}).(metav1.LabelSelectorPatchPtrOutput)
 }
 
-// Suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
+// suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
 func (o JobSpecPatchPtrOutput) Suspend() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *JobSpecPatch) *bool {
 		if v == nil {
@@ -2670,7 +2686,7 @@ func (o JobSpecPatchPtrOutput) TtlSecondsAfterFinished() pulumi.IntPtrOutput {
 type JobStatus struct {
 	// The number of pending and running pods.
 	Active *int `pulumi:"active"`
-	// CompletedIndexes holds the completed indexes when .spec.completionMode = "Indexed" in a text format. The indexes are represented as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7".
+	// completedIndexes holds the completed indexes when .spec.completionMode = "Indexed" in a text format. The indexes are represented as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7".
 	CompletedIndexes *string `pulumi:"completedIndexes"`
 	// Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is only set when the job finishes successfully.
 	CompletionTime *string `pulumi:"completionTime"`
@@ -2686,9 +2702,11 @@ type JobStatus struct {
 	StartTime *string `pulumi:"startTime"`
 	// The number of pods which reached phase Succeeded.
 	Succeeded *int `pulumi:"succeeded"`
-	// UncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.
+	// uncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.
 	//
-	// The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status: (1) Add the pod UID to the arrays in this field. (2) Remove the pod finalizer. (3) Remove the pod UID from the arrays while increasing the corresponding
+	// The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status:
+	//
+	// 1. Add the pod UID to the arrays in this field. 2. Remove the pod finalizer. 3. Remove the pod UID from the arrays while increasing the corresponding
 	//     counter.
 	//
 	// Old jobs might not be tracked using this field, in which case the field remains null.
@@ -2710,7 +2728,7 @@ type JobStatusInput interface {
 type JobStatusArgs struct {
 	// The number of pending and running pods.
 	Active pulumi.IntPtrInput `pulumi:"active"`
-	// CompletedIndexes holds the completed indexes when .spec.completionMode = "Indexed" in a text format. The indexes are represented as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7".
+	// completedIndexes holds the completed indexes when .spec.completionMode = "Indexed" in a text format. The indexes are represented as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7".
 	CompletedIndexes pulumi.StringPtrInput `pulumi:"completedIndexes"`
 	// Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is only set when the job finishes successfully.
 	CompletionTime pulumi.StringPtrInput `pulumi:"completionTime"`
@@ -2726,9 +2744,11 @@ type JobStatusArgs struct {
 	StartTime pulumi.StringPtrInput `pulumi:"startTime"`
 	// The number of pods which reached phase Succeeded.
 	Succeeded pulumi.IntPtrInput `pulumi:"succeeded"`
-	// UncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.
+	// uncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.
 	//
-	// The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status: (1) Add the pod UID to the arrays in this field. (2) Remove the pod finalizer. (3) Remove the pod UID from the arrays while increasing the corresponding
+	// The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status:
+	//
+	// 1. Add the pod UID to the arrays in this field. 2. Remove the pod finalizer. 3. Remove the pod UID from the arrays while increasing the corresponding
 	//     counter.
 	//
 	// Old jobs might not be tracked using this field, in which case the field remains null.
@@ -2818,7 +2838,7 @@ func (o JobStatusOutput) Active() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v JobStatus) *int { return v.Active }).(pulumi.IntPtrOutput)
 }
 
-// CompletedIndexes holds the completed indexes when .spec.completionMode = "Indexed" in a text format. The indexes are represented as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7".
+// completedIndexes holds the completed indexes when .spec.completionMode = "Indexed" in a text format. The indexes are represented as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7".
 func (o JobStatusOutput) CompletedIndexes() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v JobStatus) *string { return v.CompletedIndexes }).(pulumi.StringPtrOutput)
 }
@@ -2855,11 +2875,12 @@ func (o JobStatusOutput) Succeeded() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v JobStatus) *int { return v.Succeeded }).(pulumi.IntPtrOutput)
 }
 
-// UncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.
+// uncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.
 //
-// The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status: (1) Add the pod UID to the arrays in this field. (2) Remove the pod finalizer. (3) Remove the pod UID from the arrays while increasing the corresponding
+// The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status:
 //
-//	counter.
+//  1. Add the pod UID to the arrays in this field. 2. Remove the pod finalizer. 3. Remove the pod UID from the arrays while increasing the corresponding
+//     counter.
 //
 // Old jobs might not be tracked using this field, in which case the field remains null.
 func (o JobStatusOutput) UncountedTerminatedPods() UncountedTerminatedPodsPtrOutput {
@@ -2900,7 +2921,7 @@ func (o JobStatusPtrOutput) Active() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// CompletedIndexes holds the completed indexes when .spec.completionMode = "Indexed" in a text format. The indexes are represented as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7".
+// completedIndexes holds the completed indexes when .spec.completionMode = "Indexed" in a text format. The indexes are represented as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7".
 func (o JobStatusPtrOutput) CompletedIndexes() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *JobStatus) *string {
 		if v == nil {
@@ -2972,11 +2993,12 @@ func (o JobStatusPtrOutput) Succeeded() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// UncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.
+// uncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.
 //
-// The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status: (1) Add the pod UID to the arrays in this field. (2) Remove the pod finalizer. (3) Remove the pod UID from the arrays while increasing the corresponding
+// The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status:
 //
-//	counter.
+//  1. Add the pod UID to the arrays in this field. 2. Remove the pod finalizer. 3. Remove the pod UID from the arrays while increasing the corresponding
+//     counter.
 //
 // Old jobs might not be tracked using this field, in which case the field remains null.
 func (o JobStatusPtrOutput) UncountedTerminatedPods() UncountedTerminatedPodsPtrOutput {
@@ -2992,7 +3014,7 @@ func (o JobStatusPtrOutput) UncountedTerminatedPods() UncountedTerminatedPodsPtr
 type JobStatusPatch struct {
 	// The number of pending and running pods.
 	Active *int `pulumi:"active"`
-	// CompletedIndexes holds the completed indexes when .spec.completionMode = "Indexed" in a text format. The indexes are represented as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7".
+	// completedIndexes holds the completed indexes when .spec.completionMode = "Indexed" in a text format. The indexes are represented as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7".
 	CompletedIndexes *string `pulumi:"completedIndexes"`
 	// Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is only set when the job finishes successfully.
 	CompletionTime *string `pulumi:"completionTime"`
@@ -3008,9 +3030,11 @@ type JobStatusPatch struct {
 	StartTime *string `pulumi:"startTime"`
 	// The number of pods which reached phase Succeeded.
 	Succeeded *int `pulumi:"succeeded"`
-	// UncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.
+	// uncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.
 	//
-	// The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status: (1) Add the pod UID to the arrays in this field. (2) Remove the pod finalizer. (3) Remove the pod UID from the arrays while increasing the corresponding
+	// The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status:
+	//
+	// 1. Add the pod UID to the arrays in this field. 2. Remove the pod finalizer. 3. Remove the pod UID from the arrays while increasing the corresponding
 	//     counter.
 	//
 	// Old jobs might not be tracked using this field, in which case the field remains null.
@@ -3032,7 +3056,7 @@ type JobStatusPatchInput interface {
 type JobStatusPatchArgs struct {
 	// The number of pending and running pods.
 	Active pulumi.IntPtrInput `pulumi:"active"`
-	// CompletedIndexes holds the completed indexes when .spec.completionMode = "Indexed" in a text format. The indexes are represented as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7".
+	// completedIndexes holds the completed indexes when .spec.completionMode = "Indexed" in a text format. The indexes are represented as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7".
 	CompletedIndexes pulumi.StringPtrInput `pulumi:"completedIndexes"`
 	// Represents time when the job was completed. It is not guaranteed to be set in happens-before order across separate operations. It is represented in RFC3339 form and is in UTC. The completion time is only set when the job finishes successfully.
 	CompletionTime pulumi.StringPtrInput `pulumi:"completionTime"`
@@ -3048,9 +3072,11 @@ type JobStatusPatchArgs struct {
 	StartTime pulumi.StringPtrInput `pulumi:"startTime"`
 	// The number of pods which reached phase Succeeded.
 	Succeeded pulumi.IntPtrInput `pulumi:"succeeded"`
-	// UncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.
+	// uncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.
 	//
-	// The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status: (1) Add the pod UID to the arrays in this field. (2) Remove the pod finalizer. (3) Remove the pod UID from the arrays while increasing the corresponding
+	// The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status:
+	//
+	// 1. Add the pod UID to the arrays in this field. 2. Remove the pod finalizer. 3. Remove the pod UID from the arrays while increasing the corresponding
 	//     counter.
 	//
 	// Old jobs might not be tracked using this field, in which case the field remains null.
@@ -3140,7 +3166,7 @@ func (o JobStatusPatchOutput) Active() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v JobStatusPatch) *int { return v.Active }).(pulumi.IntPtrOutput)
 }
 
-// CompletedIndexes holds the completed indexes when .spec.completionMode = "Indexed" in a text format. The indexes are represented as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7".
+// completedIndexes holds the completed indexes when .spec.completionMode = "Indexed" in a text format. The indexes are represented as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7".
 func (o JobStatusPatchOutput) CompletedIndexes() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v JobStatusPatch) *string { return v.CompletedIndexes }).(pulumi.StringPtrOutput)
 }
@@ -3177,11 +3203,12 @@ func (o JobStatusPatchOutput) Succeeded() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v JobStatusPatch) *int { return v.Succeeded }).(pulumi.IntPtrOutput)
 }
 
-// UncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.
+// uncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.
 //
-// The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status: (1) Add the pod UID to the arrays in this field. (2) Remove the pod finalizer. (3) Remove the pod UID from the arrays while increasing the corresponding
+// The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status:
 //
-//	counter.
+//  1. Add the pod UID to the arrays in this field. 2. Remove the pod finalizer. 3. Remove the pod UID from the arrays while increasing the corresponding
+//     counter.
 //
 // Old jobs might not be tracked using this field, in which case the field remains null.
 func (o JobStatusPatchOutput) UncountedTerminatedPods() UncountedTerminatedPodsPatchPtrOutput {
@@ -3222,7 +3249,7 @@ func (o JobStatusPatchPtrOutput) Active() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// CompletedIndexes holds the completed indexes when .spec.completionMode = "Indexed" in a text format. The indexes are represented as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7".
+// completedIndexes holds the completed indexes when .spec.completionMode = "Indexed" in a text format. The indexes are represented as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7".
 func (o JobStatusPatchPtrOutput) CompletedIndexes() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *JobStatusPatch) *string {
 		if v == nil {
@@ -3294,11 +3321,12 @@ func (o JobStatusPatchPtrOutput) Succeeded() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// UncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.
+// uncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.
 //
-// The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status: (1) Add the pod UID to the arrays in this field. (2) Remove the pod finalizer. (3) Remove the pod UID from the arrays while increasing the corresponding
+// The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status:
 //
-//	counter.
+//  1. Add the pod UID to the arrays in this field. 2. Remove the pod finalizer. 3. Remove the pod UID from the arrays while increasing the corresponding
+//     counter.
 //
 // Old jobs might not be tracked using this field, in which case the field remains null.
 func (o JobStatusPatchPtrOutput) UncountedTerminatedPods() UncountedTerminatedPodsPatchPtrOutput {
@@ -3772,7 +3800,9 @@ func (o PodFailurePolicyPtrOutput) Rules() PodFailurePolicyRuleArrayOutput {
 type PodFailurePolicyOnExitCodesRequirement struct {
 	// Restricts the check for exit codes to the container with the specified name. When null, the rule applies to all containers. When specified, it should match one the container or initContainer names in the pod template.
 	ContainerName *string `pulumi:"containerName"`
-	// Represents the relationship between the container exit code(s) and the specified values. Containers completed with success (exit code 0) are excluded from the requirement check. Possible values are: - In: the requirement is satisfied if at least one container exit code
+	// Represents the relationship between the container exit code(s) and the specified values. Containers completed with success (exit code 0) are excluded from the requirement check. Possible values are:
+	//
+	// - In: the requirement is satisfied if at least one container exit code
 	//   (might be multiple if there are multiple containers not restricted
 	//   by the 'containerName' field) is in the set of specified values.
 	// - NotIn: the requirement is satisfied if at least one container exit code
@@ -3799,7 +3829,9 @@ type PodFailurePolicyOnExitCodesRequirementInput interface {
 type PodFailurePolicyOnExitCodesRequirementArgs struct {
 	// Restricts the check for exit codes to the container with the specified name. When null, the rule applies to all containers. When specified, it should match one the container or initContainer names in the pod template.
 	ContainerName pulumi.StringPtrInput `pulumi:"containerName"`
-	// Represents the relationship between the container exit code(s) and the specified values. Containers completed with success (exit code 0) are excluded from the requirement check. Possible values are: - In: the requirement is satisfied if at least one container exit code
+	// Represents the relationship between the container exit code(s) and the specified values. Containers completed with success (exit code 0) are excluded from the requirement check. Possible values are:
+	//
+	// - In: the requirement is satisfied if at least one container exit code
 	//   (might be multiple if there are multiple containers not restricted
 	//   by the 'containerName' field) is in the set of specified values.
 	// - NotIn: the requirement is satisfied if at least one container exit code
@@ -3894,10 +3926,11 @@ func (o PodFailurePolicyOnExitCodesRequirementOutput) ContainerName() pulumi.Str
 	return o.ApplyT(func(v PodFailurePolicyOnExitCodesRequirement) *string { return v.ContainerName }).(pulumi.StringPtrOutput)
 }
 
-// Represents the relationship between the container exit code(s) and the specified values. Containers completed with success (exit code 0) are excluded from the requirement check. Possible values are: - In: the requirement is satisfied if at least one container exit code
+// Represents the relationship between the container exit code(s) and the specified values. Containers completed with success (exit code 0) are excluded from the requirement check. Possible values are:
 //
-//	(might be multiple if there are multiple containers not restricted
-//	by the 'containerName' field) is in the set of specified values.
+//   - In: the requirement is satisfied if at least one container exit code
+//     (might be multiple if there are multiple containers not restricted
+//     by the 'containerName' field) is in the set of specified values.
 //   - NotIn: the requirement is satisfied if at least one container exit code
 //     (might be multiple if there are multiple containers not restricted
 //     by the 'containerName' field) is not in the set of specified values.
@@ -3945,10 +3978,11 @@ func (o PodFailurePolicyOnExitCodesRequirementPtrOutput) ContainerName() pulumi.
 	}).(pulumi.StringPtrOutput)
 }
 
-// Represents the relationship between the container exit code(s) and the specified values. Containers completed with success (exit code 0) are excluded from the requirement check. Possible values are: - In: the requirement is satisfied if at least one container exit code
+// Represents the relationship between the container exit code(s) and the specified values. Containers completed with success (exit code 0) are excluded from the requirement check. Possible values are:
 //
-//	(might be multiple if there are multiple containers not restricted
-//	by the 'containerName' field) is in the set of specified values.
+//   - In: the requirement is satisfied if at least one container exit code
+//     (might be multiple if there are multiple containers not restricted
+//     by the 'containerName' field) is in the set of specified values.
 //   - NotIn: the requirement is satisfied if at least one container exit code
 //     (might be multiple if there are multiple containers not restricted
 //     by the 'containerName' field) is not in the set of specified values.
@@ -3976,7 +4010,9 @@ func (o PodFailurePolicyOnExitCodesRequirementPtrOutput) Values() pulumi.IntArra
 type PodFailurePolicyOnExitCodesRequirementPatch struct {
 	// Restricts the check for exit codes to the container with the specified name. When null, the rule applies to all containers. When specified, it should match one the container or initContainer names in the pod template.
 	ContainerName *string `pulumi:"containerName"`
-	// Represents the relationship between the container exit code(s) and the specified values. Containers completed with success (exit code 0) are excluded from the requirement check. Possible values are: - In: the requirement is satisfied if at least one container exit code
+	// Represents the relationship between the container exit code(s) and the specified values. Containers completed with success (exit code 0) are excluded from the requirement check. Possible values are:
+	//
+	// - In: the requirement is satisfied if at least one container exit code
 	//   (might be multiple if there are multiple containers not restricted
 	//   by the 'containerName' field) is in the set of specified values.
 	// - NotIn: the requirement is satisfied if at least one container exit code
@@ -4003,7 +4039,9 @@ type PodFailurePolicyOnExitCodesRequirementPatchInput interface {
 type PodFailurePolicyOnExitCodesRequirementPatchArgs struct {
 	// Restricts the check for exit codes to the container with the specified name. When null, the rule applies to all containers. When specified, it should match one the container or initContainer names in the pod template.
 	ContainerName pulumi.StringPtrInput `pulumi:"containerName"`
-	// Represents the relationship between the container exit code(s) and the specified values. Containers completed with success (exit code 0) are excluded from the requirement check. Possible values are: - In: the requirement is satisfied if at least one container exit code
+	// Represents the relationship between the container exit code(s) and the specified values. Containers completed with success (exit code 0) are excluded from the requirement check. Possible values are:
+	//
+	// - In: the requirement is satisfied if at least one container exit code
 	//   (might be multiple if there are multiple containers not restricted
 	//   by the 'containerName' field) is in the set of specified values.
 	// - NotIn: the requirement is satisfied if at least one container exit code
@@ -4098,10 +4136,11 @@ func (o PodFailurePolicyOnExitCodesRequirementPatchOutput) ContainerName() pulum
 	return o.ApplyT(func(v PodFailurePolicyOnExitCodesRequirementPatch) *string { return v.ContainerName }).(pulumi.StringPtrOutput)
 }
 
-// Represents the relationship between the container exit code(s) and the specified values. Containers completed with success (exit code 0) are excluded from the requirement check. Possible values are: - In: the requirement is satisfied if at least one container exit code
+// Represents the relationship between the container exit code(s) and the specified values. Containers completed with success (exit code 0) are excluded from the requirement check. Possible values are:
 //
-//	(might be multiple if there are multiple containers not restricted
-//	by the 'containerName' field) is in the set of specified values.
+//   - In: the requirement is satisfied if at least one container exit code
+//     (might be multiple if there are multiple containers not restricted
+//     by the 'containerName' field) is in the set of specified values.
 //   - NotIn: the requirement is satisfied if at least one container exit code
 //     (might be multiple if there are multiple containers not restricted
 //     by the 'containerName' field) is not in the set of specified values.
@@ -4149,10 +4188,11 @@ func (o PodFailurePolicyOnExitCodesRequirementPatchPtrOutput) ContainerName() pu
 	}).(pulumi.StringPtrOutput)
 }
 
-// Represents the relationship between the container exit code(s) and the specified values. Containers completed with success (exit code 0) are excluded from the requirement check. Possible values are: - In: the requirement is satisfied if at least one container exit code
+// Represents the relationship between the container exit code(s) and the specified values. Containers completed with success (exit code 0) are excluded from the requirement check. Possible values are:
 //
-//	(might be multiple if there are multiple containers not restricted
-//	by the 'containerName' field) is in the set of specified values.
+//   - In: the requirement is satisfied if at least one container exit code
+//     (might be multiple if there are multiple containers not restricted
+//     by the 'containerName' field) is in the set of specified values.
 //   - NotIn: the requirement is satisfied if at least one container exit code
 //     (might be multiple if there are multiple containers not restricted
 //     by the 'containerName' field) is not in the set of specified values.
@@ -4534,9 +4574,11 @@ func (o PodFailurePolicyPatchPtrOutput) Rules() PodFailurePolicyRulePatchArrayOu
 	}).(PodFailurePolicyRulePatchArrayOutput)
 }
 
-// PodFailurePolicyRule describes how a pod failure is handled when the requirements are met. One of OnExitCodes and onPodConditions, but not both, can be used in each rule.
+// PodFailurePolicyRule describes how a pod failure is handled when the requirements are met. One of onExitCodes and onPodConditions, but not both, can be used in each rule.
 type PodFailurePolicyRule struct {
-	// Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are: - FailJob: indicates that the pod's job is marked as Failed and all
+	// Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are:
+	//
+	// - FailJob: indicates that the pod's job is marked as Failed and all
 	//   running pods are terminated.
 	// - Ignore: indicates that the counter towards the .backoffLimit is not
 	//   incremented and a replacement pod is created.
@@ -4561,9 +4603,11 @@ type PodFailurePolicyRuleInput interface {
 	ToPodFailurePolicyRuleOutputWithContext(context.Context) PodFailurePolicyRuleOutput
 }
 
-// PodFailurePolicyRule describes how a pod failure is handled when the requirements are met. One of OnExitCodes and onPodConditions, but not both, can be used in each rule.
+// PodFailurePolicyRule describes how a pod failure is handled when the requirements are met. One of onExitCodes and onPodConditions, but not both, can be used in each rule.
 type PodFailurePolicyRuleArgs struct {
-	// Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are: - FailJob: indicates that the pod's job is marked as Failed and all
+	// Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are:
+	//
+	// - FailJob: indicates that the pod's job is marked as Failed and all
 	//   running pods are terminated.
 	// - Ignore: indicates that the counter towards the .backoffLimit is not
 	//   incremented and a replacement pod is created.
@@ -4614,7 +4658,7 @@ func (i PodFailurePolicyRuleArray) ToPodFailurePolicyRuleArrayOutputWithContext(
 	return pulumi.ToOutputWithContext(ctx, i).(PodFailurePolicyRuleArrayOutput)
 }
 
-// PodFailurePolicyRule describes how a pod failure is handled when the requirements are met. One of OnExitCodes and onPodConditions, but not both, can be used in each rule.
+// PodFailurePolicyRule describes how a pod failure is handled when the requirements are met. One of onExitCodes and onPodConditions, but not both, can be used in each rule.
 type PodFailurePolicyRuleOutput struct{ *pulumi.OutputState }
 
 func (PodFailurePolicyRuleOutput) ElementType() reflect.Type {
@@ -4629,9 +4673,10 @@ func (o PodFailurePolicyRuleOutput) ToPodFailurePolicyRuleOutputWithContext(ctx 
 	return o
 }
 
-// Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are: - FailJob: indicates that the pod's job is marked as Failed and all
+// Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are:
 //
-//	running pods are terminated.
+//   - FailJob: indicates that the pod's job is marked as Failed and all
+//     running pods are terminated.
 //   - Ignore: indicates that the counter towards the .backoffLimit is not
 //     incremented and a replacement pod is created.
 //   - Count: indicates that the pod is handled in the default way - the
@@ -4671,9 +4716,11 @@ func (o PodFailurePolicyRuleArrayOutput) Index(i pulumi.IntInput) PodFailurePoli
 	}).(PodFailurePolicyRuleOutput)
 }
 
-// PodFailurePolicyRule describes how a pod failure is handled when the requirements are met. One of OnExitCodes and onPodConditions, but not both, can be used in each rule.
+// PodFailurePolicyRule describes how a pod failure is handled when the requirements are met. One of onExitCodes and onPodConditions, but not both, can be used in each rule.
 type PodFailurePolicyRulePatch struct {
-	// Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are: - FailJob: indicates that the pod's job is marked as Failed and all
+	// Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are:
+	//
+	// - FailJob: indicates that the pod's job is marked as Failed and all
 	//   running pods are terminated.
 	// - Ignore: indicates that the counter towards the .backoffLimit is not
 	//   incremented and a replacement pod is created.
@@ -4698,9 +4745,11 @@ type PodFailurePolicyRulePatchInput interface {
 	ToPodFailurePolicyRulePatchOutputWithContext(context.Context) PodFailurePolicyRulePatchOutput
 }
 
-// PodFailurePolicyRule describes how a pod failure is handled when the requirements are met. One of OnExitCodes and onPodConditions, but not both, can be used in each rule.
+// PodFailurePolicyRule describes how a pod failure is handled when the requirements are met. One of onExitCodes and onPodConditions, but not both, can be used in each rule.
 type PodFailurePolicyRulePatchArgs struct {
-	// Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are: - FailJob: indicates that the pod's job is marked as Failed and all
+	// Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are:
+	//
+	// - FailJob: indicates that the pod's job is marked as Failed and all
 	//   running pods are terminated.
 	// - Ignore: indicates that the counter towards the .backoffLimit is not
 	//   incremented and a replacement pod is created.
@@ -4751,7 +4800,7 @@ func (i PodFailurePolicyRulePatchArray) ToPodFailurePolicyRulePatchArrayOutputWi
 	return pulumi.ToOutputWithContext(ctx, i).(PodFailurePolicyRulePatchArrayOutput)
 }
 
-// PodFailurePolicyRule describes how a pod failure is handled when the requirements are met. One of OnExitCodes and onPodConditions, but not both, can be used in each rule.
+// PodFailurePolicyRule describes how a pod failure is handled when the requirements are met. One of onExitCodes and onPodConditions, but not both, can be used in each rule.
 type PodFailurePolicyRulePatchOutput struct{ *pulumi.OutputState }
 
 func (PodFailurePolicyRulePatchOutput) ElementType() reflect.Type {
@@ -4766,9 +4815,10 @@ func (o PodFailurePolicyRulePatchOutput) ToPodFailurePolicyRulePatchOutputWithCo
 	return o
 }
 
-// Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are: - FailJob: indicates that the pod's job is marked as Failed and all
+// Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are:
 //
-//	running pods are terminated.
+//   - FailJob: indicates that the pod's job is marked as Failed and all
+//     running pods are terminated.
 //   - Ignore: indicates that the counter towards the .backoffLimit is not
 //     incremented and a replacement pod is created.
 //   - Count: indicates that the pod is handled in the default way - the
@@ -4812,9 +4862,9 @@ func (o PodFailurePolicyRulePatchArrayOutput) Index(i pulumi.IntInput) PodFailur
 
 // UncountedTerminatedPods holds UIDs of Pods that have terminated but haven't been accounted in Job status counters.
 type UncountedTerminatedPods struct {
-	// Failed holds UIDs of failed Pods.
+	// failed holds UIDs of failed Pods.
 	Failed []string `pulumi:"failed"`
-	// Succeeded holds UIDs of succeeded Pods.
+	// succeeded holds UIDs of succeeded Pods.
 	Succeeded []string `pulumi:"succeeded"`
 }
 
@@ -4831,9 +4881,9 @@ type UncountedTerminatedPodsInput interface {
 
 // UncountedTerminatedPods holds UIDs of Pods that have terminated but haven't been accounted in Job status counters.
 type UncountedTerminatedPodsArgs struct {
-	// Failed holds UIDs of failed Pods.
+	// failed holds UIDs of failed Pods.
 	Failed pulumi.StringArrayInput `pulumi:"failed"`
-	// Succeeded holds UIDs of succeeded Pods.
+	// succeeded holds UIDs of succeeded Pods.
 	Succeeded pulumi.StringArrayInput `pulumi:"succeeded"`
 }
 
@@ -4915,12 +4965,12 @@ func (o UncountedTerminatedPodsOutput) ToUncountedTerminatedPodsPtrOutputWithCon
 	}).(UncountedTerminatedPodsPtrOutput)
 }
 
-// Failed holds UIDs of failed Pods.
+// failed holds UIDs of failed Pods.
 func (o UncountedTerminatedPodsOutput) Failed() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v UncountedTerminatedPods) []string { return v.Failed }).(pulumi.StringArrayOutput)
 }
 
-// Succeeded holds UIDs of succeeded Pods.
+// succeeded holds UIDs of succeeded Pods.
 func (o UncountedTerminatedPodsOutput) Succeeded() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v UncountedTerminatedPods) []string { return v.Succeeded }).(pulumi.StringArrayOutput)
 }
@@ -4949,7 +4999,7 @@ func (o UncountedTerminatedPodsPtrOutput) Elem() UncountedTerminatedPodsOutput {
 	}).(UncountedTerminatedPodsOutput)
 }
 
-// Failed holds UIDs of failed Pods.
+// failed holds UIDs of failed Pods.
 func (o UncountedTerminatedPodsPtrOutput) Failed() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *UncountedTerminatedPods) []string {
 		if v == nil {
@@ -4959,7 +5009,7 @@ func (o UncountedTerminatedPodsPtrOutput) Failed() pulumi.StringArrayOutput {
 	}).(pulumi.StringArrayOutput)
 }
 
-// Succeeded holds UIDs of succeeded Pods.
+// succeeded holds UIDs of succeeded Pods.
 func (o UncountedTerminatedPodsPtrOutput) Succeeded() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *UncountedTerminatedPods) []string {
 		if v == nil {
@@ -4971,9 +5021,9 @@ func (o UncountedTerminatedPodsPtrOutput) Succeeded() pulumi.StringArrayOutput {
 
 // UncountedTerminatedPods holds UIDs of Pods that have terminated but haven't been accounted in Job status counters.
 type UncountedTerminatedPodsPatch struct {
-	// Failed holds UIDs of failed Pods.
+	// failed holds UIDs of failed Pods.
 	Failed []string `pulumi:"failed"`
-	// Succeeded holds UIDs of succeeded Pods.
+	// succeeded holds UIDs of succeeded Pods.
 	Succeeded []string `pulumi:"succeeded"`
 }
 
@@ -4990,9 +5040,9 @@ type UncountedTerminatedPodsPatchInput interface {
 
 // UncountedTerminatedPods holds UIDs of Pods that have terminated but haven't been accounted in Job status counters.
 type UncountedTerminatedPodsPatchArgs struct {
-	// Failed holds UIDs of failed Pods.
+	// failed holds UIDs of failed Pods.
 	Failed pulumi.StringArrayInput `pulumi:"failed"`
-	// Succeeded holds UIDs of succeeded Pods.
+	// succeeded holds UIDs of succeeded Pods.
 	Succeeded pulumi.StringArrayInput `pulumi:"succeeded"`
 }
 
@@ -5074,12 +5124,12 @@ func (o UncountedTerminatedPodsPatchOutput) ToUncountedTerminatedPodsPatchPtrOut
 	}).(UncountedTerminatedPodsPatchPtrOutput)
 }
 
-// Failed holds UIDs of failed Pods.
+// failed holds UIDs of failed Pods.
 func (o UncountedTerminatedPodsPatchOutput) Failed() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v UncountedTerminatedPodsPatch) []string { return v.Failed }).(pulumi.StringArrayOutput)
 }
 
-// Succeeded holds UIDs of succeeded Pods.
+// succeeded holds UIDs of succeeded Pods.
 func (o UncountedTerminatedPodsPatchOutput) Succeeded() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v UncountedTerminatedPodsPatch) []string { return v.Succeeded }).(pulumi.StringArrayOutput)
 }
@@ -5108,7 +5158,7 @@ func (o UncountedTerminatedPodsPatchPtrOutput) Elem() UncountedTerminatedPodsPat
 	}).(UncountedTerminatedPodsPatchOutput)
 }
 
-// Failed holds UIDs of failed Pods.
+// failed holds UIDs of failed Pods.
 func (o UncountedTerminatedPodsPatchPtrOutput) Failed() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *UncountedTerminatedPodsPatch) []string {
 		if v == nil {
@@ -5118,7 +5168,7 @@ func (o UncountedTerminatedPodsPatchPtrOutput) Failed() pulumi.StringArrayOutput
 	}).(pulumi.StringArrayOutput)
 }
 
-// Succeeded holds UIDs of succeeded Pods.
+// succeeded holds UIDs of succeeded Pods.
 func (o UncountedTerminatedPodsPatchPtrOutput) Succeeded() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *UncountedTerminatedPodsPatch) []string {
 		if v == nil {

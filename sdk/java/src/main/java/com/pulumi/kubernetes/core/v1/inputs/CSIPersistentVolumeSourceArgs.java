@@ -23,14 +23,14 @@ public final class CSIPersistentVolumeSourceArgs extends com.pulumi.resources.Re
     public static final CSIPersistentVolumeSourceArgs Empty = new CSIPersistentVolumeSourceArgs();
 
     /**
-     * controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an beta field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+     * controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
      * 
      */
     @Import(name="controllerExpandSecretRef")
     private @Nullable Output<SecretReferenceArgs> controllerExpandSecretRef;
 
     /**
-     * @return controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an beta field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+     * @return controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
      * 
      */
     public Optional<Output<SecretReferenceArgs>> controllerExpandSecretRef() {
@@ -206,7 +206,7 @@ public final class CSIPersistentVolumeSourceArgs extends com.pulumi.resources.Re
         }
 
         /**
-         * @param controllerExpandSecretRef controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an beta field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+         * @param controllerExpandSecretRef controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
          * 
          * @return builder
          * 
@@ -217,7 +217,7 @@ public final class CSIPersistentVolumeSourceArgs extends com.pulumi.resources.Re
         }
 
         /**
-         * @param controllerExpandSecretRef controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an beta field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+         * @param controllerExpandSecretRef controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
          * 
          * @return builder
          * 

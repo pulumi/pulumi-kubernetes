@@ -17,11 +17,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking.V1
     public sealed class IngressBackendPatch
     {
         /// <summary>
-        /// Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with "Service".
+        /// resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with "Service".
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.TypedLocalObjectReferencePatch Resource;
         /// <summary>
-        /// Service references a Service as a Backend. This is a mutually exclusive setting with "Resource".
+        /// service references a service as a backend. This is a mutually exclusive setting with "Resource".
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Networking.V1.IngressServiceBackendPatch Service;
 

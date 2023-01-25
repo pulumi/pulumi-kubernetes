@@ -42,7 +42,7 @@ export class IngressClassList extends pulumi.CustomResource {
      */
     public readonly apiVersion!: pulumi.Output<"networking.k8s.io/v1">;
     /**
-     * Items is the list of IngressClasses.
+     * items is the list of IngressClasses.
      */
     public readonly items!: pulumi.Output<outputs.networking.v1.IngressClass[]>;
     /**
@@ -92,7 +92,7 @@ export interface IngressClassListArgs {
      */
     apiVersion?: pulumi.Input<"networking.k8s.io/v1">;
     /**
-     * Items is the list of IngressClasses.
+     * items is the list of IngressClasses.
      */
     items: pulumi.Input<pulumi.Input<inputs.networking.v1.IngressClass>[]>;
     /**

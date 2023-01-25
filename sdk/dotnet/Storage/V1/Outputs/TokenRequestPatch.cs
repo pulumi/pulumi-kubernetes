@@ -17,11 +17,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage.V1
     public sealed class TokenRequestPatch
     {
         /// <summary>
-        /// Audience is the intended audience of the token in "TokenRequestSpec". It will default to the audiences of kube apiserver.
+        /// audience is the intended audience of the token in "TokenRequestSpec". It will default to the audiences of kube apiserver.
         /// </summary>
         public readonly string Audience;
         /// <summary>
-        /// ExpirationSeconds is the duration of validity of the token in "TokenRequestSpec". It has the same default value of "ExpirationSeconds" in "TokenRequestSpec".
+        /// expirationSeconds is the duration of validity of the token in "TokenRequestSpec". It has the same default value of "ExpirationSeconds" in "TokenRequestSpec".
         /// </summary>
         public readonly int ExpirationSeconds;
 

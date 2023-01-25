@@ -69,14 +69,14 @@ public final class NetworkPolicyArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Specification of the desired behavior for this NetworkPolicy.
+     * spec represents the specification of the desired behavior for this NetworkPolicy.
      * 
      */
     @Import(name="spec")
     private @Nullable Output<NetworkPolicySpecArgs> spec;
 
     /**
-     * @return Specification of the desired behavior for this NetworkPolicy.
+     * @return spec represents the specification of the desired behavior for this NetworkPolicy.
      * 
      */
     public Optional<Output<NetworkPolicySpecArgs>> spec() {
@@ -84,14 +84,14 @@ public final class NetworkPolicyArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+     * status represents the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
     @Import(name="status")
     private @Nullable Output<NetworkPolicyStatusArgs> status;
 
     /**
-     * @return Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+     * @return status represents the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
     public Optional<Output<NetworkPolicyStatusArgs>> status() {
@@ -190,7 +190,7 @@ public final class NetworkPolicyArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param spec Specification of the desired behavior for this NetworkPolicy.
+         * @param spec spec represents the specification of the desired behavior for this NetworkPolicy.
          * 
          * @return builder
          * 
@@ -201,7 +201,7 @@ public final class NetworkPolicyArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param spec Specification of the desired behavior for this NetworkPolicy.
+         * @param spec spec represents the specification of the desired behavior for this NetworkPolicy.
          * 
          * @return builder
          * 
@@ -211,7 +211,7 @@ public final class NetworkPolicyArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param status Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+         * @param status status represents the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
          * 
          * @return builder
          * 
@@ -222,7 +222,7 @@ public final class NetworkPolicyArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param status Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+         * @param status status represents the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
          * 
          * @return builder
          * 

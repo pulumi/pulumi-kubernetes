@@ -16,19 +16,19 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
     public class HTTPIngressPathArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Backend defines the referenced service endpoint to which the traffic will be forwarded to.
+        /// backend defines the referenced service endpoint to which the traffic will be forwarded to.
         /// </summary>
         [Input("backend", required: true)]
         public Input<Pulumi.Kubernetes.Types.Inputs.Networking.V1.IngressBackendArgs> Backend { get; set; } = null!;
 
         /// <summary>
-        /// Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/' and must be present when using PathType with value "Exact" or "Prefix".
+        /// path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/' and must be present when using PathType with value "Exact" or "Prefix".
         /// </summary>
         [Input("path")]
         public Input<string>? Path { get; set; }
 
         /// <summary>
-        /// PathType determines the interpretation of the Path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by '/'. Matching is
+        /// pathType determines the interpretation of the path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by '/'. Matching is
         ///   done on a path element by element basis. A path element refers is the
         ///   list of labels in the path split by the '/' separator. A request is a
         ///   match for path p if every p is an element-wise prefix of p of the

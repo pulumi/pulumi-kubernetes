@@ -19,7 +19,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Node.V1
         private InputMap<string>? _podFixed;
 
         /// <summary>
-        /// PodFixed represents the fixed resource overhead associated with running a pod.
+        /// podFixed represents the fixed resource overhead associated with running a pod.
         /// </summary>
         public InputMap<string> PodFixed
         {

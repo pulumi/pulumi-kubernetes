@@ -25,7 +25,7 @@ class OverheadPatchArgs:
                  pod_fixed: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None):
         """
         Overhead structure represents the resource overhead associated with running a pod.
-        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] pod_fixed: PodFixed represents the fixed resource overhead associated with running a pod.
+        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] pod_fixed: podFixed represents the fixed resource overhead associated with running a pod.
         """
         if pod_fixed is not None:
             pulumi.set(__self__, "pod_fixed", pod_fixed)
@@ -34,7 +34,7 @@ class OverheadPatchArgs:
     @pulumi.getter(name="podFixed")
     def pod_fixed(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]:
         """
-        PodFixed represents the fixed resource overhead associated with running a pod.
+        podFixed represents the fixed resource overhead associated with running a pod.
         """
         return pulumi.get(self, "pod_fixed")
 
@@ -49,7 +49,7 @@ class OverheadArgs:
                  pod_fixed: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None):
         """
         Overhead structure represents the resource overhead associated with running a pod.
-        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] pod_fixed: PodFixed represents the fixed resource overhead associated with running a pod.
+        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] pod_fixed: podFixed represents the fixed resource overhead associated with running a pod.
         """
         if pod_fixed is not None:
             pulumi.set(__self__, "pod_fixed", pod_fixed)
@@ -58,7 +58,7 @@ class OverheadArgs:
     @pulumi.getter(name="podFixed")
     def pod_fixed(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]:
         """
-        PodFixed represents the fixed resource overhead associated with running a pod.
+        podFixed represents the fixed resource overhead associated with running a pod.
         """
         return pulumi.get(self, "pod_fixed")
 
@@ -78,13 +78,13 @@ class RuntimeClassArgs:
                  scheduling: Optional[pulumi.Input['SchedulingArgs']] = None):
         """
         RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a pod. RuntimeClasses are manually defined by a user or cluster provisioner, and referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName reference before running the pod.  For more details, see https://kubernetes.io/docs/concepts/containers/runtime-class/
-        :param pulumi.Input[str] handler: Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called "runc" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable.
+        :param pulumi.Input[str] handler: handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called "runc" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input['OverheadArgs'] overhead: Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see
+        :param pulumi.Input['OverheadArgs'] overhead: overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see
                 https://kubernetes.io/docs/concepts/scheduling-eviction/pod-overhead/
-        :param pulumi.Input['SchedulingArgs'] scheduling: Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
+        :param pulumi.Input['SchedulingArgs'] scheduling: scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
         """
         pulumi.set(__self__, "handler", handler)
         if api_version is not None:
@@ -102,7 +102,7 @@ class RuntimeClassArgs:
     @pulumi.getter
     def handler(self) -> pulumi.Input[str]:
         """
-        Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called "runc" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable.
+        handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node & CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called "runc" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable.
         """
         return pulumi.get(self, "handler")
 
@@ -150,7 +150,7 @@ class RuntimeClassArgs:
     @pulumi.getter
     def overhead(self) -> Optional[pulumi.Input['OverheadArgs']]:
         """
-        Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see
+        overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see
          https://kubernetes.io/docs/concepts/scheduling-eviction/pod-overhead/
         """
         return pulumi.get(self, "overhead")
@@ -163,7 +163,7 @@ class RuntimeClassArgs:
     @pulumi.getter
     def scheduling(self) -> Optional[pulumi.Input['SchedulingArgs']]:
         """
-        Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
+        scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
         """
         return pulumi.get(self, "scheduling")
 

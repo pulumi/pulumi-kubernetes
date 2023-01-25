@@ -16,13 +16,13 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1
     public class TokenRequestArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Audience is the intended audience of the token in "TokenRequestSpec". It will default to the audiences of kube apiserver.
+        /// audience is the intended audience of the token in "TokenRequestSpec". It will default to the audiences of kube apiserver.
         /// </summary>
         [Input("audience", required: true)]
         public Input<string> Audience { get; set; } = null!;
 
         /// <summary>
-        /// ExpirationSeconds is the duration of validity of the token in "TokenRequestSpec". It has the same default value of "ExpirationSeconds" in "TokenRequestSpec".
+        /// expirationSeconds is the duration of validity of the token in "TokenRequestSpec". It has the same default value of "ExpirationSeconds" in "TokenRequestSpec".
         /// </summary>
         [Input("expirationSeconds")]
         public Input<int>? ExpirationSeconds { get; set; }

@@ -17,7 +17,9 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch.V1
     public sealed class CronJobSpec
     {
         /// <summary>
-        /// Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
+        /// Specifies how to treat concurrent executions of a Job. Valid values are:
+        /// 
+        /// - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
         /// </summary>
         public readonly string ConcurrencyPolicy;
         /// <summary>

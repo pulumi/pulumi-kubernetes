@@ -46,7 +46,7 @@ export class CSINode extends pulumi.CustomResource {
      */
     public readonly kind!: pulumi.Output<"CSINode">;
     /**
-     * metadata.name must be the Kubernetes node name.
+     * Standard object's metadata. metadata.name must be the Kubernetes node name.
      */
     public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMeta>;
     /**
@@ -98,7 +98,7 @@ export interface CSINodeArgs {
      */
     kind?: pulumi.Input<"CSINode">;
     /**
-     * metadata.name must be the Kubernetes node name.
+     * Standard object's metadata. metadata.name must be the Kubernetes node name.
      */
     metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
     /**

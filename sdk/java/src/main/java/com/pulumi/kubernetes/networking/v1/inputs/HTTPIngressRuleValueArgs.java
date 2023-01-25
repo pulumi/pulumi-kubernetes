@@ -19,14 +19,14 @@ public final class HTTPIngressRuleValueArgs extends com.pulumi.resources.Resourc
     public static final HTTPIngressRuleValueArgs Empty = new HTTPIngressRuleValueArgs();
 
     /**
-     * A collection of paths that map requests to backends.
+     * paths is a collection of paths that map requests to backends.
      * 
      */
     @Import(name="paths", required=true)
     private Output<List<HTTPIngressPathArgs>> paths;
 
     /**
-     * @return A collection of paths that map requests to backends.
+     * @return paths is a collection of paths that map requests to backends.
      * 
      */
     public Output<List<HTTPIngressPathArgs>> paths() {
@@ -58,7 +58,7 @@ public final class HTTPIngressRuleValueArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param paths A collection of paths that map requests to backends.
+         * @param paths paths is a collection of paths that map requests to backends.
          * 
          * @return builder
          * 
@@ -69,7 +69,7 @@ public final class HTTPIngressRuleValueArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param paths A collection of paths that map requests to backends.
+         * @param paths paths is a collection of paths that map requests to backends.
          * 
          * @return builder
          * 
@@ -79,7 +79,7 @@ public final class HTTPIngressRuleValueArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param paths A collection of paths that map requests to backends.
+         * @param paths paths is a collection of paths that map requests to backends.
          * 
          * @return builder
          * 

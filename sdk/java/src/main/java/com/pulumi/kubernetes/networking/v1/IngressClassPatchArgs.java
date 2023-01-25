@@ -64,14 +64,14 @@ public final class IngressClassPatchArgs extends com.pulumi.resources.ResourceAr
     }
 
     /**
-     * Spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+     * spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
     @Import(name="spec")
     private @Nullable Output<IngressClassSpecPatchArgs> spec;
 
     /**
-     * @return Spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+     * @return spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
     public Optional<Output<IngressClassSpecPatchArgs>> spec() {
@@ -169,7 +169,7 @@ public final class IngressClassPatchArgs extends com.pulumi.resources.ResourceAr
         }
 
         /**
-         * @param spec Spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+         * @param spec spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
          * 
          * @return builder
          * 
@@ -180,7 +180,7 @@ public final class IngressClassPatchArgs extends com.pulumi.resources.ResourceAr
         }
 
         /**
-         * @param spec Spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+         * @param spec spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
          * 
          * @return builder
          * 

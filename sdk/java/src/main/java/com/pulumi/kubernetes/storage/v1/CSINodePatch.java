@@ -58,14 +58,14 @@ public class CSINodePatch extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.kind);
     }
     /**
-     * metadata.name must be the Kubernetes node name.
+     * Standard object&#39;s metadata. metadata.name must be the Kubernetes node name.
      * 
      */
     @Export(name="metadata", refs={ObjectMetaPatch.class}, tree="[0]")
     private Output</* @Nullable */ ObjectMetaPatch> metadata;
 
     /**
-     * @return metadata.name must be the Kubernetes node name.
+     * @return Standard object&#39;s metadata. metadata.name must be the Kubernetes node name.
      * 
      */
     public Output<Optional<ObjectMetaPatch>> metadata() {

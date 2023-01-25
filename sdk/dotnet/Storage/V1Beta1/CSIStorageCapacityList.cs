@@ -22,7 +22,7 @@ namespace Pulumi.Kubernetes.Storage.V1Beta1
         public Output<string> ApiVersion { get; private set; } = null!;
 
         /// <summary>
-        /// Items is the list of CSIStorageCapacity objects.
+        /// items is the list of CSIStorageCapacity objects.
         /// </summary>
         [Output("items")]
         public Output<ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Storage.V1Beta1.CSIStorageCapacity>> Items { get; private set; } = null!;
@@ -109,7 +109,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1Beta1
         private InputList<Pulumi.Kubernetes.Types.Inputs.Storage.V1Beta1.CSIStorageCapacityArgs>? _items;
 
         /// <summary>
-        /// Items is the list of CSIStorageCapacity objects.
+        /// items is the list of CSIStorageCapacity objects.
         /// </summary>
         public InputList<Pulumi.Kubernetes.Types.Inputs.Storage.V1Beta1.CSIStorageCapacityArgs> Items
         {

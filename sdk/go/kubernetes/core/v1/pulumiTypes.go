@@ -2377,7 +2377,7 @@ func (o BindingPatchTypeOutput) Target() ObjectReferencePatchPtrOutput {
 
 // Represents storage that is managed by an external CSI volume driver (Beta feature)
 type CSIPersistentVolumeSource struct {
-	// controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an beta field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+	// controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 	ControllerExpandSecretRef *SecretReference `pulumi:"controllerExpandSecretRef"`
 	// controllerPublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerPublishVolume and ControllerUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 	ControllerPublishSecretRef *SecretReference `pulumi:"controllerPublishSecretRef"`
@@ -2412,7 +2412,7 @@ type CSIPersistentVolumeSourceInput interface {
 
 // Represents storage that is managed by an external CSI volume driver (Beta feature)
 type CSIPersistentVolumeSourceArgs struct {
-	// controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an beta field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+	// controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 	ControllerExpandSecretRef SecretReferencePtrInput `pulumi:"controllerExpandSecretRef"`
 	// controllerPublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerPublishVolume and ControllerUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 	ControllerPublishSecretRef SecretReferencePtrInput `pulumi:"controllerPublishSecretRef"`
@@ -2512,7 +2512,7 @@ func (o CSIPersistentVolumeSourceOutput) ToCSIPersistentVolumeSourcePtrOutputWit
 	}).(CSIPersistentVolumeSourcePtrOutput)
 }
 
-// controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an beta field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+// controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 func (o CSIPersistentVolumeSourceOutput) ControllerExpandSecretRef() SecretReferencePtrOutput {
 	return o.ApplyT(func(v CSIPersistentVolumeSource) *SecretReference { return v.ControllerExpandSecretRef }).(SecretReferencePtrOutput)
 }
@@ -2586,7 +2586,7 @@ func (o CSIPersistentVolumeSourcePtrOutput) Elem() CSIPersistentVolumeSourceOutp
 	}).(CSIPersistentVolumeSourceOutput)
 }
 
-// controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an beta field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+// controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 func (o CSIPersistentVolumeSourcePtrOutput) ControllerExpandSecretRef() SecretReferencePtrOutput {
 	return o.ApplyT(func(v *CSIPersistentVolumeSource) *SecretReference {
 		if v == nil {
@@ -2688,7 +2688,7 @@ func (o CSIPersistentVolumeSourcePtrOutput) VolumeHandle() pulumi.StringPtrOutpu
 
 // Represents storage that is managed by an external CSI volume driver (Beta feature)
 type CSIPersistentVolumeSourcePatch struct {
-	// controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an beta field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+	// controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 	ControllerExpandSecretRef *SecretReferencePatch `pulumi:"controllerExpandSecretRef"`
 	// controllerPublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerPublishVolume and ControllerUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 	ControllerPublishSecretRef *SecretReferencePatch `pulumi:"controllerPublishSecretRef"`
@@ -2723,7 +2723,7 @@ type CSIPersistentVolumeSourcePatchInput interface {
 
 // Represents storage that is managed by an external CSI volume driver (Beta feature)
 type CSIPersistentVolumeSourcePatchArgs struct {
-	// controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an beta field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+	// controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 	ControllerExpandSecretRef SecretReferencePatchPtrInput `pulumi:"controllerExpandSecretRef"`
 	// controllerPublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerPublishVolume and ControllerUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 	ControllerPublishSecretRef SecretReferencePatchPtrInput `pulumi:"controllerPublishSecretRef"`
@@ -2823,7 +2823,7 @@ func (o CSIPersistentVolumeSourcePatchOutput) ToCSIPersistentVolumeSourcePatchPt
 	}).(CSIPersistentVolumeSourcePatchPtrOutput)
 }
 
-// controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an beta field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+// controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 func (o CSIPersistentVolumeSourcePatchOutput) ControllerExpandSecretRef() SecretReferencePatchPtrOutput {
 	return o.ApplyT(func(v CSIPersistentVolumeSourcePatch) *SecretReferencePatch { return v.ControllerExpandSecretRef }).(SecretReferencePatchPtrOutput)
 }
@@ -2897,7 +2897,7 @@ func (o CSIPersistentVolumeSourcePatchPtrOutput) Elem() CSIPersistentVolumeSourc
 	}).(CSIPersistentVolumeSourcePatchOutput)
 }
 
-// controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an beta field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+// controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 func (o CSIPersistentVolumeSourcePatchPtrOutput) ControllerExpandSecretRef() SecretReferencePatchPtrOutput {
 	return o.ApplyT(func(v *CSIPersistentVolumeSourcePatch) *SecretReferencePatch {
 		if v == nil {
@@ -13225,7 +13225,7 @@ func (o EmptyDirVolumeSourcePatchPtrOutput) SizeLimit() pulumi.StringPtrOutput {
 type EndpointAddress struct {
 	// The Hostname of this endpoint
 	Hostname *string `pulumi:"hostname"`
-	// The IP of this endpoint. May not be loopback (127.0.0.0/8), link-local (169.254.0.0/16), or link-local multicast ((224.0.0.0/24). IPv6 is also accepted but not fully supported on all platforms. Also, certain kubernetes components, like kube-proxy, are not IPv6 ready.
+	// The IP of this endpoint. May not be loopback (127.0.0.0/8 or ::1), link-local (169.254.0.0/16 or fe80::/10), or link-local multicast (224.0.0.0/24 or ff02::/16).
 	Ip string `pulumi:"ip"`
 	// Optional: Node hosting this endpoint. This can be used to determine endpoints local to a node.
 	NodeName *string `pulumi:"nodeName"`
@@ -13248,7 +13248,7 @@ type EndpointAddressInput interface {
 type EndpointAddressArgs struct {
 	// The Hostname of this endpoint
 	Hostname pulumi.StringPtrInput `pulumi:"hostname"`
-	// The IP of this endpoint. May not be loopback (127.0.0.0/8), link-local (169.254.0.0/16), or link-local multicast ((224.0.0.0/24). IPv6 is also accepted but not fully supported on all platforms. Also, certain kubernetes components, like kube-proxy, are not IPv6 ready.
+	// The IP of this endpoint. May not be loopback (127.0.0.0/8 or ::1), link-local (169.254.0.0/16 or fe80::/10), or link-local multicast (224.0.0.0/24 or ff02::/16).
 	Ip pulumi.StringInput `pulumi:"ip"`
 	// Optional: Node hosting this endpoint. This can be used to determine endpoints local to a node.
 	NodeName pulumi.StringPtrInput `pulumi:"nodeName"`
@@ -13313,7 +13313,7 @@ func (o EndpointAddressOutput) Hostname() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EndpointAddress) *string { return v.Hostname }).(pulumi.StringPtrOutput)
 }
 
-// The IP of this endpoint. May not be loopback (127.0.0.0/8), link-local (169.254.0.0/16), or link-local multicast ((224.0.0.0/24). IPv6 is also accepted but not fully supported on all platforms. Also, certain kubernetes components, like kube-proxy, are not IPv6 ready.
+// The IP of this endpoint. May not be loopback (127.0.0.0/8 or ::1), link-local (169.254.0.0/16 or fe80::/10), or link-local multicast (224.0.0.0/24 or ff02::/16).
 func (o EndpointAddressOutput) Ip() pulumi.StringOutput {
 	return o.ApplyT(func(v EndpointAddress) string { return v.Ip }).(pulumi.StringOutput)
 }
@@ -13352,7 +13352,7 @@ func (o EndpointAddressArrayOutput) Index(i pulumi.IntInput) EndpointAddressOutp
 type EndpointAddressPatch struct {
 	// The Hostname of this endpoint
 	Hostname *string `pulumi:"hostname"`
-	// The IP of this endpoint. May not be loopback (127.0.0.0/8), link-local (169.254.0.0/16), or link-local multicast ((224.0.0.0/24). IPv6 is also accepted but not fully supported on all platforms. Also, certain kubernetes components, like kube-proxy, are not IPv6 ready.
+	// The IP of this endpoint. May not be loopback (127.0.0.0/8 or ::1), link-local (169.254.0.0/16 or fe80::/10), or link-local multicast (224.0.0.0/24 or ff02::/16).
 	Ip *string `pulumi:"ip"`
 	// Optional: Node hosting this endpoint. This can be used to determine endpoints local to a node.
 	NodeName *string `pulumi:"nodeName"`
@@ -13375,7 +13375,7 @@ type EndpointAddressPatchInput interface {
 type EndpointAddressPatchArgs struct {
 	// The Hostname of this endpoint
 	Hostname pulumi.StringPtrInput `pulumi:"hostname"`
-	// The IP of this endpoint. May not be loopback (127.0.0.0/8), link-local (169.254.0.0/16), or link-local multicast ((224.0.0.0/24). IPv6 is also accepted but not fully supported on all platforms. Also, certain kubernetes components, like kube-proxy, are not IPv6 ready.
+	// The IP of this endpoint. May not be loopback (127.0.0.0/8 or ::1), link-local (169.254.0.0/16 or fe80::/10), or link-local multicast (224.0.0.0/24 or ff02::/16).
 	Ip pulumi.StringPtrInput `pulumi:"ip"`
 	// Optional: Node hosting this endpoint. This can be used to determine endpoints local to a node.
 	NodeName pulumi.StringPtrInput `pulumi:"nodeName"`
@@ -13440,7 +13440,7 @@ func (o EndpointAddressPatchOutput) Hostname() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EndpointAddressPatch) *string { return v.Hostname }).(pulumi.StringPtrOutput)
 }
 
-// The IP of this endpoint. May not be loopback (127.0.0.0/8), link-local (169.254.0.0/16), or link-local multicast ((224.0.0.0/24). IPv6 is also accepted but not fully supported on all platforms. Also, certain kubernetes components, like kube-proxy, are not IPv6 ready.
+// The IP of this endpoint. May not be loopback (127.0.0.0/8 or ::1), link-local (169.254.0.0/16 or fe80::/10), or link-local multicast (224.0.0.0/24 or ff02::/16).
 func (o EndpointAddressPatchOutput) Ip() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EndpointAddressPatch) *string { return v.Ip }).(pulumi.StringPtrOutput)
 }
@@ -31761,7 +31761,7 @@ func (o NodeSpecPatchPtrOutput) Unschedulable() pulumi.BoolPtrOutput {
 
 // NodeStatus is information about the current status of a node.
 type NodeStatus struct {
-	// List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example.
+	// List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
 	Addresses []NodeAddress `pulumi:"addresses"`
 	// Allocatable represents the resources of a node that are available for scheduling. Defaults to Capacity.
 	Allocatable map[string]string `pulumi:"allocatable"`
@@ -31798,7 +31798,7 @@ type NodeStatusInput interface {
 
 // NodeStatus is information about the current status of a node.
 type NodeStatusArgs struct {
-	// List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example.
+	// List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
 	Addresses NodeAddressArrayInput `pulumi:"addresses"`
 	// Allocatable represents the resources of a node that are available for scheduling. Defaults to Capacity.
 	Allocatable pulumi.StringMapInput `pulumi:"allocatable"`
@@ -31900,7 +31900,7 @@ func (o NodeStatusOutput) ToNodeStatusPtrOutputWithContext(ctx context.Context) 
 	}).(NodeStatusPtrOutput)
 }
 
-// List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example.
+// List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
 func (o NodeStatusOutput) Addresses() NodeAddressArrayOutput {
 	return o.ApplyT(func(v NodeStatus) []NodeAddress { return v.Addresses }).(NodeAddressArrayOutput)
 }
@@ -31979,7 +31979,7 @@ func (o NodeStatusPtrOutput) Elem() NodeStatusOutput {
 	}).(NodeStatusOutput)
 }
 
-// List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example.
+// List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
 func (o NodeStatusPtrOutput) Addresses() NodeAddressArrayOutput {
 	return o.ApplyT(func(v *NodeStatus) []NodeAddress {
 		if v == nil {
@@ -32091,7 +32091,7 @@ func (o NodeStatusPtrOutput) VolumesInUse() pulumi.StringArrayOutput {
 
 // NodeStatus is information about the current status of a node.
 type NodeStatusPatch struct {
-	// List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example.
+	// List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
 	Addresses []NodeAddressPatch `pulumi:"addresses"`
 	// Allocatable represents the resources of a node that are available for scheduling. Defaults to Capacity.
 	Allocatable map[string]string `pulumi:"allocatable"`
@@ -32128,7 +32128,7 @@ type NodeStatusPatchInput interface {
 
 // NodeStatus is information about the current status of a node.
 type NodeStatusPatchArgs struct {
-	// List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example.
+	// List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
 	Addresses NodeAddressPatchArrayInput `pulumi:"addresses"`
 	// Allocatable represents the resources of a node that are available for scheduling. Defaults to Capacity.
 	Allocatable pulumi.StringMapInput `pulumi:"allocatable"`
@@ -32230,7 +32230,7 @@ func (o NodeStatusPatchOutput) ToNodeStatusPatchPtrOutputWithContext(ctx context
 	}).(NodeStatusPatchPtrOutput)
 }
 
-// List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example.
+// List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
 func (o NodeStatusPatchOutput) Addresses() NodeAddressPatchArrayOutput {
 	return o.ApplyT(func(v NodeStatusPatch) []NodeAddressPatch { return v.Addresses }).(NodeAddressPatchArrayOutput)
 }
@@ -32309,7 +32309,7 @@ func (o NodeStatusPatchPtrOutput) Elem() NodeStatusPatchOutput {
 	}).(NodeStatusPatchOutput)
 }
 
-// List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example.
+// List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
 func (o NodeStatusPatchPtrOutput) Addresses() NodeAddressPatchArrayOutput {
 	return o.ApplyT(func(v *NodeStatusPatch) []NodeAddressPatch {
 		if v == nil {

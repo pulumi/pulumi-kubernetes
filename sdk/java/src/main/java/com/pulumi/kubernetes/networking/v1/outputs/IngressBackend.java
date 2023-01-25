@@ -13,26 +13,26 @@ import javax.annotation.Nullable;
 @CustomType
 public final class IngressBackend {
     /**
-     * @return Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with &#34;Service&#34;.
+     * @return resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with &#34;Service&#34;.
      * 
      */
     private @Nullable TypedLocalObjectReference resource;
     /**
-     * @return Service references a Service as a Backend. This is a mutually exclusive setting with &#34;Resource&#34;.
+     * @return service references a service as a backend. This is a mutually exclusive setting with &#34;Resource&#34;.
      * 
      */
     private @Nullable IngressServiceBackend service;
 
     private IngressBackend() {}
     /**
-     * @return Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with &#34;Service&#34;.
+     * @return resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with &#34;Service&#34;.
      * 
      */
     public Optional<TypedLocalObjectReference> resource() {
         return Optional.ofNullable(this.resource);
     }
     /**
-     * @return Service references a Service as a Backend. This is a mutually exclusive setting with &#34;Resource&#34;.
+     * @return service references a service as a backend. This is a mutually exclusive setting with &#34;Resource&#34;.
      * 
      */
     public Optional<IngressServiceBackend> service() {

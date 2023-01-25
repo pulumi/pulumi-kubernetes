@@ -17,11 +17,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch.V1
     public sealed class UncountedTerminatedPodsPatch
     {
         /// <summary>
-        /// Failed holds UIDs of failed Pods.
+        /// failed holds UIDs of failed Pods.
         /// </summary>
         public readonly ImmutableArray<string> Failed;
         /// <summary>
-        /// Succeeded holds UIDs of succeeded Pods.
+        /// succeeded holds UIDs of succeeded Pods.
         /// </summary>
         public readonly ImmutableArray<string> Succeeded;
 

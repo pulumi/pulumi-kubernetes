@@ -16,13 +16,13 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
     public class IngressServiceBackendArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Name is the referenced service. The service must exist in the same namespace as the Ingress object.
+        /// name is the referenced service. The service must exist in the same namespace as the Ingress object.
         /// </summary>
         [Input("name", required: true)]
         public Input<string> Name { get; set; } = null!;
 
         /// <summary>
-        /// Port of the referenced service. A port name or port number is required for a IngressServiceBackend.
+        /// port of the referenced service. A port name or port number is required for a IngressServiceBackend.
         /// </summary>
         [Input("port")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Networking.V1.ServiceBackendPortArgs>? Port { get; set; }

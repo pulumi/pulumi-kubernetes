@@ -16,13 +16,13 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
     public class IngressLoadBalancerIngressArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Hostname is set for load-balancer ingress points that are DNS based.
+        /// hostname is set for load-balancer ingress points that are DNS based.
         /// </summary>
         [Input("hostname")]
         public Input<string>? Hostname { get; set; }
 
         /// <summary>
-        /// IP is set for load-balancer ingress points that are IP based.
+        /// ip is set for load-balancer ingress points that are IP based.
         /// </summary>
         [Input("ip")]
         public Input<string>? Ip { get; set; }
@@ -31,7 +31,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
         private InputList<Pulumi.Kubernetes.Types.Inputs.Networking.V1.IngressPortStatusArgs>? _ports;
 
         /// <summary>
-        /// Ports provides information about the ports exposed by this LoadBalancer.
+        /// ports provides information about the ports exposed by this LoadBalancer.
         /// </summary>
         public InputList<Pulumi.Kubernetes.Types.Inputs.Networking.V1.IngressPortStatusArgs> Ports
         {

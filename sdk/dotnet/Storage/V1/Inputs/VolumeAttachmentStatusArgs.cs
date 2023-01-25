@@ -16,13 +16,13 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1
     public class VolumeAttachmentStatusArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// The last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
+        /// attachError represents the last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
         /// </summary>
         [Input("attachError")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Storage.V1.VolumeErrorArgs>? AttachError { get; set; }
 
         /// <summary>
-        /// Indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
+        /// attached indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
         /// </summary>
         [Input("attached", required: true)]
         public Input<bool> Attached { get; set; } = null!;
@@ -31,7 +31,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1
         private InputMap<string>? _attachmentMetadata;
 
         /// <summary>
-        /// Upon successful attach, this field is populated with any information returned by the attach operation that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
+        /// attachmentMetadata is populated with any information returned by the attach operation, upon successful attach, that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
         /// </summary>
         public InputMap<string> AttachmentMetadata
         {
@@ -40,7 +40,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1
         }
 
         /// <summary>
-        /// The last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
+        /// detachError represents the last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
         /// </summary>
         [Input("detachError")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Storage.V1.VolumeErrorArgs>? DetachError { get; set; }

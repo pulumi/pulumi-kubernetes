@@ -29,7 +29,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Coordination.V1
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Meta.V1.ObjectMeta Metadata;
         /// <summary>
-        /// Specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        /// spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Coordination.V1.LeaseSpec Spec;
 

@@ -16,19 +16,19 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1
     public class VolumeAttachmentSpecArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
+        /// attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
         /// </summary>
         [Input("attacher", required: true)]
         public Input<string> Attacher { get; set; } = null!;
 
         /// <summary>
-        /// The node that the volume should be attached to.
+        /// nodeName represents the node that the volume should be attached to.
         /// </summary>
         [Input("nodeName", required: true)]
         public Input<string> NodeName { get; set; } = null!;
 
         /// <summary>
-        /// Source represents the volume that should be attached.
+        /// source represents the volume that should be attached.
         /// </summary>
         [Input("source", required: true)]
         public Input<Pulumi.Kubernetes.Types.Inputs.Storage.V1.VolumeAttachmentSourceArgs> Source { get; set; } = null!;

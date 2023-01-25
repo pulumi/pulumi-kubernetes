@@ -16,13 +16,13 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
     public class IngressClassSpecArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
+        /// controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
         /// </summary>
         [Input("controller")]
         public Input<string>? Controller { get; set; }
 
         /// <summary>
-        /// Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
+        /// parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
         /// </summary>
         [Input("parameters")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Networking.V1.IngressClassParametersReferenceArgs>? Parameters { get; set; }

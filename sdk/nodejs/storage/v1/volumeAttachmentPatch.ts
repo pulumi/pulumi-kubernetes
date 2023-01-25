@@ -58,11 +58,11 @@ export class VolumeAttachmentPatch extends pulumi.CustomResource {
      */
     public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMetaPatch>;
     /**
-     * Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
+     * spec represents specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
      */
     public readonly spec!: pulumi.Output<outputs.storage.v1.VolumeAttachmentSpecPatch>;
     /**
-     * Status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
+     * status represents status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
      */
     public /*out*/ readonly status!: pulumi.Output<outputs.storage.v1.VolumeAttachmentStatusPatch>;
 
@@ -113,7 +113,7 @@ export interface VolumeAttachmentPatchArgs {
      */
     metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
     /**
-     * Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
+     * spec represents specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
      */
     spec?: pulumi.Input<inputs.storage.v1.VolumeAttachmentSpecPatch>;
 }

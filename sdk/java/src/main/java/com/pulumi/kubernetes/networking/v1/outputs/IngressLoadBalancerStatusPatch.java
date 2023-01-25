@@ -12,14 +12,14 @@ import javax.annotation.Nullable;
 @CustomType
 public final class IngressLoadBalancerStatusPatch {
     /**
-     * @return Ingress is a list containing ingress points for the load-balancer.
+     * @return ingress is a list containing ingress points for the load-balancer.
      * 
      */
     private @Nullable List<IngressLoadBalancerIngressPatch> ingress;
 
     private IngressLoadBalancerStatusPatch() {}
     /**
-     * @return Ingress is a list containing ingress points for the load-balancer.
+     * @return ingress is a list containing ingress points for the load-balancer.
      * 
      */
     public List<IngressLoadBalancerIngressPatch> ingress() {

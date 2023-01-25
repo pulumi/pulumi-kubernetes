@@ -23,7 +23,7 @@ public final class LeaseSpec {
      */
     private @Nullable String holderIdentity;
     /**
-     * @return leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed RenewTime.
+     * @return leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed renewTime.
      * 
      */
     private @Nullable Integer leaseDurationSeconds;
@@ -54,7 +54,7 @@ public final class LeaseSpec {
         return Optional.ofNullable(this.holderIdentity);
     }
     /**
-     * @return leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed RenewTime.
+     * @return leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed renewTime.
      * 
      */
     public Optional<Integer> leaseDurationSeconds() {

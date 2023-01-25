@@ -28,14 +28,14 @@ public final class StorageClassArgs extends com.pulumi.resources.ResourceArgs {
     public static final StorageClassArgs Empty = new StorageClassArgs();
 
     /**
-     * AllowVolumeExpansion shows whether the storage class allow volume expand
+     * allowVolumeExpansion shows whether the storage class allow volume expand.
      * 
      */
     @Import(name="allowVolumeExpansion")
     private @Nullable Output<Boolean> allowVolumeExpansion;
 
     /**
-     * @return AllowVolumeExpansion shows whether the storage class allow volume expand
+     * @return allowVolumeExpansion shows whether the storage class allow volume expand.
      * 
      */
     public Optional<Output<Boolean>> allowVolumeExpansion() {
@@ -43,14 +43,14 @@ public final class StorageClassArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
+     * allowedTopologies restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
      * 
      */
     @Import(name="allowedTopologies")
     private @Nullable Output<List<TopologySelectorTermArgs>> allowedTopologies;
 
     /**
-     * @return Restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
+     * @return allowedTopologies restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
      * 
      */
     public Optional<Output<List<TopologySelectorTermArgs>>> allowedTopologies() {
@@ -103,14 +103,14 @@ public final class StorageClassArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Dynamically provisioned PersistentVolumes of this storage class are created with these mountOptions, e.g. [&#34;ro&#34;, &#34;soft&#34;]. Not validated - mount of the PVs will simply fail if one is invalid.
+     * mountOptions controls the mountOptions for dynamically provisioned PersistentVolumes of this storage class. e.g. [&#34;ro&#34;, &#34;soft&#34;]. Not validated - mount of the PVs will simply fail if one is invalid.
      * 
      */
     @Import(name="mountOptions")
     private @Nullable Output<List<String>> mountOptions;
 
     /**
-     * @return Dynamically provisioned PersistentVolumes of this storage class are created with these mountOptions, e.g. [&#34;ro&#34;, &#34;soft&#34;]. Not validated - mount of the PVs will simply fail if one is invalid.
+     * @return mountOptions controls the mountOptions for dynamically provisioned PersistentVolumes of this storage class. e.g. [&#34;ro&#34;, &#34;soft&#34;]. Not validated - mount of the PVs will simply fail if one is invalid.
      * 
      */
     public Optional<Output<List<String>>> mountOptions() {
@@ -118,14 +118,14 @@ public final class StorageClassArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Parameters holds the parameters for the provisioner that should create volumes of this storage class.
+     * parameters holds the parameters for the provisioner that should create volumes of this storage class.
      * 
      */
     @Import(name="parameters")
     private @Nullable Output<Map<String,String>> parameters;
 
     /**
-     * @return Parameters holds the parameters for the provisioner that should create volumes of this storage class.
+     * @return parameters holds the parameters for the provisioner that should create volumes of this storage class.
      * 
      */
     public Optional<Output<Map<String,String>>> parameters() {
@@ -133,14 +133,14 @@ public final class StorageClassArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Provisioner indicates the type of the provisioner.
+     * provisioner indicates the type of the provisioner.
      * 
      */
     @Import(name="provisioner", required=true)
     private Output<String> provisioner;
 
     /**
-     * @return Provisioner indicates the type of the provisioner.
+     * @return provisioner indicates the type of the provisioner.
      * 
      */
     public Output<String> provisioner() {
@@ -148,14 +148,14 @@ public final class StorageClassArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Dynamically provisioned PersistentVolumes of this storage class are created with this reclaimPolicy. Defaults to Delete.
+     * reclaimPolicy controls the reclaimPolicy for dynamically provisioned PersistentVolumes of this storage class. Defaults to Delete.
      * 
      */
     @Import(name="reclaimPolicy")
     private @Nullable Output<String> reclaimPolicy;
 
     /**
-     * @return Dynamically provisioned PersistentVolumes of this storage class are created with this reclaimPolicy. Defaults to Delete.
+     * @return reclaimPolicy controls the reclaimPolicy for dynamically provisioned PersistentVolumes of this storage class. Defaults to Delete.
      * 
      */
     public Optional<Output<String>> reclaimPolicy() {
@@ -163,14 +163,14 @@ public final class StorageClassArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * VolumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
+     * volumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
      * 
      */
     @Import(name="volumeBindingMode")
     private @Nullable Output<String> volumeBindingMode;
 
     /**
-     * @return VolumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
+     * @return volumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
      * 
      */
     public Optional<Output<String>> volumeBindingMode() {
@@ -211,7 +211,7 @@ public final class StorageClassArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param allowVolumeExpansion AllowVolumeExpansion shows whether the storage class allow volume expand
+         * @param allowVolumeExpansion allowVolumeExpansion shows whether the storage class allow volume expand.
          * 
          * @return builder
          * 
@@ -222,7 +222,7 @@ public final class StorageClassArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param allowVolumeExpansion AllowVolumeExpansion shows whether the storage class allow volume expand
+         * @param allowVolumeExpansion allowVolumeExpansion shows whether the storage class allow volume expand.
          * 
          * @return builder
          * 
@@ -232,7 +232,7 @@ public final class StorageClassArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param allowedTopologies Restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
+         * @param allowedTopologies allowedTopologies restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
          * 
          * @return builder
          * 
@@ -243,7 +243,7 @@ public final class StorageClassArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param allowedTopologies Restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
+         * @param allowedTopologies allowedTopologies restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
          * 
          * @return builder
          * 
@@ -253,7 +253,7 @@ public final class StorageClassArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param allowedTopologies Restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
+         * @param allowedTopologies allowedTopologies restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
          * 
          * @return builder
          * 
@@ -326,7 +326,7 @@ public final class StorageClassArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param mountOptions Dynamically provisioned PersistentVolumes of this storage class are created with these mountOptions, e.g. [&#34;ro&#34;, &#34;soft&#34;]. Not validated - mount of the PVs will simply fail if one is invalid.
+         * @param mountOptions mountOptions controls the mountOptions for dynamically provisioned PersistentVolumes of this storage class. e.g. [&#34;ro&#34;, &#34;soft&#34;]. Not validated - mount of the PVs will simply fail if one is invalid.
          * 
          * @return builder
          * 
@@ -337,7 +337,7 @@ public final class StorageClassArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param mountOptions Dynamically provisioned PersistentVolumes of this storage class are created with these mountOptions, e.g. [&#34;ro&#34;, &#34;soft&#34;]. Not validated - mount of the PVs will simply fail if one is invalid.
+         * @param mountOptions mountOptions controls the mountOptions for dynamically provisioned PersistentVolumes of this storage class. e.g. [&#34;ro&#34;, &#34;soft&#34;]. Not validated - mount of the PVs will simply fail if one is invalid.
          * 
          * @return builder
          * 
@@ -347,7 +347,7 @@ public final class StorageClassArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param mountOptions Dynamically provisioned PersistentVolumes of this storage class are created with these mountOptions, e.g. [&#34;ro&#34;, &#34;soft&#34;]. Not validated - mount of the PVs will simply fail if one is invalid.
+         * @param mountOptions mountOptions controls the mountOptions for dynamically provisioned PersistentVolumes of this storage class. e.g. [&#34;ro&#34;, &#34;soft&#34;]. Not validated - mount of the PVs will simply fail if one is invalid.
          * 
          * @return builder
          * 
@@ -357,7 +357,7 @@ public final class StorageClassArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param parameters Parameters holds the parameters for the provisioner that should create volumes of this storage class.
+         * @param parameters parameters holds the parameters for the provisioner that should create volumes of this storage class.
          * 
          * @return builder
          * 
@@ -368,7 +368,7 @@ public final class StorageClassArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param parameters Parameters holds the parameters for the provisioner that should create volumes of this storage class.
+         * @param parameters parameters holds the parameters for the provisioner that should create volumes of this storage class.
          * 
          * @return builder
          * 
@@ -378,7 +378,7 @@ public final class StorageClassArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param provisioner Provisioner indicates the type of the provisioner.
+         * @param provisioner provisioner indicates the type of the provisioner.
          * 
          * @return builder
          * 
@@ -389,7 +389,7 @@ public final class StorageClassArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param provisioner Provisioner indicates the type of the provisioner.
+         * @param provisioner provisioner indicates the type of the provisioner.
          * 
          * @return builder
          * 
@@ -399,7 +399,7 @@ public final class StorageClassArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param reclaimPolicy Dynamically provisioned PersistentVolumes of this storage class are created with this reclaimPolicy. Defaults to Delete.
+         * @param reclaimPolicy reclaimPolicy controls the reclaimPolicy for dynamically provisioned PersistentVolumes of this storage class. Defaults to Delete.
          * 
          * @return builder
          * 
@@ -410,7 +410,7 @@ public final class StorageClassArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param reclaimPolicy Dynamically provisioned PersistentVolumes of this storage class are created with this reclaimPolicy. Defaults to Delete.
+         * @param reclaimPolicy reclaimPolicy controls the reclaimPolicy for dynamically provisioned PersistentVolumes of this storage class. Defaults to Delete.
          * 
          * @return builder
          * 
@@ -420,7 +420,7 @@ public final class StorageClassArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param volumeBindingMode VolumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
+         * @param volumeBindingMode volumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
          * 
          * @return builder
          * 
@@ -431,7 +431,7 @@ public final class StorageClassArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param volumeBindingMode VolumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
+         * @param volumeBindingMode volumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
          * 
          * @return builder
          * 

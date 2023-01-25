@@ -34,7 +34,7 @@ namespace Pulumi.Kubernetes.Storage.V1
         public Output<Pulumi.Kubernetes.Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
-        /// Specification of the CSI Driver.
+        /// spec represents the specification of the CSI Driver.
         /// </summary>
         [Output("spec")]
         public Output<Pulumi.Kubernetes.Types.Outputs.Storage.V1.CSIDriverSpec> Spec { get; private set; } = null!;
@@ -122,7 +122,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1
         public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs>? Metadata { get; set; }
 
         /// <summary>
-        /// Specification of the CSI Driver.
+        /// spec represents the specification of the CSI Driver.
         /// </summary>
         [Input("spec", required: true)]
         public Input<Pulumi.Kubernetes.Types.Inputs.Storage.V1.CSIDriverSpecArgs> Spec { get; set; } = null!;

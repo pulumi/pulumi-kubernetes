@@ -12,14 +12,14 @@ import javax.annotation.Nullable;
 @CustomType
 public final class IngressStatusPatch {
     /**
-     * @return LoadBalancer contains the current status of the load-balancer.
+     * @return loadBalancer contains the current status of the load-balancer.
      * 
      */
     private @Nullable IngressLoadBalancerStatusPatch loadBalancer;
 
     private IngressStatusPatch() {}
     /**
-     * @return LoadBalancer contains the current status of the load-balancer.
+     * @return loadBalancer contains the current status of the load-balancer.
      * 
      */
     public Optional<IngressLoadBalancerStatusPatch> loadBalancer() {

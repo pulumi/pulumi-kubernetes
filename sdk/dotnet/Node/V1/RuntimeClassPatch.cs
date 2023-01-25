@@ -28,7 +28,7 @@ namespace Pulumi.Kubernetes.Node.V1
         public Output<string> ApiVersion { get; private set; } = null!;
 
         /// <summary>
-        /// Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node &amp; CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called "runc" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable.
+        /// handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node &amp; CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called "runc" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable.
         /// </summary>
         [Output("handler")]
         public Output<string> Handler { get; private set; } = null!;
@@ -46,14 +46,14 @@ namespace Pulumi.Kubernetes.Node.V1
         public Output<Pulumi.Kubernetes.Types.Outputs.Meta.V1.ObjectMetaPatch> Metadata { get; private set; } = null!;
 
         /// <summary>
-        /// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see
+        /// overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see
         ///  https://kubernetes.io/docs/concepts/scheduling-eviction/pod-overhead/
         /// </summary>
         [Output("overhead")]
         public Output<Pulumi.Kubernetes.Types.Outputs.Node.V1.OverheadPatch> Overhead { get; private set; } = null!;
 
         /// <summary>
-        /// Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
+        /// scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
         /// </summary>
         [Output("scheduling")]
         public Output<Pulumi.Kubernetes.Types.Outputs.Node.V1.SchedulingPatch> Scheduling { get; private set; } = null!;
@@ -130,7 +130,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Node.V1
         public Input<string>? ApiVersion { get; set; }
 
         /// <summary>
-        /// Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node &amp; CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called "runc" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable.
+        /// handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node &amp; CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called "runc" might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable.
         /// </summary>
         [Input("handler")]
         public Input<string>? Handler { get; set; }
@@ -148,14 +148,14 @@ namespace Pulumi.Kubernetes.Types.Inputs.Node.V1
         public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaPatchArgs>? Metadata { get; set; }
 
         /// <summary>
-        /// Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see
+        /// overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see
         ///  https://kubernetes.io/docs/concepts/scheduling-eviction/pod-overhead/
         /// </summary>
         [Input("overhead")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Node.V1.OverheadPatchArgs>? Overhead { get; set; }
 
         /// <summary>
-        /// Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
+        /// scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
         /// </summary>
         [Input("scheduling")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Node.V1.SchedulingPatchArgs>? Scheduling { get; set; }

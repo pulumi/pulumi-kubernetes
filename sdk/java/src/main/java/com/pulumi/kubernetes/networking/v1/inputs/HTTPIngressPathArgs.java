@@ -21,14 +21,14 @@ public final class HTTPIngressPathArgs extends com.pulumi.resources.ResourceArgs
     public static final HTTPIngressPathArgs Empty = new HTTPIngressPathArgs();
 
     /**
-     * Backend defines the referenced service endpoint to which the traffic will be forwarded to.
+     * backend defines the referenced service endpoint to which the traffic will be forwarded to.
      * 
      */
     @Import(name="backend", required=true)
     private Output<IngressBackendArgs> backend;
 
     /**
-     * @return Backend defines the referenced service endpoint to which the traffic will be forwarded to.
+     * @return backend defines the referenced service endpoint to which the traffic will be forwarded to.
      * 
      */
     public Output<IngressBackendArgs> backend() {
@@ -36,14 +36,14 @@ public final class HTTPIngressPathArgs extends com.pulumi.resources.ResourceArgs
     }
 
     /**
-     * Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional &#34;path&#34; part of a URL as defined by RFC 3986. Paths must begin with a &#39;/&#39; and must be present when using PathType with value &#34;Exact&#34; or &#34;Prefix&#34;.
+     * path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional &#34;path&#34; part of a URL as defined by RFC 3986. Paths must begin with a &#39;/&#39; and must be present when using PathType with value &#34;Exact&#34; or &#34;Prefix&#34;.
      * 
      */
     @Import(name="path")
     private @Nullable Output<String> path;
 
     /**
-     * @return Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional &#34;path&#34; part of a URL as defined by RFC 3986. Paths must begin with a &#39;/&#39; and must be present when using PathType with value &#34;Exact&#34; or &#34;Prefix&#34;.
+     * @return path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional &#34;path&#34; part of a URL as defined by RFC 3986. Paths must begin with a &#39;/&#39; and must be present when using PathType with value &#34;Exact&#34; or &#34;Prefix&#34;.
      * 
      */
     public Optional<Output<String>> path() {
@@ -51,7 +51,7 @@ public final class HTTPIngressPathArgs extends com.pulumi.resources.ResourceArgs
     }
 
     /**
-     * PathType determines the interpretation of the Path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by &#39;/&#39;. Matching is
+     * pathType determines the interpretation of the path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by &#39;/&#39;. Matching is
      *   done on a path element by element basis. A path element refers is the
      *   list of labels in the path split by the &#39;/&#39; separator. A request is a
      *   match for path p if every p is an element-wise prefix of p of the
@@ -68,7 +68,7 @@ public final class HTTPIngressPathArgs extends com.pulumi.resources.ResourceArgs
     private Output<String> pathType;
 
     /**
-     * @return PathType determines the interpretation of the Path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by &#39;/&#39;. Matching is
+     * @return pathType determines the interpretation of the path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by &#39;/&#39;. Matching is
      *   done on a path element by element basis. A path element refers is the
      *   list of labels in the path split by the &#39;/&#39; separator. A request is a
      *   match for path p if every p is an element-wise prefix of p of the
@@ -112,7 +112,7 @@ public final class HTTPIngressPathArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param backend Backend defines the referenced service endpoint to which the traffic will be forwarded to.
+         * @param backend backend defines the referenced service endpoint to which the traffic will be forwarded to.
          * 
          * @return builder
          * 
@@ -123,7 +123,7 @@ public final class HTTPIngressPathArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param backend Backend defines the referenced service endpoint to which the traffic will be forwarded to.
+         * @param backend backend defines the referenced service endpoint to which the traffic will be forwarded to.
          * 
          * @return builder
          * 
@@ -133,7 +133,7 @@ public final class HTTPIngressPathArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param path Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional &#34;path&#34; part of a URL as defined by RFC 3986. Paths must begin with a &#39;/&#39; and must be present when using PathType with value &#34;Exact&#34; or &#34;Prefix&#34;.
+         * @param path path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional &#34;path&#34; part of a URL as defined by RFC 3986. Paths must begin with a &#39;/&#39; and must be present when using PathType with value &#34;Exact&#34; or &#34;Prefix&#34;.
          * 
          * @return builder
          * 
@@ -144,7 +144,7 @@ public final class HTTPIngressPathArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param path Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional &#34;path&#34; part of a URL as defined by RFC 3986. Paths must begin with a &#39;/&#39; and must be present when using PathType with value &#34;Exact&#34; or &#34;Prefix&#34;.
+         * @param path path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional &#34;path&#34; part of a URL as defined by RFC 3986. Paths must begin with a &#39;/&#39; and must be present when using PathType with value &#34;Exact&#34; or &#34;Prefix&#34;.
          * 
          * @return builder
          * 
@@ -154,7 +154,7 @@ public final class HTTPIngressPathArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param pathType PathType determines the interpretation of the Path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by &#39;/&#39;. Matching is
+         * @param pathType pathType determines the interpretation of the path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by &#39;/&#39;. Matching is
          *   done on a path element by element basis. A path element refers is the
          *   list of labels in the path split by the &#39;/&#39; separator. A request is a
          *   match for path p if every p is an element-wise prefix of p of the
@@ -175,7 +175,7 @@ public final class HTTPIngressPathArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param pathType PathType determines the interpretation of the Path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by &#39;/&#39;. Matching is
+         * @param pathType pathType determines the interpretation of the path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by &#39;/&#39;. Matching is
          *   done on a path element by element basis. A path element refers is the
          *   list of labels in the path split by the &#39;/&#39; separator. A request is a
          *   match for path p if every p is an element-wise prefix of p of the

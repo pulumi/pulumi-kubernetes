@@ -30,12 +30,12 @@ public final class NetworkPolicy {
      */
     private @Nullable ObjectMeta metadata;
     /**
-     * @return Specification of the desired behavior for this NetworkPolicy.
+     * @return spec represents the specification of the desired behavior for this NetworkPolicy.
      * 
      */
     private @Nullable NetworkPolicySpec spec;
     /**
-     * @return Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+     * @return status represents the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
     private @Nullable NetworkPolicyStatus status;
@@ -63,14 +63,14 @@ public final class NetworkPolicy {
         return Optional.ofNullable(this.metadata);
     }
     /**
-     * @return Specification of the desired behavior for this NetworkPolicy.
+     * @return spec represents the specification of the desired behavior for this NetworkPolicy.
      * 
      */
     public Optional<NetworkPolicySpec> spec() {
         return Optional.ofNullable(this.spec);
     }
     /**
-     * @return Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+     * @return status represents the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
     public Optional<NetworkPolicyStatus> status() {

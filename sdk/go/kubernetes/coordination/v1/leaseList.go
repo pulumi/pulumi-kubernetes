@@ -18,7 +18,7 @@ type LeaseList struct {
 
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
-	// Items is a list of schema objects.
+	// items is a list of schema objects.
 	Items LeaseTypeArrayOutput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrOutput `pulumi:"kind"`
@@ -72,7 +72,7 @@ func (LeaseListState) ElementType() reflect.Type {
 type leaseListArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
-	// Items is a list of schema objects.
+	// items is a list of schema objects.
 	Items []LeaseType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
@@ -84,7 +84,7 @@ type leaseListArgs struct {
 type LeaseListArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput
-	// Items is a list of schema objects.
+	// items is a list of schema objects.
 	Items LeaseTypeArrayInput
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput
@@ -184,7 +184,7 @@ func (o LeaseListOutput) ApiVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *LeaseList) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
-// Items is a list of schema objects.
+// items is a list of schema objects.
 func (o LeaseListOutput) Items() LeaseTypeArrayOutput {
 	return o.ApplyT(func(v *LeaseList) LeaseTypeArrayOutput { return v.Items }).(LeaseTypeArrayOutput)
 }

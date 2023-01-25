@@ -22,7 +22,7 @@ namespace Pulumi.Kubernetes.Coordination.V1
         public Output<string> ApiVersion { get; private set; } = null!;
 
         /// <summary>
-        /// Items is a list of schema objects.
+        /// items is a list of schema objects.
         /// </summary>
         [Output("items")]
         public Output<ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Coordination.V1.Lease>> Items { get; private set; } = null!;
@@ -109,7 +109,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Coordination.V1
         private InputList<Pulumi.Kubernetes.Types.Inputs.Coordination.V1.LeaseArgs>? _items;
 
         /// <summary>
-        /// Items is a list of schema objects.
+        /// items is a list of schema objects.
         /// </summary>
         public InputList<Pulumi.Kubernetes.Types.Inputs.Coordination.V1.LeaseArgs> Items
         {

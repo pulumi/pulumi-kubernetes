@@ -22,7 +22,7 @@ namespace Pulumi.Kubernetes.Networking.V1
         public Output<string> ApiVersion { get; private set; } = null!;
 
         /// <summary>
-        /// Items is a list of schema objects.
+        /// items is a list of schema objects.
         /// </summary>
         [Output("items")]
         public Output<ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Networking.V1.NetworkPolicy>> Items { get; private set; } = null!;
@@ -109,7 +109,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
         private InputList<Pulumi.Kubernetes.Types.Inputs.Networking.V1.NetworkPolicyArgs>? _items;
 
         /// <summary>
-        /// Items is a list of schema objects.
+        /// items is a list of schema objects.
         /// </summary>
         public InputList<Pulumi.Kubernetes.Types.Inputs.Networking.V1.NetworkPolicyArgs> Items
         {

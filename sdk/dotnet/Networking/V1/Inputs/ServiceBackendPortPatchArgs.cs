@@ -16,13 +16,13 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
     public class ServiceBackendPortPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Name is the name of the port on the Service. This is a mutually exclusive setting with "Number".
+        /// name is the name of the port on the Service. This is a mutually exclusive setting with "Number".
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// Number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with "Name".
+        /// number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with "Name".
         /// </summary>
         [Input("number")]
         public Input<int>? Number { get; set; }

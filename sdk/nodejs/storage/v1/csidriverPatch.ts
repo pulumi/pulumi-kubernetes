@@ -56,7 +56,7 @@ export class CSIDriverPatch extends pulumi.CustomResource {
      */
     public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMetaPatch>;
     /**
-     * Specification of the CSI Driver.
+     * spec represents the specification of the CSI Driver.
      */
     public readonly spec!: pulumi.Output<outputs.storage.v1.CSIDriverSpecPatch>;
 
@@ -105,7 +105,7 @@ export interface CSIDriverPatchArgs {
      */
     metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
     /**
-     * Specification of the CSI Driver.
+     * spec represents the specification of the CSI Driver.
      */
     spec?: pulumi.Input<inputs.storage.v1.CSIDriverSpecPatch>;
 }

@@ -18,7 +18,7 @@ type RuntimeClassList struct {
 
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
-	// Items is a list of schema objects.
+	// items is a list of schema objects.
 	Items RuntimeClassTypeArrayOutput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrOutput `pulumi:"kind"`
@@ -72,7 +72,7 @@ func (RuntimeClassListState) ElementType() reflect.Type {
 type runtimeClassListArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
-	// Items is a list of schema objects.
+	// items is a list of schema objects.
 	Items []RuntimeClassType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
@@ -84,7 +84,7 @@ type runtimeClassListArgs struct {
 type RuntimeClassListArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput
-	// Items is a list of schema objects.
+	// items is a list of schema objects.
 	Items RuntimeClassTypeArrayInput
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput
@@ -184,7 +184,7 @@ func (o RuntimeClassListOutput) ApiVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *RuntimeClassList) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
-// Items is a list of schema objects.
+// items is a list of schema objects.
 func (o RuntimeClassListOutput) Items() RuntimeClassTypeArrayOutput {
 	return o.ApplyT(func(v *RuntimeClassList) RuntimeClassTypeArrayOutput { return v.Items }).(RuntimeClassTypeArrayOutput)
 }

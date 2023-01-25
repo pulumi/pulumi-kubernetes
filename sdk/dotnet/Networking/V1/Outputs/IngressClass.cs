@@ -29,7 +29,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking.V1
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Meta.V1.ObjectMeta Metadata;
         /// <summary>
-        /// Spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        /// spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Networking.V1.IngressClassSpec Spec;
 

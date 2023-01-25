@@ -21,14 +21,14 @@ public final class UncountedTerminatedPodsArgs extends com.pulumi.resources.Reso
     public static final UncountedTerminatedPodsArgs Empty = new UncountedTerminatedPodsArgs();
 
     /**
-     * Failed holds UIDs of failed Pods.
+     * failed holds UIDs of failed Pods.
      * 
      */
     @Import(name="failed")
     private @Nullable Output<List<String>> failed;
 
     /**
-     * @return Failed holds UIDs of failed Pods.
+     * @return failed holds UIDs of failed Pods.
      * 
      */
     public Optional<Output<List<String>>> failed() {
@@ -36,14 +36,14 @@ public final class UncountedTerminatedPodsArgs extends com.pulumi.resources.Reso
     }
 
     /**
-     * Succeeded holds UIDs of succeeded Pods.
+     * succeeded holds UIDs of succeeded Pods.
      * 
      */
     @Import(name="succeeded")
     private @Nullable Output<List<String>> succeeded;
 
     /**
-     * @return Succeeded holds UIDs of succeeded Pods.
+     * @return succeeded holds UIDs of succeeded Pods.
      * 
      */
     public Optional<Output<List<String>>> succeeded() {
@@ -76,7 +76,7 @@ public final class UncountedTerminatedPodsArgs extends com.pulumi.resources.Reso
         }
 
         /**
-         * @param failed Failed holds UIDs of failed Pods.
+         * @param failed failed holds UIDs of failed Pods.
          * 
          * @return builder
          * 
@@ -87,7 +87,7 @@ public final class UncountedTerminatedPodsArgs extends com.pulumi.resources.Reso
         }
 
         /**
-         * @param failed Failed holds UIDs of failed Pods.
+         * @param failed failed holds UIDs of failed Pods.
          * 
          * @return builder
          * 
@@ -97,7 +97,7 @@ public final class UncountedTerminatedPodsArgs extends com.pulumi.resources.Reso
         }
 
         /**
-         * @param failed Failed holds UIDs of failed Pods.
+         * @param failed failed holds UIDs of failed Pods.
          * 
          * @return builder
          * 
@@ -107,7 +107,7 @@ public final class UncountedTerminatedPodsArgs extends com.pulumi.resources.Reso
         }
 
         /**
-         * @param succeeded Succeeded holds UIDs of succeeded Pods.
+         * @param succeeded succeeded holds UIDs of succeeded Pods.
          * 
          * @return builder
          * 
@@ -118,7 +118,7 @@ public final class UncountedTerminatedPodsArgs extends com.pulumi.resources.Reso
         }
 
         /**
-         * @param succeeded Succeeded holds UIDs of succeeded Pods.
+         * @param succeeded succeeded holds UIDs of succeeded Pods.
          * 
          * @return builder
          * 
@@ -128,7 +128,7 @@ public final class UncountedTerminatedPodsArgs extends com.pulumi.resources.Reso
         }
 
         /**
-         * @param succeeded Succeeded holds UIDs of succeeded Pods.
+         * @param succeeded succeeded holds UIDs of succeeded Pods.
          * 
          * @return builder
          * 

@@ -24,7 +24,7 @@ class VolumeAttachmentInitArgs:
                  metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None):
         """
         The set of arguments for constructing a VolumeAttachment resource.
-        :param pulumi.Input['VolumeAttachmentSpecArgs'] spec: Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
+        :param pulumi.Input['VolumeAttachmentSpecArgs'] spec: spec represents specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -41,7 +41,7 @@ class VolumeAttachmentInitArgs:
     @pulumi.getter
     def spec(self) -> pulumi.Input['VolumeAttachmentSpecArgs']:
         """
-        Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
+        spec represents specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
         """
         return pulumi.get(self, "spec")
 
@@ -106,7 +106,7 @@ class VolumeAttachment(pulumi.CustomResource):
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']] metadata: Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input[pulumi.InputType['VolumeAttachmentSpecArgs']] spec: Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
+        :param pulumi.Input[pulumi.InputType['VolumeAttachmentSpecArgs']] spec: spec represents specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
         """
         ...
     @overload
@@ -213,7 +213,7 @@ class VolumeAttachment(pulumi.CustomResource):
     @pulumi.getter
     def spec(self) -> pulumi.Output['outputs.VolumeAttachmentSpec']:
         """
-        Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
+        spec represents specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
         """
         return pulumi.get(self, "spec")
 
@@ -221,7 +221,7 @@ class VolumeAttachment(pulumi.CustomResource):
     @pulumi.getter
     def status(self) -> pulumi.Output[Optional['outputs.VolumeAttachmentStatus']]:
         """
-        Status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
+        status represents status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
         """
         return pulumi.get(self, "status")
 

@@ -24,7 +24,7 @@ public final class CSINode {
      */
     private @Nullable String kind;
     /**
-     * @return metadata.name must be the Kubernetes node name.
+     * @return Standard object&#39;s metadata. metadata.name must be the Kubernetes node name.
      * 
      */
     private @Nullable ObjectMeta metadata;
@@ -50,7 +50,7 @@ public final class CSINode {
         return Optional.ofNullable(this.kind);
     }
     /**
-     * @return metadata.name must be the Kubernetes node name.
+     * @return Standard object&#39;s metadata. metadata.name must be the Kubernetes node name.
      * 
      */
     public Optional<ObjectMeta> metadata() {

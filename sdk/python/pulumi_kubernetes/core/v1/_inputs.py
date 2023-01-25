@@ -1095,7 +1095,7 @@ class CSIPersistentVolumeSourcePatchArgs:
                  volume_handle: Optional[pulumi.Input[str]] = None):
         """
         Represents storage that is managed by an external CSI volume driver (Beta feature)
-        :param pulumi.Input['SecretReferencePatchArgs'] controller_expand_secret_ref: controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an beta field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+        :param pulumi.Input['SecretReferencePatchArgs'] controller_expand_secret_ref: controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         :param pulumi.Input['SecretReferencePatchArgs'] controller_publish_secret_ref: controllerPublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerPublishVolume and ControllerUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         :param pulumi.Input[str] driver: driver is the name of the driver to use for this volume. Required.
         :param pulumi.Input[str] fs_type: fsType to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
@@ -1131,7 +1131,7 @@ class CSIPersistentVolumeSourcePatchArgs:
     @pulumi.getter(name="controllerExpandSecretRef")
     def controller_expand_secret_ref(self) -> Optional[pulumi.Input['SecretReferencePatchArgs']]:
         """
-        controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an beta field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+        controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         """
         return pulumi.get(self, "controller_expand_secret_ref")
 
@@ -1265,7 +1265,7 @@ class CSIPersistentVolumeSourceArgs:
         Represents storage that is managed by an external CSI volume driver (Beta feature)
         :param pulumi.Input[str] driver: driver is the name of the driver to use for this volume. Required.
         :param pulumi.Input[str] volume_handle: volumeHandle is the unique volume name returned by the CSI volume plugin’s CreateVolume to refer to the volume on all subsequent calls. Required.
-        :param pulumi.Input['SecretReferenceArgs'] controller_expand_secret_ref: controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an beta field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+        :param pulumi.Input['SecretReferenceArgs'] controller_expand_secret_ref: controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         :param pulumi.Input['SecretReferenceArgs'] controller_publish_secret_ref: controllerPublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerPublishVolume and ControllerUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         :param pulumi.Input[str] fs_type: fsType to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
         :param pulumi.Input['SecretReferenceArgs'] node_expand_secret_ref: nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is an alpha field and requires enabling CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
@@ -1321,7 +1321,7 @@ class CSIPersistentVolumeSourceArgs:
     @pulumi.getter(name="controllerExpandSecretRef")
     def controller_expand_secret_ref(self) -> Optional[pulumi.Input['SecretReferenceArgs']]:
         """
-        controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an beta field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+        controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         """
         return pulumi.get(self, "controller_expand_secret_ref")
 
@@ -4964,7 +4964,7 @@ class EndpointAddressPatchArgs:
         """
         EndpointAddress is a tuple that describes single IP address.
         :param pulumi.Input[str] hostname: The Hostname of this endpoint
-        :param pulumi.Input[str] ip: The IP of this endpoint. May not be loopback (127.0.0.0/8), link-local (169.254.0.0/16), or link-local multicast ((224.0.0.0/24). IPv6 is also accepted but not fully supported on all platforms. Also, certain kubernetes components, like kube-proxy, are not IPv6 ready.
+        :param pulumi.Input[str] ip: The IP of this endpoint. May not be loopback (127.0.0.0/8 or ::1), link-local (169.254.0.0/16 or fe80::/10), or link-local multicast (224.0.0.0/24 or ff02::/16).
         :param pulumi.Input[str] node_name: Optional: Node hosting this endpoint. This can be used to determine endpoints local to a node.
         :param pulumi.Input['ObjectReferencePatchArgs'] target_ref: Reference to object providing the endpoint.
         """
@@ -4993,7 +4993,7 @@ class EndpointAddressPatchArgs:
     @pulumi.getter
     def ip(self) -> Optional[pulumi.Input[str]]:
         """
-        The IP of this endpoint. May not be loopback (127.0.0.0/8), link-local (169.254.0.0/16), or link-local multicast ((224.0.0.0/24). IPv6 is also accepted but not fully supported on all platforms. Also, certain kubernetes components, like kube-proxy, are not IPv6 ready.
+        The IP of this endpoint. May not be loopback (127.0.0.0/8 or ::1), link-local (169.254.0.0/16 or fe80::/10), or link-local multicast (224.0.0.0/24 or ff02::/16).
         """
         return pulumi.get(self, "ip")
 
@@ -5035,7 +5035,7 @@ class EndpointAddressArgs:
                  target_ref: Optional[pulumi.Input['ObjectReferenceArgs']] = None):
         """
         EndpointAddress is a tuple that describes single IP address.
-        :param pulumi.Input[str] ip: The IP of this endpoint. May not be loopback (127.0.0.0/8), link-local (169.254.0.0/16), or link-local multicast ((224.0.0.0/24). IPv6 is also accepted but not fully supported on all platforms. Also, certain kubernetes components, like kube-proxy, are not IPv6 ready.
+        :param pulumi.Input[str] ip: The IP of this endpoint. May not be loopback (127.0.0.0/8 or ::1), link-local (169.254.0.0/16 or fe80::/10), or link-local multicast (224.0.0.0/24 or ff02::/16).
         :param pulumi.Input[str] hostname: The Hostname of this endpoint
         :param pulumi.Input[str] node_name: Optional: Node hosting this endpoint. This can be used to determine endpoints local to a node.
         :param pulumi.Input['ObjectReferenceArgs'] target_ref: Reference to object providing the endpoint.
@@ -5052,7 +5052,7 @@ class EndpointAddressArgs:
     @pulumi.getter
     def ip(self) -> pulumi.Input[str]:
         """
-        The IP of this endpoint. May not be loopback (127.0.0.0/8), link-local (169.254.0.0/16), or link-local multicast ((224.0.0.0/24). IPv6 is also accepted but not fully supported on all platforms. Also, certain kubernetes components, like kube-proxy, are not IPv6 ready.
+        The IP of this endpoint. May not be loopback (127.0.0.0/8 or ::1), link-local (169.254.0.0/16 or fe80::/10), or link-local multicast (224.0.0.0/24 or ff02::/16).
         """
         return pulumi.get(self, "ip")
 
@@ -11607,7 +11607,7 @@ class NodeStatusArgs:
                  volumes_in_use: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None):
         """
         NodeStatus is information about the current status of a node.
-        :param pulumi.Input[Sequence[pulumi.Input['NodeAddressArgs']]] addresses: List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example.
+        :param pulumi.Input[Sequence[pulumi.Input['NodeAddressArgs']]] addresses: List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] allocatable: Allocatable represents the resources of a node that are available for scheduling. Defaults to Capacity.
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] capacity: Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
         :param pulumi.Input[Sequence[pulumi.Input['NodeConditionArgs']]] conditions: Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/concepts/nodes/node/#condition
@@ -11646,7 +11646,7 @@ class NodeStatusArgs:
     @pulumi.getter
     def addresses(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['NodeAddressArgs']]]]:
         """
-        List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example.
+        List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
         """
         return pulumi.get(self, "addresses")
 

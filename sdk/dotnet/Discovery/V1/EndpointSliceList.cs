@@ -22,7 +22,7 @@ namespace Pulumi.Kubernetes.Discovery.V1
         public Output<string> ApiVersion { get; private set; } = null!;
 
         /// <summary>
-        /// List of endpoint slices
+        /// items is the list of endpoint slices
         /// </summary>
         [Output("items")]
         public Output<ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Discovery.V1.EndpointSlice>> Items { get; private set; } = null!;
@@ -109,7 +109,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Discovery.V1
         private InputList<Pulumi.Kubernetes.Types.Inputs.Discovery.V1.EndpointSliceArgs>? _items;
 
         /// <summary>
-        /// List of endpoint slices
+        /// items is the list of endpoint slices
         /// </summary>
         public InputList<Pulumi.Kubernetes.Types.Inputs.Discovery.V1.EndpointSliceArgs> Items
         {

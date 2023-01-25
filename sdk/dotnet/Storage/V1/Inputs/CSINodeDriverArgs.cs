@@ -22,7 +22,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1
         public Input<Pulumi.Kubernetes.Types.Inputs.Storage.V1.VolumeNodeResourcesArgs>? Allocatable { get; set; }
 
         /// <summary>
-        /// This is the name of the CSI driver that this object refers to. This MUST be the same name returned by the CSI GetPluginName() call for that driver.
+        /// name represents the name of the CSI driver that this object refers to. This MUST be the same name returned by the CSI GetPluginName() call for that driver.
         /// </summary>
         [Input("name", required: true)]
         public Input<string> Name { get; set; } = null!;
