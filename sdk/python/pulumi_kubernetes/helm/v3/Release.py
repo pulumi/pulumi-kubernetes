@@ -727,7 +727,7 @@ class Release(pulumi.CustomResource):
                 repository_opts=RepositoryOptsArgs(
                     repo="https://raw.githubusercontent.com/bitnami/charts/eb5f9a9513d987b519f0ecd732e7031241c50328/bitnami",
                 ),
-                value_yaml_files=pulumi.FileAsset("./metrics.yml"),
+                value_yaml_files=[pulumi.FileAsset("./metrics.yml")],
                 values={
                     cluster: {
                         enabled: true,
@@ -933,7 +933,7 @@ class Release(pulumi.CustomResource):
                 repository_opts=RepositoryOptsArgs(
                     repo="https://raw.githubusercontent.com/bitnami/charts/eb5f9a9513d987b519f0ecd732e7031241c50328/bitnami",
                 ),
-                value_yaml_files=pulumi.FileAsset("./metrics.yml"),
+                value_yaml_files=[pulumi.FileAsset("./metrics.yml")],
                 values={
                     cluster: {
                         enabled: true,
