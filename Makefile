@@ -8,9 +8,10 @@ PROJECT          := github.com/pulumi/pulumi-kubernetes
 NODE_MODULE_NAME := @pulumi/kubernetes
 NUGET_PKG_NAME   := Pulumi.Kubernetes
 
+PROVIDER_VERSION ?= "1.0.0-alpha.0+dev"
+
 PROVIDER        := pulumi-resource-${PACK}
 CODEGEN         := pulumi-gen-${PACK}
-VERSION         ?= $(shell pulumictl get version)
 PROVIDER_PATH   := provider/v3
 VERSION_PATH     := ${PROVIDER_PATH}/pkg/version.Version
 
@@ -19,6 +20,7 @@ SWAGGER_URL     ?= https://github.com/kubernetes/kubernetes/raw/${KUBE_VERSION}/
 OPENAPI_DIR     := provider/pkg/gen/openapi-specs
 OPENAPI_FILE    := ${OPENAPI_DIR}/swagger-${KUBE_VERSION}.json
 SCHEMA_FILE     := provider/cmd/pulumi-resource-kubernetes/schema.json
+
 GOPATH			:= $(shell go env GOPATH)
 
 JAVA_GEN 		 := pulumi-java-gen
@@ -26,6 +28,7 @@ JAVA_GEN_VERSION := v0.5.2
 
 WORKING_DIR     := $(shell pwd)
 CODEGEN_PATH    = bin/${CODEGEN}
+pulumictl := bin/pulumictl
 TESTPARALLELISM := 4
 
 # The general form for this Makefile is
@@ -37,17 +40,27 @@ default: build
 
 # Make sure necessary tools are present and the working dir is ready to build
 .PHONY: ensure
-ensure:
+ensure: ${pulumictl}
 	cd provider && go mod tidy
 	cd sdk && go mod tidy
 	cd tests && go mod tidy
+
+${pulumictl}: PULUMICTL_VERSION := $(shell cat .pulumictl.version)
+${pulumictl}: PLAT := $(shell go version | sed -En "s/go version go.* (.*)\/(.*)/\1-\2/p")
+${pulumictl}: PULUMICTL_URL := "https://github.com/pulumi/pulumictl/releases/download/v$(PULUMICTL_VERSION)/pulumictl-v$(PULUMICTL_VERSION)-$(PLAT).tar.gz"
+${pulumictl}: .pulumictl.version
+	@echo "Installing pulumictl"
+	@mkdir -p bin
+	wget -q -O - "$(PULUMICTL_URL)" | tar -xzf - -C $(WORKING_DIR)/bin pulumictl
+	@touch ${pulumictl}
+	@echo "pulumictl" $$(./bin/pulumictl version)
 
 ${OPENAPI_FILE}:
 	@mkdir -p $(OPENAPI_DIR)
 	curl -s -L $(SWAGGER_URL) > $(OPENAPI_FILE)
 
 ${CODEGEN_PATH}: provider/go.mod provider/cmd/$(CODEGEN)/*.go $(shell find provider/pkg -name '*.go')
-	(cd provider && CGO_ENABLED=1 go build -o $(WORKING_DIR)/${CODEGEN_PATH} -ldflags "-X ${PROJECT}/${VERSION_PATH}=${VERSION}" ${PROJECT}/${PROVIDER_PATH}/cmd/$(CODEGEN))
+	(cd provider && CGO_ENABLED=1 go build -o $(WORKING_DIR)/${CODEGEN_PATH} -ldflags "-X ${PROJECT}/${VERSION_PATH}=${PROVIDER_VERSION}" ${PROJECT}/${PROVIDER_PATH}/cmd/$(CODEGEN))
 
 ${SCHEMA_FILE}: ${CODEGEN_PATH} ${OPENAPI_FILE}
 	${CODEGEN_PATH} schema $(OPENAPI_FILE) $(CURDIR) # magically writes to the expected place
@@ -56,22 +69,22 @@ bin/${PROVIDER}: ${CODEGEN_PATH} ${SCHEMA_FILE}
 	${CODEGEN_PATH} kinds $(SCHEMA_FILE) $(CURDIR) # TODO should be its own rule?
 	@[ ! -f "provider/cmd/${PROVIDER}/schema.go" ] || \
 		(echo "\n    Please remove provider/cmd/${PROVIDER}/schema.go, which is no longer used\n" && false)
-	(cd provider && VERSION=${VERSION} go generate cmd/${PROVIDER}/main.go)
-	(cd provider && CGO_ENABLED=0 go build -o $(WORKING_DIR)/bin/${PROVIDER} -ldflags "-X ${PROJECT}/${VERSION_PATH}=${VERSION}" $(PROJECT)/${PROVIDER_PATH}/cmd/$(PROVIDER))
+	(cd provider && VERSION=${PROVIDER_VERSION} go generate cmd/${PROVIDER}/main.go)
+	(cd provider && CGO_ENABLED=0 go build -o $(WORKING_DIR)/bin/${PROVIDER} -ldflags "-X ${PROJECT}/${VERSION_PATH}=${PROVIDER_VERSION}" $(PROJECT)/${PROVIDER_PATH}/cmd/$(PROVIDER))
 
 .PHONY: k8sprovider
 k8sprovider: bin/${PROVIDER}
 
 .PHONY: k8sprovider_debug
 k8sprovider_debug:
-	(cd provider && CGO_ENABLED=0 go build -o $(WORKING_DIR)/bin/${PROVIDER} -gcflags="all=-N -l" -ldflags "-X ${PROJECT}/${VERSION_PATH}=${VERSION}" $(PROJECT)/${PROVIDER_PATH}/cmd/$(PROVIDER))
+	(cd provider && CGO_ENABLED=0 go build -o $(WORKING_DIR)/bin/${PROVIDER} -gcflags="all=-N -l" -ldflags "-X ${PROJECT}/${VERSION_PATH}=${PROVIDER_VERSION}" $(PROJECT)/${PROVIDER_PATH}/cmd/$(PROVIDER))
 
 .PHONY: test_provider
 test_provider:
 	cd provider/pkg && go test -short -v -count=1 -cover -timeout 2h -parallel ${TESTPARALLELISM} ./...
 
 .PHONY: dotnet_sdk
-dotnet_sdk: DOTNET_VERSION := $(shell pulumictl get version --language dotnet)
+dotnet_sdk: DOTNET_VERSION = $(shell ${pulumictl} convert-version --language dotnet --version "${PROVIDER_VERSION}")
 dotnet_sdk: ${CODEGEN_PATH} ${SCHEMA_FILE}
 	${CODEGEN_PATH} -version=${DOTNET_VERSION} dotnet $(SCHEMA_FILE) $(CURDIR)
 	rm -rf sdk/dotnet/bin/Debug
@@ -84,10 +97,10 @@ dotnet_sdk: ${CODEGEN_PATH} ${SCHEMA_FILE}
 go_sdk: ${CODEGEN_PATH} ${SCHEMA_FILE}
 	# Delete generated SDK before regenerating.
 	rm -rf sdk/go/kubernetes
-	$(WORKING_DIR)/bin/$(CODEGEN) -version=${VERSION} go $(SCHEMA_FILE) $(CURDIR)
+	$(WORKING_DIR)/bin/$(CODEGEN) -version=${PROVIDER_VERSION} go $(SCHEMA_FILE) $(CURDIR)
 
 .PHONY: nodejs_sdk
-nodejs_sdk: JS_VERSION := $(shell pulumictl get version --language javascript)
+nodejs_sdk: JS_VERSION = $(shell ${pulumictl} convert-version --language javascript --version "${PROVIDER_VERSION}")
 nodejs_sdk: ${CODEGEN_PATH} ${SCHEMA_FILE}
 	${CODEGEN_PATH} -version=${JS_VERSION} nodejs $(SCHEMA_FILE) $(CURDIR)
 	cd ${PACKDIR}/nodejs/ && \
@@ -98,11 +111,11 @@ nodejs_sdk: ${CODEGEN_PATH} ${SCHEMA_FILE}
 	sed -i.bak 's/$${VERSION}/$(JS_VERSION)/g' ${PACKDIR}/nodejs/bin/package.json
 
 .PHONY: python_sdk
-python_sdk: PYPI_VERSION := $(shell pulumictl get version --language python)
+python_sdk: PYPI_VERSION = $(shell ${pulumictl} convert-version --language python --version "${PROVIDER_VERSION}")
 python_sdk: ${CODEGEN_PATH} ${SCHEMA_FILE}
 	# Delete only files and folders that are generated.
 	rm -r sdk/python/pulumi_kubernetes/*/ sdk/python/pulumi_kubernetes/__init__.py
-	${CODEGEN_PATH} -version=${VERSION} python $(SCHEMA_FILE) $(CURDIR)
+	${CODEGEN_PATH} -version=${PROVIDER_VERSION} python $(SCHEMA_FILE) $(CURDIR)
 	cp README.md ${PACKDIR}/python/
 	cd ${PACKDIR}/python/ && \
 		echo "module fake_python_module // Exclude this directory from Go tools\n\ngo 1.17" > go.mod && \
@@ -113,7 +126,7 @@ python_sdk: ${CODEGEN_PATH} ${SCHEMA_FILE}
 		cd ./bin && python3 setup.py build sdist
 
 .PHONY: java_sdk
-java_sdk: PACKAGE_VERSION := $(shell pulumictl get version --language generic)
+java_sdk: PACKAGE_VERSION = $(shell ${pulumictl} convert-version --language generic --version "${PROVIDER_VERSION}")
 java_sdk: bin/pulumi-java-gen ${CODEGEN_PATH} ${SCHEMA_FILE}
 	$(WORKING_DIR)/bin/$(JAVA_GEN) generate --schema $(SCHEMA_FILE) --out sdk/java --build gradle-nexus
 	cd ${PACKDIR}/java/ && \
@@ -121,7 +134,7 @@ java_sdk: bin/pulumi-java-gen ${CODEGEN_PATH} ${SCHEMA_FILE}
 		gradle --console=plain build
 
 bin/pulumi-java-gen:
-	pulumictl download-binary -n pulumi-language-java -v $(JAVA_GEN_VERSION) -r pulumi/pulumi-java
+	${pulumictl} download-binary -n pulumi-language-java -v $(JAVA_GEN_VERSION) -r pulumi/pulumi-java
 
 .PHONY: build
 build: nodejs_sdk go_sdk python_sdk dotnet_sdk java_sdk
