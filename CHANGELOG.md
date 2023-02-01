@@ -1,6 +1,7 @@
 ## Unreleased
 
 - Upgrade to latest helm and k8s client dependencies (https://github.com/pulumi/pulumi-kubernetes/pulls/2292)
+- Fix await status for Job and Pod (https://github.com/pulumi/pulumi-kubernetes/pulls/2299)
 
 ## 3.23.1 (December 19, 2022)
 

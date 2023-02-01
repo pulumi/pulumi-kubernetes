@@ -25,6 +25,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/kinds"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/metadata"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
@@ -232,7 +233,7 @@ func (pia *podInitAwaiter) processPodEvent(event watch.Event) {
 	var results checker.Results
 	pia.ready, results = pia.checker.ReadyDetails(pod)
 	pia.messages = results.Messages()
-	for _, message := range pia.messages {
-		pia.config.logMessage(message)
+	for _, result := range results {
+		pia.config.logStatus(diag.Info, result.Description)
 	}
 }
