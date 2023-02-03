@@ -2955,6 +2955,11 @@ func checkpointObject(inputs, live *unstructured.Unstructured, fromInputs resour
 		}
 	}
 
+	inputsCopy := resource.NewObjectProperty(inputsPM)
+	if inputs.GetKind() == "Secret" && !inputsPM.ContainsSecrets() {
+		inputsCopy = resource.MakeSecret(inputsCopy)
+	}
+
 	// Ensure that the annotation we add for lastAppliedConfig is treated as a secret if any of the inputs were secret
 	// (the value of this annotation is a string-ified JSON so marking the entire thing as a secret is really the best
 	// that we can do).
@@ -2970,7 +2975,7 @@ func checkpointObject(inputs, live *unstructured.Unstructured, fromInputs resour
 		}
 	}
 
-	object["__inputs"] = resource.NewObjectProperty(inputsPM)
+	object["__inputs"] = inputsCopy
 	object[initialAPIVersionKey] = resource.NewStringProperty(initialAPIVersion)
 	object[fieldManagerKey] = resource.NewStringProperty(fieldManager)
 
