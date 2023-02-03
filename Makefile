@@ -41,6 +41,9 @@ default: build
 # Make sure necessary tools are present and the working dir is ready to build
 .PHONY: ensure
 ensure: ${pulumictl}
+
+.PHONY: tidy
+tidy:
 	cd provider && go mod tidy
 	cd sdk && go mod tidy
 	cd tests && go mod tidy
