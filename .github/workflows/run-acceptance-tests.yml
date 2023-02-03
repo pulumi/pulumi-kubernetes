@@ -381,7 +381,7 @@ jobs:
         helm install ingress-controller nginx-stable/nginx-ingress
     - name: Run tests
       run: cd tests/sdk/${{ matrix.language }} && go test -v -count=1 -cover -timeout
-        2h -parallel 4 ./...
+        2h -parallel 2 ./...
     - if: failure() && github.event_name == 'push'
       name: Notify Slack
       uses: 8398a7/action-slack@v3
