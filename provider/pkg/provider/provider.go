@@ -2939,10 +2939,12 @@ func checkpointObject(inputs, live *unstructured.Unstructured, fromInputs resour
 	annotateSecrets(object, fromInputs)
 	annotateSecrets(inputsPM, fromInputs)
 
+	isSecretKind := live.GetKind() == secretKind
+
 	// For secrets, if `stringData` is present in the inputs, the API server will have filled in `data` based on it. By
 	// base64 encoding the secrets. We should mark any of the values which were secrets in the `stringData` object
 	// as secrets in the `data` field as well.
-	if live.GetAPIVersion() == "v1" && live.GetKind() == secretKind {
+	if live.GetAPIVersion() == "v1" && isSecretKind {
 		stringData, hasStringData := fromInputs["stringData"]
 		data, hasData := object["data"]
 
@@ -2960,7 +2962,7 @@ func checkpointObject(inputs, live *unstructured.Unstructured, fromInputs resour
 	// Ensure that the annotation we add for lastAppliedConfig is treated as a secret if any of the inputs were secret
 	// (the value of this annotation is a string-ified JSON so marking the entire thing as a secret is really the best
 	// that we can do).
-	if fromInputs.ContainsSecrets() {
+	if fromInputs.ContainsSecrets() || isSecretKind {
 		if _, has := object["metadata"]; has && object["metadata"].IsObject() {
 			metadata := object["metadata"].ObjectValue()
 			if _, has := metadata["annotations"]; has && metadata["annotations"].IsObject() {
