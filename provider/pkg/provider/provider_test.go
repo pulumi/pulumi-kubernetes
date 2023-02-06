@@ -75,6 +75,39 @@ func TestCheckpointObject(t *testing.T) {
 	assert.Equal(t, objLive, obj.Mappable())
 }
 
+// #2300 - Read() on top-level k8s objects of kind "secret" led to unencrypted __input
+func TestCheckpointSecretObject(t *testing.T) {
+	objInputSecret := map[string]interface{}{
+		"kind": "Secret",
+		"data": map[string]interface{}{
+			"password": "verysecret",
+		},
+	}
+	objSecretLive := map[string]interface{}{
+		initialAPIVersionKey: "",
+		fieldManagerKey:      "",
+		"kind":               "Secret",
+		"data": map[string]interface{}{
+			"password": "verysecret",
+		},
+	}
+
+	// Questionable but correct pinning test as of the time of writing
+	assert.False(t, resource.NewPropertyMapFromMap(objInputSecret).ContainsSecrets())
+	assert.False(t, resource.NewPropertyMapFromMap(objSecretLive).ContainsSecrets())
+
+	inputs := &unstructured.Unstructured{Object: objInputSecret}
+	live := &unstructured.Unstructured{Object: objSecretLive}
+
+	obj := checkpointObject(inputs, live, nil, "", "")
+	assert.NotNil(t, obj)
+
+	oldInputs := obj["__inputs"]
+	assert.True(t, oldInputs.IsObject())
+	oldInputsVal := oldInputs.ObjectValue()
+	assert.True(t, oldInputsVal["data"].ContainsSecrets())
+}
+
 func TestRoundtripCheckpointObject(t *testing.T) {
 	old := resource.NewPropertyMapFromMap(objLive)
 	old["__inputs"] = resource.NewObjectProperty(resource.NewPropertyMapFromMap(objInputs))
