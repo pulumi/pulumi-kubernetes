@@ -3352,6 +3352,9 @@ func annotateSecrets(outs, ins resource.PropertyMap) {
 		if data, hasData := outs["data"]; hasData {
 			outs["data"] = resource.MakeSecret(data)
 		}
+		if stringData, hasStringData := outs["stringData"]; hasStringData {
+			outs["stringData"] = resource.MakeSecret(stringData)
+		}
 		return
 	}
 
