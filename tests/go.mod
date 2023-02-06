@@ -212,7 +212,7 @@ require (
 	github.com/prometheus/client_model v0.3.0 // indirect
 	github.com/prometheus/common v0.37.0 // indirect
 	github.com/prometheus/procfs v0.8.0 // indirect
-	github.com/pulumi/cloud-ready-checks v1.0.1-0.20220105213132-0fbbc00d3335 // indirect
+	github.com/pulumi/cloud-ready-checks v1.0.1-0.20230201174945-00fe9c1b68fd // indirect
 	github.com/rivo/uniseg v0.2.0 // indirect
 	github.com/rogpeppe/go-internal v1.9.0 // indirect
 	github.com/rubenv/sql-migrate v1.2.0 // indirect

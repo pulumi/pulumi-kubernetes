@@ -222,8 +222,8 @@ func (jia *jobInitAwaiter) processJobEvent(event watch.Event) error {
 	for _, message := range messages.MessagesWithSeverity(diag.Warning, diag.Error) {
 		jia.errors.Add(message)
 	}
-	for _, message := range messages {
-		jia.config.logMessage(message)
+	for _, result := range results {
+		jia.config.logStatus(diag.Info, result.Description)
 	}
 
 	if len(messages.Errors()) > 0 {
