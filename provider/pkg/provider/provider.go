@@ -94,6 +94,7 @@ const (
 	lastAppliedConfigKey = "kubectl.kubernetes.io/last-applied-configuration"
 	initialAPIVersionKey = "__initialApiVersion"
 	fieldManagerKey      = "__fieldManager"
+	secretKind           = "Secret"
 )
 
 type cancellationContext struct {
@@ -2931,7 +2932,6 @@ func initialAPIVersion(state resource.PropertyMap, oldConfig *unstructured.Unstr
 
 func checkpointObject(inputs, live *unstructured.Unstructured, fromInputs resource.PropertyMap,
 	initialAPIVersion, fieldManager string) resource.PropertyMap {
-	const SecretKind = "Secret"
 
 	object := resource.NewPropertyMapFromMap(live.Object)
 	inputsPM := resource.NewPropertyMapFromMap(inputs.Object)
@@ -2942,7 +2942,7 @@ func checkpointObject(inputs, live *unstructured.Unstructured, fromInputs resour
 	// For secrets, if `stringData` is present in the inputs, the API server will have filled in `data` based on it. By
 	// base64 encoding the secrets. We should mark any of the values which were secrets in the `stringData` object
 	// as secrets in the `data` field as well.
-	if live.GetAPIVersion() == "v1" && live.GetKind() == SecretKind {
+	if live.GetAPIVersion() == "v1" && live.GetKind() == secretKind {
 		stringData, hasStringData := fromInputs["stringData"]
 		data, hasData := object["data"]
 
@@ -2955,11 +2955,6 @@ func checkpointObject(inputs, live *unstructured.Unstructured, fromInputs resour
 				annotateSecrets(data.ObjectValue(), stringData.ObjectValue())
 			}
 		}
-	}
-
-	inputsCopy := resource.NewObjectProperty(inputsPM)
-	if inputs.GetKind() == SecretKind && !inputsPM.ContainsSecrets() {
-		inputsCopy = resource.MakeSecret(inputsCopy)
 	}
 
 	// Ensure that the annotation we add for lastAppliedConfig is treated as a secret if any of the inputs were secret
@@ -2977,7 +2972,7 @@ func checkpointObject(inputs, live *unstructured.Unstructured, fromInputs resour
 		}
 	}
 
-	object["__inputs"] = inputsCopy
+	object["__inputs"] = resource.NewObjectProperty(inputsPM)
 	object[initialAPIVersionKey] = resource.NewStringProperty(initialAPIVersion)
 	object[fieldManagerKey] = resource.NewStringProperty(fieldManager)
 
@@ -3347,7 +3342,18 @@ func (pc *patchConverter) addPatchArrayToDiff(
 // and the order may not be preserved across an operation. This means we do end up encrypting the entire array
 // but that's better than accidentally leaking a value which just moved to a different location.
 func annotateSecrets(outs, ins resource.PropertyMap) {
-	if outs == nil || ins == nil {
+	if outs == nil {
+		return
+	}
+
+	if kind, ok := outs["kind"]; ok && kind.StringValue() == secretKind {
+		if data, hasData := outs["data"]; hasData {
+			outs["data"] = resource.MakeSecret(data)
+		}
+		return
+	}
+
+	if ins == nil {
 		return
 	}
 
