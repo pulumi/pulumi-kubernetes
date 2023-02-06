@@ -2931,6 +2931,8 @@ func initialAPIVersion(state resource.PropertyMap, oldConfig *unstructured.Unstr
 
 func checkpointObject(inputs, live *unstructured.Unstructured, fromInputs resource.PropertyMap,
 	initialAPIVersion, fieldManager string) resource.PropertyMap {
+	const SecretKind = "Secret"
+
 	object := resource.NewPropertyMapFromMap(live.Object)
 	inputsPM := resource.NewPropertyMapFromMap(inputs.Object)
 
@@ -2940,7 +2942,7 @@ func checkpointObject(inputs, live *unstructured.Unstructured, fromInputs resour
 	// For secrets, if `stringData` is present in the inputs, the API server will have filled in `data` based on it. By
 	// base64 encoding the secrets. We should mark any of the values which were secrets in the `stringData` object
 	// as secrets in the `data` field as well.
-	if live.GetAPIVersion() == "v1" && live.GetKind() == "Secret" {
+	if live.GetAPIVersion() == "v1" && live.GetKind() == SecretKind {
 		stringData, hasStringData := fromInputs["stringData"]
 		data, hasData := object["data"]
 
@@ -2956,7 +2958,7 @@ func checkpointObject(inputs, live *unstructured.Unstructured, fromInputs resour
 	}
 
 	inputsCopy := resource.NewObjectProperty(inputsPM)
-	if inputs.GetKind() == "Secret" && !inputsPM.ContainsSecrets() {
+	if inputs.GetKind() == SecretKind && !inputsPM.ContainsSecrets() {
 		inputsCopy = resource.MakeSecret(inputsCopy)
 	}
 
