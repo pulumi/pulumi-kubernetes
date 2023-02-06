@@ -3,6 +3,7 @@
 **/obj/
 **/node_modules/
 **/.vs
+**/.vscode
 **/.idea
 **/.ionide
 .pulumi
