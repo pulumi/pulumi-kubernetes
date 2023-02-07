@@ -3348,7 +3348,9 @@ func annotateSecrets(outs, ins resource.PropertyMap) {
 		return
 	}
 
-	if kind, ok := outs["kind"]; ok && kind.StringValue() == secretKind {
+	// Note on IsString(): k8s "kind" is always a string, but we might be recursing into the structure and there
+	// might be another, unrelated "kind" in there.
+	if kind, ok := outs["kind"]; ok && kind.IsString() && kind.StringValue() == secretKind {
 		if data, hasData := outs["data"]; hasData {
 			outs["data"] = resource.MakeSecret(data)
 		}
