@@ -1,6 +1,6 @@
 module github.com/pulumi/pulumi-kubernetes/tests/v3
 
-go 1.18
+go 1.19
 
 replace (
 	github.com/pulumi/pulumi-kubernetes/provider/v3 => ../provider
