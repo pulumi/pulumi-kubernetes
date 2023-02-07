@@ -65,6 +65,9 @@ ${OPENAPI_FILE}:
 ${CODEGEN_PATH}: provider/go.mod provider/cmd/$(CODEGEN)/*.go $(shell find provider/pkg -name '*.go')
 	(cd provider && CGO_ENABLED=1 go build -o $(WORKING_DIR)/${CODEGEN_PATH} -ldflags "-X ${PROJECT}/${VERSION_PATH}=${PROVIDER_VERSION}" ${PROJECT}/${PROVIDER_PATH}/cmd/$(CODEGEN))
 
+.PHONY: generate_schema
+generate_schema: ${SCHEMA_FILE}
+
 ${SCHEMA_FILE}: ${CODEGEN_PATH} ${OPENAPI_FILE}
 	${CODEGEN_PATH} schema $(OPENAPI_FILE) $(CURDIR) # magically writes to the expected place
 
