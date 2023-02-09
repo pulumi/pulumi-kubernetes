@@ -28,35 +28,25 @@ JAVA_GEN_VERSION := v0.5.2
 
 WORKING_DIR     := $(shell pwd)
 CODEGEN_PATH    = bin/${CODEGEN}
-pulumictl := bin/pulumictl
+pulumictl := tools/pulumictl
 TESTPARALLELISM := 4
 
 # The general form for this Makefile is
 #  - faithfully represent dependencies between build targets as files, where possible (i.e., like a normal Makefile)
 #  - use phony targets to give the CI system a kind of API for building in stages
 
+# This ensures tools/ has what it needs. These could be explicit prerequisites, but for the sake of
+# less noise here, this is always run. It will usually be trivial.
+_ := $(shell make -C tools)
+
 .PHONY: default
 default: build
-
-# Make sure necessary tools are present and the working dir is ready to build
-.PHONY: ensure
-ensure: ${pulumictl}
 
 .PHONY: tidy
 tidy:
 	cd provider && go mod tidy
 	cd sdk && go mod tidy
 	cd tests && go mod tidy
-
-${pulumictl}: PULUMICTL_VERSION := $(shell cat .pulumictl.version)
-${pulumictl}: PLAT := $(shell go version | sed -En "s/go version go.* (.*)\/(.*)/\1-\2/p")
-${pulumictl}: PULUMICTL_URL := "https://github.com/pulumi/pulumictl/releases/download/v$(PULUMICTL_VERSION)/pulumictl-v$(PULUMICTL_VERSION)-$(PLAT).tar.gz"
-${pulumictl}: .pulumictl.version
-	@echo "Installing pulumictl"
-	@mkdir -p bin
-	wget -q -O - "$(PULUMICTL_URL)" | tar -xzf - -C $(WORKING_DIR)/bin pulumictl
-	@touch ${pulumictl}
-	@echo "pulumictl" $$(./bin/pulumictl version)
 
 ${OPENAPI_FILE}:
 	@mkdir -p $(OPENAPI_DIR)

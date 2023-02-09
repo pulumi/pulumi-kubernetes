@@ -61,8 +61,6 @@ jobs:
       uses: actions/setup-go@v2
       with:
         go-version: ${{ env.GOVERSION }}
-    - name: Ensure necessary tooling
-      run: make ensure
     - name: Install Pulumi CLI
       uses: pulumi/action-install-pulumi-cli@v2
     - if: github.event_name == 'pull_request'
@@ -153,8 +151,6 @@ jobs:
       uses: actions/setup-go@v2
       with:
         go-version: ${{ env.GOVERSION }}
-    - name: Ensure necessary tooling
-      run: make ensure
     - name: Install Pulumi CLI
       uses: pulumi/action-install-pulumi-cli@v2
     - name: Setup Node
@@ -242,8 +238,6 @@ jobs:
       uses: actions/setup-go@v2
       with:
         go-version: ${{ env.GOVERSION }}
-    - name: Ensure necessary tooling
-      run: make ensure
     - name: Install Pulumi CLI
       uses: pulumi/action-install-pulumi-cli@v2
     - name: Setup Node
