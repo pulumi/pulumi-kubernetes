@@ -23,13 +23,13 @@ SCHEMA_FILE     := provider/cmd/pulumi-resource-kubernetes/schema.json
 
 GOPATH			:= $(shell go env GOPATH)
 
-JAVA_GEN 		 := pulumi-java-gen
-JAVA_GEN_VERSION := v0.5.2
-
 WORKING_DIR     := $(shell pwd)
 CODEGEN_PATH    = bin/${CODEGEN}
-pulumictl := bin/pulumictl
+pulumictl := tools/pulumictl
 TESTPARALLELISM := 4
+
+# Install tooling prerequisites
+_ := $(shell make -C tools)
 
 # The general form for this Makefile is
 #  - faithfully represent dependencies between build targets as files, where possible (i.e., like a normal Makefile)
@@ -39,24 +39,12 @@ TESTPARALLELISM := 4
 default: build
 
 # Make sure necessary tools are present and the working dir is ready to build
-.PHONY: ensure
-ensure: ${pulumictl}
 
 .PHONY: tidy
 tidy:
 	cd provider && go mod tidy
 	cd sdk && go mod tidy
 	cd tests && go mod tidy
-
-${pulumictl}: PULUMICTL_VERSION := $(shell cat .pulumictl.version)
-${pulumictl}: PLAT := $(shell go version | sed -En "s/go version go.* (.*)\/(.*)/\1-\2/p")
-${pulumictl}: PULUMICTL_URL := "https://github.com/pulumi/pulumictl/releases/download/v$(PULUMICTL_VERSION)/pulumictl-v$(PULUMICTL_VERSION)-$(PLAT).tar.gz"
-${pulumictl}: .pulumictl.version
-	@echo "Installing pulumictl"
-	@mkdir -p bin
-	wget -q -O - "$(PULUMICTL_URL)" | tar -xzf - -C $(WORKING_DIR)/bin pulumictl
-	@touch ${pulumictl}
-	@echo "pulumictl" $$(./bin/pulumictl version)
 
 ${OPENAPI_FILE}:
 	@mkdir -p $(OPENAPI_DIR)
@@ -133,14 +121,11 @@ python_sdk: ${CODEGEN_PATH} ${SCHEMA_FILE}
 
 .PHONY: java_sdk
 java_sdk: PACKAGE_VERSION = $(shell ${pulumictl} convert-version --language generic --version "${PROVIDER_VERSION}")
-java_sdk: bin/pulumi-java-gen ${CODEGEN_PATH} ${SCHEMA_FILE}
-	$(WORKING_DIR)/bin/$(JAVA_GEN) generate --schema $(SCHEMA_FILE) --out sdk/java --build gradle-nexus
+java_sdk: ${CODEGEN_PATH} ${SCHEMA_FILE}
+	$(WORKING_DIR)/tools/pulumi-java-gen generate --schema $(SCHEMA_FILE) --out sdk/java --build gradle-nexus
 	cd ${PACKDIR}/java/ && \
 		echo "module fake_java_module // Exclude this directory from Go tools\n\ngo 1.17" > go.mod && \
 		gradle --console=plain build
-
-bin/pulumi-java-gen:
-	${pulumictl} download-binary -n pulumi-language-java -v $(JAVA_GEN_VERSION) -r pulumi/pulumi-java
 
 .PHONY: build
 build: nodejs_sdk go_sdk python_sdk dotnet_sdk java_sdk
