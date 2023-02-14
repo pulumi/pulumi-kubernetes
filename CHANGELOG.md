@@ -3,18 +3,18 @@
 ## 3.24.0 (February 6, 2023)
 
 - Fix unencrypted secrets in the state `outputs` after `Secret.get` #2300
-- Upgrade to latest helm and k8s client dependencies (https://github.com/pulumi/pulumi-kubernetes/pulls/2292)
-- Fix await status for Job and Pod (https://github.com/pulumi/pulumi-kubernetes/pulls/2299)
+- Upgrade to latest helm and k8s client dependencies (https://github.com/pulumi/pulumi-kubernetes/pull/2292)
+- Fix await status for Job and Pod (https://github.com/pulumi/pulumi-kubernetes/pull/2299)
 
 ## 3.23.1 (December 19, 2022)
 
-- Add `PULUMI_K8S_ENABLE_PATCH_FORCE` env var support (https://github.com/pulumi/pulumi-kubernetes/pulls/2260)
-- Add link to resolution guide for SSA conflicts (https://github.com/pulumi/pulumi-kubernetes/pulls/2265)
-- Always set a field manager name to avoid conflicts in Client-Side Apply mode (https://github.com/pulumi/pulumi-kubernetes/pulls/2271)
+- Add `PULUMI_K8S_ENABLE_PATCH_FORCE` env var support (https://github.com/pulumi/pulumi-kubernetes/pull/2260)
+- Add link to resolution guide for SSA conflicts (https://github.com/pulumi/pulumi-kubernetes/pull/2265)
+- Always set a field manager name to avoid conflicts in Client-Side Apply mode (https://github.com/pulumi/pulumi-kubernetes/pull/2271)
 
 ## 3.23.0 (December 8, 2022)
 
-- Expose the allowNullValues boolean as an InputProperty so that it can be set in SDKs (https://github.com/pulumi/pulumi-kubernetes/pulls/2255)
+- Expose the allowNullValues boolean as an InputProperty so that it can be set in SDKs (https://github.com/pulumi/pulumi-kubernetes/pull/2255)
 - Update Kubernetes support to Kubernetes v1.26.0 (https://github.com/pulumi/pulumi-kubernetes/pull/2230)
 
 ## 3.22.2 (November 30, 2022)
