@@ -22,16 +22,16 @@ func NewProvider(ctx *pulumi.Context,
 		args = &ProviderArgs{}
 	}
 
-	if isZero(args.EnableConfigMapMutable) {
+	if args.EnableConfigMapMutable == nil {
 		args.EnableConfigMapMutable = pulumi.BoolPtr(getEnvOrDefault(false, parseEnvBool, "PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE").(bool))
 	}
-	if isZero(args.EnableDryRun) {
+	if args.EnableDryRun == nil {
 		args.EnableDryRun = pulumi.BoolPtr(getEnvOrDefault(false, parseEnvBool, "PULUMI_K8S_ENABLE_DRY_RUN").(bool))
 	}
-	if isZero(args.EnableReplaceCRD) {
+	if args.EnableReplaceCRD == nil {
 		args.EnableReplaceCRD = pulumi.BoolPtr(getEnvOrDefault(false, parseEnvBool, "PULUMI_K8S_ENABLE_REPLACE_CRD").(bool))
 	}
-	if isZero(args.EnableServerSideApply) {
+	if args.EnableServerSideApply == nil {
 		args.EnableServerSideApply = pulumi.BoolPtr(getEnvOrDefault(false, parseEnvBool, "PULUMI_K8S_ENABLE_SERVER_SIDE_APPLY").(bool))
 	}
 	if args.HelmReleaseSettings != nil {
@@ -40,13 +40,13 @@ func NewProvider(ctx *pulumi.Context,
 	if args.KubeClientSettings != nil {
 		args.KubeClientSettings = args.KubeClientSettings.ToKubeClientSettingsPtrOutput().ApplyT(func(v *KubeClientSettings) *KubeClientSettings { return v.Defaults() }).(KubeClientSettingsPtrOutput)
 	}
-	if isZero(args.Kubeconfig) {
+	if args.Kubeconfig == nil {
 		args.Kubeconfig = pulumi.StringPtr(getEnvOrDefault("", nil, "KUBECONFIG").(string))
 	}
-	if isZero(args.SuppressDeprecationWarnings) {
+	if args.SuppressDeprecationWarnings == nil {
 		args.SuppressDeprecationWarnings = pulumi.BoolPtr(getEnvOrDefault(false, parseEnvBool, "PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS").(bool))
 	}
-	if isZero(args.SuppressHelmHookWarnings) {
+	if args.SuppressHelmHookWarnings == nil {
 		args.SuppressHelmHookWarnings = pulumi.BoolPtr(getEnvOrDefault(false, parseEnvBool, "PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS").(bool))
 	}
 	var resource Provider
