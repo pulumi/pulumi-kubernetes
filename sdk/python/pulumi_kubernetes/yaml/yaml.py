@@ -193,7 +193,7 @@ class ConfigGroup(pulumi.ComponentResource):
             invoke_opts = pulumi.InvokeOptions(version=_utilities.get_version(),
                                                provider=opts.provider if opts.provider else None)
 
-            __ret__ = pulumi.runtime.invoke('kubernetes:yaml:decode', {'text': text}, invoke_opts).value['result']
+            __ret__ = invoke_yaml_decode(text, invoke_opts)
             resources = _parse_yaml_document(__ret__, opts, transformations, resource_prefix)
             # Add any new YAML resources to the ConfigGroup's resources
             self.resources = pulumi.Output.all(resources, self.resources).apply(lambda x: {**x[0], **x[1]})
@@ -344,10 +344,8 @@ class ConfigFile(pulumi.ComponentResource):
         # in package.json.
         invoke_opts = pulumi.InvokeOptions(version=_utilities.get_version(),
                                            provider=opts.provider if opts.provider else None)
-        def invoke_yaml_decode(text):
-            inv = pulumi.runtime.invoke('kubernetes:yaml:decode', {'text': text}, invoke_opts)
-            return inv.value['result'] if inv is not None and inv.value is not None else []
-        __ret__ = invoke_yaml_decode(text)
+
+        __ret__ = invoke_yaml_decode(text, invoke_opts)
 
         # Note: Unlike NodeJS, Python requires that we "pull" on our futures in order to get them scheduled for
         # execution. In order to do this, we leverage the engine's RegisterResourceOutputs to wait for the
@@ -1924,3 +1922,7 @@ def _parse_yaml_object(
     return [identifier.apply(
         lambda x: (f"{gvk}:{x}",
                    CustomResource(f"{x}", api_version, kind, spec, metadata, opts)))]
+
+def invoke_yaml_decode(text, invoke_opts):
+    inv = pulumi.runtime.invoke('kubernetes:yaml:decode', {'text': text}, invoke_opts)
+    return inv.value['result'] if inv is not None and inv.value is not None else []
