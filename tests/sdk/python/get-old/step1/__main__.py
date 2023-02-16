@@ -11,22 +11,10 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
 
 import pulumi
 from pulumi_kubernetes.apiextensions.CustomResource import CustomResource
-from pulumi_kubernetes.apiextensions.v1beta1.CustomResourceDefinition import CustomResourceDefinition
+from pulumi_kubernetes.apiextensions.v1.CustomResourceDefinition import CustomResourceDefinition
 from pulumi_kubernetes.core.v1 import Service
 from pulumi_kubernetes.core.v1.Namespace import Namespace
 
@@ -37,7 +25,26 @@ crd = CustomResourceDefinition(
     metadata={"name": "gettests.python.test"},
     spec={
         "group": "python.test",
-        "version": "v1",
+        "versions": [{
+            "name": "v1",
+            "served": True,
+            "storage": True,
+            "schema": {
+                "openAPIV3Schema": {
+                    "type": "object",
+                    "properties": {
+                        "spec": {
+                            "type": "object",
+                            "properties": {
+                                "foo": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }],
         "scope": "Namespaced",
         "names": {
             "plural": "gettests",
