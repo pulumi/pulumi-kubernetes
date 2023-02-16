@@ -1,8 +1,9 @@
 ## Unreleased
 
+- moves `invoke_yaml_decode` into ConfigGroup for python (https://github.com/pulumi/pulumi-kubernetes/pull/2317)
 ## 3.24.0 (February 6, 2023)
 
-- Fix unencrypted secrets in the state `outputs` after `Secret.get` #2300
+- Fix unencrypted secrets in the state `outputs` after `Secret.get` (https://github.com/pulumi/pulumi-kubernetes/pull/2300)
 - Upgrade to latest helm and k8s client dependencies (https://github.com/pulumi/pulumi-kubernetes/pull/2292)
 - Fix await status for Job and Pod (https://github.com/pulumi/pulumi-kubernetes/pull/2299)
 
