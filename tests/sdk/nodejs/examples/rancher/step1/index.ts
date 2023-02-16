@@ -7,7 +7,7 @@ const release = new k8s.helm.v3.Release("rancher-release", {
     repositoryOpts: {
         repo: "https://releases.rancher.com/server-charts/latest",
     },
-    version: "v2.6.2",
+    version: "v2.7.0",
     namespace: namespace.metadata.name,
     values: {
         hostname: "rancher.examples.pulumi.com",

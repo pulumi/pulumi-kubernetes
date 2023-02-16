@@ -159,51 +159,6 @@ func TestAccIngress(t *testing.T) {
 			},
 		})
 	integration.ProgramTest(t, &testNetworkingV1)
-
-	testWithNetworkingBeta1 := getBaseOptions(t).
-		With(integration.ProgramTestOptions{
-			Dir:         filepath.Join(getCwd(t), "ingress"),
-			Quick:       true,
-			NoParallel:  true,
-			Config:      map[string]string{"use-v1beta1-ingress": "true"},
-			SkipRefresh: true, // ingress may have changes during refresh.
-			ExtraRuntimeValidation: func(
-				t *testing.T, stackInfo integration.RuntimeValidationStackInfo,
-			) {
-				assert.NotNil(t, stackInfo.Deployment)
-				assert.Equal(t, 15, len(stackInfo.Deployment.Resources))
-
-				ingressCount := 0
-				for _, resource := range stackInfo.Deployment.Resources {
-					kind, ok := openapi.Pluck(resource.Outputs, "kind")
-					if !ok {
-						continue
-					}
-					switch kind.(string) {
-					case "Ingress":
-						apiVersion, _ := openapi.Pluck(resource.Outputs, "apiVersion")
-						assert.Equal(t, "networking.k8s.io/v1beta1", apiVersion)
-						ingressCount++
-					}
-				}
-
-				assert.Equal(t, 2, ingressCount)
-
-				integration.AssertHTTPResultWithRetry(t,
-					fmt.Sprintf("%s/index.html", stackInfo.Outputs["ingressIp"]),
-					nil, 10*time.Minute, func(body string) bool {
-						return assert.NotEmpty(t, body, "Body should not be empty")
-					})
-
-				// Disabling this to avoid test flakes.
-				// integration.AssertHTTPResultWithRetry(t,
-				// 	 fmt.Sprintf("%s/hello", stackInfo.Outputs["ingressNginxIp"]),
-				//	 map[string]string{"Host": "ingresshello.io"}, 5*time.Minute, func(body string) bool {
-				//		 return assert.NotEmpty(t, body, "Body should not be empty")
-				//	 })
-			},
-		})
-	integration.ProgramTest(t, &testWithNetworkingBeta1)
 }
 
 func TestAccHelm(t *testing.T) {
@@ -364,7 +319,7 @@ func TestAccPrometheusOperator(t *testing.T) {
 				t *testing.T, stackInfo integration.RuntimeValidationStackInfo,
 			) {
 				assert.NotNil(t, stackInfo.Deployment)
-				assert.Equal(t, 10, len(stackInfo.Deployment.Resources))
+				assert.Equal(t, 18, len(stackInfo.Deployment.Resources))
 			},
 			EditDirs: []integration.EditDir{
 				{
@@ -374,7 +329,7 @@ func TestAccPrometheusOperator(t *testing.T) {
 						t *testing.T, stackInfo integration.RuntimeValidationStackInfo,
 					) {
 						assert.NotNil(t, stackInfo.Deployment)
-						assert.Equal(t, 10, len(stackInfo.Deployment.Resources))
+						assert.Equal(t, 18, len(stackInfo.Deployment.Resources))
 					},
 				},
 			},

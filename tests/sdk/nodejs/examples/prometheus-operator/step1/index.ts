@@ -19,7 +19,7 @@ class PrometheusOperator extends pulumi.ComponentResource {
         super('pulumi:monitoring/v1:PrometheusOperator', name, {}, opts);
 
         this.configFile = new k8s.yaml.ConfigFile(name, {
-            file: 'https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.38.1/bundle.yaml',
+            file: 'https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.63.0/bundle.yaml',
         }, {parent: this});
 
         this.service = this.configFile.getResource("v1/Service", "default", "prometheus-operator");
