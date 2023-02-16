@@ -669,6 +669,7 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         public ProviderArgs build() {
+            $.deleteUnreachable = Codegen.booleanProp("deleteUnreachable").output().arg($.deleteUnreachable).env("PULUMI_K8S_DELETE_UNREACHABLE").getNullable();
             $.enableConfigMapMutable = Codegen.booleanProp("enableConfigMapMutable").output().arg($.enableConfigMapMutable).env("PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE").getNullable();
             $.enableDryRun = Codegen.booleanProp("enableDryRun").output().arg($.enableDryRun).env("PULUMI_K8S_ENABLE_DRY_RUN").getNullable();
             $.enableReplaceCRD = Codegen.booleanProp("enableReplaceCRD").output().arg($.enableReplaceCRD).env("PULUMI_K8S_ENABLE_REPLACE_CRD").getNullable();

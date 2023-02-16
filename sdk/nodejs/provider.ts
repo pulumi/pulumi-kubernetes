@@ -39,7 +39,7 @@ export class Provider extends pulumi.ProviderResource {
         {
             resourceInputs["cluster"] = args ? args.cluster : undefined;
             resourceInputs["context"] = args ? args.context : undefined;
-            resourceInputs["deleteUnreachable"] = pulumi.output(args ? args.deleteUnreachable : undefined).apply(JSON.stringify);
+            resourceInputs["deleteUnreachable"] = pulumi.output((args ? args.deleteUnreachable : undefined) ?? utilities.getEnvBoolean("PULUMI_K8S_DELETE_UNREACHABLE")).apply(JSON.stringify);
             resourceInputs["enableConfigMapMutable"] = pulumi.output((args ? args.enableConfigMapMutable : undefined) ?? utilities.getEnvBoolean("PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE")).apply(JSON.stringify);
             resourceInputs["enableDryRun"] = pulumi.output((args ? args.enableDryRun : undefined) ?? utilities.getEnvBoolean("PULUMI_K8S_ENABLE_DRY_RUN")).apply(JSON.stringify);
             resourceInputs["enableReplaceCRD"] = pulumi.output((args ? args.enableReplaceCRD : undefined) ?? utilities.getEnvBoolean("PULUMI_K8S_ENABLE_REPLACE_CRD")).apply(JSON.stringify);
