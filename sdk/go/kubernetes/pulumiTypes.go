@@ -30,23 +30,23 @@ func (val *HelmReleaseSettings) Defaults() *HelmReleaseSettings {
 		return nil
 	}
 	tmp := *val
-	if isZero(tmp.Driver) {
+	if tmp.Driver == nil {
 		driver_ := getEnvOrDefault("", nil, "PULUMI_K8S_HELM_DRIVER").(string)
 		tmp.Driver = &driver_
 	}
-	if isZero(tmp.PluginsPath) {
+	if tmp.PluginsPath == nil {
 		pluginsPath_ := getEnvOrDefault("", nil, "PULUMI_K8S_HELM_PLUGINS_PATH").(string)
 		tmp.PluginsPath = &pluginsPath_
 	}
-	if isZero(tmp.RegistryConfigPath) {
+	if tmp.RegistryConfigPath == nil {
 		registryConfigPath_ := getEnvOrDefault("", nil, "PULUMI_K8S_HELM_REGISTRY_CONFIG_PATH").(string)
 		tmp.RegistryConfigPath = &registryConfigPath_
 	}
-	if isZero(tmp.RepositoryCache) {
+	if tmp.RepositoryCache == nil {
 		repositoryCache_ := getEnvOrDefault("", nil, "PULUMI_K8S_HELM_REPOSITORY_CACHE").(string)
 		tmp.RepositoryCache = &repositoryCache_
 	}
-	if isZero(tmp.RepositoryConfigPath) {
+	if tmp.RepositoryConfigPath == nil {
 		repositoryConfigPath_ := getEnvOrDefault("", nil, "PULUMI_K8S_HELM_REPOSITORY_CONFIG_PATH").(string)
 		tmp.RepositoryConfigPath = &repositoryConfigPath_
 	}
@@ -84,19 +84,19 @@ func (val *HelmReleaseSettingsArgs) Defaults() *HelmReleaseSettingsArgs {
 		return nil
 	}
 	tmp := *val
-	if isZero(tmp.Driver) {
+	if tmp.Driver == nil {
 		tmp.Driver = pulumi.StringPtr(getEnvOrDefault("", nil, "PULUMI_K8S_HELM_DRIVER").(string))
 	}
-	if isZero(tmp.PluginsPath) {
+	if tmp.PluginsPath == nil {
 		tmp.PluginsPath = pulumi.StringPtr(getEnvOrDefault("", nil, "PULUMI_K8S_HELM_PLUGINS_PATH").(string))
 	}
-	if isZero(tmp.RegistryConfigPath) {
+	if tmp.RegistryConfigPath == nil {
 		tmp.RegistryConfigPath = pulumi.StringPtr(getEnvOrDefault("", nil, "PULUMI_K8S_HELM_REGISTRY_CONFIG_PATH").(string))
 	}
-	if isZero(tmp.RepositoryCache) {
+	if tmp.RepositoryCache == nil {
 		tmp.RepositoryCache = pulumi.StringPtr(getEnvOrDefault("", nil, "PULUMI_K8S_HELM_REPOSITORY_CACHE").(string))
 	}
-	if isZero(tmp.RepositoryConfigPath) {
+	if tmp.RepositoryConfigPath == nil {
 		tmp.RepositoryConfigPath = pulumi.StringPtr(getEnvOrDefault("", nil, "PULUMI_K8S_HELM_REPOSITORY_CONFIG_PATH").(string))
 	}
 	return &tmp
@@ -292,11 +292,11 @@ func (val *KubeClientSettings) Defaults() *KubeClientSettings {
 		return nil
 	}
 	tmp := *val
-	if isZero(tmp.Burst) {
+	if tmp.Burst == nil {
 		burst_ := getEnvOrDefault(0, parseEnvInt, "PULUMI_K8S_CLIENT_BURST").(int)
 		tmp.Burst = &burst_
 	}
-	if isZero(tmp.Qps) {
+	if tmp.Qps == nil {
 		qps_ := getEnvOrDefault(0.0, parseEnvFloat, "PULUMI_K8S_CLIENT_QPS").(float64)
 		tmp.Qps = &qps_
 	}
@@ -328,10 +328,10 @@ func (val *KubeClientSettingsArgs) Defaults() *KubeClientSettingsArgs {
 		return nil
 	}
 	tmp := *val
-	if isZero(tmp.Burst) {
+	if tmp.Burst == nil {
 		tmp.Burst = pulumi.IntPtr(getEnvOrDefault(0, parseEnvInt, "PULUMI_K8S_CLIENT_BURST").(int))
 	}
-	if isZero(tmp.Qps) {
+	if tmp.Qps == nil {
 		tmp.Qps = pulumi.Float64Ptr(getEnvOrDefault(0.0, parseEnvFloat, "PULUMI_K8S_CLIENT_QPS").(float64))
 	}
 	return &tmp
