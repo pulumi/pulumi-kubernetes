@@ -3,9 +3,9 @@
 using System.Threading.Tasks;
 using Pulumi;
 using Pulumi.Kubernetes.ApiExtensions;
-using Pulumi.Kubernetes.ApiExtensions.V1Beta1;
+using Pulumi.Kubernetes.ApiExtensions.V1;
 using Pulumi.Kubernetes.Core.V1;
-using Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1Beta1;
+using Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1;
 using Pulumi.Kubernetes.Types.Inputs.Meta.V1;
 
 /// <summary>
@@ -36,21 +36,53 @@ class MyStack : Stack
     {
         var testNamespace = new Namespace("test-namespace");
         
-        var ct = new CustomResourceDefinition("crontab", new CustomResourceDefinitionArgs
+        var ct = new Pulumi.Kubernetes.ApiExtensions.V1.CustomResourceDefinition("crontab", new CustomResourceDefinitionArgs
         {
-            Metadata = new ObjectMetaArgs { Name = "crontabs.dotnet.example.com" },
+            Metadata = new ObjectMetaArgs
+            {
+                Name = "crontabs.dotnet.example.com",
+            },
             Spec = new CustomResourceDefinitionSpecArgs
             {
                 Group = "dotnet.example.com",
-                Version = "v1",
+                Versions = {
+                    new CustomResourceDefinitionVersionArgs
+                    {
+                        Name = "v1",
+                        Served = true,
+                        Storage = true,
+                        Schema = new CustomResourceValidationArgs
+                        {
+                            OpenAPIV3Schema = new JSONSchemaPropsArgs
+                            {
+                                Type = "object",
+                                Properties = {
+                                    {"spec", new JSONSchemaPropsArgs
+                                        {
+                                            Type = "object",
+                                            Properties = {
+                                                { "cronSpec", new JSONSchemaPropsArgs
+                                                    {
+                                                        Type = "string",
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                        },
+                    }
+                },
                 Scope = "Namespaced",
                 Names = new CustomResourceDefinitionNamesArgs
                 {
                     Plural = "crontabs",
                     Singular = "crontab",
                     Kind = "CronTab",
-                    ShortNames = { { "ct" } }
-                }
+                    ShortNames = { "ct" },
+                },
+                PreserveUnknownFields = false,
             }
         });
         

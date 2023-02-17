@@ -25,7 +25,26 @@ crd = CustomResourceDefinition(
     metadata={"name": "gettests.python.test"},
     spec={
         "group": "python.test",
-        "version": "v1",
+        "versions": [{
+            "name": "v1",
+            "served": True,
+            "storage": True,
+            "schema": {
+                "openAPIV3Schema": {
+                    "type": "object",
+                    "properties": {
+                        "spec": {
+                            "type": "object",
+                            "properties": {
+                                "foo": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }],
         "scope": "Namespaced",
         "names": {
             "plural": "gettests",

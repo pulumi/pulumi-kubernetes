@@ -13,7 +13,7 @@ using Pulumi.Kubernetes.Types.Inputs.Core.V1;
 using Pulumi.Kubernetes.Types.Inputs.Apps.V1;
 using Pulumi.Kubernetes.Types.Inputs.Meta.V1;
 using Pulumi.Kubernetes.Types.Inputs.Rbac.V1;
-using Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1Beta1;
+using Pulumi.Kubernetes.Types.Inputs.ApiExtensions.V1;
 
 class Program
 {
@@ -47,7 +47,7 @@ class Program
 
             // CRDs and in particular JSONSchemaProps are particularly complex mappings, so test these out as well. Example from:
             // https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/#create-a-customresourcedefinition
-            var mycrd = new Pulumi.Kubernetes.ApiExtensions.V1Beta1.CustomResourceDefinition("crd", new CustomResourceDefinitionArgs
+            var mycrd = new Pulumi.Kubernetes.ApiExtensions.V1.CustomResourceDefinition("crd", new CustomResourceDefinitionArgs
             {
                 Metadata = new ObjectMetaArgs
                 {
@@ -62,6 +62,27 @@ class Program
                             Name = "v1",
                             Served = true,
                             Storage = true,
+                            Schema = new CustomResourceValidationArgs
+                            {
+                                OpenAPIV3Schema = new JSONSchemaPropsArgs
+                                {
+                                    Type = "object",
+                                    Properties = {
+                                        {"spec", new JSONSchemaPropsArgs
+                                            {
+                                                Type = "object",
+                                                Properties = {
+                                                    { "cronSpec", new JSONSchemaPropsArgs
+                                                        {
+                                                            Type = "string",
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                            },
                         }
                     },
                     Scope = "Namespaced",
@@ -73,27 +94,6 @@ class Program
                         ShortNames = { "ct" },
                     },
                     PreserveUnknownFields = false,
-                    Validation = new CustomResourceValidationArgs
-                    {
-                        OpenAPIV3Schema = new JSONSchemaPropsArgs
-                        {
-                            Type = "object",
-                            Properties = {
-                                {"spec", new JSONSchemaPropsArgs 
-                                    {
-                                        Type = "object",
-                                        Properties = {
-                                            { "cronSpec", new JSONSchemaPropsArgs
-                                                {
-                                                    Type = "string",
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                    },
                 }
             });
 

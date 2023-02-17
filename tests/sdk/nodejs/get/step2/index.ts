@@ -30,18 +30,45 @@ export const loadBalancer = svc.status.loadBalancer;
 // Create a CustomResourceDefinition, a CustomResource, and then `.get` it.
 //
 
-const ct = new k8s.apiextensions.v1beta1.CustomResourceDefinition("crontab", {
+const ct = new k8s.apiextensions.v1.CustomResourceDefinition("crontab", {
     metadata: { name: "crontabs.stable.example.com" },
     spec: {
         group: "stable.example.com",
-        version: "v1",
+        versions: [
+            {
+                name: "v1",
+                served: true,
+                storage: true,
+                schema: {
+                    openAPIV3Schema: {
+                        type: "object",
+                        properties: {
+                            spec: {
+                                type: "object",
+                                properties: {
+                                    cronSpec: {
+                                        type: "string"
+                                    },
+                                    image: {
+                                        type: "string"
+                                    },
+                                    replicas: {
+                                        type: "integer"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+        ],
         scope: "Namespaced",
         names: {
             plural: "crontabs",
             singular: "crontab",
             kind: "CronTab",
             shortNames: ["ct"]
-        }
+        },
     }
 });
 
