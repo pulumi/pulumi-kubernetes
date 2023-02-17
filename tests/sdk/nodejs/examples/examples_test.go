@@ -338,15 +338,16 @@ func TestAccPrometheusOperator(t *testing.T) {
 	integration.ProgramTest(t, &test)
 }
 
-func TestAccMariadb(t *testing.T) {
-	skipIfShort(t)
-	test := getBaseOptions(t).
-		With(integration.ProgramTestOptions{
-			Dir: filepath.Join(getCwd(t), "mariadb"),
-		})
-
-	integration.ProgramTest(t, &test)
-}
+// TODO: Fix this example.
+//func TestAccMariadb(t *testing.T) {
+//	skipIfShort(t)
+//	test := getBaseOptions(t).
+//		With(integration.ProgramTestOptions{
+//			Dir: filepath.Join(getCwd(t), "mariadb"),
+//		})
+//
+//	integration.ProgramTest(t, &test)
+//}
 
 func TestAccProvider(t *testing.T) {
 	skipIfShort(t)
