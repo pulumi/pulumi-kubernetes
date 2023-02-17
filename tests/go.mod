@@ -13,7 +13,7 @@ require (
 	github.com/pulumi/pulumi/pkg/v3 v3.55.0
 	github.com/pulumi/pulumi/sdk/v3 v3.55.0
 	github.com/stretchr/testify v1.8.1
-	helm.sh/helm/v3 v3.11.0
+	helm.sh/helm/v3 v3.11.1
 	k8s.io/apimachinery v0.26.0
 	k8s.io/client-go v0.26.0
 )
@@ -86,7 +86,7 @@ require (
 	github.com/chai2010/gettext-go v1.0.2 // indirect
 	github.com/cheggaaa/pb v1.0.29 // indirect
 	github.com/cloudflare/circl v1.1.0 // indirect
-	github.com/containerd/containerd v1.6.15 // indirect
+	github.com/containerd/containerd v1.6.18 // indirect
 	github.com/cyphar/filepath-securejoin v0.2.3 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/dimchansky/utfbom v1.1.1 // indirect
