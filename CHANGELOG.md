@@ -1,6 +1,7 @@
 ## Unreleased
 
 - Update Pulumi Java SDK to v0.8.0 (https://github.com/pulumi/pulumi-kubernetes/pull/2337)
+- Remove empty keys when merging unstructured resources for diffing (https://github.com/pulumi/pulumi-kubernetes/pull/2332)
 
 ## 3.24.1 (February 16, 2023)
 
