@@ -28,7 +28,7 @@ public class ResourceClass extends com.pulumi.resources.CustomResource {
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      * 
      */
-    @Export(name="apiVersion", type=String.class, parameters={})
+    @Export(name="apiVersion", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> apiVersion;
 
     /**
@@ -44,7 +44,7 @@ public class ResourceClass extends com.pulumi.resources.CustomResource {
      * Resource drivers have a unique name in forward domain order (acme.example.com).
      * 
      */
-    @Export(name="driverName", type=String.class, parameters={})
+    @Export(name="driverName", refs={String.class}, tree="[0]")
     private Output<String> driverName;
 
     /**
@@ -60,7 +60,7 @@ public class ResourceClass extends com.pulumi.resources.CustomResource {
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
-    @Export(name="kind", type=String.class, parameters={})
+    @Export(name="kind", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> kind;
 
     /**
@@ -74,7 +74,7 @@ public class ResourceClass extends com.pulumi.resources.CustomResource {
      * Standard object metadata
      * 
      */
-    @Export(name="metadata", type=ObjectMeta.class, parameters={})
+    @Export(name="metadata", refs={ObjectMeta.class}, tree="[0]")
     private Output</* @Nullable */ ObjectMeta> metadata;
 
     /**
@@ -88,7 +88,7 @@ public class ResourceClass extends com.pulumi.resources.CustomResource {
      * ParametersRef references an arbitrary separate object that may hold parameters that will be used by the driver when allocating a resource that uses this class. A dynamic resource driver can distinguish between parameters stored here and and those stored in ResourceClaimSpec.
      * 
      */
-    @Export(name="parametersRef", type=ResourceClassParametersReference.class, parameters={})
+    @Export(name="parametersRef", refs={ResourceClassParametersReference.class}, tree="[0]")
     private Output</* @Nullable */ ResourceClassParametersReference> parametersRef;
 
     /**
@@ -104,7 +104,7 @@ public class ResourceClass extends com.pulumi.resources.CustomResource {
      * Setting this field is optional. If null, all nodes are candidates.
      * 
      */
-    @Export(name="suitableNodes", type=NodeSelector.class, parameters={})
+    @Export(name="suitableNodes", refs={NodeSelector.class}, tree="[0]")
     private Output</* @Nullable */ NodeSelector> suitableNodes;
 
     /**

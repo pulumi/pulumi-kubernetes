@@ -26,7 +26,7 @@ public class PersistentVolumeClaim extends com.pulumi.resources.CustomResource {
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      * 
      */
-    @Export(name="apiVersion", type=String.class, parameters={})
+    @Export(name="apiVersion", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> apiVersion;
 
     /**
@@ -40,7 +40,7 @@ public class PersistentVolumeClaim extends com.pulumi.resources.CustomResource {
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
-    @Export(name="kind", type=String.class, parameters={})
+    @Export(name="kind", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> kind;
 
     /**
@@ -54,7 +54,7 @@ public class PersistentVolumeClaim extends com.pulumi.resources.CustomResource {
      * Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      * 
      */
-    @Export(name="metadata", type=ObjectMeta.class, parameters={})
+    @Export(name="metadata", refs={ObjectMeta.class}, tree="[0]")
     private Output</* @Nullable */ ObjectMeta> metadata;
 
     /**
@@ -68,7 +68,7 @@ public class PersistentVolumeClaim extends com.pulumi.resources.CustomResource {
      * spec defines the desired characteristics of a volume requested by a pod author. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
      * 
      */
-    @Export(name="spec", type=PersistentVolumeClaimSpec.class, parameters={})
+    @Export(name="spec", refs={PersistentVolumeClaimSpec.class}, tree="[0]")
     private Output</* @Nullable */ PersistentVolumeClaimSpec> spec;
 
     /**
@@ -82,7 +82,7 @@ public class PersistentVolumeClaim extends com.pulumi.resources.CustomResource {
      * status represents the current information/status of a persistent volume claim. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistentvolumeclaims
      * 
      */
-    @Export(name="status", type=PersistentVolumeClaimStatus.class, parameters={})
+    @Export(name="status", refs={PersistentVolumeClaimStatus.class}, tree="[0]")
     private Output</* @Nullable */ PersistentVolumeClaimStatus> status;
 
     /**

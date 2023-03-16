@@ -30,7 +30,7 @@ public class Event extends com.pulumi.resources.CustomResource {
      * action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field cannot be empty for new Events and it can have at most 128 characters.
      * 
      */
-    @Export(name="action", type=String.class, parameters={})
+    @Export(name="action", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> action;
 
     /**
@@ -44,7 +44,7 @@ public class Event extends com.pulumi.resources.CustomResource {
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      * 
      */
-    @Export(name="apiVersion", type=String.class, parameters={})
+    @Export(name="apiVersion", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> apiVersion;
 
     /**
@@ -58,7 +58,7 @@ public class Event extends com.pulumi.resources.CustomResource {
      * deprecatedCount is the deprecated field assuring backward compatibility with core.v1 Event type.
      * 
      */
-    @Export(name="deprecatedCount", type=Integer.class, parameters={})
+    @Export(name="deprecatedCount", refs={Integer.class}, tree="[0]")
     private Output</* @Nullable */ Integer> deprecatedCount;
 
     /**
@@ -72,7 +72,7 @@ public class Event extends com.pulumi.resources.CustomResource {
      * deprecatedFirstTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
      * 
      */
-    @Export(name="deprecatedFirstTimestamp", type=String.class, parameters={})
+    @Export(name="deprecatedFirstTimestamp", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> deprecatedFirstTimestamp;
 
     /**
@@ -86,7 +86,7 @@ public class Event extends com.pulumi.resources.CustomResource {
      * deprecatedLastTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
      * 
      */
-    @Export(name="deprecatedLastTimestamp", type=String.class, parameters={})
+    @Export(name="deprecatedLastTimestamp", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> deprecatedLastTimestamp;
 
     /**
@@ -100,7 +100,7 @@ public class Event extends com.pulumi.resources.CustomResource {
      * deprecatedSource is the deprecated field assuring backward compatibility with core.v1 Event type.
      * 
      */
-    @Export(name="deprecatedSource", type=EventSource.class, parameters={})
+    @Export(name="deprecatedSource", refs={EventSource.class}, tree="[0]")
     private Output</* @Nullable */ EventSource> deprecatedSource;
 
     /**
@@ -114,7 +114,7 @@ public class Event extends com.pulumi.resources.CustomResource {
      * eventTime is the time when this Event was first observed. It is required.
      * 
      */
-    @Export(name="eventTime", type=String.class, parameters={})
+    @Export(name="eventTime", refs={String.class}, tree="[0]")
     private Output<String> eventTime;
 
     /**
@@ -128,7 +128,7 @@ public class Event extends com.pulumi.resources.CustomResource {
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
-    @Export(name="kind", type=String.class, parameters={})
+    @Export(name="kind", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> kind;
 
     /**
@@ -142,7 +142,7 @@ public class Event extends com.pulumi.resources.CustomResource {
      * Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      * 
      */
-    @Export(name="metadata", type=ObjectMeta.class, parameters={})
+    @Export(name="metadata", refs={ObjectMeta.class}, tree="[0]")
     private Output</* @Nullable */ ObjectMeta> metadata;
 
     /**
@@ -156,7 +156,7 @@ public class Event extends com.pulumi.resources.CustomResource {
      * note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
      * 
      */
-    @Export(name="note", type=String.class, parameters={})
+    @Export(name="note", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> note;
 
     /**
@@ -170,7 +170,7 @@ public class Event extends com.pulumi.resources.CustomResource {
      * reason is why the action was taken. It is human-readable. This field cannot be empty for new Events and it can have at most 128 characters.
      * 
      */
-    @Export(name="reason", type=String.class, parameters={})
+    @Export(name="reason", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> reason;
 
     /**
@@ -184,7 +184,7 @@ public class Event extends com.pulumi.resources.CustomResource {
      * regarding contains the object this Event is about. In most cases it&#39;s an Object reporting controller implements, e.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
      * 
      */
-    @Export(name="regarding", type=ObjectReference.class, parameters={})
+    @Export(name="regarding", refs={ObjectReference.class}, tree="[0]")
     private Output</* @Nullable */ ObjectReference> regarding;
 
     /**
@@ -198,7 +198,7 @@ public class Event extends com.pulumi.resources.CustomResource {
      * related is the optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
      * 
      */
-    @Export(name="related", type=ObjectReference.class, parameters={})
+    @Export(name="related", refs={ObjectReference.class}, tree="[0]")
     private Output</* @Nullable */ ObjectReference> related;
 
     /**
@@ -212,7 +212,7 @@ public class Event extends com.pulumi.resources.CustomResource {
      * reportingController is the name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`. This field cannot be empty for new Events.
      * 
      */
-    @Export(name="reportingController", type=String.class, parameters={})
+    @Export(name="reportingController", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> reportingController;
 
     /**
@@ -226,7 +226,7 @@ public class Event extends com.pulumi.resources.CustomResource {
      * reportingInstance is the ID of the controller instance, e.g. `kubelet-xyzf`. This field cannot be empty for new Events and it can have at most 128 characters.
      * 
      */
-    @Export(name="reportingInstance", type=String.class, parameters={})
+    @Export(name="reportingInstance", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> reportingInstance;
 
     /**
@@ -240,7 +240,7 @@ public class Event extends com.pulumi.resources.CustomResource {
      * series is data about the Event series this event represents or nil if it&#39;s a singleton Event.
      * 
      */
-    @Export(name="series", type=EventSeries.class, parameters={})
+    @Export(name="series", refs={EventSeries.class}, tree="[0]")
     private Output</* @Nullable */ EventSeries> series;
 
     /**
@@ -254,7 +254,7 @@ public class Event extends com.pulumi.resources.CustomResource {
      * type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable. This field cannot be empty for new Events.
      * 
      */
-    @Export(name="type", type=String.class, parameters={})
+    @Export(name="type", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> type;
 
     /**

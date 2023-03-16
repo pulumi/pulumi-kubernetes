@@ -32,7 +32,7 @@ public class StatusPatch extends com.pulumi.resources.CustomResource {
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      * 
      */
-    @Export(name="apiVersion", type=String.class, parameters={})
+    @Export(name="apiVersion", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> apiVersion;
 
     /**
@@ -46,7 +46,7 @@ public class StatusPatch extends com.pulumi.resources.CustomResource {
      * Suggested HTTP return code for this status, 0 if not set.
      * 
      */
-    @Export(name="code", type=Integer.class, parameters={})
+    @Export(name="code", refs={Integer.class}, tree="[0]")
     private Output</* @Nullable */ Integer> code;
 
     /**
@@ -60,7 +60,7 @@ public class StatusPatch extends com.pulumi.resources.CustomResource {
      * Extended data associated with the reason.  Each reason may define its own extended details. This field is optional and the data returned is not guaranteed to conform to any schema except that defined by the reason type.
      * 
      */
-    @Export(name="details", type=StatusDetailsPatch.class, parameters={})
+    @Export(name="details", refs={StatusDetailsPatch.class}, tree="[0]")
     private Output</* @Nullable */ StatusDetailsPatch> details;
 
     /**
@@ -74,7 +74,7 @@ public class StatusPatch extends com.pulumi.resources.CustomResource {
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
-    @Export(name="kind", type=String.class, parameters={})
+    @Export(name="kind", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> kind;
 
     /**
@@ -88,7 +88,7 @@ public class StatusPatch extends com.pulumi.resources.CustomResource {
      * A human-readable description of the status of this operation.
      * 
      */
-    @Export(name="message", type=String.class, parameters={})
+    @Export(name="message", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> message;
 
     /**
@@ -102,7 +102,7 @@ public class StatusPatch extends com.pulumi.resources.CustomResource {
      * Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
-    @Export(name="metadata", type=ListMetaPatch.class, parameters={})
+    @Export(name="metadata", refs={ListMetaPatch.class}, tree="[0]")
     private Output</* @Nullable */ ListMetaPatch> metadata;
 
     /**
@@ -116,7 +116,7 @@ public class StatusPatch extends com.pulumi.resources.CustomResource {
      * A machine-readable description of why this operation is in the &#34;Failure&#34; status. If this value is empty there is no information available. A Reason clarifies an HTTP status code but does not override it.
      * 
      */
-    @Export(name="reason", type=String.class, parameters={})
+    @Export(name="reason", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> reason;
 
     /**
@@ -130,7 +130,7 @@ public class StatusPatch extends com.pulumi.resources.CustomResource {
      * Status of the operation. One of: &#34;Success&#34; or &#34;Failure&#34;. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
-    @Export(name="status", type=String.class, parameters={})
+    @Export(name="status", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> status;
 
     /**

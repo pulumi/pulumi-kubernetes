@@ -27,7 +27,7 @@ public class ValidatingWebhookConfiguration extends com.pulumi.resources.CustomR
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      * 
      */
-    @Export(name="apiVersion", type=String.class, parameters={})
+    @Export(name="apiVersion", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> apiVersion;
 
     /**
@@ -41,7 +41,7 @@ public class ValidatingWebhookConfiguration extends com.pulumi.resources.CustomR
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
-    @Export(name="kind", type=String.class, parameters={})
+    @Export(name="kind", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> kind;
 
     /**
@@ -55,7 +55,7 @@ public class ValidatingWebhookConfiguration extends com.pulumi.resources.CustomR
      * Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      * 
      */
-    @Export(name="metadata", type=ObjectMeta.class, parameters={})
+    @Export(name="metadata", refs={ObjectMeta.class}, tree="[0]")
     private Output</* @Nullable */ ObjectMeta> metadata;
 
     /**
@@ -69,7 +69,7 @@ public class ValidatingWebhookConfiguration extends com.pulumi.resources.CustomR
      * Webhooks is a list of webhooks and the affected resources and operations.
      * 
      */
-    @Export(name="webhooks", type=List.class, parameters={ValidatingWebhook.class})
+    @Export(name="webhooks", refs={List.class,ValidatingWebhook.class}, tree="[0,1]")
     private Output</* @Nullable */ List<ValidatingWebhook>> webhooks;
 
     /**

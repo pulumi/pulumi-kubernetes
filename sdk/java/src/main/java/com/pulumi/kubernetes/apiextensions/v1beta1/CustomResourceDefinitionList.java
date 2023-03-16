@@ -26,7 +26,7 @@ public class CustomResourceDefinitionList extends com.pulumi.resources.CustomRes
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      * 
      */
-    @Export(name="apiVersion", type=String.class, parameters={})
+    @Export(name="apiVersion", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> apiVersion;
 
     /**
@@ -40,7 +40,7 @@ public class CustomResourceDefinitionList extends com.pulumi.resources.CustomRes
      * items list individual CustomResourceDefinition objects
      * 
      */
-    @Export(name="items", type=List.class, parameters={CustomResourceDefinition.class})
+    @Export(name="items", refs={List.class,CustomResourceDefinition.class}, tree="[0,1]")
     private Output<List<CustomResourceDefinition>> items;
 
     /**
@@ -54,7 +54,7 @@ public class CustomResourceDefinitionList extends com.pulumi.resources.CustomRes
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
-    @Export(name="kind", type=String.class, parameters={})
+    @Export(name="kind", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> kind;
 
     /**
@@ -64,7 +64,7 @@ public class CustomResourceDefinitionList extends com.pulumi.resources.CustomRes
     public Output<Optional<String>> kind() {
         return Codegen.optional(this.kind);
     }
-    @Export(name="metadata", type=ListMeta.class, parameters={})
+    @Export(name="metadata", refs={ListMeta.class}, tree="[0]")
     private Output</* @Nullable */ ListMeta> metadata;
 
     public Output<Optional<ListMeta>> metadata() {

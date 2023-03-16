@@ -34,7 +34,7 @@ public class ClusterRoleBindingPatch extends com.pulumi.resources.CustomResource
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      * 
      */
-    @Export(name="apiVersion", type=String.class, parameters={})
+    @Export(name="apiVersion", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> apiVersion;
 
     /**
@@ -48,7 +48,7 @@ public class ClusterRoleBindingPatch extends com.pulumi.resources.CustomResource
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
-    @Export(name="kind", type=String.class, parameters={})
+    @Export(name="kind", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> kind;
 
     /**
@@ -62,7 +62,7 @@ public class ClusterRoleBindingPatch extends com.pulumi.resources.CustomResource
      * Standard object&#39;s metadata.
      * 
      */
-    @Export(name="metadata", type=ObjectMetaPatch.class, parameters={})
+    @Export(name="metadata", refs={ObjectMetaPatch.class}, tree="[0]")
     private Output</* @Nullable */ ObjectMetaPatch> metadata;
 
     /**
@@ -76,7 +76,7 @@ public class ClusterRoleBindingPatch extends com.pulumi.resources.CustomResource
      * RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
      * 
      */
-    @Export(name="roleRef", type=RoleRefPatch.class, parameters={})
+    @Export(name="roleRef", refs={RoleRefPatch.class}, tree="[0]")
     private Output</* @Nullable */ RoleRefPatch> roleRef;
 
     /**
@@ -90,7 +90,7 @@ public class ClusterRoleBindingPatch extends com.pulumi.resources.CustomResource
      * Subjects holds references to the objects the role applies to.
      * 
      */
-    @Export(name="subjects", type=List.class, parameters={SubjectPatch.class})
+    @Export(name="subjects", refs={List.class,SubjectPatch.class}, tree="[0,1]")
     private Output</* @Nullable */ List<SubjectPatch>> subjects;
 
     /**

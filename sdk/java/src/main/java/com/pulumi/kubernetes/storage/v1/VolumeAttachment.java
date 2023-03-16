@@ -30,7 +30,7 @@ public class VolumeAttachment extends com.pulumi.resources.CustomResource {
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      * 
      */
-    @Export(name="apiVersion", type=String.class, parameters={})
+    @Export(name="apiVersion", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> apiVersion;
 
     /**
@@ -44,7 +44,7 @@ public class VolumeAttachment extends com.pulumi.resources.CustomResource {
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
-    @Export(name="kind", type=String.class, parameters={})
+    @Export(name="kind", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> kind;
 
     /**
@@ -58,7 +58,7 @@ public class VolumeAttachment extends com.pulumi.resources.CustomResource {
      * Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      * 
      */
-    @Export(name="metadata", type=ObjectMeta.class, parameters={})
+    @Export(name="metadata", refs={ObjectMeta.class}, tree="[0]")
     private Output</* @Nullable */ ObjectMeta> metadata;
 
     /**
@@ -72,7 +72,7 @@ public class VolumeAttachment extends com.pulumi.resources.CustomResource {
      * Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
      * 
      */
-    @Export(name="spec", type=VolumeAttachmentSpec.class, parameters={})
+    @Export(name="spec", refs={VolumeAttachmentSpec.class}, tree="[0]")
     private Output<VolumeAttachmentSpec> spec;
 
     /**
@@ -86,7 +86,7 @@ public class VolumeAttachment extends com.pulumi.resources.CustomResource {
      * Status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
      * 
      */
-    @Export(name="status", type=VolumeAttachmentStatus.class, parameters={})
+    @Export(name="status", refs={VolumeAttachmentStatus.class}, tree="[0]")
     private Output</* @Nullable */ VolumeAttachmentStatus> status;
 
     /**

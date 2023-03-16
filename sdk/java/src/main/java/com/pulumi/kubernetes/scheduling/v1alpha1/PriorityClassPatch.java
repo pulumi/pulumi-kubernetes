@@ -34,7 +34,7 @@ public class PriorityClassPatch extends com.pulumi.resources.CustomResource {
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      * 
      */
-    @Export(name="apiVersion", type=String.class, parameters={})
+    @Export(name="apiVersion", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> apiVersion;
 
     /**
@@ -48,7 +48,7 @@ public class PriorityClassPatch extends com.pulumi.resources.CustomResource {
      * description is an arbitrary string that usually provides guidelines on when this priority class should be used.
      * 
      */
-    @Export(name="description", type=String.class, parameters={})
+    @Export(name="description", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> description;
 
     /**
@@ -62,7 +62,7 @@ public class PriorityClassPatch extends com.pulumi.resources.CustomResource {
      * globalDefault specifies whether this PriorityClass should be considered as the default priority for pods that do not have any priority class. Only one PriorityClass can be marked as `globalDefault`. However, if more than one PriorityClasses exists with their `globalDefault` field set to true, the smallest value of such global default PriorityClasses will be used as the default priority.
      * 
      */
-    @Export(name="globalDefault", type=Boolean.class, parameters={})
+    @Export(name="globalDefault", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> globalDefault;
 
     /**
@@ -76,7 +76,7 @@ public class PriorityClassPatch extends com.pulumi.resources.CustomResource {
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
-    @Export(name="kind", type=String.class, parameters={})
+    @Export(name="kind", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> kind;
 
     /**
@@ -90,7 +90,7 @@ public class PriorityClassPatch extends com.pulumi.resources.CustomResource {
      * Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      * 
      */
-    @Export(name="metadata", type=ObjectMetaPatch.class, parameters={})
+    @Export(name="metadata", refs={ObjectMetaPatch.class}, tree="[0]")
     private Output</* @Nullable */ ObjectMetaPatch> metadata;
 
     /**
@@ -104,7 +104,7 @@ public class PriorityClassPatch extends com.pulumi.resources.CustomResource {
      * PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is alpha-level and is only honored by servers that enable the NonPreemptingPriority feature.
      * 
      */
-    @Export(name="preemptionPolicy", type=String.class, parameters={})
+    @Export(name="preemptionPolicy", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> preemptionPolicy;
 
     /**
@@ -118,7 +118,7 @@ public class PriorityClassPatch extends com.pulumi.resources.CustomResource {
      * The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
      * 
      */
-    @Export(name="value", type=Integer.class, parameters={})
+    @Export(name="value", refs={Integer.class}, tree="[0]")
     private Output</* @Nullable */ Integer> value;
 
     /**

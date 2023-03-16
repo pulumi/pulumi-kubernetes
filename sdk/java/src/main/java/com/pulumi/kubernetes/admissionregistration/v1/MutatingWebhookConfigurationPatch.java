@@ -33,7 +33,7 @@ public class MutatingWebhookConfigurationPatch extends com.pulumi.resources.Cust
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      * 
      */
-    @Export(name="apiVersion", type=String.class, parameters={})
+    @Export(name="apiVersion", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> apiVersion;
 
     /**
@@ -47,7 +47,7 @@ public class MutatingWebhookConfigurationPatch extends com.pulumi.resources.Cust
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
-    @Export(name="kind", type=String.class, parameters={})
+    @Export(name="kind", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> kind;
 
     /**
@@ -61,7 +61,7 @@ public class MutatingWebhookConfigurationPatch extends com.pulumi.resources.Cust
      * Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      * 
      */
-    @Export(name="metadata", type=ObjectMetaPatch.class, parameters={})
+    @Export(name="metadata", refs={ObjectMetaPatch.class}, tree="[0]")
     private Output</* @Nullable */ ObjectMetaPatch> metadata;
 
     /**
@@ -75,7 +75,7 @@ public class MutatingWebhookConfigurationPatch extends com.pulumi.resources.Cust
      * Webhooks is a list of webhooks and the affected resources and operations.
      * 
      */
-    @Export(name="webhooks", type=List.class, parameters={MutatingWebhookPatch.class})
+    @Export(name="webhooks", refs={List.class,MutatingWebhookPatch.class}, tree="[0,1]")
     private Output</* @Nullable */ List<MutatingWebhookPatch>> webhooks;
 
     /**
