@@ -1,0 +1,3 @@
+name: server-side-apply-empty-maps-tests
+description: Tests Server-side Apply support with proper handling of empty map fields
+runtime: nodejs

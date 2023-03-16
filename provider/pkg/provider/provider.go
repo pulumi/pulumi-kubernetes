@@ -1565,7 +1565,9 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 	// with the server-side values.
 	if ssPatchOk {
 		logger.V(1).Infof("calculated diffs for %s/%s using dry-run and inputs", newInputs.GetNamespace(), newInputs.GetName())
-		err = mergo.Merge(&patchBase, ssPatchBase, mergo.WithOverride)
+		// Merge the server-side patch into the client-side patch, and ensure that any fields that are set to null in the
+		// server-side patch are set to null in the client-side patch.
+		err = mergo.Merge(&patchBase, ssPatchBase, mergo.WithOverwriteWithEmptyValue)
 		if err != nil {
 			return nil, err
 		}

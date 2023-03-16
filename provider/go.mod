@@ -7,7 +7,7 @@ require (
 	github.com/evanphx/json-patch v5.6.0+incompatible
 	github.com/golang/protobuf v1.5.2
 	github.com/google/gnostic v0.5.7-v3refs
-	github.com/imdario/mergo v0.3.13
+	github.com/imdario/mergo v0.3.14
 	github.com/mitchellh/mapstructure v1.5.0
 	github.com/pkg/errors v0.9.1
 	github.com/pulumi/cloud-ready-checks v1.0.1-0.20230201174945-00fe9c1b68fd

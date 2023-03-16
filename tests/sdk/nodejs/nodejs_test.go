@@ -22,6 +22,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"strings"
 	"testing"
@@ -1090,6 +1091,73 @@ func TestServerSideApply(t *testing.T) {
 		},
 	})
 	integration.ProgramTest(t, &test)
+}
+
+// TestServerSideApplyEmptyMaps tests that we correctly handle merging structs containing empty maps when diffing live and wanted
+// states. This is a regression test for issue #2332 to ensure Pulumi can handle updating a resource which has a
+// map field that is empty in the live state but non-empty in the wanted state.
+func TestServerSideApplyEmptyMaps(t *testing.T) {
+	var ns, cmName string
+
+	applyStep := baseOptions.With(integration.ProgramTestOptions{
+		Dir:                  filepath.Join("server-side-apply-empty-maps", "configmap"),
+		ExpectRefreshChanges: true,
+		// Enable destroy-on-cleanup so we can shell out to kubectl to make external changes to the resource and reuse the same stack.
+		DestroyOnCleanup: true,
+		OrderedConfig: []integration.ConfigValue{
+			{
+				Key:   "pulumi:disable-default-providers[0]",
+				Value: "kubernetes",
+				Path:  true,
+			},
+		},
+		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+			cm := stackInfo.Outputs["cm"].(map[string]interface{})
+			// Save the name and namespace for later use with kubectl. We check that the vars are empty,
+			// in case pulumi up creates a new ConfigMap/Namespace instead of updating the existing one on
+			// subsequent runs.
+			if ns == "" && cmName == "" {
+				ns = cm["metadata"].(map[string]interface{})["namespace"].(string)
+				cmName = cm["metadata"].(map[string]interface{})["name"].(string)
+			}
+
+			// Validate we applied ConfigMap with wanted labels.
+			fooV, ok, err := unstructured.NestedString(cm, "metadata", "labels", "foo")
+			assert.True(t, ok)
+			assert.NoError(t, err)
+			assert.Equal(t, "bar", fooV)
+		},
+	})
+
+	// Use manual lifecycle management since we need to run external commands in between pulumi up steps, while referencing
+	// the same stack.
+	pt := integration.ProgramTestManualLifeCycle(t, &applyStep)
+	err := pt.TestLifeCycleInitAndDestroy()
+	assert.NoError(t, err)
+
+	// Sanity check with kubectl to verify that the ConfigMap was created with the wanted label.
+	out, err := exec.Command("kubectl", "get", "configmap", "-o", "yaml", "-n", ns, cmName).CombinedOutput()
+	assert.NoError(t, err)
+	assert.Contains(t, string(out), "bar") // ConfigMap should have been created with label foo=bar.
+
+	// Update the ConfigMap and remove label using kubectl.
+	out, err = exec.Command("kubectl", "label", "configmap", "-n", ns, cmName, "foo-").CombinedOutput()
+	assert.NoError(t, err)
+	assert.Contains(t, string(out), "configmap/"+cmName+" unlabeled") // Ensure CM was unlabeled.
+
+	// Use kubectl to verify that the ConfigMap was updated and no longer has the label.
+	out, err = exec.Command("kubectl", "get", "configmap", "-o", "yaml", "-n", ns, cmName).CombinedOutput()
+	assert.NoError(t, err)
+	assert.NotContains(t, string(out), "bar") // ConfigMap should no longer have label foo=bar.
+
+	// Re-run `pulumi up --refresh` to update the ConfigMap and re-add the label.
+	err = pt.TestPreviewUpdateAndEdits()
+	assert.NoError(t, err)
+
+	// Use kubectl to verify that the ConfigMap was updated and has the label again.
+	out, err = exec.Command("kubectl", "get", "configmap", "-o", "yaml", "-n", ns, cmName).CombinedOutput()
+	assert.NoError(t, err)
+	assert.Contains(t, string(out), "bar") // ConfigMap should have been updated with label foo=bar.
 }
 
 func TestYAMLURL(t *testing.T) {
