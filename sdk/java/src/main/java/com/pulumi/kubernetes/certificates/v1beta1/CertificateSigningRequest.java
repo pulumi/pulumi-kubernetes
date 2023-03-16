@@ -28,7 +28,7 @@ public class CertificateSigningRequest extends com.pulumi.resources.CustomResour
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      * 
      */
-    @Export(name="apiVersion", type=String.class, parameters={})
+    @Export(name="apiVersion", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> apiVersion;
 
     /**
@@ -42,7 +42,7 @@ public class CertificateSigningRequest extends com.pulumi.resources.CustomResour
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
-    @Export(name="kind", type=String.class, parameters={})
+    @Export(name="kind", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> kind;
 
     /**
@@ -52,7 +52,7 @@ public class CertificateSigningRequest extends com.pulumi.resources.CustomResour
     public Output<Optional<String>> kind() {
         return Codegen.optional(this.kind);
     }
-    @Export(name="metadata", type=ObjectMeta.class, parameters={})
+    @Export(name="metadata", refs={ObjectMeta.class}, tree="[0]")
     private Output</* @Nullable */ ObjectMeta> metadata;
 
     public Output<Optional<ObjectMeta>> metadata() {
@@ -62,7 +62,7 @@ public class CertificateSigningRequest extends com.pulumi.resources.CustomResour
      * The certificate request itself and any additional information.
      * 
      */
-    @Export(name="spec", type=CertificateSigningRequestSpec.class, parameters={})
+    @Export(name="spec", refs={CertificateSigningRequestSpec.class}, tree="[0]")
     private Output</* @Nullable */ CertificateSigningRequestSpec> spec;
 
     /**
@@ -76,7 +76,7 @@ public class CertificateSigningRequest extends com.pulumi.resources.CustomResour
      * Derived information about the request.
      * 
      */
-    @Export(name="status", type=CertificateSigningRequestStatus.class, parameters={})
+    @Export(name="status", refs={CertificateSigningRequestStatus.class}, tree="[0]")
     private Output</* @Nullable */ CertificateSigningRequestStatus> status;
 
     /**

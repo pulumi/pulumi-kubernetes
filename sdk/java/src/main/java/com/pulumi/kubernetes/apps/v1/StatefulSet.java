@@ -47,7 +47,7 @@ public class StatefulSet extends com.pulumi.resources.CustomResource {
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      * 
      */
-    @Export(name="apiVersion", type=String.class, parameters={})
+    @Export(name="apiVersion", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> apiVersion;
 
     /**
@@ -61,7 +61,7 @@ public class StatefulSet extends com.pulumi.resources.CustomResource {
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
-    @Export(name="kind", type=String.class, parameters={})
+    @Export(name="kind", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> kind;
 
     /**
@@ -75,7 +75,7 @@ public class StatefulSet extends com.pulumi.resources.CustomResource {
      * Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      * 
      */
-    @Export(name="metadata", type=ObjectMeta.class, parameters={})
+    @Export(name="metadata", refs={ObjectMeta.class}, tree="[0]")
     private Output</* @Nullable */ ObjectMeta> metadata;
 
     /**
@@ -89,7 +89,7 @@ public class StatefulSet extends com.pulumi.resources.CustomResource {
      * Spec defines the desired identities of pods in this set.
      * 
      */
-    @Export(name="spec", type=StatefulSetSpec.class, parameters={})
+    @Export(name="spec", refs={StatefulSetSpec.class}, tree="[0]")
     private Output</* @Nullable */ StatefulSetSpec> spec;
 
     /**
@@ -103,7 +103,7 @@ public class StatefulSet extends com.pulumi.resources.CustomResource {
      * Status is the current status of Pods in this StatefulSet. This data may be out of date by some window of time.
      * 
      */
-    @Export(name="status", type=StatefulSetStatus.class, parameters={})
+    @Export(name="status", refs={StatefulSetStatus.class}, tree="[0]")
     private Output</* @Nullable */ StatefulSetStatus> status;
 
     /**

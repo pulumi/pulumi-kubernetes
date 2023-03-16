@@ -34,7 +34,7 @@ public class RuntimeClassPatch extends com.pulumi.resources.CustomResource {
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      * 
      */
-    @Export(name="apiVersion", type=String.class, parameters={})
+    @Export(name="apiVersion", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> apiVersion;
 
     /**
@@ -48,7 +48,7 @@ public class RuntimeClassPatch extends com.pulumi.resources.CustomResource {
      * Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node &amp; CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called &#34;runc&#34; might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must conform to the DNS Label (RFC 1123) requirements, and is immutable.
      * 
      */
-    @Export(name="handler", type=String.class, parameters={})
+    @Export(name="handler", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> handler;
 
     /**
@@ -62,7 +62,7 @@ public class RuntimeClassPatch extends com.pulumi.resources.CustomResource {
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
-    @Export(name="kind", type=String.class, parameters={})
+    @Export(name="kind", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> kind;
 
     /**
@@ -76,7 +76,7 @@ public class RuntimeClassPatch extends com.pulumi.resources.CustomResource {
      * More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      * 
      */
-    @Export(name="metadata", type=ObjectMetaPatch.class, parameters={})
+    @Export(name="metadata", refs={ObjectMetaPatch.class}, tree="[0]")
     private Output</* @Nullable */ ObjectMetaPatch> metadata;
 
     /**
@@ -90,7 +90,7 @@ public class RuntimeClassPatch extends com.pulumi.resources.CustomResource {
      * Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the PodOverhead feature.
      * 
      */
-    @Export(name="overhead", type=OverheadPatch.class, parameters={})
+    @Export(name="overhead", refs={OverheadPatch.class}, tree="[0]")
     private Output</* @Nullable */ OverheadPatch> overhead;
 
     /**
@@ -104,7 +104,7 @@ public class RuntimeClassPatch extends com.pulumi.resources.CustomResource {
      * Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
      * 
      */
-    @Export(name="scheduling", type=SchedulingPatch.class, parameters={})
+    @Export(name="scheduling", refs={SchedulingPatch.class}, tree="[0]")
     private Output</* @Nullable */ SchedulingPatch> scheduling;
 
     /**

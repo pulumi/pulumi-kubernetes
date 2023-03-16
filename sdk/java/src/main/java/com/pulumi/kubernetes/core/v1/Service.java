@@ -53,7 +53,7 @@ public class Service extends com.pulumi.resources.CustomResource {
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      * 
      */
-    @Export(name="apiVersion", type=String.class, parameters={})
+    @Export(name="apiVersion", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> apiVersion;
 
     /**
@@ -67,7 +67,7 @@ public class Service extends com.pulumi.resources.CustomResource {
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
-    @Export(name="kind", type=String.class, parameters={})
+    @Export(name="kind", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> kind;
 
     /**
@@ -81,7 +81,7 @@ public class Service extends com.pulumi.resources.CustomResource {
      * Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      * 
      */
-    @Export(name="metadata", type=ObjectMeta.class, parameters={})
+    @Export(name="metadata", refs={ObjectMeta.class}, tree="[0]")
     private Output</* @Nullable */ ObjectMeta> metadata;
 
     /**
@@ -95,7 +95,7 @@ public class Service extends com.pulumi.resources.CustomResource {
      * Spec defines the behavior of a service. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
-    @Export(name="spec", type=ServiceSpec.class, parameters={})
+    @Export(name="spec", refs={ServiceSpec.class}, tree="[0]")
     private Output</* @Nullable */ ServiceSpec> spec;
 
     /**
@@ -109,7 +109,7 @@ public class Service extends com.pulumi.resources.CustomResource {
      * Most recently observed status of the service. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
-    @Export(name="status", type=ServiceStatus.class, parameters={})
+    @Export(name="status", refs={ServiceStatus.class}, tree="[0]")
     private Output</* @Nullable */ ServiceStatus> status;
 
     /**

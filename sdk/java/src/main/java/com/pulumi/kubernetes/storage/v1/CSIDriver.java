@@ -27,7 +27,7 @@ public class CSIDriver extends com.pulumi.resources.CustomResource {
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      * 
      */
-    @Export(name="apiVersion", type=String.class, parameters={})
+    @Export(name="apiVersion", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> apiVersion;
 
     /**
@@ -41,7 +41,7 @@ public class CSIDriver extends com.pulumi.resources.CustomResource {
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
-    @Export(name="kind", type=String.class, parameters={})
+    @Export(name="kind", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> kind;
 
     /**
@@ -55,7 +55,7 @@ public class CSIDriver extends com.pulumi.resources.CustomResource {
      * Standard object metadata. metadata.Name indicates the name of the CSI driver that this object refers to; it MUST be the same name returned by the CSI GetPluginName() call for that driver. The driver name must be 63 characters or less, beginning and ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      * 
      */
-    @Export(name="metadata", type=ObjectMeta.class, parameters={})
+    @Export(name="metadata", refs={ObjectMeta.class}, tree="[0]")
     private Output</* @Nullable */ ObjectMeta> metadata;
 
     /**
@@ -69,7 +69,7 @@ public class CSIDriver extends com.pulumi.resources.CustomResource {
      * Specification of the CSI Driver.
      * 
      */
-    @Export(name="spec", type=CSIDriverSpec.class, parameters={})
+    @Export(name="spec", refs={CSIDriverSpec.class}, tree="[0]")
     private Output<CSIDriverSpec> spec;
 
     /**

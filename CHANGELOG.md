@@ -1,5 +1,7 @@
 ## Unreleased
 
+- Update Pulumi Java SDK to v0.8.0 (https://github.com/pulumi/pulumi-kubernetes/pull/2337)
+
 ## 3.24.1 (February 16, 2023)
 
 - Move `invoke_yaml_decode` into ConfigGroup for python (https://github.com/pulumi/pulumi-kubernetes/pull/2317)

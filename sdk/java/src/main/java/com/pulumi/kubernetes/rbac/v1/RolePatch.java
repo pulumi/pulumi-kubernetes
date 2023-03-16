@@ -33,7 +33,7 @@ public class RolePatch extends com.pulumi.resources.CustomResource {
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      * 
      */
-    @Export(name="apiVersion", type=String.class, parameters={})
+    @Export(name="apiVersion", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> apiVersion;
 
     /**
@@ -47,7 +47,7 @@ public class RolePatch extends com.pulumi.resources.CustomResource {
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
-    @Export(name="kind", type=String.class, parameters={})
+    @Export(name="kind", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> kind;
 
     /**
@@ -61,7 +61,7 @@ public class RolePatch extends com.pulumi.resources.CustomResource {
      * Standard object&#39;s metadata.
      * 
      */
-    @Export(name="metadata", type=ObjectMetaPatch.class, parameters={})
+    @Export(name="metadata", refs={ObjectMetaPatch.class}, tree="[0]")
     private Output</* @Nullable */ ObjectMetaPatch> metadata;
 
     /**
@@ -75,7 +75,7 @@ public class RolePatch extends com.pulumi.resources.CustomResource {
      * Rules holds all the PolicyRules for this Role
      * 
      */
-    @Export(name="rules", type=List.class, parameters={PolicyRulePatch.class})
+    @Export(name="rules", refs={List.class,PolicyRulePatch.class}, tree="[0,1]")
     private Output</* @Nullable */ List<PolicyRulePatch>> rules;
 
     /**

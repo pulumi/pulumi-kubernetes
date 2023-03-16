@@ -44,7 +44,7 @@ public class EndpointsPatch extends com.pulumi.resources.CustomResource {
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      * 
      */
-    @Export(name="apiVersion", type=String.class, parameters={})
+    @Export(name="apiVersion", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> apiVersion;
 
     /**
@@ -58,7 +58,7 @@ public class EndpointsPatch extends com.pulumi.resources.CustomResource {
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
-    @Export(name="kind", type=String.class, parameters={})
+    @Export(name="kind", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> kind;
 
     /**
@@ -72,7 +72,7 @@ public class EndpointsPatch extends com.pulumi.resources.CustomResource {
      * Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      * 
      */
-    @Export(name="metadata", type=ObjectMetaPatch.class, parameters={})
+    @Export(name="metadata", refs={ObjectMetaPatch.class}, tree="[0]")
     private Output</* @Nullable */ ObjectMetaPatch> metadata;
 
     /**
@@ -86,7 +86,7 @@ public class EndpointsPatch extends com.pulumi.resources.CustomResource {
      * The set of all endpoints is the union of all subsets. Addresses are placed into subsets according to the IPs they share. A single address with multiple ports, some of which are ready and some of which are not (because they come from different containers) will result in the address being displayed in different subsets for the different ports. No address will appear in both Addresses and NotReadyAddresses in the same subset. Sets of addresses and ports that comprise a service.
      * 
      */
-    @Export(name="subsets", type=List.class, parameters={EndpointSubsetPatch.class})
+    @Export(name="subsets", refs={List.class,EndpointSubsetPatch.class}, tree="[0,1]")
     private Output</* @Nullable */ List<EndpointSubsetPatch>> subsets;
 
     /**

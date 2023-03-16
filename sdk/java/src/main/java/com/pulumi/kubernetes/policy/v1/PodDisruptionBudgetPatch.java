@@ -34,7 +34,7 @@ public class PodDisruptionBudgetPatch extends com.pulumi.resources.CustomResourc
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      * 
      */
-    @Export(name="apiVersion", type=String.class, parameters={})
+    @Export(name="apiVersion", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> apiVersion;
 
     /**
@@ -48,7 +48,7 @@ public class PodDisruptionBudgetPatch extends com.pulumi.resources.CustomResourc
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
-    @Export(name="kind", type=String.class, parameters={})
+    @Export(name="kind", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> kind;
 
     /**
@@ -62,7 +62,7 @@ public class PodDisruptionBudgetPatch extends com.pulumi.resources.CustomResourc
      * Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      * 
      */
-    @Export(name="metadata", type=ObjectMetaPatch.class, parameters={})
+    @Export(name="metadata", refs={ObjectMetaPatch.class}, tree="[0]")
     private Output</* @Nullable */ ObjectMetaPatch> metadata;
 
     /**
@@ -76,7 +76,7 @@ public class PodDisruptionBudgetPatch extends com.pulumi.resources.CustomResourc
      * Specification of the desired behavior of the PodDisruptionBudget.
      * 
      */
-    @Export(name="spec", type=PodDisruptionBudgetSpecPatch.class, parameters={})
+    @Export(name="spec", refs={PodDisruptionBudgetSpecPatch.class}, tree="[0]")
     private Output</* @Nullable */ PodDisruptionBudgetSpecPatch> spec;
 
     /**
@@ -90,7 +90,7 @@ public class PodDisruptionBudgetPatch extends com.pulumi.resources.CustomResourc
      * Most recently observed status of the PodDisruptionBudget.
      * 
      */
-    @Export(name="status", type=PodDisruptionBudgetStatusPatch.class, parameters={})
+    @Export(name="status", refs={PodDisruptionBudgetStatusPatch.class}, tree="[0]")
     private Output</* @Nullable */ PodDisruptionBudgetStatusPatch> status;
 
     /**

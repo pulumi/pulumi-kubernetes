@@ -34,7 +34,7 @@ public class SelfSubjectAccessReviewPatch extends com.pulumi.resources.CustomRes
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      * 
      */
-    @Export(name="apiVersion", type=String.class, parameters={})
+    @Export(name="apiVersion", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> apiVersion;
 
     /**
@@ -48,7 +48,7 @@ public class SelfSubjectAccessReviewPatch extends com.pulumi.resources.CustomRes
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
-    @Export(name="kind", type=String.class, parameters={})
+    @Export(name="kind", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> kind;
 
     /**
@@ -62,7 +62,7 @@ public class SelfSubjectAccessReviewPatch extends com.pulumi.resources.CustomRes
      * Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      * 
      */
-    @Export(name="metadata", type=ObjectMetaPatch.class, parameters={})
+    @Export(name="metadata", refs={ObjectMetaPatch.class}, tree="[0]")
     private Output</* @Nullable */ ObjectMetaPatch> metadata;
 
     /**
@@ -76,7 +76,7 @@ public class SelfSubjectAccessReviewPatch extends com.pulumi.resources.CustomRes
      * Spec holds information about the request being evaluated.  user and groups must be empty
      * 
      */
-    @Export(name="spec", type=SelfSubjectAccessReviewSpecPatch.class, parameters={})
+    @Export(name="spec", refs={SelfSubjectAccessReviewSpecPatch.class}, tree="[0]")
     private Output</* @Nullable */ SelfSubjectAccessReviewSpecPatch> spec;
 
     /**
@@ -90,7 +90,7 @@ public class SelfSubjectAccessReviewPatch extends com.pulumi.resources.CustomRes
      * Status is filled in by the server and indicates whether the request is allowed or not
      * 
      */
-    @Export(name="status", type=SubjectAccessReviewStatusPatch.class, parameters={})
+    @Export(name="status", refs={SubjectAccessReviewStatusPatch.class}, tree="[0]")
     private Output</* @Nullable */ SubjectAccessReviewStatusPatch> status;
 
     /**

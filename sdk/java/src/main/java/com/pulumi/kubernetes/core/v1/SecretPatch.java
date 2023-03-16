@@ -42,7 +42,7 @@ public class SecretPatch extends com.pulumi.resources.CustomResource {
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      * 
      */
-    @Export(name="apiVersion", type=String.class, parameters={})
+    @Export(name="apiVersion", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> apiVersion;
 
     /**
@@ -56,7 +56,7 @@ public class SecretPatch extends com.pulumi.resources.CustomResource {
      * Data contains the secret data. Each key must consist of alphanumeric characters, &#39;-&#39;, &#39;_&#39; or &#39;.&#39;. The serialized form of the secret data is a base64 encoded string, representing the arbitrary (possibly non-string) data value here. Described in https://tools.ietf.org/html/rfc4648#section-4
      * 
      */
-    @Export(name="data", type=Map.class, parameters={String.class, String.class})
+    @Export(name="data", refs={Map.class,String.class}, tree="[0,1,1]")
     private Output</* @Nullable */ Map<String,String>> data;
 
     /**
@@ -70,7 +70,7 @@ public class SecretPatch extends com.pulumi.resources.CustomResource {
      * Immutable, if set to true, ensures that data stored in the Secret cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil.
      * 
      */
-    @Export(name="immutable", type=Boolean.class, parameters={})
+    @Export(name="immutable", refs={Boolean.class}, tree="[0]")
     private Output</* @Nullable */ Boolean> immutable;
 
     /**
@@ -84,7 +84,7 @@ public class SecretPatch extends com.pulumi.resources.CustomResource {
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
-    @Export(name="kind", type=String.class, parameters={})
+    @Export(name="kind", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> kind;
 
     /**
@@ -98,7 +98,7 @@ public class SecretPatch extends com.pulumi.resources.CustomResource {
      * Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      * 
      */
-    @Export(name="metadata", type=ObjectMetaPatch.class, parameters={})
+    @Export(name="metadata", refs={ObjectMetaPatch.class}, tree="[0]")
     private Output</* @Nullable */ ObjectMetaPatch> metadata;
 
     /**
@@ -112,7 +112,7 @@ public class SecretPatch extends com.pulumi.resources.CustomResource {
      * stringData allows specifying non-binary secret data in string form. It is provided as a write-only input field for convenience. All keys and values are merged into the data field on write, overwriting any existing values. The stringData field is never output when reading from the API.
      * 
      */
-    @Export(name="stringData", type=Map.class, parameters={String.class, String.class})
+    @Export(name="stringData", refs={Map.class,String.class}, tree="[0,1,1]")
     private Output</* @Nullable */ Map<String,String>> stringData;
 
     /**
@@ -126,7 +126,7 @@ public class SecretPatch extends com.pulumi.resources.CustomResource {
      * Used to facilitate programmatic handling of secret data. More info: https://kubernetes.io/docs/concepts/configuration/secret/#secret-types
      * 
      */
-    @Export(name="type", type=String.class, parameters={})
+    @Export(name="type", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> type;
 
     /**

@@ -28,7 +28,7 @@ public class PriorityLevelConfiguration extends com.pulumi.resources.CustomResou
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      * 
      */
-    @Export(name="apiVersion", type=String.class, parameters={})
+    @Export(name="apiVersion", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> apiVersion;
 
     /**
@@ -42,7 +42,7 @@ public class PriorityLevelConfiguration extends com.pulumi.resources.CustomResou
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
-    @Export(name="kind", type=String.class, parameters={})
+    @Export(name="kind", refs={String.class}, tree="[0]")
     private Output</* @Nullable */ String> kind;
 
     /**
@@ -56,7 +56,7 @@ public class PriorityLevelConfiguration extends com.pulumi.resources.CustomResou
      * `metadata` is the standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      * 
      */
-    @Export(name="metadata", type=ObjectMeta.class, parameters={})
+    @Export(name="metadata", refs={ObjectMeta.class}, tree="[0]")
     private Output</* @Nullable */ ObjectMeta> metadata;
 
     /**
@@ -70,7 +70,7 @@ public class PriorityLevelConfiguration extends com.pulumi.resources.CustomResou
      * `spec` is the specification of the desired behavior of a &#34;request-priority&#34;. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
-    @Export(name="spec", type=PriorityLevelConfigurationSpec.class, parameters={})
+    @Export(name="spec", refs={PriorityLevelConfigurationSpec.class}, tree="[0]")
     private Output</* @Nullable */ PriorityLevelConfigurationSpec> spec;
 
     /**
@@ -84,7 +84,7 @@ public class PriorityLevelConfiguration extends com.pulumi.resources.CustomResou
      * `status` is the current status of a &#34;request-priority&#34;. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
-    @Export(name="status", type=PriorityLevelConfigurationStatus.class, parameters={})
+    @Export(name="status", refs={PriorityLevelConfigurationStatus.class}, tree="[0]")
     private Output</* @Nullable */ PriorityLevelConfigurationStatus> status;
 
     /**
