@@ -15,12 +15,16 @@
 import pulumi
 from pulumi_kubernetes.core.v1 import ConfigMap, ConfigMapInitArgs
 from pulumi_kubernetes.helm.v2 import Chart, LocalChartOpts
+from pulumi_kubernetes.helm.v3 import Release, ReleaseArgs
 
 values = {"service": {"type": "ClusterIP"}}
 
-chart = Chart("nginx", LocalChartOpts(path="nginx", values=values))
+chart = Chart("nginx", LocalChartOpts(path="nginx-chart", values=values))
 foo = ConfigMap("foo", ConfigMapInitArgs(data={"foo": "bar"}), opts=pulumi.ResourceOptions(depends_on=chart.ready))
 
 # Deploy a duplicate chart with a different resource prefix to verify that multiple instances of the Chart
 # can be managed in the same stack.
-Chart("nginx", LocalChartOpts(path="nginx", resource_prefix="dup", values=values))
+Chart("nginx", LocalChartOpts(path="nginx-chart", resource_prefix="dup", values=values))
+
+# Deploy the same chart but using v3.Release with local path argument
+Release('nginx-release', ReleaseArgs(chart="nginx", path="nginx-chart", values=values))

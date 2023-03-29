@@ -821,7 +821,13 @@ var helmV3ReleaseResource = pschema.ResourceSpec{
 			TypeSpec: pschema.TypeSpec{
 				Type: "string",
 			},
-			Description: "Chart name to be installed. A path may be used.",
+			Description: "Chart name to be installed. A path may be used (deprecated, use the path parameter).",
+		},
+		"path": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "string",
+			},
+			Description: "Path to the chart to be used",
 		},
 		"version": {
 			TypeSpec: pschema.TypeSpec{

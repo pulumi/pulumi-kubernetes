@@ -1,5 +1,7 @@
 ## Unreleased
 
+- Add `path` argument to helm.v3.Release (https://github.com/pulumi/pulumi-kubernetes/pull/2342)
+
 ## 3.24.2 (March 16, 2023)
 
 - Update Pulumi Java SDK to v0.8.0 (https://github.com/pulumi/pulumi-kubernetes/pull/2337)

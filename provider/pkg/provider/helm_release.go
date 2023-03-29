@@ -72,6 +72,8 @@ type Release struct {
 	Atomic bool `json:"atomic,omitempty"`
 	// Chart name to be installed. A path may be used.
 	Chart string `json:"chart,omitempty"`
+	// Path to the chart being installed
+	Path string `json:"path,omitempty"`
 	// Allow deletion of new resources created in this upgrade when upgrade fails
 	CleanupOnFail bool `json:"cleanupOnFail,omitempty"`
 	// Create the namespace if it does not exist
@@ -1119,6 +1121,7 @@ func (r *helmReleaseProvider) chartOptsFromRelease(rel *Release) HelmChartOpts {
 		HelmChartDebug:           r.settings.Debug,
 		IncludeTestHookResources: true,
 		HelmRegistryConfig:       r.settings.RegistryConfig,
+		Path:                     rel.Path,
 	}
 	if rel.RepositoryOpts != nil {
 		helmChartOpts.Chart = rel.Chart
@@ -1531,6 +1534,11 @@ func chartPathOptionsFromRelease(cpo *action.ChartPathOptions, release *Release)
 	cpo.Keyring = release.Keyring
 	cpo.Verify = release.Verify
 	cpo.Version = version
+
+	if release.Path != "" {
+		chartName = release.Path
+	}
+
 	if release.RepositoryOpts != nil {
 		var repositoryURL string
 		var err error
