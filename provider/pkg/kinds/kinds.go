@@ -47,6 +47,8 @@ const (
 	ClusterRoleBinding                   Kind = "ClusterRoleBinding"
 	ClusterRoleBindingList               Kind = "ClusterRoleBindingList"
 	ClusterRoleList                      Kind = "ClusterRoleList"
+	ClusterTrustBundle                   Kind = "ClusterTrustBundle"
+	ClusterTrustBundleList               Kind = "ClusterTrustBundleList"
 	ConfigMap                            Kind = "ConfigMap"
 	ConfigMapList                        Kind = "ConfigMapList"
 	ControllerRevision                   Kind = "ControllerRevision"
@@ -69,6 +71,8 @@ const (
 	FlowSchemaList                       Kind = "FlowSchemaList"
 	HorizontalPodAutoscaler              Kind = "HorizontalPodAutoscaler"
 	HorizontalPodAutoscalerList          Kind = "HorizontalPodAutoscalerList"
+	IPAddress                            Kind = "IPAddress"
+	IPAddressList                        Kind = "IPAddressList"
 	Ingress                              Kind = "Ingress"
 	IngressClass                         Kind = "IngressClass"
 	IngressClassList                     Kind = "IngressClassList"
@@ -98,8 +102,8 @@ const (
 	PodList                              Kind = "PodList"
 	PodPreset                            Kind = "PodPreset"
 	PodPresetList                        Kind = "PodPresetList"
-	PodScheduling                        Kind = "PodScheduling"
-	PodSchedulingList                    Kind = "PodSchedulingList"
+	PodSchedulingContext                 Kind = "PodSchedulingContext"
+	PodSchedulingContextList             Kind = "PodSchedulingContextList"
 	PodSecurityPolicy                    Kind = "PodSecurityPolicy"
 	PodSecurityPolicyList                Kind = "PodSecurityPolicyList"
 	PodTemplate                          Kind = "PodTemplate"
@@ -246,6 +250,7 @@ const (
 	BatchV1B1                 groupVersion = "batch/v1beta1"
 	BatchV2A1                 groupVersion = "batch/v2alpha1"
 	CertificatesV1            groupVersion = "certificates.k8s.io/v1"
+	CertificatesV1A1          groupVersion = "certificates.k8s.io/v1alpha1"
 	CertificatesV1B1          groupVersion = "certificates.k8s.io/v1beta1"
 	CoordinationV1            groupVersion = "coordination.k8s.io/v1"
 	CoordinationV1B1          groupVersion = "coordination.k8s.io/v1beta1"
@@ -271,7 +276,7 @@ const (
 	RbacV1                    groupVersion = "rbac.authorization.k8s.io/v1"
 	RbacV1A1                  groupVersion = "rbac.authorization.k8s.io/v1alpha1"
 	RbacV1B1                  groupVersion = "rbac.authorization.k8s.io/v1beta1"
-	ResourceV1A1              groupVersion = "resource.k8s.io/v1alpha1"
+	ResourceV1A2              groupVersion = "resource.k8s.io/v1alpha2"
 	SchedulingV1              groupVersion = "scheduling.k8s.io/v1"
 	SchedulingV1A1            groupVersion = "scheduling.k8s.io/v1alpha1"
 	SchedulingV1B1            groupVersion = "scheduling.k8s.io/v1beta1"
@@ -319,6 +324,7 @@ var KnownGroupVersions = codegen.NewStringSet(
 	"batch/v1beta1",
 	"batch/v2alpha1",
 	"certificates.k8s.io/v1",
+	"certificates.k8s.io/v1alpha1",
 	"certificates.k8s.io/v1beta1",
 	"coordination.k8s.io/v1",
 	"coordination.k8s.io/v1beta1",
@@ -344,7 +350,7 @@ var KnownGroupVersions = codegen.NewStringSet(
 	"rbac.authorization.k8s.io/v1",
 	"rbac.authorization.k8s.io/v1alpha1",
 	"rbac.authorization.k8s.io/v1beta1",
-	"resource.k8s.io/v1alpha1",
+	"resource.k8s.io/v1alpha2",
 	"scheduling.k8s.io/v1",
 	"scheduling.k8s.io/v1alpha1",
 	"scheduling.k8s.io/v1beta1",
