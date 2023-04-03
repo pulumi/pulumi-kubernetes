@@ -8,6 +8,7 @@
 1. Go: [golangci-lint](https://github.com/golangci/golangci-lint)
 1. JS: `npm`, `yarn`
 1. .NET: [.NET SDK 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1)
+1. Java: JDK 11 & [Gradle ~>7.4](https://gradle.org/install/)
 1. [pulumictl](https://github.com/pulumi/pulumictl)
 
 ### Restore Vendor Dependencies
