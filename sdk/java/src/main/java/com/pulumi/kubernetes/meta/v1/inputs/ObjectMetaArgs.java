@@ -25,14 +25,14 @@ public final class ObjectMetaArgs extends com.pulumi.resources.ResourceArgs {
     public static final ObjectMetaArgs Empty = new ObjectMetaArgs();
 
     /**
-     * Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
+     * Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations
      * 
      */
     @Import(name="annotations")
     private @Nullable Output<Map<String,String>> annotations;
 
     /**
-     * @return Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
+     * @return Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations
      * 
      */
     public Optional<Output<Map<String,String>>> annotations() {
@@ -161,14 +161,14 @@ public final class ObjectMetaArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
+     * Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels
      * 
      */
     @Import(name="labels")
     private @Nullable Output<Map<String,String>> labels;
 
     /**
-     * @return Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
+     * @return Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels
      * 
      */
     public Optional<Output<Map<String,String>>> labels() {
@@ -191,14 +191,14 @@ public final class ObjectMetaArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names
+     * Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names
      * 
      */
     @Import(name="name")
     private @Nullable Output<String> name;
 
     /**
-     * @return Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names
+     * @return Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names
      * 
      */
     public Optional<Output<String>> name() {
@@ -208,7 +208,7 @@ public final class ObjectMetaArgs extends com.pulumi.resources.ResourceArgs {
     /**
      * Namespace defines the space within which each name must be unique. An empty namespace is equivalent to the &#34;default&#34; namespace, but &#34;default&#34; is the canonical representation. Not all objects are required to be scoped to a namespace - the value of this field for those objects will be empty.
      * 
-     * Must be a DNS_LABEL. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/namespaces
+     * Must be a DNS_LABEL. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces
      * 
      */
     @Import(name="namespace")
@@ -217,7 +217,7 @@ public final class ObjectMetaArgs extends com.pulumi.resources.ResourceArgs {
     /**
      * @return Namespace defines the space within which each name must be unique. An empty namespace is equivalent to the &#34;default&#34; namespace, but &#34;default&#34; is the canonical representation. Not all objects are required to be scoped to a namespace - the value of this field for those objects will be empty.
      * 
-     * Must be a DNS_LABEL. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/namespaces
+     * Must be a DNS_LABEL. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces
      * 
      */
     public Optional<Output<String>> namespace() {
@@ -276,7 +276,7 @@ public final class ObjectMetaArgs extends com.pulumi.resources.ResourceArgs {
     /**
      * UID is the unique in time and space value for this object. It is typically generated by the server on successful creation of a resource and is not allowed to change on PUT operations.
      * 
-     * Populated by the system. Read-only. More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+     * Populated by the system. Read-only. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
      * 
      */
     @Import(name="uid")
@@ -285,7 +285,7 @@ public final class ObjectMetaArgs extends com.pulumi.resources.ResourceArgs {
     /**
      * @return UID is the unique in time and space value for this object. It is typically generated by the server on successful creation of a resource and is not allowed to change on PUT operations.
      * 
-     * Populated by the system. Read-only. More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+     * Populated by the system. Read-only. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
      * 
      */
     public Optional<Output<String>> uid() {
@@ -332,7 +332,7 @@ public final class ObjectMetaArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param annotations Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
+         * @param annotations Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations
          * 
          * @return builder
          * 
@@ -343,7 +343,7 @@ public final class ObjectMetaArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param annotations Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
+         * @param annotations Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations
          * 
          * @return builder
          * 
@@ -526,7 +526,7 @@ public final class ObjectMetaArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param labels Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
+         * @param labels Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels
          * 
          * @return builder
          * 
@@ -537,7 +537,7 @@ public final class ObjectMetaArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param labels Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
+         * @param labels Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels
          * 
          * @return builder
          * 
@@ -578,7 +578,7 @@ public final class ObjectMetaArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param name Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names
+         * @param name Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names
          * 
          * @return builder
          * 
@@ -589,7 +589,7 @@ public final class ObjectMetaArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param name Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names
+         * @param name Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names
          * 
          * @return builder
          * 
@@ -601,7 +601,7 @@ public final class ObjectMetaArgs extends com.pulumi.resources.ResourceArgs {
         /**
          * @param namespace Namespace defines the space within which each name must be unique. An empty namespace is equivalent to the &#34;default&#34; namespace, but &#34;default&#34; is the canonical representation. Not all objects are required to be scoped to a namespace - the value of this field for those objects will be empty.
          * 
-         * Must be a DNS_LABEL. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/namespaces
+         * Must be a DNS_LABEL. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces
          * 
          * @return builder
          * 
@@ -614,7 +614,7 @@ public final class ObjectMetaArgs extends com.pulumi.resources.ResourceArgs {
         /**
          * @param namespace Namespace defines the space within which each name must be unique. An empty namespace is equivalent to the &#34;default&#34; namespace, but &#34;default&#34; is the canonical representation. Not all objects are required to be scoped to a namespace - the value of this field for those objects will be empty.
          * 
-         * Must be a DNS_LABEL. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/namespaces
+         * Must be a DNS_LABEL. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces
          * 
          * @return builder
          * 
@@ -703,7 +703,7 @@ public final class ObjectMetaArgs extends com.pulumi.resources.ResourceArgs {
         /**
          * @param uid UID is the unique in time and space value for this object. It is typically generated by the server on successful creation of a resource and is not allowed to change on PUT operations.
          * 
-         * Populated by the system. Read-only. More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+         * Populated by the system. Read-only. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
          * 
          * @return builder
          * 
@@ -716,7 +716,7 @@ public final class ObjectMetaArgs extends com.pulumi.resources.ResourceArgs {
         /**
          * @param uid UID is the unique in time and space value for this object. It is typically generated by the server on successful creation of a resource and is not allowed to change on PUT operations.
          * 
-         * Populated by the system. Read-only. More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+         * Populated by the system. Read-only. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
          * 
          * @return builder
          * 

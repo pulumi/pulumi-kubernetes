@@ -98,14 +98,14 @@ public final class StatusDetailsArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * UID of the resource. (when there is a single resource which can be described). More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+     * UID of the resource. (when there is a single resource which can be described). More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
      * 
      */
     @Import(name="uid")
     private @Nullable Output<String> uid;
 
     /**
-     * @return UID of the resource. (when there is a single resource which can be described). More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+     * @return UID of the resource. (when there is a single resource which can be described). More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
      * 
      */
     public Optional<Output<String>> uid() {
@@ -257,7 +257,7 @@ public final class StatusDetailsArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param uid UID of the resource. (when there is a single resource which can be described). More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+         * @param uid UID of the resource. (when there is a single resource which can be described). More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
          * 
          * @return builder
          * 
@@ -268,7 +268,7 @@ public final class StatusDetailsArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param uid UID of the resource. (when there is a single resource which can be described). More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+         * @param uid UID of the resource. (when there is a single resource which can be described). More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
          * 
          * @return builder
          * 

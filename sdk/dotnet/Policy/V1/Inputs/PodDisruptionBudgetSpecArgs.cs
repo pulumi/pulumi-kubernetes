@@ -44,7 +44,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Policy.V1
         /// 
         /// Additional policies may be added in the future. Clients making eviction decisions should disallow eviction of unhealthy pods if they encounter an unrecognized policy in this field.
         /// 
-        /// This field is alpha-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (disabled by default).
+        /// This field is beta-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (enabled by default).
         /// </summary>
         [Input("unhealthyPodEvictionPolicy")]
         public Input<string>? UnhealthyPodEvictionPolicy { get; set; }

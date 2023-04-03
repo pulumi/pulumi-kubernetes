@@ -61,7 +61,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Batch.V1
         /// </summary>
         public readonly bool Suspend;
         /// <summary>
-        /// Describes the pod that will be created when executing a job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+        /// Describes the pod that will be created when executing a job. The only allowed template.spec.restartPolicy values are "Never" or "OnFailure". More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.PodTemplateSpecPatch Template;
         /// <summary>

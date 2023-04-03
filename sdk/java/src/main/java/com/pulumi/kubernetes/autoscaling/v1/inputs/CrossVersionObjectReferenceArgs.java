@@ -20,14 +20,14 @@ public final class CrossVersionObjectReferenceArgs extends com.pulumi.resources.
     public static final CrossVersionObjectReferenceArgs Empty = new CrossVersionObjectReferenceArgs();
 
     /**
-     * API version of the referent
+     * apiVersion is the API version of the referent
      * 
      */
     @Import(name="apiVersion")
     private @Nullable Output<String> apiVersion;
 
     /**
-     * @return API version of the referent
+     * @return apiVersion is the API version of the referent
      * 
      */
     public Optional<Output<String>> apiVersion() {
@@ -35,14 +35,14 @@ public final class CrossVersionObjectReferenceArgs extends com.pulumi.resources.
     }
 
     /**
-     * Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+     * kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
     @Import(name="kind", required=true)
     private Output<String> kind;
 
     /**
-     * @return Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+     * @return kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
     public Output<String> kind() {
@@ -50,14 +50,14 @@ public final class CrossVersionObjectReferenceArgs extends com.pulumi.resources.
     }
 
     /**
-     * Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
+     * name is the name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
      * 
      */
     @Import(name="name", required=true)
     private Output<String> name;
 
     /**
-     * @return Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
+     * @return name is the name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
      * 
      */
     public Output<String> name() {
@@ -91,7 +91,7 @@ public final class CrossVersionObjectReferenceArgs extends com.pulumi.resources.
         }
 
         /**
-         * @param apiVersion API version of the referent
+         * @param apiVersion apiVersion is the API version of the referent
          * 
          * @return builder
          * 
@@ -102,7 +102,7 @@ public final class CrossVersionObjectReferenceArgs extends com.pulumi.resources.
         }
 
         /**
-         * @param apiVersion API version of the referent
+         * @param apiVersion apiVersion is the API version of the referent
          * 
          * @return builder
          * 
@@ -112,7 +112,7 @@ public final class CrossVersionObjectReferenceArgs extends com.pulumi.resources.
         }
 
         /**
-         * @param kind Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+         * @param kind kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
          * 
          * @return builder
          * 
@@ -123,7 +123,7 @@ public final class CrossVersionObjectReferenceArgs extends com.pulumi.resources.
         }
 
         /**
-         * @param kind Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+         * @param kind kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
          * 
          * @return builder
          * 
@@ -133,7 +133,7 @@ public final class CrossVersionObjectReferenceArgs extends com.pulumi.resources.
         }
 
         /**
-         * @param name Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
+         * @param name name is the name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
          * 
          * @return builder
          * 
@@ -144,7 +144,7 @@ public final class CrossVersionObjectReferenceArgs extends com.pulumi.resources.
         }
 
         /**
-         * @param name Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
+         * @param name name is the name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
          * 
          * @return builder
          * 

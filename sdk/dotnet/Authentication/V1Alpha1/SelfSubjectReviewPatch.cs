@@ -16,7 +16,7 @@ namespace Pulumi.Kubernetes.Authentication.V1Alpha1
     /// Conflicts will result in an error by default, but can be forced using the "pulumi.com/patchForce" annotation. See the
     /// [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/managing-resources-with-server-side-apply/) for
     /// additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
-    /// SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.
+    /// SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.  If impersonation or request header authentication is used, any extra keys will have their case ignored and returned as lowercase.
     /// </summary>
     [KubernetesResourceType("kubernetes:authentication.k8s.io/v1alpha1:SelfSubjectReviewPatch")]
     public partial class SelfSubjectReviewPatch : KubernetesResource
@@ -80,6 +80,10 @@ namespace Pulumi.Kubernetes.Authentication.V1Alpha1
             var defaultOptions = new CustomResourceOptions
             {
                 Version = Utilities.Version,
+                Aliases =
+                {
+                    new global::Pulumi.Alias { Type = "kubernetes:authentication.k8s.io/v1beta1:SelfSubjectReviewPatch"},
+                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.

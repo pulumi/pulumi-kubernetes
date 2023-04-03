@@ -12,6 +12,8 @@ from . import outputs
 from ... import meta as _meta
 
 __all__ = [
+    'MatchCondition',
+    'MatchConditionPatch',
     'MutatingWebhook',
     'MutatingWebhookConfiguration',
     'MutatingWebhookPatch',
@@ -25,6 +27,114 @@ __all__ = [
     'WebhookClientConfig',
     'WebhookClientConfigPatch',
 ]
+
+@pulumi.output_type
+class MatchCondition(dict):
+    """
+    MatchCondition represents a condition which must by fulfilled for a request to be sent to a webhook.
+    """
+    def __init__(__self__, *,
+                 expression: str,
+                 name: str):
+        """
+        MatchCondition represents a condition which must by fulfilled for a request to be sent to a webhook.
+        :param str expression: Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+               
+               'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+                 See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+               'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+                 request resource.
+               Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/
+               
+               Required.
+        :param str name: Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
+               
+               Required.
+        """
+        pulumi.set(__self__, "expression", expression)
+        pulumi.set(__self__, "name", name)
+
+    @property
+    @pulumi.getter
+    def expression(self) -> str:
+        """
+        Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+
+        'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+          See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+        'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+          request resource.
+        Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/
+
+        Required.
+        """
+        return pulumi.get(self, "expression")
+
+    @property
+    @pulumi.getter
+    def name(self) -> str:
+        """
+        Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
+
+        Required.
+        """
+        return pulumi.get(self, "name")
+
+
+@pulumi.output_type
+class MatchConditionPatch(dict):
+    """
+    MatchCondition represents a condition which must by fulfilled for a request to be sent to a webhook.
+    """
+    def __init__(__self__, *,
+                 expression: Optional[str] = None,
+                 name: Optional[str] = None):
+        """
+        MatchCondition represents a condition which must by fulfilled for a request to be sent to a webhook.
+        :param str expression: Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+               
+               'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+                 See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+               'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+                 request resource.
+               Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/
+               
+               Required.
+        :param str name: Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
+               
+               Required.
+        """
+        if expression is not None:
+            pulumi.set(__self__, "expression", expression)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+
+    @property
+    @pulumi.getter
+    def expression(self) -> Optional[str]:
+        """
+        Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+
+        'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+          See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+        'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+          request resource.
+        Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/
+
+        Required.
+        """
+        return pulumi.get(self, "expression")
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        """
+        Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
+
+        Required.
+        """
+        return pulumi.get(self, "name")
+
 
 @pulumi.output_type
 class MutatingWebhook(dict):
@@ -42,6 +152,8 @@ class MutatingWebhook(dict):
             suggest = "side_effects"
         elif key == "failurePolicy":
             suggest = "failure_policy"
+        elif key == "matchConditions":
+            suggest = "match_conditions"
         elif key == "matchPolicy":
             suggest = "match_policy"
         elif key == "namespaceSelector":
@@ -70,6 +182,7 @@ class MutatingWebhook(dict):
                  name: str,
                  side_effects: str,
                  failure_policy: Optional[str] = None,
+                 match_conditions: Optional[Sequence['outputs.MatchCondition']] = None,
                  match_policy: Optional[str] = None,
                  namespace_selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
                  object_selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
@@ -83,6 +196,16 @@ class MutatingWebhook(dict):
         :param str name: The name of the admission webhook. Name should be fully qualified, e.g., imagepolicy.kubernetes.io, where "imagepolicy" is the name of the webhook, and kubernetes.io is the name of the organization. Required.
         :param str side_effects: SideEffects states whether this webhook has side effects. Acceptable values are: None, NoneOnDryRun (webhooks created via v1beta1 may also specify Some or Unknown). Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission chain and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some.
         :param str failure_policy: FailurePolicy defines how unrecognized errors from the admission endpoint are handled - allowed values are Ignore or Fail. Defaults to Fail.
+        :param Sequence['MatchConditionArgs'] match_conditions: MatchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+               
+               The exact matching logic is (in order):
+                 1. If ANY matchCondition evaluates to FALSE, the webhook is skipped.
+                 2. If ALL matchConditions evaluate to TRUE, the webhook is called.
+                 3. If any matchCondition evaluates to an error (but none are FALSE):
+                    - If failurePolicy=Fail, reject the request
+                    - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
+               
+               This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
         :param str match_policy: matchPolicy defines how the "rules" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
                
                - Exact: match a request only if it exactly matches a specified rule. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, but "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would not be sent to the webhook.
@@ -138,6 +261,8 @@ class MutatingWebhook(dict):
         pulumi.set(__self__, "side_effects", side_effects)
         if failure_policy is not None:
             pulumi.set(__self__, "failure_policy", failure_policy)
+        if match_conditions is not None:
+            pulumi.set(__self__, "match_conditions", match_conditions)
         if match_policy is not None:
             pulumi.set(__self__, "match_policy", match_policy)
         if namespace_selector is not None:
@@ -190,6 +315,23 @@ class MutatingWebhook(dict):
         FailurePolicy defines how unrecognized errors from the admission endpoint are handled - allowed values are Ignore or Fail. Defaults to Fail.
         """
         return pulumi.get(self, "failure_policy")
+
+    @property
+    @pulumi.getter(name="matchConditions")
+    def match_conditions(self) -> Optional[Sequence['outputs.MatchCondition']]:
+        """
+        MatchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+
+        The exact matching logic is (in order):
+          1. If ANY matchCondition evaluates to FALSE, the webhook is skipped.
+          2. If ALL matchConditions evaluate to TRUE, the webhook is called.
+          3. If any matchCondition evaluates to an error (but none are FALSE):
+             - If failurePolicy=Fail, reject the request
+             - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
+
+        This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+        """
+        return pulumi.get(self, "match_conditions")
 
     @property
     @pulumi.getter(name="matchPolicy")
@@ -372,6 +514,8 @@ class MutatingWebhookPatch(dict):
             suggest = "client_config"
         elif key == "failurePolicy":
             suggest = "failure_policy"
+        elif key == "matchConditions":
+            suggest = "match_conditions"
         elif key == "matchPolicy":
             suggest = "match_policy"
         elif key == "namespaceSelector":
@@ -400,6 +544,7 @@ class MutatingWebhookPatch(dict):
                  admission_review_versions: Optional[Sequence[str]] = None,
                  client_config: Optional['outputs.WebhookClientConfigPatch'] = None,
                  failure_policy: Optional[str] = None,
+                 match_conditions: Optional[Sequence['outputs.MatchConditionPatch']] = None,
                  match_policy: Optional[str] = None,
                  name: Optional[str] = None,
                  namespace_selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None,
@@ -413,6 +558,16 @@ class MutatingWebhookPatch(dict):
         :param Sequence[str] admission_review_versions: AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy.
         :param 'WebhookClientConfigPatchArgs' client_config: ClientConfig defines how to communicate with the hook. Required
         :param str failure_policy: FailurePolicy defines how unrecognized errors from the admission endpoint are handled - allowed values are Ignore or Fail. Defaults to Fail.
+        :param Sequence['MatchConditionPatchArgs'] match_conditions: MatchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+               
+               The exact matching logic is (in order):
+                 1. If ANY matchCondition evaluates to FALSE, the webhook is skipped.
+                 2. If ALL matchConditions evaluate to TRUE, the webhook is called.
+                 3. If any matchCondition evaluates to an error (but none are FALSE):
+                    - If failurePolicy=Fail, reject the request
+                    - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
+               
+               This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
         :param str match_policy: matchPolicy defines how the "rules" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
                
                - Exact: match a request only if it exactly matches a specified rule. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, but "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would not be sent to the webhook.
@@ -470,6 +625,8 @@ class MutatingWebhookPatch(dict):
             pulumi.set(__self__, "client_config", client_config)
         if failure_policy is not None:
             pulumi.set(__self__, "failure_policy", failure_policy)
+        if match_conditions is not None:
+            pulumi.set(__self__, "match_conditions", match_conditions)
         if match_policy is not None:
             pulumi.set(__self__, "match_policy", match_policy)
         if name is not None:
@@ -510,6 +667,23 @@ class MutatingWebhookPatch(dict):
         FailurePolicy defines how unrecognized errors from the admission endpoint are handled - allowed values are Ignore or Fail. Defaults to Fail.
         """
         return pulumi.get(self, "failure_policy")
+
+    @property
+    @pulumi.getter(name="matchConditions")
+    def match_conditions(self) -> Optional[Sequence['outputs.MatchConditionPatch']]:
+        """
+        MatchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+
+        The exact matching logic is (in order):
+          1. If ANY matchCondition evaluates to FALSE, the webhook is skipped.
+          2. If ALL matchConditions evaluate to TRUE, the webhook is called.
+          3. If any matchCondition evaluates to an error (but none are FALSE):
+             - If failurePolicy=Fail, reject the request
+             - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
+
+        This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+        """
+        return pulumi.get(self, "match_conditions")
 
     @property
     @pulumi.getter(name="matchPolicy")
@@ -954,6 +1128,8 @@ class ValidatingWebhook(dict):
             suggest = "side_effects"
         elif key == "failurePolicy":
             suggest = "failure_policy"
+        elif key == "matchConditions":
+            suggest = "match_conditions"
         elif key == "matchPolicy":
             suggest = "match_policy"
         elif key == "namespaceSelector":
@@ -980,6 +1156,7 @@ class ValidatingWebhook(dict):
                  name: str,
                  side_effects: str,
                  failure_policy: Optional[str] = None,
+                 match_conditions: Optional[Sequence['outputs.MatchCondition']] = None,
                  match_policy: Optional[str] = None,
                  namespace_selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
                  object_selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
@@ -992,6 +1169,16 @@ class ValidatingWebhook(dict):
         :param str name: The name of the admission webhook. Name should be fully qualified, e.g., imagepolicy.kubernetes.io, where "imagepolicy" is the name of the webhook, and kubernetes.io is the name of the organization. Required.
         :param str side_effects: SideEffects states whether this webhook has side effects. Acceptable values are: None, NoneOnDryRun (webhooks created via v1beta1 may also specify Some or Unknown). Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission chain and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some.
         :param str failure_policy: FailurePolicy defines how unrecognized errors from the admission endpoint are handled - allowed values are Ignore or Fail. Defaults to Fail.
+        :param Sequence['MatchConditionArgs'] match_conditions: MatchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+               
+               The exact matching logic is (in order):
+                 1. If ANY matchCondition evaluates to FALSE, the webhook is skipped.
+                 2. If ALL matchConditions evaluate to TRUE, the webhook is called.
+                 3. If any matchCondition evaluates to an error (but none are FALSE):
+                    - If failurePolicy=Fail, reject the request
+                    - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
+               
+               This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
         :param str match_policy: matchPolicy defines how the "rules" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
                
                - Exact: match a request only if it exactly matches a specified rule. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, but "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would not be sent to the webhook.
@@ -1040,6 +1227,8 @@ class ValidatingWebhook(dict):
         pulumi.set(__self__, "side_effects", side_effects)
         if failure_policy is not None:
             pulumi.set(__self__, "failure_policy", failure_policy)
+        if match_conditions is not None:
+            pulumi.set(__self__, "match_conditions", match_conditions)
         if match_policy is not None:
             pulumi.set(__self__, "match_policy", match_policy)
         if namespace_selector is not None:
@@ -1090,6 +1279,23 @@ class ValidatingWebhook(dict):
         FailurePolicy defines how unrecognized errors from the admission endpoint are handled - allowed values are Ignore or Fail. Defaults to Fail.
         """
         return pulumi.get(self, "failure_policy")
+
+    @property
+    @pulumi.getter(name="matchConditions")
+    def match_conditions(self) -> Optional[Sequence['outputs.MatchCondition']]:
+        """
+        MatchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+
+        The exact matching logic is (in order):
+          1. If ANY matchCondition evaluates to FALSE, the webhook is skipped.
+          2. If ALL matchConditions evaluate to TRUE, the webhook is called.
+          3. If any matchCondition evaluates to an error (but none are FALSE):
+             - If failurePolicy=Fail, reject the request
+             - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
+
+        This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+        """
+        return pulumi.get(self, "match_conditions")
 
     @property
     @pulumi.getter(name="matchPolicy")
@@ -1258,6 +1464,8 @@ class ValidatingWebhookPatch(dict):
             suggest = "client_config"
         elif key == "failurePolicy":
             suggest = "failure_policy"
+        elif key == "matchConditions":
+            suggest = "match_conditions"
         elif key == "matchPolicy":
             suggest = "match_policy"
         elif key == "namespaceSelector":
@@ -1284,6 +1492,7 @@ class ValidatingWebhookPatch(dict):
                  admission_review_versions: Optional[Sequence[str]] = None,
                  client_config: Optional['outputs.WebhookClientConfigPatch'] = None,
                  failure_policy: Optional[str] = None,
+                 match_conditions: Optional[Sequence['outputs.MatchConditionPatch']] = None,
                  match_policy: Optional[str] = None,
                  name: Optional[str] = None,
                  namespace_selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None,
@@ -1296,6 +1505,16 @@ class ValidatingWebhookPatch(dict):
         :param Sequence[str] admission_review_versions: AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy.
         :param 'WebhookClientConfigPatchArgs' client_config: ClientConfig defines how to communicate with the hook. Required
         :param str failure_policy: FailurePolicy defines how unrecognized errors from the admission endpoint are handled - allowed values are Ignore or Fail. Defaults to Fail.
+        :param Sequence['MatchConditionPatchArgs'] match_conditions: MatchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+               
+               The exact matching logic is (in order):
+                 1. If ANY matchCondition evaluates to FALSE, the webhook is skipped.
+                 2. If ALL matchConditions evaluate to TRUE, the webhook is called.
+                 3. If any matchCondition evaluates to an error (but none are FALSE):
+                    - If failurePolicy=Fail, reject the request
+                    - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
+               
+               This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
         :param str match_policy: matchPolicy defines how the "rules" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
                
                - Exact: match a request only if it exactly matches a specified rule. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, but "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would not be sent to the webhook.
@@ -1346,6 +1565,8 @@ class ValidatingWebhookPatch(dict):
             pulumi.set(__self__, "client_config", client_config)
         if failure_policy is not None:
             pulumi.set(__self__, "failure_policy", failure_policy)
+        if match_conditions is not None:
+            pulumi.set(__self__, "match_conditions", match_conditions)
         if match_policy is not None:
             pulumi.set(__self__, "match_policy", match_policy)
         if name is not None:
@@ -1384,6 +1605,23 @@ class ValidatingWebhookPatch(dict):
         FailurePolicy defines how unrecognized errors from the admission endpoint are handled - allowed values are Ignore or Fail. Defaults to Fail.
         """
         return pulumi.get(self, "failure_policy")
+
+    @property
+    @pulumi.getter(name="matchConditions")
+    def match_conditions(self) -> Optional[Sequence['outputs.MatchConditionPatch']]:
+        """
+        MatchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+
+        The exact matching logic is (in order):
+          1. If ANY matchCondition evaluates to FALSE, the webhook is skipped.
+          2. If ALL matchConditions evaluate to TRUE, the webhook is called.
+          3. If any matchCondition evaluates to an error (but none are FALSE):
+             - If failurePolicy=Fail, reject the request
+             - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
+
+        This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+        """
+        return pulumi.get(self, "match_conditions")
 
     @property
     @pulumi.getter(name="matchPolicy")

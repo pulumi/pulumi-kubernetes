@@ -70,7 +70,7 @@ public final class PodStatusPatch {
      */
     private @Nullable List<PodIPPatch> podIPs;
     /**
-     * @return The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md
+     * @return The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/#quality-of-service-classes
      * 
      */
     private @Nullable String qosClass;
@@ -79,6 +79,11 @@ public final class PodStatusPatch {
      * 
      */
     private @Nullable String reason;
+    /**
+     * @return Status of resources resize desired for pod&#39;s containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to &#34;Proposed&#34;
+     * 
+     */
+    private @Nullable String resize;
     /**
      * @return RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.
      * 
@@ -161,7 +166,7 @@ public final class PodStatusPatch {
         return this.podIPs == null ? List.of() : this.podIPs;
     }
     /**
-     * @return The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md
+     * @return The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/#quality-of-service-classes
      * 
      */
     public Optional<String> qosClass() {
@@ -173,6 +178,13 @@ public final class PodStatusPatch {
      */
     public Optional<String> reason() {
         return Optional.ofNullable(this.reason);
+    }
+    /**
+     * @return Status of resources resize desired for pod&#39;s containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to &#34;Proposed&#34;
+     * 
+     */
+    public Optional<String> resize() {
+        return Optional.ofNullable(this.resize);
     }
     /**
      * @return RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.
@@ -203,6 +215,7 @@ public final class PodStatusPatch {
         private @Nullable List<PodIPPatch> podIPs;
         private @Nullable String qosClass;
         private @Nullable String reason;
+        private @Nullable String resize;
         private @Nullable String startTime;
         public Builder() {}
         public Builder(PodStatusPatch defaults) {
@@ -219,6 +232,7 @@ public final class PodStatusPatch {
     	      this.podIPs = defaults.podIPs;
     	      this.qosClass = defaults.qosClass;
     	      this.reason = defaults.reason;
+    	      this.resize = defaults.resize;
     	      this.startTime = defaults.startTime;
         }
 
@@ -298,6 +312,11 @@ public final class PodStatusPatch {
             return this;
         }
         @CustomType.Setter
+        public Builder resize(@Nullable String resize) {
+            this.resize = resize;
+            return this;
+        }
+        @CustomType.Setter
         public Builder startTime(@Nullable String startTime) {
             this.startTime = startTime;
             return this;
@@ -316,6 +335,7 @@ public final class PodStatusPatch {
             o.podIPs = podIPs;
             o.qosClass = qosClass;
             o.reason = reason;
+            o.resize = resize;
             o.startTime = startTime;
             return o;
         }

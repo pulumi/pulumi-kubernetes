@@ -68,14 +68,14 @@ public final class ReplicationControllerSpecArgs extends com.pulumi.resources.Re
     }
 
     /**
-     * Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+     * Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. The only allowed template.spec.restartPolicy value is &#34;Always&#34;. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
      * 
      */
     @Import(name="template")
     private @Nullable Output<PodTemplateSpecArgs> template;
 
     /**
-     * @return Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+     * @return Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. The only allowed template.spec.restartPolicy value is &#34;Always&#34;. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
      * 
      */
     public Optional<Output<PodTemplateSpecArgs>> template() {
@@ -173,7 +173,7 @@ public final class ReplicationControllerSpecArgs extends com.pulumi.resources.Re
         }
 
         /**
-         * @param template Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+         * @param template Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. The only allowed template.spec.restartPolicy value is &#34;Always&#34;. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
          * 
          * @return builder
          * 
@@ -184,7 +184,7 @@ public final class ReplicationControllerSpecArgs extends com.pulumi.resources.Re
         }
 
         /**
-         * @param template Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+         * @param template Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. The only allowed template.spec.restartPolicy value is &#34;Always&#34;. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
          * 
          * @return builder
          * 

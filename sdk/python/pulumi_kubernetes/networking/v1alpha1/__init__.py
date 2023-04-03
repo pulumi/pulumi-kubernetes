@@ -8,5 +8,8 @@ import typing
 from .ClusterCIDR import *
 from .ClusterCIDRList import *
 from .ClusterCIDRPatch import *
+from .IPAddress import *
+from .IPAddressList import *
+from .IPAddressPatch import *
 from ._inputs import *
 from . import outputs

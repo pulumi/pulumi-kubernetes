@@ -6,6 +6,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.kubernetes.core.v1.inputs.ContainerPortPatchArgs;
+import com.pulumi.kubernetes.core.v1.inputs.ContainerResizePolicyPatchArgs;
 import com.pulumi.kubernetes.core.v1.inputs.EnvFromSourcePatchArgs;
 import com.pulumi.kubernetes.core.v1.inputs.EnvVarPatchArgs;
 import com.pulumi.kubernetes.core.v1.inputs.LifecyclePatchArgs;
@@ -196,6 +197,21 @@ public final class ContainerPatchArgs extends com.pulumi.resources.ResourceArgs 
     }
 
     /**
+     * Resources resize policy for the container.
+     * 
+     */
+    @Import(name="resizePolicy")
+    private @Nullable Output<List<ContainerResizePolicyPatchArgs>> resizePolicy;
+
+    /**
+     * @return Resources resize policy for the container.
+     * 
+     */
+    public Optional<Output<List<ContainerResizePolicyPatchArgs>>> resizePolicy() {
+        return Optional.ofNullable(this.resizePolicy);
+    }
+
+    /**
      * Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
      * 
      */
@@ -374,6 +390,7 @@ public final class ContainerPatchArgs extends com.pulumi.resources.ResourceArgs 
         this.name = $.name;
         this.ports = $.ports;
         this.readinessProbe = $.readinessProbe;
+        this.resizePolicy = $.resizePolicy;
         this.resources = $.resources;
         this.securityContext = $.securityContext;
         this.startupProbe = $.startupProbe;
@@ -684,6 +701,37 @@ public final class ContainerPatchArgs extends com.pulumi.resources.ResourceArgs 
          */
         public Builder readinessProbe(ProbePatchArgs readinessProbe) {
             return readinessProbe(Output.of(readinessProbe));
+        }
+
+        /**
+         * @param resizePolicy Resources resize policy for the container.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder resizePolicy(@Nullable Output<List<ContainerResizePolicyPatchArgs>> resizePolicy) {
+            $.resizePolicy = resizePolicy;
+            return this;
+        }
+
+        /**
+         * @param resizePolicy Resources resize policy for the container.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder resizePolicy(List<ContainerResizePolicyPatchArgs> resizePolicy) {
+            return resizePolicy(Output.of(resizePolicy));
+        }
+
+        /**
+         * @param resizePolicy Resources resize policy for the container.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder resizePolicy(ContainerResizePolicyPatchArgs... resizePolicy) {
+            return resizePolicy(List.of(resizePolicy));
         }
 
         /**

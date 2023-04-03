@@ -17,7 +17,7 @@ import (
 // Conflicts will result in an error by default, but can be forced using the "pulumi.com/patchForce" annotation. See the
 // [Server-Side Apply Docs](https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/managing-resources-with-server-side-apply/) for
 // additional information about using Server-Side Apply to manage Kubernetes resources with Pulumi.
-// SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.
+// SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.  If impersonation or request header authentication is used, any extra keys will have their case ignored and returned as lowercase.
 type SelfSubjectReviewPatch struct {
 	pulumi.CustomResourceState
 
@@ -40,6 +40,12 @@ func NewSelfSubjectReviewPatch(ctx *pulumi.Context,
 
 	args.ApiVersion = pulumi.StringPtr("authentication.k8s.io/v1alpha1")
 	args.Kind = pulumi.StringPtr("SelfSubjectReview")
+	aliases := pulumi.Aliases([]pulumi.Alias{
+		{
+			Type: pulumi.String("kubernetes:authentication.k8s.io/v1beta1:SelfSubjectReviewPatch"),
+		},
+	})
+	opts = append(opts, aliases)
 	var resource SelfSubjectReviewPatch
 	err := ctx.RegisterResource("kubernetes:authentication.k8s.io/v1alpha1:SelfSubjectReviewPatch", name, args, &resource, opts...)
 	if err != nil {

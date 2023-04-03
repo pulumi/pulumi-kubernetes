@@ -2385,7 +2385,7 @@ type CSIPersistentVolumeSource struct {
 	Driver string `pulumi:"driver"`
 	// fsType to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
 	FsType *string `pulumi:"fsType"`
-	// nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is an alpha field and requires enabling CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+	// nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is a beta field which is enabled default by CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 	NodeExpandSecretRef *SecretReference `pulumi:"nodeExpandSecretRef"`
 	// nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 	NodePublishSecretRef *SecretReference `pulumi:"nodePublishSecretRef"`
@@ -2420,7 +2420,7 @@ type CSIPersistentVolumeSourceArgs struct {
 	Driver pulumi.StringInput `pulumi:"driver"`
 	// fsType to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
 	FsType pulumi.StringPtrInput `pulumi:"fsType"`
-	// nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is an alpha field and requires enabling CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+	// nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is a beta field which is enabled default by CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 	NodeExpandSecretRef SecretReferencePtrInput `pulumi:"nodeExpandSecretRef"`
 	// nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 	NodePublishSecretRef SecretReferencePtrInput `pulumi:"nodePublishSecretRef"`
@@ -2532,7 +2532,7 @@ func (o CSIPersistentVolumeSourceOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CSIPersistentVolumeSource) *string { return v.FsType }).(pulumi.StringPtrOutput)
 }
 
-// nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is an alpha field and requires enabling CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+// nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is a beta field which is enabled default by CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 func (o CSIPersistentVolumeSourceOutput) NodeExpandSecretRef() SecretReferencePtrOutput {
 	return o.ApplyT(func(v CSIPersistentVolumeSource) *SecretReference { return v.NodeExpandSecretRef }).(SecretReferencePtrOutput)
 }
@@ -2626,7 +2626,7 @@ func (o CSIPersistentVolumeSourcePtrOutput) FsType() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is an alpha field and requires enabling CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+// nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is a beta field which is enabled default by CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 func (o CSIPersistentVolumeSourcePtrOutput) NodeExpandSecretRef() SecretReferencePtrOutput {
 	return o.ApplyT(func(v *CSIPersistentVolumeSource) *SecretReference {
 		if v == nil {
@@ -2696,7 +2696,7 @@ type CSIPersistentVolumeSourcePatch struct {
 	Driver *string `pulumi:"driver"`
 	// fsType to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
 	FsType *string `pulumi:"fsType"`
-	// nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is an alpha field and requires enabling CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+	// nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is a beta field which is enabled default by CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 	NodeExpandSecretRef *SecretReferencePatch `pulumi:"nodeExpandSecretRef"`
 	// nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 	NodePublishSecretRef *SecretReferencePatch `pulumi:"nodePublishSecretRef"`
@@ -2731,7 +2731,7 @@ type CSIPersistentVolumeSourcePatchArgs struct {
 	Driver pulumi.StringPtrInput `pulumi:"driver"`
 	// fsType to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
 	FsType pulumi.StringPtrInput `pulumi:"fsType"`
-	// nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is an alpha field and requires enabling CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+	// nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is a beta field which is enabled default by CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 	NodeExpandSecretRef SecretReferencePatchPtrInput `pulumi:"nodeExpandSecretRef"`
 	// nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 	NodePublishSecretRef SecretReferencePatchPtrInput `pulumi:"nodePublishSecretRef"`
@@ -2843,7 +2843,7 @@ func (o CSIPersistentVolumeSourcePatchOutput) FsType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CSIPersistentVolumeSourcePatch) *string { return v.FsType }).(pulumi.StringPtrOutput)
 }
 
-// nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is an alpha field and requires enabling CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+// nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is a beta field which is enabled default by CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 func (o CSIPersistentVolumeSourcePatchOutput) NodeExpandSecretRef() SecretReferencePatchPtrOutput {
 	return o.ApplyT(func(v CSIPersistentVolumeSourcePatch) *SecretReferencePatch { return v.NodeExpandSecretRef }).(SecretReferencePatchPtrOutput)
 }
@@ -2937,7 +2937,7 @@ func (o CSIPersistentVolumeSourcePatchPtrOutput) FsType() pulumi.StringPtrOutput
 	}).(pulumi.StringPtrOutput)
 }
 
-// nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is an alpha field and requires enabling CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+// nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is a beta field which is enabled default by CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 func (o CSIPersistentVolumeSourcePatchPtrOutput) NodeExpandSecretRef() SecretReferencePatchPtrOutput {
 	return o.ApplyT(func(v *CSIPersistentVolumeSourcePatch) *SecretReferencePatch {
 		if v == nil {
@@ -8921,6 +8921,8 @@ type Container struct {
 	Ports []ContainerPort `pulumi:"ports"`
 	// Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
 	ReadinessProbe *Probe `pulumi:"readinessProbe"`
+	// Resources resize policy for the container.
+	ResizePolicy []ContainerResizePolicy `pulumi:"resizePolicy"`
 	// Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
 	Resources *ResourceRequirements `pulumi:"resources"`
 	// SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
@@ -8980,6 +8982,8 @@ type ContainerArgs struct {
 	Ports ContainerPortArrayInput `pulumi:"ports"`
 	// Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
 	ReadinessProbe ProbePtrInput `pulumi:"readinessProbe"`
+	// Resources resize policy for the container.
+	ResizePolicy ContainerResizePolicyArrayInput `pulumi:"resizePolicy"`
 	// Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
 	Resources ResourceRequirementsPtrInput `pulumi:"resources"`
 	// SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
@@ -9109,6 +9113,11 @@ func (o ContainerOutput) Ports() ContainerPortArrayOutput {
 // Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
 func (o ContainerOutput) ReadinessProbe() ProbePtrOutput {
 	return o.ApplyT(func(v Container) *Probe { return v.ReadinessProbe }).(ProbePtrOutput)
+}
+
+// Resources resize policy for the container.
+func (o ContainerOutput) ResizePolicy() ContainerResizePolicyArrayOutput {
+	return o.ApplyT(func(v Container) []ContainerResizePolicy { return v.ResizePolicy }).(ContainerResizePolicyArrayOutput)
 }
 
 // Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
@@ -9428,6 +9437,8 @@ type ContainerPatch struct {
 	Ports []ContainerPortPatch `pulumi:"ports"`
 	// Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
 	ReadinessProbe *ProbePatch `pulumi:"readinessProbe"`
+	// Resources resize policy for the container.
+	ResizePolicy []ContainerResizePolicyPatch `pulumi:"resizePolicy"`
 	// Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
 	Resources *ResourceRequirementsPatch `pulumi:"resources"`
 	// SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
@@ -9487,6 +9498,8 @@ type ContainerPatchArgs struct {
 	Ports ContainerPortPatchArrayInput `pulumi:"ports"`
 	// Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
 	ReadinessProbe ProbePatchPtrInput `pulumi:"readinessProbe"`
+	// Resources resize policy for the container.
+	ResizePolicy ContainerResizePolicyPatchArrayInput `pulumi:"resizePolicy"`
 	// Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
 	Resources ResourceRequirementsPatchPtrInput `pulumi:"resources"`
 	// SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
@@ -9616,6 +9629,11 @@ func (o ContainerPatchOutput) Ports() ContainerPortPatchArrayOutput {
 // Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
 func (o ContainerPatchOutput) ReadinessProbe() ProbePatchPtrOutput {
 	return o.ApplyT(func(v ContainerPatch) *ProbePatch { return v.ReadinessProbe }).(ProbePatchPtrOutput)
+}
+
+// Resources resize policy for the container.
+func (o ContainerPatchOutput) ResizePolicy() ContainerResizePolicyPatchArrayOutput {
+	return o.ApplyT(func(v ContainerPatch) []ContainerResizePolicyPatch { return v.ResizePolicy }).(ContainerResizePolicyPatchArrayOutput)
 }
 
 // Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
@@ -9963,6 +9981,224 @@ func (o ContainerPortPatchArrayOutput) Index(i pulumi.IntInput) ContainerPortPat
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ContainerPortPatch {
 		return vs[0].([]ContainerPortPatch)[vs[1].(int)]
 	}).(ContainerPortPatchOutput)
+}
+
+// ContainerResizePolicy represents resource resize policy for the container.
+type ContainerResizePolicy struct {
+	// Name of the resource to which this resource resize policy applies. Supported values: cpu, memory.
+	ResourceName string `pulumi:"resourceName"`
+	// Restart policy to apply when specified resource is resized. If not specified, it defaults to NotRequired.
+	RestartPolicy string `pulumi:"restartPolicy"`
+}
+
+// ContainerResizePolicyInput is an input type that accepts ContainerResizePolicyArgs and ContainerResizePolicyOutput values.
+// You can construct a concrete instance of `ContainerResizePolicyInput` via:
+//
+//	ContainerResizePolicyArgs{...}
+type ContainerResizePolicyInput interface {
+	pulumi.Input
+
+	ToContainerResizePolicyOutput() ContainerResizePolicyOutput
+	ToContainerResizePolicyOutputWithContext(context.Context) ContainerResizePolicyOutput
+}
+
+// ContainerResizePolicy represents resource resize policy for the container.
+type ContainerResizePolicyArgs struct {
+	// Name of the resource to which this resource resize policy applies. Supported values: cpu, memory.
+	ResourceName pulumi.StringInput `pulumi:"resourceName"`
+	// Restart policy to apply when specified resource is resized. If not specified, it defaults to NotRequired.
+	RestartPolicy pulumi.StringInput `pulumi:"restartPolicy"`
+}
+
+func (ContainerResizePolicyArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContainerResizePolicy)(nil)).Elem()
+}
+
+func (i ContainerResizePolicyArgs) ToContainerResizePolicyOutput() ContainerResizePolicyOutput {
+	return i.ToContainerResizePolicyOutputWithContext(context.Background())
+}
+
+func (i ContainerResizePolicyArgs) ToContainerResizePolicyOutputWithContext(ctx context.Context) ContainerResizePolicyOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContainerResizePolicyOutput)
+}
+
+// ContainerResizePolicyArrayInput is an input type that accepts ContainerResizePolicyArray and ContainerResizePolicyArrayOutput values.
+// You can construct a concrete instance of `ContainerResizePolicyArrayInput` via:
+//
+//	ContainerResizePolicyArray{ ContainerResizePolicyArgs{...} }
+type ContainerResizePolicyArrayInput interface {
+	pulumi.Input
+
+	ToContainerResizePolicyArrayOutput() ContainerResizePolicyArrayOutput
+	ToContainerResizePolicyArrayOutputWithContext(context.Context) ContainerResizePolicyArrayOutput
+}
+
+type ContainerResizePolicyArray []ContainerResizePolicyInput
+
+func (ContainerResizePolicyArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ContainerResizePolicy)(nil)).Elem()
+}
+
+func (i ContainerResizePolicyArray) ToContainerResizePolicyArrayOutput() ContainerResizePolicyArrayOutput {
+	return i.ToContainerResizePolicyArrayOutputWithContext(context.Background())
+}
+
+func (i ContainerResizePolicyArray) ToContainerResizePolicyArrayOutputWithContext(ctx context.Context) ContainerResizePolicyArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContainerResizePolicyArrayOutput)
+}
+
+// ContainerResizePolicy represents resource resize policy for the container.
+type ContainerResizePolicyOutput struct{ *pulumi.OutputState }
+
+func (ContainerResizePolicyOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContainerResizePolicy)(nil)).Elem()
+}
+
+func (o ContainerResizePolicyOutput) ToContainerResizePolicyOutput() ContainerResizePolicyOutput {
+	return o
+}
+
+func (o ContainerResizePolicyOutput) ToContainerResizePolicyOutputWithContext(ctx context.Context) ContainerResizePolicyOutput {
+	return o
+}
+
+// Name of the resource to which this resource resize policy applies. Supported values: cpu, memory.
+func (o ContainerResizePolicyOutput) ResourceName() pulumi.StringOutput {
+	return o.ApplyT(func(v ContainerResizePolicy) string { return v.ResourceName }).(pulumi.StringOutput)
+}
+
+// Restart policy to apply when specified resource is resized. If not specified, it defaults to NotRequired.
+func (o ContainerResizePolicyOutput) RestartPolicy() pulumi.StringOutput {
+	return o.ApplyT(func(v ContainerResizePolicy) string { return v.RestartPolicy }).(pulumi.StringOutput)
+}
+
+type ContainerResizePolicyArrayOutput struct{ *pulumi.OutputState }
+
+func (ContainerResizePolicyArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ContainerResizePolicy)(nil)).Elem()
+}
+
+func (o ContainerResizePolicyArrayOutput) ToContainerResizePolicyArrayOutput() ContainerResizePolicyArrayOutput {
+	return o
+}
+
+func (o ContainerResizePolicyArrayOutput) ToContainerResizePolicyArrayOutputWithContext(ctx context.Context) ContainerResizePolicyArrayOutput {
+	return o
+}
+
+func (o ContainerResizePolicyArrayOutput) Index(i pulumi.IntInput) ContainerResizePolicyOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ContainerResizePolicy {
+		return vs[0].([]ContainerResizePolicy)[vs[1].(int)]
+	}).(ContainerResizePolicyOutput)
+}
+
+// ContainerResizePolicy represents resource resize policy for the container.
+type ContainerResizePolicyPatch struct {
+	// Name of the resource to which this resource resize policy applies. Supported values: cpu, memory.
+	ResourceName *string `pulumi:"resourceName"`
+	// Restart policy to apply when specified resource is resized. If not specified, it defaults to NotRequired.
+	RestartPolicy *string `pulumi:"restartPolicy"`
+}
+
+// ContainerResizePolicyPatchInput is an input type that accepts ContainerResizePolicyPatchArgs and ContainerResizePolicyPatchOutput values.
+// You can construct a concrete instance of `ContainerResizePolicyPatchInput` via:
+//
+//	ContainerResizePolicyPatchArgs{...}
+type ContainerResizePolicyPatchInput interface {
+	pulumi.Input
+
+	ToContainerResizePolicyPatchOutput() ContainerResizePolicyPatchOutput
+	ToContainerResizePolicyPatchOutputWithContext(context.Context) ContainerResizePolicyPatchOutput
+}
+
+// ContainerResizePolicy represents resource resize policy for the container.
+type ContainerResizePolicyPatchArgs struct {
+	// Name of the resource to which this resource resize policy applies. Supported values: cpu, memory.
+	ResourceName pulumi.StringPtrInput `pulumi:"resourceName"`
+	// Restart policy to apply when specified resource is resized. If not specified, it defaults to NotRequired.
+	RestartPolicy pulumi.StringPtrInput `pulumi:"restartPolicy"`
+}
+
+func (ContainerResizePolicyPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContainerResizePolicyPatch)(nil)).Elem()
+}
+
+func (i ContainerResizePolicyPatchArgs) ToContainerResizePolicyPatchOutput() ContainerResizePolicyPatchOutput {
+	return i.ToContainerResizePolicyPatchOutputWithContext(context.Background())
+}
+
+func (i ContainerResizePolicyPatchArgs) ToContainerResizePolicyPatchOutputWithContext(ctx context.Context) ContainerResizePolicyPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContainerResizePolicyPatchOutput)
+}
+
+// ContainerResizePolicyPatchArrayInput is an input type that accepts ContainerResizePolicyPatchArray and ContainerResizePolicyPatchArrayOutput values.
+// You can construct a concrete instance of `ContainerResizePolicyPatchArrayInput` via:
+//
+//	ContainerResizePolicyPatchArray{ ContainerResizePolicyPatchArgs{...} }
+type ContainerResizePolicyPatchArrayInput interface {
+	pulumi.Input
+
+	ToContainerResizePolicyPatchArrayOutput() ContainerResizePolicyPatchArrayOutput
+	ToContainerResizePolicyPatchArrayOutputWithContext(context.Context) ContainerResizePolicyPatchArrayOutput
+}
+
+type ContainerResizePolicyPatchArray []ContainerResizePolicyPatchInput
+
+func (ContainerResizePolicyPatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ContainerResizePolicyPatch)(nil)).Elem()
+}
+
+func (i ContainerResizePolicyPatchArray) ToContainerResizePolicyPatchArrayOutput() ContainerResizePolicyPatchArrayOutput {
+	return i.ToContainerResizePolicyPatchArrayOutputWithContext(context.Background())
+}
+
+func (i ContainerResizePolicyPatchArray) ToContainerResizePolicyPatchArrayOutputWithContext(ctx context.Context) ContainerResizePolicyPatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ContainerResizePolicyPatchArrayOutput)
+}
+
+// ContainerResizePolicy represents resource resize policy for the container.
+type ContainerResizePolicyPatchOutput struct{ *pulumi.OutputState }
+
+func (ContainerResizePolicyPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ContainerResizePolicyPatch)(nil)).Elem()
+}
+
+func (o ContainerResizePolicyPatchOutput) ToContainerResizePolicyPatchOutput() ContainerResizePolicyPatchOutput {
+	return o
+}
+
+func (o ContainerResizePolicyPatchOutput) ToContainerResizePolicyPatchOutputWithContext(ctx context.Context) ContainerResizePolicyPatchOutput {
+	return o
+}
+
+// Name of the resource to which this resource resize policy applies. Supported values: cpu, memory.
+func (o ContainerResizePolicyPatchOutput) ResourceName() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContainerResizePolicyPatch) *string { return v.ResourceName }).(pulumi.StringPtrOutput)
+}
+
+// Restart policy to apply when specified resource is resized. If not specified, it defaults to NotRequired.
+func (o ContainerResizePolicyPatchOutput) RestartPolicy() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ContainerResizePolicyPatch) *string { return v.RestartPolicy }).(pulumi.StringPtrOutput)
+}
+
+type ContainerResizePolicyPatchArrayOutput struct{ *pulumi.OutputState }
+
+func (ContainerResizePolicyPatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ContainerResizePolicyPatch)(nil)).Elem()
+}
+
+func (o ContainerResizePolicyPatchArrayOutput) ToContainerResizePolicyPatchArrayOutput() ContainerResizePolicyPatchArrayOutput {
+	return o
+}
+
+func (o ContainerResizePolicyPatchArrayOutput) ToContainerResizePolicyPatchArrayOutputWithContext(ctx context.Context) ContainerResizePolicyPatchArrayOutput {
+	return o
+}
+
+func (o ContainerResizePolicyPatchArrayOutput) Index(i pulumi.IntInput) ContainerResizePolicyPatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ContainerResizePolicyPatch {
+		return vs[0].([]ContainerResizePolicyPatch)[vs[1].(int)]
+	}).(ContainerResizePolicyPatchOutput)
 }
 
 // ContainerState holds a possible state of container. Only one of its members may be specified. If none of them is specified, the default one is ContainerStateWaiting.
@@ -11429,23 +11665,29 @@ func (o ContainerStateWaitingPatchPtrOutput) Reason() pulumi.StringPtrOutput {
 
 // ContainerStatus contains details for the current status of this container.
 type ContainerStatus struct {
-	// Container's ID in the format '<type>://<container_id>'.
+	// AllocatedResources represents the compute resources allocated for this container by the node. Kubelet sets this value to Container.Resources.Requests upon successful pod admission and after successfully admitting desired pod resize.
+	AllocatedResources map[string]string `pulumi:"allocatedResources"`
+	// ContainerID is the ID of the container in the format '<type>://<container_id>'. Where type is a container runtime identifier, returned from Version call of CRI API (for example "containerd").
 	ContainerID *string `pulumi:"containerID"`
-	// The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images.
+	// Image is the name of container image that the container is running. The container image may not match the image used in the PodSpec, as it may have been resolved by the runtime. More info: https://kubernetes.io/docs/concepts/containers/images.
 	Image string `pulumi:"image"`
-	// ImageID of the container's image.
+	// ImageID is the image ID of the container's image. The image ID may not match the image ID of the image used in the PodSpec, as it may have been resolved by the runtime.
 	ImageID string `pulumi:"imageID"`
-	// Details about the container's last termination condition.
+	// LastTerminationState holds the last termination state of the container to help debug container crashes and restarts. This field is not populated if the container is still running and RestartCount is 0.
 	LastState *ContainerState `pulumi:"lastState"`
-	// This must be a DNS_LABEL. Each container in a pod must have a unique name. Cannot be updated.
+	// Name is a DNS_LABEL representing the unique name of the container. Each container in a pod must have a unique name across all container types. Cannot be updated.
 	Name string `pulumi:"name"`
-	// Specifies whether the container has passed its readiness probe.
+	// Ready specifies whether the container is currently passing its readiness check. The value will change as readiness probes keep executing. If no readiness probes are specified, this field defaults to true once the container is fully started (see Started field).
+	//
+	// The value is typically used to determine whether a container is ready to accept traffic.
 	Ready bool `pulumi:"ready"`
-	// The number of times the container has been restarted.
+	// Resources represents the compute resource requests and limits that have been successfully enacted on the running container after it has been started or has been successfully resized.
+	Resources *ResourceRequirements `pulumi:"resources"`
+	// RestartCount holds the number of times the container has been restarted. Kubelet makes an effort to always increment the value, but there are cases when the state may be lost due to node restarts and then the value may be reset to 0. The value is never negative.
 	RestartCount int `pulumi:"restartCount"`
-	// Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is defined.
+	// Started indicates whether the container has finished its postStart lifecycle hook and passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. In both cases, startup probes will run again. Is always true when no startupProbe is defined and container is running and has passed the postStart lifecycle hook. The null value must be treated the same as false.
 	Started *bool `pulumi:"started"`
-	// Details about the container's current condition.
+	// State holds details about the container's current condition.
 	State *ContainerState `pulumi:"state"`
 }
 
@@ -11462,23 +11704,29 @@ type ContainerStatusInput interface {
 
 // ContainerStatus contains details for the current status of this container.
 type ContainerStatusArgs struct {
-	// Container's ID in the format '<type>://<container_id>'.
+	// AllocatedResources represents the compute resources allocated for this container by the node. Kubelet sets this value to Container.Resources.Requests upon successful pod admission and after successfully admitting desired pod resize.
+	AllocatedResources pulumi.StringMapInput `pulumi:"allocatedResources"`
+	// ContainerID is the ID of the container in the format '<type>://<container_id>'. Where type is a container runtime identifier, returned from Version call of CRI API (for example "containerd").
 	ContainerID pulumi.StringPtrInput `pulumi:"containerID"`
-	// The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images.
+	// Image is the name of container image that the container is running. The container image may not match the image used in the PodSpec, as it may have been resolved by the runtime. More info: https://kubernetes.io/docs/concepts/containers/images.
 	Image pulumi.StringInput `pulumi:"image"`
-	// ImageID of the container's image.
+	// ImageID is the image ID of the container's image. The image ID may not match the image ID of the image used in the PodSpec, as it may have been resolved by the runtime.
 	ImageID pulumi.StringInput `pulumi:"imageID"`
-	// Details about the container's last termination condition.
+	// LastTerminationState holds the last termination state of the container to help debug container crashes and restarts. This field is not populated if the container is still running and RestartCount is 0.
 	LastState ContainerStatePtrInput `pulumi:"lastState"`
-	// This must be a DNS_LABEL. Each container in a pod must have a unique name. Cannot be updated.
+	// Name is a DNS_LABEL representing the unique name of the container. Each container in a pod must have a unique name across all container types. Cannot be updated.
 	Name pulumi.StringInput `pulumi:"name"`
-	// Specifies whether the container has passed its readiness probe.
+	// Ready specifies whether the container is currently passing its readiness check. The value will change as readiness probes keep executing. If no readiness probes are specified, this field defaults to true once the container is fully started (see Started field).
+	//
+	// The value is typically used to determine whether a container is ready to accept traffic.
 	Ready pulumi.BoolInput `pulumi:"ready"`
-	// The number of times the container has been restarted.
+	// Resources represents the compute resource requests and limits that have been successfully enacted on the running container after it has been started or has been successfully resized.
+	Resources ResourceRequirementsPtrInput `pulumi:"resources"`
+	// RestartCount holds the number of times the container has been restarted. Kubelet makes an effort to always increment the value, but there are cases when the state may be lost due to node restarts and then the value may be reset to 0. The value is never negative.
 	RestartCount pulumi.IntInput `pulumi:"restartCount"`
-	// Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is defined.
+	// Started indicates whether the container has finished its postStart lifecycle hook and passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. In both cases, startup probes will run again. Is always true when no startupProbe is defined and container is running and has passed the postStart lifecycle hook. The null value must be treated the same as false.
 	Started pulumi.BoolPtrInput `pulumi:"started"`
-	// Details about the container's current condition.
+	// State holds details about the container's current condition.
 	State ContainerStatePtrInput `pulumi:"state"`
 }
 
@@ -11534,47 +11782,59 @@ func (o ContainerStatusOutput) ToContainerStatusOutputWithContext(ctx context.Co
 	return o
 }
 
-// Container's ID in the format '<type>://<container_id>'.
+// AllocatedResources represents the compute resources allocated for this container by the node. Kubelet sets this value to Container.Resources.Requests upon successful pod admission and after successfully admitting desired pod resize.
+func (o ContainerStatusOutput) AllocatedResources() pulumi.StringMapOutput {
+	return o.ApplyT(func(v ContainerStatus) map[string]string { return v.AllocatedResources }).(pulumi.StringMapOutput)
+}
+
+// ContainerID is the ID of the container in the format '<type>://<container_id>'. Where type is a container runtime identifier, returned from Version call of CRI API (for example "containerd").
 func (o ContainerStatusOutput) ContainerID() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ContainerStatus) *string { return v.ContainerID }).(pulumi.StringPtrOutput)
 }
 
-// The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images.
+// Image is the name of container image that the container is running. The container image may not match the image used in the PodSpec, as it may have been resolved by the runtime. More info: https://kubernetes.io/docs/concepts/containers/images.
 func (o ContainerStatusOutput) Image() pulumi.StringOutput {
 	return o.ApplyT(func(v ContainerStatus) string { return v.Image }).(pulumi.StringOutput)
 }
 
-// ImageID of the container's image.
+// ImageID is the image ID of the container's image. The image ID may not match the image ID of the image used in the PodSpec, as it may have been resolved by the runtime.
 func (o ContainerStatusOutput) ImageID() pulumi.StringOutput {
 	return o.ApplyT(func(v ContainerStatus) string { return v.ImageID }).(pulumi.StringOutput)
 }
 
-// Details about the container's last termination condition.
+// LastTerminationState holds the last termination state of the container to help debug container crashes and restarts. This field is not populated if the container is still running and RestartCount is 0.
 func (o ContainerStatusOutput) LastState() ContainerStatePtrOutput {
 	return o.ApplyT(func(v ContainerStatus) *ContainerState { return v.LastState }).(ContainerStatePtrOutput)
 }
 
-// This must be a DNS_LABEL. Each container in a pod must have a unique name. Cannot be updated.
+// Name is a DNS_LABEL representing the unique name of the container. Each container in a pod must have a unique name across all container types. Cannot be updated.
 func (o ContainerStatusOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v ContainerStatus) string { return v.Name }).(pulumi.StringOutput)
 }
 
-// Specifies whether the container has passed its readiness probe.
+// Ready specifies whether the container is currently passing its readiness check. The value will change as readiness probes keep executing. If no readiness probes are specified, this field defaults to true once the container is fully started (see Started field).
+//
+// The value is typically used to determine whether a container is ready to accept traffic.
 func (o ContainerStatusOutput) Ready() pulumi.BoolOutput {
 	return o.ApplyT(func(v ContainerStatus) bool { return v.Ready }).(pulumi.BoolOutput)
 }
 
-// The number of times the container has been restarted.
+// Resources represents the compute resource requests and limits that have been successfully enacted on the running container after it has been started or has been successfully resized.
+func (o ContainerStatusOutput) Resources() ResourceRequirementsPtrOutput {
+	return o.ApplyT(func(v ContainerStatus) *ResourceRequirements { return v.Resources }).(ResourceRequirementsPtrOutput)
+}
+
+// RestartCount holds the number of times the container has been restarted. Kubelet makes an effort to always increment the value, but there are cases when the state may be lost due to node restarts and then the value may be reset to 0. The value is never negative.
 func (o ContainerStatusOutput) RestartCount() pulumi.IntOutput {
 	return o.ApplyT(func(v ContainerStatus) int { return v.RestartCount }).(pulumi.IntOutput)
 }
 
-// Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is defined.
+// Started indicates whether the container has finished its postStart lifecycle hook and passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. In both cases, startup probes will run again. Is always true when no startupProbe is defined and container is running and has passed the postStart lifecycle hook. The null value must be treated the same as false.
 func (o ContainerStatusOutput) Started() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ContainerStatus) *bool { return v.Started }).(pulumi.BoolPtrOutput)
 }
 
-// Details about the container's current condition.
+// State holds details about the container's current condition.
 func (o ContainerStatusOutput) State() ContainerStatePtrOutput {
 	return o.ApplyT(func(v ContainerStatus) *ContainerState { return v.State }).(ContainerStatePtrOutput)
 }
@@ -11601,23 +11861,29 @@ func (o ContainerStatusArrayOutput) Index(i pulumi.IntInput) ContainerStatusOutp
 
 // ContainerStatus contains details for the current status of this container.
 type ContainerStatusPatch struct {
-	// Container's ID in the format '<type>://<container_id>'.
+	// AllocatedResources represents the compute resources allocated for this container by the node. Kubelet sets this value to Container.Resources.Requests upon successful pod admission and after successfully admitting desired pod resize.
+	AllocatedResources map[string]string `pulumi:"allocatedResources"`
+	// ContainerID is the ID of the container in the format '<type>://<container_id>'. Where type is a container runtime identifier, returned from Version call of CRI API (for example "containerd").
 	ContainerID *string `pulumi:"containerID"`
-	// The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images.
+	// Image is the name of container image that the container is running. The container image may not match the image used in the PodSpec, as it may have been resolved by the runtime. More info: https://kubernetes.io/docs/concepts/containers/images.
 	Image *string `pulumi:"image"`
-	// ImageID of the container's image.
+	// ImageID is the image ID of the container's image. The image ID may not match the image ID of the image used in the PodSpec, as it may have been resolved by the runtime.
 	ImageID *string `pulumi:"imageID"`
-	// Details about the container's last termination condition.
+	// LastTerminationState holds the last termination state of the container to help debug container crashes and restarts. This field is not populated if the container is still running and RestartCount is 0.
 	LastState *ContainerStatePatch `pulumi:"lastState"`
-	// This must be a DNS_LABEL. Each container in a pod must have a unique name. Cannot be updated.
+	// Name is a DNS_LABEL representing the unique name of the container. Each container in a pod must have a unique name across all container types. Cannot be updated.
 	Name *string `pulumi:"name"`
-	// Specifies whether the container has passed its readiness probe.
+	// Ready specifies whether the container is currently passing its readiness check. The value will change as readiness probes keep executing. If no readiness probes are specified, this field defaults to true once the container is fully started (see Started field).
+	//
+	// The value is typically used to determine whether a container is ready to accept traffic.
 	Ready *bool `pulumi:"ready"`
-	// The number of times the container has been restarted.
+	// Resources represents the compute resource requests and limits that have been successfully enacted on the running container after it has been started or has been successfully resized.
+	Resources *ResourceRequirementsPatch `pulumi:"resources"`
+	// RestartCount holds the number of times the container has been restarted. Kubelet makes an effort to always increment the value, but there are cases when the state may be lost due to node restarts and then the value may be reset to 0. The value is never negative.
 	RestartCount *int `pulumi:"restartCount"`
-	// Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is defined.
+	// Started indicates whether the container has finished its postStart lifecycle hook and passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. In both cases, startup probes will run again. Is always true when no startupProbe is defined and container is running and has passed the postStart lifecycle hook. The null value must be treated the same as false.
 	Started *bool `pulumi:"started"`
-	// Details about the container's current condition.
+	// State holds details about the container's current condition.
 	State *ContainerStatePatch `pulumi:"state"`
 }
 
@@ -11634,23 +11900,29 @@ type ContainerStatusPatchInput interface {
 
 // ContainerStatus contains details for the current status of this container.
 type ContainerStatusPatchArgs struct {
-	// Container's ID in the format '<type>://<container_id>'.
+	// AllocatedResources represents the compute resources allocated for this container by the node. Kubelet sets this value to Container.Resources.Requests upon successful pod admission and after successfully admitting desired pod resize.
+	AllocatedResources pulumi.StringMapInput `pulumi:"allocatedResources"`
+	// ContainerID is the ID of the container in the format '<type>://<container_id>'. Where type is a container runtime identifier, returned from Version call of CRI API (for example "containerd").
 	ContainerID pulumi.StringPtrInput `pulumi:"containerID"`
-	// The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images.
+	// Image is the name of container image that the container is running. The container image may not match the image used in the PodSpec, as it may have been resolved by the runtime. More info: https://kubernetes.io/docs/concepts/containers/images.
 	Image pulumi.StringPtrInput `pulumi:"image"`
-	// ImageID of the container's image.
+	// ImageID is the image ID of the container's image. The image ID may not match the image ID of the image used in the PodSpec, as it may have been resolved by the runtime.
 	ImageID pulumi.StringPtrInput `pulumi:"imageID"`
-	// Details about the container's last termination condition.
+	// LastTerminationState holds the last termination state of the container to help debug container crashes and restarts. This field is not populated if the container is still running and RestartCount is 0.
 	LastState ContainerStatePatchPtrInput `pulumi:"lastState"`
-	// This must be a DNS_LABEL. Each container in a pod must have a unique name. Cannot be updated.
+	// Name is a DNS_LABEL representing the unique name of the container. Each container in a pod must have a unique name across all container types. Cannot be updated.
 	Name pulumi.StringPtrInput `pulumi:"name"`
-	// Specifies whether the container has passed its readiness probe.
+	// Ready specifies whether the container is currently passing its readiness check. The value will change as readiness probes keep executing. If no readiness probes are specified, this field defaults to true once the container is fully started (see Started field).
+	//
+	// The value is typically used to determine whether a container is ready to accept traffic.
 	Ready pulumi.BoolPtrInput `pulumi:"ready"`
-	// The number of times the container has been restarted.
+	// Resources represents the compute resource requests and limits that have been successfully enacted on the running container after it has been started or has been successfully resized.
+	Resources ResourceRequirementsPatchPtrInput `pulumi:"resources"`
+	// RestartCount holds the number of times the container has been restarted. Kubelet makes an effort to always increment the value, but there are cases when the state may be lost due to node restarts and then the value may be reset to 0. The value is never negative.
 	RestartCount pulumi.IntPtrInput `pulumi:"restartCount"`
-	// Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is defined.
+	// Started indicates whether the container has finished its postStart lifecycle hook and passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. In both cases, startup probes will run again. Is always true when no startupProbe is defined and container is running and has passed the postStart lifecycle hook. The null value must be treated the same as false.
 	Started pulumi.BoolPtrInput `pulumi:"started"`
-	// Details about the container's current condition.
+	// State holds details about the container's current condition.
 	State ContainerStatePatchPtrInput `pulumi:"state"`
 }
 
@@ -11706,47 +11978,59 @@ func (o ContainerStatusPatchOutput) ToContainerStatusPatchOutputWithContext(ctx 
 	return o
 }
 
-// Container's ID in the format '<type>://<container_id>'.
+// AllocatedResources represents the compute resources allocated for this container by the node. Kubelet sets this value to Container.Resources.Requests upon successful pod admission and after successfully admitting desired pod resize.
+func (o ContainerStatusPatchOutput) AllocatedResources() pulumi.StringMapOutput {
+	return o.ApplyT(func(v ContainerStatusPatch) map[string]string { return v.AllocatedResources }).(pulumi.StringMapOutput)
+}
+
+// ContainerID is the ID of the container in the format '<type>://<container_id>'. Where type is a container runtime identifier, returned from Version call of CRI API (for example "containerd").
 func (o ContainerStatusPatchOutput) ContainerID() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ContainerStatusPatch) *string { return v.ContainerID }).(pulumi.StringPtrOutput)
 }
 
-// The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images.
+// Image is the name of container image that the container is running. The container image may not match the image used in the PodSpec, as it may have been resolved by the runtime. More info: https://kubernetes.io/docs/concepts/containers/images.
 func (o ContainerStatusPatchOutput) Image() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ContainerStatusPatch) *string { return v.Image }).(pulumi.StringPtrOutput)
 }
 
-// ImageID of the container's image.
+// ImageID is the image ID of the container's image. The image ID may not match the image ID of the image used in the PodSpec, as it may have been resolved by the runtime.
 func (o ContainerStatusPatchOutput) ImageID() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ContainerStatusPatch) *string { return v.ImageID }).(pulumi.StringPtrOutput)
 }
 
-// Details about the container's last termination condition.
+// LastTerminationState holds the last termination state of the container to help debug container crashes and restarts. This field is not populated if the container is still running and RestartCount is 0.
 func (o ContainerStatusPatchOutput) LastState() ContainerStatePatchPtrOutput {
 	return o.ApplyT(func(v ContainerStatusPatch) *ContainerStatePatch { return v.LastState }).(ContainerStatePatchPtrOutput)
 }
 
-// This must be a DNS_LABEL. Each container in a pod must have a unique name. Cannot be updated.
+// Name is a DNS_LABEL representing the unique name of the container. Each container in a pod must have a unique name across all container types. Cannot be updated.
 func (o ContainerStatusPatchOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ContainerStatusPatch) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-// Specifies whether the container has passed its readiness probe.
+// Ready specifies whether the container is currently passing its readiness check. The value will change as readiness probes keep executing. If no readiness probes are specified, this field defaults to true once the container is fully started (see Started field).
+//
+// The value is typically used to determine whether a container is ready to accept traffic.
 func (o ContainerStatusPatchOutput) Ready() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ContainerStatusPatch) *bool { return v.Ready }).(pulumi.BoolPtrOutput)
 }
 
-// The number of times the container has been restarted.
+// Resources represents the compute resource requests and limits that have been successfully enacted on the running container after it has been started or has been successfully resized.
+func (o ContainerStatusPatchOutput) Resources() ResourceRequirementsPatchPtrOutput {
+	return o.ApplyT(func(v ContainerStatusPatch) *ResourceRequirementsPatch { return v.Resources }).(ResourceRequirementsPatchPtrOutput)
+}
+
+// RestartCount holds the number of times the container has been restarted. Kubelet makes an effort to always increment the value, but there are cases when the state may be lost due to node restarts and then the value may be reset to 0. The value is never negative.
 func (o ContainerStatusPatchOutput) RestartCount() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ContainerStatusPatch) *int { return v.RestartCount }).(pulumi.IntPtrOutput)
 }
 
-// Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is defined.
+// Started indicates whether the container has finished its postStart lifecycle hook and passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. In both cases, startup probes will run again. Is always true when no startupProbe is defined and container is running and has passed the postStart lifecycle hook. The null value must be treated the same as false.
 func (o ContainerStatusPatchOutput) Started() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v ContainerStatusPatch) *bool { return v.Started }).(pulumi.BoolPtrOutput)
 }
 
-// Details about the container's current condition.
+// State holds details about the container's current condition.
 func (o ContainerStatusPatchOutput) State() ContainerStatePatchPtrOutput {
 	return o.ApplyT(func(v ContainerStatusPatch) *ContainerStatePatch { return v.State }).(ContainerStatePatchPtrOutput)
 }
@@ -12907,7 +13191,7 @@ func (o DownwardAPIVolumeSourcePatchPtrOutput) Items() DownwardAPIVolumeFilePatc
 type EmptyDirVolumeSource struct {
 	// medium represents what type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
 	Medium *string `pulumi:"medium"`
-	// sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: http://kubernetes.io/docs/user-guide/volumes#emptydir
+	// sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
 	SizeLimit *string `pulumi:"sizeLimit"`
 }
 
@@ -12926,7 +13210,7 @@ type EmptyDirVolumeSourceInput interface {
 type EmptyDirVolumeSourceArgs struct {
 	// medium represents what type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
 	Medium pulumi.StringPtrInput `pulumi:"medium"`
-	// sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: http://kubernetes.io/docs/user-guide/volumes#emptydir
+	// sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
 	SizeLimit pulumi.StringPtrInput `pulumi:"sizeLimit"`
 }
 
@@ -13013,7 +13297,7 @@ func (o EmptyDirVolumeSourceOutput) Medium() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EmptyDirVolumeSource) *string { return v.Medium }).(pulumi.StringPtrOutput)
 }
 
-// sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: http://kubernetes.io/docs/user-guide/volumes#emptydir
+// sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
 func (o EmptyDirVolumeSourceOutput) SizeLimit() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EmptyDirVolumeSource) *string { return v.SizeLimit }).(pulumi.StringPtrOutput)
 }
@@ -13052,7 +13336,7 @@ func (o EmptyDirVolumeSourcePtrOutput) Medium() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: http://kubernetes.io/docs/user-guide/volumes#emptydir
+// sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
 func (o EmptyDirVolumeSourcePtrOutput) SizeLimit() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *EmptyDirVolumeSource) *string {
 		if v == nil {
@@ -13066,7 +13350,7 @@ func (o EmptyDirVolumeSourcePtrOutput) SizeLimit() pulumi.StringPtrOutput {
 type EmptyDirVolumeSourcePatch struct {
 	// medium represents what type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
 	Medium *string `pulumi:"medium"`
-	// sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: http://kubernetes.io/docs/user-guide/volumes#emptydir
+	// sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
 	SizeLimit *string `pulumi:"sizeLimit"`
 }
 
@@ -13085,7 +13369,7 @@ type EmptyDirVolumeSourcePatchInput interface {
 type EmptyDirVolumeSourcePatchArgs struct {
 	// medium represents what type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
 	Medium pulumi.StringPtrInput `pulumi:"medium"`
-	// sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: http://kubernetes.io/docs/user-guide/volumes#emptydir
+	// sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
 	SizeLimit pulumi.StringPtrInput `pulumi:"sizeLimit"`
 }
 
@@ -13172,7 +13456,7 @@ func (o EmptyDirVolumeSourcePatchOutput) Medium() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EmptyDirVolumeSourcePatch) *string { return v.Medium }).(pulumi.StringPtrOutput)
 }
 
-// sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: http://kubernetes.io/docs/user-guide/volumes#emptydir
+// sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
 func (o EmptyDirVolumeSourcePatchOutput) SizeLimit() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EmptyDirVolumeSourcePatch) *string { return v.SizeLimit }).(pulumi.StringPtrOutput)
 }
@@ -13211,7 +13495,7 @@ func (o EmptyDirVolumeSourcePatchPtrOutput) Medium() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: http://kubernetes.io/docs/user-guide/volumes#emptydir
+// sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
 func (o EmptyDirVolumeSourcePatchPtrOutput) SizeLimit() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *EmptyDirVolumeSourcePatch) *string {
 		if v == nil {
@@ -13477,7 +13761,14 @@ func (o EndpointAddressPatchArrayOutput) Index(i pulumi.IntInput) EndpointAddres
 
 // EndpointPort is a tuple that describes a single port.
 type EndpointPort struct {
-	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+	// The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:
+	//
+	// * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
+	//
+	// * Kubernetes-defined prefixed names:
+	//   * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+	//
+	// * Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.
 	AppProtocol *string `pulumi:"appProtocol"`
 	// The name of this port.  This must match the 'name' field in the corresponding ServicePort. Must be a DNS_LABEL. Optional only if one port is defined.
 	Name *string `pulumi:"name"`
@@ -13500,7 +13791,14 @@ type EndpointPortInput interface {
 
 // EndpointPort is a tuple that describes a single port.
 type EndpointPortArgs struct {
-	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+	// The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:
+	//
+	// * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
+	//
+	// * Kubernetes-defined prefixed names:
+	//   * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+	//
+	// * Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.
 	AppProtocol pulumi.StringPtrInput `pulumi:"appProtocol"`
 	// The name of this port.  This must match the 'name' field in the corresponding ServicePort. Must be a DNS_LABEL. Optional only if one port is defined.
 	Name pulumi.StringPtrInput `pulumi:"name"`
@@ -13562,7 +13860,14 @@ func (o EndpointPortOutput) ToEndpointPortOutputWithContext(ctx context.Context)
 	return o
 }
 
-// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+// The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:
+//
+// * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
+//
+// * Kubernetes-defined prefixed names:
+//   - 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+//
+// * Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.
 func (o EndpointPortOutput) AppProtocol() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EndpointPort) *string { return v.AppProtocol }).(pulumi.StringPtrOutput)
 }
@@ -13604,7 +13909,14 @@ func (o EndpointPortArrayOutput) Index(i pulumi.IntInput) EndpointPortOutput {
 
 // EndpointPort is a tuple that describes a single port.
 type EndpointPortPatch struct {
-	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+	// The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:
+	//
+	// * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
+	//
+	// * Kubernetes-defined prefixed names:
+	//   * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+	//
+	// * Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.
 	AppProtocol *string `pulumi:"appProtocol"`
 	// The name of this port.  This must match the 'name' field in the corresponding ServicePort. Must be a DNS_LABEL. Optional only if one port is defined.
 	Name *string `pulumi:"name"`
@@ -13627,7 +13939,14 @@ type EndpointPortPatchInput interface {
 
 // EndpointPort is a tuple that describes a single port.
 type EndpointPortPatchArgs struct {
-	// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+	// The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:
+	//
+	// * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
+	//
+	// * Kubernetes-defined prefixed names:
+	//   * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+	//
+	// * Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.
 	AppProtocol pulumi.StringPtrInput `pulumi:"appProtocol"`
 	// The name of this port.  This must match the 'name' field in the corresponding ServicePort. Must be a DNS_LABEL. Optional only if one port is defined.
 	Name pulumi.StringPtrInput `pulumi:"name"`
@@ -13689,7 +14008,14 @@ func (o EndpointPortPatchOutput) ToEndpointPortPatchOutputWithContext(ctx contex
 	return o
 }
 
-// The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+// The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:
+//
+// * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
+//
+// * Kubernetes-defined prefixed names:
+//   - 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+//
+// * Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.
 func (o EndpointPortPatchOutput) AppProtocol() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v EndpointPortPatch) *string { return v.AppProtocol }).(pulumi.StringPtrOutput)
 }
@@ -15280,6 +15606,8 @@ type EphemeralContainer struct {
 	Ports []ContainerPort `pulumi:"ports"`
 	// Probes are not allowed for ephemeral containers.
 	ReadinessProbe *Probe `pulumi:"readinessProbe"`
+	// Resources resize policy for the container.
+	ResizePolicy []ContainerResizePolicy `pulumi:"resizePolicy"`
 	// Resources are not allowed for ephemeral containers. Ephemeral containers use spare resources already allocated to the pod.
 	Resources *ResourceRequirements `pulumi:"resources"`
 	// Optional: SecurityContext defines the security options the ephemeral container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext.
@@ -15345,6 +15673,8 @@ type EphemeralContainerArgs struct {
 	Ports ContainerPortArrayInput `pulumi:"ports"`
 	// Probes are not allowed for ephemeral containers.
 	ReadinessProbe ProbePtrInput `pulumi:"readinessProbe"`
+	// Resources resize policy for the container.
+	ResizePolicy ContainerResizePolicyArrayInput `pulumi:"resizePolicy"`
 	// Resources are not allowed for ephemeral containers. Ephemeral containers use spare resources already allocated to the pod.
 	Resources ResourceRequirementsPtrInput `pulumi:"resources"`
 	// Optional: SecurityContext defines the security options the ephemeral container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext.
@@ -15482,6 +15812,11 @@ func (o EphemeralContainerOutput) ReadinessProbe() ProbePtrOutput {
 	return o.ApplyT(func(v EphemeralContainer) *Probe { return v.ReadinessProbe }).(ProbePtrOutput)
 }
 
+// Resources resize policy for the container.
+func (o EphemeralContainerOutput) ResizePolicy() ContainerResizePolicyArrayOutput {
+	return o.ApplyT(func(v EphemeralContainer) []ContainerResizePolicy { return v.ResizePolicy }).(ContainerResizePolicyArrayOutput)
+}
+
 // Resources are not allowed for ephemeral containers. Ephemeral containers use spare resources already allocated to the pod.
 func (o EphemeralContainerOutput) Resources() ResourceRequirementsPtrOutput {
 	return o.ApplyT(func(v EphemeralContainer) *ResourceRequirements { return v.Resources }).(ResourceRequirementsPtrOutput)
@@ -15590,6 +15925,8 @@ type EphemeralContainerPatch struct {
 	Ports []ContainerPortPatch `pulumi:"ports"`
 	// Probes are not allowed for ephemeral containers.
 	ReadinessProbe *ProbePatch `pulumi:"readinessProbe"`
+	// Resources resize policy for the container.
+	ResizePolicy []ContainerResizePolicyPatch `pulumi:"resizePolicy"`
 	// Resources are not allowed for ephemeral containers. Ephemeral containers use spare resources already allocated to the pod.
 	Resources *ResourceRequirementsPatch `pulumi:"resources"`
 	// Optional: SecurityContext defines the security options the ephemeral container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext.
@@ -15655,6 +15992,8 @@ type EphemeralContainerPatchArgs struct {
 	Ports ContainerPortPatchArrayInput `pulumi:"ports"`
 	// Probes are not allowed for ephemeral containers.
 	ReadinessProbe ProbePatchPtrInput `pulumi:"readinessProbe"`
+	// Resources resize policy for the container.
+	ResizePolicy ContainerResizePolicyPatchArrayInput `pulumi:"resizePolicy"`
 	// Resources are not allowed for ephemeral containers. Ephemeral containers use spare resources already allocated to the pod.
 	Resources ResourceRequirementsPatchPtrInput `pulumi:"resources"`
 	// Optional: SecurityContext defines the security options the ephemeral container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext.
@@ -15790,6 +16129,11 @@ func (o EphemeralContainerPatchOutput) Ports() ContainerPortPatchArrayOutput {
 // Probes are not allowed for ephemeral containers.
 func (o EphemeralContainerPatchOutput) ReadinessProbe() ProbePatchPtrOutput {
 	return o.ApplyT(func(v EphemeralContainerPatch) *ProbePatch { return v.ReadinessProbe }).(ProbePatchPtrOutput)
+}
+
+// Resources resize policy for the container.
+func (o EphemeralContainerPatchOutput) ResizePolicy() ContainerResizePolicyPatchArrayOutput {
+	return o.ApplyT(func(v EphemeralContainerPatch) []ContainerResizePolicyPatch { return v.ResizePolicy }).(ContainerResizePolicyPatchArrayOutput)
 }
 
 // Resources are not allowed for ephemeral containers. Ephemeral containers use spare resources already allocated to the pod.
@@ -34229,7 +34573,7 @@ func (o PersistentVolumeClaimTypeArrayOutput) Index(i pulumi.IntInput) Persisten
 	}).(PersistentVolumeClaimTypeOutput)
 }
 
-// PersistentVolumeClaimCondition contails details about state of pvc
+// PersistentVolumeClaimCondition contains details about state of pvc
 type PersistentVolumeClaimCondition struct {
 	// lastProbeTime is the time we probed the condition.
 	LastProbeTime *string `pulumi:"lastProbeTime"`
@@ -34254,7 +34598,7 @@ type PersistentVolumeClaimConditionInput interface {
 	ToPersistentVolumeClaimConditionOutputWithContext(context.Context) PersistentVolumeClaimConditionOutput
 }
 
-// PersistentVolumeClaimCondition contails details about state of pvc
+// PersistentVolumeClaimCondition contains details about state of pvc
 type PersistentVolumeClaimConditionArgs struct {
 	// lastProbeTime is the time we probed the condition.
 	LastProbeTime pulumi.StringPtrInput `pulumi:"lastProbeTime"`
@@ -34305,7 +34649,7 @@ func (i PersistentVolumeClaimConditionArray) ToPersistentVolumeClaimConditionArr
 	return pulumi.ToOutputWithContext(ctx, i).(PersistentVolumeClaimConditionArrayOutput)
 }
 
-// PersistentVolumeClaimCondition contails details about state of pvc
+// PersistentVolumeClaimCondition contains details about state of pvc
 type PersistentVolumeClaimConditionOutput struct{ *pulumi.OutputState }
 
 func (PersistentVolumeClaimConditionOutput) ElementType() reflect.Type {
@@ -34368,7 +34712,7 @@ func (o PersistentVolumeClaimConditionArrayOutput) Index(i pulumi.IntInput) Pers
 	}).(PersistentVolumeClaimConditionOutput)
 }
 
-// PersistentVolumeClaimCondition contails details about state of pvc
+// PersistentVolumeClaimCondition contains details about state of pvc
 type PersistentVolumeClaimConditionPatch struct {
 	// lastProbeTime is the time we probed the condition.
 	LastProbeTime *string `pulumi:"lastProbeTime"`
@@ -34393,7 +34737,7 @@ type PersistentVolumeClaimConditionPatchInput interface {
 	ToPersistentVolumeClaimConditionPatchOutputWithContext(context.Context) PersistentVolumeClaimConditionPatchOutput
 }
 
-// PersistentVolumeClaimCondition contails details about state of pvc
+// PersistentVolumeClaimCondition contains details about state of pvc
 type PersistentVolumeClaimConditionPatchArgs struct {
 	// lastProbeTime is the time we probed the condition.
 	LastProbeTime pulumi.StringPtrInput `pulumi:"lastProbeTime"`
@@ -34444,7 +34788,7 @@ func (i PersistentVolumeClaimConditionPatchArray) ToPersistentVolumeClaimConditi
 	return pulumi.ToOutputWithContext(ctx, i).(PersistentVolumeClaimConditionPatchArrayOutput)
 }
 
-// PersistentVolumeClaimCondition contails details about state of pvc
+// PersistentVolumeClaimCondition contains details about state of pvc
 type PersistentVolumeClaimConditionPatchOutput struct{ *pulumi.OutputState }
 
 func (PersistentVolumeClaimConditionPatchOutput) ElementType() reflect.Type {
@@ -42768,15 +43112,17 @@ type PodSpec struct {
 	//
 	// This field is immutable.
 	ResourceClaims []PodResourceClaim `pulumi:"resourceClaims"`
-	// Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
+	// Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
 	RestartPolicy *string `pulumi:"restartPolicy"`
 	// RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the "legacy" RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. More info: https://git.k8s.io/enhancements/keps/sig-node/585-runtime-class
 	RuntimeClassName *string `pulumi:"runtimeClassName"`
 	// If specified, the pod will be dispatched by specified scheduler. If not specified, the pod will be dispatched by default scheduler.
 	SchedulerName *string `pulumi:"schedulerName"`
-	// SchedulingGates is an opaque list of values that if specified will block scheduling the pod. More info:  https://git.k8s.io/enhancements/keps/sig-scheduling/3521-pod-scheduling-readiness.
+	// SchedulingGates is an opaque list of values that if specified will block scheduling the pod. If schedulingGates is not empty, the pod will stay in the SchedulingGated state and the scheduler will not attempt to schedule the pod.
 	//
-	// This is an alpha-level feature enabled by PodSchedulingReadiness feature gate.
+	// SchedulingGates can only be set at pod creation time, and be removed only afterwards.
+	//
+	// This is a beta feature enabled by the PodSchedulingReadiness feature gate.
 	SchedulingGates []PodSchedulingGate `pulumi:"schedulingGates"`
 	// SecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty.  See type description for default values of each field.
 	SecurityContext *PodSecurityContext `pulumi:"securityContext"`
@@ -42871,15 +43217,17 @@ type PodSpecArgs struct {
 	//
 	// This field is immutable.
 	ResourceClaims PodResourceClaimArrayInput `pulumi:"resourceClaims"`
-	// Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
+	// Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
 	RestartPolicy pulumi.StringPtrInput `pulumi:"restartPolicy"`
 	// RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the "legacy" RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. More info: https://git.k8s.io/enhancements/keps/sig-node/585-runtime-class
 	RuntimeClassName pulumi.StringPtrInput `pulumi:"runtimeClassName"`
 	// If specified, the pod will be dispatched by specified scheduler. If not specified, the pod will be dispatched by default scheduler.
 	SchedulerName pulumi.StringPtrInput `pulumi:"schedulerName"`
-	// SchedulingGates is an opaque list of values that if specified will block scheduling the pod. More info:  https://git.k8s.io/enhancements/keps/sig-scheduling/3521-pod-scheduling-readiness.
+	// SchedulingGates is an opaque list of values that if specified will block scheduling the pod. If schedulingGates is not empty, the pod will stay in the SchedulingGated state and the scheduler will not attempt to schedule the pod.
 	//
-	// This is an alpha-level feature enabled by PodSchedulingReadiness feature gate.
+	// SchedulingGates can only be set at pod creation time, and be removed only afterwards.
+	//
+	// This is a beta feature enabled by the PodSchedulingReadiness feature gate.
 	SchedulingGates PodSchedulingGateArrayInput `pulumi:"schedulingGates"`
 	// SecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty.  See type description for default values of each field.
 	SecurityContext PodSecurityContextPtrInput `pulumi:"securityContext"`
@@ -43114,7 +43462,7 @@ func (o PodSpecOutput) ResourceClaims() PodResourceClaimArrayOutput {
 	return o.ApplyT(func(v PodSpec) []PodResourceClaim { return v.ResourceClaims }).(PodResourceClaimArrayOutput)
 }
 
-// Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
+// Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
 func (o PodSpecOutput) RestartPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodSpec) *string { return v.RestartPolicy }).(pulumi.StringPtrOutput)
 }
@@ -43129,9 +43477,11 @@ func (o PodSpecOutput) SchedulerName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodSpec) *string { return v.SchedulerName }).(pulumi.StringPtrOutput)
 }
 
-// SchedulingGates is an opaque list of values that if specified will block scheduling the pod. More info:  https://git.k8s.io/enhancements/keps/sig-scheduling/3521-pod-scheduling-readiness.
+// SchedulingGates is an opaque list of values that if specified will block scheduling the pod. If schedulingGates is not empty, the pod will stay in the SchedulingGated state and the scheduler will not attempt to schedule the pod.
 //
-// This is an alpha-level feature enabled by PodSchedulingReadiness feature gate.
+// SchedulingGates can only be set at pod creation time, and be removed only afterwards.
+//
+// This is a beta feature enabled by the PodSchedulingReadiness feature gate.
 func (o PodSpecOutput) SchedulingGates() PodSchedulingGateArrayOutput {
 	return o.ApplyT(func(v PodSpec) []PodSchedulingGate { return v.SchedulingGates }).(PodSchedulingGateArrayOutput)
 }
@@ -43468,7 +43818,7 @@ func (o PodSpecPtrOutput) ResourceClaims() PodResourceClaimArrayOutput {
 	}).(PodResourceClaimArrayOutput)
 }
 
-// Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
+// Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
 func (o PodSpecPtrOutput) RestartPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PodSpec) *string {
 		if v == nil {
@@ -43498,9 +43848,11 @@ func (o PodSpecPtrOutput) SchedulerName() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// SchedulingGates is an opaque list of values that if specified will block scheduling the pod. More info:  https://git.k8s.io/enhancements/keps/sig-scheduling/3521-pod-scheduling-readiness.
+// SchedulingGates is an opaque list of values that if specified will block scheduling the pod. If schedulingGates is not empty, the pod will stay in the SchedulingGated state and the scheduler will not attempt to schedule the pod.
 //
-// This is an alpha-level feature enabled by PodSchedulingReadiness feature gate.
+// SchedulingGates can only be set at pod creation time, and be removed only afterwards.
+//
+// This is a beta feature enabled by the PodSchedulingReadiness feature gate.
 func (o PodSpecPtrOutput) SchedulingGates() PodSchedulingGateArrayOutput {
 	return o.ApplyT(func(v *PodSpec) []PodSchedulingGate {
 		if v == nil {
@@ -43670,15 +44022,17 @@ type PodSpecPatch struct {
 	//
 	// This field is immutable.
 	ResourceClaims []PodResourceClaimPatch `pulumi:"resourceClaims"`
-	// Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
+	// Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
 	RestartPolicy *string `pulumi:"restartPolicy"`
 	// RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the "legacy" RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. More info: https://git.k8s.io/enhancements/keps/sig-node/585-runtime-class
 	RuntimeClassName *string `pulumi:"runtimeClassName"`
 	// If specified, the pod will be dispatched by specified scheduler. If not specified, the pod will be dispatched by default scheduler.
 	SchedulerName *string `pulumi:"schedulerName"`
-	// SchedulingGates is an opaque list of values that if specified will block scheduling the pod. More info:  https://git.k8s.io/enhancements/keps/sig-scheduling/3521-pod-scheduling-readiness.
+	// SchedulingGates is an opaque list of values that if specified will block scheduling the pod. If schedulingGates is not empty, the pod will stay in the SchedulingGated state and the scheduler will not attempt to schedule the pod.
 	//
-	// This is an alpha-level feature enabled by PodSchedulingReadiness feature gate.
+	// SchedulingGates can only be set at pod creation time, and be removed only afterwards.
+	//
+	// This is a beta feature enabled by the PodSchedulingReadiness feature gate.
 	SchedulingGates []PodSchedulingGatePatch `pulumi:"schedulingGates"`
 	// SecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty.  See type description for default values of each field.
 	SecurityContext *PodSecurityContextPatch `pulumi:"securityContext"`
@@ -43773,15 +44127,17 @@ type PodSpecPatchArgs struct {
 	//
 	// This field is immutable.
 	ResourceClaims PodResourceClaimPatchArrayInput `pulumi:"resourceClaims"`
-	// Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
+	// Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
 	RestartPolicy pulumi.StringPtrInput `pulumi:"restartPolicy"`
 	// RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the "legacy" RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. More info: https://git.k8s.io/enhancements/keps/sig-node/585-runtime-class
 	RuntimeClassName pulumi.StringPtrInput `pulumi:"runtimeClassName"`
 	// If specified, the pod will be dispatched by specified scheduler. If not specified, the pod will be dispatched by default scheduler.
 	SchedulerName pulumi.StringPtrInput `pulumi:"schedulerName"`
-	// SchedulingGates is an opaque list of values that if specified will block scheduling the pod. More info:  https://git.k8s.io/enhancements/keps/sig-scheduling/3521-pod-scheduling-readiness.
+	// SchedulingGates is an opaque list of values that if specified will block scheduling the pod. If schedulingGates is not empty, the pod will stay in the SchedulingGated state and the scheduler will not attempt to schedule the pod.
 	//
-	// This is an alpha-level feature enabled by PodSchedulingReadiness feature gate.
+	// SchedulingGates can only be set at pod creation time, and be removed only afterwards.
+	//
+	// This is a beta feature enabled by the PodSchedulingReadiness feature gate.
 	SchedulingGates PodSchedulingGatePatchArrayInput `pulumi:"schedulingGates"`
 	// SecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty.  See type description for default values of each field.
 	SecurityContext PodSecurityContextPatchPtrInput `pulumi:"securityContext"`
@@ -44016,7 +44372,7 @@ func (o PodSpecPatchOutput) ResourceClaims() PodResourceClaimPatchArrayOutput {
 	return o.ApplyT(func(v PodSpecPatch) []PodResourceClaimPatch { return v.ResourceClaims }).(PodResourceClaimPatchArrayOutput)
 }
 
-// Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
+// Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
 func (o PodSpecPatchOutput) RestartPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodSpecPatch) *string { return v.RestartPolicy }).(pulumi.StringPtrOutput)
 }
@@ -44031,9 +44387,11 @@ func (o PodSpecPatchOutput) SchedulerName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodSpecPatch) *string { return v.SchedulerName }).(pulumi.StringPtrOutput)
 }
 
-// SchedulingGates is an opaque list of values that if specified will block scheduling the pod. More info:  https://git.k8s.io/enhancements/keps/sig-scheduling/3521-pod-scheduling-readiness.
+// SchedulingGates is an opaque list of values that if specified will block scheduling the pod. If schedulingGates is not empty, the pod will stay in the SchedulingGated state and the scheduler will not attempt to schedule the pod.
 //
-// This is an alpha-level feature enabled by PodSchedulingReadiness feature gate.
+// SchedulingGates can only be set at pod creation time, and be removed only afterwards.
+//
+// This is a beta feature enabled by the PodSchedulingReadiness feature gate.
 func (o PodSpecPatchOutput) SchedulingGates() PodSchedulingGatePatchArrayOutput {
 	return o.ApplyT(func(v PodSpecPatch) []PodSchedulingGatePatch { return v.SchedulingGates }).(PodSchedulingGatePatchArrayOutput)
 }
@@ -44370,7 +44728,7 @@ func (o PodSpecPatchPtrOutput) ResourceClaims() PodResourceClaimPatchArrayOutput
 	}).(PodResourceClaimPatchArrayOutput)
 }
 
-// Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
+// Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
 func (o PodSpecPatchPtrOutput) RestartPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PodSpecPatch) *string {
 		if v == nil {
@@ -44400,9 +44758,11 @@ func (o PodSpecPatchPtrOutput) SchedulerName() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// SchedulingGates is an opaque list of values that if specified will block scheduling the pod. More info:  https://git.k8s.io/enhancements/keps/sig-scheduling/3521-pod-scheduling-readiness.
+// SchedulingGates is an opaque list of values that if specified will block scheduling the pod. If schedulingGates is not empty, the pod will stay in the SchedulingGated state and the scheduler will not attempt to schedule the pod.
 //
-// This is an alpha-level feature enabled by PodSchedulingReadiness feature gate.
+// SchedulingGates can only be set at pod creation time, and be removed only afterwards.
+//
+// This is a beta feature enabled by the PodSchedulingReadiness feature gate.
 func (o PodSpecPatchPtrOutput) SchedulingGates() PodSchedulingGatePatchArrayOutput {
 	return o.ApplyT(func(v *PodSpecPatch) []PodSchedulingGatePatch {
 		if v == nil {
@@ -44538,10 +44898,12 @@ type PodStatus struct {
 	PodIP *string `pulumi:"podIP"`
 	// podIPs holds the IP addresses allocated to the pod. If this field is specified, the 0th entry must match the podIP field. Pods may be allocated at most 1 value for each of IPv4 and IPv6. This list is empty if no IPs have been allocated yet.
 	PodIPs []PodIP `pulumi:"podIPs"`
-	// The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md
+	// The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/#quality-of-service-classes
 	QosClass *string `pulumi:"qosClass"`
 	// A brief CamelCase message indicating details about why the pod is in this state. e.g. 'Evicted'
 	Reason *string `pulumi:"reason"`
+	// Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed"
+	Resize *string `pulumi:"resize"`
 	// RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.
 	StartTime *string `pulumi:"startTime"`
 }
@@ -44583,10 +44945,12 @@ type PodStatusArgs struct {
 	PodIP pulumi.StringPtrInput `pulumi:"podIP"`
 	// podIPs holds the IP addresses allocated to the pod. If this field is specified, the 0th entry must match the podIP field. Pods may be allocated at most 1 value for each of IPv4 and IPv6. This list is empty if no IPs have been allocated yet.
 	PodIPs PodIPArrayInput `pulumi:"podIPs"`
-	// The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md
+	// The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/#quality-of-service-classes
 	QosClass pulumi.StringPtrInput `pulumi:"qosClass"`
 	// A brief CamelCase message indicating details about why the pod is in this state. e.g. 'Evicted'
 	Reason pulumi.StringPtrInput `pulumi:"reason"`
+	// Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed"
+	Resize pulumi.StringPtrInput `pulumi:"resize"`
 	// RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.
 	StartTime pulumi.StringPtrInput `pulumi:"startTime"`
 }
@@ -44723,7 +45087,7 @@ func (o PodStatusOutput) PodIPs() PodIPArrayOutput {
 	return o.ApplyT(func(v PodStatus) []PodIP { return v.PodIPs }).(PodIPArrayOutput)
 }
 
-// The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md
+// The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/#quality-of-service-classes
 func (o PodStatusOutput) QosClass() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodStatus) *string { return v.QosClass }).(pulumi.StringPtrOutput)
 }
@@ -44731,6 +45095,11 @@ func (o PodStatusOutput) QosClass() pulumi.StringPtrOutput {
 // A brief CamelCase message indicating details about why the pod is in this state. e.g. 'Evicted'
 func (o PodStatusOutput) Reason() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodStatus) *string { return v.Reason }).(pulumi.StringPtrOutput)
+}
+
+// Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed"
+func (o PodStatusOutput) Resize() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodStatus) *string { return v.Resize }).(pulumi.StringPtrOutput)
 }
 
 // RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.
@@ -44866,7 +45235,7 @@ func (o PodStatusPtrOutput) PodIPs() PodIPArrayOutput {
 	}).(PodIPArrayOutput)
 }
 
-// The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md
+// The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/#quality-of-service-classes
 func (o PodStatusPtrOutput) QosClass() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PodStatus) *string {
 		if v == nil {
@@ -44883,6 +45252,16 @@ func (o PodStatusPtrOutput) Reason() pulumi.StringPtrOutput {
 			return nil
 		}
 		return v.Reason
+	}).(pulumi.StringPtrOutput)
+}
+
+// Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed"
+func (o PodStatusPtrOutput) Resize() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodStatus) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Resize
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -44922,10 +45301,12 @@ type PodStatusPatch struct {
 	PodIP *string `pulumi:"podIP"`
 	// podIPs holds the IP addresses allocated to the pod. If this field is specified, the 0th entry must match the podIP field. Pods may be allocated at most 1 value for each of IPv4 and IPv6. This list is empty if no IPs have been allocated yet.
 	PodIPs []PodIPPatch `pulumi:"podIPs"`
-	// The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md
+	// The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/#quality-of-service-classes
 	QosClass *string `pulumi:"qosClass"`
 	// A brief CamelCase message indicating details about why the pod is in this state. e.g. 'Evicted'
 	Reason *string `pulumi:"reason"`
+	// Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed"
+	Resize *string `pulumi:"resize"`
 	// RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.
 	StartTime *string `pulumi:"startTime"`
 }
@@ -44967,10 +45348,12 @@ type PodStatusPatchArgs struct {
 	PodIP pulumi.StringPtrInput `pulumi:"podIP"`
 	// podIPs holds the IP addresses allocated to the pod. If this field is specified, the 0th entry must match the podIP field. Pods may be allocated at most 1 value for each of IPv4 and IPv6. This list is empty if no IPs have been allocated yet.
 	PodIPs PodIPPatchArrayInput `pulumi:"podIPs"`
-	// The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md
+	// The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/#quality-of-service-classes
 	QosClass pulumi.StringPtrInput `pulumi:"qosClass"`
 	// A brief CamelCase message indicating details about why the pod is in this state. e.g. 'Evicted'
 	Reason pulumi.StringPtrInput `pulumi:"reason"`
+	// Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed"
+	Resize pulumi.StringPtrInput `pulumi:"resize"`
 	// RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.
 	StartTime pulumi.StringPtrInput `pulumi:"startTime"`
 }
@@ -45107,7 +45490,7 @@ func (o PodStatusPatchOutput) PodIPs() PodIPPatchArrayOutput {
 	return o.ApplyT(func(v PodStatusPatch) []PodIPPatch { return v.PodIPs }).(PodIPPatchArrayOutput)
 }
 
-// The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md
+// The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/#quality-of-service-classes
 func (o PodStatusPatchOutput) QosClass() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodStatusPatch) *string { return v.QosClass }).(pulumi.StringPtrOutput)
 }
@@ -45115,6 +45498,11 @@ func (o PodStatusPatchOutput) QosClass() pulumi.StringPtrOutput {
 // A brief CamelCase message indicating details about why the pod is in this state. e.g. 'Evicted'
 func (o PodStatusPatchOutput) Reason() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodStatusPatch) *string { return v.Reason }).(pulumi.StringPtrOutput)
+}
+
+// Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed"
+func (o PodStatusPatchOutput) Resize() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v PodStatusPatch) *string { return v.Resize }).(pulumi.StringPtrOutput)
 }
 
 // RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.
@@ -45250,7 +45638,7 @@ func (o PodStatusPatchPtrOutput) PodIPs() PodIPPatchArrayOutput {
 	}).(PodIPPatchArrayOutput)
 }
 
-// The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md
+// The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/#quality-of-service-classes
 func (o PodStatusPatchPtrOutput) QosClass() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PodStatusPatch) *string {
 		if v == nil {
@@ -45267,6 +45655,16 @@ func (o PodStatusPatchPtrOutput) Reason() pulumi.StringPtrOutput {
 			return nil
 		}
 		return v.Reason
+	}).(pulumi.StringPtrOutput)
+}
+
+// Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed"
+func (o PodStatusPatchPtrOutput) Resize() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *PodStatusPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Resize
 	}).(pulumi.StringPtrOutput)
 }
 
@@ -46719,7 +47117,7 @@ type Probe struct {
 	Exec *ExecAction `pulumi:"exec"`
 	// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
 	FailureThreshold *int `pulumi:"failureThreshold"`
-	// GRPC specifies an action involving a GRPC port. This is a beta field and requires enabling GRPCContainerProbe feature gate.
+	// GRPC specifies an action involving a GRPC port.
 	Grpc *GRPCAction `pulumi:"grpc"`
 	// HTTPGet specifies the http request to perform.
 	HttpGet *HTTPGetAction `pulumi:"httpGet"`
@@ -46754,7 +47152,7 @@ type ProbeArgs struct {
 	Exec ExecActionPtrInput `pulumi:"exec"`
 	// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
 	FailureThreshold pulumi.IntPtrInput `pulumi:"failureThreshold"`
-	// GRPC specifies an action involving a GRPC port. This is a beta field and requires enabling GRPCContainerProbe feature gate.
+	// GRPC specifies an action involving a GRPC port.
 	Grpc GRPCActionPtrInput `pulumi:"grpc"`
 	// HTTPGet specifies the http request to perform.
 	HttpGet HTTPGetActionPtrInput `pulumi:"httpGet"`
@@ -46860,7 +47258,7 @@ func (o ProbeOutput) FailureThreshold() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v Probe) *int { return v.FailureThreshold }).(pulumi.IntPtrOutput)
 }
 
-// GRPC specifies an action involving a GRPC port. This is a beta field and requires enabling GRPCContainerProbe feature gate.
+// GRPC specifies an action involving a GRPC port.
 func (o ProbeOutput) Grpc() GRPCActionPtrOutput {
 	return o.ApplyT(func(v Probe) *GRPCAction { return v.Grpc }).(GRPCActionPtrOutput)
 }
@@ -46944,7 +47342,7 @@ func (o ProbePtrOutput) FailureThreshold() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// GRPC specifies an action involving a GRPC port. This is a beta field and requires enabling GRPCContainerProbe feature gate.
+// GRPC specifies an action involving a GRPC port.
 func (o ProbePtrOutput) Grpc() GRPCActionPtrOutput {
 	return o.ApplyT(func(v *Probe) *GRPCAction {
 		if v == nil {
@@ -47030,7 +47428,7 @@ type ProbePatch struct {
 	Exec *ExecActionPatch `pulumi:"exec"`
 	// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
 	FailureThreshold *int `pulumi:"failureThreshold"`
-	// GRPC specifies an action involving a GRPC port. This is a beta field and requires enabling GRPCContainerProbe feature gate.
+	// GRPC specifies an action involving a GRPC port.
 	Grpc *GRPCActionPatch `pulumi:"grpc"`
 	// HTTPGet specifies the http request to perform.
 	HttpGet *HTTPGetActionPatch `pulumi:"httpGet"`
@@ -47065,7 +47463,7 @@ type ProbePatchArgs struct {
 	Exec ExecActionPatchPtrInput `pulumi:"exec"`
 	// Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
 	FailureThreshold pulumi.IntPtrInput `pulumi:"failureThreshold"`
-	// GRPC specifies an action involving a GRPC port. This is a beta field and requires enabling GRPCContainerProbe feature gate.
+	// GRPC specifies an action involving a GRPC port.
 	Grpc GRPCActionPatchPtrInput `pulumi:"grpc"`
 	// HTTPGet specifies the http request to perform.
 	HttpGet HTTPGetActionPatchPtrInput `pulumi:"httpGet"`
@@ -47171,7 +47569,7 @@ func (o ProbePatchOutput) FailureThreshold() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ProbePatch) *int { return v.FailureThreshold }).(pulumi.IntPtrOutput)
 }
 
-// GRPC specifies an action involving a GRPC port. This is a beta field and requires enabling GRPCContainerProbe feature gate.
+// GRPC specifies an action involving a GRPC port.
 func (o ProbePatchOutput) Grpc() GRPCActionPatchPtrOutput {
 	return o.ApplyT(func(v ProbePatch) *GRPCActionPatch { return v.Grpc }).(GRPCActionPatchPtrOutput)
 }
@@ -47255,7 +47653,7 @@ func (o ProbePatchPtrOutput) FailureThreshold() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// GRPC specifies an action involving a GRPC port. This is a beta field and requires enabling GRPCContainerProbe feature gate.
+// GRPC specifies an action involving a GRPC port.
 func (o ProbePatchPtrOutput) Grpc() GRPCActionPatchPtrOutput {
 	return o.ApplyT(func(v *ProbePatch) *GRPCActionPatch {
 		if v == nil {
@@ -49804,7 +50202,7 @@ type ReplicationControllerSpec struct {
 	Replicas *int `pulumi:"replicas"`
 	// Selector is a label query over pods that should match the Replicas count. If Selector is empty, it is defaulted to the labels present on the Pod template. Label keys and values that must match in order to be controlled by this replication controller, if empty defaulted to labels on Pod template. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector map[string]string `pulumi:"selector"`
-	// Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+	// Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. The only allowed template.spec.restartPolicy value is "Always". More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
 	Template *PodTemplateSpec `pulumi:"template"`
 }
 
@@ -49827,7 +50225,7 @@ type ReplicationControllerSpecArgs struct {
 	Replicas pulumi.IntPtrInput `pulumi:"replicas"`
 	// Selector is a label query over pods that should match the Replicas count. If Selector is empty, it is defaulted to the labels present on the Pod template. Label keys and values that must match in order to be controlled by this replication controller, if empty defaulted to labels on Pod template. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector pulumi.StringMapInput `pulumi:"selector"`
-	// Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+	// Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. The only allowed template.spec.restartPolicy value is "Always". More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
 	Template PodTemplateSpecPtrInput `pulumi:"template"`
 }
 
@@ -49924,7 +50322,7 @@ func (o ReplicationControllerSpecOutput) Selector() pulumi.StringMapOutput {
 	return o.ApplyT(func(v ReplicationControllerSpec) map[string]string { return v.Selector }).(pulumi.StringMapOutput)
 }
 
-// Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+// Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. The only allowed template.spec.restartPolicy value is "Always". More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
 func (o ReplicationControllerSpecOutput) Template() PodTemplateSpecPtrOutput {
 	return o.ApplyT(func(v ReplicationControllerSpec) *PodTemplateSpec { return v.Template }).(PodTemplateSpecPtrOutput)
 }
@@ -49983,7 +50381,7 @@ func (o ReplicationControllerSpecPtrOutput) Selector() pulumi.StringMapOutput {
 	}).(pulumi.StringMapOutput)
 }
 
-// Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+// Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. The only allowed template.spec.restartPolicy value is "Always". More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
 func (o ReplicationControllerSpecPtrOutput) Template() PodTemplateSpecPtrOutput {
 	return o.ApplyT(func(v *ReplicationControllerSpec) *PodTemplateSpec {
 		if v == nil {
@@ -50001,7 +50399,7 @@ type ReplicationControllerSpecPatch struct {
 	Replicas *int `pulumi:"replicas"`
 	// Selector is a label query over pods that should match the Replicas count. If Selector is empty, it is defaulted to the labels present on the Pod template. Label keys and values that must match in order to be controlled by this replication controller, if empty defaulted to labels on Pod template. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector map[string]string `pulumi:"selector"`
-	// Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+	// Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. The only allowed template.spec.restartPolicy value is "Always". More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
 	Template *PodTemplateSpecPatch `pulumi:"template"`
 }
 
@@ -50024,7 +50422,7 @@ type ReplicationControllerSpecPatchArgs struct {
 	Replicas pulumi.IntPtrInput `pulumi:"replicas"`
 	// Selector is a label query over pods that should match the Replicas count. If Selector is empty, it is defaulted to the labels present on the Pod template. Label keys and values that must match in order to be controlled by this replication controller, if empty defaulted to labels on Pod template. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector pulumi.StringMapInput `pulumi:"selector"`
-	// Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+	// Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. The only allowed template.spec.restartPolicy value is "Always". More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
 	Template PodTemplateSpecPatchPtrInput `pulumi:"template"`
 }
 
@@ -50121,7 +50519,7 @@ func (o ReplicationControllerSpecPatchOutput) Selector() pulumi.StringMapOutput 
 	return o.ApplyT(func(v ReplicationControllerSpecPatch) map[string]string { return v.Selector }).(pulumi.StringMapOutput)
 }
 
-// Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+// Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. The only allowed template.spec.restartPolicy value is "Always". More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
 func (o ReplicationControllerSpecPatchOutput) Template() PodTemplateSpecPatchPtrOutput {
 	return o.ApplyT(func(v ReplicationControllerSpecPatch) *PodTemplateSpecPatch { return v.Template }).(PodTemplateSpecPatchPtrOutput)
 }
@@ -50180,7 +50578,7 @@ func (o ReplicationControllerSpecPatchPtrOutput) Selector() pulumi.StringMapOutp
 	}).(pulumi.StringMapOutput)
 }
 
-// Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+// Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. The only allowed template.spec.restartPolicy value is "Always". More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
 func (o ReplicationControllerSpecPatchPtrOutput) Template() PodTemplateSpecPatchPtrOutput {
 	return o.ApplyT(func(v *ReplicationControllerSpecPatch) *PodTemplateSpecPatch {
 		if v == nil {
@@ -52205,11 +52603,11 @@ type ResourceRequirements struct {
 	//
 	// This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
 	//
-	// This field is immutable.
+	// This field is immutable. It can only be set for containers.
 	Claims []ResourceClaim `pulumi:"claims"`
 	// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
 	Limits map[string]string `pulumi:"limits"`
-	// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+	// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
 	Requests map[string]string `pulumi:"requests"`
 }
 
@@ -52230,11 +52628,11 @@ type ResourceRequirementsArgs struct {
 	//
 	// This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
 	//
-	// This field is immutable.
+	// This field is immutable. It can only be set for containers.
 	Claims ResourceClaimArrayInput `pulumi:"claims"`
 	// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
 	Limits pulumi.StringMapInput `pulumi:"limits"`
-	// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+	// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
 	Requests pulumi.StringMapInput `pulumi:"requests"`
 }
 
@@ -52320,7 +52718,7 @@ func (o ResourceRequirementsOutput) ToResourceRequirementsPtrOutputWithContext(c
 //
 // This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
 //
-// This field is immutable.
+// This field is immutable. It can only be set for containers.
 func (o ResourceRequirementsOutput) Claims() ResourceClaimArrayOutput {
 	return o.ApplyT(func(v ResourceRequirements) []ResourceClaim { return v.Claims }).(ResourceClaimArrayOutput)
 }
@@ -52330,7 +52728,7 @@ func (o ResourceRequirementsOutput) Limits() pulumi.StringMapOutput {
 	return o.ApplyT(func(v ResourceRequirements) map[string]string { return v.Limits }).(pulumi.StringMapOutput)
 }
 
-// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
 func (o ResourceRequirementsOutput) Requests() pulumi.StringMapOutput {
 	return o.ApplyT(func(v ResourceRequirements) map[string]string { return v.Requests }).(pulumi.StringMapOutput)
 }
@@ -52363,7 +52761,7 @@ func (o ResourceRequirementsPtrOutput) Elem() ResourceRequirementsOutput {
 //
 // This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
 //
-// This field is immutable.
+// This field is immutable. It can only be set for containers.
 func (o ResourceRequirementsPtrOutput) Claims() ResourceClaimArrayOutput {
 	return o.ApplyT(func(v *ResourceRequirements) []ResourceClaim {
 		if v == nil {
@@ -52383,7 +52781,7 @@ func (o ResourceRequirementsPtrOutput) Limits() pulumi.StringMapOutput {
 	}).(pulumi.StringMapOutput)
 }
 
-// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
 func (o ResourceRequirementsPtrOutput) Requests() pulumi.StringMapOutput {
 	return o.ApplyT(func(v *ResourceRequirements) map[string]string {
 		if v == nil {
@@ -52399,11 +52797,11 @@ type ResourceRequirementsPatch struct {
 	//
 	// This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
 	//
-	// This field is immutable.
+	// This field is immutable. It can only be set for containers.
 	Claims []ResourceClaimPatch `pulumi:"claims"`
 	// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
 	Limits map[string]string `pulumi:"limits"`
-	// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+	// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
 	Requests map[string]string `pulumi:"requests"`
 }
 
@@ -52424,11 +52822,11 @@ type ResourceRequirementsPatchArgs struct {
 	//
 	// This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
 	//
-	// This field is immutable.
+	// This field is immutable. It can only be set for containers.
 	Claims ResourceClaimPatchArrayInput `pulumi:"claims"`
 	// Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
 	Limits pulumi.StringMapInput `pulumi:"limits"`
-	// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+	// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
 	Requests pulumi.StringMapInput `pulumi:"requests"`
 }
 
@@ -52514,7 +52912,7 @@ func (o ResourceRequirementsPatchOutput) ToResourceRequirementsPatchPtrOutputWit
 //
 // This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
 //
-// This field is immutable.
+// This field is immutable. It can only be set for containers.
 func (o ResourceRequirementsPatchOutput) Claims() ResourceClaimPatchArrayOutput {
 	return o.ApplyT(func(v ResourceRequirementsPatch) []ResourceClaimPatch { return v.Claims }).(ResourceClaimPatchArrayOutput)
 }
@@ -52524,7 +52922,7 @@ func (o ResourceRequirementsPatchOutput) Limits() pulumi.StringMapOutput {
 	return o.ApplyT(func(v ResourceRequirementsPatch) map[string]string { return v.Limits }).(pulumi.StringMapOutput)
 }
 
-// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
 func (o ResourceRequirementsPatchOutput) Requests() pulumi.StringMapOutput {
 	return o.ApplyT(func(v ResourceRequirementsPatch) map[string]string { return v.Requests }).(pulumi.StringMapOutput)
 }
@@ -52557,7 +52955,7 @@ func (o ResourceRequirementsPatchPtrOutput) Elem() ResourceRequirementsPatchOutp
 //
 // This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
 //
-// This field is immutable.
+// This field is immutable. It can only be set for containers.
 func (o ResourceRequirementsPatchPtrOutput) Claims() ResourceClaimPatchArrayOutput {
 	return o.ApplyT(func(v *ResourceRequirementsPatch) []ResourceClaimPatch {
 		if v == nil {
@@ -52577,7 +52975,7 @@ func (o ResourceRequirementsPatchPtrOutput) Limits() pulumi.StringMapOutput {
 	}).(pulumi.StringMapOutput)
 }
 
-// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+// Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
 func (o ResourceRequirementsPatchPtrOutput) Requests() pulumi.StringMapOutput {
 	return o.ApplyT(func(v *ResourceRequirementsPatch) map[string]string {
 		if v == nil {
@@ -63370,7 +63768,9 @@ func (o TopologySelectorTermPatchArrayOutput) Index(i pulumi.IntInput) TopologyS
 type TopologySpreadConstraint struct {
 	// LabelSelector is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.
 	LabelSelector *metav1.LabelSelector `pulumi:"labelSelector"`
-	// MatchLabelKeys is a set of pod label keys to select the pods over which spreading will be calculated. The keys are used to lookup values from the incoming pod labels, those key-value labels are ANDed with labelSelector to select the group of existing pods over which spreading will be calculated for the incoming pod. Keys that don't exist in the incoming pod labels will be ignored. A null or empty list means only match against labelSelector.
+	// MatchLabelKeys is a set of pod label keys to select the pods over which spreading will be calculated. The keys are used to lookup values from the incoming pod labels, those key-value labels are ANDed with labelSelector to select the group of existing pods over which spreading will be calculated for the incoming pod. The same key is forbidden to exist in both MatchLabelKeys and LabelSelector. MatchLabelKeys cannot be set when LabelSelector isn't set. Keys that don't exist in the incoming pod labels will be ignored. A null or empty list means only match against labelSelector.
+	//
+	// This is a beta field and requires the MatchLabelKeysInPodTopologySpread feature gate to be enabled (enabled by default).
 	MatchLabelKeys []string `pulumi:"matchLabelKeys"`
 	// MaxSkew describes the degree to which pods may be unevenly distributed. When `whenUnsatisfiable=DoNotSchedule`, it is the maximum permitted difference between the number of matching pods in the target topology and the global minimum. The global minimum is the minimum number of matching pods in an eligible domain or zero if the number of eligible domains is less than MinDomains. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 2/2/1: In this case, the global minimum is 1. | zone1 | zone2 | zone3 | |  P P  |  P P  |   P   | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 2/2/2; scheduling it onto zone1(zone2) would make the ActualSkew(3-1) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. When `whenUnsatisfiable=ScheduleAnyway`, it is used to give higher precedence to topologies that satisfy it. It's a required field. Default value is 1 and 0 is not allowed.
 	MaxSkew int `pulumi:"maxSkew"`
@@ -63412,7 +63812,9 @@ type TopologySpreadConstraintInput interface {
 type TopologySpreadConstraintArgs struct {
 	// LabelSelector is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.
 	LabelSelector metav1.LabelSelectorPtrInput `pulumi:"labelSelector"`
-	// MatchLabelKeys is a set of pod label keys to select the pods over which spreading will be calculated. The keys are used to lookup values from the incoming pod labels, those key-value labels are ANDed with labelSelector to select the group of existing pods over which spreading will be calculated for the incoming pod. Keys that don't exist in the incoming pod labels will be ignored. A null or empty list means only match against labelSelector.
+	// MatchLabelKeys is a set of pod label keys to select the pods over which spreading will be calculated. The keys are used to lookup values from the incoming pod labels, those key-value labels are ANDed with labelSelector to select the group of existing pods over which spreading will be calculated for the incoming pod. The same key is forbidden to exist in both MatchLabelKeys and LabelSelector. MatchLabelKeys cannot be set when LabelSelector isn't set. Keys that don't exist in the incoming pod labels will be ignored. A null or empty list means only match against labelSelector.
+	//
+	// This is a beta field and requires the MatchLabelKeysInPodTopologySpread feature gate to be enabled (enabled by default).
 	MatchLabelKeys pulumi.StringArrayInput `pulumi:"matchLabelKeys"`
 	// MaxSkew describes the degree to which pods may be unevenly distributed. When `whenUnsatisfiable=DoNotSchedule`, it is the maximum permitted difference between the number of matching pods in the target topology and the global minimum. The global minimum is the minimum number of matching pods in an eligible domain or zero if the number of eligible domains is less than MinDomains. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 2/2/1: In this case, the global minimum is 1. | zone1 | zone2 | zone3 | |  P P  |  P P  |   P   | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 2/2/2; scheduling it onto zone1(zone2) would make the ActualSkew(3-1) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. When `whenUnsatisfiable=ScheduleAnyway`, it is used to give higher precedence to topologies that satisfy it. It's a required field. Default value is 1 and 0 is not allowed.
 	MaxSkew pulumi.IntInput `pulumi:"maxSkew"`
@@ -63496,7 +63898,9 @@ func (o TopologySpreadConstraintOutput) LabelSelector() metav1.LabelSelectorPtrO
 	return o.ApplyT(func(v TopologySpreadConstraint) *metav1.LabelSelector { return v.LabelSelector }).(metav1.LabelSelectorPtrOutput)
 }
 
-// MatchLabelKeys is a set of pod label keys to select the pods over which spreading will be calculated. The keys are used to lookup values from the incoming pod labels, those key-value labels are ANDed with labelSelector to select the group of existing pods over which spreading will be calculated for the incoming pod. Keys that don't exist in the incoming pod labels will be ignored. A null or empty list means only match against labelSelector.
+// MatchLabelKeys is a set of pod label keys to select the pods over which spreading will be calculated. The keys are used to lookup values from the incoming pod labels, those key-value labels are ANDed with labelSelector to select the group of existing pods over which spreading will be calculated for the incoming pod. The same key is forbidden to exist in both MatchLabelKeys and LabelSelector. MatchLabelKeys cannot be set when LabelSelector isn't set. Keys that don't exist in the incoming pod labels will be ignored. A null or empty list means only match against labelSelector.
+//
+// This is a beta field and requires the MatchLabelKeysInPodTopologySpread feature gate to be enabled (enabled by default).
 func (o TopologySpreadConstraintOutput) MatchLabelKeys() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v TopologySpreadConstraint) []string { return v.MatchLabelKeys }).(pulumi.StringArrayOutput)
 }
@@ -63568,7 +63972,9 @@ func (o TopologySpreadConstraintArrayOutput) Index(i pulumi.IntInput) TopologySp
 type TopologySpreadConstraintPatch struct {
 	// LabelSelector is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.
 	LabelSelector *metav1.LabelSelectorPatch `pulumi:"labelSelector"`
-	// MatchLabelKeys is a set of pod label keys to select the pods over which spreading will be calculated. The keys are used to lookup values from the incoming pod labels, those key-value labels are ANDed with labelSelector to select the group of existing pods over which spreading will be calculated for the incoming pod. Keys that don't exist in the incoming pod labels will be ignored. A null or empty list means only match against labelSelector.
+	// MatchLabelKeys is a set of pod label keys to select the pods over which spreading will be calculated. The keys are used to lookup values from the incoming pod labels, those key-value labels are ANDed with labelSelector to select the group of existing pods over which spreading will be calculated for the incoming pod. The same key is forbidden to exist in both MatchLabelKeys and LabelSelector. MatchLabelKeys cannot be set when LabelSelector isn't set. Keys that don't exist in the incoming pod labels will be ignored. A null or empty list means only match against labelSelector.
+	//
+	// This is a beta field and requires the MatchLabelKeysInPodTopologySpread feature gate to be enabled (enabled by default).
 	MatchLabelKeys []string `pulumi:"matchLabelKeys"`
 	// MaxSkew describes the degree to which pods may be unevenly distributed. When `whenUnsatisfiable=DoNotSchedule`, it is the maximum permitted difference between the number of matching pods in the target topology and the global minimum. The global minimum is the minimum number of matching pods in an eligible domain or zero if the number of eligible domains is less than MinDomains. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 2/2/1: In this case, the global minimum is 1. | zone1 | zone2 | zone3 | |  P P  |  P P  |   P   | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 2/2/2; scheduling it onto zone1(zone2) would make the ActualSkew(3-1) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. When `whenUnsatisfiable=ScheduleAnyway`, it is used to give higher precedence to topologies that satisfy it. It's a required field. Default value is 1 and 0 is not allowed.
 	MaxSkew *int `pulumi:"maxSkew"`
@@ -63610,7 +64016,9 @@ type TopologySpreadConstraintPatchInput interface {
 type TopologySpreadConstraintPatchArgs struct {
 	// LabelSelector is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.
 	LabelSelector metav1.LabelSelectorPatchPtrInput `pulumi:"labelSelector"`
-	// MatchLabelKeys is a set of pod label keys to select the pods over which spreading will be calculated. The keys are used to lookup values from the incoming pod labels, those key-value labels are ANDed with labelSelector to select the group of existing pods over which spreading will be calculated for the incoming pod. Keys that don't exist in the incoming pod labels will be ignored. A null or empty list means only match against labelSelector.
+	// MatchLabelKeys is a set of pod label keys to select the pods over which spreading will be calculated. The keys are used to lookup values from the incoming pod labels, those key-value labels are ANDed with labelSelector to select the group of existing pods over which spreading will be calculated for the incoming pod. The same key is forbidden to exist in both MatchLabelKeys and LabelSelector. MatchLabelKeys cannot be set when LabelSelector isn't set. Keys that don't exist in the incoming pod labels will be ignored. A null or empty list means only match against labelSelector.
+	//
+	// This is a beta field and requires the MatchLabelKeysInPodTopologySpread feature gate to be enabled (enabled by default).
 	MatchLabelKeys pulumi.StringArrayInput `pulumi:"matchLabelKeys"`
 	// MaxSkew describes the degree to which pods may be unevenly distributed. When `whenUnsatisfiable=DoNotSchedule`, it is the maximum permitted difference between the number of matching pods in the target topology and the global minimum. The global minimum is the minimum number of matching pods in an eligible domain or zero if the number of eligible domains is less than MinDomains. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 2/2/1: In this case, the global minimum is 1. | zone1 | zone2 | zone3 | |  P P  |  P P  |   P   | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 2/2/2; scheduling it onto zone1(zone2) would make the ActualSkew(3-1) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. When `whenUnsatisfiable=ScheduleAnyway`, it is used to give higher precedence to topologies that satisfy it. It's a required field. Default value is 1 and 0 is not allowed.
 	MaxSkew pulumi.IntPtrInput `pulumi:"maxSkew"`
@@ -63694,7 +64102,9 @@ func (o TopologySpreadConstraintPatchOutput) LabelSelector() metav1.LabelSelecto
 	return o.ApplyT(func(v TopologySpreadConstraintPatch) *metav1.LabelSelectorPatch { return v.LabelSelector }).(metav1.LabelSelectorPatchPtrOutput)
 }
 
-// MatchLabelKeys is a set of pod label keys to select the pods over which spreading will be calculated. The keys are used to lookup values from the incoming pod labels, those key-value labels are ANDed with labelSelector to select the group of existing pods over which spreading will be calculated for the incoming pod. Keys that don't exist in the incoming pod labels will be ignored. A null or empty list means only match against labelSelector.
+// MatchLabelKeys is a set of pod label keys to select the pods over which spreading will be calculated. The keys are used to lookup values from the incoming pod labels, those key-value labels are ANDed with labelSelector to select the group of existing pods over which spreading will be calculated for the incoming pod. The same key is forbidden to exist in both MatchLabelKeys and LabelSelector. MatchLabelKeys cannot be set when LabelSelector isn't set. Keys that don't exist in the incoming pod labels will be ignored. A null or empty list means only match against labelSelector.
+//
+// This is a beta field and requires the MatchLabelKeysInPodTopologySpread feature gate to be enabled (enabled by default).
 func (o TopologySpreadConstraintPatchOutput) MatchLabelKeys() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v TopologySpreadConstraintPatch) []string { return v.MatchLabelKeys }).(pulumi.StringArrayOutput)
 }
@@ -67467,6 +67877,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ContainerPortArrayInput)(nil)).Elem(), ContainerPortArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ContainerPortPatchInput)(nil)).Elem(), ContainerPortPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ContainerPortPatchArrayInput)(nil)).Elem(), ContainerPortPatchArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContainerResizePolicyInput)(nil)).Elem(), ContainerResizePolicyArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContainerResizePolicyArrayInput)(nil)).Elem(), ContainerResizePolicyArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContainerResizePolicyPatchInput)(nil)).Elem(), ContainerResizePolicyPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ContainerResizePolicyPatchArrayInput)(nil)).Elem(), ContainerResizePolicyPatchArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ContainerStateInput)(nil)).Elem(), ContainerStateArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ContainerStatePtrInput)(nil)).Elem(), ContainerStateArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ContainerStatePatchInput)(nil)).Elem(), ContainerStatePatchArgs{})
@@ -68190,6 +68604,10 @@ func init() {
 	pulumi.RegisterOutputType(ContainerPortArrayOutput{})
 	pulumi.RegisterOutputType(ContainerPortPatchOutput{})
 	pulumi.RegisterOutputType(ContainerPortPatchArrayOutput{})
+	pulumi.RegisterOutputType(ContainerResizePolicyOutput{})
+	pulumi.RegisterOutputType(ContainerResizePolicyArrayOutput{})
+	pulumi.RegisterOutputType(ContainerResizePolicyPatchOutput{})
+	pulumi.RegisterOutputType(ContainerResizePolicyPatchArrayOutput{})
 	pulumi.RegisterOutputType(ContainerStateOutput{})
 	pulumi.RegisterOutputType(ContainerStatePtrOutput{})
 	pulumi.RegisterOutputType(ContainerStatePatchOutput{})

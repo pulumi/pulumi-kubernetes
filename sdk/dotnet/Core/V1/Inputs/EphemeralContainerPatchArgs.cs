@@ -113,6 +113,18 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         [Input("readinessProbe")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.ProbePatchArgs>? ReadinessProbe { get; set; }
 
+        [Input("resizePolicy")]
+        private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.ContainerResizePolicyPatchArgs>? _resizePolicy;
+
+        /// <summary>
+        /// Resources resize policy for the container.
+        /// </summary>
+        public InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.ContainerResizePolicyPatchArgs> ResizePolicy
+        {
+            get => _resizePolicy ?? (_resizePolicy = new InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.ContainerResizePolicyPatchArgs>());
+            set => _resizePolicy = value;
+        }
+
         /// <summary>
         /// Resources are not allowed for ephemeral containers. Ephemeral containers use spare resources already allocated to the pod.
         /// </summary>

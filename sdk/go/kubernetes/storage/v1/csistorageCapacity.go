@@ -60,15 +60,6 @@ func NewCSIStorageCapacity(ctx *pulumi.Context,
 	}
 	args.ApiVersion = pulumi.StringPtr("storage.k8s.io/v1")
 	args.Kind = pulumi.StringPtr("CSIStorageCapacity")
-	aliases := pulumi.Aliases([]pulumi.Alias{
-		{
-			Type: pulumi.String("kubernetes:storage.k8s.io/v1beta1:CSIStorageCapacity"),
-		},
-		{
-			Type: pulumi.String("kubernetes:storage.k8s.io/v1alpha1:CSIStorageCapacity"),
-		},
-	})
-	opts = append(opts, aliases)
 	var resource CSIStorageCapacity
 	err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1:CSIStorageCapacity", name, args, &resource, opts...)
 	if err != nil {

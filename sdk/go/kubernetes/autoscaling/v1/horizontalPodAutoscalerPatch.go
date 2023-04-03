@@ -27,9 +27,9 @@ type HorizontalPodAutoscalerPatch struct {
 	Kind pulumi.StringPtrOutput `pulumi:"kind"`
 	// Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPatchPtrOutput `pulumi:"metadata"`
-	// behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+	// spec defines the behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
 	Spec HorizontalPodAutoscalerSpecPatchPtrOutput `pulumi:"spec"`
-	// current information about the autoscaler.
+	// status is the current information about the autoscaler.
 	Status HorizontalPodAutoscalerStatusPatchPtrOutput `pulumi:"status"`
 }
 
@@ -92,7 +92,7 @@ type horizontalPodAutoscalerPatchArgs struct {
 	Kind *string `pulumi:"kind"`
 	// Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
-	// behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+	// spec defines the behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
 	Spec *HorizontalPodAutoscalerSpecPatch `pulumi:"spec"`
 }
 
@@ -104,7 +104,7 @@ type HorizontalPodAutoscalerPatchArgs struct {
 	Kind pulumi.StringPtrInput
 	// Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPatchPtrInput
-	// behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+	// spec defines the behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
 	Spec HorizontalPodAutoscalerSpecPatchPtrInput
 }
 
@@ -210,12 +210,12 @@ func (o HorizontalPodAutoscalerPatchOutput) Metadata() metav1.ObjectMetaPatchPtr
 	return o.ApplyT(func(v *HorizontalPodAutoscalerPatch) metav1.ObjectMetaPatchPtrOutput { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
 }
 
-// behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+// spec defines the behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
 func (o HorizontalPodAutoscalerPatchOutput) Spec() HorizontalPodAutoscalerSpecPatchPtrOutput {
 	return o.ApplyT(func(v *HorizontalPodAutoscalerPatch) HorizontalPodAutoscalerSpecPatchPtrOutput { return v.Spec }).(HorizontalPodAutoscalerSpecPatchPtrOutput)
 }
 
-// current information about the autoscaler.
+// status is the current information about the autoscaler.
 func (o HorizontalPodAutoscalerPatchOutput) Status() HorizontalPodAutoscalerStatusPatchPtrOutput {
 	return o.ApplyT(func(v *HorizontalPodAutoscalerPatch) HorizontalPodAutoscalerStatusPatchPtrOutput { return v.Status }).(HorizontalPodAutoscalerStatusPatchPtrOutput)
 }

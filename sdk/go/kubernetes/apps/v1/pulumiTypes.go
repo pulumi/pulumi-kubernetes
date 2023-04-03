@@ -910,7 +910,7 @@ type DaemonSetSpec struct {
 	RevisionHistoryLimit *int `pulumi:"revisionHistoryLimit"`
 	// A label query over pods that are managed by the daemon set. Must match in order to be controlled. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector metav1.LabelSelector `pulumi:"selector"`
-	// An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+	// An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). The only allowed template.spec.restartPolicy value is "Always". More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
 	Template corev1.PodTemplateSpec `pulumi:"template"`
 	// An update strategy to replace existing DaemonSet pods with new pods.
 	UpdateStrategy *DaemonSetUpdateStrategy `pulumi:"updateStrategy"`
@@ -935,7 +935,7 @@ type DaemonSetSpecArgs struct {
 	RevisionHistoryLimit pulumi.IntPtrInput `pulumi:"revisionHistoryLimit"`
 	// A label query over pods that are managed by the daemon set. Must match in order to be controlled. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector metav1.LabelSelectorInput `pulumi:"selector"`
-	// An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+	// An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). The only allowed template.spec.restartPolicy value is "Always". More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
 	Template corev1.PodTemplateSpecInput `pulumi:"template"`
 	// An update strategy to replace existing DaemonSet pods with new pods.
 	UpdateStrategy DaemonSetUpdateStrategyPtrInput `pulumi:"updateStrategy"`
@@ -1034,7 +1034,7 @@ func (o DaemonSetSpecOutput) Selector() metav1.LabelSelectorOutput {
 	return o.ApplyT(func(v DaemonSetSpec) metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorOutput)
 }
 
-// An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+// An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). The only allowed template.spec.restartPolicy value is "Always". More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
 func (o DaemonSetSpecOutput) Template() corev1.PodTemplateSpecOutput {
 	return o.ApplyT(func(v DaemonSetSpec) corev1.PodTemplateSpec { return v.Template }).(corev1.PodTemplateSpecOutput)
 }
@@ -1098,7 +1098,7 @@ func (o DaemonSetSpecPtrOutput) Selector() metav1.LabelSelectorPtrOutput {
 	}).(metav1.LabelSelectorPtrOutput)
 }
 
-// An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+// An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). The only allowed template.spec.restartPolicy value is "Always". More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
 func (o DaemonSetSpecPtrOutput) Template() corev1.PodTemplateSpecPtrOutput {
 	return o.ApplyT(func(v *DaemonSetSpec) *corev1.PodTemplateSpec {
 		if v == nil {
@@ -1126,7 +1126,7 @@ type DaemonSetSpecPatch struct {
 	RevisionHistoryLimit *int `pulumi:"revisionHistoryLimit"`
 	// A label query over pods that are managed by the daemon set. Must match in order to be controlled. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector *metav1.LabelSelectorPatch `pulumi:"selector"`
-	// An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+	// An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). The only allowed template.spec.restartPolicy value is "Always". More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
 	Template *corev1.PodTemplateSpecPatch `pulumi:"template"`
 	// An update strategy to replace existing DaemonSet pods with new pods.
 	UpdateStrategy *DaemonSetUpdateStrategyPatch `pulumi:"updateStrategy"`
@@ -1151,7 +1151,7 @@ type DaemonSetSpecPatchArgs struct {
 	RevisionHistoryLimit pulumi.IntPtrInput `pulumi:"revisionHistoryLimit"`
 	// A label query over pods that are managed by the daemon set. Must match in order to be controlled. It must match the pod template's labels. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 	Selector metav1.LabelSelectorPatchPtrInput `pulumi:"selector"`
-	// An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+	// An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). The only allowed template.spec.restartPolicy value is "Always". More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
 	Template corev1.PodTemplateSpecPatchPtrInput `pulumi:"template"`
 	// An update strategy to replace existing DaemonSet pods with new pods.
 	UpdateStrategy DaemonSetUpdateStrategyPatchPtrInput `pulumi:"updateStrategy"`
@@ -1250,7 +1250,7 @@ func (o DaemonSetSpecPatchOutput) Selector() metav1.LabelSelectorPatchPtrOutput 
 	return o.ApplyT(func(v DaemonSetSpecPatch) *metav1.LabelSelectorPatch { return v.Selector }).(metav1.LabelSelectorPatchPtrOutput)
 }
 
-// An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+// An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). The only allowed template.spec.restartPolicy value is "Always". More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
 func (o DaemonSetSpecPatchOutput) Template() corev1.PodTemplateSpecPatchPtrOutput {
 	return o.ApplyT(func(v DaemonSetSpecPatch) *corev1.PodTemplateSpecPatch { return v.Template }).(corev1.PodTemplateSpecPatchPtrOutput)
 }
@@ -1314,7 +1314,7 @@ func (o DaemonSetSpecPatchPtrOutput) Selector() metav1.LabelSelectorPatchPtrOutp
 	}).(metav1.LabelSelectorPatchPtrOutput)
 }
 
-// An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+// An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). The only allowed template.spec.restartPolicy value is "Always". More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
 func (o DaemonSetSpecPatchPtrOutput) Template() corev1.PodTemplateSpecPatchPtrOutput {
 	return o.ApplyT(func(v *DaemonSetSpecPatch) *corev1.PodTemplateSpecPatch {
 		if v == nil {
@@ -3021,7 +3021,7 @@ type DeploymentSpec struct {
 	Selector metav1.LabelSelector `pulumi:"selector"`
 	// The deployment strategy to use to replace existing pods with new ones.
 	Strategy *DeploymentStrategy `pulumi:"strategy"`
-	// Template describes the pods that will be created.
+	// Template describes the pods that will be created. The only allowed template.spec.restartPolicy value is "Always".
 	Template corev1.PodTemplateSpec `pulumi:"template"`
 }
 
@@ -3052,7 +3052,7 @@ type DeploymentSpecArgs struct {
 	Selector metav1.LabelSelectorInput `pulumi:"selector"`
 	// The deployment strategy to use to replace existing pods with new ones.
 	Strategy DeploymentStrategyPtrInput `pulumi:"strategy"`
-	// Template describes the pods that will be created.
+	// Template describes the pods that will be created. The only allowed template.spec.restartPolicy value is "Always".
 	Template corev1.PodTemplateSpecInput `pulumi:"template"`
 }
 
@@ -3169,7 +3169,7 @@ func (o DeploymentSpecOutput) Strategy() DeploymentStrategyPtrOutput {
 	return o.ApplyT(func(v DeploymentSpec) *DeploymentStrategy { return v.Strategy }).(DeploymentStrategyPtrOutput)
 }
 
-// Template describes the pods that will be created.
+// Template describes the pods that will be created. The only allowed template.spec.restartPolicy value is "Always".
 func (o DeploymentSpecOutput) Template() corev1.PodTemplateSpecOutput {
 	return o.ApplyT(func(v DeploymentSpec) corev1.PodTemplateSpec { return v.Template }).(corev1.PodTemplateSpecOutput)
 }
@@ -3268,7 +3268,7 @@ func (o DeploymentSpecPtrOutput) Strategy() DeploymentStrategyPtrOutput {
 	}).(DeploymentStrategyPtrOutput)
 }
 
-// Template describes the pods that will be created.
+// Template describes the pods that will be created. The only allowed template.spec.restartPolicy value is "Always".
 func (o DeploymentSpecPtrOutput) Template() corev1.PodTemplateSpecPtrOutput {
 	return o.ApplyT(func(v *DeploymentSpec) *corev1.PodTemplateSpec {
 		if v == nil {
@@ -3294,7 +3294,7 @@ type DeploymentSpecPatch struct {
 	Selector *metav1.LabelSelectorPatch `pulumi:"selector"`
 	// The deployment strategy to use to replace existing pods with new ones.
 	Strategy *DeploymentStrategyPatch `pulumi:"strategy"`
-	// Template describes the pods that will be created.
+	// Template describes the pods that will be created. The only allowed template.spec.restartPolicy value is "Always".
 	Template *corev1.PodTemplateSpecPatch `pulumi:"template"`
 }
 
@@ -3325,7 +3325,7 @@ type DeploymentSpecPatchArgs struct {
 	Selector metav1.LabelSelectorPatchPtrInput `pulumi:"selector"`
 	// The deployment strategy to use to replace existing pods with new ones.
 	Strategy DeploymentStrategyPatchPtrInput `pulumi:"strategy"`
-	// Template describes the pods that will be created.
+	// Template describes the pods that will be created. The only allowed template.spec.restartPolicy value is "Always".
 	Template corev1.PodTemplateSpecPatchPtrInput `pulumi:"template"`
 }
 
@@ -3442,7 +3442,7 @@ func (o DeploymentSpecPatchOutput) Strategy() DeploymentStrategyPatchPtrOutput {
 	return o.ApplyT(func(v DeploymentSpecPatch) *DeploymentStrategyPatch { return v.Strategy }).(DeploymentStrategyPatchPtrOutput)
 }
 
-// Template describes the pods that will be created.
+// Template describes the pods that will be created. The only allowed template.spec.restartPolicy value is "Always".
 func (o DeploymentSpecPatchOutput) Template() corev1.PodTemplateSpecPatchPtrOutput {
 	return o.ApplyT(func(v DeploymentSpecPatch) *corev1.PodTemplateSpecPatch { return v.Template }).(corev1.PodTemplateSpecPatchPtrOutput)
 }
@@ -3541,7 +3541,7 @@ func (o DeploymentSpecPatchPtrOutput) Strategy() DeploymentStrategyPatchPtrOutpu
 	}).(DeploymentStrategyPatchPtrOutput)
 }
 
-// Template describes the pods that will be created.
+// Template describes the pods that will be created. The only allowed template.spec.restartPolicy value is "Always".
 func (o DeploymentSpecPatchPtrOutput) Template() corev1.PodTemplateSpecPatchPtrOutput {
 	return o.ApplyT(func(v *DeploymentSpecPatch) *corev1.PodTemplateSpecPatch {
 		if v == nil {
@@ -8135,7 +8135,7 @@ func (o StatefulSetPersistentVolumeClaimRetentionPolicyPatchPtrOutput) WhenScale
 type StatefulSetSpec struct {
 	// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
 	MinReadySeconds *int `pulumi:"minReadySeconds"`
-	// ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is alpha.
+	// ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is beta.
 	Ordinals *StatefulSetOrdinals `pulumi:"ordinals"`
 	// persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is alpha.  +optional
 	PersistentVolumeClaimRetentionPolicy *StatefulSetPersistentVolumeClaimRetentionPolicy `pulumi:"persistentVolumeClaimRetentionPolicy"`
@@ -8149,7 +8149,7 @@ type StatefulSetSpec struct {
 	Selector metav1.LabelSelector `pulumi:"selector"`
 	// serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.
 	ServiceName string `pulumi:"serviceName"`
-	// template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format <statefulsetname>-<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3".
+	// template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format <statefulsetname>-<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3". The only allowed template.spec.restartPolicy value is "Always".
 	Template corev1.PodTemplateSpec `pulumi:"template"`
 	// updateStrategy indicates the StatefulSetUpdateStrategy that will be employed to update Pods in the StatefulSet when a revision is made to Template.
 	UpdateStrategy *StatefulSetUpdateStrategy `pulumi:"updateStrategy"`
@@ -8172,7 +8172,7 @@ type StatefulSetSpecInput interface {
 type StatefulSetSpecArgs struct {
 	// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
 	MinReadySeconds pulumi.IntPtrInput `pulumi:"minReadySeconds"`
-	// ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is alpha.
+	// ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is beta.
 	Ordinals StatefulSetOrdinalsPtrInput `pulumi:"ordinals"`
 	// persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is alpha.  +optional
 	PersistentVolumeClaimRetentionPolicy StatefulSetPersistentVolumeClaimRetentionPolicyPtrInput `pulumi:"persistentVolumeClaimRetentionPolicy"`
@@ -8186,7 +8186,7 @@ type StatefulSetSpecArgs struct {
 	Selector metav1.LabelSelectorInput `pulumi:"selector"`
 	// serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.
 	ServiceName pulumi.StringInput `pulumi:"serviceName"`
-	// template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format <statefulsetname>-<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3".
+	// template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format <statefulsetname>-<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3". The only allowed template.spec.restartPolicy value is "Always".
 	Template corev1.PodTemplateSpecInput `pulumi:"template"`
 	// updateStrategy indicates the StatefulSetUpdateStrategy that will be employed to update Pods in the StatefulSet when a revision is made to Template.
 	UpdateStrategy StatefulSetUpdateStrategyPtrInput `pulumi:"updateStrategy"`
@@ -8277,7 +8277,7 @@ func (o StatefulSetSpecOutput) MinReadySeconds() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v StatefulSetSpec) *int { return v.MinReadySeconds }).(pulumi.IntPtrOutput)
 }
 
-// ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is alpha.
+// ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is beta.
 func (o StatefulSetSpecOutput) Ordinals() StatefulSetOrdinalsPtrOutput {
 	return o.ApplyT(func(v StatefulSetSpec) *StatefulSetOrdinals { return v.Ordinals }).(StatefulSetOrdinalsPtrOutput)
 }
@@ -8314,7 +8314,7 @@ func (o StatefulSetSpecOutput) ServiceName() pulumi.StringOutput {
 	return o.ApplyT(func(v StatefulSetSpec) string { return v.ServiceName }).(pulumi.StringOutput)
 }
 
-// template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format <statefulsetname>-<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3".
+// template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format <statefulsetname>-<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3". The only allowed template.spec.restartPolicy value is "Always".
 func (o StatefulSetSpecOutput) Template() corev1.PodTemplateSpecOutput {
 	return o.ApplyT(func(v StatefulSetSpec) corev1.PodTemplateSpec { return v.Template }).(corev1.PodTemplateSpecOutput)
 }
@@ -8363,7 +8363,7 @@ func (o StatefulSetSpecPtrOutput) MinReadySeconds() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is alpha.
+// ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is beta.
 func (o StatefulSetSpecPtrOutput) Ordinals() StatefulSetOrdinalsPtrOutput {
 	return o.ApplyT(func(v *StatefulSetSpec) *StatefulSetOrdinals {
 		if v == nil {
@@ -8433,7 +8433,7 @@ func (o StatefulSetSpecPtrOutput) ServiceName() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format <statefulsetname>-<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3".
+// template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format <statefulsetname>-<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3". The only allowed template.spec.restartPolicy value is "Always".
 func (o StatefulSetSpecPtrOutput) Template() corev1.PodTemplateSpecPtrOutput {
 	return o.ApplyT(func(v *StatefulSetSpec) *corev1.PodTemplateSpec {
 		if v == nil {
@@ -8467,7 +8467,7 @@ func (o StatefulSetSpecPtrOutput) VolumeClaimTemplates() corev1.PersistentVolume
 type StatefulSetSpecPatch struct {
 	// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
 	MinReadySeconds *int `pulumi:"minReadySeconds"`
-	// ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is alpha.
+	// ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is beta.
 	Ordinals *StatefulSetOrdinalsPatch `pulumi:"ordinals"`
 	// persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is alpha.  +optional
 	PersistentVolumeClaimRetentionPolicy *StatefulSetPersistentVolumeClaimRetentionPolicyPatch `pulumi:"persistentVolumeClaimRetentionPolicy"`
@@ -8481,7 +8481,7 @@ type StatefulSetSpecPatch struct {
 	Selector *metav1.LabelSelectorPatch `pulumi:"selector"`
 	// serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.
 	ServiceName *string `pulumi:"serviceName"`
-	// template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format <statefulsetname>-<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3".
+	// template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format <statefulsetname>-<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3". The only allowed template.spec.restartPolicy value is "Always".
 	Template *corev1.PodTemplateSpecPatch `pulumi:"template"`
 	// updateStrategy indicates the StatefulSetUpdateStrategy that will be employed to update Pods in the StatefulSet when a revision is made to Template.
 	UpdateStrategy *StatefulSetUpdateStrategyPatch `pulumi:"updateStrategy"`
@@ -8504,7 +8504,7 @@ type StatefulSetSpecPatchInput interface {
 type StatefulSetSpecPatchArgs struct {
 	// Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
 	MinReadySeconds pulumi.IntPtrInput `pulumi:"minReadySeconds"`
-	// ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is alpha.
+	// ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is beta.
 	Ordinals StatefulSetOrdinalsPatchPtrInput `pulumi:"ordinals"`
 	// persistentVolumeClaimRetentionPolicy describes the lifecycle of persistent volume claims created from volumeClaimTemplates. By default, all persistent volume claims are created as needed and retained until manually deleted. This policy allows the lifecycle to be altered, for example by deleting persistent volume claims when their stateful set is deleted, or when their pod is scaled down. This requires the StatefulSetAutoDeletePVC feature gate to be enabled, which is alpha.  +optional
 	PersistentVolumeClaimRetentionPolicy StatefulSetPersistentVolumeClaimRetentionPolicyPatchPtrInput `pulumi:"persistentVolumeClaimRetentionPolicy"`
@@ -8518,7 +8518,7 @@ type StatefulSetSpecPatchArgs struct {
 	Selector metav1.LabelSelectorPatchPtrInput `pulumi:"selector"`
 	// serviceName is the name of the service that governs this StatefulSet. This service must exist before the StatefulSet, and is responsible for the network identity of the set. Pods get DNS/hostnames that follow the pattern: pod-specific-string.serviceName.default.svc.cluster.local where "pod-specific-string" is managed by the StatefulSet controller.
 	ServiceName pulumi.StringPtrInput `pulumi:"serviceName"`
-	// template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format <statefulsetname>-<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3".
+	// template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format <statefulsetname>-<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3". The only allowed template.spec.restartPolicy value is "Always".
 	Template corev1.PodTemplateSpecPatchPtrInput `pulumi:"template"`
 	// updateStrategy indicates the StatefulSetUpdateStrategy that will be employed to update Pods in the StatefulSet when a revision is made to Template.
 	UpdateStrategy StatefulSetUpdateStrategyPatchPtrInput `pulumi:"updateStrategy"`
@@ -8609,7 +8609,7 @@ func (o StatefulSetSpecPatchOutput) MinReadySeconds() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v StatefulSetSpecPatch) *int { return v.MinReadySeconds }).(pulumi.IntPtrOutput)
 }
 
-// ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is alpha.
+// ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is beta.
 func (o StatefulSetSpecPatchOutput) Ordinals() StatefulSetOrdinalsPatchPtrOutput {
 	return o.ApplyT(func(v StatefulSetSpecPatch) *StatefulSetOrdinalsPatch { return v.Ordinals }).(StatefulSetOrdinalsPatchPtrOutput)
 }
@@ -8646,7 +8646,7 @@ func (o StatefulSetSpecPatchOutput) ServiceName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v StatefulSetSpecPatch) *string { return v.ServiceName }).(pulumi.StringPtrOutput)
 }
 
-// template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format <statefulsetname>-<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3".
+// template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format <statefulsetname>-<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3". The only allowed template.spec.restartPolicy value is "Always".
 func (o StatefulSetSpecPatchOutput) Template() corev1.PodTemplateSpecPatchPtrOutput {
 	return o.ApplyT(func(v StatefulSetSpecPatch) *corev1.PodTemplateSpecPatch { return v.Template }).(corev1.PodTemplateSpecPatchPtrOutput)
 }
@@ -8695,7 +8695,7 @@ func (o StatefulSetSpecPatchPtrOutput) MinReadySeconds() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is alpha.
+// ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is beta.
 func (o StatefulSetSpecPatchPtrOutput) Ordinals() StatefulSetOrdinalsPatchPtrOutput {
 	return o.ApplyT(func(v *StatefulSetSpecPatch) *StatefulSetOrdinalsPatch {
 		if v == nil {
@@ -8765,7 +8765,7 @@ func (o StatefulSetSpecPatchPtrOutput) ServiceName() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format <statefulsetname>-<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3".
+// template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format <statefulsetname>-<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3". The only allowed template.spec.restartPolicy value is "Always".
 func (o StatefulSetSpecPatchPtrOutput) Template() corev1.PodTemplateSpecPatchPtrOutput {
 	return o.ApplyT(func(v *StatefulSetSpecPatch) *corev1.PodTemplateSpecPatch {
 		if v == nil {

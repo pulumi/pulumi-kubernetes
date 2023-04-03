@@ -19,14 +19,14 @@ public final class ContainerResourceMetricStatusArgs extends com.pulumi.resource
     public static final ContainerResourceMetricStatusArgs Empty = new ContainerResourceMetricStatusArgs();
 
     /**
-     * Container is the name of the container in the pods of the scaling target
+     * container is the name of the container in the pods of the scaling target
      * 
      */
     @Import(name="container", required=true)
     private Output<String> container;
 
     /**
-     * @return Container is the name of the container in the pods of the scaling target
+     * @return container is the name of the container in the pods of the scaling target
      * 
      */
     public Output<String> container() {
@@ -49,14 +49,14 @@ public final class ContainerResourceMetricStatusArgs extends com.pulumi.resource
     }
 
     /**
-     * Name is the name of the resource in question.
+     * name is the name of the resource in question.
      * 
      */
     @Import(name="name", required=true)
     private Output<String> name;
 
     /**
-     * @return Name is the name of the resource in question.
+     * @return name is the name of the resource in question.
      * 
      */
     public Output<String> name() {
@@ -90,7 +90,7 @@ public final class ContainerResourceMetricStatusArgs extends com.pulumi.resource
         }
 
         /**
-         * @param container Container is the name of the container in the pods of the scaling target
+         * @param container container is the name of the container in the pods of the scaling target
          * 
          * @return builder
          * 
@@ -101,7 +101,7 @@ public final class ContainerResourceMetricStatusArgs extends com.pulumi.resource
         }
 
         /**
-         * @param container Container is the name of the container in the pods of the scaling target
+         * @param container container is the name of the container in the pods of the scaling target
          * 
          * @return builder
          * 
@@ -132,7 +132,7 @@ public final class ContainerResourceMetricStatusArgs extends com.pulumi.resource
         }
 
         /**
-         * @param name Name is the name of the resource in question.
+         * @param name name is the name of the resource in question.
          * 
          * @return builder
          * 
@@ -143,7 +143,7 @@ public final class ContainerResourceMetricStatusArgs extends com.pulumi.resource
         }
 
         /**
-         * @param name Name is the name of the resource in question.
+         * @param name name is the name of the resource in question.
          * 
          * @return builder
          * 

@@ -4,6 +4,8 @@
 package com.pulumi.kubernetes.admissionregistration.v1alpha1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.kubernetes.admissionregistration.v1alpha1.outputs.AuditAnnotationPatch;
+import com.pulumi.kubernetes.admissionregistration.v1alpha1.outputs.MatchConditionPatch;
 import com.pulumi.kubernetes.admissionregistration.v1alpha1.outputs.MatchResourcesPatch;
 import com.pulumi.kubernetes.admissionregistration.v1alpha1.outputs.ParamKindPatch;
 import com.pulumi.kubernetes.admissionregistration.v1alpha1.outputs.ValidationPatch;
@@ -16,10 +18,37 @@ import javax.annotation.Nullable;
 @CustomType
 public final class ValidatingAdmissionPolicySpecPatch {
     /**
-     * @return FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
+     * @return auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
+     * 
+     */
+    private @Nullable List<AuditAnnotationPatch> auditAnnotations;
+    /**
+     * @return failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
+     * 
+     * A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource.
+     * 
+     * failurePolicy does not define how validations that evaluate to false are handled.
+     * 
+     * When failurePolicy is set to Fail, ValidatingAdmissionPolicyBinding validationActions define how failures are enforced.
+     * 
+     * Allowed values are Ignore or Fail. Defaults to Fail.
      * 
      */
     private @Nullable String failurePolicy;
+    /**
+     * @return MatchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+     * 
+     * If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
+     * 
+     * The exact matching logic is (in order):
+     *   1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
+     *   2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
+     *   3. If any matchCondition evaluates to an error (but none are FALSE):
+     *      - If failurePolicy=Fail, reject the request
+     *      - If failurePolicy=Ignore, the policy is skipped
+     * 
+     */
+    private @Nullable List<MatchConditionPatch> matchConditions;
     /**
      * @return MatchConstraints specifies what resources this policy is designed to validate. The AdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API ValidatingAdmissionPolicy cannot match ValidatingAdmissionPolicy and ValidatingAdmissionPolicyBinding. Required.
      * 
@@ -31,18 +60,49 @@ public final class ValidatingAdmissionPolicySpecPatch {
      */
     private @Nullable ParamKindPatch paramKind;
     /**
-     * @return Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
+     * @return Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
      * 
      */
     private @Nullable List<ValidationPatch> validations;
 
     private ValidatingAdmissionPolicySpecPatch() {}
     /**
-     * @return FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
+     * @return auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
+     * 
+     */
+    public List<AuditAnnotationPatch> auditAnnotations() {
+        return this.auditAnnotations == null ? List.of() : this.auditAnnotations;
+    }
+    /**
+     * @return failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
+     * 
+     * A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource.
+     * 
+     * failurePolicy does not define how validations that evaluate to false are handled.
+     * 
+     * When failurePolicy is set to Fail, ValidatingAdmissionPolicyBinding validationActions define how failures are enforced.
+     * 
+     * Allowed values are Ignore or Fail. Defaults to Fail.
      * 
      */
     public Optional<String> failurePolicy() {
         return Optional.ofNullable(this.failurePolicy);
+    }
+    /**
+     * @return MatchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+     * 
+     * If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
+     * 
+     * The exact matching logic is (in order):
+     *   1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
+     *   2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
+     *   3. If any matchCondition evaluates to an error (but none are FALSE):
+     *      - If failurePolicy=Fail, reject the request
+     *      - If failurePolicy=Ignore, the policy is skipped
+     * 
+     */
+    public List<MatchConditionPatch> matchConditions() {
+        return this.matchConditions == null ? List.of() : this.matchConditions;
     }
     /**
      * @return MatchConstraints specifies what resources this policy is designed to validate. The AdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API ValidatingAdmissionPolicy cannot match ValidatingAdmissionPolicy and ValidatingAdmissionPolicyBinding. Required.
@@ -59,7 +119,7 @@ public final class ValidatingAdmissionPolicySpecPatch {
         return Optional.ofNullable(this.paramKind);
     }
     /**
-     * @return Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
+     * @return Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
      * 
      */
     public List<ValidationPatch> validations() {
@@ -75,23 +135,43 @@ public final class ValidatingAdmissionPolicySpecPatch {
     }
     @CustomType.Builder
     public static final class Builder {
+        private @Nullable List<AuditAnnotationPatch> auditAnnotations;
         private @Nullable String failurePolicy;
+        private @Nullable List<MatchConditionPatch> matchConditions;
         private @Nullable MatchResourcesPatch matchConstraints;
         private @Nullable ParamKindPatch paramKind;
         private @Nullable List<ValidationPatch> validations;
         public Builder() {}
         public Builder(ValidatingAdmissionPolicySpecPatch defaults) {
     	      Objects.requireNonNull(defaults);
+    	      this.auditAnnotations = defaults.auditAnnotations;
     	      this.failurePolicy = defaults.failurePolicy;
+    	      this.matchConditions = defaults.matchConditions;
     	      this.matchConstraints = defaults.matchConstraints;
     	      this.paramKind = defaults.paramKind;
     	      this.validations = defaults.validations;
         }
 
         @CustomType.Setter
+        public Builder auditAnnotations(@Nullable List<AuditAnnotationPatch> auditAnnotations) {
+            this.auditAnnotations = auditAnnotations;
+            return this;
+        }
+        public Builder auditAnnotations(AuditAnnotationPatch... auditAnnotations) {
+            return auditAnnotations(List.of(auditAnnotations));
+        }
+        @CustomType.Setter
         public Builder failurePolicy(@Nullable String failurePolicy) {
             this.failurePolicy = failurePolicy;
             return this;
+        }
+        @CustomType.Setter
+        public Builder matchConditions(@Nullable List<MatchConditionPatch> matchConditions) {
+            this.matchConditions = matchConditions;
+            return this;
+        }
+        public Builder matchConditions(MatchConditionPatch... matchConditions) {
+            return matchConditions(List.of(matchConditions));
         }
         @CustomType.Setter
         public Builder matchConstraints(@Nullable MatchResourcesPatch matchConstraints) {
@@ -113,7 +193,9 @@ public final class ValidatingAdmissionPolicySpecPatch {
         }
         public ValidatingAdmissionPolicySpecPatch build() {
             final var o = new ValidatingAdmissionPolicySpecPatch();
+            o.auditAnnotations = auditAnnotations;
             o.failurePolicy = failurePolicy;
+            o.matchConditions = matchConditions;
             o.matchConstraints = matchConstraints;
             o.paramKind = paramKind;
             o.validations = validations;

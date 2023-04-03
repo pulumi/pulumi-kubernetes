@@ -17,15 +17,15 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling.V2
     public sealed class CrossVersionObjectReferencePatch
     {
         /// <summary>
-        /// API version of the referent
+        /// apiVersion is the API version of the referent
         /// </summary>
         public readonly string ApiVersion;
         /// <summary>
-        /// Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        /// kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         /// </summary>
         public readonly string Kind;
         /// <summary>
-        /// Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
+        /// name is the name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
         /// </summary>
         public readonly string Name;
 

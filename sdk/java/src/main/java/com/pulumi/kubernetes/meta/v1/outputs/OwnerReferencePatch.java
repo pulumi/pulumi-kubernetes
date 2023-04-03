@@ -33,12 +33,12 @@ public final class OwnerReferencePatch {
      */
     private @Nullable String kind;
     /**
-     * @return Name of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#names
+     * @return Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names
      * 
      */
     private @Nullable String name;
     /**
-     * @return UID of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+     * @return UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
      * 
      */
     private @Nullable String uid;
@@ -73,14 +73,14 @@ public final class OwnerReferencePatch {
         return Optional.ofNullable(this.kind);
     }
     /**
-     * @return Name of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#names
+     * @return Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names
      * 
      */
     public Optional<String> name() {
         return Optional.ofNullable(this.name);
     }
     /**
-     * @return UID of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+     * @return UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
      * 
      */
     public Optional<String> uid() {

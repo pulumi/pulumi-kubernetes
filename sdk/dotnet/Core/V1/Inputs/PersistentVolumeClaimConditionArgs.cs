@@ -11,7 +11,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
 {
 
     /// <summary>
-    /// PersistentVolumeClaimCondition contails details about state of pvc
+    /// PersistentVolumeClaimCondition contains details about state of pvc
     /// </summary>
     public class PersistentVolumeClaimConditionArgs : global::Pulumi.ResourceArgs
     {

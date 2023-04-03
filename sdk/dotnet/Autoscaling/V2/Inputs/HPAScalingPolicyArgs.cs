@@ -16,19 +16,19 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2
     public class HPAScalingPolicyArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
+        /// periodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
         /// </summary>
         [Input("periodSeconds", required: true)]
         public Input<int> PeriodSeconds { get; set; } = null!;
 
         /// <summary>
-        /// Type is used to specify the scaling policy.
+        /// type is used to specify the scaling policy.
         /// </summary>
         [Input("type", required: true)]
         public Input<string> Type { get; set; } = null!;
 
         /// <summary>
-        /// Value contains the amount of change which is permitted by the policy. It must be greater than zero
+        /// value contains the amount of change which is permitted by the policy. It must be greater than zero
         /// </summary>
         [Input("value", required: true)]
         public Input<int> Value { get; set; } = null!;

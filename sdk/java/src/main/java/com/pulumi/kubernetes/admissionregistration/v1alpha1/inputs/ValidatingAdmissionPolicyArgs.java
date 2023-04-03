@@ -7,6 +7,7 @@ import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.core.internal.Codegen;
 import com.pulumi.kubernetes.admissionregistration.v1alpha1.inputs.ValidatingAdmissionPolicySpecArgs;
+import com.pulumi.kubernetes.admissionregistration.v1alpha1.inputs.ValidatingAdmissionPolicyStatusArgs;
 import com.pulumi.kubernetes.meta.v1.inputs.ObjectMetaArgs;
 import java.lang.String;
 import java.util.Objects;
@@ -82,6 +83,21 @@ public final class ValidatingAdmissionPolicyArgs extends com.pulumi.resources.Re
         return Optional.ofNullable(this.spec);
     }
 
+    /**
+     * The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
+     * 
+     */
+    @Import(name="status")
+    private @Nullable Output<ValidatingAdmissionPolicyStatusArgs> status;
+
+    /**
+     * @return The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
+     * 
+     */
+    public Optional<Output<ValidatingAdmissionPolicyStatusArgs>> status() {
+        return Optional.ofNullable(this.status);
+    }
+
     private ValidatingAdmissionPolicyArgs() {}
 
     private ValidatingAdmissionPolicyArgs(ValidatingAdmissionPolicyArgs $) {
@@ -89,6 +105,7 @@ public final class ValidatingAdmissionPolicyArgs extends com.pulumi.resources.Re
         this.kind = $.kind;
         this.metadata = $.metadata;
         this.spec = $.spec;
+        this.status = $.status;
     }
 
     public static Builder builder() {
@@ -191,6 +208,27 @@ public final class ValidatingAdmissionPolicyArgs extends com.pulumi.resources.Re
          */
         public Builder spec(ValidatingAdmissionPolicySpecArgs spec) {
             return spec(Output.of(spec));
+        }
+
+        /**
+         * @param status The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder status(@Nullable Output<ValidatingAdmissionPolicyStatusArgs> status) {
+            $.status = status;
+            return this;
+        }
+
+        /**
+         * @param status The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder status(ValidatingAdmissionPolicyStatusArgs status) {
+            return status(Output.of(status));
         }
 
         public ValidatingAdmissionPolicyArgs build() {

@@ -17,44 +17,56 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
     public sealed class ContainerStatus
     {
         /// <summary>
-        /// Container's ID in the format '&lt;type&gt;://&lt;container_id&gt;'.
+        /// AllocatedResources represents the compute resources allocated for this container by the node. Kubelet sets this value to Container.Resources.Requests upon successful pod admission and after successfully admitting desired pod resize.
+        /// </summary>
+        public readonly ImmutableDictionary<string, string> AllocatedResources;
+        /// <summary>
+        /// ContainerID is the ID of the container in the format '&lt;type&gt;://&lt;container_id&gt;'. Where type is a container runtime identifier, returned from Version call of CRI API (for example "containerd").
         /// </summary>
         public readonly string ContainerID;
         /// <summary>
-        /// The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images.
+        /// Image is the name of container image that the container is running. The container image may not match the image used in the PodSpec, as it may have been resolved by the runtime. More info: https://kubernetes.io/docs/concepts/containers/images.
         /// </summary>
         public readonly string Image;
         /// <summary>
-        /// ImageID of the container's image.
+        /// ImageID is the image ID of the container's image. The image ID may not match the image ID of the image used in the PodSpec, as it may have been resolved by the runtime.
         /// </summary>
         public readonly string ImageID;
         /// <summary>
-        /// Details about the container's last termination condition.
+        /// LastTerminationState holds the last termination state of the container to help debug container crashes and restarts. This field is not populated if the container is still running and RestartCount is 0.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.ContainerState LastState;
         /// <summary>
-        /// This must be a DNS_LABEL. Each container in a pod must have a unique name. Cannot be updated.
+        /// Name is a DNS_LABEL representing the unique name of the container. Each container in a pod must have a unique name across all container types. Cannot be updated.
         /// </summary>
         public readonly string Name;
         /// <summary>
-        /// Specifies whether the container has passed its readiness probe.
+        /// Ready specifies whether the container is currently passing its readiness check. The value will change as readiness probes keep executing. If no readiness probes are specified, this field defaults to true once the container is fully started (see Started field).
+        /// 
+        /// The value is typically used to determine whether a container is ready to accept traffic.
         /// </summary>
         public readonly bool Ready;
         /// <summary>
-        /// The number of times the container has been restarted.
+        /// Resources represents the compute resource requests and limits that have been successfully enacted on the running container after it has been started or has been successfully resized.
+        /// </summary>
+        public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.ResourceRequirements Resources;
+        /// <summary>
+        /// RestartCount holds the number of times the container has been restarted. Kubelet makes an effort to always increment the value, but there are cases when the state may be lost due to node restarts and then the value may be reset to 0. The value is never negative.
         /// </summary>
         public readonly int RestartCount;
         /// <summary>
-        /// Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is defined.
+        /// Started indicates whether the container has finished its postStart lifecycle hook and passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. In both cases, startup probes will run again. Is always true when no startupProbe is defined and container is running and has passed the postStart lifecycle hook. The null value must be treated the same as false.
         /// </summary>
         public readonly bool Started;
         /// <summary>
-        /// Details about the container's current condition.
+        /// State holds details about the container's current condition.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.ContainerState State;
 
         [OutputConstructor]
         private ContainerStatus(
+            ImmutableDictionary<string, string> allocatedResources,
+
             string containerID,
 
             string image,
@@ -67,18 +79,22 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
             bool ready,
 
+            Pulumi.Kubernetes.Types.Outputs.Core.V1.ResourceRequirements resources,
+
             int restartCount,
 
             bool started,
 
             Pulumi.Kubernetes.Types.Outputs.Core.V1.ContainerState state)
         {
+            AllocatedResources = allocatedResources;
             ContainerID = containerID;
             Image = image;
             ImageID = imageID;
             LastState = lastState;
             Name = name;
             Ready = ready;
+            Resources = resources;
             RestartCount = restartCount;
             Started = started;
             State = state;

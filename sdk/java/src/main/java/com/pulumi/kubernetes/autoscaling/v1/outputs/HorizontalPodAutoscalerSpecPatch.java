@@ -13,7 +13,7 @@ import javax.annotation.Nullable;
 @CustomType
 public final class HorizontalPodAutoscalerSpecPatch {
     /**
-     * @return upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
+     * @return maxReplicas is the upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
      * 
      */
     private @Nullable Integer maxReplicas;
@@ -28,14 +28,14 @@ public final class HorizontalPodAutoscalerSpecPatch {
      */
     private @Nullable CrossVersionObjectReferencePatch scaleTargetRef;
     /**
-     * @return target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
+     * @return targetCPUUtilizationPercentage is the target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
      * 
      */
     private @Nullable Integer targetCPUUtilizationPercentage;
 
     private HorizontalPodAutoscalerSpecPatch() {}
     /**
-     * @return upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
+     * @return maxReplicas is the upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
      * 
      */
     public Optional<Integer> maxReplicas() {
@@ -56,7 +56,7 @@ public final class HorizontalPodAutoscalerSpecPatch {
         return Optional.ofNullable(this.scaleTargetRef);
     }
     /**
-     * @return target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
+     * @return targetCPUUtilizationPercentage is the target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
      * 
      */
     public Optional<Integer> targetCPUUtilizationPercentage() {

@@ -21,6 +21,10 @@ func (m *module) Version() semver.Version {
 
 func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi.Resource, err error) {
 	switch typ {
+	case "kubernetes:authentication.k8s.io/v1beta1:SelfSubjectReview":
+		r = &SelfSubjectReview{}
+	case "kubernetes:authentication.k8s.io/v1beta1:SelfSubjectReviewPatch":
+		r = &SelfSubjectReviewPatch{}
 	case "kubernetes:authentication.k8s.io/v1beta1:TokenReview":
 		r = &TokenReview{}
 	case "kubernetes:authentication.k8s.io/v1beta1:TokenReviewPatch":

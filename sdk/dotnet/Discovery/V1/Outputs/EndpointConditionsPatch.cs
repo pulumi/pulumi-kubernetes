@@ -17,7 +17,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Discovery.V1
     public sealed class EndpointConditionsPatch
     {
         /// <summary>
-        /// ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be "true" for terminating endpoints.
+        /// ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be "true" for terminating endpoints, except when the normal readiness behavior is being explicitly overridden, for example when the associated Service has set the publishNotReadyAddresses flag.
         /// </summary>
         public readonly bool Ready;
         /// <summary>

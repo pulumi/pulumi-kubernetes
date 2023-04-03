@@ -13,38 +13,38 @@ import javax.annotation.Nullable;
 @CustomType
 public final class HPAScalingPolicyPatch {
     /**
-     * @return PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
+     * @return periodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
      * 
      */
     private @Nullable Integer periodSeconds;
     /**
-     * @return Type is used to specify the scaling policy.
+     * @return type is used to specify the scaling policy.
      * 
      */
     private @Nullable String type;
     /**
-     * @return Value contains the amount of change which is permitted by the policy. It must be greater than zero
+     * @return value contains the amount of change which is permitted by the policy. It must be greater than zero
      * 
      */
     private @Nullable Integer value;
 
     private HPAScalingPolicyPatch() {}
     /**
-     * @return PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
+     * @return periodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
      * 
      */
     public Optional<Integer> periodSeconds() {
         return Optional.ofNullable(this.periodSeconds);
     }
     /**
-     * @return Type is used to specify the scaling policy.
+     * @return type is used to specify the scaling policy.
      * 
      */
     public Optional<String> type() {
         return Optional.ofNullable(this.type);
     }
     /**
-     * @return Value contains the amount of change which is permitted by the policy. It must be greater than zero
+     * @return value contains the amount of change which is permitted by the policy. It must be greater than zero
      * 
      */
     public Optional<Integer> value() {

@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.admissionregistration.v1alpha1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
 import com.pulumi.kubernetes.admissionregistration.v1alpha1.outputs.ValidatingAdmissionPolicySpec;
+import com.pulumi.kubernetes.admissionregistration.v1alpha1.outputs.ValidatingAdmissionPolicyStatus;
 import com.pulumi.kubernetes.meta.v1.outputs.ObjectMeta;
 import java.lang.String;
 import java.util.Objects;
@@ -33,6 +34,11 @@ public final class ValidatingAdmissionPolicy {
      * 
      */
     private @Nullable ValidatingAdmissionPolicySpec spec;
+    /**
+     * @return The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
+     * 
+     */
+    private @Nullable ValidatingAdmissionPolicyStatus status;
 
     private ValidatingAdmissionPolicy() {}
     /**
@@ -63,6 +69,13 @@ public final class ValidatingAdmissionPolicy {
     public Optional<ValidatingAdmissionPolicySpec> spec() {
         return Optional.ofNullable(this.spec);
     }
+    /**
+     * @return The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
+     * 
+     */
+    public Optional<ValidatingAdmissionPolicyStatus> status() {
+        return Optional.ofNullable(this.status);
+    }
 
     public static Builder builder() {
         return new Builder();
@@ -77,6 +90,7 @@ public final class ValidatingAdmissionPolicy {
         private @Nullable String kind;
         private @Nullable ObjectMeta metadata;
         private @Nullable ValidatingAdmissionPolicySpec spec;
+        private @Nullable ValidatingAdmissionPolicyStatus status;
         public Builder() {}
         public Builder(ValidatingAdmissionPolicy defaults) {
     	      Objects.requireNonNull(defaults);
@@ -84,6 +98,7 @@ public final class ValidatingAdmissionPolicy {
     	      this.kind = defaults.kind;
     	      this.metadata = defaults.metadata;
     	      this.spec = defaults.spec;
+    	      this.status = defaults.status;
         }
 
         @CustomType.Setter
@@ -106,12 +121,18 @@ public final class ValidatingAdmissionPolicy {
             this.spec = spec;
             return this;
         }
+        @CustomType.Setter
+        public Builder status(@Nullable ValidatingAdmissionPolicyStatus status) {
+            this.status = status;
+            return this;
+        }
         public ValidatingAdmissionPolicy build() {
             final var o = new ValidatingAdmissionPolicy();
             o.apiVersion = apiVersion;
             o.kind = kind;
             o.metadata = metadata;
             o.spec = spec;
+            o.status = status;
             return o;
         }
     }

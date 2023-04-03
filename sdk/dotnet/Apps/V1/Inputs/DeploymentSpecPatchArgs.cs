@@ -58,7 +58,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Apps.V1
         public Input<Pulumi.Kubernetes.Types.Inputs.Apps.V1.DeploymentStrategyPatchArgs>? Strategy { get; set; }
 
         /// <summary>
-        /// Template describes the pods that will be created.
+        /// Template describes the pods that will be created. The only allowed template.spec.restartPolicy value is "Always".
         /// </summary>
         [Input("template")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.PodTemplateSpecPatchArgs>? Template { get; set; }

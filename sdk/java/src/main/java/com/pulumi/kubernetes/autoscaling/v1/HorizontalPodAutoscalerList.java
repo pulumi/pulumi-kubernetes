@@ -37,14 +37,14 @@ public class HorizontalPodAutoscalerList extends com.pulumi.resources.CustomReso
         return Codegen.optional(this.apiVersion);
     }
     /**
-     * list of horizontal pod autoscaler objects.
+     * items is the list of horizontal pod autoscaler objects.
      * 
      */
     @Export(name="items", refs={List.class,HorizontalPodAutoscaler.class}, tree="[0,1]")
     private Output<List<HorizontalPodAutoscaler>> items;
 
     /**
-     * @return list of horizontal pod autoscaler objects.
+     * @return items is the list of horizontal pod autoscaler objects.
      * 
      */
     public Output<List<HorizontalPodAutoscaler>> items() {

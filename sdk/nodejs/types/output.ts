@@ -11,6 +11,54 @@ import * as utilities from "../utilities";
 export namespace admissionregistration {
     export namespace v1 {
         /**
+         * MatchCondition represents a condition which must by fulfilled for a request to be sent to a webhook.
+         */
+        export interface MatchCondition {
+            /**
+             * Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+             *
+             * 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+             *   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+             * 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+             *   request resource.
+             * Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/
+             *
+             * Required.
+             */
+            expression: string;
+            /**
+             * Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
+             *
+             * Required.
+             */
+            name: string;
+        }
+
+        /**
+         * MatchCondition represents a condition which must by fulfilled for a request to be sent to a webhook.
+         */
+        export interface MatchConditionPatch {
+            /**
+             * Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+             *
+             * 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+             *   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+             * 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+             *   request resource.
+             * Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/
+             *
+             * Required.
+             */
+            expression: string;
+            /**
+             * Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
+             *
+             * Required.
+             */
+            name: string;
+        }
+
+        /**
          * MutatingWebhook describes an admission webhook and the resources and operations it applies to.
          */
         export interface MutatingWebhook {
@@ -26,6 +74,19 @@ export namespace admissionregistration {
              * FailurePolicy defines how unrecognized errors from the admission endpoint are handled - allowed values are Ignore or Fail. Defaults to Fail.
              */
             failurePolicy: string;
+            /**
+             * MatchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+             *
+             * The exact matching logic is (in order):
+             *   1. If ANY matchCondition evaluates to FALSE, the webhook is skipped.
+             *   2. If ALL matchConditions evaluate to TRUE, the webhook is called.
+             *   3. If any matchCondition evaluates to an error (but none are FALSE):
+             *      - If failurePolicy=Fail, reject the request
+             *      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
+             *
+             * This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+             */
+            matchConditions: outputs.admissionregistration.v1.MatchCondition[];
             /**
              * matchPolicy defines how the "rules" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
              *
@@ -140,6 +201,19 @@ export namespace admissionregistration {
              * FailurePolicy defines how unrecognized errors from the admission endpoint are handled - allowed values are Ignore or Fail. Defaults to Fail.
              */
             failurePolicy: string;
+            /**
+             * MatchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+             *
+             * The exact matching logic is (in order):
+             *   1. If ANY matchCondition evaluates to FALSE, the webhook is skipped.
+             *   2. If ALL matchConditions evaluate to TRUE, the webhook is called.
+             *   3. If any matchCondition evaluates to an error (but none are FALSE):
+             *      - If failurePolicy=Fail, reject the request
+             *      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
+             *
+             * This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+             */
+            matchConditions: outputs.admissionregistration.v1.MatchConditionPatch[];
             /**
              * matchPolicy defines how the "rules" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
              *
@@ -341,6 +415,19 @@ export namespace admissionregistration {
              */
             failurePolicy: string;
             /**
+             * MatchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+             *
+             * The exact matching logic is (in order):
+             *   1. If ANY matchCondition evaluates to FALSE, the webhook is skipped.
+             *   2. If ALL matchConditions evaluate to TRUE, the webhook is called.
+             *   3. If any matchCondition evaluates to an error (but none are FALSE):
+             *      - If failurePolicy=Fail, reject the request
+             *      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
+             *
+             * This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+             */
+            matchConditions: outputs.admissionregistration.v1.MatchCondition[];
+            /**
              * matchPolicy defines how the "rules" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
              *
              * - Exact: match a request only if it exactly matches a specified rule. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, but "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would not be sent to the webhook.
@@ -444,6 +531,19 @@ export namespace admissionregistration {
              * FailurePolicy defines how unrecognized errors from the admission endpoint are handled - allowed values are Ignore or Fail. Defaults to Fail.
              */
             failurePolicy: string;
+            /**
+             * MatchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+             *
+             * The exact matching logic is (in order):
+             *   1. If ANY matchCondition evaluates to FALSE, the webhook is skipped.
+             *   2. If ALL matchConditions evaluate to TRUE, the webhook is called.
+             *   3. If any matchCondition evaluates to an error (but none are FALSE):
+             *      - If failurePolicy=Fail, reject the request
+             *      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
+             *
+             * This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+             */
+            matchConditions: outputs.admissionregistration.v1.MatchConditionPatch[];
             /**
              * matchPolicy defines how the "rules" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
              *
@@ -573,6 +673,124 @@ export namespace admissionregistration {
     }
 
     export namespace v1alpha1 {
+        /**
+         * AuditAnnotation describes how to produce an audit annotation for an API request.
+         */
+        export interface AuditAnnotation {
+            /**
+             * key specifies the audit annotation key. The audit annotation keys of a ValidatingAdmissionPolicy must be unique. The key must be a qualified name ([A-Za-z0-9][-A-Za-z0-9_.]*) no more than 63 bytes in length.
+             *
+             * The key is combined with the resource name of the ValidatingAdmissionPolicy to construct an audit annotation key: "{ValidatingAdmissionPolicy name}/{key}".
+             *
+             * If an admission webhook uses the same resource name as this ValidatingAdmissionPolicy and the same audit annotation key, the annotation key will be identical. In this case, the first annotation written with the key will be included in the audit event and all subsequent annotations with the same key will be discarded.
+             *
+             * Required.
+             */
+            key: string;
+            /**
+             * valueExpression represents the expression which is evaluated by CEL to produce an audit annotation value. The expression must evaluate to either a string or null value. If the expression evaluates to a string, the audit annotation is included with the string value. If the expression evaluates to null or empty string the audit annotation will be omitted. The valueExpression may be no longer than 5kb in length. If the result of the valueExpression is more than 10kb in length, it will be truncated to 10kb.
+             *
+             * If multiple ValidatingAdmissionPolicyBinding resources match an API request, then the valueExpression will be evaluated for each binding. All unique values produced by the valueExpressions will be joined together in a comma-separated list.
+             *
+             * Required.
+             */
+            valueExpression: string;
+        }
+
+        /**
+         * AuditAnnotation describes how to produce an audit annotation for an API request.
+         */
+        export interface AuditAnnotationPatch {
+            /**
+             * key specifies the audit annotation key. The audit annotation keys of a ValidatingAdmissionPolicy must be unique. The key must be a qualified name ([A-Za-z0-9][-A-Za-z0-9_.]*) no more than 63 bytes in length.
+             *
+             * The key is combined with the resource name of the ValidatingAdmissionPolicy to construct an audit annotation key: "{ValidatingAdmissionPolicy name}/{key}".
+             *
+             * If an admission webhook uses the same resource name as this ValidatingAdmissionPolicy and the same audit annotation key, the annotation key will be identical. In this case, the first annotation written with the key will be included in the audit event and all subsequent annotations with the same key will be discarded.
+             *
+             * Required.
+             */
+            key: string;
+            /**
+             * valueExpression represents the expression which is evaluated by CEL to produce an audit annotation value. The expression must evaluate to either a string or null value. If the expression evaluates to a string, the audit annotation is included with the string value. If the expression evaluates to null or empty string the audit annotation will be omitted. The valueExpression may be no longer than 5kb in length. If the result of the valueExpression is more than 10kb in length, it will be truncated to 10kb.
+             *
+             * If multiple ValidatingAdmissionPolicyBinding resources match an API request, then the valueExpression will be evaluated for each binding. All unique values produced by the valueExpressions will be joined together in a comma-separated list.
+             *
+             * Required.
+             */
+            valueExpression: string;
+        }
+
+        /**
+         * ExpressionWarning is a warning information that targets a specific expression.
+         */
+        export interface ExpressionWarning {
+            /**
+             * The path to the field that refers the expression. For example, the reference to the expression of the first item of validations is "spec.validations[0].expression"
+             */
+            fieldRef: string;
+            /**
+             * The content of type checking information in a human-readable form. Each line of the warning contains the type that the expression is checked against, followed by the type check error from the compiler.
+             */
+            warning: string;
+        }
+
+        /**
+         * ExpressionWarning is a warning information that targets a specific expression.
+         */
+        export interface ExpressionWarningPatch {
+            /**
+             * The path to the field that refers the expression. For example, the reference to the expression of the first item of validations is "spec.validations[0].expression"
+             */
+            fieldRef: string;
+            /**
+             * The content of type checking information in a human-readable form. Each line of the warning contains the type that the expression is checked against, followed by the type check error from the compiler.
+             */
+            warning: string;
+        }
+
+        export interface MatchCondition {
+            /**
+             * Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+             *
+             * 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+             *   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+             * 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+             *   request resource.
+             * Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/
+             *
+             * Required.
+             */
+            expression: string;
+            /**
+             * Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
+             *
+             * Required.
+             */
+            name: string;
+        }
+
+        export interface MatchConditionPatch {
+            /**
+             * Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+             *
+             * 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+             *   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+             * 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+             *   request resource.
+             * Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/
+             *
+             * Required.
+             */
+            expression: string;
+            /**
+             * Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
+             *
+             * Required.
+             */
+            name: string;
+        }
+
         /**
          * MatchResources decides whether to run the admission control policy on an object based on whether it meets the match criteria. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
          */
@@ -826,6 +1044,26 @@ export namespace admissionregistration {
         }
 
         /**
+         * TypeChecking contains results of type checking the expressions in the ValidatingAdmissionPolicy
+         */
+        export interface TypeChecking {
+            /**
+             * The type checking warnings for each expression.
+             */
+            expressionWarnings: outputs.admissionregistration.v1alpha1.ExpressionWarning[];
+        }
+
+        /**
+         * TypeChecking contains results of type checking the expressions in the ValidatingAdmissionPolicy
+         */
+        export interface TypeCheckingPatch {
+            /**
+             * The type checking warnings for each expression.
+             */
+            expressionWarnings: outputs.admissionregistration.v1alpha1.ExpressionWarningPatch[];
+        }
+
+        /**
          * ValidatingAdmissionPolicy describes the definition of an admission validation policy that accepts or rejects an object without changing it.
          */
         export interface ValidatingAdmissionPolicy {
@@ -845,6 +1083,10 @@ export namespace admissionregistration {
              * Specification of the desired behavior of the ValidatingAdmissionPolicy.
              */
             spec: outputs.admissionregistration.v1alpha1.ValidatingAdmissionPolicySpec;
+            /**
+             * The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
+             */
+            status: outputs.admissionregistration.v1alpha1.ValidatingAdmissionPolicyStatus;
         }
 
         /**
@@ -885,6 +1127,28 @@ export namespace admissionregistration {
              * PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
              */
             policyName: string;
+            /**
+             * validationActions declares how Validations of the referenced ValidatingAdmissionPolicy are enforced. If a validation evaluates to false it is always enforced according to these actions.
+             *
+             * Failures defined by the ValidatingAdmissionPolicy's FailurePolicy are enforced according to these actions only if the FailurePolicy is set to Fail, otherwise the failures are ignored. This includes compilation errors, runtime errors and misconfigurations of the policy.
+             *
+             * validationActions is declared as a set of action values. Order does not matter. validationActions may not contain duplicates of the same action.
+             *
+             * The supported actions values are:
+             *
+             * "Deny" specifies that a validation failure results in a denied request.
+             *
+             * "Warn" specifies that a validation failure is reported to the request client in HTTP Warning headers, with a warning code of 299. Warnings can be sent both for allowed or denied admission responses.
+             *
+             * "Audit" specifies that a validation failure is included in the published audit event for the request. The audit event will contain a `validation.policy.admission.k8s.io/validation_failure` audit annotation with a value containing the details of the validation failures, formatted as a JSON list of objects, each with the following fields: - message: The validation failure message string - policy: The resource name of the ValidatingAdmissionPolicy - binding: The resource name of the ValidatingAdmissionPolicyBinding - expressionIndex: The index of the failed validations in the ValidatingAdmissionPolicy - validationActions: The enforcement actions enacted for the validation failure Example audit annotation: `"validation.policy.admission.k8s.io/validation_failure": "[{"message": "Invalid value", {"policy": "policy.example.com", {"binding": "policybinding.example.com", {"expressionIndex": "1", {"validationActions": ["Audit"]}]"`
+             *
+             * Clients should expect to handle additional values by ignoring any values not recognized.
+             *
+             * "Deny" and "Warn" may not be used together since this combination needlessly duplicates the validation failure both in the API response body and the HTTP warning headers.
+             *
+             * Required.
+             */
+            validationActions: string[];
         }
 
         /**
@@ -903,6 +1167,28 @@ export namespace admissionregistration {
              * PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
              */
             policyName: string;
+            /**
+             * validationActions declares how Validations of the referenced ValidatingAdmissionPolicy are enforced. If a validation evaluates to false it is always enforced according to these actions.
+             *
+             * Failures defined by the ValidatingAdmissionPolicy's FailurePolicy are enforced according to these actions only if the FailurePolicy is set to Fail, otherwise the failures are ignored. This includes compilation errors, runtime errors and misconfigurations of the policy.
+             *
+             * validationActions is declared as a set of action values. Order does not matter. validationActions may not contain duplicates of the same action.
+             *
+             * The supported actions values are:
+             *
+             * "Deny" specifies that a validation failure results in a denied request.
+             *
+             * "Warn" specifies that a validation failure is reported to the request client in HTTP Warning headers, with a warning code of 299. Warnings can be sent both for allowed or denied admission responses.
+             *
+             * "Audit" specifies that a validation failure is included in the published audit event for the request. The audit event will contain a `validation.policy.admission.k8s.io/validation_failure` audit annotation with a value containing the details of the validation failures, formatted as a JSON list of objects, each with the following fields: - message: The validation failure message string - policy: The resource name of the ValidatingAdmissionPolicy - binding: The resource name of the ValidatingAdmissionPolicyBinding - expressionIndex: The index of the failed validations in the ValidatingAdmissionPolicy - validationActions: The enforcement actions enacted for the validation failure Example audit annotation: `"validation.policy.admission.k8s.io/validation_failure": "[{"message": "Invalid value", {"policy": "policy.example.com", {"binding": "policybinding.example.com", {"expressionIndex": "1", {"validationActions": ["Audit"]}]"`
+             *
+             * Clients should expect to handle additional values by ignoring any values not recognized.
+             *
+             * "Deny" and "Warn" may not be used together since this combination needlessly duplicates the validation failure both in the API response body and the HTTP warning headers.
+             *
+             * Required.
+             */
+            validationActions: string[];
         }
 
         /**
@@ -910,9 +1196,34 @@ export namespace admissionregistration {
          */
         export interface ValidatingAdmissionPolicySpec {
             /**
-             * FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
+             * auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
+             */
+            auditAnnotations: outputs.admissionregistration.v1alpha1.AuditAnnotation[];
+            /**
+             * failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
+             *
+             * A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource.
+             *
+             * failurePolicy does not define how validations that evaluate to false are handled.
+             *
+             * When failurePolicy is set to Fail, ValidatingAdmissionPolicyBinding validationActions define how failures are enforced.
+             *
+             * Allowed values are Ignore or Fail. Defaults to Fail.
              */
             failurePolicy: string;
+            /**
+             * MatchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+             *
+             * If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
+             *
+             * The exact matching logic is (in order):
+             *   1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
+             *   2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
+             *   3. If any matchCondition evaluates to an error (but none are FALSE):
+             *      - If failurePolicy=Fail, reject the request
+             *      - If failurePolicy=Ignore, the policy is skipped
+             */
+            matchConditions: outputs.admissionregistration.v1alpha1.MatchCondition[];
             /**
              * MatchConstraints specifies what resources this policy is designed to validate. The AdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API ValidatingAdmissionPolicy cannot match ValidatingAdmissionPolicy and ValidatingAdmissionPolicyBinding. Required.
              */
@@ -922,7 +1233,7 @@ export namespace admissionregistration {
              */
             paramKind: outputs.admissionregistration.v1alpha1.ParamKind;
             /**
-             * Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
+             * Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
              */
             validations: outputs.admissionregistration.v1alpha1.Validation[];
         }
@@ -932,9 +1243,34 @@ export namespace admissionregistration {
          */
         export interface ValidatingAdmissionPolicySpecPatch {
             /**
-             * FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
+             * auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
+             */
+            auditAnnotations: outputs.admissionregistration.v1alpha1.AuditAnnotationPatch[];
+            /**
+             * failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
+             *
+             * A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource.
+             *
+             * failurePolicy does not define how validations that evaluate to false are handled.
+             *
+             * When failurePolicy is set to Fail, ValidatingAdmissionPolicyBinding validationActions define how failures are enforced.
+             *
+             * Allowed values are Ignore or Fail. Defaults to Fail.
              */
             failurePolicy: string;
+            /**
+             * MatchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+             *
+             * If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
+             *
+             * The exact matching logic is (in order):
+             *   1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
+             *   2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
+             *   3. If any matchCondition evaluates to an error (but none are FALSE):
+             *      - If failurePolicy=Fail, reject the request
+             *      - If failurePolicy=Ignore, the policy is skipped
+             */
+            matchConditions: outputs.admissionregistration.v1alpha1.MatchConditionPatch[];
             /**
              * MatchConstraints specifies what resources this policy is designed to validate. The AdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API ValidatingAdmissionPolicy cannot match ValidatingAdmissionPolicy and ValidatingAdmissionPolicyBinding. Required.
              */
@@ -944,9 +1280,45 @@ export namespace admissionregistration {
              */
             paramKind: outputs.admissionregistration.v1alpha1.ParamKindPatch;
             /**
-             * Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
+             * Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
              */
             validations: outputs.admissionregistration.v1alpha1.ValidationPatch[];
+        }
+
+        /**
+         * ValidatingAdmissionPolicyStatus represents the status of a ValidatingAdmissionPolicy.
+         */
+        export interface ValidatingAdmissionPolicyStatus {
+            /**
+             * The conditions represent the latest available observations of a policy's current state.
+             */
+            conditions: outputs.meta.v1.Condition[];
+            /**
+             * The generation observed by the controller.
+             */
+            observedGeneration: number;
+            /**
+             * The results of type checking for each expression. Presence of this field indicates the completion of the type checking.
+             */
+            typeChecking: outputs.admissionregistration.v1alpha1.TypeChecking;
+        }
+
+        /**
+         * ValidatingAdmissionPolicyStatus represents the status of a ValidatingAdmissionPolicy.
+         */
+        export interface ValidatingAdmissionPolicyStatusPatch {
+            /**
+             * The conditions represent the latest available observations of a policy's current state.
+             */
+            conditions: outputs.meta.v1.ConditionPatch[];
+            /**
+             * The generation observed by the controller.
+             */
+            observedGeneration: number;
+            /**
+             * The results of type checking for each expression. Presence of this field indicates the completion of the type checking.
+             */
+            typeChecking: outputs.admissionregistration.v1alpha1.TypeCheckingPatch;
         }
 
         /**
@@ -954,9 +1326,12 @@ export namespace admissionregistration {
          */
         export interface Validation {
             /**
-             * Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the Admission request/response, organized into CEL variables as well as some other useful variables:
+             * Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
              *
-             * 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind.
+             * - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+             *   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+             * - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+             *   request resource.
              *
              * The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
              *
@@ -981,6 +1356,10 @@ export namespace admissionregistration {
              * Message represents the message displayed when validation fails. The message is required if the Expression contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host" If the Expression contains line breaks. Message is required. The message must not contain line breaks. If unset, the message is "failed Expression: {Expression}".
              */
             message: string;
+            /**
+             * messageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a validation, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the `expression` except for 'authorizer' and 'authorizer.requestResource'. Example: "object.x must be less than max ("+string(params.max)+")"
+             */
+            messageExpression: string;
             /**
              * Reason represents a machine-readable description of why this validation failed. If this is the first validation in the list to fail, this reason, as well as the corresponding HTTP response code, are used in the HTTP response to the client. The currently supported reasons are: "Unauthorized", "Forbidden", "Invalid", "RequestEntityTooLarge". If not set, StatusReasonInvalid is used in the response to the client.
              */
@@ -992,9 +1371,12 @@ export namespace admissionregistration {
          */
         export interface ValidationPatch {
             /**
-             * Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the Admission request/response, organized into CEL variables as well as some other useful variables:
+             * Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
              *
-             * 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind.
+             * - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+             *   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+             * - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+             *   request resource.
              *
              * The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
              *
@@ -1019,6 +1401,10 @@ export namespace admissionregistration {
              * Message represents the message displayed when validation fails. The message is required if the Expression contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host" If the Expression contains line breaks. Message is required. The message must not contain line breaks. If unset, the message is "failed Expression: {Expression}".
              */
             message: string;
+            /**
+             * messageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a validation, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the `expression` except for 'authorizer' and 'authorizer.requestResource'. Example: "object.x must be less than max ("+string(params.max)+")"
+             */
+            messageExpression: string;
             /**
              * Reason represents a machine-readable description of why this validation failed. If this is the first validation in the list to fail, this reason, as well as the corresponding HTTP response code, are used in the HTTP response to the client. The currently supported reasons are: "Unauthorized", "Forbidden", "Invalid", "RequestEntityTooLarge". If not set, StatusReasonInvalid is used in the response to the client.
              */
@@ -1658,12 +2044,12 @@ export namespace apiextensions {
          */
         export interface CustomResourceConversion {
             /**
-             * strategy specifies how custom resources are converted between versions. Allowed values are: - `None`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `Webhook`: API Server will call to an external webhook to do the conversion. Additional information
+             * strategy specifies how custom resources are converted between versions. Allowed values are: - `"None"`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `"Webhook"`: API Server will call to an external webhook to do the conversion. Additional information
              *   is needed for this option. This requires spec.preserveUnknownFields to be false, and spec.conversion.webhook to be set.
              */
             strategy: string;
             /**
-             * webhook describes how to call the conversion webhook. Required when `strategy` is set to `Webhook`.
+             * webhook describes how to call the conversion webhook. Required when `strategy` is set to `"Webhook"`.
              */
             webhook: outputs.apiextensions.v1.WebhookConversion;
         }
@@ -1673,12 +2059,12 @@ export namespace apiextensions {
          */
         export interface CustomResourceConversionPatch {
             /**
-             * strategy specifies how custom resources are converted between versions. Allowed values are: - `None`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `Webhook`: API Server will call to an external webhook to do the conversion. Additional information
+             * strategy specifies how custom resources are converted between versions. Allowed values are: - `"None"`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `"Webhook"`: API Server will call to an external webhook to do the conversion. Additional information
              *   is needed for this option. This requires spec.preserveUnknownFields to be false, and spec.conversion.webhook to be set.
              */
             strategy: string;
             /**
-             * webhook describes how to call the conversion webhook. Required when `strategy` is set to `Webhook`.
+             * webhook describes how to call the conversion webhook. Required when `strategy` is set to `"Webhook"`.
              */
             webhook: outputs.apiextensions.v1.WebhookConversionPatch;
         }
@@ -2370,6 +2756,10 @@ export namespace apiextensions {
              */
             message: string;
             /**
+             * MessageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a rule, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the rule; the only difference is the return type. Example: "x must be less than max ("+string(self.max)+")"
+             */
+            messageExpression: string;
+            /**
              * Rule represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec The Rule is scoped to the location of the x-kubernetes-validations extension in the schema. The `self` variable in the CEL expression is bound to the scoped value. Example: - Rule scoped to the root of a resource with a status subresource: {"rule": "self.status.actual <= self.spec.maxDesired"}
              *
              * If the Rule is scoped to an object with properties, the accessible properties of the object are field selectable via `self.field` and field presence can be checked via `has(self.field)`. Null valued fields are treated as absent fields in CEL expressions. If the Rule is scoped to an object with additionalProperties (i.e. a map) the value of the map are accessible via `self[mapKey]`, map containment can be checked via `mapKey in self` and all entries of the map are accessible via CEL macros and functions such as `self.all(...)`. If the Rule is scoped to an array, the elements of the array are accessible via `self[i]` and also by macros and functions. If the Rule is scoped to a scalar, `self` is bound to the scalar value. Examples: - Rule scoped to a map of objects: {"rule": "self.components['Widget'].priority < 10"} - Rule scoped to a list of integers: {"rule": "self.values.all(value, value >= 0 && value < 100)"} - Rule scoped to a string value: {"rule": "self.startsWith('kube')"}
@@ -2407,6 +2797,10 @@ export namespace apiextensions {
              * Message represents the message displayed when validation fails. The message is required if the Rule contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host"
              */
             message: string;
+            /**
+             * MessageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a rule, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the rule; the only difference is the return type. Example: "x must be less than max ("+string(self.max)+")"
+             */
+            messageExpression: string;
             /**
              * Rule represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec The Rule is scoped to the location of the x-kubernetes-validations extension in the schema. The `self` variable in the CEL expression is bound to the scoped value. Example: - Rule scoped to the root of a resource with a status subresource: {"rule": "self.status.actual <= self.spec.maxDesired"}
              *
@@ -3916,7 +4310,7 @@ export namespace apps {
              */
             selector: outputs.meta.v1.LabelSelector;
             /**
-             * An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+             * An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). The only allowed template.spec.restartPolicy value is "Always". More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
              */
             template: outputs.core.v1.PodTemplateSpec;
             /**
@@ -3942,7 +4336,7 @@ export namespace apps {
              */
             selector: outputs.meta.v1.LabelSelectorPatch;
             /**
-             * An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+             * An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template's node selector (or on every node if no node selector is specified). The only allowed template.spec.restartPolicy value is "Always". More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
              */
             template: outputs.core.v1.PodTemplateSpecPatch;
             /**
@@ -4212,7 +4606,7 @@ export namespace apps {
              */
             strategy: outputs.apps.v1.DeploymentStrategy;
             /**
-             * Template describes the pods that will be created.
+             * Template describes the pods that will be created. The only allowed template.spec.restartPolicy value is "Always".
              */
             template: outputs.core.v1.PodTemplateSpec;
         }
@@ -4250,7 +4644,7 @@ export namespace apps {
              */
             strategy: outputs.apps.v1.DeploymentStrategyPatch;
             /**
-             * Template describes the pods that will be created.
+             * Template describes the pods that will be created. The only allowed template.spec.restartPolicy value is "Always".
              */
             template: outputs.core.v1.PodTemplateSpecPatch;
         }
@@ -4783,7 +5177,7 @@ export namespace apps {
              */
             minReadySeconds: number;
             /**
-             * ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is alpha.
+             * ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is beta.
              */
             ordinals: outputs.apps.v1.StatefulSetOrdinals;
             /**
@@ -4811,7 +5205,7 @@ export namespace apps {
              */
             serviceName: string;
             /**
-             * template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format <statefulsetname>-<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3".
+             * template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format <statefulsetname>-<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3". The only allowed template.spec.restartPolicy value is "Always".
              */
             template: outputs.core.v1.PodTemplateSpec;
             /**
@@ -4833,7 +5227,7 @@ export namespace apps {
              */
             minReadySeconds: number;
             /**
-             * ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is alpha.
+             * ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is beta.
              */
             ordinals: outputs.apps.v1.StatefulSetOrdinalsPatch;
             /**
@@ -4861,7 +5255,7 @@ export namespace apps {
              */
             serviceName: string;
             /**
-             * template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format <statefulsetname>-<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3".
+             * template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format <statefulsetname>-<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3". The only allowed template.spec.restartPolicy value is "Always".
              */
             template: outputs.core.v1.PodTemplateSpecPatch;
             /**
@@ -7258,6 +7652,26 @@ export namespace authentication {
 
     export namespace v1beta1 {
         /**
+         * SelfSubjectReviewStatus is filled by the kube-apiserver and sent back to a user.
+         */
+        export interface SelfSubjectReviewStatus {
+            /**
+             * User attributes of the user making this request.
+             */
+            userInfo: outputs.authentication.v1.UserInfo;
+        }
+
+        /**
+         * SelfSubjectReviewStatus is filled by the kube-apiserver and sent back to a user.
+         */
+        export interface SelfSubjectReviewStatusPatch {
+            /**
+             * User attributes of the user making this request.
+             */
+            userInfo: outputs.authentication.v1.UserInfoPatch;
+        }
+
+        /**
          * TokenReviewSpec is a description of the token authentication request.
          */
         export interface TokenReviewSpec {
@@ -8117,15 +8531,15 @@ export namespace autoscaling {
          */
         export interface CrossVersionObjectReference {
             /**
-             * API version of the referent
+             * apiVersion is the API version of the referent
              */
             apiVersion: string;
             /**
-             * Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             * kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
              */
             kind: string;
             /**
-             * Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
+             * name is the name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
              */
             name: string;
         }
@@ -8135,15 +8549,15 @@ export namespace autoscaling {
          */
         export interface CrossVersionObjectReferencePatch {
             /**
-             * API version of the referent
+             * apiVersion is the API version of the referent
              */
             apiVersion: string;
             /**
-             * Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             * kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
              */
             kind: string;
             /**
-             * Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
+             * name is the name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
              */
             name: string;
         }
@@ -8165,11 +8579,11 @@ export namespace autoscaling {
              */
             metadata: outputs.meta.v1.ObjectMeta;
             /**
-             * behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+             * spec defines the behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
              */
             spec: outputs.autoscaling.v1.HorizontalPodAutoscalerSpec;
             /**
-             * current information about the autoscaler.
+             * status is the current information about the autoscaler.
              */
             status: outputs.autoscaling.v1.HorizontalPodAutoscalerStatus;
         }
@@ -8179,7 +8593,7 @@ export namespace autoscaling {
          */
         export interface HorizontalPodAutoscalerSpec {
             /**
-             * upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
+             * maxReplicas is the upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
              */
             maxReplicas: number;
             /**
@@ -8191,7 +8605,7 @@ export namespace autoscaling {
              */
             scaleTargetRef: outputs.autoscaling.v1.CrossVersionObjectReference;
             /**
-             * target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
+             * targetCPUUtilizationPercentage is the target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
              */
             targetCPUUtilizationPercentage: number;
         }
@@ -8201,7 +8615,7 @@ export namespace autoscaling {
          */
         export interface HorizontalPodAutoscalerSpecPatch {
             /**
-             * upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
+             * maxReplicas is the upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
              */
             maxReplicas: number;
             /**
@@ -8213,7 +8627,7 @@ export namespace autoscaling {
              */
             scaleTargetRef: outputs.autoscaling.v1.CrossVersionObjectReferencePatch;
             /**
-             * target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
+             * targetCPUUtilizationPercentage is the target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
              */
             targetCPUUtilizationPercentage: number;
         }
@@ -8223,23 +8637,23 @@ export namespace autoscaling {
          */
         export interface HorizontalPodAutoscalerStatus {
             /**
-             * current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
+             * currentCPUUtilizationPercentage is the current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
              */
             currentCPUUtilizationPercentage: number;
             /**
-             * current number of replicas of pods managed by this autoscaler.
+             * currentReplicas is the current number of replicas of pods managed by this autoscaler.
              */
             currentReplicas: number;
             /**
-             * desired number of replicas of pods managed by this autoscaler.
+             * desiredReplicas is the  desired number of replicas of pods managed by this autoscaler.
              */
             desiredReplicas: number;
             /**
-             * last time the HorizontalPodAutoscaler scaled the number of pods; used by the autoscaler to control how often the number of pods is changed.
+             * lastScaleTime is the last time the HorizontalPodAutoscaler scaled the number of pods; used by the autoscaler to control how often the number of pods is changed.
              */
             lastScaleTime: string;
             /**
-             * most recent generation observed by this autoscaler.
+             * observedGeneration is the most recent generation observed by this autoscaler.
              */
             observedGeneration: number;
         }
@@ -8249,23 +8663,23 @@ export namespace autoscaling {
          */
         export interface HorizontalPodAutoscalerStatusPatch {
             /**
-             * current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
+             * currentCPUUtilizationPercentage is the current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
              */
             currentCPUUtilizationPercentage: number;
             /**
-             * current number of replicas of pods managed by this autoscaler.
+             * currentReplicas is the current number of replicas of pods managed by this autoscaler.
              */
             currentReplicas: number;
             /**
-             * desired number of replicas of pods managed by this autoscaler.
+             * desiredReplicas is the  desired number of replicas of pods managed by this autoscaler.
              */
             desiredReplicas: number;
             /**
-             * last time the HorizontalPodAutoscaler scaled the number of pods; used by the autoscaler to control how often the number of pods is changed.
+             * lastScaleTime is the last time the HorizontalPodAutoscaler scaled the number of pods; used by the autoscaler to control how often the number of pods is changed.
              */
             lastScaleTime: string;
             /**
-             * most recent generation observed by this autoscaler.
+             * observedGeneration is the most recent generation observed by this autoscaler.
              */
             observedGeneration: number;
         }
@@ -8314,7 +8728,7 @@ export namespace autoscaling {
          */
         export interface ContainerResourceMetricStatus {
             /**
-             * Container is the name of the container in the pods of the scaling target
+             * container is the name of the container in the pods of the scaling target
              */
             container: string;
             /**
@@ -8322,7 +8736,7 @@ export namespace autoscaling {
              */
             current: outputs.autoscaling.v2.MetricValueStatus;
             /**
-             * Name is the name of the resource in question.
+             * name is the name of the resource in question.
              */
             name: string;
         }
@@ -8332,7 +8746,7 @@ export namespace autoscaling {
          */
         export interface ContainerResourceMetricStatusPatch {
             /**
-             * Container is the name of the container in the pods of the scaling target
+             * container is the name of the container in the pods of the scaling target
              */
             container: string;
             /**
@@ -8340,7 +8754,7 @@ export namespace autoscaling {
              */
             current: outputs.autoscaling.v2.MetricValueStatusPatch;
             /**
-             * Name is the name of the resource in question.
+             * name is the name of the resource in question.
              */
             name: string;
         }
@@ -8350,15 +8764,15 @@ export namespace autoscaling {
          */
         export interface CrossVersionObjectReference {
             /**
-             * API version of the referent
+             * apiVersion is the API version of the referent
              */
             apiVersion: string;
             /**
-             * Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             * kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
              */
             kind: string;
             /**
-             * Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
+             * name is the name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
              */
             name: string;
         }
@@ -8368,15 +8782,15 @@ export namespace autoscaling {
          */
         export interface CrossVersionObjectReferencePatch {
             /**
-             * API version of the referent
+             * apiVersion is the API version of the referent
              */
             apiVersion: string;
             /**
-             * Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             * kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
              */
             kind: string;
             /**
-             * Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
+             * name is the name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
              */
             name: string;
         }
@@ -8442,15 +8856,15 @@ export namespace autoscaling {
          */
         export interface HPAScalingPolicy {
             /**
-             * PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
+             * periodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
              */
             periodSeconds: number;
             /**
-             * Type is used to specify the scaling policy.
+             * type is used to specify the scaling policy.
              */
             type: string;
             /**
-             * Value contains the amount of change which is permitted by the policy. It must be greater than zero
+             * value contains the amount of change which is permitted by the policy. It must be greater than zero
              */
             value: number;
         }
@@ -8460,15 +8874,15 @@ export namespace autoscaling {
          */
         export interface HPAScalingPolicyPatch {
             /**
-             * PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
+             * periodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
              */
             periodSeconds: number;
             /**
-             * Type is used to specify the scaling policy.
+             * type is used to specify the scaling policy.
              */
             type: string;
             /**
-             * Value contains the amount of change which is permitted by the policy. It must be greater than zero
+             * value contains the amount of change which is permitted by the policy. It must be greater than zero
              */
             value: number;
         }
@@ -8486,7 +8900,7 @@ export namespace autoscaling {
              */
             selectPolicy: string;
             /**
-             * StabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
+             * stabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
              */
             stabilizationWindowSeconds: number;
         }
@@ -8504,7 +8918,7 @@ export namespace autoscaling {
              */
             selectPolicy: string;
             /**
-             * StabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
+             * stabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
              */
             stabilizationWindowSeconds: number;
         }
@@ -9126,7 +9540,7 @@ export namespace autoscaling {
              */
             current: outputs.autoscaling.v2.MetricValueStatus;
             /**
-             * Name is the name of the resource in question.
+             * name is the name of the resource in question.
              */
             name: string;
         }
@@ -9140,7 +9554,7 @@ export namespace autoscaling {
              */
             current: outputs.autoscaling.v2.MetricValueStatusPatch;
             /**
-             * Name is the name of the resource in question.
+             * name is the name of the resource in question.
              */
             name: string;
         }
@@ -10839,7 +11253,7 @@ export namespace batch {
              */
             suspend: boolean;
             /**
-             * The time zone name for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will default to the time zone of the kube-controller-manager process. The set of valid time zone names and the time zone offset is loaded from the system-wide time zone database by the API server during CronJob validation and the controller manager during execution. If no system-wide time zone database can be found a bundled version of the database is used instead. If the time zone name becomes invalid during the lifetime of a CronJob or due to a change in host configuration, the controller will stop creating new new Jobs and will create a system event with the reason UnknownTimeZone. More information can be found in https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#time-zones This is beta field and must be enabled via the `CronJobTimeZone` feature gate.
+             * The time zone name for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will default to the time zone of the kube-controller-manager process. The set of valid time zone names and the time zone offset is loaded from the system-wide time zone database by the API server during CronJob validation and the controller manager during execution. If no system-wide time zone database can be found a bundled version of the database is used instead. If the time zone name becomes invalid during the lifetime of a CronJob or due to a change in host configuration, the controller will stop creating new new Jobs and will create a system event with the reason UnknownTimeZone. More information can be found in https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#time-zones
              */
             timeZone: string;
         }
@@ -10879,7 +11293,7 @@ export namespace batch {
              */
             suspend: boolean;
             /**
-             * The time zone name for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will default to the time zone of the kube-controller-manager process. The set of valid time zone names and the time zone offset is loaded from the system-wide time zone database by the API server during CronJob validation and the controller manager during execution. If no system-wide time zone database can be found a bundled version of the database is used instead. If the time zone name becomes invalid during the lifetime of a CronJob or due to a change in host configuration, the controller will stop creating new new Jobs and will create a system event with the reason UnknownTimeZone. More information can be found in https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#time-zones This is beta field and must be enabled via the `CronJobTimeZone` feature gate.
+             * The time zone name for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will default to the time zone of the kube-controller-manager process. The set of valid time zone names and the time zone offset is loaded from the system-wide time zone database by the API server during CronJob validation and the controller manager during execution. If no system-wide time zone database can be found a bundled version of the database is used instead. If the time zone name becomes invalid during the lifetime of a CronJob or due to a change in host configuration, the controller will stop creating new new Jobs and will create a system event with the reason UnknownTimeZone. More information can be found in https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#time-zones
              */
             timeZone: string;
         }
@@ -11075,7 +11489,7 @@ export namespace batch {
              */
             suspend: boolean;
             /**
-             * Describes the pod that will be created when executing a job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+             * Describes the pod that will be created when executing a job. The only allowed template.spec.restartPolicy values are "Never" or "OnFailure". More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
              */
             template: outputs.core.v1.PodTemplateSpec;
             /**
@@ -11133,7 +11547,7 @@ export namespace batch {
              */
             suspend: boolean;
             /**
-             * Describes the pod that will be created when executing a job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+             * Describes the pod that will be created when executing a job. The only allowed template.spec.restartPolicy values are "Never" or "OnFailure". More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
              */
             template: outputs.core.v1.PodTemplateSpecPatch;
             /**
@@ -12108,6 +12522,87 @@ export namespace certificates {
 
     }
 
+    export namespace v1alpha1 {
+        /**
+         * ClusterTrustBundle is a cluster-scoped container for X.509 trust anchors (root certificates).
+         *
+         * ClusterTrustBundle objects are considered to be readable by any authenticated user in the cluster, because they can be mounted by pods using the `clusterTrustBundle` projection.  All service accounts have read access to ClusterTrustBundles by default.  Users who only have namespace-level access to a cluster can read ClusterTrustBundles by impersonating a serviceaccount that they have access to.
+         *
+         * It can be optionally associated with a particular assigner, in which case it contains one valid set of trust anchors for that signer. Signers may have multiple associated ClusterTrustBundles; each is an independent set of trust anchors for that signer. Admission control is used to enforce that only users with permissions on the signer can create or modify the corresponding bundle.
+         */
+        export interface ClusterTrustBundle {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion: "certificates.k8s.io/v1alpha1";
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind: "ClusterTrustBundle";
+            /**
+             * metadata contains the object metadata.
+             */
+            metadata: outputs.meta.v1.ObjectMeta;
+            /**
+             * spec contains the signer (if any) and trust anchors.
+             */
+            spec: outputs.certificates.v1alpha1.ClusterTrustBundleSpec;
+        }
+
+        /**
+         * ClusterTrustBundleSpec contains the signer and trust anchors.
+         */
+        export interface ClusterTrustBundleSpec {
+            /**
+             * signerName indicates the associated signer, if any.
+             *
+             * In order to create or update a ClusterTrustBundle that sets signerName, you must have the following cluster-scoped permission: group=certificates.k8s.io resource=signers resourceName=<the signer name> verb=attest.
+             *
+             * If signerName is not empty, then the ClusterTrustBundle object must be named with the signer name as a prefix (translating slashes to colons). For example, for the signer name `example.com/foo`, valid ClusterTrustBundle object names include `example.com:foo:abc` and `example.com:foo:v1`.
+             *
+             * If signerName is empty, then the ClusterTrustBundle object's name must not have such a prefix.
+             *
+             * List/watch requests for ClusterTrustBundles can filter on this field using a `spec.signerName=NAME` field selector.
+             */
+            signerName: string;
+            /**
+             * trustBundle contains the individual X.509 trust anchors for this bundle, as PEM bundle of PEM-wrapped, DER-formatted X.509 certificates.
+             *
+             * The data must consist only of PEM certificate blocks that parse as valid X.509 certificates.  Each certificate must include a basic constraints extension with the CA bit set.  The API server will reject objects that contain duplicate certificates, or that use PEM block headers.
+             *
+             * Users of ClusterTrustBundles, including Kubelet, are free to reorder and deduplicate certificate blocks in this file according to their own logic, as well as to drop PEM block headers and inter-block data.
+             */
+            trustBundle: string;
+        }
+
+        /**
+         * ClusterTrustBundleSpec contains the signer and trust anchors.
+         */
+        export interface ClusterTrustBundleSpecPatch {
+            /**
+             * signerName indicates the associated signer, if any.
+             *
+             * In order to create or update a ClusterTrustBundle that sets signerName, you must have the following cluster-scoped permission: group=certificates.k8s.io resource=signers resourceName=<the signer name> verb=attest.
+             *
+             * If signerName is not empty, then the ClusterTrustBundle object must be named with the signer name as a prefix (translating slashes to colons). For example, for the signer name `example.com/foo`, valid ClusterTrustBundle object names include `example.com:foo:abc` and `example.com:foo:v1`.
+             *
+             * If signerName is empty, then the ClusterTrustBundle object's name must not have such a prefix.
+             *
+             * List/watch requests for ClusterTrustBundles can filter on this field using a `spec.signerName=NAME` field selector.
+             */
+            signerName: string;
+            /**
+             * trustBundle contains the individual X.509 trust anchors for this bundle, as PEM bundle of PEM-wrapped, DER-formatted X.509 certificates.
+             *
+             * The data must consist only of PEM certificate blocks that parse as valid X.509 certificates.  Each certificate must include a basic constraints extension with the CA bit set.  The API server will reject objects that contain duplicate certificates, or that use PEM block headers.
+             *
+             * Users of ClusterTrustBundles, including Kubelet, are free to reorder and deduplicate certificate blocks in this file according to their own logic, as well as to drop PEM block headers and inter-block data.
+             */
+            trustBundle: string;
+        }
+
+    }
+
     export namespace v1beta1 {
         /**
          * Describes a certificate signing request
@@ -12724,7 +13219,7 @@ export namespace core {
              */
             fsType: string;
             /**
-             * nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is an alpha field and requires enabling CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+             * nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is a beta field which is enabled default by CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
              */
             nodeExpandSecretRef: outputs.core.v1.SecretReference;
             /**
@@ -12770,7 +13265,7 @@ export namespace core {
              */
             fsType: string;
             /**
-             * nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is an alpha field and requires enabling CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+             * nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is a beta field which is enabled default by CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
              */
             nodeExpandSecretRef: outputs.core.v1.SecretReferencePatch;
             /**
@@ -13434,6 +13929,10 @@ export namespace core {
              */
             readinessProbe: outputs.core.v1.Probe;
             /**
+             * Resources resize policy for the container.
+             */
+            resizePolicy: outputs.core.v1.ContainerResizePolicy[];
+            /**
              * Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
              */
             resources: outputs.core.v1.ResourceRequirements;
@@ -13556,6 +14055,10 @@ export namespace core {
              */
             readinessProbe: outputs.core.v1.ProbePatch;
             /**
+             * Resources resize policy for the container.
+             */
+            resizePolicy: outputs.core.v1.ContainerResizePolicyPatch[];
+            /**
              * Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
              */
             resources: outputs.core.v1.ResourceRequirementsPatch;
@@ -13651,6 +14154,34 @@ export namespace core {
              * Protocol for port. Must be UDP, TCP, or SCTP. Defaults to "TCP".
              */
             protocol: string;
+        }
+
+        /**
+         * ContainerResizePolicy represents resource resize policy for the container.
+         */
+        export interface ContainerResizePolicy {
+            /**
+             * Name of the resource to which this resource resize policy applies. Supported values: cpu, memory.
+             */
+            resourceName: string;
+            /**
+             * Restart policy to apply when specified resource is resized. If not specified, it defaults to NotRequired.
+             */
+            restartPolicy: string;
+        }
+
+        /**
+         * ContainerResizePolicy represents resource resize policy for the container.
+         */
+        export interface ContainerResizePolicyPatch {
+            /**
+             * Name of the resource to which this resource resize policy applies. Supported values: cpu, memory.
+             */
+            resourceName: string;
+            /**
+             * Restart policy to apply when specified resource is resized. If not specified, it defaults to NotRequired.
+             */
+            restartPolicy: string;
         }
 
         /**
@@ -13810,39 +14341,49 @@ export namespace core {
          */
         export interface ContainerStatus {
             /**
-             * Container's ID in the format '<type>://<container_id>'.
+             * AllocatedResources represents the compute resources allocated for this container by the node. Kubelet sets this value to Container.Resources.Requests upon successful pod admission and after successfully admitting desired pod resize.
+             */
+            allocatedResources: {[key: string]: string};
+            /**
+             * ContainerID is the ID of the container in the format '<type>://<container_id>'. Where type is a container runtime identifier, returned from Version call of CRI API (for example "containerd").
              */
             containerID: string;
             /**
-             * The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images.
+             * Image is the name of container image that the container is running. The container image may not match the image used in the PodSpec, as it may have been resolved by the runtime. More info: https://kubernetes.io/docs/concepts/containers/images.
              */
             image: string;
             /**
-             * ImageID of the container's image.
+             * ImageID is the image ID of the container's image. The image ID may not match the image ID of the image used in the PodSpec, as it may have been resolved by the runtime.
              */
             imageID: string;
             /**
-             * Details about the container's last termination condition.
+             * LastTerminationState holds the last termination state of the container to help debug container crashes and restarts. This field is not populated if the container is still running and RestartCount is 0.
              */
             lastState: outputs.core.v1.ContainerState;
             /**
-             * This must be a DNS_LABEL. Each container in a pod must have a unique name. Cannot be updated.
+             * Name is a DNS_LABEL representing the unique name of the container. Each container in a pod must have a unique name across all container types. Cannot be updated.
              */
             name: string;
             /**
-             * Specifies whether the container has passed its readiness probe.
+             * Ready specifies whether the container is currently passing its readiness check. The value will change as readiness probes keep executing. If no readiness probes are specified, this field defaults to true once the container is fully started (see Started field).
+             *
+             * The value is typically used to determine whether a container is ready to accept traffic.
              */
             ready: boolean;
             /**
-             * The number of times the container has been restarted.
+             * Resources represents the compute resource requests and limits that have been successfully enacted on the running container after it has been started or has been successfully resized.
+             */
+            resources: outputs.core.v1.ResourceRequirements;
+            /**
+             * RestartCount holds the number of times the container has been restarted. Kubelet makes an effort to always increment the value, but there are cases when the state may be lost due to node restarts and then the value may be reset to 0. The value is never negative.
              */
             restartCount: number;
             /**
-             * Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is defined.
+             * Started indicates whether the container has finished its postStart lifecycle hook and passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. In both cases, startup probes will run again. Is always true when no startupProbe is defined and container is running and has passed the postStart lifecycle hook. The null value must be treated the same as false.
              */
             started: boolean;
             /**
-             * Details about the container's current condition.
+             * State holds details about the container's current condition.
              */
             state: outputs.core.v1.ContainerState;
         }
@@ -13852,39 +14393,49 @@ export namespace core {
          */
         export interface ContainerStatusPatch {
             /**
-             * Container's ID in the format '<type>://<container_id>'.
+             * AllocatedResources represents the compute resources allocated for this container by the node. Kubelet sets this value to Container.Resources.Requests upon successful pod admission and after successfully admitting desired pod resize.
+             */
+            allocatedResources: {[key: string]: string};
+            /**
+             * ContainerID is the ID of the container in the format '<type>://<container_id>'. Where type is a container runtime identifier, returned from Version call of CRI API (for example "containerd").
              */
             containerID: string;
             /**
-             * The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images.
+             * Image is the name of container image that the container is running. The container image may not match the image used in the PodSpec, as it may have been resolved by the runtime. More info: https://kubernetes.io/docs/concepts/containers/images.
              */
             image: string;
             /**
-             * ImageID of the container's image.
+             * ImageID is the image ID of the container's image. The image ID may not match the image ID of the image used in the PodSpec, as it may have been resolved by the runtime.
              */
             imageID: string;
             /**
-             * Details about the container's last termination condition.
+             * LastTerminationState holds the last termination state of the container to help debug container crashes and restarts. This field is not populated if the container is still running and RestartCount is 0.
              */
             lastState: outputs.core.v1.ContainerStatePatch;
             /**
-             * This must be a DNS_LABEL. Each container in a pod must have a unique name. Cannot be updated.
+             * Name is a DNS_LABEL representing the unique name of the container. Each container in a pod must have a unique name across all container types. Cannot be updated.
              */
             name: string;
             /**
-             * Specifies whether the container has passed its readiness probe.
+             * Ready specifies whether the container is currently passing its readiness check. The value will change as readiness probes keep executing. If no readiness probes are specified, this field defaults to true once the container is fully started (see Started field).
+             *
+             * The value is typically used to determine whether a container is ready to accept traffic.
              */
             ready: boolean;
             /**
-             * The number of times the container has been restarted.
+             * Resources represents the compute resource requests and limits that have been successfully enacted on the running container after it has been started or has been successfully resized.
+             */
+            resources: outputs.core.v1.ResourceRequirementsPatch;
+            /**
+             * RestartCount holds the number of times the container has been restarted. Kubelet makes an effort to always increment the value, but there are cases when the state may be lost due to node restarts and then the value may be reset to 0. The value is never negative.
              */
             restartCount: number;
             /**
-             * Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is defined.
+             * Started indicates whether the container has finished its postStart lifecycle hook and passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. In both cases, startup probes will run again. Is always true when no startupProbe is defined and container is running and has passed the postStart lifecycle hook. The null value must be treated the same as false.
              */
             started: boolean;
             /**
-             * Details about the container's current condition.
+             * State holds details about the container's current condition.
              */
             state: outputs.core.v1.ContainerStatePatch;
         }
@@ -14010,7 +14561,7 @@ export namespace core {
              */
             medium: string;
             /**
-             * sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: http://kubernetes.io/docs/user-guide/volumes#emptydir
+             * sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
              */
             sizeLimit: string;
         }
@@ -14024,7 +14575,7 @@ export namespace core {
              */
             medium: string;
             /**
-             * sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: http://kubernetes.io/docs/user-guide/volumes#emptydir
+             * sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
              */
             sizeLimit: string;
         }
@@ -14078,7 +14629,14 @@ export namespace core {
          */
         export interface EndpointPort {
             /**
-             * The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+             * The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:
+             *
+             * * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
+             *
+             * * Kubernetes-defined prefixed names:
+             *   * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+             *
+             * * Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.
              */
             appProtocol: string;
             /**
@@ -14100,7 +14658,14 @@ export namespace core {
          */
         export interface EndpointPortPatch {
             /**
-             * The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+             * The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:
+             *
+             * * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
+             *
+             * * Kubernetes-defined prefixed names:
+             *   * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+             *
+             * * Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.
              */
             appProtocol: string;
             /**
@@ -14374,6 +14939,10 @@ export namespace core {
              */
             readinessProbe: outputs.core.v1.Probe;
             /**
+             * Resources resize policy for the container.
+             */
+            resizePolicy: outputs.core.v1.ContainerResizePolicy[];
+            /**
              * Resources are not allowed for ephemeral containers. Ephemeral containers use spare resources already allocated to the pod.
              */
             resources: outputs.core.v1.ResourceRequirements;
@@ -14475,6 +15044,10 @@ export namespace core {
              * Probes are not allowed for ephemeral containers.
              */
             readinessProbe: outputs.core.v1.ProbePatch;
+            /**
+             * Resources resize policy for the container.
+             */
+            resizePolicy: outputs.core.v1.ContainerResizePolicyPatch[];
             /**
              * Resources are not allowed for ephemeral containers. Ephemeral containers use spare resources already allocated to the pod.
              */
@@ -16608,7 +17181,7 @@ export namespace core {
         }
 
         /**
-         * PersistentVolumeClaimCondition contails details about state of pvc
+         * PersistentVolumeClaimCondition contains details about state of pvc
          */
         export interface PersistentVolumeClaimCondition {
             /**
@@ -16632,7 +17205,7 @@ export namespace core {
         }
 
         /**
-         * PersistentVolumeClaimCondition contails details about state of pvc
+         * PersistentVolumeClaimCondition contains details about state of pvc
          */
         export interface PersistentVolumeClaimConditionPatch {
             /**
@@ -17787,7 +18360,7 @@ export namespace core {
              */
             resourceClaims: outputs.core.v1.PodResourceClaim[];
             /**
-             * Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
+             * Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
              */
             restartPolicy: string;
             /**
@@ -17799,9 +18372,11 @@ export namespace core {
              */
             schedulerName: string;
             /**
-             * SchedulingGates is an opaque list of values that if specified will block scheduling the pod. More info:  https://git.k8s.io/enhancements/keps/sig-scheduling/3521-pod-scheduling-readiness.
+             * SchedulingGates is an opaque list of values that if specified will block scheduling the pod. If schedulingGates is not empty, the pod will stay in the SchedulingGated state and the scheduler will not attempt to schedule the pod.
              *
-             * This is an alpha-level feature enabled by PodSchedulingReadiness feature gate.
+             * SchedulingGates can only be set at pod creation time, and be removed only afterwards.
+             *
+             * This is a beta feature enabled by the PodSchedulingReadiness feature gate.
              */
             schedulingGates: outputs.core.v1.PodSchedulingGate[];
             /**
@@ -17959,7 +18534,7 @@ export namespace core {
              */
             resourceClaims: outputs.core.v1.PodResourceClaimPatch[];
             /**
-             * Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
+             * Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
              */
             restartPolicy: string;
             /**
@@ -17971,9 +18546,11 @@ export namespace core {
              */
             schedulerName: string;
             /**
-             * SchedulingGates is an opaque list of values that if specified will block scheduling the pod. More info:  https://git.k8s.io/enhancements/keps/sig-scheduling/3521-pod-scheduling-readiness.
+             * SchedulingGates is an opaque list of values that if specified will block scheduling the pod. If schedulingGates is not empty, the pod will stay in the SchedulingGated state and the scheduler will not attempt to schedule the pod.
              *
-             * This is an alpha-level feature enabled by PodSchedulingReadiness feature gate.
+             * SchedulingGates can only be set at pod creation time, and be removed only afterwards.
+             *
+             * This is a beta feature enabled by the PodSchedulingReadiness feature gate.
              */
             schedulingGates: outputs.core.v1.PodSchedulingGatePatch[];
             /**
@@ -18067,13 +18644,17 @@ export namespace core {
              */
             podIPs: outputs.core.v1.PodIP[];
             /**
-             * The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md
+             * The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/#quality-of-service-classes
              */
             qosClass: string;
             /**
              * A brief CamelCase message indicating details about why the pod is in this state. e.g. 'Evicted'
              */
             reason: string;
+            /**
+             * Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed"
+             */
+            resize: string;
             /**
              * RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.
              */
@@ -18129,13 +18710,17 @@ export namespace core {
              */
             podIPs: outputs.core.v1.PodIPPatch[];
             /**
-             * The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md
+             * The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/#quality-of-service-classes
              */
             qosClass: string;
             /**
              * A brief CamelCase message indicating details about why the pod is in this state. e.g. 'Evicted'
              */
             reason: string;
+            /**
+             * Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed"
+             */
+            resize: string;
             /**
              * RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.
              */
@@ -18305,7 +18890,7 @@ export namespace core {
              */
             failureThreshold: number;
             /**
-             * GRPC specifies an action involving a GRPC port. This is a beta field and requires enabling GRPCContainerProbe feature gate.
+             * GRPC specifies an action involving a GRPC port.
              */
             grpc: outputs.core.v1.GRPCAction;
             /**
@@ -18351,7 +18936,7 @@ export namespace core {
              */
             failureThreshold: number;
             /**
-             * GRPC specifies an action involving a GRPC port. This is a beta field and requires enabling GRPCContainerProbe feature gate.
+             * GRPC specifies an action involving a GRPC port.
              */
             grpc: outputs.core.v1.GRPCActionPatch;
             /**
@@ -18719,7 +19304,7 @@ export namespace core {
              */
             selector: {[key: string]: string};
             /**
-             * Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+             * Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. The only allowed template.spec.restartPolicy value is "Always". More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
              */
             template: outputs.core.v1.PodTemplateSpec;
         }
@@ -18741,7 +19326,7 @@ export namespace core {
              */
             selector: {[key: string]: string};
             /**
-             * Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+             * Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. The only allowed template.spec.restartPolicy value is "Always". More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
              */
             template: outputs.core.v1.PodTemplateSpecPatch;
         }
@@ -18961,7 +19546,7 @@ export namespace core {
              *
              * This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
              *
-             * This field is immutable.
+             * This field is immutable. It can only be set for containers.
              */
             claims: outputs.core.v1.ResourceClaim[];
             /**
@@ -18969,7 +19554,7 @@ export namespace core {
              */
             limits: {[key: string]: string};
             /**
-             * Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+             * Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
              */
             requests: {[key: string]: string};
         }
@@ -18983,7 +19568,7 @@ export namespace core {
              *
              * This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
              *
-             * This field is immutable.
+             * This field is immutable. It can only be set for containers.
              */
             claims: outputs.core.v1.ResourceClaimPatch[];
             /**
@@ -18991,7 +19576,7 @@ export namespace core {
              */
             limits: {[key: string]: string};
             /**
-             * Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+             * Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
              */
             requests: {[key: string]: string};
         }
@@ -20366,7 +20951,9 @@ export namespace core {
              */
             labelSelector: outputs.meta.v1.LabelSelector;
             /**
-             * MatchLabelKeys is a set of pod label keys to select the pods over which spreading will be calculated. The keys are used to lookup values from the incoming pod labels, those key-value labels are ANDed with labelSelector to select the group of existing pods over which spreading will be calculated for the incoming pod. Keys that don't exist in the incoming pod labels will be ignored. A null or empty list means only match against labelSelector.
+             * MatchLabelKeys is a set of pod label keys to select the pods over which spreading will be calculated. The keys are used to lookup values from the incoming pod labels, those key-value labels are ANDed with labelSelector to select the group of existing pods over which spreading will be calculated for the incoming pod. The same key is forbidden to exist in both MatchLabelKeys and LabelSelector. MatchLabelKeys cannot be set when LabelSelector isn't set. Keys that don't exist in the incoming pod labels will be ignored. A null or empty list means only match against labelSelector.
+             *
+             * This is a beta field and requires the MatchLabelKeysInPodTopologySpread feature gate to be enabled (enabled by default).
              */
             matchLabelKeys: string[];
             /**
@@ -20415,7 +21002,9 @@ export namespace core {
              */
             labelSelector: outputs.meta.v1.LabelSelectorPatch;
             /**
-             * MatchLabelKeys is a set of pod label keys to select the pods over which spreading will be calculated. The keys are used to lookup values from the incoming pod labels, those key-value labels are ANDed with labelSelector to select the group of existing pods over which spreading will be calculated for the incoming pod. Keys that don't exist in the incoming pod labels will be ignored. A null or empty list means only match against labelSelector.
+             * MatchLabelKeys is a set of pod label keys to select the pods over which spreading will be calculated. The keys are used to lookup values from the incoming pod labels, those key-value labels are ANDed with labelSelector to select the group of existing pods over which spreading will be calculated for the incoming pod. The same key is forbidden to exist in both MatchLabelKeys and LabelSelector. MatchLabelKeys cannot be set when LabelSelector isn't set. Keys that don't exist in the incoming pod labels will be ignored. A null or empty list means only match against labelSelector.
+             *
+             * This is a beta field and requires the MatchLabelKeysInPodTopologySpread feature gate to be enabled (enabled by default).
              */
             matchLabelKeys: string[];
             /**
@@ -21123,7 +21712,7 @@ export namespace discovery {
          */
         export interface EndpointConditions {
             /**
-             * ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be "true" for terminating endpoints.
+             * ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be "true" for terminating endpoints, except when the normal readiness behavior is being explicitly overridden, for example when the associated Service has set the publishNotReadyAddresses flag.
              */
             ready: boolean;
             /**
@@ -21141,7 +21730,7 @@ export namespace discovery {
          */
         export interface EndpointConditionsPatch {
             /**
-             * ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be "true" for terminating endpoints.
+             * ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be "true" for terminating endpoints, except when the normal readiness behavior is being explicitly overridden, for example when the associated Service has set the publishNotReadyAddresses flag.
              */
             ready: boolean;
             /**
@@ -21217,7 +21806,14 @@ export namespace discovery {
          */
         export interface EndpointPort {
             /**
-             * appProtocol represents the application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+             * The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:
+             *
+             * * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
+             *
+             * * Kubernetes-defined prefixed names:
+             *   * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+             *
+             * * Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.
              */
             appProtocol: string;
             /**
@@ -21239,7 +21835,14 @@ export namespace discovery {
          */
         export interface EndpointPortPatch {
             /**
-             * appProtocol represents the application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+             * The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:
+             *
+             * * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
+             *
+             * * Kubernetes-defined prefixed names:
+             *   * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+             *
+             * * Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.
              */
             appProtocol: string;
             /**
@@ -26493,7 +27096,7 @@ export namespace meta {
          */
         export interface ObjectMeta {
             /**
-             * Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
+             * Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations
              */
             annotations: {[key: string]: string};
             /**
@@ -26533,7 +27136,7 @@ export namespace meta {
              */
             generation: number;
             /**
-             * Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
+             * Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels
              */
             labels: {[key: string]: string};
             /**
@@ -26541,13 +27144,13 @@ export namespace meta {
              */
             managedFields: outputs.meta.v1.ManagedFieldsEntry[];
             /**
-             * Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names
+             * Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names
              */
             name: string;
             /**
              * Namespace defines the space within which each name must be unique. An empty namespace is equivalent to the "default" namespace, but "default" is the canonical representation. Not all objects are required to be scoped to a namespace - the value of this field for those objects will be empty.
              *
-             * Must be a DNS_LABEL. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/namespaces
+             * Must be a DNS_LABEL. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces
              */
             namespace: string;
             /**
@@ -26567,7 +27170,7 @@ export namespace meta {
             /**
              * UID is the unique in time and space value for this object. It is typically generated by the server on successful creation of a resource and is not allowed to change on PUT operations.
              *
-             * Populated by the system. Read-only. More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+             * Populated by the system. Read-only. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
              */
             uid: string;
         }
@@ -26577,7 +27180,7 @@ export namespace meta {
          */
         export interface ObjectMetaPatch {
             /**
-             * Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
+             * Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations
              */
             annotations: {[key: string]: string};
             /**
@@ -26617,7 +27220,7 @@ export namespace meta {
              */
             generation: number;
             /**
-             * Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
+             * Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels
              */
             labels: {[key: string]: string};
             /**
@@ -26625,13 +27228,13 @@ export namespace meta {
              */
             managedFields: outputs.meta.v1.ManagedFieldsEntryPatch[];
             /**
-             * Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names
+             * Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names
              */
             name: string;
             /**
              * Namespace defines the space within which each name must be unique. An empty namespace is equivalent to the "default" namespace, but "default" is the canonical representation. Not all objects are required to be scoped to a namespace - the value of this field for those objects will be empty.
              *
-             * Must be a DNS_LABEL. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/namespaces
+             * Must be a DNS_LABEL. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces
              */
             namespace: string;
             /**
@@ -26651,7 +27254,7 @@ export namespace meta {
             /**
              * UID is the unique in time and space value for this object. It is typically generated by the server on successful creation of a resource and is not allowed to change on PUT operations.
              *
-             * Populated by the system. Read-only. More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+             * Populated by the system. Read-only. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
              */
             uid: string;
         }
@@ -26677,11 +27280,11 @@ export namespace meta {
              */
             kind: string;
             /**
-             * Name of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#names
+             * Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names
              */
             name: string;
             /**
-             * UID of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+             * UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
              */
             uid: string;
         }
@@ -26707,11 +27310,11 @@ export namespace meta {
              */
             kind: string;
             /**
-             * Name of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#names
+             * Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names
              */
             name: string;
             /**
-             * UID of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+             * UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
              */
             uid: string;
         }
@@ -26785,7 +27388,7 @@ export namespace meta {
              */
             retryAfterSeconds: number;
             /**
-             * UID of the resource. (when there is a single resource which can be described). More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+             * UID of the resource. (when there is a single resource which can be described). More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
              */
             uid: string;
         }
@@ -26815,7 +27418,7 @@ export namespace meta {
              */
             retryAfterSeconds: number;
             /**
-             * UID of the resource. (when there is a single resource which can be described). More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+             * UID of the resource. (when there is a single resource which can be described). More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
              */
             uid: string;
         }
@@ -27676,6 +28279,100 @@ export namespace networking {
             perNodeHostBits: number;
         }
 
+        /**
+         * IPAddress represents a single IP of a single IP Family. The object is designed to be used by APIs that operate on IP addresses. The object is used by the Service core API for allocation of IP addresses. An IP address can be represented in different formats, to guarantee the uniqueness of the IP, the name of the object is the IP address in canonical format, four decimal digits separated by dots suppressing leading zeros for IPv4 and the representation defined by RFC 5952 for IPv6. Valid: 192.168.1.5 or 2001:db8::1 or 2001:db8:aaaa:bbbb:cccc:dddd:eeee:1 Invalid: 10.01.2.3 or 2001:db8:0:0:0::1
+         */
+        export interface IPAddress {
+            /**
+             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+             */
+            apiVersion: "networking.k8s.io/v1alpha1";
+            /**
+             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+             */
+            kind: "IPAddress";
+            /**
+             * Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+             */
+            metadata: outputs.meta.v1.ObjectMeta;
+            /**
+             * spec is the desired state of the IPAddress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+             */
+            spec: outputs.networking.v1alpha1.IPAddressSpec;
+        }
+
+        /**
+         * IPAddressSpec describe the attributes in an IP Address.
+         */
+        export interface IPAddressSpec {
+            /**
+             * ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
+             */
+            parentRef: outputs.networking.v1alpha1.ParentReference;
+        }
+
+        /**
+         * IPAddressSpec describe the attributes in an IP Address.
+         */
+        export interface IPAddressSpecPatch {
+            /**
+             * ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
+             */
+            parentRef: outputs.networking.v1alpha1.ParentReferencePatch;
+        }
+
+        /**
+         * ParentReference describes a reference to a parent object.
+         */
+        export interface ParentReference {
+            /**
+             * Group is the group of the object being referenced.
+             */
+            group: string;
+            /**
+             * Name is the name of the object being referenced.
+             */
+            name: string;
+            /**
+             * Namespace is the namespace of the object being referenced.
+             */
+            namespace: string;
+            /**
+             * Resource is the resource of the object being referenced.
+             */
+            resource: string;
+            /**
+             * UID is the uid of the object being referenced.
+             */
+            uid: string;
+        }
+
+        /**
+         * ParentReference describes a reference to a parent object.
+         */
+        export interface ParentReferencePatch {
+            /**
+             * Group is the group of the object being referenced.
+             */
+            group: string;
+            /**
+             * Name is the name of the object being referenced.
+             */
+            name: string;
+            /**
+             * Namespace is the namespace of the object being referenced.
+             */
+            namespace: string;
+            /**
+             * Resource is the resource of the object being referenced.
+             */
+            resource: string;
+            /**
+             * UID is the uid of the object being referenced.
+             */
+            uid: string;
+        }
+
     }
 
     export namespace v1beta1 {
@@ -28342,7 +29039,7 @@ export namespace policy {
              *
              * Additional policies may be added in the future. Clients making eviction decisions should disallow eviction of unhealthy pods if they encounter an unrecognized policy in this field.
              *
-             * This field is alpha-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (disabled by default).
+             * This field is beta-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (enabled by default).
              */
             unhealthyPodEvictionPolicy: string;
         }
@@ -28374,7 +29071,7 @@ export namespace policy {
              *
              * Additional policies may be added in the future. Clients making eviction decisions should disallow eviction of unhealthy pods if they encounter an unrecognized policy in this field.
              *
-             * This field is alpha-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (disabled by default).
+             * This field is beta-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (enabled by default).
              */
             unhealthyPodEvictionPolicy: string;
         }
@@ -29886,23 +30583,23 @@ export namespace rbac {
 }
 
 export namespace resource {
-    export namespace v1alpha1 {
+    export namespace v1alpha2 {
         /**
-         * AllocationResult contains attributed of an allocated resource.
+         * AllocationResult contains attributes of an allocated resource.
          */
         export interface AllocationResult {
             /**
-             * This field will get set by the resource driver after it has allocated the resource driver to inform the scheduler where it can schedule Pods using the ResourceClaim.
+             * This field will get set by the resource driver after it has allocated the resource to inform the scheduler where it can schedule Pods using the ResourceClaim.
              *
              * Setting this field is optional. If null, the resource is available everywhere.
              */
             availableOnNodes: outputs.core.v1.NodeSelector;
             /**
-             * ResourceHandle contains arbitrary data returned by the driver after a successful allocation. This is opaque for Kubernetes. Driver documentation may explain to users how to interpret this data if needed.
+             * ResourceHandles contain the state associated with an allocation that should be maintained throughout the lifetime of a claim. Each ResourceHandle contains data that should be passed to a specific kubelet plugin once it lands on a node. This data is returned by the driver after a successful allocation and is opaque to Kubernetes. Driver documentation may explain to users how to interpret this data if needed.
              *
-             * The maximum size of this field is 16KiB. This may get increased in the future, but not reduced.
+             * Setting this field is optional. It has a maximum size of 32 entries. If null (or empty), it is assumed this allocation will be processed by a single kubelet plugin with no ResourceHandle data attached. The name of the kubelet plugin invoked will match the DriverName set in the ResourceClaimStatus this AllocationResult is embedded in.
              */
-            resourceHandle: string;
+            resourceHandles: outputs.resource.v1alpha2.ResourceHandle[];
             /**
              * Shareable determines whether the resource supports more than one consumer at a time.
              */
@@ -29910,21 +30607,21 @@ export namespace resource {
         }
 
         /**
-         * AllocationResult contains attributed of an allocated resource.
+         * AllocationResult contains attributes of an allocated resource.
          */
         export interface AllocationResultPatch {
             /**
-             * This field will get set by the resource driver after it has allocated the resource driver to inform the scheduler where it can schedule Pods using the ResourceClaim.
+             * This field will get set by the resource driver after it has allocated the resource to inform the scheduler where it can schedule Pods using the ResourceClaim.
              *
              * Setting this field is optional. If null, the resource is available everywhere.
              */
             availableOnNodes: outputs.core.v1.NodeSelectorPatch;
             /**
-             * ResourceHandle contains arbitrary data returned by the driver after a successful allocation. This is opaque for Kubernetes. Driver documentation may explain to users how to interpret this data if needed.
+             * ResourceHandles contain the state associated with an allocation that should be maintained throughout the lifetime of a claim. Each ResourceHandle contains data that should be passed to a specific kubelet plugin once it lands on a node. This data is returned by the driver after a successful allocation and is opaque to Kubernetes. Driver documentation may explain to users how to interpret this data if needed.
              *
-             * The maximum size of this field is 16KiB. This may get increased in the future, but not reduced.
+             * Setting this field is optional. It has a maximum size of 32 entries. If null (or empty), it is assumed this allocation will be processed by a single kubelet plugin with no ResourceHandle data attached. The name of the kubelet plugin invoked will match the DriverName set in the ResourceClaimStatus this AllocationResult is embedded in.
              */
-            resourceHandle: string;
+            resourceHandles: outputs.resource.v1alpha2.ResourceHandlePatch[];
             /**
              * Shareable determines whether the resource supports more than one consumer at a time.
              */
@@ -29932,19 +30629,19 @@ export namespace resource {
         }
 
         /**
-         * PodScheduling objects hold information that is needed to schedule a Pod with ResourceClaims that use "WaitForFirstConsumer" allocation mode.
+         * PodSchedulingContext objects hold information that is needed to schedule a Pod with ResourceClaims that use "WaitForFirstConsumer" allocation mode.
          *
          * This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
          */
-        export interface PodScheduling {
+        export interface PodSchedulingContext {
             /**
              * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
              */
-            apiVersion: "resource.k8s.io/v1alpha1";
+            apiVersion: "resource.k8s.io/v1alpha2";
             /**
              * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
              */
-            kind: "PodScheduling";
+            kind: "PodSchedulingContext";
             /**
              * Standard object metadata
              */
@@ -29952,17 +30649,17 @@ export namespace resource {
             /**
              * Spec describes where resources for the Pod are needed.
              */
-            spec: outputs.resource.v1alpha1.PodSchedulingSpec;
+            spec: outputs.resource.v1alpha2.PodSchedulingContextSpec;
             /**
              * Status describes where resources for the Pod can be allocated.
              */
-            status: outputs.resource.v1alpha1.PodSchedulingStatus;
+            status: outputs.resource.v1alpha2.PodSchedulingContextStatus;
         }
 
         /**
-         * PodSchedulingSpec describes where resources for the Pod are needed.
+         * PodSchedulingContextSpec describes where resources for the Pod are needed.
          */
-        export interface PodSchedulingSpec {
+        export interface PodSchedulingContextSpec {
             /**
              * PotentialNodes lists nodes where the Pod might be able to run.
              *
@@ -29976,9 +30673,9 @@ export namespace resource {
         }
 
         /**
-         * PodSchedulingSpec describes where resources for the Pod are needed.
+         * PodSchedulingContextSpec describes where resources for the Pod are needed.
          */
-        export interface PodSchedulingSpecPatch {
+        export interface PodSchedulingContextSpecPatch {
             /**
              * PotentialNodes lists nodes where the Pod might be able to run.
              *
@@ -29992,23 +30689,23 @@ export namespace resource {
         }
 
         /**
-         * PodSchedulingStatus describes where resources for the Pod can be allocated.
+         * PodSchedulingContextStatus describes where resources for the Pod can be allocated.
          */
-        export interface PodSchedulingStatus {
+        export interface PodSchedulingContextStatus {
             /**
              * ResourceClaims describes resource availability for each pod.spec.resourceClaim entry where the corresponding ResourceClaim uses "WaitForFirstConsumer" allocation mode.
              */
-            resourceClaims: outputs.resource.v1alpha1.ResourceClaimSchedulingStatus[];
+            resourceClaims: outputs.resource.v1alpha2.ResourceClaimSchedulingStatus[];
         }
 
         /**
-         * PodSchedulingStatus describes where resources for the Pod can be allocated.
+         * PodSchedulingContextStatus describes where resources for the Pod can be allocated.
          */
-        export interface PodSchedulingStatusPatch {
+        export interface PodSchedulingContextStatusPatch {
             /**
              * ResourceClaims describes resource availability for each pod.spec.resourceClaim entry where the corresponding ResourceClaim uses "WaitForFirstConsumer" allocation mode.
              */
-            resourceClaims: outputs.resource.v1alpha1.ResourceClaimSchedulingStatusPatch[];
+            resourceClaims: outputs.resource.v1alpha2.ResourceClaimSchedulingStatusPatch[];
         }
 
         /**
@@ -30020,7 +30717,7 @@ export namespace resource {
             /**
              * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
              */
-            apiVersion: "resource.k8s.io/v1alpha1";
+            apiVersion: "resource.k8s.io/v1alpha2";
             /**
              * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
              */
@@ -30032,11 +30729,11 @@ export namespace resource {
             /**
              * Spec describes the desired attributes of a resource that then needs to be allocated. It can only be set once when creating the ResourceClaim.
              */
-            spec: outputs.resource.v1alpha1.ResourceClaimSpec;
+            spec: outputs.resource.v1alpha2.ResourceClaimSpec;
             /**
              * Status describes whether the resource is available and with which attributes.
              */
-            status: outputs.resource.v1alpha1.ResourceClaimStatus;
+            status: outputs.resource.v1alpha2.ResourceClaimStatus;
         }
 
         /**
@@ -30164,7 +30861,7 @@ export namespace resource {
              *
              * The object must be in the same namespace as the ResourceClaim.
              */
-            parametersRef: outputs.resource.v1alpha1.ResourceClaimParametersReference;
+            parametersRef: outputs.resource.v1alpha2.ResourceClaimParametersReference;
             /**
              * ResourceClassName references the driver and additional parameters via the name of a ResourceClass that was created as part of the driver deployment.
              */
@@ -30184,7 +30881,7 @@ export namespace resource {
              *
              * The object must be in the same namespace as the ResourceClaim.
              */
-            parametersRef: outputs.resource.v1alpha1.ResourceClaimParametersReferencePatch;
+            parametersRef: outputs.resource.v1alpha2.ResourceClaimParametersReferencePatch;
             /**
              * ResourceClassName references the driver and additional parameters via the name of a ResourceClass that was created as part of the driver deployment.
              */
@@ -30196,9 +30893,9 @@ export namespace resource {
          */
         export interface ResourceClaimStatus {
             /**
-             * Allocation is set by the resource driver once a resource has been allocated successfully. If this is not specified, the resource is not yet allocated.
+             * Allocation is set by the resource driver once a resource or set of resources has been allocated successfully. If this is not specified, the resources have not been allocated yet.
              */
-            allocation: outputs.resource.v1alpha1.AllocationResult;
+            allocation: outputs.resource.v1alpha2.AllocationResult;
             /**
              * DeallocationRequested indicates that a ResourceClaim is to be deallocated.
              *
@@ -30216,7 +30913,7 @@ export namespace resource {
              *
              * There can be at most 32 such reservations. This may get increased in the future, but not reduced.
              */
-            reservedFor: outputs.resource.v1alpha1.ResourceClaimConsumerReference[];
+            reservedFor: outputs.resource.v1alpha2.ResourceClaimConsumerReference[];
         }
 
         /**
@@ -30224,9 +30921,9 @@ export namespace resource {
          */
         export interface ResourceClaimStatusPatch {
             /**
-             * Allocation is set by the resource driver once a resource has been allocated successfully. If this is not specified, the resource is not yet allocated.
+             * Allocation is set by the resource driver once a resource or set of resources has been allocated successfully. If this is not specified, the resources have not been allocated yet.
              */
-            allocation: outputs.resource.v1alpha1.AllocationResultPatch;
+            allocation: outputs.resource.v1alpha2.AllocationResultPatch;
             /**
              * DeallocationRequested indicates that a ResourceClaim is to be deallocated.
              *
@@ -30244,7 +30941,7 @@ export namespace resource {
              *
              * There can be at most 32 such reservations. This may get increased in the future, but not reduced.
              */
-            reservedFor: outputs.resource.v1alpha1.ResourceClaimConsumerReferencePatch[];
+            reservedFor: outputs.resource.v1alpha2.ResourceClaimConsumerReferencePatch[];
         }
 
         /**
@@ -30254,7 +30951,7 @@ export namespace resource {
             /**
              * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
              */
-            apiVersion: "resource.k8s.io/v1alpha1";
+            apiVersion: "resource.k8s.io/v1alpha2";
             /**
              * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
              */
@@ -30268,7 +30965,7 @@ export namespace resource {
              *
              * This field is immutable. A ResourceClaim will get created by the control plane for a Pod when needed and then not get updated anymore.
              */
-            spec: outputs.resource.v1alpha1.ResourceClaimTemplateSpec;
+            spec: outputs.resource.v1alpha2.ResourceClaimTemplateSpec;
         }
 
         /**
@@ -30282,7 +30979,7 @@ export namespace resource {
             /**
              * Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
              */
-            spec: outputs.resource.v1alpha1.ResourceClaimSpec;
+            spec: outputs.resource.v1alpha2.ResourceClaimSpec;
         }
 
         /**
@@ -30296,7 +30993,7 @@ export namespace resource {
             /**
              * Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
              */
-            spec: outputs.resource.v1alpha1.ResourceClaimSpecPatch;
+            spec: outputs.resource.v1alpha2.ResourceClaimSpecPatch;
         }
 
         /**
@@ -30308,7 +31005,7 @@ export namespace resource {
             /**
              * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
              */
-            apiVersion: "resource.k8s.io/v1alpha1";
+            apiVersion: "resource.k8s.io/v1alpha2";
             /**
              * DriverName defines the name of the dynamic resource driver that is used for allocation of a ResourceClaim that uses this class.
              *
@@ -30326,7 +31023,7 @@ export namespace resource {
             /**
              * ParametersRef references an arbitrary separate object that may hold parameters that will be used by the driver when allocating a resource that uses this class. A dynamic resource driver can distinguish between parameters stored here and and those stored in ResourceClaimSpec.
              */
-            parametersRef: outputs.resource.v1alpha1.ResourceClassParametersReference;
+            parametersRef: outputs.resource.v1alpha2.ResourceClassParametersReference;
             /**
              * Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a ResourceClaim that has not been allocated yet.
              *
@@ -30377,6 +31074,38 @@ export namespace resource {
              * Namespace that contains the referenced resource. Must be empty for cluster-scoped resources and non-empty for namespaced resources.
              */
             namespace: string;
+        }
+
+        /**
+         * ResourceHandle holds opaque resource data for processing by a specific kubelet plugin.
+         */
+        export interface ResourceHandle {
+            /**
+             * Data contains the opaque data associated with this ResourceHandle. It is set by the controller component of the resource driver whose name matches the DriverName set in the ResourceClaimStatus this ResourceHandle is embedded in. It is set at allocation time and is intended for processing by the kubelet plugin whose name matches the DriverName set in this ResourceHandle.
+             *
+             * The maximum size of this field is 16KiB. This may get increased in the future, but not reduced.
+             */
+            data: string;
+            /**
+             * DriverName specifies the name of the resource driver whose kubelet plugin should be invoked to process this ResourceHandle's data once it lands on a node. This may differ from the DriverName set in ResourceClaimStatus this ResourceHandle is embedded in.
+             */
+            driverName: string;
+        }
+
+        /**
+         * ResourceHandle holds opaque resource data for processing by a specific kubelet plugin.
+         */
+        export interface ResourceHandlePatch {
+            /**
+             * Data contains the opaque data associated with this ResourceHandle. It is set by the controller component of the resource driver whose name matches the DriverName set in the ResourceClaimStatus this ResourceHandle is embedded in. It is set at allocation time and is intended for processing by the kubelet plugin whose name matches the DriverName set in this ResourceHandle.
+             *
+             * The maximum size of this field is 16KiB. This may get increased in the future, but not reduced.
+             */
+            data: string;
+            /**
+             * DriverName specifies the name of the resource driver whose kubelet plugin should be invoked to process this ResourceHandle's data once it lands on a node. This may differ from the DriverName set in ResourceClaimStatus this ResourceHandle is embedded in.
+             */
+            driverName: string;
         }
 
     }
@@ -31540,56 +32269,6 @@ export namespace storage {
              * drivers is a list of information of all CSI Drivers existing on a node. If all drivers in the list are uninstalled, this can become empty.
              */
             drivers: outputs.storage.v1beta1.CSINodeDriverPatch[];
-        }
-
-        /**
-         * CSIStorageCapacity stores the result of one CSI GetCapacity call. For a given StorageClass, this describes the available capacity in a particular topology segment.  This can be used when considering where to instantiate new PersistentVolumes.
-         *
-         * For example this can express things like: - StorageClass "standard" has "1234 GiB" available in "topology.kubernetes.io/zone=us-east1" - StorageClass "localssd" has "10 GiB" available in "kubernetes.io/hostname=knode-abc123"
-         *
-         * The following three cases all imply that no capacity is available for a certain combination: - no object exists with suitable topology and storage class name - such an object exists, but the capacity is unset - such an object exists, but the capacity is zero
-         *
-         * The producer of these objects can decide which approach is more suitable.
-         *
-         * They are consumed by the kube-scheduler when a CSI driver opts into capacity-aware scheduling with CSIDriverSpec.StorageCapacity. The scheduler compares the MaximumVolumeSize against the requested size of pending volumes to filter out unsuitable nodes. If MaximumVolumeSize is unset, it falls back to a comparison against the less precise Capacity. If that is also unset, the scheduler assumes that capacity is insufficient and tries some other node.
-         */
-        export interface CSIStorageCapacity {
-            /**
-             * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-             */
-            apiVersion: "storage.k8s.io/v1beta1";
-            /**
-             * capacity is the value reported by the CSI driver in its GetCapacityResponse for a GetCapacityRequest with topology and parameters that match the previous fields.
-             *
-             * The semantic is currently (CSI spec 1.2) defined as: The available capacity, in bytes, of the storage that can be used to provision volumes. If not set, that information is currently unavailable.
-             */
-            capacity: string;
-            /**
-             * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-             */
-            kind: "CSIStorageCapacity";
-            /**
-             * maximumVolumeSize is the value reported by the CSI driver in its GetCapacityResponse for a GetCapacityRequest with topology and parameters that match the previous fields.
-             *
-             * This is defined since CSI spec 1.4.0 as the largest size that may be used in a CreateVolumeRequest.capacity_range.required_bytes field to create a volume with the same parameters as those in GetCapacityRequest. The corresponding value in the Kubernetes API is ResourceRequirements.Requests in a volume claim.
-             */
-            maximumVolumeSize: string;
-            /**
-             * Standard object's metadata. The name has no particular meaning. It must be be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-<uuid>, a generated name, or a reverse-domain name which ends with the unique CSI driver name.
-             *
-             * Objects are namespaced.
-             *
-             * More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-             */
-            metadata: outputs.meta.v1.ObjectMeta;
-            /**
-             * nodeTopology defines which nodes have access to the storage for which capacity was reported. If not set, the storage is not accessible from any node in the cluster. If empty, the storage is accessible from all nodes. This field is immutable.
-             */
-            nodeTopology: outputs.meta.v1.LabelSelector;
-            /**
-             * storageClassName represents the name of the StorageClass that the reported capacity applies to. It must meet the same requirements as the name of a StorageClass object (non-empty, DNS subdomain). If that object no longer exists, the CSIStorageCapacity object is obsolete and should be removed by its creator. This field is immutable.
-             */
-            storageClassName: string;
         }
 
         /**

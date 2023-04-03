@@ -5,6 +5,8 @@ package com.pulumi.kubernetes.admissionregistration.v1alpha1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.kubernetes.admissionregistration.v1alpha1.inputs.AuditAnnotationPatchArgs;
+import com.pulumi.kubernetes.admissionregistration.v1alpha1.inputs.MatchConditionPatchArgs;
 import com.pulumi.kubernetes.admissionregistration.v1alpha1.inputs.MatchResourcesPatchArgs;
 import com.pulumi.kubernetes.admissionregistration.v1alpha1.inputs.ParamKindPatchArgs;
 import com.pulumi.kubernetes.admissionregistration.v1alpha1.inputs.ValidationPatchArgs;
@@ -24,18 +26,82 @@ public final class ValidatingAdmissionPolicySpecPatchArgs extends com.pulumi.res
     public static final ValidatingAdmissionPolicySpecPatchArgs Empty = new ValidatingAdmissionPolicySpecPatchArgs();
 
     /**
-     * FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
+     * auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
+     * 
+     */
+    @Import(name="auditAnnotations")
+    private @Nullable Output<List<AuditAnnotationPatchArgs>> auditAnnotations;
+
+    /**
+     * @return auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
+     * 
+     */
+    public Optional<Output<List<AuditAnnotationPatchArgs>>> auditAnnotations() {
+        return Optional.ofNullable(this.auditAnnotations);
+    }
+
+    /**
+     * failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
+     * 
+     * A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource.
+     * 
+     * failurePolicy does not define how validations that evaluate to false are handled.
+     * 
+     * When failurePolicy is set to Fail, ValidatingAdmissionPolicyBinding validationActions define how failures are enforced.
+     * 
+     * Allowed values are Ignore or Fail. Defaults to Fail.
      * 
      */
     @Import(name="failurePolicy")
     private @Nullable Output<String> failurePolicy;
 
     /**
-     * @return FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
+     * @return failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
+     * 
+     * A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource.
+     * 
+     * failurePolicy does not define how validations that evaluate to false are handled.
+     * 
+     * When failurePolicy is set to Fail, ValidatingAdmissionPolicyBinding validationActions define how failures are enforced.
+     * 
+     * Allowed values are Ignore or Fail. Defaults to Fail.
      * 
      */
     public Optional<Output<String>> failurePolicy() {
         return Optional.ofNullable(this.failurePolicy);
+    }
+
+    /**
+     * MatchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+     * 
+     * If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
+     * 
+     * The exact matching logic is (in order):
+     *   1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
+     *   2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
+     *   3. If any matchCondition evaluates to an error (but none are FALSE):
+     *      - If failurePolicy=Fail, reject the request
+     *      - If failurePolicy=Ignore, the policy is skipped
+     * 
+     */
+    @Import(name="matchConditions")
+    private @Nullable Output<List<MatchConditionPatchArgs>> matchConditions;
+
+    /**
+     * @return MatchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+     * 
+     * If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
+     * 
+     * The exact matching logic is (in order):
+     *   1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
+     *   2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
+     *   3. If any matchCondition evaluates to an error (but none are FALSE):
+     *      - If failurePolicy=Fail, reject the request
+     *      - If failurePolicy=Ignore, the policy is skipped
+     * 
+     */
+    public Optional<Output<List<MatchConditionPatchArgs>>> matchConditions() {
+        return Optional.ofNullable(this.matchConditions);
     }
 
     /**
@@ -69,14 +135,14 @@ public final class ValidatingAdmissionPolicySpecPatchArgs extends com.pulumi.res
     }
 
     /**
-     * Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
+     * Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
      * 
      */
     @Import(name="validations")
     private @Nullable Output<List<ValidationPatchArgs>> validations;
 
     /**
-     * @return Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
+     * @return Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
      * 
      */
     public Optional<Output<List<ValidationPatchArgs>>> validations() {
@@ -86,7 +152,9 @@ public final class ValidatingAdmissionPolicySpecPatchArgs extends com.pulumi.res
     private ValidatingAdmissionPolicySpecPatchArgs() {}
 
     private ValidatingAdmissionPolicySpecPatchArgs(ValidatingAdmissionPolicySpecPatchArgs $) {
+        this.auditAnnotations = $.auditAnnotations;
         this.failurePolicy = $.failurePolicy;
+        this.matchConditions = $.matchConditions;
         this.matchConstraints = $.matchConstraints;
         this.paramKind = $.paramKind;
         this.validations = $.validations;
@@ -111,7 +179,46 @@ public final class ValidatingAdmissionPolicySpecPatchArgs extends com.pulumi.res
         }
 
         /**
-         * @param failurePolicy FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
+         * @param auditAnnotations auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder auditAnnotations(@Nullable Output<List<AuditAnnotationPatchArgs>> auditAnnotations) {
+            $.auditAnnotations = auditAnnotations;
+            return this;
+        }
+
+        /**
+         * @param auditAnnotations auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder auditAnnotations(List<AuditAnnotationPatchArgs> auditAnnotations) {
+            return auditAnnotations(Output.of(auditAnnotations));
+        }
+
+        /**
+         * @param auditAnnotations auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder auditAnnotations(AuditAnnotationPatchArgs... auditAnnotations) {
+            return auditAnnotations(List.of(auditAnnotations));
+        }
+
+        /**
+         * @param failurePolicy failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
+         * 
+         * A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource.
+         * 
+         * failurePolicy does not define how validations that evaluate to false are handled.
+         * 
+         * When failurePolicy is set to Fail, ValidatingAdmissionPolicyBinding validationActions define how failures are enforced.
+         * 
+         * Allowed values are Ignore or Fail. Defaults to Fail.
          * 
          * @return builder
          * 
@@ -122,13 +229,79 @@ public final class ValidatingAdmissionPolicySpecPatchArgs extends com.pulumi.res
         }
 
         /**
-         * @param failurePolicy FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
+         * @param failurePolicy failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
+         * 
+         * A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource.
+         * 
+         * failurePolicy does not define how validations that evaluate to false are handled.
+         * 
+         * When failurePolicy is set to Fail, ValidatingAdmissionPolicyBinding validationActions define how failures are enforced.
+         * 
+         * Allowed values are Ignore or Fail. Defaults to Fail.
          * 
          * @return builder
          * 
          */
         public Builder failurePolicy(String failurePolicy) {
             return failurePolicy(Output.of(failurePolicy));
+        }
+
+        /**
+         * @param matchConditions MatchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+         * 
+         * If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
+         * 
+         * The exact matching logic is (in order):
+         *   1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
+         *   2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
+         *   3. If any matchCondition evaluates to an error (but none are FALSE):
+         *      - If failurePolicy=Fail, reject the request
+         *      - If failurePolicy=Ignore, the policy is skipped
+         * 
+         * @return builder
+         * 
+         */
+        public Builder matchConditions(@Nullable Output<List<MatchConditionPatchArgs>> matchConditions) {
+            $.matchConditions = matchConditions;
+            return this;
+        }
+
+        /**
+         * @param matchConditions MatchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+         * 
+         * If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
+         * 
+         * The exact matching logic is (in order):
+         *   1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
+         *   2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
+         *   3. If any matchCondition evaluates to an error (but none are FALSE):
+         *      - If failurePolicy=Fail, reject the request
+         *      - If failurePolicy=Ignore, the policy is skipped
+         * 
+         * @return builder
+         * 
+         */
+        public Builder matchConditions(List<MatchConditionPatchArgs> matchConditions) {
+            return matchConditions(Output.of(matchConditions));
+        }
+
+        /**
+         * @param matchConditions MatchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+         * 
+         * If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
+         * 
+         * The exact matching logic is (in order):
+         *   1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
+         *   2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
+         *   3. If any matchCondition evaluates to an error (but none are FALSE):
+         *      - If failurePolicy=Fail, reject the request
+         *      - If failurePolicy=Ignore, the policy is skipped
+         * 
+         * @return builder
+         * 
+         */
+        public Builder matchConditions(MatchConditionPatchArgs... matchConditions) {
+            return matchConditions(List.of(matchConditions));
         }
 
         /**
@@ -174,7 +347,7 @@ public final class ValidatingAdmissionPolicySpecPatchArgs extends com.pulumi.res
         }
 
         /**
-         * @param validations Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
+         * @param validations Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
          * 
          * @return builder
          * 
@@ -185,7 +358,7 @@ public final class ValidatingAdmissionPolicySpecPatchArgs extends com.pulumi.res
         }
 
         /**
-         * @param validations Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
+         * @param validations Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
          * 
          * @return builder
          * 
@@ -195,7 +368,7 @@ public final class ValidatingAdmissionPolicySpecPatchArgs extends com.pulumi.res
         }
 
         /**
-         * @param validations Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
+         * @param validations Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
          * 
          * @return builder
          * 

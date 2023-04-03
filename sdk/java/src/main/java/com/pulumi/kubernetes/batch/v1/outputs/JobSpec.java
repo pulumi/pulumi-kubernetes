@@ -70,7 +70,7 @@ public final class JobSpec {
      */
     private @Nullable Boolean suspend;
     /**
-     * @return Describes the pod that will be created when executing a job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+     * @return Describes the pod that will be created when executing a job. The only allowed template.spec.restartPolicy values are &#34;Never&#34; or &#34;OnFailure&#34;. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
      * 
      */
     private PodTemplateSpec template;
@@ -153,7 +153,7 @@ public final class JobSpec {
         return Optional.ofNullable(this.suspend);
     }
     /**
-     * @return Describes the pod that will be created when executing a job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+     * @return Describes the pod that will be created when executing a job. The only allowed template.spec.restartPolicy values are &#34;Never&#34; or &#34;OnFailure&#34;. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
      * 
      */
     public PodTemplateSpec template() {

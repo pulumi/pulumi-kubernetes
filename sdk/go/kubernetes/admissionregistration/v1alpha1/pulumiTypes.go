@@ -11,6 +11,782 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
+// AuditAnnotation describes how to produce an audit annotation for an API request.
+type AuditAnnotation struct {
+	// key specifies the audit annotation key. The audit annotation keys of a ValidatingAdmissionPolicy must be unique. The key must be a qualified name ([A-Za-z0-9][-A-Za-z0-9_.]*) no more than 63 bytes in length.
+	//
+	// The key is combined with the resource name of the ValidatingAdmissionPolicy to construct an audit annotation key: "{ValidatingAdmissionPolicy name}/{key}".
+	//
+	// If an admission webhook uses the same resource name as this ValidatingAdmissionPolicy and the same audit annotation key, the annotation key will be identical. In this case, the first annotation written with the key will be included in the audit event and all subsequent annotations with the same key will be discarded.
+	//
+	// Required.
+	Key string `pulumi:"key"`
+	// valueExpression represents the expression which is evaluated by CEL to produce an audit annotation value. The expression must evaluate to either a string or null value. If the expression evaluates to a string, the audit annotation is included with the string value. If the expression evaluates to null or empty string the audit annotation will be omitted. The valueExpression may be no longer than 5kb in length. If the result of the valueExpression is more than 10kb in length, it will be truncated to 10kb.
+	//
+	// If multiple ValidatingAdmissionPolicyBinding resources match an API request, then the valueExpression will be evaluated for each binding. All unique values produced by the valueExpressions will be joined together in a comma-separated list.
+	//
+	// Required.
+	ValueExpression string `pulumi:"valueExpression"`
+}
+
+// AuditAnnotationInput is an input type that accepts AuditAnnotationArgs and AuditAnnotationOutput values.
+// You can construct a concrete instance of `AuditAnnotationInput` via:
+//
+//	AuditAnnotationArgs{...}
+type AuditAnnotationInput interface {
+	pulumi.Input
+
+	ToAuditAnnotationOutput() AuditAnnotationOutput
+	ToAuditAnnotationOutputWithContext(context.Context) AuditAnnotationOutput
+}
+
+// AuditAnnotation describes how to produce an audit annotation for an API request.
+type AuditAnnotationArgs struct {
+	// key specifies the audit annotation key. The audit annotation keys of a ValidatingAdmissionPolicy must be unique. The key must be a qualified name ([A-Za-z0-9][-A-Za-z0-9_.]*) no more than 63 bytes in length.
+	//
+	// The key is combined with the resource name of the ValidatingAdmissionPolicy to construct an audit annotation key: "{ValidatingAdmissionPolicy name}/{key}".
+	//
+	// If an admission webhook uses the same resource name as this ValidatingAdmissionPolicy and the same audit annotation key, the annotation key will be identical. In this case, the first annotation written with the key will be included in the audit event and all subsequent annotations with the same key will be discarded.
+	//
+	// Required.
+	Key pulumi.StringInput `pulumi:"key"`
+	// valueExpression represents the expression which is evaluated by CEL to produce an audit annotation value. The expression must evaluate to either a string or null value. If the expression evaluates to a string, the audit annotation is included with the string value. If the expression evaluates to null or empty string the audit annotation will be omitted. The valueExpression may be no longer than 5kb in length. If the result of the valueExpression is more than 10kb in length, it will be truncated to 10kb.
+	//
+	// If multiple ValidatingAdmissionPolicyBinding resources match an API request, then the valueExpression will be evaluated for each binding. All unique values produced by the valueExpressions will be joined together in a comma-separated list.
+	//
+	// Required.
+	ValueExpression pulumi.StringInput `pulumi:"valueExpression"`
+}
+
+func (AuditAnnotationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*AuditAnnotation)(nil)).Elem()
+}
+
+func (i AuditAnnotationArgs) ToAuditAnnotationOutput() AuditAnnotationOutput {
+	return i.ToAuditAnnotationOutputWithContext(context.Background())
+}
+
+func (i AuditAnnotationArgs) ToAuditAnnotationOutputWithContext(ctx context.Context) AuditAnnotationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AuditAnnotationOutput)
+}
+
+// AuditAnnotationArrayInput is an input type that accepts AuditAnnotationArray and AuditAnnotationArrayOutput values.
+// You can construct a concrete instance of `AuditAnnotationArrayInput` via:
+//
+//	AuditAnnotationArray{ AuditAnnotationArgs{...} }
+type AuditAnnotationArrayInput interface {
+	pulumi.Input
+
+	ToAuditAnnotationArrayOutput() AuditAnnotationArrayOutput
+	ToAuditAnnotationArrayOutputWithContext(context.Context) AuditAnnotationArrayOutput
+}
+
+type AuditAnnotationArray []AuditAnnotationInput
+
+func (AuditAnnotationArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]AuditAnnotation)(nil)).Elem()
+}
+
+func (i AuditAnnotationArray) ToAuditAnnotationArrayOutput() AuditAnnotationArrayOutput {
+	return i.ToAuditAnnotationArrayOutputWithContext(context.Background())
+}
+
+func (i AuditAnnotationArray) ToAuditAnnotationArrayOutputWithContext(ctx context.Context) AuditAnnotationArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AuditAnnotationArrayOutput)
+}
+
+// AuditAnnotation describes how to produce an audit annotation for an API request.
+type AuditAnnotationOutput struct{ *pulumi.OutputState }
+
+func (AuditAnnotationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*AuditAnnotation)(nil)).Elem()
+}
+
+func (o AuditAnnotationOutput) ToAuditAnnotationOutput() AuditAnnotationOutput {
+	return o
+}
+
+func (o AuditAnnotationOutput) ToAuditAnnotationOutputWithContext(ctx context.Context) AuditAnnotationOutput {
+	return o
+}
+
+// key specifies the audit annotation key. The audit annotation keys of a ValidatingAdmissionPolicy must be unique. The key must be a qualified name ([A-Za-z0-9][-A-Za-z0-9_.]*) no more than 63 bytes in length.
+//
+// The key is combined with the resource name of the ValidatingAdmissionPolicy to construct an audit annotation key: "{ValidatingAdmissionPolicy name}/{key}".
+//
+// If an admission webhook uses the same resource name as this ValidatingAdmissionPolicy and the same audit annotation key, the annotation key will be identical. In this case, the first annotation written with the key will be included in the audit event and all subsequent annotations with the same key will be discarded.
+//
+// Required.
+func (o AuditAnnotationOutput) Key() pulumi.StringOutput {
+	return o.ApplyT(func(v AuditAnnotation) string { return v.Key }).(pulumi.StringOutput)
+}
+
+// valueExpression represents the expression which is evaluated by CEL to produce an audit annotation value. The expression must evaluate to either a string or null value. If the expression evaluates to a string, the audit annotation is included with the string value. If the expression evaluates to null or empty string the audit annotation will be omitted. The valueExpression may be no longer than 5kb in length. If the result of the valueExpression is more than 10kb in length, it will be truncated to 10kb.
+//
+// If multiple ValidatingAdmissionPolicyBinding resources match an API request, then the valueExpression will be evaluated for each binding. All unique values produced by the valueExpressions will be joined together in a comma-separated list.
+//
+// Required.
+func (o AuditAnnotationOutput) ValueExpression() pulumi.StringOutput {
+	return o.ApplyT(func(v AuditAnnotation) string { return v.ValueExpression }).(pulumi.StringOutput)
+}
+
+type AuditAnnotationArrayOutput struct{ *pulumi.OutputState }
+
+func (AuditAnnotationArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]AuditAnnotation)(nil)).Elem()
+}
+
+func (o AuditAnnotationArrayOutput) ToAuditAnnotationArrayOutput() AuditAnnotationArrayOutput {
+	return o
+}
+
+func (o AuditAnnotationArrayOutput) ToAuditAnnotationArrayOutputWithContext(ctx context.Context) AuditAnnotationArrayOutput {
+	return o
+}
+
+func (o AuditAnnotationArrayOutput) Index(i pulumi.IntInput) AuditAnnotationOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) AuditAnnotation {
+		return vs[0].([]AuditAnnotation)[vs[1].(int)]
+	}).(AuditAnnotationOutput)
+}
+
+// AuditAnnotation describes how to produce an audit annotation for an API request.
+type AuditAnnotationPatch struct {
+	// key specifies the audit annotation key. The audit annotation keys of a ValidatingAdmissionPolicy must be unique. The key must be a qualified name ([A-Za-z0-9][-A-Za-z0-9_.]*) no more than 63 bytes in length.
+	//
+	// The key is combined with the resource name of the ValidatingAdmissionPolicy to construct an audit annotation key: "{ValidatingAdmissionPolicy name}/{key}".
+	//
+	// If an admission webhook uses the same resource name as this ValidatingAdmissionPolicy and the same audit annotation key, the annotation key will be identical. In this case, the first annotation written with the key will be included in the audit event and all subsequent annotations with the same key will be discarded.
+	//
+	// Required.
+	Key *string `pulumi:"key"`
+	// valueExpression represents the expression which is evaluated by CEL to produce an audit annotation value. The expression must evaluate to either a string or null value. If the expression evaluates to a string, the audit annotation is included with the string value. If the expression evaluates to null or empty string the audit annotation will be omitted. The valueExpression may be no longer than 5kb in length. If the result of the valueExpression is more than 10kb in length, it will be truncated to 10kb.
+	//
+	// If multiple ValidatingAdmissionPolicyBinding resources match an API request, then the valueExpression will be evaluated for each binding. All unique values produced by the valueExpressions will be joined together in a comma-separated list.
+	//
+	// Required.
+	ValueExpression *string `pulumi:"valueExpression"`
+}
+
+// AuditAnnotationPatchInput is an input type that accepts AuditAnnotationPatchArgs and AuditAnnotationPatchOutput values.
+// You can construct a concrete instance of `AuditAnnotationPatchInput` via:
+//
+//	AuditAnnotationPatchArgs{...}
+type AuditAnnotationPatchInput interface {
+	pulumi.Input
+
+	ToAuditAnnotationPatchOutput() AuditAnnotationPatchOutput
+	ToAuditAnnotationPatchOutputWithContext(context.Context) AuditAnnotationPatchOutput
+}
+
+// AuditAnnotation describes how to produce an audit annotation for an API request.
+type AuditAnnotationPatchArgs struct {
+	// key specifies the audit annotation key. The audit annotation keys of a ValidatingAdmissionPolicy must be unique. The key must be a qualified name ([A-Za-z0-9][-A-Za-z0-9_.]*) no more than 63 bytes in length.
+	//
+	// The key is combined with the resource name of the ValidatingAdmissionPolicy to construct an audit annotation key: "{ValidatingAdmissionPolicy name}/{key}".
+	//
+	// If an admission webhook uses the same resource name as this ValidatingAdmissionPolicy and the same audit annotation key, the annotation key will be identical. In this case, the first annotation written with the key will be included in the audit event and all subsequent annotations with the same key will be discarded.
+	//
+	// Required.
+	Key pulumi.StringPtrInput `pulumi:"key"`
+	// valueExpression represents the expression which is evaluated by CEL to produce an audit annotation value. The expression must evaluate to either a string or null value. If the expression evaluates to a string, the audit annotation is included with the string value. If the expression evaluates to null or empty string the audit annotation will be omitted. The valueExpression may be no longer than 5kb in length. If the result of the valueExpression is more than 10kb in length, it will be truncated to 10kb.
+	//
+	// If multiple ValidatingAdmissionPolicyBinding resources match an API request, then the valueExpression will be evaluated for each binding. All unique values produced by the valueExpressions will be joined together in a comma-separated list.
+	//
+	// Required.
+	ValueExpression pulumi.StringPtrInput `pulumi:"valueExpression"`
+}
+
+func (AuditAnnotationPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*AuditAnnotationPatch)(nil)).Elem()
+}
+
+func (i AuditAnnotationPatchArgs) ToAuditAnnotationPatchOutput() AuditAnnotationPatchOutput {
+	return i.ToAuditAnnotationPatchOutputWithContext(context.Background())
+}
+
+func (i AuditAnnotationPatchArgs) ToAuditAnnotationPatchOutputWithContext(ctx context.Context) AuditAnnotationPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AuditAnnotationPatchOutput)
+}
+
+// AuditAnnotationPatchArrayInput is an input type that accepts AuditAnnotationPatchArray and AuditAnnotationPatchArrayOutput values.
+// You can construct a concrete instance of `AuditAnnotationPatchArrayInput` via:
+//
+//	AuditAnnotationPatchArray{ AuditAnnotationPatchArgs{...} }
+type AuditAnnotationPatchArrayInput interface {
+	pulumi.Input
+
+	ToAuditAnnotationPatchArrayOutput() AuditAnnotationPatchArrayOutput
+	ToAuditAnnotationPatchArrayOutputWithContext(context.Context) AuditAnnotationPatchArrayOutput
+}
+
+type AuditAnnotationPatchArray []AuditAnnotationPatchInput
+
+func (AuditAnnotationPatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]AuditAnnotationPatch)(nil)).Elem()
+}
+
+func (i AuditAnnotationPatchArray) ToAuditAnnotationPatchArrayOutput() AuditAnnotationPatchArrayOutput {
+	return i.ToAuditAnnotationPatchArrayOutputWithContext(context.Background())
+}
+
+func (i AuditAnnotationPatchArray) ToAuditAnnotationPatchArrayOutputWithContext(ctx context.Context) AuditAnnotationPatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(AuditAnnotationPatchArrayOutput)
+}
+
+// AuditAnnotation describes how to produce an audit annotation for an API request.
+type AuditAnnotationPatchOutput struct{ *pulumi.OutputState }
+
+func (AuditAnnotationPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*AuditAnnotationPatch)(nil)).Elem()
+}
+
+func (o AuditAnnotationPatchOutput) ToAuditAnnotationPatchOutput() AuditAnnotationPatchOutput {
+	return o
+}
+
+func (o AuditAnnotationPatchOutput) ToAuditAnnotationPatchOutputWithContext(ctx context.Context) AuditAnnotationPatchOutput {
+	return o
+}
+
+// key specifies the audit annotation key. The audit annotation keys of a ValidatingAdmissionPolicy must be unique. The key must be a qualified name ([A-Za-z0-9][-A-Za-z0-9_.]*) no more than 63 bytes in length.
+//
+// The key is combined with the resource name of the ValidatingAdmissionPolicy to construct an audit annotation key: "{ValidatingAdmissionPolicy name}/{key}".
+//
+// If an admission webhook uses the same resource name as this ValidatingAdmissionPolicy and the same audit annotation key, the annotation key will be identical. In this case, the first annotation written with the key will be included in the audit event and all subsequent annotations with the same key will be discarded.
+//
+// Required.
+func (o AuditAnnotationPatchOutput) Key() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v AuditAnnotationPatch) *string { return v.Key }).(pulumi.StringPtrOutput)
+}
+
+// valueExpression represents the expression which is evaluated by CEL to produce an audit annotation value. The expression must evaluate to either a string or null value. If the expression evaluates to a string, the audit annotation is included with the string value. If the expression evaluates to null or empty string the audit annotation will be omitted. The valueExpression may be no longer than 5kb in length. If the result of the valueExpression is more than 10kb in length, it will be truncated to 10kb.
+//
+// If multiple ValidatingAdmissionPolicyBinding resources match an API request, then the valueExpression will be evaluated for each binding. All unique values produced by the valueExpressions will be joined together in a comma-separated list.
+//
+// Required.
+func (o AuditAnnotationPatchOutput) ValueExpression() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v AuditAnnotationPatch) *string { return v.ValueExpression }).(pulumi.StringPtrOutput)
+}
+
+type AuditAnnotationPatchArrayOutput struct{ *pulumi.OutputState }
+
+func (AuditAnnotationPatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]AuditAnnotationPatch)(nil)).Elem()
+}
+
+func (o AuditAnnotationPatchArrayOutput) ToAuditAnnotationPatchArrayOutput() AuditAnnotationPatchArrayOutput {
+	return o
+}
+
+func (o AuditAnnotationPatchArrayOutput) ToAuditAnnotationPatchArrayOutputWithContext(ctx context.Context) AuditAnnotationPatchArrayOutput {
+	return o
+}
+
+func (o AuditAnnotationPatchArrayOutput) Index(i pulumi.IntInput) AuditAnnotationPatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) AuditAnnotationPatch {
+		return vs[0].([]AuditAnnotationPatch)[vs[1].(int)]
+	}).(AuditAnnotationPatchOutput)
+}
+
+// ExpressionWarning is a warning information that targets a specific expression.
+type ExpressionWarning struct {
+	// The path to the field that refers the expression. For example, the reference to the expression of the first item of validations is "spec.validations[0].expression"
+	FieldRef string `pulumi:"fieldRef"`
+	// The content of type checking information in a human-readable form. Each line of the warning contains the type that the expression is checked against, followed by the type check error from the compiler.
+	Warning string `pulumi:"warning"`
+}
+
+// ExpressionWarningInput is an input type that accepts ExpressionWarningArgs and ExpressionWarningOutput values.
+// You can construct a concrete instance of `ExpressionWarningInput` via:
+//
+//	ExpressionWarningArgs{...}
+type ExpressionWarningInput interface {
+	pulumi.Input
+
+	ToExpressionWarningOutput() ExpressionWarningOutput
+	ToExpressionWarningOutputWithContext(context.Context) ExpressionWarningOutput
+}
+
+// ExpressionWarning is a warning information that targets a specific expression.
+type ExpressionWarningArgs struct {
+	// The path to the field that refers the expression. For example, the reference to the expression of the first item of validations is "spec.validations[0].expression"
+	FieldRef pulumi.StringInput `pulumi:"fieldRef"`
+	// The content of type checking information in a human-readable form. Each line of the warning contains the type that the expression is checked against, followed by the type check error from the compiler.
+	Warning pulumi.StringInput `pulumi:"warning"`
+}
+
+func (ExpressionWarningArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ExpressionWarning)(nil)).Elem()
+}
+
+func (i ExpressionWarningArgs) ToExpressionWarningOutput() ExpressionWarningOutput {
+	return i.ToExpressionWarningOutputWithContext(context.Background())
+}
+
+func (i ExpressionWarningArgs) ToExpressionWarningOutputWithContext(ctx context.Context) ExpressionWarningOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ExpressionWarningOutput)
+}
+
+// ExpressionWarningArrayInput is an input type that accepts ExpressionWarningArray and ExpressionWarningArrayOutput values.
+// You can construct a concrete instance of `ExpressionWarningArrayInput` via:
+//
+//	ExpressionWarningArray{ ExpressionWarningArgs{...} }
+type ExpressionWarningArrayInput interface {
+	pulumi.Input
+
+	ToExpressionWarningArrayOutput() ExpressionWarningArrayOutput
+	ToExpressionWarningArrayOutputWithContext(context.Context) ExpressionWarningArrayOutput
+}
+
+type ExpressionWarningArray []ExpressionWarningInput
+
+func (ExpressionWarningArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ExpressionWarning)(nil)).Elem()
+}
+
+func (i ExpressionWarningArray) ToExpressionWarningArrayOutput() ExpressionWarningArrayOutput {
+	return i.ToExpressionWarningArrayOutputWithContext(context.Background())
+}
+
+func (i ExpressionWarningArray) ToExpressionWarningArrayOutputWithContext(ctx context.Context) ExpressionWarningArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ExpressionWarningArrayOutput)
+}
+
+// ExpressionWarning is a warning information that targets a specific expression.
+type ExpressionWarningOutput struct{ *pulumi.OutputState }
+
+func (ExpressionWarningOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ExpressionWarning)(nil)).Elem()
+}
+
+func (o ExpressionWarningOutput) ToExpressionWarningOutput() ExpressionWarningOutput {
+	return o
+}
+
+func (o ExpressionWarningOutput) ToExpressionWarningOutputWithContext(ctx context.Context) ExpressionWarningOutput {
+	return o
+}
+
+// The path to the field that refers the expression. For example, the reference to the expression of the first item of validations is "spec.validations[0].expression"
+func (o ExpressionWarningOutput) FieldRef() pulumi.StringOutput {
+	return o.ApplyT(func(v ExpressionWarning) string { return v.FieldRef }).(pulumi.StringOutput)
+}
+
+// The content of type checking information in a human-readable form. Each line of the warning contains the type that the expression is checked against, followed by the type check error from the compiler.
+func (o ExpressionWarningOutput) Warning() pulumi.StringOutput {
+	return o.ApplyT(func(v ExpressionWarning) string { return v.Warning }).(pulumi.StringOutput)
+}
+
+type ExpressionWarningArrayOutput struct{ *pulumi.OutputState }
+
+func (ExpressionWarningArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ExpressionWarning)(nil)).Elem()
+}
+
+func (o ExpressionWarningArrayOutput) ToExpressionWarningArrayOutput() ExpressionWarningArrayOutput {
+	return o
+}
+
+func (o ExpressionWarningArrayOutput) ToExpressionWarningArrayOutputWithContext(ctx context.Context) ExpressionWarningArrayOutput {
+	return o
+}
+
+func (o ExpressionWarningArrayOutput) Index(i pulumi.IntInput) ExpressionWarningOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ExpressionWarning {
+		return vs[0].([]ExpressionWarning)[vs[1].(int)]
+	}).(ExpressionWarningOutput)
+}
+
+// ExpressionWarning is a warning information that targets a specific expression.
+type ExpressionWarningPatch struct {
+	// The path to the field that refers the expression. For example, the reference to the expression of the first item of validations is "spec.validations[0].expression"
+	FieldRef *string `pulumi:"fieldRef"`
+	// The content of type checking information in a human-readable form. Each line of the warning contains the type that the expression is checked against, followed by the type check error from the compiler.
+	Warning *string `pulumi:"warning"`
+}
+
+// ExpressionWarningPatchInput is an input type that accepts ExpressionWarningPatchArgs and ExpressionWarningPatchOutput values.
+// You can construct a concrete instance of `ExpressionWarningPatchInput` via:
+//
+//	ExpressionWarningPatchArgs{...}
+type ExpressionWarningPatchInput interface {
+	pulumi.Input
+
+	ToExpressionWarningPatchOutput() ExpressionWarningPatchOutput
+	ToExpressionWarningPatchOutputWithContext(context.Context) ExpressionWarningPatchOutput
+}
+
+// ExpressionWarning is a warning information that targets a specific expression.
+type ExpressionWarningPatchArgs struct {
+	// The path to the field that refers the expression. For example, the reference to the expression of the first item of validations is "spec.validations[0].expression"
+	FieldRef pulumi.StringPtrInput `pulumi:"fieldRef"`
+	// The content of type checking information in a human-readable form. Each line of the warning contains the type that the expression is checked against, followed by the type check error from the compiler.
+	Warning pulumi.StringPtrInput `pulumi:"warning"`
+}
+
+func (ExpressionWarningPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ExpressionWarningPatch)(nil)).Elem()
+}
+
+func (i ExpressionWarningPatchArgs) ToExpressionWarningPatchOutput() ExpressionWarningPatchOutput {
+	return i.ToExpressionWarningPatchOutputWithContext(context.Background())
+}
+
+func (i ExpressionWarningPatchArgs) ToExpressionWarningPatchOutputWithContext(ctx context.Context) ExpressionWarningPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ExpressionWarningPatchOutput)
+}
+
+// ExpressionWarningPatchArrayInput is an input type that accepts ExpressionWarningPatchArray and ExpressionWarningPatchArrayOutput values.
+// You can construct a concrete instance of `ExpressionWarningPatchArrayInput` via:
+//
+//	ExpressionWarningPatchArray{ ExpressionWarningPatchArgs{...} }
+type ExpressionWarningPatchArrayInput interface {
+	pulumi.Input
+
+	ToExpressionWarningPatchArrayOutput() ExpressionWarningPatchArrayOutput
+	ToExpressionWarningPatchArrayOutputWithContext(context.Context) ExpressionWarningPatchArrayOutput
+}
+
+type ExpressionWarningPatchArray []ExpressionWarningPatchInput
+
+func (ExpressionWarningPatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ExpressionWarningPatch)(nil)).Elem()
+}
+
+func (i ExpressionWarningPatchArray) ToExpressionWarningPatchArrayOutput() ExpressionWarningPatchArrayOutput {
+	return i.ToExpressionWarningPatchArrayOutputWithContext(context.Background())
+}
+
+func (i ExpressionWarningPatchArray) ToExpressionWarningPatchArrayOutputWithContext(ctx context.Context) ExpressionWarningPatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ExpressionWarningPatchArrayOutput)
+}
+
+// ExpressionWarning is a warning information that targets a specific expression.
+type ExpressionWarningPatchOutput struct{ *pulumi.OutputState }
+
+func (ExpressionWarningPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ExpressionWarningPatch)(nil)).Elem()
+}
+
+func (o ExpressionWarningPatchOutput) ToExpressionWarningPatchOutput() ExpressionWarningPatchOutput {
+	return o
+}
+
+func (o ExpressionWarningPatchOutput) ToExpressionWarningPatchOutputWithContext(ctx context.Context) ExpressionWarningPatchOutput {
+	return o
+}
+
+// The path to the field that refers the expression. For example, the reference to the expression of the first item of validations is "spec.validations[0].expression"
+func (o ExpressionWarningPatchOutput) FieldRef() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ExpressionWarningPatch) *string { return v.FieldRef }).(pulumi.StringPtrOutput)
+}
+
+// The content of type checking information in a human-readable form. Each line of the warning contains the type that the expression is checked against, followed by the type check error from the compiler.
+func (o ExpressionWarningPatchOutput) Warning() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ExpressionWarningPatch) *string { return v.Warning }).(pulumi.StringPtrOutput)
+}
+
+type ExpressionWarningPatchArrayOutput struct{ *pulumi.OutputState }
+
+func (ExpressionWarningPatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]ExpressionWarningPatch)(nil)).Elem()
+}
+
+func (o ExpressionWarningPatchArrayOutput) ToExpressionWarningPatchArrayOutput() ExpressionWarningPatchArrayOutput {
+	return o
+}
+
+func (o ExpressionWarningPatchArrayOutput) ToExpressionWarningPatchArrayOutputWithContext(ctx context.Context) ExpressionWarningPatchArrayOutput {
+	return o
+}
+
+func (o ExpressionWarningPatchArrayOutput) Index(i pulumi.IntInput) ExpressionWarningPatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ExpressionWarningPatch {
+		return vs[0].([]ExpressionWarningPatch)[vs[1].(int)]
+	}).(ExpressionWarningPatchOutput)
+}
+
+type MatchCondition struct {
+	// Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+	//
+	// 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+	//   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+	// 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+	//   request resource.
+	// Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/
+	//
+	// Required.
+	Expression string `pulumi:"expression"`
+	// Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
+	//
+	// Required.
+	Name string `pulumi:"name"`
+}
+
+// MatchConditionInput is an input type that accepts MatchConditionArgs and MatchConditionOutput values.
+// You can construct a concrete instance of `MatchConditionInput` via:
+//
+//	MatchConditionArgs{...}
+type MatchConditionInput interface {
+	pulumi.Input
+
+	ToMatchConditionOutput() MatchConditionOutput
+	ToMatchConditionOutputWithContext(context.Context) MatchConditionOutput
+}
+
+type MatchConditionArgs struct {
+	// Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+	//
+	// 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+	//   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+	// 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+	//   request resource.
+	// Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/
+	//
+	// Required.
+	Expression pulumi.StringInput `pulumi:"expression"`
+	// Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
+	//
+	// Required.
+	Name pulumi.StringInput `pulumi:"name"`
+}
+
+func (MatchConditionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*MatchCondition)(nil)).Elem()
+}
+
+func (i MatchConditionArgs) ToMatchConditionOutput() MatchConditionOutput {
+	return i.ToMatchConditionOutputWithContext(context.Background())
+}
+
+func (i MatchConditionArgs) ToMatchConditionOutputWithContext(ctx context.Context) MatchConditionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MatchConditionOutput)
+}
+
+// MatchConditionArrayInput is an input type that accepts MatchConditionArray and MatchConditionArrayOutput values.
+// You can construct a concrete instance of `MatchConditionArrayInput` via:
+//
+//	MatchConditionArray{ MatchConditionArgs{...} }
+type MatchConditionArrayInput interface {
+	pulumi.Input
+
+	ToMatchConditionArrayOutput() MatchConditionArrayOutput
+	ToMatchConditionArrayOutputWithContext(context.Context) MatchConditionArrayOutput
+}
+
+type MatchConditionArray []MatchConditionInput
+
+func (MatchConditionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]MatchCondition)(nil)).Elem()
+}
+
+func (i MatchConditionArray) ToMatchConditionArrayOutput() MatchConditionArrayOutput {
+	return i.ToMatchConditionArrayOutputWithContext(context.Background())
+}
+
+func (i MatchConditionArray) ToMatchConditionArrayOutputWithContext(ctx context.Context) MatchConditionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MatchConditionArrayOutput)
+}
+
+type MatchConditionOutput struct{ *pulumi.OutputState }
+
+func (MatchConditionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*MatchCondition)(nil)).Elem()
+}
+
+func (o MatchConditionOutput) ToMatchConditionOutput() MatchConditionOutput {
+	return o
+}
+
+func (o MatchConditionOutput) ToMatchConditionOutputWithContext(ctx context.Context) MatchConditionOutput {
+	return o
+}
+
+// Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+//
+// 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+//
+//	See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+//
+// 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+//
+//	request resource.
+//
+// Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/
+//
+// Required.
+func (o MatchConditionOutput) Expression() pulumi.StringOutput {
+	return o.ApplyT(func(v MatchCondition) string { return v.Expression }).(pulumi.StringOutput)
+}
+
+// Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
+//
+// Required.
+func (o MatchConditionOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v MatchCondition) string { return v.Name }).(pulumi.StringOutput)
+}
+
+type MatchConditionArrayOutput struct{ *pulumi.OutputState }
+
+func (MatchConditionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]MatchCondition)(nil)).Elem()
+}
+
+func (o MatchConditionArrayOutput) ToMatchConditionArrayOutput() MatchConditionArrayOutput {
+	return o
+}
+
+func (o MatchConditionArrayOutput) ToMatchConditionArrayOutputWithContext(ctx context.Context) MatchConditionArrayOutput {
+	return o
+}
+
+func (o MatchConditionArrayOutput) Index(i pulumi.IntInput) MatchConditionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) MatchCondition {
+		return vs[0].([]MatchCondition)[vs[1].(int)]
+	}).(MatchConditionOutput)
+}
+
+type MatchConditionPatch struct {
+	// Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+	//
+	// 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+	//   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+	// 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+	//   request resource.
+	// Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/
+	//
+	// Required.
+	Expression *string `pulumi:"expression"`
+	// Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
+	//
+	// Required.
+	Name *string `pulumi:"name"`
+}
+
+// MatchConditionPatchInput is an input type that accepts MatchConditionPatchArgs and MatchConditionPatchOutput values.
+// You can construct a concrete instance of `MatchConditionPatchInput` via:
+//
+//	MatchConditionPatchArgs{...}
+type MatchConditionPatchInput interface {
+	pulumi.Input
+
+	ToMatchConditionPatchOutput() MatchConditionPatchOutput
+	ToMatchConditionPatchOutputWithContext(context.Context) MatchConditionPatchOutput
+}
+
+type MatchConditionPatchArgs struct {
+	// Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+	//
+	// 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+	//   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+	// 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+	//   request resource.
+	// Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/
+	//
+	// Required.
+	Expression pulumi.StringPtrInput `pulumi:"expression"`
+	// Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
+	//
+	// Required.
+	Name pulumi.StringPtrInput `pulumi:"name"`
+}
+
+func (MatchConditionPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*MatchConditionPatch)(nil)).Elem()
+}
+
+func (i MatchConditionPatchArgs) ToMatchConditionPatchOutput() MatchConditionPatchOutput {
+	return i.ToMatchConditionPatchOutputWithContext(context.Background())
+}
+
+func (i MatchConditionPatchArgs) ToMatchConditionPatchOutputWithContext(ctx context.Context) MatchConditionPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MatchConditionPatchOutput)
+}
+
+// MatchConditionPatchArrayInput is an input type that accepts MatchConditionPatchArray and MatchConditionPatchArrayOutput values.
+// You can construct a concrete instance of `MatchConditionPatchArrayInput` via:
+//
+//	MatchConditionPatchArray{ MatchConditionPatchArgs{...} }
+type MatchConditionPatchArrayInput interface {
+	pulumi.Input
+
+	ToMatchConditionPatchArrayOutput() MatchConditionPatchArrayOutput
+	ToMatchConditionPatchArrayOutputWithContext(context.Context) MatchConditionPatchArrayOutput
+}
+
+type MatchConditionPatchArray []MatchConditionPatchInput
+
+func (MatchConditionPatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]MatchConditionPatch)(nil)).Elem()
+}
+
+func (i MatchConditionPatchArray) ToMatchConditionPatchArrayOutput() MatchConditionPatchArrayOutput {
+	return i.ToMatchConditionPatchArrayOutputWithContext(context.Background())
+}
+
+func (i MatchConditionPatchArray) ToMatchConditionPatchArrayOutputWithContext(ctx context.Context) MatchConditionPatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MatchConditionPatchArrayOutput)
+}
+
+type MatchConditionPatchOutput struct{ *pulumi.OutputState }
+
+func (MatchConditionPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*MatchConditionPatch)(nil)).Elem()
+}
+
+func (o MatchConditionPatchOutput) ToMatchConditionPatchOutput() MatchConditionPatchOutput {
+	return o
+}
+
+func (o MatchConditionPatchOutput) ToMatchConditionPatchOutputWithContext(ctx context.Context) MatchConditionPatchOutput {
+	return o
+}
+
+// Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+//
+// 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+//
+//	See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+//
+// 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+//
+//	request resource.
+//
+// Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/
+//
+// Required.
+func (o MatchConditionPatchOutput) Expression() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MatchConditionPatch) *string { return v.Expression }).(pulumi.StringPtrOutput)
+}
+
+// Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
+//
+// Required.
+func (o MatchConditionPatchOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MatchConditionPatch) *string { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+type MatchConditionPatchArrayOutput struct{ *pulumi.OutputState }
+
+func (MatchConditionPatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]MatchConditionPatch)(nil)).Elem()
+}
+
+func (o MatchConditionPatchArrayOutput) ToMatchConditionPatchArrayOutput() MatchConditionPatchArrayOutput {
+	return o
+}
+
+func (o MatchConditionPatchArrayOutput) ToMatchConditionPatchArrayOutputWithContext(ctx context.Context) MatchConditionPatchArrayOutput {
+	return o
+}
+
+func (o MatchConditionPatchArrayOutput) Index(i pulumi.IntInput) MatchConditionPatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) MatchConditionPatch {
+		return vs[0].([]MatchConditionPatch)[vs[1].(int)]
+	}).(MatchConditionPatchOutput)
+}
+
 // MatchResources decides whether to run the admission control policy on an object based on whether it meets the match criteria. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
 type MatchResources struct {
 	// ExcludeResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy should not care about. The exclude rules take precedence over include rules (if a resource matches both, it is excluded)
@@ -1693,6 +2469,286 @@ func (o ParamRefPatchPtrOutput) Namespace() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+// TypeChecking contains results of type checking the expressions in the ValidatingAdmissionPolicy
+type TypeChecking struct {
+	// The type checking warnings for each expression.
+	ExpressionWarnings []ExpressionWarning `pulumi:"expressionWarnings"`
+}
+
+// TypeCheckingInput is an input type that accepts TypeCheckingArgs and TypeCheckingOutput values.
+// You can construct a concrete instance of `TypeCheckingInput` via:
+//
+//	TypeCheckingArgs{...}
+type TypeCheckingInput interface {
+	pulumi.Input
+
+	ToTypeCheckingOutput() TypeCheckingOutput
+	ToTypeCheckingOutputWithContext(context.Context) TypeCheckingOutput
+}
+
+// TypeChecking contains results of type checking the expressions in the ValidatingAdmissionPolicy
+type TypeCheckingArgs struct {
+	// The type checking warnings for each expression.
+	ExpressionWarnings ExpressionWarningArrayInput `pulumi:"expressionWarnings"`
+}
+
+func (TypeCheckingArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TypeChecking)(nil)).Elem()
+}
+
+func (i TypeCheckingArgs) ToTypeCheckingOutput() TypeCheckingOutput {
+	return i.ToTypeCheckingOutputWithContext(context.Background())
+}
+
+func (i TypeCheckingArgs) ToTypeCheckingOutputWithContext(ctx context.Context) TypeCheckingOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TypeCheckingOutput)
+}
+
+func (i TypeCheckingArgs) ToTypeCheckingPtrOutput() TypeCheckingPtrOutput {
+	return i.ToTypeCheckingPtrOutputWithContext(context.Background())
+}
+
+func (i TypeCheckingArgs) ToTypeCheckingPtrOutputWithContext(ctx context.Context) TypeCheckingPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TypeCheckingOutput).ToTypeCheckingPtrOutputWithContext(ctx)
+}
+
+// TypeCheckingPtrInput is an input type that accepts TypeCheckingArgs, TypeCheckingPtr and TypeCheckingPtrOutput values.
+// You can construct a concrete instance of `TypeCheckingPtrInput` via:
+//
+//	        TypeCheckingArgs{...}
+//
+//	or:
+//
+//	        nil
+type TypeCheckingPtrInput interface {
+	pulumi.Input
+
+	ToTypeCheckingPtrOutput() TypeCheckingPtrOutput
+	ToTypeCheckingPtrOutputWithContext(context.Context) TypeCheckingPtrOutput
+}
+
+type typeCheckingPtrType TypeCheckingArgs
+
+func TypeCheckingPtr(v *TypeCheckingArgs) TypeCheckingPtrInput {
+	return (*typeCheckingPtrType)(v)
+}
+
+func (*typeCheckingPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TypeChecking)(nil)).Elem()
+}
+
+func (i *typeCheckingPtrType) ToTypeCheckingPtrOutput() TypeCheckingPtrOutput {
+	return i.ToTypeCheckingPtrOutputWithContext(context.Background())
+}
+
+func (i *typeCheckingPtrType) ToTypeCheckingPtrOutputWithContext(ctx context.Context) TypeCheckingPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TypeCheckingPtrOutput)
+}
+
+// TypeChecking contains results of type checking the expressions in the ValidatingAdmissionPolicy
+type TypeCheckingOutput struct{ *pulumi.OutputState }
+
+func (TypeCheckingOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TypeChecking)(nil)).Elem()
+}
+
+func (o TypeCheckingOutput) ToTypeCheckingOutput() TypeCheckingOutput {
+	return o
+}
+
+func (o TypeCheckingOutput) ToTypeCheckingOutputWithContext(ctx context.Context) TypeCheckingOutput {
+	return o
+}
+
+func (o TypeCheckingOutput) ToTypeCheckingPtrOutput() TypeCheckingPtrOutput {
+	return o.ToTypeCheckingPtrOutputWithContext(context.Background())
+}
+
+func (o TypeCheckingOutput) ToTypeCheckingPtrOutputWithContext(ctx context.Context) TypeCheckingPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TypeChecking) *TypeChecking {
+		return &v
+	}).(TypeCheckingPtrOutput)
+}
+
+// The type checking warnings for each expression.
+func (o TypeCheckingOutput) ExpressionWarnings() ExpressionWarningArrayOutput {
+	return o.ApplyT(func(v TypeChecking) []ExpressionWarning { return v.ExpressionWarnings }).(ExpressionWarningArrayOutput)
+}
+
+type TypeCheckingPtrOutput struct{ *pulumi.OutputState }
+
+func (TypeCheckingPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TypeChecking)(nil)).Elem()
+}
+
+func (o TypeCheckingPtrOutput) ToTypeCheckingPtrOutput() TypeCheckingPtrOutput {
+	return o
+}
+
+func (o TypeCheckingPtrOutput) ToTypeCheckingPtrOutputWithContext(ctx context.Context) TypeCheckingPtrOutput {
+	return o
+}
+
+func (o TypeCheckingPtrOutput) Elem() TypeCheckingOutput {
+	return o.ApplyT(func(v *TypeChecking) TypeChecking {
+		if v != nil {
+			return *v
+		}
+		var ret TypeChecking
+		return ret
+	}).(TypeCheckingOutput)
+}
+
+// The type checking warnings for each expression.
+func (o TypeCheckingPtrOutput) ExpressionWarnings() ExpressionWarningArrayOutput {
+	return o.ApplyT(func(v *TypeChecking) []ExpressionWarning {
+		if v == nil {
+			return nil
+		}
+		return v.ExpressionWarnings
+	}).(ExpressionWarningArrayOutput)
+}
+
+// TypeChecking contains results of type checking the expressions in the ValidatingAdmissionPolicy
+type TypeCheckingPatch struct {
+	// The type checking warnings for each expression.
+	ExpressionWarnings []ExpressionWarningPatch `pulumi:"expressionWarnings"`
+}
+
+// TypeCheckingPatchInput is an input type that accepts TypeCheckingPatchArgs and TypeCheckingPatchOutput values.
+// You can construct a concrete instance of `TypeCheckingPatchInput` via:
+//
+//	TypeCheckingPatchArgs{...}
+type TypeCheckingPatchInput interface {
+	pulumi.Input
+
+	ToTypeCheckingPatchOutput() TypeCheckingPatchOutput
+	ToTypeCheckingPatchOutputWithContext(context.Context) TypeCheckingPatchOutput
+}
+
+// TypeChecking contains results of type checking the expressions in the ValidatingAdmissionPolicy
+type TypeCheckingPatchArgs struct {
+	// The type checking warnings for each expression.
+	ExpressionWarnings ExpressionWarningPatchArrayInput `pulumi:"expressionWarnings"`
+}
+
+func (TypeCheckingPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*TypeCheckingPatch)(nil)).Elem()
+}
+
+func (i TypeCheckingPatchArgs) ToTypeCheckingPatchOutput() TypeCheckingPatchOutput {
+	return i.ToTypeCheckingPatchOutputWithContext(context.Background())
+}
+
+func (i TypeCheckingPatchArgs) ToTypeCheckingPatchOutputWithContext(ctx context.Context) TypeCheckingPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TypeCheckingPatchOutput)
+}
+
+func (i TypeCheckingPatchArgs) ToTypeCheckingPatchPtrOutput() TypeCheckingPatchPtrOutput {
+	return i.ToTypeCheckingPatchPtrOutputWithContext(context.Background())
+}
+
+func (i TypeCheckingPatchArgs) ToTypeCheckingPatchPtrOutputWithContext(ctx context.Context) TypeCheckingPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TypeCheckingPatchOutput).ToTypeCheckingPatchPtrOutputWithContext(ctx)
+}
+
+// TypeCheckingPatchPtrInput is an input type that accepts TypeCheckingPatchArgs, TypeCheckingPatchPtr and TypeCheckingPatchPtrOutput values.
+// You can construct a concrete instance of `TypeCheckingPatchPtrInput` via:
+//
+//	        TypeCheckingPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type TypeCheckingPatchPtrInput interface {
+	pulumi.Input
+
+	ToTypeCheckingPatchPtrOutput() TypeCheckingPatchPtrOutput
+	ToTypeCheckingPatchPtrOutputWithContext(context.Context) TypeCheckingPatchPtrOutput
+}
+
+type typeCheckingPatchPtrType TypeCheckingPatchArgs
+
+func TypeCheckingPatchPtr(v *TypeCheckingPatchArgs) TypeCheckingPatchPtrInput {
+	return (*typeCheckingPatchPtrType)(v)
+}
+
+func (*typeCheckingPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**TypeCheckingPatch)(nil)).Elem()
+}
+
+func (i *typeCheckingPatchPtrType) ToTypeCheckingPatchPtrOutput() TypeCheckingPatchPtrOutput {
+	return i.ToTypeCheckingPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *typeCheckingPatchPtrType) ToTypeCheckingPatchPtrOutputWithContext(ctx context.Context) TypeCheckingPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(TypeCheckingPatchPtrOutput)
+}
+
+// TypeChecking contains results of type checking the expressions in the ValidatingAdmissionPolicy
+type TypeCheckingPatchOutput struct{ *pulumi.OutputState }
+
+func (TypeCheckingPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*TypeCheckingPatch)(nil)).Elem()
+}
+
+func (o TypeCheckingPatchOutput) ToTypeCheckingPatchOutput() TypeCheckingPatchOutput {
+	return o
+}
+
+func (o TypeCheckingPatchOutput) ToTypeCheckingPatchOutputWithContext(ctx context.Context) TypeCheckingPatchOutput {
+	return o
+}
+
+func (o TypeCheckingPatchOutput) ToTypeCheckingPatchPtrOutput() TypeCheckingPatchPtrOutput {
+	return o.ToTypeCheckingPatchPtrOutputWithContext(context.Background())
+}
+
+func (o TypeCheckingPatchOutput) ToTypeCheckingPatchPtrOutputWithContext(ctx context.Context) TypeCheckingPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v TypeCheckingPatch) *TypeCheckingPatch {
+		return &v
+	}).(TypeCheckingPatchPtrOutput)
+}
+
+// The type checking warnings for each expression.
+func (o TypeCheckingPatchOutput) ExpressionWarnings() ExpressionWarningPatchArrayOutput {
+	return o.ApplyT(func(v TypeCheckingPatch) []ExpressionWarningPatch { return v.ExpressionWarnings }).(ExpressionWarningPatchArrayOutput)
+}
+
+type TypeCheckingPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (TypeCheckingPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**TypeCheckingPatch)(nil)).Elem()
+}
+
+func (o TypeCheckingPatchPtrOutput) ToTypeCheckingPatchPtrOutput() TypeCheckingPatchPtrOutput {
+	return o
+}
+
+func (o TypeCheckingPatchPtrOutput) ToTypeCheckingPatchPtrOutputWithContext(ctx context.Context) TypeCheckingPatchPtrOutput {
+	return o
+}
+
+func (o TypeCheckingPatchPtrOutput) Elem() TypeCheckingPatchOutput {
+	return o.ApplyT(func(v *TypeCheckingPatch) TypeCheckingPatch {
+		if v != nil {
+			return *v
+		}
+		var ret TypeCheckingPatch
+		return ret
+	}).(TypeCheckingPatchOutput)
+}
+
+// The type checking warnings for each expression.
+func (o TypeCheckingPatchPtrOutput) ExpressionWarnings() ExpressionWarningPatchArrayOutput {
+	return o.ApplyT(func(v *TypeCheckingPatch) []ExpressionWarningPatch {
+		if v == nil {
+			return nil
+		}
+		return v.ExpressionWarnings
+	}).(ExpressionWarningPatchArrayOutput)
+}
+
 // ValidatingAdmissionPolicy describes the definition of an admission validation policy that accepts or rejects an object without changing it.
 type ValidatingAdmissionPolicyType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -1703,6 +2759,8 @@ type ValidatingAdmissionPolicyType struct {
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// Specification of the desired behavior of the ValidatingAdmissionPolicy.
 	Spec *ValidatingAdmissionPolicySpec `pulumi:"spec"`
+	// The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
+	Status *ValidatingAdmissionPolicyStatus `pulumi:"status"`
 }
 
 // ValidatingAdmissionPolicyTypeInput is an input type that accepts ValidatingAdmissionPolicyTypeArgs and ValidatingAdmissionPolicyTypeOutput values.
@@ -1726,6 +2784,8 @@ type ValidatingAdmissionPolicyTypeArgs struct {
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// Specification of the desired behavior of the ValidatingAdmissionPolicy.
 	Spec ValidatingAdmissionPolicySpecPtrInput `pulumi:"spec"`
+	// The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
+	Status ValidatingAdmissionPolicyStatusPtrInput `pulumi:"status"`
 }
 
 func (ValidatingAdmissionPolicyTypeArgs) ElementType() reflect.Type {
@@ -1798,6 +2858,11 @@ func (o ValidatingAdmissionPolicyTypeOutput) Metadata() metav1.ObjectMetaPtrOutp
 // Specification of the desired behavior of the ValidatingAdmissionPolicy.
 func (o ValidatingAdmissionPolicyTypeOutput) Spec() ValidatingAdmissionPolicySpecPtrOutput {
 	return o.ApplyT(func(v ValidatingAdmissionPolicyType) *ValidatingAdmissionPolicySpec { return v.Spec }).(ValidatingAdmissionPolicySpecPtrOutput)
+}
+
+// The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
+func (o ValidatingAdmissionPolicyTypeOutput) Status() ValidatingAdmissionPolicyStatusPtrOutput {
+	return o.ApplyT(func(v ValidatingAdmissionPolicyType) *ValidatingAdmissionPolicyStatus { return v.Status }).(ValidatingAdmissionPolicyStatusPtrOutput)
 }
 
 type ValidatingAdmissionPolicyTypeArrayOutput struct{ *pulumi.OutputState }
@@ -2123,6 +3188,26 @@ type ValidatingAdmissionPolicyBindingSpec struct {
 	ParamRef *ParamRef `pulumi:"paramRef"`
 	// PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
 	PolicyName *string `pulumi:"policyName"`
+	// validationActions declares how Validations of the referenced ValidatingAdmissionPolicy are enforced. If a validation evaluates to false it is always enforced according to these actions.
+	//
+	// Failures defined by the ValidatingAdmissionPolicy's FailurePolicy are enforced according to these actions only if the FailurePolicy is set to Fail, otherwise the failures are ignored. This includes compilation errors, runtime errors and misconfigurations of the policy.
+	//
+	// validationActions is declared as a set of action values. Order does not matter. validationActions may not contain duplicates of the same action.
+	//
+	// The supported actions values are:
+	//
+	// "Deny" specifies that a validation failure results in a denied request.
+	//
+	// "Warn" specifies that a validation failure is reported to the request client in HTTP Warning headers, with a warning code of 299. Warnings can be sent both for allowed or denied admission responses.
+	//
+	// "Audit" specifies that a validation failure is included in the published audit event for the request. The audit event will contain a `validation.policy.admission.k8s.io/validation_failure` audit annotation with a value containing the details of the validation failures, formatted as a JSON list of objects, each with the following fields: - message: The validation failure message string - policy: The resource name of the ValidatingAdmissionPolicy - binding: The resource name of the ValidatingAdmissionPolicyBinding - expressionIndex: The index of the failed validations in the ValidatingAdmissionPolicy - validationActions: The enforcement actions enacted for the validation failure Example audit annotation: `"validation.policy.admission.k8s.io/validation_failure": "[{"message": "Invalid value", {"policy": "policy.example.com", {"binding": "policybinding.example.com", {"expressionIndex": "1", {"validationActions": ["Audit"]}]"`
+	//
+	// Clients should expect to handle additional values by ignoring any values not recognized.
+	//
+	// "Deny" and "Warn" may not be used together since this combination needlessly duplicates the validation failure both in the API response body and the HTTP warning headers.
+	//
+	// Required.
+	ValidationActions []string `pulumi:"validationActions"`
 }
 
 // ValidatingAdmissionPolicyBindingSpecInput is an input type that accepts ValidatingAdmissionPolicyBindingSpecArgs and ValidatingAdmissionPolicyBindingSpecOutput values.
@@ -2144,6 +3229,26 @@ type ValidatingAdmissionPolicyBindingSpecArgs struct {
 	ParamRef ParamRefPtrInput `pulumi:"paramRef"`
 	// PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
 	PolicyName pulumi.StringPtrInput `pulumi:"policyName"`
+	// validationActions declares how Validations of the referenced ValidatingAdmissionPolicy are enforced. If a validation evaluates to false it is always enforced according to these actions.
+	//
+	// Failures defined by the ValidatingAdmissionPolicy's FailurePolicy are enforced according to these actions only if the FailurePolicy is set to Fail, otherwise the failures are ignored. This includes compilation errors, runtime errors and misconfigurations of the policy.
+	//
+	// validationActions is declared as a set of action values. Order does not matter. validationActions may not contain duplicates of the same action.
+	//
+	// The supported actions values are:
+	//
+	// "Deny" specifies that a validation failure results in a denied request.
+	//
+	// "Warn" specifies that a validation failure is reported to the request client in HTTP Warning headers, with a warning code of 299. Warnings can be sent both for allowed or denied admission responses.
+	//
+	// "Audit" specifies that a validation failure is included in the published audit event for the request. The audit event will contain a `validation.policy.admission.k8s.io/validation_failure` audit annotation with a value containing the details of the validation failures, formatted as a JSON list of objects, each with the following fields: - message: The validation failure message string - policy: The resource name of the ValidatingAdmissionPolicy - binding: The resource name of the ValidatingAdmissionPolicyBinding - expressionIndex: The index of the failed validations in the ValidatingAdmissionPolicy - validationActions: The enforcement actions enacted for the validation failure Example audit annotation: `"validation.policy.admission.k8s.io/validation_failure": "[{"message": "Invalid value", {"policy": "policy.example.com", {"binding": "policybinding.example.com", {"expressionIndex": "1", {"validationActions": ["Audit"]}]"`
+	//
+	// Clients should expect to handle additional values by ignoring any values not recognized.
+	//
+	// "Deny" and "Warn" may not be used together since this combination needlessly duplicates the validation failure both in the API response body and the HTTP warning headers.
+	//
+	// Required.
+	ValidationActions pulumi.StringArrayInput `pulumi:"validationActions"`
 }
 
 func (ValidatingAdmissionPolicyBindingSpecArgs) ElementType() reflect.Type {
@@ -2239,6 +3344,29 @@ func (o ValidatingAdmissionPolicyBindingSpecOutput) PolicyName() pulumi.StringPt
 	return o.ApplyT(func(v ValidatingAdmissionPolicyBindingSpec) *string { return v.PolicyName }).(pulumi.StringPtrOutput)
 }
 
+// validationActions declares how Validations of the referenced ValidatingAdmissionPolicy are enforced. If a validation evaluates to false it is always enforced according to these actions.
+//
+// Failures defined by the ValidatingAdmissionPolicy's FailurePolicy are enforced according to these actions only if the FailurePolicy is set to Fail, otherwise the failures are ignored. This includes compilation errors, runtime errors and misconfigurations of the policy.
+//
+// validationActions is declared as a set of action values. Order does not matter. validationActions may not contain duplicates of the same action.
+//
+// The supported actions values are:
+//
+// "Deny" specifies that a validation failure results in a denied request.
+//
+// "Warn" specifies that a validation failure is reported to the request client in HTTP Warning headers, with a warning code of 299. Warnings can be sent both for allowed or denied admission responses.
+//
+// "Audit" specifies that a validation failure is included in the published audit event for the request. The audit event will contain a `validation.policy.admission.k8s.io/validation_failure` audit annotation with a value containing the details of the validation failures, formatted as a JSON list of objects, each with the following fields: - message: The validation failure message string - policy: The resource name of the ValidatingAdmissionPolicy - binding: The resource name of the ValidatingAdmissionPolicyBinding - expressionIndex: The index of the failed validations in the ValidatingAdmissionPolicy - validationActions: The enforcement actions enacted for the validation failure Example audit annotation: `"validation.policy.admission.k8s.io/validation_failure": "[{"message": "Invalid value", {"policy": "policy.example.com", {"binding": "policybinding.example.com", {"expressionIndex": "1", {"validationActions": ["Audit"]}]"`
+//
+// Clients should expect to handle additional values by ignoring any values not recognized.
+//
+// "Deny" and "Warn" may not be used together since this combination needlessly duplicates the validation failure both in the API response body and the HTTP warning headers.
+//
+// Required.
+func (o ValidatingAdmissionPolicyBindingSpecOutput) ValidationActions() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v ValidatingAdmissionPolicyBindingSpec) []string { return v.ValidationActions }).(pulumi.StringArrayOutput)
+}
+
 type ValidatingAdmissionPolicyBindingSpecPtrOutput struct{ *pulumi.OutputState }
 
 func (ValidatingAdmissionPolicyBindingSpecPtrOutput) ElementType() reflect.Type {
@@ -2293,6 +3421,34 @@ func (o ValidatingAdmissionPolicyBindingSpecPtrOutput) PolicyName() pulumi.Strin
 	}).(pulumi.StringPtrOutput)
 }
 
+// validationActions declares how Validations of the referenced ValidatingAdmissionPolicy are enforced. If a validation evaluates to false it is always enforced according to these actions.
+//
+// Failures defined by the ValidatingAdmissionPolicy's FailurePolicy are enforced according to these actions only if the FailurePolicy is set to Fail, otherwise the failures are ignored. This includes compilation errors, runtime errors and misconfigurations of the policy.
+//
+// validationActions is declared as a set of action values. Order does not matter. validationActions may not contain duplicates of the same action.
+//
+// The supported actions values are:
+//
+// "Deny" specifies that a validation failure results in a denied request.
+//
+// "Warn" specifies that a validation failure is reported to the request client in HTTP Warning headers, with a warning code of 299. Warnings can be sent both for allowed or denied admission responses.
+//
+// "Audit" specifies that a validation failure is included in the published audit event for the request. The audit event will contain a `validation.policy.admission.k8s.io/validation_failure` audit annotation with a value containing the details of the validation failures, formatted as a JSON list of objects, each with the following fields: - message: The validation failure message string - policy: The resource name of the ValidatingAdmissionPolicy - binding: The resource name of the ValidatingAdmissionPolicyBinding - expressionIndex: The index of the failed validations in the ValidatingAdmissionPolicy - validationActions: The enforcement actions enacted for the validation failure Example audit annotation: `"validation.policy.admission.k8s.io/validation_failure": "[{"message": "Invalid value", {"policy": "policy.example.com", {"binding": "policybinding.example.com", {"expressionIndex": "1", {"validationActions": ["Audit"]}]"`
+//
+// Clients should expect to handle additional values by ignoring any values not recognized.
+//
+// "Deny" and "Warn" may not be used together since this combination needlessly duplicates the validation failure both in the API response body and the HTTP warning headers.
+//
+// Required.
+func (o ValidatingAdmissionPolicyBindingSpecPtrOutput) ValidationActions() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *ValidatingAdmissionPolicyBindingSpec) []string {
+		if v == nil {
+			return nil
+		}
+		return v.ValidationActions
+	}).(pulumi.StringArrayOutput)
+}
+
 // ValidatingAdmissionPolicyBindingSpec is the specification of the ValidatingAdmissionPolicyBinding.
 type ValidatingAdmissionPolicyBindingSpecPatch struct {
 	// MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy's matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
@@ -2301,6 +3457,26 @@ type ValidatingAdmissionPolicyBindingSpecPatch struct {
 	ParamRef *ParamRefPatch `pulumi:"paramRef"`
 	// PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
 	PolicyName *string `pulumi:"policyName"`
+	// validationActions declares how Validations of the referenced ValidatingAdmissionPolicy are enforced. If a validation evaluates to false it is always enforced according to these actions.
+	//
+	// Failures defined by the ValidatingAdmissionPolicy's FailurePolicy are enforced according to these actions only if the FailurePolicy is set to Fail, otherwise the failures are ignored. This includes compilation errors, runtime errors and misconfigurations of the policy.
+	//
+	// validationActions is declared as a set of action values. Order does not matter. validationActions may not contain duplicates of the same action.
+	//
+	// The supported actions values are:
+	//
+	// "Deny" specifies that a validation failure results in a denied request.
+	//
+	// "Warn" specifies that a validation failure is reported to the request client in HTTP Warning headers, with a warning code of 299. Warnings can be sent both for allowed or denied admission responses.
+	//
+	// "Audit" specifies that a validation failure is included in the published audit event for the request. The audit event will contain a `validation.policy.admission.k8s.io/validation_failure` audit annotation with a value containing the details of the validation failures, formatted as a JSON list of objects, each with the following fields: - message: The validation failure message string - policy: The resource name of the ValidatingAdmissionPolicy - binding: The resource name of the ValidatingAdmissionPolicyBinding - expressionIndex: The index of the failed validations in the ValidatingAdmissionPolicy - validationActions: The enforcement actions enacted for the validation failure Example audit annotation: `"validation.policy.admission.k8s.io/validation_failure": "[{"message": "Invalid value", {"policy": "policy.example.com", {"binding": "policybinding.example.com", {"expressionIndex": "1", {"validationActions": ["Audit"]}]"`
+	//
+	// Clients should expect to handle additional values by ignoring any values not recognized.
+	//
+	// "Deny" and "Warn" may not be used together since this combination needlessly duplicates the validation failure both in the API response body and the HTTP warning headers.
+	//
+	// Required.
+	ValidationActions []string `pulumi:"validationActions"`
 }
 
 // ValidatingAdmissionPolicyBindingSpecPatchInput is an input type that accepts ValidatingAdmissionPolicyBindingSpecPatchArgs and ValidatingAdmissionPolicyBindingSpecPatchOutput values.
@@ -2322,6 +3498,26 @@ type ValidatingAdmissionPolicyBindingSpecPatchArgs struct {
 	ParamRef ParamRefPatchPtrInput `pulumi:"paramRef"`
 	// PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
 	PolicyName pulumi.StringPtrInput `pulumi:"policyName"`
+	// validationActions declares how Validations of the referenced ValidatingAdmissionPolicy are enforced. If a validation evaluates to false it is always enforced according to these actions.
+	//
+	// Failures defined by the ValidatingAdmissionPolicy's FailurePolicy are enforced according to these actions only if the FailurePolicy is set to Fail, otherwise the failures are ignored. This includes compilation errors, runtime errors and misconfigurations of the policy.
+	//
+	// validationActions is declared as a set of action values. Order does not matter. validationActions may not contain duplicates of the same action.
+	//
+	// The supported actions values are:
+	//
+	// "Deny" specifies that a validation failure results in a denied request.
+	//
+	// "Warn" specifies that a validation failure is reported to the request client in HTTP Warning headers, with a warning code of 299. Warnings can be sent both for allowed or denied admission responses.
+	//
+	// "Audit" specifies that a validation failure is included in the published audit event for the request. The audit event will contain a `validation.policy.admission.k8s.io/validation_failure` audit annotation with a value containing the details of the validation failures, formatted as a JSON list of objects, each with the following fields: - message: The validation failure message string - policy: The resource name of the ValidatingAdmissionPolicy - binding: The resource name of the ValidatingAdmissionPolicyBinding - expressionIndex: The index of the failed validations in the ValidatingAdmissionPolicy - validationActions: The enforcement actions enacted for the validation failure Example audit annotation: `"validation.policy.admission.k8s.io/validation_failure": "[{"message": "Invalid value", {"policy": "policy.example.com", {"binding": "policybinding.example.com", {"expressionIndex": "1", {"validationActions": ["Audit"]}]"`
+	//
+	// Clients should expect to handle additional values by ignoring any values not recognized.
+	//
+	// "Deny" and "Warn" may not be used together since this combination needlessly duplicates the validation failure both in the API response body and the HTTP warning headers.
+	//
+	// Required.
+	ValidationActions pulumi.StringArrayInput `pulumi:"validationActions"`
 }
 
 func (ValidatingAdmissionPolicyBindingSpecPatchArgs) ElementType() reflect.Type {
@@ -2417,6 +3613,29 @@ func (o ValidatingAdmissionPolicyBindingSpecPatchOutput) PolicyName() pulumi.Str
 	return o.ApplyT(func(v ValidatingAdmissionPolicyBindingSpecPatch) *string { return v.PolicyName }).(pulumi.StringPtrOutput)
 }
 
+// validationActions declares how Validations of the referenced ValidatingAdmissionPolicy are enforced. If a validation evaluates to false it is always enforced according to these actions.
+//
+// Failures defined by the ValidatingAdmissionPolicy's FailurePolicy are enforced according to these actions only if the FailurePolicy is set to Fail, otherwise the failures are ignored. This includes compilation errors, runtime errors and misconfigurations of the policy.
+//
+// validationActions is declared as a set of action values. Order does not matter. validationActions may not contain duplicates of the same action.
+//
+// The supported actions values are:
+//
+// "Deny" specifies that a validation failure results in a denied request.
+//
+// "Warn" specifies that a validation failure is reported to the request client in HTTP Warning headers, with a warning code of 299. Warnings can be sent both for allowed or denied admission responses.
+//
+// "Audit" specifies that a validation failure is included in the published audit event for the request. The audit event will contain a `validation.policy.admission.k8s.io/validation_failure` audit annotation with a value containing the details of the validation failures, formatted as a JSON list of objects, each with the following fields: - message: The validation failure message string - policy: The resource name of the ValidatingAdmissionPolicy - binding: The resource name of the ValidatingAdmissionPolicyBinding - expressionIndex: The index of the failed validations in the ValidatingAdmissionPolicy - validationActions: The enforcement actions enacted for the validation failure Example audit annotation: `"validation.policy.admission.k8s.io/validation_failure": "[{"message": "Invalid value", {"policy": "policy.example.com", {"binding": "policybinding.example.com", {"expressionIndex": "1", {"validationActions": ["Audit"]}]"`
+//
+// Clients should expect to handle additional values by ignoring any values not recognized.
+//
+// "Deny" and "Warn" may not be used together since this combination needlessly duplicates the validation failure both in the API response body and the HTTP warning headers.
+//
+// Required.
+func (o ValidatingAdmissionPolicyBindingSpecPatchOutput) ValidationActions() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v ValidatingAdmissionPolicyBindingSpecPatch) []string { return v.ValidationActions }).(pulumi.StringArrayOutput)
+}
+
 type ValidatingAdmissionPolicyBindingSpecPatchPtrOutput struct{ *pulumi.OutputState }
 
 func (ValidatingAdmissionPolicyBindingSpecPatchPtrOutput) ElementType() reflect.Type {
@@ -2469,6 +3688,34 @@ func (o ValidatingAdmissionPolicyBindingSpecPatchPtrOutput) PolicyName() pulumi.
 		}
 		return v.PolicyName
 	}).(pulumi.StringPtrOutput)
+}
+
+// validationActions declares how Validations of the referenced ValidatingAdmissionPolicy are enforced. If a validation evaluates to false it is always enforced according to these actions.
+//
+// Failures defined by the ValidatingAdmissionPolicy's FailurePolicy are enforced according to these actions only if the FailurePolicy is set to Fail, otherwise the failures are ignored. This includes compilation errors, runtime errors and misconfigurations of the policy.
+//
+// validationActions is declared as a set of action values. Order does not matter. validationActions may not contain duplicates of the same action.
+//
+// The supported actions values are:
+//
+// "Deny" specifies that a validation failure results in a denied request.
+//
+// "Warn" specifies that a validation failure is reported to the request client in HTTP Warning headers, with a warning code of 299. Warnings can be sent both for allowed or denied admission responses.
+//
+// "Audit" specifies that a validation failure is included in the published audit event for the request. The audit event will contain a `validation.policy.admission.k8s.io/validation_failure` audit annotation with a value containing the details of the validation failures, formatted as a JSON list of objects, each with the following fields: - message: The validation failure message string - policy: The resource name of the ValidatingAdmissionPolicy - binding: The resource name of the ValidatingAdmissionPolicyBinding - expressionIndex: The index of the failed validations in the ValidatingAdmissionPolicy - validationActions: The enforcement actions enacted for the validation failure Example audit annotation: `"validation.policy.admission.k8s.io/validation_failure": "[{"message": "Invalid value", {"policy": "policy.example.com", {"binding": "policybinding.example.com", {"expressionIndex": "1", {"validationActions": ["Audit"]}]"`
+//
+// Clients should expect to handle additional values by ignoring any values not recognized.
+//
+// "Deny" and "Warn" may not be used together since this combination needlessly duplicates the validation failure both in the API response body and the HTTP warning headers.
+//
+// Required.
+func (o ValidatingAdmissionPolicyBindingSpecPatchPtrOutput) ValidationActions() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *ValidatingAdmissionPolicyBindingSpecPatch) []string {
+		if v == nil {
+			return nil
+		}
+		return v.ValidationActions
+	}).(pulumi.StringArrayOutput)
 }
 
 // ValidatingAdmissionPolicyList is a list of ValidatingAdmissionPolicy.
@@ -2563,6 +3810,8 @@ type ValidatingAdmissionPolicyPatchType struct {
 	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
 	// Specification of the desired behavior of the ValidatingAdmissionPolicy.
 	Spec *ValidatingAdmissionPolicySpecPatch `pulumi:"spec"`
+	// The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
+	Status *ValidatingAdmissionPolicyStatusPatch `pulumi:"status"`
 }
 
 // ValidatingAdmissionPolicyPatchTypeInput is an input type that accepts ValidatingAdmissionPolicyPatchTypeArgs and ValidatingAdmissionPolicyPatchTypeOutput values.
@@ -2586,6 +3835,8 @@ type ValidatingAdmissionPolicyPatchTypeArgs struct {
 	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
 	// Specification of the desired behavior of the ValidatingAdmissionPolicy.
 	Spec ValidatingAdmissionPolicySpecPatchPtrInput `pulumi:"spec"`
+	// The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
+	Status ValidatingAdmissionPolicyStatusPatchPtrInput `pulumi:"status"`
 }
 
 func (ValidatingAdmissionPolicyPatchTypeArgs) ElementType() reflect.Type {
@@ -2635,15 +3886,41 @@ func (o ValidatingAdmissionPolicyPatchTypeOutput) Spec() ValidatingAdmissionPoli
 	return o.ApplyT(func(v ValidatingAdmissionPolicyPatchType) *ValidatingAdmissionPolicySpecPatch { return v.Spec }).(ValidatingAdmissionPolicySpecPatchPtrOutput)
 }
 
+// The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
+func (o ValidatingAdmissionPolicyPatchTypeOutput) Status() ValidatingAdmissionPolicyStatusPatchPtrOutput {
+	return o.ApplyT(func(v ValidatingAdmissionPolicyPatchType) *ValidatingAdmissionPolicyStatusPatch { return v.Status }).(ValidatingAdmissionPolicyStatusPatchPtrOutput)
+}
+
 // ValidatingAdmissionPolicySpec is the specification of the desired behavior of the AdmissionPolicy.
 type ValidatingAdmissionPolicySpec struct {
-	// FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
+	// auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
+	AuditAnnotations []AuditAnnotation `pulumi:"auditAnnotations"`
+	// failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
+	//
+	// A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource.
+	//
+	// failurePolicy does not define how validations that evaluate to false are handled.
+	//
+	// When failurePolicy is set to Fail, ValidatingAdmissionPolicyBinding validationActions define how failures are enforced.
+	//
+	// Allowed values are Ignore or Fail. Defaults to Fail.
 	FailurePolicy *string `pulumi:"failurePolicy"`
+	// MatchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+	//
+	// If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
+	//
+	// The exact matching logic is (in order):
+	//   1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
+	//   2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
+	//   3. If any matchCondition evaluates to an error (but none are FALSE):
+	//      - If failurePolicy=Fail, reject the request
+	//      - If failurePolicy=Ignore, the policy is skipped
+	MatchConditions []MatchCondition `pulumi:"matchConditions"`
 	// MatchConstraints specifies what resources this policy is designed to validate. The AdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API ValidatingAdmissionPolicy cannot match ValidatingAdmissionPolicy and ValidatingAdmissionPolicyBinding. Required.
 	MatchConstraints *MatchResources `pulumi:"matchConstraints"`
 	// ParamKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If ParamKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in ValidatingAdmissionPolicyBinding, the params variable will be null.
 	ParamKind *ParamKind `pulumi:"paramKind"`
-	// Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
+	// Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
 	Validations []Validation `pulumi:"validations"`
 }
 
@@ -2660,13 +3937,34 @@ type ValidatingAdmissionPolicySpecInput interface {
 
 // ValidatingAdmissionPolicySpec is the specification of the desired behavior of the AdmissionPolicy.
 type ValidatingAdmissionPolicySpecArgs struct {
-	// FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
+	// auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
+	AuditAnnotations AuditAnnotationArrayInput `pulumi:"auditAnnotations"`
+	// failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
+	//
+	// A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource.
+	//
+	// failurePolicy does not define how validations that evaluate to false are handled.
+	//
+	// When failurePolicy is set to Fail, ValidatingAdmissionPolicyBinding validationActions define how failures are enforced.
+	//
+	// Allowed values are Ignore or Fail. Defaults to Fail.
 	FailurePolicy pulumi.StringPtrInput `pulumi:"failurePolicy"`
+	// MatchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+	//
+	// If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
+	//
+	// The exact matching logic is (in order):
+	//   1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
+	//   2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
+	//   3. If any matchCondition evaluates to an error (but none are FALSE):
+	//      - If failurePolicy=Fail, reject the request
+	//      - If failurePolicy=Ignore, the policy is skipped
+	MatchConditions MatchConditionArrayInput `pulumi:"matchConditions"`
 	// MatchConstraints specifies what resources this policy is designed to validate. The AdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API ValidatingAdmissionPolicy cannot match ValidatingAdmissionPolicy and ValidatingAdmissionPolicyBinding. Required.
 	MatchConstraints MatchResourcesPtrInput `pulumi:"matchConstraints"`
 	// ParamKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If ParamKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in ValidatingAdmissionPolicyBinding, the params variable will be null.
 	ParamKind ParamKindPtrInput `pulumi:"paramKind"`
-	// Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
+	// Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
 	Validations ValidationArrayInput `pulumi:"validations"`
 }
 
@@ -2748,9 +4046,36 @@ func (o ValidatingAdmissionPolicySpecOutput) ToValidatingAdmissionPolicySpecPtrO
 	}).(ValidatingAdmissionPolicySpecPtrOutput)
 }
 
-// FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
+// auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
+func (o ValidatingAdmissionPolicySpecOutput) AuditAnnotations() AuditAnnotationArrayOutput {
+	return o.ApplyT(func(v ValidatingAdmissionPolicySpec) []AuditAnnotation { return v.AuditAnnotations }).(AuditAnnotationArrayOutput)
+}
+
+// failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
+//
+// A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource.
+//
+// failurePolicy does not define how validations that evaluate to false are handled.
+//
+// When failurePolicy is set to Fail, ValidatingAdmissionPolicyBinding validationActions define how failures are enforced.
+//
+// Allowed values are Ignore or Fail. Defaults to Fail.
 func (o ValidatingAdmissionPolicySpecOutput) FailurePolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ValidatingAdmissionPolicySpec) *string { return v.FailurePolicy }).(pulumi.StringPtrOutput)
+}
+
+// MatchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+//
+// If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
+//
+// The exact matching logic is (in order):
+//  1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
+//  2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
+//  3. If any matchCondition evaluates to an error (but none are FALSE):
+//     - If failurePolicy=Fail, reject the request
+//     - If failurePolicy=Ignore, the policy is skipped
+func (o ValidatingAdmissionPolicySpecOutput) MatchConditions() MatchConditionArrayOutput {
+	return o.ApplyT(func(v ValidatingAdmissionPolicySpec) []MatchCondition { return v.MatchConditions }).(MatchConditionArrayOutput)
 }
 
 // MatchConstraints specifies what resources this policy is designed to validate. The AdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API ValidatingAdmissionPolicy cannot match ValidatingAdmissionPolicy and ValidatingAdmissionPolicyBinding. Required.
@@ -2763,7 +4088,7 @@ func (o ValidatingAdmissionPolicySpecOutput) ParamKind() ParamKindPtrOutput {
 	return o.ApplyT(func(v ValidatingAdmissionPolicySpec) *ParamKind { return v.ParamKind }).(ParamKindPtrOutput)
 }
 
-// Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
+// Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
 func (o ValidatingAdmissionPolicySpecOutput) Validations() ValidationArrayOutput {
 	return o.ApplyT(func(v ValidatingAdmissionPolicySpec) []Validation { return v.Validations }).(ValidationArrayOutput)
 }
@@ -2792,7 +4117,25 @@ func (o ValidatingAdmissionPolicySpecPtrOutput) Elem() ValidatingAdmissionPolicy
 	}).(ValidatingAdmissionPolicySpecOutput)
 }
 
-// FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
+// auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
+func (o ValidatingAdmissionPolicySpecPtrOutput) AuditAnnotations() AuditAnnotationArrayOutput {
+	return o.ApplyT(func(v *ValidatingAdmissionPolicySpec) []AuditAnnotation {
+		if v == nil {
+			return nil
+		}
+		return v.AuditAnnotations
+	}).(AuditAnnotationArrayOutput)
+}
+
+// failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
+//
+// A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource.
+//
+// failurePolicy does not define how validations that evaluate to false are handled.
+//
+// When failurePolicy is set to Fail, ValidatingAdmissionPolicyBinding validationActions define how failures are enforced.
+//
+// Allowed values are Ignore or Fail. Defaults to Fail.
 func (o ValidatingAdmissionPolicySpecPtrOutput) FailurePolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ValidatingAdmissionPolicySpec) *string {
 		if v == nil {
@@ -2800,6 +4143,25 @@ func (o ValidatingAdmissionPolicySpecPtrOutput) FailurePolicy() pulumi.StringPtr
 		}
 		return v.FailurePolicy
 	}).(pulumi.StringPtrOutput)
+}
+
+// MatchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+//
+// If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
+//
+// The exact matching logic is (in order):
+//  1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
+//  2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
+//  3. If any matchCondition evaluates to an error (but none are FALSE):
+//     - If failurePolicy=Fail, reject the request
+//     - If failurePolicy=Ignore, the policy is skipped
+func (o ValidatingAdmissionPolicySpecPtrOutput) MatchConditions() MatchConditionArrayOutput {
+	return o.ApplyT(func(v *ValidatingAdmissionPolicySpec) []MatchCondition {
+		if v == nil {
+			return nil
+		}
+		return v.MatchConditions
+	}).(MatchConditionArrayOutput)
 }
 
 // MatchConstraints specifies what resources this policy is designed to validate. The AdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API ValidatingAdmissionPolicy cannot match ValidatingAdmissionPolicy and ValidatingAdmissionPolicyBinding. Required.
@@ -2822,7 +4184,7 @@ func (o ValidatingAdmissionPolicySpecPtrOutput) ParamKind() ParamKindPtrOutput {
 	}).(ParamKindPtrOutput)
 }
 
-// Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
+// Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
 func (o ValidatingAdmissionPolicySpecPtrOutput) Validations() ValidationArrayOutput {
 	return o.ApplyT(func(v *ValidatingAdmissionPolicySpec) []Validation {
 		if v == nil {
@@ -2834,13 +4196,34 @@ func (o ValidatingAdmissionPolicySpecPtrOutput) Validations() ValidationArrayOut
 
 // ValidatingAdmissionPolicySpec is the specification of the desired behavior of the AdmissionPolicy.
 type ValidatingAdmissionPolicySpecPatch struct {
-	// FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
+	// auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
+	AuditAnnotations []AuditAnnotationPatch `pulumi:"auditAnnotations"`
+	// failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
+	//
+	// A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource.
+	//
+	// failurePolicy does not define how validations that evaluate to false are handled.
+	//
+	// When failurePolicy is set to Fail, ValidatingAdmissionPolicyBinding validationActions define how failures are enforced.
+	//
+	// Allowed values are Ignore or Fail. Defaults to Fail.
 	FailurePolicy *string `pulumi:"failurePolicy"`
+	// MatchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+	//
+	// If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
+	//
+	// The exact matching logic is (in order):
+	//   1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
+	//   2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
+	//   3. If any matchCondition evaluates to an error (but none are FALSE):
+	//      - If failurePolicy=Fail, reject the request
+	//      - If failurePolicy=Ignore, the policy is skipped
+	MatchConditions []MatchConditionPatch `pulumi:"matchConditions"`
 	// MatchConstraints specifies what resources this policy is designed to validate. The AdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API ValidatingAdmissionPolicy cannot match ValidatingAdmissionPolicy and ValidatingAdmissionPolicyBinding. Required.
 	MatchConstraints *MatchResourcesPatch `pulumi:"matchConstraints"`
 	// ParamKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If ParamKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in ValidatingAdmissionPolicyBinding, the params variable will be null.
 	ParamKind *ParamKindPatch `pulumi:"paramKind"`
-	// Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
+	// Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
 	Validations []ValidationPatch `pulumi:"validations"`
 }
 
@@ -2857,13 +4240,34 @@ type ValidatingAdmissionPolicySpecPatchInput interface {
 
 // ValidatingAdmissionPolicySpec is the specification of the desired behavior of the AdmissionPolicy.
 type ValidatingAdmissionPolicySpecPatchArgs struct {
-	// FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
+	// auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
+	AuditAnnotations AuditAnnotationPatchArrayInput `pulumi:"auditAnnotations"`
+	// failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
+	//
+	// A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource.
+	//
+	// failurePolicy does not define how validations that evaluate to false are handled.
+	//
+	// When failurePolicy is set to Fail, ValidatingAdmissionPolicyBinding validationActions define how failures are enforced.
+	//
+	// Allowed values are Ignore or Fail. Defaults to Fail.
 	FailurePolicy pulumi.StringPtrInput `pulumi:"failurePolicy"`
+	// MatchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+	//
+	// If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
+	//
+	// The exact matching logic is (in order):
+	//   1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
+	//   2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
+	//   3. If any matchCondition evaluates to an error (but none are FALSE):
+	//      - If failurePolicy=Fail, reject the request
+	//      - If failurePolicy=Ignore, the policy is skipped
+	MatchConditions MatchConditionPatchArrayInput `pulumi:"matchConditions"`
 	// MatchConstraints specifies what resources this policy is designed to validate. The AdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API ValidatingAdmissionPolicy cannot match ValidatingAdmissionPolicy and ValidatingAdmissionPolicyBinding. Required.
 	MatchConstraints MatchResourcesPatchPtrInput `pulumi:"matchConstraints"`
 	// ParamKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If ParamKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in ValidatingAdmissionPolicyBinding, the params variable will be null.
 	ParamKind ParamKindPatchPtrInput `pulumi:"paramKind"`
-	// Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
+	// Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
 	Validations ValidationPatchArrayInput `pulumi:"validations"`
 }
 
@@ -2945,9 +4349,36 @@ func (o ValidatingAdmissionPolicySpecPatchOutput) ToValidatingAdmissionPolicySpe
 	}).(ValidatingAdmissionPolicySpecPatchPtrOutput)
 }
 
-// FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
+// auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
+func (o ValidatingAdmissionPolicySpecPatchOutput) AuditAnnotations() AuditAnnotationPatchArrayOutput {
+	return o.ApplyT(func(v ValidatingAdmissionPolicySpecPatch) []AuditAnnotationPatch { return v.AuditAnnotations }).(AuditAnnotationPatchArrayOutput)
+}
+
+// failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
+//
+// A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource.
+//
+// failurePolicy does not define how validations that evaluate to false are handled.
+//
+// When failurePolicy is set to Fail, ValidatingAdmissionPolicyBinding validationActions define how failures are enforced.
+//
+// Allowed values are Ignore or Fail. Defaults to Fail.
 func (o ValidatingAdmissionPolicySpecPatchOutput) FailurePolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ValidatingAdmissionPolicySpecPatch) *string { return v.FailurePolicy }).(pulumi.StringPtrOutput)
+}
+
+// MatchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+//
+// If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
+//
+// The exact matching logic is (in order):
+//  1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
+//  2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
+//  3. If any matchCondition evaluates to an error (but none are FALSE):
+//     - If failurePolicy=Fail, reject the request
+//     - If failurePolicy=Ignore, the policy is skipped
+func (o ValidatingAdmissionPolicySpecPatchOutput) MatchConditions() MatchConditionPatchArrayOutput {
+	return o.ApplyT(func(v ValidatingAdmissionPolicySpecPatch) []MatchConditionPatch { return v.MatchConditions }).(MatchConditionPatchArrayOutput)
 }
 
 // MatchConstraints specifies what resources this policy is designed to validate. The AdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API ValidatingAdmissionPolicy cannot match ValidatingAdmissionPolicy and ValidatingAdmissionPolicyBinding. Required.
@@ -2960,7 +4391,7 @@ func (o ValidatingAdmissionPolicySpecPatchOutput) ParamKind() ParamKindPatchPtrO
 	return o.ApplyT(func(v ValidatingAdmissionPolicySpecPatch) *ParamKindPatch { return v.ParamKind }).(ParamKindPatchPtrOutput)
 }
 
-// Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
+// Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
 func (o ValidatingAdmissionPolicySpecPatchOutput) Validations() ValidationPatchArrayOutput {
 	return o.ApplyT(func(v ValidatingAdmissionPolicySpecPatch) []ValidationPatch { return v.Validations }).(ValidationPatchArrayOutput)
 }
@@ -2989,7 +4420,25 @@ func (o ValidatingAdmissionPolicySpecPatchPtrOutput) Elem() ValidatingAdmissionP
 	}).(ValidatingAdmissionPolicySpecPatchOutput)
 }
 
-// FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
+// auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
+func (o ValidatingAdmissionPolicySpecPatchPtrOutput) AuditAnnotations() AuditAnnotationPatchArrayOutput {
+	return o.ApplyT(func(v *ValidatingAdmissionPolicySpecPatch) []AuditAnnotationPatch {
+		if v == nil {
+			return nil
+		}
+		return v.AuditAnnotations
+	}).(AuditAnnotationPatchArrayOutput)
+}
+
+// failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
+//
+// A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource.
+//
+// failurePolicy does not define how validations that evaluate to false are handled.
+//
+// When failurePolicy is set to Fail, ValidatingAdmissionPolicyBinding validationActions define how failures are enforced.
+//
+// Allowed values are Ignore or Fail. Defaults to Fail.
 func (o ValidatingAdmissionPolicySpecPatchPtrOutput) FailurePolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ValidatingAdmissionPolicySpecPatch) *string {
 		if v == nil {
@@ -2997,6 +4446,25 @@ func (o ValidatingAdmissionPolicySpecPatchPtrOutput) FailurePolicy() pulumi.Stri
 		}
 		return v.FailurePolicy
 	}).(pulumi.StringPtrOutput)
+}
+
+// MatchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+//
+// If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
+//
+// The exact matching logic is (in order):
+//  1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
+//  2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
+//  3. If any matchCondition evaluates to an error (but none are FALSE):
+//     - If failurePolicy=Fail, reject the request
+//     - If failurePolicy=Ignore, the policy is skipped
+func (o ValidatingAdmissionPolicySpecPatchPtrOutput) MatchConditions() MatchConditionPatchArrayOutput {
+	return o.ApplyT(func(v *ValidatingAdmissionPolicySpecPatch) []MatchConditionPatch {
+		if v == nil {
+			return nil
+		}
+		return v.MatchConditions
+	}).(MatchConditionPatchArrayOutput)
 }
 
 // MatchConstraints specifies what resources this policy is designed to validate. The AdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API ValidatingAdmissionPolicy cannot match ValidatingAdmissionPolicy and ValidatingAdmissionPolicyBinding. Required.
@@ -3019,7 +4487,7 @@ func (o ValidatingAdmissionPolicySpecPatchPtrOutput) ParamKind() ParamKindPatchP
 	}).(ParamKindPatchPtrOutput)
 }
 
-// Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
+// Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
 func (o ValidatingAdmissionPolicySpecPatchPtrOutput) Validations() ValidationPatchArrayOutput {
 	return o.ApplyT(func(v *ValidatingAdmissionPolicySpecPatch) []ValidationPatch {
 		if v == nil {
@@ -3029,11 +4497,370 @@ func (o ValidatingAdmissionPolicySpecPatchPtrOutput) Validations() ValidationPat
 	}).(ValidationPatchArrayOutput)
 }
 
+// ValidatingAdmissionPolicyStatus represents the status of a ValidatingAdmissionPolicy.
+type ValidatingAdmissionPolicyStatus struct {
+	// The conditions represent the latest available observations of a policy's current state.
+	Conditions []metav1.Condition `pulumi:"conditions"`
+	// The generation observed by the controller.
+	ObservedGeneration *int `pulumi:"observedGeneration"`
+	// The results of type checking for each expression. Presence of this field indicates the completion of the type checking.
+	TypeChecking *TypeChecking `pulumi:"typeChecking"`
+}
+
+// ValidatingAdmissionPolicyStatusInput is an input type that accepts ValidatingAdmissionPolicyStatusArgs and ValidatingAdmissionPolicyStatusOutput values.
+// You can construct a concrete instance of `ValidatingAdmissionPolicyStatusInput` via:
+//
+//	ValidatingAdmissionPolicyStatusArgs{...}
+type ValidatingAdmissionPolicyStatusInput interface {
+	pulumi.Input
+
+	ToValidatingAdmissionPolicyStatusOutput() ValidatingAdmissionPolicyStatusOutput
+	ToValidatingAdmissionPolicyStatusOutputWithContext(context.Context) ValidatingAdmissionPolicyStatusOutput
+}
+
+// ValidatingAdmissionPolicyStatus represents the status of a ValidatingAdmissionPolicy.
+type ValidatingAdmissionPolicyStatusArgs struct {
+	// The conditions represent the latest available observations of a policy's current state.
+	Conditions metav1.ConditionArrayInput `pulumi:"conditions"`
+	// The generation observed by the controller.
+	ObservedGeneration pulumi.IntPtrInput `pulumi:"observedGeneration"`
+	// The results of type checking for each expression. Presence of this field indicates the completion of the type checking.
+	TypeChecking TypeCheckingPtrInput `pulumi:"typeChecking"`
+}
+
+func (ValidatingAdmissionPolicyStatusArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ValidatingAdmissionPolicyStatus)(nil)).Elem()
+}
+
+func (i ValidatingAdmissionPolicyStatusArgs) ToValidatingAdmissionPolicyStatusOutput() ValidatingAdmissionPolicyStatusOutput {
+	return i.ToValidatingAdmissionPolicyStatusOutputWithContext(context.Background())
+}
+
+func (i ValidatingAdmissionPolicyStatusArgs) ToValidatingAdmissionPolicyStatusOutputWithContext(ctx context.Context) ValidatingAdmissionPolicyStatusOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ValidatingAdmissionPolicyStatusOutput)
+}
+
+func (i ValidatingAdmissionPolicyStatusArgs) ToValidatingAdmissionPolicyStatusPtrOutput() ValidatingAdmissionPolicyStatusPtrOutput {
+	return i.ToValidatingAdmissionPolicyStatusPtrOutputWithContext(context.Background())
+}
+
+func (i ValidatingAdmissionPolicyStatusArgs) ToValidatingAdmissionPolicyStatusPtrOutputWithContext(ctx context.Context) ValidatingAdmissionPolicyStatusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ValidatingAdmissionPolicyStatusOutput).ToValidatingAdmissionPolicyStatusPtrOutputWithContext(ctx)
+}
+
+// ValidatingAdmissionPolicyStatusPtrInput is an input type that accepts ValidatingAdmissionPolicyStatusArgs, ValidatingAdmissionPolicyStatusPtr and ValidatingAdmissionPolicyStatusPtrOutput values.
+// You can construct a concrete instance of `ValidatingAdmissionPolicyStatusPtrInput` via:
+//
+//	        ValidatingAdmissionPolicyStatusArgs{...}
+//
+//	or:
+//
+//	        nil
+type ValidatingAdmissionPolicyStatusPtrInput interface {
+	pulumi.Input
+
+	ToValidatingAdmissionPolicyStatusPtrOutput() ValidatingAdmissionPolicyStatusPtrOutput
+	ToValidatingAdmissionPolicyStatusPtrOutputWithContext(context.Context) ValidatingAdmissionPolicyStatusPtrOutput
+}
+
+type validatingAdmissionPolicyStatusPtrType ValidatingAdmissionPolicyStatusArgs
+
+func ValidatingAdmissionPolicyStatusPtr(v *ValidatingAdmissionPolicyStatusArgs) ValidatingAdmissionPolicyStatusPtrInput {
+	return (*validatingAdmissionPolicyStatusPtrType)(v)
+}
+
+func (*validatingAdmissionPolicyStatusPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ValidatingAdmissionPolicyStatus)(nil)).Elem()
+}
+
+func (i *validatingAdmissionPolicyStatusPtrType) ToValidatingAdmissionPolicyStatusPtrOutput() ValidatingAdmissionPolicyStatusPtrOutput {
+	return i.ToValidatingAdmissionPolicyStatusPtrOutputWithContext(context.Background())
+}
+
+func (i *validatingAdmissionPolicyStatusPtrType) ToValidatingAdmissionPolicyStatusPtrOutputWithContext(ctx context.Context) ValidatingAdmissionPolicyStatusPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ValidatingAdmissionPolicyStatusPtrOutput)
+}
+
+// ValidatingAdmissionPolicyStatus represents the status of a ValidatingAdmissionPolicy.
+type ValidatingAdmissionPolicyStatusOutput struct{ *pulumi.OutputState }
+
+func (ValidatingAdmissionPolicyStatusOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ValidatingAdmissionPolicyStatus)(nil)).Elem()
+}
+
+func (o ValidatingAdmissionPolicyStatusOutput) ToValidatingAdmissionPolicyStatusOutput() ValidatingAdmissionPolicyStatusOutput {
+	return o
+}
+
+func (o ValidatingAdmissionPolicyStatusOutput) ToValidatingAdmissionPolicyStatusOutputWithContext(ctx context.Context) ValidatingAdmissionPolicyStatusOutput {
+	return o
+}
+
+func (o ValidatingAdmissionPolicyStatusOutput) ToValidatingAdmissionPolicyStatusPtrOutput() ValidatingAdmissionPolicyStatusPtrOutput {
+	return o.ToValidatingAdmissionPolicyStatusPtrOutputWithContext(context.Background())
+}
+
+func (o ValidatingAdmissionPolicyStatusOutput) ToValidatingAdmissionPolicyStatusPtrOutputWithContext(ctx context.Context) ValidatingAdmissionPolicyStatusPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ValidatingAdmissionPolicyStatus) *ValidatingAdmissionPolicyStatus {
+		return &v
+	}).(ValidatingAdmissionPolicyStatusPtrOutput)
+}
+
+// The conditions represent the latest available observations of a policy's current state.
+func (o ValidatingAdmissionPolicyStatusOutput) Conditions() metav1.ConditionArrayOutput {
+	return o.ApplyT(func(v ValidatingAdmissionPolicyStatus) []metav1.Condition { return v.Conditions }).(metav1.ConditionArrayOutput)
+}
+
+// The generation observed by the controller.
+func (o ValidatingAdmissionPolicyStatusOutput) ObservedGeneration() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ValidatingAdmissionPolicyStatus) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
+}
+
+// The results of type checking for each expression. Presence of this field indicates the completion of the type checking.
+func (o ValidatingAdmissionPolicyStatusOutput) TypeChecking() TypeCheckingPtrOutput {
+	return o.ApplyT(func(v ValidatingAdmissionPolicyStatus) *TypeChecking { return v.TypeChecking }).(TypeCheckingPtrOutput)
+}
+
+type ValidatingAdmissionPolicyStatusPtrOutput struct{ *pulumi.OutputState }
+
+func (ValidatingAdmissionPolicyStatusPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ValidatingAdmissionPolicyStatus)(nil)).Elem()
+}
+
+func (o ValidatingAdmissionPolicyStatusPtrOutput) ToValidatingAdmissionPolicyStatusPtrOutput() ValidatingAdmissionPolicyStatusPtrOutput {
+	return o
+}
+
+func (o ValidatingAdmissionPolicyStatusPtrOutput) ToValidatingAdmissionPolicyStatusPtrOutputWithContext(ctx context.Context) ValidatingAdmissionPolicyStatusPtrOutput {
+	return o
+}
+
+func (o ValidatingAdmissionPolicyStatusPtrOutput) Elem() ValidatingAdmissionPolicyStatusOutput {
+	return o.ApplyT(func(v *ValidatingAdmissionPolicyStatus) ValidatingAdmissionPolicyStatus {
+		if v != nil {
+			return *v
+		}
+		var ret ValidatingAdmissionPolicyStatus
+		return ret
+	}).(ValidatingAdmissionPolicyStatusOutput)
+}
+
+// The conditions represent the latest available observations of a policy's current state.
+func (o ValidatingAdmissionPolicyStatusPtrOutput) Conditions() metav1.ConditionArrayOutput {
+	return o.ApplyT(func(v *ValidatingAdmissionPolicyStatus) []metav1.Condition {
+		if v == nil {
+			return nil
+		}
+		return v.Conditions
+	}).(metav1.ConditionArrayOutput)
+}
+
+// The generation observed by the controller.
+func (o ValidatingAdmissionPolicyStatusPtrOutput) ObservedGeneration() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ValidatingAdmissionPolicyStatus) *int {
+		if v == nil {
+			return nil
+		}
+		return v.ObservedGeneration
+	}).(pulumi.IntPtrOutput)
+}
+
+// The results of type checking for each expression. Presence of this field indicates the completion of the type checking.
+func (o ValidatingAdmissionPolicyStatusPtrOutput) TypeChecking() TypeCheckingPtrOutput {
+	return o.ApplyT(func(v *ValidatingAdmissionPolicyStatus) *TypeChecking {
+		if v == nil {
+			return nil
+		}
+		return v.TypeChecking
+	}).(TypeCheckingPtrOutput)
+}
+
+// ValidatingAdmissionPolicyStatus represents the status of a ValidatingAdmissionPolicy.
+type ValidatingAdmissionPolicyStatusPatch struct {
+	// The conditions represent the latest available observations of a policy's current state.
+	Conditions []metav1.ConditionPatch `pulumi:"conditions"`
+	// The generation observed by the controller.
+	ObservedGeneration *int `pulumi:"observedGeneration"`
+	// The results of type checking for each expression. Presence of this field indicates the completion of the type checking.
+	TypeChecking *TypeCheckingPatch `pulumi:"typeChecking"`
+}
+
+// ValidatingAdmissionPolicyStatusPatchInput is an input type that accepts ValidatingAdmissionPolicyStatusPatchArgs and ValidatingAdmissionPolicyStatusPatchOutput values.
+// You can construct a concrete instance of `ValidatingAdmissionPolicyStatusPatchInput` via:
+//
+//	ValidatingAdmissionPolicyStatusPatchArgs{...}
+type ValidatingAdmissionPolicyStatusPatchInput interface {
+	pulumi.Input
+
+	ToValidatingAdmissionPolicyStatusPatchOutput() ValidatingAdmissionPolicyStatusPatchOutput
+	ToValidatingAdmissionPolicyStatusPatchOutputWithContext(context.Context) ValidatingAdmissionPolicyStatusPatchOutput
+}
+
+// ValidatingAdmissionPolicyStatus represents the status of a ValidatingAdmissionPolicy.
+type ValidatingAdmissionPolicyStatusPatchArgs struct {
+	// The conditions represent the latest available observations of a policy's current state.
+	Conditions metav1.ConditionPatchArrayInput `pulumi:"conditions"`
+	// The generation observed by the controller.
+	ObservedGeneration pulumi.IntPtrInput `pulumi:"observedGeneration"`
+	// The results of type checking for each expression. Presence of this field indicates the completion of the type checking.
+	TypeChecking TypeCheckingPatchPtrInput `pulumi:"typeChecking"`
+}
+
+func (ValidatingAdmissionPolicyStatusPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ValidatingAdmissionPolicyStatusPatch)(nil)).Elem()
+}
+
+func (i ValidatingAdmissionPolicyStatusPatchArgs) ToValidatingAdmissionPolicyStatusPatchOutput() ValidatingAdmissionPolicyStatusPatchOutput {
+	return i.ToValidatingAdmissionPolicyStatusPatchOutputWithContext(context.Background())
+}
+
+func (i ValidatingAdmissionPolicyStatusPatchArgs) ToValidatingAdmissionPolicyStatusPatchOutputWithContext(ctx context.Context) ValidatingAdmissionPolicyStatusPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ValidatingAdmissionPolicyStatusPatchOutput)
+}
+
+func (i ValidatingAdmissionPolicyStatusPatchArgs) ToValidatingAdmissionPolicyStatusPatchPtrOutput() ValidatingAdmissionPolicyStatusPatchPtrOutput {
+	return i.ToValidatingAdmissionPolicyStatusPatchPtrOutputWithContext(context.Background())
+}
+
+func (i ValidatingAdmissionPolicyStatusPatchArgs) ToValidatingAdmissionPolicyStatusPatchPtrOutputWithContext(ctx context.Context) ValidatingAdmissionPolicyStatusPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ValidatingAdmissionPolicyStatusPatchOutput).ToValidatingAdmissionPolicyStatusPatchPtrOutputWithContext(ctx)
+}
+
+// ValidatingAdmissionPolicyStatusPatchPtrInput is an input type that accepts ValidatingAdmissionPolicyStatusPatchArgs, ValidatingAdmissionPolicyStatusPatchPtr and ValidatingAdmissionPolicyStatusPatchPtrOutput values.
+// You can construct a concrete instance of `ValidatingAdmissionPolicyStatusPatchPtrInput` via:
+//
+//	        ValidatingAdmissionPolicyStatusPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type ValidatingAdmissionPolicyStatusPatchPtrInput interface {
+	pulumi.Input
+
+	ToValidatingAdmissionPolicyStatusPatchPtrOutput() ValidatingAdmissionPolicyStatusPatchPtrOutput
+	ToValidatingAdmissionPolicyStatusPatchPtrOutputWithContext(context.Context) ValidatingAdmissionPolicyStatusPatchPtrOutput
+}
+
+type validatingAdmissionPolicyStatusPatchPtrType ValidatingAdmissionPolicyStatusPatchArgs
+
+func ValidatingAdmissionPolicyStatusPatchPtr(v *ValidatingAdmissionPolicyStatusPatchArgs) ValidatingAdmissionPolicyStatusPatchPtrInput {
+	return (*validatingAdmissionPolicyStatusPatchPtrType)(v)
+}
+
+func (*validatingAdmissionPolicyStatusPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ValidatingAdmissionPolicyStatusPatch)(nil)).Elem()
+}
+
+func (i *validatingAdmissionPolicyStatusPatchPtrType) ToValidatingAdmissionPolicyStatusPatchPtrOutput() ValidatingAdmissionPolicyStatusPatchPtrOutput {
+	return i.ToValidatingAdmissionPolicyStatusPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *validatingAdmissionPolicyStatusPatchPtrType) ToValidatingAdmissionPolicyStatusPatchPtrOutputWithContext(ctx context.Context) ValidatingAdmissionPolicyStatusPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ValidatingAdmissionPolicyStatusPatchPtrOutput)
+}
+
+// ValidatingAdmissionPolicyStatus represents the status of a ValidatingAdmissionPolicy.
+type ValidatingAdmissionPolicyStatusPatchOutput struct{ *pulumi.OutputState }
+
+func (ValidatingAdmissionPolicyStatusPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ValidatingAdmissionPolicyStatusPatch)(nil)).Elem()
+}
+
+func (o ValidatingAdmissionPolicyStatusPatchOutput) ToValidatingAdmissionPolicyStatusPatchOutput() ValidatingAdmissionPolicyStatusPatchOutput {
+	return o
+}
+
+func (o ValidatingAdmissionPolicyStatusPatchOutput) ToValidatingAdmissionPolicyStatusPatchOutputWithContext(ctx context.Context) ValidatingAdmissionPolicyStatusPatchOutput {
+	return o
+}
+
+func (o ValidatingAdmissionPolicyStatusPatchOutput) ToValidatingAdmissionPolicyStatusPatchPtrOutput() ValidatingAdmissionPolicyStatusPatchPtrOutput {
+	return o.ToValidatingAdmissionPolicyStatusPatchPtrOutputWithContext(context.Background())
+}
+
+func (o ValidatingAdmissionPolicyStatusPatchOutput) ToValidatingAdmissionPolicyStatusPatchPtrOutputWithContext(ctx context.Context) ValidatingAdmissionPolicyStatusPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ValidatingAdmissionPolicyStatusPatch) *ValidatingAdmissionPolicyStatusPatch {
+		return &v
+	}).(ValidatingAdmissionPolicyStatusPatchPtrOutput)
+}
+
+// The conditions represent the latest available observations of a policy's current state.
+func (o ValidatingAdmissionPolicyStatusPatchOutput) Conditions() metav1.ConditionPatchArrayOutput {
+	return o.ApplyT(func(v ValidatingAdmissionPolicyStatusPatch) []metav1.ConditionPatch { return v.Conditions }).(metav1.ConditionPatchArrayOutput)
+}
+
+// The generation observed by the controller.
+func (o ValidatingAdmissionPolicyStatusPatchOutput) ObservedGeneration() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ValidatingAdmissionPolicyStatusPatch) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
+}
+
+// The results of type checking for each expression. Presence of this field indicates the completion of the type checking.
+func (o ValidatingAdmissionPolicyStatusPatchOutput) TypeChecking() TypeCheckingPatchPtrOutput {
+	return o.ApplyT(func(v ValidatingAdmissionPolicyStatusPatch) *TypeCheckingPatch { return v.TypeChecking }).(TypeCheckingPatchPtrOutput)
+}
+
+type ValidatingAdmissionPolicyStatusPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (ValidatingAdmissionPolicyStatusPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ValidatingAdmissionPolicyStatusPatch)(nil)).Elem()
+}
+
+func (o ValidatingAdmissionPolicyStatusPatchPtrOutput) ToValidatingAdmissionPolicyStatusPatchPtrOutput() ValidatingAdmissionPolicyStatusPatchPtrOutput {
+	return o
+}
+
+func (o ValidatingAdmissionPolicyStatusPatchPtrOutput) ToValidatingAdmissionPolicyStatusPatchPtrOutputWithContext(ctx context.Context) ValidatingAdmissionPolicyStatusPatchPtrOutput {
+	return o
+}
+
+func (o ValidatingAdmissionPolicyStatusPatchPtrOutput) Elem() ValidatingAdmissionPolicyStatusPatchOutput {
+	return o.ApplyT(func(v *ValidatingAdmissionPolicyStatusPatch) ValidatingAdmissionPolicyStatusPatch {
+		if v != nil {
+			return *v
+		}
+		var ret ValidatingAdmissionPolicyStatusPatch
+		return ret
+	}).(ValidatingAdmissionPolicyStatusPatchOutput)
+}
+
+// The conditions represent the latest available observations of a policy's current state.
+func (o ValidatingAdmissionPolicyStatusPatchPtrOutput) Conditions() metav1.ConditionPatchArrayOutput {
+	return o.ApplyT(func(v *ValidatingAdmissionPolicyStatusPatch) []metav1.ConditionPatch {
+		if v == nil {
+			return nil
+		}
+		return v.Conditions
+	}).(metav1.ConditionPatchArrayOutput)
+}
+
+// The generation observed by the controller.
+func (o ValidatingAdmissionPolicyStatusPatchPtrOutput) ObservedGeneration() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ValidatingAdmissionPolicyStatusPatch) *int {
+		if v == nil {
+			return nil
+		}
+		return v.ObservedGeneration
+	}).(pulumi.IntPtrOutput)
+}
+
+// The results of type checking for each expression. Presence of this field indicates the completion of the type checking.
+func (o ValidatingAdmissionPolicyStatusPatchPtrOutput) TypeChecking() TypeCheckingPatchPtrOutput {
+	return o.ApplyT(func(v *ValidatingAdmissionPolicyStatusPatch) *TypeCheckingPatch {
+		if v == nil {
+			return nil
+		}
+		return v.TypeChecking
+	}).(TypeCheckingPatchPtrOutput)
+}
+
 // Validation specifies the CEL expression which is used to apply the validation.
 type Validation struct {
-	// Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the Admission request/response, organized into CEL variables as well as some other useful variables:
+	// Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
 	//
-	// 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind.
+	// - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+	//   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+	// - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+	//   request resource.
 	//
 	// The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
 	//
@@ -3055,6 +4882,8 @@ type Validation struct {
 	Expression string `pulumi:"expression"`
 	// Message represents the message displayed when validation fails. The message is required if the Expression contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host" If the Expression contains line breaks. Message is required. The message must not contain line breaks. If unset, the message is "failed Expression: {Expression}".
 	Message *string `pulumi:"message"`
+	// messageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a validation, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the `expression` except for 'authorizer' and 'authorizer.requestResource'. Example: "object.x must be less than max ("+string(params.max)+")"
+	MessageExpression *string `pulumi:"messageExpression"`
 	// Reason represents a machine-readable description of why this validation failed. If this is the first validation in the list to fail, this reason, as well as the corresponding HTTP response code, are used in the HTTP response to the client. The currently supported reasons are: "Unauthorized", "Forbidden", "Invalid", "RequestEntityTooLarge". If not set, StatusReasonInvalid is used in the response to the client.
 	Reason *string `pulumi:"reason"`
 }
@@ -3072,9 +4901,12 @@ type ValidationInput interface {
 
 // Validation specifies the CEL expression which is used to apply the validation.
 type ValidationArgs struct {
-	// Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the Admission request/response, organized into CEL variables as well as some other useful variables:
+	// Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
 	//
-	// 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind.
+	// - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+	//   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+	// - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+	//   request resource.
 	//
 	// The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
 	//
@@ -3096,6 +4928,8 @@ type ValidationArgs struct {
 	Expression pulumi.StringInput `pulumi:"expression"`
 	// Message represents the message displayed when validation fails. The message is required if the Expression contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host" If the Expression contains line breaks. Message is required. The message must not contain line breaks. If unset, the message is "failed Expression: {Expression}".
 	Message pulumi.StringPtrInput `pulumi:"message"`
+	// messageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a validation, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the `expression` except for 'authorizer' and 'authorizer.requestResource'. Example: "object.x must be less than max ("+string(params.max)+")"
+	MessageExpression pulumi.StringPtrInput `pulumi:"messageExpression"`
 	// Reason represents a machine-readable description of why this validation failed. If this is the first validation in the list to fail, this reason, as well as the corresponding HTTP response code, are used in the HTTP response to the client. The currently supported reasons are: "Unauthorized", "Forbidden", "Invalid", "RequestEntityTooLarge". If not set, StatusReasonInvalid is used in the response to the client.
 	Reason pulumi.StringPtrInput `pulumi:"reason"`
 }
@@ -3152,9 +4986,12 @@ func (o ValidationOutput) ToValidationOutputWithContext(ctx context.Context) Val
 	return o
 }
 
-// Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the Admission request/response, organized into CEL variables as well as some other useful variables:
+// Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
 //
-// 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind.
+//   - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+//     See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+//   - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+//     request resource.
 //
 // The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
 //
@@ -3184,6 +5021,11 @@ func (o ValidationOutput) Message() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v Validation) *string { return v.Message }).(pulumi.StringPtrOutput)
 }
 
+// messageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a validation, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the `expression` except for 'authorizer' and 'authorizer.requestResource'. Example: "object.x must be less than max ("+string(params.max)+")"
+func (o ValidationOutput) MessageExpression() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v Validation) *string { return v.MessageExpression }).(pulumi.StringPtrOutput)
+}
+
 // Reason represents a machine-readable description of why this validation failed. If this is the first validation in the list to fail, this reason, as well as the corresponding HTTP response code, are used in the HTTP response to the client. The currently supported reasons are: "Unauthorized", "Forbidden", "Invalid", "RequestEntityTooLarge". If not set, StatusReasonInvalid is used in the response to the client.
 func (o ValidationOutput) Reason() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v Validation) *string { return v.Reason }).(pulumi.StringPtrOutput)
@@ -3211,9 +5053,12 @@ func (o ValidationArrayOutput) Index(i pulumi.IntInput) ValidationOutput {
 
 // Validation specifies the CEL expression which is used to apply the validation.
 type ValidationPatch struct {
-	// Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the Admission request/response, organized into CEL variables as well as some other useful variables:
+	// Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
 	//
-	// 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind.
+	// - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+	//   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+	// - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+	//   request resource.
 	//
 	// The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
 	//
@@ -3235,6 +5080,8 @@ type ValidationPatch struct {
 	Expression *string `pulumi:"expression"`
 	// Message represents the message displayed when validation fails. The message is required if the Expression contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host" If the Expression contains line breaks. Message is required. The message must not contain line breaks. If unset, the message is "failed Expression: {Expression}".
 	Message *string `pulumi:"message"`
+	// messageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a validation, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the `expression` except for 'authorizer' and 'authorizer.requestResource'. Example: "object.x must be less than max ("+string(params.max)+")"
+	MessageExpression *string `pulumi:"messageExpression"`
 	// Reason represents a machine-readable description of why this validation failed. If this is the first validation in the list to fail, this reason, as well as the corresponding HTTP response code, are used in the HTTP response to the client. The currently supported reasons are: "Unauthorized", "Forbidden", "Invalid", "RequestEntityTooLarge". If not set, StatusReasonInvalid is used in the response to the client.
 	Reason *string `pulumi:"reason"`
 }
@@ -3252,9 +5099,12 @@ type ValidationPatchInput interface {
 
 // Validation specifies the CEL expression which is used to apply the validation.
 type ValidationPatchArgs struct {
-	// Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the Admission request/response, organized into CEL variables as well as some other useful variables:
+	// Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
 	//
-	// 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind.
+	// - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+	//   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+	// - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+	//   request resource.
 	//
 	// The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
 	//
@@ -3276,6 +5126,8 @@ type ValidationPatchArgs struct {
 	Expression pulumi.StringPtrInput `pulumi:"expression"`
 	// Message represents the message displayed when validation fails. The message is required if the Expression contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host" If the Expression contains line breaks. Message is required. The message must not contain line breaks. If unset, the message is "failed Expression: {Expression}".
 	Message pulumi.StringPtrInput `pulumi:"message"`
+	// messageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a validation, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the `expression` except for 'authorizer' and 'authorizer.requestResource'. Example: "object.x must be less than max ("+string(params.max)+")"
+	MessageExpression pulumi.StringPtrInput `pulumi:"messageExpression"`
 	// Reason represents a machine-readable description of why this validation failed. If this is the first validation in the list to fail, this reason, as well as the corresponding HTTP response code, are used in the HTTP response to the client. The currently supported reasons are: "Unauthorized", "Forbidden", "Invalid", "RequestEntityTooLarge". If not set, StatusReasonInvalid is used in the response to the client.
 	Reason pulumi.StringPtrInput `pulumi:"reason"`
 }
@@ -3332,9 +5184,12 @@ func (o ValidationPatchOutput) ToValidationPatchOutputWithContext(ctx context.Co
 	return o
 }
 
-// Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the Admission request/response, organized into CEL variables as well as some other useful variables:
+// Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
 //
-// 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind.
+//   - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+//     See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+//   - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+//     request resource.
 //
 // The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
 //
@@ -3364,6 +5219,11 @@ func (o ValidationPatchOutput) Message() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ValidationPatch) *string { return v.Message }).(pulumi.StringPtrOutput)
 }
 
+// messageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a validation, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the `expression` except for 'authorizer' and 'authorizer.requestResource'. Example: "object.x must be less than max ("+string(params.max)+")"
+func (o ValidationPatchOutput) MessageExpression() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ValidationPatch) *string { return v.MessageExpression }).(pulumi.StringPtrOutput)
+}
+
 // Reason represents a machine-readable description of why this validation failed. If this is the first validation in the list to fail, this reason, as well as the corresponding HTTP response code, are used in the HTTP response to the client. The currently supported reasons are: "Unauthorized", "Forbidden", "Invalid", "RequestEntityTooLarge". If not set, StatusReasonInvalid is used in the response to the client.
 func (o ValidationPatchOutput) Reason() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ValidationPatch) *string { return v.Reason }).(pulumi.StringPtrOutput)
@@ -3390,6 +5250,18 @@ func (o ValidationPatchArrayOutput) Index(i pulumi.IntInput) ValidationPatchOutp
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*AuditAnnotationInput)(nil)).Elem(), AuditAnnotationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AuditAnnotationArrayInput)(nil)).Elem(), AuditAnnotationArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AuditAnnotationPatchInput)(nil)).Elem(), AuditAnnotationPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*AuditAnnotationPatchArrayInput)(nil)).Elem(), AuditAnnotationPatchArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ExpressionWarningInput)(nil)).Elem(), ExpressionWarningArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ExpressionWarningArrayInput)(nil)).Elem(), ExpressionWarningArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ExpressionWarningPatchInput)(nil)).Elem(), ExpressionWarningPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ExpressionWarningPatchArrayInput)(nil)).Elem(), ExpressionWarningPatchArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MatchConditionInput)(nil)).Elem(), MatchConditionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MatchConditionArrayInput)(nil)).Elem(), MatchConditionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MatchConditionPatchInput)(nil)).Elem(), MatchConditionPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MatchConditionPatchArrayInput)(nil)).Elem(), MatchConditionPatchArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*MatchResourcesInput)(nil)).Elem(), MatchResourcesArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*MatchResourcesPtrInput)(nil)).Elem(), MatchResourcesArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*MatchResourcesPatchInput)(nil)).Elem(), MatchResourcesPatchArgs{})
@@ -3406,6 +5278,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ParamRefPtrInput)(nil)).Elem(), ParamRefArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ParamRefPatchInput)(nil)).Elem(), ParamRefPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ParamRefPatchPtrInput)(nil)).Elem(), ParamRefPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TypeCheckingInput)(nil)).Elem(), TypeCheckingArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TypeCheckingPtrInput)(nil)).Elem(), TypeCheckingArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TypeCheckingPatchInput)(nil)).Elem(), TypeCheckingPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*TypeCheckingPatchPtrInput)(nil)).Elem(), TypeCheckingPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ValidatingAdmissionPolicyTypeInput)(nil)).Elem(), ValidatingAdmissionPolicyTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ValidatingAdmissionPolicyTypeArrayInput)(nil)).Elem(), ValidatingAdmissionPolicyTypeArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ValidatingAdmissionPolicyBindingTypeInput)(nil)).Elem(), ValidatingAdmissionPolicyBindingTypeArgs{})
@@ -3422,10 +5298,26 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ValidatingAdmissionPolicySpecPtrInput)(nil)).Elem(), ValidatingAdmissionPolicySpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ValidatingAdmissionPolicySpecPatchInput)(nil)).Elem(), ValidatingAdmissionPolicySpecPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ValidatingAdmissionPolicySpecPatchPtrInput)(nil)).Elem(), ValidatingAdmissionPolicySpecPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ValidatingAdmissionPolicyStatusInput)(nil)).Elem(), ValidatingAdmissionPolicyStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ValidatingAdmissionPolicyStatusPtrInput)(nil)).Elem(), ValidatingAdmissionPolicyStatusArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ValidatingAdmissionPolicyStatusPatchInput)(nil)).Elem(), ValidatingAdmissionPolicyStatusPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ValidatingAdmissionPolicyStatusPatchPtrInput)(nil)).Elem(), ValidatingAdmissionPolicyStatusPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ValidationInput)(nil)).Elem(), ValidationArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ValidationArrayInput)(nil)).Elem(), ValidationArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ValidationPatchInput)(nil)).Elem(), ValidationPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ValidationPatchArrayInput)(nil)).Elem(), ValidationPatchArray{})
+	pulumi.RegisterOutputType(AuditAnnotationOutput{})
+	pulumi.RegisterOutputType(AuditAnnotationArrayOutput{})
+	pulumi.RegisterOutputType(AuditAnnotationPatchOutput{})
+	pulumi.RegisterOutputType(AuditAnnotationPatchArrayOutput{})
+	pulumi.RegisterOutputType(ExpressionWarningOutput{})
+	pulumi.RegisterOutputType(ExpressionWarningArrayOutput{})
+	pulumi.RegisterOutputType(ExpressionWarningPatchOutput{})
+	pulumi.RegisterOutputType(ExpressionWarningPatchArrayOutput{})
+	pulumi.RegisterOutputType(MatchConditionOutput{})
+	pulumi.RegisterOutputType(MatchConditionArrayOutput{})
+	pulumi.RegisterOutputType(MatchConditionPatchOutput{})
+	pulumi.RegisterOutputType(MatchConditionPatchArrayOutput{})
 	pulumi.RegisterOutputType(MatchResourcesOutput{})
 	pulumi.RegisterOutputType(MatchResourcesPtrOutput{})
 	pulumi.RegisterOutputType(MatchResourcesPatchOutput{})
@@ -3442,6 +5334,10 @@ func init() {
 	pulumi.RegisterOutputType(ParamRefPtrOutput{})
 	pulumi.RegisterOutputType(ParamRefPatchOutput{})
 	pulumi.RegisterOutputType(ParamRefPatchPtrOutput{})
+	pulumi.RegisterOutputType(TypeCheckingOutput{})
+	pulumi.RegisterOutputType(TypeCheckingPtrOutput{})
+	pulumi.RegisterOutputType(TypeCheckingPatchOutput{})
+	pulumi.RegisterOutputType(TypeCheckingPatchPtrOutput{})
 	pulumi.RegisterOutputType(ValidatingAdmissionPolicyTypeOutput{})
 	pulumi.RegisterOutputType(ValidatingAdmissionPolicyTypeArrayOutput{})
 	pulumi.RegisterOutputType(ValidatingAdmissionPolicyBindingTypeOutput{})
@@ -3458,6 +5354,10 @@ func init() {
 	pulumi.RegisterOutputType(ValidatingAdmissionPolicySpecPtrOutput{})
 	pulumi.RegisterOutputType(ValidatingAdmissionPolicySpecPatchOutput{})
 	pulumi.RegisterOutputType(ValidatingAdmissionPolicySpecPatchPtrOutput{})
+	pulumi.RegisterOutputType(ValidatingAdmissionPolicyStatusOutput{})
+	pulumi.RegisterOutputType(ValidatingAdmissionPolicyStatusPtrOutput{})
+	pulumi.RegisterOutputType(ValidatingAdmissionPolicyStatusPatchOutput{})
+	pulumi.RegisterOutputType(ValidatingAdmissionPolicyStatusPatchPtrOutput{})
 	pulumi.RegisterOutputType(ValidationOutput{})
 	pulumi.RegisterOutputType(ValidationArrayOutput{})
 	pulumi.RegisterOutputType(ValidationPatchOutput{})

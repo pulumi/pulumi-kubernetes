@@ -20,6 +20,21 @@ export type ClusterCIDRPatch = import("./clusterCIDRPatch").ClusterCIDRPatch;
 export const ClusterCIDRPatch: typeof import("./clusterCIDRPatch").ClusterCIDRPatch = null as any;
 utilities.lazyLoad(exports, ["ClusterCIDRPatch"], () => require("./clusterCIDRPatch"));
 
+export { IPAddressArgs } from "./ipaddress";
+export type IPAddress = import("./ipaddress").IPAddress;
+export const IPAddress: typeof import("./ipaddress").IPAddress = null as any;
+utilities.lazyLoad(exports, ["IPAddress"], () => require("./ipaddress"));
+
+export { IPAddressListArgs } from "./ipaddressList";
+export type IPAddressList = import("./ipaddressList").IPAddressList;
+export const IPAddressList: typeof import("./ipaddressList").IPAddressList = null as any;
+utilities.lazyLoad(exports, ["IPAddressList"], () => require("./ipaddressList"));
+
+export { IPAddressPatchArgs } from "./ipaddressPatch";
+export type IPAddressPatch = import("./ipaddressPatch").IPAddressPatch;
+export const IPAddressPatch: typeof import("./ipaddressPatch").IPAddressPatch = null as any;
+utilities.lazyLoad(exports, ["IPAddressPatch"], () => require("./ipaddressPatch"));
+
 
 const _module = {
     version: utilities.getVersion(),
@@ -31,6 +46,12 @@ const _module = {
                 return new ClusterCIDRList(name, <any>undefined, { urn })
             case "kubernetes:networking.k8s.io/v1alpha1:ClusterCIDRPatch":
                 return new ClusterCIDRPatch(name, <any>undefined, { urn })
+            case "kubernetes:networking.k8s.io/v1alpha1:IPAddress":
+                return new IPAddress(name, <any>undefined, { urn })
+            case "kubernetes:networking.k8s.io/v1alpha1:IPAddressList":
+                return new IPAddressList(name, <any>undefined, { urn })
+            case "kubernetes:networking.k8s.io/v1alpha1:IPAddressPatch":
+                return new IPAddressPatch(name, <any>undefined, { urn })
             default:
                 throw new Error(`unknown resource type ${type}`);
         }

@@ -40,7 +40,7 @@ public final class StatusDetails {
      */
     private @Nullable Integer retryAfterSeconds;
     /**
-     * @return UID of the resource. (when there is a single resource which can be described). More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+     * @return UID of the resource. (when there is a single resource which can be described). More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
      * 
      */
     private @Nullable String uid;
@@ -82,7 +82,7 @@ public final class StatusDetails {
         return Optional.ofNullable(this.retryAfterSeconds);
     }
     /**
-     * @return UID of the resource. (when there is a single resource which can be described). More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+     * @return UID of the resource. (when there is a single resource which can be described). More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
      * 
      */
     public Optional<String> uid() {

@@ -30,7 +30,7 @@ public final class ReplicationControllerSpecPatch {
      */
     private @Nullable Map<String,String> selector;
     /**
-     * @return Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+     * @return Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. The only allowed template.spec.restartPolicy value is &#34;Always&#34;. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
      * 
      */
     private @Nullable PodTemplateSpecPatch template;
@@ -58,7 +58,7 @@ public final class ReplicationControllerSpecPatch {
         return this.selector == null ? Map.of() : this.selector;
     }
     /**
-     * @return Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+     * @return Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. The only allowed template.spec.restartPolicy value is &#34;Always&#34;. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
      * 
      */
     public Optional<PodTemplateSpecPatch> template() {

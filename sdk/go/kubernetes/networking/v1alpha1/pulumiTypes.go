@@ -697,6 +697,1009 @@ func (o ClusterCIDRSpecPatchPtrOutput) PerNodeHostBits() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
+// IPAddress represents a single IP of a single IP Family. The object is designed to be used by APIs that operate on IP addresses. The object is used by the Service core API for allocation of IP addresses. An IP address can be represented in different formats, to guarantee the uniqueness of the IP, the name of the object is the IP address in canonical format, four decimal digits separated by dots suppressing leading zeros for IPv4 and the representation defined by RFC 5952 for IPv6. Valid: 192.168.1.5 or 2001:db8::1 or 2001:db8:aaaa:bbbb:cccc:dddd:eeee:1 Invalid: 10.01.2.3 or 2001:db8:0:0:0::1
+type IPAddressType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
+	// spec is the desired state of the IPAddress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Spec *IPAddressSpec `pulumi:"spec"`
+}
+
+// IPAddressTypeInput is an input type that accepts IPAddressTypeArgs and IPAddressTypeOutput values.
+// You can construct a concrete instance of `IPAddressTypeInput` via:
+//
+//	IPAddressTypeArgs{...}
+type IPAddressTypeInput interface {
+	pulumi.Input
+
+	ToIPAddressTypeOutput() IPAddressTypeOutput
+	ToIPAddressTypeOutputWithContext(context.Context) IPAddressTypeOutput
+}
+
+// IPAddress represents a single IP of a single IP Family. The object is designed to be used by APIs that operate on IP addresses. The object is used by the Service core API for allocation of IP addresses. An IP address can be represented in different formats, to guarantee the uniqueness of the IP, the name of the object is the IP address in canonical format, four decimal digits separated by dots suppressing leading zeros for IPv4 and the representation defined by RFC 5952 for IPv6. Valid: 192.168.1.5 or 2001:db8::1 or 2001:db8:aaaa:bbbb:cccc:dddd:eeee:1 Invalid: 10.01.2.3 or 2001:db8:0:0:0::1
+type IPAddressTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
+	// spec is the desired state of the IPAddress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Spec IPAddressSpecPtrInput `pulumi:"spec"`
+}
+
+func (IPAddressTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*IPAddressType)(nil)).Elem()
+}
+
+func (i IPAddressTypeArgs) ToIPAddressTypeOutput() IPAddressTypeOutput {
+	return i.ToIPAddressTypeOutputWithContext(context.Background())
+}
+
+func (i IPAddressTypeArgs) ToIPAddressTypeOutputWithContext(ctx context.Context) IPAddressTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IPAddressTypeOutput)
+}
+
+// IPAddressTypeArrayInput is an input type that accepts IPAddressTypeArray and IPAddressTypeArrayOutput values.
+// You can construct a concrete instance of `IPAddressTypeArrayInput` via:
+//
+//	IPAddressTypeArray{ IPAddressTypeArgs{...} }
+type IPAddressTypeArrayInput interface {
+	pulumi.Input
+
+	ToIPAddressTypeArrayOutput() IPAddressTypeArrayOutput
+	ToIPAddressTypeArrayOutputWithContext(context.Context) IPAddressTypeArrayOutput
+}
+
+type IPAddressTypeArray []IPAddressTypeInput
+
+func (IPAddressTypeArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]IPAddressType)(nil)).Elem()
+}
+
+func (i IPAddressTypeArray) ToIPAddressTypeArrayOutput() IPAddressTypeArrayOutput {
+	return i.ToIPAddressTypeArrayOutputWithContext(context.Background())
+}
+
+func (i IPAddressTypeArray) ToIPAddressTypeArrayOutputWithContext(ctx context.Context) IPAddressTypeArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IPAddressTypeArrayOutput)
+}
+
+// IPAddress represents a single IP of a single IP Family. The object is designed to be used by APIs that operate on IP addresses. The object is used by the Service core API for allocation of IP addresses. An IP address can be represented in different formats, to guarantee the uniqueness of the IP, the name of the object is the IP address in canonical format, four decimal digits separated by dots suppressing leading zeros for IPv4 and the representation defined by RFC 5952 for IPv6. Valid: 192.168.1.5 or 2001:db8::1 or 2001:db8:aaaa:bbbb:cccc:dddd:eeee:1 Invalid: 10.01.2.3 or 2001:db8:0:0:0::1
+type IPAddressTypeOutput struct{ *pulumi.OutputState }
+
+func (IPAddressTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IPAddressType)(nil)).Elem()
+}
+
+func (o IPAddressTypeOutput) ToIPAddressTypeOutput() IPAddressTypeOutput {
+	return o
+}
+
+func (o IPAddressTypeOutput) ToIPAddressTypeOutputWithContext(ctx context.Context) IPAddressTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o IPAddressTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IPAddressType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o IPAddressTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IPAddressType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o IPAddressTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v IPAddressType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+}
+
+// spec is the desired state of the IPAddress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+func (o IPAddressTypeOutput) Spec() IPAddressSpecPtrOutput {
+	return o.ApplyT(func(v IPAddressType) *IPAddressSpec { return v.Spec }).(IPAddressSpecPtrOutput)
+}
+
+type IPAddressTypeArrayOutput struct{ *pulumi.OutputState }
+
+func (IPAddressTypeArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]IPAddressType)(nil)).Elem()
+}
+
+func (o IPAddressTypeArrayOutput) ToIPAddressTypeArrayOutput() IPAddressTypeArrayOutput {
+	return o
+}
+
+func (o IPAddressTypeArrayOutput) ToIPAddressTypeArrayOutputWithContext(ctx context.Context) IPAddressTypeArrayOutput {
+	return o
+}
+
+func (o IPAddressTypeArrayOutput) Index(i pulumi.IntInput) IPAddressTypeOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) IPAddressType {
+		return vs[0].([]IPAddressType)[vs[1].(int)]
+	}).(IPAddressTypeOutput)
+}
+
+// IPAddressList contains a list of IPAddress.
+type IPAddressListType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// items is the list of IPAddresses.
+	Items []IPAddressType `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ListMeta `pulumi:"metadata"`
+}
+
+// IPAddressListTypeInput is an input type that accepts IPAddressListTypeArgs and IPAddressListTypeOutput values.
+// You can construct a concrete instance of `IPAddressListTypeInput` via:
+//
+//	IPAddressListTypeArgs{...}
+type IPAddressListTypeInput interface {
+	pulumi.Input
+
+	ToIPAddressListTypeOutput() IPAddressListTypeOutput
+	ToIPAddressListTypeOutputWithContext(context.Context) IPAddressListTypeOutput
+}
+
+// IPAddressList contains a list of IPAddress.
+type IPAddressListTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// items is the list of IPAddresses.
+	Items IPAddressTypeArrayInput `pulumi:"items"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ListMetaPtrInput `pulumi:"metadata"`
+}
+
+func (IPAddressListTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*IPAddressListType)(nil)).Elem()
+}
+
+func (i IPAddressListTypeArgs) ToIPAddressListTypeOutput() IPAddressListTypeOutput {
+	return i.ToIPAddressListTypeOutputWithContext(context.Background())
+}
+
+func (i IPAddressListTypeArgs) ToIPAddressListTypeOutputWithContext(ctx context.Context) IPAddressListTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IPAddressListTypeOutput)
+}
+
+// IPAddressList contains a list of IPAddress.
+type IPAddressListTypeOutput struct{ *pulumi.OutputState }
+
+func (IPAddressListTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IPAddressListType)(nil)).Elem()
+}
+
+func (o IPAddressListTypeOutput) ToIPAddressListTypeOutput() IPAddressListTypeOutput {
+	return o
+}
+
+func (o IPAddressListTypeOutput) ToIPAddressListTypeOutputWithContext(ctx context.Context) IPAddressListTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o IPAddressListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IPAddressListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// items is the list of IPAddresses.
+func (o IPAddressListTypeOutput) Items() IPAddressTypeArrayOutput {
+	return o.ApplyT(func(v IPAddressListType) []IPAddressType { return v.Items }).(IPAddressTypeArrayOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o IPAddressListTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IPAddressListType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o IPAddressListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
+	return o.ApplyT(func(v IPAddressListType) *metav1.ListMeta { return v.Metadata }).(metav1.ListMetaPtrOutput)
+}
+
+// IPAddress represents a single IP of a single IP Family. The object is designed to be used by APIs that operate on IP addresses. The object is used by the Service core API for allocation of IP addresses. An IP address can be represented in different formats, to guarantee the uniqueness of the IP, the name of the object is the IP address in canonical format, four decimal digits separated by dots suppressing leading zeros for IPv4 and the representation defined by RFC 5952 for IPv6. Valid: 192.168.1.5 or 2001:db8::1 or 2001:db8:aaaa:bbbb:cccc:dddd:eeee:1 Invalid: 10.01.2.3 or 2001:db8:0:0:0::1
+type IPAddressPatchType struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion *string `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind *string `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
+	// spec is the desired state of the IPAddress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Spec *IPAddressSpecPatch `pulumi:"spec"`
+}
+
+// IPAddressPatchTypeInput is an input type that accepts IPAddressPatchTypeArgs and IPAddressPatchTypeOutput values.
+// You can construct a concrete instance of `IPAddressPatchTypeInput` via:
+//
+//	IPAddressPatchTypeArgs{...}
+type IPAddressPatchTypeInput interface {
+	pulumi.Input
+
+	ToIPAddressPatchTypeOutput() IPAddressPatchTypeOutput
+	ToIPAddressPatchTypeOutputWithContext(context.Context) IPAddressPatchTypeOutput
+}
+
+// IPAddress represents a single IP of a single IP Family. The object is designed to be used by APIs that operate on IP addresses. The object is used by the Service core API for allocation of IP addresses. An IP address can be represented in different formats, to guarantee the uniqueness of the IP, the name of the object is the IP address in canonical format, four decimal digits separated by dots suppressing leading zeros for IPv4 and the representation defined by RFC 5952 for IPv6. Valid: 192.168.1.5 or 2001:db8::1 or 2001:db8:aaaa:bbbb:cccc:dddd:eeee:1 Invalid: 10.01.2.3 or 2001:db8:0:0:0::1
+type IPAddressPatchTypeArgs struct {
+	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
+	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	Kind pulumi.StringPtrInput `pulumi:"kind"`
+	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
+	// spec is the desired state of the IPAddress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	Spec IPAddressSpecPatchPtrInput `pulumi:"spec"`
+}
+
+func (IPAddressPatchTypeArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*IPAddressPatchType)(nil)).Elem()
+}
+
+func (i IPAddressPatchTypeArgs) ToIPAddressPatchTypeOutput() IPAddressPatchTypeOutput {
+	return i.ToIPAddressPatchTypeOutputWithContext(context.Background())
+}
+
+func (i IPAddressPatchTypeArgs) ToIPAddressPatchTypeOutputWithContext(ctx context.Context) IPAddressPatchTypeOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IPAddressPatchTypeOutput)
+}
+
+// IPAddress represents a single IP of a single IP Family. The object is designed to be used by APIs that operate on IP addresses. The object is used by the Service core API for allocation of IP addresses. An IP address can be represented in different formats, to guarantee the uniqueness of the IP, the name of the object is the IP address in canonical format, four decimal digits separated by dots suppressing leading zeros for IPv4 and the representation defined by RFC 5952 for IPv6. Valid: 192.168.1.5 or 2001:db8::1 or 2001:db8:aaaa:bbbb:cccc:dddd:eeee:1 Invalid: 10.01.2.3 or 2001:db8:0:0:0::1
+type IPAddressPatchTypeOutput struct{ *pulumi.OutputState }
+
+func (IPAddressPatchTypeOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IPAddressPatchType)(nil)).Elem()
+}
+
+func (o IPAddressPatchTypeOutput) ToIPAddressPatchTypeOutput() IPAddressPatchTypeOutput {
+	return o
+}
+
+func (o IPAddressPatchTypeOutput) ToIPAddressPatchTypeOutputWithContext(ctx context.Context) IPAddressPatchTypeOutput {
+	return o
+}
+
+// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+func (o IPAddressPatchTypeOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IPAddressPatchType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+}
+
+// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+func (o IPAddressPatchTypeOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v IPAddressPatchType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+}
+
+// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+func (o IPAddressPatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
+	return o.ApplyT(func(v IPAddressPatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
+}
+
+// spec is the desired state of the IPAddress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+func (o IPAddressPatchTypeOutput) Spec() IPAddressSpecPatchPtrOutput {
+	return o.ApplyT(func(v IPAddressPatchType) *IPAddressSpecPatch { return v.Spec }).(IPAddressSpecPatchPtrOutput)
+}
+
+// IPAddressSpec describe the attributes in an IP Address.
+type IPAddressSpec struct {
+	// ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
+	ParentRef *ParentReference `pulumi:"parentRef"`
+}
+
+// IPAddressSpecInput is an input type that accepts IPAddressSpecArgs and IPAddressSpecOutput values.
+// You can construct a concrete instance of `IPAddressSpecInput` via:
+//
+//	IPAddressSpecArgs{...}
+type IPAddressSpecInput interface {
+	pulumi.Input
+
+	ToIPAddressSpecOutput() IPAddressSpecOutput
+	ToIPAddressSpecOutputWithContext(context.Context) IPAddressSpecOutput
+}
+
+// IPAddressSpec describe the attributes in an IP Address.
+type IPAddressSpecArgs struct {
+	// ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
+	ParentRef ParentReferencePtrInput `pulumi:"parentRef"`
+}
+
+func (IPAddressSpecArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*IPAddressSpec)(nil)).Elem()
+}
+
+func (i IPAddressSpecArgs) ToIPAddressSpecOutput() IPAddressSpecOutput {
+	return i.ToIPAddressSpecOutputWithContext(context.Background())
+}
+
+func (i IPAddressSpecArgs) ToIPAddressSpecOutputWithContext(ctx context.Context) IPAddressSpecOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IPAddressSpecOutput)
+}
+
+func (i IPAddressSpecArgs) ToIPAddressSpecPtrOutput() IPAddressSpecPtrOutput {
+	return i.ToIPAddressSpecPtrOutputWithContext(context.Background())
+}
+
+func (i IPAddressSpecArgs) ToIPAddressSpecPtrOutputWithContext(ctx context.Context) IPAddressSpecPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IPAddressSpecOutput).ToIPAddressSpecPtrOutputWithContext(ctx)
+}
+
+// IPAddressSpecPtrInput is an input type that accepts IPAddressSpecArgs, IPAddressSpecPtr and IPAddressSpecPtrOutput values.
+// You can construct a concrete instance of `IPAddressSpecPtrInput` via:
+//
+//	        IPAddressSpecArgs{...}
+//
+//	or:
+//
+//	        nil
+type IPAddressSpecPtrInput interface {
+	pulumi.Input
+
+	ToIPAddressSpecPtrOutput() IPAddressSpecPtrOutput
+	ToIPAddressSpecPtrOutputWithContext(context.Context) IPAddressSpecPtrOutput
+}
+
+type ipaddressSpecPtrType IPAddressSpecArgs
+
+func IPAddressSpecPtr(v *IPAddressSpecArgs) IPAddressSpecPtrInput {
+	return (*ipaddressSpecPtrType)(v)
+}
+
+func (*ipaddressSpecPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**IPAddressSpec)(nil)).Elem()
+}
+
+func (i *ipaddressSpecPtrType) ToIPAddressSpecPtrOutput() IPAddressSpecPtrOutput {
+	return i.ToIPAddressSpecPtrOutputWithContext(context.Background())
+}
+
+func (i *ipaddressSpecPtrType) ToIPAddressSpecPtrOutputWithContext(ctx context.Context) IPAddressSpecPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IPAddressSpecPtrOutput)
+}
+
+// IPAddressSpec describe the attributes in an IP Address.
+type IPAddressSpecOutput struct{ *pulumi.OutputState }
+
+func (IPAddressSpecOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IPAddressSpec)(nil)).Elem()
+}
+
+func (o IPAddressSpecOutput) ToIPAddressSpecOutput() IPAddressSpecOutput {
+	return o
+}
+
+func (o IPAddressSpecOutput) ToIPAddressSpecOutputWithContext(ctx context.Context) IPAddressSpecOutput {
+	return o
+}
+
+func (o IPAddressSpecOutput) ToIPAddressSpecPtrOutput() IPAddressSpecPtrOutput {
+	return o.ToIPAddressSpecPtrOutputWithContext(context.Background())
+}
+
+func (o IPAddressSpecOutput) ToIPAddressSpecPtrOutputWithContext(ctx context.Context) IPAddressSpecPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v IPAddressSpec) *IPAddressSpec {
+		return &v
+	}).(IPAddressSpecPtrOutput)
+}
+
+// ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
+func (o IPAddressSpecOutput) ParentRef() ParentReferencePtrOutput {
+	return o.ApplyT(func(v IPAddressSpec) *ParentReference { return v.ParentRef }).(ParentReferencePtrOutput)
+}
+
+type IPAddressSpecPtrOutput struct{ *pulumi.OutputState }
+
+func (IPAddressSpecPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**IPAddressSpec)(nil)).Elem()
+}
+
+func (o IPAddressSpecPtrOutput) ToIPAddressSpecPtrOutput() IPAddressSpecPtrOutput {
+	return o
+}
+
+func (o IPAddressSpecPtrOutput) ToIPAddressSpecPtrOutputWithContext(ctx context.Context) IPAddressSpecPtrOutput {
+	return o
+}
+
+func (o IPAddressSpecPtrOutput) Elem() IPAddressSpecOutput {
+	return o.ApplyT(func(v *IPAddressSpec) IPAddressSpec {
+		if v != nil {
+			return *v
+		}
+		var ret IPAddressSpec
+		return ret
+	}).(IPAddressSpecOutput)
+}
+
+// ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
+func (o IPAddressSpecPtrOutput) ParentRef() ParentReferencePtrOutput {
+	return o.ApplyT(func(v *IPAddressSpec) *ParentReference {
+		if v == nil {
+			return nil
+		}
+		return v.ParentRef
+	}).(ParentReferencePtrOutput)
+}
+
+// IPAddressSpec describe the attributes in an IP Address.
+type IPAddressSpecPatch struct {
+	// ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
+	ParentRef *ParentReferencePatch `pulumi:"parentRef"`
+}
+
+// IPAddressSpecPatchInput is an input type that accepts IPAddressSpecPatchArgs and IPAddressSpecPatchOutput values.
+// You can construct a concrete instance of `IPAddressSpecPatchInput` via:
+//
+//	IPAddressSpecPatchArgs{...}
+type IPAddressSpecPatchInput interface {
+	pulumi.Input
+
+	ToIPAddressSpecPatchOutput() IPAddressSpecPatchOutput
+	ToIPAddressSpecPatchOutputWithContext(context.Context) IPAddressSpecPatchOutput
+}
+
+// IPAddressSpec describe the attributes in an IP Address.
+type IPAddressSpecPatchArgs struct {
+	// ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
+	ParentRef ParentReferencePatchPtrInput `pulumi:"parentRef"`
+}
+
+func (IPAddressSpecPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*IPAddressSpecPatch)(nil)).Elem()
+}
+
+func (i IPAddressSpecPatchArgs) ToIPAddressSpecPatchOutput() IPAddressSpecPatchOutput {
+	return i.ToIPAddressSpecPatchOutputWithContext(context.Background())
+}
+
+func (i IPAddressSpecPatchArgs) ToIPAddressSpecPatchOutputWithContext(ctx context.Context) IPAddressSpecPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IPAddressSpecPatchOutput)
+}
+
+func (i IPAddressSpecPatchArgs) ToIPAddressSpecPatchPtrOutput() IPAddressSpecPatchPtrOutput {
+	return i.ToIPAddressSpecPatchPtrOutputWithContext(context.Background())
+}
+
+func (i IPAddressSpecPatchArgs) ToIPAddressSpecPatchPtrOutputWithContext(ctx context.Context) IPAddressSpecPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IPAddressSpecPatchOutput).ToIPAddressSpecPatchPtrOutputWithContext(ctx)
+}
+
+// IPAddressSpecPatchPtrInput is an input type that accepts IPAddressSpecPatchArgs, IPAddressSpecPatchPtr and IPAddressSpecPatchPtrOutput values.
+// You can construct a concrete instance of `IPAddressSpecPatchPtrInput` via:
+//
+//	        IPAddressSpecPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type IPAddressSpecPatchPtrInput interface {
+	pulumi.Input
+
+	ToIPAddressSpecPatchPtrOutput() IPAddressSpecPatchPtrOutput
+	ToIPAddressSpecPatchPtrOutputWithContext(context.Context) IPAddressSpecPatchPtrOutput
+}
+
+type ipaddressSpecPatchPtrType IPAddressSpecPatchArgs
+
+func IPAddressSpecPatchPtr(v *IPAddressSpecPatchArgs) IPAddressSpecPatchPtrInput {
+	return (*ipaddressSpecPatchPtrType)(v)
+}
+
+func (*ipaddressSpecPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**IPAddressSpecPatch)(nil)).Elem()
+}
+
+func (i *ipaddressSpecPatchPtrType) ToIPAddressSpecPatchPtrOutput() IPAddressSpecPatchPtrOutput {
+	return i.ToIPAddressSpecPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *ipaddressSpecPatchPtrType) ToIPAddressSpecPatchPtrOutputWithContext(ctx context.Context) IPAddressSpecPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(IPAddressSpecPatchPtrOutput)
+}
+
+// IPAddressSpec describe the attributes in an IP Address.
+type IPAddressSpecPatchOutput struct{ *pulumi.OutputState }
+
+func (IPAddressSpecPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*IPAddressSpecPatch)(nil)).Elem()
+}
+
+func (o IPAddressSpecPatchOutput) ToIPAddressSpecPatchOutput() IPAddressSpecPatchOutput {
+	return o
+}
+
+func (o IPAddressSpecPatchOutput) ToIPAddressSpecPatchOutputWithContext(ctx context.Context) IPAddressSpecPatchOutput {
+	return o
+}
+
+func (o IPAddressSpecPatchOutput) ToIPAddressSpecPatchPtrOutput() IPAddressSpecPatchPtrOutput {
+	return o.ToIPAddressSpecPatchPtrOutputWithContext(context.Background())
+}
+
+func (o IPAddressSpecPatchOutput) ToIPAddressSpecPatchPtrOutputWithContext(ctx context.Context) IPAddressSpecPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v IPAddressSpecPatch) *IPAddressSpecPatch {
+		return &v
+	}).(IPAddressSpecPatchPtrOutput)
+}
+
+// ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
+func (o IPAddressSpecPatchOutput) ParentRef() ParentReferencePatchPtrOutput {
+	return o.ApplyT(func(v IPAddressSpecPatch) *ParentReferencePatch { return v.ParentRef }).(ParentReferencePatchPtrOutput)
+}
+
+type IPAddressSpecPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (IPAddressSpecPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**IPAddressSpecPatch)(nil)).Elem()
+}
+
+func (o IPAddressSpecPatchPtrOutput) ToIPAddressSpecPatchPtrOutput() IPAddressSpecPatchPtrOutput {
+	return o
+}
+
+func (o IPAddressSpecPatchPtrOutput) ToIPAddressSpecPatchPtrOutputWithContext(ctx context.Context) IPAddressSpecPatchPtrOutput {
+	return o
+}
+
+func (o IPAddressSpecPatchPtrOutput) Elem() IPAddressSpecPatchOutput {
+	return o.ApplyT(func(v *IPAddressSpecPatch) IPAddressSpecPatch {
+		if v != nil {
+			return *v
+		}
+		var ret IPAddressSpecPatch
+		return ret
+	}).(IPAddressSpecPatchOutput)
+}
+
+// ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
+func (o IPAddressSpecPatchPtrOutput) ParentRef() ParentReferencePatchPtrOutput {
+	return o.ApplyT(func(v *IPAddressSpecPatch) *ParentReferencePatch {
+		if v == nil {
+			return nil
+		}
+		return v.ParentRef
+	}).(ParentReferencePatchPtrOutput)
+}
+
+// ParentReference describes a reference to a parent object.
+type ParentReference struct {
+	// Group is the group of the object being referenced.
+	Group *string `pulumi:"group"`
+	// Name is the name of the object being referenced.
+	Name *string `pulumi:"name"`
+	// Namespace is the namespace of the object being referenced.
+	Namespace *string `pulumi:"namespace"`
+	// Resource is the resource of the object being referenced.
+	Resource *string `pulumi:"resource"`
+	// UID is the uid of the object being referenced.
+	Uid *string `pulumi:"uid"`
+}
+
+// ParentReferenceInput is an input type that accepts ParentReferenceArgs and ParentReferenceOutput values.
+// You can construct a concrete instance of `ParentReferenceInput` via:
+//
+//	ParentReferenceArgs{...}
+type ParentReferenceInput interface {
+	pulumi.Input
+
+	ToParentReferenceOutput() ParentReferenceOutput
+	ToParentReferenceOutputWithContext(context.Context) ParentReferenceOutput
+}
+
+// ParentReference describes a reference to a parent object.
+type ParentReferenceArgs struct {
+	// Group is the group of the object being referenced.
+	Group pulumi.StringPtrInput `pulumi:"group"`
+	// Name is the name of the object being referenced.
+	Name pulumi.StringPtrInput `pulumi:"name"`
+	// Namespace is the namespace of the object being referenced.
+	Namespace pulumi.StringPtrInput `pulumi:"namespace"`
+	// Resource is the resource of the object being referenced.
+	Resource pulumi.StringPtrInput `pulumi:"resource"`
+	// UID is the uid of the object being referenced.
+	Uid pulumi.StringPtrInput `pulumi:"uid"`
+}
+
+func (ParentReferenceArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ParentReference)(nil)).Elem()
+}
+
+func (i ParentReferenceArgs) ToParentReferenceOutput() ParentReferenceOutput {
+	return i.ToParentReferenceOutputWithContext(context.Background())
+}
+
+func (i ParentReferenceArgs) ToParentReferenceOutputWithContext(ctx context.Context) ParentReferenceOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ParentReferenceOutput)
+}
+
+func (i ParentReferenceArgs) ToParentReferencePtrOutput() ParentReferencePtrOutput {
+	return i.ToParentReferencePtrOutputWithContext(context.Background())
+}
+
+func (i ParentReferenceArgs) ToParentReferencePtrOutputWithContext(ctx context.Context) ParentReferencePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ParentReferenceOutput).ToParentReferencePtrOutputWithContext(ctx)
+}
+
+// ParentReferencePtrInput is an input type that accepts ParentReferenceArgs, ParentReferencePtr and ParentReferencePtrOutput values.
+// You can construct a concrete instance of `ParentReferencePtrInput` via:
+//
+//	        ParentReferenceArgs{...}
+//
+//	or:
+//
+//	        nil
+type ParentReferencePtrInput interface {
+	pulumi.Input
+
+	ToParentReferencePtrOutput() ParentReferencePtrOutput
+	ToParentReferencePtrOutputWithContext(context.Context) ParentReferencePtrOutput
+}
+
+type parentReferencePtrType ParentReferenceArgs
+
+func ParentReferencePtr(v *ParentReferenceArgs) ParentReferencePtrInput {
+	return (*parentReferencePtrType)(v)
+}
+
+func (*parentReferencePtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ParentReference)(nil)).Elem()
+}
+
+func (i *parentReferencePtrType) ToParentReferencePtrOutput() ParentReferencePtrOutput {
+	return i.ToParentReferencePtrOutputWithContext(context.Background())
+}
+
+func (i *parentReferencePtrType) ToParentReferencePtrOutputWithContext(ctx context.Context) ParentReferencePtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ParentReferencePtrOutput)
+}
+
+// ParentReference describes a reference to a parent object.
+type ParentReferenceOutput struct{ *pulumi.OutputState }
+
+func (ParentReferenceOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ParentReference)(nil)).Elem()
+}
+
+func (o ParentReferenceOutput) ToParentReferenceOutput() ParentReferenceOutput {
+	return o
+}
+
+func (o ParentReferenceOutput) ToParentReferenceOutputWithContext(ctx context.Context) ParentReferenceOutput {
+	return o
+}
+
+func (o ParentReferenceOutput) ToParentReferencePtrOutput() ParentReferencePtrOutput {
+	return o.ToParentReferencePtrOutputWithContext(context.Background())
+}
+
+func (o ParentReferenceOutput) ToParentReferencePtrOutputWithContext(ctx context.Context) ParentReferencePtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ParentReference) *ParentReference {
+		return &v
+	}).(ParentReferencePtrOutput)
+}
+
+// Group is the group of the object being referenced.
+func (o ParentReferenceOutput) Group() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ParentReference) *string { return v.Group }).(pulumi.StringPtrOutput)
+}
+
+// Name is the name of the object being referenced.
+func (o ParentReferenceOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ParentReference) *string { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+// Namespace is the namespace of the object being referenced.
+func (o ParentReferenceOutput) Namespace() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ParentReference) *string { return v.Namespace }).(pulumi.StringPtrOutput)
+}
+
+// Resource is the resource of the object being referenced.
+func (o ParentReferenceOutput) Resource() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ParentReference) *string { return v.Resource }).(pulumi.StringPtrOutput)
+}
+
+// UID is the uid of the object being referenced.
+func (o ParentReferenceOutput) Uid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ParentReference) *string { return v.Uid }).(pulumi.StringPtrOutput)
+}
+
+type ParentReferencePtrOutput struct{ *pulumi.OutputState }
+
+func (ParentReferencePtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ParentReference)(nil)).Elem()
+}
+
+func (o ParentReferencePtrOutput) ToParentReferencePtrOutput() ParentReferencePtrOutput {
+	return o
+}
+
+func (o ParentReferencePtrOutput) ToParentReferencePtrOutputWithContext(ctx context.Context) ParentReferencePtrOutput {
+	return o
+}
+
+func (o ParentReferencePtrOutput) Elem() ParentReferenceOutput {
+	return o.ApplyT(func(v *ParentReference) ParentReference {
+		if v != nil {
+			return *v
+		}
+		var ret ParentReference
+		return ret
+	}).(ParentReferenceOutput)
+}
+
+// Group is the group of the object being referenced.
+func (o ParentReferencePtrOutput) Group() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ParentReference) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Group
+	}).(pulumi.StringPtrOutput)
+}
+
+// Name is the name of the object being referenced.
+func (o ParentReferencePtrOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ParentReference) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Name
+	}).(pulumi.StringPtrOutput)
+}
+
+// Namespace is the namespace of the object being referenced.
+func (o ParentReferencePtrOutput) Namespace() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ParentReference) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Namespace
+	}).(pulumi.StringPtrOutput)
+}
+
+// Resource is the resource of the object being referenced.
+func (o ParentReferencePtrOutput) Resource() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ParentReference) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Resource
+	}).(pulumi.StringPtrOutput)
+}
+
+// UID is the uid of the object being referenced.
+func (o ParentReferencePtrOutput) Uid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ParentReference) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Uid
+	}).(pulumi.StringPtrOutput)
+}
+
+// ParentReference describes a reference to a parent object.
+type ParentReferencePatch struct {
+	// Group is the group of the object being referenced.
+	Group *string `pulumi:"group"`
+	// Name is the name of the object being referenced.
+	Name *string `pulumi:"name"`
+	// Namespace is the namespace of the object being referenced.
+	Namespace *string `pulumi:"namespace"`
+	// Resource is the resource of the object being referenced.
+	Resource *string `pulumi:"resource"`
+	// UID is the uid of the object being referenced.
+	Uid *string `pulumi:"uid"`
+}
+
+// ParentReferencePatchInput is an input type that accepts ParentReferencePatchArgs and ParentReferencePatchOutput values.
+// You can construct a concrete instance of `ParentReferencePatchInput` via:
+//
+//	ParentReferencePatchArgs{...}
+type ParentReferencePatchInput interface {
+	pulumi.Input
+
+	ToParentReferencePatchOutput() ParentReferencePatchOutput
+	ToParentReferencePatchOutputWithContext(context.Context) ParentReferencePatchOutput
+}
+
+// ParentReference describes a reference to a parent object.
+type ParentReferencePatchArgs struct {
+	// Group is the group of the object being referenced.
+	Group pulumi.StringPtrInput `pulumi:"group"`
+	// Name is the name of the object being referenced.
+	Name pulumi.StringPtrInput `pulumi:"name"`
+	// Namespace is the namespace of the object being referenced.
+	Namespace pulumi.StringPtrInput `pulumi:"namespace"`
+	// Resource is the resource of the object being referenced.
+	Resource pulumi.StringPtrInput `pulumi:"resource"`
+	// UID is the uid of the object being referenced.
+	Uid pulumi.StringPtrInput `pulumi:"uid"`
+}
+
+func (ParentReferencePatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ParentReferencePatch)(nil)).Elem()
+}
+
+func (i ParentReferencePatchArgs) ToParentReferencePatchOutput() ParentReferencePatchOutput {
+	return i.ToParentReferencePatchOutputWithContext(context.Background())
+}
+
+func (i ParentReferencePatchArgs) ToParentReferencePatchOutputWithContext(ctx context.Context) ParentReferencePatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ParentReferencePatchOutput)
+}
+
+func (i ParentReferencePatchArgs) ToParentReferencePatchPtrOutput() ParentReferencePatchPtrOutput {
+	return i.ToParentReferencePatchPtrOutputWithContext(context.Background())
+}
+
+func (i ParentReferencePatchArgs) ToParentReferencePatchPtrOutputWithContext(ctx context.Context) ParentReferencePatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ParentReferencePatchOutput).ToParentReferencePatchPtrOutputWithContext(ctx)
+}
+
+// ParentReferencePatchPtrInput is an input type that accepts ParentReferencePatchArgs, ParentReferencePatchPtr and ParentReferencePatchPtrOutput values.
+// You can construct a concrete instance of `ParentReferencePatchPtrInput` via:
+//
+//	        ParentReferencePatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type ParentReferencePatchPtrInput interface {
+	pulumi.Input
+
+	ToParentReferencePatchPtrOutput() ParentReferencePatchPtrOutput
+	ToParentReferencePatchPtrOutputWithContext(context.Context) ParentReferencePatchPtrOutput
+}
+
+type parentReferencePatchPtrType ParentReferencePatchArgs
+
+func ParentReferencePatchPtr(v *ParentReferencePatchArgs) ParentReferencePatchPtrInput {
+	return (*parentReferencePatchPtrType)(v)
+}
+
+func (*parentReferencePatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ParentReferencePatch)(nil)).Elem()
+}
+
+func (i *parentReferencePatchPtrType) ToParentReferencePatchPtrOutput() ParentReferencePatchPtrOutput {
+	return i.ToParentReferencePatchPtrOutputWithContext(context.Background())
+}
+
+func (i *parentReferencePatchPtrType) ToParentReferencePatchPtrOutputWithContext(ctx context.Context) ParentReferencePatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ParentReferencePatchPtrOutput)
+}
+
+// ParentReference describes a reference to a parent object.
+type ParentReferencePatchOutput struct{ *pulumi.OutputState }
+
+func (ParentReferencePatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ParentReferencePatch)(nil)).Elem()
+}
+
+func (o ParentReferencePatchOutput) ToParentReferencePatchOutput() ParentReferencePatchOutput {
+	return o
+}
+
+func (o ParentReferencePatchOutput) ToParentReferencePatchOutputWithContext(ctx context.Context) ParentReferencePatchOutput {
+	return o
+}
+
+func (o ParentReferencePatchOutput) ToParentReferencePatchPtrOutput() ParentReferencePatchPtrOutput {
+	return o.ToParentReferencePatchPtrOutputWithContext(context.Background())
+}
+
+func (o ParentReferencePatchOutput) ToParentReferencePatchPtrOutputWithContext(ctx context.Context) ParentReferencePatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ParentReferencePatch) *ParentReferencePatch {
+		return &v
+	}).(ParentReferencePatchPtrOutput)
+}
+
+// Group is the group of the object being referenced.
+func (o ParentReferencePatchOutput) Group() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ParentReferencePatch) *string { return v.Group }).(pulumi.StringPtrOutput)
+}
+
+// Name is the name of the object being referenced.
+func (o ParentReferencePatchOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ParentReferencePatch) *string { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+// Namespace is the namespace of the object being referenced.
+func (o ParentReferencePatchOutput) Namespace() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ParentReferencePatch) *string { return v.Namespace }).(pulumi.StringPtrOutput)
+}
+
+// Resource is the resource of the object being referenced.
+func (o ParentReferencePatchOutput) Resource() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ParentReferencePatch) *string { return v.Resource }).(pulumi.StringPtrOutput)
+}
+
+// UID is the uid of the object being referenced.
+func (o ParentReferencePatchOutput) Uid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ParentReferencePatch) *string { return v.Uid }).(pulumi.StringPtrOutput)
+}
+
+type ParentReferencePatchPtrOutput struct{ *pulumi.OutputState }
+
+func (ParentReferencePatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ParentReferencePatch)(nil)).Elem()
+}
+
+func (o ParentReferencePatchPtrOutput) ToParentReferencePatchPtrOutput() ParentReferencePatchPtrOutput {
+	return o
+}
+
+func (o ParentReferencePatchPtrOutput) ToParentReferencePatchPtrOutputWithContext(ctx context.Context) ParentReferencePatchPtrOutput {
+	return o
+}
+
+func (o ParentReferencePatchPtrOutput) Elem() ParentReferencePatchOutput {
+	return o.ApplyT(func(v *ParentReferencePatch) ParentReferencePatch {
+		if v != nil {
+			return *v
+		}
+		var ret ParentReferencePatch
+		return ret
+	}).(ParentReferencePatchOutput)
+}
+
+// Group is the group of the object being referenced.
+func (o ParentReferencePatchPtrOutput) Group() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ParentReferencePatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Group
+	}).(pulumi.StringPtrOutput)
+}
+
+// Name is the name of the object being referenced.
+func (o ParentReferencePatchPtrOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ParentReferencePatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Name
+	}).(pulumi.StringPtrOutput)
+}
+
+// Namespace is the namespace of the object being referenced.
+func (o ParentReferencePatchPtrOutput) Namespace() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ParentReferencePatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Namespace
+	}).(pulumi.StringPtrOutput)
+}
+
+// Resource is the resource of the object being referenced.
+func (o ParentReferencePatchPtrOutput) Resource() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ParentReferencePatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Resource
+	}).(pulumi.StringPtrOutput)
+}
+
+// UID is the uid of the object being referenced.
+func (o ParentReferencePatchPtrOutput) Uid() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ParentReferencePatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Uid
+	}).(pulumi.StringPtrOutput)
+}
+
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterCIDRTypeInput)(nil)).Elem(), ClusterCIDRTypeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterCIDRTypeArrayInput)(nil)).Elem(), ClusterCIDRTypeArray{})
@@ -706,6 +1709,18 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterCIDRSpecPtrInput)(nil)).Elem(), ClusterCIDRSpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterCIDRSpecPatchInput)(nil)).Elem(), ClusterCIDRSpecPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ClusterCIDRSpecPatchPtrInput)(nil)).Elem(), ClusterCIDRSpecPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IPAddressTypeInput)(nil)).Elem(), IPAddressTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IPAddressTypeArrayInput)(nil)).Elem(), IPAddressTypeArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IPAddressListTypeInput)(nil)).Elem(), IPAddressListTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IPAddressPatchTypeInput)(nil)).Elem(), IPAddressPatchTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IPAddressSpecInput)(nil)).Elem(), IPAddressSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IPAddressSpecPtrInput)(nil)).Elem(), IPAddressSpecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IPAddressSpecPatchInput)(nil)).Elem(), IPAddressSpecPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*IPAddressSpecPatchPtrInput)(nil)).Elem(), IPAddressSpecPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ParentReferenceInput)(nil)).Elem(), ParentReferenceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ParentReferencePtrInput)(nil)).Elem(), ParentReferenceArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ParentReferencePatchInput)(nil)).Elem(), ParentReferencePatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ParentReferencePatchPtrInput)(nil)).Elem(), ParentReferencePatchArgs{})
 	pulumi.RegisterOutputType(ClusterCIDRTypeOutput{})
 	pulumi.RegisterOutputType(ClusterCIDRTypeArrayOutput{})
 	pulumi.RegisterOutputType(ClusterCIDRListTypeOutput{})
@@ -714,4 +1729,16 @@ func init() {
 	pulumi.RegisterOutputType(ClusterCIDRSpecPtrOutput{})
 	pulumi.RegisterOutputType(ClusterCIDRSpecPatchOutput{})
 	pulumi.RegisterOutputType(ClusterCIDRSpecPatchPtrOutput{})
+	pulumi.RegisterOutputType(IPAddressTypeOutput{})
+	pulumi.RegisterOutputType(IPAddressTypeArrayOutput{})
+	pulumi.RegisterOutputType(IPAddressListTypeOutput{})
+	pulumi.RegisterOutputType(IPAddressPatchTypeOutput{})
+	pulumi.RegisterOutputType(IPAddressSpecOutput{})
+	pulumi.RegisterOutputType(IPAddressSpecPtrOutput{})
+	pulumi.RegisterOutputType(IPAddressSpecPatchOutput{})
+	pulumi.RegisterOutputType(IPAddressSpecPatchPtrOutput{})
+	pulumi.RegisterOutputType(ParentReferenceOutput{})
+	pulumi.RegisterOutputType(ParentReferencePtrOutput{})
+	pulumi.RegisterOutputType(ParentReferencePatchOutput{})
+	pulumi.RegisterOutputType(ParentReferencePatchPtrOutput{})
 }

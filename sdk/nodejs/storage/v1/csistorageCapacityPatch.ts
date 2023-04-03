@@ -116,8 +116,6 @@ export class CSIStorageCapacityPatch extends pulumi.CustomResource {
             resourceInputs["storageClassName"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
-        const aliasOpts = { aliases: [{ type: "kubernetes:storage.k8s.io/v1beta1:CSIStorageCapacityPatch" }, { type: "kubernetes:storage.k8s.io/v1alpha1:CSIStorageCapacityPatch" }] };
-        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(CSIStorageCapacityPatch.__pulumiType, name, resourceInputs, opts);
     }
 }

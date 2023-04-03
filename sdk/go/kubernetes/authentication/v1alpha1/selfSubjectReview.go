@@ -11,7 +11,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.
+// SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.  If impersonation or request header authentication is used, any extra keys will have their case ignored and returned as lowercase.
 type SelfSubjectReview struct {
 	pulumi.CustomResourceState
 
@@ -34,6 +34,12 @@ func NewSelfSubjectReview(ctx *pulumi.Context,
 
 	args.ApiVersion = pulumi.StringPtr("authentication.k8s.io/v1alpha1")
 	args.Kind = pulumi.StringPtr("SelfSubjectReview")
+	aliases := pulumi.Aliases([]pulumi.Alias{
+		{
+			Type: pulumi.String("kubernetes:authentication.k8s.io/v1beta1:SelfSubjectReview"),
+		},
+	})
+	opts = append(opts, aliases)
 	var resource SelfSubjectReview
 	err := ctx.RegisterResource("kubernetes:authentication.k8s.io/v1alpha1:SelfSubjectReview", name, args, &resource, opts...)
 	if err != nil {

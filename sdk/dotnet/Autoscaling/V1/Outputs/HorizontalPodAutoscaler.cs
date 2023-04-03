@@ -29,11 +29,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling.V1
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Meta.V1.ObjectMeta Metadata;
         /// <summary>
-        /// behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+        /// spec defines the behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Autoscaling.V1.HorizontalPodAutoscalerSpec Spec;
         /// <summary>
-        /// current information about the autoscaler.
+        /// status is the current information about the autoscaler.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Autoscaling.V1.HorizontalPodAutoscalerStatus Status;
 

@@ -176,14 +176,14 @@ public final class JobSpecPatchArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Describes the pod that will be created when executing a job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+     * Describes the pod that will be created when executing a job. The only allowed template.spec.restartPolicy values are &#34;Never&#34; or &#34;OnFailure&#34;. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
      * 
      */
     @Import(name="template")
     private @Nullable Output<PodTemplateSpecPatchArgs> template;
 
     /**
-     * @return Describes the pod that will be created when executing a job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+     * @return Describes the pod that will be created when executing a job. The only allowed template.spec.restartPolicy values are &#34;Never&#34; or &#34;OnFailure&#34;. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
      * 
      */
     public Optional<Output<PodTemplateSpecPatchArgs>> template() {
@@ -445,7 +445,7 @@ public final class JobSpecPatchArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param template Describes the pod that will be created when executing a job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+         * @param template Describes the pod that will be created when executing a job. The only allowed template.spec.restartPolicy values are &#34;Never&#34; or &#34;OnFailure&#34;. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
          * 
          * @return builder
          * 
@@ -456,7 +456,7 @@ public final class JobSpecPatchArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param template Describes the pod that will be created when executing a job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+         * @param template Describes the pod that will be created when executing a job. The only allowed template.spec.restartPolicy values are &#34;Never&#34; or &#34;OnFailure&#34;. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
          * 
          * @return builder
          * 

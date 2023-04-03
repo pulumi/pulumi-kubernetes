@@ -50,11 +50,11 @@ export class HorizontalPodAutoscaler extends pulumi.CustomResource {
      */
     public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMeta>;
     /**
-     * behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+     * spec defines the behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
      */
     public readonly spec!: pulumi.Output<outputs.autoscaling.v1.HorizontalPodAutoscalerSpec>;
     /**
-     * current information about the autoscaler.
+     * status is the current information about the autoscaler.
      */
     public /*out*/ readonly status!: pulumi.Output<outputs.autoscaling.v1.HorizontalPodAutoscalerStatus>;
 
@@ -105,7 +105,7 @@ export interface HorizontalPodAutoscalerArgs {
      */
     metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
     /**
-     * behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+     * spec defines the behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
      */
     spec?: pulumi.Input<inputs.autoscaling.v1.HorizontalPodAutoscalerSpec>;
 }

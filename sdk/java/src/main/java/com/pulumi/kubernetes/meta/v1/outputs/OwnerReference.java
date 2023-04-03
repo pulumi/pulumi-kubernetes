@@ -33,12 +33,12 @@ public final class OwnerReference {
      */
     private String kind;
     /**
-     * @return Name of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#names
+     * @return Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names
      * 
      */
     private String name;
     /**
-     * @return UID of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+     * @return UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
      * 
      */
     private String uid;
@@ -73,14 +73,14 @@ public final class OwnerReference {
         return this.kind;
     }
     /**
-     * @return Name of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#names
+     * @return Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names
      * 
      */
     public String name() {
         return this.name;
     }
     /**
-     * @return UID of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+     * @return UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
      * 
      */
     public String uid() {

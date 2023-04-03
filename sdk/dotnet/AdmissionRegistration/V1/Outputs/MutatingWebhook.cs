@@ -29,6 +29,19 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration.V1
         /// </summary>
         public readonly string FailurePolicy;
         /// <summary>
+        /// MatchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+        /// 
+        /// The exact matching logic is (in order):
+        ///   1. If ANY matchCondition evaluates to FALSE, the webhook is skipped.
+        ///   2. If ALL matchConditions evaluate to TRUE, the webhook is called.
+        ///   3. If any matchCondition evaluates to an error (but none are FALSE):
+        ///      - If failurePolicy=Fail, reject the request
+        ///      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
+        /// 
+        /// This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+        /// </summary>
+        public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration.V1.MatchCondition> MatchConditions;
+        /// <summary>
         /// matchPolicy defines how the "rules" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
         /// 
         /// - Exact: match a request only if it exactly matches a specified rule. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, but "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would not be sent to the webhook.
@@ -111,6 +124,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration.V1
 
             string failurePolicy,
 
+            ImmutableArray<Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration.V1.MatchCondition> matchConditions,
+
             string matchPolicy,
 
             string name,
@@ -130,6 +145,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration.V1
             AdmissionReviewVersions = admissionReviewVersions;
             ClientConfig = clientConfig;
             FailurePolicy = failurePolicy;
+            MatchConditions = matchConditions;
             MatchPolicy = matchPolicy;
             Name = name;
             NamespaceSelector = namespaceSelector;

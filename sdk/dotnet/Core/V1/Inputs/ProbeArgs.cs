@@ -28,7 +28,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public Input<int>? FailureThreshold { get; set; }
 
         /// <summary>
-        /// GRPC specifies an action involving a GRPC port. This is a beta field and requires enabling GRPCContainerProbe feature gate.
+        /// GRPC specifies an action involving a GRPC port.
         /// </summary>
         [Input("grpc")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.GRPCActionArgs>? Grpc { get; set; }

@@ -61,13 +61,17 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.PodIP> PodIPs;
         /// <summary>
-        /// The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md
+        /// The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/#quality-of-service-classes
         /// </summary>
         public readonly string QosClass;
         /// <summary>
         /// A brief CamelCase message indicating details about why the pod is in this state. e.g. 'Evicted'
         /// </summary>
         public readonly string Reason;
+        /// <summary>
+        /// Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed"
+        /// </summary>
+        public readonly string Resize;
         /// <summary>
         /// RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.
         /// </summary>
@@ -99,6 +103,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
             string reason,
 
+            string resize,
+
             string startTime)
         {
             Conditions = conditions;
@@ -113,6 +119,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
             PodIPs = podIPs;
             QosClass = qosClass;
             Reason = reason;
+            Resize = resize;
             StartTime = startTime;
         }
     }

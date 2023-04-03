@@ -163,7 +163,7 @@ public final class PodSpec {
      */
     private @Nullable List<PodResourceClaim> resourceClaims;
     /**
-     * @return Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
+     * @return Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
      * 
      */
     private @Nullable String restartPolicy;
@@ -178,9 +178,11 @@ public final class PodSpec {
      */
     private @Nullable String schedulerName;
     /**
-     * @return SchedulingGates is an opaque list of values that if specified will block scheduling the pod. More info:  https://git.k8s.io/enhancements/keps/sig-scheduling/3521-pod-scheduling-readiness.
+     * @return SchedulingGates is an opaque list of values that if specified will block scheduling the pod. If schedulingGates is not empty, the pod will stay in the SchedulingGated state and the scheduler will not attempt to schedule the pod.
      * 
-     * This is an alpha-level feature enabled by PodSchedulingReadiness feature gate.
+     * SchedulingGates can only be set at pod creation time, and be removed only afterwards.
+     * 
+     * This is a beta feature enabled by the PodSchedulingReadiness feature gate.
      * 
      */
     private @Nullable List<PodSchedulingGate> schedulingGates;
@@ -420,7 +422,7 @@ public final class PodSpec {
         return this.resourceClaims == null ? List.of() : this.resourceClaims;
     }
     /**
-     * @return Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
+     * @return Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
      * 
      */
     public Optional<String> restartPolicy() {
@@ -441,9 +443,11 @@ public final class PodSpec {
         return Optional.ofNullable(this.schedulerName);
     }
     /**
-     * @return SchedulingGates is an opaque list of values that if specified will block scheduling the pod. More info:  https://git.k8s.io/enhancements/keps/sig-scheduling/3521-pod-scheduling-readiness.
+     * @return SchedulingGates is an opaque list of values that if specified will block scheduling the pod. If schedulingGates is not empty, the pod will stay in the SchedulingGated state and the scheduler will not attempt to schedule the pod.
      * 
-     * This is an alpha-level feature enabled by PodSchedulingReadiness feature gate.
+     * SchedulingGates can only be set at pod creation time, and be removed only afterwards.
+     * 
+     * This is a beta feature enabled by the PodSchedulingReadiness feature gate.
      * 
      */
     public List<PodSchedulingGate> schedulingGates() {

@@ -429,14 +429,14 @@ public final class PodSpecPatchArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
+     * Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
      * 
      */
     @Import(name="restartPolicy")
     private @Nullable Output<String> restartPolicy;
 
     /**
-     * @return Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
+     * @return Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
      * 
      */
     public Optional<Output<String>> restartPolicy() {
@@ -474,18 +474,22 @@ public final class PodSpecPatchArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * SchedulingGates is an opaque list of values that if specified will block scheduling the pod. More info:  https://git.k8s.io/enhancements/keps/sig-scheduling/3521-pod-scheduling-readiness.
+     * SchedulingGates is an opaque list of values that if specified will block scheduling the pod. If schedulingGates is not empty, the pod will stay in the SchedulingGated state and the scheduler will not attempt to schedule the pod.
      * 
-     * This is an alpha-level feature enabled by PodSchedulingReadiness feature gate.
+     * SchedulingGates can only be set at pod creation time, and be removed only afterwards.
+     * 
+     * This is a beta feature enabled by the PodSchedulingReadiness feature gate.
      * 
      */
     @Import(name="schedulingGates")
     private @Nullable Output<List<PodSchedulingGatePatchArgs>> schedulingGates;
 
     /**
-     * @return SchedulingGates is an opaque list of values that if specified will block scheduling the pod. More info:  https://git.k8s.io/enhancements/keps/sig-scheduling/3521-pod-scheduling-readiness.
+     * @return SchedulingGates is an opaque list of values that if specified will block scheduling the pod. If schedulingGates is not empty, the pod will stay in the SchedulingGated state and the scheduler will not attempt to schedule the pod.
      * 
-     * This is an alpha-level feature enabled by PodSchedulingReadiness feature gate.
+     * SchedulingGates can only be set at pod creation time, and be removed only afterwards.
+     * 
+     * This is a beta feature enabled by the PodSchedulingReadiness feature gate.
      * 
      */
     public Optional<Output<List<PodSchedulingGatePatchArgs>>> schedulingGates() {
@@ -1320,7 +1324,7 @@ public final class PodSpecPatchArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param restartPolicy Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
+         * @param restartPolicy Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
          * 
          * @return builder
          * 
@@ -1331,7 +1335,7 @@ public final class PodSpecPatchArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param restartPolicy Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
+         * @param restartPolicy Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
          * 
          * @return builder
          * 
@@ -1383,9 +1387,11 @@ public final class PodSpecPatchArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param schedulingGates SchedulingGates is an opaque list of values that if specified will block scheduling the pod. More info:  https://git.k8s.io/enhancements/keps/sig-scheduling/3521-pod-scheduling-readiness.
+         * @param schedulingGates SchedulingGates is an opaque list of values that if specified will block scheduling the pod. If schedulingGates is not empty, the pod will stay in the SchedulingGated state and the scheduler will not attempt to schedule the pod.
          * 
-         * This is an alpha-level feature enabled by PodSchedulingReadiness feature gate.
+         * SchedulingGates can only be set at pod creation time, and be removed only afterwards.
+         * 
+         * This is a beta feature enabled by the PodSchedulingReadiness feature gate.
          * 
          * @return builder
          * 
@@ -1396,9 +1402,11 @@ public final class PodSpecPatchArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param schedulingGates SchedulingGates is an opaque list of values that if specified will block scheduling the pod. More info:  https://git.k8s.io/enhancements/keps/sig-scheduling/3521-pod-scheduling-readiness.
+         * @param schedulingGates SchedulingGates is an opaque list of values that if specified will block scheduling the pod. If schedulingGates is not empty, the pod will stay in the SchedulingGated state and the scheduler will not attempt to schedule the pod.
          * 
-         * This is an alpha-level feature enabled by PodSchedulingReadiness feature gate.
+         * SchedulingGates can only be set at pod creation time, and be removed only afterwards.
+         * 
+         * This is a beta feature enabled by the PodSchedulingReadiness feature gate.
          * 
          * @return builder
          * 
@@ -1408,9 +1416,11 @@ public final class PodSpecPatchArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param schedulingGates SchedulingGates is an opaque list of values that if specified will block scheduling the pod. More info:  https://git.k8s.io/enhancements/keps/sig-scheduling/3521-pod-scheduling-readiness.
+         * @param schedulingGates SchedulingGates is an opaque list of values that if specified will block scheduling the pod. If schedulingGates is not empty, the pod will stay in the SchedulingGated state and the scheduler will not attempt to schedule the pod.
          * 
-         * This is an alpha-level feature enabled by PodSchedulingReadiness feature gate.
+         * SchedulingGates can only be set at pod creation time, and be removed only afterwards.
+         * 
+         * This is a beta feature enabled by the PodSchedulingReadiness feature gate.
          * 
          * @return builder
          * 

@@ -78,7 +78,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Batch.V1
         public Input<bool>? Suspend { get; set; }
 
         /// <summary>
-        /// Describes the pod that will be created when executing a job. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+        /// Describes the pod that will be created when executing a job. The only allowed template.spec.restartPolicy values are "Never" or "OnFailure". More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
         /// </summary>
         [Input("template", required: true)]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.PodTemplateSpecArgs> Template { get; set; } = null!;

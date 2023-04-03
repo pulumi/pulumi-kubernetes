@@ -5,6 +5,8 @@
 from ... import _utilities
 import typing
 # Export this package's modules as members:
+from .SelfSubjectReview import *
+from .SelfSubjectReviewPatch import *
 from .TokenReview import *
 from .TokenReviewPatch import *
 from ._inputs import *

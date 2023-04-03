@@ -254,9 +254,9 @@ class CustomResourceConversion(dict):
                  webhook: Optional['outputs.WebhookConversion'] = None):
         """
         CustomResourceConversion describes how to convert different versions of a CR.
-        :param str strategy: strategy specifies how custom resources are converted between versions. Allowed values are: - `None`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `Webhook`: API Server will call to an external webhook to do the conversion. Additional information
+        :param str strategy: strategy specifies how custom resources are converted between versions. Allowed values are: - `"None"`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `"Webhook"`: API Server will call to an external webhook to do the conversion. Additional information
                  is needed for this option. This requires spec.preserveUnknownFields to be false, and spec.conversion.webhook to be set.
-        :param 'WebhookConversionArgs' webhook: webhook describes how to call the conversion webhook. Required when `strategy` is set to `Webhook`.
+        :param 'WebhookConversionArgs' webhook: webhook describes how to call the conversion webhook. Required when `strategy` is set to `"Webhook"`.
         """
         pulumi.set(__self__, "strategy", strategy)
         if webhook is not None:
@@ -266,7 +266,7 @@ class CustomResourceConversion(dict):
     @pulumi.getter
     def strategy(self) -> str:
         """
-        strategy specifies how custom resources are converted between versions. Allowed values are: - `None`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `Webhook`: API Server will call to an external webhook to do the conversion. Additional information
+        strategy specifies how custom resources are converted between versions. Allowed values are: - `"None"`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `"Webhook"`: API Server will call to an external webhook to do the conversion. Additional information
           is needed for this option. This requires spec.preserveUnknownFields to be false, and spec.conversion.webhook to be set.
         """
         return pulumi.get(self, "strategy")
@@ -275,7 +275,7 @@ class CustomResourceConversion(dict):
     @pulumi.getter
     def webhook(self) -> Optional['outputs.WebhookConversion']:
         """
-        webhook describes how to call the conversion webhook. Required when `strategy` is set to `Webhook`.
+        webhook describes how to call the conversion webhook. Required when `strategy` is set to `"Webhook"`.
         """
         return pulumi.get(self, "webhook")
 
@@ -290,9 +290,9 @@ class CustomResourceConversionPatch(dict):
                  webhook: Optional['outputs.WebhookConversionPatch'] = None):
         """
         CustomResourceConversion describes how to convert different versions of a CR.
-        :param str strategy: strategy specifies how custom resources are converted between versions. Allowed values are: - `None`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `Webhook`: API Server will call to an external webhook to do the conversion. Additional information
+        :param str strategy: strategy specifies how custom resources are converted between versions. Allowed values are: - `"None"`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `"Webhook"`: API Server will call to an external webhook to do the conversion. Additional information
                  is needed for this option. This requires spec.preserveUnknownFields to be false, and spec.conversion.webhook to be set.
-        :param 'WebhookConversionPatchArgs' webhook: webhook describes how to call the conversion webhook. Required when `strategy` is set to `Webhook`.
+        :param 'WebhookConversionPatchArgs' webhook: webhook describes how to call the conversion webhook. Required when `strategy` is set to `"Webhook"`.
         """
         if strategy is not None:
             pulumi.set(__self__, "strategy", strategy)
@@ -303,7 +303,7 @@ class CustomResourceConversionPatch(dict):
     @pulumi.getter
     def strategy(self) -> Optional[str]:
         """
-        strategy specifies how custom resources are converted between versions. Allowed values are: - `None`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `Webhook`: API Server will call to an external webhook to do the conversion. Additional information
+        strategy specifies how custom resources are converted between versions. Allowed values are: - `"None"`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `"Webhook"`: API Server will call to an external webhook to do the conversion. Additional information
           is needed for this option. This requires spec.preserveUnknownFields to be false, and spec.conversion.webhook to be set.
         """
         return pulumi.get(self, "strategy")
@@ -312,7 +312,7 @@ class CustomResourceConversionPatch(dict):
     @pulumi.getter
     def webhook(self) -> Optional['outputs.WebhookConversionPatch']:
         """
-        webhook describes how to call the conversion webhook. Required when `strategy` is set to `Webhook`.
+        webhook describes how to call the conversion webhook. Required when `strategy` is set to `"Webhook"`.
         """
         return pulumi.get(self, "webhook")
 
@@ -2862,9 +2862,27 @@ class ValidationRule(dict):
     """
     ValidationRule describes a validation rule written in the CEL expression language.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "messageExpression":
+            suggest = "message_expression"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ValidationRule. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ValidationRule.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ValidationRule.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  rule: str,
-                 message: Optional[str] = None):
+                 message: Optional[str] = None,
+                 message_expression: Optional[str] = None):
         """
         ValidationRule describes a validation rule written in the CEL expression language.
         :param str rule: Rule represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec The Rule is scoped to the location of the x-kubernetes-validations extension in the schema. The `self` variable in the CEL expression is bound to the scoped value. Example: - Rule scoped to the root of a resource with a status subresource: {"rule": "self.status.actual <= self.spec.maxDesired"}
@@ -2893,10 +2911,13 @@ class ValidationRule(dict):
                    are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
                    non-intersecting keys are appended, retaining their partial order.
         :param str message: Message represents the message displayed when validation fails. The message is required if the Rule contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host"
+        :param str message_expression: MessageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a rule, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the rule; the only difference is the return type. Example: "x must be less than max ("+string(self.max)+")"
         """
         pulumi.set(__self__, "rule", rule)
         if message is not None:
             pulumi.set(__self__, "message", message)
+        if message_expression is not None:
+            pulumi.set(__self__, "message_expression", message_expression)
 
     @property
     @pulumi.getter
@@ -2938,18 +2959,45 @@ class ValidationRule(dict):
         """
         return pulumi.get(self, "message")
 
+    @property
+    @pulumi.getter(name="messageExpression")
+    def message_expression(self) -> Optional[str]:
+        """
+        MessageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a rule, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the rule; the only difference is the return type. Example: "x must be less than max ("+string(self.max)+")"
+        """
+        return pulumi.get(self, "message_expression")
+
 
 @pulumi.output_type
 class ValidationRulePatch(dict):
     """
     ValidationRule describes a validation rule written in the CEL expression language.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "messageExpression":
+            suggest = "message_expression"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ValidationRulePatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ValidationRulePatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ValidationRulePatch.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  message: Optional[str] = None,
+                 message_expression: Optional[str] = None,
                  rule: Optional[str] = None):
         """
         ValidationRule describes a validation rule written in the CEL expression language.
         :param str message: Message represents the message displayed when validation fails. The message is required if the Rule contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host"
+        :param str message_expression: MessageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a rule, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the rule; the only difference is the return type. Example: "x must be less than max ("+string(self.max)+")"
         :param str rule: Rule represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec The Rule is scoped to the location of the x-kubernetes-validations extension in the schema. The `self` variable in the CEL expression is bound to the scoped value. Example: - Rule scoped to the root of a resource with a status subresource: {"rule": "self.status.actual <= self.spec.maxDesired"}
                
                If the Rule is scoped to an object with properties, the accessible properties of the object are field selectable via `self.field` and field presence can be checked via `has(self.field)`. Null valued fields are treated as absent fields in CEL expressions. If the Rule is scoped to an object with additionalProperties (i.e. a map) the value of the map are accessible via `self[mapKey]`, map containment can be checked via `mapKey in self` and all entries of the map are accessible via CEL macros and functions such as `self.all(...)`. If the Rule is scoped to an array, the elements of the array are accessible via `self[i]` and also by macros and functions. If the Rule is scoped to a scalar, `self` is bound to the scalar value. Examples: - Rule scoped to a map of objects: {"rule": "self.components['Widget'].priority < 10"} - Rule scoped to a list of integers: {"rule": "self.values.all(value, value >= 0 && value < 100)"} - Rule scoped to a string value: {"rule": "self.startsWith('kube')"}
@@ -2978,6 +3026,8 @@ class ValidationRulePatch(dict):
         """
         if message is not None:
             pulumi.set(__self__, "message", message)
+        if message_expression is not None:
+            pulumi.set(__self__, "message_expression", message_expression)
         if rule is not None:
             pulumi.set(__self__, "rule", rule)
 
@@ -2988,6 +3038,14 @@ class ValidationRulePatch(dict):
         Message represents the message displayed when validation fails. The message is required if the Rule contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host"
         """
         return pulumi.get(self, "message")
+
+    @property
+    @pulumi.getter(name="messageExpression")
+    def message_expression(self) -> Optional[str]:
+        """
+        MessageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a rule, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the rule; the only difference is the return type. Example: "x must be less than max ("+string(self.max)+")"
+        """
+        return pulumi.get(self, "message_expression")
 
     @property
     @pulumi.getter

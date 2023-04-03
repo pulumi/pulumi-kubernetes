@@ -6,9 +6,11 @@ package com.pulumi.kubernetes.core.v1.inputs;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.kubernetes.core.v1.inputs.ContainerStateArgs;
+import com.pulumi.kubernetes.core.v1.inputs.ResourceRequirementsArgs;
 import java.lang.Boolean;
 import java.lang.Integer;
 import java.lang.String;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import javax.annotation.Nullable;
@@ -23,14 +25,29 @@ public final class ContainerStatusArgs extends com.pulumi.resources.ResourceArgs
     public static final ContainerStatusArgs Empty = new ContainerStatusArgs();
 
     /**
-     * Container&#39;s ID in the format &#39;&lt;type&gt;://&lt;container_id&gt;&#39;.
+     * AllocatedResources represents the compute resources allocated for this container by the node. Kubelet sets this value to Container.Resources.Requests upon successful pod admission and after successfully admitting desired pod resize.
+     * 
+     */
+    @Import(name="allocatedResources")
+    private @Nullable Output<Map<String,String>> allocatedResources;
+
+    /**
+     * @return AllocatedResources represents the compute resources allocated for this container by the node. Kubelet sets this value to Container.Resources.Requests upon successful pod admission and after successfully admitting desired pod resize.
+     * 
+     */
+    public Optional<Output<Map<String,String>>> allocatedResources() {
+        return Optional.ofNullable(this.allocatedResources);
+    }
+
+    /**
+     * ContainerID is the ID of the container in the format &#39;&lt;type&gt;://&lt;container_id&gt;&#39;. Where type is a container runtime identifier, returned from Version call of CRI API (for example &#34;containerd&#34;).
      * 
      */
     @Import(name="containerID")
     private @Nullable Output<String> containerID;
 
     /**
-     * @return Container&#39;s ID in the format &#39;&lt;type&gt;://&lt;container_id&gt;&#39;.
+     * @return ContainerID is the ID of the container in the format &#39;&lt;type&gt;://&lt;container_id&gt;&#39;. Where type is a container runtime identifier, returned from Version call of CRI API (for example &#34;containerd&#34;).
      * 
      */
     public Optional<Output<String>> containerID() {
@@ -38,14 +55,14 @@ public final class ContainerStatusArgs extends com.pulumi.resources.ResourceArgs
     }
 
     /**
-     * The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images.
+     * Image is the name of container image that the container is running. The container image may not match the image used in the PodSpec, as it may have been resolved by the runtime. More info: https://kubernetes.io/docs/concepts/containers/images.
      * 
      */
     @Import(name="image", required=true)
     private Output<String> image;
 
     /**
-     * @return The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images.
+     * @return Image is the name of container image that the container is running. The container image may not match the image used in the PodSpec, as it may have been resolved by the runtime. More info: https://kubernetes.io/docs/concepts/containers/images.
      * 
      */
     public Output<String> image() {
@@ -53,14 +70,14 @@ public final class ContainerStatusArgs extends com.pulumi.resources.ResourceArgs
     }
 
     /**
-     * ImageID of the container&#39;s image.
+     * ImageID is the image ID of the container&#39;s image. The image ID may not match the image ID of the image used in the PodSpec, as it may have been resolved by the runtime.
      * 
      */
     @Import(name="imageID", required=true)
     private Output<String> imageID;
 
     /**
-     * @return ImageID of the container&#39;s image.
+     * @return ImageID is the image ID of the container&#39;s image. The image ID may not match the image ID of the image used in the PodSpec, as it may have been resolved by the runtime.
      * 
      */
     public Output<String> imageID() {
@@ -68,14 +85,14 @@ public final class ContainerStatusArgs extends com.pulumi.resources.ResourceArgs
     }
 
     /**
-     * Details about the container&#39;s last termination condition.
+     * LastTerminationState holds the last termination state of the container to help debug container crashes and restarts. This field is not populated if the container is still running and RestartCount is 0.
      * 
      */
     @Import(name="lastState")
     private @Nullable Output<ContainerStateArgs> lastState;
 
     /**
-     * @return Details about the container&#39;s last termination condition.
+     * @return LastTerminationState holds the last termination state of the container to help debug container crashes and restarts. This field is not populated if the container is still running and RestartCount is 0.
      * 
      */
     public Optional<Output<ContainerStateArgs>> lastState() {
@@ -83,14 +100,14 @@ public final class ContainerStatusArgs extends com.pulumi.resources.ResourceArgs
     }
 
     /**
-     * This must be a DNS_LABEL. Each container in a pod must have a unique name. Cannot be updated.
+     * Name is a DNS_LABEL representing the unique name of the container. Each container in a pod must have a unique name across all container types. Cannot be updated.
      * 
      */
     @Import(name="name", required=true)
     private Output<String> name;
 
     /**
-     * @return This must be a DNS_LABEL. Each container in a pod must have a unique name. Cannot be updated.
+     * @return Name is a DNS_LABEL representing the unique name of the container. Each container in a pod must have a unique name across all container types. Cannot be updated.
      * 
      */
     public Output<String> name() {
@@ -98,14 +115,18 @@ public final class ContainerStatusArgs extends com.pulumi.resources.ResourceArgs
     }
 
     /**
-     * Specifies whether the container has passed its readiness probe.
+     * Ready specifies whether the container is currently passing its readiness check. The value will change as readiness probes keep executing. If no readiness probes are specified, this field defaults to true once the container is fully started (see Started field).
+     * 
+     * The value is typically used to determine whether a container is ready to accept traffic.
      * 
      */
     @Import(name="ready", required=true)
     private Output<Boolean> ready;
 
     /**
-     * @return Specifies whether the container has passed its readiness probe.
+     * @return Ready specifies whether the container is currently passing its readiness check. The value will change as readiness probes keep executing. If no readiness probes are specified, this field defaults to true once the container is fully started (see Started field).
+     * 
+     * The value is typically used to determine whether a container is ready to accept traffic.
      * 
      */
     public Output<Boolean> ready() {
@@ -113,14 +134,29 @@ public final class ContainerStatusArgs extends com.pulumi.resources.ResourceArgs
     }
 
     /**
-     * The number of times the container has been restarted.
+     * Resources represents the compute resource requests and limits that have been successfully enacted on the running container after it has been started or has been successfully resized.
+     * 
+     */
+    @Import(name="resources")
+    private @Nullable Output<ResourceRequirementsArgs> resources;
+
+    /**
+     * @return Resources represents the compute resource requests and limits that have been successfully enacted on the running container after it has been started or has been successfully resized.
+     * 
+     */
+    public Optional<Output<ResourceRequirementsArgs>> resources() {
+        return Optional.ofNullable(this.resources);
+    }
+
+    /**
+     * RestartCount holds the number of times the container has been restarted. Kubelet makes an effort to always increment the value, but there are cases when the state may be lost due to node restarts and then the value may be reset to 0. The value is never negative.
      * 
      */
     @Import(name="restartCount", required=true)
     private Output<Integer> restartCount;
 
     /**
-     * @return The number of times the container has been restarted.
+     * @return RestartCount holds the number of times the container has been restarted. Kubelet makes an effort to always increment the value, but there are cases when the state may be lost due to node restarts and then the value may be reset to 0. The value is never negative.
      * 
      */
     public Output<Integer> restartCount() {
@@ -128,14 +164,14 @@ public final class ContainerStatusArgs extends com.pulumi.resources.ResourceArgs
     }
 
     /**
-     * Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is defined.
+     * Started indicates whether the container has finished its postStart lifecycle hook and passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. In both cases, startup probes will run again. Is always true when no startupProbe is defined and container is running and has passed the postStart lifecycle hook. The null value must be treated the same as false.
      * 
      */
     @Import(name="started")
     private @Nullable Output<Boolean> started;
 
     /**
-     * @return Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is defined.
+     * @return Started indicates whether the container has finished its postStart lifecycle hook and passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. In both cases, startup probes will run again. Is always true when no startupProbe is defined and container is running and has passed the postStart lifecycle hook. The null value must be treated the same as false.
      * 
      */
     public Optional<Output<Boolean>> started() {
@@ -143,14 +179,14 @@ public final class ContainerStatusArgs extends com.pulumi.resources.ResourceArgs
     }
 
     /**
-     * Details about the container&#39;s current condition.
+     * State holds details about the container&#39;s current condition.
      * 
      */
     @Import(name="state")
     private @Nullable Output<ContainerStateArgs> state;
 
     /**
-     * @return Details about the container&#39;s current condition.
+     * @return State holds details about the container&#39;s current condition.
      * 
      */
     public Optional<Output<ContainerStateArgs>> state() {
@@ -160,12 +196,14 @@ public final class ContainerStatusArgs extends com.pulumi.resources.ResourceArgs
     private ContainerStatusArgs() {}
 
     private ContainerStatusArgs(ContainerStatusArgs $) {
+        this.allocatedResources = $.allocatedResources;
         this.containerID = $.containerID;
         this.image = $.image;
         this.imageID = $.imageID;
         this.lastState = $.lastState;
         this.name = $.name;
         this.ready = $.ready;
+        this.resources = $.resources;
         this.restartCount = $.restartCount;
         this.started = $.started;
         this.state = $.state;
@@ -190,7 +228,28 @@ public final class ContainerStatusArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param containerID Container&#39;s ID in the format &#39;&lt;type&gt;://&lt;container_id&gt;&#39;.
+         * @param allocatedResources AllocatedResources represents the compute resources allocated for this container by the node. Kubelet sets this value to Container.Resources.Requests upon successful pod admission and after successfully admitting desired pod resize.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder allocatedResources(@Nullable Output<Map<String,String>> allocatedResources) {
+            $.allocatedResources = allocatedResources;
+            return this;
+        }
+
+        /**
+         * @param allocatedResources AllocatedResources represents the compute resources allocated for this container by the node. Kubelet sets this value to Container.Resources.Requests upon successful pod admission and after successfully admitting desired pod resize.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder allocatedResources(Map<String,String> allocatedResources) {
+            return allocatedResources(Output.of(allocatedResources));
+        }
+
+        /**
+         * @param containerID ContainerID is the ID of the container in the format &#39;&lt;type&gt;://&lt;container_id&gt;&#39;. Where type is a container runtime identifier, returned from Version call of CRI API (for example &#34;containerd&#34;).
          * 
          * @return builder
          * 
@@ -201,7 +260,7 @@ public final class ContainerStatusArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param containerID Container&#39;s ID in the format &#39;&lt;type&gt;://&lt;container_id&gt;&#39;.
+         * @param containerID ContainerID is the ID of the container in the format &#39;&lt;type&gt;://&lt;container_id&gt;&#39;. Where type is a container runtime identifier, returned from Version call of CRI API (for example &#34;containerd&#34;).
          * 
          * @return builder
          * 
@@ -211,7 +270,7 @@ public final class ContainerStatusArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param image The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images.
+         * @param image Image is the name of container image that the container is running. The container image may not match the image used in the PodSpec, as it may have been resolved by the runtime. More info: https://kubernetes.io/docs/concepts/containers/images.
          * 
          * @return builder
          * 
@@ -222,7 +281,7 @@ public final class ContainerStatusArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param image The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images.
+         * @param image Image is the name of container image that the container is running. The container image may not match the image used in the PodSpec, as it may have been resolved by the runtime. More info: https://kubernetes.io/docs/concepts/containers/images.
          * 
          * @return builder
          * 
@@ -232,7 +291,7 @@ public final class ContainerStatusArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param imageID ImageID of the container&#39;s image.
+         * @param imageID ImageID is the image ID of the container&#39;s image. The image ID may not match the image ID of the image used in the PodSpec, as it may have been resolved by the runtime.
          * 
          * @return builder
          * 
@@ -243,7 +302,7 @@ public final class ContainerStatusArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param imageID ImageID of the container&#39;s image.
+         * @param imageID ImageID is the image ID of the container&#39;s image. The image ID may not match the image ID of the image used in the PodSpec, as it may have been resolved by the runtime.
          * 
          * @return builder
          * 
@@ -253,7 +312,7 @@ public final class ContainerStatusArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param lastState Details about the container&#39;s last termination condition.
+         * @param lastState LastTerminationState holds the last termination state of the container to help debug container crashes and restarts. This field is not populated if the container is still running and RestartCount is 0.
          * 
          * @return builder
          * 
@@ -264,7 +323,7 @@ public final class ContainerStatusArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param lastState Details about the container&#39;s last termination condition.
+         * @param lastState LastTerminationState holds the last termination state of the container to help debug container crashes and restarts. This field is not populated if the container is still running and RestartCount is 0.
          * 
          * @return builder
          * 
@@ -274,7 +333,7 @@ public final class ContainerStatusArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param name This must be a DNS_LABEL. Each container in a pod must have a unique name. Cannot be updated.
+         * @param name Name is a DNS_LABEL representing the unique name of the container. Each container in a pod must have a unique name across all container types. Cannot be updated.
          * 
          * @return builder
          * 
@@ -285,7 +344,7 @@ public final class ContainerStatusArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param name This must be a DNS_LABEL. Each container in a pod must have a unique name. Cannot be updated.
+         * @param name Name is a DNS_LABEL representing the unique name of the container. Each container in a pod must have a unique name across all container types. Cannot be updated.
          * 
          * @return builder
          * 
@@ -295,7 +354,9 @@ public final class ContainerStatusArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param ready Specifies whether the container has passed its readiness probe.
+         * @param ready Ready specifies whether the container is currently passing its readiness check. The value will change as readiness probes keep executing. If no readiness probes are specified, this field defaults to true once the container is fully started (see Started field).
+         * 
+         * The value is typically used to determine whether a container is ready to accept traffic.
          * 
          * @return builder
          * 
@@ -306,7 +367,9 @@ public final class ContainerStatusArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param ready Specifies whether the container has passed its readiness probe.
+         * @param ready Ready specifies whether the container is currently passing its readiness check. The value will change as readiness probes keep executing. If no readiness probes are specified, this field defaults to true once the container is fully started (see Started field).
+         * 
+         * The value is typically used to determine whether a container is ready to accept traffic.
          * 
          * @return builder
          * 
@@ -316,7 +379,28 @@ public final class ContainerStatusArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param restartCount The number of times the container has been restarted.
+         * @param resources Resources represents the compute resource requests and limits that have been successfully enacted on the running container after it has been started or has been successfully resized.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder resources(@Nullable Output<ResourceRequirementsArgs> resources) {
+            $.resources = resources;
+            return this;
+        }
+
+        /**
+         * @param resources Resources represents the compute resource requests and limits that have been successfully enacted on the running container after it has been started or has been successfully resized.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder resources(ResourceRequirementsArgs resources) {
+            return resources(Output.of(resources));
+        }
+
+        /**
+         * @param restartCount RestartCount holds the number of times the container has been restarted. Kubelet makes an effort to always increment the value, but there are cases when the state may be lost due to node restarts and then the value may be reset to 0. The value is never negative.
          * 
          * @return builder
          * 
@@ -327,7 +411,7 @@ public final class ContainerStatusArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param restartCount The number of times the container has been restarted.
+         * @param restartCount RestartCount holds the number of times the container has been restarted. Kubelet makes an effort to always increment the value, but there are cases when the state may be lost due to node restarts and then the value may be reset to 0. The value is never negative.
          * 
          * @return builder
          * 
@@ -337,7 +421,7 @@ public final class ContainerStatusArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param started Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is defined.
+         * @param started Started indicates whether the container has finished its postStart lifecycle hook and passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. In both cases, startup probes will run again. Is always true when no startupProbe is defined and container is running and has passed the postStart lifecycle hook. The null value must be treated the same as false.
          * 
          * @return builder
          * 
@@ -348,7 +432,7 @@ public final class ContainerStatusArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param started Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is defined.
+         * @param started Started indicates whether the container has finished its postStart lifecycle hook and passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. In both cases, startup probes will run again. Is always true when no startupProbe is defined and container is running and has passed the postStart lifecycle hook. The null value must be treated the same as false.
          * 
          * @return builder
          * 
@@ -358,7 +442,7 @@ public final class ContainerStatusArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param state Details about the container&#39;s current condition.
+         * @param state State holds details about the container&#39;s current condition.
          * 
          * @return builder
          * 
@@ -369,7 +453,7 @@ public final class ContainerStatusArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param state Details about the container&#39;s current condition.
+         * @param state State holds details about the container&#39;s current condition.
          * 
          * @return builder
          * 
