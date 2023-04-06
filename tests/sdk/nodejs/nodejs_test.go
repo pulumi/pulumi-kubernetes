@@ -153,7 +153,6 @@ func TestAutonaming(t *testing.T) {
 					assert.Equal(t, "true", autonamed)
 
 					assert.NotEqual(t, step1Name, step2Name)
-
 				},
 			},
 			{
@@ -503,7 +502,6 @@ func TestGet(t *testing.T) {
 
 			ct1 := stackInfo.Deployment.Resources[3]
 			assert.Equal(t, "my-new-cron-object", string(ct1.URN.Name()))
-
 		},
 		EditDirs: []integration.EditDir{
 			{
@@ -1158,6 +1156,58 @@ func TestServerSideApplyEmptyMaps(t *testing.T) {
 	out, err = exec.Command("kubectl", "get", "configmap", "-o", "yaml", "-n", ns, cmName).CombinedOutput()
 	assert.NoError(t, err)
 	assert.Contains(t, string(out), "bar") // ConfigMap should have been updated with label foo=bar.
+}
+
+func TestServerSideApplyUpgrade(t *testing.T) {
+	test := baseOptions.With(integration.ProgramTestOptions{
+		Dir:                  filepath.Join("server-side-apply-upgrade", "step1"),
+		ExpectRefreshChanges: true,
+		OrderedConfig: []integration.ConfigValue{
+			{
+				Key:   "pulumi:disable-default-providers[0]",
+				Value: "kubernetes",
+				Path:  true,
+			},
+		},
+		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+			// Validate Provider config
+			provider := stackInfo.Outputs["provider"].(map[string]interface{})
+			enableSSA, ok, err := unstructured.NestedString(provider, "enableServerSideApply")
+			assert.True(t, ok)
+			assert.NoError(t, err)
+			assert.Equalf(t, "false", enableSSA, "SSA should be disabled")
+		},
+		EditDirs: []integration.EditDir{
+			{
+				Dir:      filepath.Join("server-side-apply-upgrade", "step2"),
+				Additive: true,
+				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+					// Validate Provider config
+					provider := stackInfo.Outputs["provider"].(map[string]interface{})
+					enableSSA, ok, err := unstructured.NestedString(provider, "enableServerSideApply")
+					assert.True(t, ok)
+					assert.NoError(t, err)
+					assert.Equalf(t, "true", enableSSA, "SSA should be enabled")
+				},
+			},
+			{
+				Dir:      filepath.Join("server-side-apply-upgrade", "step3"),
+				Additive: true,
+				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+					for _, res := range stackInfo.Deployment.Resources {
+						if res.Type == "kubernetes:apps/v1:Deployment" {
+							containers, ok := openapi.Pluck(res.Outputs, "spec", "template", "spec", "containers")
+							assert.True(t, ok)
+							containerStatus := containers.([]interface{})[0].(map[string]interface{})
+							image := containerStatus["image"]
+							assert.Equalf(t, image.(string), "nginx:1.17", "image should be updated")
+						}
+					}
+				},
+			},
+		},
+	})
+	integration.ProgramTest(t, &test)
 }
 
 func TestYAMLURL(t *testing.T) {
