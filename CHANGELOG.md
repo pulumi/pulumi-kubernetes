@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 3.24.3 (April 6, 2023)
+
 - Handle CSA to SSA field manager conflicts (https://github.com/pulumi/pulumi-kubernetes/pull/2354)
 
 ## 3.24.2 (March 16, 2023)
