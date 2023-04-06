@@ -1,5 +1,7 @@
 ## Unreleased
 
+- Handle CSA to SSA field manager conflicts (https://github.com/pulumi/pulumi-kubernetes/pull/2354)
+
 ## 3.24.2 (March 16, 2023)
 
 - Update Pulumi Java SDK to v0.8.0 (https://github.com/pulumi/pulumi-kubernetes/pull/2337)

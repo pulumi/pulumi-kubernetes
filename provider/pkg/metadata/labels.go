@@ -1,4 +1,4 @@
-// Copyright 2016-2019, Pulumi Corporation.
+// Copyright 2016-2023, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ import (
 )
 
 const (
-	managedByLabel = "app.kubernetes.io/managed-by"
+	LabelManagedBy = "app.kubernetes.io/managed-by"
 )
 
 // TrySetLabel attempts to set the specified key/value pair as a label on the provided Unstructured
@@ -96,13 +96,13 @@ func TrySetManagedByLabel(obj *unstructured.Unstructured) (bool, error) {
 	if exists {
 		managedBy = labelVal
 	}
-	return TrySetLabel(obj, managedByLabel, managedBy)
+	return TrySetLabel(obj, LabelManagedBy, managedBy)
 }
 
 // HasManagedByLabel returns true if the object has the `app.kubernetes.io/managed-by` label set to the value
 // of `PULUMI_KUBERNETES_MANAGED_BY_LABEL` EnvVar, `pulumi`, or is a computed value.
 func HasManagedByLabel(obj *unstructured.Unstructured) bool {
-	val := GetLabel(obj, managedByLabel)
+	val := GetLabel(obj, LabelManagedBy)
 	if isComputedValue(val) {
 		return true
 	}
