@@ -1,5 +1,7 @@
 ## Unreleased
 
+- Allow instantiation of kustomize.Directory with a not fully configured provider (https://github.com/pulumi/pulumi-kubernetes/pull/2347)
+
 ## 3.24.3 (April 6, 2023)
 
 - Handle CSA to SSA field manager conflicts (https://github.com/pulumi/pulumi-kubernetes/pull/2354)
