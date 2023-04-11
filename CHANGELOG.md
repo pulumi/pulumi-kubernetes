@@ -1,5 +1,56 @@
 ## Unreleased
 
+## 3.25.0 (April 11, 2023)
+- Update Kubernetes to v1.27.0
+
+### New resources:
+
+    authentication.k8s.io/v1beta1.SelfSubjectReview
+    authentication.k8s.io/v1beta1.SelfSubjectReviewPatch
+    certificates.k8s.io/v1alpha1.ClusterTrustBundle
+    certificates.k8s.io/v1alpha1.ClusterTrustBundleList
+    certificates.k8s.io/v1alpha1.ClusterTrustBundlePatch
+    networking.k8s.io/v1alpha1.IPAddress
+    networking.k8s.io/v1alpha1.IPAddressList
+    networking.k8s.io/v1alpha1.IPAddressPatch
+    resource.k8s.io/v1alpha2.PodSchedulingContext
+    resource.k8s.io/v1alpha2.PodSchedulingContextList
+    resource.k8s.io/v1alpha2.PodSchedulingContextPatch
+    resource.k8s.io/v1alpha2.ResourceClaim
+    resource.k8s.io/v1alpha2.ResourceClaimList
+    resource.k8s.io/v1alpha2.ResourceClaimPatch
+    resource.k8s.io/v1alpha2.ResourceClaimTemplate
+    resource.k8s.io/v1alpha2.ResourceClaimTemplateList
+    resource.k8s.io/v1alpha2.ResourceClaimTemplatePatch
+    resource.k8s.io/v1alpha2.ResourceClass
+    resource.k8s.io/v1alpha2.ResourceClassList
+    resource.k8s.io/v1alpha2.ResourceClassPatch
+
+### Resources moved from v1alpha1 to v1alpha2
+- "kubernetes:resource.k8s.io/v1alpha1:ResourceClaimTemplateList"
+- "kubernetes:resource.k8s.io/v1alpha1:ResourceClassList"
+- "kubernetes:resource.k8s.io/v1alpha1:ResourceClassPatch"
+- "kubernetes:resource.k8s.io/v1alpha1:ResourceClaimList"
+- "kubernetes:resource.k8s.io/v1alpha1:ResourceClass"
+- "kubernetes:resource.k8s.io/v1alpha1:ResourceClaimTemplate"
+- "kubernetes:resource.k8s.io/v1alpha1:ResourceClaimTemplatePatch"
+- "kubernetes:resource.k8s.io/v1alpha1:ResourceClaim"
+- "kubernetes:resource.k8s.io/v1alpha1:ResourceClaimPatch"
+
+### Resources moved from v1beta1 to v1
+
+- "kubernetes:storage.k8s.io/v1beta1:CSIStorageCapacity"
+- "kubernetes:storage.k8s.io/v1beta1:CSIStorageCapacityPatch"
+- "kubernetes:storage.k8s.io/v1beta1:CSIStorageCapacityList"
+
+### Resources renamed
+- "kubernetes:resource.k8s.io/v1alpha1:PodSchedulingList"
+  - Renamed to PodSchedulingContextList
+- "kubernetes:resource.k8s.io/v1alpha1:PodSchedulingPatch"
+  - Renamed to PodSchedulingContextPatch
+- "kubernetes:resource.k8s.io/v1alpha1:PodScheduling"
+  - Renamed to PodSchedulingContext
+
 ## 3.24.2 (March 16, 2023)
 
 - Update Pulumi Java SDK to v0.8.0 (https://github.com/pulumi/pulumi-kubernetes/pull/2337)
