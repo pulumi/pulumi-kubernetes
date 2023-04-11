@@ -77,6 +77,7 @@ import (
 	rbacv1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/rbac/v1"
 	rbacv1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/rbac/v1alpha1"
 	rbacv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/rbac/v1beta1"
+	resourcev1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/resource/v1alpha1"
 	resourcev1alpha2 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/resource/v1alpha2"
 	schedulingv1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/scheduling/v1"
 	schedulingv1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/scheduling/v1alpha1"
@@ -342,6 +343,10 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		"rbac.authorization.k8s.io/v1beta1/ClusterRoleList",
 		"rbac.authorization.k8s.io/v1beta1/RoleBindingList",
 		"rbac.authorization.k8s.io/v1beta1/RoleList",
+		"resource.k8s.io/v1alpha1/PodSchedulingList",
+		"resource.k8s.io/v1alpha1/ResourceClaimList",
+		"resource.k8s.io/v1alpha1/ResourceClaimTemplateList",
+		"resource.k8s.io/v1alpha1/ResourceClassList",
 		"resource.k8s.io/v1alpha2/PodSchedulingContextList",
 		"resource.k8s.io/v1alpha2/ResourceClaimList",
 		"resource.k8s.io/v1alpha2/ResourceClaimTemplateList",
@@ -358,6 +363,7 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		"storage.k8s.io/v1alpha1/VolumeAttachmentList",
 		"storage.k8s.io/v1beta1/CSIDriverList",
 		"storage.k8s.io/v1beta1/CSINodeList",
+		"storage.k8s.io/v1beta1/CSIStorageCapacityList",
 		"storage.k8s.io/v1beta1/StorageClassList",
 		"storage.k8s.io/v1beta1/VolumeAttachmentList":
 		var resources []resourceTuple
@@ -1185,6 +1191,34 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "resource.k8s.io/v1alpha1/PodScheduling":
+		var res resourcev1alpha1.PodScheduling
+		err := ctx.RegisterResource("kubernetes:resource.k8s.io/v1alpha1:PodScheduling", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "resource.k8s.io/v1alpha1/ResourceClaim":
+		var res resourcev1alpha1.ResourceClaim
+		err := ctx.RegisterResource("kubernetes:resource.k8s.io/v1alpha1:ResourceClaim", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "resource.k8s.io/v1alpha1/ResourceClaimTemplate":
+		var res resourcev1alpha1.ResourceClaimTemplate
+		err := ctx.RegisterResource("kubernetes:resource.k8s.io/v1alpha1:ResourceClaimTemplate", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "resource.k8s.io/v1alpha1/ResourceClass":
+		var res resourcev1alpha1.ResourceClass
+		err := ctx.RegisterResource("kubernetes:resource.k8s.io/v1alpha1:ResourceClass", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "resource.k8s.io/v1alpha2/PodSchedulingContext":
 		var res resourcev1alpha2.PodSchedulingContext
 		err := ctx.RegisterResource("kubernetes:resource.k8s.io/v1alpha2:PodSchedulingContext", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
@@ -1293,6 +1327,13 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 	case "storage.k8s.io/v1beta1/CSINode":
 		var res storagev1beta1.CSINode
 		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1beta1:CSINode", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "storage.k8s.io/v1beta1/CSIStorageCapacity":
+		var res storagev1beta1.CSIStorageCapacity
+		err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1beta1:CSIStorageCapacity", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}

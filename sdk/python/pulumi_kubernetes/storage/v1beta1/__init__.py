@@ -11,6 +11,9 @@ from .CSIDriverPatch import *
 from .CSINode import *
 from .CSINodeList import *
 from .CSINodePatch import *
+from .CSIStorageCapacity import *
+from .CSIStorageCapacityList import *
+from .CSIStorageCapacityPatch import *
 from .StorageClass import *
 from .StorageClassList import *
 from .StorageClassPatch import *

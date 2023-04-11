@@ -42,6 +42,12 @@ func NewResourceClaimTemplatePatch(ctx *pulumi.Context,
 
 	args.ApiVersion = pulumi.StringPtr("resource.k8s.io/v1alpha2")
 	args.Kind = pulumi.StringPtr("ResourceClaimTemplate")
+	aliases := pulumi.Aliases([]pulumi.Alias{
+		{
+			Type: pulumi.String("kubernetes:resource.k8s.io/v1alpha1:ResourceClaimTemplatePatch"),
+		},
+	})
+	opts = append(opts, aliases)
 	var resource ResourceClaimTemplatePatch
 	err := ctx.RegisterResource("kubernetes:resource.k8s.io/v1alpha2:ResourceClaimTemplatePatch", name, args, &resource, opts...)
 	if err != nil {

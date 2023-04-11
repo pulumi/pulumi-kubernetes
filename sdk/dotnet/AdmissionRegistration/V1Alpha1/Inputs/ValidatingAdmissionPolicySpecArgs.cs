@@ -74,7 +74,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1Alpha1
         [Input("paramKind")]
         public Input<Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1Alpha1.ParamKindArgs>? ParamKind { get; set; }
 
-        [Input("validations")]
+        [Input("validations", required: true)]
         private InputList<Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1Alpha1.ValidationArgs>? _validations;
 
         /// <summary>

@@ -1637,14 +1637,15 @@ class ValidatingAdmissionPolicySpec(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
+                 validations: Sequence['outputs.Validation'],
                  audit_annotations: Optional[Sequence['outputs.AuditAnnotation']] = None,
                  failure_policy: Optional[str] = None,
                  match_conditions: Optional[Sequence['outputs.MatchCondition']] = None,
                  match_constraints: Optional['outputs.MatchResources'] = None,
-                 param_kind: Optional['outputs.ParamKind'] = None,
-                 validations: Optional[Sequence['outputs.Validation']] = None):
+                 param_kind: Optional['outputs.ParamKind'] = None):
         """
         ValidatingAdmissionPolicySpec is the specification of the desired behavior of the AdmissionPolicy.
+        :param Sequence['ValidationArgs'] validations: Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
         :param Sequence['AuditAnnotationArgs'] audit_annotations: auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
         :param str failure_policy: failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
                
@@ -1667,8 +1668,8 @@ class ValidatingAdmissionPolicySpec(dict):
                     - If failurePolicy=Ignore, the policy is skipped
         :param 'MatchResourcesArgs' match_constraints: MatchConstraints specifies what resources this policy is designed to validate. The AdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API ValidatingAdmissionPolicy cannot match ValidatingAdmissionPolicy and ValidatingAdmissionPolicyBinding. Required.
         :param 'ParamKindArgs' param_kind: ParamKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If ParamKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in ValidatingAdmissionPolicyBinding, the params variable will be null.
-        :param Sequence['ValidationArgs'] validations: Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
         """
+        pulumi.set(__self__, "validations", validations)
         if audit_annotations is not None:
             pulumi.set(__self__, "audit_annotations", audit_annotations)
         if failure_policy is not None:
@@ -1679,8 +1680,14 @@ class ValidatingAdmissionPolicySpec(dict):
             pulumi.set(__self__, "match_constraints", match_constraints)
         if param_kind is not None:
             pulumi.set(__self__, "param_kind", param_kind)
-        if validations is not None:
-            pulumi.set(__self__, "validations", validations)
+
+    @property
+    @pulumi.getter
+    def validations(self) -> Sequence['outputs.Validation']:
+        """
+        Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
+        """
+        return pulumi.get(self, "validations")
 
     @property
     @pulumi.getter(name="auditAnnotations")
@@ -1738,14 +1745,6 @@ class ValidatingAdmissionPolicySpec(dict):
         ParamKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If ParamKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in ValidatingAdmissionPolicyBinding, the params variable will be null.
         """
         return pulumi.get(self, "param_kind")
-
-    @property
-    @pulumi.getter
-    def validations(self) -> Optional[Sequence['outputs.Validation']]:
-        """
-        Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
-        """
-        return pulumi.get(self, "validations")
 
 
 @pulumi.output_type

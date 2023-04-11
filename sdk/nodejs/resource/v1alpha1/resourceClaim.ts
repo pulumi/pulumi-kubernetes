@@ -87,6 +87,8 @@ export class ResourceClaim extends pulumi.CustomResource {
             resourceInputs["status"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const aliasOpts = { aliases: [{ type: "kubernetes:resource.k8s.io/v1alpha2:ResourceClaim" }] };
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(ResourceClaim.__pulumiType, name, resourceInputs, opts);
     }
 }

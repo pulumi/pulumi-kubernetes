@@ -35,6 +35,21 @@ export type CSINodePatch = import("./csinodePatch").CSINodePatch;
 export const CSINodePatch: typeof import("./csinodePatch").CSINodePatch = null as any;
 utilities.lazyLoad(exports, ["CSINodePatch"], () => require("./csinodePatch"));
 
+export { CSIStorageCapacityArgs } from "./csistorageCapacity";
+export type CSIStorageCapacity = import("./csistorageCapacity").CSIStorageCapacity;
+export const CSIStorageCapacity: typeof import("./csistorageCapacity").CSIStorageCapacity = null as any;
+utilities.lazyLoad(exports, ["CSIStorageCapacity"], () => require("./csistorageCapacity"));
+
+export { CSIStorageCapacityListArgs } from "./csistorageCapacityList";
+export type CSIStorageCapacityList = import("./csistorageCapacityList").CSIStorageCapacityList;
+export const CSIStorageCapacityList: typeof import("./csistorageCapacityList").CSIStorageCapacityList = null as any;
+utilities.lazyLoad(exports, ["CSIStorageCapacityList"], () => require("./csistorageCapacityList"));
+
+export { CSIStorageCapacityPatchArgs } from "./csistorageCapacityPatch";
+export type CSIStorageCapacityPatch = import("./csistorageCapacityPatch").CSIStorageCapacityPatch;
+export const CSIStorageCapacityPatch: typeof import("./csistorageCapacityPatch").CSIStorageCapacityPatch = null as any;
+utilities.lazyLoad(exports, ["CSIStorageCapacityPatch"], () => require("./csistorageCapacityPatch"));
+
 export { StorageClassArgs } from "./storageClass";
 export type StorageClass = import("./storageClass").StorageClass;
 export const StorageClass: typeof import("./storageClass").StorageClass = null as any;
@@ -82,6 +97,12 @@ const _module = {
                 return new CSINodeList(name, <any>undefined, { urn })
             case "kubernetes:storage.k8s.io/v1beta1:CSINodePatch":
                 return new CSINodePatch(name, <any>undefined, { urn })
+            case "kubernetes:storage.k8s.io/v1beta1:CSIStorageCapacity":
+                return new CSIStorageCapacity(name, <any>undefined, { urn })
+            case "kubernetes:storage.k8s.io/v1beta1:CSIStorageCapacityList":
+                return new CSIStorageCapacityList(name, <any>undefined, { urn })
+            case "kubernetes:storage.k8s.io/v1beta1:CSIStorageCapacityPatch":
+                return new CSIStorageCapacityPatch(name, <any>undefined, { urn })
             case "kubernetes:storage.k8s.io/v1beta1:StorageClass":
                 return new StorageClass(name, <any>undefined, { urn })
             case "kubernetes:storage.k8s.io/v1beta1:StorageClassList":

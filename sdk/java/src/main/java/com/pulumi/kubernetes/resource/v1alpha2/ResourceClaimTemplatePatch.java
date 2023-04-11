@@ -3,6 +3,7 @@
 
 package com.pulumi.kubernetes.resource.v1alpha2;
 
+import com.pulumi.core.Alias;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Export;
 import com.pulumi.core.annotations.ResourceType;
@@ -12,6 +13,7 @@ import com.pulumi.kubernetes.meta.v1.outputs.ObjectMetaPatch;
 import com.pulumi.kubernetes.resource.v1alpha2.ResourceClaimTemplatePatchArgs;
 import com.pulumi.kubernetes.resource.v1alpha2.outputs.ResourceClaimTemplateSpecPatch;
 import java.lang.String;
+import java.util.List;
 import java.util.Optional;
 import javax.annotation.Nullable;
 
@@ -128,6 +130,9 @@ public class ResourceClaimTemplatePatch extends com.pulumi.resources.CustomResou
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
+            .aliases(List.of(
+                Output.of(Alias.builder().type("kubernetes:resource.k8s.io/v1alpha1:ResourceClaimTemplatePatch").build())
+            ))
             .build();
         return com.pulumi.resources.CustomResourceOptions.merge(defaultOptions, options, id);
     }

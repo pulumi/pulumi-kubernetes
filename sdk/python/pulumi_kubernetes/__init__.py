@@ -774,6 +774,25 @@ _utilities.register(
  },
  {
   "pkg": "kubernetes",
+  "mod": "resource.k8s.io/v1alpha1",
+  "fqn": "pulumi_kubernetes.resource.v1alpha1",
+  "classes": {
+   "kubernetes:resource.k8s.io/v1alpha1:PodScheduling": "PodScheduling",
+   "kubernetes:resource.k8s.io/v1alpha1:PodSchedulingList": "PodSchedulingList",
+   "kubernetes:resource.k8s.io/v1alpha1:PodSchedulingPatch": "PodSchedulingPatch",
+   "kubernetes:resource.k8s.io/v1alpha1:ResourceClaim": "ResourceClaim",
+   "kubernetes:resource.k8s.io/v1alpha1:ResourceClaimList": "ResourceClaimList",
+   "kubernetes:resource.k8s.io/v1alpha1:ResourceClaimPatch": "ResourceClaimPatch",
+   "kubernetes:resource.k8s.io/v1alpha1:ResourceClaimTemplate": "ResourceClaimTemplate",
+   "kubernetes:resource.k8s.io/v1alpha1:ResourceClaimTemplateList": "ResourceClaimTemplateList",
+   "kubernetes:resource.k8s.io/v1alpha1:ResourceClaimTemplatePatch": "ResourceClaimTemplatePatch",
+   "kubernetes:resource.k8s.io/v1alpha1:ResourceClass": "ResourceClass",
+   "kubernetes:resource.k8s.io/v1alpha1:ResourceClassList": "ResourceClassList",
+   "kubernetes:resource.k8s.io/v1alpha1:ResourceClassPatch": "ResourceClassPatch"
+  }
+ },
+ {
+  "pkg": "kubernetes",
   "mod": "resource.k8s.io/v1alpha2",
   "fqn": "pulumi_kubernetes.resource.v1alpha2",
   "classes": {
@@ -874,6 +893,9 @@ _utilities.register(
    "kubernetes:storage.k8s.io/v1beta1:CSINode": "CSINode",
    "kubernetes:storage.k8s.io/v1beta1:CSINodeList": "CSINodeList",
    "kubernetes:storage.k8s.io/v1beta1:CSINodePatch": "CSINodePatch",
+   "kubernetes:storage.k8s.io/v1beta1:CSIStorageCapacity": "CSIStorageCapacity",
+   "kubernetes:storage.k8s.io/v1beta1:CSIStorageCapacityList": "CSIStorageCapacityList",
+   "kubernetes:storage.k8s.io/v1beta1:CSIStorageCapacityPatch": "CSIStorageCapacityPatch",
    "kubernetes:storage.k8s.io/v1beta1:StorageClass": "StorageClass",
    "kubernetes:storage.k8s.io/v1beta1:StorageClassList": "StorageClassList",
    "kubernetes:storage.k8s.io/v1beta1:StorageClassPatch": "StorageClassPatch",

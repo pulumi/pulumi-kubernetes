@@ -138,15 +138,15 @@ public final class ValidatingAdmissionPolicySpecArgs extends com.pulumi.resource
      * Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
      * 
      */
-    @Import(name="validations")
-    private @Nullable Output<List<ValidationArgs>> validations;
+    @Import(name="validations", required=true)
+    private Output<List<ValidationArgs>> validations;
 
     /**
      * @return Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
      * 
      */
-    public Optional<Output<List<ValidationArgs>>> validations() {
-        return Optional.ofNullable(this.validations);
+    public Output<List<ValidationArgs>> validations() {
+        return this.validations;
     }
 
     private ValidatingAdmissionPolicySpecArgs() {}
@@ -352,7 +352,7 @@ public final class ValidatingAdmissionPolicySpecArgs extends com.pulumi.resource
          * @return builder
          * 
          */
-        public Builder validations(@Nullable Output<List<ValidationArgs>> validations) {
+        public Builder validations(Output<List<ValidationArgs>> validations) {
             $.validations = validations;
             return this;
         }
@@ -378,6 +378,7 @@ public final class ValidatingAdmissionPolicySpecArgs extends com.pulumi.resource
         }
 
         public ValidatingAdmissionPolicySpecArgs build() {
+            $.validations = Objects.requireNonNull($.validations, "expected parameter 'validations' to be non-null");
             return $;
         }
     }

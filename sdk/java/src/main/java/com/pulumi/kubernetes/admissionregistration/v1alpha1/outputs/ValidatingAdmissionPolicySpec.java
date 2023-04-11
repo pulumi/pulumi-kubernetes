@@ -63,7 +63,7 @@ public final class ValidatingAdmissionPolicySpec {
      * @return Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
      * 
      */
-    private @Nullable List<Validation> validations;
+    private List<Validation> validations;
 
     private ValidatingAdmissionPolicySpec() {}
     /**
@@ -123,7 +123,7 @@ public final class ValidatingAdmissionPolicySpec {
      * 
      */
     public List<Validation> validations() {
-        return this.validations == null ? List.of() : this.validations;
+        return this.validations;
     }
 
     public static Builder builder() {
@@ -140,7 +140,7 @@ public final class ValidatingAdmissionPolicySpec {
         private @Nullable List<MatchCondition> matchConditions;
         private @Nullable MatchResources matchConstraints;
         private @Nullable ParamKind paramKind;
-        private @Nullable List<Validation> validations;
+        private List<Validation> validations;
         public Builder() {}
         public Builder(ValidatingAdmissionPolicySpec defaults) {
     	      Objects.requireNonNull(defaults);
@@ -184,8 +184,8 @@ public final class ValidatingAdmissionPolicySpec {
             return this;
         }
         @CustomType.Setter
-        public Builder validations(@Nullable List<Validation> validations) {
-            this.validations = validations;
+        public Builder validations(List<Validation> validations) {
+            this.validations = Objects.requireNonNull(validations);
             return this;
         }
         public Builder validations(Validation... validations) {
