@@ -216,7 +216,7 @@ func TestRemovedInVersion(t *testing.T) {
 		{toGVK(RbacV1B1, ClusterRole), &v122},
 		{toGVK(SchedulingV1A1, PriorityClass), &v117},
 		{toGVK(SchedulingV1B1, PriorityClass), &v117},
-		{toGVK(StorageV1A1, CSIStorageCapacity), &v124},
+		{toGVK(StorageV1A1, CSIStorageCapacity), &v127},
 	}
 	for _, tt := range tests {
 		t.Run(tt.gvk.String(), func(t *testing.T) {

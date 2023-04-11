@@ -45,11 +45,11 @@
 
 ### Resources renamed
 - "kubernetes:resource.k8s.io/v1alpha1:PodSchedulingList"
-  - Renamed to PodSchedulingContextList
+  - Renamed to kubernetes:resource.k8s.io/v1alpha2:PodSchedulingContextList
 - "kubernetes:resource.k8s.io/v1alpha1:PodSchedulingPatch"
-  - Renamed to PodSchedulingContextPatch
+  - Renamed to kubernetes:resource.k8s.io/v1alpha2:PodSchedulingContextPatch
 - "kubernetes:resource.k8s.io/v1alpha1:PodScheduling"
-  - Renamed to PodSchedulingContext
+  - Renamed to kubernetes:resource.k8s.io/v1alpha2:PodSchedulingContext
 
 ### New Features
 - Allow instantiation of kustomize.Directory with a not fully configured provider (https://github.com/pulumi/pulumi-kubernetes/pull/2347)
