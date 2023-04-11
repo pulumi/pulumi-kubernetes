@@ -102,8 +102,10 @@ const (
 	PodList                              Kind = "PodList"
 	PodPreset                            Kind = "PodPreset"
 	PodPresetList                        Kind = "PodPresetList"
+	PodScheduling                        Kind = "PodScheduling"
 	PodSchedulingContext                 Kind = "PodSchedulingContext"
 	PodSchedulingContextList             Kind = "PodSchedulingContextList"
+	PodSchedulingList                    Kind = "PodSchedulingList"
 	PodSecurityPolicy                    Kind = "PodSecurityPolicy"
 	PodSecurityPolicyList                Kind = "PodSecurityPolicyList"
 	PodTemplate                          Kind = "PodTemplate"
@@ -276,6 +278,7 @@ const (
 	RbacV1                    groupVersion = "rbac.authorization.k8s.io/v1"
 	RbacV1A1                  groupVersion = "rbac.authorization.k8s.io/v1alpha1"
 	RbacV1B1                  groupVersion = "rbac.authorization.k8s.io/v1beta1"
+	ResourceV1A1              groupVersion = "resource.k8s.io/v1alpha1"
 	ResourceV1A2              groupVersion = "resource.k8s.io/v1alpha2"
 	SchedulingV1              groupVersion = "scheduling.k8s.io/v1"
 	SchedulingV1A1            groupVersion = "scheduling.k8s.io/v1alpha1"
@@ -350,6 +353,7 @@ var KnownGroupVersions = codegen.NewStringSet(
 	"rbac.authorization.k8s.io/v1",
 	"rbac.authorization.k8s.io/v1alpha1",
 	"rbac.authorization.k8s.io/v1beta1",
+	"resource.k8s.io/v1alpha1",
 	"resource.k8s.io/v1alpha2",
 	"scheduling.k8s.io/v1",
 	"scheduling.k8s.io/v1alpha1",
