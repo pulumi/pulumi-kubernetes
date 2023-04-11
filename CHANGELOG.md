@@ -51,6 +51,13 @@
 - "kubernetes:resource.k8s.io/v1alpha1:PodScheduling"
   - Renamed to PodSchedulingContext
 
+### New Features
+- Allow instantiation of kustomize.Directory with a not fully configured provider (https://github.com/pulumi/pulumi-kubernetes/pull/2347)
+
+## 3.24.3 (April 6, 2023)
+
+- Handle CSA to SSA field manager conflicts (https://github.com/pulumi/pulumi-kubernetes/pull/2354)
+
 ## 3.24.2 (March 16, 2023)
 
 - Update Pulumi Java SDK to v0.8.0 (https://github.com/pulumi/pulumi-kubernetes/pull/2337)

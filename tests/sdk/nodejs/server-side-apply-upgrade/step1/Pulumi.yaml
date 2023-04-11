@@ -1,0 +1,3 @@
+name: server-side-apply-upgrade
+description: Tests Server-side Apply CSA to SSA upgrade
+runtime: nodejs
