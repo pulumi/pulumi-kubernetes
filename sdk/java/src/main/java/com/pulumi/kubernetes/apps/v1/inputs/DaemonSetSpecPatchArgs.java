@@ -68,14 +68,14 @@ public final class DaemonSetSpecPatchArgs extends com.pulumi.resources.ResourceA
     }
 
     /**
-     * An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template&#39;s node selector (or on every node if no node selector is specified). More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+     * An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template&#39;s node selector (or on every node if no node selector is specified). The only allowed template.spec.restartPolicy value is &#34;Always&#34;. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
      * 
      */
     @Import(name="template")
     private @Nullable Output<PodTemplateSpecPatchArgs> template;
 
     /**
-     * @return An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template&#39;s node selector (or on every node if no node selector is specified). More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+     * @return An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template&#39;s node selector (or on every node if no node selector is specified). The only allowed template.spec.restartPolicy value is &#34;Always&#34;. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
      * 
      */
     public Optional<Output<PodTemplateSpecPatchArgs>> template() {
@@ -189,7 +189,7 @@ public final class DaemonSetSpecPatchArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param template An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template&#39;s node selector (or on every node if no node selector is specified). More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+         * @param template An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template&#39;s node selector (or on every node if no node selector is specified). The only allowed template.spec.restartPolicy value is &#34;Always&#34;. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
          * 
          * @return builder
          * 
@@ -200,7 +200,7 @@ public final class DaemonSetSpecPatchArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param template An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template&#39;s node selector (or on every node if no node selector is specified). More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+         * @param template An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template&#39;s node selector (or on every node if no node selector is specified). The only allowed template.spec.restartPolicy value is &#34;Always&#34;. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
          * 
          * @return builder
          * 

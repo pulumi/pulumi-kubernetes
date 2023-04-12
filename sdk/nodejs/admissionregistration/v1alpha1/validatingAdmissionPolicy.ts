@@ -53,6 +53,10 @@ export class ValidatingAdmissionPolicy extends pulumi.CustomResource {
      * Specification of the desired behavior of the ValidatingAdmissionPolicy.
      */
     public readonly spec!: pulumi.Output<outputs.admissionregistration.v1alpha1.ValidatingAdmissionPolicySpec>;
+    /**
+     * The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
+     */
+    public /*out*/ readonly status!: pulumi.Output<outputs.admissionregistration.v1alpha1.ValidatingAdmissionPolicyStatus>;
 
     /**
      * Create a ValidatingAdmissionPolicy resource with the given unique name, arguments, and options.
@@ -69,11 +73,13 @@ export class ValidatingAdmissionPolicy extends pulumi.CustomResource {
             resourceInputs["kind"] = "ValidatingAdmissionPolicy";
             resourceInputs["metadata"] = args ? args.metadata : undefined;
             resourceInputs["spec"] = args ? args.spec : undefined;
+            resourceInputs["status"] = undefined /*out*/;
         } else {
             resourceInputs["apiVersion"] = undefined /*out*/;
             resourceInputs["kind"] = undefined /*out*/;
             resourceInputs["metadata"] = undefined /*out*/;
             resourceInputs["spec"] = undefined /*out*/;
+            resourceInputs["status"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(ValidatingAdmissionPolicy.__pulumiType, name, resourceInputs, opts);

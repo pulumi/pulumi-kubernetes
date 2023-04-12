@@ -21,7 +21,7 @@ public final class CustomResourceConversionArgs extends com.pulumi.resources.Res
     public static final CustomResourceConversionArgs Empty = new CustomResourceConversionArgs();
 
     /**
-     * strategy specifies how custom resources are converted between versions. Allowed values are: - `None`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `Webhook`: API Server will call to an external webhook to do the conversion. Additional information
+     * strategy specifies how custom resources are converted between versions. Allowed values are: - `&#34;None&#34;`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `&#34;Webhook&#34;`: API Server will call to an external webhook to do the conversion. Additional information
      *   is needed for this option. This requires spec.preserveUnknownFields to be false, and spec.conversion.webhook to be set.
      * 
      */
@@ -29,7 +29,7 @@ public final class CustomResourceConversionArgs extends com.pulumi.resources.Res
     private Output<String> strategy;
 
     /**
-     * @return strategy specifies how custom resources are converted between versions. Allowed values are: - `None`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `Webhook`: API Server will call to an external webhook to do the conversion. Additional information
+     * @return strategy specifies how custom resources are converted between versions. Allowed values are: - `&#34;None&#34;`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `&#34;Webhook&#34;`: API Server will call to an external webhook to do the conversion. Additional information
      *   is needed for this option. This requires spec.preserveUnknownFields to be false, and spec.conversion.webhook to be set.
      * 
      */
@@ -38,14 +38,14 @@ public final class CustomResourceConversionArgs extends com.pulumi.resources.Res
     }
 
     /**
-     * webhook describes how to call the conversion webhook. Required when `strategy` is set to `Webhook`.
+     * webhook describes how to call the conversion webhook. Required when `strategy` is set to `&#34;Webhook&#34;`.
      * 
      */
     @Import(name="webhook")
     private @Nullable Output<WebhookConversionArgs> webhook;
 
     /**
-     * @return webhook describes how to call the conversion webhook. Required when `strategy` is set to `Webhook`.
+     * @return webhook describes how to call the conversion webhook. Required when `strategy` is set to `&#34;Webhook&#34;`.
      * 
      */
     public Optional<Output<WebhookConversionArgs>> webhook() {
@@ -78,7 +78,7 @@ public final class CustomResourceConversionArgs extends com.pulumi.resources.Res
         }
 
         /**
-         * @param strategy strategy specifies how custom resources are converted between versions. Allowed values are: - `None`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `Webhook`: API Server will call to an external webhook to do the conversion. Additional information
+         * @param strategy strategy specifies how custom resources are converted between versions. Allowed values are: - `&#34;None&#34;`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `&#34;Webhook&#34;`: API Server will call to an external webhook to do the conversion. Additional information
          *   is needed for this option. This requires spec.preserveUnknownFields to be false, and spec.conversion.webhook to be set.
          * 
          * @return builder
@@ -90,7 +90,7 @@ public final class CustomResourceConversionArgs extends com.pulumi.resources.Res
         }
 
         /**
-         * @param strategy strategy specifies how custom resources are converted between versions. Allowed values are: - `None`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `Webhook`: API Server will call to an external webhook to do the conversion. Additional information
+         * @param strategy strategy specifies how custom resources are converted between versions. Allowed values are: - `&#34;None&#34;`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `&#34;Webhook&#34;`: API Server will call to an external webhook to do the conversion. Additional information
          *   is needed for this option. This requires spec.preserveUnknownFields to be false, and spec.conversion.webhook to be set.
          * 
          * @return builder
@@ -101,7 +101,7 @@ public final class CustomResourceConversionArgs extends com.pulumi.resources.Res
         }
 
         /**
-         * @param webhook webhook describes how to call the conversion webhook. Required when `strategy` is set to `Webhook`.
+         * @param webhook webhook describes how to call the conversion webhook. Required when `strategy` is set to `&#34;Webhook&#34;`.
          * 
          * @return builder
          * 
@@ -112,7 +112,7 @@ public final class CustomResourceConversionArgs extends com.pulumi.resources.Res
         }
 
         /**
-         * @param webhook webhook describes how to call the conversion webhook. Required when `strategy` is set to `Webhook`.
+         * @param webhook webhook describes how to call the conversion webhook. Required when `strategy` is set to `&#34;Webhook&#34;`.
          * 
          * @return builder
          * 

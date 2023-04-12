@@ -64,14 +64,14 @@ public final class ClusterCIDRArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+     * spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
     @Import(name="spec")
     private @Nullable Output<ClusterCIDRSpecArgs> spec;
 
     /**
-     * @return Spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+     * @return spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
     public Optional<Output<ClusterCIDRSpecArgs>> spec() {
@@ -169,7 +169,7 @@ public final class ClusterCIDRArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param spec Spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+         * @param spec spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
          * 
          * @return builder
          * 
@@ -180,7 +180,7 @@ public final class ClusterCIDRArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param spec Spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+         * @param spec spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
          * 
          * @return builder
          * 

@@ -37,14 +37,14 @@ public class StorageClassList extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.apiVersion);
     }
     /**
-     * Items is the list of StorageClasses
+     * items is the list of StorageClasses
      * 
      */
     @Export(name="items", refs={List.class,StorageClass.class}, tree="[0,1]")
     private Output<List<StorageClass>> items;
 
     /**
-     * @return Items is the list of StorageClasses
+     * @return items is the list of StorageClasses
      * 
      */
     public Output<List<StorageClass>> items() {

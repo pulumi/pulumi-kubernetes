@@ -10,6 +10,7 @@ import com.pulumi.core.internal.Codegen;
 import com.pulumi.kubernetes.Utilities;
 import com.pulumi.kubernetes.admissionregistration.v1alpha1.ValidatingAdmissionPolicyPatchArgs;
 import com.pulumi.kubernetes.admissionregistration.v1alpha1.outputs.ValidatingAdmissionPolicySpecPatch;
+import com.pulumi.kubernetes.admissionregistration.v1alpha1.outputs.ValidatingAdmissionPolicyStatusPatch;
 import com.pulumi.kubernetes.meta.v1.outputs.ObjectMetaPatch;
 import java.lang.String;
 import java.util.Optional;
@@ -82,6 +83,20 @@ public class ValidatingAdmissionPolicyPatch extends com.pulumi.resources.CustomR
      */
     public Output<Optional<ValidatingAdmissionPolicySpecPatch>> spec() {
         return Codegen.optional(this.spec);
+    }
+    /**
+     * The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
+     * 
+     */
+    @Export(name="status", refs={ValidatingAdmissionPolicyStatusPatch.class}, tree="[0]")
+    private Output</* @Nullable */ ValidatingAdmissionPolicyStatusPatch> status;
+
+    /**
+     * @return The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
+     * 
+     */
+    public Output<Optional<ValidatingAdmissionPolicyStatusPatch>> status() {
+        return Codegen.optional(this.status);
     }
 
     /**

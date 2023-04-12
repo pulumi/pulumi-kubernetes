@@ -42,7 +42,7 @@ export class LeaseList extends pulumi.CustomResource {
      */
     public readonly apiVersion!: pulumi.Output<"coordination.k8s.io/v1">;
     /**
-     * Items is a list of schema objects.
+     * items is a list of schema objects.
      */
     public readonly items!: pulumi.Output<outputs.coordination.v1.Lease[]>;
     /**
@@ -92,7 +92,7 @@ export interface LeaseListArgs {
      */
     apiVersion?: pulumi.Input<"coordination.k8s.io/v1">;
     /**
-     * Items is a list of schema objects.
+     * items is a list of schema objects.
      */
     items: pulumi.Input<pulumi.Input<inputs.coordination.v1.Lease>[]>;
     /**

@@ -23,14 +23,14 @@ public final class VolumeAttachmentStatusArgs extends com.pulumi.resources.Resou
     public static final VolumeAttachmentStatusArgs Empty = new VolumeAttachmentStatusArgs();
 
     /**
-     * The last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
+     * attachError represents the last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
      * 
      */
     @Import(name="attachError")
     private @Nullable Output<VolumeErrorArgs> attachError;
 
     /**
-     * @return The last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
+     * @return attachError represents the last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
      * 
      */
     public Optional<Output<VolumeErrorArgs>> attachError() {
@@ -38,14 +38,14 @@ public final class VolumeAttachmentStatusArgs extends com.pulumi.resources.Resou
     }
 
     /**
-     * Indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
+     * attached indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
      * 
      */
     @Import(name="attached", required=true)
     private Output<Boolean> attached;
 
     /**
-     * @return Indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
+     * @return attached indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
      * 
      */
     public Output<Boolean> attached() {
@@ -53,14 +53,14 @@ public final class VolumeAttachmentStatusArgs extends com.pulumi.resources.Resou
     }
 
     /**
-     * Upon successful attach, this field is populated with any information returned by the attach operation that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
+     * attachmentMetadata is populated with any information returned by the attach operation, upon successful attach, that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
      * 
      */
     @Import(name="attachmentMetadata")
     private @Nullable Output<Map<String,String>> attachmentMetadata;
 
     /**
-     * @return Upon successful attach, this field is populated with any information returned by the attach operation that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
+     * @return attachmentMetadata is populated with any information returned by the attach operation, upon successful attach, that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
      * 
      */
     public Optional<Output<Map<String,String>>> attachmentMetadata() {
@@ -68,14 +68,14 @@ public final class VolumeAttachmentStatusArgs extends com.pulumi.resources.Resou
     }
 
     /**
-     * The last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
+     * detachError represents the last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
      * 
      */
     @Import(name="detachError")
     private @Nullable Output<VolumeErrorArgs> detachError;
 
     /**
-     * @return The last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
+     * @return detachError represents the last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
      * 
      */
     public Optional<Output<VolumeErrorArgs>> detachError() {
@@ -110,7 +110,7 @@ public final class VolumeAttachmentStatusArgs extends com.pulumi.resources.Resou
         }
 
         /**
-         * @param attachError The last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
+         * @param attachError attachError represents the last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
          * 
          * @return builder
          * 
@@ -121,7 +121,7 @@ public final class VolumeAttachmentStatusArgs extends com.pulumi.resources.Resou
         }
 
         /**
-         * @param attachError The last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
+         * @param attachError attachError represents the last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
          * 
          * @return builder
          * 
@@ -131,7 +131,7 @@ public final class VolumeAttachmentStatusArgs extends com.pulumi.resources.Resou
         }
 
         /**
-         * @param attached Indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
+         * @param attached attached indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
          * 
          * @return builder
          * 
@@ -142,7 +142,7 @@ public final class VolumeAttachmentStatusArgs extends com.pulumi.resources.Resou
         }
 
         /**
-         * @param attached Indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
+         * @param attached attached indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
          * 
          * @return builder
          * 
@@ -152,7 +152,7 @@ public final class VolumeAttachmentStatusArgs extends com.pulumi.resources.Resou
         }
 
         /**
-         * @param attachmentMetadata Upon successful attach, this field is populated with any information returned by the attach operation that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
+         * @param attachmentMetadata attachmentMetadata is populated with any information returned by the attach operation, upon successful attach, that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
          * 
          * @return builder
          * 
@@ -163,7 +163,7 @@ public final class VolumeAttachmentStatusArgs extends com.pulumi.resources.Resou
         }
 
         /**
-         * @param attachmentMetadata Upon successful attach, this field is populated with any information returned by the attach operation that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
+         * @param attachmentMetadata attachmentMetadata is populated with any information returned by the attach operation, upon successful attach, that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
          * 
          * @return builder
          * 
@@ -173,7 +173,7 @@ public final class VolumeAttachmentStatusArgs extends com.pulumi.resources.Resou
         }
 
         /**
-         * @param detachError The last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
+         * @param detachError detachError represents the last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
          * 
          * @return builder
          * 
@@ -184,7 +184,7 @@ public final class VolumeAttachmentStatusArgs extends com.pulumi.resources.Resou
         }
 
         /**
-         * @param detachError The last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
+         * @param detachError detachError represents the last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
          * 
          * @return builder
          * 

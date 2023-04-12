@@ -17,7 +17,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking.V1
     public sealed class HTTPIngressRuleValuePatch
     {
         /// <summary>
-        /// A collection of paths that map requests to backends.
+        /// paths is a collection of paths that map requests to backends.
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Networking.V1.HTTPIngressPathPatch> Paths;
 

@@ -81,14 +81,14 @@ public final class OwnerReferencePatchArgs extends com.pulumi.resources.Resource
     }
 
     /**
-     * Name of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#names
+     * Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names
      * 
      */
     @Import(name="name")
     private @Nullable Output<String> name;
 
     /**
-     * @return Name of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#names
+     * @return Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names
      * 
      */
     public Optional<Output<String>> name() {
@@ -96,14 +96,14 @@ public final class OwnerReferencePatchArgs extends com.pulumi.resources.Resource
     }
 
     /**
-     * UID of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+     * UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
      * 
      */
     @Import(name="uid")
     private @Nullable Output<String> uid;
 
     /**
-     * @return UID of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+     * @return UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
      * 
      */
     public Optional<Output<String>> uid() {
@@ -224,7 +224,7 @@ public final class OwnerReferencePatchArgs extends com.pulumi.resources.Resource
         }
 
         /**
-         * @param name Name of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#names
+         * @param name Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names
          * 
          * @return builder
          * 
@@ -235,7 +235,7 @@ public final class OwnerReferencePatchArgs extends com.pulumi.resources.Resource
         }
 
         /**
-         * @param name Name of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#names
+         * @param name Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names
          * 
          * @return builder
          * 
@@ -245,7 +245,7 @@ public final class OwnerReferencePatchArgs extends com.pulumi.resources.Resource
         }
 
         /**
-         * @param uid UID of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+         * @param uid UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
          * 
          * @return builder
          * 
@@ -256,7 +256,7 @@ public final class OwnerReferencePatchArgs extends com.pulumi.resources.Resource
         }
 
         /**
-         * @param uid UID of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+         * @param uid UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
          * 
          * @return builder
          * 

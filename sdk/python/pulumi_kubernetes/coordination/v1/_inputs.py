@@ -28,7 +28,7 @@ class LeaseSpecPatchArgs:
         LeaseSpec is a specification of a Lease.
         :param pulumi.Input[str] acquire_time: acquireTime is a time when the current lease was acquired.
         :param pulumi.Input[str] holder_identity: holderIdentity contains the identity of the holder of a current lease.
-        :param pulumi.Input[int] lease_duration_seconds: leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed RenewTime.
+        :param pulumi.Input[int] lease_duration_seconds: leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed renewTime.
         :param pulumi.Input[int] lease_transitions: leaseTransitions is the number of transitions of a lease between holders.
         :param pulumi.Input[str] renew_time: renewTime is a time when the current holder of a lease has last updated the lease.
         """
@@ -71,7 +71,7 @@ class LeaseSpecPatchArgs:
     @pulumi.getter(name="leaseDurationSeconds")
     def lease_duration_seconds(self) -> Optional[pulumi.Input[int]]:
         """
-        leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed RenewTime.
+        leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed renewTime.
         """
         return pulumi.get(self, "lease_duration_seconds")
 
@@ -116,7 +116,7 @@ class LeaseSpecArgs:
         LeaseSpec is a specification of a Lease.
         :param pulumi.Input[str] acquire_time: acquireTime is a time when the current lease was acquired.
         :param pulumi.Input[str] holder_identity: holderIdentity contains the identity of the holder of a current lease.
-        :param pulumi.Input[int] lease_duration_seconds: leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed RenewTime.
+        :param pulumi.Input[int] lease_duration_seconds: leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed renewTime.
         :param pulumi.Input[int] lease_transitions: leaseTransitions is the number of transitions of a lease between holders.
         :param pulumi.Input[str] renew_time: renewTime is a time when the current holder of a lease has last updated the lease.
         """
@@ -159,7 +159,7 @@ class LeaseSpecArgs:
     @pulumi.getter(name="leaseDurationSeconds")
     def lease_duration_seconds(self) -> Optional[pulumi.Input[int]]:
         """
-        leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed RenewTime.
+        leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed renewTime.
         """
         return pulumi.get(self, "lease_duration_seconds")
 
@@ -204,7 +204,7 @@ class LeaseArgs:
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input['LeaseSpecArgs'] spec: Specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        :param pulumi.Input['LeaseSpecArgs'] spec: spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'coordination.k8s.io/v1')
@@ -255,7 +255,7 @@ class LeaseArgs:
     @pulumi.getter
     def spec(self) -> Optional[pulumi.Input['LeaseSpecArgs']]:
         """
-        Specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
         return pulumi.get(self, "spec")
 

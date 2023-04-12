@@ -40,7 +40,7 @@ namespace Pulumi.Kubernetes.Coordination.V1
         public Output<Pulumi.Kubernetes.Types.Outputs.Meta.V1.ObjectMetaPatch> Metadata { get; private set; } = null!;
 
         /// <summary>
-        /// Specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        /// spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         /// </summary>
         [Output("spec")]
         public Output<Pulumi.Kubernetes.Types.Outputs.Coordination.V1.LeaseSpecPatch> Spec { get; private set; } = null!;
@@ -128,7 +128,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Coordination.V1
         public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaPatchArgs>? Metadata { get; set; }
 
         /// <summary>
-        /// Specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        /// spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         /// </summary>
         [Input("spec")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Coordination.V1.LeaseSpecPatchArgs>? Spec { get; set; }

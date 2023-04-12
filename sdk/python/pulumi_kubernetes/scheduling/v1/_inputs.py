@@ -26,13 +26,13 @@ class PriorityClassArgs:
                  preemption_policy: Optional[pulumi.Input[str]] = None):
         """
         PriorityClass defines mapping from a priority class name to the priority integer value. The value can be any valid integer.
-        :param pulumi.Input[int] value: The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
+        :param pulumi.Input[int] value: value represents the integer value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] description: description is an arbitrary string that usually provides guidelines on when this priority class should be used.
         :param pulumi.Input[bool] global_default: globalDefault specifies whether this PriorityClass should be considered as the default priority for pods that do not have any priority class. Only one PriorityClass can be marked as `globalDefault`. However, if more than one PriorityClasses exists with their `globalDefault` field set to true, the smallest value of such global default PriorityClasses will be used as the default priority.
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input[str] preemption_policy: PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+        :param pulumi.Input[str] preemption_policy: preemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
         """
         pulumi.set(__self__, "value", value)
         if api_version is not None:
@@ -52,7 +52,7 @@ class PriorityClassArgs:
     @pulumi.getter
     def value(self) -> pulumi.Input[int]:
         """
-        The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
+        value represents the integer value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
         """
         return pulumi.get(self, "value")
 
@@ -124,7 +124,7 @@ class PriorityClassArgs:
     @pulumi.getter(name="preemptionPolicy")
     def preemption_policy(self) -> Optional[pulumi.Input[str]]:
         """
-        PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+        preemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
         """
         return pulumi.get(self, "preemption_policy")
 

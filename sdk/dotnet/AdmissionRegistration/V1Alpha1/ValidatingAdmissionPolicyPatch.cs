@@ -45,6 +45,12 @@ namespace Pulumi.Kubernetes.AdmissionRegistration.V1Alpha1
         [Output("spec")]
         public Output<Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration.V1Alpha1.ValidatingAdmissionPolicySpecPatch> Spec { get; private set; } = null!;
 
+        /// <summary>
+        /// The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
+        /// </summary>
+        [Output("status")]
+        public Output<Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration.V1Alpha1.ValidatingAdmissionPolicyStatusPatch> Status { get; private set; } = null!;
+
 
         /// <summary>
         /// Create a ValidatingAdmissionPolicyPatch resource with the given unique name, arguments, and options.

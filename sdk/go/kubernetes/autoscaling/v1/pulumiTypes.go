@@ -13,11 +13,11 @@ import (
 
 // CrossVersionObjectReference contains enough information to let you identify the referred resource.
 type CrossVersionObjectReference struct {
-	// API version of the referent
+	// apiVersion is the API version of the referent
 	ApiVersion *string `pulumi:"apiVersion"`
-	// Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	// kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind string `pulumi:"kind"`
-	// Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
+	// name is the name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 	Name string `pulumi:"name"`
 }
 
@@ -34,11 +34,11 @@ type CrossVersionObjectReferenceInput interface {
 
 // CrossVersionObjectReference contains enough information to let you identify the referred resource.
 type CrossVersionObjectReferenceArgs struct {
-	// API version of the referent
+	// apiVersion is the API version of the referent
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	// kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringInput `pulumi:"kind"`
-	// Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
+	// name is the name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 	Name pulumi.StringInput `pulumi:"name"`
 }
 
@@ -120,17 +120,17 @@ func (o CrossVersionObjectReferenceOutput) ToCrossVersionObjectReferencePtrOutpu
 	}).(CrossVersionObjectReferencePtrOutput)
 }
 
-// API version of the referent
+// apiVersion is the API version of the referent
 func (o CrossVersionObjectReferenceOutput) ApiVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CrossVersionObjectReference) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
-// Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+// kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 func (o CrossVersionObjectReferenceOutput) Kind() pulumi.StringOutput {
 	return o.ApplyT(func(v CrossVersionObjectReference) string { return v.Kind }).(pulumi.StringOutput)
 }
 
-// Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
+// name is the name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 func (o CrossVersionObjectReferenceOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v CrossVersionObjectReference) string { return v.Name }).(pulumi.StringOutput)
 }
@@ -159,7 +159,7 @@ func (o CrossVersionObjectReferencePtrOutput) Elem() CrossVersionObjectReference
 	}).(CrossVersionObjectReferenceOutput)
 }
 
-// API version of the referent
+// apiVersion is the API version of the referent
 func (o CrossVersionObjectReferencePtrOutput) ApiVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CrossVersionObjectReference) *string {
 		if v == nil {
@@ -169,7 +169,7 @@ func (o CrossVersionObjectReferencePtrOutput) ApiVersion() pulumi.StringPtrOutpu
 	}).(pulumi.StringPtrOutput)
 }
 
-// Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+// kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 func (o CrossVersionObjectReferencePtrOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CrossVersionObjectReference) *string {
 		if v == nil {
@@ -179,7 +179,7 @@ func (o CrossVersionObjectReferencePtrOutput) Kind() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
+// name is the name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 func (o CrossVersionObjectReferencePtrOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CrossVersionObjectReference) *string {
 		if v == nil {
@@ -191,11 +191,11 @@ func (o CrossVersionObjectReferencePtrOutput) Name() pulumi.StringPtrOutput {
 
 // CrossVersionObjectReference contains enough information to let you identify the referred resource.
 type CrossVersionObjectReferencePatch struct {
-	// API version of the referent
+	// apiVersion is the API version of the referent
 	ApiVersion *string `pulumi:"apiVersion"`
-	// Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	// kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
+	// name is the name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 	Name *string `pulumi:"name"`
 }
 
@@ -212,11 +212,11 @@ type CrossVersionObjectReferencePatchInput interface {
 
 // CrossVersionObjectReference contains enough information to let you identify the referred resource.
 type CrossVersionObjectReferencePatchArgs struct {
-	// API version of the referent
+	// apiVersion is the API version of the referent
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	// kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
+	// name is the name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 	Name pulumi.StringPtrInput `pulumi:"name"`
 }
 
@@ -298,17 +298,17 @@ func (o CrossVersionObjectReferencePatchOutput) ToCrossVersionObjectReferencePat
 	}).(CrossVersionObjectReferencePatchPtrOutput)
 }
 
-// API version of the referent
+// apiVersion is the API version of the referent
 func (o CrossVersionObjectReferencePatchOutput) ApiVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CrossVersionObjectReferencePatch) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
-// Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+// kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 func (o CrossVersionObjectReferencePatchOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CrossVersionObjectReferencePatch) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
+// name is the name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 func (o CrossVersionObjectReferencePatchOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CrossVersionObjectReferencePatch) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
@@ -337,7 +337,7 @@ func (o CrossVersionObjectReferencePatchPtrOutput) Elem() CrossVersionObjectRefe
 	}).(CrossVersionObjectReferencePatchOutput)
 }
 
-// API version of the referent
+// apiVersion is the API version of the referent
 func (o CrossVersionObjectReferencePatchPtrOutput) ApiVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CrossVersionObjectReferencePatch) *string {
 		if v == nil {
@@ -347,7 +347,7 @@ func (o CrossVersionObjectReferencePatchPtrOutput) ApiVersion() pulumi.StringPtr
 	}).(pulumi.StringPtrOutput)
 }
 
-// Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+// kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 func (o CrossVersionObjectReferencePatchPtrOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CrossVersionObjectReferencePatch) *string {
 		if v == nil {
@@ -357,7 +357,7 @@ func (o CrossVersionObjectReferencePatchPtrOutput) Kind() pulumi.StringPtrOutput
 	}).(pulumi.StringPtrOutput)
 }
 
-// Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
+// name is the name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 func (o CrossVersionObjectReferencePatchPtrOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CrossVersionObjectReferencePatch) *string {
 		if v == nil {
@@ -375,9 +375,9 @@ type HorizontalPodAutoscalerType struct {
 	Kind *string `pulumi:"kind"`
 	// Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-	// behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+	// spec defines the behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
 	Spec *HorizontalPodAutoscalerSpec `pulumi:"spec"`
-	// current information about the autoscaler.
+	// status is the current information about the autoscaler.
 	Status *HorizontalPodAutoscalerStatus `pulumi:"status"`
 }
 
@@ -400,9 +400,9 @@ type HorizontalPodAutoscalerTypeArgs struct {
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
-	// behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+	// spec defines the behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
 	Spec HorizontalPodAutoscalerSpecPtrInput `pulumi:"spec"`
-	// current information about the autoscaler.
+	// status is the current information about the autoscaler.
 	Status HorizontalPodAutoscalerStatusPtrInput `pulumi:"status"`
 }
 
@@ -473,12 +473,12 @@ func (o HorizontalPodAutoscalerTypeOutput) Metadata() metav1.ObjectMetaPtrOutput
 	return o.ApplyT(func(v HorizontalPodAutoscalerType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
-// behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+// spec defines the behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
 func (o HorizontalPodAutoscalerTypeOutput) Spec() HorizontalPodAutoscalerSpecPtrOutput {
 	return o.ApplyT(func(v HorizontalPodAutoscalerType) *HorizontalPodAutoscalerSpec { return v.Spec }).(HorizontalPodAutoscalerSpecPtrOutput)
 }
 
-// current information about the autoscaler.
+// status is the current information about the autoscaler.
 func (o HorizontalPodAutoscalerTypeOutput) Status() HorizontalPodAutoscalerStatusPtrOutput {
 	return o.ApplyT(func(v HorizontalPodAutoscalerType) *HorizontalPodAutoscalerStatus { return v.Status }).(HorizontalPodAutoscalerStatusPtrOutput)
 }
@@ -507,7 +507,7 @@ func (o HorizontalPodAutoscalerTypeArrayOutput) Index(i pulumi.IntInput) Horizon
 type HorizontalPodAutoscalerListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
-	// list of horizontal pod autoscaler objects.
+	// items is the list of horizontal pod autoscaler objects.
 	Items []HorizontalPodAutoscalerType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
@@ -530,7 +530,7 @@ type HorizontalPodAutoscalerListTypeInput interface {
 type HorizontalPodAutoscalerListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// list of horizontal pod autoscaler objects.
+	// items is the list of horizontal pod autoscaler objects.
 	Items HorizontalPodAutoscalerTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
@@ -570,7 +570,7 @@ func (o HorizontalPodAutoscalerListTypeOutput) ApiVersion() pulumi.StringPtrOutp
 	return o.ApplyT(func(v HorizontalPodAutoscalerListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
-// list of horizontal pod autoscaler objects.
+// items is the list of horizontal pod autoscaler objects.
 func (o HorizontalPodAutoscalerListTypeOutput) Items() HorizontalPodAutoscalerTypeArrayOutput {
 	return o.ApplyT(func(v HorizontalPodAutoscalerListType) []HorizontalPodAutoscalerType { return v.Items }).(HorizontalPodAutoscalerTypeArrayOutput)
 }
@@ -593,9 +593,9 @@ type HorizontalPodAutoscalerPatchType struct {
 	Kind *string `pulumi:"kind"`
 	// Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
-	// behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+	// spec defines the behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
 	Spec *HorizontalPodAutoscalerSpecPatch `pulumi:"spec"`
-	// current information about the autoscaler.
+	// status is the current information about the autoscaler.
 	Status *HorizontalPodAutoscalerStatusPatch `pulumi:"status"`
 }
 
@@ -618,9 +618,9 @@ type HorizontalPodAutoscalerPatchTypeArgs struct {
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
-	// behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+	// spec defines the behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
 	Spec HorizontalPodAutoscalerSpecPatchPtrInput `pulumi:"spec"`
-	// current information about the autoscaler.
+	// status is the current information about the autoscaler.
 	Status HorizontalPodAutoscalerStatusPatchPtrInput `pulumi:"status"`
 }
 
@@ -666,25 +666,25 @@ func (o HorizontalPodAutoscalerPatchTypeOutput) Metadata() metav1.ObjectMetaPatc
 	return o.ApplyT(func(v HorizontalPodAutoscalerPatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
 }
 
-// behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+// spec defines the behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
 func (o HorizontalPodAutoscalerPatchTypeOutput) Spec() HorizontalPodAutoscalerSpecPatchPtrOutput {
 	return o.ApplyT(func(v HorizontalPodAutoscalerPatchType) *HorizontalPodAutoscalerSpecPatch { return v.Spec }).(HorizontalPodAutoscalerSpecPatchPtrOutput)
 }
 
-// current information about the autoscaler.
+// status is the current information about the autoscaler.
 func (o HorizontalPodAutoscalerPatchTypeOutput) Status() HorizontalPodAutoscalerStatusPatchPtrOutput {
 	return o.ApplyT(func(v HorizontalPodAutoscalerPatchType) *HorizontalPodAutoscalerStatusPatch { return v.Status }).(HorizontalPodAutoscalerStatusPatchPtrOutput)
 }
 
 // specification of a horizontal pod autoscaler.
 type HorizontalPodAutoscalerSpec struct {
-	// upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
+	// maxReplicas is the upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
 	MaxReplicas int `pulumi:"maxReplicas"`
 	// minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.
 	MinReplicas *int `pulumi:"minReplicas"`
 	// reference to scaled resource; horizontal pod autoscaler will learn the current resource consumption and will set the desired number of pods by using its Scale subresource.
 	ScaleTargetRef CrossVersionObjectReference `pulumi:"scaleTargetRef"`
-	// target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
+	// targetCPUUtilizationPercentage is the target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
 	TargetCPUUtilizationPercentage *int `pulumi:"targetCPUUtilizationPercentage"`
 }
 
@@ -701,13 +701,13 @@ type HorizontalPodAutoscalerSpecInput interface {
 
 // specification of a horizontal pod autoscaler.
 type HorizontalPodAutoscalerSpecArgs struct {
-	// upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
+	// maxReplicas is the upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
 	MaxReplicas pulumi.IntInput `pulumi:"maxReplicas"`
 	// minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.
 	MinReplicas pulumi.IntPtrInput `pulumi:"minReplicas"`
 	// reference to scaled resource; horizontal pod autoscaler will learn the current resource consumption and will set the desired number of pods by using its Scale subresource.
 	ScaleTargetRef CrossVersionObjectReferenceInput `pulumi:"scaleTargetRef"`
-	// target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
+	// targetCPUUtilizationPercentage is the target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
 	TargetCPUUtilizationPercentage pulumi.IntPtrInput `pulumi:"targetCPUUtilizationPercentage"`
 }
 
@@ -789,7 +789,7 @@ func (o HorizontalPodAutoscalerSpecOutput) ToHorizontalPodAutoscalerSpecPtrOutpu
 	}).(HorizontalPodAutoscalerSpecPtrOutput)
 }
 
-// upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
+// maxReplicas is the upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
 func (o HorizontalPodAutoscalerSpecOutput) MaxReplicas() pulumi.IntOutput {
 	return o.ApplyT(func(v HorizontalPodAutoscalerSpec) int { return v.MaxReplicas }).(pulumi.IntOutput)
 }
@@ -804,7 +804,7 @@ func (o HorizontalPodAutoscalerSpecOutput) ScaleTargetRef() CrossVersionObjectRe
 	return o.ApplyT(func(v HorizontalPodAutoscalerSpec) CrossVersionObjectReference { return v.ScaleTargetRef }).(CrossVersionObjectReferenceOutput)
 }
 
-// target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
+// targetCPUUtilizationPercentage is the target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
 func (o HorizontalPodAutoscalerSpecOutput) TargetCPUUtilizationPercentage() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v HorizontalPodAutoscalerSpec) *int { return v.TargetCPUUtilizationPercentage }).(pulumi.IntPtrOutput)
 }
@@ -833,7 +833,7 @@ func (o HorizontalPodAutoscalerSpecPtrOutput) Elem() HorizontalPodAutoscalerSpec
 	}).(HorizontalPodAutoscalerSpecOutput)
 }
 
-// upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
+// maxReplicas is the upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
 func (o HorizontalPodAutoscalerSpecPtrOutput) MaxReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *HorizontalPodAutoscalerSpec) *int {
 		if v == nil {
@@ -863,7 +863,7 @@ func (o HorizontalPodAutoscalerSpecPtrOutput) ScaleTargetRef() CrossVersionObjec
 	}).(CrossVersionObjectReferencePtrOutput)
 }
 
-// target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
+// targetCPUUtilizationPercentage is the target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
 func (o HorizontalPodAutoscalerSpecPtrOutput) TargetCPUUtilizationPercentage() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *HorizontalPodAutoscalerSpec) *int {
 		if v == nil {
@@ -875,13 +875,13 @@ func (o HorizontalPodAutoscalerSpecPtrOutput) TargetCPUUtilizationPercentage() p
 
 // specification of a horizontal pod autoscaler.
 type HorizontalPodAutoscalerSpecPatch struct {
-	// upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
+	// maxReplicas is the upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
 	MaxReplicas *int `pulumi:"maxReplicas"`
 	// minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.
 	MinReplicas *int `pulumi:"minReplicas"`
 	// reference to scaled resource; horizontal pod autoscaler will learn the current resource consumption and will set the desired number of pods by using its Scale subresource.
 	ScaleTargetRef *CrossVersionObjectReferencePatch `pulumi:"scaleTargetRef"`
-	// target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
+	// targetCPUUtilizationPercentage is the target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
 	TargetCPUUtilizationPercentage *int `pulumi:"targetCPUUtilizationPercentage"`
 }
 
@@ -898,13 +898,13 @@ type HorizontalPodAutoscalerSpecPatchInput interface {
 
 // specification of a horizontal pod autoscaler.
 type HorizontalPodAutoscalerSpecPatchArgs struct {
-	// upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
+	// maxReplicas is the upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
 	MaxReplicas pulumi.IntPtrInput `pulumi:"maxReplicas"`
 	// minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.
 	MinReplicas pulumi.IntPtrInput `pulumi:"minReplicas"`
 	// reference to scaled resource; horizontal pod autoscaler will learn the current resource consumption and will set the desired number of pods by using its Scale subresource.
 	ScaleTargetRef CrossVersionObjectReferencePatchPtrInput `pulumi:"scaleTargetRef"`
-	// target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
+	// targetCPUUtilizationPercentage is the target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
 	TargetCPUUtilizationPercentage pulumi.IntPtrInput `pulumi:"targetCPUUtilizationPercentage"`
 }
 
@@ -986,7 +986,7 @@ func (o HorizontalPodAutoscalerSpecPatchOutput) ToHorizontalPodAutoscalerSpecPat
 	}).(HorizontalPodAutoscalerSpecPatchPtrOutput)
 }
 
-// upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
+// maxReplicas is the upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
 func (o HorizontalPodAutoscalerSpecPatchOutput) MaxReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v HorizontalPodAutoscalerSpecPatch) *int { return v.MaxReplicas }).(pulumi.IntPtrOutput)
 }
@@ -1001,7 +1001,7 @@ func (o HorizontalPodAutoscalerSpecPatchOutput) ScaleTargetRef() CrossVersionObj
 	return o.ApplyT(func(v HorizontalPodAutoscalerSpecPatch) *CrossVersionObjectReferencePatch { return v.ScaleTargetRef }).(CrossVersionObjectReferencePatchPtrOutput)
 }
 
-// target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
+// targetCPUUtilizationPercentage is the target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
 func (o HorizontalPodAutoscalerSpecPatchOutput) TargetCPUUtilizationPercentage() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v HorizontalPodAutoscalerSpecPatch) *int { return v.TargetCPUUtilizationPercentage }).(pulumi.IntPtrOutput)
 }
@@ -1030,7 +1030,7 @@ func (o HorizontalPodAutoscalerSpecPatchPtrOutput) Elem() HorizontalPodAutoscale
 	}).(HorizontalPodAutoscalerSpecPatchOutput)
 }
 
-// upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
+// maxReplicas is the upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
 func (o HorizontalPodAutoscalerSpecPatchPtrOutput) MaxReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *HorizontalPodAutoscalerSpecPatch) *int {
 		if v == nil {
@@ -1060,7 +1060,7 @@ func (o HorizontalPodAutoscalerSpecPatchPtrOutput) ScaleTargetRef() CrossVersion
 	}).(CrossVersionObjectReferencePatchPtrOutput)
 }
 
-// target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
+// targetCPUUtilizationPercentage is the target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
 func (o HorizontalPodAutoscalerSpecPatchPtrOutput) TargetCPUUtilizationPercentage() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *HorizontalPodAutoscalerSpecPatch) *int {
 		if v == nil {
@@ -1072,15 +1072,15 @@ func (o HorizontalPodAutoscalerSpecPatchPtrOutput) TargetCPUUtilizationPercentag
 
 // current status of a horizontal pod autoscaler
 type HorizontalPodAutoscalerStatus struct {
-	// current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
+	// currentCPUUtilizationPercentage is the current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
 	CurrentCPUUtilizationPercentage *int `pulumi:"currentCPUUtilizationPercentage"`
-	// current number of replicas of pods managed by this autoscaler.
+	// currentReplicas is the current number of replicas of pods managed by this autoscaler.
 	CurrentReplicas int `pulumi:"currentReplicas"`
-	// desired number of replicas of pods managed by this autoscaler.
+	// desiredReplicas is the  desired number of replicas of pods managed by this autoscaler.
 	DesiredReplicas int `pulumi:"desiredReplicas"`
-	// last time the HorizontalPodAutoscaler scaled the number of pods; used by the autoscaler to control how often the number of pods is changed.
+	// lastScaleTime is the last time the HorizontalPodAutoscaler scaled the number of pods; used by the autoscaler to control how often the number of pods is changed.
 	LastScaleTime *string `pulumi:"lastScaleTime"`
-	// most recent generation observed by this autoscaler.
+	// observedGeneration is the most recent generation observed by this autoscaler.
 	ObservedGeneration *int `pulumi:"observedGeneration"`
 }
 
@@ -1097,15 +1097,15 @@ type HorizontalPodAutoscalerStatusInput interface {
 
 // current status of a horizontal pod autoscaler
 type HorizontalPodAutoscalerStatusArgs struct {
-	// current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
+	// currentCPUUtilizationPercentage is the current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
 	CurrentCPUUtilizationPercentage pulumi.IntPtrInput `pulumi:"currentCPUUtilizationPercentage"`
-	// current number of replicas of pods managed by this autoscaler.
+	// currentReplicas is the current number of replicas of pods managed by this autoscaler.
 	CurrentReplicas pulumi.IntInput `pulumi:"currentReplicas"`
-	// desired number of replicas of pods managed by this autoscaler.
+	// desiredReplicas is the  desired number of replicas of pods managed by this autoscaler.
 	DesiredReplicas pulumi.IntInput `pulumi:"desiredReplicas"`
-	// last time the HorizontalPodAutoscaler scaled the number of pods; used by the autoscaler to control how often the number of pods is changed.
+	// lastScaleTime is the last time the HorizontalPodAutoscaler scaled the number of pods; used by the autoscaler to control how often the number of pods is changed.
 	LastScaleTime pulumi.StringPtrInput `pulumi:"lastScaleTime"`
-	// most recent generation observed by this autoscaler.
+	// observedGeneration is the most recent generation observed by this autoscaler.
 	ObservedGeneration pulumi.IntPtrInput `pulumi:"observedGeneration"`
 }
 
@@ -1187,27 +1187,27 @@ func (o HorizontalPodAutoscalerStatusOutput) ToHorizontalPodAutoscalerStatusPtrO
 	}).(HorizontalPodAutoscalerStatusPtrOutput)
 }
 
-// current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
+// currentCPUUtilizationPercentage is the current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
 func (o HorizontalPodAutoscalerStatusOutput) CurrentCPUUtilizationPercentage() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v HorizontalPodAutoscalerStatus) *int { return v.CurrentCPUUtilizationPercentage }).(pulumi.IntPtrOutput)
 }
 
-// current number of replicas of pods managed by this autoscaler.
+// currentReplicas is the current number of replicas of pods managed by this autoscaler.
 func (o HorizontalPodAutoscalerStatusOutput) CurrentReplicas() pulumi.IntOutput {
 	return o.ApplyT(func(v HorizontalPodAutoscalerStatus) int { return v.CurrentReplicas }).(pulumi.IntOutput)
 }
 
-// desired number of replicas of pods managed by this autoscaler.
+// desiredReplicas is the  desired number of replicas of pods managed by this autoscaler.
 func (o HorizontalPodAutoscalerStatusOutput) DesiredReplicas() pulumi.IntOutput {
 	return o.ApplyT(func(v HorizontalPodAutoscalerStatus) int { return v.DesiredReplicas }).(pulumi.IntOutput)
 }
 
-// last time the HorizontalPodAutoscaler scaled the number of pods; used by the autoscaler to control how often the number of pods is changed.
+// lastScaleTime is the last time the HorizontalPodAutoscaler scaled the number of pods; used by the autoscaler to control how often the number of pods is changed.
 func (o HorizontalPodAutoscalerStatusOutput) LastScaleTime() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v HorizontalPodAutoscalerStatus) *string { return v.LastScaleTime }).(pulumi.StringPtrOutput)
 }
 
-// most recent generation observed by this autoscaler.
+// observedGeneration is the most recent generation observed by this autoscaler.
 func (o HorizontalPodAutoscalerStatusOutput) ObservedGeneration() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v HorizontalPodAutoscalerStatus) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
 }
@@ -1236,7 +1236,7 @@ func (o HorizontalPodAutoscalerStatusPtrOutput) Elem() HorizontalPodAutoscalerSt
 	}).(HorizontalPodAutoscalerStatusOutput)
 }
 
-// current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
+// currentCPUUtilizationPercentage is the current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
 func (o HorizontalPodAutoscalerStatusPtrOutput) CurrentCPUUtilizationPercentage() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *HorizontalPodAutoscalerStatus) *int {
 		if v == nil {
@@ -1246,7 +1246,7 @@ func (o HorizontalPodAutoscalerStatusPtrOutput) CurrentCPUUtilizationPercentage(
 	}).(pulumi.IntPtrOutput)
 }
 
-// current number of replicas of pods managed by this autoscaler.
+// currentReplicas is the current number of replicas of pods managed by this autoscaler.
 func (o HorizontalPodAutoscalerStatusPtrOutput) CurrentReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *HorizontalPodAutoscalerStatus) *int {
 		if v == nil {
@@ -1256,7 +1256,7 @@ func (o HorizontalPodAutoscalerStatusPtrOutput) CurrentReplicas() pulumi.IntPtrO
 	}).(pulumi.IntPtrOutput)
 }
 
-// desired number of replicas of pods managed by this autoscaler.
+// desiredReplicas is the  desired number of replicas of pods managed by this autoscaler.
 func (o HorizontalPodAutoscalerStatusPtrOutput) DesiredReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *HorizontalPodAutoscalerStatus) *int {
 		if v == nil {
@@ -1266,7 +1266,7 @@ func (o HorizontalPodAutoscalerStatusPtrOutput) DesiredReplicas() pulumi.IntPtrO
 	}).(pulumi.IntPtrOutput)
 }
 
-// last time the HorizontalPodAutoscaler scaled the number of pods; used by the autoscaler to control how often the number of pods is changed.
+// lastScaleTime is the last time the HorizontalPodAutoscaler scaled the number of pods; used by the autoscaler to control how often the number of pods is changed.
 func (o HorizontalPodAutoscalerStatusPtrOutput) LastScaleTime() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *HorizontalPodAutoscalerStatus) *string {
 		if v == nil {
@@ -1276,7 +1276,7 @@ func (o HorizontalPodAutoscalerStatusPtrOutput) LastScaleTime() pulumi.StringPtr
 	}).(pulumi.StringPtrOutput)
 }
 
-// most recent generation observed by this autoscaler.
+// observedGeneration is the most recent generation observed by this autoscaler.
 func (o HorizontalPodAutoscalerStatusPtrOutput) ObservedGeneration() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *HorizontalPodAutoscalerStatus) *int {
 		if v == nil {
@@ -1288,15 +1288,15 @@ func (o HorizontalPodAutoscalerStatusPtrOutput) ObservedGeneration() pulumi.IntP
 
 // current status of a horizontal pod autoscaler
 type HorizontalPodAutoscalerStatusPatch struct {
-	// current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
+	// currentCPUUtilizationPercentage is the current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
 	CurrentCPUUtilizationPercentage *int `pulumi:"currentCPUUtilizationPercentage"`
-	// current number of replicas of pods managed by this autoscaler.
+	// currentReplicas is the current number of replicas of pods managed by this autoscaler.
 	CurrentReplicas *int `pulumi:"currentReplicas"`
-	// desired number of replicas of pods managed by this autoscaler.
+	// desiredReplicas is the  desired number of replicas of pods managed by this autoscaler.
 	DesiredReplicas *int `pulumi:"desiredReplicas"`
-	// last time the HorizontalPodAutoscaler scaled the number of pods; used by the autoscaler to control how often the number of pods is changed.
+	// lastScaleTime is the last time the HorizontalPodAutoscaler scaled the number of pods; used by the autoscaler to control how often the number of pods is changed.
 	LastScaleTime *string `pulumi:"lastScaleTime"`
-	// most recent generation observed by this autoscaler.
+	// observedGeneration is the most recent generation observed by this autoscaler.
 	ObservedGeneration *int `pulumi:"observedGeneration"`
 }
 
@@ -1313,15 +1313,15 @@ type HorizontalPodAutoscalerStatusPatchInput interface {
 
 // current status of a horizontal pod autoscaler
 type HorizontalPodAutoscalerStatusPatchArgs struct {
-	// current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
+	// currentCPUUtilizationPercentage is the current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
 	CurrentCPUUtilizationPercentage pulumi.IntPtrInput `pulumi:"currentCPUUtilizationPercentage"`
-	// current number of replicas of pods managed by this autoscaler.
+	// currentReplicas is the current number of replicas of pods managed by this autoscaler.
 	CurrentReplicas pulumi.IntPtrInput `pulumi:"currentReplicas"`
-	// desired number of replicas of pods managed by this autoscaler.
+	// desiredReplicas is the  desired number of replicas of pods managed by this autoscaler.
 	DesiredReplicas pulumi.IntPtrInput `pulumi:"desiredReplicas"`
-	// last time the HorizontalPodAutoscaler scaled the number of pods; used by the autoscaler to control how often the number of pods is changed.
+	// lastScaleTime is the last time the HorizontalPodAutoscaler scaled the number of pods; used by the autoscaler to control how often the number of pods is changed.
 	LastScaleTime pulumi.StringPtrInput `pulumi:"lastScaleTime"`
-	// most recent generation observed by this autoscaler.
+	// observedGeneration is the most recent generation observed by this autoscaler.
 	ObservedGeneration pulumi.IntPtrInput `pulumi:"observedGeneration"`
 }
 
@@ -1403,27 +1403,27 @@ func (o HorizontalPodAutoscalerStatusPatchOutput) ToHorizontalPodAutoscalerStatu
 	}).(HorizontalPodAutoscalerStatusPatchPtrOutput)
 }
 
-// current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
+// currentCPUUtilizationPercentage is the current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
 func (o HorizontalPodAutoscalerStatusPatchOutput) CurrentCPUUtilizationPercentage() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v HorizontalPodAutoscalerStatusPatch) *int { return v.CurrentCPUUtilizationPercentage }).(pulumi.IntPtrOutput)
 }
 
-// current number of replicas of pods managed by this autoscaler.
+// currentReplicas is the current number of replicas of pods managed by this autoscaler.
 func (o HorizontalPodAutoscalerStatusPatchOutput) CurrentReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v HorizontalPodAutoscalerStatusPatch) *int { return v.CurrentReplicas }).(pulumi.IntPtrOutput)
 }
 
-// desired number of replicas of pods managed by this autoscaler.
+// desiredReplicas is the  desired number of replicas of pods managed by this autoscaler.
 func (o HorizontalPodAutoscalerStatusPatchOutput) DesiredReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v HorizontalPodAutoscalerStatusPatch) *int { return v.DesiredReplicas }).(pulumi.IntPtrOutput)
 }
 
-// last time the HorizontalPodAutoscaler scaled the number of pods; used by the autoscaler to control how often the number of pods is changed.
+// lastScaleTime is the last time the HorizontalPodAutoscaler scaled the number of pods; used by the autoscaler to control how often the number of pods is changed.
 func (o HorizontalPodAutoscalerStatusPatchOutput) LastScaleTime() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v HorizontalPodAutoscalerStatusPatch) *string { return v.LastScaleTime }).(pulumi.StringPtrOutput)
 }
 
-// most recent generation observed by this autoscaler.
+// observedGeneration is the most recent generation observed by this autoscaler.
 func (o HorizontalPodAutoscalerStatusPatchOutput) ObservedGeneration() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v HorizontalPodAutoscalerStatusPatch) *int { return v.ObservedGeneration }).(pulumi.IntPtrOutput)
 }
@@ -1452,7 +1452,7 @@ func (o HorizontalPodAutoscalerStatusPatchPtrOutput) Elem() HorizontalPodAutosca
 	}).(HorizontalPodAutoscalerStatusPatchOutput)
 }
 
-// current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
+// currentCPUUtilizationPercentage is the current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
 func (o HorizontalPodAutoscalerStatusPatchPtrOutput) CurrentCPUUtilizationPercentage() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *HorizontalPodAutoscalerStatusPatch) *int {
 		if v == nil {
@@ -1462,7 +1462,7 @@ func (o HorizontalPodAutoscalerStatusPatchPtrOutput) CurrentCPUUtilizationPercen
 	}).(pulumi.IntPtrOutput)
 }
 
-// current number of replicas of pods managed by this autoscaler.
+// currentReplicas is the current number of replicas of pods managed by this autoscaler.
 func (o HorizontalPodAutoscalerStatusPatchPtrOutput) CurrentReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *HorizontalPodAutoscalerStatusPatch) *int {
 		if v == nil {
@@ -1472,7 +1472,7 @@ func (o HorizontalPodAutoscalerStatusPatchPtrOutput) CurrentReplicas() pulumi.In
 	}).(pulumi.IntPtrOutput)
 }
 
-// desired number of replicas of pods managed by this autoscaler.
+// desiredReplicas is the  desired number of replicas of pods managed by this autoscaler.
 func (o HorizontalPodAutoscalerStatusPatchPtrOutput) DesiredReplicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *HorizontalPodAutoscalerStatusPatch) *int {
 		if v == nil {
@@ -1482,7 +1482,7 @@ func (o HorizontalPodAutoscalerStatusPatchPtrOutput) DesiredReplicas() pulumi.In
 	}).(pulumi.IntPtrOutput)
 }
 
-// last time the HorizontalPodAutoscaler scaled the number of pods; used by the autoscaler to control how often the number of pods is changed.
+// lastScaleTime is the last time the HorizontalPodAutoscaler scaled the number of pods; used by the autoscaler to control how often the number of pods is changed.
 func (o HorizontalPodAutoscalerStatusPatchPtrOutput) LastScaleTime() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *HorizontalPodAutoscalerStatusPatch) *string {
 		if v == nil {
@@ -1492,7 +1492,7 @@ func (o HorizontalPodAutoscalerStatusPatchPtrOutput) LastScaleTime() pulumi.Stri
 	}).(pulumi.StringPtrOutput)
 }
 
-// most recent generation observed by this autoscaler.
+// observedGeneration is the most recent generation observed by this autoscaler.
 func (o HorizontalPodAutoscalerStatusPatchPtrOutput) ObservedGeneration() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *HorizontalPodAutoscalerStatusPatch) *int {
 		if v == nil {
@@ -1510,9 +1510,9 @@ type Scale struct {
 	Kind *string `pulumi:"kind"`
 	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-	// defines the behavior of the scale. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+	// spec defines the behavior of the scale. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
 	Spec *ScaleSpec `pulumi:"spec"`
-	// current status of the scale. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status. Read-only.
+	// status is the current status of the scale. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status. Read-only.
 	Status *ScaleStatus `pulumi:"status"`
 }
 
@@ -1535,9 +1535,9 @@ type ScaleArgs struct {
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
-	// defines the behavior of the scale. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+	// spec defines the behavior of the scale. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
 	Spec ScaleSpecPtrInput `pulumi:"spec"`
-	// current status of the scale. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status. Read-only.
+	// status is the current status of the scale. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status. Read-only.
 	Status ScaleStatusPtrInput `pulumi:"status"`
 }
 
@@ -1583,12 +1583,12 @@ func (o ScaleOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v Scale) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
-// defines the behavior of the scale. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+// spec defines the behavior of the scale. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
 func (o ScaleOutput) Spec() ScaleSpecPtrOutput {
 	return o.ApplyT(func(v Scale) *ScaleSpec { return v.Spec }).(ScaleSpecPtrOutput)
 }
 
-// current status of the scale. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status. Read-only.
+// status is the current status of the scale. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status. Read-only.
 func (o ScaleOutput) Status() ScaleStatusPtrOutput {
 	return o.ApplyT(func(v Scale) *ScaleStatus { return v.Status }).(ScaleStatusPtrOutput)
 }
@@ -1601,9 +1601,9 @@ type ScalePatch struct {
 	Kind *string `pulumi:"kind"`
 	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
 	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
-	// defines the behavior of the scale. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+	// spec defines the behavior of the scale. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
 	Spec *ScaleSpecPatch `pulumi:"spec"`
-	// current status of the scale. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status. Read-only.
+	// status is the current status of the scale. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status. Read-only.
 	Status *ScaleStatusPatch `pulumi:"status"`
 }
 
@@ -1626,9 +1626,9 @@ type ScalePatchArgs struct {
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
 	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
-	// defines the behavior of the scale. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+	// spec defines the behavior of the scale. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
 	Spec ScaleSpecPatchPtrInput `pulumi:"spec"`
-	// current status of the scale. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status. Read-only.
+	// status is the current status of the scale. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status. Read-only.
 	Status ScaleStatusPatchPtrInput `pulumi:"status"`
 }
 
@@ -1674,19 +1674,19 @@ func (o ScalePatchOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
 	return o.ApplyT(func(v ScalePatch) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
 }
 
-// defines the behavior of the scale. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+// spec defines the behavior of the scale. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
 func (o ScalePatchOutput) Spec() ScaleSpecPatchPtrOutput {
 	return o.ApplyT(func(v ScalePatch) *ScaleSpecPatch { return v.Spec }).(ScaleSpecPatchPtrOutput)
 }
 
-// current status of the scale. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status. Read-only.
+// status is the current status of the scale. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status. Read-only.
 func (o ScalePatchOutput) Status() ScaleStatusPatchPtrOutput {
 	return o.ApplyT(func(v ScalePatch) *ScaleStatusPatch { return v.Status }).(ScaleStatusPatchPtrOutput)
 }
 
 // ScaleSpec describes the attributes of a scale subresource.
 type ScaleSpec struct {
-	// desired number of instances for the scaled object.
+	// replicas is the desired number of instances for the scaled object.
 	Replicas *int `pulumi:"replicas"`
 }
 
@@ -1703,7 +1703,7 @@ type ScaleSpecInput interface {
 
 // ScaleSpec describes the attributes of a scale subresource.
 type ScaleSpecArgs struct {
-	// desired number of instances for the scaled object.
+	// replicas is the desired number of instances for the scaled object.
 	Replicas pulumi.IntPtrInput `pulumi:"replicas"`
 }
 
@@ -1785,7 +1785,7 @@ func (o ScaleSpecOutput) ToScaleSpecPtrOutputWithContext(ctx context.Context) Sc
 	}).(ScaleSpecPtrOutput)
 }
 
-// desired number of instances for the scaled object.
+// replicas is the desired number of instances for the scaled object.
 func (o ScaleSpecOutput) Replicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ScaleSpec) *int { return v.Replicas }).(pulumi.IntPtrOutput)
 }
@@ -1814,7 +1814,7 @@ func (o ScaleSpecPtrOutput) Elem() ScaleSpecOutput {
 	}).(ScaleSpecOutput)
 }
 
-// desired number of instances for the scaled object.
+// replicas is the desired number of instances for the scaled object.
 func (o ScaleSpecPtrOutput) Replicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *ScaleSpec) *int {
 		if v == nil {
@@ -1826,7 +1826,7 @@ func (o ScaleSpecPtrOutput) Replicas() pulumi.IntPtrOutput {
 
 // ScaleSpec describes the attributes of a scale subresource.
 type ScaleSpecPatch struct {
-	// desired number of instances for the scaled object.
+	// replicas is the desired number of instances for the scaled object.
 	Replicas *int `pulumi:"replicas"`
 }
 
@@ -1843,7 +1843,7 @@ type ScaleSpecPatchInput interface {
 
 // ScaleSpec describes the attributes of a scale subresource.
 type ScaleSpecPatchArgs struct {
-	// desired number of instances for the scaled object.
+	// replicas is the desired number of instances for the scaled object.
 	Replicas pulumi.IntPtrInput `pulumi:"replicas"`
 }
 
@@ -1925,7 +1925,7 @@ func (o ScaleSpecPatchOutput) ToScaleSpecPatchPtrOutputWithContext(ctx context.C
 	}).(ScaleSpecPatchPtrOutput)
 }
 
-// desired number of instances for the scaled object.
+// replicas is the desired number of instances for the scaled object.
 func (o ScaleSpecPatchOutput) Replicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ScaleSpecPatch) *int { return v.Replicas }).(pulumi.IntPtrOutput)
 }
@@ -1954,7 +1954,7 @@ func (o ScaleSpecPatchPtrOutput) Elem() ScaleSpecPatchOutput {
 	}).(ScaleSpecPatchOutput)
 }
 
-// desired number of instances for the scaled object.
+// replicas is the desired number of instances for the scaled object.
 func (o ScaleSpecPatchPtrOutput) Replicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *ScaleSpecPatch) *int {
 		if v == nil {
@@ -1966,9 +1966,9 @@ func (o ScaleSpecPatchPtrOutput) Replicas() pulumi.IntPtrOutput {
 
 // ScaleStatus represents the current status of a scale subresource.
 type ScaleStatus struct {
-	// actual number of observed instances of the scaled object.
+	// replicas is the actual number of observed instances of the scaled object.
 	Replicas int `pulumi:"replicas"`
-	// label query over pods that should match the replicas count. This is same as the label selector but in the string format to avoid introspection by clients. The string will be in the same format as the query-param syntax. More info about label selectors: http://kubernetes.io/docs/user-guide/labels#label-selectors
+	// selector is the label query over pods that should match the replicas count. This is same as the label selector but in the string format to avoid introspection by clients. The string will be in the same format as the query-param syntax. More info about label selectors: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
 	Selector *string `pulumi:"selector"`
 }
 
@@ -1985,9 +1985,9 @@ type ScaleStatusInput interface {
 
 // ScaleStatus represents the current status of a scale subresource.
 type ScaleStatusArgs struct {
-	// actual number of observed instances of the scaled object.
+	// replicas is the actual number of observed instances of the scaled object.
 	Replicas pulumi.IntInput `pulumi:"replicas"`
-	// label query over pods that should match the replicas count. This is same as the label selector but in the string format to avoid introspection by clients. The string will be in the same format as the query-param syntax. More info about label selectors: http://kubernetes.io/docs/user-guide/labels#label-selectors
+	// selector is the label query over pods that should match the replicas count. This is same as the label selector but in the string format to avoid introspection by clients. The string will be in the same format as the query-param syntax. More info about label selectors: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
 	Selector pulumi.StringPtrInput `pulumi:"selector"`
 }
 
@@ -2069,12 +2069,12 @@ func (o ScaleStatusOutput) ToScaleStatusPtrOutputWithContext(ctx context.Context
 	}).(ScaleStatusPtrOutput)
 }
 
-// actual number of observed instances of the scaled object.
+// replicas is the actual number of observed instances of the scaled object.
 func (o ScaleStatusOutput) Replicas() pulumi.IntOutput {
 	return o.ApplyT(func(v ScaleStatus) int { return v.Replicas }).(pulumi.IntOutput)
 }
 
-// label query over pods that should match the replicas count. This is same as the label selector but in the string format to avoid introspection by clients. The string will be in the same format as the query-param syntax. More info about label selectors: http://kubernetes.io/docs/user-guide/labels#label-selectors
+// selector is the label query over pods that should match the replicas count. This is same as the label selector but in the string format to avoid introspection by clients. The string will be in the same format as the query-param syntax. More info about label selectors: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
 func (o ScaleStatusOutput) Selector() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ScaleStatus) *string { return v.Selector }).(pulumi.StringPtrOutput)
 }
@@ -2103,7 +2103,7 @@ func (o ScaleStatusPtrOutput) Elem() ScaleStatusOutput {
 	}).(ScaleStatusOutput)
 }
 
-// actual number of observed instances of the scaled object.
+// replicas is the actual number of observed instances of the scaled object.
 func (o ScaleStatusPtrOutput) Replicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *ScaleStatus) *int {
 		if v == nil {
@@ -2113,7 +2113,7 @@ func (o ScaleStatusPtrOutput) Replicas() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// label query over pods that should match the replicas count. This is same as the label selector but in the string format to avoid introspection by clients. The string will be in the same format as the query-param syntax. More info about label selectors: http://kubernetes.io/docs/user-guide/labels#label-selectors
+// selector is the label query over pods that should match the replicas count. This is same as the label selector but in the string format to avoid introspection by clients. The string will be in the same format as the query-param syntax. More info about label selectors: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
 func (o ScaleStatusPtrOutput) Selector() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ScaleStatus) *string {
 		if v == nil {
@@ -2125,9 +2125,9 @@ func (o ScaleStatusPtrOutput) Selector() pulumi.StringPtrOutput {
 
 // ScaleStatus represents the current status of a scale subresource.
 type ScaleStatusPatch struct {
-	// actual number of observed instances of the scaled object.
+	// replicas is the actual number of observed instances of the scaled object.
 	Replicas *int `pulumi:"replicas"`
-	// label query over pods that should match the replicas count. This is same as the label selector but in the string format to avoid introspection by clients. The string will be in the same format as the query-param syntax. More info about label selectors: http://kubernetes.io/docs/user-guide/labels#label-selectors
+	// selector is the label query over pods that should match the replicas count. This is same as the label selector but in the string format to avoid introspection by clients. The string will be in the same format as the query-param syntax. More info about label selectors: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
 	Selector *string `pulumi:"selector"`
 }
 
@@ -2144,9 +2144,9 @@ type ScaleStatusPatchInput interface {
 
 // ScaleStatus represents the current status of a scale subresource.
 type ScaleStatusPatchArgs struct {
-	// actual number of observed instances of the scaled object.
+	// replicas is the actual number of observed instances of the scaled object.
 	Replicas pulumi.IntPtrInput `pulumi:"replicas"`
-	// label query over pods that should match the replicas count. This is same as the label selector but in the string format to avoid introspection by clients. The string will be in the same format as the query-param syntax. More info about label selectors: http://kubernetes.io/docs/user-guide/labels#label-selectors
+	// selector is the label query over pods that should match the replicas count. This is same as the label selector but in the string format to avoid introspection by clients. The string will be in the same format as the query-param syntax. More info about label selectors: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
 	Selector pulumi.StringPtrInput `pulumi:"selector"`
 }
 
@@ -2228,12 +2228,12 @@ func (o ScaleStatusPatchOutput) ToScaleStatusPatchPtrOutputWithContext(ctx conte
 	}).(ScaleStatusPatchPtrOutput)
 }
 
-// actual number of observed instances of the scaled object.
+// replicas is the actual number of observed instances of the scaled object.
 func (o ScaleStatusPatchOutput) Replicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ScaleStatusPatch) *int { return v.Replicas }).(pulumi.IntPtrOutput)
 }
 
-// label query over pods that should match the replicas count. This is same as the label selector but in the string format to avoid introspection by clients. The string will be in the same format as the query-param syntax. More info about label selectors: http://kubernetes.io/docs/user-guide/labels#label-selectors
+// selector is the label query over pods that should match the replicas count. This is same as the label selector but in the string format to avoid introspection by clients. The string will be in the same format as the query-param syntax. More info about label selectors: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
 func (o ScaleStatusPatchOutput) Selector() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ScaleStatusPatch) *string { return v.Selector }).(pulumi.StringPtrOutput)
 }
@@ -2262,7 +2262,7 @@ func (o ScaleStatusPatchPtrOutput) Elem() ScaleStatusPatchOutput {
 	}).(ScaleStatusPatchOutput)
 }
 
-// actual number of observed instances of the scaled object.
+// replicas is the actual number of observed instances of the scaled object.
 func (o ScaleStatusPatchPtrOutput) Replicas() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *ScaleStatusPatch) *int {
 		if v == nil {
@@ -2272,7 +2272,7 @@ func (o ScaleStatusPatchPtrOutput) Replicas() pulumi.IntPtrOutput {
 	}).(pulumi.IntPtrOutput)
 }
 
-// label query over pods that should match the replicas count. This is same as the label selector but in the string format to avoid introspection by clients. The string will be in the same format as the query-param syntax. More info about label selectors: http://kubernetes.io/docs/user-guide/labels#label-selectors
+// selector is the label query over pods that should match the replicas count. This is same as the label selector but in the string format to avoid introspection by clients. The string will be in the same format as the query-param syntax. More info about label selectors: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
 func (o ScaleStatusPatchPtrOutput) Selector() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ScaleStatusPatch) *string {
 		if v == nil {

@@ -17,15 +17,15 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling.V2
     public sealed class HPAScalingPolicy
     {
         /// <summary>
-        /// PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
+        /// periodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
         /// </summary>
         public readonly int PeriodSeconds;
         /// <summary>
-        /// Type is used to specify the scaling policy.
+        /// type is used to specify the scaling policy.
         /// </summary>
         public readonly string Type;
         /// <summary>
-        /// Value contains the amount of change which is permitted by the policy. It must be greater than zero
+        /// value contains the amount of change which is permitted by the policy. It must be greater than zero
         /// </summary>
         public readonly int Value;
 

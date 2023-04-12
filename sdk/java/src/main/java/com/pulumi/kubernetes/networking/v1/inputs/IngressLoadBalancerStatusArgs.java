@@ -21,14 +21,14 @@ public final class IngressLoadBalancerStatusArgs extends com.pulumi.resources.Re
     public static final IngressLoadBalancerStatusArgs Empty = new IngressLoadBalancerStatusArgs();
 
     /**
-     * Ingress is a list containing ingress points for the load-balancer.
+     * ingress is a list containing ingress points for the load-balancer.
      * 
      */
     @Import(name="ingress")
     private @Nullable Output<List<IngressLoadBalancerIngressArgs>> ingress;
 
     /**
-     * @return Ingress is a list containing ingress points for the load-balancer.
+     * @return ingress is a list containing ingress points for the load-balancer.
      * 
      */
     public Optional<Output<List<IngressLoadBalancerIngressArgs>>> ingress() {
@@ -60,7 +60,7 @@ public final class IngressLoadBalancerStatusArgs extends com.pulumi.resources.Re
         }
 
         /**
-         * @param ingress Ingress is a list containing ingress points for the load-balancer.
+         * @param ingress ingress is a list containing ingress points for the load-balancer.
          * 
          * @return builder
          * 
@@ -71,7 +71,7 @@ public final class IngressLoadBalancerStatusArgs extends com.pulumi.resources.Re
         }
 
         /**
-         * @param ingress Ingress is a list containing ingress points for the load-balancer.
+         * @param ingress ingress is a list containing ingress points for the load-balancer.
          * 
          * @return builder
          * 
@@ -81,7 +81,7 @@ public final class IngressLoadBalancerStatusArgs extends com.pulumi.resources.Re
         }
 
         /**
-         * @param ingress Ingress is a list containing ingress points for the load-balancer.
+         * @param ingress ingress is a list containing ingress points for the load-balancer.
          * 
          * @return builder
          * 

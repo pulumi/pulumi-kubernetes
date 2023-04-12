@@ -3,6 +3,7 @@
 
 package com.pulumi.kubernetes.authentication.v1alpha1;
 
+import com.pulumi.core.Alias;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Export;
 import com.pulumi.core.annotations.ResourceType;
@@ -12,11 +13,12 @@ import com.pulumi.kubernetes.authentication.v1alpha1.SelfSubjectReviewArgs;
 import com.pulumi.kubernetes.authentication.v1alpha1.outputs.SelfSubjectReviewStatus;
 import com.pulumi.kubernetes.meta.v1.outputs.ObjectMeta;
 import java.lang.String;
+import java.util.List;
 import java.util.Optional;
 import javax.annotation.Nullable;
 
 /**
- * SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.
+ * SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.  If impersonation or request header authentication is used, any extra keys will have their case ignored and returned as lowercase.
  * 
  */
 @ResourceType(type="kubernetes:authentication.k8s.io/v1alpha1:SelfSubjectReview")
@@ -118,6 +120,9 @@ public class SelfSubjectReview extends com.pulumi.resources.CustomResource {
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
+            .aliases(List.of(
+                Output.of(Alias.builder().type("kubernetes:authentication.k8s.io/v1beta1:SelfSubjectReview").build())
+            ))
             .build();
         return com.pulumi.resources.CustomResourceOptions.merge(defaultOptions, options, id);
     }

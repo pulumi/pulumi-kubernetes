@@ -47,6 +47,7 @@ var pascalCaseMapping = map[string]string{
 	"storage":               "Storage",
 	"v1":                    "V1",
 	"v1alpha1":              "V1Alpha1",
+	"v1alpha2":              "V1Alpha2",
 	"v1beta1":               "V1Beta1",
 	"v1beta2":               "V1Beta2",
 	"v1beta3":               "V1Beta3",

@@ -22,7 +22,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.PersistentVolumeSpecPatchArgs>? InlineVolumeSpec { get; set; }
 
         /// <summary>
-        /// Name of the persistent volume to attach.
+        /// persistentVolumeName represents the name of the persistent volume to attach.
         /// </summary>
         [Input("persistentVolumeName")]
         public Input<string>? PersistentVolumeName { get; set; }

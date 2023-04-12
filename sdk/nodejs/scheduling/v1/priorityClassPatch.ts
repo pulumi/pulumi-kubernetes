@@ -64,11 +64,11 @@ export class PriorityClassPatch extends pulumi.CustomResource {
      */
     public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMetaPatch>;
     /**
-     * PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+     * preemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
      */
     public readonly preemptionPolicy!: pulumi.Output<string>;
     /**
-     * The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
+     * value represents the integer value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
      */
     public readonly value!: pulumi.Output<number>;
 
@@ -131,11 +131,11 @@ export interface PriorityClassPatchArgs {
      */
     metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
     /**
-     * PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+     * preemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
      */
     preemptionPolicy?: pulumi.Input<string>;
     /**
-     * The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
+     * value represents the integer value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
      */
     value?: pulumi.Input<number>;
 }

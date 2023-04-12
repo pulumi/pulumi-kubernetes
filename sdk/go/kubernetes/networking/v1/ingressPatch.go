@@ -41,9 +41,9 @@ type IngressPatch struct {
 	Kind pulumi.StringPtrOutput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPatchPtrOutput `pulumi:"metadata"`
-	// Spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	// spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec IngressSpecPatchPtrOutput `pulumi:"spec"`
-	// Status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	// status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Status IngressStatusPatchPtrOutput `pulumi:"status"`
 }
 
@@ -103,7 +103,7 @@ type ingressPatchArgs struct {
 	Kind *string `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
-	// Spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	// spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec *IngressSpecPatch `pulumi:"spec"`
 }
 
@@ -115,7 +115,7 @@ type IngressPatchArgs struct {
 	Kind pulumi.StringPtrInput
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPatchPtrInput
-	// Spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	// spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec IngressSpecPatchPtrInput
 }
 
@@ -221,12 +221,12 @@ func (o IngressPatchOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
 	return o.ApplyT(func(v *IngressPatch) metav1.ObjectMetaPatchPtrOutput { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
 }
 
-// Spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+// spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 func (o IngressPatchOutput) Spec() IngressSpecPatchPtrOutput {
 	return o.ApplyT(func(v *IngressPatch) IngressSpecPatchPtrOutput { return v.Spec }).(IngressSpecPatchPtrOutput)
 }
 
-// Status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+// status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 func (o IngressPatchOutput) Status() IngressStatusPatchPtrOutput {
 	return o.ApplyT(func(v *IngressPatch) IngressStatusPatchPtrOutput { return v.Status }).(IngressStatusPatchPtrOutput)
 }

@@ -35,14 +35,14 @@ public final class IngressListArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Items is the list of Ingress.
+     * items is the list of Ingress.
      * 
      */
     @Import(name="items", required=true)
     private Output<List<IngressArgs>> items;
 
     /**
-     * @return Items is the list of Ingress.
+     * @return items is the list of Ingress.
      * 
      */
     public Output<List<IngressArgs>> items() {
@@ -128,7 +128,7 @@ public final class IngressListArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param items Items is the list of Ingress.
+         * @param items items is the list of Ingress.
          * 
          * @return builder
          * 
@@ -139,7 +139,7 @@ public final class IngressListArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param items Items is the list of Ingress.
+         * @param items items is the list of Ingress.
          * 
          * @return builder
          * 
@@ -149,7 +149,7 @@ public final class IngressListArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param items Items is the list of Ingress.
+         * @param items items is the list of Ingress.
          * 
          * @return builder
          * 

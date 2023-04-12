@@ -35,14 +35,14 @@ public final class StorageClassListArgs extends com.pulumi.resources.ResourceArg
     }
 
     /**
-     * Items is the list of StorageClasses
+     * items is the list of StorageClasses
      * 
      */
     @Import(name="items", required=true)
     private Output<List<StorageClassArgs>> items;
 
     /**
-     * @return Items is the list of StorageClasses
+     * @return items is the list of StorageClasses
      * 
      */
     public Output<List<StorageClassArgs>> items() {
@@ -128,7 +128,7 @@ public final class StorageClassListArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param items Items is the list of StorageClasses
+         * @param items items is the list of StorageClasses
          * 
          * @return builder
          * 
@@ -139,7 +139,7 @@ public final class StorageClassListArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param items Items is the list of StorageClasses
+         * @param items items is the list of StorageClasses
          * 
          * @return builder
          * 
@@ -149,7 +149,7 @@ public final class StorageClassListArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param items Items is the list of StorageClasses
+         * @param items items is the list of StorageClasses
          * 
          * @return builder
          * 

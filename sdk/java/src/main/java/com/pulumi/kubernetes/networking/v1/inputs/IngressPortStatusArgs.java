@@ -21,7 +21,7 @@ public final class IngressPortStatusArgs extends com.pulumi.resources.ResourceAr
     public static final IngressPortStatusArgs Empty = new IngressPortStatusArgs();
 
     /**
-     * Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
+     * error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
      *   CamelCase names
      * - cloud provider specific error values must have names that comply with the
      *   format foo.example.com/CamelCase.
@@ -31,7 +31,7 @@ public final class IngressPortStatusArgs extends com.pulumi.resources.ResourceAr
     private @Nullable Output<String> error;
 
     /**
-     * @return Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
+     * @return error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
      *   CamelCase names
      * - cloud provider specific error values must have names that comply with the
      *   format foo.example.com/CamelCase.
@@ -42,14 +42,14 @@ public final class IngressPortStatusArgs extends com.pulumi.resources.ResourceAr
     }
 
     /**
-     * Port is the port number of the ingress port.
+     * port is the port number of the ingress port.
      * 
      */
     @Import(name="port", required=true)
     private Output<Integer> port;
 
     /**
-     * @return Port is the port number of the ingress port.
+     * @return port is the port number of the ingress port.
      * 
      */
     public Output<Integer> port() {
@@ -57,14 +57,14 @@ public final class IngressPortStatusArgs extends com.pulumi.resources.ResourceAr
     }
 
     /**
-     * Protocol is the protocol of the ingress port. The supported values are: &#34;TCP&#34;, &#34;UDP&#34;, &#34;SCTP&#34;
+     * protocol is the protocol of the ingress port. The supported values are: &#34;TCP&#34;, &#34;UDP&#34;, &#34;SCTP&#34;
      * 
      */
     @Import(name="protocol", required=true)
     private Output<String> protocol;
 
     /**
-     * @return Protocol is the protocol of the ingress port. The supported values are: &#34;TCP&#34;, &#34;UDP&#34;, &#34;SCTP&#34;
+     * @return protocol is the protocol of the ingress port. The supported values are: &#34;TCP&#34;, &#34;UDP&#34;, &#34;SCTP&#34;
      * 
      */
     public Output<String> protocol() {
@@ -98,7 +98,7 @@ public final class IngressPortStatusArgs extends com.pulumi.resources.ResourceAr
         }
 
         /**
-         * @param error Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
+         * @param error error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
          *   CamelCase names
          * - cloud provider specific error values must have names that comply with the
          *   format foo.example.com/CamelCase.
@@ -112,7 +112,7 @@ public final class IngressPortStatusArgs extends com.pulumi.resources.ResourceAr
         }
 
         /**
-         * @param error Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
+         * @param error error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
          *   CamelCase names
          * - cloud provider specific error values must have names that comply with the
          *   format foo.example.com/CamelCase.
@@ -125,7 +125,7 @@ public final class IngressPortStatusArgs extends com.pulumi.resources.ResourceAr
         }
 
         /**
-         * @param port Port is the port number of the ingress port.
+         * @param port port is the port number of the ingress port.
          * 
          * @return builder
          * 
@@ -136,7 +136,7 @@ public final class IngressPortStatusArgs extends com.pulumi.resources.ResourceAr
         }
 
         /**
-         * @param port Port is the port number of the ingress port.
+         * @param port port is the port number of the ingress port.
          * 
          * @return builder
          * 
@@ -146,7 +146,7 @@ public final class IngressPortStatusArgs extends com.pulumi.resources.ResourceAr
         }
 
         /**
-         * @param protocol Protocol is the protocol of the ingress port. The supported values are: &#34;TCP&#34;, &#34;UDP&#34;, &#34;SCTP&#34;
+         * @param protocol protocol is the protocol of the ingress port. The supported values are: &#34;TCP&#34;, &#34;UDP&#34;, &#34;SCTP&#34;
          * 
          * @return builder
          * 
@@ -157,7 +157,7 @@ public final class IngressPortStatusArgs extends com.pulumi.resources.ResourceAr
         }
 
         /**
-         * @param protocol Protocol is the protocol of the ingress port. The supported values are: &#34;TCP&#34;, &#34;UDP&#34;, &#34;SCTP&#34;
+         * @param protocol protocol is the protocol of the ingress port. The supported values are: &#34;TCP&#34;, &#34;UDP&#34;, &#34;SCTP&#34;
          * 
          * @return builder
          * 

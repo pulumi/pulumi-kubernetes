@@ -35,14 +35,14 @@ public final class CSIStorageCapacityListArgs extends com.pulumi.resources.Resou
     }
 
     /**
-     * Items is the list of CSIStorageCapacity objects.
+     * items is the list of CSIStorageCapacity objects.
      * 
      */
     @Import(name="items", required=true)
     private Output<List<CSIStorageCapacityArgs>> items;
 
     /**
-     * @return Items is the list of CSIStorageCapacity objects.
+     * @return items is the list of CSIStorageCapacity objects.
      * 
      */
     public Output<List<CSIStorageCapacityArgs>> items() {
@@ -128,7 +128,7 @@ public final class CSIStorageCapacityListArgs extends com.pulumi.resources.Resou
         }
 
         /**
-         * @param items Items is the list of CSIStorageCapacity objects.
+         * @param items items is the list of CSIStorageCapacity objects.
          * 
          * @return builder
          * 
@@ -139,7 +139,7 @@ public final class CSIStorageCapacityListArgs extends com.pulumi.resources.Resou
         }
 
         /**
-         * @param items Items is the list of CSIStorageCapacity objects.
+         * @param items items is the list of CSIStorageCapacity objects.
          * 
          * @return builder
          * 
@@ -149,7 +149,7 @@ public final class CSIStorageCapacityListArgs extends com.pulumi.resources.Resou
         }
 
         /**
-         * @param items Items is the list of CSIStorageCapacity objects.
+         * @param items items is the list of CSIStorageCapacity objects.
          * 
          * @return builder
          * 

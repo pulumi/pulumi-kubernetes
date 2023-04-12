@@ -12,7 +12,7 @@ import javax.annotation.Nullable;
 
 
 /**
- * PersistentVolumeClaimCondition contails details about state of pvc
+ * PersistentVolumeClaimCondition contains details about state of pvc
  * 
  */
 public final class PersistentVolumeClaimConditionArgs extends com.pulumi.resources.ResourceArgs {

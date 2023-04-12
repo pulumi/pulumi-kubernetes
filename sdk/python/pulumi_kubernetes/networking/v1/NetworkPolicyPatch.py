@@ -26,7 +26,7 @@ class NetworkPolicyPatchArgs:
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaPatchArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input['NetworkPolicySpecPatchArgs'] spec: Specification of the desired behavior for this NetworkPolicy.
+        :param pulumi.Input['NetworkPolicySpecPatchArgs'] spec: spec represents the specification of the desired behavior for this NetworkPolicy.
         """
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'networking.k8s.io/v1')
@@ -77,7 +77,7 @@ class NetworkPolicyPatchArgs:
     @pulumi.getter
     def spec(self) -> Optional[pulumi.Input['NetworkPolicySpecPatchArgs']]:
         """
-        Specification of the desired behavior for this NetworkPolicy.
+        spec represents the specification of the desired behavior for this NetworkPolicy.
         """
         return pulumi.get(self, "spec")
 
@@ -110,7 +110,7 @@ class NetworkPolicyPatch(pulumi.CustomResource):
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaPatchArgs']] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input[pulumi.InputType['NetworkPolicySpecPatchArgs']] spec: Specification of the desired behavior for this NetworkPolicy.
+        :param pulumi.Input[pulumi.InputType['NetworkPolicySpecPatchArgs']] spec: spec represents the specification of the desired behavior for this NetworkPolicy.
         """
         ...
     @overload
@@ -219,7 +219,7 @@ class NetworkPolicyPatch(pulumi.CustomResource):
     @pulumi.getter
     def spec(self) -> pulumi.Output[Optional['outputs.NetworkPolicySpecPatch']]:
         """
-        Specification of the desired behavior for this NetworkPolicy.
+        spec represents the specification of the desired behavior for this NetworkPolicy.
         """
         return pulumi.get(self, "spec")
 
@@ -227,7 +227,7 @@ class NetworkPolicyPatch(pulumi.CustomResource):
     @pulumi.getter
     def status(self) -> pulumi.Output[Optional['outputs.NetworkPolicyStatusPatch']]:
         """
-        Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        status represents the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
         return pulumi.get(self, "status")
 

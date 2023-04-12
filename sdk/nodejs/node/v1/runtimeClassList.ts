@@ -42,7 +42,7 @@ export class RuntimeClassList extends pulumi.CustomResource {
      */
     public readonly apiVersion!: pulumi.Output<"node.k8s.io/v1">;
     /**
-     * Items is a list of schema objects.
+     * items is a list of schema objects.
      */
     public readonly items!: pulumi.Output<outputs.node.v1.RuntimeClass[]>;
     /**
@@ -92,7 +92,7 @@ export interface RuntimeClassListArgs {
      */
     apiVersion?: pulumi.Input<"node.k8s.io/v1">;
     /**
-     * Items is a list of schema objects.
+     * items is a list of schema objects.
      */
     items: pulumi.Input<pulumi.Input<inputs.node.v1.RuntimeClass>[]>;
     /**

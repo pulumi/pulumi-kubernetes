@@ -60,6 +60,8 @@ __all__ = [
     'ContainerPatch',
     'ContainerPort',
     'ContainerPortPatch',
+    'ContainerResizePolicy',
+    'ContainerResizePolicyPatch',
     'ContainerState',
     'ContainerStatePatch',
     'ContainerStateRunning',
@@ -1321,10 +1323,10 @@ class CSIPersistentVolumeSource(dict):
         Represents storage that is managed by an external CSI volume driver (Beta feature)
         :param str driver: driver is the name of the driver to use for this volume. Required.
         :param str volume_handle: volumeHandle is the unique volume name returned by the CSI volume plugin’s CreateVolume to refer to the volume on all subsequent calls. Required.
-        :param 'SecretReferenceArgs' controller_expand_secret_ref: controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an beta field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+        :param 'SecretReferenceArgs' controller_expand_secret_ref: controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         :param 'SecretReferenceArgs' controller_publish_secret_ref: controllerPublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerPublishVolume and ControllerUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         :param str fs_type: fsType to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
-        :param 'SecretReferenceArgs' node_expand_secret_ref: nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is an alpha field and requires enabling CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+        :param 'SecretReferenceArgs' node_expand_secret_ref: nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is a beta field which is enabled default by CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         :param 'SecretReferenceArgs' node_publish_secret_ref: nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         :param 'SecretReferenceArgs' node_stage_secret_ref: nodeStageSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeStageVolume and NodeStageVolume and NodeUnstageVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         :param bool read_only: readOnly value to pass to ControllerPublishVolumeRequest. Defaults to false (read/write).
@@ -1369,7 +1371,7 @@ class CSIPersistentVolumeSource(dict):
     @pulumi.getter(name="controllerExpandSecretRef")
     def controller_expand_secret_ref(self) -> Optional['outputs.SecretReference']:
         """
-        controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an beta field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+        controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         """
         return pulumi.get(self, "controller_expand_secret_ref")
 
@@ -1393,7 +1395,7 @@ class CSIPersistentVolumeSource(dict):
     @pulumi.getter(name="nodeExpandSecretRef")
     def node_expand_secret_ref(self) -> Optional['outputs.SecretReference']:
         """
-        nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is an alpha field and requires enabling CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+        nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is a beta field which is enabled default by CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         """
         return pulumi.get(self, "node_expand_secret_ref")
 
@@ -1481,11 +1483,11 @@ class CSIPersistentVolumeSourcePatch(dict):
                  volume_handle: Optional[str] = None):
         """
         Represents storage that is managed by an external CSI volume driver (Beta feature)
-        :param 'SecretReferencePatchArgs' controller_expand_secret_ref: controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an beta field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+        :param 'SecretReferencePatchArgs' controller_expand_secret_ref: controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         :param 'SecretReferencePatchArgs' controller_publish_secret_ref: controllerPublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerPublishVolume and ControllerUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         :param str driver: driver is the name of the driver to use for this volume. Required.
         :param str fs_type: fsType to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
-        :param 'SecretReferencePatchArgs' node_expand_secret_ref: nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is an alpha field and requires enabling CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+        :param 'SecretReferencePatchArgs' node_expand_secret_ref: nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is a beta field which is enabled default by CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         :param 'SecretReferencePatchArgs' node_publish_secret_ref: nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         :param 'SecretReferencePatchArgs' node_stage_secret_ref: nodeStageSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeStageVolume and NodeStageVolume and NodeUnstageVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         :param bool read_only: readOnly value to pass to ControllerPublishVolumeRequest. Defaults to false (read/write).
@@ -1517,7 +1519,7 @@ class CSIPersistentVolumeSourcePatch(dict):
     @pulumi.getter(name="controllerExpandSecretRef")
     def controller_expand_secret_ref(self) -> Optional['outputs.SecretReferencePatch']:
         """
-        controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an beta field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+        controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         """
         return pulumi.get(self, "controller_expand_secret_ref")
 
@@ -1549,7 +1551,7 @@ class CSIPersistentVolumeSourcePatch(dict):
     @pulumi.getter(name="nodeExpandSecretRef")
     def node_expand_secret_ref(self) -> Optional['outputs.SecretReferencePatch']:
         """
-        nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is an alpha field and requires enabling CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+        nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is a beta field which is enabled default by CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
         """
         return pulumi.get(self, "node_expand_secret_ref")
 
@@ -3539,6 +3541,8 @@ class Container(dict):
             suggest = "liveness_probe"
         elif key == "readinessProbe":
             suggest = "readiness_probe"
+        elif key == "resizePolicy":
+            suggest = "resize_policy"
         elif key == "securityContext":
             suggest = "security_context"
         elif key == "startupProbe":
@@ -3579,6 +3583,7 @@ class Container(dict):
                  liveness_probe: Optional['outputs.Probe'] = None,
                  ports: Optional[Sequence['outputs.ContainerPort']] = None,
                  readiness_probe: Optional['outputs.Probe'] = None,
+                 resize_policy: Optional[Sequence['outputs.ContainerResizePolicy']] = None,
                  resources: Optional['outputs.ResourceRequirements'] = None,
                  security_context: Optional['outputs.SecurityContext'] = None,
                  startup_probe: Optional['outputs.Probe'] = None,
@@ -3603,6 +3608,7 @@ class Container(dict):
         :param 'ProbeArgs' liveness_probe: Periodic probe of container liveness. Container will be restarted if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
         :param Sequence['ContainerPortArgs'] ports: List of ports to expose from the container. Not specifying a port here DOES NOT prevent that port from being exposed. Any port which is listening on the default "0.0.0.0" address inside a container will be accessible from the network. Modifying this array with strategic merge patch may corrupt the data. For more information See https://github.com/kubernetes/kubernetes/issues/108255. Cannot be updated.
         :param 'ProbeArgs' readiness_probe: Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+        :param Sequence['ContainerResizePolicyArgs'] resize_policy: Resources resize policy for the container.
         :param 'ResourceRequirementsArgs' resources: Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
         :param 'SecurityContextArgs' security_context: SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
         :param 'ProbeArgs' startup_probe: StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -3636,6 +3642,8 @@ class Container(dict):
             pulumi.set(__self__, "ports", ports)
         if readiness_probe is not None:
             pulumi.set(__self__, "readiness_probe", readiness_probe)
+        if resize_policy is not None:
+            pulumi.set(__self__, "resize_policy", resize_policy)
         if resources is not None:
             pulumi.set(__self__, "resources", resources)
         if security_context is not None:
@@ -3746,6 +3754,14 @@ class Container(dict):
         Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
         """
         return pulumi.get(self, "readiness_probe")
+
+    @property
+    @pulumi.getter(name="resizePolicy")
+    def resize_policy(self) -> Optional[Sequence['outputs.ContainerResizePolicy']]:
+        """
+        Resources resize policy for the container.
+        """
+        return pulumi.get(self, "resize_policy")
 
     @property
     @pulumi.getter
@@ -3955,6 +3971,8 @@ class ContainerPatch(dict):
             suggest = "liveness_probe"
         elif key == "readinessProbe":
             suggest = "readiness_probe"
+        elif key == "resizePolicy":
+            suggest = "resize_policy"
         elif key == "securityContext":
             suggest = "security_context"
         elif key == "startupProbe":
@@ -3995,6 +4013,7 @@ class ContainerPatch(dict):
                  name: Optional[str] = None,
                  ports: Optional[Sequence['outputs.ContainerPortPatch']] = None,
                  readiness_probe: Optional['outputs.ProbePatch'] = None,
+                 resize_policy: Optional[Sequence['outputs.ContainerResizePolicyPatch']] = None,
                  resources: Optional['outputs.ResourceRequirementsPatch'] = None,
                  security_context: Optional['outputs.SecurityContextPatch'] = None,
                  startup_probe: Optional['outputs.ProbePatch'] = None,
@@ -4019,6 +4038,7 @@ class ContainerPatch(dict):
         :param str name: Name of the container specified as a DNS_LABEL. Each container in a pod must have a unique name (DNS_LABEL). Cannot be updated.
         :param Sequence['ContainerPortPatchArgs'] ports: List of ports to expose from the container. Not specifying a port here DOES NOT prevent that port from being exposed. Any port which is listening on the default "0.0.0.0" address inside a container will be accessible from the network. Modifying this array with strategic merge patch may corrupt the data. For more information See https://github.com/kubernetes/kubernetes/issues/108255. Cannot be updated.
         :param 'ProbePatchArgs' readiness_probe: Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
+        :param Sequence['ContainerResizePolicyPatchArgs'] resize_policy: Resources resize policy for the container.
         :param 'ResourceRequirementsPatchArgs' resources: Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
         :param 'SecurityContextPatchArgs' security_context: SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
         :param 'ProbePatchArgs' startup_probe: StartupProbe indicates that the Pod has successfully initialized. If specified, no other probes are executed until this completes successfully. If this probe fails, the Pod will be restarted, just as if the livenessProbe failed. This can be used to provide different probe parameters at the beginning of a Pod's lifecycle, when it might take a long time to load data or warm a cache, than during steady-state operation. This cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
@@ -4053,6 +4073,8 @@ class ContainerPatch(dict):
             pulumi.set(__self__, "ports", ports)
         if readiness_probe is not None:
             pulumi.set(__self__, "readiness_probe", readiness_probe)
+        if resize_policy is not None:
+            pulumi.set(__self__, "resize_policy", resize_policy)
         if resources is not None:
             pulumi.set(__self__, "resources", resources)
         if security_context is not None:
@@ -4163,6 +4185,14 @@ class ContainerPatch(dict):
         Periodic probe of container service readiness. Container will be removed from service endpoints if the probe fails. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
         """
         return pulumi.get(self, "readiness_probe")
+
+    @property
+    @pulumi.getter(name="resizePolicy")
+    def resize_policy(self) -> Optional[Sequence['outputs.ContainerResizePolicyPatch']]:
+        """
+        Resources resize policy for the container.
+        """
+        return pulumi.get(self, "resize_policy")
 
     @property
     @pulumi.getter
@@ -4434,6 +4464,112 @@ class ContainerPortPatch(dict):
         Protocol for port. Must be UDP, TCP, or SCTP. Defaults to "TCP".
         """
         return pulumi.get(self, "protocol")
+
+
+@pulumi.output_type
+class ContainerResizePolicy(dict):
+    """
+    ContainerResizePolicy represents resource resize policy for the container.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "resourceName":
+            suggest = "resource_name"
+        elif key == "restartPolicy":
+            suggest = "restart_policy"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ContainerResizePolicy. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ContainerResizePolicy.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ContainerResizePolicy.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 resource_name: str,
+                 restart_policy: str):
+        """
+        ContainerResizePolicy represents resource resize policy for the container.
+        :param str resource_name: Name of the resource to which this resource resize policy applies. Supported values: cpu, memory.
+        :param str restart_policy: Restart policy to apply when specified resource is resized. If not specified, it defaults to NotRequired.
+        """
+        pulumi.set(__self__, "resource_name", resource_name)
+        pulumi.set(__self__, "restart_policy", restart_policy)
+
+    @property
+    @pulumi.getter(name="resourceName")
+    def resource_name(self) -> str:
+        """
+        Name of the resource to which this resource resize policy applies. Supported values: cpu, memory.
+        """
+        return pulumi.get(self, "resource_name")
+
+    @property
+    @pulumi.getter(name="restartPolicy")
+    def restart_policy(self) -> str:
+        """
+        Restart policy to apply when specified resource is resized. If not specified, it defaults to NotRequired.
+        """
+        return pulumi.get(self, "restart_policy")
+
+
+@pulumi.output_type
+class ContainerResizePolicyPatch(dict):
+    """
+    ContainerResizePolicy represents resource resize policy for the container.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "resourceName":
+            suggest = "resource_name"
+        elif key == "restartPolicy":
+            suggest = "restart_policy"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ContainerResizePolicyPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ContainerResizePolicyPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ContainerResizePolicyPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 resource_name: Optional[str] = None,
+                 restart_policy: Optional[str] = None):
+        """
+        ContainerResizePolicy represents resource resize policy for the container.
+        :param str resource_name: Name of the resource to which this resource resize policy applies. Supported values: cpu, memory.
+        :param str restart_policy: Restart policy to apply when specified resource is resized. If not specified, it defaults to NotRequired.
+        """
+        if resource_name is not None:
+            pulumi.set(__self__, "resource_name", resource_name)
+        if restart_policy is not None:
+            pulumi.set(__self__, "restart_policy", restart_policy)
+
+    @property
+    @pulumi.getter(name="resourceName")
+    def resource_name(self) -> Optional[str]:
+        """
+        Name of the resource to which this resource resize policy applies. Supported values: cpu, memory.
+        """
+        return pulumi.get(self, "resource_name")
+
+    @property
+    @pulumi.getter(name="restartPolicy")
+    def restart_policy(self) -> Optional[str]:
+        """
+        Restart policy to apply when specified resource is resized. If not specified, it defaults to NotRequired.
+        """
+        return pulumi.get(self, "restart_policy")
 
 
 @pulumi.output_type
@@ -4927,6 +5063,8 @@ class ContainerStatus(dict):
             suggest = "image_id"
         elif key == "restartCount":
             suggest = "restart_count"
+        elif key == "allocatedResources":
+            suggest = "allocated_resources"
         elif key == "containerID":
             suggest = "container_id"
         elif key == "lastState":
@@ -4949,31 +5087,41 @@ class ContainerStatus(dict):
                  name: str,
                  ready: bool,
                  restart_count: int,
+                 allocated_resources: Optional[Mapping[str, str]] = None,
                  container_id: Optional[str] = None,
                  last_state: Optional['outputs.ContainerState'] = None,
+                 resources: Optional['outputs.ResourceRequirements'] = None,
                  started: Optional[bool] = None,
                  state: Optional['outputs.ContainerState'] = None):
         """
         ContainerStatus contains details for the current status of this container.
-        :param str image: The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images.
-        :param str image_id: ImageID of the container's image.
-        :param str name: This must be a DNS_LABEL. Each container in a pod must have a unique name. Cannot be updated.
-        :param bool ready: Specifies whether the container has passed its readiness probe.
-        :param int restart_count: The number of times the container has been restarted.
-        :param str container_id: Container's ID in the format '<type>://<container_id>'.
-        :param 'ContainerStateArgs' last_state: Details about the container's last termination condition.
-        :param bool started: Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is defined.
-        :param 'ContainerStateArgs' state: Details about the container's current condition.
+        :param str image: Image is the name of container image that the container is running. The container image may not match the image used in the PodSpec, as it may have been resolved by the runtime. More info: https://kubernetes.io/docs/concepts/containers/images.
+        :param str image_id: ImageID is the image ID of the container's image. The image ID may not match the image ID of the image used in the PodSpec, as it may have been resolved by the runtime.
+        :param str name: Name is a DNS_LABEL representing the unique name of the container. Each container in a pod must have a unique name across all container types. Cannot be updated.
+        :param bool ready: Ready specifies whether the container is currently passing its readiness check. The value will change as readiness probes keep executing. If no readiness probes are specified, this field defaults to true once the container is fully started (see Started field).
+               
+               The value is typically used to determine whether a container is ready to accept traffic.
+        :param int restart_count: RestartCount holds the number of times the container has been restarted. Kubelet makes an effort to always increment the value, but there are cases when the state may be lost due to node restarts and then the value may be reset to 0. The value is never negative.
+        :param Mapping[str, str] allocated_resources: AllocatedResources represents the compute resources allocated for this container by the node. Kubelet sets this value to Container.Resources.Requests upon successful pod admission and after successfully admitting desired pod resize.
+        :param str container_id: ContainerID is the ID of the container in the format '<type>://<container_id>'. Where type is a container runtime identifier, returned from Version call of CRI API (for example "containerd").
+        :param 'ContainerStateArgs' last_state: LastTerminationState holds the last termination state of the container to help debug container crashes and restarts. This field is not populated if the container is still running and RestartCount is 0.
+        :param 'ResourceRequirementsArgs' resources: Resources represents the compute resource requests and limits that have been successfully enacted on the running container after it has been started or has been successfully resized.
+        :param bool started: Started indicates whether the container has finished its postStart lifecycle hook and passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. In both cases, startup probes will run again. Is always true when no startupProbe is defined and container is running and has passed the postStart lifecycle hook. The null value must be treated the same as false.
+        :param 'ContainerStateArgs' state: State holds details about the container's current condition.
         """
         pulumi.set(__self__, "image", image)
         pulumi.set(__self__, "image_id", image_id)
         pulumi.set(__self__, "name", name)
         pulumi.set(__self__, "ready", ready)
         pulumi.set(__self__, "restart_count", restart_count)
+        if allocated_resources is not None:
+            pulumi.set(__self__, "allocated_resources", allocated_resources)
         if container_id is not None:
             pulumi.set(__self__, "container_id", container_id)
         if last_state is not None:
             pulumi.set(__self__, "last_state", last_state)
+        if resources is not None:
+            pulumi.set(__self__, "resources", resources)
         if started is not None:
             pulumi.set(__self__, "started", started)
         if state is not None:
@@ -4983,7 +5131,7 @@ class ContainerStatus(dict):
     @pulumi.getter
     def image(self) -> str:
         """
-        The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images.
+        Image is the name of container image that the container is running. The container image may not match the image used in the PodSpec, as it may have been resolved by the runtime. More info: https://kubernetes.io/docs/concepts/containers/images.
         """
         return pulumi.get(self, "image")
 
@@ -4991,7 +5139,7 @@ class ContainerStatus(dict):
     @pulumi.getter(name="imageID")
     def image_id(self) -> str:
         """
-        ImageID of the container's image.
+        ImageID is the image ID of the container's image. The image ID may not match the image ID of the image used in the PodSpec, as it may have been resolved by the runtime.
         """
         return pulumi.get(self, "image_id")
 
@@ -4999,7 +5147,7 @@ class ContainerStatus(dict):
     @pulumi.getter
     def name(self) -> str:
         """
-        This must be a DNS_LABEL. Each container in a pod must have a unique name. Cannot be updated.
+        Name is a DNS_LABEL representing the unique name of the container. Each container in a pod must have a unique name across all container types. Cannot be updated.
         """
         return pulumi.get(self, "name")
 
@@ -5007,7 +5155,9 @@ class ContainerStatus(dict):
     @pulumi.getter
     def ready(self) -> bool:
         """
-        Specifies whether the container has passed its readiness probe.
+        Ready specifies whether the container is currently passing its readiness check. The value will change as readiness probes keep executing. If no readiness probes are specified, this field defaults to true once the container is fully started (see Started field).
+
+        The value is typically used to determine whether a container is ready to accept traffic.
         """
         return pulumi.get(self, "ready")
 
@@ -5015,15 +5165,23 @@ class ContainerStatus(dict):
     @pulumi.getter(name="restartCount")
     def restart_count(self) -> int:
         """
-        The number of times the container has been restarted.
+        RestartCount holds the number of times the container has been restarted. Kubelet makes an effort to always increment the value, but there are cases when the state may be lost due to node restarts and then the value may be reset to 0. The value is never negative.
         """
         return pulumi.get(self, "restart_count")
+
+    @property
+    @pulumi.getter(name="allocatedResources")
+    def allocated_resources(self) -> Optional[Mapping[str, str]]:
+        """
+        AllocatedResources represents the compute resources allocated for this container by the node. Kubelet sets this value to Container.Resources.Requests upon successful pod admission and after successfully admitting desired pod resize.
+        """
+        return pulumi.get(self, "allocated_resources")
 
     @property
     @pulumi.getter(name="containerID")
     def container_id(self) -> Optional[str]:
         """
-        Container's ID in the format '<type>://<container_id>'.
+        ContainerID is the ID of the container in the format '<type>://<container_id>'. Where type is a container runtime identifier, returned from Version call of CRI API (for example "containerd").
         """
         return pulumi.get(self, "container_id")
 
@@ -5031,15 +5189,23 @@ class ContainerStatus(dict):
     @pulumi.getter(name="lastState")
     def last_state(self) -> Optional['outputs.ContainerState']:
         """
-        Details about the container's last termination condition.
+        LastTerminationState holds the last termination state of the container to help debug container crashes and restarts. This field is not populated if the container is still running and RestartCount is 0.
         """
         return pulumi.get(self, "last_state")
 
     @property
     @pulumi.getter
+    def resources(self) -> Optional['outputs.ResourceRequirements']:
+        """
+        Resources represents the compute resource requests and limits that have been successfully enacted on the running container after it has been started or has been successfully resized.
+        """
+        return pulumi.get(self, "resources")
+
+    @property
+    @pulumi.getter
     def started(self) -> Optional[bool]:
         """
-        Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is defined.
+        Started indicates whether the container has finished its postStart lifecycle hook and passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. In both cases, startup probes will run again. Is always true when no startupProbe is defined and container is running and has passed the postStart lifecycle hook. The null value must be treated the same as false.
         """
         return pulumi.get(self, "started")
 
@@ -5047,7 +5213,7 @@ class ContainerStatus(dict):
     @pulumi.getter
     def state(self) -> Optional['outputs.ContainerState']:
         """
-        Details about the container's current condition.
+        State holds details about the container's current condition.
         """
         return pulumi.get(self, "state")
 
@@ -5060,7 +5226,9 @@ class ContainerStatusPatch(dict):
     @staticmethod
     def __key_warning(key: str):
         suggest = None
-        if key == "containerID":
+        if key == "allocatedResources":
+            suggest = "allocated_resources"
+        elif key == "containerID":
             suggest = "container_id"
         elif key == "imageID":
             suggest = "image_id"
@@ -5081,27 +5249,35 @@ class ContainerStatusPatch(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
+                 allocated_resources: Optional[Mapping[str, str]] = None,
                  container_id: Optional[str] = None,
                  image: Optional[str] = None,
                  image_id: Optional[str] = None,
                  last_state: Optional['outputs.ContainerStatePatch'] = None,
                  name: Optional[str] = None,
                  ready: Optional[bool] = None,
+                 resources: Optional['outputs.ResourceRequirementsPatch'] = None,
                  restart_count: Optional[int] = None,
                  started: Optional[bool] = None,
                  state: Optional['outputs.ContainerStatePatch'] = None):
         """
         ContainerStatus contains details for the current status of this container.
-        :param str container_id: Container's ID in the format '<type>://<container_id>'.
-        :param str image: The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images.
-        :param str image_id: ImageID of the container's image.
-        :param 'ContainerStatePatchArgs' last_state: Details about the container's last termination condition.
-        :param str name: This must be a DNS_LABEL. Each container in a pod must have a unique name. Cannot be updated.
-        :param bool ready: Specifies whether the container has passed its readiness probe.
-        :param int restart_count: The number of times the container has been restarted.
-        :param bool started: Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is defined.
-        :param 'ContainerStatePatchArgs' state: Details about the container's current condition.
+        :param Mapping[str, str] allocated_resources: AllocatedResources represents the compute resources allocated for this container by the node. Kubelet sets this value to Container.Resources.Requests upon successful pod admission and after successfully admitting desired pod resize.
+        :param str container_id: ContainerID is the ID of the container in the format '<type>://<container_id>'. Where type is a container runtime identifier, returned from Version call of CRI API (for example "containerd").
+        :param str image: Image is the name of container image that the container is running. The container image may not match the image used in the PodSpec, as it may have been resolved by the runtime. More info: https://kubernetes.io/docs/concepts/containers/images.
+        :param str image_id: ImageID is the image ID of the container's image. The image ID may not match the image ID of the image used in the PodSpec, as it may have been resolved by the runtime.
+        :param 'ContainerStatePatchArgs' last_state: LastTerminationState holds the last termination state of the container to help debug container crashes and restarts. This field is not populated if the container is still running and RestartCount is 0.
+        :param str name: Name is a DNS_LABEL representing the unique name of the container. Each container in a pod must have a unique name across all container types. Cannot be updated.
+        :param bool ready: Ready specifies whether the container is currently passing its readiness check. The value will change as readiness probes keep executing. If no readiness probes are specified, this field defaults to true once the container is fully started (see Started field).
+               
+               The value is typically used to determine whether a container is ready to accept traffic.
+        :param 'ResourceRequirementsPatchArgs' resources: Resources represents the compute resource requests and limits that have been successfully enacted on the running container after it has been started or has been successfully resized.
+        :param int restart_count: RestartCount holds the number of times the container has been restarted. Kubelet makes an effort to always increment the value, but there are cases when the state may be lost due to node restarts and then the value may be reset to 0. The value is never negative.
+        :param bool started: Started indicates whether the container has finished its postStart lifecycle hook and passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. In both cases, startup probes will run again. Is always true when no startupProbe is defined and container is running and has passed the postStart lifecycle hook. The null value must be treated the same as false.
+        :param 'ContainerStatePatchArgs' state: State holds details about the container's current condition.
         """
+        if allocated_resources is not None:
+            pulumi.set(__self__, "allocated_resources", allocated_resources)
         if container_id is not None:
             pulumi.set(__self__, "container_id", container_id)
         if image is not None:
@@ -5114,6 +5290,8 @@ class ContainerStatusPatch(dict):
             pulumi.set(__self__, "name", name)
         if ready is not None:
             pulumi.set(__self__, "ready", ready)
+        if resources is not None:
+            pulumi.set(__self__, "resources", resources)
         if restart_count is not None:
             pulumi.set(__self__, "restart_count", restart_count)
         if started is not None:
@@ -5122,10 +5300,18 @@ class ContainerStatusPatch(dict):
             pulumi.set(__self__, "state", state)
 
     @property
+    @pulumi.getter(name="allocatedResources")
+    def allocated_resources(self) -> Optional[Mapping[str, str]]:
+        """
+        AllocatedResources represents the compute resources allocated for this container by the node. Kubelet sets this value to Container.Resources.Requests upon successful pod admission and after successfully admitting desired pod resize.
+        """
+        return pulumi.get(self, "allocated_resources")
+
+    @property
     @pulumi.getter(name="containerID")
     def container_id(self) -> Optional[str]:
         """
-        Container's ID in the format '<type>://<container_id>'.
+        ContainerID is the ID of the container in the format '<type>://<container_id>'. Where type is a container runtime identifier, returned from Version call of CRI API (for example "containerd").
         """
         return pulumi.get(self, "container_id")
 
@@ -5133,7 +5319,7 @@ class ContainerStatusPatch(dict):
     @pulumi.getter
     def image(self) -> Optional[str]:
         """
-        The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images.
+        Image is the name of container image that the container is running. The container image may not match the image used in the PodSpec, as it may have been resolved by the runtime. More info: https://kubernetes.io/docs/concepts/containers/images.
         """
         return pulumi.get(self, "image")
 
@@ -5141,7 +5327,7 @@ class ContainerStatusPatch(dict):
     @pulumi.getter(name="imageID")
     def image_id(self) -> Optional[str]:
         """
-        ImageID of the container's image.
+        ImageID is the image ID of the container's image. The image ID may not match the image ID of the image used in the PodSpec, as it may have been resolved by the runtime.
         """
         return pulumi.get(self, "image_id")
 
@@ -5149,7 +5335,7 @@ class ContainerStatusPatch(dict):
     @pulumi.getter(name="lastState")
     def last_state(self) -> Optional['outputs.ContainerStatePatch']:
         """
-        Details about the container's last termination condition.
+        LastTerminationState holds the last termination state of the container to help debug container crashes and restarts. This field is not populated if the container is still running and RestartCount is 0.
         """
         return pulumi.get(self, "last_state")
 
@@ -5157,7 +5343,7 @@ class ContainerStatusPatch(dict):
     @pulumi.getter
     def name(self) -> Optional[str]:
         """
-        This must be a DNS_LABEL. Each container in a pod must have a unique name. Cannot be updated.
+        Name is a DNS_LABEL representing the unique name of the container. Each container in a pod must have a unique name across all container types. Cannot be updated.
         """
         return pulumi.get(self, "name")
 
@@ -5165,15 +5351,25 @@ class ContainerStatusPatch(dict):
     @pulumi.getter
     def ready(self) -> Optional[bool]:
         """
-        Specifies whether the container has passed its readiness probe.
+        Ready specifies whether the container is currently passing its readiness check. The value will change as readiness probes keep executing. If no readiness probes are specified, this field defaults to true once the container is fully started (see Started field).
+
+        The value is typically used to determine whether a container is ready to accept traffic.
         """
         return pulumi.get(self, "ready")
+
+    @property
+    @pulumi.getter
+    def resources(self) -> Optional['outputs.ResourceRequirementsPatch']:
+        """
+        Resources represents the compute resource requests and limits that have been successfully enacted on the running container after it has been started or has been successfully resized.
+        """
+        return pulumi.get(self, "resources")
 
     @property
     @pulumi.getter(name="restartCount")
     def restart_count(self) -> Optional[int]:
         """
-        The number of times the container has been restarted.
+        RestartCount holds the number of times the container has been restarted. Kubelet makes an effort to always increment the value, but there are cases when the state may be lost due to node restarts and then the value may be reset to 0. The value is never negative.
         """
         return pulumi.get(self, "restart_count")
 
@@ -5181,7 +5377,7 @@ class ContainerStatusPatch(dict):
     @pulumi.getter
     def started(self) -> Optional[bool]:
         """
-        Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is defined.
+        Started indicates whether the container has finished its postStart lifecycle hook and passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. In both cases, startup probes will run again. Is always true when no startupProbe is defined and container is running and has passed the postStart lifecycle hook. The null value must be treated the same as false.
         """
         return pulumi.get(self, "started")
 
@@ -5189,7 +5385,7 @@ class ContainerStatusPatch(dict):
     @pulumi.getter
     def state(self) -> Optional['outputs.ContainerStatePatch']:
         """
-        Details about the container's current condition.
+        State holds details about the container's current condition.
         """
         return pulumi.get(self, "state")
 
@@ -5606,7 +5802,7 @@ class EmptyDirVolumeSource(dict):
         """
         Represents an empty directory for a pod. Empty directory volumes support ownership management and SELinux relabeling.
         :param str medium: medium represents what type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
-        :param str size_limit: sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: http://kubernetes.io/docs/user-guide/volumes#emptydir
+        :param str size_limit: sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
         """
         if medium is not None:
             pulumi.set(__self__, "medium", medium)
@@ -5625,7 +5821,7 @@ class EmptyDirVolumeSource(dict):
     @pulumi.getter(name="sizeLimit")
     def size_limit(self) -> Optional[str]:
         """
-        sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: http://kubernetes.io/docs/user-guide/volumes#emptydir
+        sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
         """
         return pulumi.get(self, "size_limit")
 
@@ -5658,7 +5854,7 @@ class EmptyDirVolumeSourcePatch(dict):
         """
         Represents an empty directory for a pod. Empty directory volumes support ownership management and SELinux relabeling.
         :param str medium: medium represents what type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
-        :param str size_limit: sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: http://kubernetes.io/docs/user-guide/volumes#emptydir
+        :param str size_limit: sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
         """
         if medium is not None:
             pulumi.set(__self__, "medium", medium)
@@ -5677,7 +5873,7 @@ class EmptyDirVolumeSourcePatch(dict):
     @pulumi.getter(name="sizeLimit")
     def size_limit(self) -> Optional[str]:
         """
-        sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: http://kubernetes.io/docs/user-guide/volumes#emptydir
+        sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
         """
         return pulumi.get(self, "size_limit")
 
@@ -5713,7 +5909,7 @@ class EndpointAddress(dict):
                  target_ref: Optional['outputs.ObjectReference'] = None):
         """
         EndpointAddress is a tuple that describes single IP address.
-        :param str ip: The IP of this endpoint. May not be loopback (127.0.0.0/8), link-local (169.254.0.0/16), or link-local multicast ((224.0.0.0/24). IPv6 is also accepted but not fully supported on all platforms. Also, certain kubernetes components, like kube-proxy, are not IPv6 ready.
+        :param str ip: The IP of this endpoint. May not be loopback (127.0.0.0/8 or ::1), link-local (169.254.0.0/16 or fe80::/10), or link-local multicast (224.0.0.0/24 or ff02::/16).
         :param str hostname: The Hostname of this endpoint
         :param str node_name: Optional: Node hosting this endpoint. This can be used to determine endpoints local to a node.
         :param 'ObjectReferenceArgs' target_ref: Reference to object providing the endpoint.
@@ -5730,7 +5926,7 @@ class EndpointAddress(dict):
     @pulumi.getter
     def ip(self) -> str:
         """
-        The IP of this endpoint. May not be loopback (127.0.0.0/8), link-local (169.254.0.0/16), or link-local multicast ((224.0.0.0/24). IPv6 is also accepted but not fully supported on all platforms. Also, certain kubernetes components, like kube-proxy, are not IPv6 ready.
+        The IP of this endpoint. May not be loopback (127.0.0.0/8 or ::1), link-local (169.254.0.0/16 or fe80::/10), or link-local multicast (224.0.0.0/24 or ff02::/16).
         """
         return pulumi.get(self, "ip")
 
@@ -5791,7 +5987,7 @@ class EndpointAddressPatch(dict):
         """
         EndpointAddress is a tuple that describes single IP address.
         :param str hostname: The Hostname of this endpoint
-        :param str ip: The IP of this endpoint. May not be loopback (127.0.0.0/8), link-local (169.254.0.0/16), or link-local multicast ((224.0.0.0/24). IPv6 is also accepted but not fully supported on all platforms. Also, certain kubernetes components, like kube-proxy, are not IPv6 ready.
+        :param str ip: The IP of this endpoint. May not be loopback (127.0.0.0/8 or ::1), link-local (169.254.0.0/16 or fe80::/10), or link-local multicast (224.0.0.0/24 or ff02::/16).
         :param str node_name: Optional: Node hosting this endpoint. This can be used to determine endpoints local to a node.
         :param 'ObjectReferencePatchArgs' target_ref: Reference to object providing the endpoint.
         """
@@ -5816,7 +6012,7 @@ class EndpointAddressPatch(dict):
     @pulumi.getter
     def ip(self) -> Optional[str]:
         """
-        The IP of this endpoint. May not be loopback (127.0.0.0/8), link-local (169.254.0.0/16), or link-local multicast ((224.0.0.0/24). IPv6 is also accepted but not fully supported on all platforms. Also, certain kubernetes components, like kube-proxy, are not IPv6 ready.
+        The IP of this endpoint. May not be loopback (127.0.0.0/8 or ::1), link-local (169.254.0.0/16 or fe80::/10), or link-local multicast (224.0.0.0/24 or ff02::/16).
         """
         return pulumi.get(self, "ip")
 
@@ -5867,7 +6063,14 @@ class EndpointPort(dict):
         """
         EndpointPort is a tuple that describes a single port.
         :param int port: The port number of the endpoint.
-        :param str app_protocol: The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+        :param str app_protocol: The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:
+               
+               * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
+               
+               * Kubernetes-defined prefixed names:
+                 * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+               
+               * Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.
         :param str name: The name of this port.  This must match the 'name' field in the corresponding ServicePort. Must be a DNS_LABEL. Optional only if one port is defined.
         :param str protocol: The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
         """
@@ -5891,7 +6094,14 @@ class EndpointPort(dict):
     @pulumi.getter(name="appProtocol")
     def app_protocol(self) -> Optional[str]:
         """
-        The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+        The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:
+
+        * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
+
+        * Kubernetes-defined prefixed names:
+          * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+
+        * Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.
         """
         return pulumi.get(self, "app_protocol")
 
@@ -5941,7 +6151,14 @@ class EndpointPortPatch(dict):
                  protocol: Optional[str] = None):
         """
         EndpointPort is a tuple that describes a single port.
-        :param str app_protocol: The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+        :param str app_protocol: The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:
+               
+               * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
+               
+               * Kubernetes-defined prefixed names:
+                 * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+               
+               * Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.
         :param str name: The name of this port.  This must match the 'name' field in the corresponding ServicePort. Must be a DNS_LABEL. Optional only if one port is defined.
         :param int port: The port number of the endpoint.
         :param str protocol: The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
@@ -5959,7 +6176,14 @@ class EndpointPortPatch(dict):
     @pulumi.getter(name="appProtocol")
     def app_protocol(self) -> Optional[str]:
         """
-        The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+        The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:
+
+        * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
+
+        * Kubernetes-defined prefixed names:
+          * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+
+        * Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.
         """
         return pulumi.get(self, "app_protocol")
 
@@ -6697,6 +6921,8 @@ class EphemeralContainer(dict):
             suggest = "liveness_probe"
         elif key == "readinessProbe":
             suggest = "readiness_probe"
+        elif key == "resizePolicy":
+            suggest = "resize_policy"
         elif key == "securityContext":
             suggest = "security_context"
         elif key == "startupProbe":
@@ -6739,6 +6965,7 @@ class EphemeralContainer(dict):
                  liveness_probe: Optional['outputs.Probe'] = None,
                  ports: Optional[Sequence['outputs.ContainerPort']] = None,
                  readiness_probe: Optional['outputs.Probe'] = None,
+                 resize_policy: Optional[Sequence['outputs.ContainerResizePolicy']] = None,
                  resources: Optional['outputs.ResourceRequirements'] = None,
                  security_context: Optional['outputs.SecurityContext'] = None,
                  startup_probe: Optional['outputs.Probe'] = None,
@@ -6766,6 +6993,7 @@ class EphemeralContainer(dict):
         :param 'ProbeArgs' liveness_probe: Probes are not allowed for ephemeral containers.
         :param Sequence['ContainerPortArgs'] ports: Ports are not allowed for ephemeral containers.
         :param 'ProbeArgs' readiness_probe: Probes are not allowed for ephemeral containers.
+        :param Sequence['ContainerResizePolicyArgs'] resize_policy: Resources resize policy for the container.
         :param 'ResourceRequirementsArgs' resources: Resources are not allowed for ephemeral containers. Ephemeral containers use spare resources already allocated to the pod.
         :param 'SecurityContextArgs' security_context: Optional: SecurityContext defines the security options the ephemeral container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext.
         :param 'ProbeArgs' startup_probe: Probes are not allowed for ephemeral containers.
@@ -6802,6 +7030,8 @@ class EphemeralContainer(dict):
             pulumi.set(__self__, "ports", ports)
         if readiness_probe is not None:
             pulumi.set(__self__, "readiness_probe", readiness_probe)
+        if resize_policy is not None:
+            pulumi.set(__self__, "resize_policy", resize_policy)
         if resources is not None:
             pulumi.set(__self__, "resources", resources)
         if security_context is not None:
@@ -6914,6 +7144,14 @@ class EphemeralContainer(dict):
         Probes are not allowed for ephemeral containers.
         """
         return pulumi.get(self, "readiness_probe")
+
+    @property
+    @pulumi.getter(name="resizePolicy")
+    def resize_policy(self) -> Optional[Sequence['outputs.ContainerResizePolicy']]:
+        """
+        Resources resize policy for the container.
+        """
+        return pulumi.get(self, "resize_policy")
 
     @property
     @pulumi.getter
@@ -7032,6 +7270,8 @@ class EphemeralContainerPatch(dict):
             suggest = "liveness_probe"
         elif key == "readinessProbe":
             suggest = "readiness_probe"
+        elif key == "resizePolicy":
+            suggest = "resize_policy"
         elif key == "securityContext":
             suggest = "security_context"
         elif key == "startupProbe":
@@ -7074,6 +7314,7 @@ class EphemeralContainerPatch(dict):
                  name: Optional[str] = None,
                  ports: Optional[Sequence['outputs.ContainerPortPatch']] = None,
                  readiness_probe: Optional['outputs.ProbePatch'] = None,
+                 resize_policy: Optional[Sequence['outputs.ContainerResizePolicyPatch']] = None,
                  resources: Optional['outputs.ResourceRequirementsPatch'] = None,
                  security_context: Optional['outputs.SecurityContextPatch'] = None,
                  startup_probe: Optional['outputs.ProbePatch'] = None,
@@ -7101,6 +7342,7 @@ class EphemeralContainerPatch(dict):
         :param str name: Name of the ephemeral container specified as a DNS_LABEL. This name must be unique among all containers, init containers and ephemeral containers.
         :param Sequence['ContainerPortPatchArgs'] ports: Ports are not allowed for ephemeral containers.
         :param 'ProbePatchArgs' readiness_probe: Probes are not allowed for ephemeral containers.
+        :param Sequence['ContainerResizePolicyPatchArgs'] resize_policy: Resources resize policy for the container.
         :param 'ResourceRequirementsPatchArgs' resources: Resources are not allowed for ephemeral containers. Ephemeral containers use spare resources already allocated to the pod.
         :param 'SecurityContextPatchArgs' security_context: Optional: SecurityContext defines the security options the ephemeral container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext.
         :param 'ProbePatchArgs' startup_probe: Probes are not allowed for ephemeral containers.
@@ -7138,6 +7380,8 @@ class EphemeralContainerPatch(dict):
             pulumi.set(__self__, "ports", ports)
         if readiness_probe is not None:
             pulumi.set(__self__, "readiness_probe", readiness_probe)
+        if resize_policy is not None:
+            pulumi.set(__self__, "resize_policy", resize_policy)
         if resources is not None:
             pulumi.set(__self__, "resources", resources)
         if security_context is not None:
@@ -7250,6 +7494,14 @@ class EphemeralContainerPatch(dict):
         Probes are not allowed for ephemeral containers.
         """
         return pulumi.get(self, "readiness_probe")
+
+    @property
+    @pulumi.getter(name="resizePolicy")
+    def resize_policy(self) -> Optional[Sequence['outputs.ContainerResizePolicyPatch']]:
+        """
+        Resources resize policy for the container.
+        """
+        return pulumi.get(self, "resize_policy")
 
     @property
     @pulumi.getter
@@ -13083,7 +13335,7 @@ class NodeStatus(dict):
                  volumes_in_use: Optional[Sequence[str]] = None):
         """
         NodeStatus is information about the current status of a node.
-        :param Sequence['NodeAddressArgs'] addresses: List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example.
+        :param Sequence['NodeAddressArgs'] addresses: List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
         :param Mapping[str, str] allocatable: Allocatable represents the resources of a node that are available for scheduling. Defaults to Capacity.
         :param Mapping[str, str] capacity: Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
         :param Sequence['NodeConditionArgs'] conditions: Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/concepts/nodes/node/#condition
@@ -13122,7 +13374,7 @@ class NodeStatus(dict):
     @pulumi.getter
     def addresses(self) -> Optional[Sequence['outputs.NodeAddress']]:
         """
-        List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example.
+        List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
         """
         return pulumi.get(self, "addresses")
 
@@ -13249,7 +13501,7 @@ class NodeStatusPatch(dict):
                  volumes_in_use: Optional[Sequence[str]] = None):
         """
         NodeStatus is information about the current status of a node.
-        :param Sequence['NodeAddressPatchArgs'] addresses: List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example.
+        :param Sequence['NodeAddressPatchArgs'] addresses: List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
         :param Mapping[str, str] allocatable: Allocatable represents the resources of a node that are available for scheduling. Defaults to Capacity.
         :param Mapping[str, str] capacity: Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity
         :param Sequence['NodeConditionPatchArgs'] conditions: Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/concepts/nodes/node/#condition
@@ -13288,7 +13540,7 @@ class NodeStatusPatch(dict):
     @pulumi.getter
     def addresses(self) -> Optional[Sequence['outputs.NodeAddressPatch']]:
         """
-        List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example.
+        List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
         """
         return pulumi.get(self, "addresses")
 
@@ -14209,7 +14461,7 @@ class PersistentVolumeClaim(dict):
 @pulumi.output_type
 class PersistentVolumeClaimCondition(dict):
     """
-    PersistentVolumeClaimCondition contails details about state of pvc
+    PersistentVolumeClaimCondition contains details about state of pvc
     """
     @staticmethod
     def __key_warning(key: str):
@@ -14238,7 +14490,7 @@ class PersistentVolumeClaimCondition(dict):
                  message: Optional[str] = None,
                  reason: Optional[str] = None):
         """
-        PersistentVolumeClaimCondition contails details about state of pvc
+        PersistentVolumeClaimCondition contains details about state of pvc
         :param str last_probe_time: lastProbeTime is the time we probed the condition.
         :param str last_transition_time: lastTransitionTime is the time the condition transitioned from one status to another.
         :param str message: message is the human-readable message indicating details about last transition.
@@ -14301,7 +14553,7 @@ class PersistentVolumeClaimCondition(dict):
 @pulumi.output_type
 class PersistentVolumeClaimConditionPatch(dict):
     """
-    PersistentVolumeClaimCondition contails details about state of pvc
+    PersistentVolumeClaimCondition contains details about state of pvc
     """
     @staticmethod
     def __key_warning(key: str):
@@ -14330,7 +14582,7 @@ class PersistentVolumeClaimConditionPatch(dict):
                  status: Optional[str] = None,
                  type: Optional[str] = None):
         """
-        PersistentVolumeClaimCondition contails details about state of pvc
+        PersistentVolumeClaimCondition contains details about state of pvc
         :param str last_probe_time: lastProbeTime is the time we probed the condition.
         :param str last_transition_time: lastTransitionTime is the time the condition transitioned from one status to another.
         :param str message: message is the human-readable message indicating details about last transition.
@@ -17843,12 +18095,14 @@ class PodSpec(dict):
                This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
                
                This field is immutable.
-        :param str restart_policy: Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
+        :param str restart_policy: Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
         :param str runtime_class_name: RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the "legacy" RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. More info: https://git.k8s.io/enhancements/keps/sig-node/585-runtime-class
         :param str scheduler_name: If specified, the pod will be dispatched by specified scheduler. If not specified, the pod will be dispatched by default scheduler.
-        :param Sequence['PodSchedulingGateArgs'] scheduling_gates: SchedulingGates is an opaque list of values that if specified will block scheduling the pod. More info:  https://git.k8s.io/enhancements/keps/sig-scheduling/3521-pod-scheduling-readiness.
+        :param Sequence['PodSchedulingGateArgs'] scheduling_gates: SchedulingGates is an opaque list of values that if specified will block scheduling the pod. If schedulingGates is not empty, the pod will stay in the SchedulingGated state and the scheduler will not attempt to schedule the pod.
                
-               This is an alpha-level feature enabled by PodSchedulingReadiness feature gate.
+               SchedulingGates can only be set at pod creation time, and be removed only afterwards.
+               
+               This is a beta feature enabled by the PodSchedulingReadiness feature gate.
         :param 'PodSecurityContextArgs' security_context: SecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty.  See type description for default values of each field.
         :param str service_account: DeprecatedServiceAccount is a depreciated alias for ServiceAccountName. Deprecated: Use serviceAccountName instead.
         :param str service_account_name: ServiceAccountName is the name of the ServiceAccount to use to run this pod. More info: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
@@ -18150,7 +18404,7 @@ class PodSpec(dict):
     @pulumi.getter(name="restartPolicy")
     def restart_policy(self) -> Optional[str]:
         """
-        Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
+        Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
         """
         return pulumi.get(self, "restart_policy")
 
@@ -18174,9 +18428,11 @@ class PodSpec(dict):
     @pulumi.getter(name="schedulingGates")
     def scheduling_gates(self) -> Optional[Sequence['outputs.PodSchedulingGate']]:
         """
-        SchedulingGates is an opaque list of values that if specified will block scheduling the pod. More info:  https://git.k8s.io/enhancements/keps/sig-scheduling/3521-pod-scheduling-readiness.
+        SchedulingGates is an opaque list of values that if specified will block scheduling the pod. If schedulingGates is not empty, the pod will stay in the SchedulingGated state and the scheduler will not attempt to schedule the pod.
 
-        This is an alpha-level feature enabled by PodSchedulingReadiness feature gate.
+        SchedulingGates can only be set at pod creation time, and be removed only afterwards.
+
+        This is a beta feature enabled by the PodSchedulingReadiness feature gate.
         """
         return pulumi.get(self, "scheduling_gates")
 
@@ -18416,12 +18672,14 @@ class PodSpecPatch(dict):
                This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
                
                This field is immutable.
-        :param str restart_policy: Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
+        :param str restart_policy: Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
         :param str runtime_class_name: RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the "legacy" RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. More info: https://git.k8s.io/enhancements/keps/sig-node/585-runtime-class
         :param str scheduler_name: If specified, the pod will be dispatched by specified scheduler. If not specified, the pod will be dispatched by default scheduler.
-        :param Sequence['PodSchedulingGatePatchArgs'] scheduling_gates: SchedulingGates is an opaque list of values that if specified will block scheduling the pod. More info:  https://git.k8s.io/enhancements/keps/sig-scheduling/3521-pod-scheduling-readiness.
+        :param Sequence['PodSchedulingGatePatchArgs'] scheduling_gates: SchedulingGates is an opaque list of values that if specified will block scheduling the pod. If schedulingGates is not empty, the pod will stay in the SchedulingGated state and the scheduler will not attempt to schedule the pod.
                
-               This is an alpha-level feature enabled by PodSchedulingReadiness feature gate.
+               SchedulingGates can only be set at pod creation time, and be removed only afterwards.
+               
+               This is a beta feature enabled by the PodSchedulingReadiness feature gate.
         :param 'PodSecurityContextPatchArgs' security_context: SecurityContext holds pod-level security attributes and common container settings. Optional: Defaults to empty.  See type description for default values of each field.
         :param str service_account: DeprecatedServiceAccount is a depreciated alias for ServiceAccountName. Deprecated: Use serviceAccountName instead.
         :param str service_account_name: ServiceAccountName is the name of the ServiceAccount to use to run this pod. More info: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
@@ -18724,7 +18982,7 @@ class PodSpecPatch(dict):
     @pulumi.getter(name="restartPolicy")
     def restart_policy(self) -> Optional[str]:
         """
-        Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
+        Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
         """
         return pulumi.get(self, "restart_policy")
 
@@ -18748,9 +19006,11 @@ class PodSpecPatch(dict):
     @pulumi.getter(name="schedulingGates")
     def scheduling_gates(self) -> Optional[Sequence['outputs.PodSchedulingGatePatch']]:
         """
-        SchedulingGates is an opaque list of values that if specified will block scheduling the pod. More info:  https://git.k8s.io/enhancements/keps/sig-scheduling/3521-pod-scheduling-readiness.
+        SchedulingGates is an opaque list of values that if specified will block scheduling the pod. If schedulingGates is not empty, the pod will stay in the SchedulingGated state and the scheduler will not attempt to schedule the pod.
 
-        This is an alpha-level feature enabled by PodSchedulingReadiness feature gate.
+        SchedulingGates can only be set at pod creation time, and be removed only afterwards.
+
+        This is a beta feature enabled by the PodSchedulingReadiness feature gate.
         """
         return pulumi.get(self, "scheduling_gates")
 
@@ -18886,6 +19146,7 @@ class PodStatus(dict):
                  pod_ips: Optional[Sequence['outputs.PodIP']] = None,
                  qos_class: Optional[str] = None,
                  reason: Optional[str] = None,
+                 resize: Optional[str] = None,
                  start_time: Optional[str] = None):
         """
         PodStatus represents information about the status of a pod. Status may trail the actual state of a system, especially if the node that hosts the pod cannot contact the control plane.
@@ -18903,8 +19164,9 @@ class PodStatus(dict):
                More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-phase
         :param str pod_ip: IP address allocated to the pod. Routable at least within the cluster. Empty if not yet allocated.
         :param Sequence['PodIPArgs'] pod_ips: podIPs holds the IP addresses allocated to the pod. If this field is specified, the 0th entry must match the podIP field. Pods may be allocated at most 1 value for each of IPv4 and IPv6. This list is empty if no IPs have been allocated yet.
-        :param str qos_class: The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md
+        :param str qos_class: The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/#quality-of-service-classes
         :param str reason: A brief CamelCase message indicating details about why the pod is in this state. e.g. 'Evicted'
+        :param str resize: Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed"
         :param str start_time: RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.
         """
         if conditions is not None:
@@ -18931,6 +19193,8 @@ class PodStatus(dict):
             pulumi.set(__self__, "qos_class", qos_class)
         if reason is not None:
             pulumi.set(__self__, "reason", reason)
+        if resize is not None:
+            pulumi.set(__self__, "resize", resize)
         if start_time is not None:
             pulumi.set(__self__, "start_time", start_time)
 
@@ -19022,7 +19286,7 @@ class PodStatus(dict):
     @pulumi.getter(name="qosClass")
     def qos_class(self) -> Optional[str]:
         """
-        The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md
+        The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/#quality-of-service-classes
         """
         return pulumi.get(self, "qos_class")
 
@@ -19033,6 +19297,14 @@ class PodStatus(dict):
         A brief CamelCase message indicating details about why the pod is in this state. e.g. 'Evicted'
         """
         return pulumi.get(self, "reason")
+
+    @property
+    @pulumi.getter
+    def resize(self) -> Optional[str]:
+        """
+        Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed"
+        """
+        return pulumi.get(self, "resize")
 
     @property
     @pulumi.getter(name="startTime")
@@ -19094,6 +19366,7 @@ class PodStatusPatch(dict):
                  pod_ips: Optional[Sequence['outputs.PodIPPatch']] = None,
                  qos_class: Optional[str] = None,
                  reason: Optional[str] = None,
+                 resize: Optional[str] = None,
                  start_time: Optional[str] = None):
         """
         PodStatus represents information about the status of a pod. Status may trail the actual state of a system, especially if the node that hosts the pod cannot contact the control plane.
@@ -19111,8 +19384,9 @@ class PodStatusPatch(dict):
                More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-phase
         :param str pod_ip: IP address allocated to the pod. Routable at least within the cluster. Empty if not yet allocated.
         :param Sequence['PodIPPatchArgs'] pod_ips: podIPs holds the IP addresses allocated to the pod. If this field is specified, the 0th entry must match the podIP field. Pods may be allocated at most 1 value for each of IPv4 and IPv6. This list is empty if no IPs have been allocated yet.
-        :param str qos_class: The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md
+        :param str qos_class: The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/#quality-of-service-classes
         :param str reason: A brief CamelCase message indicating details about why the pod is in this state. e.g. 'Evicted'
+        :param str resize: Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed"
         :param str start_time: RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.
         """
         if conditions is not None:
@@ -19139,6 +19413,8 @@ class PodStatusPatch(dict):
             pulumi.set(__self__, "qos_class", qos_class)
         if reason is not None:
             pulumi.set(__self__, "reason", reason)
+        if resize is not None:
+            pulumi.set(__self__, "resize", resize)
         if start_time is not None:
             pulumi.set(__self__, "start_time", start_time)
 
@@ -19230,7 +19506,7 @@ class PodStatusPatch(dict):
     @pulumi.getter(name="qosClass")
     def qos_class(self) -> Optional[str]:
         """
-        The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md
+        The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/#quality-of-service-classes
         """
         return pulumi.get(self, "qos_class")
 
@@ -19241,6 +19517,14 @@ class PodStatusPatch(dict):
         A brief CamelCase message indicating details about why the pod is in this state. e.g. 'Evicted'
         """
         return pulumi.get(self, "reason")
+
+    @property
+    @pulumi.getter
+    def resize(self) -> Optional[str]:
+        """
+        Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed"
+        """
+        return pulumi.get(self, "resize")
 
     @property
     @pulumi.getter(name="startTime")
@@ -19749,7 +20033,7 @@ class Probe(dict):
         Probe describes a health check to be performed against a container to determine whether it is alive or ready to receive traffic.
         :param 'ExecActionArgs' exec_: Exec specifies the action to take.
         :param int failure_threshold: Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
-        :param 'GRPCActionArgs' grpc: GRPC specifies an action involving a GRPC port. This is a beta field and requires enabling GRPCContainerProbe feature gate.
+        :param 'GRPCActionArgs' grpc: GRPC specifies an action involving a GRPC port.
         :param 'HTTPGetActionArgs' http_get: HTTPGet specifies the http request to perform.
         :param int initial_delay_seconds: Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
         :param int period_seconds: How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
@@ -19799,7 +20083,7 @@ class Probe(dict):
     @pulumi.getter
     def grpc(self) -> Optional['outputs.GRPCAction']:
         """
-        GRPC specifies an action involving a GRPC port. This is a beta field and requires enabling GRPCContainerProbe feature gate.
+        GRPC specifies an action involving a GRPC port.
         """
         return pulumi.get(self, "grpc")
 
@@ -19913,7 +20197,7 @@ class ProbePatch(dict):
         Probe describes a health check to be performed against a container to determine whether it is alive or ready to receive traffic.
         :param 'ExecActionPatchArgs' exec_: Exec specifies the action to take.
         :param int failure_threshold: Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1.
-        :param 'GRPCActionPatchArgs' grpc: GRPC specifies an action involving a GRPC port. This is a beta field and requires enabling GRPCContainerProbe feature gate.
+        :param 'GRPCActionPatchArgs' grpc: GRPC specifies an action involving a GRPC port.
         :param 'HTTPGetActionPatchArgs' http_get: HTTPGet specifies the http request to perform.
         :param int initial_delay_seconds: Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes
         :param int period_seconds: How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1.
@@ -19963,7 +20247,7 @@ class ProbePatch(dict):
     @pulumi.getter
     def grpc(self) -> Optional['outputs.GRPCActionPatch']:
         """
-        GRPC specifies an action involving a GRPC port. This is a beta field and requires enabling GRPCContainerProbe feature gate.
+        GRPC specifies an action involving a GRPC port.
         """
         return pulumi.get(self, "grpc")
 
@@ -21127,7 +21411,7 @@ class ReplicationControllerSpec(dict):
         :param int min_ready_seconds: Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
         :param int replicas: Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#what-is-a-replicationcontroller
         :param Mapping[str, str] selector: Selector is a label query over pods that should match the Replicas count. If Selector is empty, it is defaulted to the labels present on the Pod template. Label keys and values that must match in order to be controlled by this replication controller, if empty defaulted to labels on Pod template. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-        :param 'PodTemplateSpecArgs' template: Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+        :param 'PodTemplateSpecArgs' template: Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. The only allowed template.spec.restartPolicy value is "Always". More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
         """
         if min_ready_seconds is not None:
             pulumi.set(__self__, "min_ready_seconds", min_ready_seconds)
@@ -21166,7 +21450,7 @@ class ReplicationControllerSpec(dict):
     @pulumi.getter
     def template(self) -> Optional['outputs.PodTemplateSpec']:
         """
-        Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+        Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. The only allowed template.spec.restartPolicy value is "Always". More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
         """
         return pulumi.get(self, "template")
 
@@ -21203,7 +21487,7 @@ class ReplicationControllerSpecPatch(dict):
         :param int min_ready_seconds: Minimum number of seconds for which a newly created pod should be ready without any of its container crashing, for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
         :param int replicas: Replicas is the number of desired replicas. This is a pointer to distinguish between explicit zero and unspecified. Defaults to 1. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#what-is-a-replicationcontroller
         :param Mapping[str, str] selector: Selector is a label query over pods that should match the Replicas count. If Selector is empty, it is defaulted to the labels present on the Pod template. Label keys and values that must match in order to be controlled by this replication controller, if empty defaulted to labels on Pod template. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
-        :param 'PodTemplateSpecPatchArgs' template: Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+        :param 'PodTemplateSpecPatchArgs' template: Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. The only allowed template.spec.restartPolicy value is "Always". More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
         """
         if min_ready_seconds is not None:
             pulumi.set(__self__, "min_ready_seconds", min_ready_seconds)
@@ -21242,7 +21526,7 @@ class ReplicationControllerSpecPatch(dict):
     @pulumi.getter
     def template(self) -> Optional['outputs.PodTemplateSpecPatch']:
         """
-        Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+        Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. The only allowed template.spec.restartPolicy value is "Always". More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
         """
         return pulumi.get(self, "template")
 
@@ -21931,9 +22215,9 @@ class ResourceRequirements(dict):
                
                This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
                
-               This field is immutable.
+               This field is immutable. It can only be set for containers.
         :param Mapping[str, str] limits: Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-        :param Mapping[str, str] requests: Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+        :param Mapping[str, str] requests: Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
         """
         if claims is not None:
             pulumi.set(__self__, "claims", claims)
@@ -21950,7 +22234,7 @@ class ResourceRequirements(dict):
 
         This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
 
-        This field is immutable.
+        This field is immutable. It can only be set for containers.
         """
         return pulumi.get(self, "claims")
 
@@ -21966,7 +22250,7 @@ class ResourceRequirements(dict):
     @pulumi.getter
     def requests(self) -> Optional[Mapping[str, str]]:
         """
-        Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+        Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
         """
         return pulumi.get(self, "requests")
 
@@ -21986,9 +22270,9 @@ class ResourceRequirementsPatch(dict):
                
                This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
                
-               This field is immutable.
+               This field is immutable. It can only be set for containers.
         :param Mapping[str, str] limits: Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-        :param Mapping[str, str] requests: Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+        :param Mapping[str, str] requests: Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
         """
         if claims is not None:
             pulumi.set(__self__, "claims", claims)
@@ -22005,7 +22289,7 @@ class ResourceRequirementsPatch(dict):
 
         This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
 
-        This field is immutable.
+        This field is immutable. It can only be set for containers.
         """
         return pulumi.get(self, "claims")
 
@@ -22021,7 +22305,7 @@ class ResourceRequirementsPatch(dict):
     @pulumi.getter
     def requests(self) -> Optional[Mapping[str, str]]:
         """
-        Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+        Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
         """
         return pulumi.get(self, "requests")
 
@@ -26549,7 +26833,9 @@ class TopologySpreadConstraint(dict):
                  skew.
                A constraint is considered "Unsatisfiable" for an incoming pod if and only if every possible node assignment for that pod would violate "MaxSkew" on some topology. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 3/1/1: | zone1 | zone2 | zone3 | | P P P |   P   |   P   | If WhenUnsatisfiable is set to DoNotSchedule, incoming pod can only be scheduled to zone2(zone3) to become 3/2/1(3/1/2) as ActualSkew(2-1) on zone2(zone3) satisfies MaxSkew(1). In other words, the cluster can still be imbalanced, but scheduler won't make it *more* imbalanced. It's a required field.
         :param '_meta.v1.LabelSelectorArgs' label_selector: LabelSelector is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.
-        :param Sequence[str] match_label_keys: MatchLabelKeys is a set of pod label keys to select the pods over which spreading will be calculated. The keys are used to lookup values from the incoming pod labels, those key-value labels are ANDed with labelSelector to select the group of existing pods over which spreading will be calculated for the incoming pod. Keys that don't exist in the incoming pod labels will be ignored. A null or empty list means only match against labelSelector.
+        :param Sequence[str] match_label_keys: MatchLabelKeys is a set of pod label keys to select the pods over which spreading will be calculated. The keys are used to lookup values from the incoming pod labels, those key-value labels are ANDed with labelSelector to select the group of existing pods over which spreading will be calculated for the incoming pod. The same key is forbidden to exist in both MatchLabelKeys and LabelSelector. MatchLabelKeys cannot be set when LabelSelector isn't set. Keys that don't exist in the incoming pod labels will be ignored. A null or empty list means only match against labelSelector.
+               
+               This is a beta field and requires the MatchLabelKeysInPodTopologySpread feature gate to be enabled (enabled by default).
         :param int min_domains: MinDomains indicates a minimum number of eligible domains. When the number of eligible domains with matching topology keys is less than minDomains, Pod Topology Spread treats "global minimum" as 0, and then the calculation of Skew is performed. And when the number of eligible domains with matching topology keys equals or greater than minDomains, this value has no effect on scheduling. As a result, when the number of eligible domains is less than minDomains, scheduler won't schedule more than maxSkew Pods to those domains. If value is nil, the constraint behaves as if MinDomains is equal to 1. Valid values are integers greater than 0. When value is not nil, WhenUnsatisfiable must be DoNotSchedule.
                
                For example, in a 3-zone cluster, MaxSkew is set to 2, MinDomains is set to 5 and pods with the same labelSelector spread as 2/2/2: | zone1 | zone2 | zone3 | |  P P  |  P P  |  P P  | The number of domains is less than 5(MinDomains), so "global minimum" is treated as 0. In this situation, new pod with the same labelSelector cannot be scheduled, because computed skew will be 3(3 - 0) if new Pod is scheduled to any of the three zones, it will violate MaxSkew.
@@ -26615,7 +26901,9 @@ class TopologySpreadConstraint(dict):
     @pulumi.getter(name="matchLabelKeys")
     def match_label_keys(self) -> Optional[Sequence[str]]:
         """
-        MatchLabelKeys is a set of pod label keys to select the pods over which spreading will be calculated. The keys are used to lookup values from the incoming pod labels, those key-value labels are ANDed with labelSelector to select the group of existing pods over which spreading will be calculated for the incoming pod. Keys that don't exist in the incoming pod labels will be ignored. A null or empty list means only match against labelSelector.
+        MatchLabelKeys is a set of pod label keys to select the pods over which spreading will be calculated. The keys are used to lookup values from the incoming pod labels, those key-value labels are ANDed with labelSelector to select the group of existing pods over which spreading will be calculated for the incoming pod. The same key is forbidden to exist in both MatchLabelKeys and LabelSelector. MatchLabelKeys cannot be set when LabelSelector isn't set. Keys that don't exist in the incoming pod labels will be ignored. A null or empty list means only match against labelSelector.
+
+        This is a beta field and requires the MatchLabelKeysInPodTopologySpread feature gate to be enabled (enabled by default).
         """
         return pulumi.get(self, "match_label_keys")
 
@@ -26700,7 +26988,9 @@ class TopologySpreadConstraintPatch(dict):
         """
         TopologySpreadConstraint specifies how to spread matching pods among the given topology.
         :param '_meta.v1.LabelSelectorPatchArgs' label_selector: LabelSelector is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.
-        :param Sequence[str] match_label_keys: MatchLabelKeys is a set of pod label keys to select the pods over which spreading will be calculated. The keys are used to lookup values from the incoming pod labels, those key-value labels are ANDed with labelSelector to select the group of existing pods over which spreading will be calculated for the incoming pod. Keys that don't exist in the incoming pod labels will be ignored. A null or empty list means only match against labelSelector.
+        :param Sequence[str] match_label_keys: MatchLabelKeys is a set of pod label keys to select the pods over which spreading will be calculated. The keys are used to lookup values from the incoming pod labels, those key-value labels are ANDed with labelSelector to select the group of existing pods over which spreading will be calculated for the incoming pod. The same key is forbidden to exist in both MatchLabelKeys and LabelSelector. MatchLabelKeys cannot be set when LabelSelector isn't set. Keys that don't exist in the incoming pod labels will be ignored. A null or empty list means only match against labelSelector.
+               
+               This is a beta field and requires the MatchLabelKeysInPodTopologySpread feature gate to be enabled (enabled by default).
         :param int max_skew: MaxSkew describes the degree to which pods may be unevenly distributed. When `whenUnsatisfiable=DoNotSchedule`, it is the maximum permitted difference between the number of matching pods in the target topology and the global minimum. The global minimum is the minimum number of matching pods in an eligible domain or zero if the number of eligible domains is less than MinDomains. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 2/2/1: In this case, the global minimum is 1. | zone1 | zone2 | zone3 | |  P P  |  P P  |   P   | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 2/2/2; scheduling it onto zone1(zone2) would make the ActualSkew(3-1) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. When `whenUnsatisfiable=ScheduleAnyway`, it is used to give higher precedence to topologies that satisfy it. It's a required field. Default value is 1 and 0 is not allowed.
         :param int min_domains: MinDomains indicates a minimum number of eligible domains. When the number of eligible domains with matching topology keys is less than minDomains, Pod Topology Spread treats "global minimum" as 0, and then the calculation of Skew is performed. And when the number of eligible domains with matching topology keys equals or greater than minDomains, this value has no effect on scheduling. As a result, when the number of eligible domains is less than minDomains, scheduler won't schedule more than maxSkew Pods to those domains. If value is nil, the constraint behaves as if MinDomains is equal to 1. Valid values are integers greater than 0. When value is not nil, WhenUnsatisfiable must be DoNotSchedule.
                
@@ -26748,7 +27038,9 @@ class TopologySpreadConstraintPatch(dict):
     @pulumi.getter(name="matchLabelKeys")
     def match_label_keys(self) -> Optional[Sequence[str]]:
         """
-        MatchLabelKeys is a set of pod label keys to select the pods over which spreading will be calculated. The keys are used to lookup values from the incoming pod labels, those key-value labels are ANDed with labelSelector to select the group of existing pods over which spreading will be calculated for the incoming pod. Keys that don't exist in the incoming pod labels will be ignored. A null or empty list means only match against labelSelector.
+        MatchLabelKeys is a set of pod label keys to select the pods over which spreading will be calculated. The keys are used to lookup values from the incoming pod labels, those key-value labels are ANDed with labelSelector to select the group of existing pods over which spreading will be calculated for the incoming pod. The same key is forbidden to exist in both MatchLabelKeys and LabelSelector. MatchLabelKeys cannot be set when LabelSelector isn't set. Keys that don't exist in the incoming pod labels will be ignored. A null or empty list means only match against labelSelector.
+
+        This is a beta field and requires the MatchLabelKeysInPodTopologySpread feature gate to be enabled (enabled by default).
         """
         return pulumi.get(self, "match_label_keys")
 

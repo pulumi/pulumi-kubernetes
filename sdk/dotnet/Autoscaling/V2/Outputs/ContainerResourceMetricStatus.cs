@@ -17,7 +17,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling.V2
     public sealed class ContainerResourceMetricStatus
     {
         /// <summary>
-        /// Container is the name of the container in the pods of the scaling target
+        /// container is the name of the container in the pods of the scaling target
         /// </summary>
         public readonly string Container;
         /// <summary>
@@ -25,7 +25,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling.V2
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Autoscaling.V2.MetricValueStatus Current;
         /// <summary>
-        /// Name is the name of the resource in question.
+        /// name is the name of the resource in question.
         /// </summary>
         public readonly string Name;
 

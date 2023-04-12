@@ -21,14 +21,14 @@ public final class IngressServiceBackendArgs extends com.pulumi.resources.Resour
     public static final IngressServiceBackendArgs Empty = new IngressServiceBackendArgs();
 
     /**
-     * Name is the referenced service. The service must exist in the same namespace as the Ingress object.
+     * name is the referenced service. The service must exist in the same namespace as the Ingress object.
      * 
      */
     @Import(name="name", required=true)
     private Output<String> name;
 
     /**
-     * @return Name is the referenced service. The service must exist in the same namespace as the Ingress object.
+     * @return name is the referenced service. The service must exist in the same namespace as the Ingress object.
      * 
      */
     public Output<String> name() {
@@ -36,14 +36,14 @@ public final class IngressServiceBackendArgs extends com.pulumi.resources.Resour
     }
 
     /**
-     * Port of the referenced service. A port name or port number is required for a IngressServiceBackend.
+     * port of the referenced service. A port name or port number is required for a IngressServiceBackend.
      * 
      */
     @Import(name="port")
     private @Nullable Output<ServiceBackendPortArgs> port;
 
     /**
-     * @return Port of the referenced service. A port name or port number is required for a IngressServiceBackend.
+     * @return port of the referenced service. A port name or port number is required for a IngressServiceBackend.
      * 
      */
     public Optional<Output<ServiceBackendPortArgs>> port() {
@@ -76,7 +76,7 @@ public final class IngressServiceBackendArgs extends com.pulumi.resources.Resour
         }
 
         /**
-         * @param name Name is the referenced service. The service must exist in the same namespace as the Ingress object.
+         * @param name name is the referenced service. The service must exist in the same namespace as the Ingress object.
          * 
          * @return builder
          * 
@@ -87,7 +87,7 @@ public final class IngressServiceBackendArgs extends com.pulumi.resources.Resour
         }
 
         /**
-         * @param name Name is the referenced service. The service must exist in the same namespace as the Ingress object.
+         * @param name name is the referenced service. The service must exist in the same namespace as the Ingress object.
          * 
          * @return builder
          * 
@@ -97,7 +97,7 @@ public final class IngressServiceBackendArgs extends com.pulumi.resources.Resour
         }
 
         /**
-         * @param port Port of the referenced service. A port name or port number is required for a IngressServiceBackend.
+         * @param port port of the referenced service. A port name or port number is required for a IngressServiceBackend.
          * 
          * @return builder
          * 
@@ -108,7 +108,7 @@ public final class IngressServiceBackendArgs extends com.pulumi.resources.Resour
         }
 
         /**
-         * @param port Port of the referenced service. A port name or port number is required for a IngressServiceBackend.
+         * @param port port of the referenced service. A port name or port number is required for a IngressServiceBackend.
          * 
          * @return builder
          * 

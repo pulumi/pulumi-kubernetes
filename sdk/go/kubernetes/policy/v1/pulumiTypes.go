@@ -502,7 +502,7 @@ type PodDisruptionBudgetSpec struct {
 	//
 	// Additional policies may be added in the future. Clients making eviction decisions should disallow eviction of unhealthy pods if they encounter an unrecognized policy in this field.
 	//
-	// This field is alpha-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (disabled by default).
+	// This field is beta-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (enabled by default).
 	UnhealthyPodEvictionPolicy *string `pulumi:"unhealthyPodEvictionPolicy"`
 }
 
@@ -535,7 +535,7 @@ type PodDisruptionBudgetSpecArgs struct {
 	//
 	// Additional policies may be added in the future. Clients making eviction decisions should disallow eviction of unhealthy pods if they encounter an unrecognized policy in this field.
 	//
-	// This field is alpha-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (disabled by default).
+	// This field is beta-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (enabled by default).
 	UnhealthyPodEvictionPolicy pulumi.StringPtrInput `pulumi:"unhealthyPodEvictionPolicy"`
 }
 
@@ -642,7 +642,7 @@ func (o PodDisruptionBudgetSpecOutput) Selector() metav1.LabelSelectorPtrOutput 
 //
 // Additional policies may be added in the future. Clients making eviction decisions should disallow eviction of unhealthy pods if they encounter an unrecognized policy in this field.
 //
-// This field is alpha-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (disabled by default).
+// This field is beta-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (enabled by default).
 func (o PodDisruptionBudgetSpecOutput) UnhealthyPodEvictionPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetSpec) *string { return v.UnhealthyPodEvictionPolicy }).(pulumi.StringPtrOutput)
 }
@@ -711,7 +711,7 @@ func (o PodDisruptionBudgetSpecPtrOutput) Selector() metav1.LabelSelectorPtrOutp
 //
 // Additional policies may be added in the future. Clients making eviction decisions should disallow eviction of unhealthy pods if they encounter an unrecognized policy in this field.
 //
-// This field is alpha-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (disabled by default).
+// This field is beta-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (enabled by default).
 func (o PodDisruptionBudgetSpecPtrOutput) UnhealthyPodEvictionPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PodDisruptionBudgetSpec) *string {
 		if v == nil {
@@ -739,7 +739,7 @@ type PodDisruptionBudgetSpecPatch struct {
 	//
 	// Additional policies may be added in the future. Clients making eviction decisions should disallow eviction of unhealthy pods if they encounter an unrecognized policy in this field.
 	//
-	// This field is alpha-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (disabled by default).
+	// This field is beta-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (enabled by default).
 	UnhealthyPodEvictionPolicy *string `pulumi:"unhealthyPodEvictionPolicy"`
 }
 
@@ -772,7 +772,7 @@ type PodDisruptionBudgetSpecPatchArgs struct {
 	//
 	// Additional policies may be added in the future. Clients making eviction decisions should disallow eviction of unhealthy pods if they encounter an unrecognized policy in this field.
 	//
-	// This field is alpha-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (disabled by default).
+	// This field is beta-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (enabled by default).
 	UnhealthyPodEvictionPolicy pulumi.StringPtrInput `pulumi:"unhealthyPodEvictionPolicy"`
 }
 
@@ -879,7 +879,7 @@ func (o PodDisruptionBudgetSpecPatchOutput) Selector() metav1.LabelSelectorPatch
 //
 // Additional policies may be added in the future. Clients making eviction decisions should disallow eviction of unhealthy pods if they encounter an unrecognized policy in this field.
 //
-// This field is alpha-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (disabled by default).
+// This field is beta-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (enabled by default).
 func (o PodDisruptionBudgetSpecPatchOutput) UnhealthyPodEvictionPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PodDisruptionBudgetSpecPatch) *string { return v.UnhealthyPodEvictionPolicy }).(pulumi.StringPtrOutput)
 }
@@ -948,7 +948,7 @@ func (o PodDisruptionBudgetSpecPatchPtrOutput) Selector() metav1.LabelSelectorPa
 //
 // Additional policies may be added in the future. Clients making eviction decisions should disallow eviction of unhealthy pods if they encounter an unrecognized policy in this field.
 //
-// This field is alpha-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (disabled by default).
+// This field is beta-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (enabled by default).
 func (o PodDisruptionBudgetSpecPatchPtrOutput) UnhealthyPodEvictionPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *PodDisruptionBudgetSpecPatch) *string {
 		if v == nil {

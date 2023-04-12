@@ -51,14 +51,14 @@ public final class LeaseSpecArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed RenewTime.
+     * leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed renewTime.
      * 
      */
     @Import(name="leaseDurationSeconds")
     private @Nullable Output<Integer> leaseDurationSeconds;
 
     /**
-     * @return leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed RenewTime.
+     * @return leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed renewTime.
      * 
      */
     public Optional<Output<Integer>> leaseDurationSeconds() {
@@ -166,7 +166,7 @@ public final class LeaseSpecArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param leaseDurationSeconds leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed RenewTime.
+         * @param leaseDurationSeconds leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed renewTime.
          * 
          * @return builder
          * 
@@ -177,7 +177,7 @@ public final class LeaseSpecArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param leaseDurationSeconds leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed RenewTime.
+         * @param leaseDurationSeconds leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed renewTime.
          * 
          * @return builder
          * 

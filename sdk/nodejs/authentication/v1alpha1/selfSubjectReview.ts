@@ -8,7 +8,7 @@ import * as enums from "../../types/enums";
 import * as utilities from "../../utilities";
 
 /**
- * SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.
+ * SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.  If impersonation or request header authentication is used, any extra keys will have their case ignored and returned as lowercase.
  */
 export class SelfSubjectReview extends pulumi.CustomResource {
     /**
@@ -76,6 +76,8 @@ export class SelfSubjectReview extends pulumi.CustomResource {
             resourceInputs["status"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const aliasOpts = { aliases: [{ type: "kubernetes:authentication.k8s.io/v1beta1:SelfSubjectReview" }] };
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(SelfSubjectReview.__pulumiType, name, resourceInputs, opts);
     }
 }

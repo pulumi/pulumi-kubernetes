@@ -69,14 +69,14 @@ public final class HorizontalPodAutoscalerArgs extends com.pulumi.resources.Reso
     }
 
     /**
-     * behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+     * spec defines the behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
      * 
      */
     @Import(name="spec")
     private @Nullable Output<HorizontalPodAutoscalerSpecArgs> spec;
 
     /**
-     * @return behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+     * @return spec defines the behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
      * 
      */
     public Optional<Output<HorizontalPodAutoscalerSpecArgs>> spec() {
@@ -84,14 +84,14 @@ public final class HorizontalPodAutoscalerArgs extends com.pulumi.resources.Reso
     }
 
     /**
-     * current information about the autoscaler.
+     * status is the current information about the autoscaler.
      * 
      */
     @Import(name="status")
     private @Nullable Output<HorizontalPodAutoscalerStatusArgs> status;
 
     /**
-     * @return current information about the autoscaler.
+     * @return status is the current information about the autoscaler.
      * 
      */
     public Optional<Output<HorizontalPodAutoscalerStatusArgs>> status() {
@@ -190,7 +190,7 @@ public final class HorizontalPodAutoscalerArgs extends com.pulumi.resources.Reso
         }
 
         /**
-         * @param spec behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+         * @param spec spec defines the behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
          * 
          * @return builder
          * 
@@ -201,7 +201,7 @@ public final class HorizontalPodAutoscalerArgs extends com.pulumi.resources.Reso
         }
 
         /**
-         * @param spec behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+         * @param spec spec defines the behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
          * 
          * @return builder
          * 
@@ -211,7 +211,7 @@ public final class HorizontalPodAutoscalerArgs extends com.pulumi.resources.Reso
         }
 
         /**
-         * @param status current information about the autoscaler.
+         * @param status status is the current information about the autoscaler.
          * 
          * @return builder
          * 
@@ -222,7 +222,7 @@ public final class HorizontalPodAutoscalerArgs extends com.pulumi.resources.Reso
         }
 
         /**
-         * @param status current information about the autoscaler.
+         * @param status status is the current information about the autoscaler.
          * 
          * @return builder
          * 

@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.admissionregistration.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.kubernetes.admissionregistration.v1.outputs.MatchConditionPatch;
 import com.pulumi.kubernetes.admissionregistration.v1.outputs.RuleWithOperationsPatch;
 import com.pulumi.kubernetes.admissionregistration.v1.outputs.WebhookClientConfigPatch;
 import com.pulumi.kubernetes.meta.v1.outputs.LabelSelectorPatch;
@@ -31,6 +32,20 @@ public final class MutatingWebhookPatch {
      * 
      */
     private @Nullable String failurePolicy;
+    /**
+     * @return MatchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+     * 
+     * The exact matching logic is (in order):
+     *   1. If ANY matchCondition evaluates to FALSE, the webhook is skipped.
+     *   2. If ALL matchConditions evaluate to TRUE, the webhook is called.
+     *   3. If any matchCondition evaluates to an error (but none are FALSE):
+     *      - If failurePolicy=Fail, reject the request
+     *      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
+     * 
+     * This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+     * 
+     */
+    private @Nullable List<MatchConditionPatch> matchConditions;
     /**
      * @return matchPolicy defines how the &#34;rules&#34; list is used to match incoming requests. Allowed values are &#34;Exact&#34; or &#34;Equivalent&#34;.
      * 
@@ -135,6 +150,22 @@ public final class MutatingWebhookPatch {
      */
     public Optional<String> failurePolicy() {
         return Optional.ofNullable(this.failurePolicy);
+    }
+    /**
+     * @return MatchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+     * 
+     * The exact matching logic is (in order):
+     *   1. If ANY matchCondition evaluates to FALSE, the webhook is skipped.
+     *   2. If ALL matchConditions evaluate to TRUE, the webhook is called.
+     *   3. If any matchCondition evaluates to an error (but none are FALSE):
+     *      - If failurePolicy=Fail, reject the request
+     *      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
+     * 
+     * This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+     * 
+     */
+    public List<MatchConditionPatch> matchConditions() {
+        return this.matchConditions == null ? List.of() : this.matchConditions;
     }
     /**
      * @return matchPolicy defines how the &#34;rules&#34; list is used to match incoming requests. Allowed values are &#34;Exact&#34; or &#34;Equivalent&#34;.
@@ -247,6 +278,7 @@ public final class MutatingWebhookPatch {
         private @Nullable List<String> admissionReviewVersions;
         private @Nullable WebhookClientConfigPatch clientConfig;
         private @Nullable String failurePolicy;
+        private @Nullable List<MatchConditionPatch> matchConditions;
         private @Nullable String matchPolicy;
         private @Nullable String name;
         private @Nullable LabelSelectorPatch namespaceSelector;
@@ -261,6 +293,7 @@ public final class MutatingWebhookPatch {
     	      this.admissionReviewVersions = defaults.admissionReviewVersions;
     	      this.clientConfig = defaults.clientConfig;
     	      this.failurePolicy = defaults.failurePolicy;
+    	      this.matchConditions = defaults.matchConditions;
     	      this.matchPolicy = defaults.matchPolicy;
     	      this.name = defaults.name;
     	      this.namespaceSelector = defaults.namespaceSelector;
@@ -288,6 +321,14 @@ public final class MutatingWebhookPatch {
         public Builder failurePolicy(@Nullable String failurePolicy) {
             this.failurePolicy = failurePolicy;
             return this;
+        }
+        @CustomType.Setter
+        public Builder matchConditions(@Nullable List<MatchConditionPatch> matchConditions) {
+            this.matchConditions = matchConditions;
+            return this;
+        }
+        public Builder matchConditions(MatchConditionPatch... matchConditions) {
+            return matchConditions(List.of(matchConditions));
         }
         @CustomType.Setter
         public Builder matchPolicy(@Nullable String matchPolicy) {
@@ -337,6 +378,7 @@ public final class MutatingWebhookPatch {
             o.admissionReviewVersions = admissionReviewVersions;
             o.clientConfig = clientConfig;
             o.failurePolicy = failurePolicy;
+            o.matchConditions = matchConditions;
             o.matchPolicy = matchPolicy;
             o.name = name;
             o.namespaceSelector = namespaceSelector;

@@ -34,7 +34,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2
         public Input<string>? SelectPolicy { get; set; }
 
         /// <summary>
-        /// StabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
+        /// stabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
         /// </summary>
         [Input("stabilizationWindowSeconds")]
         public Input<int>? StabilizationWindowSeconds { get; set; }

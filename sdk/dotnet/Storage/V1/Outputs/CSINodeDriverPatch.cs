@@ -21,7 +21,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage.V1
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Storage.V1.VolumeNodeResourcesPatch Allocatable;
         /// <summary>
-        /// This is the name of the CSI driver that this object refers to. This MUST be the same name returned by the CSI GetPluginName() call for that driver.
+        /// name represents the name of the CSI driver that this object refers to. This MUST be the same name returned by the CSI GetPluginName() call for that driver.
         /// </summary>
         public readonly string Name;
         /// <summary>

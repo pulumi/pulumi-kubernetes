@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
 import com.pulumi.kubernetes.core.v1.outputs.ContainerPort;
+import com.pulumi.kubernetes.core.v1.outputs.ContainerResizePolicy;
 import com.pulumi.kubernetes.core.v1.outputs.EnvFromSource;
 import com.pulumi.kubernetes.core.v1.outputs.EnvVar;
 import com.pulumi.kubernetes.core.v1.outputs.Lifecycle;
@@ -77,6 +78,11 @@ public final class EphemeralContainer {
      * 
      */
     private @Nullable Probe readinessProbe;
+    /**
+     * @return Resources resize policy for the container.
+     * 
+     */
+    private @Nullable List<ContainerResizePolicy> resizePolicy;
     /**
      * @return Resources are not allowed for ephemeral containers. Ephemeral containers use spare resources already allocated to the pod.
      * 
@@ -219,6 +225,13 @@ public final class EphemeralContainer {
         return Optional.ofNullable(this.readinessProbe);
     }
     /**
+     * @return Resources resize policy for the container.
+     * 
+     */
+    public List<ContainerResizePolicy> resizePolicy() {
+        return this.resizePolicy == null ? List.of() : this.resizePolicy;
+    }
+    /**
      * @return Resources are not allowed for ephemeral containers. Ephemeral containers use spare resources already allocated to the pod.
      * 
      */
@@ -325,6 +338,7 @@ public final class EphemeralContainer {
         private String name;
         private @Nullable List<ContainerPort> ports;
         private @Nullable Probe readinessProbe;
+        private @Nullable List<ContainerResizePolicy> resizePolicy;
         private @Nullable ResourceRequirements resources;
         private @Nullable SecurityContext securityContext;
         private @Nullable Probe startupProbe;
@@ -351,6 +365,7 @@ public final class EphemeralContainer {
     	      this.name = defaults.name;
     	      this.ports = defaults.ports;
     	      this.readinessProbe = defaults.readinessProbe;
+    	      this.resizePolicy = defaults.resizePolicy;
     	      this.resources = defaults.resources;
     	      this.securityContext = defaults.securityContext;
     	      this.startupProbe = defaults.startupProbe;
@@ -436,6 +451,14 @@ public final class EphemeralContainer {
             return this;
         }
         @CustomType.Setter
+        public Builder resizePolicy(@Nullable List<ContainerResizePolicy> resizePolicy) {
+            this.resizePolicy = resizePolicy;
+            return this;
+        }
+        public Builder resizePolicy(ContainerResizePolicy... resizePolicy) {
+            return resizePolicy(List.of(resizePolicy));
+        }
+        @CustomType.Setter
         public Builder resources(@Nullable ResourceRequirements resources) {
             this.resources = resources;
             return this;
@@ -514,6 +537,7 @@ public final class EphemeralContainer {
             o.name = name;
             o.ports = ports;
             o.readinessProbe = readinessProbe;
+            o.resizePolicy = resizePolicy;
             o.resources = resources;
             o.securityContext = securityContext;
             o.startupProbe = startupProbe;

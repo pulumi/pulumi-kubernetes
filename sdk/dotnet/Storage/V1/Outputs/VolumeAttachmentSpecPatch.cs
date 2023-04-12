@@ -17,15 +17,15 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage.V1
     public sealed class VolumeAttachmentSpecPatch
     {
         /// <summary>
-        /// Attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
+        /// attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
         /// </summary>
         public readonly string Attacher;
         /// <summary>
-        /// The node that the volume should be attached to.
+        /// nodeName represents the node that the volume should be attached to.
         /// </summary>
         public readonly string NodeName;
         /// <summary>
-        /// Source represents the volume that should be attached.
+        /// source represents the volume that should be attached.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Storage.V1.VolumeAttachmentSourcePatch Source;
 

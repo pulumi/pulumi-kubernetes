@@ -16,7 +16,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
     public class IngressPortStatusArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
+        /// error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
         ///   CamelCase names
         /// - cloud provider specific error values must have names that comply with the
         ///   format foo.example.com/CamelCase.
@@ -25,13 +25,13 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
         public Input<string>? Error { get; set; }
 
         /// <summary>
-        /// Port is the port number of the ingress port.
+        /// port is the port number of the ingress port.
         /// </summary>
         [Input("port", required: true)]
         public Input<int> Port { get; set; } = null!;
 
         /// <summary>
-        /// Protocol is the protocol of the ingress port. The supported values are: "TCP", "UDP", "SCTP"
+        /// protocol is the protocol of the ingress port. The supported values are: "TCP", "UDP", "SCTP"
         /// </summary>
         [Input("protocol", required: true)]
         public Input<string> Protocol { get; set; } = null!;

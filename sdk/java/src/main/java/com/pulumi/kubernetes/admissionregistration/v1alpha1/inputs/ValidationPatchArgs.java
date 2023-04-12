@@ -20,9 +20,12 @@ public final class ValidationPatchArgs extends com.pulumi.resources.ResourceArgs
     public static final ValidationPatchArgs Empty = new ValidationPatchArgs();
 
     /**
-     * Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the Admission request/response, organized into CEL variables as well as some other useful variables:
+     * Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
      * 
-     * &#39;object&#39; - The object from the incoming request. The value is null for DELETE requests. &#39;oldObject&#39; - The existing object. The value is null for CREATE requests. &#39;request&#39; - Attributes of the admission request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). &#39;params&#39; - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind.
+     * - &#39;object&#39; - The object from the incoming request. The value is null for DELETE requests. - &#39;oldObject&#39; - The existing object. The value is null for CREATE requests. - &#39;request&#39; - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - &#39;params&#39; - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - &#39;authorizer&#39; - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+     *   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+     * - &#39;authorizer.requestResource&#39; - A CEL ResourceCheck constructed from the &#39;authorizer&#39; and configured with the
+     *   request resource.
      * 
      * The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
      * 
@@ -47,9 +50,12 @@ public final class ValidationPatchArgs extends com.pulumi.resources.ResourceArgs
     private @Nullable Output<String> expression;
 
     /**
-     * @return Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the Admission request/response, organized into CEL variables as well as some other useful variables:
+     * @return Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
      * 
-     * &#39;object&#39; - The object from the incoming request. The value is null for DELETE requests. &#39;oldObject&#39; - The existing object. The value is null for CREATE requests. &#39;request&#39; - Attributes of the admission request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). &#39;params&#39; - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind.
+     * - &#39;object&#39; - The object from the incoming request. The value is null for DELETE requests. - &#39;oldObject&#39; - The existing object. The value is null for CREATE requests. - &#39;request&#39; - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - &#39;params&#39; - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - &#39;authorizer&#39; - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+     *   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+     * - &#39;authorizer.requestResource&#39; - A CEL ResourceCheck constructed from the &#39;authorizer&#39; and configured with the
+     *   request resource.
      * 
      * The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
      * 
@@ -90,6 +96,21 @@ public final class ValidationPatchArgs extends com.pulumi.resources.ResourceArgs
     }
 
     /**
+     * messageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a validation, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the `expression` except for &#39;authorizer&#39; and &#39;authorizer.requestResource&#39;. Example: &#34;object.x must be less than max (&#34;+string(params.max)+&#34;)&#34;
+     * 
+     */
+    @Import(name="messageExpression")
+    private @Nullable Output<String> messageExpression;
+
+    /**
+     * @return messageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a validation, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the `expression` except for &#39;authorizer&#39; and &#39;authorizer.requestResource&#39;. Example: &#34;object.x must be less than max (&#34;+string(params.max)+&#34;)&#34;
+     * 
+     */
+    public Optional<Output<String>> messageExpression() {
+        return Optional.ofNullable(this.messageExpression);
+    }
+
+    /**
      * Reason represents a machine-readable description of why this validation failed. If this is the first validation in the list to fail, this reason, as well as the corresponding HTTP response code, are used in the HTTP response to the client. The currently supported reasons are: &#34;Unauthorized&#34;, &#34;Forbidden&#34;, &#34;Invalid&#34;, &#34;RequestEntityTooLarge&#34;. If not set, StatusReasonInvalid is used in the response to the client.
      * 
      */
@@ -109,6 +130,7 @@ public final class ValidationPatchArgs extends com.pulumi.resources.ResourceArgs
     private ValidationPatchArgs(ValidationPatchArgs $) {
         this.expression = $.expression;
         this.message = $.message;
+        this.messageExpression = $.messageExpression;
         this.reason = $.reason;
     }
 
@@ -131,9 +153,12 @@ public final class ValidationPatchArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param expression Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the Admission request/response, organized into CEL variables as well as some other useful variables:
+         * @param expression Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
          * 
-         * &#39;object&#39; - The object from the incoming request. The value is null for DELETE requests. &#39;oldObject&#39; - The existing object. The value is null for CREATE requests. &#39;request&#39; - Attributes of the admission request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). &#39;params&#39; - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind.
+         * - &#39;object&#39; - The object from the incoming request. The value is null for DELETE requests. - &#39;oldObject&#39; - The existing object. The value is null for CREATE requests. - &#39;request&#39; - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - &#39;params&#39; - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - &#39;authorizer&#39; - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+         *   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+         * - &#39;authorizer.requestResource&#39; - A CEL ResourceCheck constructed from the &#39;authorizer&#39; and configured with the
+         *   request resource.
          * 
          * The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
          * 
@@ -162,9 +187,12 @@ public final class ValidationPatchArgs extends com.pulumi.resources.ResourceArgs
         }
 
         /**
-         * @param expression Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the Admission request/response, organized into CEL variables as well as some other useful variables:
+         * @param expression Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
          * 
-         * &#39;object&#39; - The object from the incoming request. The value is null for DELETE requests. &#39;oldObject&#39; - The existing object. The value is null for CREATE requests. &#39;request&#39; - Attributes of the admission request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). &#39;params&#39; - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind.
+         * - &#39;object&#39; - The object from the incoming request. The value is null for DELETE requests. - &#39;oldObject&#39; - The existing object. The value is null for CREATE requests. - &#39;request&#39; - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - &#39;params&#39; - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - &#39;authorizer&#39; - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+         *   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+         * - &#39;authorizer.requestResource&#39; - A CEL ResourceCheck constructed from the &#39;authorizer&#39; and configured with the
+         *   request resource.
          * 
          * The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
          * 
@@ -210,6 +238,27 @@ public final class ValidationPatchArgs extends com.pulumi.resources.ResourceArgs
          */
         public Builder message(String message) {
             return message(Output.of(message));
+        }
+
+        /**
+         * @param messageExpression messageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a validation, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the `expression` except for &#39;authorizer&#39; and &#39;authorizer.requestResource&#39;. Example: &#34;object.x must be less than max (&#34;+string(params.max)+&#34;)&#34;
+         * 
+         * @return builder
+         * 
+         */
+        public Builder messageExpression(@Nullable Output<String> messageExpression) {
+            $.messageExpression = messageExpression;
+            return this;
+        }
+
+        /**
+         * @param messageExpression messageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a validation, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the `expression` except for &#39;authorizer&#39; and &#39;authorizer.requestResource&#39;. Example: &#34;object.x must be less than max (&#34;+string(params.max)+&#34;)&#34;
+         * 
+         * @return builder
+         * 
+         */
+        public Builder messageExpression(String messageExpression) {
+            return messageExpression(Output.of(messageExpression));
         }
 
         /**

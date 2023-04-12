@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.admissionregistration.v1.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.kubernetes.admissionregistration.v1.inputs.MatchConditionPatchArgs;
 import com.pulumi.kubernetes.admissionregistration.v1.inputs.RuleWithOperationsPatchArgs;
 import com.pulumi.kubernetes.admissionregistration.v1.inputs.WebhookClientConfigPatchArgs;
 import com.pulumi.kubernetes.meta.v1.inputs.LabelSelectorPatchArgs;
@@ -67,6 +68,39 @@ public final class ValidatingWebhookPatchArgs extends com.pulumi.resources.Resou
      */
     public Optional<Output<String>> failurePolicy() {
         return Optional.ofNullable(this.failurePolicy);
+    }
+
+    /**
+     * MatchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+     * 
+     * The exact matching logic is (in order):
+     *   1. If ANY matchCondition evaluates to FALSE, the webhook is skipped.
+     *   2. If ALL matchConditions evaluate to TRUE, the webhook is called.
+     *   3. If any matchCondition evaluates to an error (but none are FALSE):
+     *      - If failurePolicy=Fail, reject the request
+     *      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
+     * 
+     * This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+     * 
+     */
+    @Import(name="matchConditions")
+    private @Nullable Output<List<MatchConditionPatchArgs>> matchConditions;
+
+    /**
+     * @return MatchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+     * 
+     * The exact matching logic is (in order):
+     *   1. If ANY matchCondition evaluates to FALSE, the webhook is skipped.
+     *   2. If ALL matchConditions evaluate to TRUE, the webhook is called.
+     *   3. If any matchCondition evaluates to an error (but none are FALSE):
+     *      - If failurePolicy=Fail, reject the request
+     *      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
+     * 
+     * This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+     * 
+     */
+    public Optional<Output<List<MatchConditionPatchArgs>>> matchConditions() {
+        return Optional.ofNullable(this.matchConditions);
     }
 
     /**
@@ -252,6 +286,7 @@ public final class ValidatingWebhookPatchArgs extends com.pulumi.resources.Resou
         this.admissionReviewVersions = $.admissionReviewVersions;
         this.clientConfig = $.clientConfig;
         this.failurePolicy = $.failurePolicy;
+        this.matchConditions = $.matchConditions;
         this.matchPolicy = $.matchPolicy;
         this.name = $.name;
         this.namespaceSelector = $.namespaceSelector;
@@ -350,6 +385,64 @@ public final class ValidatingWebhookPatchArgs extends com.pulumi.resources.Resou
          */
         public Builder failurePolicy(String failurePolicy) {
             return failurePolicy(Output.of(failurePolicy));
+        }
+
+        /**
+         * @param matchConditions MatchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+         * 
+         * The exact matching logic is (in order):
+         *   1. If ANY matchCondition evaluates to FALSE, the webhook is skipped.
+         *   2. If ALL matchConditions evaluate to TRUE, the webhook is called.
+         *   3. If any matchCondition evaluates to an error (but none are FALSE):
+         *      - If failurePolicy=Fail, reject the request
+         *      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
+         * 
+         * This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder matchConditions(@Nullable Output<List<MatchConditionPatchArgs>> matchConditions) {
+            $.matchConditions = matchConditions;
+            return this;
+        }
+
+        /**
+         * @param matchConditions MatchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+         * 
+         * The exact matching logic is (in order):
+         *   1. If ANY matchCondition evaluates to FALSE, the webhook is skipped.
+         *   2. If ALL matchConditions evaluate to TRUE, the webhook is called.
+         *   3. If any matchCondition evaluates to an error (but none are FALSE):
+         *      - If failurePolicy=Fail, reject the request
+         *      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
+         * 
+         * This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder matchConditions(List<MatchConditionPatchArgs> matchConditions) {
+            return matchConditions(Output.of(matchConditions));
+        }
+
+        /**
+         * @param matchConditions MatchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+         * 
+         * The exact matching logic is (in order):
+         *   1. If ANY matchCondition evaluates to FALSE, the webhook is skipped.
+         *   2. If ALL matchConditions evaluate to TRUE, the webhook is called.
+         *   3. If any matchCondition evaluates to an error (but none are FALSE):
+         *      - If failurePolicy=Fail, reject the request
+         *      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
+         * 
+         * This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder matchConditions(MatchConditionPatchArgs... matchConditions) {
+            return matchConditions(List.of(matchConditions));
         }
 
         /**

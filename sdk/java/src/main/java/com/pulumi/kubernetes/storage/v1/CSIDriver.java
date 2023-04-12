@@ -66,14 +66,14 @@ public class CSIDriver extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.metadata);
     }
     /**
-     * Specification of the CSI Driver.
+     * spec represents the specification of the CSI Driver.
      * 
      */
     @Export(name="spec", refs={CSIDriverSpec.class}, tree="[0]")
     private Output<CSIDriverSpec> spec;
 
     /**
-     * @return Specification of the CSI Driver.
+     * @return spec represents the specification of the CSI Driver.
      * 
      */
     public Output<CSIDriverSpec> spec() {

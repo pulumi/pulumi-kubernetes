@@ -35,14 +35,14 @@ public final class HorizontalPodAutoscalerListArgs extends com.pulumi.resources.
     }
 
     /**
-     * list of horizontal pod autoscaler objects.
+     * items is the list of horizontal pod autoscaler objects.
      * 
      */
     @Import(name="items", required=true)
     private Output<List<HorizontalPodAutoscalerArgs>> items;
 
     /**
-     * @return list of horizontal pod autoscaler objects.
+     * @return items is the list of horizontal pod autoscaler objects.
      * 
      */
     public Output<List<HorizontalPodAutoscalerArgs>> items() {
@@ -128,7 +128,7 @@ public final class HorizontalPodAutoscalerListArgs extends com.pulumi.resources.
         }
 
         /**
-         * @param items list of horizontal pod autoscaler objects.
+         * @param items items is the list of horizontal pod autoscaler objects.
          * 
          * @return builder
          * 
@@ -139,7 +139,7 @@ public final class HorizontalPodAutoscalerListArgs extends com.pulumi.resources.
         }
 
         /**
-         * @param items list of horizontal pod autoscaler objects.
+         * @param items items is the list of horizontal pod autoscaler objects.
          * 
          * @return builder
          * 
@@ -149,7 +149,7 @@ public final class HorizontalPodAutoscalerListArgs extends com.pulumi.resources.
         }
 
         /**
-         * @param items list of horizontal pod autoscaler objects.
+         * @param items items is the list of horizontal pod autoscaler objects.
          * 
          * @return builder
          * 

@@ -34,7 +34,7 @@ namespace Pulumi.Kubernetes.Networking.V1
         public Output<Pulumi.Kubernetes.Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
-        /// Spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        /// spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         /// </summary>
         [Output("spec")]
         public Output<Pulumi.Kubernetes.Types.Outputs.Networking.V1.IngressClassSpec> Spec { get; private set; } = null!;
@@ -122,7 +122,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
         public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs>? Metadata { get; set; }
 
         /// <summary>
-        /// Spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        /// spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         /// </summary>
         [Input("spec")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Networking.V1.IngressClassSpecArgs>? Spec { get; set; }

@@ -19,7 +19,7 @@ type LeaseType struct {
 	Kind *string `pulumi:"kind"`
 	// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-	// Specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	// spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec *LeaseSpec `pulumi:"spec"`
 }
 
@@ -42,7 +42,7 @@ type LeaseTypeArgs struct {
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
-	// Specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	// spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec LeaseSpecPtrInput `pulumi:"spec"`
 }
 
@@ -113,7 +113,7 @@ func (o LeaseTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v LeaseType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
-// Specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+// spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 func (o LeaseTypeOutput) Spec() LeaseSpecPtrOutput {
 	return o.ApplyT(func(v LeaseType) *LeaseSpec { return v.Spec }).(LeaseSpecPtrOutput)
 }
@@ -142,7 +142,7 @@ func (o LeaseTypeArrayOutput) Index(i pulumi.IntInput) LeaseTypeOutput {
 type LeaseListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
-	// Items is a list of schema objects.
+	// items is a list of schema objects.
 	Items []LeaseType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
@@ -165,7 +165,7 @@ type LeaseListTypeInput interface {
 type LeaseListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// Items is a list of schema objects.
+	// items is a list of schema objects.
 	Items LeaseTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
@@ -205,7 +205,7 @@ func (o LeaseListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LeaseListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
-// Items is a list of schema objects.
+// items is a list of schema objects.
 func (o LeaseListTypeOutput) Items() LeaseTypeArrayOutput {
 	return o.ApplyT(func(v LeaseListType) []LeaseType { return v.Items }).(LeaseTypeArrayOutput)
 }
@@ -228,7 +228,7 @@ type LeasePatchType struct {
 	Kind *string `pulumi:"kind"`
 	// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
-	// Specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	// spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec *LeaseSpecPatch `pulumi:"spec"`
 }
 
@@ -251,7 +251,7 @@ type LeasePatchTypeArgs struct {
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
-	// Specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	// spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec LeaseSpecPatchPtrInput `pulumi:"spec"`
 }
 
@@ -297,7 +297,7 @@ func (o LeasePatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
 	return o.ApplyT(func(v LeasePatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
 }
 
-// Specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+// spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 func (o LeasePatchTypeOutput) Spec() LeaseSpecPatchPtrOutput {
 	return o.ApplyT(func(v LeasePatchType) *LeaseSpecPatch { return v.Spec }).(LeaseSpecPatchPtrOutput)
 }
@@ -308,7 +308,7 @@ type LeaseSpec struct {
 	AcquireTime *string `pulumi:"acquireTime"`
 	// holderIdentity contains the identity of the holder of a current lease.
 	HolderIdentity *string `pulumi:"holderIdentity"`
-	// leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed RenewTime.
+	// leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed renewTime.
 	LeaseDurationSeconds *int `pulumi:"leaseDurationSeconds"`
 	// leaseTransitions is the number of transitions of a lease between holders.
 	LeaseTransitions *int `pulumi:"leaseTransitions"`
@@ -333,7 +333,7 @@ type LeaseSpecArgs struct {
 	AcquireTime pulumi.StringPtrInput `pulumi:"acquireTime"`
 	// holderIdentity contains the identity of the holder of a current lease.
 	HolderIdentity pulumi.StringPtrInput `pulumi:"holderIdentity"`
-	// leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed RenewTime.
+	// leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed renewTime.
 	LeaseDurationSeconds pulumi.IntPtrInput `pulumi:"leaseDurationSeconds"`
 	// leaseTransitions is the number of transitions of a lease between holders.
 	LeaseTransitions pulumi.IntPtrInput `pulumi:"leaseTransitions"`
@@ -429,7 +429,7 @@ func (o LeaseSpecOutput) HolderIdentity() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LeaseSpec) *string { return v.HolderIdentity }).(pulumi.StringPtrOutput)
 }
 
-// leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed RenewTime.
+// leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed renewTime.
 func (o LeaseSpecOutput) LeaseDurationSeconds() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v LeaseSpec) *int { return v.LeaseDurationSeconds }).(pulumi.IntPtrOutput)
 }
@@ -488,7 +488,7 @@ func (o LeaseSpecPtrOutput) HolderIdentity() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed RenewTime.
+// leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed renewTime.
 func (o LeaseSpecPtrOutput) LeaseDurationSeconds() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *LeaseSpec) *int {
 		if v == nil {
@@ -524,7 +524,7 @@ type LeaseSpecPatch struct {
 	AcquireTime *string `pulumi:"acquireTime"`
 	// holderIdentity contains the identity of the holder of a current lease.
 	HolderIdentity *string `pulumi:"holderIdentity"`
-	// leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed RenewTime.
+	// leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed renewTime.
 	LeaseDurationSeconds *int `pulumi:"leaseDurationSeconds"`
 	// leaseTransitions is the number of transitions of a lease between holders.
 	LeaseTransitions *int `pulumi:"leaseTransitions"`
@@ -549,7 +549,7 @@ type LeaseSpecPatchArgs struct {
 	AcquireTime pulumi.StringPtrInput `pulumi:"acquireTime"`
 	// holderIdentity contains the identity of the holder of a current lease.
 	HolderIdentity pulumi.StringPtrInput `pulumi:"holderIdentity"`
-	// leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed RenewTime.
+	// leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed renewTime.
 	LeaseDurationSeconds pulumi.IntPtrInput `pulumi:"leaseDurationSeconds"`
 	// leaseTransitions is the number of transitions of a lease between holders.
 	LeaseTransitions pulumi.IntPtrInput `pulumi:"leaseTransitions"`
@@ -645,7 +645,7 @@ func (o LeaseSpecPatchOutput) HolderIdentity() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LeaseSpecPatch) *string { return v.HolderIdentity }).(pulumi.StringPtrOutput)
 }
 
-// leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed RenewTime.
+// leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed renewTime.
 func (o LeaseSpecPatchOutput) LeaseDurationSeconds() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v LeaseSpecPatch) *int { return v.LeaseDurationSeconds }).(pulumi.IntPtrOutput)
 }
@@ -704,7 +704,7 @@ func (o LeaseSpecPatchPtrOutput) HolderIdentity() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed RenewTime.
+// leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed renewTime.
 func (o LeaseSpecPatchPtrOutput) LeaseDurationSeconds() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *LeaseSpecPatch) *int {
 		if v == nil {

@@ -27,7 +27,7 @@ type CSIDriverPatch struct {
 	Kind pulumi.StringPtrOutput `pulumi:"kind"`
 	// Standard object metadata. metadata.Name indicates the name of the CSI driver that this object refers to; it MUST be the same name returned by the CSI GetPluginName() call for that driver. The driver name must be 63 characters or less, beginning and ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPatchPtrOutput `pulumi:"metadata"`
-	// Specification of the CSI Driver.
+	// spec represents the specification of the CSI Driver.
 	Spec CSIDriverSpecPatchPtrOutput `pulumi:"spec"`
 }
 
@@ -84,7 +84,7 @@ type csidriverPatchArgs struct {
 	Kind *string `pulumi:"kind"`
 	// Standard object metadata. metadata.Name indicates the name of the CSI driver that this object refers to; it MUST be the same name returned by the CSI GetPluginName() call for that driver. The driver name must be 63 characters or less, beginning and ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
-	// Specification of the CSI Driver.
+	// spec represents the specification of the CSI Driver.
 	Spec *CSIDriverSpecPatch `pulumi:"spec"`
 }
 
@@ -96,7 +96,7 @@ type CSIDriverPatchArgs struct {
 	Kind pulumi.StringPtrInput
 	// Standard object metadata. metadata.Name indicates the name of the CSI driver that this object refers to; it MUST be the same name returned by the CSI GetPluginName() call for that driver. The driver name must be 63 characters or less, beginning and ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPatchPtrInput
-	// Specification of the CSI Driver.
+	// spec represents the specification of the CSI Driver.
 	Spec CSIDriverSpecPatchPtrInput
 }
 
@@ -202,7 +202,7 @@ func (o CSIDriverPatchOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
 	return o.ApplyT(func(v *CSIDriverPatch) metav1.ObjectMetaPatchPtrOutput { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
 }
 
-// Specification of the CSI Driver.
+// spec represents the specification of the CSI Driver.
 func (o CSIDriverPatchOutput) Spec() CSIDriverSpecPatchPtrOutput {
 	return o.ApplyT(func(v *CSIDriverPatch) CSIDriverSpecPatchPtrOutput { return v.Spec }).(CSIDriverSpecPatchPtrOutput)
 }

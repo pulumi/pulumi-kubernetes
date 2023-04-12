@@ -14,38 +14,38 @@ import javax.annotation.Nullable;
 @CustomType
 public final class IngressLoadBalancerIngressPatch {
     /**
-     * @return Hostname is set for load-balancer ingress points that are DNS based.
+     * @return hostname is set for load-balancer ingress points that are DNS based.
      * 
      */
     private @Nullable String hostname;
     /**
-     * @return IP is set for load-balancer ingress points that are IP based.
+     * @return ip is set for load-balancer ingress points that are IP based.
      * 
      */
     private @Nullable String ip;
     /**
-     * @return Ports provides information about the ports exposed by this LoadBalancer.
+     * @return ports provides information about the ports exposed by this LoadBalancer.
      * 
      */
     private @Nullable List<IngressPortStatusPatch> ports;
 
     private IngressLoadBalancerIngressPatch() {}
     /**
-     * @return Hostname is set for load-balancer ingress points that are DNS based.
+     * @return hostname is set for load-balancer ingress points that are DNS based.
      * 
      */
     public Optional<String> hostname() {
         return Optional.ofNullable(this.hostname);
     }
     /**
-     * @return IP is set for load-balancer ingress points that are IP based.
+     * @return ip is set for load-balancer ingress points that are IP based.
      * 
      */
     public Optional<String> ip() {
         return Optional.ofNullable(this.ip);
     }
     /**
-     * @return Ports provides information about the ports exposed by this LoadBalancer.
+     * @return ports provides information about the ports exposed by this LoadBalancer.
      * 
      */
     public List<IngressPortStatusPatch> ports() {

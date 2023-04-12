@@ -21,14 +21,14 @@ public final class TokenRequestPatchArgs extends com.pulumi.resources.ResourceAr
     public static final TokenRequestPatchArgs Empty = new TokenRequestPatchArgs();
 
     /**
-     * Audience is the intended audience of the token in &#34;TokenRequestSpec&#34;. It will default to the audiences of kube apiserver.
+     * audience is the intended audience of the token in &#34;TokenRequestSpec&#34;. It will default to the audiences of kube apiserver.
      * 
      */
     @Import(name="audience")
     private @Nullable Output<String> audience;
 
     /**
-     * @return Audience is the intended audience of the token in &#34;TokenRequestSpec&#34;. It will default to the audiences of kube apiserver.
+     * @return audience is the intended audience of the token in &#34;TokenRequestSpec&#34;. It will default to the audiences of kube apiserver.
      * 
      */
     public Optional<Output<String>> audience() {
@@ -36,14 +36,14 @@ public final class TokenRequestPatchArgs extends com.pulumi.resources.ResourceAr
     }
 
     /**
-     * ExpirationSeconds is the duration of validity of the token in &#34;TokenRequestSpec&#34;. It has the same default value of &#34;ExpirationSeconds&#34; in &#34;TokenRequestSpec&#34;.
+     * expirationSeconds is the duration of validity of the token in &#34;TokenRequestSpec&#34;. It has the same default value of &#34;ExpirationSeconds&#34; in &#34;TokenRequestSpec&#34;.
      * 
      */
     @Import(name="expirationSeconds")
     private @Nullable Output<Integer> expirationSeconds;
 
     /**
-     * @return ExpirationSeconds is the duration of validity of the token in &#34;TokenRequestSpec&#34;. It has the same default value of &#34;ExpirationSeconds&#34; in &#34;TokenRequestSpec&#34;.
+     * @return expirationSeconds is the duration of validity of the token in &#34;TokenRequestSpec&#34;. It has the same default value of &#34;ExpirationSeconds&#34; in &#34;TokenRequestSpec&#34;.
      * 
      */
     public Optional<Output<Integer>> expirationSeconds() {
@@ -76,7 +76,7 @@ public final class TokenRequestPatchArgs extends com.pulumi.resources.ResourceAr
         }
 
         /**
-         * @param audience Audience is the intended audience of the token in &#34;TokenRequestSpec&#34;. It will default to the audiences of kube apiserver.
+         * @param audience audience is the intended audience of the token in &#34;TokenRequestSpec&#34;. It will default to the audiences of kube apiserver.
          * 
          * @return builder
          * 
@@ -87,7 +87,7 @@ public final class TokenRequestPatchArgs extends com.pulumi.resources.ResourceAr
         }
 
         /**
-         * @param audience Audience is the intended audience of the token in &#34;TokenRequestSpec&#34;. It will default to the audiences of kube apiserver.
+         * @param audience audience is the intended audience of the token in &#34;TokenRequestSpec&#34;. It will default to the audiences of kube apiserver.
          * 
          * @return builder
          * 
@@ -97,7 +97,7 @@ public final class TokenRequestPatchArgs extends com.pulumi.resources.ResourceAr
         }
 
         /**
-         * @param expirationSeconds ExpirationSeconds is the duration of validity of the token in &#34;TokenRequestSpec&#34;. It has the same default value of &#34;ExpirationSeconds&#34; in &#34;TokenRequestSpec&#34;.
+         * @param expirationSeconds expirationSeconds is the duration of validity of the token in &#34;TokenRequestSpec&#34;. It has the same default value of &#34;ExpirationSeconds&#34; in &#34;TokenRequestSpec&#34;.
          * 
          * @return builder
          * 
@@ -108,7 +108,7 @@ public final class TokenRequestPatchArgs extends com.pulumi.resources.ResourceAr
         }
 
         /**
-         * @param expirationSeconds ExpirationSeconds is the duration of validity of the token in &#34;TokenRequestSpec&#34;. It has the same default value of &#34;ExpirationSeconds&#34; in &#34;TokenRequestSpec&#34;.
+         * @param expirationSeconds expirationSeconds is the duration of validity of the token in &#34;TokenRequestSpec&#34;. It has the same default value of &#34;ExpirationSeconds&#34; in &#34;TokenRequestSpec&#34;.
          * 
          * @return builder
          * 

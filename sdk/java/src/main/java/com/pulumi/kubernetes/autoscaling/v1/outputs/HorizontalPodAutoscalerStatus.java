@@ -13,62 +13,62 @@ import javax.annotation.Nullable;
 @CustomType
 public final class HorizontalPodAutoscalerStatus {
     /**
-     * @return current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
+     * @return currentCPUUtilizationPercentage is the current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
      * 
      */
     private @Nullable Integer currentCPUUtilizationPercentage;
     /**
-     * @return current number of replicas of pods managed by this autoscaler.
+     * @return currentReplicas is the current number of replicas of pods managed by this autoscaler.
      * 
      */
     private Integer currentReplicas;
     /**
-     * @return desired number of replicas of pods managed by this autoscaler.
+     * @return desiredReplicas is the  desired number of replicas of pods managed by this autoscaler.
      * 
      */
     private Integer desiredReplicas;
     /**
-     * @return last time the HorizontalPodAutoscaler scaled the number of pods; used by the autoscaler to control how often the number of pods is changed.
+     * @return lastScaleTime is the last time the HorizontalPodAutoscaler scaled the number of pods; used by the autoscaler to control how often the number of pods is changed.
      * 
      */
     private @Nullable String lastScaleTime;
     /**
-     * @return most recent generation observed by this autoscaler.
+     * @return observedGeneration is the most recent generation observed by this autoscaler.
      * 
      */
     private @Nullable Integer observedGeneration;
 
     private HorizontalPodAutoscalerStatus() {}
     /**
-     * @return current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
+     * @return currentCPUUtilizationPercentage is the current average CPU utilization over all pods, represented as a percentage of requested CPU, e.g. 70 means that an average pod is using now 70% of its requested CPU.
      * 
      */
     public Optional<Integer> currentCPUUtilizationPercentage() {
         return Optional.ofNullable(this.currentCPUUtilizationPercentage);
     }
     /**
-     * @return current number of replicas of pods managed by this autoscaler.
+     * @return currentReplicas is the current number of replicas of pods managed by this autoscaler.
      * 
      */
     public Integer currentReplicas() {
         return this.currentReplicas;
     }
     /**
-     * @return desired number of replicas of pods managed by this autoscaler.
+     * @return desiredReplicas is the  desired number of replicas of pods managed by this autoscaler.
      * 
      */
     public Integer desiredReplicas() {
         return this.desiredReplicas;
     }
     /**
-     * @return last time the HorizontalPodAutoscaler scaled the number of pods; used by the autoscaler to control how often the number of pods is changed.
+     * @return lastScaleTime is the last time the HorizontalPodAutoscaler scaled the number of pods; used by the autoscaler to control how often the number of pods is changed.
      * 
      */
     public Optional<String> lastScaleTime() {
         return Optional.ofNullable(this.lastScaleTime);
     }
     /**
-     * @return most recent generation observed by this autoscaler.
+     * @return observedGeneration is the most recent generation observed by this autoscaler.
      * 
      */
     public Optional<Integer> observedGeneration() {

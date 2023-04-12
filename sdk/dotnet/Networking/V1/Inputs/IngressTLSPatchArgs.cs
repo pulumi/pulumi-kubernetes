@@ -11,7 +11,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
 {
 
     /// <summary>
-    /// IngressTLS describes the transport layer security associated with an Ingress.
+    /// IngressTLS describes the transport layer security associated with an ingress.
     /// </summary>
     public class IngressTLSPatchArgs : global::Pulumi.ResourceArgs
     {
@@ -19,7 +19,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
         private InputList<string>? _hosts;
 
         /// <summary>
-        /// Hosts are a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
+        /// hosts is a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
         /// </summary>
         public InputList<string> Hosts
         {
@@ -28,7 +28,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
         }
 
         /// <summary>
-        /// SecretName is the name of the secret used to terminate TLS traffic on port 443. Field is left optional to allow TLS routing based on SNI hostname alone. If the SNI host in a listener conflicts with the "Host" header field used by an IngressRule, the SNI host is used for termination and value of the Host header is used for routing.
+        /// secretName is the name of the secret used to terminate TLS traffic on port 443. Field is left optional to allow TLS routing based on SNI hostname alone. If the SNI host in a listener conflicts with the "Host" header field used by an IngressRule, the SNI host is used for termination and value of the "Host" header is used for routing.
         /// </summary>
         [Input("secretName")]
         public Input<string>? SecretName { get; set; }

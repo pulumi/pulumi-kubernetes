@@ -12,14 +12,14 @@ import javax.annotation.Nullable;
 @CustomType
 public final class NetworkPolicyStatus {
     /**
-     * @return Conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
+     * @return conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
      * 
      */
     private @Nullable List<Condition> conditions;
 
     private NetworkPolicyStatus() {}
     /**
-     * @return Conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
+     * @return conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
      * 
      */
     public List<Condition> conditions() {

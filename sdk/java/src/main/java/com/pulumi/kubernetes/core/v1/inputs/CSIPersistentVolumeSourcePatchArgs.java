@@ -23,14 +23,14 @@ public final class CSIPersistentVolumeSourcePatchArgs extends com.pulumi.resourc
     public static final CSIPersistentVolumeSourcePatchArgs Empty = new CSIPersistentVolumeSourcePatchArgs();
 
     /**
-     * controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an beta field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+     * controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
      * 
      */
     @Import(name="controllerExpandSecretRef")
     private @Nullable Output<SecretReferencePatchArgs> controllerExpandSecretRef;
 
     /**
-     * @return controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an beta field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+     * @return controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
      * 
      */
     public Optional<Output<SecretReferencePatchArgs>> controllerExpandSecretRef() {
@@ -83,14 +83,14 @@ public final class CSIPersistentVolumeSourcePatchArgs extends com.pulumi.resourc
     }
 
     /**
-     * nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is an alpha field and requires enabling CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+     * nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is a beta field which is enabled default by CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
      * 
      */
     @Import(name="nodeExpandSecretRef")
     private @Nullable Output<SecretReferencePatchArgs> nodeExpandSecretRef;
 
     /**
-     * @return nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is an alpha field and requires enabling CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+     * @return nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is a beta field which is enabled default by CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
      * 
      */
     public Optional<Output<SecretReferencePatchArgs>> nodeExpandSecretRef() {
@@ -206,7 +206,7 @@ public final class CSIPersistentVolumeSourcePatchArgs extends com.pulumi.resourc
         }
 
         /**
-         * @param controllerExpandSecretRef controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an beta field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+         * @param controllerExpandSecretRef controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
          * 
          * @return builder
          * 
@@ -217,7 +217,7 @@ public final class CSIPersistentVolumeSourcePatchArgs extends com.pulumi.resourc
         }
 
         /**
-         * @param controllerExpandSecretRef controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an beta field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+         * @param controllerExpandSecretRef controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
          * 
          * @return builder
          * 
@@ -290,7 +290,7 @@ public final class CSIPersistentVolumeSourcePatchArgs extends com.pulumi.resourc
         }
 
         /**
-         * @param nodeExpandSecretRef nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is an alpha field and requires enabling CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+         * @param nodeExpandSecretRef nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is a beta field which is enabled default by CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
          * 
          * @return builder
          * 
@@ -301,7 +301,7 @@ public final class CSIPersistentVolumeSourcePatchArgs extends com.pulumi.resourc
         }
 
         /**
-         * @param nodeExpandSecretRef nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is an alpha field and requires enabling CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+         * @param nodeExpandSecretRef nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is a beta field which is enabled default by CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
          * 
          * @return builder
          * 

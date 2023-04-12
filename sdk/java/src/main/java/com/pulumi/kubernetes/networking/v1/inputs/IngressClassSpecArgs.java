@@ -21,14 +21,14 @@ public final class IngressClassSpecArgs extends com.pulumi.resources.ResourceArg
     public static final IngressClassSpecArgs Empty = new IngressClassSpecArgs();
 
     /**
-     * Controller refers to the name of the controller that should handle this class. This allows for different &#34;flavors&#34; that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. &#34;acme.io/ingress-controller&#34;. This field is immutable.
+     * controller refers to the name of the controller that should handle this class. This allows for different &#34;flavors&#34; that are controlled by the same controller. For example, you may have different parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. &#34;acme.io/ingress-controller&#34;. This field is immutable.
      * 
      */
     @Import(name="controller")
     private @Nullable Output<String> controller;
 
     /**
-     * @return Controller refers to the name of the controller that should handle this class. This allows for different &#34;flavors&#34; that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. &#34;acme.io/ingress-controller&#34;. This field is immutable.
+     * @return controller refers to the name of the controller that should handle this class. This allows for different &#34;flavors&#34; that are controlled by the same controller. For example, you may have different parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. &#34;acme.io/ingress-controller&#34;. This field is immutable.
      * 
      */
     public Optional<Output<String>> controller() {
@@ -36,14 +36,14 @@ public final class IngressClassSpecArgs extends com.pulumi.resources.ResourceArg
     }
 
     /**
-     * Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
+     * parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
      * 
      */
     @Import(name="parameters")
     private @Nullable Output<IngressClassParametersReferenceArgs> parameters;
 
     /**
-     * @return Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
+     * @return parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
      * 
      */
     public Optional<Output<IngressClassParametersReferenceArgs>> parameters() {
@@ -76,7 +76,7 @@ public final class IngressClassSpecArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param controller Controller refers to the name of the controller that should handle this class. This allows for different &#34;flavors&#34; that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. &#34;acme.io/ingress-controller&#34;. This field is immutable.
+         * @param controller controller refers to the name of the controller that should handle this class. This allows for different &#34;flavors&#34; that are controlled by the same controller. For example, you may have different parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. &#34;acme.io/ingress-controller&#34;. This field is immutable.
          * 
          * @return builder
          * 
@@ -87,7 +87,7 @@ public final class IngressClassSpecArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param controller Controller refers to the name of the controller that should handle this class. This allows for different &#34;flavors&#34; that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. &#34;acme.io/ingress-controller&#34;. This field is immutable.
+         * @param controller controller refers to the name of the controller that should handle this class. This allows for different &#34;flavors&#34; that are controlled by the same controller. For example, you may have different parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. &#34;acme.io/ingress-controller&#34;. This field is immutable.
          * 
          * @return builder
          * 
@@ -97,7 +97,7 @@ public final class IngressClassSpecArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param parameters Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
+         * @param parameters parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
          * 
          * @return builder
          * 
@@ -108,7 +108,7 @@ public final class IngressClassSpecArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param parameters Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
+         * @param parameters parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
          * 
          * @return builder
          * 

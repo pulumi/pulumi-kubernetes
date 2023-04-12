@@ -39,14 +39,14 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * CompletedIndexes holds the completed indexes when .spec.completionMode = &#34;Indexed&#34; in a text format. The indexes are represented as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as &#34;1,3-5,7&#34;.
+     * completedIndexes holds the completed indexes when .spec.completionMode = &#34;Indexed&#34; in a text format. The indexes are represented as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as &#34;1,3-5,7&#34;.
      * 
      */
     @Import(name="completedIndexes")
     private @Nullable Output<String> completedIndexes;
 
     /**
-     * @return CompletedIndexes holds the completed indexes when .spec.completionMode = &#34;Indexed&#34; in a text format. The indexes are represented as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as &#34;1,3-5,7&#34;.
+     * @return completedIndexes holds the completed indexes when .spec.completionMode = &#34;Indexed&#34; in a text format. The indexes are represented as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as &#34;1,3-5,7&#34;.
      * 
      */
     public Optional<Output<String>> completedIndexes() {
@@ -148,9 +148,11 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * UncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn&#39;t yet accounted for in the status counters.
+     * uncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn&#39;t yet accounted for in the status counters.
      * 
-     * The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status: (1) Add the pod UID to the arrays in this field. (2) Remove the pod finalizer. (3) Remove the pod UID from the arrays while increasing the corresponding
+     * The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status:
+     * 
+     * 1. Add the pod UID to the arrays in this field. 2. Remove the pod finalizer. 3. Remove the pod UID from the arrays while increasing the corresponding
      *     counter.
      * 
      * Old jobs might not be tracked using this field, in which case the field remains null.
@@ -160,9 +162,11 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
     private @Nullable Output<UncountedTerminatedPodsArgs> uncountedTerminatedPods;
 
     /**
-     * @return UncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn&#39;t yet accounted for in the status counters.
+     * @return uncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn&#39;t yet accounted for in the status counters.
      * 
-     * The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status: (1) Add the pod UID to the arrays in this field. (2) Remove the pod finalizer. (3) Remove the pod UID from the arrays while increasing the corresponding
+     * The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status:
+     * 
+     * 1. Add the pod UID to the arrays in this field. 2. Remove the pod finalizer. 3. Remove the pod UID from the arrays while increasing the corresponding
      *     counter.
      * 
      * Old jobs might not be tracked using this field, in which case the field remains null.
@@ -226,7 +230,7 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param completedIndexes CompletedIndexes holds the completed indexes when .spec.completionMode = &#34;Indexed&#34; in a text format. The indexes are represented as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as &#34;1,3-5,7&#34;.
+         * @param completedIndexes completedIndexes holds the completed indexes when .spec.completionMode = &#34;Indexed&#34; in a text format. The indexes are represented as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as &#34;1,3-5,7&#34;.
          * 
          * @return builder
          * 
@@ -237,7 +241,7 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param completedIndexes CompletedIndexes holds the completed indexes when .spec.completionMode = &#34;Indexed&#34; in a text format. The indexes are represented as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as &#34;1,3-5,7&#34;.
+         * @param completedIndexes completedIndexes holds the completed indexes when .spec.completionMode = &#34;Indexed&#34; in a text format. The indexes are represented as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the completed indexes are 1, 3, 4, 5 and 7, they are represented as &#34;1,3-5,7&#34;.
          * 
          * @return builder
          * 
@@ -387,9 +391,11 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param uncountedTerminatedPods UncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn&#39;t yet accounted for in the status counters.
+         * @param uncountedTerminatedPods uncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn&#39;t yet accounted for in the status counters.
          * 
-         * The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status: (1) Add the pod UID to the arrays in this field. (2) Remove the pod finalizer. (3) Remove the pod UID from the arrays while increasing the corresponding
+         * The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status:
+         * 
+         * 1. Add the pod UID to the arrays in this field. 2. Remove the pod finalizer. 3. Remove the pod UID from the arrays while increasing the corresponding
          *     counter.
          * 
          * Old jobs might not be tracked using this field, in which case the field remains null.
@@ -403,9 +409,11 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param uncountedTerminatedPods UncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn&#39;t yet accounted for in the status counters.
+         * @param uncountedTerminatedPods uncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn&#39;t yet accounted for in the status counters.
          * 
-         * The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status: (1) Add the pod UID to the arrays in this field. (2) Remove the pod finalizer. (3) Remove the pod UID from the arrays while increasing the corresponding
+         * The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status:
+         * 
+         * 1. Add the pod UID to the arrays in this field. 2. Remove the pod finalizer. 3. Remove the pod UID from the arrays while increasing the corresponding
          *     counter.
          * 
          * Old jobs might not be tracked using this field, in which case the field remains null.

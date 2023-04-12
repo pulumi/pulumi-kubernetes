@@ -37,7 +37,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta.V1
         /// </summary>
         public readonly int RetryAfterSeconds;
         /// <summary>
-        /// UID of the resource. (when there is a single resource which can be described). More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+        /// UID of the resource. (when there is a single resource which can be described). More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
         /// </summary>
         public readonly string Uid;
 

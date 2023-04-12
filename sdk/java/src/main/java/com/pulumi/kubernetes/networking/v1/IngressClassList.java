@@ -37,14 +37,14 @@ public class IngressClassList extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.apiVersion);
     }
     /**
-     * Items is the list of IngressClasses.
+     * items is the list of IngressClasses.
      * 
      */
     @Export(name="items", refs={List.class,IngressClass.class}, tree="[0,1]")
     private Output<List<IngressClass>> items;
 
     /**
-     * @return Items is the list of IngressClasses.
+     * @return items is the list of IngressClasses.
      * 
      */
     public Output<List<IngressClass>> items() {

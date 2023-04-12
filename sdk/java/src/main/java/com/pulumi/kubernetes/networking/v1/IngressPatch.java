@@ -87,28 +87,28 @@ public class IngressPatch extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.metadata);
     }
     /**
-     * Spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+     * spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
     @Export(name="spec", refs={IngressSpecPatch.class}, tree="[0]")
     private Output</* @Nullable */ IngressSpecPatch> spec;
 
     /**
-     * @return Spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+     * @return spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
     public Output<Optional<IngressSpecPatch>> spec() {
         return Codegen.optional(this.spec);
     }
     /**
-     * Status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+     * status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
     @Export(name="status", refs={IngressStatusPatch.class}, tree="[0]")
     private Output</* @Nullable */ IngressStatusPatch> status;
 
     /**
-     * @return Status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+     * @return status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
     public Output<Optional<IngressStatusPatch>> status() {

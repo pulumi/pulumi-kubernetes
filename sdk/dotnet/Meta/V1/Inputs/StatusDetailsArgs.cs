@@ -52,7 +52,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Meta.V1
         public Input<int>? RetryAfterSeconds { get; set; }
 
         /// <summary>
-        /// UID of the resource. (when there is a single resource which can be described). More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+        /// UID of the resource. (when there is a single resource which can be described). More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
         /// </summary>
         [Input("uid")]
         public Input<string>? Uid { get; set; }

@@ -22,7 +22,7 @@ namespace Pulumi.Kubernetes.Networking.V1
         public Output<string> ApiVersion { get; private set; } = null!;
 
         /// <summary>
-        /// Items is the list of Ingress.
+        /// items is the list of Ingress.
         /// </summary>
         [Output("items")]
         public Output<ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Networking.V1.Ingress>> Items { get; private set; } = null!;
@@ -109,7 +109,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
         private InputList<Pulumi.Kubernetes.Types.Inputs.Networking.V1.IngressArgs>? _items;
 
         /// <summary>
-        /// Items is the list of Ingress.
+        /// items is the list of Ingress.
         /// </summary>
         public InputList<Pulumi.Kubernetes.Types.Inputs.Networking.V1.IngressArgs> Items
         {

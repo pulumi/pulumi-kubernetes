@@ -33,11 +33,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.Meta.V1
         /// </summary>
         public readonly string Kind;
         /// <summary>
-        /// Name of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#names
+        /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names
         /// </summary>
         public readonly string Name;
         /// <summary>
-        /// UID of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+        /// UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
         /// </summary>
         public readonly string Uid;
 

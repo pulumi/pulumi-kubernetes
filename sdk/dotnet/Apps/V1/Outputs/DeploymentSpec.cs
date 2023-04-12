@@ -45,7 +45,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Apps.V1
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Apps.V1.DeploymentStrategy Strategy;
         /// <summary>
-        /// Template describes the pods that will be created.
+        /// Template describes the pods that will be created. The only allowed template.spec.restartPolicy value is "Always".
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.PodTemplateSpec Template;
 

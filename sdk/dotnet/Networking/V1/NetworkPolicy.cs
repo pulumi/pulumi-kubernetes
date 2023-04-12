@@ -34,13 +34,13 @@ namespace Pulumi.Kubernetes.Networking.V1
         public Output<Pulumi.Kubernetes.Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
-        /// Specification of the desired behavior for this NetworkPolicy.
+        /// spec represents the specification of the desired behavior for this NetworkPolicy.
         /// </summary>
         [Output("spec")]
         public Output<Pulumi.Kubernetes.Types.Outputs.Networking.V1.NetworkPolicySpec> Spec { get; private set; } = null!;
 
         /// <summary>
-        /// Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        /// status represents the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         /// </summary>
         [Output("status")]
         public Output<Pulumi.Kubernetes.Types.Outputs.Networking.V1.NetworkPolicyStatus> Status { get; private set; } = null!;
@@ -128,7 +128,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
         public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs>? Metadata { get; set; }
 
         /// <summary>
-        /// Specification of the desired behavior for this NetworkPolicy.
+        /// spec represents the specification of the desired behavior for this NetworkPolicy.
         /// </summary>
         [Input("spec")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Networking.V1.NetworkPolicySpecArgs>? Spec { get; set; }

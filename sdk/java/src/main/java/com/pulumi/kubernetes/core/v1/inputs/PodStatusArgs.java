@@ -182,14 +182,14 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md
+     * The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/#quality-of-service-classes
      * 
      */
     @Import(name="qosClass")
     private @Nullable Output<String> qosClass;
 
     /**
-     * @return The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md
+     * @return The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/#quality-of-service-classes
      * 
      */
     public Optional<Output<String>> qosClass() {
@@ -209,6 +209,21 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
      */
     public Optional<Output<String>> reason() {
         return Optional.ofNullable(this.reason);
+    }
+
+    /**
+     * Status of resources resize desired for pod&#39;s containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to &#34;Proposed&#34;
+     * 
+     */
+    @Import(name="resize")
+    private @Nullable Output<String> resize;
+
+    /**
+     * @return Status of resources resize desired for pod&#39;s containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to &#34;Proposed&#34;
+     * 
+     */
+    public Optional<Output<String>> resize() {
+        return Optional.ofNullable(this.resize);
     }
 
     /**
@@ -241,6 +256,7 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
         this.podIPs = $.podIPs;
         this.qosClass = $.qosClass;
         this.reason = $.reason;
+        this.resize = $.resize;
         this.startTime = $.startTime;
     }
 
@@ -531,7 +547,7 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param qosClass The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md
+         * @param qosClass The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/#quality-of-service-classes
          * 
          * @return builder
          * 
@@ -542,7 +558,7 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param qosClass The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md
+         * @param qosClass The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/#quality-of-service-classes
          * 
          * @return builder
          * 
@@ -570,6 +586,27 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder reason(String reason) {
             return reason(Output.of(reason));
+        }
+
+        /**
+         * @param resize Status of resources resize desired for pod&#39;s containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to &#34;Proposed&#34;
+         * 
+         * @return builder
+         * 
+         */
+        public Builder resize(@Nullable Output<String> resize) {
+            $.resize = resize;
+            return this;
+        }
+
+        /**
+         * @param resize Status of resources resize desired for pod&#39;s containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to &#34;Proposed&#34;
+         * 
+         * @return builder
+         * 
+         */
+        public Builder resize(String resize) {
+            return resize(Output.of(resize));
         }
 
         /**

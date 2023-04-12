@@ -17,11 +17,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking.V1
     public sealed class ServiceBackendPort
     {
         /// <summary>
-        /// Name is the name of the port on the Service. This is a mutually exclusive setting with "Number".
+        /// name is the name of the port on the Service. This is a mutually exclusive setting with "Number".
         /// </summary>
         public readonly string Name;
         /// <summary>
-        /// Number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with "Name".
+        /// number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with "Name".
         /// </summary>
         public readonly int Number;
 

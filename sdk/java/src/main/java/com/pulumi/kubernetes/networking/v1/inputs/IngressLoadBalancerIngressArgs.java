@@ -22,14 +22,14 @@ public final class IngressLoadBalancerIngressArgs extends com.pulumi.resources.R
     public static final IngressLoadBalancerIngressArgs Empty = new IngressLoadBalancerIngressArgs();
 
     /**
-     * Hostname is set for load-balancer ingress points that are DNS based.
+     * hostname is set for load-balancer ingress points that are DNS based.
      * 
      */
     @Import(name="hostname")
     private @Nullable Output<String> hostname;
 
     /**
-     * @return Hostname is set for load-balancer ingress points that are DNS based.
+     * @return hostname is set for load-balancer ingress points that are DNS based.
      * 
      */
     public Optional<Output<String>> hostname() {
@@ -37,14 +37,14 @@ public final class IngressLoadBalancerIngressArgs extends com.pulumi.resources.R
     }
 
     /**
-     * IP is set for load-balancer ingress points that are IP based.
+     * ip is set for load-balancer ingress points that are IP based.
      * 
      */
     @Import(name="ip")
     private @Nullable Output<String> ip;
 
     /**
-     * @return IP is set for load-balancer ingress points that are IP based.
+     * @return ip is set for load-balancer ingress points that are IP based.
      * 
      */
     public Optional<Output<String>> ip() {
@@ -52,14 +52,14 @@ public final class IngressLoadBalancerIngressArgs extends com.pulumi.resources.R
     }
 
     /**
-     * Ports provides information about the ports exposed by this LoadBalancer.
+     * ports provides information about the ports exposed by this LoadBalancer.
      * 
      */
     @Import(name="ports")
     private @Nullable Output<List<IngressPortStatusArgs>> ports;
 
     /**
-     * @return Ports provides information about the ports exposed by this LoadBalancer.
+     * @return ports provides information about the ports exposed by this LoadBalancer.
      * 
      */
     public Optional<Output<List<IngressPortStatusArgs>>> ports() {
@@ -93,7 +93,7 @@ public final class IngressLoadBalancerIngressArgs extends com.pulumi.resources.R
         }
 
         /**
-         * @param hostname Hostname is set for load-balancer ingress points that are DNS based.
+         * @param hostname hostname is set for load-balancer ingress points that are DNS based.
          * 
          * @return builder
          * 
@@ -104,7 +104,7 @@ public final class IngressLoadBalancerIngressArgs extends com.pulumi.resources.R
         }
 
         /**
-         * @param hostname Hostname is set for load-balancer ingress points that are DNS based.
+         * @param hostname hostname is set for load-balancer ingress points that are DNS based.
          * 
          * @return builder
          * 
@@ -114,7 +114,7 @@ public final class IngressLoadBalancerIngressArgs extends com.pulumi.resources.R
         }
 
         /**
-         * @param ip IP is set for load-balancer ingress points that are IP based.
+         * @param ip ip is set for load-balancer ingress points that are IP based.
          * 
          * @return builder
          * 
@@ -125,7 +125,7 @@ public final class IngressLoadBalancerIngressArgs extends com.pulumi.resources.R
         }
 
         /**
-         * @param ip IP is set for load-balancer ingress points that are IP based.
+         * @param ip ip is set for load-balancer ingress points that are IP based.
          * 
          * @return builder
          * 
@@ -135,7 +135,7 @@ public final class IngressLoadBalancerIngressArgs extends com.pulumi.resources.R
         }
 
         /**
-         * @param ports Ports provides information about the ports exposed by this LoadBalancer.
+         * @param ports ports provides information about the ports exposed by this LoadBalancer.
          * 
          * @return builder
          * 
@@ -146,7 +146,7 @@ public final class IngressLoadBalancerIngressArgs extends com.pulumi.resources.R
         }
 
         /**
-         * @param ports Ports provides information about the ports exposed by this LoadBalancer.
+         * @param ports ports provides information about the ports exposed by this LoadBalancer.
          * 
          * @return builder
          * 
@@ -156,7 +156,7 @@ public final class IngressLoadBalancerIngressArgs extends com.pulumi.resources.R
         }
 
         /**
-         * @param ports Ports provides information about the ports exposed by this LoadBalancer.
+         * @param ports ports provides information about the ports exposed by this LoadBalancer.
          * 
          * @return builder
          * 

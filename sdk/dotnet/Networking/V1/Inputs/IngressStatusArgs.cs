@@ -16,7 +16,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Networking.V1
     public class IngressStatusArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// LoadBalancer contains the current status of the load-balancer.
+        /// loadBalancer contains the current status of the load-balancer.
         /// </summary>
         [Input("loadBalancer")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Networking.V1.IngressLoadBalancerStatusArgs>? LoadBalancer { get; set; }

@@ -35,14 +35,14 @@ public final class RuntimeClassArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node &amp; CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called &#34;runc&#34; might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable.
+     * handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node &amp; CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called &#34;runc&#34; might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable.
      * 
      */
     @Import(name="handler", required=true)
     private Output<String> handler;
 
     /**
-     * @return Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node &amp; CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called &#34;runc&#34; might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable.
+     * @return handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node &amp; CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called &#34;runc&#34; might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable.
      * 
      */
     public Output<String> handler() {
@@ -80,7 +80,7 @@ public final class RuntimeClassArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see
+     * overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see
      *  https://kubernetes.io/docs/concepts/scheduling-eviction/pod-overhead/
      * 
      */
@@ -88,7 +88,7 @@ public final class RuntimeClassArgs extends com.pulumi.resources.ResourceArgs {
     private @Nullable Output<OverheadArgs> overhead;
 
     /**
-     * @return Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see
+     * @return overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see
      *  https://kubernetes.io/docs/concepts/scheduling-eviction/pod-overhead/
      * 
      */
@@ -97,14 +97,14 @@ public final class RuntimeClassArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
+     * scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
      * 
      */
     @Import(name="scheduling")
     private @Nullable Output<SchedulingArgs> scheduling;
 
     /**
-     * @return Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
+     * @return scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
      * 
      */
     public Optional<Output<SchedulingArgs>> scheduling() {
@@ -162,7 +162,7 @@ public final class RuntimeClassArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param handler Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node &amp; CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called &#34;runc&#34; might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable.
+         * @param handler handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node &amp; CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called &#34;runc&#34; might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable.
          * 
          * @return builder
          * 
@@ -173,7 +173,7 @@ public final class RuntimeClassArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param handler Handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node &amp; CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called &#34;runc&#34; might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable.
+         * @param handler handler specifies the underlying runtime and configuration that the CRI implementation will use to handle pods of this class. The possible values are specific to the node &amp; CRI configuration.  It is assumed that all handlers are available on every node, and handlers of the same name are equivalent on every node. For example, a handler called &#34;runc&#34; might specify that the runc OCI runtime (using native Linux containers) will be used to run the containers in a pod. The Handler must be lowercase, conform to the DNS Label (RFC 1123) requirements, and is immutable.
          * 
          * @return builder
          * 
@@ -225,7 +225,7 @@ public final class RuntimeClassArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param overhead Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see
+         * @param overhead overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see
          *  https://kubernetes.io/docs/concepts/scheduling-eviction/pod-overhead/
          * 
          * @return builder
@@ -237,7 +237,7 @@ public final class RuntimeClassArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param overhead Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see
+         * @param overhead overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see
          *  https://kubernetes.io/docs/concepts/scheduling-eviction/pod-overhead/
          * 
          * @return builder
@@ -248,7 +248,7 @@ public final class RuntimeClassArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param scheduling Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
+         * @param scheduling scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
          * 
          * @return builder
          * 
@@ -259,7 +259,7 @@ public final class RuntimeClassArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param scheduling Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
+         * @param scheduling scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
          * 
          * @return builder
          * 

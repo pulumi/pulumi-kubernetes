@@ -159,6 +159,7 @@ class ValidatingAdmissionPolicyPatch(pulumi.CustomResource):
             __props__.__dict__["kind"] = 'ValidatingAdmissionPolicy'
             __props__.__dict__["metadata"] = metadata
             __props__.__dict__["spec"] = spec
+            __props__.__dict__["status"] = None
         super(ValidatingAdmissionPolicyPatch, __self__).__init__(
             'kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicyPatch',
             resource_name,
@@ -185,6 +186,7 @@ class ValidatingAdmissionPolicyPatch(pulumi.CustomResource):
         __props__.__dict__["kind"] = None
         __props__.__dict__["metadata"] = None
         __props__.__dict__["spec"] = None
+        __props__.__dict__["status"] = None
         return ValidatingAdmissionPolicyPatch(resource_name, opts=opts, __props__=__props__)
 
     @property
@@ -218,4 +220,12 @@ class ValidatingAdmissionPolicyPatch(pulumi.CustomResource):
         Specification of the desired behavior of the ValidatingAdmissionPolicy.
         """
         return pulumi.get(self, "spec")
+
+    @property
+    @pulumi.getter
+    def status(self) -> pulumi.Output[Optional['outputs.ValidatingAdmissionPolicyStatusPatch']]:
+        """
+        The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
+        """
+        return pulumi.get(self, "status")
 

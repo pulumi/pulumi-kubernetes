@@ -17,19 +17,19 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage.V1
     public sealed class VolumeAttachmentStatus
     {
         /// <summary>
-        /// The last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
+        /// attachError represents the last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Storage.V1.VolumeError AttachError;
         /// <summary>
-        /// Indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
+        /// attached indicates the volume is successfully attached. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
         /// </summary>
         public readonly bool Attached;
         /// <summary>
-        /// Upon successful attach, this field is populated with any information returned by the attach operation that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
+        /// attachmentMetadata is populated with any information returned by the attach operation, upon successful attach, that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
         /// </summary>
         public readonly ImmutableDictionary<string, string> AttachmentMetadata;
         /// <summary>
-        /// The last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
+        /// detachError represents the last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Storage.V1.VolumeError DetachError;
 

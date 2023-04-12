@@ -24,14 +24,14 @@ public final class NetworkPolicySpecPatchArgs extends com.pulumi.resources.Resou
     public static final NetworkPolicySpecPatchArgs Empty = new NetworkPolicySpecPatchArgs();
 
     /**
-     * List of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
+     * egress is a list of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
      * 
      */
     @Import(name="egress")
     private @Nullable Output<List<NetworkPolicyEgressRulePatchArgs>> egress;
 
     /**
-     * @return List of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
+     * @return egress is a list of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
      * 
      */
     public Optional<Output<List<NetworkPolicyEgressRulePatchArgs>>> egress() {
@@ -39,14 +39,14 @@ public final class NetworkPolicySpecPatchArgs extends com.pulumi.resources.Resou
     }
 
     /**
-     * List of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod&#39;s local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)
+     * ingress is a list of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod&#39;s local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)
      * 
      */
     @Import(name="ingress")
     private @Nullable Output<List<NetworkPolicyIngressRulePatchArgs>> ingress;
 
     /**
-     * @return List of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod&#39;s local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)
+     * @return ingress is a list of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod&#39;s local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)
      * 
      */
     public Optional<Output<List<NetworkPolicyIngressRulePatchArgs>>> ingress() {
@@ -54,14 +54,14 @@ public final class NetworkPolicySpecPatchArgs extends com.pulumi.resources.Resou
     }
 
     /**
-     * Selects the pods to which this NetworkPolicy object applies. The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
+     * podSelector selects the pods to which this NetworkPolicy object applies. The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
      * 
      */
     @Import(name="podSelector")
     private @Nullable Output<LabelSelectorPatchArgs> podSelector;
 
     /**
-     * @return Selects the pods to which this NetworkPolicy object applies. The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
+     * @return podSelector selects the pods to which this NetworkPolicy object applies. The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
      * 
      */
     public Optional<Output<LabelSelectorPatchArgs>> podSelector() {
@@ -69,14 +69,14 @@ public final class NetworkPolicySpecPatchArgs extends com.pulumi.resources.Resou
     }
 
     /**
-     * List of rule types that the NetworkPolicy relates to. Valid options are [&#34;Ingress&#34;], [&#34;Egress&#34;], or [&#34;Ingress&#34;, &#34;Egress&#34;]. If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ &#34;Egress&#34; ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include &#34;Egress&#34; (since such a policy would not include an Egress section and would otherwise default to just [ &#34;Ingress&#34; ]). This field is beta-level in 1.8
+     * policyTypes is a list of rule types that the NetworkPolicy relates to. Valid options are [&#34;Ingress&#34;], [&#34;Egress&#34;], or [&#34;Ingress&#34;, &#34;Egress&#34;]. If this field is not specified, it will default based on the existence of ingress or egress rules; policies that contain an egress section are assumed to affect egress, and all policies (whether or not they contain an ingress section) are assumed to affect ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ &#34;Egress&#34; ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include &#34;Egress&#34; (since such a policy would not include an egress section and would otherwise default to just [ &#34;Ingress&#34; ]). This field is beta-level in 1.8
      * 
      */
     @Import(name="policyTypes")
     private @Nullable Output<List<String>> policyTypes;
 
     /**
-     * @return List of rule types that the NetworkPolicy relates to. Valid options are [&#34;Ingress&#34;], [&#34;Egress&#34;], or [&#34;Ingress&#34;, &#34;Egress&#34;]. If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ &#34;Egress&#34; ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include &#34;Egress&#34; (since such a policy would not include an Egress section and would otherwise default to just [ &#34;Ingress&#34; ]). This field is beta-level in 1.8
+     * @return policyTypes is a list of rule types that the NetworkPolicy relates to. Valid options are [&#34;Ingress&#34;], [&#34;Egress&#34;], or [&#34;Ingress&#34;, &#34;Egress&#34;]. If this field is not specified, it will default based on the existence of ingress or egress rules; policies that contain an egress section are assumed to affect egress, and all policies (whether or not they contain an ingress section) are assumed to affect ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ &#34;Egress&#34; ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include &#34;Egress&#34; (since such a policy would not include an egress section and would otherwise default to just [ &#34;Ingress&#34; ]). This field is beta-level in 1.8
      * 
      */
     public Optional<Output<List<String>>> policyTypes() {
@@ -111,7 +111,7 @@ public final class NetworkPolicySpecPatchArgs extends com.pulumi.resources.Resou
         }
 
         /**
-         * @param egress List of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
+         * @param egress egress is a list of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
          * 
          * @return builder
          * 
@@ -122,7 +122,7 @@ public final class NetworkPolicySpecPatchArgs extends com.pulumi.resources.Resou
         }
 
         /**
-         * @param egress List of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
+         * @param egress egress is a list of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
          * 
          * @return builder
          * 
@@ -132,7 +132,7 @@ public final class NetworkPolicySpecPatchArgs extends com.pulumi.resources.Resou
         }
 
         /**
-         * @param egress List of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
+         * @param egress egress is a list of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
          * 
          * @return builder
          * 
@@ -142,7 +142,7 @@ public final class NetworkPolicySpecPatchArgs extends com.pulumi.resources.Resou
         }
 
         /**
-         * @param ingress List of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod&#39;s local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)
+         * @param ingress ingress is a list of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod&#39;s local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)
          * 
          * @return builder
          * 
@@ -153,7 +153,7 @@ public final class NetworkPolicySpecPatchArgs extends com.pulumi.resources.Resou
         }
 
         /**
-         * @param ingress List of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod&#39;s local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)
+         * @param ingress ingress is a list of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod&#39;s local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)
          * 
          * @return builder
          * 
@@ -163,7 +163,7 @@ public final class NetworkPolicySpecPatchArgs extends com.pulumi.resources.Resou
         }
 
         /**
-         * @param ingress List of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod&#39;s local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)
+         * @param ingress ingress is a list of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod&#39;s local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)
          * 
          * @return builder
          * 
@@ -173,7 +173,7 @@ public final class NetworkPolicySpecPatchArgs extends com.pulumi.resources.Resou
         }
 
         /**
-         * @param podSelector Selects the pods to which this NetworkPolicy object applies. The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
+         * @param podSelector podSelector selects the pods to which this NetworkPolicy object applies. The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
          * 
          * @return builder
          * 
@@ -184,7 +184,7 @@ public final class NetworkPolicySpecPatchArgs extends com.pulumi.resources.Resou
         }
 
         /**
-         * @param podSelector Selects the pods to which this NetworkPolicy object applies. The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
+         * @param podSelector podSelector selects the pods to which this NetworkPolicy object applies. The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
          * 
          * @return builder
          * 
@@ -194,7 +194,7 @@ public final class NetworkPolicySpecPatchArgs extends com.pulumi.resources.Resou
         }
 
         /**
-         * @param policyTypes List of rule types that the NetworkPolicy relates to. Valid options are [&#34;Ingress&#34;], [&#34;Egress&#34;], or [&#34;Ingress&#34;, &#34;Egress&#34;]. If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ &#34;Egress&#34; ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include &#34;Egress&#34; (since such a policy would not include an Egress section and would otherwise default to just [ &#34;Ingress&#34; ]). This field is beta-level in 1.8
+         * @param policyTypes policyTypes is a list of rule types that the NetworkPolicy relates to. Valid options are [&#34;Ingress&#34;], [&#34;Egress&#34;], or [&#34;Ingress&#34;, &#34;Egress&#34;]. If this field is not specified, it will default based on the existence of ingress or egress rules; policies that contain an egress section are assumed to affect egress, and all policies (whether or not they contain an ingress section) are assumed to affect ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ &#34;Egress&#34; ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include &#34;Egress&#34; (since such a policy would not include an egress section and would otherwise default to just [ &#34;Ingress&#34; ]). This field is beta-level in 1.8
          * 
          * @return builder
          * 
@@ -205,7 +205,7 @@ public final class NetworkPolicySpecPatchArgs extends com.pulumi.resources.Resou
         }
 
         /**
-         * @param policyTypes List of rule types that the NetworkPolicy relates to. Valid options are [&#34;Ingress&#34;], [&#34;Egress&#34;], or [&#34;Ingress&#34;, &#34;Egress&#34;]. If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ &#34;Egress&#34; ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include &#34;Egress&#34; (since such a policy would not include an Egress section and would otherwise default to just [ &#34;Ingress&#34; ]). This field is beta-level in 1.8
+         * @param policyTypes policyTypes is a list of rule types that the NetworkPolicy relates to. Valid options are [&#34;Ingress&#34;], [&#34;Egress&#34;], or [&#34;Ingress&#34;, &#34;Egress&#34;]. If this field is not specified, it will default based on the existence of ingress or egress rules; policies that contain an egress section are assumed to affect egress, and all policies (whether or not they contain an ingress section) are assumed to affect ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ &#34;Egress&#34; ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include &#34;Egress&#34; (since such a policy would not include an egress section and would otherwise default to just [ &#34;Ingress&#34; ]). This field is beta-level in 1.8
          * 
          * @return builder
          * 
@@ -215,7 +215,7 @@ public final class NetworkPolicySpecPatchArgs extends com.pulumi.resources.Resou
         }
 
         /**
-         * @param policyTypes List of rule types that the NetworkPolicy relates to. Valid options are [&#34;Ingress&#34;], [&#34;Egress&#34;], or [&#34;Ingress&#34;, &#34;Egress&#34;]. If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ &#34;Egress&#34; ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include &#34;Egress&#34; (since such a policy would not include an Egress section and would otherwise default to just [ &#34;Ingress&#34; ]). This field is beta-level in 1.8
+         * @param policyTypes policyTypes is a list of rule types that the NetworkPolicy relates to. Valid options are [&#34;Ingress&#34;], [&#34;Egress&#34;], or [&#34;Ingress&#34;, &#34;Egress&#34;]. If this field is not specified, it will default based on the existence of ingress or egress rules; policies that contain an egress section are assumed to affect egress, and all policies (whether or not they contain an ingress section) are assumed to affect ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ &#34;Egress&#34; ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include &#34;Egress&#34; (since such a policy would not include an egress section and would otherwise default to just [ &#34;Ingress&#34; ]). This field is beta-level in 1.8
          * 
          * @return builder
          * 

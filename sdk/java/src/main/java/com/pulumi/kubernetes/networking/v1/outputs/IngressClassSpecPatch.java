@@ -13,26 +13,26 @@ import javax.annotation.Nullable;
 @CustomType
 public final class IngressClassSpecPatch {
     /**
-     * @return Controller refers to the name of the controller that should handle this class. This allows for different &#34;flavors&#34; that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. &#34;acme.io/ingress-controller&#34;. This field is immutable.
+     * @return controller refers to the name of the controller that should handle this class. This allows for different &#34;flavors&#34; that are controlled by the same controller. For example, you may have different parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. &#34;acme.io/ingress-controller&#34;. This field is immutable.
      * 
      */
     private @Nullable String controller;
     /**
-     * @return Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
+     * @return parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
      * 
      */
     private @Nullable IngressClassParametersReferencePatch parameters;
 
     private IngressClassSpecPatch() {}
     /**
-     * @return Controller refers to the name of the controller that should handle this class. This allows for different &#34;flavors&#34; that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. &#34;acme.io/ingress-controller&#34;. This field is immutable.
+     * @return controller refers to the name of the controller that should handle this class. This allows for different &#34;flavors&#34; that are controlled by the same controller. For example, you may have different parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. &#34;acme.io/ingress-controller&#34;. This field is immutable.
      * 
      */
     public Optional<String> controller() {
         return Optional.ofNullable(this.controller);
     }
     /**
-     * @return Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
+     * @return parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
      * 
      */
     public Optional<IngressClassParametersReferencePatch> parameters() {

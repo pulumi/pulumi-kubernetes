@@ -37,14 +37,14 @@ public final class CSINodeDriverPatchArgs extends com.pulumi.resources.ResourceA
     }
 
     /**
-     * This is the name of the CSI driver that this object refers to. This MUST be the same name returned by the CSI GetPluginName() call for that driver.
+     * name represents the name of the CSI driver that this object refers to. This MUST be the same name returned by the CSI GetPluginName() call for that driver.
      * 
      */
     @Import(name="name")
     private @Nullable Output<String> name;
 
     /**
-     * @return This is the name of the CSI driver that this object refers to. This MUST be the same name returned by the CSI GetPluginName() call for that driver.
+     * @return name represents the name of the CSI driver that this object refers to. This MUST be the same name returned by the CSI GetPluginName() call for that driver.
      * 
      */
     public Optional<Output<String>> name() {
@@ -130,7 +130,7 @@ public final class CSINodeDriverPatchArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param name This is the name of the CSI driver that this object refers to. This MUST be the same name returned by the CSI GetPluginName() call for that driver.
+         * @param name name represents the name of the CSI driver that this object refers to. This MUST be the same name returned by the CSI GetPluginName() call for that driver.
          * 
          * @return builder
          * 
@@ -141,7 +141,7 @@ public final class CSINodeDriverPatchArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param name This is the name of the CSI driver that this object refers to. This MUST be the same name returned by the CSI GetPluginName() call for that driver.
+         * @param name name represents the name of the CSI driver that this object refers to. This MUST be the same name returned by the CSI GetPluginName() call for that driver.
          * 
          * @return builder
          * 

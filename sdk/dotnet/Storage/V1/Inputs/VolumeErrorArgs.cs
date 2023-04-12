@@ -16,13 +16,13 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1
     public class VolumeErrorArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// String detailing the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
+        /// message represents the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
         /// </summary>
         [Input("message")]
         public Input<string>? Message { get; set; }
 
         /// <summary>
-        /// Time the error was encountered.
+        /// time represents the time the error was encountered.
         /// </summary>
         [Input("time")]
         public Input<string>? Time { get; set; }

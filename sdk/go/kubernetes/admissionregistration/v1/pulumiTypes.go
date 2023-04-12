@@ -11,6 +11,292 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
+// MatchCondition represents a condition which must by fulfilled for a request to be sent to a webhook.
+type MatchCondition struct {
+	// Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+	//
+	// 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+	//   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+	// 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+	//   request resource.
+	// Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/
+	//
+	// Required.
+	Expression string `pulumi:"expression"`
+	// Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
+	//
+	// Required.
+	Name string `pulumi:"name"`
+}
+
+// MatchConditionInput is an input type that accepts MatchConditionArgs and MatchConditionOutput values.
+// You can construct a concrete instance of `MatchConditionInput` via:
+//
+//	MatchConditionArgs{...}
+type MatchConditionInput interface {
+	pulumi.Input
+
+	ToMatchConditionOutput() MatchConditionOutput
+	ToMatchConditionOutputWithContext(context.Context) MatchConditionOutput
+}
+
+// MatchCondition represents a condition which must by fulfilled for a request to be sent to a webhook.
+type MatchConditionArgs struct {
+	// Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+	//
+	// 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+	//   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+	// 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+	//   request resource.
+	// Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/
+	//
+	// Required.
+	Expression pulumi.StringInput `pulumi:"expression"`
+	// Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
+	//
+	// Required.
+	Name pulumi.StringInput `pulumi:"name"`
+}
+
+func (MatchConditionArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*MatchCondition)(nil)).Elem()
+}
+
+func (i MatchConditionArgs) ToMatchConditionOutput() MatchConditionOutput {
+	return i.ToMatchConditionOutputWithContext(context.Background())
+}
+
+func (i MatchConditionArgs) ToMatchConditionOutputWithContext(ctx context.Context) MatchConditionOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MatchConditionOutput)
+}
+
+// MatchConditionArrayInput is an input type that accepts MatchConditionArray and MatchConditionArrayOutput values.
+// You can construct a concrete instance of `MatchConditionArrayInput` via:
+//
+//	MatchConditionArray{ MatchConditionArgs{...} }
+type MatchConditionArrayInput interface {
+	pulumi.Input
+
+	ToMatchConditionArrayOutput() MatchConditionArrayOutput
+	ToMatchConditionArrayOutputWithContext(context.Context) MatchConditionArrayOutput
+}
+
+type MatchConditionArray []MatchConditionInput
+
+func (MatchConditionArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]MatchCondition)(nil)).Elem()
+}
+
+func (i MatchConditionArray) ToMatchConditionArrayOutput() MatchConditionArrayOutput {
+	return i.ToMatchConditionArrayOutputWithContext(context.Background())
+}
+
+func (i MatchConditionArray) ToMatchConditionArrayOutputWithContext(ctx context.Context) MatchConditionArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MatchConditionArrayOutput)
+}
+
+// MatchCondition represents a condition which must by fulfilled for a request to be sent to a webhook.
+type MatchConditionOutput struct{ *pulumi.OutputState }
+
+func (MatchConditionOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*MatchCondition)(nil)).Elem()
+}
+
+func (o MatchConditionOutput) ToMatchConditionOutput() MatchConditionOutput {
+	return o
+}
+
+func (o MatchConditionOutput) ToMatchConditionOutputWithContext(ctx context.Context) MatchConditionOutput {
+	return o
+}
+
+// Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+//
+// 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+//
+//	See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+//
+// 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+//
+//	request resource.
+//
+// Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/
+//
+// Required.
+func (o MatchConditionOutput) Expression() pulumi.StringOutput {
+	return o.ApplyT(func(v MatchCondition) string { return v.Expression }).(pulumi.StringOutput)
+}
+
+// Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
+//
+// Required.
+func (o MatchConditionOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v MatchCondition) string { return v.Name }).(pulumi.StringOutput)
+}
+
+type MatchConditionArrayOutput struct{ *pulumi.OutputState }
+
+func (MatchConditionArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]MatchCondition)(nil)).Elem()
+}
+
+func (o MatchConditionArrayOutput) ToMatchConditionArrayOutput() MatchConditionArrayOutput {
+	return o
+}
+
+func (o MatchConditionArrayOutput) ToMatchConditionArrayOutputWithContext(ctx context.Context) MatchConditionArrayOutput {
+	return o
+}
+
+func (o MatchConditionArrayOutput) Index(i pulumi.IntInput) MatchConditionOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) MatchCondition {
+		return vs[0].([]MatchCondition)[vs[1].(int)]
+	}).(MatchConditionOutput)
+}
+
+// MatchCondition represents a condition which must by fulfilled for a request to be sent to a webhook.
+type MatchConditionPatch struct {
+	// Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+	//
+	// 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+	//   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+	// 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+	//   request resource.
+	// Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/
+	//
+	// Required.
+	Expression *string `pulumi:"expression"`
+	// Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
+	//
+	// Required.
+	Name *string `pulumi:"name"`
+}
+
+// MatchConditionPatchInput is an input type that accepts MatchConditionPatchArgs and MatchConditionPatchOutput values.
+// You can construct a concrete instance of `MatchConditionPatchInput` via:
+//
+//	MatchConditionPatchArgs{...}
+type MatchConditionPatchInput interface {
+	pulumi.Input
+
+	ToMatchConditionPatchOutput() MatchConditionPatchOutput
+	ToMatchConditionPatchOutputWithContext(context.Context) MatchConditionPatchOutput
+}
+
+// MatchCondition represents a condition which must by fulfilled for a request to be sent to a webhook.
+type MatchConditionPatchArgs struct {
+	// Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+	//
+	// 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+	//   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+	// 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+	//   request resource.
+	// Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/
+	//
+	// Required.
+	Expression pulumi.StringPtrInput `pulumi:"expression"`
+	// Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
+	//
+	// Required.
+	Name pulumi.StringPtrInput `pulumi:"name"`
+}
+
+func (MatchConditionPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*MatchConditionPatch)(nil)).Elem()
+}
+
+func (i MatchConditionPatchArgs) ToMatchConditionPatchOutput() MatchConditionPatchOutput {
+	return i.ToMatchConditionPatchOutputWithContext(context.Background())
+}
+
+func (i MatchConditionPatchArgs) ToMatchConditionPatchOutputWithContext(ctx context.Context) MatchConditionPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MatchConditionPatchOutput)
+}
+
+// MatchConditionPatchArrayInput is an input type that accepts MatchConditionPatchArray and MatchConditionPatchArrayOutput values.
+// You can construct a concrete instance of `MatchConditionPatchArrayInput` via:
+//
+//	MatchConditionPatchArray{ MatchConditionPatchArgs{...} }
+type MatchConditionPatchArrayInput interface {
+	pulumi.Input
+
+	ToMatchConditionPatchArrayOutput() MatchConditionPatchArrayOutput
+	ToMatchConditionPatchArrayOutputWithContext(context.Context) MatchConditionPatchArrayOutput
+}
+
+type MatchConditionPatchArray []MatchConditionPatchInput
+
+func (MatchConditionPatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]MatchConditionPatch)(nil)).Elem()
+}
+
+func (i MatchConditionPatchArray) ToMatchConditionPatchArrayOutput() MatchConditionPatchArrayOutput {
+	return i.ToMatchConditionPatchArrayOutputWithContext(context.Background())
+}
+
+func (i MatchConditionPatchArray) ToMatchConditionPatchArrayOutputWithContext(ctx context.Context) MatchConditionPatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(MatchConditionPatchArrayOutput)
+}
+
+// MatchCondition represents a condition which must by fulfilled for a request to be sent to a webhook.
+type MatchConditionPatchOutput struct{ *pulumi.OutputState }
+
+func (MatchConditionPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*MatchConditionPatch)(nil)).Elem()
+}
+
+func (o MatchConditionPatchOutput) ToMatchConditionPatchOutput() MatchConditionPatchOutput {
+	return o
+}
+
+func (o MatchConditionPatchOutput) ToMatchConditionPatchOutputWithContext(ctx context.Context) MatchConditionPatchOutput {
+	return o
+}
+
+// Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+//
+// 'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+//
+//	See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+//
+// 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+//
+//	request resource.
+//
+// Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/
+//
+// Required.
+func (o MatchConditionPatchOutput) Expression() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MatchConditionPatch) *string { return v.Expression }).(pulumi.StringPtrOutput)
+}
+
+// Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
+//
+// Required.
+func (o MatchConditionPatchOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v MatchConditionPatch) *string { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+type MatchConditionPatchArrayOutput struct{ *pulumi.OutputState }
+
+func (MatchConditionPatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]MatchConditionPatch)(nil)).Elem()
+}
+
+func (o MatchConditionPatchArrayOutput) ToMatchConditionPatchArrayOutput() MatchConditionPatchArrayOutput {
+	return o
+}
+
+func (o MatchConditionPatchArrayOutput) ToMatchConditionPatchArrayOutputWithContext(ctx context.Context) MatchConditionPatchArrayOutput {
+	return o
+}
+
+func (o MatchConditionPatchArrayOutput) Index(i pulumi.IntInput) MatchConditionPatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) MatchConditionPatch {
+		return vs[0].([]MatchConditionPatch)[vs[1].(int)]
+	}).(MatchConditionPatchOutput)
+}
+
 // MutatingWebhook describes an admission webhook and the resources and operations it applies to.
 type MutatingWebhook struct {
 	// AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy.
@@ -19,6 +305,17 @@ type MutatingWebhook struct {
 	ClientConfig WebhookClientConfig `pulumi:"clientConfig"`
 	// FailurePolicy defines how unrecognized errors from the admission endpoint are handled - allowed values are Ignore or Fail. Defaults to Fail.
 	FailurePolicy *string `pulumi:"failurePolicy"`
+	// MatchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+	//
+	// The exact matching logic is (in order):
+	//   1. If ANY matchCondition evaluates to FALSE, the webhook is skipped.
+	//   2. If ALL matchConditions evaluate to TRUE, the webhook is called.
+	//   3. If any matchCondition evaluates to an error (but none are FALSE):
+	//      - If failurePolicy=Fail, reject the request
+	//      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
+	//
+	// This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+	MatchConditions []MatchCondition `pulumi:"matchConditions"`
 	// matchPolicy defines how the "rules" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
 	//
 	// - Exact: match a request only if it exactly matches a specified rule. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, but "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would not be sent to the webhook.
@@ -98,6 +395,17 @@ type MutatingWebhookArgs struct {
 	ClientConfig WebhookClientConfigInput `pulumi:"clientConfig"`
 	// FailurePolicy defines how unrecognized errors from the admission endpoint are handled - allowed values are Ignore or Fail. Defaults to Fail.
 	FailurePolicy pulumi.StringPtrInput `pulumi:"failurePolicy"`
+	// MatchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+	//
+	// The exact matching logic is (in order):
+	//   1. If ANY matchCondition evaluates to FALSE, the webhook is skipped.
+	//   2. If ALL matchConditions evaluate to TRUE, the webhook is called.
+	//   3. If any matchCondition evaluates to an error (but none are FALSE):
+	//      - If failurePolicy=Fail, reject the request
+	//      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
+	//
+	// This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+	MatchConditions MatchConditionArrayInput `pulumi:"matchConditions"`
 	// matchPolicy defines how the "rules" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
 	//
 	// - Exact: match a request only if it exactly matches a specified rule. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, but "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would not be sent to the webhook.
@@ -223,6 +531,20 @@ func (o MutatingWebhookOutput) ClientConfig() WebhookClientConfigOutput {
 // FailurePolicy defines how unrecognized errors from the admission endpoint are handled - allowed values are Ignore or Fail. Defaults to Fail.
 func (o MutatingWebhookOutput) FailurePolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v MutatingWebhook) *string { return v.FailurePolicy }).(pulumi.StringPtrOutput)
+}
+
+// MatchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+//
+// The exact matching logic is (in order):
+//  1. If ANY matchCondition evaluates to FALSE, the webhook is skipped.
+//  2. If ALL matchConditions evaluate to TRUE, the webhook is called.
+//  3. If any matchCondition evaluates to an error (but none are FALSE):
+//     - If failurePolicy=Fail, reject the request
+//     - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
+//
+// This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+func (o MutatingWebhookOutput) MatchConditions() MatchConditionArrayOutput {
+	return o.ApplyT(func(v MutatingWebhook) []MatchCondition { return v.MatchConditions }).(MatchConditionArrayOutput)
 }
 
 // matchPolicy defines how the "rules" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
@@ -626,6 +948,17 @@ type MutatingWebhookPatch struct {
 	ClientConfig *WebhookClientConfigPatch `pulumi:"clientConfig"`
 	// FailurePolicy defines how unrecognized errors from the admission endpoint are handled - allowed values are Ignore or Fail. Defaults to Fail.
 	FailurePolicy *string `pulumi:"failurePolicy"`
+	// MatchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+	//
+	// The exact matching logic is (in order):
+	//   1. If ANY matchCondition evaluates to FALSE, the webhook is skipped.
+	//   2. If ALL matchConditions evaluate to TRUE, the webhook is called.
+	//   3. If any matchCondition evaluates to an error (but none are FALSE):
+	//      - If failurePolicy=Fail, reject the request
+	//      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
+	//
+	// This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+	MatchConditions []MatchConditionPatch `pulumi:"matchConditions"`
 	// matchPolicy defines how the "rules" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
 	//
 	// - Exact: match a request only if it exactly matches a specified rule. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, but "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would not be sent to the webhook.
@@ -705,6 +1038,17 @@ type MutatingWebhookPatchArgs struct {
 	ClientConfig WebhookClientConfigPatchPtrInput `pulumi:"clientConfig"`
 	// FailurePolicy defines how unrecognized errors from the admission endpoint are handled - allowed values are Ignore or Fail. Defaults to Fail.
 	FailurePolicy pulumi.StringPtrInput `pulumi:"failurePolicy"`
+	// MatchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+	//
+	// The exact matching logic is (in order):
+	//   1. If ANY matchCondition evaluates to FALSE, the webhook is skipped.
+	//   2. If ALL matchConditions evaluate to TRUE, the webhook is called.
+	//   3. If any matchCondition evaluates to an error (but none are FALSE):
+	//      - If failurePolicy=Fail, reject the request
+	//      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
+	//
+	// This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+	MatchConditions MatchConditionPatchArrayInput `pulumi:"matchConditions"`
 	// matchPolicy defines how the "rules" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
 	//
 	// - Exact: match a request only if it exactly matches a specified rule. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, but "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would not be sent to the webhook.
@@ -830,6 +1174,20 @@ func (o MutatingWebhookPatchOutput) ClientConfig() WebhookClientConfigPatchPtrOu
 // FailurePolicy defines how unrecognized errors from the admission endpoint are handled - allowed values are Ignore or Fail. Defaults to Fail.
 func (o MutatingWebhookPatchOutput) FailurePolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v MutatingWebhookPatch) *string { return v.FailurePolicy }).(pulumi.StringPtrOutput)
+}
+
+// MatchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+//
+// The exact matching logic is (in order):
+//  1. If ANY matchCondition evaluates to FALSE, the webhook is skipped.
+//  2. If ALL matchConditions evaluate to TRUE, the webhook is called.
+//  3. If any matchCondition evaluates to an error (but none are FALSE):
+//     - If failurePolicy=Fail, reject the request
+//     - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
+//
+// This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+func (o MutatingWebhookPatchOutput) MatchConditions() MatchConditionPatchArrayOutput {
+	return o.ApplyT(func(v MutatingWebhookPatch) []MatchConditionPatch { return v.MatchConditions }).(MatchConditionPatchArrayOutput)
 }
 
 // matchPolicy defines how the "rules" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
@@ -1644,6 +2002,17 @@ type ValidatingWebhook struct {
 	ClientConfig WebhookClientConfig `pulumi:"clientConfig"`
 	// FailurePolicy defines how unrecognized errors from the admission endpoint are handled - allowed values are Ignore or Fail. Defaults to Fail.
 	FailurePolicy *string `pulumi:"failurePolicy"`
+	// MatchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+	//
+	// The exact matching logic is (in order):
+	//   1. If ANY matchCondition evaluates to FALSE, the webhook is skipped.
+	//   2. If ALL matchConditions evaluate to TRUE, the webhook is called.
+	//   3. If any matchCondition evaluates to an error (but none are FALSE):
+	//      - If failurePolicy=Fail, reject the request
+	//      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
+	//
+	// This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+	MatchConditions []MatchCondition `pulumi:"matchConditions"`
 	// matchPolicy defines how the "rules" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
 	//
 	// - Exact: match a request only if it exactly matches a specified rule. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, but "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would not be sent to the webhook.
@@ -1715,6 +2084,17 @@ type ValidatingWebhookArgs struct {
 	ClientConfig WebhookClientConfigInput `pulumi:"clientConfig"`
 	// FailurePolicy defines how unrecognized errors from the admission endpoint are handled - allowed values are Ignore or Fail. Defaults to Fail.
 	FailurePolicy pulumi.StringPtrInput `pulumi:"failurePolicy"`
+	// MatchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+	//
+	// The exact matching logic is (in order):
+	//   1. If ANY matchCondition evaluates to FALSE, the webhook is skipped.
+	//   2. If ALL matchConditions evaluate to TRUE, the webhook is called.
+	//   3. If any matchCondition evaluates to an error (but none are FALSE):
+	//      - If failurePolicy=Fail, reject the request
+	//      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
+	//
+	// This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+	MatchConditions MatchConditionArrayInput `pulumi:"matchConditions"`
 	// matchPolicy defines how the "rules" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
 	//
 	// - Exact: match a request only if it exactly matches a specified rule. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, but "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would not be sent to the webhook.
@@ -1832,6 +2212,20 @@ func (o ValidatingWebhookOutput) ClientConfig() WebhookClientConfigOutput {
 // FailurePolicy defines how unrecognized errors from the admission endpoint are handled - allowed values are Ignore or Fail. Defaults to Fail.
 func (o ValidatingWebhookOutput) FailurePolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ValidatingWebhook) *string { return v.FailurePolicy }).(pulumi.StringPtrOutput)
+}
+
+// MatchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+//
+// The exact matching logic is (in order):
+//  1. If ANY matchCondition evaluates to FALSE, the webhook is skipped.
+//  2. If ALL matchConditions evaluate to TRUE, the webhook is called.
+//  3. If any matchCondition evaluates to an error (but none are FALSE):
+//     - If failurePolicy=Fail, reject the request
+//     - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
+//
+// This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+func (o ValidatingWebhookOutput) MatchConditions() MatchConditionArrayOutput {
+	return o.ApplyT(func(v ValidatingWebhook) []MatchCondition { return v.MatchConditions }).(MatchConditionArrayOutput)
 }
 
 // matchPolicy defines how the "rules" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
@@ -2224,6 +2618,17 @@ type ValidatingWebhookPatch struct {
 	ClientConfig *WebhookClientConfigPatch `pulumi:"clientConfig"`
 	// FailurePolicy defines how unrecognized errors from the admission endpoint are handled - allowed values are Ignore or Fail. Defaults to Fail.
 	FailurePolicy *string `pulumi:"failurePolicy"`
+	// MatchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+	//
+	// The exact matching logic is (in order):
+	//   1. If ANY matchCondition evaluates to FALSE, the webhook is skipped.
+	//   2. If ALL matchConditions evaluate to TRUE, the webhook is called.
+	//   3. If any matchCondition evaluates to an error (but none are FALSE):
+	//      - If failurePolicy=Fail, reject the request
+	//      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
+	//
+	// This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+	MatchConditions []MatchConditionPatch `pulumi:"matchConditions"`
 	// matchPolicy defines how the "rules" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
 	//
 	// - Exact: match a request only if it exactly matches a specified rule. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, but "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would not be sent to the webhook.
@@ -2295,6 +2700,17 @@ type ValidatingWebhookPatchArgs struct {
 	ClientConfig WebhookClientConfigPatchPtrInput `pulumi:"clientConfig"`
 	// FailurePolicy defines how unrecognized errors from the admission endpoint are handled - allowed values are Ignore or Fail. Defaults to Fail.
 	FailurePolicy pulumi.StringPtrInput `pulumi:"failurePolicy"`
+	// MatchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+	//
+	// The exact matching logic is (in order):
+	//   1. If ANY matchCondition evaluates to FALSE, the webhook is skipped.
+	//   2. If ALL matchConditions evaluate to TRUE, the webhook is called.
+	//   3. If any matchCondition evaluates to an error (but none are FALSE):
+	//      - If failurePolicy=Fail, reject the request
+	//      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
+	//
+	// This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+	MatchConditions MatchConditionPatchArrayInput `pulumi:"matchConditions"`
 	// matchPolicy defines how the "rules" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
 	//
 	// - Exact: match a request only if it exactly matches a specified rule. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, but "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would not be sent to the webhook.
@@ -2412,6 +2828,20 @@ func (o ValidatingWebhookPatchOutput) ClientConfig() WebhookClientConfigPatchPtr
 // FailurePolicy defines how unrecognized errors from the admission endpoint are handled - allowed values are Ignore or Fail. Defaults to Fail.
 func (o ValidatingWebhookPatchOutput) FailurePolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ValidatingWebhookPatch) *string { return v.FailurePolicy }).(pulumi.StringPtrOutput)
+}
+
+// MatchConditions is a list of conditions that must be met for a request to be sent to this webhook. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+//
+// The exact matching logic is (in order):
+//  1. If ANY matchCondition evaluates to FALSE, the webhook is skipped.
+//  2. If ALL matchConditions evaluate to TRUE, the webhook is called.
+//  3. If any matchCondition evaluates to an error (but none are FALSE):
+//     - If failurePolicy=Fail, reject the request
+//     - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
+//
+// This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+func (o ValidatingWebhookPatchOutput) MatchConditions() MatchConditionPatchArrayOutput {
+	return o.ApplyT(func(v ValidatingWebhookPatch) []MatchConditionPatch { return v.MatchConditions }).(MatchConditionPatchArrayOutput)
 }
 
 // matchPolicy defines how the "rules" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
@@ -2841,6 +3271,10 @@ func (o WebhookClientConfigPatchPtrOutput) Url() pulumi.StringPtrOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*MatchConditionInput)(nil)).Elem(), MatchConditionArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MatchConditionArrayInput)(nil)).Elem(), MatchConditionArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MatchConditionPatchInput)(nil)).Elem(), MatchConditionPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*MatchConditionPatchArrayInput)(nil)).Elem(), MatchConditionPatchArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*MutatingWebhookInput)(nil)).Elem(), MutatingWebhookArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*MutatingWebhookArrayInput)(nil)).Elem(), MutatingWebhookArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*MutatingWebhookConfigurationTypeInput)(nil)).Elem(), MutatingWebhookConfigurationTypeArgs{})
@@ -2868,6 +3302,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*WebhookClientConfigInput)(nil)).Elem(), WebhookClientConfigArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*WebhookClientConfigPatchInput)(nil)).Elem(), WebhookClientConfigPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*WebhookClientConfigPatchPtrInput)(nil)).Elem(), WebhookClientConfigPatchArgs{})
+	pulumi.RegisterOutputType(MatchConditionOutput{})
+	pulumi.RegisterOutputType(MatchConditionArrayOutput{})
+	pulumi.RegisterOutputType(MatchConditionPatchOutput{})
+	pulumi.RegisterOutputType(MatchConditionPatchArrayOutput{})
 	pulumi.RegisterOutputType(MutatingWebhookOutput{})
 	pulumi.RegisterOutputType(MutatingWebhookArrayOutput{})
 	pulumi.RegisterOutputType(MutatingWebhookConfigurationTypeOutput{})

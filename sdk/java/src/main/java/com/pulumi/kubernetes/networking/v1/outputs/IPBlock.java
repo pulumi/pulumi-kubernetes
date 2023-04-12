@@ -12,26 +12,26 @@ import javax.annotation.Nullable;
 @CustomType
 public final class IPBlock {
     /**
-     * @return CIDR is a string representing the IP Block Valid examples are &#34;192.168.1.0/24&#34; or &#34;2001:db8::/64&#34;
+     * @return cidr is a string representing the IPBlock Valid examples are &#34;192.168.1.0/24&#34; or &#34;2001:db8::/64&#34;
      * 
      */
     private String cidr;
     /**
-     * @return Except is a slice of CIDRs that should not be included within an IP Block Valid examples are &#34;192.168.1.0/24&#34; or &#34;2001:db8::/64&#34; Except values will be rejected if they are outside the CIDR range
+     * @return except is a slice of CIDRs that should not be included within an IPBlock Valid examples are &#34;192.168.1.0/24&#34; or &#34;2001:db8::/64&#34; Except values will be rejected if they are outside the cidr range
      * 
      */
     private @Nullable List<String> except;
 
     private IPBlock() {}
     /**
-     * @return CIDR is a string representing the IP Block Valid examples are &#34;192.168.1.0/24&#34; or &#34;2001:db8::/64&#34;
+     * @return cidr is a string representing the IPBlock Valid examples are &#34;192.168.1.0/24&#34; or &#34;2001:db8::/64&#34;
      * 
      */
     public String cidr() {
         return this.cidr;
     }
     /**
-     * @return Except is a slice of CIDRs that should not be included within an IP Block Valid examples are &#34;192.168.1.0/24&#34; or &#34;2001:db8::/64&#34; Except values will be rejected if they are outside the CIDR range
+     * @return except is a slice of CIDRs that should not be included within an IPBlock Valid examples are &#34;192.168.1.0/24&#34; or &#34;2001:db8::/64&#34; Except values will be rejected if they are outside the cidr range
      * 
      */
     public List<String> except() {

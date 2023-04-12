@@ -883,7 +883,7 @@ class ObjectMeta(dict):
                  uid: Optional[str] = None):
         """
         ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create.
-        :param Mapping[str, str] annotations: Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
+        :param Mapping[str, str] annotations: Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations
         :param str cluster_name: The name of the cluster which the object belongs to. This is used to distinguish resources with same name and namespace in different clusters. This field is not set anywhere right now and apiserver is going to ignore it if set in create or update request.
         :param str creation_timestamp: CreationTimestamp is a timestamp representing the server time when this object was created. It is not guaranteed to be set in happens-before order across separate operations. Clients may not set this value. It is represented in RFC3339 form and is in UTC.
                
@@ -899,12 +899,12 @@ class ObjectMeta(dict):
                
                Applied only if Name is not specified. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#idempotency
         :param int generation: A sequence number representing a specific generation of the desired state. Populated by the system. Read-only.
-        :param Mapping[str, str] labels: Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
+        :param Mapping[str, str] labels: Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels
         :param Sequence['ManagedFieldsEntryArgs'] managed_fields: ManagedFields maps workflow-id and version to the set of fields that are managed by that workflow. This is mostly for internal housekeeping, and users typically shouldn't need to set or understand this field. A workflow can be the user's name, a controller's name, or the name of a specific apply path like "ci-cd". The set of fields is always in the version that the workflow used when modifying the object.
-        :param str name: Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names
+        :param str name: Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names
         :param str namespace: Namespace defines the space within which each name must be unique. An empty namespace is equivalent to the "default" namespace, but "default" is the canonical representation. Not all objects are required to be scoped to a namespace - the value of this field for those objects will be empty.
                
-               Must be a DNS_LABEL. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/namespaces
+               Must be a DNS_LABEL. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces
         :param Sequence['OwnerReferenceArgs'] owner_references: List of objects depended by this object. If ALL objects in the list have been deleted, this object will be garbage collected. If this object is managed by a controller, then an entry in this list will point to this controller, with the controller field set to true. There cannot be more than one managing controller.
         :param str resource_version: An opaque value that represents the internal version of this object that can be used by clients to determine when objects have changed. May be used for optimistic concurrency, change detection, and the watch operation on a resource or set of resources. Clients must treat these values as opaque and passed unmodified back to the server. They may only be valid for a particular resource or set of resources.
                
@@ -912,7 +912,7 @@ class ObjectMeta(dict):
         :param str self_link: Deprecated: selfLink is a legacy read-only field that is no longer populated by the system.
         :param str uid: UID is the unique in time and space value for this object. It is typically generated by the server on successful creation of a resource and is not allowed to change on PUT operations.
                
-               Populated by the system. Read-only. More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+               Populated by the system. Read-only. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
         """
         if annotations is not None:
             pulumi.set(__self__, "annotations", annotations)
@@ -951,7 +951,7 @@ class ObjectMeta(dict):
     @pulumi.getter
     def annotations(self) -> Optional[Mapping[str, str]]:
         """
-        Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
+        Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations
         """
         return pulumi.get(self, "annotations")
 
@@ -1023,7 +1023,7 @@ class ObjectMeta(dict):
     @pulumi.getter
     def labels(self) -> Optional[Mapping[str, str]]:
         """
-        Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
+        Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels
         """
         return pulumi.get(self, "labels")
 
@@ -1039,7 +1039,7 @@ class ObjectMeta(dict):
     @pulumi.getter
     def name(self) -> Optional[str]:
         """
-        Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names
+        Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names
         """
         return pulumi.get(self, "name")
 
@@ -1049,7 +1049,7 @@ class ObjectMeta(dict):
         """
         Namespace defines the space within which each name must be unique. An empty namespace is equivalent to the "default" namespace, but "default" is the canonical representation. Not all objects are required to be scoped to a namespace - the value of this field for those objects will be empty.
 
-        Must be a DNS_LABEL. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/namespaces
+        Must be a DNS_LABEL. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces
         """
         return pulumi.get(self, "namespace")
 
@@ -1085,7 +1085,7 @@ class ObjectMeta(dict):
         """
         UID is the unique in time and space value for this object. It is typically generated by the server on successful creation of a resource and is not allowed to change on PUT operations.
 
-        Populated by the system. Read-only. More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+        Populated by the system. Read-only. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
         """
         return pulumi.get(self, "uid")
 
@@ -1147,7 +1147,7 @@ class ObjectMetaPatch(dict):
                  uid: Optional[str] = None):
         """
         ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create.
-        :param Mapping[str, str] annotations: Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
+        :param Mapping[str, str] annotations: Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations
         :param str cluster_name: The name of the cluster which the object belongs to. This is used to distinguish resources with same name and namespace in different clusters. This field is not set anywhere right now and apiserver is going to ignore it if set in create or update request.
         :param str creation_timestamp: CreationTimestamp is a timestamp representing the server time when this object was created. It is not guaranteed to be set in happens-before order across separate operations. Clients may not set this value. It is represented in RFC3339 form and is in UTC.
                
@@ -1163,12 +1163,12 @@ class ObjectMetaPatch(dict):
                
                Applied only if Name is not specified. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#idempotency
         :param int generation: A sequence number representing a specific generation of the desired state. Populated by the system. Read-only.
-        :param Mapping[str, str] labels: Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
+        :param Mapping[str, str] labels: Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels
         :param Sequence['ManagedFieldsEntryPatchArgs'] managed_fields: ManagedFields maps workflow-id and version to the set of fields that are managed by that workflow. This is mostly for internal housekeeping, and users typically shouldn't need to set or understand this field. A workflow can be the user's name, a controller's name, or the name of a specific apply path like "ci-cd". The set of fields is always in the version that the workflow used when modifying the object.
-        :param str name: Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names
+        :param str name: Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names
         :param str namespace: Namespace defines the space within which each name must be unique. An empty namespace is equivalent to the "default" namespace, but "default" is the canonical representation. Not all objects are required to be scoped to a namespace - the value of this field for those objects will be empty.
                
-               Must be a DNS_LABEL. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/namespaces
+               Must be a DNS_LABEL. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces
         :param Sequence['OwnerReferencePatchArgs'] owner_references: List of objects depended by this object. If ALL objects in the list have been deleted, this object will be garbage collected. If this object is managed by a controller, then an entry in this list will point to this controller, with the controller field set to true. There cannot be more than one managing controller.
         :param str resource_version: An opaque value that represents the internal version of this object that can be used by clients to determine when objects have changed. May be used for optimistic concurrency, change detection, and the watch operation on a resource or set of resources. Clients must treat these values as opaque and passed unmodified back to the server. They may only be valid for a particular resource or set of resources.
                
@@ -1176,7 +1176,7 @@ class ObjectMetaPatch(dict):
         :param str self_link: Deprecated: selfLink is a legacy read-only field that is no longer populated by the system.
         :param str uid: UID is the unique in time and space value for this object. It is typically generated by the server on successful creation of a resource and is not allowed to change on PUT operations.
                
-               Populated by the system. Read-only. More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+               Populated by the system. Read-only. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
         """
         if annotations is not None:
             pulumi.set(__self__, "annotations", annotations)
@@ -1215,7 +1215,7 @@ class ObjectMetaPatch(dict):
     @pulumi.getter
     def annotations(self) -> Optional[Mapping[str, str]]:
         """
-        Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations
+        Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations
         """
         return pulumi.get(self, "annotations")
 
@@ -1287,7 +1287,7 @@ class ObjectMetaPatch(dict):
     @pulumi.getter
     def labels(self) -> Optional[Mapping[str, str]]:
         """
-        Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels
+        Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels
         """
         return pulumi.get(self, "labels")
 
@@ -1303,7 +1303,7 @@ class ObjectMetaPatch(dict):
     @pulumi.getter
     def name(self) -> Optional[str]:
         """
-        Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names
+        Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names
         """
         return pulumi.get(self, "name")
 
@@ -1313,7 +1313,7 @@ class ObjectMetaPatch(dict):
         """
         Namespace defines the space within which each name must be unique. An empty namespace is equivalent to the "default" namespace, but "default" is the canonical representation. Not all objects are required to be scoped to a namespace - the value of this field for those objects will be empty.
 
-        Must be a DNS_LABEL. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/namespaces
+        Must be a DNS_LABEL. Cannot be updated. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces
         """
         return pulumi.get(self, "namespace")
 
@@ -1349,7 +1349,7 @@ class ObjectMetaPatch(dict):
         """
         UID is the unique in time and space value for this object. It is typically generated by the server on successful creation of a resource and is not allowed to change on PUT operations.
 
-        Populated by the system. Read-only. More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+        Populated by the system. Read-only. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
         """
         return pulumi.get(self, "uid")
 
@@ -1389,8 +1389,8 @@ class OwnerReference(dict):
         OwnerReference contains enough information to let you identify an owning object. An owning object must be in the same namespace as the dependent, or be cluster-scoped, so there is no namespace field.
         :param str api_version: API version of the referent.
         :param str kind: Kind of the referent. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param str name: Name of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#names
-        :param str uid: UID of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+        :param str name: Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names
+        :param str uid: UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
         :param bool block_owner_deletion: If true, AND if the owner has the "foregroundDeletion" finalizer, then the owner cannot be deleted from the key-value store until this reference is removed. See https://kubernetes.io/docs/concepts/architecture/garbage-collection/#foreground-deletion for how the garbage collector interacts with this field and enforces the foreground deletion. Defaults to false. To set this field, a user needs "delete" permission of the owner, otherwise 422 (Unprocessable Entity) will be returned.
         :param bool controller: If true, this reference points to the managing controller.
         """
@@ -1423,7 +1423,7 @@ class OwnerReference(dict):
     @pulumi.getter
     def name(self) -> str:
         """
-        Name of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#names
+        Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names
         """
         return pulumi.get(self, "name")
 
@@ -1431,7 +1431,7 @@ class OwnerReference(dict):
     @pulumi.getter
     def uid(self) -> str:
         """
-        UID of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+        UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
         """
         return pulumi.get(self, "uid")
 
@@ -1489,8 +1489,8 @@ class OwnerReferencePatch(dict):
         :param bool block_owner_deletion: If true, AND if the owner has the "foregroundDeletion" finalizer, then the owner cannot be deleted from the key-value store until this reference is removed. See https://kubernetes.io/docs/concepts/architecture/garbage-collection/#foreground-deletion for how the garbage collector interacts with this field and enforces the foreground deletion. Defaults to false. To set this field, a user needs "delete" permission of the owner, otherwise 422 (Unprocessable Entity) will be returned.
         :param bool controller: If true, this reference points to the managing controller.
         :param str kind: Kind of the referent. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param str name: Name of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#names
-        :param str uid: UID of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+        :param str name: Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names
+        :param str uid: UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
         """
         if api_version is not None:
             pulumi.set(__self__, "api_version", api_version)
@@ -1541,7 +1541,7 @@ class OwnerReferencePatch(dict):
     @pulumi.getter
     def name(self) -> Optional[str]:
         """
-        Name of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#names
+        Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names
         """
         return pulumi.get(self, "name")
 
@@ -1549,7 +1549,7 @@ class OwnerReferencePatch(dict):
     @pulumi.getter
     def uid(self) -> Optional[str]:
         """
-        UID of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+        UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
         """
         return pulumi.get(self, "uid")
 
@@ -1700,7 +1700,7 @@ class StatusDetails(dict):
         :param str kind: The kind attribute of the resource associated with the status StatusReason. On some operations may differ from the requested resource Kind. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param str name: The name attribute of the resource associated with the status StatusReason (when there is a single name which can be described).
         :param int retry_after_seconds: If specified, the time in seconds before the operation should be retried. Some errors may indicate the client must take an alternate action - for those errors this field may indicate how long to wait before taking the alternate action.
-        :param str uid: UID of the resource. (when there is a single resource which can be described). More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+        :param str uid: UID of the resource. (when there is a single resource which can be described). More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
         """
         if causes is not None:
             pulumi.set(__self__, "causes", causes)
@@ -1759,7 +1759,7 @@ class StatusDetails(dict):
     @pulumi.getter
     def uid(self) -> Optional[str]:
         """
-        UID of the resource. (when there is a single resource which can be described). More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+        UID of the resource. (when there is a single resource which can be described). More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
         """
         return pulumi.get(self, "uid")
 
@@ -1800,7 +1800,7 @@ class StatusDetailsPatch(dict):
         :param str kind: The kind attribute of the resource associated with the status StatusReason. On some operations may differ from the requested resource Kind. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param str name: The name attribute of the resource associated with the status StatusReason (when there is a single name which can be described).
         :param int retry_after_seconds: If specified, the time in seconds before the operation should be retried. Some errors may indicate the client must take an alternate action - for those errors this field may indicate how long to wait before taking the alternate action.
-        :param str uid: UID of the resource. (when there is a single resource which can be described). More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+        :param str uid: UID of the resource. (when there is a single resource which can be described). More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
         """
         if causes is not None:
             pulumi.set(__self__, "causes", causes)
@@ -1859,7 +1859,7 @@ class StatusDetailsPatch(dict):
     @pulumi.getter
     def uid(self) -> Optional[str]:
         """
-        UID of the resource. (when there is a single resource which can be described). More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+        UID of the resource. (when there is a single resource which can be described). More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
         """
         return pulumi.get(self, "uid")
 

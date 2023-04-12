@@ -25,7 +25,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Coordination.V1
         /// </summary>
         public readonly string HolderIdentity;
         /// <summary>
-        /// leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed RenewTime.
+        /// leaseDurationSeconds is a duration that candidates for a lease need to wait to force acquire it. This is measure against time of last observed renewTime.
         /// </summary>
         public readonly int LeaseDurationSeconds;
         /// <summary>

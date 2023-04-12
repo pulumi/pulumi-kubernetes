@@ -23,9 +23,9 @@ type PriorityClassType struct {
 	Kind *string `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-	// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+	// preemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
 	PreemptionPolicy *string `pulumi:"preemptionPolicy"`
-	// The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
+	// value represents the integer value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
 	Value int `pulumi:"value"`
 }
 
@@ -52,9 +52,9 @@ type PriorityClassTypeArgs struct {
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
-	// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+	// preemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
 	PreemptionPolicy pulumi.StringPtrInput `pulumi:"preemptionPolicy"`
-	// The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
+	// value represents the integer value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
 	Value pulumi.IntInput `pulumi:"value"`
 }
 
@@ -135,12 +135,12 @@ func (o PriorityClassTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v PriorityClassType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
-// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+// preemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
 func (o PriorityClassTypeOutput) PreemptionPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PriorityClassType) *string { return v.PreemptionPolicy }).(pulumi.StringPtrOutput)
 }
 
-// The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
+// value represents the integer value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
 func (o PriorityClassTypeOutput) Value() pulumi.IntOutput {
 	return o.ApplyT(func(v PriorityClassType) int { return v.Value }).(pulumi.IntOutput)
 }
@@ -259,9 +259,9 @@ type PriorityClassPatchType struct {
 	Kind *string `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
-	// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+	// preemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
 	PreemptionPolicy *string `pulumi:"preemptionPolicy"`
-	// The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
+	// value represents the integer value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
 	Value *int `pulumi:"value"`
 }
 
@@ -288,9 +288,9 @@ type PriorityClassPatchTypeArgs struct {
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
-	// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+	// preemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
 	PreemptionPolicy pulumi.StringPtrInput `pulumi:"preemptionPolicy"`
-	// The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
+	// value represents the integer value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
 	Value pulumi.IntPtrInput `pulumi:"value"`
 }
 
@@ -346,12 +346,12 @@ func (o PriorityClassPatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput
 	return o.ApplyT(func(v PriorityClassPatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
 }
 
-// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+// preemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
 func (o PriorityClassPatchTypeOutput) PreemptionPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PriorityClassPatchType) *string { return v.PreemptionPolicy }).(pulumi.StringPtrOutput)
 }
 
-// The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
+// value represents the integer value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
 func (o PriorityClassPatchTypeOutput) Value() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v PriorityClassPatchType) *int { return v.Value }).(pulumi.IntPtrOutput)
 }

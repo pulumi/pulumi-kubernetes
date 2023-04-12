@@ -34,7 +34,7 @@ namespace Pulumi.Kubernetes.Storage.V1
         public Output<string> Kind { get; private set; } = null!;
 
         /// <summary>
-        /// metadata.name must be the Kubernetes node name.
+        /// Standard object's metadata. metadata.name must be the Kubernetes node name.
         /// </summary>
         [Output("metadata")]
         public Output<Pulumi.Kubernetes.Types.Outputs.Meta.V1.ObjectMetaPatch> Metadata { get; private set; } = null!;
@@ -122,7 +122,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1
         public Input<string>? Kind { get; set; }
 
         /// <summary>
-        /// metadata.name must be the Kubernetes node name.
+        /// Standard object's metadata. metadata.name must be the Kubernetes node name.
         /// </summary>
         [Input("metadata")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaPatchArgs>? Metadata { get; set; }

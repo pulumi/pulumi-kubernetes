@@ -14,11 +14,11 @@ import (
 
 // HTTPIngressPath associates a path with a backend. Incoming urls matching the path are forwarded to the backend.
 type HTTPIngressPath struct {
-	// Backend defines the referenced service endpoint to which the traffic will be forwarded to.
+	// backend defines the referenced service endpoint to which the traffic will be forwarded to.
 	Backend IngressBackend `pulumi:"backend"`
-	// Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/' and must be present when using PathType with value "Exact" or "Prefix".
+	// path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/' and must be present when using PathType with value "Exact" or "Prefix".
 	Path *string `pulumi:"path"`
-	// PathType determines the interpretation of the Path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by '/'. Matching is
+	// pathType determines the interpretation of the path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by '/'. Matching is
 	//   done on a path element by element basis. A path element refers is the
 	//   list of labels in the path split by the '/' separator. A request is a
 	//   match for path p if every p is an element-wise prefix of p of the
@@ -45,11 +45,11 @@ type HTTPIngressPathInput interface {
 
 // HTTPIngressPath associates a path with a backend. Incoming urls matching the path are forwarded to the backend.
 type HTTPIngressPathArgs struct {
-	// Backend defines the referenced service endpoint to which the traffic will be forwarded to.
+	// backend defines the referenced service endpoint to which the traffic will be forwarded to.
 	Backend IngressBackendInput `pulumi:"backend"`
-	// Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/' and must be present when using PathType with value "Exact" or "Prefix".
+	// path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/' and must be present when using PathType with value "Exact" or "Prefix".
 	Path pulumi.StringPtrInput `pulumi:"path"`
-	// PathType determines the interpretation of the Path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by '/'. Matching is
+	// pathType determines the interpretation of the path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by '/'. Matching is
 	//   done on a path element by element basis. A path element refers is the
 	//   list of labels in the path split by the '/' separator. A request is a
 	//   match for path p if every p is an element-wise prefix of p of the
@@ -115,17 +115,17 @@ func (o HTTPIngressPathOutput) ToHTTPIngressPathOutputWithContext(ctx context.Co
 	return o
 }
 
-// Backend defines the referenced service endpoint to which the traffic will be forwarded to.
+// backend defines the referenced service endpoint to which the traffic will be forwarded to.
 func (o HTTPIngressPathOutput) Backend() IngressBackendOutput {
 	return o.ApplyT(func(v HTTPIngressPath) IngressBackend { return v.Backend }).(IngressBackendOutput)
 }
 
-// Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/' and must be present when using PathType with value "Exact" or "Prefix".
+// path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/' and must be present when using PathType with value "Exact" or "Prefix".
 func (o HTTPIngressPathOutput) Path() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v HTTPIngressPath) *string { return v.Path }).(pulumi.StringPtrOutput)
 }
 
-// PathType determines the interpretation of the Path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by '/'. Matching is
+// pathType determines the interpretation of the path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by '/'. Matching is
 //
 //	done on a path element by element basis. A path element refers is the
 //	list of labels in the path split by the '/' separator. A request is a
@@ -163,11 +163,11 @@ func (o HTTPIngressPathArrayOutput) Index(i pulumi.IntInput) HTTPIngressPathOutp
 
 // HTTPIngressPath associates a path with a backend. Incoming urls matching the path are forwarded to the backend.
 type HTTPIngressPathPatch struct {
-	// Backend defines the referenced service endpoint to which the traffic will be forwarded to.
+	// backend defines the referenced service endpoint to which the traffic will be forwarded to.
 	Backend *IngressBackendPatch `pulumi:"backend"`
-	// Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/' and must be present when using PathType with value "Exact" or "Prefix".
+	// path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/' and must be present when using PathType with value "Exact" or "Prefix".
 	Path *string `pulumi:"path"`
-	// PathType determines the interpretation of the Path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by '/'. Matching is
+	// pathType determines the interpretation of the path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by '/'. Matching is
 	//   done on a path element by element basis. A path element refers is the
 	//   list of labels in the path split by the '/' separator. A request is a
 	//   match for path p if every p is an element-wise prefix of p of the
@@ -194,11 +194,11 @@ type HTTPIngressPathPatchInput interface {
 
 // HTTPIngressPath associates a path with a backend. Incoming urls matching the path are forwarded to the backend.
 type HTTPIngressPathPatchArgs struct {
-	// Backend defines the referenced service endpoint to which the traffic will be forwarded to.
+	// backend defines the referenced service endpoint to which the traffic will be forwarded to.
 	Backend IngressBackendPatchPtrInput `pulumi:"backend"`
-	// Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/' and must be present when using PathType with value "Exact" or "Prefix".
+	// path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/' and must be present when using PathType with value "Exact" or "Prefix".
 	Path pulumi.StringPtrInput `pulumi:"path"`
-	// PathType determines the interpretation of the Path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by '/'. Matching is
+	// pathType determines the interpretation of the path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by '/'. Matching is
 	//   done on a path element by element basis. A path element refers is the
 	//   list of labels in the path split by the '/' separator. A request is a
 	//   match for path p if every p is an element-wise prefix of p of the
@@ -264,17 +264,17 @@ func (o HTTPIngressPathPatchOutput) ToHTTPIngressPathPatchOutputWithContext(ctx 
 	return o
 }
 
-// Backend defines the referenced service endpoint to which the traffic will be forwarded to.
+// backend defines the referenced service endpoint to which the traffic will be forwarded to.
 func (o HTTPIngressPathPatchOutput) Backend() IngressBackendPatchPtrOutput {
 	return o.ApplyT(func(v HTTPIngressPathPatch) *IngressBackendPatch { return v.Backend }).(IngressBackendPatchPtrOutput)
 }
 
-// Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/' and must be present when using PathType with value "Exact" or "Prefix".
+// path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/' and must be present when using PathType with value "Exact" or "Prefix".
 func (o HTTPIngressPathPatchOutput) Path() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v HTTPIngressPathPatch) *string { return v.Path }).(pulumi.StringPtrOutput)
 }
 
-// PathType determines the interpretation of the Path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by '/'. Matching is
+// pathType determines the interpretation of the path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by '/'. Matching is
 //
 //	done on a path element by element basis. A path element refers is the
 //	list of labels in the path split by the '/' separator. A request is a
@@ -312,7 +312,7 @@ func (o HTTPIngressPathPatchArrayOutput) Index(i pulumi.IntInput) HTTPIngressPat
 
 // HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example: http://<host>/<path>?<searchpart> -> backend where where parts of the url correspond to RFC 3986, this resource will be used to match against everything after the last '/' and before the first '?' or '#'.
 type HTTPIngressRuleValue struct {
-	// A collection of paths that map requests to backends.
+	// paths is a collection of paths that map requests to backends.
 	Paths []HTTPIngressPath `pulumi:"paths"`
 }
 
@@ -329,7 +329,7 @@ type HTTPIngressRuleValueInput interface {
 
 // HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example: http://<host>/<path>?<searchpart> -> backend where where parts of the url correspond to RFC 3986, this resource will be used to match against everything after the last '/' and before the first '?' or '#'.
 type HTTPIngressRuleValueArgs struct {
-	// A collection of paths that map requests to backends.
+	// paths is a collection of paths that map requests to backends.
 	Paths HTTPIngressPathArrayInput `pulumi:"paths"`
 }
 
@@ -411,7 +411,7 @@ func (o HTTPIngressRuleValueOutput) ToHTTPIngressRuleValuePtrOutputWithContext(c
 	}).(HTTPIngressRuleValuePtrOutput)
 }
 
-// A collection of paths that map requests to backends.
+// paths is a collection of paths that map requests to backends.
 func (o HTTPIngressRuleValueOutput) Paths() HTTPIngressPathArrayOutput {
 	return o.ApplyT(func(v HTTPIngressRuleValue) []HTTPIngressPath { return v.Paths }).(HTTPIngressPathArrayOutput)
 }
@@ -440,7 +440,7 @@ func (o HTTPIngressRuleValuePtrOutput) Elem() HTTPIngressRuleValueOutput {
 	}).(HTTPIngressRuleValueOutput)
 }
 
-// A collection of paths that map requests to backends.
+// paths is a collection of paths that map requests to backends.
 func (o HTTPIngressRuleValuePtrOutput) Paths() HTTPIngressPathArrayOutput {
 	return o.ApplyT(func(v *HTTPIngressRuleValue) []HTTPIngressPath {
 		if v == nil {
@@ -452,7 +452,7 @@ func (o HTTPIngressRuleValuePtrOutput) Paths() HTTPIngressPathArrayOutput {
 
 // HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example: http://<host>/<path>?<searchpart> -> backend where where parts of the url correspond to RFC 3986, this resource will be used to match against everything after the last '/' and before the first '?' or '#'.
 type HTTPIngressRuleValuePatch struct {
-	// A collection of paths that map requests to backends.
+	// paths is a collection of paths that map requests to backends.
 	Paths []HTTPIngressPathPatch `pulumi:"paths"`
 }
 
@@ -469,7 +469,7 @@ type HTTPIngressRuleValuePatchInput interface {
 
 // HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example: http://<host>/<path>?<searchpart> -> backend where where parts of the url correspond to RFC 3986, this resource will be used to match against everything after the last '/' and before the first '?' or '#'.
 type HTTPIngressRuleValuePatchArgs struct {
-	// A collection of paths that map requests to backends.
+	// paths is a collection of paths that map requests to backends.
 	Paths HTTPIngressPathPatchArrayInput `pulumi:"paths"`
 }
 
@@ -551,7 +551,7 @@ func (o HTTPIngressRuleValuePatchOutput) ToHTTPIngressRuleValuePatchPtrOutputWit
 	}).(HTTPIngressRuleValuePatchPtrOutput)
 }
 
-// A collection of paths that map requests to backends.
+// paths is a collection of paths that map requests to backends.
 func (o HTTPIngressRuleValuePatchOutput) Paths() HTTPIngressPathPatchArrayOutput {
 	return o.ApplyT(func(v HTTPIngressRuleValuePatch) []HTTPIngressPathPatch { return v.Paths }).(HTTPIngressPathPatchArrayOutput)
 }
@@ -580,7 +580,7 @@ func (o HTTPIngressRuleValuePatchPtrOutput) Elem() HTTPIngressRuleValuePatchOutp
 	}).(HTTPIngressRuleValuePatchOutput)
 }
 
-// A collection of paths that map requests to backends.
+// paths is a collection of paths that map requests to backends.
 func (o HTTPIngressRuleValuePatchPtrOutput) Paths() HTTPIngressPathPatchArrayOutput {
 	return o.ApplyT(func(v *HTTPIngressRuleValuePatch) []HTTPIngressPathPatch {
 		if v == nil {
@@ -592,9 +592,9 @@ func (o HTTPIngressRuleValuePatchPtrOutput) Paths() HTTPIngressPathPatchArrayOut
 
 // IPBlock describes a particular CIDR (Ex. "192.168.1.0/24","2001:db8::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
 type IPBlock struct {
-	// CIDR is a string representing the IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64"
+	// cidr is a string representing the IPBlock Valid examples are "192.168.1.0/24" or "2001:db8::/64"
 	Cidr string `pulumi:"cidr"`
-	// Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the CIDR range
+	// except is a slice of CIDRs that should not be included within an IPBlock Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the cidr range
 	Except []string `pulumi:"except"`
 }
 
@@ -611,9 +611,9 @@ type IPBlockInput interface {
 
 // IPBlock describes a particular CIDR (Ex. "192.168.1.0/24","2001:db8::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
 type IPBlockArgs struct {
-	// CIDR is a string representing the IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64"
+	// cidr is a string representing the IPBlock Valid examples are "192.168.1.0/24" or "2001:db8::/64"
 	Cidr pulumi.StringInput `pulumi:"cidr"`
-	// Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the CIDR range
+	// except is a slice of CIDRs that should not be included within an IPBlock Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the cidr range
 	Except pulumi.StringArrayInput `pulumi:"except"`
 }
 
@@ -695,12 +695,12 @@ func (o IPBlockOutput) ToIPBlockPtrOutputWithContext(ctx context.Context) IPBloc
 	}).(IPBlockPtrOutput)
 }
 
-// CIDR is a string representing the IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64"
+// cidr is a string representing the IPBlock Valid examples are "192.168.1.0/24" or "2001:db8::/64"
 func (o IPBlockOutput) Cidr() pulumi.StringOutput {
 	return o.ApplyT(func(v IPBlock) string { return v.Cidr }).(pulumi.StringOutput)
 }
 
-// Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the CIDR range
+// except is a slice of CIDRs that should not be included within an IPBlock Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the cidr range
 func (o IPBlockOutput) Except() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v IPBlock) []string { return v.Except }).(pulumi.StringArrayOutput)
 }
@@ -729,7 +729,7 @@ func (o IPBlockPtrOutput) Elem() IPBlockOutput {
 	}).(IPBlockOutput)
 }
 
-// CIDR is a string representing the IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64"
+// cidr is a string representing the IPBlock Valid examples are "192.168.1.0/24" or "2001:db8::/64"
 func (o IPBlockPtrOutput) Cidr() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *IPBlock) *string {
 		if v == nil {
@@ -739,7 +739,7 @@ func (o IPBlockPtrOutput) Cidr() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the CIDR range
+// except is a slice of CIDRs that should not be included within an IPBlock Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the cidr range
 func (o IPBlockPtrOutput) Except() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *IPBlock) []string {
 		if v == nil {
@@ -751,9 +751,9 @@ func (o IPBlockPtrOutput) Except() pulumi.StringArrayOutput {
 
 // IPBlock describes a particular CIDR (Ex. "192.168.1.0/24","2001:db8::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
 type IPBlockPatch struct {
-	// CIDR is a string representing the IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64"
+	// cidr is a string representing the IPBlock Valid examples are "192.168.1.0/24" or "2001:db8::/64"
 	Cidr *string `pulumi:"cidr"`
-	// Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the CIDR range
+	// except is a slice of CIDRs that should not be included within an IPBlock Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the cidr range
 	Except []string `pulumi:"except"`
 }
 
@@ -770,9 +770,9 @@ type IPBlockPatchInput interface {
 
 // IPBlock describes a particular CIDR (Ex. "192.168.1.0/24","2001:db8::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.
 type IPBlockPatchArgs struct {
-	// CIDR is a string representing the IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64"
+	// cidr is a string representing the IPBlock Valid examples are "192.168.1.0/24" or "2001:db8::/64"
 	Cidr pulumi.StringPtrInput `pulumi:"cidr"`
-	// Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the CIDR range
+	// except is a slice of CIDRs that should not be included within an IPBlock Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the cidr range
 	Except pulumi.StringArrayInput `pulumi:"except"`
 }
 
@@ -854,12 +854,12 @@ func (o IPBlockPatchOutput) ToIPBlockPatchPtrOutputWithContext(ctx context.Conte
 	}).(IPBlockPatchPtrOutput)
 }
 
-// CIDR is a string representing the IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64"
+// cidr is a string representing the IPBlock Valid examples are "192.168.1.0/24" or "2001:db8::/64"
 func (o IPBlockPatchOutput) Cidr() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IPBlockPatch) *string { return v.Cidr }).(pulumi.StringPtrOutput)
 }
 
-// Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the CIDR range
+// except is a slice of CIDRs that should not be included within an IPBlock Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the cidr range
 func (o IPBlockPatchOutput) Except() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v IPBlockPatch) []string { return v.Except }).(pulumi.StringArrayOutput)
 }
@@ -888,7 +888,7 @@ func (o IPBlockPatchPtrOutput) Elem() IPBlockPatchOutput {
 	}).(IPBlockPatchOutput)
 }
 
-// CIDR is a string representing the IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64"
+// cidr is a string representing the IPBlock Valid examples are "192.168.1.0/24" or "2001:db8::/64"
 func (o IPBlockPatchPtrOutput) Cidr() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *IPBlockPatch) *string {
 		if v == nil {
@@ -898,7 +898,7 @@ func (o IPBlockPatchPtrOutput) Cidr() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the CIDR range
+// except is a slice of CIDRs that should not be included within an IPBlock Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the cidr range
 func (o IPBlockPatchPtrOutput) Except() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *IPBlockPatch) []string {
 		if v == nil {
@@ -930,9 +930,9 @@ type IngressType struct {
 	Kind *string `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-	// Spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	// spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec *IngressSpec `pulumi:"spec"`
-	// Status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	// status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Status *IngressStatus `pulumi:"status"`
 }
 
@@ -969,9 +969,9 @@ type IngressTypeArgs struct {
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
-	// Spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	// spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec IngressSpecPtrInput `pulumi:"spec"`
-	// Status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	// status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Status IngressStatusPtrInput `pulumi:"status"`
 }
 
@@ -1056,12 +1056,12 @@ func (o IngressTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v IngressType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
-// Spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+// spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 func (o IngressTypeOutput) Spec() IngressSpecPtrOutput {
 	return o.ApplyT(func(v IngressType) *IngressSpec { return v.Spec }).(IngressSpecPtrOutput)
 }
 
-// Status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+// status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 func (o IngressTypeOutput) Status() IngressStatusPtrOutput {
 	return o.ApplyT(func(v IngressType) *IngressStatus { return v.Status }).(IngressStatusPtrOutput)
 }
@@ -1088,9 +1088,9 @@ func (o IngressTypeArrayOutput) Index(i pulumi.IntInput) IngressTypeOutput {
 
 // IngressBackend describes all endpoints for a given service and port.
 type IngressBackend struct {
-	// Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with "Service".
+	// resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with "Service".
 	Resource *corev1.TypedLocalObjectReference `pulumi:"resource"`
-	// Service references a Service as a Backend. This is a mutually exclusive setting with "Resource".
+	// service references a service as a backend. This is a mutually exclusive setting with "Resource".
 	Service *IngressServiceBackend `pulumi:"service"`
 }
 
@@ -1107,9 +1107,9 @@ type IngressBackendInput interface {
 
 // IngressBackend describes all endpoints for a given service and port.
 type IngressBackendArgs struct {
-	// Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with "Service".
+	// resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with "Service".
 	Resource corev1.TypedLocalObjectReferencePtrInput `pulumi:"resource"`
-	// Service references a Service as a Backend. This is a mutually exclusive setting with "Resource".
+	// service references a service as a backend. This is a mutually exclusive setting with "Resource".
 	Service IngressServiceBackendPtrInput `pulumi:"service"`
 }
 
@@ -1191,12 +1191,12 @@ func (o IngressBackendOutput) ToIngressBackendPtrOutputWithContext(ctx context.C
 	}).(IngressBackendPtrOutput)
 }
 
-// Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with "Service".
+// resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with "Service".
 func (o IngressBackendOutput) Resource() corev1.TypedLocalObjectReferencePtrOutput {
 	return o.ApplyT(func(v IngressBackend) *corev1.TypedLocalObjectReference { return v.Resource }).(corev1.TypedLocalObjectReferencePtrOutput)
 }
 
-// Service references a Service as a Backend. This is a mutually exclusive setting with "Resource".
+// service references a service as a backend. This is a mutually exclusive setting with "Resource".
 func (o IngressBackendOutput) Service() IngressServiceBackendPtrOutput {
 	return o.ApplyT(func(v IngressBackend) *IngressServiceBackend { return v.Service }).(IngressServiceBackendPtrOutput)
 }
@@ -1225,7 +1225,7 @@ func (o IngressBackendPtrOutput) Elem() IngressBackendOutput {
 	}).(IngressBackendOutput)
 }
 
-// Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with "Service".
+// resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with "Service".
 func (o IngressBackendPtrOutput) Resource() corev1.TypedLocalObjectReferencePtrOutput {
 	return o.ApplyT(func(v *IngressBackend) *corev1.TypedLocalObjectReference {
 		if v == nil {
@@ -1235,7 +1235,7 @@ func (o IngressBackendPtrOutput) Resource() corev1.TypedLocalObjectReferencePtrO
 	}).(corev1.TypedLocalObjectReferencePtrOutput)
 }
 
-// Service references a Service as a Backend. This is a mutually exclusive setting with "Resource".
+// service references a service as a backend. This is a mutually exclusive setting with "Resource".
 func (o IngressBackendPtrOutput) Service() IngressServiceBackendPtrOutput {
 	return o.ApplyT(func(v *IngressBackend) *IngressServiceBackend {
 		if v == nil {
@@ -1247,9 +1247,9 @@ func (o IngressBackendPtrOutput) Service() IngressServiceBackendPtrOutput {
 
 // IngressBackend describes all endpoints for a given service and port.
 type IngressBackendPatch struct {
-	// Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with "Service".
+	// resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with "Service".
 	Resource *corev1.TypedLocalObjectReferencePatch `pulumi:"resource"`
-	// Service references a Service as a Backend. This is a mutually exclusive setting with "Resource".
+	// service references a service as a backend. This is a mutually exclusive setting with "Resource".
 	Service *IngressServiceBackendPatch `pulumi:"service"`
 }
 
@@ -1266,9 +1266,9 @@ type IngressBackendPatchInput interface {
 
 // IngressBackend describes all endpoints for a given service and port.
 type IngressBackendPatchArgs struct {
-	// Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with "Service".
+	// resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with "Service".
 	Resource corev1.TypedLocalObjectReferencePatchPtrInput `pulumi:"resource"`
-	// Service references a Service as a Backend. This is a mutually exclusive setting with "Resource".
+	// service references a service as a backend. This is a mutually exclusive setting with "Resource".
 	Service IngressServiceBackendPatchPtrInput `pulumi:"service"`
 }
 
@@ -1350,12 +1350,12 @@ func (o IngressBackendPatchOutput) ToIngressBackendPatchPtrOutputWithContext(ctx
 	}).(IngressBackendPatchPtrOutput)
 }
 
-// Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with "Service".
+// resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with "Service".
 func (o IngressBackendPatchOutput) Resource() corev1.TypedLocalObjectReferencePatchPtrOutput {
 	return o.ApplyT(func(v IngressBackendPatch) *corev1.TypedLocalObjectReferencePatch { return v.Resource }).(corev1.TypedLocalObjectReferencePatchPtrOutput)
 }
 
-// Service references a Service as a Backend. This is a mutually exclusive setting with "Resource".
+// service references a service as a backend. This is a mutually exclusive setting with "Resource".
 func (o IngressBackendPatchOutput) Service() IngressServiceBackendPatchPtrOutput {
 	return o.ApplyT(func(v IngressBackendPatch) *IngressServiceBackendPatch { return v.Service }).(IngressServiceBackendPatchPtrOutput)
 }
@@ -1384,7 +1384,7 @@ func (o IngressBackendPatchPtrOutput) Elem() IngressBackendPatchOutput {
 	}).(IngressBackendPatchOutput)
 }
 
-// Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with "Service".
+// resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with "Service".
 func (o IngressBackendPatchPtrOutput) Resource() corev1.TypedLocalObjectReferencePatchPtrOutput {
 	return o.ApplyT(func(v *IngressBackendPatch) *corev1.TypedLocalObjectReferencePatch {
 		if v == nil {
@@ -1394,7 +1394,7 @@ func (o IngressBackendPatchPtrOutput) Resource() corev1.TypedLocalObjectReferenc
 	}).(corev1.TypedLocalObjectReferencePatchPtrOutput)
 }
 
-// Service references a Service as a Backend. This is a mutually exclusive setting with "Resource".
+// service references a service as a backend. This is a mutually exclusive setting with "Resource".
 func (o IngressBackendPatchPtrOutput) Service() IngressServiceBackendPatchPtrOutput {
 	return o.ApplyT(func(v *IngressBackendPatch) *IngressServiceBackendPatch {
 		if v == nil {
@@ -1412,7 +1412,7 @@ type IngressClassType struct {
 	Kind *string `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-	// Spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	// spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec *IngressClassSpec `pulumi:"spec"`
 }
 
@@ -1435,7 +1435,7 @@ type IngressClassTypeArgs struct {
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
-	// Spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	// spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec IngressClassSpecPtrInput `pulumi:"spec"`
 }
 
@@ -1506,7 +1506,7 @@ func (o IngressClassTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v IngressClassType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
-// Spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+// spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 func (o IngressClassTypeOutput) Spec() IngressClassSpecPtrOutput {
 	return o.ApplyT(func(v IngressClassType) *IngressClassSpec { return v.Spec }).(IngressClassSpecPtrOutput)
 }
@@ -1535,7 +1535,7 @@ func (o IngressClassTypeArrayOutput) Index(i pulumi.IntInput) IngressClassTypeOu
 type IngressClassListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
-	// Items is the list of IngressClasses.
+	// items is the list of IngressClasses.
 	Items []IngressClassType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
@@ -1558,7 +1558,7 @@ type IngressClassListTypeInput interface {
 type IngressClassListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// Items is the list of IngressClasses.
+	// items is the list of IngressClasses.
 	Items IngressClassTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
@@ -1598,7 +1598,7 @@ func (o IngressClassListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IngressClassListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
-// Items is the list of IngressClasses.
+// items is the list of IngressClasses.
 func (o IngressClassListTypeOutput) Items() IngressClassTypeArrayOutput {
 	return o.ApplyT(func(v IngressClassListType) []IngressClassType { return v.Items }).(IngressClassTypeArrayOutput)
 }
@@ -1615,15 +1615,15 @@ func (o IngressClassListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 
 // IngressClassParametersReference identifies an API object. This can be used to specify a cluster or namespace-scoped resource.
 type IngressClassParametersReference struct {
-	// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
+	// apiGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
 	ApiGroup *string `pulumi:"apiGroup"`
-	// Kind is the type of resource being referenced.
+	// kind is the type of resource being referenced.
 	Kind string `pulumi:"kind"`
-	// Name is the name of resource being referenced.
+	// name is the name of resource being referenced.
 	Name string `pulumi:"name"`
-	// Namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
+	// namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
 	Namespace *string `pulumi:"namespace"`
-	// Scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace".
+	// scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace".
 	Scope *string `pulumi:"scope"`
 }
 
@@ -1640,15 +1640,15 @@ type IngressClassParametersReferenceInput interface {
 
 // IngressClassParametersReference identifies an API object. This can be used to specify a cluster or namespace-scoped resource.
 type IngressClassParametersReferenceArgs struct {
-	// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
+	// apiGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
 	ApiGroup pulumi.StringPtrInput `pulumi:"apiGroup"`
-	// Kind is the type of resource being referenced.
+	// kind is the type of resource being referenced.
 	Kind pulumi.StringInput `pulumi:"kind"`
-	// Name is the name of resource being referenced.
+	// name is the name of resource being referenced.
 	Name pulumi.StringInput `pulumi:"name"`
-	// Namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
+	// namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
 	Namespace pulumi.StringPtrInput `pulumi:"namespace"`
-	// Scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace".
+	// scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace".
 	Scope pulumi.StringPtrInput `pulumi:"scope"`
 }
 
@@ -1730,27 +1730,27 @@ func (o IngressClassParametersReferenceOutput) ToIngressClassParametersReference
 	}).(IngressClassParametersReferencePtrOutput)
 }
 
-// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
+// apiGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
 func (o IngressClassParametersReferenceOutput) ApiGroup() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IngressClassParametersReference) *string { return v.ApiGroup }).(pulumi.StringPtrOutput)
 }
 
-// Kind is the type of resource being referenced.
+// kind is the type of resource being referenced.
 func (o IngressClassParametersReferenceOutput) Kind() pulumi.StringOutput {
 	return o.ApplyT(func(v IngressClassParametersReference) string { return v.Kind }).(pulumi.StringOutput)
 }
 
-// Name is the name of resource being referenced.
+// name is the name of resource being referenced.
 func (o IngressClassParametersReferenceOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v IngressClassParametersReference) string { return v.Name }).(pulumi.StringOutput)
 }
 
-// Namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
+// namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
 func (o IngressClassParametersReferenceOutput) Namespace() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IngressClassParametersReference) *string { return v.Namespace }).(pulumi.StringPtrOutput)
 }
 
-// Scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace".
+// scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace".
 func (o IngressClassParametersReferenceOutput) Scope() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IngressClassParametersReference) *string { return v.Scope }).(pulumi.StringPtrOutput)
 }
@@ -1779,7 +1779,7 @@ func (o IngressClassParametersReferencePtrOutput) Elem() IngressClassParametersR
 	}).(IngressClassParametersReferenceOutput)
 }
 
-// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
+// apiGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
 func (o IngressClassParametersReferencePtrOutput) ApiGroup() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *IngressClassParametersReference) *string {
 		if v == nil {
@@ -1789,7 +1789,7 @@ func (o IngressClassParametersReferencePtrOutput) ApiGroup() pulumi.StringPtrOut
 	}).(pulumi.StringPtrOutput)
 }
 
-// Kind is the type of resource being referenced.
+// kind is the type of resource being referenced.
 func (o IngressClassParametersReferencePtrOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *IngressClassParametersReference) *string {
 		if v == nil {
@@ -1799,7 +1799,7 @@ func (o IngressClassParametersReferencePtrOutput) Kind() pulumi.StringPtrOutput 
 	}).(pulumi.StringPtrOutput)
 }
 
-// Name is the name of resource being referenced.
+// name is the name of resource being referenced.
 func (o IngressClassParametersReferencePtrOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *IngressClassParametersReference) *string {
 		if v == nil {
@@ -1809,7 +1809,7 @@ func (o IngressClassParametersReferencePtrOutput) Name() pulumi.StringPtrOutput 
 	}).(pulumi.StringPtrOutput)
 }
 
-// Namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
+// namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
 func (o IngressClassParametersReferencePtrOutput) Namespace() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *IngressClassParametersReference) *string {
 		if v == nil {
@@ -1819,7 +1819,7 @@ func (o IngressClassParametersReferencePtrOutput) Namespace() pulumi.StringPtrOu
 	}).(pulumi.StringPtrOutput)
 }
 
-// Scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace".
+// scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace".
 func (o IngressClassParametersReferencePtrOutput) Scope() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *IngressClassParametersReference) *string {
 		if v == nil {
@@ -1831,15 +1831,15 @@ func (o IngressClassParametersReferencePtrOutput) Scope() pulumi.StringPtrOutput
 
 // IngressClassParametersReference identifies an API object. This can be used to specify a cluster or namespace-scoped resource.
 type IngressClassParametersReferencePatch struct {
-	// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
+	// apiGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
 	ApiGroup *string `pulumi:"apiGroup"`
-	// Kind is the type of resource being referenced.
+	// kind is the type of resource being referenced.
 	Kind *string `pulumi:"kind"`
-	// Name is the name of resource being referenced.
+	// name is the name of resource being referenced.
 	Name *string `pulumi:"name"`
-	// Namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
+	// namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
 	Namespace *string `pulumi:"namespace"`
-	// Scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace".
+	// scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace".
 	Scope *string `pulumi:"scope"`
 }
 
@@ -1856,15 +1856,15 @@ type IngressClassParametersReferencePatchInput interface {
 
 // IngressClassParametersReference identifies an API object. This can be used to specify a cluster or namespace-scoped resource.
 type IngressClassParametersReferencePatchArgs struct {
-	// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
+	// apiGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
 	ApiGroup pulumi.StringPtrInput `pulumi:"apiGroup"`
-	// Kind is the type of resource being referenced.
+	// kind is the type of resource being referenced.
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Name is the name of resource being referenced.
+	// name is the name of resource being referenced.
 	Name pulumi.StringPtrInput `pulumi:"name"`
-	// Namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
+	// namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
 	Namespace pulumi.StringPtrInput `pulumi:"namespace"`
-	// Scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace".
+	// scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace".
 	Scope pulumi.StringPtrInput `pulumi:"scope"`
 }
 
@@ -1946,27 +1946,27 @@ func (o IngressClassParametersReferencePatchOutput) ToIngressClassParametersRefe
 	}).(IngressClassParametersReferencePatchPtrOutput)
 }
 
-// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
+// apiGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
 func (o IngressClassParametersReferencePatchOutput) ApiGroup() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IngressClassParametersReferencePatch) *string { return v.ApiGroup }).(pulumi.StringPtrOutput)
 }
 
-// Kind is the type of resource being referenced.
+// kind is the type of resource being referenced.
 func (o IngressClassParametersReferencePatchOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IngressClassParametersReferencePatch) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Name is the name of resource being referenced.
+// name is the name of resource being referenced.
 func (o IngressClassParametersReferencePatchOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IngressClassParametersReferencePatch) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-// Namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
+// namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
 func (o IngressClassParametersReferencePatchOutput) Namespace() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IngressClassParametersReferencePatch) *string { return v.Namespace }).(pulumi.StringPtrOutput)
 }
 
-// Scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace".
+// scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace".
 func (o IngressClassParametersReferencePatchOutput) Scope() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IngressClassParametersReferencePatch) *string { return v.Scope }).(pulumi.StringPtrOutput)
 }
@@ -1995,7 +1995,7 @@ func (o IngressClassParametersReferencePatchPtrOutput) Elem() IngressClassParame
 	}).(IngressClassParametersReferencePatchOutput)
 }
 
-// APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
+// apiGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
 func (o IngressClassParametersReferencePatchPtrOutput) ApiGroup() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *IngressClassParametersReferencePatch) *string {
 		if v == nil {
@@ -2005,7 +2005,7 @@ func (o IngressClassParametersReferencePatchPtrOutput) ApiGroup() pulumi.StringP
 	}).(pulumi.StringPtrOutput)
 }
 
-// Kind is the type of resource being referenced.
+// kind is the type of resource being referenced.
 func (o IngressClassParametersReferencePatchPtrOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *IngressClassParametersReferencePatch) *string {
 		if v == nil {
@@ -2015,7 +2015,7 @@ func (o IngressClassParametersReferencePatchPtrOutput) Kind() pulumi.StringPtrOu
 	}).(pulumi.StringPtrOutput)
 }
 
-// Name is the name of resource being referenced.
+// name is the name of resource being referenced.
 func (o IngressClassParametersReferencePatchPtrOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *IngressClassParametersReferencePatch) *string {
 		if v == nil {
@@ -2025,7 +2025,7 @@ func (o IngressClassParametersReferencePatchPtrOutput) Name() pulumi.StringPtrOu
 	}).(pulumi.StringPtrOutput)
 }
 
-// Namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
+// namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
 func (o IngressClassParametersReferencePatchPtrOutput) Namespace() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *IngressClassParametersReferencePatch) *string {
 		if v == nil {
@@ -2035,7 +2035,7 @@ func (o IngressClassParametersReferencePatchPtrOutput) Namespace() pulumi.String
 	}).(pulumi.StringPtrOutput)
 }
 
-// Scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace".
+// scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace".
 func (o IngressClassParametersReferencePatchPtrOutput) Scope() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *IngressClassParametersReferencePatch) *string {
 		if v == nil {
@@ -2053,7 +2053,7 @@ type IngressClassPatchType struct {
 	Kind *string `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
-	// Spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	// spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec *IngressClassSpecPatch `pulumi:"spec"`
 }
 
@@ -2076,7 +2076,7 @@ type IngressClassPatchTypeArgs struct {
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
-	// Spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	// spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec IngressClassSpecPatchPtrInput `pulumi:"spec"`
 }
 
@@ -2122,16 +2122,16 @@ func (o IngressClassPatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput 
 	return o.ApplyT(func(v IngressClassPatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
 }
 
-// Spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+// spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 func (o IngressClassPatchTypeOutput) Spec() IngressClassSpecPatchPtrOutput {
 	return o.ApplyT(func(v IngressClassPatchType) *IngressClassSpecPatch { return v.Spec }).(IngressClassSpecPatchPtrOutput)
 }
 
 // IngressClassSpec provides information about the class of an Ingress.
 type IngressClassSpec struct {
-	// Controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
+	// controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
 	Controller *string `pulumi:"controller"`
-	// Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
+	// parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
 	Parameters *IngressClassParametersReference `pulumi:"parameters"`
 }
 
@@ -2148,9 +2148,9 @@ type IngressClassSpecInput interface {
 
 // IngressClassSpec provides information about the class of an Ingress.
 type IngressClassSpecArgs struct {
-	// Controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
+	// controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
 	Controller pulumi.StringPtrInput `pulumi:"controller"`
-	// Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
+	// parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
 	Parameters IngressClassParametersReferencePtrInput `pulumi:"parameters"`
 }
 
@@ -2232,12 +2232,12 @@ func (o IngressClassSpecOutput) ToIngressClassSpecPtrOutputWithContext(ctx conte
 	}).(IngressClassSpecPtrOutput)
 }
 
-// Controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
+// controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
 func (o IngressClassSpecOutput) Controller() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IngressClassSpec) *string { return v.Controller }).(pulumi.StringPtrOutput)
 }
 
-// Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
+// parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
 func (o IngressClassSpecOutput) Parameters() IngressClassParametersReferencePtrOutput {
 	return o.ApplyT(func(v IngressClassSpec) *IngressClassParametersReference { return v.Parameters }).(IngressClassParametersReferencePtrOutput)
 }
@@ -2266,7 +2266,7 @@ func (o IngressClassSpecPtrOutput) Elem() IngressClassSpecOutput {
 	}).(IngressClassSpecOutput)
 }
 
-// Controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
+// controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
 func (o IngressClassSpecPtrOutput) Controller() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *IngressClassSpec) *string {
 		if v == nil {
@@ -2276,7 +2276,7 @@ func (o IngressClassSpecPtrOutput) Controller() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
+// parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
 func (o IngressClassSpecPtrOutput) Parameters() IngressClassParametersReferencePtrOutput {
 	return o.ApplyT(func(v *IngressClassSpec) *IngressClassParametersReference {
 		if v == nil {
@@ -2288,9 +2288,9 @@ func (o IngressClassSpecPtrOutput) Parameters() IngressClassParametersReferenceP
 
 // IngressClassSpec provides information about the class of an Ingress.
 type IngressClassSpecPatch struct {
-	// Controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
+	// controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
 	Controller *string `pulumi:"controller"`
-	// Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
+	// parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
 	Parameters *IngressClassParametersReferencePatch `pulumi:"parameters"`
 }
 
@@ -2307,9 +2307,9 @@ type IngressClassSpecPatchInput interface {
 
 // IngressClassSpec provides information about the class of an Ingress.
 type IngressClassSpecPatchArgs struct {
-	// Controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
+	// controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
 	Controller pulumi.StringPtrInput `pulumi:"controller"`
-	// Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
+	// parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
 	Parameters IngressClassParametersReferencePatchPtrInput `pulumi:"parameters"`
 }
 
@@ -2391,12 +2391,12 @@ func (o IngressClassSpecPatchOutput) ToIngressClassSpecPatchPtrOutputWithContext
 	}).(IngressClassSpecPatchPtrOutput)
 }
 
-// Controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
+// controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
 func (o IngressClassSpecPatchOutput) Controller() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IngressClassSpecPatch) *string { return v.Controller }).(pulumi.StringPtrOutput)
 }
 
-// Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
+// parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
 func (o IngressClassSpecPatchOutput) Parameters() IngressClassParametersReferencePatchPtrOutput {
 	return o.ApplyT(func(v IngressClassSpecPatch) *IngressClassParametersReferencePatch { return v.Parameters }).(IngressClassParametersReferencePatchPtrOutput)
 }
@@ -2425,7 +2425,7 @@ func (o IngressClassSpecPatchPtrOutput) Elem() IngressClassSpecPatchOutput {
 	}).(IngressClassSpecPatchOutput)
 }
 
-// Controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
+// controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
 func (o IngressClassSpecPatchPtrOutput) Controller() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *IngressClassSpecPatch) *string {
 		if v == nil {
@@ -2435,7 +2435,7 @@ func (o IngressClassSpecPatchPtrOutput) Controller() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
+// parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
 func (o IngressClassSpecPatchPtrOutput) Parameters() IngressClassParametersReferencePatchPtrOutput {
 	return o.ApplyT(func(v *IngressClassSpecPatch) *IngressClassParametersReferencePatch {
 		if v == nil {
@@ -2449,7 +2449,7 @@ func (o IngressClassSpecPatchPtrOutput) Parameters() IngressClassParametersRefer
 type IngressListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
-	// Items is the list of Ingress.
+	// items is the list of Ingress.
 	Items []IngressType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
@@ -2472,7 +2472,7 @@ type IngressListTypeInput interface {
 type IngressListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// Items is the list of Ingress.
+	// items is the list of Ingress.
 	Items IngressTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
@@ -2512,7 +2512,7 @@ func (o IngressListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IngressListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
-// Items is the list of Ingress.
+// items is the list of Ingress.
 func (o IngressListTypeOutput) Items() IngressTypeArrayOutput {
 	return o.ApplyT(func(v IngressListType) []IngressType { return v.Items }).(IngressTypeArrayOutput)
 }
@@ -2529,11 +2529,11 @@ func (o IngressListTypeOutput) Metadata() metav1.ListMetaPtrOutput {
 
 // IngressLoadBalancerIngress represents the status of a load-balancer ingress point.
 type IngressLoadBalancerIngress struct {
-	// Hostname is set for load-balancer ingress points that are DNS based.
+	// hostname is set for load-balancer ingress points that are DNS based.
 	Hostname *string `pulumi:"hostname"`
-	// IP is set for load-balancer ingress points that are IP based.
+	// ip is set for load-balancer ingress points that are IP based.
 	Ip *string `pulumi:"ip"`
-	// Ports provides information about the ports exposed by this LoadBalancer.
+	// ports provides information about the ports exposed by this LoadBalancer.
 	Ports []IngressPortStatus `pulumi:"ports"`
 }
 
@@ -2550,11 +2550,11 @@ type IngressLoadBalancerIngressInput interface {
 
 // IngressLoadBalancerIngress represents the status of a load-balancer ingress point.
 type IngressLoadBalancerIngressArgs struct {
-	// Hostname is set for load-balancer ingress points that are DNS based.
+	// hostname is set for load-balancer ingress points that are DNS based.
 	Hostname pulumi.StringPtrInput `pulumi:"hostname"`
-	// IP is set for load-balancer ingress points that are IP based.
+	// ip is set for load-balancer ingress points that are IP based.
 	Ip pulumi.StringPtrInput `pulumi:"ip"`
-	// Ports provides information about the ports exposed by this LoadBalancer.
+	// ports provides information about the ports exposed by this LoadBalancer.
 	Ports IngressPortStatusArrayInput `pulumi:"ports"`
 }
 
@@ -2610,17 +2610,17 @@ func (o IngressLoadBalancerIngressOutput) ToIngressLoadBalancerIngressOutputWith
 	return o
 }
 
-// Hostname is set for load-balancer ingress points that are DNS based.
+// hostname is set for load-balancer ingress points that are DNS based.
 func (o IngressLoadBalancerIngressOutput) Hostname() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IngressLoadBalancerIngress) *string { return v.Hostname }).(pulumi.StringPtrOutput)
 }
 
-// IP is set for load-balancer ingress points that are IP based.
+// ip is set for load-balancer ingress points that are IP based.
 func (o IngressLoadBalancerIngressOutput) Ip() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IngressLoadBalancerIngress) *string { return v.Ip }).(pulumi.StringPtrOutput)
 }
 
-// Ports provides information about the ports exposed by this LoadBalancer.
+// ports provides information about the ports exposed by this LoadBalancer.
 func (o IngressLoadBalancerIngressOutput) Ports() IngressPortStatusArrayOutput {
 	return o.ApplyT(func(v IngressLoadBalancerIngress) []IngressPortStatus { return v.Ports }).(IngressPortStatusArrayOutput)
 }
@@ -2647,11 +2647,11 @@ func (o IngressLoadBalancerIngressArrayOutput) Index(i pulumi.IntInput) IngressL
 
 // IngressLoadBalancerIngress represents the status of a load-balancer ingress point.
 type IngressLoadBalancerIngressPatch struct {
-	// Hostname is set for load-balancer ingress points that are DNS based.
+	// hostname is set for load-balancer ingress points that are DNS based.
 	Hostname *string `pulumi:"hostname"`
-	// IP is set for load-balancer ingress points that are IP based.
+	// ip is set for load-balancer ingress points that are IP based.
 	Ip *string `pulumi:"ip"`
-	// Ports provides information about the ports exposed by this LoadBalancer.
+	// ports provides information about the ports exposed by this LoadBalancer.
 	Ports []IngressPortStatusPatch `pulumi:"ports"`
 }
 
@@ -2668,11 +2668,11 @@ type IngressLoadBalancerIngressPatchInput interface {
 
 // IngressLoadBalancerIngress represents the status of a load-balancer ingress point.
 type IngressLoadBalancerIngressPatchArgs struct {
-	// Hostname is set for load-balancer ingress points that are DNS based.
+	// hostname is set for load-balancer ingress points that are DNS based.
 	Hostname pulumi.StringPtrInput `pulumi:"hostname"`
-	// IP is set for load-balancer ingress points that are IP based.
+	// ip is set for load-balancer ingress points that are IP based.
 	Ip pulumi.StringPtrInput `pulumi:"ip"`
-	// Ports provides information about the ports exposed by this LoadBalancer.
+	// ports provides information about the ports exposed by this LoadBalancer.
 	Ports IngressPortStatusPatchArrayInput `pulumi:"ports"`
 }
 
@@ -2728,17 +2728,17 @@ func (o IngressLoadBalancerIngressPatchOutput) ToIngressLoadBalancerIngressPatch
 	return o
 }
 
-// Hostname is set for load-balancer ingress points that are DNS based.
+// hostname is set for load-balancer ingress points that are DNS based.
 func (o IngressLoadBalancerIngressPatchOutput) Hostname() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IngressLoadBalancerIngressPatch) *string { return v.Hostname }).(pulumi.StringPtrOutput)
 }
 
-// IP is set for load-balancer ingress points that are IP based.
+// ip is set for load-balancer ingress points that are IP based.
 func (o IngressLoadBalancerIngressPatchOutput) Ip() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IngressLoadBalancerIngressPatch) *string { return v.Ip }).(pulumi.StringPtrOutput)
 }
 
-// Ports provides information about the ports exposed by this LoadBalancer.
+// ports provides information about the ports exposed by this LoadBalancer.
 func (o IngressLoadBalancerIngressPatchOutput) Ports() IngressPortStatusPatchArrayOutput {
 	return o.ApplyT(func(v IngressLoadBalancerIngressPatch) []IngressPortStatusPatch { return v.Ports }).(IngressPortStatusPatchArrayOutput)
 }
@@ -2765,7 +2765,7 @@ func (o IngressLoadBalancerIngressPatchArrayOutput) Index(i pulumi.IntInput) Ing
 
 // IngressLoadBalancerStatus represents the status of a load-balancer.
 type IngressLoadBalancerStatus struct {
-	// Ingress is a list containing ingress points for the load-balancer.
+	// ingress is a list containing ingress points for the load-balancer.
 	Ingress []IngressLoadBalancerIngress `pulumi:"ingress"`
 }
 
@@ -2782,7 +2782,7 @@ type IngressLoadBalancerStatusInput interface {
 
 // IngressLoadBalancerStatus represents the status of a load-balancer.
 type IngressLoadBalancerStatusArgs struct {
-	// Ingress is a list containing ingress points for the load-balancer.
+	// ingress is a list containing ingress points for the load-balancer.
 	Ingress IngressLoadBalancerIngressArrayInput `pulumi:"ingress"`
 }
 
@@ -2864,7 +2864,7 @@ func (o IngressLoadBalancerStatusOutput) ToIngressLoadBalancerStatusPtrOutputWit
 	}).(IngressLoadBalancerStatusPtrOutput)
 }
 
-// Ingress is a list containing ingress points for the load-balancer.
+// ingress is a list containing ingress points for the load-balancer.
 func (o IngressLoadBalancerStatusOutput) Ingress() IngressLoadBalancerIngressArrayOutput {
 	return o.ApplyT(func(v IngressLoadBalancerStatus) []IngressLoadBalancerIngress { return v.Ingress }).(IngressLoadBalancerIngressArrayOutput)
 }
@@ -2893,7 +2893,7 @@ func (o IngressLoadBalancerStatusPtrOutput) Elem() IngressLoadBalancerStatusOutp
 	}).(IngressLoadBalancerStatusOutput)
 }
 
-// Ingress is a list containing ingress points for the load-balancer.
+// ingress is a list containing ingress points for the load-balancer.
 func (o IngressLoadBalancerStatusPtrOutput) Ingress() IngressLoadBalancerIngressArrayOutput {
 	return o.ApplyT(func(v *IngressLoadBalancerStatus) []IngressLoadBalancerIngress {
 		if v == nil {
@@ -2905,7 +2905,7 @@ func (o IngressLoadBalancerStatusPtrOutput) Ingress() IngressLoadBalancerIngress
 
 // IngressLoadBalancerStatus represents the status of a load-balancer.
 type IngressLoadBalancerStatusPatch struct {
-	// Ingress is a list containing ingress points for the load-balancer.
+	// ingress is a list containing ingress points for the load-balancer.
 	Ingress []IngressLoadBalancerIngressPatch `pulumi:"ingress"`
 }
 
@@ -2922,7 +2922,7 @@ type IngressLoadBalancerStatusPatchInput interface {
 
 // IngressLoadBalancerStatus represents the status of a load-balancer.
 type IngressLoadBalancerStatusPatchArgs struct {
-	// Ingress is a list containing ingress points for the load-balancer.
+	// ingress is a list containing ingress points for the load-balancer.
 	Ingress IngressLoadBalancerIngressPatchArrayInput `pulumi:"ingress"`
 }
 
@@ -3004,7 +3004,7 @@ func (o IngressLoadBalancerStatusPatchOutput) ToIngressLoadBalancerStatusPatchPt
 	}).(IngressLoadBalancerStatusPatchPtrOutput)
 }
 
-// Ingress is a list containing ingress points for the load-balancer.
+// ingress is a list containing ingress points for the load-balancer.
 func (o IngressLoadBalancerStatusPatchOutput) Ingress() IngressLoadBalancerIngressPatchArrayOutput {
 	return o.ApplyT(func(v IngressLoadBalancerStatusPatch) []IngressLoadBalancerIngressPatch { return v.Ingress }).(IngressLoadBalancerIngressPatchArrayOutput)
 }
@@ -3033,7 +3033,7 @@ func (o IngressLoadBalancerStatusPatchPtrOutput) Elem() IngressLoadBalancerStatu
 	}).(IngressLoadBalancerStatusPatchOutput)
 }
 
-// Ingress is a list containing ingress points for the load-balancer.
+// ingress is a list containing ingress points for the load-balancer.
 func (o IngressLoadBalancerStatusPatchPtrOutput) Ingress() IngressLoadBalancerIngressPatchArrayOutput {
 	return o.ApplyT(func(v *IngressLoadBalancerStatusPatch) []IngressLoadBalancerIngressPatch {
 		if v == nil {
@@ -3065,9 +3065,9 @@ type IngressPatchType struct {
 	Kind *string `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
-	// Spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	// spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec *IngressSpecPatch `pulumi:"spec"`
-	// Status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	// status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Status *IngressStatusPatch `pulumi:"status"`
 }
 
@@ -3104,9 +3104,9 @@ type IngressPatchTypeArgs struct {
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
-	// Spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	// spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Spec IngressSpecPatchPtrInput `pulumi:"spec"`
-	// Status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	// status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Status IngressStatusPatchPtrInput `pulumi:"status"`
 }
 
@@ -3166,26 +3166,26 @@ func (o IngressPatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
 	return o.ApplyT(func(v IngressPatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
 }
 
-// Spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+// spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 func (o IngressPatchTypeOutput) Spec() IngressSpecPatchPtrOutput {
 	return o.ApplyT(func(v IngressPatchType) *IngressSpecPatch { return v.Spec }).(IngressSpecPatchPtrOutput)
 }
 
-// Status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+// status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 func (o IngressPatchTypeOutput) Status() IngressStatusPatchPtrOutput {
 	return o.ApplyT(func(v IngressPatchType) *IngressStatusPatch { return v.Status }).(IngressStatusPatchPtrOutput)
 }
 
 // IngressPortStatus represents the error condition of a service port
 type IngressPortStatus struct {
-	// Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
+	// error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
 	//   CamelCase names
 	// - cloud provider specific error values must have names that comply with the
 	//   format foo.example.com/CamelCase.
 	Error *string `pulumi:"error"`
-	// Port is the port number of the ingress port.
+	// port is the port number of the ingress port.
 	Port int `pulumi:"port"`
-	// Protocol is the protocol of the ingress port. The supported values are: "TCP", "UDP", "SCTP"
+	// protocol is the protocol of the ingress port. The supported values are: "TCP", "UDP", "SCTP"
 	Protocol string `pulumi:"protocol"`
 }
 
@@ -3202,14 +3202,14 @@ type IngressPortStatusInput interface {
 
 // IngressPortStatus represents the error condition of a service port
 type IngressPortStatusArgs struct {
-	// Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
+	// error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
 	//   CamelCase names
 	// - cloud provider specific error values must have names that comply with the
 	//   format foo.example.com/CamelCase.
 	Error pulumi.StringPtrInput `pulumi:"error"`
-	// Port is the port number of the ingress port.
+	// port is the port number of the ingress port.
 	Port pulumi.IntInput `pulumi:"port"`
-	// Protocol is the protocol of the ingress port. The supported values are: "TCP", "UDP", "SCTP"
+	// protocol is the protocol of the ingress port. The supported values are: "TCP", "UDP", "SCTP"
 	Protocol pulumi.StringInput `pulumi:"protocol"`
 }
 
@@ -3265,7 +3265,7 @@ func (o IngressPortStatusOutput) ToIngressPortStatusOutputWithContext(ctx contex
 	return o
 }
 
-// Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
+// error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
 //
 //	CamelCase names
 //   - cloud provider specific error values must have names that comply with the
@@ -3274,12 +3274,12 @@ func (o IngressPortStatusOutput) Error() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IngressPortStatus) *string { return v.Error }).(pulumi.StringPtrOutput)
 }
 
-// Port is the port number of the ingress port.
+// port is the port number of the ingress port.
 func (o IngressPortStatusOutput) Port() pulumi.IntOutput {
 	return o.ApplyT(func(v IngressPortStatus) int { return v.Port }).(pulumi.IntOutput)
 }
 
-// Protocol is the protocol of the ingress port. The supported values are: "TCP", "UDP", "SCTP"
+// protocol is the protocol of the ingress port. The supported values are: "TCP", "UDP", "SCTP"
 func (o IngressPortStatusOutput) Protocol() pulumi.StringOutput {
 	return o.ApplyT(func(v IngressPortStatus) string { return v.Protocol }).(pulumi.StringOutput)
 }
@@ -3306,14 +3306,14 @@ func (o IngressPortStatusArrayOutput) Index(i pulumi.IntInput) IngressPortStatus
 
 // IngressPortStatus represents the error condition of a service port
 type IngressPortStatusPatch struct {
-	// Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
+	// error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
 	//   CamelCase names
 	// - cloud provider specific error values must have names that comply with the
 	//   format foo.example.com/CamelCase.
 	Error *string `pulumi:"error"`
-	// Port is the port number of the ingress port.
+	// port is the port number of the ingress port.
 	Port *int `pulumi:"port"`
-	// Protocol is the protocol of the ingress port. The supported values are: "TCP", "UDP", "SCTP"
+	// protocol is the protocol of the ingress port. The supported values are: "TCP", "UDP", "SCTP"
 	Protocol *string `pulumi:"protocol"`
 }
 
@@ -3330,14 +3330,14 @@ type IngressPortStatusPatchInput interface {
 
 // IngressPortStatus represents the error condition of a service port
 type IngressPortStatusPatchArgs struct {
-	// Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
+	// error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
 	//   CamelCase names
 	// - cloud provider specific error values must have names that comply with the
 	//   format foo.example.com/CamelCase.
 	Error pulumi.StringPtrInput `pulumi:"error"`
-	// Port is the port number of the ingress port.
+	// port is the port number of the ingress port.
 	Port pulumi.IntPtrInput `pulumi:"port"`
-	// Protocol is the protocol of the ingress port. The supported values are: "TCP", "UDP", "SCTP"
+	// protocol is the protocol of the ingress port. The supported values are: "TCP", "UDP", "SCTP"
 	Protocol pulumi.StringPtrInput `pulumi:"protocol"`
 }
 
@@ -3393,7 +3393,7 @@ func (o IngressPortStatusPatchOutput) ToIngressPortStatusPatchOutputWithContext(
 	return o
 }
 
-// Error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
+// error is to record the problem with the service port The format of the error shall comply with the following rules: - built-in error values shall be specified in this file and those shall use
 //
 //	CamelCase names
 //   - cloud provider specific error values must have names that comply with the
@@ -3402,12 +3402,12 @@ func (o IngressPortStatusPatchOutput) Error() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IngressPortStatusPatch) *string { return v.Error }).(pulumi.StringPtrOutput)
 }
 
-// Port is the port number of the ingress port.
+// port is the port number of the ingress port.
 func (o IngressPortStatusPatchOutput) Port() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v IngressPortStatusPatch) *int { return v.Port }).(pulumi.IntPtrOutput)
 }
 
-// Protocol is the protocol of the ingress port. The supported values are: "TCP", "UDP", "SCTP"
+// protocol is the protocol of the ingress port. The supported values are: "TCP", "UDP", "SCTP"
 func (o IngressPortStatusPatchOutput) Protocol() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IngressPortStatusPatch) *string { return v.Protocol }).(pulumi.StringPtrOutput)
 }
@@ -3434,14 +3434,14 @@ func (o IngressPortStatusPatchArrayOutput) Index(i pulumi.IntInput) IngressPortS
 
 // IngressRule represents the rules mapping the paths under a specified host to the related backend services. Incoming requests are first evaluated for a host match, then routed to the backend associated with the matching IngressRuleValue.
 type IngressRule struct {
-	// Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the "host" part of the URI as defined in RFC 3986: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to
+	// host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the "host" part of the URI as defined in RFC 3986: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to
 	//    the IP in the Spec of the parent Ingress.
 	// 2. The `:` delimiter is not respected because ports are not allowed.
 	// 	  Currently the port of an Ingress is implicitly :80 for http and
 	// 	  :443 for https.
 	// Both these may change in the future. Incoming requests are matched against the host before the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on the specified IngressRuleValue.
 	//
-	// Host can be "precise" which is a domain name without the terminating dot of a network host (e.g. "foo.bar.com") or "wildcard", which is a domain name prefixed with a single wildcard label (e.g. "*.foo.com"). The wildcard character '*' must appear by itself as the first DNS label and matches only a single label. You cannot have a wildcard label by itself (e.g. Host == "*"). Requests will be matched against the Host field in the following way: 1. If Host is precise, the request matches this rule if the http host header is equal to Host. 2. If Host is a wildcard, then the request matches this rule if the http host header is to equal to the suffix (removing the first label) of the wildcard rule.
+	// host can be "precise" which is a domain name without the terminating dot of a network host (e.g. "foo.bar.com") or "wildcard", which is a domain name prefixed with a single wildcard label (e.g. "*.foo.com"). The wildcard character '*' must appear by itself as the first DNS label and matches only a single label. You cannot have a wildcard label by itself (e.g. Host == "*"). Requests will be matched against the Host field in the following way: 1. If host is precise, the request matches this rule if the http host header is equal to Host. 2. If host is a wildcard, then the request matches this rule if the http host header is to equal to the suffix (removing the first label) of the wildcard rule.
 	Host *string               `pulumi:"host"`
 	Http *HTTPIngressRuleValue `pulumi:"http"`
 }
@@ -3459,14 +3459,14 @@ type IngressRuleInput interface {
 
 // IngressRule represents the rules mapping the paths under a specified host to the related backend services. Incoming requests are first evaluated for a host match, then routed to the backend associated with the matching IngressRuleValue.
 type IngressRuleArgs struct {
-	// Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the "host" part of the URI as defined in RFC 3986: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to
+	// host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the "host" part of the URI as defined in RFC 3986: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to
 	//    the IP in the Spec of the parent Ingress.
 	// 2. The `:` delimiter is not respected because ports are not allowed.
 	// 	  Currently the port of an Ingress is implicitly :80 for http and
 	// 	  :443 for https.
 	// Both these may change in the future. Incoming requests are matched against the host before the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on the specified IngressRuleValue.
 	//
-	// Host can be "precise" which is a domain name without the terminating dot of a network host (e.g. "foo.bar.com") or "wildcard", which is a domain name prefixed with a single wildcard label (e.g. "*.foo.com"). The wildcard character '*' must appear by itself as the first DNS label and matches only a single label. You cannot have a wildcard label by itself (e.g. Host == "*"). Requests will be matched against the Host field in the following way: 1. If Host is precise, the request matches this rule if the http host header is equal to Host. 2. If Host is a wildcard, then the request matches this rule if the http host header is to equal to the suffix (removing the first label) of the wildcard rule.
+	// host can be "precise" which is a domain name without the terminating dot of a network host (e.g. "foo.bar.com") or "wildcard", which is a domain name prefixed with a single wildcard label (e.g. "*.foo.com"). The wildcard character '*' must appear by itself as the first DNS label and matches only a single label. You cannot have a wildcard label by itself (e.g. Host == "*"). Requests will be matched against the Host field in the following way: 1. If host is precise, the request matches this rule if the http host header is equal to Host. 2. If host is a wildcard, then the request matches this rule if the http host header is to equal to the suffix (removing the first label) of the wildcard rule.
 	Host pulumi.StringPtrInput        `pulumi:"host"`
 	Http HTTPIngressRuleValuePtrInput `pulumi:"http"`
 }
@@ -3523,7 +3523,7 @@ func (o IngressRuleOutput) ToIngressRuleOutputWithContext(ctx context.Context) I
 	return o
 }
 
-// Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the "host" part of the URI as defined in RFC 3986: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to
+// host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the "host" part of the URI as defined in RFC 3986: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to
 //
 //	the IP in the Spec of the parent Ingress.
 //  2. The `:` delimiter is not respected because ports are not allowed.
@@ -3532,7 +3532,7 @@ func (o IngressRuleOutput) ToIngressRuleOutputWithContext(ctx context.Context) I
 //
 // Both these may change in the future. Incoming requests are matched against the host before the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on the specified IngressRuleValue.
 //
-// Host can be "precise" which is a domain name without the terminating dot of a network host (e.g. "foo.bar.com") or "wildcard", which is a domain name prefixed with a single wildcard label (e.g. "*.foo.com"). The wildcard character '*' must appear by itself as the first DNS label and matches only a single label. You cannot have a wildcard label by itself (e.g. Host == "*"). Requests will be matched against the Host field in the following way: 1. If Host is precise, the request matches this rule if the http host header is equal to Host. 2. If Host is a wildcard, then the request matches this rule if the http host header is to equal to the suffix (removing the first label) of the wildcard rule.
+// host can be "precise" which is a domain name without the terminating dot of a network host (e.g. "foo.bar.com") or "wildcard", which is a domain name prefixed with a single wildcard label (e.g. "*.foo.com"). The wildcard character '*' must appear by itself as the first DNS label and matches only a single label. You cannot have a wildcard label by itself (e.g. Host == "*"). Requests will be matched against the Host field in the following way: 1. If host is precise, the request matches this rule if the http host header is equal to Host. 2. If host is a wildcard, then the request matches this rule if the http host header is to equal to the suffix (removing the first label) of the wildcard rule.
 func (o IngressRuleOutput) Host() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IngressRule) *string { return v.Host }).(pulumi.StringPtrOutput)
 }
@@ -3563,14 +3563,14 @@ func (o IngressRuleArrayOutput) Index(i pulumi.IntInput) IngressRuleOutput {
 
 // IngressRule represents the rules mapping the paths under a specified host to the related backend services. Incoming requests are first evaluated for a host match, then routed to the backend associated with the matching IngressRuleValue.
 type IngressRulePatch struct {
-	// Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the "host" part of the URI as defined in RFC 3986: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to
+	// host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the "host" part of the URI as defined in RFC 3986: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to
 	//    the IP in the Spec of the parent Ingress.
 	// 2. The `:` delimiter is not respected because ports are not allowed.
 	// 	  Currently the port of an Ingress is implicitly :80 for http and
 	// 	  :443 for https.
 	// Both these may change in the future. Incoming requests are matched against the host before the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on the specified IngressRuleValue.
 	//
-	// Host can be "precise" which is a domain name without the terminating dot of a network host (e.g. "foo.bar.com") or "wildcard", which is a domain name prefixed with a single wildcard label (e.g. "*.foo.com"). The wildcard character '*' must appear by itself as the first DNS label and matches only a single label. You cannot have a wildcard label by itself (e.g. Host == "*"). Requests will be matched against the Host field in the following way: 1. If Host is precise, the request matches this rule if the http host header is equal to Host. 2. If Host is a wildcard, then the request matches this rule if the http host header is to equal to the suffix (removing the first label) of the wildcard rule.
+	// host can be "precise" which is a domain name without the terminating dot of a network host (e.g. "foo.bar.com") or "wildcard", which is a domain name prefixed with a single wildcard label (e.g. "*.foo.com"). The wildcard character '*' must appear by itself as the first DNS label and matches only a single label. You cannot have a wildcard label by itself (e.g. Host == "*"). Requests will be matched against the Host field in the following way: 1. If host is precise, the request matches this rule if the http host header is equal to Host. 2. If host is a wildcard, then the request matches this rule if the http host header is to equal to the suffix (removing the first label) of the wildcard rule.
 	Host *string                    `pulumi:"host"`
 	Http *HTTPIngressRuleValuePatch `pulumi:"http"`
 }
@@ -3588,14 +3588,14 @@ type IngressRulePatchInput interface {
 
 // IngressRule represents the rules mapping the paths under a specified host to the related backend services. Incoming requests are first evaluated for a host match, then routed to the backend associated with the matching IngressRuleValue.
 type IngressRulePatchArgs struct {
-	// Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the "host" part of the URI as defined in RFC 3986: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to
+	// host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the "host" part of the URI as defined in RFC 3986: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to
 	//    the IP in the Spec of the parent Ingress.
 	// 2. The `:` delimiter is not respected because ports are not allowed.
 	// 	  Currently the port of an Ingress is implicitly :80 for http and
 	// 	  :443 for https.
 	// Both these may change in the future. Incoming requests are matched against the host before the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on the specified IngressRuleValue.
 	//
-	// Host can be "precise" which is a domain name without the terminating dot of a network host (e.g. "foo.bar.com") or "wildcard", which is a domain name prefixed with a single wildcard label (e.g. "*.foo.com"). The wildcard character '*' must appear by itself as the first DNS label and matches only a single label. You cannot have a wildcard label by itself (e.g. Host == "*"). Requests will be matched against the Host field in the following way: 1. If Host is precise, the request matches this rule if the http host header is equal to Host. 2. If Host is a wildcard, then the request matches this rule if the http host header is to equal to the suffix (removing the first label) of the wildcard rule.
+	// host can be "precise" which is a domain name without the terminating dot of a network host (e.g. "foo.bar.com") or "wildcard", which is a domain name prefixed with a single wildcard label (e.g. "*.foo.com"). The wildcard character '*' must appear by itself as the first DNS label and matches only a single label. You cannot have a wildcard label by itself (e.g. Host == "*"). Requests will be matched against the Host field in the following way: 1. If host is precise, the request matches this rule if the http host header is equal to Host. 2. If host is a wildcard, then the request matches this rule if the http host header is to equal to the suffix (removing the first label) of the wildcard rule.
 	Host pulumi.StringPtrInput             `pulumi:"host"`
 	Http HTTPIngressRuleValuePatchPtrInput `pulumi:"http"`
 }
@@ -3652,7 +3652,7 @@ func (o IngressRulePatchOutput) ToIngressRulePatchOutputWithContext(ctx context.
 	return o
 }
 
-// Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the "host" part of the URI as defined in RFC 3986: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to
+// host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the "host" part of the URI as defined in RFC 3986: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to
 //
 //	the IP in the Spec of the parent Ingress.
 //  2. The `:` delimiter is not respected because ports are not allowed.
@@ -3661,7 +3661,7 @@ func (o IngressRulePatchOutput) ToIngressRulePatchOutputWithContext(ctx context.
 //
 // Both these may change in the future. Incoming requests are matched against the host before the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on the specified IngressRuleValue.
 //
-// Host can be "precise" which is a domain name without the terminating dot of a network host (e.g. "foo.bar.com") or "wildcard", which is a domain name prefixed with a single wildcard label (e.g. "*.foo.com"). The wildcard character '*' must appear by itself as the first DNS label and matches only a single label. You cannot have a wildcard label by itself (e.g. Host == "*"). Requests will be matched against the Host field in the following way: 1. If Host is precise, the request matches this rule if the http host header is equal to Host. 2. If Host is a wildcard, then the request matches this rule if the http host header is to equal to the suffix (removing the first label) of the wildcard rule.
+// host can be "precise" which is a domain name without the terminating dot of a network host (e.g. "foo.bar.com") or "wildcard", which is a domain name prefixed with a single wildcard label (e.g. "*.foo.com"). The wildcard character '*' must appear by itself as the first DNS label and matches only a single label. You cannot have a wildcard label by itself (e.g. Host == "*"). Requests will be matched against the Host field in the following way: 1. If host is precise, the request matches this rule if the http host header is equal to Host. 2. If host is a wildcard, then the request matches this rule if the http host header is to equal to the suffix (removing the first label) of the wildcard rule.
 func (o IngressRulePatchOutput) Host() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IngressRulePatch) *string { return v.Host }).(pulumi.StringPtrOutput)
 }
@@ -3692,9 +3692,9 @@ func (o IngressRulePatchArrayOutput) Index(i pulumi.IntInput) IngressRulePatchOu
 
 // IngressServiceBackend references a Kubernetes Service as a Backend.
 type IngressServiceBackend struct {
-	// Name is the referenced service. The service must exist in the same namespace as the Ingress object.
+	// name is the referenced service. The service must exist in the same namespace as the Ingress object.
 	Name string `pulumi:"name"`
-	// Port of the referenced service. A port name or port number is required for a IngressServiceBackend.
+	// port of the referenced service. A port name or port number is required for a IngressServiceBackend.
 	Port *ServiceBackendPort `pulumi:"port"`
 }
 
@@ -3711,9 +3711,9 @@ type IngressServiceBackendInput interface {
 
 // IngressServiceBackend references a Kubernetes Service as a Backend.
 type IngressServiceBackendArgs struct {
-	// Name is the referenced service. The service must exist in the same namespace as the Ingress object.
+	// name is the referenced service. The service must exist in the same namespace as the Ingress object.
 	Name pulumi.StringInput `pulumi:"name"`
-	// Port of the referenced service. A port name or port number is required for a IngressServiceBackend.
+	// port of the referenced service. A port name or port number is required for a IngressServiceBackend.
 	Port ServiceBackendPortPtrInput `pulumi:"port"`
 }
 
@@ -3795,12 +3795,12 @@ func (o IngressServiceBackendOutput) ToIngressServiceBackendPtrOutputWithContext
 	}).(IngressServiceBackendPtrOutput)
 }
 
-// Name is the referenced service. The service must exist in the same namespace as the Ingress object.
+// name is the referenced service. The service must exist in the same namespace as the Ingress object.
 func (o IngressServiceBackendOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v IngressServiceBackend) string { return v.Name }).(pulumi.StringOutput)
 }
 
-// Port of the referenced service. A port name or port number is required for a IngressServiceBackend.
+// port of the referenced service. A port name or port number is required for a IngressServiceBackend.
 func (o IngressServiceBackendOutput) Port() ServiceBackendPortPtrOutput {
 	return o.ApplyT(func(v IngressServiceBackend) *ServiceBackendPort { return v.Port }).(ServiceBackendPortPtrOutput)
 }
@@ -3829,7 +3829,7 @@ func (o IngressServiceBackendPtrOutput) Elem() IngressServiceBackendOutput {
 	}).(IngressServiceBackendOutput)
 }
 
-// Name is the referenced service. The service must exist in the same namespace as the Ingress object.
+// name is the referenced service. The service must exist in the same namespace as the Ingress object.
 func (o IngressServiceBackendPtrOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *IngressServiceBackend) *string {
 		if v == nil {
@@ -3839,7 +3839,7 @@ func (o IngressServiceBackendPtrOutput) Name() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Port of the referenced service. A port name or port number is required for a IngressServiceBackend.
+// port of the referenced service. A port name or port number is required for a IngressServiceBackend.
 func (o IngressServiceBackendPtrOutput) Port() ServiceBackendPortPtrOutput {
 	return o.ApplyT(func(v *IngressServiceBackend) *ServiceBackendPort {
 		if v == nil {
@@ -3851,9 +3851,9 @@ func (o IngressServiceBackendPtrOutput) Port() ServiceBackendPortPtrOutput {
 
 // IngressServiceBackend references a Kubernetes Service as a Backend.
 type IngressServiceBackendPatch struct {
-	// Name is the referenced service. The service must exist in the same namespace as the Ingress object.
+	// name is the referenced service. The service must exist in the same namespace as the Ingress object.
 	Name *string `pulumi:"name"`
-	// Port of the referenced service. A port name or port number is required for a IngressServiceBackend.
+	// port of the referenced service. A port name or port number is required for a IngressServiceBackend.
 	Port *ServiceBackendPortPatch `pulumi:"port"`
 }
 
@@ -3870,9 +3870,9 @@ type IngressServiceBackendPatchInput interface {
 
 // IngressServiceBackend references a Kubernetes Service as a Backend.
 type IngressServiceBackendPatchArgs struct {
-	// Name is the referenced service. The service must exist in the same namespace as the Ingress object.
+	// name is the referenced service. The service must exist in the same namespace as the Ingress object.
 	Name pulumi.StringPtrInput `pulumi:"name"`
-	// Port of the referenced service. A port name or port number is required for a IngressServiceBackend.
+	// port of the referenced service. A port name or port number is required for a IngressServiceBackend.
 	Port ServiceBackendPortPatchPtrInput `pulumi:"port"`
 }
 
@@ -3954,12 +3954,12 @@ func (o IngressServiceBackendPatchOutput) ToIngressServiceBackendPatchPtrOutputW
 	}).(IngressServiceBackendPatchPtrOutput)
 }
 
-// Name is the referenced service. The service must exist in the same namespace as the Ingress object.
+// name is the referenced service. The service must exist in the same namespace as the Ingress object.
 func (o IngressServiceBackendPatchOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IngressServiceBackendPatch) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-// Port of the referenced service. A port name or port number is required for a IngressServiceBackend.
+// port of the referenced service. A port name or port number is required for a IngressServiceBackend.
 func (o IngressServiceBackendPatchOutput) Port() ServiceBackendPortPatchPtrOutput {
 	return o.ApplyT(func(v IngressServiceBackendPatch) *ServiceBackendPortPatch { return v.Port }).(ServiceBackendPortPatchPtrOutput)
 }
@@ -3988,7 +3988,7 @@ func (o IngressServiceBackendPatchPtrOutput) Elem() IngressServiceBackendPatchOu
 	}).(IngressServiceBackendPatchOutput)
 }
 
-// Name is the referenced service. The service must exist in the same namespace as the Ingress object.
+// name is the referenced service. The service must exist in the same namespace as the Ingress object.
 func (o IngressServiceBackendPatchPtrOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *IngressServiceBackendPatch) *string {
 		if v == nil {
@@ -3998,7 +3998,7 @@ func (o IngressServiceBackendPatchPtrOutput) Name() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Port of the referenced service. A port name or port number is required for a IngressServiceBackend.
+// port of the referenced service. A port name or port number is required for a IngressServiceBackend.
 func (o IngressServiceBackendPatchPtrOutput) Port() ServiceBackendPortPatchPtrOutput {
 	return o.ApplyT(func(v *IngressServiceBackendPatch) *ServiceBackendPortPatch {
 		if v == nil {
@@ -4010,13 +4010,13 @@ func (o IngressServiceBackendPatchPtrOutput) Port() ServiceBackendPortPatchPtrOu
 
 // IngressSpec describes the Ingress the user wishes to exist.
 type IngressSpec struct {
-	// DefaultBackend is the backend that should handle requests that don't match any rule. If Rules are not specified, DefaultBackend must be specified. If DefaultBackend is not set, the handling of requests that do not match any of the rules will be up to the Ingress controller.
+	// defaultBackend is the backend that should handle requests that don't match any rule. If Rules are not specified, DefaultBackend must be specified. If DefaultBackend is not set, the handling of requests that do not match any of the rules will be up to the Ingress controller.
 	DefaultBackend *IngressBackend `pulumi:"defaultBackend"`
-	// IngressClassName is the name of an IngressClass cluster resource. Ingress controller implementations use this field to know whether they should be serving this Ingress resource, by a transitive connection (controller -> IngressClass -> Ingress resource). Although the `kubernetes.io/ingress.class` annotation (simple constant name) was never formally defined, it was widely supported by Ingress controllers to create a direct binding between Ingress controller and Ingress resources. Newly created Ingress resources should prefer using the field. However, even though the annotation is officially deprecated, for backwards compatibility reasons, ingress controllers should still honor that annotation if present.
+	// ingressClassName is the name of an IngressClass cluster resource. Ingress controller implementations use this field to know whether they should be serving this Ingress resource, by a transitive connection (controller -> IngressClass -> Ingress resource). Although the `kubernetes.io/ingress.class` annotation (simple constant name) was never formally defined, it was widely supported by Ingress controllers to create a direct binding between Ingress controller and Ingress resources. Newly created Ingress resources should prefer using the field. However, even though the annotation is officially deprecated, for backwards compatibility reasons, ingress controllers should still honor that annotation if present.
 	IngressClassName *string `pulumi:"ingressClassName"`
-	// A list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
+	// rules is a list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
 	Rules []IngressRule `pulumi:"rules"`
-	// TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
+	// tls represents the TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
 	Tls []IngressTLS `pulumi:"tls"`
 }
 
@@ -4033,13 +4033,13 @@ type IngressSpecInput interface {
 
 // IngressSpec describes the Ingress the user wishes to exist.
 type IngressSpecArgs struct {
-	// DefaultBackend is the backend that should handle requests that don't match any rule. If Rules are not specified, DefaultBackend must be specified. If DefaultBackend is not set, the handling of requests that do not match any of the rules will be up to the Ingress controller.
+	// defaultBackend is the backend that should handle requests that don't match any rule. If Rules are not specified, DefaultBackend must be specified. If DefaultBackend is not set, the handling of requests that do not match any of the rules will be up to the Ingress controller.
 	DefaultBackend IngressBackendPtrInput `pulumi:"defaultBackend"`
-	// IngressClassName is the name of an IngressClass cluster resource. Ingress controller implementations use this field to know whether they should be serving this Ingress resource, by a transitive connection (controller -> IngressClass -> Ingress resource). Although the `kubernetes.io/ingress.class` annotation (simple constant name) was never formally defined, it was widely supported by Ingress controllers to create a direct binding between Ingress controller and Ingress resources. Newly created Ingress resources should prefer using the field. However, even though the annotation is officially deprecated, for backwards compatibility reasons, ingress controllers should still honor that annotation if present.
+	// ingressClassName is the name of an IngressClass cluster resource. Ingress controller implementations use this field to know whether they should be serving this Ingress resource, by a transitive connection (controller -> IngressClass -> Ingress resource). Although the `kubernetes.io/ingress.class` annotation (simple constant name) was never formally defined, it was widely supported by Ingress controllers to create a direct binding between Ingress controller and Ingress resources. Newly created Ingress resources should prefer using the field. However, even though the annotation is officially deprecated, for backwards compatibility reasons, ingress controllers should still honor that annotation if present.
 	IngressClassName pulumi.StringPtrInput `pulumi:"ingressClassName"`
-	// A list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
+	// rules is a list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
 	Rules IngressRuleArrayInput `pulumi:"rules"`
-	// TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
+	// tls represents the TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
 	Tls IngressTLSArrayInput `pulumi:"tls"`
 }
 
@@ -4121,22 +4121,22 @@ func (o IngressSpecOutput) ToIngressSpecPtrOutputWithContext(ctx context.Context
 	}).(IngressSpecPtrOutput)
 }
 
-// DefaultBackend is the backend that should handle requests that don't match any rule. If Rules are not specified, DefaultBackend must be specified. If DefaultBackend is not set, the handling of requests that do not match any of the rules will be up to the Ingress controller.
+// defaultBackend is the backend that should handle requests that don't match any rule. If Rules are not specified, DefaultBackend must be specified. If DefaultBackend is not set, the handling of requests that do not match any of the rules will be up to the Ingress controller.
 func (o IngressSpecOutput) DefaultBackend() IngressBackendPtrOutput {
 	return o.ApplyT(func(v IngressSpec) *IngressBackend { return v.DefaultBackend }).(IngressBackendPtrOutput)
 }
 
-// IngressClassName is the name of an IngressClass cluster resource. Ingress controller implementations use this field to know whether they should be serving this Ingress resource, by a transitive connection (controller -> IngressClass -> Ingress resource). Although the `kubernetes.io/ingress.class` annotation (simple constant name) was never formally defined, it was widely supported by Ingress controllers to create a direct binding between Ingress controller and Ingress resources. Newly created Ingress resources should prefer using the field. However, even though the annotation is officially deprecated, for backwards compatibility reasons, ingress controllers should still honor that annotation if present.
+// ingressClassName is the name of an IngressClass cluster resource. Ingress controller implementations use this field to know whether they should be serving this Ingress resource, by a transitive connection (controller -> IngressClass -> Ingress resource). Although the `kubernetes.io/ingress.class` annotation (simple constant name) was never formally defined, it was widely supported by Ingress controllers to create a direct binding between Ingress controller and Ingress resources. Newly created Ingress resources should prefer using the field. However, even though the annotation is officially deprecated, for backwards compatibility reasons, ingress controllers should still honor that annotation if present.
 func (o IngressSpecOutput) IngressClassName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IngressSpec) *string { return v.IngressClassName }).(pulumi.StringPtrOutput)
 }
 
-// A list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
+// rules is a list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
 func (o IngressSpecOutput) Rules() IngressRuleArrayOutput {
 	return o.ApplyT(func(v IngressSpec) []IngressRule { return v.Rules }).(IngressRuleArrayOutput)
 }
 
-// TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
+// tls represents the TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
 func (o IngressSpecOutput) Tls() IngressTLSArrayOutput {
 	return o.ApplyT(func(v IngressSpec) []IngressTLS { return v.Tls }).(IngressTLSArrayOutput)
 }
@@ -4165,7 +4165,7 @@ func (o IngressSpecPtrOutput) Elem() IngressSpecOutput {
 	}).(IngressSpecOutput)
 }
 
-// DefaultBackend is the backend that should handle requests that don't match any rule. If Rules are not specified, DefaultBackend must be specified. If DefaultBackend is not set, the handling of requests that do not match any of the rules will be up to the Ingress controller.
+// defaultBackend is the backend that should handle requests that don't match any rule. If Rules are not specified, DefaultBackend must be specified. If DefaultBackend is not set, the handling of requests that do not match any of the rules will be up to the Ingress controller.
 func (o IngressSpecPtrOutput) DefaultBackend() IngressBackendPtrOutput {
 	return o.ApplyT(func(v *IngressSpec) *IngressBackend {
 		if v == nil {
@@ -4175,7 +4175,7 @@ func (o IngressSpecPtrOutput) DefaultBackend() IngressBackendPtrOutput {
 	}).(IngressBackendPtrOutput)
 }
 
-// IngressClassName is the name of an IngressClass cluster resource. Ingress controller implementations use this field to know whether they should be serving this Ingress resource, by a transitive connection (controller -> IngressClass -> Ingress resource). Although the `kubernetes.io/ingress.class` annotation (simple constant name) was never formally defined, it was widely supported by Ingress controllers to create a direct binding between Ingress controller and Ingress resources. Newly created Ingress resources should prefer using the field. However, even though the annotation is officially deprecated, for backwards compatibility reasons, ingress controllers should still honor that annotation if present.
+// ingressClassName is the name of an IngressClass cluster resource. Ingress controller implementations use this field to know whether they should be serving this Ingress resource, by a transitive connection (controller -> IngressClass -> Ingress resource). Although the `kubernetes.io/ingress.class` annotation (simple constant name) was never formally defined, it was widely supported by Ingress controllers to create a direct binding between Ingress controller and Ingress resources. Newly created Ingress resources should prefer using the field. However, even though the annotation is officially deprecated, for backwards compatibility reasons, ingress controllers should still honor that annotation if present.
 func (o IngressSpecPtrOutput) IngressClassName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *IngressSpec) *string {
 		if v == nil {
@@ -4185,7 +4185,7 @@ func (o IngressSpecPtrOutput) IngressClassName() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// A list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
+// rules is a list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
 func (o IngressSpecPtrOutput) Rules() IngressRuleArrayOutput {
 	return o.ApplyT(func(v *IngressSpec) []IngressRule {
 		if v == nil {
@@ -4195,7 +4195,7 @@ func (o IngressSpecPtrOutput) Rules() IngressRuleArrayOutput {
 	}).(IngressRuleArrayOutput)
 }
 
-// TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
+// tls represents the TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
 func (o IngressSpecPtrOutput) Tls() IngressTLSArrayOutput {
 	return o.ApplyT(func(v *IngressSpec) []IngressTLS {
 		if v == nil {
@@ -4207,13 +4207,13 @@ func (o IngressSpecPtrOutput) Tls() IngressTLSArrayOutput {
 
 // IngressSpec describes the Ingress the user wishes to exist.
 type IngressSpecPatch struct {
-	// DefaultBackend is the backend that should handle requests that don't match any rule. If Rules are not specified, DefaultBackend must be specified. If DefaultBackend is not set, the handling of requests that do not match any of the rules will be up to the Ingress controller.
+	// defaultBackend is the backend that should handle requests that don't match any rule. If Rules are not specified, DefaultBackend must be specified. If DefaultBackend is not set, the handling of requests that do not match any of the rules will be up to the Ingress controller.
 	DefaultBackend *IngressBackendPatch `pulumi:"defaultBackend"`
-	// IngressClassName is the name of an IngressClass cluster resource. Ingress controller implementations use this field to know whether they should be serving this Ingress resource, by a transitive connection (controller -> IngressClass -> Ingress resource). Although the `kubernetes.io/ingress.class` annotation (simple constant name) was never formally defined, it was widely supported by Ingress controllers to create a direct binding between Ingress controller and Ingress resources. Newly created Ingress resources should prefer using the field. However, even though the annotation is officially deprecated, for backwards compatibility reasons, ingress controllers should still honor that annotation if present.
+	// ingressClassName is the name of an IngressClass cluster resource. Ingress controller implementations use this field to know whether they should be serving this Ingress resource, by a transitive connection (controller -> IngressClass -> Ingress resource). Although the `kubernetes.io/ingress.class` annotation (simple constant name) was never formally defined, it was widely supported by Ingress controllers to create a direct binding between Ingress controller and Ingress resources. Newly created Ingress resources should prefer using the field. However, even though the annotation is officially deprecated, for backwards compatibility reasons, ingress controllers should still honor that annotation if present.
 	IngressClassName *string `pulumi:"ingressClassName"`
-	// A list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
+	// rules is a list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
 	Rules []IngressRulePatch `pulumi:"rules"`
-	// TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
+	// tls represents the TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
 	Tls []IngressTLSPatch `pulumi:"tls"`
 }
 
@@ -4230,13 +4230,13 @@ type IngressSpecPatchInput interface {
 
 // IngressSpec describes the Ingress the user wishes to exist.
 type IngressSpecPatchArgs struct {
-	// DefaultBackend is the backend that should handle requests that don't match any rule. If Rules are not specified, DefaultBackend must be specified. If DefaultBackend is not set, the handling of requests that do not match any of the rules will be up to the Ingress controller.
+	// defaultBackend is the backend that should handle requests that don't match any rule. If Rules are not specified, DefaultBackend must be specified. If DefaultBackend is not set, the handling of requests that do not match any of the rules will be up to the Ingress controller.
 	DefaultBackend IngressBackendPatchPtrInput `pulumi:"defaultBackend"`
-	// IngressClassName is the name of an IngressClass cluster resource. Ingress controller implementations use this field to know whether they should be serving this Ingress resource, by a transitive connection (controller -> IngressClass -> Ingress resource). Although the `kubernetes.io/ingress.class` annotation (simple constant name) was never formally defined, it was widely supported by Ingress controllers to create a direct binding between Ingress controller and Ingress resources. Newly created Ingress resources should prefer using the field. However, even though the annotation is officially deprecated, for backwards compatibility reasons, ingress controllers should still honor that annotation if present.
+	// ingressClassName is the name of an IngressClass cluster resource. Ingress controller implementations use this field to know whether they should be serving this Ingress resource, by a transitive connection (controller -> IngressClass -> Ingress resource). Although the `kubernetes.io/ingress.class` annotation (simple constant name) was never formally defined, it was widely supported by Ingress controllers to create a direct binding between Ingress controller and Ingress resources. Newly created Ingress resources should prefer using the field. However, even though the annotation is officially deprecated, for backwards compatibility reasons, ingress controllers should still honor that annotation if present.
 	IngressClassName pulumi.StringPtrInput `pulumi:"ingressClassName"`
-	// A list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
+	// rules is a list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
 	Rules IngressRulePatchArrayInput `pulumi:"rules"`
-	// TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
+	// tls represents the TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
 	Tls IngressTLSPatchArrayInput `pulumi:"tls"`
 }
 
@@ -4318,22 +4318,22 @@ func (o IngressSpecPatchOutput) ToIngressSpecPatchPtrOutputWithContext(ctx conte
 	}).(IngressSpecPatchPtrOutput)
 }
 
-// DefaultBackend is the backend that should handle requests that don't match any rule. If Rules are not specified, DefaultBackend must be specified. If DefaultBackend is not set, the handling of requests that do not match any of the rules will be up to the Ingress controller.
+// defaultBackend is the backend that should handle requests that don't match any rule. If Rules are not specified, DefaultBackend must be specified. If DefaultBackend is not set, the handling of requests that do not match any of the rules will be up to the Ingress controller.
 func (o IngressSpecPatchOutput) DefaultBackend() IngressBackendPatchPtrOutput {
 	return o.ApplyT(func(v IngressSpecPatch) *IngressBackendPatch { return v.DefaultBackend }).(IngressBackendPatchPtrOutput)
 }
 
-// IngressClassName is the name of an IngressClass cluster resource. Ingress controller implementations use this field to know whether they should be serving this Ingress resource, by a transitive connection (controller -> IngressClass -> Ingress resource). Although the `kubernetes.io/ingress.class` annotation (simple constant name) was never formally defined, it was widely supported by Ingress controllers to create a direct binding between Ingress controller and Ingress resources. Newly created Ingress resources should prefer using the field. However, even though the annotation is officially deprecated, for backwards compatibility reasons, ingress controllers should still honor that annotation if present.
+// ingressClassName is the name of an IngressClass cluster resource. Ingress controller implementations use this field to know whether they should be serving this Ingress resource, by a transitive connection (controller -> IngressClass -> Ingress resource). Although the `kubernetes.io/ingress.class` annotation (simple constant name) was never formally defined, it was widely supported by Ingress controllers to create a direct binding between Ingress controller and Ingress resources. Newly created Ingress resources should prefer using the field. However, even though the annotation is officially deprecated, for backwards compatibility reasons, ingress controllers should still honor that annotation if present.
 func (o IngressSpecPatchOutput) IngressClassName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IngressSpecPatch) *string { return v.IngressClassName }).(pulumi.StringPtrOutput)
 }
 
-// A list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
+// rules is a list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
 func (o IngressSpecPatchOutput) Rules() IngressRulePatchArrayOutput {
 	return o.ApplyT(func(v IngressSpecPatch) []IngressRulePatch { return v.Rules }).(IngressRulePatchArrayOutput)
 }
 
-// TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
+// tls represents the TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
 func (o IngressSpecPatchOutput) Tls() IngressTLSPatchArrayOutput {
 	return o.ApplyT(func(v IngressSpecPatch) []IngressTLSPatch { return v.Tls }).(IngressTLSPatchArrayOutput)
 }
@@ -4362,7 +4362,7 @@ func (o IngressSpecPatchPtrOutput) Elem() IngressSpecPatchOutput {
 	}).(IngressSpecPatchOutput)
 }
 
-// DefaultBackend is the backend that should handle requests that don't match any rule. If Rules are not specified, DefaultBackend must be specified. If DefaultBackend is not set, the handling of requests that do not match any of the rules will be up to the Ingress controller.
+// defaultBackend is the backend that should handle requests that don't match any rule. If Rules are not specified, DefaultBackend must be specified. If DefaultBackend is not set, the handling of requests that do not match any of the rules will be up to the Ingress controller.
 func (o IngressSpecPatchPtrOutput) DefaultBackend() IngressBackendPatchPtrOutput {
 	return o.ApplyT(func(v *IngressSpecPatch) *IngressBackendPatch {
 		if v == nil {
@@ -4372,7 +4372,7 @@ func (o IngressSpecPatchPtrOutput) DefaultBackend() IngressBackendPatchPtrOutput
 	}).(IngressBackendPatchPtrOutput)
 }
 
-// IngressClassName is the name of an IngressClass cluster resource. Ingress controller implementations use this field to know whether they should be serving this Ingress resource, by a transitive connection (controller -> IngressClass -> Ingress resource). Although the `kubernetes.io/ingress.class` annotation (simple constant name) was never formally defined, it was widely supported by Ingress controllers to create a direct binding between Ingress controller and Ingress resources. Newly created Ingress resources should prefer using the field. However, even though the annotation is officially deprecated, for backwards compatibility reasons, ingress controllers should still honor that annotation if present.
+// ingressClassName is the name of an IngressClass cluster resource. Ingress controller implementations use this field to know whether they should be serving this Ingress resource, by a transitive connection (controller -> IngressClass -> Ingress resource). Although the `kubernetes.io/ingress.class` annotation (simple constant name) was never formally defined, it was widely supported by Ingress controllers to create a direct binding between Ingress controller and Ingress resources. Newly created Ingress resources should prefer using the field. However, even though the annotation is officially deprecated, for backwards compatibility reasons, ingress controllers should still honor that annotation if present.
 func (o IngressSpecPatchPtrOutput) IngressClassName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *IngressSpecPatch) *string {
 		if v == nil {
@@ -4382,7 +4382,7 @@ func (o IngressSpecPatchPtrOutput) IngressClassName() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// A list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
+// rules is a list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
 func (o IngressSpecPatchPtrOutput) Rules() IngressRulePatchArrayOutput {
 	return o.ApplyT(func(v *IngressSpecPatch) []IngressRulePatch {
 		if v == nil {
@@ -4392,7 +4392,7 @@ func (o IngressSpecPatchPtrOutput) Rules() IngressRulePatchArrayOutput {
 	}).(IngressRulePatchArrayOutput)
 }
 
-// TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
+// tls represents the TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
 func (o IngressSpecPatchPtrOutput) Tls() IngressTLSPatchArrayOutput {
 	return o.ApplyT(func(v *IngressSpecPatch) []IngressTLSPatch {
 		if v == nil {
@@ -4404,7 +4404,7 @@ func (o IngressSpecPatchPtrOutput) Tls() IngressTLSPatchArrayOutput {
 
 // IngressStatus describe the current state of the Ingress.
 type IngressStatus struct {
-	// LoadBalancer contains the current status of the load-balancer.
+	// loadBalancer contains the current status of the load-balancer.
 	LoadBalancer *IngressLoadBalancerStatus `pulumi:"loadBalancer"`
 }
 
@@ -4421,7 +4421,7 @@ type IngressStatusInput interface {
 
 // IngressStatus describe the current state of the Ingress.
 type IngressStatusArgs struct {
-	// LoadBalancer contains the current status of the load-balancer.
+	// loadBalancer contains the current status of the load-balancer.
 	LoadBalancer IngressLoadBalancerStatusPtrInput `pulumi:"loadBalancer"`
 }
 
@@ -4503,7 +4503,7 @@ func (o IngressStatusOutput) ToIngressStatusPtrOutputWithContext(ctx context.Con
 	}).(IngressStatusPtrOutput)
 }
 
-// LoadBalancer contains the current status of the load-balancer.
+// loadBalancer contains the current status of the load-balancer.
 func (o IngressStatusOutput) LoadBalancer() IngressLoadBalancerStatusPtrOutput {
 	return o.ApplyT(func(v IngressStatus) *IngressLoadBalancerStatus { return v.LoadBalancer }).(IngressLoadBalancerStatusPtrOutput)
 }
@@ -4532,7 +4532,7 @@ func (o IngressStatusPtrOutput) Elem() IngressStatusOutput {
 	}).(IngressStatusOutput)
 }
 
-// LoadBalancer contains the current status of the load-balancer.
+// loadBalancer contains the current status of the load-balancer.
 func (o IngressStatusPtrOutput) LoadBalancer() IngressLoadBalancerStatusPtrOutput {
 	return o.ApplyT(func(v *IngressStatus) *IngressLoadBalancerStatus {
 		if v == nil {
@@ -4544,7 +4544,7 @@ func (o IngressStatusPtrOutput) LoadBalancer() IngressLoadBalancerStatusPtrOutpu
 
 // IngressStatus describe the current state of the Ingress.
 type IngressStatusPatch struct {
-	// LoadBalancer contains the current status of the load-balancer.
+	// loadBalancer contains the current status of the load-balancer.
 	LoadBalancer *IngressLoadBalancerStatusPatch `pulumi:"loadBalancer"`
 }
 
@@ -4561,7 +4561,7 @@ type IngressStatusPatchInput interface {
 
 // IngressStatus describe the current state of the Ingress.
 type IngressStatusPatchArgs struct {
-	// LoadBalancer contains the current status of the load-balancer.
+	// loadBalancer contains the current status of the load-balancer.
 	LoadBalancer IngressLoadBalancerStatusPatchPtrInput `pulumi:"loadBalancer"`
 }
 
@@ -4643,7 +4643,7 @@ func (o IngressStatusPatchOutput) ToIngressStatusPatchPtrOutputWithContext(ctx c
 	}).(IngressStatusPatchPtrOutput)
 }
 
-// LoadBalancer contains the current status of the load-balancer.
+// loadBalancer contains the current status of the load-balancer.
 func (o IngressStatusPatchOutput) LoadBalancer() IngressLoadBalancerStatusPatchPtrOutput {
 	return o.ApplyT(func(v IngressStatusPatch) *IngressLoadBalancerStatusPatch { return v.LoadBalancer }).(IngressLoadBalancerStatusPatchPtrOutput)
 }
@@ -4672,7 +4672,7 @@ func (o IngressStatusPatchPtrOutput) Elem() IngressStatusPatchOutput {
 	}).(IngressStatusPatchOutput)
 }
 
-// LoadBalancer contains the current status of the load-balancer.
+// loadBalancer contains the current status of the load-balancer.
 func (o IngressStatusPatchPtrOutput) LoadBalancer() IngressLoadBalancerStatusPatchPtrOutput {
 	return o.ApplyT(func(v *IngressStatusPatch) *IngressLoadBalancerStatusPatch {
 		if v == nil {
@@ -4682,11 +4682,11 @@ func (o IngressStatusPatchPtrOutput) LoadBalancer() IngressLoadBalancerStatusPat
 	}).(IngressLoadBalancerStatusPatchPtrOutput)
 }
 
-// IngressTLS describes the transport layer security associated with an Ingress.
+// IngressTLS describes the transport layer security associated with an ingress.
 type IngressTLS struct {
-	// Hosts are a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
+	// hosts is a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
 	Hosts []string `pulumi:"hosts"`
-	// SecretName is the name of the secret used to terminate TLS traffic on port 443. Field is left optional to allow TLS routing based on SNI hostname alone. If the SNI host in a listener conflicts with the "Host" header field used by an IngressRule, the SNI host is used for termination and value of the Host header is used for routing.
+	// secretName is the name of the secret used to terminate TLS traffic on port 443. Field is left optional to allow TLS routing based on SNI hostname alone. If the SNI host in a listener conflicts with the "Host" header field used by an IngressRule, the SNI host is used for termination and value of the "Host" header is used for routing.
 	SecretName *string `pulumi:"secretName"`
 }
 
@@ -4701,11 +4701,11 @@ type IngressTLSInput interface {
 	ToIngressTLSOutputWithContext(context.Context) IngressTLSOutput
 }
 
-// IngressTLS describes the transport layer security associated with an Ingress.
+// IngressTLS describes the transport layer security associated with an ingress.
 type IngressTLSArgs struct {
-	// Hosts are a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
+	// hosts is a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
 	Hosts pulumi.StringArrayInput `pulumi:"hosts"`
-	// SecretName is the name of the secret used to terminate TLS traffic on port 443. Field is left optional to allow TLS routing based on SNI hostname alone. If the SNI host in a listener conflicts with the "Host" header field used by an IngressRule, the SNI host is used for termination and value of the Host header is used for routing.
+	// secretName is the name of the secret used to terminate TLS traffic on port 443. Field is left optional to allow TLS routing based on SNI hostname alone. If the SNI host in a listener conflicts with the "Host" header field used by an IngressRule, the SNI host is used for termination and value of the "Host" header is used for routing.
 	SecretName pulumi.StringPtrInput `pulumi:"secretName"`
 }
 
@@ -4746,7 +4746,7 @@ func (i IngressTLSArray) ToIngressTLSArrayOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(IngressTLSArrayOutput)
 }
 
-// IngressTLS describes the transport layer security associated with an Ingress.
+// IngressTLS describes the transport layer security associated with an ingress.
 type IngressTLSOutput struct{ *pulumi.OutputState }
 
 func (IngressTLSOutput) ElementType() reflect.Type {
@@ -4761,12 +4761,12 @@ func (o IngressTLSOutput) ToIngressTLSOutputWithContext(ctx context.Context) Ing
 	return o
 }
 
-// Hosts are a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
+// hosts is a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
 func (o IngressTLSOutput) Hosts() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v IngressTLS) []string { return v.Hosts }).(pulumi.StringArrayOutput)
 }
 
-// SecretName is the name of the secret used to terminate TLS traffic on port 443. Field is left optional to allow TLS routing based on SNI hostname alone. If the SNI host in a listener conflicts with the "Host" header field used by an IngressRule, the SNI host is used for termination and value of the Host header is used for routing.
+// secretName is the name of the secret used to terminate TLS traffic on port 443. Field is left optional to allow TLS routing based on SNI hostname alone. If the SNI host in a listener conflicts with the "Host" header field used by an IngressRule, the SNI host is used for termination and value of the "Host" header is used for routing.
 func (o IngressTLSOutput) SecretName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IngressTLS) *string { return v.SecretName }).(pulumi.StringPtrOutput)
 }
@@ -4791,11 +4791,11 @@ func (o IngressTLSArrayOutput) Index(i pulumi.IntInput) IngressTLSOutput {
 	}).(IngressTLSOutput)
 }
 
-// IngressTLS describes the transport layer security associated with an Ingress.
+// IngressTLS describes the transport layer security associated with an ingress.
 type IngressTLSPatch struct {
-	// Hosts are a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
+	// hosts is a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
 	Hosts []string `pulumi:"hosts"`
-	// SecretName is the name of the secret used to terminate TLS traffic on port 443. Field is left optional to allow TLS routing based on SNI hostname alone. If the SNI host in a listener conflicts with the "Host" header field used by an IngressRule, the SNI host is used for termination and value of the Host header is used for routing.
+	// secretName is the name of the secret used to terminate TLS traffic on port 443. Field is left optional to allow TLS routing based on SNI hostname alone. If the SNI host in a listener conflicts with the "Host" header field used by an IngressRule, the SNI host is used for termination and value of the "Host" header is used for routing.
 	SecretName *string `pulumi:"secretName"`
 }
 
@@ -4810,11 +4810,11 @@ type IngressTLSPatchInput interface {
 	ToIngressTLSPatchOutputWithContext(context.Context) IngressTLSPatchOutput
 }
 
-// IngressTLS describes the transport layer security associated with an Ingress.
+// IngressTLS describes the transport layer security associated with an ingress.
 type IngressTLSPatchArgs struct {
-	// Hosts are a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
+	// hosts is a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
 	Hosts pulumi.StringArrayInput `pulumi:"hosts"`
-	// SecretName is the name of the secret used to terminate TLS traffic on port 443. Field is left optional to allow TLS routing based on SNI hostname alone. If the SNI host in a listener conflicts with the "Host" header field used by an IngressRule, the SNI host is used for termination and value of the Host header is used for routing.
+	// secretName is the name of the secret used to terminate TLS traffic on port 443. Field is left optional to allow TLS routing based on SNI hostname alone. If the SNI host in a listener conflicts with the "Host" header field used by an IngressRule, the SNI host is used for termination and value of the "Host" header is used for routing.
 	SecretName pulumi.StringPtrInput `pulumi:"secretName"`
 }
 
@@ -4855,7 +4855,7 @@ func (i IngressTLSPatchArray) ToIngressTLSPatchArrayOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(IngressTLSPatchArrayOutput)
 }
 
-// IngressTLS describes the transport layer security associated with an Ingress.
+// IngressTLS describes the transport layer security associated with an ingress.
 type IngressTLSPatchOutput struct{ *pulumi.OutputState }
 
 func (IngressTLSPatchOutput) ElementType() reflect.Type {
@@ -4870,12 +4870,12 @@ func (o IngressTLSPatchOutput) ToIngressTLSPatchOutputWithContext(ctx context.Co
 	return o
 }
 
-// Hosts are a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
+// hosts is a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
 func (o IngressTLSPatchOutput) Hosts() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v IngressTLSPatch) []string { return v.Hosts }).(pulumi.StringArrayOutput)
 }
 
-// SecretName is the name of the secret used to terminate TLS traffic on port 443. Field is left optional to allow TLS routing based on SNI hostname alone. If the SNI host in a listener conflicts with the "Host" header field used by an IngressRule, the SNI host is used for termination and value of the Host header is used for routing.
+// secretName is the name of the secret used to terminate TLS traffic on port 443. Field is left optional to allow TLS routing based on SNI hostname alone. If the SNI host in a listener conflicts with the "Host" header field used by an IngressRule, the SNI host is used for termination and value of the "Host" header is used for routing.
 func (o IngressTLSPatchOutput) SecretName() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IngressTLSPatch) *string { return v.SecretName }).(pulumi.StringPtrOutput)
 }
@@ -4908,9 +4908,9 @@ type NetworkPolicyType struct {
 	Kind *string `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-	// Specification of the desired behavior for this NetworkPolicy.
+	// spec represents the specification of the desired behavior for this NetworkPolicy.
 	Spec *NetworkPolicySpec `pulumi:"spec"`
-	// Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	// status represents the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Status *NetworkPolicyStatus `pulumi:"status"`
 }
 
@@ -4933,9 +4933,9 @@ type NetworkPolicyTypeArgs struct {
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
-	// Specification of the desired behavior for this NetworkPolicy.
+	// spec represents the specification of the desired behavior for this NetworkPolicy.
 	Spec NetworkPolicySpecPtrInput `pulumi:"spec"`
-	// Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	// status represents the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Status NetworkPolicyStatusPtrInput `pulumi:"status"`
 }
 
@@ -5006,12 +5006,12 @@ func (o NetworkPolicyTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v NetworkPolicyType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
-// Specification of the desired behavior for this NetworkPolicy.
+// spec represents the specification of the desired behavior for this NetworkPolicy.
 func (o NetworkPolicyTypeOutput) Spec() NetworkPolicySpecPtrOutput {
 	return o.ApplyT(func(v NetworkPolicyType) *NetworkPolicySpec { return v.Spec }).(NetworkPolicySpecPtrOutput)
 }
 
-// Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+// status represents the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 func (o NetworkPolicyTypeOutput) Status() NetworkPolicyStatusPtrOutput {
 	return o.ApplyT(func(v NetworkPolicyType) *NetworkPolicyStatus { return v.Status }).(NetworkPolicyStatusPtrOutput)
 }
@@ -5038,9 +5038,9 @@ func (o NetworkPolicyTypeArrayOutput) Index(i pulumi.IntInput) NetworkPolicyType
 
 // NetworkPolicyEgressRule describes a particular set of traffic that is allowed out of pods matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and to. This type is beta-level in 1.8
 type NetworkPolicyEgressRule struct {
-	// List of destination ports for outgoing traffic. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
+	// ports is a list of destination ports for outgoing traffic. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
 	Ports []NetworkPolicyPort `pulumi:"ports"`
-	// List of destinations for outgoing traffic of pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all destinations (traffic not restricted by destination). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the to list.
+	// to is a list of destinations for outgoing traffic of pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all destinations (traffic not restricted by destination). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the to list.
 	To []NetworkPolicyPeer `pulumi:"to"`
 }
 
@@ -5057,9 +5057,9 @@ type NetworkPolicyEgressRuleInput interface {
 
 // NetworkPolicyEgressRule describes a particular set of traffic that is allowed out of pods matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and to. This type is beta-level in 1.8
 type NetworkPolicyEgressRuleArgs struct {
-	// List of destination ports for outgoing traffic. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
+	// ports is a list of destination ports for outgoing traffic. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
 	Ports NetworkPolicyPortArrayInput `pulumi:"ports"`
-	// List of destinations for outgoing traffic of pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all destinations (traffic not restricted by destination). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the to list.
+	// to is a list of destinations for outgoing traffic of pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all destinations (traffic not restricted by destination). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the to list.
 	To NetworkPolicyPeerArrayInput `pulumi:"to"`
 }
 
@@ -5115,12 +5115,12 @@ func (o NetworkPolicyEgressRuleOutput) ToNetworkPolicyEgressRuleOutputWithContex
 	return o
 }
 
-// List of destination ports for outgoing traffic. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
+// ports is a list of destination ports for outgoing traffic. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
 func (o NetworkPolicyEgressRuleOutput) Ports() NetworkPolicyPortArrayOutput {
 	return o.ApplyT(func(v NetworkPolicyEgressRule) []NetworkPolicyPort { return v.Ports }).(NetworkPolicyPortArrayOutput)
 }
 
-// List of destinations for outgoing traffic of pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all destinations (traffic not restricted by destination). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the to list.
+// to is a list of destinations for outgoing traffic of pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all destinations (traffic not restricted by destination). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the to list.
 func (o NetworkPolicyEgressRuleOutput) To() NetworkPolicyPeerArrayOutput {
 	return o.ApplyT(func(v NetworkPolicyEgressRule) []NetworkPolicyPeer { return v.To }).(NetworkPolicyPeerArrayOutput)
 }
@@ -5147,9 +5147,9 @@ func (o NetworkPolicyEgressRuleArrayOutput) Index(i pulumi.IntInput) NetworkPoli
 
 // NetworkPolicyEgressRule describes a particular set of traffic that is allowed out of pods matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and to. This type is beta-level in 1.8
 type NetworkPolicyEgressRulePatch struct {
-	// List of destination ports for outgoing traffic. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
+	// ports is a list of destination ports for outgoing traffic. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
 	Ports []NetworkPolicyPortPatch `pulumi:"ports"`
-	// List of destinations for outgoing traffic of pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all destinations (traffic not restricted by destination). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the to list.
+	// to is a list of destinations for outgoing traffic of pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all destinations (traffic not restricted by destination). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the to list.
 	To []NetworkPolicyPeerPatch `pulumi:"to"`
 }
 
@@ -5166,9 +5166,9 @@ type NetworkPolicyEgressRulePatchInput interface {
 
 // NetworkPolicyEgressRule describes a particular set of traffic that is allowed out of pods matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and to. This type is beta-level in 1.8
 type NetworkPolicyEgressRulePatchArgs struct {
-	// List of destination ports for outgoing traffic. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
+	// ports is a list of destination ports for outgoing traffic. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
 	Ports NetworkPolicyPortPatchArrayInput `pulumi:"ports"`
-	// List of destinations for outgoing traffic of pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all destinations (traffic not restricted by destination). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the to list.
+	// to is a list of destinations for outgoing traffic of pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all destinations (traffic not restricted by destination). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the to list.
 	To NetworkPolicyPeerPatchArrayInput `pulumi:"to"`
 }
 
@@ -5224,12 +5224,12 @@ func (o NetworkPolicyEgressRulePatchOutput) ToNetworkPolicyEgressRulePatchOutput
 	return o
 }
 
-// List of destination ports for outgoing traffic. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
+// ports is a list of destination ports for outgoing traffic. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
 func (o NetworkPolicyEgressRulePatchOutput) Ports() NetworkPolicyPortPatchArrayOutput {
 	return o.ApplyT(func(v NetworkPolicyEgressRulePatch) []NetworkPolicyPortPatch { return v.Ports }).(NetworkPolicyPortPatchArrayOutput)
 }
 
-// List of destinations for outgoing traffic of pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all destinations (traffic not restricted by destination). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the to list.
+// to is a list of destinations for outgoing traffic of pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all destinations (traffic not restricted by destination). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the to list.
 func (o NetworkPolicyEgressRulePatchOutput) To() NetworkPolicyPeerPatchArrayOutput {
 	return o.ApplyT(func(v NetworkPolicyEgressRulePatch) []NetworkPolicyPeerPatch { return v.To }).(NetworkPolicyPeerPatchArrayOutput)
 }
@@ -5256,9 +5256,9 @@ func (o NetworkPolicyEgressRulePatchArrayOutput) Index(i pulumi.IntInput) Networ
 
 // NetworkPolicyIngressRule describes a particular set of traffic that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and from.
 type NetworkPolicyIngressRule struct {
-	// List of sources which should be able to access the pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all sources (traffic not restricted by source). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the from list.
+	// from is a list of sources which should be able to access the pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all sources (traffic not restricted by source). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the from list.
 	From []NetworkPolicyPeer `pulumi:"from"`
-	// List of ports which should be made accessible on the pods selected for this rule. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
+	// ports is a list of ports which should be made accessible on the pods selected for this rule. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
 	Ports []NetworkPolicyPort `pulumi:"ports"`
 }
 
@@ -5275,9 +5275,9 @@ type NetworkPolicyIngressRuleInput interface {
 
 // NetworkPolicyIngressRule describes a particular set of traffic that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and from.
 type NetworkPolicyIngressRuleArgs struct {
-	// List of sources which should be able to access the pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all sources (traffic not restricted by source). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the from list.
+	// from is a list of sources which should be able to access the pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all sources (traffic not restricted by source). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the from list.
 	From NetworkPolicyPeerArrayInput `pulumi:"from"`
-	// List of ports which should be made accessible on the pods selected for this rule. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
+	// ports is a list of ports which should be made accessible on the pods selected for this rule. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
 	Ports NetworkPolicyPortArrayInput `pulumi:"ports"`
 }
 
@@ -5333,12 +5333,12 @@ func (o NetworkPolicyIngressRuleOutput) ToNetworkPolicyIngressRuleOutputWithCont
 	return o
 }
 
-// List of sources which should be able to access the pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all sources (traffic not restricted by source). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the from list.
+// from is a list of sources which should be able to access the pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all sources (traffic not restricted by source). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the from list.
 func (o NetworkPolicyIngressRuleOutput) From() NetworkPolicyPeerArrayOutput {
 	return o.ApplyT(func(v NetworkPolicyIngressRule) []NetworkPolicyPeer { return v.From }).(NetworkPolicyPeerArrayOutput)
 }
 
-// List of ports which should be made accessible on the pods selected for this rule. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
+// ports is a list of ports which should be made accessible on the pods selected for this rule. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
 func (o NetworkPolicyIngressRuleOutput) Ports() NetworkPolicyPortArrayOutput {
 	return o.ApplyT(func(v NetworkPolicyIngressRule) []NetworkPolicyPort { return v.Ports }).(NetworkPolicyPortArrayOutput)
 }
@@ -5365,9 +5365,9 @@ func (o NetworkPolicyIngressRuleArrayOutput) Index(i pulumi.IntInput) NetworkPol
 
 // NetworkPolicyIngressRule describes a particular set of traffic that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and from.
 type NetworkPolicyIngressRulePatch struct {
-	// List of sources which should be able to access the pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all sources (traffic not restricted by source). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the from list.
+	// from is a list of sources which should be able to access the pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all sources (traffic not restricted by source). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the from list.
 	From []NetworkPolicyPeerPatch `pulumi:"from"`
-	// List of ports which should be made accessible on the pods selected for this rule. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
+	// ports is a list of ports which should be made accessible on the pods selected for this rule. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
 	Ports []NetworkPolicyPortPatch `pulumi:"ports"`
 }
 
@@ -5384,9 +5384,9 @@ type NetworkPolicyIngressRulePatchInput interface {
 
 // NetworkPolicyIngressRule describes a particular set of traffic that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The traffic must match both ports and from.
 type NetworkPolicyIngressRulePatchArgs struct {
-	// List of sources which should be able to access the pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all sources (traffic not restricted by source). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the from list.
+	// from is a list of sources which should be able to access the pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all sources (traffic not restricted by source). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the from list.
 	From NetworkPolicyPeerPatchArrayInput `pulumi:"from"`
-	// List of ports which should be made accessible on the pods selected for this rule. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
+	// ports is a list of ports which should be made accessible on the pods selected for this rule. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
 	Ports NetworkPolicyPortPatchArrayInput `pulumi:"ports"`
 }
 
@@ -5442,12 +5442,12 @@ func (o NetworkPolicyIngressRulePatchOutput) ToNetworkPolicyIngressRulePatchOutp
 	return o
 }
 
-// List of sources which should be able to access the pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all sources (traffic not restricted by source). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the from list.
+// from is a list of sources which should be able to access the pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all sources (traffic not restricted by source). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the from list.
 func (o NetworkPolicyIngressRulePatchOutput) From() NetworkPolicyPeerPatchArrayOutput {
 	return o.ApplyT(func(v NetworkPolicyIngressRulePatch) []NetworkPolicyPeerPatch { return v.From }).(NetworkPolicyPeerPatchArrayOutput)
 }
 
-// List of ports which should be made accessible on the pods selected for this rule. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
+// ports is a list of ports which should be made accessible on the pods selected for this rule. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
 func (o NetworkPolicyIngressRulePatchOutput) Ports() NetworkPolicyPortPatchArrayOutput {
 	return o.ApplyT(func(v NetworkPolicyIngressRulePatch) []NetworkPolicyPortPatch { return v.Ports }).(NetworkPolicyPortPatchArrayOutput)
 }
@@ -5476,7 +5476,7 @@ func (o NetworkPolicyIngressRulePatchArrayOutput) Index(i pulumi.IntInput) Netwo
 type NetworkPolicyListType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
-	// Items is a list of schema objects.
+	// items is a list of schema objects.
 	Items []NetworkPolicyType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
@@ -5499,7 +5499,7 @@ type NetworkPolicyListTypeInput interface {
 type NetworkPolicyListTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// Items is a list of schema objects.
+	// items is a list of schema objects.
 	Items NetworkPolicyTypeArrayInput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
@@ -5539,7 +5539,7 @@ func (o NetworkPolicyListTypeOutput) ApiVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v NetworkPolicyListType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
-// Items is a list of schema objects.
+// items is a list of schema objects.
 func (o NetworkPolicyListTypeOutput) Items() NetworkPolicyTypeArrayOutput {
 	return o.ApplyT(func(v NetworkPolicyListType) []NetworkPolicyType { return v.Items }).(NetworkPolicyTypeArrayOutput)
 }
@@ -5562,9 +5562,9 @@ type NetworkPolicyPatchType struct {
 	Kind *string `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
-	// Specification of the desired behavior for this NetworkPolicy.
+	// spec represents the specification of the desired behavior for this NetworkPolicy.
 	Spec *NetworkPolicySpecPatch `pulumi:"spec"`
-	// Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	// status represents the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Status *NetworkPolicyStatusPatch `pulumi:"status"`
 }
 
@@ -5587,9 +5587,9 @@ type NetworkPolicyPatchTypeArgs struct {
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
-	// Specification of the desired behavior for this NetworkPolicy.
+	// spec represents the specification of the desired behavior for this NetworkPolicy.
 	Spec NetworkPolicySpecPatchPtrInput `pulumi:"spec"`
-	// Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	// status represents the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Status NetworkPolicyStatusPatchPtrInput `pulumi:"status"`
 }
 
@@ -5635,27 +5635,27 @@ func (o NetworkPolicyPatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput
 	return o.ApplyT(func(v NetworkPolicyPatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
 }
 
-// Specification of the desired behavior for this NetworkPolicy.
+// spec represents the specification of the desired behavior for this NetworkPolicy.
 func (o NetworkPolicyPatchTypeOutput) Spec() NetworkPolicySpecPatchPtrOutput {
 	return o.ApplyT(func(v NetworkPolicyPatchType) *NetworkPolicySpecPatch { return v.Spec }).(NetworkPolicySpecPatchPtrOutput)
 }
 
-// Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+// status represents the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 func (o NetworkPolicyPatchTypeOutput) Status() NetworkPolicyStatusPatchPtrOutput {
 	return o.ApplyT(func(v NetworkPolicyPatchType) *NetworkPolicyStatusPatch { return v.Status }).(NetworkPolicyStatusPatchPtrOutput)
 }
 
 // NetworkPolicyPeer describes a peer to allow traffic to/from. Only certain combinations of fields are allowed
 type NetworkPolicyPeer struct {
-	// IPBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
+	// ipBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
 	IpBlock *IPBlock `pulumi:"ipBlock"`
-	// Selects Namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
+	// namespaceSelector selects namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
 	//
-	// If PodSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects all Pods in the Namespaces selected by NamespaceSelector.
+	// If podSelector is also set, then the NetworkPolicyPeer as a whole selects the pods matching podSelector in the namespaces selected by namespaceSelector. Otherwise it selects all pods in the namespaces selected by namespaceSelector.
 	NamespaceSelector *metav1.LabelSelector `pulumi:"namespaceSelector"`
-	// This is a label selector which selects Pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
+	// podSelector is a label selector which selects pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
 	//
-	// If NamespaceSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects the Pods matching PodSelector in the policy's own Namespace.
+	// If namespaceSelector is also set, then the NetworkPolicyPeer as a whole selects the pods matching podSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects the pods matching podSelector in the policy's own namespace.
 	PodSelector *metav1.LabelSelector `pulumi:"podSelector"`
 }
 
@@ -5672,15 +5672,15 @@ type NetworkPolicyPeerInput interface {
 
 // NetworkPolicyPeer describes a peer to allow traffic to/from. Only certain combinations of fields are allowed
 type NetworkPolicyPeerArgs struct {
-	// IPBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
+	// ipBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
 	IpBlock IPBlockPtrInput `pulumi:"ipBlock"`
-	// Selects Namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
+	// namespaceSelector selects namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
 	//
-	// If PodSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects all Pods in the Namespaces selected by NamespaceSelector.
+	// If podSelector is also set, then the NetworkPolicyPeer as a whole selects the pods matching podSelector in the namespaces selected by namespaceSelector. Otherwise it selects all pods in the namespaces selected by namespaceSelector.
 	NamespaceSelector metav1.LabelSelectorPtrInput `pulumi:"namespaceSelector"`
-	// This is a label selector which selects Pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
+	// podSelector is a label selector which selects pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
 	//
-	// If NamespaceSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects the Pods matching PodSelector in the policy's own Namespace.
+	// If namespaceSelector is also set, then the NetworkPolicyPeer as a whole selects the pods matching podSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects the pods matching podSelector in the policy's own namespace.
 	PodSelector metav1.LabelSelectorPtrInput `pulumi:"podSelector"`
 }
 
@@ -5736,21 +5736,21 @@ func (o NetworkPolicyPeerOutput) ToNetworkPolicyPeerOutputWithContext(ctx contex
 	return o
 }
 
-// IPBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
+// ipBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
 func (o NetworkPolicyPeerOutput) IpBlock() IPBlockPtrOutput {
 	return o.ApplyT(func(v NetworkPolicyPeer) *IPBlock { return v.IpBlock }).(IPBlockPtrOutput)
 }
 
-// Selects Namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
+// namespaceSelector selects namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
 //
-// If PodSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects all Pods in the Namespaces selected by NamespaceSelector.
+// If podSelector is also set, then the NetworkPolicyPeer as a whole selects the pods matching podSelector in the namespaces selected by namespaceSelector. Otherwise it selects all pods in the namespaces selected by namespaceSelector.
 func (o NetworkPolicyPeerOutput) NamespaceSelector() metav1.LabelSelectorPtrOutput {
 	return o.ApplyT(func(v NetworkPolicyPeer) *metav1.LabelSelector { return v.NamespaceSelector }).(metav1.LabelSelectorPtrOutput)
 }
 
-// This is a label selector which selects Pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
+// podSelector is a label selector which selects pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
 //
-// If NamespaceSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects the Pods matching PodSelector in the policy's own Namespace.
+// If namespaceSelector is also set, then the NetworkPolicyPeer as a whole selects the pods matching podSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects the pods matching podSelector in the policy's own namespace.
 func (o NetworkPolicyPeerOutput) PodSelector() metav1.LabelSelectorPtrOutput {
 	return o.ApplyT(func(v NetworkPolicyPeer) *metav1.LabelSelector { return v.PodSelector }).(metav1.LabelSelectorPtrOutput)
 }
@@ -5777,15 +5777,15 @@ func (o NetworkPolicyPeerArrayOutput) Index(i pulumi.IntInput) NetworkPolicyPeer
 
 // NetworkPolicyPeer describes a peer to allow traffic to/from. Only certain combinations of fields are allowed
 type NetworkPolicyPeerPatch struct {
-	// IPBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
+	// ipBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
 	IpBlock *IPBlockPatch `pulumi:"ipBlock"`
-	// Selects Namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
+	// namespaceSelector selects namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
 	//
-	// If PodSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects all Pods in the Namespaces selected by NamespaceSelector.
+	// If podSelector is also set, then the NetworkPolicyPeer as a whole selects the pods matching podSelector in the namespaces selected by namespaceSelector. Otherwise it selects all pods in the namespaces selected by namespaceSelector.
 	NamespaceSelector *metav1.LabelSelectorPatch `pulumi:"namespaceSelector"`
-	// This is a label selector which selects Pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
+	// podSelector is a label selector which selects pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
 	//
-	// If NamespaceSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects the Pods matching PodSelector in the policy's own Namespace.
+	// If namespaceSelector is also set, then the NetworkPolicyPeer as a whole selects the pods matching podSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects the pods matching podSelector in the policy's own namespace.
 	PodSelector *metav1.LabelSelectorPatch `pulumi:"podSelector"`
 }
 
@@ -5802,15 +5802,15 @@ type NetworkPolicyPeerPatchInput interface {
 
 // NetworkPolicyPeer describes a peer to allow traffic to/from. Only certain combinations of fields are allowed
 type NetworkPolicyPeerPatchArgs struct {
-	// IPBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
+	// ipBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
 	IpBlock IPBlockPatchPtrInput `pulumi:"ipBlock"`
-	// Selects Namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
+	// namespaceSelector selects namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
 	//
-	// If PodSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects all Pods in the Namespaces selected by NamespaceSelector.
+	// If podSelector is also set, then the NetworkPolicyPeer as a whole selects the pods matching podSelector in the namespaces selected by namespaceSelector. Otherwise it selects all pods in the namespaces selected by namespaceSelector.
 	NamespaceSelector metav1.LabelSelectorPatchPtrInput `pulumi:"namespaceSelector"`
-	// This is a label selector which selects Pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
+	// podSelector is a label selector which selects pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
 	//
-	// If NamespaceSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects the Pods matching PodSelector in the policy's own Namespace.
+	// If namespaceSelector is also set, then the NetworkPolicyPeer as a whole selects the pods matching podSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects the pods matching podSelector in the policy's own namespace.
 	PodSelector metav1.LabelSelectorPatchPtrInput `pulumi:"podSelector"`
 }
 
@@ -5866,21 +5866,21 @@ func (o NetworkPolicyPeerPatchOutput) ToNetworkPolicyPeerPatchOutputWithContext(
 	return o
 }
 
-// IPBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
+// ipBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
 func (o NetworkPolicyPeerPatchOutput) IpBlock() IPBlockPatchPtrOutput {
 	return o.ApplyT(func(v NetworkPolicyPeerPatch) *IPBlockPatch { return v.IpBlock }).(IPBlockPatchPtrOutput)
 }
 
-// Selects Namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
+// namespaceSelector selects namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
 //
-// If PodSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects all Pods in the Namespaces selected by NamespaceSelector.
+// If podSelector is also set, then the NetworkPolicyPeer as a whole selects the pods matching podSelector in the namespaces selected by namespaceSelector. Otherwise it selects all pods in the namespaces selected by namespaceSelector.
 func (o NetworkPolicyPeerPatchOutput) NamespaceSelector() metav1.LabelSelectorPatchPtrOutput {
 	return o.ApplyT(func(v NetworkPolicyPeerPatch) *metav1.LabelSelectorPatch { return v.NamespaceSelector }).(metav1.LabelSelectorPatchPtrOutput)
 }
 
-// This is a label selector which selects Pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
+// podSelector is a label selector which selects pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
 //
-// If NamespaceSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects the Pods matching PodSelector in the policy's own Namespace.
+// If namespaceSelector is also set, then the NetworkPolicyPeer as a whole selects the pods matching podSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects the pods matching podSelector in the policy's own namespace.
 func (o NetworkPolicyPeerPatchOutput) PodSelector() metav1.LabelSelectorPatchPtrOutput {
 	return o.ApplyT(func(v NetworkPolicyPeerPatch) *metav1.LabelSelectorPatch { return v.PodSelector }).(metav1.LabelSelectorPatchPtrOutput)
 }
@@ -5907,11 +5907,11 @@ func (o NetworkPolicyPeerPatchArrayOutput) Index(i pulumi.IntInput) NetworkPolic
 
 // NetworkPolicyPort describes a port to allow traffic on
 type NetworkPolicyPort struct {
-	// If set, indicates that the range of ports from port to endPort, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port.
+	// endPort indicates that the range of ports from port to endPort if set, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port.
 	EndPort *int `pulumi:"endPort"`
-	// The port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
+	// port represents the port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
 	Port interface{} `pulumi:"port"`
-	// The protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field defaults to TCP.
+	// protocol represents the protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field defaults to TCP.
 	Protocol *string `pulumi:"protocol"`
 }
 
@@ -5928,11 +5928,11 @@ type NetworkPolicyPortInput interface {
 
 // NetworkPolicyPort describes a port to allow traffic on
 type NetworkPolicyPortArgs struct {
-	// If set, indicates that the range of ports from port to endPort, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port.
+	// endPort indicates that the range of ports from port to endPort if set, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port.
 	EndPort pulumi.IntPtrInput `pulumi:"endPort"`
-	// The port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
+	// port represents the port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
 	Port pulumi.Input `pulumi:"port"`
-	// The protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field defaults to TCP.
+	// protocol represents the protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field defaults to TCP.
 	Protocol pulumi.StringPtrInput `pulumi:"protocol"`
 }
 
@@ -5988,17 +5988,17 @@ func (o NetworkPolicyPortOutput) ToNetworkPolicyPortOutputWithContext(ctx contex
 	return o
 }
 
-// If set, indicates that the range of ports from port to endPort, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port.
+// endPort indicates that the range of ports from port to endPort if set, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port.
 func (o NetworkPolicyPortOutput) EndPort() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v NetworkPolicyPort) *int { return v.EndPort }).(pulumi.IntPtrOutput)
 }
 
-// The port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
+// port represents the port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
 func (o NetworkPolicyPortOutput) Port() pulumi.AnyOutput {
 	return o.ApplyT(func(v NetworkPolicyPort) interface{} { return v.Port }).(pulumi.AnyOutput)
 }
 
-// The protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field defaults to TCP.
+// protocol represents the protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field defaults to TCP.
 func (o NetworkPolicyPortOutput) Protocol() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v NetworkPolicyPort) *string { return v.Protocol }).(pulumi.StringPtrOutput)
 }
@@ -6025,11 +6025,11 @@ func (o NetworkPolicyPortArrayOutput) Index(i pulumi.IntInput) NetworkPolicyPort
 
 // NetworkPolicyPort describes a port to allow traffic on
 type NetworkPolicyPortPatch struct {
-	// If set, indicates that the range of ports from port to endPort, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port.
+	// endPort indicates that the range of ports from port to endPort if set, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port.
 	EndPort *int `pulumi:"endPort"`
-	// The port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
+	// port represents the port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
 	Port interface{} `pulumi:"port"`
-	// The protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field defaults to TCP.
+	// protocol represents the protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field defaults to TCP.
 	Protocol *string `pulumi:"protocol"`
 }
 
@@ -6046,11 +6046,11 @@ type NetworkPolicyPortPatchInput interface {
 
 // NetworkPolicyPort describes a port to allow traffic on
 type NetworkPolicyPortPatchArgs struct {
-	// If set, indicates that the range of ports from port to endPort, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port.
+	// endPort indicates that the range of ports from port to endPort if set, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port.
 	EndPort pulumi.IntPtrInput `pulumi:"endPort"`
-	// The port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
+	// port represents the port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
 	Port pulumi.Input `pulumi:"port"`
-	// The protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field defaults to TCP.
+	// protocol represents the protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field defaults to TCP.
 	Protocol pulumi.StringPtrInput `pulumi:"protocol"`
 }
 
@@ -6106,17 +6106,17 @@ func (o NetworkPolicyPortPatchOutput) ToNetworkPolicyPortPatchOutputWithContext(
 	return o
 }
 
-// If set, indicates that the range of ports from port to endPort, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port.
+// endPort indicates that the range of ports from port to endPort if set, inclusive, should be allowed by the policy. This field cannot be defined if the port field is not defined or if the port field is defined as a named (string) port. The endPort must be equal or greater than port.
 func (o NetworkPolicyPortPatchOutput) EndPort() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v NetworkPolicyPortPatch) *int { return v.EndPort }).(pulumi.IntPtrOutput)
 }
 
-// The port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
+// port represents the port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
 func (o NetworkPolicyPortPatchOutput) Port() pulumi.AnyOutput {
 	return o.ApplyT(func(v NetworkPolicyPortPatch) interface{} { return v.Port }).(pulumi.AnyOutput)
 }
 
-// The protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field defaults to TCP.
+// protocol represents the protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field defaults to TCP.
 func (o NetworkPolicyPortPatchOutput) Protocol() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v NetworkPolicyPortPatch) *string { return v.Protocol }).(pulumi.StringPtrOutput)
 }
@@ -6143,13 +6143,13 @@ func (o NetworkPolicyPortPatchArrayOutput) Index(i pulumi.IntInput) NetworkPolic
 
 // NetworkPolicySpec provides the specification of a NetworkPolicy
 type NetworkPolicySpec struct {
-	// List of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
+	// egress is a list of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
 	Egress []NetworkPolicyEgressRule `pulumi:"egress"`
-	// List of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)
+	// ingress is a list of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)
 	Ingress []NetworkPolicyIngressRule `pulumi:"ingress"`
-	// Selects the pods to which this NetworkPolicy object applies. The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
+	// podSelector selects the pods to which this NetworkPolicy object applies. The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
 	PodSelector metav1.LabelSelector `pulumi:"podSelector"`
-	// List of rule types that the NetworkPolicy relates to. Valid options are ["Ingress"], ["Egress"], or ["Ingress", "Egress"]. If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
+	// policyTypes is a list of rule types that the NetworkPolicy relates to. Valid options are ["Ingress"], ["Egress"], or ["Ingress", "Egress"]. If this field is not specified, it will default based on the existence of ingress or egress rules; policies that contain an egress section are assumed to affect egress, and all policies (whether or not they contain an ingress section) are assumed to affect ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
 	PolicyTypes []string `pulumi:"policyTypes"`
 }
 
@@ -6166,13 +6166,13 @@ type NetworkPolicySpecInput interface {
 
 // NetworkPolicySpec provides the specification of a NetworkPolicy
 type NetworkPolicySpecArgs struct {
-	// List of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
+	// egress is a list of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
 	Egress NetworkPolicyEgressRuleArrayInput `pulumi:"egress"`
-	// List of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)
+	// ingress is a list of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)
 	Ingress NetworkPolicyIngressRuleArrayInput `pulumi:"ingress"`
-	// Selects the pods to which this NetworkPolicy object applies. The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
+	// podSelector selects the pods to which this NetworkPolicy object applies. The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
 	PodSelector metav1.LabelSelectorInput `pulumi:"podSelector"`
-	// List of rule types that the NetworkPolicy relates to. Valid options are ["Ingress"], ["Egress"], or ["Ingress", "Egress"]. If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
+	// policyTypes is a list of rule types that the NetworkPolicy relates to. Valid options are ["Ingress"], ["Egress"], or ["Ingress", "Egress"]. If this field is not specified, it will default based on the existence of ingress or egress rules; policies that contain an egress section are assumed to affect egress, and all policies (whether or not they contain an ingress section) are assumed to affect ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
 	PolicyTypes pulumi.StringArrayInput `pulumi:"policyTypes"`
 }
 
@@ -6254,22 +6254,22 @@ func (o NetworkPolicySpecOutput) ToNetworkPolicySpecPtrOutputWithContext(ctx con
 	}).(NetworkPolicySpecPtrOutput)
 }
 
-// List of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
+// egress is a list of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
 func (o NetworkPolicySpecOutput) Egress() NetworkPolicyEgressRuleArrayOutput {
 	return o.ApplyT(func(v NetworkPolicySpec) []NetworkPolicyEgressRule { return v.Egress }).(NetworkPolicyEgressRuleArrayOutput)
 }
 
-// List of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)
+// ingress is a list of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)
 func (o NetworkPolicySpecOutput) Ingress() NetworkPolicyIngressRuleArrayOutput {
 	return o.ApplyT(func(v NetworkPolicySpec) []NetworkPolicyIngressRule { return v.Ingress }).(NetworkPolicyIngressRuleArrayOutput)
 }
 
-// Selects the pods to which this NetworkPolicy object applies. The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
+// podSelector selects the pods to which this NetworkPolicy object applies. The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
 func (o NetworkPolicySpecOutput) PodSelector() metav1.LabelSelectorOutput {
 	return o.ApplyT(func(v NetworkPolicySpec) metav1.LabelSelector { return v.PodSelector }).(metav1.LabelSelectorOutput)
 }
 
-// List of rule types that the NetworkPolicy relates to. Valid options are ["Ingress"], ["Egress"], or ["Ingress", "Egress"]. If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
+// policyTypes is a list of rule types that the NetworkPolicy relates to. Valid options are ["Ingress"], ["Egress"], or ["Ingress", "Egress"]. If this field is not specified, it will default based on the existence of ingress or egress rules; policies that contain an egress section are assumed to affect egress, and all policies (whether or not they contain an ingress section) are assumed to affect ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
 func (o NetworkPolicySpecOutput) PolicyTypes() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v NetworkPolicySpec) []string { return v.PolicyTypes }).(pulumi.StringArrayOutput)
 }
@@ -6298,7 +6298,7 @@ func (o NetworkPolicySpecPtrOutput) Elem() NetworkPolicySpecOutput {
 	}).(NetworkPolicySpecOutput)
 }
 
-// List of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
+// egress is a list of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
 func (o NetworkPolicySpecPtrOutput) Egress() NetworkPolicyEgressRuleArrayOutput {
 	return o.ApplyT(func(v *NetworkPolicySpec) []NetworkPolicyEgressRule {
 		if v == nil {
@@ -6308,7 +6308,7 @@ func (o NetworkPolicySpecPtrOutput) Egress() NetworkPolicyEgressRuleArrayOutput 
 	}).(NetworkPolicyEgressRuleArrayOutput)
 }
 
-// List of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)
+// ingress is a list of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)
 func (o NetworkPolicySpecPtrOutput) Ingress() NetworkPolicyIngressRuleArrayOutput {
 	return o.ApplyT(func(v *NetworkPolicySpec) []NetworkPolicyIngressRule {
 		if v == nil {
@@ -6318,7 +6318,7 @@ func (o NetworkPolicySpecPtrOutput) Ingress() NetworkPolicyIngressRuleArrayOutpu
 	}).(NetworkPolicyIngressRuleArrayOutput)
 }
 
-// Selects the pods to which this NetworkPolicy object applies. The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
+// podSelector selects the pods to which this NetworkPolicy object applies. The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
 func (o NetworkPolicySpecPtrOutput) PodSelector() metav1.LabelSelectorPtrOutput {
 	return o.ApplyT(func(v *NetworkPolicySpec) *metav1.LabelSelector {
 		if v == nil {
@@ -6328,7 +6328,7 @@ func (o NetworkPolicySpecPtrOutput) PodSelector() metav1.LabelSelectorPtrOutput 
 	}).(metav1.LabelSelectorPtrOutput)
 }
 
-// List of rule types that the NetworkPolicy relates to. Valid options are ["Ingress"], ["Egress"], or ["Ingress", "Egress"]. If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
+// policyTypes is a list of rule types that the NetworkPolicy relates to. Valid options are ["Ingress"], ["Egress"], or ["Ingress", "Egress"]. If this field is not specified, it will default based on the existence of ingress or egress rules; policies that contain an egress section are assumed to affect egress, and all policies (whether or not they contain an ingress section) are assumed to affect ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
 func (o NetworkPolicySpecPtrOutput) PolicyTypes() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *NetworkPolicySpec) []string {
 		if v == nil {
@@ -6340,13 +6340,13 @@ func (o NetworkPolicySpecPtrOutput) PolicyTypes() pulumi.StringArrayOutput {
 
 // NetworkPolicySpec provides the specification of a NetworkPolicy
 type NetworkPolicySpecPatch struct {
-	// List of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
+	// egress is a list of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
 	Egress []NetworkPolicyEgressRulePatch `pulumi:"egress"`
-	// List of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)
+	// ingress is a list of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)
 	Ingress []NetworkPolicyIngressRulePatch `pulumi:"ingress"`
-	// Selects the pods to which this NetworkPolicy object applies. The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
+	// podSelector selects the pods to which this NetworkPolicy object applies. The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
 	PodSelector *metav1.LabelSelectorPatch `pulumi:"podSelector"`
-	// List of rule types that the NetworkPolicy relates to. Valid options are ["Ingress"], ["Egress"], or ["Ingress", "Egress"]. If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
+	// policyTypes is a list of rule types that the NetworkPolicy relates to. Valid options are ["Ingress"], ["Egress"], or ["Ingress", "Egress"]. If this field is not specified, it will default based on the existence of ingress or egress rules; policies that contain an egress section are assumed to affect egress, and all policies (whether or not they contain an ingress section) are assumed to affect ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
 	PolicyTypes []string `pulumi:"policyTypes"`
 }
 
@@ -6363,13 +6363,13 @@ type NetworkPolicySpecPatchInput interface {
 
 // NetworkPolicySpec provides the specification of a NetworkPolicy
 type NetworkPolicySpecPatchArgs struct {
-	// List of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
+	// egress is a list of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
 	Egress NetworkPolicyEgressRulePatchArrayInput `pulumi:"egress"`
-	// List of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)
+	// ingress is a list of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)
 	Ingress NetworkPolicyIngressRulePatchArrayInput `pulumi:"ingress"`
-	// Selects the pods to which this NetworkPolicy object applies. The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
+	// podSelector selects the pods to which this NetworkPolicy object applies. The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
 	PodSelector metav1.LabelSelectorPatchPtrInput `pulumi:"podSelector"`
-	// List of rule types that the NetworkPolicy relates to. Valid options are ["Ingress"], ["Egress"], or ["Ingress", "Egress"]. If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
+	// policyTypes is a list of rule types that the NetworkPolicy relates to. Valid options are ["Ingress"], ["Egress"], or ["Ingress", "Egress"]. If this field is not specified, it will default based on the existence of ingress or egress rules; policies that contain an egress section are assumed to affect egress, and all policies (whether or not they contain an ingress section) are assumed to affect ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
 	PolicyTypes pulumi.StringArrayInput `pulumi:"policyTypes"`
 }
 
@@ -6451,22 +6451,22 @@ func (o NetworkPolicySpecPatchOutput) ToNetworkPolicySpecPatchPtrOutputWithConte
 	}).(NetworkPolicySpecPatchPtrOutput)
 }
 
-// List of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
+// egress is a list of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
 func (o NetworkPolicySpecPatchOutput) Egress() NetworkPolicyEgressRulePatchArrayOutput {
 	return o.ApplyT(func(v NetworkPolicySpecPatch) []NetworkPolicyEgressRulePatch { return v.Egress }).(NetworkPolicyEgressRulePatchArrayOutput)
 }
 
-// List of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)
+// ingress is a list of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)
 func (o NetworkPolicySpecPatchOutput) Ingress() NetworkPolicyIngressRulePatchArrayOutput {
 	return o.ApplyT(func(v NetworkPolicySpecPatch) []NetworkPolicyIngressRulePatch { return v.Ingress }).(NetworkPolicyIngressRulePatchArrayOutput)
 }
 
-// Selects the pods to which this NetworkPolicy object applies. The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
+// podSelector selects the pods to which this NetworkPolicy object applies. The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
 func (o NetworkPolicySpecPatchOutput) PodSelector() metav1.LabelSelectorPatchPtrOutput {
 	return o.ApplyT(func(v NetworkPolicySpecPatch) *metav1.LabelSelectorPatch { return v.PodSelector }).(metav1.LabelSelectorPatchPtrOutput)
 }
 
-// List of rule types that the NetworkPolicy relates to. Valid options are ["Ingress"], ["Egress"], or ["Ingress", "Egress"]. If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
+// policyTypes is a list of rule types that the NetworkPolicy relates to. Valid options are ["Ingress"], ["Egress"], or ["Ingress", "Egress"]. If this field is not specified, it will default based on the existence of ingress or egress rules; policies that contain an egress section are assumed to affect egress, and all policies (whether or not they contain an ingress section) are assumed to affect ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
 func (o NetworkPolicySpecPatchOutput) PolicyTypes() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v NetworkPolicySpecPatch) []string { return v.PolicyTypes }).(pulumi.StringArrayOutput)
 }
@@ -6495,7 +6495,7 @@ func (o NetworkPolicySpecPatchPtrOutput) Elem() NetworkPolicySpecPatchOutput {
 	}).(NetworkPolicySpecPatchOutput)
 }
 
-// List of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
+// egress is a list of egress rules to be applied to the selected pods. Outgoing traffic is allowed if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic matches at least one egress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy limits all outgoing traffic (and serves solely to ensure that the pods it selects are isolated by default). This field is beta-level in 1.8
 func (o NetworkPolicySpecPatchPtrOutput) Egress() NetworkPolicyEgressRulePatchArrayOutput {
 	return o.ApplyT(func(v *NetworkPolicySpecPatch) []NetworkPolicyEgressRulePatch {
 		if v == nil {
@@ -6505,7 +6505,7 @@ func (o NetworkPolicySpecPatchPtrOutput) Egress() NetworkPolicyEgressRulePatchAr
 	}).(NetworkPolicyEgressRulePatchArrayOutput)
 }
 
-// List of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)
+// ingress is a list of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)
 func (o NetworkPolicySpecPatchPtrOutput) Ingress() NetworkPolicyIngressRulePatchArrayOutput {
 	return o.ApplyT(func(v *NetworkPolicySpecPatch) []NetworkPolicyIngressRulePatch {
 		if v == nil {
@@ -6515,7 +6515,7 @@ func (o NetworkPolicySpecPatchPtrOutput) Ingress() NetworkPolicyIngressRulePatch
 	}).(NetworkPolicyIngressRulePatchArrayOutput)
 }
 
-// Selects the pods to which this NetworkPolicy object applies. The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
+// podSelector selects the pods to which this NetworkPolicy object applies. The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
 func (o NetworkPolicySpecPatchPtrOutput) PodSelector() metav1.LabelSelectorPatchPtrOutput {
 	return o.ApplyT(func(v *NetworkPolicySpecPatch) *metav1.LabelSelectorPatch {
 		if v == nil {
@@ -6525,7 +6525,7 @@ func (o NetworkPolicySpecPatchPtrOutput) PodSelector() metav1.LabelSelectorPatch
 	}).(metav1.LabelSelectorPatchPtrOutput)
 }
 
-// List of rule types that the NetworkPolicy relates to. Valid options are ["Ingress"], ["Egress"], or ["Ingress", "Egress"]. If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
+// policyTypes is a list of rule types that the NetworkPolicy relates to. Valid options are ["Ingress"], ["Egress"], or ["Ingress", "Egress"]. If this field is not specified, it will default based on the existence of ingress or egress rules; policies that contain an egress section are assumed to affect egress, and all policies (whether or not they contain an ingress section) are assumed to affect ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
 func (o NetworkPolicySpecPatchPtrOutput) PolicyTypes() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *NetworkPolicySpecPatch) []string {
 		if v == nil {
@@ -6535,9 +6535,9 @@ func (o NetworkPolicySpecPatchPtrOutput) PolicyTypes() pulumi.StringArrayOutput 
 	}).(pulumi.StringArrayOutput)
 }
 
-// NetworkPolicyStatus describe the current state of the NetworkPolicy.
+// NetworkPolicyStatus describes the current state of the NetworkPolicy.
 type NetworkPolicyStatus struct {
-	// Conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
+	// conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
 	Conditions []metav1.Condition `pulumi:"conditions"`
 }
 
@@ -6552,9 +6552,9 @@ type NetworkPolicyStatusInput interface {
 	ToNetworkPolicyStatusOutputWithContext(context.Context) NetworkPolicyStatusOutput
 }
 
-// NetworkPolicyStatus describe the current state of the NetworkPolicy.
+// NetworkPolicyStatus describes the current state of the NetworkPolicy.
 type NetworkPolicyStatusArgs struct {
-	// Conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
+	// conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
 	Conditions metav1.ConditionArrayInput `pulumi:"conditions"`
 }
 
@@ -6611,7 +6611,7 @@ func (i *networkPolicyStatusPtrType) ToNetworkPolicyStatusPtrOutputWithContext(c
 	return pulumi.ToOutputWithContext(ctx, i).(NetworkPolicyStatusPtrOutput)
 }
 
-// NetworkPolicyStatus describe the current state of the NetworkPolicy.
+// NetworkPolicyStatus describes the current state of the NetworkPolicy.
 type NetworkPolicyStatusOutput struct{ *pulumi.OutputState }
 
 func (NetworkPolicyStatusOutput) ElementType() reflect.Type {
@@ -6636,7 +6636,7 @@ func (o NetworkPolicyStatusOutput) ToNetworkPolicyStatusPtrOutputWithContext(ctx
 	}).(NetworkPolicyStatusPtrOutput)
 }
 
-// Conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
+// conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
 func (o NetworkPolicyStatusOutput) Conditions() metav1.ConditionArrayOutput {
 	return o.ApplyT(func(v NetworkPolicyStatus) []metav1.Condition { return v.Conditions }).(metav1.ConditionArrayOutput)
 }
@@ -6665,7 +6665,7 @@ func (o NetworkPolicyStatusPtrOutput) Elem() NetworkPolicyStatusOutput {
 	}).(NetworkPolicyStatusOutput)
 }
 
-// Conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
+// conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
 func (o NetworkPolicyStatusPtrOutput) Conditions() metav1.ConditionArrayOutput {
 	return o.ApplyT(func(v *NetworkPolicyStatus) []metav1.Condition {
 		if v == nil {
@@ -6675,9 +6675,9 @@ func (o NetworkPolicyStatusPtrOutput) Conditions() metav1.ConditionArrayOutput {
 	}).(metav1.ConditionArrayOutput)
 }
 
-// NetworkPolicyStatus describe the current state of the NetworkPolicy.
+// NetworkPolicyStatus describes the current state of the NetworkPolicy.
 type NetworkPolicyStatusPatch struct {
-	// Conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
+	// conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
 	Conditions []metav1.ConditionPatch `pulumi:"conditions"`
 }
 
@@ -6692,9 +6692,9 @@ type NetworkPolicyStatusPatchInput interface {
 	ToNetworkPolicyStatusPatchOutputWithContext(context.Context) NetworkPolicyStatusPatchOutput
 }
 
-// NetworkPolicyStatus describe the current state of the NetworkPolicy.
+// NetworkPolicyStatus describes the current state of the NetworkPolicy.
 type NetworkPolicyStatusPatchArgs struct {
-	// Conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
+	// conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
 	Conditions metav1.ConditionPatchArrayInput `pulumi:"conditions"`
 }
 
@@ -6751,7 +6751,7 @@ func (i *networkPolicyStatusPatchPtrType) ToNetworkPolicyStatusPatchPtrOutputWit
 	return pulumi.ToOutputWithContext(ctx, i).(NetworkPolicyStatusPatchPtrOutput)
 }
 
-// NetworkPolicyStatus describe the current state of the NetworkPolicy.
+// NetworkPolicyStatus describes the current state of the NetworkPolicy.
 type NetworkPolicyStatusPatchOutput struct{ *pulumi.OutputState }
 
 func (NetworkPolicyStatusPatchOutput) ElementType() reflect.Type {
@@ -6776,7 +6776,7 @@ func (o NetworkPolicyStatusPatchOutput) ToNetworkPolicyStatusPatchPtrOutputWithC
 	}).(NetworkPolicyStatusPatchPtrOutput)
 }
 
-// Conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
+// conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
 func (o NetworkPolicyStatusPatchOutput) Conditions() metav1.ConditionPatchArrayOutput {
 	return o.ApplyT(func(v NetworkPolicyStatusPatch) []metav1.ConditionPatch { return v.Conditions }).(metav1.ConditionPatchArrayOutput)
 }
@@ -6805,7 +6805,7 @@ func (o NetworkPolicyStatusPatchPtrOutput) Elem() NetworkPolicyStatusPatchOutput
 	}).(NetworkPolicyStatusPatchOutput)
 }
 
-// Conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
+// conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
 func (o NetworkPolicyStatusPatchPtrOutput) Conditions() metav1.ConditionPatchArrayOutput {
 	return o.ApplyT(func(v *NetworkPolicyStatusPatch) []metav1.ConditionPatch {
 		if v == nil {
@@ -6817,9 +6817,9 @@ func (o NetworkPolicyStatusPatchPtrOutput) Conditions() metav1.ConditionPatchArr
 
 // ServiceBackendPort is the service port being referenced.
 type ServiceBackendPort struct {
-	// Name is the name of the port on the Service. This is a mutually exclusive setting with "Number".
+	// name is the name of the port on the Service. This is a mutually exclusive setting with "Number".
 	Name *string `pulumi:"name"`
-	// Number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with "Name".
+	// number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with "Name".
 	Number *int `pulumi:"number"`
 }
 
@@ -6836,9 +6836,9 @@ type ServiceBackendPortInput interface {
 
 // ServiceBackendPort is the service port being referenced.
 type ServiceBackendPortArgs struct {
-	// Name is the name of the port on the Service. This is a mutually exclusive setting with "Number".
+	// name is the name of the port on the Service. This is a mutually exclusive setting with "Number".
 	Name pulumi.StringPtrInput `pulumi:"name"`
-	// Number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with "Name".
+	// number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with "Name".
 	Number pulumi.IntPtrInput `pulumi:"number"`
 }
 
@@ -6920,12 +6920,12 @@ func (o ServiceBackendPortOutput) ToServiceBackendPortPtrOutputWithContext(ctx c
 	}).(ServiceBackendPortPtrOutput)
 }
 
-// Name is the name of the port on the Service. This is a mutually exclusive setting with "Number".
+// name is the name of the port on the Service. This is a mutually exclusive setting with "Number".
 func (o ServiceBackendPortOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ServiceBackendPort) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-// Number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with "Name".
+// number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with "Name".
 func (o ServiceBackendPortOutput) Number() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ServiceBackendPort) *int { return v.Number }).(pulumi.IntPtrOutput)
 }
@@ -6954,7 +6954,7 @@ func (o ServiceBackendPortPtrOutput) Elem() ServiceBackendPortOutput {
 	}).(ServiceBackendPortOutput)
 }
 
-// Name is the name of the port on the Service. This is a mutually exclusive setting with "Number".
+// name is the name of the port on the Service. This is a mutually exclusive setting with "Number".
 func (o ServiceBackendPortPtrOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ServiceBackendPort) *string {
 		if v == nil {
@@ -6964,7 +6964,7 @@ func (o ServiceBackendPortPtrOutput) Name() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with "Name".
+// number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with "Name".
 func (o ServiceBackendPortPtrOutput) Number() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *ServiceBackendPort) *int {
 		if v == nil {
@@ -6976,9 +6976,9 @@ func (o ServiceBackendPortPtrOutput) Number() pulumi.IntPtrOutput {
 
 // ServiceBackendPort is the service port being referenced.
 type ServiceBackendPortPatch struct {
-	// Name is the name of the port on the Service. This is a mutually exclusive setting with "Number".
+	// name is the name of the port on the Service. This is a mutually exclusive setting with "Number".
 	Name *string `pulumi:"name"`
-	// Number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with "Name".
+	// number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with "Name".
 	Number *int `pulumi:"number"`
 }
 
@@ -6995,9 +6995,9 @@ type ServiceBackendPortPatchInput interface {
 
 // ServiceBackendPort is the service port being referenced.
 type ServiceBackendPortPatchArgs struct {
-	// Name is the name of the port on the Service. This is a mutually exclusive setting with "Number".
+	// name is the name of the port on the Service. This is a mutually exclusive setting with "Number".
 	Name pulumi.StringPtrInput `pulumi:"name"`
-	// Number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with "Name".
+	// number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with "Name".
 	Number pulumi.IntPtrInput `pulumi:"number"`
 }
 
@@ -7079,12 +7079,12 @@ func (o ServiceBackendPortPatchOutput) ToServiceBackendPortPatchPtrOutputWithCon
 	}).(ServiceBackendPortPatchPtrOutput)
 }
 
-// Name is the name of the port on the Service. This is a mutually exclusive setting with "Number".
+// name is the name of the port on the Service. This is a mutually exclusive setting with "Number".
 func (o ServiceBackendPortPatchOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ServiceBackendPortPatch) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-// Number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with "Name".
+// number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with "Name".
 func (o ServiceBackendPortPatchOutput) Number() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v ServiceBackendPortPatch) *int { return v.Number }).(pulumi.IntPtrOutput)
 }
@@ -7113,7 +7113,7 @@ func (o ServiceBackendPortPatchPtrOutput) Elem() ServiceBackendPortPatchOutput {
 	}).(ServiceBackendPortPatchOutput)
 }
 
-// Name is the name of the port on the Service. This is a mutually exclusive setting with "Number".
+// name is the name of the port on the Service. This is a mutually exclusive setting with "Number".
 func (o ServiceBackendPortPatchPtrOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ServiceBackendPortPatch) *string {
 		if v == nil {
@@ -7123,7 +7123,7 @@ func (o ServiceBackendPortPatchPtrOutput) Name() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with "Name".
+// number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with "Name".
 func (o ServiceBackendPortPatchPtrOutput) Number() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *ServiceBackendPortPatch) *int {
 		if v == nil {

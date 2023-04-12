@@ -30,12 +30,12 @@ public final class VolumeAttachment {
      */
     private @Nullable ObjectMeta metadata;
     /**
-     * @return Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
+     * @return spec represents specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
      * 
      */
     private VolumeAttachmentSpec spec;
     /**
-     * @return Status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
+     * @return status represents status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
      * 
      */
     private @Nullable VolumeAttachmentStatus status;
@@ -63,14 +63,14 @@ public final class VolumeAttachment {
         return Optional.ofNullable(this.metadata);
     }
     /**
-     * @return Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
+     * @return spec represents specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
      * 
      */
     public VolumeAttachmentSpec spec() {
         return this.spec;
     }
     /**
-     * @return Status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
+     * @return status represents status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
      * 
      */
     public Optional<VolumeAttachmentStatus> status() {

@@ -68,14 +68,14 @@ public final class LeaseArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+     * spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
     @Import(name="spec")
     private @Nullable Output<LeaseSpecArgs> spec;
 
     /**
-     * @return Specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+     * @return spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
     public Optional<Output<LeaseSpecArgs>> spec() {
@@ -173,7 +173,7 @@ public final class LeaseArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param spec Specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+         * @param spec spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
          * 
          * @return builder
          * 
@@ -184,7 +184,7 @@ public final class LeaseArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param spec Specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+         * @param spec spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
          * 
          * @return builder
          * 

@@ -27,9 +27,9 @@ type NetworkPolicyPatch struct {
 	Kind pulumi.StringPtrOutput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPatchPtrOutput `pulumi:"metadata"`
-	// Specification of the desired behavior for this NetworkPolicy.
+	// spec represents the specification of the desired behavior for this NetworkPolicy.
 	Spec NetworkPolicySpecPatchPtrOutput `pulumi:"spec"`
-	// Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	// status represents the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Status NetworkPolicyStatusPatchPtrOutput `pulumi:"status"`
 }
 
@@ -86,7 +86,7 @@ type networkPolicyPatchArgs struct {
 	Kind *string `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
-	// Specification of the desired behavior for this NetworkPolicy.
+	// spec represents the specification of the desired behavior for this NetworkPolicy.
 	Spec *NetworkPolicySpecPatch `pulumi:"spec"`
 }
 
@@ -98,7 +98,7 @@ type NetworkPolicyPatchArgs struct {
 	Kind pulumi.StringPtrInput
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPatchPtrInput
-	// Specification of the desired behavior for this NetworkPolicy.
+	// spec represents the specification of the desired behavior for this NetworkPolicy.
 	Spec NetworkPolicySpecPatchPtrInput
 }
 
@@ -204,12 +204,12 @@ func (o NetworkPolicyPatchOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
 	return o.ApplyT(func(v *NetworkPolicyPatch) metav1.ObjectMetaPatchPtrOutput { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
 }
 
-// Specification of the desired behavior for this NetworkPolicy.
+// spec represents the specification of the desired behavior for this NetworkPolicy.
 func (o NetworkPolicyPatchOutput) Spec() NetworkPolicySpecPatchPtrOutput {
 	return o.ApplyT(func(v *NetworkPolicyPatch) NetworkPolicySpecPatchPtrOutput { return v.Spec }).(NetworkPolicySpecPatchPtrOutput)
 }
 
-// Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+// status represents the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 func (o NetworkPolicyPatchOutput) Status() NetworkPolicyStatusPatchPtrOutput {
 	return o.ApplyT(func(v *NetworkPolicyPatch) NetworkPolicyStatusPatchPtrOutput { return v.Status }).(NetworkPolicyStatusPatchPtrOutput)
 }

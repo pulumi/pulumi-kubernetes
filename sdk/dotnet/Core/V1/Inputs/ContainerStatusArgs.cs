@@ -15,56 +15,76 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     /// </summary>
     public class ContainerStatusArgs : global::Pulumi.ResourceArgs
     {
+        [Input("allocatedResources")]
+        private InputMap<string>? _allocatedResources;
+
         /// <summary>
-        /// Container's ID in the format '&lt;type&gt;://&lt;container_id&gt;'.
+        /// AllocatedResources represents the compute resources allocated for this container by the node. Kubelet sets this value to Container.Resources.Requests upon successful pod admission and after successfully admitting desired pod resize.
+        /// </summary>
+        public InputMap<string> AllocatedResources
+        {
+            get => _allocatedResources ?? (_allocatedResources = new InputMap<string>());
+            set => _allocatedResources = value;
+        }
+
+        /// <summary>
+        /// ContainerID is the ID of the container in the format '&lt;type&gt;://&lt;container_id&gt;'. Where type is a container runtime identifier, returned from Version call of CRI API (for example "containerd").
         /// </summary>
         [Input("containerID")]
         public Input<string>? ContainerID { get; set; }
 
         /// <summary>
-        /// The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images.
+        /// Image is the name of container image that the container is running. The container image may not match the image used in the PodSpec, as it may have been resolved by the runtime. More info: https://kubernetes.io/docs/concepts/containers/images.
         /// </summary>
         [Input("image", required: true)]
         public Input<string> Image { get; set; } = null!;
 
         /// <summary>
-        /// ImageID of the container's image.
+        /// ImageID is the image ID of the container's image. The image ID may not match the image ID of the image used in the PodSpec, as it may have been resolved by the runtime.
         /// </summary>
         [Input("imageID", required: true)]
         public Input<string> ImageID { get; set; } = null!;
 
         /// <summary>
-        /// Details about the container's last termination condition.
+        /// LastTerminationState holds the last termination state of the container to help debug container crashes and restarts. This field is not populated if the container is still running and RestartCount is 0.
         /// </summary>
         [Input("lastState")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.ContainerStateArgs>? LastState { get; set; }
 
         /// <summary>
-        /// This must be a DNS_LABEL. Each container in a pod must have a unique name. Cannot be updated.
+        /// Name is a DNS_LABEL representing the unique name of the container. Each container in a pod must have a unique name across all container types. Cannot be updated.
         /// </summary>
         [Input("name", required: true)]
         public Input<string> Name { get; set; } = null!;
 
         /// <summary>
-        /// Specifies whether the container has passed its readiness probe.
+        /// Ready specifies whether the container is currently passing its readiness check. The value will change as readiness probes keep executing. If no readiness probes are specified, this field defaults to true once the container is fully started (see Started field).
+        /// 
+        /// The value is typically used to determine whether a container is ready to accept traffic.
         /// </summary>
         [Input("ready", required: true)]
         public Input<bool> Ready { get; set; } = null!;
 
         /// <summary>
-        /// The number of times the container has been restarted.
+        /// Resources represents the compute resource requests and limits that have been successfully enacted on the running container after it has been started or has been successfully resized.
+        /// </summary>
+        [Input("resources")]
+        public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.ResourceRequirementsArgs>? Resources { get; set; }
+
+        /// <summary>
+        /// RestartCount holds the number of times the container has been restarted. Kubelet makes an effort to always increment the value, but there are cases when the state may be lost due to node restarts and then the value may be reset to 0. The value is never negative.
         /// </summary>
         [Input("restartCount", required: true)]
         public Input<int> RestartCount { get; set; } = null!;
 
         /// <summary>
-        /// Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is defined.
+        /// Started indicates whether the container has finished its postStart lifecycle hook and passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. In both cases, startup probes will run again. Is always true when no startupProbe is defined and container is running and has passed the postStart lifecycle hook. The null value must be treated the same as false.
         /// </summary>
         [Input("started")]
         public Input<bool>? Started { get; set; }
 
         /// <summary>
-        /// Details about the container's current condition.
+        /// State holds details about the container's current condition.
         /// </summary>
         [Input("state")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.ContainerStateArgs>? State { get; set; }

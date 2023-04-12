@@ -19,14 +19,14 @@ public final class HPAScalingPolicyArgs extends com.pulumi.resources.ResourceArg
     public static final HPAScalingPolicyArgs Empty = new HPAScalingPolicyArgs();
 
     /**
-     * PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
+     * periodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
      * 
      */
     @Import(name="periodSeconds", required=true)
     private Output<Integer> periodSeconds;
 
     /**
-     * @return PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
+     * @return periodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
      * 
      */
     public Output<Integer> periodSeconds() {
@@ -34,14 +34,14 @@ public final class HPAScalingPolicyArgs extends com.pulumi.resources.ResourceArg
     }
 
     /**
-     * Type is used to specify the scaling policy.
+     * type is used to specify the scaling policy.
      * 
      */
     @Import(name="type", required=true)
     private Output<String> type;
 
     /**
-     * @return Type is used to specify the scaling policy.
+     * @return type is used to specify the scaling policy.
      * 
      */
     public Output<String> type() {
@@ -49,14 +49,14 @@ public final class HPAScalingPolicyArgs extends com.pulumi.resources.ResourceArg
     }
 
     /**
-     * Value contains the amount of change which is permitted by the policy. It must be greater than zero
+     * value contains the amount of change which is permitted by the policy. It must be greater than zero
      * 
      */
     @Import(name="value", required=true)
     private Output<Integer> value;
 
     /**
-     * @return Value contains the amount of change which is permitted by the policy. It must be greater than zero
+     * @return value contains the amount of change which is permitted by the policy. It must be greater than zero
      * 
      */
     public Output<Integer> value() {
@@ -90,7 +90,7 @@ public final class HPAScalingPolicyArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param periodSeconds PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
+         * @param periodSeconds periodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
          * 
          * @return builder
          * 
@@ -101,7 +101,7 @@ public final class HPAScalingPolicyArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param periodSeconds PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
+         * @param periodSeconds periodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
          * 
          * @return builder
          * 
@@ -111,7 +111,7 @@ public final class HPAScalingPolicyArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param type Type is used to specify the scaling policy.
+         * @param type type is used to specify the scaling policy.
          * 
          * @return builder
          * 
@@ -122,7 +122,7 @@ public final class HPAScalingPolicyArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param type Type is used to specify the scaling policy.
+         * @param type type is used to specify the scaling policy.
          * 
          * @return builder
          * 
@@ -132,7 +132,7 @@ public final class HPAScalingPolicyArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param value Value contains the amount of change which is permitted by the policy. It must be greater than zero
+         * @param value value contains the amount of change which is permitted by the policy. It must be greater than zero
          * 
          * @return builder
          * 
@@ -143,7 +143,7 @@ public final class HPAScalingPolicyArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param value Value contains the amount of change which is permitted by the policy. It must be greater than zero
+         * @param value value contains the amount of change which is permitted by the policy. It must be greater than zero
          * 
          * @return builder
          * 

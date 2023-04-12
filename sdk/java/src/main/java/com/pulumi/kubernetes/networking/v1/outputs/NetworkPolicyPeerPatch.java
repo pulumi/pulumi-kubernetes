@@ -13,46 +13,46 @@ import javax.annotation.Nullable;
 @CustomType
 public final class NetworkPolicyPeerPatch {
     /**
-     * @return IPBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
+     * @return ipBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
      * 
      */
     private @Nullable IPBlockPatch ipBlock;
     /**
-     * @return Selects Namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
+     * @return namespaceSelector selects namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
      * 
-     * If PodSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects all Pods in the Namespaces selected by NamespaceSelector.
+     * If podSelector is also set, then the NetworkPolicyPeer as a whole selects the pods matching podSelector in the namespaces selected by namespaceSelector. Otherwise it selects all pods in the namespaces selected by namespaceSelector.
      * 
      */
     private @Nullable LabelSelectorPatch namespaceSelector;
     /**
-     * @return This is a label selector which selects Pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
+     * @return podSelector is a label selector which selects pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
      * 
-     * If NamespaceSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects the Pods matching PodSelector in the policy&#39;s own Namespace.
+     * If namespaceSelector is also set, then the NetworkPolicyPeer as a whole selects the pods matching podSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects the pods matching podSelector in the policy&#39;s own namespace.
      * 
      */
     private @Nullable LabelSelectorPatch podSelector;
 
     private NetworkPolicyPeerPatch() {}
     /**
-     * @return IPBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
+     * @return ipBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
      * 
      */
     public Optional<IPBlockPatch> ipBlock() {
         return Optional.ofNullable(this.ipBlock);
     }
     /**
-     * @return Selects Namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
+     * @return namespaceSelector selects namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
      * 
-     * If PodSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects all Pods in the Namespaces selected by NamespaceSelector.
+     * If podSelector is also set, then the NetworkPolicyPeer as a whole selects the pods matching podSelector in the namespaces selected by namespaceSelector. Otherwise it selects all pods in the namespaces selected by namespaceSelector.
      * 
      */
     public Optional<LabelSelectorPatch> namespaceSelector() {
         return Optional.ofNullable(this.namespaceSelector);
     }
     /**
-     * @return This is a label selector which selects Pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
+     * @return podSelector is a label selector which selects pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
      * 
-     * If NamespaceSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects the Pods matching PodSelector in the policy&#39;s own Namespace.
+     * If namespaceSelector is also set, then the NetworkPolicyPeer as a whole selects the pods matching podSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects the pods matching podSelector in the policy&#39;s own namespace.
      * 
      */
     public Optional<LabelSelectorPatch> podSelector() {

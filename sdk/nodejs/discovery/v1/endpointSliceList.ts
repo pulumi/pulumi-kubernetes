@@ -42,7 +42,7 @@ export class EndpointSliceList extends pulumi.CustomResource {
      */
     public readonly apiVersion!: pulumi.Output<"discovery.k8s.io/v1">;
     /**
-     * List of endpoint slices
+     * items is the list of endpoint slices
      */
     public readonly items!: pulumi.Output<outputs.discovery.v1.EndpointSlice[]>;
     /**
@@ -92,7 +92,7 @@ export interface EndpointSliceListArgs {
      */
     apiVersion?: pulumi.Input<"discovery.k8s.io/v1">;
     /**
-     * List of endpoint slices
+     * items is the list of endpoint slices
      */
     items: pulumi.Input<pulumi.Input<inputs.discovery.v1.EndpointSlice>[]>;
     /**

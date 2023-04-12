@@ -13,7 +13,14 @@ import javax.annotation.Nullable;
 @CustomType
 public final class EndpointPortPatch {
     /**
-     * @return The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+     * @return The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:
+     * 
+     * * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
+     * 
+     * * Kubernetes-defined prefixed names:
+     *   * &#39;kubernetes.io/h2c&#39; - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+     * 
+     * * Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.
      * 
      */
     private @Nullable String appProtocol;
@@ -35,7 +42,14 @@ public final class EndpointPortPatch {
 
     private EndpointPortPatch() {}
     /**
-     * @return The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+     * @return The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:
+     * 
+     * * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
+     * 
+     * * Kubernetes-defined prefixed names:
+     *   * &#39;kubernetes.io/h2c&#39; - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+     * 
+     * * Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.
      * 
      */
     public Optional<String> appProtocol() {

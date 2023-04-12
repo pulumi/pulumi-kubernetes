@@ -34,14 +34,14 @@ public final class ResourceMetricStatusArgs extends com.pulumi.resources.Resourc
     }
 
     /**
-     * Name is the name of the resource in question.
+     * name is the name of the resource in question.
      * 
      */
     @Import(name="name", required=true)
     private Output<String> name;
 
     /**
-     * @return Name is the name of the resource in question.
+     * @return name is the name of the resource in question.
      * 
      */
     public Output<String> name() {
@@ -95,7 +95,7 @@ public final class ResourceMetricStatusArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param name Name is the name of the resource in question.
+         * @param name name is the name of the resource in question.
          * 
          * @return builder
          * 
@@ -106,7 +106,7 @@ public final class ResourceMetricStatusArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param name Name is the name of the resource in question.
+         * @param name name is the name of the resource in question.
          * 
          * @return builder
          * 

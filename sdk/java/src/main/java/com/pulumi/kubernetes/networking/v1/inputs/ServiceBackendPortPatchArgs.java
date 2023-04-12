@@ -21,14 +21,14 @@ public final class ServiceBackendPortPatchArgs extends com.pulumi.resources.Reso
     public static final ServiceBackendPortPatchArgs Empty = new ServiceBackendPortPatchArgs();
 
     /**
-     * Name is the name of the port on the Service. This is a mutually exclusive setting with &#34;Number&#34;.
+     * name is the name of the port on the Service. This is a mutually exclusive setting with &#34;Number&#34;.
      * 
      */
     @Import(name="name")
     private @Nullable Output<String> name;
 
     /**
-     * @return Name is the name of the port on the Service. This is a mutually exclusive setting with &#34;Number&#34;.
+     * @return name is the name of the port on the Service. This is a mutually exclusive setting with &#34;Number&#34;.
      * 
      */
     public Optional<Output<String>> name() {
@@ -36,14 +36,14 @@ public final class ServiceBackendPortPatchArgs extends com.pulumi.resources.Reso
     }
 
     /**
-     * Number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with &#34;Name&#34;.
+     * number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with &#34;Name&#34;.
      * 
      */
     @Import(name="number")
     private @Nullable Output<Integer> number;
 
     /**
-     * @return Number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with &#34;Name&#34;.
+     * @return number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with &#34;Name&#34;.
      * 
      */
     public Optional<Output<Integer>> number() {
@@ -76,7 +76,7 @@ public final class ServiceBackendPortPatchArgs extends com.pulumi.resources.Reso
         }
 
         /**
-         * @param name Name is the name of the port on the Service. This is a mutually exclusive setting with &#34;Number&#34;.
+         * @param name name is the name of the port on the Service. This is a mutually exclusive setting with &#34;Number&#34;.
          * 
          * @return builder
          * 
@@ -87,7 +87,7 @@ public final class ServiceBackendPortPatchArgs extends com.pulumi.resources.Reso
         }
 
         /**
-         * @param name Name is the name of the port on the Service. This is a mutually exclusive setting with &#34;Number&#34;.
+         * @param name name is the name of the port on the Service. This is a mutually exclusive setting with &#34;Number&#34;.
          * 
          * @return builder
          * 
@@ -97,7 +97,7 @@ public final class ServiceBackendPortPatchArgs extends com.pulumi.resources.Reso
         }
 
         /**
-         * @param number Number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with &#34;Name&#34;.
+         * @param number number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with &#34;Name&#34;.
          * 
          * @return builder
          * 
@@ -108,7 +108,7 @@ public final class ServiceBackendPortPatchArgs extends com.pulumi.resources.Reso
         }
 
         /**
-         * @param number Number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with &#34;Name&#34;.
+         * @param number number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with &#34;Name&#34;.
          * 
          * @return builder
          * 

@@ -40,13 +40,13 @@ namespace Pulumi.Kubernetes.Types.Inputs.Meta.V1
         public Input<string>? Kind { get; set; }
 
         /// <summary>
-        /// Name of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#names
+        /// Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#names
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
         /// <summary>
-        /// UID of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+        /// UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
         /// </summary>
         [Input("uid")]
         public Input<string>? Uid { get; set; }

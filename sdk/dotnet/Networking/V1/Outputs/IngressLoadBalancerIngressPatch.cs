@@ -17,15 +17,15 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking.V1
     public sealed class IngressLoadBalancerIngressPatch
     {
         /// <summary>
-        /// Hostname is set for load-balancer ingress points that are DNS based.
+        /// hostname is set for load-balancer ingress points that are DNS based.
         /// </summary>
         public readonly string Hostname;
         /// <summary>
-        /// IP is set for load-balancer ingress points that are IP based.
+        /// ip is set for load-balancer ingress points that are IP based.
         /// </summary>
         public readonly string Ip;
         /// <summary>
-        /// Ports provides information about the ports exposed by this LoadBalancer.
+        /// ports provides information about the ports exposed by this LoadBalancer.
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Networking.V1.IngressPortStatusPatch> Ports;
 

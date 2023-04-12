@@ -16,7 +16,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V1
     public class HorizontalPodAutoscalerSpecArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
+        /// maxReplicas is the upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
         /// </summary>
         [Input("maxReplicas", required: true)]
         public Input<int> MaxReplicas { get; set; } = null!;
@@ -34,7 +34,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V1
         public Input<Pulumi.Kubernetes.Types.Inputs.Autoscaling.V1.CrossVersionObjectReferenceArgs> ScaleTargetRef { get; set; } = null!;
 
         /// <summary>
-        /// target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
+        /// targetCPUUtilizationPercentage is the target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
         /// </summary>
         [Input("targetCPUUtilizationPercentage")]
         public Input<int>? TargetCPUUtilizationPercentage { get; set; }

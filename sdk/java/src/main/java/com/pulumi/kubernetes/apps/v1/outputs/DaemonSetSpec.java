@@ -30,7 +30,7 @@ public final class DaemonSetSpec {
      */
     private LabelSelector selector;
     /**
-     * @return An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template&#39;s node selector (or on every node if no node selector is specified). More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+     * @return An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template&#39;s node selector (or on every node if no node selector is specified). The only allowed template.spec.restartPolicy value is &#34;Always&#34;. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
      * 
      */
     private PodTemplateSpec template;
@@ -63,7 +63,7 @@ public final class DaemonSetSpec {
         return this.selector;
     }
     /**
-     * @return An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template&#39;s node selector (or on every node if no node selector is specified). More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+     * @return An object that describes the pod that will be created. The DaemonSet will create exactly one copy of this pod on every node that matches the template&#39;s node selector (or on every node if no node selector is specified). The only allowed template.spec.restartPolicy value is &#34;Always&#34;. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
      * 
      */
     public PodTemplateSpec template() {

@@ -17,7 +17,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Node.V1
     public sealed class Overhead
     {
         /// <summary>
-        /// PodFixed represents the fixed resource overhead associated with running a pod.
+        /// podFixed represents the fixed resource overhead associated with running a pod.
         /// </summary>
         public readonly ImmutableDictionary<string, string> PodFixed;
 

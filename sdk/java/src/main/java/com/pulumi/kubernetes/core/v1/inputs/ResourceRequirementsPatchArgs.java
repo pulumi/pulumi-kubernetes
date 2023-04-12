@@ -27,7 +27,7 @@ public final class ResourceRequirementsPatchArgs extends com.pulumi.resources.Re
      * 
      * This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
      * 
-     * This field is immutable.
+     * This field is immutable. It can only be set for containers.
      * 
      */
     @Import(name="claims")
@@ -38,7 +38,7 @@ public final class ResourceRequirementsPatchArgs extends com.pulumi.resources.Re
      * 
      * This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
      * 
-     * This field is immutable.
+     * This field is immutable. It can only be set for containers.
      * 
      */
     public Optional<Output<List<ResourceClaimPatchArgs>>> claims() {
@@ -61,14 +61,14 @@ public final class ResourceRequirementsPatchArgs extends com.pulumi.resources.Re
     }
 
     /**
-     * Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+     * Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
      * 
      */
     @Import(name="requests")
     private @Nullable Output<Map<String,String>> requests;
 
     /**
-     * @return Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+     * @return Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
      * 
      */
     public Optional<Output<Map<String,String>>> requests() {
@@ -106,7 +106,7 @@ public final class ResourceRequirementsPatchArgs extends com.pulumi.resources.Re
          * 
          * This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
          * 
-         * This field is immutable.
+         * This field is immutable. It can only be set for containers.
          * 
          * @return builder
          * 
@@ -121,7 +121,7 @@ public final class ResourceRequirementsPatchArgs extends com.pulumi.resources.Re
          * 
          * This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
          * 
-         * This field is immutable.
+         * This field is immutable. It can only be set for containers.
          * 
          * @return builder
          * 
@@ -135,7 +135,7 @@ public final class ResourceRequirementsPatchArgs extends com.pulumi.resources.Re
          * 
          * This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
          * 
-         * This field is immutable.
+         * This field is immutable. It can only be set for containers.
          * 
          * @return builder
          * 
@@ -166,7 +166,7 @@ public final class ResourceRequirementsPatchArgs extends com.pulumi.resources.Re
         }
 
         /**
-         * @param requests Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+         * @param requests Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
          * 
          * @return builder
          * 
@@ -177,7 +177,7 @@ public final class ResourceRequirementsPatchArgs extends com.pulumi.resources.Re
         }
 
         /**
-         * @param requests Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+         * @param requests Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
          * 
          * @return builder
          * 

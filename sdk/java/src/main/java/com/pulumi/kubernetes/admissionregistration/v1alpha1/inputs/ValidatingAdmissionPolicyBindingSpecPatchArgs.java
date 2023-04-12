@@ -8,6 +8,7 @@ import com.pulumi.core.annotations.Import;
 import com.pulumi.kubernetes.admissionregistration.v1alpha1.inputs.MatchResourcesPatchArgs;
 import com.pulumi.kubernetes.admissionregistration.v1alpha1.inputs.ParamRefPatchArgs;
 import java.lang.String;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import javax.annotation.Nullable;
@@ -66,12 +67,64 @@ public final class ValidatingAdmissionPolicyBindingSpecPatchArgs extends com.pul
         return Optional.ofNullable(this.policyName);
     }
 
+    /**
+     * validationActions declares how Validations of the referenced ValidatingAdmissionPolicy are enforced. If a validation evaluates to false it is always enforced according to these actions.
+     * 
+     * Failures defined by the ValidatingAdmissionPolicy&#39;s FailurePolicy are enforced according to these actions only if the FailurePolicy is set to Fail, otherwise the failures are ignored. This includes compilation errors, runtime errors and misconfigurations of the policy.
+     * 
+     * validationActions is declared as a set of action values. Order does not matter. validationActions may not contain duplicates of the same action.
+     * 
+     * The supported actions values are:
+     * 
+     * &#34;Deny&#34; specifies that a validation failure results in a denied request.
+     * 
+     * &#34;Warn&#34; specifies that a validation failure is reported to the request client in HTTP Warning headers, with a warning code of 299. Warnings can be sent both for allowed or denied admission responses.
+     * 
+     * &#34;Audit&#34; specifies that a validation failure is included in the published audit event for the request. The audit event will contain a `validation.policy.admission.k8s.io/validation_failure` audit annotation with a value containing the details of the validation failures, formatted as a JSON list of objects, each with the following fields: - message: The validation failure message string - policy: The resource name of the ValidatingAdmissionPolicy - binding: The resource name of the ValidatingAdmissionPolicyBinding - expressionIndex: The index of the failed validations in the ValidatingAdmissionPolicy - validationActions: The enforcement actions enacted for the validation failure Example audit annotation: `&#34;validation.policy.admission.k8s.io/validation_failure&#34;: &#34;[{&#34;message&#34;: &#34;Invalid value&#34;, {&#34;policy&#34;: &#34;policy.example.com&#34;, {&#34;binding&#34;: &#34;policybinding.example.com&#34;, {&#34;expressionIndex&#34;: &#34;1&#34;, {&#34;validationActions&#34;: [&#34;Audit&#34;]}]&#34;`
+     * 
+     * Clients should expect to handle additional values by ignoring any values not recognized.
+     * 
+     * &#34;Deny&#34; and &#34;Warn&#34; may not be used together since this combination needlessly duplicates the validation failure both in the API response body and the HTTP warning headers.
+     * 
+     * Required.
+     * 
+     */
+    @Import(name="validationActions")
+    private @Nullable Output<List<String>> validationActions;
+
+    /**
+     * @return validationActions declares how Validations of the referenced ValidatingAdmissionPolicy are enforced. If a validation evaluates to false it is always enforced according to these actions.
+     * 
+     * Failures defined by the ValidatingAdmissionPolicy&#39;s FailurePolicy are enforced according to these actions only if the FailurePolicy is set to Fail, otherwise the failures are ignored. This includes compilation errors, runtime errors and misconfigurations of the policy.
+     * 
+     * validationActions is declared as a set of action values. Order does not matter. validationActions may not contain duplicates of the same action.
+     * 
+     * The supported actions values are:
+     * 
+     * &#34;Deny&#34; specifies that a validation failure results in a denied request.
+     * 
+     * &#34;Warn&#34; specifies that a validation failure is reported to the request client in HTTP Warning headers, with a warning code of 299. Warnings can be sent both for allowed or denied admission responses.
+     * 
+     * &#34;Audit&#34; specifies that a validation failure is included in the published audit event for the request. The audit event will contain a `validation.policy.admission.k8s.io/validation_failure` audit annotation with a value containing the details of the validation failures, formatted as a JSON list of objects, each with the following fields: - message: The validation failure message string - policy: The resource name of the ValidatingAdmissionPolicy - binding: The resource name of the ValidatingAdmissionPolicyBinding - expressionIndex: The index of the failed validations in the ValidatingAdmissionPolicy - validationActions: The enforcement actions enacted for the validation failure Example audit annotation: `&#34;validation.policy.admission.k8s.io/validation_failure&#34;: &#34;[{&#34;message&#34;: &#34;Invalid value&#34;, {&#34;policy&#34;: &#34;policy.example.com&#34;, {&#34;binding&#34;: &#34;policybinding.example.com&#34;, {&#34;expressionIndex&#34;: &#34;1&#34;, {&#34;validationActions&#34;: [&#34;Audit&#34;]}]&#34;`
+     * 
+     * Clients should expect to handle additional values by ignoring any values not recognized.
+     * 
+     * &#34;Deny&#34; and &#34;Warn&#34; may not be used together since this combination needlessly duplicates the validation failure both in the API response body and the HTTP warning headers.
+     * 
+     * Required.
+     * 
+     */
+    public Optional<Output<List<String>>> validationActions() {
+        return Optional.ofNullable(this.validationActions);
+    }
+
     private ValidatingAdmissionPolicyBindingSpecPatchArgs() {}
 
     private ValidatingAdmissionPolicyBindingSpecPatchArgs(ValidatingAdmissionPolicyBindingSpecPatchArgs $) {
         this.matchResources = $.matchResources;
         this.paramRef = $.paramRef;
         this.policyName = $.policyName;
+        this.validationActions = $.validationActions;
     }
 
     public static Builder builder() {
@@ -153,6 +206,91 @@ public final class ValidatingAdmissionPolicyBindingSpecPatchArgs extends com.pul
          */
         public Builder policyName(String policyName) {
             return policyName(Output.of(policyName));
+        }
+
+        /**
+         * @param validationActions validationActions declares how Validations of the referenced ValidatingAdmissionPolicy are enforced. If a validation evaluates to false it is always enforced according to these actions.
+         * 
+         * Failures defined by the ValidatingAdmissionPolicy&#39;s FailurePolicy are enforced according to these actions only if the FailurePolicy is set to Fail, otherwise the failures are ignored. This includes compilation errors, runtime errors and misconfigurations of the policy.
+         * 
+         * validationActions is declared as a set of action values. Order does not matter. validationActions may not contain duplicates of the same action.
+         * 
+         * The supported actions values are:
+         * 
+         * &#34;Deny&#34; specifies that a validation failure results in a denied request.
+         * 
+         * &#34;Warn&#34; specifies that a validation failure is reported to the request client in HTTP Warning headers, with a warning code of 299. Warnings can be sent both for allowed or denied admission responses.
+         * 
+         * &#34;Audit&#34; specifies that a validation failure is included in the published audit event for the request. The audit event will contain a `validation.policy.admission.k8s.io/validation_failure` audit annotation with a value containing the details of the validation failures, formatted as a JSON list of objects, each with the following fields: - message: The validation failure message string - policy: The resource name of the ValidatingAdmissionPolicy - binding: The resource name of the ValidatingAdmissionPolicyBinding - expressionIndex: The index of the failed validations in the ValidatingAdmissionPolicy - validationActions: The enforcement actions enacted for the validation failure Example audit annotation: `&#34;validation.policy.admission.k8s.io/validation_failure&#34;: &#34;[{&#34;message&#34;: &#34;Invalid value&#34;, {&#34;policy&#34;: &#34;policy.example.com&#34;, {&#34;binding&#34;: &#34;policybinding.example.com&#34;, {&#34;expressionIndex&#34;: &#34;1&#34;, {&#34;validationActions&#34;: [&#34;Audit&#34;]}]&#34;`
+         * 
+         * Clients should expect to handle additional values by ignoring any values not recognized.
+         * 
+         * &#34;Deny&#34; and &#34;Warn&#34; may not be used together since this combination needlessly duplicates the validation failure both in the API response body and the HTTP warning headers.
+         * 
+         * Required.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder validationActions(@Nullable Output<List<String>> validationActions) {
+            $.validationActions = validationActions;
+            return this;
+        }
+
+        /**
+         * @param validationActions validationActions declares how Validations of the referenced ValidatingAdmissionPolicy are enforced. If a validation evaluates to false it is always enforced according to these actions.
+         * 
+         * Failures defined by the ValidatingAdmissionPolicy&#39;s FailurePolicy are enforced according to these actions only if the FailurePolicy is set to Fail, otherwise the failures are ignored. This includes compilation errors, runtime errors and misconfigurations of the policy.
+         * 
+         * validationActions is declared as a set of action values. Order does not matter. validationActions may not contain duplicates of the same action.
+         * 
+         * The supported actions values are:
+         * 
+         * &#34;Deny&#34; specifies that a validation failure results in a denied request.
+         * 
+         * &#34;Warn&#34; specifies that a validation failure is reported to the request client in HTTP Warning headers, with a warning code of 299. Warnings can be sent both for allowed or denied admission responses.
+         * 
+         * &#34;Audit&#34; specifies that a validation failure is included in the published audit event for the request. The audit event will contain a `validation.policy.admission.k8s.io/validation_failure` audit annotation with a value containing the details of the validation failures, formatted as a JSON list of objects, each with the following fields: - message: The validation failure message string - policy: The resource name of the ValidatingAdmissionPolicy - binding: The resource name of the ValidatingAdmissionPolicyBinding - expressionIndex: The index of the failed validations in the ValidatingAdmissionPolicy - validationActions: The enforcement actions enacted for the validation failure Example audit annotation: `&#34;validation.policy.admission.k8s.io/validation_failure&#34;: &#34;[{&#34;message&#34;: &#34;Invalid value&#34;, {&#34;policy&#34;: &#34;policy.example.com&#34;, {&#34;binding&#34;: &#34;policybinding.example.com&#34;, {&#34;expressionIndex&#34;: &#34;1&#34;, {&#34;validationActions&#34;: [&#34;Audit&#34;]}]&#34;`
+         * 
+         * Clients should expect to handle additional values by ignoring any values not recognized.
+         * 
+         * &#34;Deny&#34; and &#34;Warn&#34; may not be used together since this combination needlessly duplicates the validation failure both in the API response body and the HTTP warning headers.
+         * 
+         * Required.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder validationActions(List<String> validationActions) {
+            return validationActions(Output.of(validationActions));
+        }
+
+        /**
+         * @param validationActions validationActions declares how Validations of the referenced ValidatingAdmissionPolicy are enforced. If a validation evaluates to false it is always enforced according to these actions.
+         * 
+         * Failures defined by the ValidatingAdmissionPolicy&#39;s FailurePolicy are enforced according to these actions only if the FailurePolicy is set to Fail, otherwise the failures are ignored. This includes compilation errors, runtime errors and misconfigurations of the policy.
+         * 
+         * validationActions is declared as a set of action values. Order does not matter. validationActions may not contain duplicates of the same action.
+         * 
+         * The supported actions values are:
+         * 
+         * &#34;Deny&#34; specifies that a validation failure results in a denied request.
+         * 
+         * &#34;Warn&#34; specifies that a validation failure is reported to the request client in HTTP Warning headers, with a warning code of 299. Warnings can be sent both for allowed or denied admission responses.
+         * 
+         * &#34;Audit&#34; specifies that a validation failure is included in the published audit event for the request. The audit event will contain a `validation.policy.admission.k8s.io/validation_failure` audit annotation with a value containing the details of the validation failures, formatted as a JSON list of objects, each with the following fields: - message: The validation failure message string - policy: The resource name of the ValidatingAdmissionPolicy - binding: The resource name of the ValidatingAdmissionPolicyBinding - expressionIndex: The index of the failed validations in the ValidatingAdmissionPolicy - validationActions: The enforcement actions enacted for the validation failure Example audit annotation: `&#34;validation.policy.admission.k8s.io/validation_failure&#34;: &#34;[{&#34;message&#34;: &#34;Invalid value&#34;, {&#34;policy&#34;: &#34;policy.example.com&#34;, {&#34;binding&#34;: &#34;policybinding.example.com&#34;, {&#34;expressionIndex&#34;: &#34;1&#34;, {&#34;validationActions&#34;: [&#34;Audit&#34;]}]&#34;`
+         * 
+         * Clients should expect to handle additional values by ignoring any values not recognized.
+         * 
+         * &#34;Deny&#34; and &#34;Warn&#34; may not be used together since this combination needlessly duplicates the validation failure both in the API response body and the HTTP warning headers.
+         * 
+         * Required.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder validationActions(String... validationActions) {
+            return validationActions(List.of(validationActions));
         }
 
         public ValidatingAdmissionPolicyBindingSpecPatchArgs build() {

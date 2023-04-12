@@ -25,7 +25,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage.V1
         /// </summary>
         public readonly string Kind;
         /// <summary>
-        /// metadata.name must be the Kubernetes node name.
+        /// Standard object's metadata. metadata.name must be the Kubernetes node name.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Meta.V1.ObjectMeta Metadata;
         /// <summary>

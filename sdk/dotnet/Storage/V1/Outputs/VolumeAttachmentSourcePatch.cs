@@ -21,7 +21,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage.V1
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.PersistentVolumeSpecPatch InlineVolumeSpec;
         /// <summary>
-        /// Name of the persistent volume to attach.
+        /// persistentVolumeName represents the name of the persistent volume to attach.
         /// </summary>
         public readonly string PersistentVolumeName;
 

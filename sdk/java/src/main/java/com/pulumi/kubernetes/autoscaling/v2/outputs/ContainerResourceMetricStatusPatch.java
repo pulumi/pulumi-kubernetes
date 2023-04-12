@@ -13,7 +13,7 @@ import javax.annotation.Nullable;
 @CustomType
 public final class ContainerResourceMetricStatusPatch {
     /**
-     * @return Container is the name of the container in the pods of the scaling target
+     * @return container is the name of the container in the pods of the scaling target
      * 
      */
     private @Nullable String container;
@@ -23,14 +23,14 @@ public final class ContainerResourceMetricStatusPatch {
      */
     private @Nullable MetricValueStatusPatch current;
     /**
-     * @return Name is the name of the resource in question.
+     * @return name is the name of the resource in question.
      * 
      */
     private @Nullable String name;
 
     private ContainerResourceMetricStatusPatch() {}
     /**
-     * @return Container is the name of the container in the pods of the scaling target
+     * @return container is the name of the container in the pods of the scaling target
      * 
      */
     public Optional<String> container() {
@@ -44,7 +44,7 @@ public final class ContainerResourceMetricStatusPatch {
         return Optional.ofNullable(this.current);
     }
     /**
-     * @return Name is the name of the resource in question.
+     * @return name is the name of the resource in question.
      * 
      */
     public Optional<String> name() {

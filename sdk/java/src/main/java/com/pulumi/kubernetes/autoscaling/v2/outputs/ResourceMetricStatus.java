@@ -16,7 +16,7 @@ public final class ResourceMetricStatus {
      */
     private MetricValueStatus current;
     /**
-     * @return Name is the name of the resource in question.
+     * @return name is the name of the resource in question.
      * 
      */
     private String name;
@@ -30,7 +30,7 @@ public final class ResourceMetricStatus {
         return this.current;
     }
     /**
-     * @return Name is the name of the resource in question.
+     * @return name is the name of the resource in question.
      * 
      */
     public String name() {

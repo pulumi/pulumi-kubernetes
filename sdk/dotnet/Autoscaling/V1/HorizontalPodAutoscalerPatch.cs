@@ -40,13 +40,13 @@ namespace Pulumi.Kubernetes.Autoscaling.V1
         public Output<Pulumi.Kubernetes.Types.Outputs.Meta.V1.ObjectMetaPatch> Metadata { get; private set; } = null!;
 
         /// <summary>
-        /// behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+        /// spec defines the behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
         /// </summary>
         [Output("spec")]
         public Output<Pulumi.Kubernetes.Types.Outputs.Autoscaling.V1.HorizontalPodAutoscalerSpecPatch> Spec { get; private set; } = null!;
 
         /// <summary>
-        /// current information about the autoscaler.
+        /// status is the current information about the autoscaler.
         /// </summary>
         [Output("status")]
         public Output<Pulumi.Kubernetes.Types.Outputs.Autoscaling.V1.HorizontalPodAutoscalerStatusPatch> Status { get; private set; } = null!;
@@ -136,7 +136,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V1
         public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaPatchArgs>? Metadata { get; set; }
 
         /// <summary>
-        /// behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+        /// spec defines the behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
         /// </summary>
         [Input("spec")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Autoscaling.V1.HorizontalPodAutoscalerSpecPatchArgs>? Spec { get; set; }

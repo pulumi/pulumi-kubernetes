@@ -20,14 +20,14 @@ public final class IngressStatusArgs extends com.pulumi.resources.ResourceArgs {
     public static final IngressStatusArgs Empty = new IngressStatusArgs();
 
     /**
-     * LoadBalancer contains the current status of the load-balancer.
+     * loadBalancer contains the current status of the load-balancer.
      * 
      */
     @Import(name="loadBalancer")
     private @Nullable Output<IngressLoadBalancerStatusArgs> loadBalancer;
 
     /**
-     * @return LoadBalancer contains the current status of the load-balancer.
+     * @return loadBalancer contains the current status of the load-balancer.
      * 
      */
     public Optional<Output<IngressLoadBalancerStatusArgs>> loadBalancer() {
@@ -59,7 +59,7 @@ public final class IngressStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param loadBalancer LoadBalancer contains the current status of the load-balancer.
+         * @param loadBalancer loadBalancer contains the current status of the load-balancer.
          * 
          * @return builder
          * 
@@ -70,7 +70,7 @@ public final class IngressStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param loadBalancer LoadBalancer contains the current status of the load-balancer.
+         * @param loadBalancer loadBalancer contains the current status of the load-balancer.
          * 
          * @return builder
          * 

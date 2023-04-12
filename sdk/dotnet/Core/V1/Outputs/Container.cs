@@ -61,6 +61,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.Probe ReadinessProbe;
         /// <summary>
+        /// Resources resize policy for the container.
+        /// </summary>
+        public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.ContainerResizePolicy> ResizePolicy;
+        /// <summary>
         /// Compute Resources required by this container. Cannot be updated. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Core.V1.ResourceRequirements Resources;
@@ -129,6 +133,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
             Pulumi.Kubernetes.Types.Outputs.Core.V1.Probe readinessProbe,
 
+            ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.ContainerResizePolicy> resizePolicy,
+
             Pulumi.Kubernetes.Types.Outputs.Core.V1.ResourceRequirements resources,
 
             Pulumi.Kubernetes.Types.Outputs.Core.V1.SecurityContext securityContext,
@@ -162,6 +168,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
             Name = name;
             Ports = ports;
             ReadinessProbe = readinessProbe;
+            ResizePolicy = resizePolicy;
             Resources = resources;
             SecurityContext = securityContext;
             StartupProbe = startupProbe;

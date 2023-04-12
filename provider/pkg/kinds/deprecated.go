@@ -89,6 +89,7 @@ var v121 = cluster.ServerVersion{Major: 1, Minor: 21}
 var v122 = cluster.ServerVersion{Major: 1, Minor: 22}
 var v124 = cluster.ServerVersion{Major: 1, Minor: 24}
 var v125 = cluster.ServerVersion{Major: 1, Minor: 25}
+var v127 = cluster.ServerVersion{Major: 1, Minor: 27}
 
 func gvkStr(gvk schema.GroupVersionKind) string {
 	return gvk.GroupVersion().String() + "/" + gvk.Kind
@@ -298,7 +299,7 @@ func RemovedInVersion(gvk schema.GroupVersionKind) *cluster.ServerVersion {
 		return &v117
 	case StorageV1A1:
 		if k == CSIStorageCapacity || k == CSIStorageCapacityList {
-			return &v124
+			return &v127
 		}
 		return nil
 	default:
@@ -383,6 +384,8 @@ func upstreamDocsLink(version cluster.ServerVersion) string {
 	case v121:
 		return "https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-1.21.md#deprecation"
 		// TODO: 1.22
+	case v127:
+		return "https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-1.27.md#deprecation"
 	default:
 		return ""
 	}

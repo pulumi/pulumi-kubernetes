@@ -42,7 +42,7 @@ export class NetworkPolicyList extends pulumi.CustomResource {
      */
     public readonly apiVersion!: pulumi.Output<"networking.k8s.io/v1">;
     /**
-     * Items is a list of schema objects.
+     * items is a list of schema objects.
      */
     public readonly items!: pulumi.Output<outputs.networking.v1.NetworkPolicy[]>;
     /**
@@ -92,7 +92,7 @@ export interface NetworkPolicyListArgs {
      */
     apiVersion?: pulumi.Input<"networking.k8s.io/v1">;
     /**
-     * Items is a list of schema objects.
+     * items is a list of schema objects.
      */
     items: pulumi.Input<pulumi.Input<inputs.networking.v1.NetworkPolicy>[]>;
     /**

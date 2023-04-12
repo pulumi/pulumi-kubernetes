@@ -51,7 +51,7 @@ public final class DeploymentSpec {
      */
     private @Nullable DeploymentStrategy strategy;
     /**
-     * @return Template describes the pods that will be created.
+     * @return Template describes the pods that will be created. The only allowed template.spec.restartPolicy value is &#34;Always&#34;.
      * 
      */
     private PodTemplateSpec template;
@@ -107,7 +107,7 @@ public final class DeploymentSpec {
         return Optional.ofNullable(this.strategy);
     }
     /**
-     * @return Template describes the pods that will be created.
+     * @return Template describes the pods that will be created. The only allowed template.spec.restartPolicy value is &#34;Always&#34;.
      * 
      */
     public PodTemplateSpec template() {

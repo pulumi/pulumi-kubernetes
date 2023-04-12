@@ -100,6 +100,8 @@ export class ResourceClassPatch extends pulumi.CustomResource {
             resourceInputs["suitableNodes"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const aliasOpts = { aliases: [{ type: "kubernetes:resource.k8s.io/v1alpha2:ResourceClassPatch" }] };
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(ResourceClassPatch.__pulumiType, name, resourceInputs, opts);
     }
 }

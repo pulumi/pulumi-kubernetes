@@ -11,7 +11,7 @@ import java.util.Objects;
 @CustomType
 public final class ContainerResourceMetricStatus {
     /**
-     * @return Container is the name of the container in the pods of the scaling target
+     * @return container is the name of the container in the pods of the scaling target
      * 
      */
     private String container;
@@ -21,14 +21,14 @@ public final class ContainerResourceMetricStatus {
      */
     private MetricValueStatus current;
     /**
-     * @return Name is the name of the resource in question.
+     * @return name is the name of the resource in question.
      * 
      */
     private String name;
 
     private ContainerResourceMetricStatus() {}
     /**
-     * @return Container is the name of the container in the pods of the scaling target
+     * @return container is the name of the container in the pods of the scaling target
      * 
      */
     public String container() {
@@ -42,7 +42,7 @@ public final class ContainerResourceMetricStatus {
         return this.current;
     }
     /**
-     * @return Name is the name of the resource in question.
+     * @return name is the name of the resource in question.
      * 
      */
     public String name() {

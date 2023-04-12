@@ -49,6 +49,12 @@ func NewResourceClass(ctx *pulumi.Context,
 	}
 	args.ApiVersion = pulumi.StringPtr("resource.k8s.io/v1alpha1")
 	args.Kind = pulumi.StringPtr("ResourceClass")
+	aliases := pulumi.Aliases([]pulumi.Alias{
+		{
+			Type: pulumi.String("kubernetes:resource.k8s.io/v1alpha2:ResourceClass"),
+		},
+	})
+	opts = append(opts, aliases)
 	var resource ResourceClass
 	err := ctx.RegisterResource("kubernetes:resource.k8s.io/v1alpha1:ResourceClass", name, args, &resource, opts...)
 	if err != nil {

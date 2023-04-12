@@ -22,7 +22,7 @@ namespace Pulumi.Kubernetes.Autoscaling.V1
         public Output<string> ApiVersion { get; private set; } = null!;
 
         /// <summary>
-        /// list of horizontal pod autoscaler objects.
+        /// items is the list of horizontal pod autoscaler objects.
         /// </summary>
         [Output("items")]
         public Output<ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Autoscaling.V1.HorizontalPodAutoscaler>> Items { get; private set; } = null!;
@@ -109,7 +109,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V1
         private InputList<Pulumi.Kubernetes.Types.Inputs.Autoscaling.V1.HorizontalPodAutoscalerArgs>? _items;
 
         /// <summary>
-        /// list of horizontal pod autoscaler objects.
+        /// items is the list of horizontal pod autoscaler objects.
         /// </summary>
         public InputList<Pulumi.Kubernetes.Types.Inputs.Autoscaling.V1.HorizontalPodAutoscalerArgs> Items
         {

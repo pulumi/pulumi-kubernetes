@@ -70,11 +70,11 @@ export class IngressPatch extends pulumi.CustomResource {
      */
     public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMetaPatch>;
     /**
-     * Spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+     * spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      */
     public readonly spec!: pulumi.Output<outputs.networking.v1.IngressSpecPatch>;
     /**
-     * Status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+     * status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      */
     public /*out*/ readonly status!: pulumi.Output<outputs.networking.v1.IngressStatusPatch>;
 
@@ -125,7 +125,7 @@ export interface IngressPatchArgs {
      */
     metadata?: pulumi.Input<inputs.meta.v1.ObjectMetaPatch>;
     /**
-     * Spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+     * spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      */
     spec?: pulumi.Input<inputs.networking.v1.IngressSpecPatch>;
 }

@@ -18,7 +18,7 @@ public final class ResourceMetricStatusPatch {
      */
     private @Nullable MetricValueStatusPatch current;
     /**
-     * @return Name is the name of the resource in question.
+     * @return name is the name of the resource in question.
      * 
      */
     private @Nullable String name;
@@ -32,7 +32,7 @@ public final class ResourceMetricStatusPatch {
         return Optional.ofNullable(this.current);
     }
     /**
-     * @return Name is the name of the resource in question.
+     * @return name is the name of the resource in question.
      * 
      */
     public Optional<String> name() {

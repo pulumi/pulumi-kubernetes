@@ -15,7 +15,9 @@ import javax.annotation.Nullable;
 @CustomType
 public final class PodFailurePolicyRule {
     /**
-     * @return Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are: - FailJob: indicates that the pod&#39;s job is marked as Failed and all
+     * @return Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are:
+     * 
+     * - FailJob: indicates that the pod&#39;s job is marked as Failed and all
      *   running pods are terminated.
      * - Ignore: indicates that the counter towards the .backoffLimit is not
      *   incremented and a replacement pod is created.
@@ -38,7 +40,9 @@ public final class PodFailurePolicyRule {
 
     private PodFailurePolicyRule() {}
     /**
-     * @return Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are: - FailJob: indicates that the pod&#39;s job is marked as Failed and all
+     * @return Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are:
+     * 
+     * - FailJob: indicates that the pod&#39;s job is marked as Failed and all
      *   running pods are terminated.
      * - Ignore: indicates that the counter towards the .backoffLimit is not
      *   incremented and a replacement pod is created.

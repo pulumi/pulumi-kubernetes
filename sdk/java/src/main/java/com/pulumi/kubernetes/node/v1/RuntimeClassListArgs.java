@@ -35,14 +35,14 @@ public final class RuntimeClassListArgs extends com.pulumi.resources.ResourceArg
     }
 
     /**
-     * Items is a list of schema objects.
+     * items is a list of schema objects.
      * 
      */
     @Import(name="items", required=true)
     private Output<List<RuntimeClassArgs>> items;
 
     /**
-     * @return Items is a list of schema objects.
+     * @return items is a list of schema objects.
      * 
      */
     public Output<List<RuntimeClassArgs>> items() {
@@ -128,7 +128,7 @@ public final class RuntimeClassListArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param items Items is a list of schema objects.
+         * @param items items is a list of schema objects.
          * 
          * @return builder
          * 
@@ -139,7 +139,7 @@ public final class RuntimeClassListArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param items Items is a list of schema objects.
+         * @param items items is a list of schema objects.
          * 
          * @return builder
          * 
@@ -149,7 +149,7 @@ public final class RuntimeClassListArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param items Items is a list of schema objects.
+         * @param items items is a list of schema objects.
          * 
          * @return builder
          * 

@@ -28,16 +28,16 @@ class StorageClassInitArgs:
                  volume_binding_mode: Optional[pulumi.Input[str]] = None):
         """
         The set of arguments for constructing a StorageClass resource.
-        :param pulumi.Input[str] provisioner: Provisioner indicates the type of the provisioner.
-        :param pulumi.Input[bool] allow_volume_expansion: AllowVolumeExpansion shows whether the storage class allow volume expand
-        :param pulumi.Input[Sequence[pulumi.Input['_core.v1.TopologySelectorTermArgs']]] allowed_topologies: Restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
+        :param pulumi.Input[str] provisioner: provisioner indicates the type of the provisioner.
+        :param pulumi.Input[bool] allow_volume_expansion: allowVolumeExpansion shows whether the storage class allow volume expand.
+        :param pulumi.Input[Sequence[pulumi.Input['_core.v1.TopologySelectorTermArgs']]] allowed_topologies: allowedTopologies restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] mount_options: Dynamically provisioned PersistentVolumes of this storage class are created with these mountOptions, e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
-        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] parameters: Parameters holds the parameters for the provisioner that should create volumes of this storage class.
-        :param pulumi.Input[str] reclaim_policy: Dynamically provisioned PersistentVolumes of this storage class are created with this reclaimPolicy. Defaults to Delete.
-        :param pulumi.Input[str] volume_binding_mode: VolumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] mount_options: mountOptions controls the mountOptions for dynamically provisioned PersistentVolumes of this storage class. e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
+        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] parameters: parameters holds the parameters for the provisioner that should create volumes of this storage class.
+        :param pulumi.Input[str] reclaim_policy: reclaimPolicy controls the reclaimPolicy for dynamically provisioned PersistentVolumes of this storage class. Defaults to Delete.
+        :param pulumi.Input[str] volume_binding_mode: volumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
         """
         pulumi.set(__self__, "provisioner", provisioner)
         if allow_volume_expansion is not None:
@@ -63,7 +63,7 @@ class StorageClassInitArgs:
     @pulumi.getter
     def provisioner(self) -> pulumi.Input[str]:
         """
-        Provisioner indicates the type of the provisioner.
+        provisioner indicates the type of the provisioner.
         """
         return pulumi.get(self, "provisioner")
 
@@ -75,7 +75,7 @@ class StorageClassInitArgs:
     @pulumi.getter(name="allowVolumeExpansion")
     def allow_volume_expansion(self) -> Optional[pulumi.Input[bool]]:
         """
-        AllowVolumeExpansion shows whether the storage class allow volume expand
+        allowVolumeExpansion shows whether the storage class allow volume expand.
         """
         return pulumi.get(self, "allow_volume_expansion")
 
@@ -87,7 +87,7 @@ class StorageClassInitArgs:
     @pulumi.getter(name="allowedTopologies")
     def allowed_topologies(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.TopologySelectorTermArgs']]]]:
         """
-        Restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
+        allowedTopologies restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
         """
         return pulumi.get(self, "allowed_topologies")
 
@@ -135,7 +135,7 @@ class StorageClassInitArgs:
     @pulumi.getter(name="mountOptions")
     def mount_options(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
-        Dynamically provisioned PersistentVolumes of this storage class are created with these mountOptions, e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
+        mountOptions controls the mountOptions for dynamically provisioned PersistentVolumes of this storage class. e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
         """
         return pulumi.get(self, "mount_options")
 
@@ -147,7 +147,7 @@ class StorageClassInitArgs:
     @pulumi.getter
     def parameters(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]:
         """
-        Parameters holds the parameters for the provisioner that should create volumes of this storage class.
+        parameters holds the parameters for the provisioner that should create volumes of this storage class.
         """
         return pulumi.get(self, "parameters")
 
@@ -159,7 +159,7 @@ class StorageClassInitArgs:
     @pulumi.getter(name="reclaimPolicy")
     def reclaim_policy(self) -> Optional[pulumi.Input[str]]:
         """
-        Dynamically provisioned PersistentVolumes of this storage class are created with this reclaimPolicy. Defaults to Delete.
+        reclaimPolicy controls the reclaimPolicy for dynamically provisioned PersistentVolumes of this storage class. Defaults to Delete.
         """
         return pulumi.get(self, "reclaim_policy")
 
@@ -171,7 +171,7 @@ class StorageClassInitArgs:
     @pulumi.getter(name="volumeBindingMode")
     def volume_binding_mode(self) -> Optional[pulumi.Input[str]]:
         """
-        VolumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
+        volumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
         """
         return pulumi.get(self, "volume_binding_mode")
 
@@ -203,16 +203,16 @@ class StorageClass(pulumi.CustomResource):
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[bool] allow_volume_expansion: AllowVolumeExpansion shows whether the storage class allow volume expand
-        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['_core.v1.TopologySelectorTermArgs']]]] allowed_topologies: Restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
+        :param pulumi.Input[bool] allow_volume_expansion: allowVolumeExpansion shows whether the storage class allow volume expand.
+        :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['_core.v1.TopologySelectorTermArgs']]]] allowed_topologies: allowedTopologies restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input[Sequence[pulumi.Input[str]]] mount_options: Dynamically provisioned PersistentVolumes of this storage class are created with these mountOptions, e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
-        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] parameters: Parameters holds the parameters for the provisioner that should create volumes of this storage class.
-        :param pulumi.Input[str] provisioner: Provisioner indicates the type of the provisioner.
-        :param pulumi.Input[str] reclaim_policy: Dynamically provisioned PersistentVolumes of this storage class are created with this reclaimPolicy. Defaults to Delete.
-        :param pulumi.Input[str] volume_binding_mode: VolumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] mount_options: mountOptions controls the mountOptions for dynamically provisioned PersistentVolumes of this storage class. e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
+        :param pulumi.Input[Mapping[str, pulumi.Input[str]]] parameters: parameters holds the parameters for the provisioner that should create volumes of this storage class.
+        :param pulumi.Input[str] provisioner: provisioner indicates the type of the provisioner.
+        :param pulumi.Input[str] reclaim_policy: reclaimPolicy controls the reclaimPolicy for dynamically provisioned PersistentVolumes of this storage class. Defaults to Delete.
+        :param pulumi.Input[str] volume_binding_mode: volumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
         """
         ...
     @overload
@@ -311,7 +311,7 @@ class StorageClass(pulumi.CustomResource):
     @pulumi.getter(name="allowVolumeExpansion")
     def allow_volume_expansion(self) -> pulumi.Output[Optional[bool]]:
         """
-        AllowVolumeExpansion shows whether the storage class allow volume expand
+        allowVolumeExpansion shows whether the storage class allow volume expand.
         """
         return pulumi.get(self, "allow_volume_expansion")
 
@@ -319,7 +319,7 @@ class StorageClass(pulumi.CustomResource):
     @pulumi.getter(name="allowedTopologies")
     def allowed_topologies(self) -> pulumi.Output[Optional[Sequence['_core.v1.outputs.TopologySelectorTerm']]]:
         """
-        Restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
+        allowedTopologies restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
         """
         return pulumi.get(self, "allowed_topologies")
 
@@ -351,7 +351,7 @@ class StorageClass(pulumi.CustomResource):
     @pulumi.getter(name="mountOptions")
     def mount_options(self) -> pulumi.Output[Optional[Sequence[str]]]:
         """
-        Dynamically provisioned PersistentVolumes of this storage class are created with these mountOptions, e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
+        mountOptions controls the mountOptions for dynamically provisioned PersistentVolumes of this storage class. e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
         """
         return pulumi.get(self, "mount_options")
 
@@ -359,7 +359,7 @@ class StorageClass(pulumi.CustomResource):
     @pulumi.getter
     def parameters(self) -> pulumi.Output[Optional[Mapping[str, str]]]:
         """
-        Parameters holds the parameters for the provisioner that should create volumes of this storage class.
+        parameters holds the parameters for the provisioner that should create volumes of this storage class.
         """
         return pulumi.get(self, "parameters")
 
@@ -367,7 +367,7 @@ class StorageClass(pulumi.CustomResource):
     @pulumi.getter
     def provisioner(self) -> pulumi.Output[str]:
         """
-        Provisioner indicates the type of the provisioner.
+        provisioner indicates the type of the provisioner.
         """
         return pulumi.get(self, "provisioner")
 
@@ -375,7 +375,7 @@ class StorageClass(pulumi.CustomResource):
     @pulumi.getter(name="reclaimPolicy")
     def reclaim_policy(self) -> pulumi.Output[Optional[str]]:
         """
-        Dynamically provisioned PersistentVolumes of this storage class are created with this reclaimPolicy. Defaults to Delete.
+        reclaimPolicy controls the reclaimPolicy for dynamically provisioned PersistentVolumes of this storage class. Defaults to Delete.
         """
         return pulumi.get(self, "reclaim_policy")
 
@@ -383,7 +383,7 @@ class StorageClass(pulumi.CustomResource):
     @pulumi.getter(name="volumeBindingMode")
     def volume_binding_mode(self) -> pulumi.Output[Optional[str]]:
         """
-        VolumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
+        volumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
         """
         return pulumi.get(self, "volume_binding_mode")
 

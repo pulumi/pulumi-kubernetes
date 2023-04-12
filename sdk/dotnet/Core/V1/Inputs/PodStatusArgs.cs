@@ -110,7 +110,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         }
 
         /// <summary>
-        /// The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md
+        /// The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/#quality-of-service-classes
         /// </summary>
         [Input("qosClass")]
         public Input<string>? QosClass { get; set; }
@@ -120,6 +120,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         /// </summary>
         [Input("reason")]
         public Input<string>? Reason { get; set; }
+
+        /// <summary>
+        /// Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed"
+        /// </summary>
+        [Input("resize")]
+        public Input<string>? Resize { get; set; }
 
         /// <summary>
         /// RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.

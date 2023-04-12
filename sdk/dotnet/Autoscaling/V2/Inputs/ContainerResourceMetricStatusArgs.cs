@@ -16,7 +16,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2
     public class ContainerResourceMetricStatusArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Container is the name of the container in the pods of the scaling target
+        /// container is the name of the container in the pods of the scaling target
         /// </summary>
         [Input("container", required: true)]
         public Input<string> Container { get; set; } = null!;
@@ -28,7 +28,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2
         public Input<Pulumi.Kubernetes.Types.Inputs.Autoscaling.V2.MetricValueStatusArgs> Current { get; set; } = null!;
 
         /// <summary>
-        /// Name is the name of the resource in question.
+        /// name is the name of the resource in question.
         /// </summary>
         [Input("name", required: true)]
         public Input<string> Name { get; set; } = null!;

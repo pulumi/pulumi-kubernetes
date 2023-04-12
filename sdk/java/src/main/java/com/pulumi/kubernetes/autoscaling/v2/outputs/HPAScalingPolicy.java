@@ -11,38 +11,38 @@ import java.util.Objects;
 @CustomType
 public final class HPAScalingPolicy {
     /**
-     * @return PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
+     * @return periodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
      * 
      */
     private Integer periodSeconds;
     /**
-     * @return Type is used to specify the scaling policy.
+     * @return type is used to specify the scaling policy.
      * 
      */
     private String type;
     /**
-     * @return Value contains the amount of change which is permitted by the policy. It must be greater than zero
+     * @return value contains the amount of change which is permitted by the policy. It must be greater than zero
      * 
      */
     private Integer value;
 
     private HPAScalingPolicy() {}
     /**
-     * @return PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
+     * @return periodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
      * 
      */
     public Integer periodSeconds() {
         return this.periodSeconds;
     }
     /**
-     * @return Type is used to specify the scaling policy.
+     * @return type is used to specify the scaling policy.
      * 
      */
     public String type() {
         return this.type;
     }
     /**
-     * @return Value contains the amount of change which is permitted by the policy. It must be greater than zero
+     * @return value contains the amount of change which is permitted by the policy. It must be greater than zero
      * 
      */
     public Integer value() {

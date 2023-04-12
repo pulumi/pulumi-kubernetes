@@ -17,12 +17,12 @@ import javax.annotation.Nullable;
 @CustomType
 public final class StorageClass {
     /**
-     * @return AllowVolumeExpansion shows whether the storage class allow volume expand
+     * @return allowVolumeExpansion shows whether the storage class allow volume expand.
      * 
      */
     private @Nullable Boolean allowVolumeExpansion;
     /**
-     * @return Restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
+     * @return allowedTopologies restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
      * 
      */
     private @Nullable List<TopologySelectorTerm> allowedTopologies;
@@ -42,41 +42,41 @@ public final class StorageClass {
      */
     private @Nullable ObjectMeta metadata;
     /**
-     * @return Dynamically provisioned PersistentVolumes of this storage class are created with these mountOptions, e.g. [&#34;ro&#34;, &#34;soft&#34;]. Not validated - mount of the PVs will simply fail if one is invalid.
+     * @return mountOptions controls the mountOptions for dynamically provisioned PersistentVolumes of this storage class. e.g. [&#34;ro&#34;, &#34;soft&#34;]. Not validated - mount of the PVs will simply fail if one is invalid.
      * 
      */
     private @Nullable List<String> mountOptions;
     /**
-     * @return Parameters holds the parameters for the provisioner that should create volumes of this storage class.
+     * @return parameters holds the parameters for the provisioner that should create volumes of this storage class.
      * 
      */
     private @Nullable Map<String,String> parameters;
     /**
-     * @return Provisioner indicates the type of the provisioner.
+     * @return provisioner indicates the type of the provisioner.
      * 
      */
     private String provisioner;
     /**
-     * @return Dynamically provisioned PersistentVolumes of this storage class are created with this reclaimPolicy. Defaults to Delete.
+     * @return reclaimPolicy controls the reclaimPolicy for dynamically provisioned PersistentVolumes of this storage class. Defaults to Delete.
      * 
      */
     private @Nullable String reclaimPolicy;
     /**
-     * @return VolumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
+     * @return volumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
      * 
      */
     private @Nullable String volumeBindingMode;
 
     private StorageClass() {}
     /**
-     * @return AllowVolumeExpansion shows whether the storage class allow volume expand
+     * @return allowVolumeExpansion shows whether the storage class allow volume expand.
      * 
      */
     public Optional<Boolean> allowVolumeExpansion() {
         return Optional.ofNullable(this.allowVolumeExpansion);
     }
     /**
-     * @return Restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
+     * @return allowedTopologies restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
      * 
      */
     public List<TopologySelectorTerm> allowedTopologies() {
@@ -104,35 +104,35 @@ public final class StorageClass {
         return Optional.ofNullable(this.metadata);
     }
     /**
-     * @return Dynamically provisioned PersistentVolumes of this storage class are created with these mountOptions, e.g. [&#34;ro&#34;, &#34;soft&#34;]. Not validated - mount of the PVs will simply fail if one is invalid.
+     * @return mountOptions controls the mountOptions for dynamically provisioned PersistentVolumes of this storage class. e.g. [&#34;ro&#34;, &#34;soft&#34;]. Not validated - mount of the PVs will simply fail if one is invalid.
      * 
      */
     public List<String> mountOptions() {
         return this.mountOptions == null ? List.of() : this.mountOptions;
     }
     /**
-     * @return Parameters holds the parameters for the provisioner that should create volumes of this storage class.
+     * @return parameters holds the parameters for the provisioner that should create volumes of this storage class.
      * 
      */
     public Map<String,String> parameters() {
         return this.parameters == null ? Map.of() : this.parameters;
     }
     /**
-     * @return Provisioner indicates the type of the provisioner.
+     * @return provisioner indicates the type of the provisioner.
      * 
      */
     public String provisioner() {
         return this.provisioner;
     }
     /**
-     * @return Dynamically provisioned PersistentVolumes of this storage class are created with this reclaimPolicy. Defaults to Delete.
+     * @return reclaimPolicy controls the reclaimPolicy for dynamically provisioned PersistentVolumes of this storage class. Defaults to Delete.
      * 
      */
     public Optional<String> reclaimPolicy() {
         return Optional.ofNullable(this.reclaimPolicy);
     }
     /**
-     * @return VolumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
+     * @return volumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
      * 
      */
     public Optional<String> volumeBindingMode() {

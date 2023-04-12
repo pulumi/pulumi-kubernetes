@@ -15,7 +15,7 @@ import javax.annotation.Nullable;
 @CustomType
 public final class CSIPersistentVolumeSource {
     /**
-     * @return controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an beta field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+     * @return controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
      * 
      */
     private @Nullable SecretReference controllerExpandSecretRef;
@@ -35,7 +35,7 @@ public final class CSIPersistentVolumeSource {
      */
     private @Nullable String fsType;
     /**
-     * @return nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is an alpha field and requires enabling CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+     * @return nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is a beta field which is enabled default by CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
      * 
      */
     private @Nullable SecretReference nodeExpandSecretRef;
@@ -67,7 +67,7 @@ public final class CSIPersistentVolumeSource {
 
     private CSIPersistentVolumeSource() {}
     /**
-     * @return controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an beta field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+     * @return controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
      * 
      */
     public Optional<SecretReference> controllerExpandSecretRef() {
@@ -95,7 +95,7 @@ public final class CSIPersistentVolumeSource {
         return Optional.ofNullable(this.fsType);
     }
     /**
-     * @return nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is an alpha field and requires enabling CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+     * @return nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is a beta field which is enabled default by CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
      * 
      */
     public Optional<SecretReference> nodeExpandSecretRef() {

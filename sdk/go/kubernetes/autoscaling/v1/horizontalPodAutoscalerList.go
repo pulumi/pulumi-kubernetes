@@ -18,7 +18,7 @@ type HorizontalPodAutoscalerList struct {
 
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
-	// list of horizontal pod autoscaler objects.
+	// items is the list of horizontal pod autoscaler objects.
 	Items HorizontalPodAutoscalerTypeArrayOutput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrOutput `pulumi:"kind"`
@@ -72,7 +72,7 @@ func (HorizontalPodAutoscalerListState) ElementType() reflect.Type {
 type horizontalPodAutoscalerListArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
-	// list of horizontal pod autoscaler objects.
+	// items is the list of horizontal pod autoscaler objects.
 	Items []HorizontalPodAutoscalerType `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
@@ -84,7 +84,7 @@ type horizontalPodAutoscalerListArgs struct {
 type HorizontalPodAutoscalerListArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput
-	// list of horizontal pod autoscaler objects.
+	// items is the list of horizontal pod autoscaler objects.
 	Items HorizontalPodAutoscalerTypeArrayInput
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput
@@ -184,7 +184,7 @@ func (o HorizontalPodAutoscalerListOutput) ApiVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *HorizontalPodAutoscalerList) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
-// list of horizontal pod autoscaler objects.
+// items is the list of horizontal pod autoscaler objects.
 func (o HorizontalPodAutoscalerListOutput) Items() HorizontalPodAutoscalerTypeArrayOutput {
 	return o.ApplyT(func(v *HorizontalPodAutoscalerList) HorizontalPodAutoscalerTypeArrayOutput { return v.Items }).(HorizontalPodAutoscalerTypeArrayOutput)
 }

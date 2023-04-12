@@ -12,7 +12,7 @@ import javax.annotation.Nullable;
 @CustomType
 public final class EndpointConditionsPatch {
     /**
-     * @return ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be &#34;true&#34; for terminating endpoints.
+     * @return ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be &#34;true&#34; for terminating endpoints, except when the normal readiness behavior is being explicitly overridden, for example when the associated Service has set the publishNotReadyAddresses flag.
      * 
      */
     private @Nullable Boolean ready;
@@ -29,7 +29,7 @@ public final class EndpointConditionsPatch {
 
     private EndpointConditionsPatch() {}
     /**
-     * @return ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be &#34;true&#34; for terminating endpoints.
+     * @return ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be &#34;true&#34; for terminating endpoints, except when the normal readiness behavior is being explicitly overridden, for example when the associated Service has set the publishNotReadyAddresses flag.
      * 
      */
     public Optional<Boolean> ready() {

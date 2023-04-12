@@ -64,14 +64,14 @@ public final class VolumeAttachmentPatchArgs extends com.pulumi.resources.Resour
     }
 
     /**
-     * Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
+     * spec represents specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
      * 
      */
     @Import(name="spec")
     private @Nullable Output<VolumeAttachmentSpecPatchArgs> spec;
 
     /**
-     * @return Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
+     * @return spec represents specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
      * 
      */
     public Optional<Output<VolumeAttachmentSpecPatchArgs>> spec() {
@@ -169,7 +169,7 @@ public final class VolumeAttachmentPatchArgs extends com.pulumi.resources.Resour
         }
 
         /**
-         * @param spec Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
+         * @param spec spec represents specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
          * 
          * @return builder
          * 
@@ -180,7 +180,7 @@ public final class VolumeAttachmentPatchArgs extends com.pulumi.resources.Resour
         }
 
         /**
-         * @param spec Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
+         * @param spec spec represents specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
          * 
          * @return builder
          * 

@@ -36,13 +36,13 @@ namespace Pulumi.Kubernetes.Storage.V1
         public Output<Pulumi.Kubernetes.Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
-        /// Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
+        /// spec represents specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
         /// </summary>
         [Output("spec")]
         public Output<Pulumi.Kubernetes.Types.Outputs.Storage.V1.VolumeAttachmentSpec> Spec { get; private set; } = null!;
 
         /// <summary>
-        /// Status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
+        /// status represents status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
         /// </summary>
         [Output("status")]
         public Output<Pulumi.Kubernetes.Types.Outputs.Storage.V1.VolumeAttachmentStatus> Status { get; private set; } = null!;
@@ -131,7 +131,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Storage.V1
         public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs>? Metadata { get; set; }
 
         /// <summary>
-        /// Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
+        /// spec represents specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
         /// </summary>
         [Input("spec", required: true)]
         public Input<Pulumi.Kubernetes.Types.Inputs.Storage.V1.VolumeAttachmentSpecArgs> Spec { get; set; } = null!;

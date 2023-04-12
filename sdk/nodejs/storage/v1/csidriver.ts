@@ -50,7 +50,7 @@ export class CSIDriver extends pulumi.CustomResource {
      */
     public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMeta>;
     /**
-     * Specification of the CSI Driver.
+     * spec represents the specification of the CSI Driver.
      */
     public readonly spec!: pulumi.Output<outputs.storage.v1.CSIDriverSpec>;
 
@@ -102,7 +102,7 @@ export interface CSIDriverArgs {
      */
     metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
     /**
-     * Specification of the CSI Driver.
+     * spec represents the specification of the CSI Driver.
      */
     spec: pulumi.Input<inputs.storage.v1.CSIDriverSpec>;
 }

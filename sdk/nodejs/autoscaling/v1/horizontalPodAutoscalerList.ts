@@ -42,7 +42,7 @@ export class HorizontalPodAutoscalerList extends pulumi.CustomResource {
      */
     public readonly apiVersion!: pulumi.Output<"autoscaling/v1">;
     /**
-     * list of horizontal pod autoscaler objects.
+     * items is the list of horizontal pod autoscaler objects.
      */
     public readonly items!: pulumi.Output<outputs.autoscaling.v1.HorizontalPodAutoscaler[]>;
     /**
@@ -92,7 +92,7 @@ export interface HorizontalPodAutoscalerListArgs {
      */
     apiVersion?: pulumi.Input<"autoscaling/v1">;
     /**
-     * list of horizontal pod autoscaler objects.
+     * items is the list of horizontal pod autoscaler objects.
      */
     items: pulumi.Input<pulumi.Input<inputs.autoscaling.v1.HorizontalPodAutoscaler>[]>;
     /**

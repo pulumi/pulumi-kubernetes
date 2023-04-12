@@ -23,7 +23,7 @@ class CSIDriverInitArgs:
                  metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None):
         """
         The set of arguments for constructing a CSIDriver resource.
-        :param pulumi.Input['CSIDriverSpecArgs'] spec: Specification of the CSI Driver.
+        :param pulumi.Input['CSIDriverSpecArgs'] spec: spec represents the specification of the CSI Driver.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object metadata. metadata.Name indicates the name of the CSI driver that this object refers to; it MUST be the same name returned by the CSI GetPluginName() call for that driver. The driver name must be 63 characters or less, beginning and ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -40,7 +40,7 @@ class CSIDriverInitArgs:
     @pulumi.getter
     def spec(self) -> pulumi.Input['CSIDriverSpecArgs']:
         """
-        Specification of the CSI Driver.
+        spec represents the specification of the CSI Driver.
         """
         return pulumi.get(self, "spec")
 
@@ -103,7 +103,7 @@ class CSIDriver(pulumi.CustomResource):
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']] metadata: Standard object metadata. metadata.Name indicates the name of the CSI driver that this object refers to; it MUST be the same name returned by the CSI GetPluginName() call for that driver. The driver name must be 63 characters or less, beginning and ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-        :param pulumi.Input[pulumi.InputType['CSIDriverSpecArgs']] spec: Specification of the CSI Driver.
+        :param pulumi.Input[pulumi.InputType['CSIDriverSpecArgs']] spec: spec represents the specification of the CSI Driver.
         """
         ...
     @overload
@@ -206,7 +206,7 @@ class CSIDriver(pulumi.CustomResource):
     @pulumi.getter
     def spec(self) -> pulumi.Output['outputs.CSIDriverSpec']:
         """
-        Specification of the CSI Driver.
+        spec represents the specification of the CSI Driver.
         """
         return pulumi.get(self, "spec")
 

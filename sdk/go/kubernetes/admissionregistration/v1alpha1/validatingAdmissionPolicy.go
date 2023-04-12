@@ -23,6 +23,8 @@ type ValidatingAdmissionPolicy struct {
 	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
 	// Specification of the desired behavior of the ValidatingAdmissionPolicy.
 	Spec ValidatingAdmissionPolicySpecPtrOutput `pulumi:"spec"`
+	// The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
+	Status ValidatingAdmissionPolicyStatusPtrOutput `pulumi:"status"`
 }
 
 // NewValidatingAdmissionPolicy registers a new resource with the given unique name, arguments, and options.
@@ -193,6 +195,11 @@ func (o ValidatingAdmissionPolicyOutput) Metadata() metav1.ObjectMetaPtrOutput {
 // Specification of the desired behavior of the ValidatingAdmissionPolicy.
 func (o ValidatingAdmissionPolicyOutput) Spec() ValidatingAdmissionPolicySpecPtrOutput {
 	return o.ApplyT(func(v *ValidatingAdmissionPolicy) ValidatingAdmissionPolicySpecPtrOutput { return v.Spec }).(ValidatingAdmissionPolicySpecPtrOutput)
+}
+
+// The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
+func (o ValidatingAdmissionPolicyOutput) Status() ValidatingAdmissionPolicyStatusPtrOutput {
+	return o.ApplyT(func(v *ValidatingAdmissionPolicy) ValidatingAdmissionPolicyStatusPtrOutput { return v.Status }).(ValidatingAdmissionPolicyStatusPtrOutput)
 }
 
 type ValidatingAdmissionPolicyArrayOutput struct{ *pulumi.OutputState }

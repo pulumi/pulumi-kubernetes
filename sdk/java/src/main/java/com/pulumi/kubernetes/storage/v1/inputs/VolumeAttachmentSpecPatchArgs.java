@@ -21,14 +21,14 @@ public final class VolumeAttachmentSpecPatchArgs extends com.pulumi.resources.Re
     public static final VolumeAttachmentSpecPatchArgs Empty = new VolumeAttachmentSpecPatchArgs();
 
     /**
-     * Attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
+     * attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
      * 
      */
     @Import(name="attacher")
     private @Nullable Output<String> attacher;
 
     /**
-     * @return Attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
+     * @return attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
      * 
      */
     public Optional<Output<String>> attacher() {
@@ -36,14 +36,14 @@ public final class VolumeAttachmentSpecPatchArgs extends com.pulumi.resources.Re
     }
 
     /**
-     * The node that the volume should be attached to.
+     * nodeName represents the node that the volume should be attached to.
      * 
      */
     @Import(name="nodeName")
     private @Nullable Output<String> nodeName;
 
     /**
-     * @return The node that the volume should be attached to.
+     * @return nodeName represents the node that the volume should be attached to.
      * 
      */
     public Optional<Output<String>> nodeName() {
@@ -51,14 +51,14 @@ public final class VolumeAttachmentSpecPatchArgs extends com.pulumi.resources.Re
     }
 
     /**
-     * Source represents the volume that should be attached.
+     * source represents the volume that should be attached.
      * 
      */
     @Import(name="source")
     private @Nullable Output<VolumeAttachmentSourcePatchArgs> source;
 
     /**
-     * @return Source represents the volume that should be attached.
+     * @return source represents the volume that should be attached.
      * 
      */
     public Optional<Output<VolumeAttachmentSourcePatchArgs>> source() {
@@ -92,7 +92,7 @@ public final class VolumeAttachmentSpecPatchArgs extends com.pulumi.resources.Re
         }
 
         /**
-         * @param attacher Attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
+         * @param attacher attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
          * 
          * @return builder
          * 
@@ -103,7 +103,7 @@ public final class VolumeAttachmentSpecPatchArgs extends com.pulumi.resources.Re
         }
 
         /**
-         * @param attacher Attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
+         * @param attacher attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
          * 
          * @return builder
          * 
@@ -113,7 +113,7 @@ public final class VolumeAttachmentSpecPatchArgs extends com.pulumi.resources.Re
         }
 
         /**
-         * @param nodeName The node that the volume should be attached to.
+         * @param nodeName nodeName represents the node that the volume should be attached to.
          * 
          * @return builder
          * 
@@ -124,7 +124,7 @@ public final class VolumeAttachmentSpecPatchArgs extends com.pulumi.resources.Re
         }
 
         /**
-         * @param nodeName The node that the volume should be attached to.
+         * @param nodeName nodeName represents the node that the volume should be attached to.
          * 
          * @return builder
          * 
@@ -134,7 +134,7 @@ public final class VolumeAttachmentSpecPatchArgs extends com.pulumi.resources.Re
         }
 
         /**
-         * @param source Source represents the volume that should be attached.
+         * @param source source represents the volume that should be attached.
          * 
          * @return builder
          * 
@@ -145,7 +145,7 @@ public final class VolumeAttachmentSpecPatchArgs extends com.pulumi.resources.Re
         }
 
         /**
-         * @param source Source represents the volume that should be attached.
+         * @param source source represents the volume that should be attached.
          * 
          * @return builder
          * 

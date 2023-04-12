@@ -21,14 +21,14 @@ public final class IngressBackendPatchArgs extends com.pulumi.resources.Resource
     public static final IngressBackendPatchArgs Empty = new IngressBackendPatchArgs();
 
     /**
-     * Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with &#34;Service&#34;.
+     * resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with &#34;Service&#34;.
      * 
      */
     @Import(name="resource")
     private @Nullable Output<TypedLocalObjectReferencePatchArgs> resource;
 
     /**
-     * @return Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with &#34;Service&#34;.
+     * @return resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with &#34;Service&#34;.
      * 
      */
     public Optional<Output<TypedLocalObjectReferencePatchArgs>> resource() {
@@ -36,14 +36,14 @@ public final class IngressBackendPatchArgs extends com.pulumi.resources.Resource
     }
 
     /**
-     * Service references a Service as a Backend. This is a mutually exclusive setting with &#34;Resource&#34;.
+     * service references a service as a backend. This is a mutually exclusive setting with &#34;Resource&#34;.
      * 
      */
     @Import(name="service")
     private @Nullable Output<IngressServiceBackendPatchArgs> service;
 
     /**
-     * @return Service references a Service as a Backend. This is a mutually exclusive setting with &#34;Resource&#34;.
+     * @return service references a service as a backend. This is a mutually exclusive setting with &#34;Resource&#34;.
      * 
      */
     public Optional<Output<IngressServiceBackendPatchArgs>> service() {
@@ -76,7 +76,7 @@ public final class IngressBackendPatchArgs extends com.pulumi.resources.Resource
         }
 
         /**
-         * @param resource Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with &#34;Service&#34;.
+         * @param resource resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with &#34;Service&#34;.
          * 
          * @return builder
          * 
@@ -87,7 +87,7 @@ public final class IngressBackendPatchArgs extends com.pulumi.resources.Resource
         }
 
         /**
-         * @param resource Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with &#34;Service&#34;.
+         * @param resource resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with &#34;Service&#34;.
          * 
          * @return builder
          * 
@@ -97,7 +97,7 @@ public final class IngressBackendPatchArgs extends com.pulumi.resources.Resource
         }
 
         /**
-         * @param service Service references a Service as a Backend. This is a mutually exclusive setting with &#34;Resource&#34;.
+         * @param service service references a service as a backend. This is a mutually exclusive setting with &#34;Resource&#34;.
          * 
          * @return builder
          * 
@@ -108,7 +108,7 @@ public final class IngressBackendPatchArgs extends com.pulumi.resources.Resource
         }
 
         /**
-         * @param service Service references a Service as a Backend. This is a mutually exclusive setting with &#34;Resource&#34;.
+         * @param service service references a service as a backend. This is a mutually exclusive setting with &#34;Resource&#34;.
          * 
          * @return builder
          * 

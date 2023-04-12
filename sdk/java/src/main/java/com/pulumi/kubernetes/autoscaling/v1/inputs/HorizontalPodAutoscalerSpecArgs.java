@@ -21,14 +21,14 @@ public final class HorizontalPodAutoscalerSpecArgs extends com.pulumi.resources.
     public static final HorizontalPodAutoscalerSpecArgs Empty = new HorizontalPodAutoscalerSpecArgs();
 
     /**
-     * upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
+     * maxReplicas is the upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
      * 
      */
     @Import(name="maxReplicas", required=true)
     private Output<Integer> maxReplicas;
 
     /**
-     * @return upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
+     * @return maxReplicas is the upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
      * 
      */
     public Output<Integer> maxReplicas() {
@@ -66,14 +66,14 @@ public final class HorizontalPodAutoscalerSpecArgs extends com.pulumi.resources.
     }
 
     /**
-     * target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
+     * targetCPUUtilizationPercentage is the target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
      * 
      */
     @Import(name="targetCPUUtilizationPercentage")
     private @Nullable Output<Integer> targetCPUUtilizationPercentage;
 
     /**
-     * @return target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
+     * @return targetCPUUtilizationPercentage is the target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
      * 
      */
     public Optional<Output<Integer>> targetCPUUtilizationPercentage() {
@@ -108,7 +108,7 @@ public final class HorizontalPodAutoscalerSpecArgs extends com.pulumi.resources.
         }
 
         /**
-         * @param maxReplicas upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
+         * @param maxReplicas maxReplicas is the upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
          * 
          * @return builder
          * 
@@ -119,7 +119,7 @@ public final class HorizontalPodAutoscalerSpecArgs extends com.pulumi.resources.
         }
 
         /**
-         * @param maxReplicas upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
+         * @param maxReplicas maxReplicas is the upper limit for the number of pods that can be set by the autoscaler; cannot be smaller than MinReplicas.
          * 
          * @return builder
          * 
@@ -171,7 +171,7 @@ public final class HorizontalPodAutoscalerSpecArgs extends com.pulumi.resources.
         }
 
         /**
-         * @param targetCPUUtilizationPercentage target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
+         * @param targetCPUUtilizationPercentage targetCPUUtilizationPercentage is the target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
          * 
          * @return builder
          * 
@@ -182,7 +182,7 @@ public final class HorizontalPodAutoscalerSpecArgs extends com.pulumi.resources.
         }
 
         /**
-         * @param targetCPUUtilizationPercentage target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
+         * @param targetCPUUtilizationPercentage targetCPUUtilizationPercentage is the target average CPU utilization (represented as a percentage of requested CPU) over all the pods; if not specified the default autoscaling policy will be used.
          * 
          * @return builder
          * 

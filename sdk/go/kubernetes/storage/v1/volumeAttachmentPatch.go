@@ -29,9 +29,9 @@ type VolumeAttachmentPatch struct {
 	Kind pulumi.StringPtrOutput `pulumi:"kind"`
 	// Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPatchPtrOutput `pulumi:"metadata"`
-	// Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
+	// spec represents specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
 	Spec VolumeAttachmentSpecPatchPtrOutput `pulumi:"spec"`
-	// Status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
+	// status represents status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
 	Status VolumeAttachmentStatusPatchPtrOutput `pulumi:"status"`
 }
 
@@ -91,7 +91,7 @@ type volumeAttachmentPatchArgs struct {
 	Kind *string `pulumi:"kind"`
 	// Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
-	// Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
+	// spec represents specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
 	Spec *VolumeAttachmentSpecPatch `pulumi:"spec"`
 }
 
@@ -103,7 +103,7 @@ type VolumeAttachmentPatchArgs struct {
 	Kind pulumi.StringPtrInput
 	// Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 	Metadata metav1.ObjectMetaPatchPtrInput
-	// Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
+	// spec represents specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
 	Spec VolumeAttachmentSpecPatchPtrInput
 }
 
@@ -209,12 +209,12 @@ func (o VolumeAttachmentPatchOutput) Metadata() metav1.ObjectMetaPatchPtrOutput 
 	return o.ApplyT(func(v *VolumeAttachmentPatch) metav1.ObjectMetaPatchPtrOutput { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
 }
 
-// Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
+// spec represents specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
 func (o VolumeAttachmentPatchOutput) Spec() VolumeAttachmentSpecPatchPtrOutput {
 	return o.ApplyT(func(v *VolumeAttachmentPatch) VolumeAttachmentSpecPatchPtrOutput { return v.Spec }).(VolumeAttachmentSpecPatchPtrOutput)
 }
 
-// Status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
+// status represents status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
 func (o VolumeAttachmentPatchOutput) Status() VolumeAttachmentStatusPatchPtrOutput {
 	return o.ApplyT(func(v *VolumeAttachmentPatch) VolumeAttachmentStatusPatchPtrOutput { return v.Status }).(VolumeAttachmentStatusPatchPtrOutput)
 }

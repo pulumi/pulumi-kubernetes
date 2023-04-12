@@ -32,6 +32,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration.V1Alpha1
         /// Specification of the desired behavior of the ValidatingAdmissionPolicy.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration.V1Alpha1.ValidatingAdmissionPolicySpec Spec;
+        /// <summary>
+        /// The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
+        /// </summary>
+        public readonly Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration.V1Alpha1.ValidatingAdmissionPolicyStatus Status;
 
         [OutputConstructor]
         private ValidatingAdmissionPolicy(
@@ -41,12 +45,15 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration.V1Alpha1
 
             Pulumi.Kubernetes.Types.Outputs.Meta.V1.ObjectMeta metadata,
 
-            Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration.V1Alpha1.ValidatingAdmissionPolicySpec spec)
+            Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration.V1Alpha1.ValidatingAdmissionPolicySpec spec,
+
+            Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration.V1Alpha1.ValidatingAdmissionPolicyStatus status)
         {
             ApiVersion = apiVersion;
             Kind = kind;
             Metadata = metadata;
             Spec = spec;
+            Status = status;
         }
     }
 }

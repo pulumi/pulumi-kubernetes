@@ -17,11 +17,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking.V1
     public sealed class IngressServiceBackendPatch
     {
         /// <summary>
-        /// Name is the referenced service. The service must exist in the same namespace as the Ingress object.
+        /// name is the referenced service. The service must exist in the same namespace as the Ingress object.
         /// </summary>
         public readonly string Name;
         /// <summary>
-        /// Port of the referenced service. A port name or port number is required for a IngressServiceBackend.
+        /// port of the referenced service. A port name or port number is required for a IngressServiceBackend.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Networking.V1.ServiceBackendPortPatch Port;
 

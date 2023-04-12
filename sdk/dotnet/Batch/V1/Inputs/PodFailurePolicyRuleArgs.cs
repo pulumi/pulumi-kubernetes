@@ -11,12 +11,14 @@ namespace Pulumi.Kubernetes.Types.Inputs.Batch.V1
 {
 
     /// <summary>
-    /// PodFailurePolicyRule describes how a pod failure is handled when the requirements are met. One of OnExitCodes and onPodConditions, but not both, can be used in each rule.
+    /// PodFailurePolicyRule describes how a pod failure is handled when the requirements are met. One of onExitCodes and onPodConditions, but not both, can be used in each rule.
     /// </summary>
     public class PodFailurePolicyRuleArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are: - FailJob: indicates that the pod's job is marked as Failed and all
+        /// Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are:
+        /// 
+        /// - FailJob: indicates that the pod's job is marked as Failed and all
         ///   running pods are terminated.
         /// - Ignore: indicates that the counter towards the .backoffLimit is not
         ///   incremented and a replacement pod is created.

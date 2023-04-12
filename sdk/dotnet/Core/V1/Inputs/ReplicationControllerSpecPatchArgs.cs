@@ -40,7 +40,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         }
 
         /// <summary>
-        /// Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
+        /// Template is the object that describes the pod that will be created if insufficient replicas are detected. This takes precedence over a TemplateRef. The only allowed template.spec.restartPolicy value is "Always". More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
         /// </summary>
         [Input("template")]
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.PodTemplateSpecPatchArgs>? Template { get; set; }

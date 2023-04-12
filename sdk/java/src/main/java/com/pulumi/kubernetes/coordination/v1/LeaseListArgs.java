@@ -35,14 +35,14 @@ public final class LeaseListArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Items is a list of schema objects.
+     * items is a list of schema objects.
      * 
      */
     @Import(name="items", required=true)
     private Output<List<LeaseArgs>> items;
 
     /**
-     * @return Items is a list of schema objects.
+     * @return items is a list of schema objects.
      * 
      */
     public Output<List<LeaseArgs>> items() {
@@ -128,7 +128,7 @@ public final class LeaseListArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param items Items is a list of schema objects.
+         * @param items items is a list of schema objects.
          * 
          * @return builder
          * 
@@ -139,7 +139,7 @@ public final class LeaseListArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param items Items is a list of schema objects.
+         * @param items items is a list of schema objects.
          * 
          * @return builder
          * 
@@ -149,7 +149,7 @@ public final class LeaseListArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param items Items is a list of schema objects.
+         * @param items items is a list of schema objects.
          * 
          * @return builder
          * 

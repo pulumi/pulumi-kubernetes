@@ -5,6 +5,16 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../../utilities";
 
 // Export members:
+export { SelfSubjectReviewArgs } from "./selfSubjectReview";
+export type SelfSubjectReview = import("./selfSubjectReview").SelfSubjectReview;
+export const SelfSubjectReview: typeof import("./selfSubjectReview").SelfSubjectReview = null as any;
+utilities.lazyLoad(exports, ["SelfSubjectReview"], () => require("./selfSubjectReview"));
+
+export { SelfSubjectReviewPatchArgs } from "./selfSubjectReviewPatch";
+export type SelfSubjectReviewPatch = import("./selfSubjectReviewPatch").SelfSubjectReviewPatch;
+export const SelfSubjectReviewPatch: typeof import("./selfSubjectReviewPatch").SelfSubjectReviewPatch = null as any;
+utilities.lazyLoad(exports, ["SelfSubjectReviewPatch"], () => require("./selfSubjectReviewPatch"));
+
 export { TokenReviewArgs } from "./tokenReview";
 export type TokenReview = import("./tokenReview").TokenReview;
 export const TokenReview: typeof import("./tokenReview").TokenReview = null as any;
@@ -20,6 +30,10 @@ const _module = {
     version: utilities.getVersion(),
     construct: (name: string, type: string, urn: string): pulumi.Resource => {
         switch (type) {
+            case "kubernetes:authentication.k8s.io/v1beta1:SelfSubjectReview":
+                return new SelfSubjectReview(name, <any>undefined, { urn })
+            case "kubernetes:authentication.k8s.io/v1beta1:SelfSubjectReviewPatch":
+                return new SelfSubjectReviewPatch(name, <any>undefined, { urn })
             case "kubernetes:authentication.k8s.io/v1beta1:TokenReview":
                 return new TokenReview(name, <any>undefined, { urn })
             case "kubernetes:authentication.k8s.io/v1beta1:TokenReviewPatch":

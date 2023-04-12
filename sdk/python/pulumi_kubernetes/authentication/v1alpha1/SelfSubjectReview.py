@@ -80,7 +80,7 @@ class SelfSubjectReview(pulumi.CustomResource):
                  metadata: Optional[pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']]] = None,
                  __props__=None):
         """
-        SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.
+        SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.  If impersonation or request header authentication is used, any extra keys will have their case ignored and returned as lowercase.
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -95,7 +95,7 @@ class SelfSubjectReview(pulumi.CustomResource):
                  args: Optional[SelfSubjectReviewArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.
+        SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.  If impersonation or request header authentication is used, any extra keys will have their case ignored and returned as lowercase.
 
         :param str resource_name: The name of the resource.
         :param SelfSubjectReviewArgs args: The arguments to use to populate this resource's properties.
@@ -128,6 +128,8 @@ class SelfSubjectReview(pulumi.CustomResource):
             __props__.__dict__["kind"] = 'SelfSubjectReview'
             __props__.__dict__["metadata"] = metadata
             __props__.__dict__["status"] = None
+        alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:authentication.k8s.io/v1beta1:SelfSubjectReview")])
+        opts = pulumi.ResourceOptions.merge(opts, alias_opts)
         super(SelfSubjectReview, __self__).__init__(
             'kubernetes:authentication.k8s.io/v1alpha1:SelfSubjectReview',
             resource_name,

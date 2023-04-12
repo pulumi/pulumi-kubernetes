@@ -12,26 +12,26 @@ import javax.annotation.Nullable;
 @CustomType
 public final class UncountedTerminatedPods {
     /**
-     * @return Failed holds UIDs of failed Pods.
+     * @return failed holds UIDs of failed Pods.
      * 
      */
     private @Nullable List<String> failed;
     /**
-     * @return Succeeded holds UIDs of succeeded Pods.
+     * @return succeeded holds UIDs of succeeded Pods.
      * 
      */
     private @Nullable List<String> succeeded;
 
     private UncountedTerminatedPods() {}
     /**
-     * @return Failed holds UIDs of failed Pods.
+     * @return failed holds UIDs of failed Pods.
      * 
      */
     public List<String> failed() {
         return this.failed == null ? List.of() : this.failed;
     }
     /**
-     * @return Succeeded holds UIDs of succeeded Pods.
+     * @return succeeded holds UIDs of succeeded Pods.
      * 
      */
     public List<String> succeeded() {

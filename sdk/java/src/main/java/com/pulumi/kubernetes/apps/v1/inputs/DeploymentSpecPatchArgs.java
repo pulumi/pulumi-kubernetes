@@ -129,14 +129,14 @@ public final class DeploymentSpecPatchArgs extends com.pulumi.resources.Resource
     }
 
     /**
-     * Template describes the pods that will be created.
+     * Template describes the pods that will be created. The only allowed template.spec.restartPolicy value is &#34;Always&#34;.
      * 
      */
     @Import(name="template")
     private @Nullable Output<PodTemplateSpecPatchArgs> template;
 
     /**
-     * @return Template describes the pods that will be created.
+     * @return Template describes the pods that will be created. The only allowed template.spec.restartPolicy value is &#34;Always&#34;.
      * 
      */
     public Optional<Output<PodTemplateSpecPatchArgs>> template() {
@@ -322,7 +322,7 @@ public final class DeploymentSpecPatchArgs extends com.pulumi.resources.Resource
         }
 
         /**
-         * @param template Template describes the pods that will be created.
+         * @param template Template describes the pods that will be created. The only allowed template.spec.restartPolicy value is &#34;Always&#34;.
          * 
          * @return builder
          * 
@@ -333,7 +333,7 @@ public final class DeploymentSpecPatchArgs extends com.pulumi.resources.Resource
         }
 
         /**
-         * @param template Template describes the pods that will be created.
+         * @param template Template describes the pods that will be created. The only allowed template.spec.restartPolicy value is &#34;Always&#34;.
          * 
          * @return builder
          * 

@@ -29,7 +29,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Storage.V1
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Meta.V1.ObjectMeta Metadata;
         /// <summary>
-        /// Specification of the CSI Driver.
+        /// spec represents the specification of the CSI Driver.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Storage.V1.CSIDriverSpec Spec;
 

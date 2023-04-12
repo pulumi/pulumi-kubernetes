@@ -37,14 +37,14 @@ public class EndpointSliceList extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.apiVersion);
     }
     /**
-     * List of endpoint slices
+     * items is the list of endpoint slices
      * 
      */
     @Export(name="items", refs={List.class,EndpointSlice.class}, tree="[0,1]")
     private Output<List<EndpointSlice>> items;
 
     /**
-     * @return List of endpoint slices
+     * @return items is the list of endpoint slices
      * 
      */
     public Output<List<EndpointSlice>> items() {

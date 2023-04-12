@@ -42,7 +42,7 @@ export class CSIStorageCapacityList extends pulumi.CustomResource {
      */
     public readonly apiVersion!: pulumi.Output<"storage.k8s.io/v1">;
     /**
-     * Items is the list of CSIStorageCapacity objects.
+     * items is the list of CSIStorageCapacity objects.
      */
     public readonly items!: pulumi.Output<outputs.storage.v1.CSIStorageCapacity[]>;
     /**
@@ -92,7 +92,7 @@ export interface CSIStorageCapacityListArgs {
      */
     apiVersion?: pulumi.Input<"storage.k8s.io/v1">;
     /**
-     * Items is the list of CSIStorageCapacity objects.
+     * items is the list of CSIStorageCapacity objects.
      */
     items: pulumi.Input<pulumi.Input<inputs.storage.v1.CSIStorageCapacity>[]>;
     /**

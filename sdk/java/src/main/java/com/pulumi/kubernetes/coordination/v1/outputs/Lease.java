@@ -29,7 +29,7 @@ public final class Lease {
      */
     private @Nullable ObjectMeta metadata;
     /**
-     * @return Specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+     * @return spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
     private @Nullable LeaseSpec spec;
@@ -57,7 +57,7 @@ public final class Lease {
         return Optional.ofNullable(this.metadata);
     }
     /**
-     * @return Specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+     * @return spec contains the specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
     public Optional<LeaseSpec> spec() {

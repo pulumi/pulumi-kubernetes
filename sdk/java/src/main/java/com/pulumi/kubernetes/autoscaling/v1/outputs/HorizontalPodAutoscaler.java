@@ -30,12 +30,12 @@ public final class HorizontalPodAutoscaler {
      */
     private @Nullable ObjectMeta metadata;
     /**
-     * @return behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+     * @return spec defines the behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
      * 
      */
     private @Nullable HorizontalPodAutoscalerSpec spec;
     /**
-     * @return current information about the autoscaler.
+     * @return status is the current information about the autoscaler.
      * 
      */
     private @Nullable HorizontalPodAutoscalerStatus status;
@@ -63,14 +63,14 @@ public final class HorizontalPodAutoscaler {
         return Optional.ofNullable(this.metadata);
     }
     /**
-     * @return behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+     * @return spec defines the behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
      * 
      */
     public Optional<HorizontalPodAutoscalerSpec> spec() {
         return Optional.ofNullable(this.spec);
     }
     /**
-     * @return current information about the autoscaler.
+     * @return status is the current information about the autoscaler.
      * 
      */
     public Optional<HorizontalPodAutoscalerStatus> status() {

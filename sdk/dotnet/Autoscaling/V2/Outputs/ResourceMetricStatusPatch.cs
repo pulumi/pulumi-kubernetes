@@ -21,7 +21,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Autoscaling.V2
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Autoscaling.V2.MetricValueStatusPatch Current;
         /// <summary>
-        /// Name is the name of the resource in question.
+        /// name is the name of the resource in question.
         /// </summary>
         public readonly string Name;
 

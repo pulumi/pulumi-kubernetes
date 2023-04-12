@@ -73,28 +73,28 @@ public class HorizontalPodAutoscalerPatch extends com.pulumi.resources.CustomRes
         return Codegen.optional(this.metadata);
     }
     /**
-     * behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+     * spec defines the behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
      * 
      */
     @Export(name="spec", refs={HorizontalPodAutoscalerSpecPatch.class}, tree="[0]")
     private Output</* @Nullable */ HorizontalPodAutoscalerSpecPatch> spec;
 
     /**
-     * @return behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+     * @return spec defines the behaviour of autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
      * 
      */
     public Output<Optional<HorizontalPodAutoscalerSpecPatch>> spec() {
         return Codegen.optional(this.spec);
     }
     /**
-     * current information about the autoscaler.
+     * status is the current information about the autoscaler.
      * 
      */
     @Export(name="status", refs={HorizontalPodAutoscalerStatusPatch.class}, tree="[0]")
     private Output</* @Nullable */ HorizontalPodAutoscalerStatusPatch> status;
 
     /**
-     * @return current information about the autoscaler.
+     * @return status is the current information about the autoscaler.
      * 
      */
     public Output<Optional<HorizontalPodAutoscalerStatusPatch>> status() {

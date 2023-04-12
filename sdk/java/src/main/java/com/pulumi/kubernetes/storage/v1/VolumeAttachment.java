@@ -69,28 +69,28 @@ public class VolumeAttachment extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.metadata);
     }
     /**
-     * Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
+     * spec represents specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
      * 
      */
     @Export(name="spec", refs={VolumeAttachmentSpec.class}, tree="[0]")
     private Output<VolumeAttachmentSpec> spec;
 
     /**
-     * @return Specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
+     * @return spec represents specification of the desired attach/detach volume behavior. Populated by the Kubernetes system.
      * 
      */
     public Output<VolumeAttachmentSpec> spec() {
         return this.spec;
     }
     /**
-     * Status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
+     * status represents status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
      * 
      */
     @Export(name="status", refs={VolumeAttachmentStatus.class}, tree="[0]")
     private Output</* @Nullable */ VolumeAttachmentStatus> status;
 
     /**
-     * @return Status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
+     * @return status represents status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
      * 
      */
     public Output<Optional<VolumeAttachmentStatus>> status() {

@@ -37,14 +37,14 @@ public class LeaseList extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.apiVersion);
     }
     /**
-     * Items is a list of schema objects.
+     * items is a list of schema objects.
      * 
      */
     @Export(name="items", refs={List.class,Lease.class}, tree="[0,1]")
     private Output<List<Lease>> items;
 
     /**
-     * @return Items is a list of schema objects.
+     * @return items is a list of schema objects.
      * 
      */
     public Output<List<Lease>> items() {

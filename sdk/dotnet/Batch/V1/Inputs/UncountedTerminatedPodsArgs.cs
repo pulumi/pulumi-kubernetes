@@ -19,7 +19,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Batch.V1
         private InputList<string>? _failed;
 
         /// <summary>
-        /// Failed holds UIDs of failed Pods.
+        /// failed holds UIDs of failed Pods.
         /// </summary>
         public InputList<string> Failed
         {
@@ -31,7 +31,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Batch.V1
         private InputList<string>? _succeeded;
 
         /// <summary>
-        /// Succeeded holds UIDs of succeeded Pods.
+        /// succeeded holds UIDs of succeeded Pods.
         /// </summary>
         public InputList<string> Succeeded
         {

@@ -369,11 +369,11 @@ func (o ContainerResourceMetricSourcePatchPtrOutput) Target() MetricTargetPatchP
 
 // ContainerResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing a single container in each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
 type ContainerResourceMetricStatus struct {
-	// Container is the name of the container in the pods of the scaling target
+	// container is the name of the container in the pods of the scaling target
 	Container string `pulumi:"container"`
 	// current contains the current value for the given metric
 	Current MetricValueStatus `pulumi:"current"`
-	// Name is the name of the resource in question.
+	// name is the name of the resource in question.
 	Name string `pulumi:"name"`
 }
 
@@ -390,11 +390,11 @@ type ContainerResourceMetricStatusInput interface {
 
 // ContainerResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing a single container in each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
 type ContainerResourceMetricStatusArgs struct {
-	// Container is the name of the container in the pods of the scaling target
+	// container is the name of the container in the pods of the scaling target
 	Container pulumi.StringInput `pulumi:"container"`
 	// current contains the current value for the given metric
 	Current MetricValueStatusInput `pulumi:"current"`
-	// Name is the name of the resource in question.
+	// name is the name of the resource in question.
 	Name pulumi.StringInput `pulumi:"name"`
 }
 
@@ -476,7 +476,7 @@ func (o ContainerResourceMetricStatusOutput) ToContainerResourceMetricStatusPtrO
 	}).(ContainerResourceMetricStatusPtrOutput)
 }
 
-// Container is the name of the container in the pods of the scaling target
+// container is the name of the container in the pods of the scaling target
 func (o ContainerResourceMetricStatusOutput) Container() pulumi.StringOutput {
 	return o.ApplyT(func(v ContainerResourceMetricStatus) string { return v.Container }).(pulumi.StringOutput)
 }
@@ -486,7 +486,7 @@ func (o ContainerResourceMetricStatusOutput) Current() MetricValueStatusOutput {
 	return o.ApplyT(func(v ContainerResourceMetricStatus) MetricValueStatus { return v.Current }).(MetricValueStatusOutput)
 }
 
-// Name is the name of the resource in question.
+// name is the name of the resource in question.
 func (o ContainerResourceMetricStatusOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v ContainerResourceMetricStatus) string { return v.Name }).(pulumi.StringOutput)
 }
@@ -515,7 +515,7 @@ func (o ContainerResourceMetricStatusPtrOutput) Elem() ContainerResourceMetricSt
 	}).(ContainerResourceMetricStatusOutput)
 }
 
-// Container is the name of the container in the pods of the scaling target
+// container is the name of the container in the pods of the scaling target
 func (o ContainerResourceMetricStatusPtrOutput) Container() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ContainerResourceMetricStatus) *string {
 		if v == nil {
@@ -535,7 +535,7 @@ func (o ContainerResourceMetricStatusPtrOutput) Current() MetricValueStatusPtrOu
 	}).(MetricValueStatusPtrOutput)
 }
 
-// Name is the name of the resource in question.
+// name is the name of the resource in question.
 func (o ContainerResourceMetricStatusPtrOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ContainerResourceMetricStatus) *string {
 		if v == nil {
@@ -547,11 +547,11 @@ func (o ContainerResourceMetricStatusPtrOutput) Name() pulumi.StringPtrOutput {
 
 // ContainerResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing a single container in each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
 type ContainerResourceMetricStatusPatch struct {
-	// Container is the name of the container in the pods of the scaling target
+	// container is the name of the container in the pods of the scaling target
 	Container *string `pulumi:"container"`
 	// current contains the current value for the given metric
 	Current *MetricValueStatusPatch `pulumi:"current"`
-	// Name is the name of the resource in question.
+	// name is the name of the resource in question.
 	Name *string `pulumi:"name"`
 }
 
@@ -568,11 +568,11 @@ type ContainerResourceMetricStatusPatchInput interface {
 
 // ContainerResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing a single container in each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
 type ContainerResourceMetricStatusPatchArgs struct {
-	// Container is the name of the container in the pods of the scaling target
+	// container is the name of the container in the pods of the scaling target
 	Container pulumi.StringPtrInput `pulumi:"container"`
 	// current contains the current value for the given metric
 	Current MetricValueStatusPatchPtrInput `pulumi:"current"`
-	// Name is the name of the resource in question.
+	// name is the name of the resource in question.
 	Name pulumi.StringPtrInput `pulumi:"name"`
 }
 
@@ -654,7 +654,7 @@ func (o ContainerResourceMetricStatusPatchOutput) ToContainerResourceMetricStatu
 	}).(ContainerResourceMetricStatusPatchPtrOutput)
 }
 
-// Container is the name of the container in the pods of the scaling target
+// container is the name of the container in the pods of the scaling target
 func (o ContainerResourceMetricStatusPatchOutput) Container() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ContainerResourceMetricStatusPatch) *string { return v.Container }).(pulumi.StringPtrOutput)
 }
@@ -664,7 +664,7 @@ func (o ContainerResourceMetricStatusPatchOutput) Current() MetricValueStatusPat
 	return o.ApplyT(func(v ContainerResourceMetricStatusPatch) *MetricValueStatusPatch { return v.Current }).(MetricValueStatusPatchPtrOutput)
 }
 
-// Name is the name of the resource in question.
+// name is the name of the resource in question.
 func (o ContainerResourceMetricStatusPatchOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ContainerResourceMetricStatusPatch) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
@@ -693,7 +693,7 @@ func (o ContainerResourceMetricStatusPatchPtrOutput) Elem() ContainerResourceMet
 	}).(ContainerResourceMetricStatusPatchOutput)
 }
 
-// Container is the name of the container in the pods of the scaling target
+// container is the name of the container in the pods of the scaling target
 func (o ContainerResourceMetricStatusPatchPtrOutput) Container() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ContainerResourceMetricStatusPatch) *string {
 		if v == nil {
@@ -713,7 +713,7 @@ func (o ContainerResourceMetricStatusPatchPtrOutput) Current() MetricValueStatus
 	}).(MetricValueStatusPatchPtrOutput)
 }
 
-// Name is the name of the resource in question.
+// name is the name of the resource in question.
 func (o ContainerResourceMetricStatusPatchPtrOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ContainerResourceMetricStatusPatch) *string {
 		if v == nil {
@@ -725,11 +725,11 @@ func (o ContainerResourceMetricStatusPatchPtrOutput) Name() pulumi.StringPtrOutp
 
 // CrossVersionObjectReference contains enough information to let you identify the referred resource.
 type CrossVersionObjectReference struct {
-	// API version of the referent
+	// apiVersion is the API version of the referent
 	ApiVersion *string `pulumi:"apiVersion"`
-	// Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	// kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind string `pulumi:"kind"`
-	// Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
+	// name is the name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 	Name string `pulumi:"name"`
 }
 
@@ -746,11 +746,11 @@ type CrossVersionObjectReferenceInput interface {
 
 // CrossVersionObjectReference contains enough information to let you identify the referred resource.
 type CrossVersionObjectReferenceArgs struct {
-	// API version of the referent
+	// apiVersion is the API version of the referent
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	// kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringInput `pulumi:"kind"`
-	// Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
+	// name is the name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 	Name pulumi.StringInput `pulumi:"name"`
 }
 
@@ -832,17 +832,17 @@ func (o CrossVersionObjectReferenceOutput) ToCrossVersionObjectReferencePtrOutpu
 	}).(CrossVersionObjectReferencePtrOutput)
 }
 
-// API version of the referent
+// apiVersion is the API version of the referent
 func (o CrossVersionObjectReferenceOutput) ApiVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CrossVersionObjectReference) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
-// Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+// kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 func (o CrossVersionObjectReferenceOutput) Kind() pulumi.StringOutput {
 	return o.ApplyT(func(v CrossVersionObjectReference) string { return v.Kind }).(pulumi.StringOutput)
 }
 
-// Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
+// name is the name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 func (o CrossVersionObjectReferenceOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v CrossVersionObjectReference) string { return v.Name }).(pulumi.StringOutput)
 }
@@ -871,7 +871,7 @@ func (o CrossVersionObjectReferencePtrOutput) Elem() CrossVersionObjectReference
 	}).(CrossVersionObjectReferenceOutput)
 }
 
-// API version of the referent
+// apiVersion is the API version of the referent
 func (o CrossVersionObjectReferencePtrOutput) ApiVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CrossVersionObjectReference) *string {
 		if v == nil {
@@ -881,7 +881,7 @@ func (o CrossVersionObjectReferencePtrOutput) ApiVersion() pulumi.StringPtrOutpu
 	}).(pulumi.StringPtrOutput)
 }
 
-// Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+// kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 func (o CrossVersionObjectReferencePtrOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CrossVersionObjectReference) *string {
 		if v == nil {
@@ -891,7 +891,7 @@ func (o CrossVersionObjectReferencePtrOutput) Kind() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
+// name is the name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 func (o CrossVersionObjectReferencePtrOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CrossVersionObjectReference) *string {
 		if v == nil {
@@ -903,11 +903,11 @@ func (o CrossVersionObjectReferencePtrOutput) Name() pulumi.StringPtrOutput {
 
 // CrossVersionObjectReference contains enough information to let you identify the referred resource.
 type CrossVersionObjectReferencePatch struct {
-	// API version of the referent
+	// apiVersion is the API version of the referent
 	ApiVersion *string `pulumi:"apiVersion"`
-	// Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	// kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind *string `pulumi:"kind"`
-	// Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
+	// name is the name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 	Name *string `pulumi:"name"`
 }
 
@@ -924,11 +924,11 @@ type CrossVersionObjectReferencePatchInput interface {
 
 // CrossVersionObjectReference contains enough information to let you identify the referred resource.
 type CrossVersionObjectReferencePatchArgs struct {
-	// API version of the referent
+	// apiVersion is the API version of the referent
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
-	// Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+	// kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 	Kind pulumi.StringPtrInput `pulumi:"kind"`
-	// Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
+	// name is the name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 	Name pulumi.StringPtrInput `pulumi:"name"`
 }
 
@@ -1010,17 +1010,17 @@ func (o CrossVersionObjectReferencePatchOutput) ToCrossVersionObjectReferencePat
 	}).(CrossVersionObjectReferencePatchPtrOutput)
 }
 
-// API version of the referent
+// apiVersion is the API version of the referent
 func (o CrossVersionObjectReferencePatchOutput) ApiVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CrossVersionObjectReferencePatch) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
-// Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+// kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 func (o CrossVersionObjectReferencePatchOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CrossVersionObjectReferencePatch) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-// Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
+// name is the name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 func (o CrossVersionObjectReferencePatchOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CrossVersionObjectReferencePatch) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
@@ -1049,7 +1049,7 @@ func (o CrossVersionObjectReferencePatchPtrOutput) Elem() CrossVersionObjectRefe
 	}).(CrossVersionObjectReferencePatchOutput)
 }
 
-// API version of the referent
+// apiVersion is the API version of the referent
 func (o CrossVersionObjectReferencePatchPtrOutput) ApiVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CrossVersionObjectReferencePatch) *string {
 		if v == nil {
@@ -1059,7 +1059,7 @@ func (o CrossVersionObjectReferencePatchPtrOutput) ApiVersion() pulumi.StringPtr
 	}).(pulumi.StringPtrOutput)
 }
 
-// Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+// kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 func (o CrossVersionObjectReferencePatchPtrOutput) Kind() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CrossVersionObjectReferencePatch) *string {
 		if v == nil {
@@ -1069,7 +1069,7 @@ func (o CrossVersionObjectReferencePatchPtrOutput) Kind() pulumi.StringPtrOutput
 	}).(pulumi.StringPtrOutput)
 }
 
-// Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
+// name is the name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
 func (o CrossVersionObjectReferencePatchPtrOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *CrossVersionObjectReferencePatch) *string {
 		if v == nil {
@@ -1717,11 +1717,11 @@ func (o ExternalMetricStatusPatchPtrOutput) Metric() MetricIdentifierPatchPtrOut
 
 // HPAScalingPolicy is a single policy which must hold true for a specified past interval.
 type HPAScalingPolicy struct {
-	// PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
+	// periodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
 	PeriodSeconds int `pulumi:"periodSeconds"`
-	// Type is used to specify the scaling policy.
+	// type is used to specify the scaling policy.
 	Type string `pulumi:"type"`
-	// Value contains the amount of change which is permitted by the policy. It must be greater than zero
+	// value contains the amount of change which is permitted by the policy. It must be greater than zero
 	Value int `pulumi:"value"`
 }
 
@@ -1738,11 +1738,11 @@ type HPAScalingPolicyInput interface {
 
 // HPAScalingPolicy is a single policy which must hold true for a specified past interval.
 type HPAScalingPolicyArgs struct {
-	// PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
+	// periodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
 	PeriodSeconds pulumi.IntInput `pulumi:"periodSeconds"`
-	// Type is used to specify the scaling policy.
+	// type is used to specify the scaling policy.
 	Type pulumi.StringInput `pulumi:"type"`
-	// Value contains the amount of change which is permitted by the policy. It must be greater than zero
+	// value contains the amount of change which is permitted by the policy. It must be greater than zero
 	Value pulumi.IntInput `pulumi:"value"`
 }
 
@@ -1798,17 +1798,17 @@ func (o HPAScalingPolicyOutput) ToHPAScalingPolicyOutputWithContext(ctx context.
 	return o
 }
 
-// PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
+// periodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
 func (o HPAScalingPolicyOutput) PeriodSeconds() pulumi.IntOutput {
 	return o.ApplyT(func(v HPAScalingPolicy) int { return v.PeriodSeconds }).(pulumi.IntOutput)
 }
 
-// Type is used to specify the scaling policy.
+// type is used to specify the scaling policy.
 func (o HPAScalingPolicyOutput) Type() pulumi.StringOutput {
 	return o.ApplyT(func(v HPAScalingPolicy) string { return v.Type }).(pulumi.StringOutput)
 }
 
-// Value contains the amount of change which is permitted by the policy. It must be greater than zero
+// value contains the amount of change which is permitted by the policy. It must be greater than zero
 func (o HPAScalingPolicyOutput) Value() pulumi.IntOutput {
 	return o.ApplyT(func(v HPAScalingPolicy) int { return v.Value }).(pulumi.IntOutput)
 }
@@ -1835,11 +1835,11 @@ func (o HPAScalingPolicyArrayOutput) Index(i pulumi.IntInput) HPAScalingPolicyOu
 
 // HPAScalingPolicy is a single policy which must hold true for a specified past interval.
 type HPAScalingPolicyPatch struct {
-	// PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
+	// periodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
 	PeriodSeconds *int `pulumi:"periodSeconds"`
-	// Type is used to specify the scaling policy.
+	// type is used to specify the scaling policy.
 	Type *string `pulumi:"type"`
-	// Value contains the amount of change which is permitted by the policy. It must be greater than zero
+	// value contains the amount of change which is permitted by the policy. It must be greater than zero
 	Value *int `pulumi:"value"`
 }
 
@@ -1856,11 +1856,11 @@ type HPAScalingPolicyPatchInput interface {
 
 // HPAScalingPolicy is a single policy which must hold true for a specified past interval.
 type HPAScalingPolicyPatchArgs struct {
-	// PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
+	// periodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
 	PeriodSeconds pulumi.IntPtrInput `pulumi:"periodSeconds"`
-	// Type is used to specify the scaling policy.
+	// type is used to specify the scaling policy.
 	Type pulumi.StringPtrInput `pulumi:"type"`
-	// Value contains the amount of change which is permitted by the policy. It must be greater than zero
+	// value contains the amount of change which is permitted by the policy. It must be greater than zero
 	Value pulumi.IntPtrInput `pulumi:"value"`
 }
 
@@ -1916,17 +1916,17 @@ func (o HPAScalingPolicyPatchOutput) ToHPAScalingPolicyPatchOutputWithContext(ct
 	return o
 }
 
-// PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
+// periodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
 func (o HPAScalingPolicyPatchOutput) PeriodSeconds() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v HPAScalingPolicyPatch) *int { return v.PeriodSeconds }).(pulumi.IntPtrOutput)
 }
 
-// Type is used to specify the scaling policy.
+// type is used to specify the scaling policy.
 func (o HPAScalingPolicyPatchOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v HPAScalingPolicyPatch) *string { return v.Type }).(pulumi.StringPtrOutput)
 }
 
-// Value contains the amount of change which is permitted by the policy. It must be greater than zero
+// value contains the amount of change which is permitted by the policy. It must be greater than zero
 func (o HPAScalingPolicyPatchOutput) Value() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v HPAScalingPolicyPatch) *int { return v.Value }).(pulumi.IntPtrOutput)
 }
@@ -1957,7 +1957,7 @@ type HPAScalingRules struct {
 	Policies []HPAScalingPolicy `pulumi:"policies"`
 	// selectPolicy is used to specify which policy should be used. If not set, the default value Max is used.
 	SelectPolicy *string `pulumi:"selectPolicy"`
-	// StabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
+	// stabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
 	StabilizationWindowSeconds *int `pulumi:"stabilizationWindowSeconds"`
 }
 
@@ -1978,7 +1978,7 @@ type HPAScalingRulesArgs struct {
 	Policies HPAScalingPolicyArrayInput `pulumi:"policies"`
 	// selectPolicy is used to specify which policy should be used. If not set, the default value Max is used.
 	SelectPolicy pulumi.StringPtrInput `pulumi:"selectPolicy"`
-	// StabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
+	// stabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
 	StabilizationWindowSeconds pulumi.IntPtrInput `pulumi:"stabilizationWindowSeconds"`
 }
 
@@ -2070,7 +2070,7 @@ func (o HPAScalingRulesOutput) SelectPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v HPAScalingRules) *string { return v.SelectPolicy }).(pulumi.StringPtrOutput)
 }
 
-// StabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
+// stabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
 func (o HPAScalingRulesOutput) StabilizationWindowSeconds() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v HPAScalingRules) *int { return v.StabilizationWindowSeconds }).(pulumi.IntPtrOutput)
 }
@@ -2119,7 +2119,7 @@ func (o HPAScalingRulesPtrOutput) SelectPolicy() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// StabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
+// stabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
 func (o HPAScalingRulesPtrOutput) StabilizationWindowSeconds() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *HPAScalingRules) *int {
 		if v == nil {
@@ -2135,7 +2135,7 @@ type HPAScalingRulesPatch struct {
 	Policies []HPAScalingPolicyPatch `pulumi:"policies"`
 	// selectPolicy is used to specify which policy should be used. If not set, the default value Max is used.
 	SelectPolicy *string `pulumi:"selectPolicy"`
-	// StabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
+	// stabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
 	StabilizationWindowSeconds *int `pulumi:"stabilizationWindowSeconds"`
 }
 
@@ -2156,7 +2156,7 @@ type HPAScalingRulesPatchArgs struct {
 	Policies HPAScalingPolicyPatchArrayInput `pulumi:"policies"`
 	// selectPolicy is used to specify which policy should be used. If not set, the default value Max is used.
 	SelectPolicy pulumi.StringPtrInput `pulumi:"selectPolicy"`
-	// StabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
+	// stabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
 	StabilizationWindowSeconds pulumi.IntPtrInput `pulumi:"stabilizationWindowSeconds"`
 }
 
@@ -2248,7 +2248,7 @@ func (o HPAScalingRulesPatchOutput) SelectPolicy() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v HPAScalingRulesPatch) *string { return v.SelectPolicy }).(pulumi.StringPtrOutput)
 }
 
-// StabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
+// stabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
 func (o HPAScalingRulesPatchOutput) StabilizationWindowSeconds() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v HPAScalingRulesPatch) *int { return v.StabilizationWindowSeconds }).(pulumi.IntPtrOutput)
 }
@@ -2297,7 +2297,7 @@ func (o HPAScalingRulesPatchPtrOutput) SelectPolicy() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// StabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
+// stabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
 func (o HPAScalingRulesPatchPtrOutput) StabilizationWindowSeconds() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *HPAScalingRulesPatch) *int {
 		if v == nil {
@@ -7452,7 +7452,7 @@ func (o ResourceMetricSourcePatchPtrOutput) Target() MetricTargetPatchPtrOutput 
 type ResourceMetricStatus struct {
 	// current contains the current value for the given metric
 	Current MetricValueStatus `pulumi:"current"`
-	// Name is the name of the resource in question.
+	// name is the name of the resource in question.
 	Name string `pulumi:"name"`
 }
 
@@ -7471,7 +7471,7 @@ type ResourceMetricStatusInput interface {
 type ResourceMetricStatusArgs struct {
 	// current contains the current value for the given metric
 	Current MetricValueStatusInput `pulumi:"current"`
-	// Name is the name of the resource in question.
+	// name is the name of the resource in question.
 	Name pulumi.StringInput `pulumi:"name"`
 }
 
@@ -7558,7 +7558,7 @@ func (o ResourceMetricStatusOutput) Current() MetricValueStatusOutput {
 	return o.ApplyT(func(v ResourceMetricStatus) MetricValueStatus { return v.Current }).(MetricValueStatusOutput)
 }
 
-// Name is the name of the resource in question.
+// name is the name of the resource in question.
 func (o ResourceMetricStatusOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v ResourceMetricStatus) string { return v.Name }).(pulumi.StringOutput)
 }
@@ -7597,7 +7597,7 @@ func (o ResourceMetricStatusPtrOutput) Current() MetricValueStatusPtrOutput {
 	}).(MetricValueStatusPtrOutput)
 }
 
-// Name is the name of the resource in question.
+// name is the name of the resource in question.
 func (o ResourceMetricStatusPtrOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ResourceMetricStatus) *string {
 		if v == nil {
@@ -7611,7 +7611,7 @@ func (o ResourceMetricStatusPtrOutput) Name() pulumi.StringPtrOutput {
 type ResourceMetricStatusPatch struct {
 	// current contains the current value for the given metric
 	Current *MetricValueStatusPatch `pulumi:"current"`
-	// Name is the name of the resource in question.
+	// name is the name of the resource in question.
 	Name *string `pulumi:"name"`
 }
 
@@ -7630,7 +7630,7 @@ type ResourceMetricStatusPatchInput interface {
 type ResourceMetricStatusPatchArgs struct {
 	// current contains the current value for the given metric
 	Current MetricValueStatusPatchPtrInput `pulumi:"current"`
-	// Name is the name of the resource in question.
+	// name is the name of the resource in question.
 	Name pulumi.StringPtrInput `pulumi:"name"`
 }
 
@@ -7717,7 +7717,7 @@ func (o ResourceMetricStatusPatchOutput) Current() MetricValueStatusPatchPtrOutp
 	return o.ApplyT(func(v ResourceMetricStatusPatch) *MetricValueStatusPatch { return v.Current }).(MetricValueStatusPatchPtrOutput)
 }
 
-// Name is the name of the resource in question.
+// name is the name of the resource in question.
 func (o ResourceMetricStatusPatchOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ResourceMetricStatusPatch) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
@@ -7756,7 +7756,7 @@ func (o ResourceMetricStatusPatchPtrOutput) Current() MetricValueStatusPatchPtrO
 	}).(MetricValueStatusPatchPtrOutput)
 }
 
-// Name is the name of the resource in question.
+// name is the name of the resource in question.
 func (o ResourceMetricStatusPatchPtrOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ResourceMetricStatusPatch) *string {
 		if v == nil {

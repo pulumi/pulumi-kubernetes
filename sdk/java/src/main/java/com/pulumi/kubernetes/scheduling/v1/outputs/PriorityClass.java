@@ -40,12 +40,12 @@ public final class PriorityClass {
      */
     private @Nullable ObjectMeta metadata;
     /**
-     * @return PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+     * @return preemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
      * 
      */
     private @Nullable String preemptionPolicy;
     /**
-     * @return The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
+     * @return value represents the integer value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
      * 
      */
     private Integer value;
@@ -87,14 +87,14 @@ public final class PriorityClass {
         return Optional.ofNullable(this.metadata);
     }
     /**
-     * @return PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+     * @return preemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
      * 
      */
     public Optional<String> preemptionPolicy() {
         return Optional.ofNullable(this.preemptionPolicy);
     }
     /**
-     * @return The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
+     * @return value represents the integer value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
      * 
      */
     public Integer value() {

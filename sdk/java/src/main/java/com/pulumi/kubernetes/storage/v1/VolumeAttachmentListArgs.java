@@ -35,14 +35,14 @@ public final class VolumeAttachmentListArgs extends com.pulumi.resources.Resourc
     }
 
     /**
-     * Items is the list of VolumeAttachments
+     * items is the list of VolumeAttachments
      * 
      */
     @Import(name="items", required=true)
     private Output<List<VolumeAttachmentArgs>> items;
 
     /**
-     * @return Items is the list of VolumeAttachments
+     * @return items is the list of VolumeAttachments
      * 
      */
     public Output<List<VolumeAttachmentArgs>> items() {
@@ -128,7 +128,7 @@ public final class VolumeAttachmentListArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param items Items is the list of VolumeAttachments
+         * @param items items is the list of VolumeAttachments
          * 
          * @return builder
          * 
@@ -139,7 +139,7 @@ public final class VolumeAttachmentListArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param items Items is the list of VolumeAttachments
+         * @param items items is the list of VolumeAttachments
          * 
          * @return builder
          * 
@@ -149,7 +149,7 @@ public final class VolumeAttachmentListArgs extends com.pulumi.resources.Resourc
         }
 
         /**
-         * @param items Items is the list of VolumeAttachments
+         * @param items items is the list of VolumeAttachments
          * 
          * @return builder
          * 

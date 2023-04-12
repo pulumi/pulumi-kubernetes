@@ -19,7 +19,7 @@ public final class CSINodeDriverPatch {
      */
     private @Nullable VolumeNodeResourcesPatch allocatable;
     /**
-     * @return This is the name of the CSI driver that this object refers to. This MUST be the same name returned by the CSI GetPluginName() call for that driver.
+     * @return name represents the name of the CSI driver that this object refers to. This MUST be the same name returned by the CSI GetPluginName() call for that driver.
      * 
      */
     private @Nullable String name;
@@ -43,7 +43,7 @@ public final class CSINodeDriverPatch {
         return Optional.ofNullable(this.allocatable);
     }
     /**
-     * @return This is the name of the CSI driver that this object refers to. This MUST be the same name returned by the CSI GetPluginName() call for that driver.
+     * @return name represents the name of the CSI driver that this object refers to. This MUST be the same name returned by the CSI GetPluginName() call for that driver.
      * 
      */
     public Optional<String> name() {

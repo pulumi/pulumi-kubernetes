@@ -64,14 +64,14 @@ public final class NetworkPolicyPatchArgs extends com.pulumi.resources.ResourceA
     }
 
     /**
-     * Specification of the desired behavior for this NetworkPolicy.
+     * spec represents the specification of the desired behavior for this NetworkPolicy.
      * 
      */
     @Import(name="spec")
     private @Nullable Output<NetworkPolicySpecPatchArgs> spec;
 
     /**
-     * @return Specification of the desired behavior for this NetworkPolicy.
+     * @return spec represents the specification of the desired behavior for this NetworkPolicy.
      * 
      */
     public Optional<Output<NetworkPolicySpecPatchArgs>> spec() {
@@ -169,7 +169,7 @@ public final class NetworkPolicyPatchArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param spec Specification of the desired behavior for this NetworkPolicy.
+         * @param spec spec represents the specification of the desired behavior for this NetworkPolicy.
          * 
          * @return builder
          * 
@@ -180,7 +180,7 @@ public final class NetworkPolicyPatchArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param spec Specification of the desired behavior for this NetworkPolicy.
+         * @param spec spec represents the specification of the desired behavior for this NetworkPolicy.
          * 
          * @return builder
          * 

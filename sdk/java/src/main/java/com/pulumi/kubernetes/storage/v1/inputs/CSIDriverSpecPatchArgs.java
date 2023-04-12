@@ -42,7 +42,7 @@ public final class CSIDriverSpecPatchArgs extends com.pulumi.resources.ResourceA
     }
 
     /**
-     * Defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details.
+     * fsGroupPolicy defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details.
      * 
      * This field is immutable.
      * 
@@ -53,7 +53,7 @@ public final class CSIDriverSpecPatchArgs extends com.pulumi.resources.ResourceA
     private @Nullable Output<String> fsGroupPolicy;
 
     /**
-     * @return Defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details.
+     * @return fsGroupPolicy defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details.
      * 
      * This field is immutable.
      * 
@@ -65,7 +65,11 @@ public final class CSIDriverSpecPatchArgs extends com.pulumi.resources.ResourceA
     }
 
     /**
-     * If set to true, podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations. If set to false, pod information will not be passed on mount. Default is false. The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext. The following VolumeConext will be passed if podInfoOnMount is set to true. This list might grow, but the prefix will be used. &#34;csi.storage.k8s.io/pod.name&#34;: pod.Name &#34;csi.storage.k8s.io/pod.namespace&#34;: pod.Namespace &#34;csi.storage.k8s.io/pod.uid&#34;: string(pod.UID) &#34;csi.storage.k8s.io/ephemeral&#34;: &#34;true&#34; if the volume is an ephemeral inline volume
+     * podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations, if set to true. If set to false, pod information will not be passed on mount. Default is false.
+     * 
+     * The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext.
+     * 
+     * The following VolumeConext will be passed if podInfoOnMount is set to true. This list might grow, but the prefix will be used. &#34;csi.storage.k8s.io/pod.name&#34;: pod.Name &#34;csi.storage.k8s.io/pod.namespace&#34;: pod.Namespace &#34;csi.storage.k8s.io/pod.uid&#34;: string(pod.UID) &#34;csi.storage.k8s.io/ephemeral&#34;: &#34;true&#34; if the volume is an ephemeral inline volume
      *                                 defined by a CSIVolumeSource, otherwise &#34;false&#34;
      * 
      * &#34;csi.storage.k8s.io/ephemeral&#34; is a new feature in Kubernetes 1.16. It is only required for drivers which support both the &#34;Persistent&#34; and &#34;Ephemeral&#34; VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn&#39;t support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.
@@ -77,7 +81,11 @@ public final class CSIDriverSpecPatchArgs extends com.pulumi.resources.ResourceA
     private @Nullable Output<Boolean> podInfoOnMount;
 
     /**
-     * @return If set to true, podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations. If set to false, pod information will not be passed on mount. Default is false. The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext. The following VolumeConext will be passed if podInfoOnMount is set to true. This list might grow, but the prefix will be used. &#34;csi.storage.k8s.io/pod.name&#34;: pod.Name &#34;csi.storage.k8s.io/pod.namespace&#34;: pod.Namespace &#34;csi.storage.k8s.io/pod.uid&#34;: string(pod.UID) &#34;csi.storage.k8s.io/ephemeral&#34;: &#34;true&#34; if the volume is an ephemeral inline volume
+     * @return podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations, if set to true. If set to false, pod information will not be passed on mount. Default is false.
+     * 
+     * The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext.
+     * 
+     * The following VolumeConext will be passed if podInfoOnMount is set to true. This list might grow, but the prefix will be used. &#34;csi.storage.k8s.io/pod.name&#34;: pod.Name &#34;csi.storage.k8s.io/pod.namespace&#34;: pod.Namespace &#34;csi.storage.k8s.io/pod.uid&#34;: string(pod.UID) &#34;csi.storage.k8s.io/ephemeral&#34;: &#34;true&#34; if the volume is an ephemeral inline volume
      *                                 defined by a CSIVolumeSource, otherwise &#34;false&#34;
      * 
      * &#34;csi.storage.k8s.io/ephemeral&#34; is a new feature in Kubernetes 1.16. It is only required for drivers which support both the &#34;Persistent&#34; and &#34;Ephemeral&#34; VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn&#39;t support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.
@@ -90,7 +98,7 @@ public final class CSIDriverSpecPatchArgs extends com.pulumi.resources.ResourceA
     }
 
     /**
-     * RequiresRepublish indicates the CSI driver wants `NodePublishVolume` being periodically called to reflect any possible change in the mounted volume. This field defaults to false.
+     * requiresRepublish indicates the CSI driver wants `NodePublishVolume` being periodically called to reflect any possible change in the mounted volume. This field defaults to false.
      * 
      * Note: After a successful initial NodePublishVolume call, subsequent calls to NodePublishVolume should only update the contents of the volume. New mount points will not be seen by a running container.
      * 
@@ -99,7 +107,7 @@ public final class CSIDriverSpecPatchArgs extends com.pulumi.resources.ResourceA
     private @Nullable Output<Boolean> requiresRepublish;
 
     /**
-     * @return RequiresRepublish indicates the CSI driver wants `NodePublishVolume` being periodically called to reflect any possible change in the mounted volume. This field defaults to false.
+     * @return requiresRepublish indicates the CSI driver wants `NodePublishVolume` being periodically called to reflect any possible change in the mounted volume. This field defaults to false.
      * 
      * Note: After a successful initial NodePublishVolume call, subsequent calls to NodePublishVolume should only update the contents of the volume. New mount points will not be seen by a running container.
      * 
@@ -109,7 +117,7 @@ public final class CSIDriverSpecPatchArgs extends com.pulumi.resources.ResourceA
     }
 
     /**
-     * SELinuxMount specifies if the CSI driver supports &#34;-o context&#34; mount option.
+     * seLinuxMount specifies if the CSI driver supports &#34;-o context&#34; mount option.
      * 
      * When &#34;true&#34;, the CSI driver must ensure that all volumes provided by this CSI driver can be mounted separately with different `-o context` options. This is typical for storage backends that provide volumes as filesystems on block devices or as independent shared volumes. Kubernetes will call NodeStage / NodePublish with &#34;-o context=xyz&#34; mount option when mounting a ReadWriteOncePod volume used in Pod that has explicitly set SELinux context. In the future, it may be expanded to other volume AccessModes. In any case, Kubernetes will ensure that the volume is mounted only with a single SELinux context.
      * 
@@ -122,7 +130,7 @@ public final class CSIDriverSpecPatchArgs extends com.pulumi.resources.ResourceA
     private @Nullable Output<Boolean> seLinuxMount;
 
     /**
-     * @return SELinuxMount specifies if the CSI driver supports &#34;-o context&#34; mount option.
+     * @return seLinuxMount specifies if the CSI driver supports &#34;-o context&#34; mount option.
      * 
      * When &#34;true&#34;, the CSI driver must ensure that all volumes provided by this CSI driver can be mounted separately with different `-o context` options. This is typical for storage backends that provide volumes as filesystems on block devices or as independent shared volumes. Kubernetes will call NodeStage / NodePublish with &#34;-o context=xyz&#34; mount option when mounting a ReadWriteOncePod volume used in Pod that has explicitly set SELinux context. In the future, it may be expanded to other volume AccessModes. In any case, Kubernetes will ensure that the volume is mounted only with a single SELinux context.
      * 
@@ -136,7 +144,7 @@ public final class CSIDriverSpecPatchArgs extends com.pulumi.resources.ResourceA
     }
 
     /**
-     * If set to true, storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information.
+     * storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information, if set to true.
      * 
      * The check can be enabled immediately when deploying a driver. In that case, provisioning new volumes with late binding will pause until the driver deployment has published some suitable CSIStorageCapacity object.
      * 
@@ -149,7 +157,7 @@ public final class CSIDriverSpecPatchArgs extends com.pulumi.resources.ResourceA
     private @Nullable Output<Boolean> storageCapacity;
 
     /**
-     * @return If set to true, storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information.
+     * @return storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information, if set to true.
      * 
      * The check can be enabled immediately when deploying a driver. In that case, provisioning new volumes with late binding will pause until the driver deployment has published some suitable CSIStorageCapacity object.
      * 
@@ -163,7 +171,7 @@ public final class CSIDriverSpecPatchArgs extends com.pulumi.resources.ResourceA
     }
 
     /**
-     * TokenRequests indicates the CSI driver needs pods&#39; service account tokens it is mounting volume for to do necessary authentication. Kubelet will pass the tokens in VolumeContext in the CSI NodePublishVolume calls. The CSI driver should parse and validate the following VolumeContext: &#34;csi.storage.k8s.io/serviceAccount.tokens&#34;: {
+     * tokenRequests indicates the CSI driver needs pods&#39; service account tokens it is mounting volume for to do necessary authentication. Kubelet will pass the tokens in VolumeContext in the CSI NodePublishVolume calls. The CSI driver should parse and validate the following VolumeContext: &#34;csi.storage.k8s.io/serviceAccount.tokens&#34;: {
      *   &#34;&lt;audience&gt;&#34;: {
      *     &#34;token&#34;: &lt;token&gt;,
      *     &#34;expirationTimestamp&#34;: &lt;expiration timestamp in RFC3339&gt;,
@@ -178,7 +186,7 @@ public final class CSIDriverSpecPatchArgs extends com.pulumi.resources.ResourceA
     private @Nullable Output<List<TokenRequestPatchArgs>> tokenRequests;
 
     /**
-     * @return TokenRequests indicates the CSI driver needs pods&#39; service account tokens it is mounting volume for to do necessary authentication. Kubelet will pass the tokens in VolumeContext in the CSI NodePublishVolume calls. The CSI driver should parse and validate the following VolumeContext: &#34;csi.storage.k8s.io/serviceAccount.tokens&#34;: {
+     * @return tokenRequests indicates the CSI driver needs pods&#39; service account tokens it is mounting volume for to do necessary authentication. Kubelet will pass the tokens in VolumeContext in the CSI NodePublishVolume calls. The CSI driver should parse and validate the following VolumeContext: &#34;csi.storage.k8s.io/serviceAccount.tokens&#34;: {
      *   &#34;&lt;audience&gt;&#34;: {
      *     &#34;token&#34;: &lt;token&gt;,
      *     &#34;expirationTimestamp&#34;: &lt;expiration timestamp in RFC3339&gt;,
@@ -194,18 +202,26 @@ public final class CSIDriverSpecPatchArgs extends com.pulumi.resources.ResourceA
     }
 
     /**
-     * volumeLifecycleModes defines what kind of volumes this CSI volume driver supports. The default if the list is empty is &#34;Persistent&#34;, which is the usage defined by the CSI specification and implemented in Kubernetes via the usual PV/PVC mechanism. The other mode is &#34;Ephemeral&#34;. In this mode, volumes are defined inline inside the pod spec with CSIVolumeSource and their lifecycle is tied to the lifecycle of that pod. A driver has to be aware of this because it is only going to get a NodePublishVolume call for such a volume. For more information about implementing this mode, see https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html A driver can support one or more of these modes and more modes may be added in the future. This field is beta.
+     * volumeLifecycleModes defines what kind of volumes this CSI volume driver supports. The default if the list is empty is &#34;Persistent&#34;, which is the usage defined by the CSI specification and implemented in Kubernetes via the usual PV/PVC mechanism.
      * 
-     * This field is immutable.
+     * The other mode is &#34;Ephemeral&#34;. In this mode, volumes are defined inline inside the pod spec with CSIVolumeSource and their lifecycle is tied to the lifecycle of that pod. A driver has to be aware of this because it is only going to get a NodePublishVolume call for such a volume.
+     * 
+     * For more information about implementing this mode, see https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html A driver can support one or more of these modes and more modes may be added in the future.
+     * 
+     * This field is beta. This field is immutable.
      * 
      */
     @Import(name="volumeLifecycleModes")
     private @Nullable Output<List<String>> volumeLifecycleModes;
 
     /**
-     * @return volumeLifecycleModes defines what kind of volumes this CSI volume driver supports. The default if the list is empty is &#34;Persistent&#34;, which is the usage defined by the CSI specification and implemented in Kubernetes via the usual PV/PVC mechanism. The other mode is &#34;Ephemeral&#34;. In this mode, volumes are defined inline inside the pod spec with CSIVolumeSource and their lifecycle is tied to the lifecycle of that pod. A driver has to be aware of this because it is only going to get a NodePublishVolume call for such a volume. For more information about implementing this mode, see https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html A driver can support one or more of these modes and more modes may be added in the future. This field is beta.
+     * @return volumeLifecycleModes defines what kind of volumes this CSI volume driver supports. The default if the list is empty is &#34;Persistent&#34;, which is the usage defined by the CSI specification and implemented in Kubernetes via the usual PV/PVC mechanism.
      * 
-     * This field is immutable.
+     * The other mode is &#34;Ephemeral&#34;. In this mode, volumes are defined inline inside the pod spec with CSIVolumeSource and their lifecycle is tied to the lifecycle of that pod. A driver has to be aware of this because it is only going to get a NodePublishVolume call for such a volume.
+     * 
+     * For more information about implementing this mode, see https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html A driver can support one or more of these modes and more modes may be added in the future.
+     * 
+     * This field is beta. This field is immutable.
      * 
      */
     public Optional<Output<List<String>>> volumeLifecycleModes() {
@@ -269,7 +285,7 @@ public final class CSIDriverSpecPatchArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param fsGroupPolicy Defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details.
+         * @param fsGroupPolicy fsGroupPolicy defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details.
          * 
          * This field is immutable.
          * 
@@ -284,7 +300,7 @@ public final class CSIDriverSpecPatchArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param fsGroupPolicy Defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details.
+         * @param fsGroupPolicy fsGroupPolicy defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details.
          * 
          * This field is immutable.
          * 
@@ -298,7 +314,11 @@ public final class CSIDriverSpecPatchArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param podInfoOnMount If set to true, podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations. If set to false, pod information will not be passed on mount. Default is false. The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext. The following VolumeConext will be passed if podInfoOnMount is set to true. This list might grow, but the prefix will be used. &#34;csi.storage.k8s.io/pod.name&#34;: pod.Name &#34;csi.storage.k8s.io/pod.namespace&#34;: pod.Namespace &#34;csi.storage.k8s.io/pod.uid&#34;: string(pod.UID) &#34;csi.storage.k8s.io/ephemeral&#34;: &#34;true&#34; if the volume is an ephemeral inline volume
+         * @param podInfoOnMount podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations, if set to true. If set to false, pod information will not be passed on mount. Default is false.
+         * 
+         * The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext.
+         * 
+         * The following VolumeConext will be passed if podInfoOnMount is set to true. This list might grow, but the prefix will be used. &#34;csi.storage.k8s.io/pod.name&#34;: pod.Name &#34;csi.storage.k8s.io/pod.namespace&#34;: pod.Namespace &#34;csi.storage.k8s.io/pod.uid&#34;: string(pod.UID) &#34;csi.storage.k8s.io/ephemeral&#34;: &#34;true&#34; if the volume is an ephemeral inline volume
          *                                 defined by a CSIVolumeSource, otherwise &#34;false&#34;
          * 
          * &#34;csi.storage.k8s.io/ephemeral&#34; is a new feature in Kubernetes 1.16. It is only required for drivers which support both the &#34;Persistent&#34; and &#34;Ephemeral&#34; VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn&#39;t support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.
@@ -314,7 +334,11 @@ public final class CSIDriverSpecPatchArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param podInfoOnMount If set to true, podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations. If set to false, pod information will not be passed on mount. Default is false. The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext. The following VolumeConext will be passed if podInfoOnMount is set to true. This list might grow, but the prefix will be used. &#34;csi.storage.k8s.io/pod.name&#34;: pod.Name &#34;csi.storage.k8s.io/pod.namespace&#34;: pod.Namespace &#34;csi.storage.k8s.io/pod.uid&#34;: string(pod.UID) &#34;csi.storage.k8s.io/ephemeral&#34;: &#34;true&#34; if the volume is an ephemeral inline volume
+         * @param podInfoOnMount podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations, if set to true. If set to false, pod information will not be passed on mount. Default is false.
+         * 
+         * The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext.
+         * 
+         * The following VolumeConext will be passed if podInfoOnMount is set to true. This list might grow, but the prefix will be used. &#34;csi.storage.k8s.io/pod.name&#34;: pod.Name &#34;csi.storage.k8s.io/pod.namespace&#34;: pod.Namespace &#34;csi.storage.k8s.io/pod.uid&#34;: string(pod.UID) &#34;csi.storage.k8s.io/ephemeral&#34;: &#34;true&#34; if the volume is an ephemeral inline volume
          *                                 defined by a CSIVolumeSource, otherwise &#34;false&#34;
          * 
          * &#34;csi.storage.k8s.io/ephemeral&#34; is a new feature in Kubernetes 1.16. It is only required for drivers which support both the &#34;Persistent&#34; and &#34;Ephemeral&#34; VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn&#39;t support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.
@@ -329,7 +353,7 @@ public final class CSIDriverSpecPatchArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param requiresRepublish RequiresRepublish indicates the CSI driver wants `NodePublishVolume` being periodically called to reflect any possible change in the mounted volume. This field defaults to false.
+         * @param requiresRepublish requiresRepublish indicates the CSI driver wants `NodePublishVolume` being periodically called to reflect any possible change in the mounted volume. This field defaults to false.
          * 
          * Note: After a successful initial NodePublishVolume call, subsequent calls to NodePublishVolume should only update the contents of the volume. New mount points will not be seen by a running container.
          * 
@@ -342,7 +366,7 @@ public final class CSIDriverSpecPatchArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param requiresRepublish RequiresRepublish indicates the CSI driver wants `NodePublishVolume` being periodically called to reflect any possible change in the mounted volume. This field defaults to false.
+         * @param requiresRepublish requiresRepublish indicates the CSI driver wants `NodePublishVolume` being periodically called to reflect any possible change in the mounted volume. This field defaults to false.
          * 
          * Note: After a successful initial NodePublishVolume call, subsequent calls to NodePublishVolume should only update the contents of the volume. New mount points will not be seen by a running container.
          * 
@@ -354,7 +378,7 @@ public final class CSIDriverSpecPatchArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param seLinuxMount SELinuxMount specifies if the CSI driver supports &#34;-o context&#34; mount option.
+         * @param seLinuxMount seLinuxMount specifies if the CSI driver supports &#34;-o context&#34; mount option.
          * 
          * When &#34;true&#34;, the CSI driver must ensure that all volumes provided by this CSI driver can be mounted separately with different `-o context` options. This is typical for storage backends that provide volumes as filesystems on block devices or as independent shared volumes. Kubernetes will call NodeStage / NodePublish with &#34;-o context=xyz&#34; mount option when mounting a ReadWriteOncePod volume used in Pod that has explicitly set SELinux context. In the future, it may be expanded to other volume AccessModes. In any case, Kubernetes will ensure that the volume is mounted only with a single SELinux context.
          * 
@@ -371,7 +395,7 @@ public final class CSIDriverSpecPatchArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param seLinuxMount SELinuxMount specifies if the CSI driver supports &#34;-o context&#34; mount option.
+         * @param seLinuxMount seLinuxMount specifies if the CSI driver supports &#34;-o context&#34; mount option.
          * 
          * When &#34;true&#34;, the CSI driver must ensure that all volumes provided by this CSI driver can be mounted separately with different `-o context` options. This is typical for storage backends that provide volumes as filesystems on block devices or as independent shared volumes. Kubernetes will call NodeStage / NodePublish with &#34;-o context=xyz&#34; mount option when mounting a ReadWriteOncePod volume used in Pod that has explicitly set SELinux context. In the future, it may be expanded to other volume AccessModes. In any case, Kubernetes will ensure that the volume is mounted only with a single SELinux context.
          * 
@@ -387,7 +411,7 @@ public final class CSIDriverSpecPatchArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param storageCapacity If set to true, storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information.
+         * @param storageCapacity storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information, if set to true.
          * 
          * The check can be enabled immediately when deploying a driver. In that case, provisioning new volumes with late binding will pause until the driver deployment has published some suitable CSIStorageCapacity object.
          * 
@@ -404,7 +428,7 @@ public final class CSIDriverSpecPatchArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param storageCapacity If set to true, storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information.
+         * @param storageCapacity storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information, if set to true.
          * 
          * The check can be enabled immediately when deploying a driver. In that case, provisioning new volumes with late binding will pause until the driver deployment has published some suitable CSIStorageCapacity object.
          * 
@@ -420,7 +444,7 @@ public final class CSIDriverSpecPatchArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param tokenRequests TokenRequests indicates the CSI driver needs pods&#39; service account tokens it is mounting volume for to do necessary authentication. Kubelet will pass the tokens in VolumeContext in the CSI NodePublishVolume calls. The CSI driver should parse and validate the following VolumeContext: &#34;csi.storage.k8s.io/serviceAccount.tokens&#34;: {
+         * @param tokenRequests tokenRequests indicates the CSI driver needs pods&#39; service account tokens it is mounting volume for to do necessary authentication. Kubelet will pass the tokens in VolumeContext in the CSI NodePublishVolume calls. The CSI driver should parse and validate the following VolumeContext: &#34;csi.storage.k8s.io/serviceAccount.tokens&#34;: {
          *   &#34;&lt;audience&gt;&#34;: {
          *     &#34;token&#34;: &lt;token&gt;,
          *     &#34;expirationTimestamp&#34;: &lt;expiration timestamp in RFC3339&gt;,
@@ -439,7 +463,7 @@ public final class CSIDriverSpecPatchArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param tokenRequests TokenRequests indicates the CSI driver needs pods&#39; service account tokens it is mounting volume for to do necessary authentication. Kubelet will pass the tokens in VolumeContext in the CSI NodePublishVolume calls. The CSI driver should parse and validate the following VolumeContext: &#34;csi.storage.k8s.io/serviceAccount.tokens&#34;: {
+         * @param tokenRequests tokenRequests indicates the CSI driver needs pods&#39; service account tokens it is mounting volume for to do necessary authentication. Kubelet will pass the tokens in VolumeContext in the CSI NodePublishVolume calls. The CSI driver should parse and validate the following VolumeContext: &#34;csi.storage.k8s.io/serviceAccount.tokens&#34;: {
          *   &#34;&lt;audience&gt;&#34;: {
          *     &#34;token&#34;: &lt;token&gt;,
          *     &#34;expirationTimestamp&#34;: &lt;expiration timestamp in RFC3339&gt;,
@@ -457,7 +481,7 @@ public final class CSIDriverSpecPatchArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param tokenRequests TokenRequests indicates the CSI driver needs pods&#39; service account tokens it is mounting volume for to do necessary authentication. Kubelet will pass the tokens in VolumeContext in the CSI NodePublishVolume calls. The CSI driver should parse and validate the following VolumeContext: &#34;csi.storage.k8s.io/serviceAccount.tokens&#34;: {
+         * @param tokenRequests tokenRequests indicates the CSI driver needs pods&#39; service account tokens it is mounting volume for to do necessary authentication. Kubelet will pass the tokens in VolumeContext in the CSI NodePublishVolume calls. The CSI driver should parse and validate the following VolumeContext: &#34;csi.storage.k8s.io/serviceAccount.tokens&#34;: {
          *   &#34;&lt;audience&gt;&#34;: {
          *     &#34;token&#34;: &lt;token&gt;,
          *     &#34;expirationTimestamp&#34;: &lt;expiration timestamp in RFC3339&gt;,
@@ -475,9 +499,13 @@ public final class CSIDriverSpecPatchArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param volumeLifecycleModes volumeLifecycleModes defines what kind of volumes this CSI volume driver supports. The default if the list is empty is &#34;Persistent&#34;, which is the usage defined by the CSI specification and implemented in Kubernetes via the usual PV/PVC mechanism. The other mode is &#34;Ephemeral&#34;. In this mode, volumes are defined inline inside the pod spec with CSIVolumeSource and their lifecycle is tied to the lifecycle of that pod. A driver has to be aware of this because it is only going to get a NodePublishVolume call for such a volume. For more information about implementing this mode, see https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html A driver can support one or more of these modes and more modes may be added in the future. This field is beta.
+         * @param volumeLifecycleModes volumeLifecycleModes defines what kind of volumes this CSI volume driver supports. The default if the list is empty is &#34;Persistent&#34;, which is the usage defined by the CSI specification and implemented in Kubernetes via the usual PV/PVC mechanism.
          * 
-         * This field is immutable.
+         * The other mode is &#34;Ephemeral&#34;. In this mode, volumes are defined inline inside the pod spec with CSIVolumeSource and their lifecycle is tied to the lifecycle of that pod. A driver has to be aware of this because it is only going to get a NodePublishVolume call for such a volume.
+         * 
+         * For more information about implementing this mode, see https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html A driver can support one or more of these modes and more modes may be added in the future.
+         * 
+         * This field is beta. This field is immutable.
          * 
          * @return builder
          * 
@@ -488,9 +516,13 @@ public final class CSIDriverSpecPatchArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param volumeLifecycleModes volumeLifecycleModes defines what kind of volumes this CSI volume driver supports. The default if the list is empty is &#34;Persistent&#34;, which is the usage defined by the CSI specification and implemented in Kubernetes via the usual PV/PVC mechanism. The other mode is &#34;Ephemeral&#34;. In this mode, volumes are defined inline inside the pod spec with CSIVolumeSource and their lifecycle is tied to the lifecycle of that pod. A driver has to be aware of this because it is only going to get a NodePublishVolume call for such a volume. For more information about implementing this mode, see https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html A driver can support one or more of these modes and more modes may be added in the future. This field is beta.
+         * @param volumeLifecycleModes volumeLifecycleModes defines what kind of volumes this CSI volume driver supports. The default if the list is empty is &#34;Persistent&#34;, which is the usage defined by the CSI specification and implemented in Kubernetes via the usual PV/PVC mechanism.
          * 
-         * This field is immutable.
+         * The other mode is &#34;Ephemeral&#34;. In this mode, volumes are defined inline inside the pod spec with CSIVolumeSource and their lifecycle is tied to the lifecycle of that pod. A driver has to be aware of this because it is only going to get a NodePublishVolume call for such a volume.
+         * 
+         * For more information about implementing this mode, see https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html A driver can support one or more of these modes and more modes may be added in the future.
+         * 
+         * This field is beta. This field is immutable.
          * 
          * @return builder
          * 
@@ -500,9 +532,13 @@ public final class CSIDriverSpecPatchArgs extends com.pulumi.resources.ResourceA
         }
 
         /**
-         * @param volumeLifecycleModes volumeLifecycleModes defines what kind of volumes this CSI volume driver supports. The default if the list is empty is &#34;Persistent&#34;, which is the usage defined by the CSI specification and implemented in Kubernetes via the usual PV/PVC mechanism. The other mode is &#34;Ephemeral&#34;. In this mode, volumes are defined inline inside the pod spec with CSIVolumeSource and their lifecycle is tied to the lifecycle of that pod. A driver has to be aware of this because it is only going to get a NodePublishVolume call for such a volume. For more information about implementing this mode, see https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html A driver can support one or more of these modes and more modes may be added in the future. This field is beta.
+         * @param volumeLifecycleModes volumeLifecycleModes defines what kind of volumes this CSI volume driver supports. The default if the list is empty is &#34;Persistent&#34;, which is the usage defined by the CSI specification and implemented in Kubernetes via the usual PV/PVC mechanism.
          * 
-         * This field is immutable.
+         * The other mode is &#34;Ephemeral&#34;. In this mode, volumes are defined inline inside the pod spec with CSIVolumeSource and their lifecycle is tied to the lifecycle of that pod. A driver has to be aware of this because it is only going to get a NodePublishVolume call for such a volume.
+         * 
+         * For more information about implementing this mode, see https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html A driver can support one or more of these modes and more modes may be added in the future.
+         * 
+         * This field is beta. This field is immutable.
          * 
          * @return builder
          * 

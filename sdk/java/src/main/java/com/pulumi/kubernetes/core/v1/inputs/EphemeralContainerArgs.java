@@ -6,6 +6,7 @@ package com.pulumi.kubernetes.core.v1.inputs;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.kubernetes.core.v1.inputs.ContainerPortArgs;
+import com.pulumi.kubernetes.core.v1.inputs.ContainerResizePolicyArgs;
 import com.pulumi.kubernetes.core.v1.inputs.EnvFromSourceArgs;
 import com.pulumi.kubernetes.core.v1.inputs.EnvVarArgs;
 import com.pulumi.kubernetes.core.v1.inputs.LifecycleArgs;
@@ -195,6 +196,21 @@ public final class EphemeralContainerArgs extends com.pulumi.resources.ResourceA
      */
     public Optional<Output<ProbeArgs>> readinessProbe() {
         return Optional.ofNullable(this.readinessProbe);
+    }
+
+    /**
+     * Resources resize policy for the container.
+     * 
+     */
+    @Import(name="resizePolicy")
+    private @Nullable Output<List<ContainerResizePolicyArgs>> resizePolicy;
+
+    /**
+     * @return Resources resize policy for the container.
+     * 
+     */
+    public Optional<Output<List<ContainerResizePolicyArgs>>> resizePolicy() {
+        return Optional.ofNullable(this.resizePolicy);
     }
 
     /**
@@ -395,6 +411,7 @@ public final class EphemeralContainerArgs extends com.pulumi.resources.ResourceA
         this.name = $.name;
         this.ports = $.ports;
         this.readinessProbe = $.readinessProbe;
+        this.resizePolicy = $.resizePolicy;
         this.resources = $.resources;
         this.securityContext = $.securityContext;
         this.startupProbe = $.startupProbe;
@@ -706,6 +723,37 @@ public final class EphemeralContainerArgs extends com.pulumi.resources.ResourceA
          */
         public Builder readinessProbe(ProbeArgs readinessProbe) {
             return readinessProbe(Output.of(readinessProbe));
+        }
+
+        /**
+         * @param resizePolicy Resources resize policy for the container.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder resizePolicy(@Nullable Output<List<ContainerResizePolicyArgs>> resizePolicy) {
+            $.resizePolicy = resizePolicy;
+            return this;
+        }
+
+        /**
+         * @param resizePolicy Resources resize policy for the container.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder resizePolicy(List<ContainerResizePolicyArgs> resizePolicy) {
+            return resizePolicy(Output.of(resizePolicy));
+        }
+
+        /**
+         * @param resizePolicy Resources resize policy for the container.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder resizePolicy(ContainerResizePolicyArgs... resizePolicy) {
+            return resizePolicy(List.of(resizePolicy));
         }
 
         /**

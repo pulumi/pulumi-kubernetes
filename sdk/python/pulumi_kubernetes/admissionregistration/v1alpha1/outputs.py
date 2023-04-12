@@ -12,6 +12,12 @@ from . import outputs
 from ... import meta as _meta
 
 __all__ = [
+    'AuditAnnotation',
+    'AuditAnnotationPatch',
+    'ExpressionWarning',
+    'ExpressionWarningPatch',
+    'MatchCondition',
+    'MatchConditionPatch',
     'MatchResources',
     'MatchResourcesPatch',
     'NamedRuleWithOperations',
@@ -20,15 +26,363 @@ __all__ = [
     'ParamKindPatch',
     'ParamRef',
     'ParamRefPatch',
+    'TypeChecking',
+    'TypeCheckingPatch',
     'ValidatingAdmissionPolicy',
     'ValidatingAdmissionPolicyBinding',
     'ValidatingAdmissionPolicyBindingSpec',
     'ValidatingAdmissionPolicyBindingSpecPatch',
     'ValidatingAdmissionPolicySpec',
     'ValidatingAdmissionPolicySpecPatch',
+    'ValidatingAdmissionPolicyStatus',
+    'ValidatingAdmissionPolicyStatusPatch',
     'Validation',
     'ValidationPatch',
 ]
+
+@pulumi.output_type
+class AuditAnnotation(dict):
+    """
+    AuditAnnotation describes how to produce an audit annotation for an API request.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "valueExpression":
+            suggest = "value_expression"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in AuditAnnotation. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        AuditAnnotation.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        AuditAnnotation.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 key: str,
+                 value_expression: str):
+        """
+        AuditAnnotation describes how to produce an audit annotation for an API request.
+        :param str key: key specifies the audit annotation key. The audit annotation keys of a ValidatingAdmissionPolicy must be unique. The key must be a qualified name ([A-Za-z0-9][-A-Za-z0-9_.]*) no more than 63 bytes in length.
+               
+               The key is combined with the resource name of the ValidatingAdmissionPolicy to construct an audit annotation key: "{ValidatingAdmissionPolicy name}/{key}".
+               
+               If an admission webhook uses the same resource name as this ValidatingAdmissionPolicy and the same audit annotation key, the annotation key will be identical. In this case, the first annotation written with the key will be included in the audit event and all subsequent annotations with the same key will be discarded.
+               
+               Required.
+        :param str value_expression: valueExpression represents the expression which is evaluated by CEL to produce an audit annotation value. The expression must evaluate to either a string or null value. If the expression evaluates to a string, the audit annotation is included with the string value. If the expression evaluates to null or empty string the audit annotation will be omitted. The valueExpression may be no longer than 5kb in length. If the result of the valueExpression is more than 10kb in length, it will be truncated to 10kb.
+               
+               If multiple ValidatingAdmissionPolicyBinding resources match an API request, then the valueExpression will be evaluated for each binding. All unique values produced by the valueExpressions will be joined together in a comma-separated list.
+               
+               Required.
+        """
+        pulumi.set(__self__, "key", key)
+        pulumi.set(__self__, "value_expression", value_expression)
+
+    @property
+    @pulumi.getter
+    def key(self) -> str:
+        """
+        key specifies the audit annotation key. The audit annotation keys of a ValidatingAdmissionPolicy must be unique. The key must be a qualified name ([A-Za-z0-9][-A-Za-z0-9_.]*) no more than 63 bytes in length.
+
+        The key is combined with the resource name of the ValidatingAdmissionPolicy to construct an audit annotation key: "{ValidatingAdmissionPolicy name}/{key}".
+
+        If an admission webhook uses the same resource name as this ValidatingAdmissionPolicy and the same audit annotation key, the annotation key will be identical. In this case, the first annotation written with the key will be included in the audit event and all subsequent annotations with the same key will be discarded.
+
+        Required.
+        """
+        return pulumi.get(self, "key")
+
+    @property
+    @pulumi.getter(name="valueExpression")
+    def value_expression(self) -> str:
+        """
+        valueExpression represents the expression which is evaluated by CEL to produce an audit annotation value. The expression must evaluate to either a string or null value. If the expression evaluates to a string, the audit annotation is included with the string value. If the expression evaluates to null or empty string the audit annotation will be omitted. The valueExpression may be no longer than 5kb in length. If the result of the valueExpression is more than 10kb in length, it will be truncated to 10kb.
+
+        If multiple ValidatingAdmissionPolicyBinding resources match an API request, then the valueExpression will be evaluated for each binding. All unique values produced by the valueExpressions will be joined together in a comma-separated list.
+
+        Required.
+        """
+        return pulumi.get(self, "value_expression")
+
+
+@pulumi.output_type
+class AuditAnnotationPatch(dict):
+    """
+    AuditAnnotation describes how to produce an audit annotation for an API request.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "valueExpression":
+            suggest = "value_expression"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in AuditAnnotationPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        AuditAnnotationPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        AuditAnnotationPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 key: Optional[str] = None,
+                 value_expression: Optional[str] = None):
+        """
+        AuditAnnotation describes how to produce an audit annotation for an API request.
+        :param str key: key specifies the audit annotation key. The audit annotation keys of a ValidatingAdmissionPolicy must be unique. The key must be a qualified name ([A-Za-z0-9][-A-Za-z0-9_.]*) no more than 63 bytes in length.
+               
+               The key is combined with the resource name of the ValidatingAdmissionPolicy to construct an audit annotation key: "{ValidatingAdmissionPolicy name}/{key}".
+               
+               If an admission webhook uses the same resource name as this ValidatingAdmissionPolicy and the same audit annotation key, the annotation key will be identical. In this case, the first annotation written with the key will be included in the audit event and all subsequent annotations with the same key will be discarded.
+               
+               Required.
+        :param str value_expression: valueExpression represents the expression which is evaluated by CEL to produce an audit annotation value. The expression must evaluate to either a string or null value. If the expression evaluates to a string, the audit annotation is included with the string value. If the expression evaluates to null or empty string the audit annotation will be omitted. The valueExpression may be no longer than 5kb in length. If the result of the valueExpression is more than 10kb in length, it will be truncated to 10kb.
+               
+               If multiple ValidatingAdmissionPolicyBinding resources match an API request, then the valueExpression will be evaluated for each binding. All unique values produced by the valueExpressions will be joined together in a comma-separated list.
+               
+               Required.
+        """
+        if key is not None:
+            pulumi.set(__self__, "key", key)
+        if value_expression is not None:
+            pulumi.set(__self__, "value_expression", value_expression)
+
+    @property
+    @pulumi.getter
+    def key(self) -> Optional[str]:
+        """
+        key specifies the audit annotation key. The audit annotation keys of a ValidatingAdmissionPolicy must be unique. The key must be a qualified name ([A-Za-z0-9][-A-Za-z0-9_.]*) no more than 63 bytes in length.
+
+        The key is combined with the resource name of the ValidatingAdmissionPolicy to construct an audit annotation key: "{ValidatingAdmissionPolicy name}/{key}".
+
+        If an admission webhook uses the same resource name as this ValidatingAdmissionPolicy and the same audit annotation key, the annotation key will be identical. In this case, the first annotation written with the key will be included in the audit event and all subsequent annotations with the same key will be discarded.
+
+        Required.
+        """
+        return pulumi.get(self, "key")
+
+    @property
+    @pulumi.getter(name="valueExpression")
+    def value_expression(self) -> Optional[str]:
+        """
+        valueExpression represents the expression which is evaluated by CEL to produce an audit annotation value. The expression must evaluate to either a string or null value. If the expression evaluates to a string, the audit annotation is included with the string value. If the expression evaluates to null or empty string the audit annotation will be omitted. The valueExpression may be no longer than 5kb in length. If the result of the valueExpression is more than 10kb in length, it will be truncated to 10kb.
+
+        If multiple ValidatingAdmissionPolicyBinding resources match an API request, then the valueExpression will be evaluated for each binding. All unique values produced by the valueExpressions will be joined together in a comma-separated list.
+
+        Required.
+        """
+        return pulumi.get(self, "value_expression")
+
+
+@pulumi.output_type
+class ExpressionWarning(dict):
+    """
+    ExpressionWarning is a warning information that targets a specific expression.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "fieldRef":
+            suggest = "field_ref"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ExpressionWarning. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ExpressionWarning.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ExpressionWarning.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 field_ref: str,
+                 warning: str):
+        """
+        ExpressionWarning is a warning information that targets a specific expression.
+        :param str field_ref: The path to the field that refers the expression. For example, the reference to the expression of the first item of validations is "spec.validations[0].expression"
+        :param str warning: The content of type checking information in a human-readable form. Each line of the warning contains the type that the expression is checked against, followed by the type check error from the compiler.
+        """
+        pulumi.set(__self__, "field_ref", field_ref)
+        pulumi.set(__self__, "warning", warning)
+
+    @property
+    @pulumi.getter(name="fieldRef")
+    def field_ref(self) -> str:
+        """
+        The path to the field that refers the expression. For example, the reference to the expression of the first item of validations is "spec.validations[0].expression"
+        """
+        return pulumi.get(self, "field_ref")
+
+    @property
+    @pulumi.getter
+    def warning(self) -> str:
+        """
+        The content of type checking information in a human-readable form. Each line of the warning contains the type that the expression is checked against, followed by the type check error from the compiler.
+        """
+        return pulumi.get(self, "warning")
+
+
+@pulumi.output_type
+class ExpressionWarningPatch(dict):
+    """
+    ExpressionWarning is a warning information that targets a specific expression.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "fieldRef":
+            suggest = "field_ref"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ExpressionWarningPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ExpressionWarningPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ExpressionWarningPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 field_ref: Optional[str] = None,
+                 warning: Optional[str] = None):
+        """
+        ExpressionWarning is a warning information that targets a specific expression.
+        :param str field_ref: The path to the field that refers the expression. For example, the reference to the expression of the first item of validations is "spec.validations[0].expression"
+        :param str warning: The content of type checking information in a human-readable form. Each line of the warning contains the type that the expression is checked against, followed by the type check error from the compiler.
+        """
+        if field_ref is not None:
+            pulumi.set(__self__, "field_ref", field_ref)
+        if warning is not None:
+            pulumi.set(__self__, "warning", warning)
+
+    @property
+    @pulumi.getter(name="fieldRef")
+    def field_ref(self) -> Optional[str]:
+        """
+        The path to the field that refers the expression. For example, the reference to the expression of the first item of validations is "spec.validations[0].expression"
+        """
+        return pulumi.get(self, "field_ref")
+
+    @property
+    @pulumi.getter
+    def warning(self) -> Optional[str]:
+        """
+        The content of type checking information in a human-readable form. Each line of the warning contains the type that the expression is checked against, followed by the type check error from the compiler.
+        """
+        return pulumi.get(self, "warning")
+
+
+@pulumi.output_type
+class MatchCondition(dict):
+    def __init__(__self__, *,
+                 expression: str,
+                 name: str):
+        """
+        :param str expression: Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+               
+               'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+                 See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+               'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+                 request resource.
+               Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/
+               
+               Required.
+        :param str name: Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
+               
+               Required.
+        """
+        pulumi.set(__self__, "expression", expression)
+        pulumi.set(__self__, "name", name)
+
+    @property
+    @pulumi.getter
+    def expression(self) -> str:
+        """
+        Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+
+        'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+          See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+        'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+          request resource.
+        Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/
+
+        Required.
+        """
+        return pulumi.get(self, "expression")
+
+    @property
+    @pulumi.getter
+    def name(self) -> str:
+        """
+        Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
+
+        Required.
+        """
+        return pulumi.get(self, "name")
+
+
+@pulumi.output_type
+class MatchConditionPatch(dict):
+    def __init__(__self__, *,
+                 expression: Optional[str] = None,
+                 name: Optional[str] = None):
+        """
+        :param str expression: Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+               
+               'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+                 See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+               'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+                 request resource.
+               Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/
+               
+               Required.
+        :param str name: Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
+               
+               Required.
+        """
+        if expression is not None:
+            pulumi.set(__self__, "expression", expression)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+
+    @property
+    @pulumi.getter
+    def expression(self) -> Optional[str]:
+        """
+        Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+
+        'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+          See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+        'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+          request resource.
+        Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/
+
+        Required.
+        """
+        return pulumi.get(self, "expression")
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[str]:
+        """
+        Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
+
+        Required.
+        """
+        return pulumi.get(self, "name")
+
 
 @pulumi.output_type
 class MatchResources(dict):
@@ -773,6 +1127,86 @@ class ParamRefPatch(dict):
 
 
 @pulumi.output_type
+class TypeChecking(dict):
+    """
+    TypeChecking contains results of type checking the expressions in the ValidatingAdmissionPolicy
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "expressionWarnings":
+            suggest = "expression_warnings"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in TypeChecking. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        TypeChecking.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        TypeChecking.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 expression_warnings: Optional[Sequence['outputs.ExpressionWarning']] = None):
+        """
+        TypeChecking contains results of type checking the expressions in the ValidatingAdmissionPolicy
+        :param Sequence['ExpressionWarningArgs'] expression_warnings: The type checking warnings for each expression.
+        """
+        if expression_warnings is not None:
+            pulumi.set(__self__, "expression_warnings", expression_warnings)
+
+    @property
+    @pulumi.getter(name="expressionWarnings")
+    def expression_warnings(self) -> Optional[Sequence['outputs.ExpressionWarning']]:
+        """
+        The type checking warnings for each expression.
+        """
+        return pulumi.get(self, "expression_warnings")
+
+
+@pulumi.output_type
+class TypeCheckingPatch(dict):
+    """
+    TypeChecking contains results of type checking the expressions in the ValidatingAdmissionPolicy
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "expressionWarnings":
+            suggest = "expression_warnings"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in TypeCheckingPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        TypeCheckingPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        TypeCheckingPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 expression_warnings: Optional[Sequence['outputs.ExpressionWarningPatch']] = None):
+        """
+        TypeChecking contains results of type checking the expressions in the ValidatingAdmissionPolicy
+        :param Sequence['ExpressionWarningPatchArgs'] expression_warnings: The type checking warnings for each expression.
+        """
+        if expression_warnings is not None:
+            pulumi.set(__self__, "expression_warnings", expression_warnings)
+
+    @property
+    @pulumi.getter(name="expressionWarnings")
+    def expression_warnings(self) -> Optional[Sequence['outputs.ExpressionWarningPatch']]:
+        """
+        The type checking warnings for each expression.
+        """
+        return pulumi.get(self, "expression_warnings")
+
+
+@pulumi.output_type
 class ValidatingAdmissionPolicy(dict):
     """
     ValidatingAdmissionPolicy describes the definition of an admission validation policy that accepts or rejects an object without changing it.
@@ -798,13 +1232,15 @@ class ValidatingAdmissionPolicy(dict):
                  api_version: Optional[str] = None,
                  kind: Optional[str] = None,
                  metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
-                 spec: Optional['outputs.ValidatingAdmissionPolicySpec'] = None):
+                 spec: Optional['outputs.ValidatingAdmissionPolicySpec'] = None,
+                 status: Optional['outputs.ValidatingAdmissionPolicyStatus'] = None):
         """
         ValidatingAdmissionPolicy describes the definition of an admission validation policy that accepts or rejects an object without changing it.
         :param str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
         :param 'ValidatingAdmissionPolicySpecArgs' spec: Specification of the desired behavior of the ValidatingAdmissionPolicy.
+        :param 'ValidatingAdmissionPolicyStatusArgs' status: The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
         """
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'admissionregistration.k8s.io/v1alpha1')
@@ -814,6 +1250,8 @@ class ValidatingAdmissionPolicy(dict):
             pulumi.set(__self__, "metadata", metadata)
         if spec is not None:
             pulumi.set(__self__, "spec", spec)
+        if status is not None:
+            pulumi.set(__self__, "status", status)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -846,6 +1284,14 @@ class ValidatingAdmissionPolicy(dict):
         Specification of the desired behavior of the ValidatingAdmissionPolicy.
         """
         return pulumi.get(self, "spec")
+
+    @property
+    @pulumi.getter
+    def status(self) -> Optional['outputs.ValidatingAdmissionPolicyStatus']:
+        """
+        The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
+        """
+        return pulumi.get(self, "status")
 
 
 @pulumi.output_type
@@ -938,6 +1384,8 @@ class ValidatingAdmissionPolicyBindingSpec(dict):
             suggest = "param_ref"
         elif key == "policyName":
             suggest = "policy_name"
+        elif key == "validationActions":
+            suggest = "validation_actions"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in ValidatingAdmissionPolicyBindingSpec. Access the value via the '{suggest}' property getter instead.")
@@ -953,12 +1401,32 @@ class ValidatingAdmissionPolicyBindingSpec(dict):
     def __init__(__self__, *,
                  match_resources: Optional['outputs.MatchResources'] = None,
                  param_ref: Optional['outputs.ParamRef'] = None,
-                 policy_name: Optional[str] = None):
+                 policy_name: Optional[str] = None,
+                 validation_actions: Optional[Sequence[str]] = None):
         """
         ValidatingAdmissionPolicyBindingSpec is the specification of the ValidatingAdmissionPolicyBinding.
         :param 'MatchResourcesArgs' match_resources: MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy's matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
         :param 'ParamRefArgs' param_ref: ParamRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied.
         :param str policy_name: PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
+        :param Sequence[str] validation_actions: validationActions declares how Validations of the referenced ValidatingAdmissionPolicy are enforced. If a validation evaluates to false it is always enforced according to these actions.
+               
+               Failures defined by the ValidatingAdmissionPolicy's FailurePolicy are enforced according to these actions only if the FailurePolicy is set to Fail, otherwise the failures are ignored. This includes compilation errors, runtime errors and misconfigurations of the policy.
+               
+               validationActions is declared as a set of action values. Order does not matter. validationActions may not contain duplicates of the same action.
+               
+               The supported actions values are:
+               
+               "Deny" specifies that a validation failure results in a denied request.
+               
+               "Warn" specifies that a validation failure is reported to the request client in HTTP Warning headers, with a warning code of 299. Warnings can be sent both for allowed or denied admission responses.
+               
+               "Audit" specifies that a validation failure is included in the published audit event for the request. The audit event will contain a `validation.policy.admission.k8s.io/validation_failure` audit annotation with a value containing the details of the validation failures, formatted as a JSON list of objects, each with the following fields: - message: The validation failure message string - policy: The resource name of the ValidatingAdmissionPolicy - binding: The resource name of the ValidatingAdmissionPolicyBinding - expressionIndex: The index of the failed validations in the ValidatingAdmissionPolicy - validationActions: The enforcement actions enacted for the validation failure Example audit annotation: `"validation.policy.admission.k8s.io/validation_failure": "[{"message": "Invalid value", {"policy": "policy.example.com", {"binding": "policybinding.example.com", {"expressionIndex": "1", {"validationActions": ["Audit"]}]"`
+               
+               Clients should expect to handle additional values by ignoring any values not recognized.
+               
+               "Deny" and "Warn" may not be used together since this combination needlessly duplicates the validation failure both in the API response body and the HTTP warning headers.
+               
+               Required.
         """
         if match_resources is not None:
             pulumi.set(__self__, "match_resources", match_resources)
@@ -966,6 +1434,8 @@ class ValidatingAdmissionPolicyBindingSpec(dict):
             pulumi.set(__self__, "param_ref", param_ref)
         if policy_name is not None:
             pulumi.set(__self__, "policy_name", policy_name)
+        if validation_actions is not None:
+            pulumi.set(__self__, "validation_actions", validation_actions)
 
     @property
     @pulumi.getter(name="matchResources")
@@ -991,6 +1461,32 @@ class ValidatingAdmissionPolicyBindingSpec(dict):
         """
         return pulumi.get(self, "policy_name")
 
+    @property
+    @pulumi.getter(name="validationActions")
+    def validation_actions(self) -> Optional[Sequence[str]]:
+        """
+        validationActions declares how Validations of the referenced ValidatingAdmissionPolicy are enforced. If a validation evaluates to false it is always enforced according to these actions.
+
+        Failures defined by the ValidatingAdmissionPolicy's FailurePolicy are enforced according to these actions only if the FailurePolicy is set to Fail, otherwise the failures are ignored. This includes compilation errors, runtime errors and misconfigurations of the policy.
+
+        validationActions is declared as a set of action values. Order does not matter. validationActions may not contain duplicates of the same action.
+
+        The supported actions values are:
+
+        "Deny" specifies that a validation failure results in a denied request.
+
+        "Warn" specifies that a validation failure is reported to the request client in HTTP Warning headers, with a warning code of 299. Warnings can be sent both for allowed or denied admission responses.
+
+        "Audit" specifies that a validation failure is included in the published audit event for the request. The audit event will contain a `validation.policy.admission.k8s.io/validation_failure` audit annotation with a value containing the details of the validation failures, formatted as a JSON list of objects, each with the following fields: - message: The validation failure message string - policy: The resource name of the ValidatingAdmissionPolicy - binding: The resource name of the ValidatingAdmissionPolicyBinding - expressionIndex: The index of the failed validations in the ValidatingAdmissionPolicy - validationActions: The enforcement actions enacted for the validation failure Example audit annotation: `"validation.policy.admission.k8s.io/validation_failure": "[{"message": "Invalid value", {"policy": "policy.example.com", {"binding": "policybinding.example.com", {"expressionIndex": "1", {"validationActions": ["Audit"]}]"`
+
+        Clients should expect to handle additional values by ignoring any values not recognized.
+
+        "Deny" and "Warn" may not be used together since this combination needlessly duplicates the validation failure both in the API response body and the HTTP warning headers.
+
+        Required.
+        """
+        return pulumi.get(self, "validation_actions")
+
 
 @pulumi.output_type
 class ValidatingAdmissionPolicyBindingSpecPatch(dict):
@@ -1006,6 +1502,8 @@ class ValidatingAdmissionPolicyBindingSpecPatch(dict):
             suggest = "param_ref"
         elif key == "policyName":
             suggest = "policy_name"
+        elif key == "validationActions":
+            suggest = "validation_actions"
 
         if suggest:
             pulumi.log.warn(f"Key '{key}' not found in ValidatingAdmissionPolicyBindingSpecPatch. Access the value via the '{suggest}' property getter instead.")
@@ -1021,12 +1519,32 @@ class ValidatingAdmissionPolicyBindingSpecPatch(dict):
     def __init__(__self__, *,
                  match_resources: Optional['outputs.MatchResourcesPatch'] = None,
                  param_ref: Optional['outputs.ParamRefPatch'] = None,
-                 policy_name: Optional[str] = None):
+                 policy_name: Optional[str] = None,
+                 validation_actions: Optional[Sequence[str]] = None):
         """
         ValidatingAdmissionPolicyBindingSpec is the specification of the ValidatingAdmissionPolicyBinding.
         :param 'MatchResourcesPatchArgs' match_resources: MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy's matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
         :param 'ParamRefPatchArgs' param_ref: ParamRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied.
         :param str policy_name: PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
+        :param Sequence[str] validation_actions: validationActions declares how Validations of the referenced ValidatingAdmissionPolicy are enforced. If a validation evaluates to false it is always enforced according to these actions.
+               
+               Failures defined by the ValidatingAdmissionPolicy's FailurePolicy are enforced according to these actions only if the FailurePolicy is set to Fail, otherwise the failures are ignored. This includes compilation errors, runtime errors and misconfigurations of the policy.
+               
+               validationActions is declared as a set of action values. Order does not matter. validationActions may not contain duplicates of the same action.
+               
+               The supported actions values are:
+               
+               "Deny" specifies that a validation failure results in a denied request.
+               
+               "Warn" specifies that a validation failure is reported to the request client in HTTP Warning headers, with a warning code of 299. Warnings can be sent both for allowed or denied admission responses.
+               
+               "Audit" specifies that a validation failure is included in the published audit event for the request. The audit event will contain a `validation.policy.admission.k8s.io/validation_failure` audit annotation with a value containing the details of the validation failures, formatted as a JSON list of objects, each with the following fields: - message: The validation failure message string - policy: The resource name of the ValidatingAdmissionPolicy - binding: The resource name of the ValidatingAdmissionPolicyBinding - expressionIndex: The index of the failed validations in the ValidatingAdmissionPolicy - validationActions: The enforcement actions enacted for the validation failure Example audit annotation: `"validation.policy.admission.k8s.io/validation_failure": "[{"message": "Invalid value", {"policy": "policy.example.com", {"binding": "policybinding.example.com", {"expressionIndex": "1", {"validationActions": ["Audit"]}]"`
+               
+               Clients should expect to handle additional values by ignoring any values not recognized.
+               
+               "Deny" and "Warn" may not be used together since this combination needlessly duplicates the validation failure both in the API response body and the HTTP warning headers.
+               
+               Required.
         """
         if match_resources is not None:
             pulumi.set(__self__, "match_resources", match_resources)
@@ -1034,6 +1552,8 @@ class ValidatingAdmissionPolicyBindingSpecPatch(dict):
             pulumi.set(__self__, "param_ref", param_ref)
         if policy_name is not None:
             pulumi.set(__self__, "policy_name", policy_name)
+        if validation_actions is not None:
+            pulumi.set(__self__, "validation_actions", validation_actions)
 
     @property
     @pulumi.getter(name="matchResources")
@@ -1059,6 +1579,32 @@ class ValidatingAdmissionPolicyBindingSpecPatch(dict):
         """
         return pulumi.get(self, "policy_name")
 
+    @property
+    @pulumi.getter(name="validationActions")
+    def validation_actions(self) -> Optional[Sequence[str]]:
+        """
+        validationActions declares how Validations of the referenced ValidatingAdmissionPolicy are enforced. If a validation evaluates to false it is always enforced according to these actions.
+
+        Failures defined by the ValidatingAdmissionPolicy's FailurePolicy are enforced according to these actions only if the FailurePolicy is set to Fail, otherwise the failures are ignored. This includes compilation errors, runtime errors and misconfigurations of the policy.
+
+        validationActions is declared as a set of action values. Order does not matter. validationActions may not contain duplicates of the same action.
+
+        The supported actions values are:
+
+        "Deny" specifies that a validation failure results in a denied request.
+
+        "Warn" specifies that a validation failure is reported to the request client in HTTP Warning headers, with a warning code of 299. Warnings can be sent both for allowed or denied admission responses.
+
+        "Audit" specifies that a validation failure is included in the published audit event for the request. The audit event will contain a `validation.policy.admission.k8s.io/validation_failure` audit annotation with a value containing the details of the validation failures, formatted as a JSON list of objects, each with the following fields: - message: The validation failure message string - policy: The resource name of the ValidatingAdmissionPolicy - binding: The resource name of the ValidatingAdmissionPolicyBinding - expressionIndex: The index of the failed validations in the ValidatingAdmissionPolicy - validationActions: The enforcement actions enacted for the validation failure Example audit annotation: `"validation.policy.admission.k8s.io/validation_failure": "[{"message": "Invalid value", {"policy": "policy.example.com", {"binding": "policybinding.example.com", {"expressionIndex": "1", {"validationActions": ["Audit"]}]"`
+
+        Clients should expect to handle additional values by ignoring any values not recognized.
+
+        "Deny" and "Warn" may not be used together since this combination needlessly duplicates the validation failure both in the API response body and the HTTP warning headers.
+
+        Required.
+        """
+        return pulumi.get(self, "validation_actions")
+
 
 @pulumi.output_type
 class ValidatingAdmissionPolicySpec(dict):
@@ -1068,8 +1614,12 @@ class ValidatingAdmissionPolicySpec(dict):
     @staticmethod
     def __key_warning(key: str):
         suggest = None
-        if key == "failurePolicy":
+        if key == "auditAnnotations":
+            suggest = "audit_annotations"
+        elif key == "failurePolicy":
             suggest = "failure_policy"
+        elif key == "matchConditions":
+            suggest = "match_conditions"
         elif key == "matchConstraints":
             suggest = "match_constraints"
         elif key == "paramKind":
@@ -1088,19 +1638,44 @@ class ValidatingAdmissionPolicySpec(dict):
 
     def __init__(__self__, *,
                  validations: Sequence['outputs.Validation'],
+                 audit_annotations: Optional[Sequence['outputs.AuditAnnotation']] = None,
                  failure_policy: Optional[str] = None,
+                 match_conditions: Optional[Sequence['outputs.MatchCondition']] = None,
                  match_constraints: Optional['outputs.MatchResources'] = None,
                  param_kind: Optional['outputs.ParamKind'] = None):
         """
         ValidatingAdmissionPolicySpec is the specification of the desired behavior of the AdmissionPolicy.
-        :param Sequence['ValidationArgs'] validations: Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
-        :param str failure_policy: FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
+        :param Sequence['ValidationArgs'] validations: Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
+        :param Sequence['AuditAnnotationArgs'] audit_annotations: auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
+        :param str failure_policy: failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
+               
+               A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource.
+               
+               failurePolicy does not define how validations that evaluate to false are handled.
+               
+               When failurePolicy is set to Fail, ValidatingAdmissionPolicyBinding validationActions define how failures are enforced.
+               
+               Allowed values are Ignore or Fail. Defaults to Fail.
+        :param Sequence['MatchConditionArgs'] match_conditions: MatchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+               
+               If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
+               
+               The exact matching logic is (in order):
+                 1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
+                 2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
+                 3. If any matchCondition evaluates to an error (but none are FALSE):
+                    - If failurePolicy=Fail, reject the request
+                    - If failurePolicy=Ignore, the policy is skipped
         :param 'MatchResourcesArgs' match_constraints: MatchConstraints specifies what resources this policy is designed to validate. The AdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API ValidatingAdmissionPolicy cannot match ValidatingAdmissionPolicy and ValidatingAdmissionPolicyBinding. Required.
         :param 'ParamKindArgs' param_kind: ParamKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If ParamKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in ValidatingAdmissionPolicyBinding, the params variable will be null.
         """
         pulumi.set(__self__, "validations", validations)
+        if audit_annotations is not None:
+            pulumi.set(__self__, "audit_annotations", audit_annotations)
         if failure_policy is not None:
             pulumi.set(__self__, "failure_policy", failure_policy)
+        if match_conditions is not None:
+            pulumi.set(__self__, "match_conditions", match_conditions)
         if match_constraints is not None:
             pulumi.set(__self__, "match_constraints", match_constraints)
         if param_kind is not None:
@@ -1110,17 +1685,50 @@ class ValidatingAdmissionPolicySpec(dict):
     @pulumi.getter
     def validations(self) -> Sequence['outputs.Validation']:
         """
-        Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
+        Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
         """
         return pulumi.get(self, "validations")
+
+    @property
+    @pulumi.getter(name="auditAnnotations")
+    def audit_annotations(self) -> Optional[Sequence['outputs.AuditAnnotation']]:
+        """
+        auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
+        """
+        return pulumi.get(self, "audit_annotations")
 
     @property
     @pulumi.getter(name="failurePolicy")
     def failure_policy(self) -> Optional[str]:
         """
-        FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
+        failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
+
+        A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource.
+
+        failurePolicy does not define how validations that evaluate to false are handled.
+
+        When failurePolicy is set to Fail, ValidatingAdmissionPolicyBinding validationActions define how failures are enforced.
+
+        Allowed values are Ignore or Fail. Defaults to Fail.
         """
         return pulumi.get(self, "failure_policy")
+
+    @property
+    @pulumi.getter(name="matchConditions")
+    def match_conditions(self) -> Optional[Sequence['outputs.MatchCondition']]:
+        """
+        MatchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+
+        If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
+
+        The exact matching logic is (in order):
+          1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
+          2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
+          3. If any matchCondition evaluates to an error (but none are FALSE):
+             - If failurePolicy=Fail, reject the request
+             - If failurePolicy=Ignore, the policy is skipped
+        """
+        return pulumi.get(self, "match_conditions")
 
     @property
     @pulumi.getter(name="matchConstraints")
@@ -1147,8 +1755,12 @@ class ValidatingAdmissionPolicySpecPatch(dict):
     @staticmethod
     def __key_warning(key: str):
         suggest = None
-        if key == "failurePolicy":
+        if key == "auditAnnotations":
+            suggest = "audit_annotations"
+        elif key == "failurePolicy":
             suggest = "failure_policy"
+        elif key == "matchConditions":
+            suggest = "match_conditions"
         elif key == "matchConstraints":
             suggest = "match_constraints"
         elif key == "paramKind":
@@ -1166,19 +1778,44 @@ class ValidatingAdmissionPolicySpecPatch(dict):
         return super().get(key, default)
 
     def __init__(__self__, *,
+                 audit_annotations: Optional[Sequence['outputs.AuditAnnotationPatch']] = None,
                  failure_policy: Optional[str] = None,
+                 match_conditions: Optional[Sequence['outputs.MatchConditionPatch']] = None,
                  match_constraints: Optional['outputs.MatchResourcesPatch'] = None,
                  param_kind: Optional['outputs.ParamKindPatch'] = None,
                  validations: Optional[Sequence['outputs.ValidationPatch']] = None):
         """
         ValidatingAdmissionPolicySpec is the specification of the desired behavior of the AdmissionPolicy.
-        :param str failure_policy: FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
+        :param Sequence['AuditAnnotationPatchArgs'] audit_annotations: auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
+        :param str failure_policy: failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
+               
+               A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource.
+               
+               failurePolicy does not define how validations that evaluate to false are handled.
+               
+               When failurePolicy is set to Fail, ValidatingAdmissionPolicyBinding validationActions define how failures are enforced.
+               
+               Allowed values are Ignore or Fail. Defaults to Fail.
+        :param Sequence['MatchConditionPatchArgs'] match_conditions: MatchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+               
+               If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
+               
+               The exact matching logic is (in order):
+                 1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
+                 2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
+                 3. If any matchCondition evaluates to an error (but none are FALSE):
+                    - If failurePolicy=Fail, reject the request
+                    - If failurePolicy=Ignore, the policy is skipped
         :param 'MatchResourcesPatchArgs' match_constraints: MatchConstraints specifies what resources this policy is designed to validate. The AdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API ValidatingAdmissionPolicy cannot match ValidatingAdmissionPolicy and ValidatingAdmissionPolicyBinding. Required.
         :param 'ParamKindPatchArgs' param_kind: ParamKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If ParamKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in ValidatingAdmissionPolicyBinding, the params variable will be null.
-        :param Sequence['ValidationPatchArgs'] validations: Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
+        :param Sequence['ValidationPatchArgs'] validations: Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
         """
+        if audit_annotations is not None:
+            pulumi.set(__self__, "audit_annotations", audit_annotations)
         if failure_policy is not None:
             pulumi.set(__self__, "failure_policy", failure_policy)
+        if match_conditions is not None:
+            pulumi.set(__self__, "match_conditions", match_conditions)
         if match_constraints is not None:
             pulumi.set(__self__, "match_constraints", match_constraints)
         if param_kind is not None:
@@ -1187,12 +1824,45 @@ class ValidatingAdmissionPolicySpecPatch(dict):
             pulumi.set(__self__, "validations", validations)
 
     @property
+    @pulumi.getter(name="auditAnnotations")
+    def audit_annotations(self) -> Optional[Sequence['outputs.AuditAnnotationPatch']]:
+        """
+        auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
+        """
+        return pulumi.get(self, "audit_annotations")
+
+    @property
     @pulumi.getter(name="failurePolicy")
     def failure_policy(self) -> Optional[str]:
         """
-        FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
+        failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
+
+        A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource.
+
+        failurePolicy does not define how validations that evaluate to false are handled.
+
+        When failurePolicy is set to Fail, ValidatingAdmissionPolicyBinding validationActions define how failures are enforced.
+
+        Allowed values are Ignore or Fail. Defaults to Fail.
         """
         return pulumi.get(self, "failure_policy")
+
+    @property
+    @pulumi.getter(name="matchConditions")
+    def match_conditions(self) -> Optional[Sequence['outputs.MatchConditionPatch']]:
+        """
+        MatchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+
+        If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
+
+        The exact matching logic is (in order):
+          1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
+          2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
+          3. If any matchCondition evaluates to an error (but none are FALSE):
+             - If failurePolicy=Fail, reject the request
+             - If failurePolicy=Ignore, the policy is skipped
+        """
+        return pulumi.get(self, "match_conditions")
 
     @property
     @pulumi.getter(name="matchConstraints")
@@ -1214,9 +1884,141 @@ class ValidatingAdmissionPolicySpecPatch(dict):
     @pulumi.getter
     def validations(self) -> Optional[Sequence['outputs.ValidationPatch']]:
         """
-        Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
+        Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
         """
         return pulumi.get(self, "validations")
+
+
+@pulumi.output_type
+class ValidatingAdmissionPolicyStatus(dict):
+    """
+    ValidatingAdmissionPolicyStatus represents the status of a ValidatingAdmissionPolicy.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "observedGeneration":
+            suggest = "observed_generation"
+        elif key == "typeChecking":
+            suggest = "type_checking"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ValidatingAdmissionPolicyStatus. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ValidatingAdmissionPolicyStatus.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ValidatingAdmissionPolicyStatus.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 conditions: Optional[Sequence['_meta.v1.outputs.Condition']] = None,
+                 observed_generation: Optional[int] = None,
+                 type_checking: Optional['outputs.TypeChecking'] = None):
+        """
+        ValidatingAdmissionPolicyStatus represents the status of a ValidatingAdmissionPolicy.
+        :param Sequence['_meta.v1.ConditionArgs'] conditions: The conditions represent the latest available observations of a policy's current state.
+        :param int observed_generation: The generation observed by the controller.
+        :param 'TypeCheckingArgs' type_checking: The results of type checking for each expression. Presence of this field indicates the completion of the type checking.
+        """
+        if conditions is not None:
+            pulumi.set(__self__, "conditions", conditions)
+        if observed_generation is not None:
+            pulumi.set(__self__, "observed_generation", observed_generation)
+        if type_checking is not None:
+            pulumi.set(__self__, "type_checking", type_checking)
+
+    @property
+    @pulumi.getter
+    def conditions(self) -> Optional[Sequence['_meta.v1.outputs.Condition']]:
+        """
+        The conditions represent the latest available observations of a policy's current state.
+        """
+        return pulumi.get(self, "conditions")
+
+    @property
+    @pulumi.getter(name="observedGeneration")
+    def observed_generation(self) -> Optional[int]:
+        """
+        The generation observed by the controller.
+        """
+        return pulumi.get(self, "observed_generation")
+
+    @property
+    @pulumi.getter(name="typeChecking")
+    def type_checking(self) -> Optional['outputs.TypeChecking']:
+        """
+        The results of type checking for each expression. Presence of this field indicates the completion of the type checking.
+        """
+        return pulumi.get(self, "type_checking")
+
+
+@pulumi.output_type
+class ValidatingAdmissionPolicyStatusPatch(dict):
+    """
+    ValidatingAdmissionPolicyStatus represents the status of a ValidatingAdmissionPolicy.
+    """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "observedGeneration":
+            suggest = "observed_generation"
+        elif key == "typeChecking":
+            suggest = "type_checking"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ValidatingAdmissionPolicyStatusPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ValidatingAdmissionPolicyStatusPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ValidatingAdmissionPolicyStatusPatch.__key_warning(key)
+        return super().get(key, default)
+
+    def __init__(__self__, *,
+                 conditions: Optional[Sequence['_meta.v1.outputs.ConditionPatch']] = None,
+                 observed_generation: Optional[int] = None,
+                 type_checking: Optional['outputs.TypeCheckingPatch'] = None):
+        """
+        ValidatingAdmissionPolicyStatus represents the status of a ValidatingAdmissionPolicy.
+        :param Sequence['_meta.v1.ConditionPatchArgs'] conditions: The conditions represent the latest available observations of a policy's current state.
+        :param int observed_generation: The generation observed by the controller.
+        :param 'TypeCheckingPatchArgs' type_checking: The results of type checking for each expression. Presence of this field indicates the completion of the type checking.
+        """
+        if conditions is not None:
+            pulumi.set(__self__, "conditions", conditions)
+        if observed_generation is not None:
+            pulumi.set(__self__, "observed_generation", observed_generation)
+        if type_checking is not None:
+            pulumi.set(__self__, "type_checking", type_checking)
+
+    @property
+    @pulumi.getter
+    def conditions(self) -> Optional[Sequence['_meta.v1.outputs.ConditionPatch']]:
+        """
+        The conditions represent the latest available observations of a policy's current state.
+        """
+        return pulumi.get(self, "conditions")
+
+    @property
+    @pulumi.getter(name="observedGeneration")
+    def observed_generation(self) -> Optional[int]:
+        """
+        The generation observed by the controller.
+        """
+        return pulumi.get(self, "observed_generation")
+
+    @property
+    @pulumi.getter(name="typeChecking")
+    def type_checking(self) -> Optional['outputs.TypeCheckingPatch']:
+        """
+        The results of type checking for each expression. Presence of this field indicates the completion of the type checking.
+        """
+        return pulumi.get(self, "type_checking")
 
 
 @pulumi.output_type
@@ -1224,15 +2026,36 @@ class Validation(dict):
     """
     Validation specifies the CEL expression which is used to apply the validation.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "messageExpression":
+            suggest = "message_expression"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in Validation. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        Validation.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        Validation.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  expression: str,
                  message: Optional[str] = None,
+                 message_expression: Optional[str] = None,
                  reason: Optional[str] = None):
         """
         Validation specifies the CEL expression which is used to apply the validation.
-        :param str expression: Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the Admission request/response, organized into CEL variables as well as some other useful variables:
+        :param str expression: Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
                
-               'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind.
+               - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+                 See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+               - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+                 request resource.
                
                The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
                
@@ -1252,11 +2075,14 @@ class Validation(dict):
                    non-intersecting keys are appended, retaining their partial order.
                Required.
         :param str message: Message represents the message displayed when validation fails. The message is required if the Expression contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host" If the Expression contains line breaks. Message is required. The message must not contain line breaks. If unset, the message is "failed Expression: {Expression}".
+        :param str message_expression: messageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a validation, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the `expression` except for 'authorizer' and 'authorizer.requestResource'. Example: "object.x must be less than max ("+string(params.max)+")"
         :param str reason: Reason represents a machine-readable description of why this validation failed. If this is the first validation in the list to fail, this reason, as well as the corresponding HTTP response code, are used in the HTTP response to the client. The currently supported reasons are: "Unauthorized", "Forbidden", "Invalid", "RequestEntityTooLarge". If not set, StatusReasonInvalid is used in the response to the client.
         """
         pulumi.set(__self__, "expression", expression)
         if message is not None:
             pulumi.set(__self__, "message", message)
+        if message_expression is not None:
+            pulumi.set(__self__, "message_expression", message_expression)
         if reason is not None:
             pulumi.set(__self__, "reason", reason)
 
@@ -1264,9 +2090,12 @@ class Validation(dict):
     @pulumi.getter
     def expression(self) -> str:
         """
-        Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the Admission request/response, organized into CEL variables as well as some other useful variables:
+        Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
 
-        'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind.
+        - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+          See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+        - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+          request resource.
 
         The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
 
@@ -1295,6 +2124,14 @@ class Validation(dict):
         Message represents the message displayed when validation fails. The message is required if the Expression contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host" If the Expression contains line breaks. Message is required. The message must not contain line breaks. If unset, the message is "failed Expression: {Expression}".
         """
         return pulumi.get(self, "message")
+
+    @property
+    @pulumi.getter(name="messageExpression")
+    def message_expression(self) -> Optional[str]:
+        """
+        messageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a validation, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the `expression` except for 'authorizer' and 'authorizer.requestResource'. Example: "object.x must be less than max ("+string(params.max)+")"
+        """
+        return pulumi.get(self, "message_expression")
 
     @property
     @pulumi.getter
@@ -1310,15 +2147,36 @@ class ValidationPatch(dict):
     """
     Validation specifies the CEL expression which is used to apply the validation.
     """
+    @staticmethod
+    def __key_warning(key: str):
+        suggest = None
+        if key == "messageExpression":
+            suggest = "message_expression"
+
+        if suggest:
+            pulumi.log.warn(f"Key '{key}' not found in ValidationPatch. Access the value via the '{suggest}' property getter instead.")
+
+    def __getitem__(self, key: str) -> Any:
+        ValidationPatch.__key_warning(key)
+        return super().__getitem__(key)
+
+    def get(self, key: str, default = None) -> Any:
+        ValidationPatch.__key_warning(key)
+        return super().get(key, default)
+
     def __init__(__self__, *,
                  expression: Optional[str] = None,
                  message: Optional[str] = None,
+                 message_expression: Optional[str] = None,
                  reason: Optional[str] = None):
         """
         Validation specifies the CEL expression which is used to apply the validation.
-        :param str expression: Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the Admission request/response, organized into CEL variables as well as some other useful variables:
+        :param str expression: Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
                
-               'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind.
+               - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+                 See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+               - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+                 request resource.
                
                The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
                
@@ -1338,12 +2196,15 @@ class ValidationPatch(dict):
                    non-intersecting keys are appended, retaining their partial order.
                Required.
         :param str message: Message represents the message displayed when validation fails. The message is required if the Expression contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host" If the Expression contains line breaks. Message is required. The message must not contain line breaks. If unset, the message is "failed Expression: {Expression}".
+        :param str message_expression: messageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a validation, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the `expression` except for 'authorizer' and 'authorizer.requestResource'. Example: "object.x must be less than max ("+string(params.max)+")"
         :param str reason: Reason represents a machine-readable description of why this validation failed. If this is the first validation in the list to fail, this reason, as well as the corresponding HTTP response code, are used in the HTTP response to the client. The currently supported reasons are: "Unauthorized", "Forbidden", "Invalid", "RequestEntityTooLarge". If not set, StatusReasonInvalid is used in the response to the client.
         """
         if expression is not None:
             pulumi.set(__self__, "expression", expression)
         if message is not None:
             pulumi.set(__self__, "message", message)
+        if message_expression is not None:
+            pulumi.set(__self__, "message_expression", message_expression)
         if reason is not None:
             pulumi.set(__self__, "reason", reason)
 
@@ -1351,9 +2212,12 @@ class ValidationPatch(dict):
     @pulumi.getter
     def expression(self) -> Optional[str]:
         """
-        Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the Admission request/response, organized into CEL variables as well as some other useful variables:
+        Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
 
-        'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind.
+        - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+          See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+        - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+          request resource.
 
         The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
 
@@ -1382,6 +2246,14 @@ class ValidationPatch(dict):
         Message represents the message displayed when validation fails. The message is required if the Expression contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host" If the Expression contains line breaks. Message is required. The message must not contain line breaks. If unset, the message is "failed Expression: {Expression}".
         """
         return pulumi.get(self, "message")
+
+    @property
+    @pulumi.getter(name="messageExpression")
+    def message_expression(self) -> Optional[str]:
+        """
+        messageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a validation, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the `expression` except for 'authorizer' and 'authorizer.requestResource'. Example: "object.x must be less than max ("+string(params.max)+")"
+        """
+        return pulumi.get(self, "message_expression")
 
     @property
     @pulumi.getter

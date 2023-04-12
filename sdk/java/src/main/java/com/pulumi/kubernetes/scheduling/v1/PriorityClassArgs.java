@@ -95,14 +95,14 @@ public final class PriorityClassArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+     * preemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
      * 
      */
     @Import(name="preemptionPolicy")
     private @Nullable Output<String> preemptionPolicy;
 
     /**
-     * @return PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+     * @return preemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
      * 
      */
     public Optional<Output<String>> preemptionPolicy() {
@@ -110,14 +110,14 @@ public final class PriorityClassArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
+     * value represents the integer value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
      * 
      */
     @Import(name="value", required=true)
     private Output<Integer> value;
 
     /**
-     * @return The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
+     * @return value represents the integer value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
      * 
      */
     public Output<Integer> value() {
@@ -260,7 +260,7 @@ public final class PriorityClassArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param preemptionPolicy PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+         * @param preemptionPolicy preemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
          * 
          * @return builder
          * 
@@ -271,7 +271,7 @@ public final class PriorityClassArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param preemptionPolicy PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+         * @param preemptionPolicy preemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
          * 
          * @return builder
          * 
@@ -281,7 +281,7 @@ public final class PriorityClassArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param value The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
+         * @param value value represents the integer value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
          * 
          * @return builder
          * 
@@ -292,7 +292,7 @@ public final class PriorityClassArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param value The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
+         * @param value value represents the integer value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
          * 
          * @return builder
          * 

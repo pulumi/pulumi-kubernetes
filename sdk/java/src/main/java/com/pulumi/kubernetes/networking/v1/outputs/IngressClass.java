@@ -29,7 +29,7 @@ public final class IngressClass {
      */
     private @Nullable ObjectMeta metadata;
     /**
-     * @return Spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+     * @return spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
     private @Nullable IngressClassSpec spec;
@@ -57,7 +57,7 @@ public final class IngressClass {
         return Optional.ofNullable(this.metadata);
     }
     /**
-     * @return Spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+     * @return spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
     public Optional<IngressClassSpec> spec() {

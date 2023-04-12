@@ -273,6 +273,8 @@ _utilities.register(
   "mod": "authentication.k8s.io/v1beta1",
   "fqn": "pulumi_kubernetes.authentication.v1beta1",
   "classes": {
+   "kubernetes:authentication.k8s.io/v1beta1:SelfSubjectReview": "SelfSubjectReview",
+   "kubernetes:authentication.k8s.io/v1beta1:SelfSubjectReviewPatch": "SelfSubjectReviewPatch",
    "kubernetes:authentication.k8s.io/v1beta1:TokenReview": "TokenReview",
    "kubernetes:authentication.k8s.io/v1beta1:TokenReviewPatch": "TokenReviewPatch"
   }
@@ -388,6 +390,16 @@ _utilities.register(
    "kubernetes:certificates.k8s.io/v1:CertificateSigningRequest": "CertificateSigningRequest",
    "kubernetes:certificates.k8s.io/v1:CertificateSigningRequestList": "CertificateSigningRequestList",
    "kubernetes:certificates.k8s.io/v1:CertificateSigningRequestPatch": "CertificateSigningRequestPatch"
+  }
+ },
+ {
+  "pkg": "kubernetes",
+  "mod": "certificates.k8s.io/v1alpha1",
+  "fqn": "pulumi_kubernetes.certificates.v1alpha1",
+  "classes": {
+   "kubernetes:certificates.k8s.io/v1alpha1:ClusterTrustBundle": "ClusterTrustBundle",
+   "kubernetes:certificates.k8s.io/v1alpha1:ClusterTrustBundleList": "ClusterTrustBundleList",
+   "kubernetes:certificates.k8s.io/v1alpha1:ClusterTrustBundlePatch": "ClusterTrustBundlePatch"
   }
  },
  {
@@ -631,7 +643,10 @@ _utilities.register(
   "classes": {
    "kubernetes:networking.k8s.io/v1alpha1:ClusterCIDR": "ClusterCIDR",
    "kubernetes:networking.k8s.io/v1alpha1:ClusterCIDRList": "ClusterCIDRList",
-   "kubernetes:networking.k8s.io/v1alpha1:ClusterCIDRPatch": "ClusterCIDRPatch"
+   "kubernetes:networking.k8s.io/v1alpha1:ClusterCIDRPatch": "ClusterCIDRPatch",
+   "kubernetes:networking.k8s.io/v1alpha1:IPAddress": "IPAddress",
+   "kubernetes:networking.k8s.io/v1alpha1:IPAddressList": "IPAddressList",
+   "kubernetes:networking.k8s.io/v1alpha1:IPAddressPatch": "IPAddressPatch"
   }
  },
  {
@@ -774,6 +789,25 @@ _utilities.register(
    "kubernetes:resource.k8s.io/v1alpha1:ResourceClass": "ResourceClass",
    "kubernetes:resource.k8s.io/v1alpha1:ResourceClassList": "ResourceClassList",
    "kubernetes:resource.k8s.io/v1alpha1:ResourceClassPatch": "ResourceClassPatch"
+  }
+ },
+ {
+  "pkg": "kubernetes",
+  "mod": "resource.k8s.io/v1alpha2",
+  "fqn": "pulumi_kubernetes.resource.v1alpha2",
+  "classes": {
+   "kubernetes:resource.k8s.io/v1alpha2:PodSchedulingContext": "PodSchedulingContext",
+   "kubernetes:resource.k8s.io/v1alpha2:PodSchedulingContextList": "PodSchedulingContextList",
+   "kubernetes:resource.k8s.io/v1alpha2:PodSchedulingContextPatch": "PodSchedulingContextPatch",
+   "kubernetes:resource.k8s.io/v1alpha2:ResourceClaim": "ResourceClaim",
+   "kubernetes:resource.k8s.io/v1alpha2:ResourceClaimList": "ResourceClaimList",
+   "kubernetes:resource.k8s.io/v1alpha2:ResourceClaimPatch": "ResourceClaimPatch",
+   "kubernetes:resource.k8s.io/v1alpha2:ResourceClaimTemplate": "ResourceClaimTemplate",
+   "kubernetes:resource.k8s.io/v1alpha2:ResourceClaimTemplateList": "ResourceClaimTemplateList",
+   "kubernetes:resource.k8s.io/v1alpha2:ResourceClaimTemplatePatch": "ResourceClaimTemplatePatch",
+   "kubernetes:resource.k8s.io/v1alpha2:ResourceClass": "ResourceClass",
+   "kubernetes:resource.k8s.io/v1alpha2:ResourceClassList": "ResourceClassList",
+   "kubernetes:resource.k8s.io/v1alpha2:ResourceClassPatch": "ResourceClassPatch"
   }
  },
  {

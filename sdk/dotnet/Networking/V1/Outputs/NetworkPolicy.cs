@@ -29,11 +29,11 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking.V1
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Meta.V1.ObjectMeta Metadata;
         /// <summary>
-        /// Specification of the desired behavior for this NetworkPolicy.
+        /// spec represents the specification of the desired behavior for this NetworkPolicy.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Networking.V1.NetworkPolicySpec Spec;
         /// <summary>
-        /// Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        /// status represents the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Networking.V1.NetworkPolicyStatus Status;
 

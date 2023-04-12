@@ -205,6 +205,8 @@ class ResourceClass(pulumi.CustomResource):
             __props__.__dict__["metadata"] = metadata
             __props__.__dict__["parameters_ref"] = parameters_ref
             __props__.__dict__["suitable_nodes"] = suitable_nodes
+        alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:resource.k8s.io/v1alpha2:ResourceClass")])
+        opts = pulumi.ResourceOptions.merge(opts, alias_opts)
         super(ResourceClass, __self__).__init__(
             'kubernetes:resource.k8s.io/v1alpha1:ResourceClass',
             resource_name,

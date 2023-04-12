@@ -54,14 +54,14 @@ public final class ProbeArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * GRPC specifies an action involving a GRPC port. This is a beta field and requires enabling GRPCContainerProbe feature gate.
+     * GRPC specifies an action involving a GRPC port.
      * 
      */
     @Import(name="grpc")
     private @Nullable Output<GRPCActionArgs> grpc;
 
     /**
-     * @return GRPC specifies an action involving a GRPC port. This is a beta field and requires enabling GRPCContainerProbe feature gate.
+     * @return GRPC specifies an action involving a GRPC port.
      * 
      */
     public Optional<Output<GRPCActionArgs>> grpc() {
@@ -249,7 +249,7 @@ public final class ProbeArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param grpc GRPC specifies an action involving a GRPC port. This is a beta field and requires enabling GRPCContainerProbe feature gate.
+         * @param grpc GRPC specifies an action involving a GRPC port.
          * 
          * @return builder
          * 
@@ -260,7 +260,7 @@ public final class ProbeArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param grpc GRPC specifies an action involving a GRPC port. This is a beta field and requires enabling GRPCContainerProbe feature gate.
+         * @param grpc GRPC specifies an action involving a GRPC port.
          * 
          * @return builder
          * 

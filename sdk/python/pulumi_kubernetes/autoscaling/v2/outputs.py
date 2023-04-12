@@ -161,9 +161,9 @@ class ContainerResourceMetricStatus(dict):
                  name: str):
         """
         ContainerResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing a single container in each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
-        :param str container: Container is the name of the container in the pods of the scaling target
+        :param str container: container is the name of the container in the pods of the scaling target
         :param 'MetricValueStatusArgs' current: current contains the current value for the given metric
-        :param str name: Name is the name of the resource in question.
+        :param str name: name is the name of the resource in question.
         """
         pulumi.set(__self__, "container", container)
         pulumi.set(__self__, "current", current)
@@ -173,7 +173,7 @@ class ContainerResourceMetricStatus(dict):
     @pulumi.getter
     def container(self) -> str:
         """
-        Container is the name of the container in the pods of the scaling target
+        container is the name of the container in the pods of the scaling target
         """
         return pulumi.get(self, "container")
 
@@ -189,7 +189,7 @@ class ContainerResourceMetricStatus(dict):
     @pulumi.getter
     def name(self) -> str:
         """
-        Name is the name of the resource in question.
+        name is the name of the resource in question.
         """
         return pulumi.get(self, "name")
 
@@ -205,9 +205,9 @@ class ContainerResourceMetricStatusPatch(dict):
                  name: Optional[str] = None):
         """
         ContainerResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing a single container in each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
-        :param str container: Container is the name of the container in the pods of the scaling target
+        :param str container: container is the name of the container in the pods of the scaling target
         :param 'MetricValueStatusPatchArgs' current: current contains the current value for the given metric
-        :param str name: Name is the name of the resource in question.
+        :param str name: name is the name of the resource in question.
         """
         if container is not None:
             pulumi.set(__self__, "container", container)
@@ -220,7 +220,7 @@ class ContainerResourceMetricStatusPatch(dict):
     @pulumi.getter
     def container(self) -> Optional[str]:
         """
-        Container is the name of the container in the pods of the scaling target
+        container is the name of the container in the pods of the scaling target
         """
         return pulumi.get(self, "container")
 
@@ -236,7 +236,7 @@ class ContainerResourceMetricStatusPatch(dict):
     @pulumi.getter
     def name(self) -> Optional[str]:
         """
-        Name is the name of the resource in question.
+        name is the name of the resource in question.
         """
         return pulumi.get(self, "name")
 
@@ -269,9 +269,9 @@ class CrossVersionObjectReference(dict):
                  api_version: Optional[str] = None):
         """
         CrossVersionObjectReference contains enough information to let you identify the referred resource.
-        :param str kind: Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param str name: Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
-        :param str api_version: API version of the referent
+        :param str kind: kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param str name: name is the name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+        :param str api_version: apiVersion is the API version of the referent
         """
         pulumi.set(__self__, "kind", kind)
         pulumi.set(__self__, "name", name)
@@ -282,7 +282,7 @@ class CrossVersionObjectReference(dict):
     @pulumi.getter
     def kind(self) -> str:
         """
-        Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 
@@ -290,7 +290,7 @@ class CrossVersionObjectReference(dict):
     @pulumi.getter
     def name(self) -> str:
         """
-        Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
+        name is the name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
         """
         return pulumi.get(self, "name")
 
@@ -298,7 +298,7 @@ class CrossVersionObjectReference(dict):
     @pulumi.getter(name="apiVersion")
     def api_version(self) -> Optional[str]:
         """
-        API version of the referent
+        apiVersion is the API version of the referent
         """
         return pulumi.get(self, "api_version")
 
@@ -331,9 +331,9 @@ class CrossVersionObjectReferencePatch(dict):
                  name: Optional[str] = None):
         """
         CrossVersionObjectReference contains enough information to let you identify the referred resource.
-        :param str api_version: API version of the referent
-        :param str kind: Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-        :param str name: Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
+        :param str api_version: apiVersion is the API version of the referent
+        :param str kind: kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        :param str name: name is the name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
         """
         if api_version is not None:
             pulumi.set(__self__, "api_version", api_version)
@@ -346,7 +346,7 @@ class CrossVersionObjectReferencePatch(dict):
     @pulumi.getter(name="apiVersion")
     def api_version(self) -> Optional[str]:
         """
-        API version of the referent
+        apiVersion is the API version of the referent
         """
         return pulumi.get(self, "api_version")
 
@@ -354,7 +354,7 @@ class CrossVersionObjectReferencePatch(dict):
     @pulumi.getter
     def kind(self) -> Optional[str]:
         """
-        Kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+        kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
         return pulumi.get(self, "kind")
 
@@ -362,7 +362,7 @@ class CrossVersionObjectReferencePatch(dict):
     @pulumi.getter
     def name(self) -> Optional[str]:
         """
-        Name of the referent; More info: http://kubernetes.io/docs/user-guide/identifiers#names
+        name is the name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
         """
         return pulumi.get(self, "name")
 
@@ -531,9 +531,9 @@ class HPAScalingPolicy(dict):
                  value: int):
         """
         HPAScalingPolicy is a single policy which must hold true for a specified past interval.
-        :param int period_seconds: PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
-        :param str type: Type is used to specify the scaling policy.
-        :param int value: Value contains the amount of change which is permitted by the policy. It must be greater than zero
+        :param int period_seconds: periodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
+        :param str type: type is used to specify the scaling policy.
+        :param int value: value contains the amount of change which is permitted by the policy. It must be greater than zero
         """
         pulumi.set(__self__, "period_seconds", period_seconds)
         pulumi.set(__self__, "type", type)
@@ -543,7 +543,7 @@ class HPAScalingPolicy(dict):
     @pulumi.getter(name="periodSeconds")
     def period_seconds(self) -> int:
         """
-        PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
+        periodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
         """
         return pulumi.get(self, "period_seconds")
 
@@ -551,7 +551,7 @@ class HPAScalingPolicy(dict):
     @pulumi.getter
     def type(self) -> str:
         """
-        Type is used to specify the scaling policy.
+        type is used to specify the scaling policy.
         """
         return pulumi.get(self, "type")
 
@@ -559,7 +559,7 @@ class HPAScalingPolicy(dict):
     @pulumi.getter
     def value(self) -> int:
         """
-        Value contains the amount of change which is permitted by the policy. It must be greater than zero
+        value contains the amount of change which is permitted by the policy. It must be greater than zero
         """
         return pulumi.get(self, "value")
 
@@ -592,9 +592,9 @@ class HPAScalingPolicyPatch(dict):
                  value: Optional[int] = None):
         """
         HPAScalingPolicy is a single policy which must hold true for a specified past interval.
-        :param int period_seconds: PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
-        :param str type: Type is used to specify the scaling policy.
-        :param int value: Value contains the amount of change which is permitted by the policy. It must be greater than zero
+        :param int period_seconds: periodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
+        :param str type: type is used to specify the scaling policy.
+        :param int value: value contains the amount of change which is permitted by the policy. It must be greater than zero
         """
         if period_seconds is not None:
             pulumi.set(__self__, "period_seconds", period_seconds)
@@ -607,7 +607,7 @@ class HPAScalingPolicyPatch(dict):
     @pulumi.getter(name="periodSeconds")
     def period_seconds(self) -> Optional[int]:
         """
-        PeriodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
+        periodSeconds specifies the window of time for which the policy should hold true. PeriodSeconds must be greater than zero and less than or equal to 1800 (30 min).
         """
         return pulumi.get(self, "period_seconds")
 
@@ -615,7 +615,7 @@ class HPAScalingPolicyPatch(dict):
     @pulumi.getter
     def type(self) -> Optional[str]:
         """
-        Type is used to specify the scaling policy.
+        type is used to specify the scaling policy.
         """
         return pulumi.get(self, "type")
 
@@ -623,7 +623,7 @@ class HPAScalingPolicyPatch(dict):
     @pulumi.getter
     def value(self) -> Optional[int]:
         """
-        Value contains the amount of change which is permitted by the policy. It must be greater than zero
+        value contains the amount of change which is permitted by the policy. It must be greater than zero
         """
         return pulumi.get(self, "value")
 
@@ -660,7 +660,7 @@ class HPAScalingRules(dict):
         HPAScalingRules configures the scaling behavior for one direction. These Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
         :param Sequence['HPAScalingPolicyArgs'] policies: policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid
         :param str select_policy: selectPolicy is used to specify which policy should be used. If not set, the default value Max is used.
-        :param int stabilization_window_seconds: StabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
+        :param int stabilization_window_seconds: stabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
         """
         if policies is not None:
             pulumi.set(__self__, "policies", policies)
@@ -689,7 +689,7 @@ class HPAScalingRules(dict):
     @pulumi.getter(name="stabilizationWindowSeconds")
     def stabilization_window_seconds(self) -> Optional[int]:
         """
-        StabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
+        stabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
         """
         return pulumi.get(self, "stabilization_window_seconds")
 
@@ -726,7 +726,7 @@ class HPAScalingRulesPatch(dict):
         HPAScalingRules configures the scaling behavior for one direction. These Rules are applied after calculating DesiredReplicas from metrics for the HPA. They can limit the scaling velocity by specifying scaling policies. They can prevent flapping by specifying the stabilization window, so that the number of replicas is not set instantly, instead, the safest value from the stabilization window is chosen.
         :param Sequence['HPAScalingPolicyPatchArgs'] policies: policies is a list of potential scaling polices which can be used during scaling. At least one policy must be specified, otherwise the HPAScalingRules will be discarded as invalid
         :param str select_policy: selectPolicy is used to specify which policy should be used. If not set, the default value Max is used.
-        :param int stabilization_window_seconds: StabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
+        :param int stabilization_window_seconds: stabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
         """
         if policies is not None:
             pulumi.set(__self__, "policies", policies)
@@ -755,7 +755,7 @@ class HPAScalingRulesPatch(dict):
     @pulumi.getter(name="stabilizationWindowSeconds")
     def stabilization_window_seconds(self) -> Optional[int]:
         """
-        StabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
+        stabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
         """
         return pulumi.get(self, "stabilization_window_seconds")
 
@@ -2758,7 +2758,7 @@ class ResourceMetricStatus(dict):
         """
         ResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
         :param 'MetricValueStatusArgs' current: current contains the current value for the given metric
-        :param str name: Name is the name of the resource in question.
+        :param str name: name is the name of the resource in question.
         """
         pulumi.set(__self__, "current", current)
         pulumi.set(__self__, "name", name)
@@ -2775,7 +2775,7 @@ class ResourceMetricStatus(dict):
     @pulumi.getter
     def name(self) -> str:
         """
-        Name is the name of the resource in question.
+        name is the name of the resource in question.
         """
         return pulumi.get(self, "name")
 
@@ -2791,7 +2791,7 @@ class ResourceMetricStatusPatch(dict):
         """
         ResourceMetricStatus indicates the current value of a resource metric known to Kubernetes, as specified in requests and limits, describing each pod in the current scale target (e.g. CPU or memory).  Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
         :param 'MetricValueStatusPatchArgs' current: current contains the current value for the given metric
-        :param str name: Name is the name of the resource in question.
+        :param str name: name is the name of the resource in question.
         """
         if current is not None:
             pulumi.set(__self__, "current", current)
@@ -2810,7 +2810,7 @@ class ResourceMetricStatusPatch(dict):
     @pulumi.getter
     def name(self) -> Optional[str]:
         """
-        Name is the name of the resource in question.
+        name is the name of the resource in question.
         """
         return pulumi.get(self, "name")
 
