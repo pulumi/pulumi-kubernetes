@@ -1,4 +1,4 @@
-// Copyright 2016-2022, Pulumi Corporation.
+// Copyright 2016-2023, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -474,34 +474,40 @@ func TestGet(t *testing.T) {
 		ExpectRefreshChanges: true,
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			assert.NotNil(t, stackInfo.Deployment)
-			assert.Equal(t, 6, len(stackInfo.Deployment.Resources))
-
-			tests.SortResourcesByURN(stackInfo)
-
-			stackRes := stackInfo.Deployment.Resources[5]
-			assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
-
-			provRes := stackInfo.Deployment.Resources[4]
-			assert.True(t, providers.IsProviderType(provRes.URN.Type()))
+			assert.Equal(t, 7, len(stackInfo.Deployment.Resources))
 
 			//
 			// Assert we can use .get to retrieve the kube-api Service.
 			//
 
-			service := stackInfo.Deployment.Resources[2]
-			assert.Equal(t, "kube-api", string(service.URN.Name()))
-			step1Name, _ := openapi.Pluck(service.Outputs, "metadata", "name")
-			assert.Equal(t, "kubernetes", step1Name.(string))
+			service := stackInfo.Outputs["svc"].(map[string]interface{})
+			svcURN, _ := openapi.Pluck(service, "urn")
+			assert.Containsf(t, svcURN, "kube-api", "urn missing expected name")
+			svcName, _ := openapi.Pluck(service, "metadata", "name")
+			assert.Equalf(t, "kubernetes", svcName, "unexpected service name")
+
+			//
+			// Assert that the uninitialized Service exists
+			//
+
+			awaitSvc := stackInfo.Outputs["awaitSvc"].(map[string]interface{})
+			awaitSvcName, _ := openapi.Pluck(awaitSvc, "metadata", "name")
+			assert.Equalf(t, "test", awaitSvcName, "unexpected service name")
+			awaitSvcAnnotation, ok := openapi.Pluck(awaitSvc, "metadata", "annotations", "pulumi.com/skipAwait")
+			assert.Truef(t, ok, "failed to find skipAwait annotation")
+			assert.Equalf(t, "true", awaitSvcAnnotation, "expected annotation to be true")
 
 			//
 			// Assert that CRD and CR exist
 			//
 
-			crd := stackInfo.Deployment.Resources[0]
-			assert.Equal(t, "crontab", string(crd.URN.Name()))
+			crd := stackInfo.Outputs["ct"].(map[string]interface{})
+			crdURN, _ := openapi.Pluck(crd, "urn")
+			assert.Containsf(t, crdURN, "crontab", "urn missing expected name")
 
-			ct1 := stackInfo.Deployment.Resources[3]
-			assert.Equal(t, "my-new-cron-object", string(ct1.URN.Name()))
+			cr := stackInfo.Outputs["cr"].(map[string]interface{})
+			crURN, _ := openapi.Pluck(cr, "urn")
+			assert.Containsf(t, crURN, "my-new-cron-object", "urn missing expected name")
 		},
 		EditDirs: []integration.EditDir{
 			{
@@ -509,24 +515,66 @@ func TestGet(t *testing.T) {
 				Additive: true,
 				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 					assert.NotNil(t, stackInfo.Deployment)
-					assert.Equal(t, 7, len(stackInfo.Deployment.Resources))
+					assert.Equal(t, 10, len(stackInfo.Deployment.Resources))
 
-					tests.SortResourcesByURN(stackInfo)
+					//
+					// Assert we can use .get to retrieve the kube-api Service.
+					//
 
-					stackRes := stackInfo.Deployment.Resources[6]
-					assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
+					service := stackInfo.Outputs["svc"].(map[string]interface{})
+					svcURN, _ := openapi.Pluck(service, "urn")
+					assert.Containsf(t, svcURN, "kube-api", "urn missing expected name")
+					svcName, _ := openapi.Pluck(service, "metadata", "name")
+					assert.Equalf(t, "kubernetes", svcName, "unexpected service name")
 
-					provRes := stackInfo.Deployment.Resources[5]
-					assert.True(t, providers.IsProviderType(provRes.URN.Type()))
+					//
+					// Assert that the uninitialized Service exists
+					//
+
+					awaitSvc := stackInfo.Outputs["awaitSvc"].(map[string]interface{})
+					awaitSvcName, _ := openapi.Pluck(awaitSvc, "metadata", "name")
+					assert.Equalf(t, "test", awaitSvcName, "unexpected service name")
+					awaitSvcAnnotation, ok := openapi.Pluck(awaitSvc, "metadata", "annotations", "pulumi.com/skipAwait")
+					assert.Truef(t, ok, "failed to find skipAwait annotation")
+					assert.Equalf(t, "true", awaitSvcAnnotation, "expected annotation to be true")
+
+					//
+					// Assert we can use .get to retrieve a Service that would fail await logic.
+					//
+
+					awaitSvcGet := stackInfo.Outputs["awaitSvcGet"].(map[string]interface{})
+					awaitSvcGetURN, _ := openapi.Pluck(awaitSvcGet, "urn")
+					assert.Containsf(t, awaitSvcGetURN, "await", "urn missing expected name")
+
+					//
+					// Assert we can use an output from a Service that would fail await logic.
+					//
+
+					cm := stackInfo.Outputs["cm"].(map[string]interface{})
+					cmURN, _ := openapi.Pluck(cm, "urn")
+					assert.Containsf(t, cmURN, "svc-test", "urn missing expected name")
+					clusterIP, _ := openapi.Pluck(cm, "data", "key")
+					assert.NotEmptyf(t, clusterIP, "clusterIP should be set")
+
+					//
+					// Assert that CRD and CR exist
+					//
+
+					crd := stackInfo.Outputs["ct"].(map[string]interface{})
+					crdURN, _ := openapi.Pluck(crd, "urn")
+					assert.Containsf(t, crdURN, "crontab", "urn missing expected name")
+
+					cr := stackInfo.Outputs["cr"].(map[string]interface{})
+					crURN, _ := openapi.Pluck(cr, "urn")
+					assert.Containsf(t, crURN, "my-new-cron-object", "urn missing expected name")
 
 					//
 					// Assert we can use .get to retrieve CRDs.
 					//
 
-					ct2 := stackInfo.Deployment.Resources[4]
-					assert.Equal(t, "my-new-cron-object-get", string(ct2.URN.Name()))
-					image, _ := openapi.Pluck(ct2.Outputs, "spec", "image")
-					assert.Equal(t, "my-awesome-cron-image", image.(string))
+					crGet := stackInfo.Outputs["crGet"].(map[string]interface{})
+					crGetURN, _ := openapi.Pluck(crGet, "urn")
+					assert.Containsf(t, crGetURN, "my-new-cron-object-get", "urn missing expected name")
 				},
 			},
 		},
