@@ -1950,7 +1950,7 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 			req.GetId())
 	}
 
-	freshImport := false
+	readFromCluster := false
 	oldInputs, oldLive := parseCheckpointObject(oldState)
 	if oldInputs.GroupVersionKind().Empty() {
 		if oldLive.GroupVersionKind().Empty() {
@@ -1959,7 +1959,7 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 				return nil, err
 			}
 			oldInputs.SetGroupVersionKind(gvk)
-			freshImport = true
+			readFromCluster = true
 		} else {
 			oldInputs.SetGroupVersionKind(oldLive.GroupVersionKind())
 		}
@@ -2017,8 +2017,9 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 			DedupLogger:       logging.NewLogger(k.canceler.context, k.host, urn),
 			Resources:         resources,
 		},
-		Inputs: oldInputs,
-		Name:   name,
+		Inputs:          oldInputs,
+		ReadFromCluster: readFromCluster,
+		Name:            name,
 	}
 	liveObj, readErr := await.Read(config)
 	if readErr != nil {
@@ -2055,9 +2056,8 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	// Attempt to parse the inputs for this object. If parsing was unsuccessful, retain the old inputs.
 	liveInputs := parseLiveInputs(liveObj, oldInputs)
 
-	if freshImport {
-		// If no previous inputs were known, this is a fresh import. In which case we want to populate
-		// the inputs from the live state for the resource by referring to the input properties for the resource.
+	if readFromCluster {
+		// If no previous inputs were known, populate the inputs from the live cluster state for the resource.
 		pkgSpec := pulumischema.PackageSpec{}
 		if err := json.Unmarshal(k.pulumiSchema, &pkgSpec); err != nil {
 			return nil, err
