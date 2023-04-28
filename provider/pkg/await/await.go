@@ -81,8 +81,9 @@ type CreateConfig struct {
 
 type ReadConfig struct {
 	ProviderConfig
-	Inputs *unstructured.Unstructured
-	Name   string
+	Inputs          *unstructured.Unstructured
+	Name            string
+	ReadFromCluster bool
 }
 
 type UpdateConfig struct {
@@ -299,9 +300,8 @@ func Read(c ReadConfig) (*unstructured.Unstructured, error) {
 	outputs, err := client.Get(c.Context, c.Name, metav1.GetOptions{})
 	if err != nil {
 		return nil, err
-	} else if c.Inputs == nil || len(c.Inputs.Object) == 0 {
-		// No inputs means that we do not manage the resource, i.e., it's a call to
-		// `CustomResource#get`. Simply return the object.
+	} else if c.ReadFromCluster {
+		// If the resource is read from a .get or an import, simply return the resource state from the cluster.
 		return outputs, nil
 	}
 

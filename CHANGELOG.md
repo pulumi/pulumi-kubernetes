@@ -1,5 +1,7 @@
 ## Unreleased
 
+- Do not await during .get or import operations (https://github.com/pulumi/pulumi-kubernetes/pull/2373)
+
 ## 3.25.0 (April 11, 2023)
 - Update Kubernetes to v1.27.0
 

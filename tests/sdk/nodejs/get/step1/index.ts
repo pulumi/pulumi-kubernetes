@@ -1,4 +1,4 @@
-// Copyright 2016-2019, Pulumi Corporation.
+// Copyright 2016-2023, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,16 +20,40 @@ const namespace = new k8s.core.v1.Namespace("test-namespace");
 // `get`s the Kubernetes API service.
 //
 
-const svc = k8s.core.v1.Service.get("kube-api", "default/kubernetes");
+export const svc = k8s.core.v1.Service.get("kube-api", "default/kubernetes");
 
 // This will fail with a TypeError if the status was not populated (i.e. the .get isn't working)
 export const loadBalancer = svc.status.loadBalancer;
 
 //
+// Create a Service resource with skipAwait that would fail to initialize due to await logic.
+// get should return the resource state without gating on await logic.
+//
+
+export const awaitSvc = new k8s.core.v1.Service("svc", {
+    metadata: {
+        name: "test",
+        namespace: namespace.metadata.name,
+        annotations: {
+            "pulumi.com/skipAwait": "true",
+        },
+    },
+    spec: {
+        type: k8s.types.enums.core.v1.ServiceSpecType.ClusterIP,
+        ports: [{
+            name: "http",
+            port: 8080,
+            targetPort: 80,
+        }],
+        selector: { app: "nginx" }, // selector doesn't match Pods, so await logic would fail
+    }
+});
+
+//
 // Create a CustomResourceDefinition, a CustomResource, and then `.get` it.
 //
 
-const ct = new k8s.apiextensions.v1.CustomResourceDefinition("crontab", {
+export const ct = new k8s.apiextensions.v1.CustomResourceDefinition("crontab", {
     metadata: { name: "crontabs.stable.example.com" },
     spec: {
         group: "stable.example.com",
@@ -71,7 +95,7 @@ const ct = new k8s.apiextensions.v1.CustomResourceDefinition("crontab", {
     }
 });
 
-new k8s.apiextensions.CustomResource(
+export const cr = new k8s.apiextensions.CustomResource(
     "my-new-cron-object",
     {
         apiVersion: "stable.example.com/v1",
