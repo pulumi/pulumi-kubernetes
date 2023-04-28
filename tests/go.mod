@@ -10,8 +10,8 @@ replace (
 require (
 	github.com/pulumi/pulumi-kubernetes/provider/v3 v3.0.0-rc.1
 	github.com/pulumi/pulumi-kubernetes/sdk/v3 v3.0.0-rc.1
-	github.com/pulumi/pulumi/pkg/v3 v3.64.0
-	github.com/pulumi/pulumi/sdk/v3 v3.64.0
+	github.com/pulumi/pulumi/pkg/v3 v3.65.1
+	github.com/pulumi/pulumi/sdk/v3 v3.65.1
 	github.com/stretchr/testify v1.8.2
 	helm.sh/helm/v3 v3.11.3
 	k8s.io/apimachinery v0.26.2
@@ -253,7 +253,7 @@ require (
 	gocloud.dev v0.27.0 // indirect
 	gocloud.dev/secrets/hashivault v0.27.0 // indirect
 	golang.org/x/crypto v0.5.0 // indirect
-	golang.org/x/mod v0.8.0 // indirect
+	golang.org/x/mod v0.10.0 // indirect
 	golang.org/x/net v0.8.0 // indirect
 	golang.org/x/oauth2 v0.5.0 // indirect
 	golang.org/x/sync v0.1.0 // indirect
