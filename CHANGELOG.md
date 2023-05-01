@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 3.26.0 (May 1, 2023)
+
 - Do not await during .get or import operations (https://github.com/pulumi/pulumi-kubernetes/pull/2373)
 
 ## 3.25.0 (April 11, 2023)
