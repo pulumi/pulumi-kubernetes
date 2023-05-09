@@ -1,5 +1,5 @@
 /*
-Copyright 2022, Pulumi Corporation.  All rights reserved.
+Copyright 2023, Pulumi Corporation.  All rights reserved.
 Copyright 2017 The Kubernetes Authors.
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,10 +17,10 @@ limitations under the License.
 
 // Note: this code is taken nearly verbatim from the upstream memcache client [1].
 // Several methods do not return errors, but instead log them using the `HandleError` method, which dispatches to klog.
-// This bypasses Pulumi's logging mechanism, and causes unactionable error messages to appear in the CLI. This error
-// logging was disabled.
+// There are also several direct calls to klog. This bypasses Pulumi's logging mechanism, and causes unactionable error
+// messages to appear in the CLI. These calls were updated to use Pulumi's logger instead of klog.
 //
-// [1] https://github.com/kubernetes/client-go/blob/release-1.26/discovery/cached/memory/memcache.go
+// [1] https://github.com/kubernetes/client-go/blob/release-1.27/discovery/cached/memory/memcache.go
 
 package clients
 
@@ -69,6 +69,15 @@ var (
 	ErrCacheNotFound = errors.New("not found")
 )
 
+// Server returning empty ResourceList for Group/Version.
+type emptyResponseError struct {
+	gv string
+}
+
+func (e *emptyResponseError) Error() string {
+	return fmt.Sprintf("received empty response for: %s", e.gv)
+}
+
 var _ discovery.CachedDiscoveryInterface = &memCacheClient{}
 
 // isTransientConnectionError checks whether given error is "Connection refused" or
@@ -111,7 +120,13 @@ func (d *memCacheClient) ServerResourcesForGroupVersion(groupVersion string) (*m
 	if cachedVal.err != nil && isTransientError(cachedVal.err) {
 		r, err := d.serverResourcesForGroupVersion(groupVersion)
 		if err != nil {
-			logger.V(9).Infof("couldn't get resource list for %v: %v", groupVersion, err) // Updated by Pulumi
+			// Don't log "empty response" as an error; it is a common response for metrics.
+			if _, emptyErr := err.(*emptyResponseError); emptyErr {
+				// Log at same verbosity as disk cache.
+				logger.V(3).Infof("%v", err) // Updated by Pulumi
+			} else {
+				logger.V(9).Infof("couldn't get resource list for %v: %v", groupVersion, err) // Updated by Pulumi
+			}
 		}
 		cachedVal = &cacheEntry{r, err}
 		d.groupToServerResources[groupVersion] = cachedVal
@@ -128,32 +143,38 @@ func (d *memCacheClient) ServerGroupsAndResources() ([]*metav1.APIGroup, []*meta
 // GroupsAndMaybeResources returns the list of APIGroups, and possibly the map of group/version
 // to resources. The returned groups will never be nil, but the resources map can be nil
 // if there are no cached resources.
-func (d *memCacheClient) GroupsAndMaybeResources() (*metav1.APIGroupList, map[schema.GroupVersion]*metav1.APIResourceList, error) {
+func (d *memCacheClient) GroupsAndMaybeResources() (*metav1.APIGroupList, map[schema.GroupVersion]*metav1.APIResourceList, map[schema.GroupVersion]error, error) {
 	d.lock.Lock()
 	defer d.lock.Unlock()
 
 	if !d.cacheValid {
 		if err := d.refreshLocked(); err != nil {
-			return nil, nil, err
+			return nil, nil, nil, err
 		}
 	}
 	// Build the resourceList from the cache?
 	var resourcesMap map[schema.GroupVersion]*metav1.APIResourceList
+	var failedGVs map[schema.GroupVersion]error
 	if d.receivedAggregatedDiscovery && len(d.groupToServerResources) > 0 {
 		resourcesMap = map[schema.GroupVersion]*metav1.APIResourceList{}
+		failedGVs = map[schema.GroupVersion]error{}
 		for gv, cacheEntry := range d.groupToServerResources {
 			groupVersion, err := schema.ParseGroupVersion(gv)
 			if err != nil {
-				return nil, nil, fmt.Errorf("failed to parse group version (%v): %v", gv, err)
+				return nil, nil, nil, fmt.Errorf("failed to parse group version (%v): %v", gv, err)
 			}
-			resourcesMap[groupVersion] = cacheEntry.resourceList
+			if cacheEntry.err != nil {
+				failedGVs[groupVersion] = cacheEntry.err
+			} else {
+				resourcesMap[groupVersion] = cacheEntry.resourceList
+			}
 		}
 	}
-	return d.groupList, resourcesMap, nil
+	return d.groupList, resourcesMap, failedGVs, nil
 }
 
 func (d *memCacheClient) ServerGroups() (*metav1.APIGroupList, error) {
-	groups, _, err := d.GroupsAndMaybeResources()
+	groups, _, _, err := d.GroupsAndMaybeResources()
 	if err != nil {
 		return nil, err
 	}
@@ -227,13 +248,18 @@ func (d *memCacheClient) refreshLocked() error {
 
 	if ad, ok := d.delegate.(discovery.AggregatedDiscoveryInterface); ok {
 		var resources map[schema.GroupVersion]*metav1.APIResourceList
-		gl, resources, err = ad.GroupsAndMaybeResources()
+		var failedGVs map[schema.GroupVersion]error
+		gl, resources, failedGVs, err = ad.GroupsAndMaybeResources()
 		if resources != nil && err == nil {
 			// Cache the resources.
 			d.groupToServerResources = map[string]*cacheEntry{}
 			d.groupList = gl
 			for gv, resources := range resources {
 				d.groupToServerResources[gv.String()] = &cacheEntry{resources, nil}
+			}
+			// Cache GroupVersion discovery errors
+			for gv, err := range failedGVs {
+				d.groupToServerResources[gv.String()] = &cacheEntry{nil, err}
 			}
 			d.receivedAggregatedDiscovery = true
 			d.cacheValid = true
@@ -260,7 +286,13 @@ func (d *memCacheClient) refreshLocked() error {
 
 				r, err := d.serverResourcesForGroupVersion(gv)
 				if err != nil {
-					logger.V(9).Infof("couldn't get resource list for %v: %v", gv, err) // Updated by Pulumi
+					// Don't log "empty response" as an error; it is a common response for metrics.
+					if _, emptyErr := err.(*emptyResponseError); emptyErr {
+						// Log at same verbosity as disk cache.
+						logger.V(3).Infof("%v", err) // Updated by Pulumi
+					} else {
+						logger.V(9).Infof("couldn't get resource list for %v: %v", gv, err) // Updated by Pulumi
+					}
 				}
 
 				resultLock.Lock()
@@ -282,7 +314,7 @@ func (d *memCacheClient) serverResourcesForGroupVersion(groupVersion string) (*m
 		return r, err
 	}
 	if len(r.APIResources) == 0 {
-		return r, fmt.Errorf("Got empty response for: %v", groupVersion)
+		return r, &emptyResponseError{gv: groupVersion}
 	}
 	return r, nil
 }
