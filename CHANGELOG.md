@@ -1,5 +1,7 @@
 ## Unreleased
 
+- Change destroy operation to use foreground cascading delete (https://github.com/pulumi/pulumi-kubernetes/pull/2379)
+
 ## 3.26.0 (May 1, 2023)
 
 - Do not await during .get or import operations (https://github.com/pulumi/pulumi-kubernetes/pull/2373)

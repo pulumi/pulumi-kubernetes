@@ -686,20 +686,9 @@ func deleteResource(
 		boolFalse := false
 		// nolint
 		deleteOpts.OrphanDependents = &boolFalse
-	} else if version.Compare(cluster.ServerVersion{Major: 1, Minor: 7}) < 0 {
-		// 1.6.x option. Background delete propagation is broken in k8s v1.6.
+	} else {
 		fg := metav1.DeletePropagationForeground
 		deleteOpts.PropagationPolicy = &fg
-	} else {
-		// > 1.7.x. Prior to 1.9.x, the default is to orphan children[1]. Our kubespy experiments
-		// with 1.9.11 show that the controller will actually _still_ mark these resources with the
-		// `orphan` finalizer, although it appears to actually do background delete correctly. We
-		// therefore set it to background manually, just to be safe.
-		//
-		// nolint
-		// [1] https://kubernetes.io/docs/concepts/workloads/controllers/garbage-collection/#setting-the-cascading-deletion-policy
-		bg := metav1.DeletePropagationBackground
-		deleteOpts.PropagationPolicy = &bg
 	}
 
 	// Issue deletion request.
