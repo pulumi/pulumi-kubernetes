@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 3.27.0 (May 9, 2023)
+
 - Change destroy operation to use foreground cascading delete (https://github.com/pulumi/pulumi-kubernetes/pull/2379)
 
 ## 3.26.0 (May 1, 2023)
