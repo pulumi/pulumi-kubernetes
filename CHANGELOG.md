@@ -1,5 +1,7 @@
 ## Unreleased
 
+- Update Kubernetes client library to v0.27.1 (https://github.com/pulumi/pulumi-kubernetes/pull/2380)
+
 ## 3.27.0 (May 9, 2023)
 
 - Change destroy operation to use foreground cascading delete (https://github.com/pulumi/pulumi-kubernetes/pull/2379)
