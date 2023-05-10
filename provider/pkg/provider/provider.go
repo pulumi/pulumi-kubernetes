@@ -672,6 +672,9 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 			return nil, fmt.Errorf("invalid value specified for PULUMI_K8S_CLIENT_BURST: %w", err)
 		}
 		kubeClientSettings.Burst = &asInt
+	} else {
+		v := 120 // Increased from default value of 10
+		kubeClientSettings.Burst = &v
 	}
 
 	if qps := os.Getenv("PULUMI_K8S_CLIENT_QPS"); qps != "" && kubeClientSettings.QPS == nil {
@@ -680,6 +683,9 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 			return nil, fmt.Errorf("invalid value specified for PULUMI_K8S_CLIENT_QPS: %w", err)
 		}
 		kubeClientSettings.QPS = &asFloat
+	} else {
+		v := 50.0 // Increased from default value of 5.0
+		kubeClientSettings.QPS = &v
 	}
 
 	// Attempt to load the configuration from the provided kubeconfig. If this fails, mark the cluster as unreachable.
