@@ -30,6 +30,7 @@ import (
 	"strconv"
 	"strings"
 	"sync"
+	"time"
 
 	jsonpatch "github.com/evanphx/json-patch"
 	"github.com/golang/protobuf/ptypes/empty"
@@ -688,6 +689,14 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		kubeClientSettings.QPS = &v
 	}
 
+	if timeout := os.Getenv("PULUMI_K8S_CLIENT_TIMEOUT"); timeout != "" && kubeClientSettings.Timeout == nil {
+		asInt, err := strconv.Atoi(timeout)
+		if err != nil {
+			return nil, fmt.Errorf("invalid value specified for PULUMI_K8S_CLIENT_TIMEOUT: %w", err)
+		}
+		kubeClientSettings.Timeout = &asInt
+	}
+
 	// Attempt to load the configuration from the provided kubeconfig. If this fails, mark the cluster as unreachable.
 	if !k.clusterUnreachable {
 		config, err := kubeconfig.ClientConfig()
@@ -703,6 +712,10 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 			if kubeClientSettings.QPS != nil {
 				config.QPS = float32(*kubeClientSettings.QPS)
 				logger.V(9).Infof("kube client QPS set to %v", config.QPS)
+			}
+			if kubeClientSettings.Timeout != nil {
+				config.Timeout = time.Duration(*kubeClientSettings.Timeout) * time.Second
+				logger.V(9).Infof("kube client timeout set to %v", config.Timeout)
 			}
 			warningConfig := rest.CopyConfig(config)
 			warningConfig.WarningHandler = rest.NoWarnings{}

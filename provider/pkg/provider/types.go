@@ -1,4 +1,4 @@
-// Copyright 2016-2021, Pulumi Corporation.
+// Copyright 2016-2023, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -37,4 +37,6 @@ type KubeClientSettings struct {
 	Burst *int `json:"burst"`
 	// Maximum queries per second (QPS) to the API server from this client. Default value is 5.
 	QPS *float64 `json:"qps"`
+	// Maximum time in seconds to wait before cancelling a HTTP request to the Kubernetes server. Default value is 32.
+	Timeout *int `json:"timeout"`
 }

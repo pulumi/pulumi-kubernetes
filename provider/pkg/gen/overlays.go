@@ -467,6 +467,15 @@ var kubeClientSettings = pschema.ComplexTypeSpec{
 					},
 				},
 			},
+			"timeout": {
+				Description: "Maximum time in seconds to wait before cancelling a HTTP request to the Kubernetes server. Default value is 32.",
+				TypeSpec:    pschema.TypeSpec{Type: "integer"},
+				DefaultInfo: &pschema.DefaultSpec{
+					Environment: []string{
+						"PULUMI_K8S_CLIENT_TIMEOUT",
+					},
+				},
+			},
 		},
 		Type: "object",
 	},

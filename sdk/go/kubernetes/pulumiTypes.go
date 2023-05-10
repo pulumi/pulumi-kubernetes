@@ -284,6 +284,8 @@ type KubeClientSettings struct {
 	Burst *int `pulumi:"burst"`
 	// Maximum queries per second (QPS) to the API server from this client. Default value is 5.
 	Qps *float64 `pulumi:"qps"`
+	// Maximum time in seconds to wait before cancelling a HTTP request to the Kubernetes server. Default value is 32.
+	Timeout *int `pulumi:"timeout"`
 }
 
 // Defaults sets the appropriate defaults for KubeClientSettings
@@ -299,6 +301,10 @@ func (val *KubeClientSettings) Defaults() *KubeClientSettings {
 	if tmp.Qps == nil {
 		qps_ := getEnvOrDefault(0.0, parseEnvFloat, "PULUMI_K8S_CLIENT_QPS").(float64)
 		tmp.Qps = &qps_
+	}
+	if tmp.Timeout == nil {
+		timeout_ := getEnvOrDefault(0, parseEnvInt, "PULUMI_K8S_CLIENT_TIMEOUT").(int)
+		tmp.Timeout = &timeout_
 	}
 	return &tmp
 }
@@ -320,6 +326,8 @@ type KubeClientSettingsArgs struct {
 	Burst pulumi.IntPtrInput `pulumi:"burst"`
 	// Maximum queries per second (QPS) to the API server from this client. Default value is 5.
 	Qps pulumi.Float64PtrInput `pulumi:"qps"`
+	// Maximum time in seconds to wait before cancelling a HTTP request to the Kubernetes server. Default value is 32.
+	Timeout pulumi.IntPtrInput `pulumi:"timeout"`
 }
 
 // Defaults sets the appropriate defaults for KubeClientSettingsArgs
@@ -333,6 +341,9 @@ func (val *KubeClientSettingsArgs) Defaults() *KubeClientSettingsArgs {
 	}
 	if tmp.Qps == nil {
 		tmp.Qps = pulumi.Float64Ptr(getEnvOrDefault(0.0, parseEnvFloat, "PULUMI_K8S_CLIENT_QPS").(float64))
+	}
+	if tmp.Timeout == nil {
+		tmp.Timeout = pulumi.IntPtr(getEnvOrDefault(0, parseEnvInt, "PULUMI_K8S_CLIENT_TIMEOUT").(int))
 	}
 	return &tmp
 }
@@ -424,6 +435,11 @@ func (o KubeClientSettingsOutput) Qps() pulumi.Float64PtrOutput {
 	return o.ApplyT(func(v KubeClientSettings) *float64 { return v.Qps }).(pulumi.Float64PtrOutput)
 }
 
+// Maximum time in seconds to wait before cancelling a HTTP request to the Kubernetes server. Default value is 32.
+func (o KubeClientSettingsOutput) Timeout() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v KubeClientSettings) *int { return v.Timeout }).(pulumi.IntPtrOutput)
+}
+
 type KubeClientSettingsPtrOutput struct{ *pulumi.OutputState }
 
 func (KubeClientSettingsPtrOutput) ElementType() reflect.Type {
@@ -466,6 +482,16 @@ func (o KubeClientSettingsPtrOutput) Qps() pulumi.Float64PtrOutput {
 		}
 		return v.Qps
 	}).(pulumi.Float64PtrOutput)
+}
+
+// Maximum time in seconds to wait before cancelling a HTTP request to the Kubernetes server. Default value is 32.
+func (o KubeClientSettingsPtrOutput) Timeout() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *KubeClientSettings) *int {
+		if v == nil {
+			return nil
+		}
+		return v.Timeout
+	}).(pulumi.IntPtrOutput)
 }
 
 func init() {
