@@ -779,6 +779,25 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 	}
 
 	switch tok {
+	case "kubernetes:kubeconfig:eks":
+		var roleArn, profileName string
+		if roleArnArg := args["roleArn"]; roleArnArg.HasValue() && roleArnArg.IsString() {
+			roleArn = roleArnArg.StringValue()
+		}
+		if profileNameArg := args["profileName"]; profileNameArg.HasValue() && profileNameArg.IsString() {
+			profileName = profileNameArg.StringValue()
+		}
+		result := fmt.Sprintf(`{"roleArn": "%s","profileName": "%s"}`, roleArn, profileName)
+		objProps, err := plugin.MarshalProperties(
+			resource.NewPropertyMapFromMap(map[string]interface{}{"result": result}),
+			plugin.MarshalOptions{
+				Label: label, KeepUnknowns: true, SkipNulls: true,
+			})
+		if err != nil {
+			return nil, err
+		}
+
+		return &pulumirpc.InvokeResponse{Return: objProps}, nil
 	case invokeDecodeYaml:
 		var text, defaultNamespace string
 		if textArg := args["text"]; textArg.HasValue() && textArg.IsString() {

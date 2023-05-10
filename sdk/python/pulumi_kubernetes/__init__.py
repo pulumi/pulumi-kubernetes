@@ -44,6 +44,8 @@ if typing.TYPE_CHECKING:
     flowcontrol = __flowcontrol
     import pulumi_kubernetes.helm as __helm
     helm = __helm
+    import pulumi_kubernetes.kubeconfig as __kubeconfig
+    kubeconfig = __kubeconfig
     import pulumi_kubernetes.kustomize as __kustomize
     kustomize = __kustomize
     import pulumi_kubernetes.meta as __meta
@@ -84,6 +86,7 @@ else:
     extensions = _utilities.lazy_import('pulumi_kubernetes.extensions')
     flowcontrol = _utilities.lazy_import('pulumi_kubernetes.flowcontrol')
     helm = _utilities.lazy_import('pulumi_kubernetes.helm')
+    kubeconfig = _utilities.lazy_import('pulumi_kubernetes.kubeconfig')
     kustomize = _utilities.lazy_import('pulumi_kubernetes.kustomize')
     meta = _utilities.lazy_import('pulumi_kubernetes.meta')
     networking = _utilities.lazy_import('pulumi_kubernetes.networking')

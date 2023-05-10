@@ -29,6 +29,7 @@ import * as events from "./events";
 import * as extensions from "./extensions";
 import * as flowcontrol from "./flowcontrol";
 import * as helm from "./helm";
+import * as kubeconfig from "./kubeconfig";
 import * as kustomize from "./kustomize";
 import * as meta from "./meta";
 import * as networking from "./networking";
@@ -60,6 +61,7 @@ export {
     extensions,
     flowcontrol,
     helm,
+    kubeconfig,
     kustomize,
     meta,
     networking,

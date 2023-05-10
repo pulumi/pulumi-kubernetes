@@ -214,8 +214,44 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 
 		Types:     map[string]pschema.ComplexTypeSpec{},
 		Resources: map[string]pschema.ResourceSpec{},
-		Functions: map[string]pschema.FunctionSpec{},
-		Language:  map[string]pschema.RawMessage{},
+		Functions: map[string]pschema.FunctionSpec{
+			"kubernetes:kubeconfig:eks": {
+				Description: "Generate a kubeconfig for cluster authentication that does not use the default AWS " +
+					"credential provider chain, and instead is scoped to the supported options in " +
+					"`KubeconfigOptions`.\n\n" +
+					"The kubeconfig generated is automatically stringified for ease of use with the " +
+					"pulumi/kubernetes provider.\n\n" +
+					"See for more details:\n" +
+					"- https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html\n" +
+					"- https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-role.html\n" +
+					"- https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html",
+				Inputs: &pschema.ObjectTypeSpec{
+					Properties: map[string]pschema.PropertySpec{
+						"roleArn": {
+							Description: "Role ARN to assume instead of the default AWS credential provider " +
+								"chain.\n\n" +
+								"The role is passed to kubeconfig as an authentication exec argument.",
+							TypeSpec: pschema.TypeSpec{Type: "string"},
+						},
+						"profileName": {
+							Description: "AWS credential profile name to always use instead of the default AWS " +
+								"credential provider chain.\n\n" +
+								"The profile is passed to kubeconfig as an authentication environment setting.",
+							TypeSpec: pschema.TypeSpec{Type: "string"},
+						},
+					},
+				},
+				Outputs: &pschema.ObjectTypeSpec{
+					Properties: map[string]pschema.PropertySpec{
+						"result": {
+							TypeSpec: pschema.TypeSpec{Type: "string"},
+						},
+					},
+					Required: []string{"result"},
+				},
+			},
+		},
+		Language: map[string]pschema.RawMessage{},
 	}
 
 	goImportPath := "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes"

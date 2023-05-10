@@ -314,6 +314,8 @@
         "helm/v3/index.ts",
         "helm/v3/release.ts",
         "index.ts",
+        "kubeconfig/eks.ts",
+        "kubeconfig/index.ts",
         "kustomize/index.ts",
         "kustomize/kustomize.ts",
         "meta/index.ts",
