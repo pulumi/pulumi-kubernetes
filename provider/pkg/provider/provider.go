@@ -65,7 +65,6 @@ import (
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/types"
-	k8sresource "k8s.io/cli-runtime/pkg/resource"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
 	clientapi "k8s.io/client-go/tools/clientcmd/api"
@@ -145,12 +144,11 @@ type kubeProvider struct {
 	clusterUnreachable       bool   // Kubernetes cluster is unreachable.
 	clusterUnreachableReason string // Detailed error message if cluster is unreachable.
 
-	config         *rest.Config // Cluster config, e.g., through $KUBECONFIG file.
-	kubeconfig     clientcmd.ClientConfig
-	clientSet      *clients.DynamicClientSet
-	dryRunVerifier *k8sresource.QueryParamVerifier
-	logClient      *clients.LogClient
-	k8sVersion     cluster.ServerVersion
+	config     *rest.Config // Cluster config, e.g., through $KUBECONFIG file.
+	kubeconfig clientcmd.ClientConfig
+	clientSet  *clients.DynamicClientSet
+	logClient  *clients.LogClient
+	k8sVersion cluster.ServerVersion
 
 	resources      k8sopenapi.Resources
 	resourcesMutex sync.RWMutex
@@ -711,8 +709,6 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 			return nil, err
 		}
 		k.clientSet = cs
-		k.dryRunVerifier = k8sresource.NewQueryParamVerifier(
-			cs.GenericClient, cs.DiscoveryClientCached, k8sresource.QueryParamDryRun)
 		lc, err := clients.NewLogClient(k.canceler.context, k.config)
 		if err != nil {
 			return nil, err
@@ -726,6 +722,10 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 			k.clusterUnreachableReason = fmt.Sprintf(
 				"unable to load schema information from the API server: %v", err)
 		}
+	}
+
+	if k.k8sVersion.Compare(cluster.ServerVersion{Major: 1, Minor: 13}) < 0 {
+		return nil, fmt.Errorf("minimum supported cluster version is v1.13. found v%s", k.k8sVersion)
 	}
 
 	var err error
@@ -1714,11 +1714,9 @@ func (k *kubeProvider) Create(
 
 	// Skip if:
 	// 1: The input values contain unknowns
-	// 2: The server does not support server-side dry run
+	// 2: The resource GVK does not exist
 	// 3: The resource is a Patch resource
-	skipPreview := hasComputedValue(newInputs) ||
-		!k.supportsDryRun(newInputs.GroupVersionKind()) ||
-		isPatchURN(urn)
+	skipPreview := hasComputedValue(newInputs) || !k.gvkExists(newInputs) || isPatchURN(urn)
 	// If this is a preview and the input meets one of the skip criteria, then return them as-is. This is compatible
 	// with prior behavior implemented by the Pulumi engine.
 	if req.GetPreview() && skipPreview {
@@ -1798,7 +1796,7 @@ func (k *kubeProvider) Create(
 				failedPreview = true
 			}
 
-			if k.enableDryRun && apierrors.IsAlreadyExists(awaitErr) {
+			if k.serverSideApplyMode && apierrors.IsAlreadyExists(awaitErr) {
 				failedPreview = true
 			}
 
@@ -2200,12 +2198,9 @@ func (k *kubeProvider) Update(
 	}
 	newInputs := propMapToUnstructured(newResInputs)
 
-	// If this is a preview and the input values contain unknowns, return them as-is. This is compatible with
-	// prior behavior implemented by the Pulumi engine. Similarly, if the server does not support server-side
-	// dry run, return the inputs as-is.
-	if req.GetPreview() &&
-		(hasComputedValue(newInputs) || !k.supportsDryRun(newInputs.GroupVersionKind())) {
-
+	// If this is a preview and the input values contain unknowns, or an unregistered GVK, return them as-is. This is
+	// compatible with prior behavior implemented by the Pulumi engine.
+	if req.GetPreview() && (hasComputedValue(newInputs) || !k.gvkExists(newInputs)) {
 		logger.V(9).Infof("cannot preview Update(%v)", urn)
 		return &pulumirpc.UpdateResponse{Properties: req.News}, nil
 	}
@@ -2693,20 +2688,6 @@ func (k *kubeProvider) inputPatch(
 	return jsonpatch.CreateMergePatch(oldInputsJSON, newInputsJSON)
 }
 
-func (k *kubeProvider) supportsDryRun(gvk schema.GroupVersionKind) bool {
-	// Check to see if the configuration has explicitly disabled server-side dry run.
-	if !k.serverSideApplyMode {
-		logger.V(9).Infof("dry run is disabled")
-		return false
-	}
-	// Ensure that the cluster is reachable and supports the server-side diff feature.
-	if k.clusterUnreachable || !openapi.SupportsDryRun(k.dryRunVerifier, gvk) {
-		logger.V(9).Infof("server cannot dry run %v", gvk)
-		return false
-	}
-	return true
-}
-
 func (k *kubeProvider) isDryRunDisabledError(err error) bool {
 	se, isStatusError := err.(*apierrors.StatusError)
 	if !isStatusError {
@@ -2734,8 +2715,8 @@ func (k *kubeProvider) tryServerSidePatch(
 	if oldInputs.GroupVersionKind().String() != gvk.String() {
 		return nil, nil, false, nil
 	}
-	// If we can't dry-run the new GVK, computed the patch using inputs.
-	if !k.supportsDryRun(gvk) {
+	// If the GVK is unregistered, compute the patch using inputs.
+	if !k.gvkExists(newInputs) {
 		return nil, nil, false, nil
 	}
 	// TODO: Skipping server-side diff for resources with computed values is a hack. We will want to address this
@@ -2772,7 +2753,7 @@ func (k *kubeProvider) tryServerSidePatch(
 }
 
 func (k *kubeProvider) withLastAppliedConfig(config *unstructured.Unstructured) (*unstructured.Unstructured, error) {
-	if k.serverSideApplyMode || k.supportsDryRun(config.GroupVersionKind()) {
+	if k.serverSideApplyMode {
 		// Skip last-applied-config annotation if the resource supports server-side apply.
 		return config, nil
 	}

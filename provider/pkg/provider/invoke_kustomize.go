@@ -49,7 +49,7 @@ func kustomizeDirectory(directory string, clientSet *clients.DynamicClientSet) (
 
 	fSys := filesys.MakeFsOnDisk()
 	opts := krusty.MakeDefaultOptions()
-	opts.DoLegacyResourceSort = true
+	opts.Reorder = krusty.ReorderOptionLegacy
 
 	k := krusty.MakeKustomizer(opts)
 

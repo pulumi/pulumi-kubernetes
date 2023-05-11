@@ -6,6 +6,7 @@ Breaking changes:
 - Remove deprecated enableDryRun provider flag (https://github.com/pulumi/pulumi-kubernetes/pull/2400)
 - Remove deprecated helm/v2 SDK (https://github.com/pulumi/pulumi-kubernetes/pull/2396)
 - Remove deprecated enableReplaceCRD provider flag (https://github.com/pulumi/pulumi-kubernetes/pull/2402)
+- Drop support for Kubernetes clusters older than v1.13 (https://github.com/pulumi/pulumi-kubernetes/pull/2414)
 
 Additional changes:
 
