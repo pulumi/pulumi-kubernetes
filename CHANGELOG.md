@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 3.27.1 (May 11, 2023)
+
 - Update Kubernetes client library to v0.27.1 (https://github.com/pulumi/pulumi-kubernetes/pull/2380)
 - Increase default client burst and QPS to avoid throttling (https://github.com/pulumi/pulumi-kubernetes/pull/2381)
 - Add HTTP request timeout option to KubeClientSettings (https://github.com/pulumi/pulumi-kubernetes/pull/2383)
