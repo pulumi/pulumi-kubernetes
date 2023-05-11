@@ -1,5 +1,7 @@
 ## Unreleased
 
+- Handle resource change from static name to autoname under SSA (https://github.com/pulumi/pulumi-kubernetes/pull/2392)
+
 ## 3.27.1 (May 11, 2023)
 
 - Update Kubernetes client library to v0.27.1 (https://github.com/pulumi/pulumi-kubernetes/pull/2380)
