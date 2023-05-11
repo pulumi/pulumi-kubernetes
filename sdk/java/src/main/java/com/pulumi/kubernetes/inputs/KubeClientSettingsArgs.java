@@ -51,11 +51,27 @@ public final class KubeClientSettingsArgs extends com.pulumi.resources.ResourceA
         return Optional.ofNullable(this.qps);
     }
 
+    /**
+     * Maximum time in seconds to wait before cancelling a HTTP request to the Kubernetes server. Default value is 32.
+     * 
+     */
+    @Import(name="timeout")
+    private @Nullable Output<Integer> timeout;
+
+    /**
+     * @return Maximum time in seconds to wait before cancelling a HTTP request to the Kubernetes server. Default value is 32.
+     * 
+     */
+    public Optional<Output<Integer>> timeout() {
+        return Optional.ofNullable(this.timeout);
+    }
+
     private KubeClientSettingsArgs() {}
 
     private KubeClientSettingsArgs(KubeClientSettingsArgs $) {
         this.burst = $.burst;
         this.qps = $.qps;
+        this.timeout = $.timeout;
     }
 
     public static Builder builder() {
@@ -118,9 +134,31 @@ public final class KubeClientSettingsArgs extends com.pulumi.resources.ResourceA
             return qps(Output.of(qps));
         }
 
+        /**
+         * @param timeout Maximum time in seconds to wait before cancelling a HTTP request to the Kubernetes server. Default value is 32.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder timeout(@Nullable Output<Integer> timeout) {
+            $.timeout = timeout;
+            return this;
+        }
+
+        /**
+         * @param timeout Maximum time in seconds to wait before cancelling a HTTP request to the Kubernetes server. Default value is 32.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder timeout(Integer timeout) {
+            return timeout(Output.of(timeout));
+        }
+
         public KubeClientSettingsArgs build() {
             $.burst = Codegen.integerProp("burst").output().arg($.burst).env("PULUMI_K8S_CLIENT_BURST").getNullable();
             $.qps = Codegen.doubleProp("qps").output().arg($.qps).env("PULUMI_K8S_CLIENT_QPS").getNullable();
+            $.timeout = Codegen.integerProp("timeout").output().arg($.timeout).env("PULUMI_K8S_CLIENT_TIMEOUT").getNullable();
             return $;
         }
     }

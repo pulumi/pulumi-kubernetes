@@ -27,10 +27,17 @@ namespace Pulumi.Kubernetes.Types.Inputs.Provider
         [Input("qps")]
         public Input<double>? Qps { get; set; }
 
+        /// <summary>
+        /// Maximum time in seconds to wait before cancelling a HTTP request to the Kubernetes server. Default value is 32.
+        /// </summary>
+        [Input("timeout")]
+        public Input<int>? Timeout { get; set; }
+
         public KubeClientSettingsArgs()
         {
             Burst = Utilities.GetEnvInt32("PULUMI_K8S_CLIENT_BURST");
             Qps = Utilities.GetEnvDouble("PULUMI_K8S_CLIENT_QPS");
+            Timeout = Utilities.GetEnvInt32("PULUMI_K8S_CLIENT_TIMEOUT");
         }
         public static new KubeClientSettingsArgs Empty => new KubeClientSettingsArgs();
     }

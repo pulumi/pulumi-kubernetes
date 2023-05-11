@@ -59,6 +59,10 @@ export interface KubeClientSettings {
      * Maximum queries per second (QPS) to the API server from this client. Default value is 5.
      */
     qps?: pulumi.Input<number>;
+    /**
+     * Maximum time in seconds to wait before cancelling a HTTP request to the Kubernetes server. Default value is 32.
+     */
+    timeout?: pulumi.Input<number>;
 }
 /**
  * kubeClientSettingsProvideDefaults sets the appropriate defaults for KubeClientSettings
@@ -68,6 +72,7 @@ export function kubeClientSettingsProvideDefaults(val: KubeClientSettings): Kube
         ...val,
         burst: (val.burst) ?? utilities.getEnvNumber("PULUMI_K8S_CLIENT_BURST"),
         qps: (val.qps) ?? utilities.getEnvNumber("PULUMI_K8S_CLIENT_QPS"),
+        timeout: (val.timeout) ?? utilities.getEnvNumber("PULUMI_K8S_CLIENT_TIMEOUT"),
     };
 }
 export namespace admissionregistration {
