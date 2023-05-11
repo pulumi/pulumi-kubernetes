@@ -343,6 +343,7 @@ class ConfigFile(pulumi.ComponentResource):
         # Rather than using the default provider for the following invoke call, use the version specified
         # in package.json.
         invoke_opts = pulumi.InvokeOptions(version=_utilities.get_version(),
+                                           parent=opts.parent if opts.parent else None,
                                            provider=opts.provider if opts.provider else None)
 
         __ret__ = invoke_yaml_decode(text, invoke_opts)
