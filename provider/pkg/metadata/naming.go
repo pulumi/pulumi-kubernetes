@@ -15,15 +15,10 @@
 package metadata
 
 import (
-	"math/rand"
-	"time"
-
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
-
-var dns1123Alphabet = []rune("abcdefghijklmnopqrstuvwxyz0123456789")
 
 // AssignNameIfAutonamable generates a name for an object. Uses DNS-1123-compliant characters.
 // All auto-named resources get the annotation `pulumi.com/autonamed` for tooling purposes.
@@ -57,18 +52,4 @@ func AdoptOldAutonameIfUnnamed(newObj, oldObj *unstructured.Unstructured) {
 
 func IsAutonamed(obj *unstructured.Unstructured) bool {
 	return IsAnnotationTrue(obj, AnnotationAutonamed)
-}
-
-func RandString(n int) string {
-	b := make([]rune, n)
-	for i := range b {
-		// nolint:gosec
-		b[i] = dns1123Alphabet[rand.Intn(len(dns1123Alphabet))]
-	}
-	return string(b)
-}
-
-// Seed RNG to get different random names at each suffix.
-func init() {
-	rand.Seed(time.Now().UTC().UnixNano())
 }
