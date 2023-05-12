@@ -1,5 +1,12 @@
 ## Unreleased
 
+Breaking changes:
+
+- Enable Server-side Apply by default (https://github.com/pulumi/pulumi-kubernetes/pull/2398)
+- Remove deprecated enableDryRun provider flag (https://github.com/pulumi/pulumi-kubernetes/pull/2400)
+
+Additional changes:
+
 - Handle resource change from static name to autoname under SSA (https://github.com/pulumi/pulumi-kubernetes/pull/2392)
 
 ## 3.27.1 (May 11, 2023)
