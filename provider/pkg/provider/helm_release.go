@@ -966,7 +966,7 @@ func (r *helmReleaseProvider) Read(ctx context.Context, req *pulumirpc.ReadReque
 
 func (r *helmReleaseProvider) serializeImportInputs(release *Release) resource.PropertyMap {
 	inputs := resource.NewPropertyMap(release)
-	delete(inputs, resource.PropertyKey("status"))
+	delete(inputs, "status")
 	return inputs
 }
 
