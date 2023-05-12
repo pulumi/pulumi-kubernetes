@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"io"
-	"io/ioutil"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -100,7 +99,7 @@ func processYaml(path string, mdDir string) error {
 
 		description := example["description"].(string)
 		fmt.Fprintf(os.Stdout, "Processing %s\n", description)
-		dir, err := ioutil.TempDir("", "")
+		dir, err := os.MkdirTemp("", "")
 		if err != nil {
 			return err
 		}
@@ -129,7 +128,7 @@ func processYaml(path string, mdDir string) error {
 		if err = cmd.Run(); err != nil {
 			_, _ = fmt.Fprintf(os.Stderr, "convert nodejs failed, ignoring: %+v", err)
 		}
-		content, err := ioutil.ReadFile(filepath.Join(dir, "example-nodejs", "index.ts"))
+		content, err := os.ReadFile(filepath.Join(dir, "example-nodejs", "index.ts"))
 		if err != nil {
 			return err
 		}
@@ -143,7 +142,7 @@ func processYaml(path string, mdDir string) error {
 		if err := cmd.Run(); err != nil {
 			_, _ = fmt.Fprintf(os.Stderr, "convert python failed, ignoring: %+v", err)
 		}
-		content, err = ioutil.ReadFile(filepath.Join(dir, "example-py", "__main__.py"))
+		content, err = os.ReadFile(filepath.Join(dir, "example-py", "__main__.py"))
 		if err != nil {
 			return err
 		}
@@ -157,7 +156,7 @@ func processYaml(path string, mdDir string) error {
 		if err = cmd.Run(); err != nil {
 			_, _ = fmt.Fprintf(os.Stderr, "convert go failed, ignoring: %+v", err)
 		}
-		content, err = ioutil.ReadFile(filepath.Join(dir, "example-dotnet", "MyStack.cs"))
+		content, err = os.ReadFile(filepath.Join(dir, "example-dotnet", "MyStack.cs"))
 		if err != nil {
 			return err
 		}
@@ -171,7 +170,7 @@ func processYaml(path string, mdDir string) error {
 		if err = cmd.Run(); err != nil {
 			_, _ = fmt.Fprintf(os.Stderr, "convert go failed, ignoring: %+v", err)
 		}
-		content, err = ioutil.ReadFile(filepath.Join(dir, "example-go", "main.go"))
+		content, err = os.ReadFile(filepath.Join(dir, "example-go", "main.go"))
 		if err != nil {
 			return err
 		}
@@ -179,7 +178,7 @@ func processYaml(path string, mdDir string) error {
 
 		// TODO add java when convert supports it.
 
-		content, err = ioutil.ReadFile(filepath.Join(dir, "Pulumi.yaml"))
+		content, err = os.ReadFile(filepath.Join(dir, "Pulumi.yaml"))
 		if err != nil {
 			return err
 		}

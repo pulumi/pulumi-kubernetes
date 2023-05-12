@@ -21,7 +21,6 @@ import (
 	"flag"
 	"fmt"
 	"go/format"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -109,7 +108,7 @@ func main() {
 
 func readSchema(schemaPath string, version string) *schema.Package {
 	// Read in, decode, and import the schema.
-	schemaBytes, err := ioutil.ReadFile(schemaPath)
+	schemaBytes, err := os.ReadFile(schemaPath)
 	if err != nil {
 		panic(err)
 	}
@@ -128,7 +127,7 @@ func readSchema(schemaPath string, version string) *schema.Package {
 }
 
 func generateSchema(swaggerPath string) schema.PackageSpec {
-	swagger, err := ioutil.ReadFile(swaggerPath)
+	swagger, err := os.ReadFile(swaggerPath)
 	if err != nil {
 		panic(err)
 	}
@@ -150,7 +149,7 @@ func generateSchema(swaggerPath string) schema.PackageSpec {
 		if err != nil {
 			panic(err)
 		}
-		legacySwagger, err := ioutil.ReadFile(legacySwaggerPath)
+		legacySwagger, err := os.ReadFile(legacySwaggerPath)
 		if err != nil {
 			panic(err)
 		}
@@ -331,7 +330,7 @@ func writeDotnetClient(pkg *schema.Package, outdir, templateDir string) {
 		if err = os.MkdirAll(filepath.Dir(path), 0755); err != nil {
 			panic(err)
 		}
-		err := ioutil.WriteFile(path, contents, 0644)
+		err := os.WriteFile(path, contents, 0644)
 		if err != nil {
 			panic(err)
 		}
@@ -409,7 +408,7 @@ func writeGoClient(pkg *schema.Package, outdir string, templateDir string) {
 }
 
 func mustLoadFile(path string) []byte {
-	b, err := ioutil.ReadFile(path)
+	b, err := os.ReadFile(path)
 	if err != nil {
 		panic(err)
 	}
@@ -491,7 +490,7 @@ func mustWriteFile(rootDir, filename string, contents []byte) {
 	if err := os.MkdirAll(filepath.Dir(outPath), 0755); err != nil {
 		panic(err)
 	}
-	err := ioutil.WriteFile(outPath, contents, 0644)
+	err := os.WriteFile(outPath, contents, 0644)
 	if err != nil {
 		panic(err)
 	}

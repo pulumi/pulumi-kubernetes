@@ -19,7 +19,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"net/http"
 	"net/url"
 	"os"
@@ -623,7 +622,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		// If the variable is a valid filepath, load the file and parse the contents as a k8s config.
 		_, err := os.Stat(pathOrContents)
 		if err == nil {
-			b, err := ioutil.ReadFile(pathOrContents)
+			b, err := os.ReadFile(pathOrContents)
 			if err != nil {
 				unreachableCluster(err)
 			} else {
@@ -3430,7 +3429,7 @@ func renderYaml(resource *unstructured.Unstructured, yamlDirectory string) error
 	}
 
 	path := renderPathForResource(resource, yamlDirectory)
-	err = ioutil.WriteFile(path, yamlBytes, 0600)
+	err = os.WriteFile(path, yamlBytes, 0600)
 	if err != nil {
 		return pkgerrors.Wrapf(err, "failed to write YAML file: %q", path)
 	}
