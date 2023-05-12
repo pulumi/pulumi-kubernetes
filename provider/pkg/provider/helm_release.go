@@ -633,7 +633,7 @@ func adoptOldNameIfUnnamed(new, old resource.PropertyMap) {
 	if _, ok := new["name"]; ok {
 		return
 	}
-	contract.Assert(old["name"].StringValue() != "")
+	contract.Assertf(old["name"].StringValue() != "", "expected 'name' value to be nonempty: ", old)
 	new["name"] = old["name"]
 }
 
@@ -642,7 +642,7 @@ func assignNameIfAutonameable(pm resource.PropertyMap, urn resource.URN) {
 	if !ok || (name.IsString() && name.StringValue() == "") {
 		prefix := urn.Name().String() + "-"
 		autoname, err := resource.NewUniqueHex(prefix, 0, 0)
-		contract.AssertNoError(err)
+		contract.AssertNoErrorf(err, "unexpected error while executing NewUniqueHex")
 		pm["name"] = resource.NewStringProperty(autoname)
 	}
 }

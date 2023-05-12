@@ -1319,7 +1319,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	if len(oldInputs.Object) > 0 {
 		// NOTE: If old inputs exist, they have a name, either provided by the user or filled in with a
 		// previous run of `Check`.
-		contract.Assert(oldInputs.GetName() != "")
+		contract.Assertf(oldInputs.GetName() != "", "expected object name to be nonempty: ", oldInputs)
 		metadata.AdoptOldAutonameIfUnnamed(newInputs, oldInputs)
 
 		// If the resource has existing state, we only set the "managed-by: pulumi" label if it is already present. This
@@ -2869,7 +2869,7 @@ func (k *kubeProvider) fieldManagerName(
 	// for those calls, but the field manager name should have already been filled in via Check so this case
 	// shouldn't actually get hit.
 	fieldManager, err := resource.NewUniqueName(randomSeed, prefix, 0, 0, nil)
-	contract.AssertNoError(err)
+	contract.AssertNoErrorf(err, "unexpected error while creating NewUniqueName")
 
 	return fieldManager
 }
@@ -3118,8 +3118,8 @@ func convertPatchToDiff(
 	patch, oldLiveState, newInputs, oldInputs map[string]interface{}, forceNewFields ...string,
 ) (map[string]*pulumirpc.PropertyDiff, error) {
 
-	contract.Require(len(patch) != 0, "len(patch) != 0")
-	contract.Require(oldLiveState != nil, "oldLiveState != nil")
+	contract.Requiref(len(patch) != 0, "patch", "expected len() != 0")
+	contract.Requiref(oldLiveState != nil, "oldLiveState", "expected != nil")
 
 	pc := &patchConverter{
 		forceNew: forceNewFields,

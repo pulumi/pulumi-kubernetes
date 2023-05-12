@@ -24,7 +24,7 @@ func main() {
 
 	if !filepath.IsAbs(yamlPath) {
 		cwd, err := os.Getwd()
-		contract.AssertNoError(err)
+		contract.AssertNoErrorf(err, "unexpected error while fetching working directory")
 		yamlPath = filepath.Join(cwd, yamlPath)
 	}
 
@@ -118,7 +118,7 @@ func processYaml(path string, mdDir string) error {
 		if err = yaml.NewEncoder(src).Encode(example); err != nil {
 			return err
 		}
-		contract.AssertNoError(src.Close())
+		contract.AssertNoErrorf(src.Close(), "unexpected error while encoding YAML")
 
 		cmd := exec.Command("pulumi", "convert", "--language", "typescript", "--out",
 			filepath.Join(dir, "example-nodejs"))
@@ -186,7 +186,6 @@ func processYaml(path string, mdDir string) error {
 
 		exampleStrings = append(exampleStrings, markdownExample(description, typescript, python, csharp, golang, yaml))
 	}
-	contract.AssertNoError(err)
 	fmt.Fprintf(os.Stdout, "Writing %s\n", filepath.Join(mdDir, md))
 	f, err := os.OpenFile(filepath.Join(mdDir, md), os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0777)
 	if err != nil {
@@ -194,6 +193,6 @@ func processYaml(path string, mdDir string) error {
 	}
 	defer contract.IgnoreClose(f)
 	_, err = f.Write([]byte(markdownExamples(exampleStrings)))
-	contract.AssertNoError(err)
+	contract.AssertNoErrorf(err, "unexpected error while writing markdown examples")
 	return nil
 }

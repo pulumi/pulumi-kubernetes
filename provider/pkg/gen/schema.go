@@ -542,7 +542,7 @@ If this is your first time using this package, these two resources may be helpfu
 func genPropertySpec(p Property, resourceGV string, resourceKind string) pschema.PropertySpec {
 	var typ pschema.TypeSpec
 	err := json.Unmarshal([]byte(p.SchemaType()), &typ)
-	contract.Assert(err == nil)
+	contract.AssertNoErrorf(err, "unexpected error while unmarshalling JSON")
 
 	if strings.HasSuffix(resourceKind, "Patch") {
 		if len(typ.Ref) > 0 && !strings.Contains(typ.Ref, "pulumi.json#") {
@@ -612,6 +612,6 @@ func rawMessage(v interface{}) pschema.RawMessage {
 	encoder := json.NewEncoder(&out)
 	encoder.SetEscapeHTML(false)
 	err := encoder.Encode(v)
-	contract.Assert(err == nil)
+	contract.Assertf(err == nil, "unexpected error while encoding JSON: ", err)
 	return out.Bytes()
 }
