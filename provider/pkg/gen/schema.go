@@ -73,7 +73,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
 				},
 				"enableServerSideApply": {
-					Description: "BETA FEATURE - If present and set to true, enable Server-Side Apply mode.\nSee https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.\nThis feature is in developer preview, and is disabled by default.",
+					Description: "If present and set to false, disable Server-Side Apply mode.\nSee https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.",
 					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
 				},
 				"enableReplaceCRD": {
@@ -142,7 +142,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 							"PULUMI_K8S_ENABLE_SERVER_SIDE_APPLY",
 						},
 					},
-					Description: "BETA FEATURE - If present and set to true, enable Server-Side Apply mode.\nSee https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.\nThis feature is in developer preview, and is disabled by default.",
+					Description: "If present and set to false, disable Server-Side Apply mode.\nSee https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.",
 					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
 				},
 				"enableConfigMapMutable": {

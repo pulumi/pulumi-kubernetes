@@ -81,9 +81,8 @@ export interface ProviderArgs {
      */
     enableConfigMapMutable?: pulumi.Input<boolean>;
     /**
-     * BETA FEATURE - If present and set to true, enable Server-Side Apply mode.
+     * If present and set to false, disable Server-Side Apply mode.
      * See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
-     * This feature is in developer preview, and is disabled by default.
      */
     enableServerSideApply?: pulumi.Input<boolean>;
     /**
