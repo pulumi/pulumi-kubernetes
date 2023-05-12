@@ -9,6 +9,7 @@ on:
     branches:
     - master
     - main
+    - v4
     paths-ignore:
     - CHANGELOG.md
   workflow_dispatch: {}
@@ -79,7 +80,7 @@ jobs:
     - name: Unshallow clone for tags
       run: git fetch --prune --unshallow --tags
     - name: Install Go
-      uses: actions/setup-go@v2
+      uses: actions/setup-go@v3
       with:
         go-version: ${{ env.GOVERSION }}
     - name: Install pulumictl
@@ -176,7 +177,7 @@ jobs:
     - name: Unshallow clone for tags
       run: git fetch --prune --unshallow --tags
     - name: Install Go
-      uses: actions/setup-go@v2
+      uses: actions/setup-go@v3
       with:
         go-version: ${{ env.GOVERSION }}
     - name: Install pulumictl
@@ -204,6 +205,10 @@ jobs:
         java-version: ${{ env.JAVAVERSION }}
         distribution: temurin
         cache: gradle
+    - name: Setup Gradle
+      uses: gradle/gradle-build-action@v2
+      with:
+        gradle-version: "7.6"
     - name: Download provider + tfgen binaries
       uses: actions/download-artifact@v2
       with:
@@ -268,7 +273,7 @@ jobs:
     - name: Unshallow clone for tags
       run: git fetch --prune --unshallow --tags
     - name: Install Go
-      uses: actions/setup-go@v2
+      uses: actions/setup-go@v3
       with:
         go-version: ${{ env.GOVERSION }}
     - name: Install pulumictl
@@ -296,6 +301,10 @@ jobs:
         java-version: ${{ env.JAVAVERSION }}
         distribution: temurin
         cache: gradle
+    - name: Setup Gradle
+      uses: gradle/gradle-build-action@v2
+      with:
+        gradle-version: "7.6"
     - name: Download provider + tfgen binaries
       uses: actions/download-artifact@v2
       with:
@@ -414,7 +423,7 @@ jobs:
         lfs: true
         ref: ${{ env.PR_COMMIT_SHA }}
     - name: Install Go
-      uses: actions/setup-go@v2
+      uses: actions/setup-go@v3
       with:
         go-version: ${{ env.GOVERSION }}
     - name: Install Pulumi CLI
@@ -478,7 +487,7 @@ jobs:
         lfs: true
         ref: ${{ env.PR_COMMIT_SHA }}
     - name: Install Go
-      uses: actions/setup-go@v2
+      uses: actions/setup-go@v3
       with:
         go-version: ${{ env.GOVERSION }}
     - name: Install Pulumi CLI
@@ -526,7 +535,7 @@ jobs:
         lfs: true
         ref: ${{ env.PR_COMMIT_SHA }}
     - name: Install Go
-      uses: actions/setup-go@v2
+      uses: actions/setup-go@v3
       with:
         go-version: ${{ env.GOVERSION }}
     - name: golangci-lint provider pkg
