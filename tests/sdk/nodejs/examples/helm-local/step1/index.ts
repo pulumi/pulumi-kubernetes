@@ -18,8 +18,8 @@ import * as pulumi from "@pulumi/pulumi";
 const namespace = new k8s.core.v1.Namespace("test");
 const namespaceName = namespace.metadata.name;
 
-function chart(resourcePrefix?: string): k8s.helm.v2.Chart {
-    return new k8s.helm.v2.Chart("nginx", {
+function chart(resourcePrefix?: string): k8s.helm.v3.Chart {
+    return new k8s.helm.v3.Chart("nginx", {
         path: "nginx",
         namespace: namespaceName,
         resourcePrefix: resourcePrefix,

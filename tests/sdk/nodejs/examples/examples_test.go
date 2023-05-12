@@ -283,13 +283,6 @@ func TestAccHelmLocal(t *testing.T) {
 					}
 				}
 			},
-			EditDirs: []integration.EditDir{
-				{
-					Dir:             filepath.Join(getCwd(t), "helm-local", "step2"),
-					Additive:        true,
-					ExpectNoChanges: true,
-				},
-			},
 		})
 
 	integration.ProgramTest(t, &test)

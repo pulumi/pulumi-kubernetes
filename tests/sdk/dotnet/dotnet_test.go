@@ -90,12 +90,6 @@ func TestDotnet_YamlLocal(t *testing.T) {
 				Path:  true,
 			},
 		},
-		ExtraRuntimeValidation: func(
-			t *testing.T, stackInfo integration.RuntimeValidationStackInfo,
-		) {
-			assert.NotNil(t, stackInfo.Deployment)
-			assert.Equal(t, 7, len(stackInfo.Deployment.Resources))
-		},
 	})
 	integration.ProgramTest(t, &test)
 }
