@@ -19,6 +19,8 @@ import (
 	"io"
 	"net/http"
 	"os"
+
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 )
 
 func DownloadFile(filepath string, url string) (err error) {
@@ -32,7 +34,7 @@ func DownloadFile(filepath string, url string) (err error) {
 	if err != nil {
 		return err
 	}
-	defer out.Close()
+	defer contract.IgnoreClose(out)
 
 	// Get the data
 	// nolint: gosec
@@ -40,7 +42,7 @@ func DownloadFile(filepath string, url string) (err error) {
 	if err != nil {
 		return err
 	}
-	defer resp.Body.Close()
+	defer contract.IgnoreClose(resp.Body)
 
 	// Check server response
 	if resp.StatusCode != http.StatusOK {

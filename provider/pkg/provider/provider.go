@@ -1123,7 +1123,7 @@ func (k *kubeProvider) StreamInvoke(
 		if err != nil {
 			return err
 		}
-		defer podLogs.Close()
+		defer contract.IgnoreClose(podLogs)
 
 		//
 		// Enumerate logs by line. Send back to the user.
