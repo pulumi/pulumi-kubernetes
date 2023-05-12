@@ -1869,6 +1869,10 @@ func (k *kubeProvider) Create(
 		initialized = partialErr.Object()
 	}
 
+	// Remove the non-inputty fields that were added by the Kubernetes API server, and don't really
+	// need to be checkpointed or saved in state.
+	removeNonInputtyFields(initialized)
+
 	obj := checkpointObject(newInputs, initialized, newResInputs, initialAPIVersion, fieldManager)
 	inputsAndComputed, err := plugin.MarshalProperties(
 		obj, plugin.MarshalOptions{
@@ -2093,15 +2097,10 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 				}
 			}
 		}
-
-		// Cleanup some obviously non-input-ty fields.
-		unstructured.RemoveNestedField(liveInputs.Object, "metadata", "creationTimestamp")
-		unstructured.RemoveNestedField(liveInputs.Object, "metadata", "generation")
-		unstructured.RemoveNestedField(liveInputs.Object, "metadata", "managedFields")
-		unstructured.RemoveNestedField(liveInputs.Object, "metadata", "resourceVersion")
-		unstructured.RemoveNestedField(liveInputs.Object, "metadata", "uid")
-		unstructured.RemoveNestedField(liveInputs.Object, "metadata", "annotations", lastAppliedConfigKey)
 	}
+
+	// Cleanup some obviously non-input-ty fields.
+	removeNonInputtyFields(liveInputs)
 
 	// TODO(lblackstone): not sure why this is needed
 	id := fqObjName(liveObj)
@@ -3464,4 +3463,19 @@ func renderPathForResource(resource *unstructured.Unstructured, yamlDirectory st
 	}
 
 	return path
+}
+
+// removeNonInputtyFields removes fields from the object that are not relevant to the input. This is done to avoid
+// spurious diffs when applying the object.
+func removeNonInputtyFields(obj *unstructured.Unstructured) {
+	// Remove metadata fields that are not relevant to the input.
+	unstructured.RemoveNestedField(obj.Object, "metadata", "creationTimestamp")
+	unstructured.RemoveNestedField(obj.Object, "metadata", "generation")
+	unstructured.RemoveNestedField(obj.Object, "metadata", "managedFields")
+	unstructured.RemoveNestedField(obj.Object, "metadata", "resourceVersion")
+	unstructured.RemoveNestedField(obj.Object, "metadata", "uid")
+	unstructured.RemoveNestedField(obj.Object, "metadata", "annotations", lastAppliedConfigKey)
+
+	// We do not support applying status fields, so remove them from the object.
+	unstructured.RemoveNestedField(obj.Object, "status")
 }
