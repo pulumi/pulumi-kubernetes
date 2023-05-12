@@ -8,7 +8,7 @@ using Pulumi;
 using Pulumi.Kubernetes;
 using Pulumi.Kubernetes.Core.V1;
 using Pulumi.Kubernetes.Helm;
-using Pulumi.Kubernetes.Helm.V2;
+using Pulumi.Kubernetes.Helm.V3;
 using Pulumi.Kubernetes.Types.Inputs.Core.V1;
 using Pulumi.Kubernetes.Yaml;
 using Pulumi.Serialization;

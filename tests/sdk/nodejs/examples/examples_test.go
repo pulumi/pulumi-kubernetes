@@ -1,4 +1,4 @@
-// Copyright 2016-2021, Pulumi Corporation.
+// Copyright 2016-2023, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -182,13 +182,6 @@ func TestAccHelm(t *testing.T) {
 					}
 				}
 			},
-			EditDirs: []integration.EditDir{
-				{
-					Dir:             filepath.Join(getCwd(t), "helm", "step2"),
-					Additive:        true,
-					ExpectNoChanges: true,
-				},
-			},
 		})
 
 	integration.ProgramTest(t, &test)
@@ -219,13 +212,6 @@ func TestAccHelmApiVersions(t *testing.T) {
 			) {
 				assert.NotNil(t, stackInfo.Deployment)
 				assert.Equal(t, 7, len(stackInfo.Deployment.Resources))
-			},
-			EditDirs: []integration.EditDir{
-				{
-					Dir:             filepath.Join(getCwd(t), "helm-api-versions", "step2"),
-					Additive:        true,
-					ExpectNoChanges: true,
-				},
 			},
 		})
 

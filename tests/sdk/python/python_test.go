@@ -346,20 +346,12 @@ func TestProvider(t *testing.T) {
 }
 
 func TestHelm(t *testing.T) {
-	t.Skip("Temp skipping")
 	cwd, err := os.Getwd()
 	if !assert.NoError(t, err) {
 		t.FailNow()
 	}
 	options := baseOptions.With(integration.ProgramTestOptions{
 		Dir: filepath.Join(cwd, "helm", "step1"),
-		EditDirs: []integration.EditDir{
-			{
-				Dir:             filepath.Join(cwd, "helm", "step2"),
-				Additive:        true,
-				ExpectNoChanges: true,
-			},
-		},
 	})
 	integration.ProgramTest(t, &options)
 }
@@ -435,13 +427,6 @@ func TestHelmApiVersions(t *testing.T) {
 	}
 	options := baseOptions.With(integration.ProgramTestOptions{
 		Dir: filepath.Join(cwd, "helm-api-versions", "step1"),
-		EditDirs: []integration.EditDir{
-			{
-				Dir:             filepath.Join(cwd, "helm-api-versions", "step2"),
-				Additive:        true,
-				ExpectNoChanges: true,
-			},
-		},
 	})
 	integration.ProgramTest(t, &options)
 }
