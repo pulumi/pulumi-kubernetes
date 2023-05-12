@@ -15,11 +15,14 @@
 package provider
 
 import (
+	"strings"
 	"testing"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/stretchr/testify/assert"
+	"k8s.io/apimachinery/pkg/api/equality"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+	yamlutil "k8s.io/apimachinery/pkg/util/yaml"
 )
 
 var (
@@ -152,4 +155,137 @@ func Test_equalNumbers(t *testing.T) {
 			}
 		})
 	}
+}
+
+func TestRemoveNonInputtyFields(t *testing.T) {
+	tests := []struct {
+		name     string
+		resource string
+		wanted   string
+	}{
+		{
+			name: "Simple Manifest with no status or generated metadata fields",
+			resource: `apiVersion: v1
+kind: Pod
+metadata:
+    name: nginx
+spec:
+    containers:
+    - name: nginx
+    image: nginx:1.14.2
+    ports:
+    - containerPort: 80`,
+			wanted: `apiVersion: v1
+kind: Pod
+metadata:
+    name: nginx
+spec:
+    containers:
+    - name: nginx
+    image: nginx:1.14.2
+    ports:
+    - containerPort: 80`,
+		},
+		{
+			name: "Manifest with generated metadata fields are removed",
+			resource: `apiVersion: v1
+kind: Pod
+metadata:
+    name: nginx
+    generation: 2
+    resourceVersion: "1234"
+    creationTimestamp: "2023-05-11T02:33:24Z"
+    managedFields:
+        - manager: kubectl
+          operation: Apply
+          apiVersion: v1
+          time: "2023-05-11T02:33:24Z"
+          fieldsType: FieldsV1
+    uid: 1234-5678-9012-3456
+    annotations:
+        kubectl.kubernetes.io/last-applied-configuration: |
+            {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"nginx","namespace":"default"},"spec":{"containers":[{"image":"nginx:1.14.2","name":"nginx","ports":[{"containerPort":80}]}]}}
+spec:
+    containers:
+    - name: nginx
+    image: nginx:1.14.2
+    ports:
+    - containerPort: 80`,
+			wanted: `apiVersion: v1
+kind: Pod
+metadata:
+    name: nginx
+    annotations: {}
+spec:
+    containers:
+    - name: nginx
+    image: nginx:1.14.2
+    ports:
+    - containerPort: 80`,
+		},
+		{
+			name: "Manifest with .status field is removed",
+			resource: `apiVersion: v1
+kind: Pod
+metadata:
+    name: nginx
+    generation: 2
+spec:
+    containers:
+    - name: nginx
+    image: nginx:1.14.2
+    ports:
+    - containerPort: 80
+status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2023-05-11T02:33:24Z"
+      status: "True"
+      type: Initialized
+    hostIP: 172.18.0.2
+    phase: Running
+    podIP: 10.244.0.7
+    podIPs:
+    - ip: 10.244.0.7
+    qosClass: BestEffort
+    startTime: "2023-05-11T02:33:24Z"`,
+			wanted: `apiVersion: v1
+kind: Pod
+metadata:
+    name: nginx
+spec:
+    containers:
+    - name: nginx
+    image: nginx:1.14.2
+    ports:
+    - containerPort: 80`,
+		},
+	}
+	for _, tt := range tests {
+		tt := tt
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			// Convert yaml manifest to unstructured.Unstructured.
+			obj := yamlToUnstructured(t, tt.resource)
+			wanted := yamlToUnstructured(t, tt.wanted)
+
+			// Remove non-inputty fields.
+			removeNonInputtyFields(obj)
+
+			// Check that the object is equal to the wanted object.
+			if !equality.Semantic.DeepEqual(obj, wanted) {
+				t.Errorf("removeNonInputtyFields() = %v, want %v", obj, wanted)
+			}
+		})
+	}
+}
+
+func yamlToUnstructured(t *testing.T, raw string) *unstructured.Unstructured {
+	// Convert YAML to untructured.Unstructured
+	decoder := yamlutil.NewYAMLOrJSONDecoder(strings.NewReader(raw), 4096)
+	obj := &unstructured.Unstructured{}
+	err := decoder.Decode(obj)
+	assert.NoError(t, err)
+	return obj
+
 }
