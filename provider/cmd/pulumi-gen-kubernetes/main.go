@@ -452,7 +452,7 @@ func genK8sResourceTypes(pkg *schema.Package) {
 			continue
 		}
 		parts := strings.Split(resource.Token, ":")
-		contract.Assertf(len(parts) == 3, "expected resource token to have three elements: ", resource.Token)
+		contract.Assertf(len(parts) == 3, "expected resource token to have three elements: %s", resource.Token)
 
 		groupVersion, kind := parts[1], parts[2]
 

@@ -50,7 +50,7 @@ type TemplateResource struct {
 // rewritten to "", so resources in that Group look like "v1/Pod" rather than "core/v1/Pod".
 func (tr TemplateResource) GVK() string {
 	parts := strings.Split(tr.Token, ":")
-	contract.Assertf(len(parts) == 3, "expected token to have three parts: ", tr.Token)
+	contract.Assertf(len(parts) == 3, "expected token to have three parts: %s", tr.Token)
 	gvk := parts[1] + "/" + parts[2]
 	return strings.TrimPrefix(gvk, "core/")
 }
@@ -118,7 +118,7 @@ type GroupVersion string
 // Example: apps/v1beta1 -> AppsV1B1
 func (gv GroupVersion) GVConstName() string {
 	parts := strings.Split(string(gv), "/")
-	contract.Assertf(len(parts) == 2, "expected GroupVersion to have two parts: ", gv)
+	contract.Assertf(len(parts) == 2, "expected GroupVersion to have two parts: %s", gv)
 
 	group, version := parts[0], parts[1]
 	groupName := strings.Title(strings.SplitN(group, ".", 2)[0])

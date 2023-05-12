@@ -633,7 +633,7 @@ func adoptOldNameIfUnnamed(new, old resource.PropertyMap) {
 	if _, ok := new["name"]; ok {
 		return
 	}
-	contract.Assertf(old["name"].StringValue() != "", "expected 'name' value to be nonempty: ", old)
+	contract.Assertf(old["name"].StringValue() != "", "expected 'name' value to be nonempty: %v", old)
 	new["name"] = old["name"]
 }
 

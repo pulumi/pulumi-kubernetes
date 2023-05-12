@@ -1319,7 +1319,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	if len(oldInputs.Object) > 0 {
 		// NOTE: If old inputs exist, they have a name, either provided by the user or filled in with a
 		// previous run of `Check`.
-		contract.Assertf(oldInputs.GetName() != "", "expected object name to be nonempty: ", oldInputs)
+		contract.Assertf(oldInputs.GetName() != "", "expected object name to be nonempty: %v", oldInputs)
 		metadata.AdoptOldAutonameIfUnnamed(newInputs, oldInputs)
 
 		// If the resource has existing state, we only set the "managed-by: pulumi" label if it is already present. This

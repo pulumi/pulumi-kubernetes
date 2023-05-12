@@ -23,7 +23,7 @@ import (
 // AssignNameIfAutonamable generates a name for an object. Uses DNS-1123-compliant characters.
 // All auto-named resources get the annotation `pulumi.com/autonamed` for tooling purposes.
 func AssignNameIfAutonamable(randomSeed []byte, obj *unstructured.Unstructured, propMap resource.PropertyMap, urn resource.URN) {
-	contract.Assertf(urn.Name().String() != "", "expected non-empty name in URN: ", urn)
+	contract.Assertf(urn.Name().String() != "", "expected non-empty name in URN: %s", urn)
 	// Check if the .metadata.name is set and is a computed value. If so, do not auto-name.
 	if md, ok := propMap["metadata"].V.(resource.PropertyMap); ok {
 		if name, ok := md["name"]; ok && name.IsComputed() {
@@ -43,7 +43,7 @@ func AssignNameIfAutonamable(randomSeed []byte, obj *unstructured.Unstructured, 
 // AdoptOldAutonameIfUnnamed checks if `newObj` has a name, and if not, "adopts" the name of `oldObj`
 // instead. If `oldObj` was autonamed, then we mark `newObj` as autonamed, too.
 func AdoptOldAutonameIfUnnamed(newObj, oldObj *unstructured.Unstructured) {
-	contract.Assertf(oldObj.GetName() != "", "expected nonempty name for object: ", oldObj)
+	contract.Assertf(oldObj.GetName() != "", "expected nonempty name for object: %s", oldObj)
 	if newObj.GetName() == "" && IsAutonamed(oldObj) {
 		newObj.SetName(oldObj.GetName())
 		SetAnnotationTrue(newObj, AnnotationAutonamed)
