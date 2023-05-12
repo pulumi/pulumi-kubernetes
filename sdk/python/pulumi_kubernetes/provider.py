@@ -19,7 +19,6 @@ class ProviderArgs:
                  context: Optional[pulumi.Input[str]] = None,
                  delete_unreachable: Optional[pulumi.Input[bool]] = None,
                  enable_config_map_mutable: Optional[pulumi.Input[bool]] = None,
-                 enable_replace_crd: Optional[pulumi.Input[bool]] = None,
                  enable_server_side_apply: Optional[pulumi.Input[bool]] = None,
                  helm_release_settings: Optional[pulumi.Input['HelmReleaseSettingsArgs']] = None,
                  kube_client_settings: Optional[pulumi.Input['KubeClientSettingsArgs']] = None,
@@ -39,7 +38,6 @@ class ProviderArgs:
                This config can be specified in the following ways using this precedence:
                1. This `enableConfigMapMutable` parameter.
                2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.
-        :param pulumi.Input[bool] enable_replace_crd: Obsolete. This option has no effect.
         :param pulumi.Input[bool] enable_server_side_apply: BETA FEATURE - If present and set to true, enable Server-Side Apply mode.
                See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
                This feature is in developer preview, and is disabled by default.
@@ -73,13 +71,6 @@ class ProviderArgs:
             enable_config_map_mutable = _utilities.get_env_bool('PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE')
         if enable_config_map_mutable is not None:
             pulumi.set(__self__, "enable_config_map_mutable", enable_config_map_mutable)
-        if enable_replace_crd is None:
-            enable_replace_crd = _utilities.get_env_bool('PULUMI_K8S_ENABLE_REPLACE_CRD')
-        if enable_replace_crd is not None:
-            warnings.warn("""This option is deprecated, and will be removed in a future release.""", DeprecationWarning)
-            pulumi.log.warn("""enable_replace_crd is deprecated: This option is deprecated, and will be removed in a future release.""")
-        if enable_replace_crd is not None:
-            pulumi.set(__self__, "enable_replace_crd", enable_replace_crd)
         if enable_server_side_apply is None:
             enable_server_side_apply = _utilities.get_env_bool('PULUMI_K8S_ENABLE_SERVER_SIDE_APPLY')
         if enable_server_side_apply is not None:
@@ -157,18 +148,6 @@ class ProviderArgs:
     @enable_config_map_mutable.setter
     def enable_config_map_mutable(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "enable_config_map_mutable", value)
-
-    @property
-    @pulumi.getter(name="enableReplaceCRD")
-    def enable_replace_crd(self) -> Optional[pulumi.Input[bool]]:
-        """
-        Obsolete. This option has no effect.
-        """
-        return pulumi.get(self, "enable_replace_crd")
-
-    @enable_replace_crd.setter
-    def enable_replace_crd(self, value: Optional[pulumi.Input[bool]]):
-        pulumi.set(self, "enable_replace_crd", value)
 
     @property
     @pulumi.getter(name="enableServerSideApply")
@@ -290,7 +269,6 @@ class Provider(pulumi.ProviderResource):
                  context: Optional[pulumi.Input[str]] = None,
                  delete_unreachable: Optional[pulumi.Input[bool]] = None,
                  enable_config_map_mutable: Optional[pulumi.Input[bool]] = None,
-                 enable_replace_crd: Optional[pulumi.Input[bool]] = None,
                  enable_server_side_apply: Optional[pulumi.Input[bool]] = None,
                  helm_release_settings: Optional[pulumi.Input[pulumi.InputType['HelmReleaseSettingsArgs']]] = None,
                  kube_client_settings: Optional[pulumi.Input[pulumi.InputType['KubeClientSettingsArgs']]] = None,
@@ -314,7 +292,6 @@ class Provider(pulumi.ProviderResource):
                This config can be specified in the following ways using this precedence:
                1. This `enableConfigMapMutable` parameter.
                2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.
-        :param pulumi.Input[bool] enable_replace_crd: Obsolete. This option has no effect.
         :param pulumi.Input[bool] enable_server_side_apply: BETA FEATURE - If present and set to true, enable Server-Side Apply mode.
                See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
                This feature is in developer preview, and is disabled by default.
@@ -366,7 +343,6 @@ class Provider(pulumi.ProviderResource):
                  context: Optional[pulumi.Input[str]] = None,
                  delete_unreachable: Optional[pulumi.Input[bool]] = None,
                  enable_config_map_mutable: Optional[pulumi.Input[bool]] = None,
-                 enable_replace_crd: Optional[pulumi.Input[bool]] = None,
                  enable_server_side_apply: Optional[pulumi.Input[bool]] = None,
                  helm_release_settings: Optional[pulumi.Input[pulumi.InputType['HelmReleaseSettingsArgs']]] = None,
                  kube_client_settings: Optional[pulumi.Input[pulumi.InputType['KubeClientSettingsArgs']]] = None,
@@ -390,12 +366,6 @@ class Provider(pulumi.ProviderResource):
             if enable_config_map_mutable is None:
                 enable_config_map_mutable = _utilities.get_env_bool('PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE')
             __props__.__dict__["enable_config_map_mutable"] = pulumi.Output.from_input(enable_config_map_mutable).apply(pulumi.runtime.to_json) if enable_config_map_mutable is not None else None
-            if enable_replace_crd is None:
-                enable_replace_crd = _utilities.get_env_bool('PULUMI_K8S_ENABLE_REPLACE_CRD')
-            if enable_replace_crd is not None and not opts.urn:
-                warnings.warn("""This option is deprecated, and will be removed in a future release.""", DeprecationWarning)
-                pulumi.log.warn("""enable_replace_crd is deprecated: This option is deprecated, and will be removed in a future release.""")
-            __props__.__dict__["enable_replace_crd"] = pulumi.Output.from_input(enable_replace_crd).apply(pulumi.runtime.to_json) if enable_replace_crd is not None else None
             if enable_server_side_apply is None:
                 enable_server_side_apply = _utilities.get_env_bool('PULUMI_K8S_ENABLE_SERVER_SIDE_APPLY')
             __props__.__dict__["enable_server_side_apply"] = pulumi.Output.from_input(enable_server_side_apply).apply(pulumi.runtime.to_json) if enable_server_side_apply is not None else None
