@@ -1654,6 +1654,10 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 				switch v.Kind {
 				case pulumirpc.PropertyDiff_ADD_REPLACE, pulumirpc.PropertyDiff_DELETE_REPLACE, pulumirpc.PropertyDiff_UPDATE_REPLACE:
 					replaces = append(replaces, k)
+				case pulumirpc.PropertyDiff_DELETE:
+					if k == "metadata" {
+						replaces = append(replaces, k)
+					}
 				}
 			}
 		}
