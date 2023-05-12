@@ -271,7 +271,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 
 				var propNames []string
 				for _, p := range kind.Properties() {
-					objectSpec.Properties[p.name] = genPropertySpec(p, kind.apiVersion, kind.kind)
+					objectSpec.Properties[p.name] = genPropertySpec(p, kind.kind)
 					propNames = append(propNames, p.name)
 				}
 				for _, p := range kind.RequiredInputProperties() {
@@ -312,7 +312,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 
 					var propNames []string
 					for _, p := range kind.Properties() {
-						patchSpec.Properties[p.name] = genPropertySpec(p, kind.apiVersion, kind.kind+"Patch")
+						patchSpec.Properties[p.name] = genPropertySpec(p, kind.kind+"Patch")
 						propNames = append(propNames, p.name)
 					}
 
@@ -350,11 +350,11 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 				}
 
 				for _, p := range kind.RequiredInputProperties() {
-					resourceSpec.InputProperties[p.name] = genPropertySpec(p, kind.apiVersion, kind.kind)
+					resourceSpec.InputProperties[p.name] = genPropertySpec(p, kind.kind)
 					resourceSpec.RequiredInputs = append(resourceSpec.RequiredInputs, p.name)
 				}
 				for _, p := range kind.OptionalInputProperties() {
-					resourceSpec.InputProperties[p.name] = genPropertySpec(p, kind.apiVersion, kind.kind)
+					resourceSpec.InputProperties[p.name] = genPropertySpec(p, kind.kind)
 				}
 
 				for _, t := range kind.Aliases() {
@@ -390,10 +390,10 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 					}
 
 					for _, p := range kind.RequiredInputProperties() {
-						patchResourceSpec.InputProperties[p.name] = genPropertySpec(p, kind.apiVersion, kind.kind+"Patch")
+						patchResourceSpec.InputProperties[p.name] = genPropertySpec(p, kind.kind+"Patch")
 					}
 					for _, p := range kind.OptionalInputProperties() {
-						patchResourceSpec.InputProperties[p.name] = genPropertySpec(p, kind.apiVersion, kind.kind+"Patch")
+						patchResourceSpec.InputProperties[p.name] = genPropertySpec(p, kind.kind+"Patch")
 					}
 
 					for _, t := range kind.Aliases() {
@@ -539,7 +539,7 @@ If this is your first time using this package, these two resources may be helpfu
 	return pkg
 }
 
-func genPropertySpec(p Property, resourceGV string, resourceKind string) pschema.PropertySpec {
+func genPropertySpec(p Property, resourceKind string) pschema.PropertySpec {
 	var typ pschema.TypeSpec
 	err := json.Unmarshal([]byte(p.SchemaType()), &typ)
 	contract.AssertNoErrorf(err, "unexpected error while unmarshalling JSON")
