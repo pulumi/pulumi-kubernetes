@@ -2101,6 +2101,7 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 
 	// Cleanup some obviously non-input-ty fields.
 	removeNonInputtyFields(liveInputs)
+	removeNonInputtyFields(liveObj)
 
 	// TODO(lblackstone): not sure why this is needed
 	id := fqObjName(liveObj)
@@ -2350,6 +2351,10 @@ func (k *kubeProvider) Update(
 		// If we get here, resource successfully registered with the API server, but failed to
 		// initialize.
 	}
+
+	// Remove non-inputty fields from the object to store in the checkpoint.
+	removeNonInputtyFields(initialized)
+
 	// Return a new "checkpoint object".
 	obj := checkpointObject(newInputs, initialized, newResInputs, initialAPIVersion, fieldManager)
 	inputsAndComputed, err := plugin.MarshalProperties(
