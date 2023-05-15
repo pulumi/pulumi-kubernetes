@@ -1512,7 +1512,7 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 	}
 
 	newInputs := propMapToUnstructured(newResInputs)
-	oldInputs, _ := parseCheckpointObject(oldState)
+	_, oldLive := parseCheckpointObject(oldState)
 
 	gvk := k.gvkFromUnstructured(newInputs)
 
@@ -1535,33 +1535,33 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 
 	if namespacedKind {
 		// Explicitly set the "default" namespace if unset so that the diff ignores it.
-		oldInputs.SetNamespace(canonicalNamespace(oldInputs.GetNamespace()))
+		oldLive.SetNamespace(canonicalNamespace(oldLive.GetNamespace()))
 		newInputs.SetNamespace(canonicalNamespace(newInputs.GetNamespace()))
 	} else {
 		// Clear the namespace if it was set erroneously.
-		oldInputs.SetNamespace("")
+		oldLive.SetNamespace("")
 		newInputs.SetNamespace("")
 	}
-	if oldInputs.GroupVersionKind().Empty() {
-		oldInputs.SetGroupVersionKind(gvk)
+	if oldLive.GroupVersionKind().Empty() {
+		oldLive.SetGroupVersionKind(gvk)
 	}
 	// If a resource was created without SSA enabled, and then the related provider was changed to enable SSA, a
 	// resourceVersion may have been set on the old resource state. This produces erroneous diffs, so remove the
 	// value from the oldInputs prior to computing the diff.
-	if k.serverSideApplyMode && len(oldInputs.GetResourceVersion()) > 0 {
-		oldInputs.SetResourceVersion("")
+	if k.serverSideApplyMode && len(oldLive.GetResourceVersion()) > 0 {
+		oldLive.SetResourceVersion("")
 	}
 
 	var patch []byte
 	var patchBase map[string]interface{}
 
 	// Always compute a client-side patch.
-	patch, err = k.inputPatch(oldInputs, newInputs)
+	patch, err = k.inputPatch(oldLive, newInputs)
 	if err != nil {
 		return nil, pkgerrors.Wrapf(
 			err, "Failed to check for changes in resource %s/%s", newInputs.GetNamespace(), newInputs.GetName())
 	}
-	patchBase = oldInputs.Object
+	patchBase = oldLive.Object
 
 	patchObj := map[string]interface{}{}
 	if err = json.Unmarshal(patch, &patchObj); err != nil {
@@ -1574,7 +1574,7 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 	fieldManager := k.fieldManagerName(nil, newResInputs, newInputs)
 
 	// Try to compute a server-side patch.
-	ssPatch, ssPatchBase, ssPatchOk, err := k.tryServerSidePatch(oldInputs, newInputs, gvk, fieldManager)
+	ssPatch, ssPatchBase, ssPatchOk, err := k.tryServerSidePatch(oldLive, newInputs, gvk, fieldManager)
 	if err != nil {
 		return nil, err
 	}
@@ -1614,9 +1614,9 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 		// Changing the identity of the resource always causes a replacement.
 		forceNewFields := []string{".metadata.name", ".metadata.namespace"}
 		if !isPatchURN(urn) { // Patch resources can be updated in place for all other properties.
-			forceNewFields = k.forceNewProperties(oldInputs)
+			forceNewFields = k.forceNewProperties(oldLive)
 		}
-		if detailedDiff, err = convertPatchToDiff(patchObj, patchBase, newInputs.Object, oldInputs.Object, forceNewFields...); err != nil {
+		if detailedDiff, err = convertPatchToDiff(patchObj, patchBase, newInputs.Object, oldLive.Object, forceNewFields...); err != nil {
 			return nil, pkgerrors.Wrapf(
 				err, "Failed to check for changes in resource %s/%s because of an error "+
 					"converting JSON patch describing resource changes to a diff",
@@ -1694,10 +1694,10 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 			// auto-generate the name).
 			!metadata.IsAutonamed(newInputs) &&
 			// 3. The new, user-specified name is the same as the old name.
-			newInputs.GetName() == oldInputs.GetName() &&
+			newInputs.GetName() == oldLive.GetName() &&
 			// 4. The resource is being deployed to the same namespace (i.e., we aren't creating the
 			// object in a new namespace and then deleting the old one).
-			newInputs.GetNamespace() == oldInputs.GetNamespace()
+			newInputs.GetNamespace() == oldLive.GetNamespace()
 
 	return &pulumirpc.DiffResponse{
 		Changes:             hasChanges,
