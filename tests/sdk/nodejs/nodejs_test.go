@@ -1643,5 +1643,5 @@ func TestClientSideDriftCorrectSSA(t *testing.T) {
 	// NOTE: These assertions are failing, as the ConfigMap and namespace are recreated, and with different names instead
 	// of being updated, so the API Server returns a 404 resource not found error.
 	assert.Contains(t, string(out), "foo: bar")    // ConfigMap should have been updated with data foo: bar.
-	assert.NotContains(t, string(out), "foo: bar") // onfigMap should no longer have data foo: baz.
+	assert.NotContains(t, string(out), "foo: baz") // ConfigMap should no longer have data foo: baz.
 }

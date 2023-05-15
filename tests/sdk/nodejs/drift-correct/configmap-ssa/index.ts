@@ -20,17 +20,24 @@ import * as k8s from "@pulumi/kubernetes";
 // 3. Rerun the pulumi program and verify that the labels are restored.
 
 // Create provider with SSA enabled.
-const provider = new k8s.Provider("k8s", {enableServerSideApply: true});
+const provider = new k8s.Provider("k8s", {
+  enableServerSideApply: true,
+  enableConfigMapMutable: true,
+});
 
 // Create a randomly-named Namespace.
-const ns = new k8s.core.v1.Namespace("test", undefined, {provider});
+const ns = new k8s.core.v1.Namespace("test", undefined, { provider });
 
-export const cm = new k8s.core.v1.ConfigMap("test", {
+export const cm = new k8s.core.v1.ConfigMap(
+  "test",
+  {
     metadata: {
-        namespace: ns.metadata.name,
-        annotations: {
-            "pulumi.com/patchForce": "true",
-        },
+      namespace: ns.metadata.name,
+      annotations: {
+        "pulumi.com/patchForce": "true",
+      },
     },
-    data: {foo: "bar"},
-}, {provider});
+    data: { foo: "bar" },
+  },
+  { provider }
+);
