@@ -85,8 +85,6 @@ export class TokenReviewPatch extends pulumi.CustomResource {
             resourceInputs["status"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
-        const aliasOpts = { aliases: [{ type: "kubernetes:authentication.k8s.io/v1:TokenReviewPatch" }] };
-        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(TokenReviewPatch.__pulumiType, name, resourceInputs, opts);
     }
 }

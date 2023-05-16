@@ -147,11 +147,6 @@ func AddedInVersion(gvk *schema.GroupVersionKind) *cluster.ServerVersion {
 		case AuditSink, AuditSinkList:
 			return &v113
 		}
-	case AuthenticationV1:
-		switch k {
-		case TokenRequest:
-			return &v116
-		}
 	case AutoscalingV2B2:
 		switch k {
 		case HorizontalPodAutoscaler, HorizontalPodAutoscalerList:
@@ -334,8 +329,6 @@ func SuggestedAPIVersion(gvk schema.GroupVersionKind) string {
 		return fmt.Sprintf(gvkFmt, ApiregistrationV1, k)
 	case AppsV1B1, AppsV1B2:
 		return fmt.Sprintf(gvkFmt, AppsV1, k)
-	case AuthenticationV1B1:
-		return fmt.Sprintf(gvkFmt, AuthenticationV1, k)
 	case AuthorizationV1B1:
 		return fmt.Sprintf(gvkFmt, AuthorizationV1, k)
 	case AutoscalingV2B1:

@@ -41,12 +41,6 @@ func NewTokenReviewPatch(ctx *pulumi.Context,
 
 	args.ApiVersion = pulumi.StringPtr("authentication.k8s.io/v1beta1")
 	args.Kind = pulumi.StringPtr("TokenReview")
-	aliases := pulumi.Aliases([]pulumi.Alias{
-		{
-			Type: pulumi.String("kubernetes:authentication.k8s.io/v1:TokenReviewPatch"),
-		},
-	})
-	opts = append(opts, aliases)
 	var resource TokenReviewPatch
 	err := ctx.RegisterResource("kubernetes:authentication.k8s.io/v1beta1:TokenReviewPatch", name, args, &resource, opts...)
 	if err != nil {

@@ -144,8 +144,6 @@ class TokenReview(pulumi.CustomResource):
                 raise TypeError("Missing required property 'spec'")
             __props__.__dict__["spec"] = spec
             __props__.__dict__["status"] = None
-        alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:authentication.k8s.io/v1:TokenReview")])
-        opts = pulumi.ResourceOptions.merge(opts, alias_opts)
         super(TokenReview, __self__).__init__(
             'kubernetes:authentication.k8s.io/v1beta1:TokenReview',
             resource_name,

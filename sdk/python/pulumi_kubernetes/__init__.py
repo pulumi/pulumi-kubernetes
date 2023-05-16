@@ -250,17 +250,6 @@ _utilities.register(
  },
  {
   "pkg": "kubernetes",
-  "mod": "authentication.k8s.io/v1",
-  "fqn": "pulumi_kubernetes.authentication.v1",
-  "classes": {
-   "kubernetes:authentication.k8s.io/v1:TokenRequest": "TokenRequest",
-   "kubernetes:authentication.k8s.io/v1:TokenRequestPatch": "TokenRequestPatch",
-   "kubernetes:authentication.k8s.io/v1:TokenReview": "TokenReview",
-   "kubernetes:authentication.k8s.io/v1:TokenReviewPatch": "TokenReviewPatch"
-  }
- },
- {
-  "pkg": "kubernetes",
   "mod": "authentication.k8s.io/v1alpha1",
   "fqn": "pulumi_kubernetes.authentication.v1alpha1",
   "classes": {

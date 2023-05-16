@@ -765,18 +765,6 @@ def _parse_yaml_object(
         return [identifier.apply(
             lambda x: (f"auditregistration.k8s.io/v1alpha1/AuditSinkList:{x}",
                        AuditSinkList(f"{x}", opts, **obj)))]
-    if gvk == "authentication.k8s.io/v1/TokenRequest":
-        # Import locally to avoid name collisions.
-        from pulumi_kubernetes.authentication.v1 import TokenRequest
-        return [identifier.apply(
-            lambda x: (f"authentication.k8s.io/v1/TokenRequest:{x}",
-                       TokenRequest(f"{x}", opts, **obj)))]
-    if gvk == "authentication.k8s.io/v1/TokenReview":
-        # Import locally to avoid name collisions.
-        from pulumi_kubernetes.authentication.v1 import TokenReview
-        return [identifier.apply(
-            lambda x: (f"authentication.k8s.io/v1/TokenReview:{x}",
-                       TokenReview(f"{x}", opts, **obj)))]
     if gvk == "authentication.k8s.io/v1alpha1/SelfSubjectReview":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.authentication.v1alpha1 import SelfSubjectReview

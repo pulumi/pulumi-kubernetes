@@ -147,7 +147,6 @@ const (
 	StorageClass                         Kind = "StorageClass"
 	StorageClassList                     Kind = "StorageClassList"
 	SubjectAccessReview                  Kind = "SubjectAccessReview"
-	TokenRequest                         Kind = "TokenRequest"
 	TokenReview                          Kind = "TokenReview"
 	ValidatingAdmissionPolicy            Kind = "ValidatingAdmissionPolicy"
 	ValidatingAdmissionPolicyBinding     Kind = "ValidatingAdmissionPolicyBinding"
@@ -239,7 +238,6 @@ const (
 	AppsV1B1                  groupVersion = "apps/v1beta1"
 	AppsV1B2                  groupVersion = "apps/v1beta2"
 	AuditregistrationV1A1     groupVersion = "auditregistration.k8s.io/v1alpha1"
-	AuthenticationV1          groupVersion = "authentication.k8s.io/v1"
 	AuthenticationV1A1        groupVersion = "authentication.k8s.io/v1alpha1"
 	AuthenticationV1B1        groupVersion = "authentication.k8s.io/v1beta1"
 	AuthorizationV1           groupVersion = "authorization.k8s.io/v1"
@@ -314,7 +312,6 @@ var KnownGroupVersions = codegen.NewStringSet(
 	"apps/v1beta1",
 	"apps/v1beta2",
 	"auditregistration.k8s.io/v1alpha1",
-	"authentication.k8s.io/v1",
 	"authentication.k8s.io/v1alpha1",
 	"authentication.k8s.io/v1beta1",
 	"authorization.k8s.io/v1",

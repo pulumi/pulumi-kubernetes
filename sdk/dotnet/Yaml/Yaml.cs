@@ -203,12 +203,6 @@ namespace Pulumi.Kubernetes.Yaml
                 case var t when t == typeof(AuditRegistraion.V1Alpha1.AuditSinkList):
                     groupVersionKind = "auditregistration.k8s.io/v1alpha1/AuditSinkList";
                     break;
-                case var t when t == typeof(Authentication.V1.TokenRequest):
-                    groupVersionKind = "authentication.k8s.io/v1/TokenRequest";
-                    break;
-                case var t when t == typeof(Authentication.V1.TokenReview):
-                    groupVersionKind = "authentication.k8s.io/v1/TokenReview";
-                    break;
                 case var t when t == typeof(Authentication.V1Alpha1.SelfSubjectReview):
                     groupVersionKind = "authentication.k8s.io/v1alpha1/SelfSubjectReview";
                     break;
@@ -1320,18 +1314,6 @@ namespace Pulumi.Kubernetes.Yaml
                         {
                             id.Apply(id => ($"auditregistration.k8s.io/v1alpha1/AuditSink::{id}",
                                 new AuditRegistraion.V1Alpha1.AuditSink(id, obj!, opts) as KubernetesResource))
-                        };
-                    case "authentication.k8s.io/v1/TokenRequest":
-                        return new[]
-                        {
-                            id.Apply(id => ($"authentication.k8s.io/v1/TokenRequest::{id}",
-                                new Authentication.V1.TokenRequest(id, obj!, opts) as KubernetesResource))
-                        };
-                    case "authentication.k8s.io/v1/TokenReview":
-                        return new[]
-                        {
-                            id.Apply(id => ($"authentication.k8s.io/v1/TokenReview::{id}",
-                                new Authentication.V1.TokenReview(id, obj!, opts) as KubernetesResource))
                         };
                     case "authentication.k8s.io/v1alpha1/SelfSubjectReview":
                         return new[]
