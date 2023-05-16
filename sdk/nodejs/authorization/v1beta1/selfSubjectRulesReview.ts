@@ -82,8 +82,6 @@ export class SelfSubjectRulesReview extends pulumi.CustomResource {
             resourceInputs["status"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
-        const aliasOpts = { aliases: [{ type: "kubernetes:authorization.k8s.io/v1:SelfSubjectRulesReview" }] };
-        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(SelfSubjectRulesReview.__pulumiType, name, resourceInputs, opts);
     }
 }

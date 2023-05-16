@@ -41,12 +41,6 @@ func NewSelfSubjectRulesReviewPatch(ctx *pulumi.Context,
 
 	args.ApiVersion = pulumi.StringPtr("authorization.k8s.io/v1beta1")
 	args.Kind = pulumi.StringPtr("SelfSubjectRulesReview")
-	aliases := pulumi.Aliases([]pulumi.Alias{
-		{
-			Type: pulumi.String("kubernetes:authorization.k8s.io/v1:SelfSubjectRulesReviewPatch"),
-		},
-	})
-	opts = append(opts, aliases)
 	var resource SelfSubjectRulesReviewPatch
 	err := ctx.RegisterResource("kubernetes:authorization.k8s.io/v1beta1:SelfSubjectRulesReviewPatch", name, args, &resource, opts...)
 	if err != nil {

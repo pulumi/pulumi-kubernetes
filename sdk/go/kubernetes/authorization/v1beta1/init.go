@@ -21,22 +21,10 @@ func (m *module) Version() semver.Version {
 
 func (m *module) Construct(ctx *pulumi.Context, name, typ, urn string) (r pulumi.Resource, err error) {
 	switch typ {
-	case "kubernetes:authorization.k8s.io/v1beta1:LocalSubjectAccessReview":
-		r = &LocalSubjectAccessReview{}
-	case "kubernetes:authorization.k8s.io/v1beta1:LocalSubjectAccessReviewPatch":
-		r = &LocalSubjectAccessReviewPatch{}
-	case "kubernetes:authorization.k8s.io/v1beta1:SelfSubjectAccessReview":
-		r = &SelfSubjectAccessReview{}
-	case "kubernetes:authorization.k8s.io/v1beta1:SelfSubjectAccessReviewPatch":
-		r = &SelfSubjectAccessReviewPatch{}
 	case "kubernetes:authorization.k8s.io/v1beta1:SelfSubjectRulesReview":
 		r = &SelfSubjectRulesReview{}
 	case "kubernetes:authorization.k8s.io/v1beta1:SelfSubjectRulesReviewPatch":
 		r = &SelfSubjectRulesReviewPatch{}
-	case "kubernetes:authorization.k8s.io/v1beta1:SubjectAccessReview":
-		r = &SubjectAccessReview{}
-	case "kubernetes:authorization.k8s.io/v1beta1:SubjectAccessReviewPatch":
-		r = &SubjectAccessReviewPatch{}
 	default:
 		return nil, fmt.Errorf("unknown resource type: %s", typ)
 	}

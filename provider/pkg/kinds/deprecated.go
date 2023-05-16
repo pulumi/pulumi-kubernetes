@@ -327,8 +327,6 @@ func SuggestedAPIVersion(gvk schema.GroupVersionKind) string {
 		return fmt.Sprintf(gvkFmt, ApiregistrationV1, k)
 	case AppsV1B1, AppsV1B2:
 		return fmt.Sprintf(gvkFmt, AppsV1, k)
-	case AuthorizationV1B1:
-		return fmt.Sprintf(gvkFmt, AuthorizationV1, k)
 	case AutoscalingV2B1:
 		return fmt.Sprintf(gvkFmt, AutoscalingV1, k)
 	case BatchV2A1:

@@ -12,7 +12,7 @@ import (
 )
 
 // LocalSubjectAccessReview checks whether or not a user or group can perform an action in a given namespace. Having a namespace scoped resource makes it much easier to grant namespace scoped policy that includes permissions checking.
-type LocalSubjectAccessReviewType struct {
+type LocalSubjectAccessReview struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -24,19 +24,19 @@ type LocalSubjectAccessReviewType struct {
 	Status *SubjectAccessReviewStatus `pulumi:"status"`
 }
 
-// LocalSubjectAccessReviewTypeInput is an input type that accepts LocalSubjectAccessReviewTypeArgs and LocalSubjectAccessReviewTypeOutput values.
-// You can construct a concrete instance of `LocalSubjectAccessReviewTypeInput` via:
+// LocalSubjectAccessReviewInput is an input type that accepts LocalSubjectAccessReviewArgs and LocalSubjectAccessReviewOutput values.
+// You can construct a concrete instance of `LocalSubjectAccessReviewInput` via:
 //
-//	LocalSubjectAccessReviewTypeArgs{...}
-type LocalSubjectAccessReviewTypeInput interface {
+//	LocalSubjectAccessReviewArgs{...}
+type LocalSubjectAccessReviewInput interface {
 	pulumi.Input
 
-	ToLocalSubjectAccessReviewTypeOutput() LocalSubjectAccessReviewTypeOutput
-	ToLocalSubjectAccessReviewTypeOutputWithContext(context.Context) LocalSubjectAccessReviewTypeOutput
+	ToLocalSubjectAccessReviewOutput() LocalSubjectAccessReviewOutput
+	ToLocalSubjectAccessReviewOutputWithContext(context.Context) LocalSubjectAccessReviewOutput
 }
 
 // LocalSubjectAccessReview checks whether or not a user or group can perform an action in a given namespace. Having a namespace scoped resource makes it much easier to grant namespace scoped policy that includes permissions checking.
-type LocalSubjectAccessReviewTypeArgs struct {
+type LocalSubjectAccessReviewArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -48,59 +48,59 @@ type LocalSubjectAccessReviewTypeArgs struct {
 	Status SubjectAccessReviewStatusPtrInput `pulumi:"status"`
 }
 
-func (LocalSubjectAccessReviewTypeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*LocalSubjectAccessReviewType)(nil)).Elem()
+func (LocalSubjectAccessReviewArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*LocalSubjectAccessReview)(nil)).Elem()
 }
 
-func (i LocalSubjectAccessReviewTypeArgs) ToLocalSubjectAccessReviewTypeOutput() LocalSubjectAccessReviewTypeOutput {
-	return i.ToLocalSubjectAccessReviewTypeOutputWithContext(context.Background())
+func (i LocalSubjectAccessReviewArgs) ToLocalSubjectAccessReviewOutput() LocalSubjectAccessReviewOutput {
+	return i.ToLocalSubjectAccessReviewOutputWithContext(context.Background())
 }
 
-func (i LocalSubjectAccessReviewTypeArgs) ToLocalSubjectAccessReviewTypeOutputWithContext(ctx context.Context) LocalSubjectAccessReviewTypeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(LocalSubjectAccessReviewTypeOutput)
+func (i LocalSubjectAccessReviewArgs) ToLocalSubjectAccessReviewOutputWithContext(ctx context.Context) LocalSubjectAccessReviewOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(LocalSubjectAccessReviewOutput)
 }
 
 // LocalSubjectAccessReview checks whether or not a user or group can perform an action in a given namespace. Having a namespace scoped resource makes it much easier to grant namespace scoped policy that includes permissions checking.
-type LocalSubjectAccessReviewTypeOutput struct{ *pulumi.OutputState }
+type LocalSubjectAccessReviewOutput struct{ *pulumi.OutputState }
 
-func (LocalSubjectAccessReviewTypeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*LocalSubjectAccessReviewType)(nil)).Elem()
+func (LocalSubjectAccessReviewOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*LocalSubjectAccessReview)(nil)).Elem()
 }
 
-func (o LocalSubjectAccessReviewTypeOutput) ToLocalSubjectAccessReviewTypeOutput() LocalSubjectAccessReviewTypeOutput {
+func (o LocalSubjectAccessReviewOutput) ToLocalSubjectAccessReviewOutput() LocalSubjectAccessReviewOutput {
 	return o
 }
 
-func (o LocalSubjectAccessReviewTypeOutput) ToLocalSubjectAccessReviewTypeOutputWithContext(ctx context.Context) LocalSubjectAccessReviewTypeOutput {
+func (o LocalSubjectAccessReviewOutput) ToLocalSubjectAccessReviewOutputWithContext(ctx context.Context) LocalSubjectAccessReviewOutput {
 	return o
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o LocalSubjectAccessReviewTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v LocalSubjectAccessReviewType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o LocalSubjectAccessReviewOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v LocalSubjectAccessReview) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o LocalSubjectAccessReviewTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v LocalSubjectAccessReviewType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o LocalSubjectAccessReviewOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v LocalSubjectAccessReview) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-func (o LocalSubjectAccessReviewTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v LocalSubjectAccessReviewType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o LocalSubjectAccessReviewOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v LocalSubjectAccessReview) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
 // Spec holds information about the request being evaluated.  spec.namespace must be equal to the namespace you made the request against.  If empty, it is defaulted.
-func (o LocalSubjectAccessReviewTypeOutput) Spec() SubjectAccessReviewSpecOutput {
-	return o.ApplyT(func(v LocalSubjectAccessReviewType) SubjectAccessReviewSpec { return v.Spec }).(SubjectAccessReviewSpecOutput)
+func (o LocalSubjectAccessReviewOutput) Spec() SubjectAccessReviewSpecOutput {
+	return o.ApplyT(func(v LocalSubjectAccessReview) SubjectAccessReviewSpec { return v.Spec }).(SubjectAccessReviewSpecOutput)
 }
 
 // Status is filled in by the server and indicates whether the request is allowed or not
-func (o LocalSubjectAccessReviewTypeOutput) Status() SubjectAccessReviewStatusPtrOutput {
-	return o.ApplyT(func(v LocalSubjectAccessReviewType) *SubjectAccessReviewStatus { return v.Status }).(SubjectAccessReviewStatusPtrOutput)
+func (o LocalSubjectAccessReviewOutput) Status() SubjectAccessReviewStatusPtrOutput {
+	return o.ApplyT(func(v LocalSubjectAccessReview) *SubjectAccessReviewStatus { return v.Status }).(SubjectAccessReviewStatusPtrOutput)
 }
 
 // LocalSubjectAccessReview checks whether or not a user or group can perform an action in a given namespace. Having a namespace scoped resource makes it much easier to grant namespace scoped policy that includes permissions checking.
-type LocalSubjectAccessReviewPatchType struct {
+type LocalSubjectAccessReviewPatch struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -112,19 +112,19 @@ type LocalSubjectAccessReviewPatchType struct {
 	Status *SubjectAccessReviewStatusPatch `pulumi:"status"`
 }
 
-// LocalSubjectAccessReviewPatchTypeInput is an input type that accepts LocalSubjectAccessReviewPatchTypeArgs and LocalSubjectAccessReviewPatchTypeOutput values.
-// You can construct a concrete instance of `LocalSubjectAccessReviewPatchTypeInput` via:
+// LocalSubjectAccessReviewPatchInput is an input type that accepts LocalSubjectAccessReviewPatchArgs and LocalSubjectAccessReviewPatchOutput values.
+// You can construct a concrete instance of `LocalSubjectAccessReviewPatchInput` via:
 //
-//	LocalSubjectAccessReviewPatchTypeArgs{...}
-type LocalSubjectAccessReviewPatchTypeInput interface {
+//	LocalSubjectAccessReviewPatchArgs{...}
+type LocalSubjectAccessReviewPatchInput interface {
 	pulumi.Input
 
-	ToLocalSubjectAccessReviewPatchTypeOutput() LocalSubjectAccessReviewPatchTypeOutput
-	ToLocalSubjectAccessReviewPatchTypeOutputWithContext(context.Context) LocalSubjectAccessReviewPatchTypeOutput
+	ToLocalSubjectAccessReviewPatchOutput() LocalSubjectAccessReviewPatchOutput
+	ToLocalSubjectAccessReviewPatchOutputWithContext(context.Context) LocalSubjectAccessReviewPatchOutput
 }
 
 // LocalSubjectAccessReview checks whether or not a user or group can perform an action in a given namespace. Having a namespace scoped resource makes it much easier to grant namespace scoped policy that includes permissions checking.
-type LocalSubjectAccessReviewPatchTypeArgs struct {
+type LocalSubjectAccessReviewPatchArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -136,55 +136,55 @@ type LocalSubjectAccessReviewPatchTypeArgs struct {
 	Status SubjectAccessReviewStatusPatchPtrInput `pulumi:"status"`
 }
 
-func (LocalSubjectAccessReviewPatchTypeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*LocalSubjectAccessReviewPatchType)(nil)).Elem()
+func (LocalSubjectAccessReviewPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*LocalSubjectAccessReviewPatch)(nil)).Elem()
 }
 
-func (i LocalSubjectAccessReviewPatchTypeArgs) ToLocalSubjectAccessReviewPatchTypeOutput() LocalSubjectAccessReviewPatchTypeOutput {
-	return i.ToLocalSubjectAccessReviewPatchTypeOutputWithContext(context.Background())
+func (i LocalSubjectAccessReviewPatchArgs) ToLocalSubjectAccessReviewPatchOutput() LocalSubjectAccessReviewPatchOutput {
+	return i.ToLocalSubjectAccessReviewPatchOutputWithContext(context.Background())
 }
 
-func (i LocalSubjectAccessReviewPatchTypeArgs) ToLocalSubjectAccessReviewPatchTypeOutputWithContext(ctx context.Context) LocalSubjectAccessReviewPatchTypeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(LocalSubjectAccessReviewPatchTypeOutput)
+func (i LocalSubjectAccessReviewPatchArgs) ToLocalSubjectAccessReviewPatchOutputWithContext(ctx context.Context) LocalSubjectAccessReviewPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(LocalSubjectAccessReviewPatchOutput)
 }
 
 // LocalSubjectAccessReview checks whether or not a user or group can perform an action in a given namespace. Having a namespace scoped resource makes it much easier to grant namespace scoped policy that includes permissions checking.
-type LocalSubjectAccessReviewPatchTypeOutput struct{ *pulumi.OutputState }
+type LocalSubjectAccessReviewPatchOutput struct{ *pulumi.OutputState }
 
-func (LocalSubjectAccessReviewPatchTypeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*LocalSubjectAccessReviewPatchType)(nil)).Elem()
+func (LocalSubjectAccessReviewPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*LocalSubjectAccessReviewPatch)(nil)).Elem()
 }
 
-func (o LocalSubjectAccessReviewPatchTypeOutput) ToLocalSubjectAccessReviewPatchTypeOutput() LocalSubjectAccessReviewPatchTypeOutput {
+func (o LocalSubjectAccessReviewPatchOutput) ToLocalSubjectAccessReviewPatchOutput() LocalSubjectAccessReviewPatchOutput {
 	return o
 }
 
-func (o LocalSubjectAccessReviewPatchTypeOutput) ToLocalSubjectAccessReviewPatchTypeOutputWithContext(ctx context.Context) LocalSubjectAccessReviewPatchTypeOutput {
+func (o LocalSubjectAccessReviewPatchOutput) ToLocalSubjectAccessReviewPatchOutputWithContext(ctx context.Context) LocalSubjectAccessReviewPatchOutput {
 	return o
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o LocalSubjectAccessReviewPatchTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v LocalSubjectAccessReviewPatchType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o LocalSubjectAccessReviewPatchOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v LocalSubjectAccessReviewPatch) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o LocalSubjectAccessReviewPatchTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v LocalSubjectAccessReviewPatchType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o LocalSubjectAccessReviewPatchOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v LocalSubjectAccessReviewPatch) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-func (o LocalSubjectAccessReviewPatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
-	return o.ApplyT(func(v LocalSubjectAccessReviewPatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
+func (o LocalSubjectAccessReviewPatchOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
+	return o.ApplyT(func(v LocalSubjectAccessReviewPatch) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
 }
 
 // Spec holds information about the request being evaluated.  spec.namespace must be equal to the namespace you made the request against.  If empty, it is defaulted.
-func (o LocalSubjectAccessReviewPatchTypeOutput) Spec() SubjectAccessReviewSpecPatchPtrOutput {
-	return o.ApplyT(func(v LocalSubjectAccessReviewPatchType) *SubjectAccessReviewSpecPatch { return v.Spec }).(SubjectAccessReviewSpecPatchPtrOutput)
+func (o LocalSubjectAccessReviewPatchOutput) Spec() SubjectAccessReviewSpecPatchPtrOutput {
+	return o.ApplyT(func(v LocalSubjectAccessReviewPatch) *SubjectAccessReviewSpecPatch { return v.Spec }).(SubjectAccessReviewSpecPatchPtrOutput)
 }
 
 // Status is filled in by the server and indicates whether the request is allowed or not
-func (o LocalSubjectAccessReviewPatchTypeOutput) Status() SubjectAccessReviewStatusPatchPtrOutput {
-	return o.ApplyT(func(v LocalSubjectAccessReviewPatchType) *SubjectAccessReviewStatusPatch { return v.Status }).(SubjectAccessReviewStatusPatchPtrOutput)
+func (o LocalSubjectAccessReviewPatchOutput) Status() SubjectAccessReviewStatusPatchPtrOutput {
+	return o.ApplyT(func(v LocalSubjectAccessReviewPatch) *SubjectAccessReviewStatusPatch { return v.Status }).(SubjectAccessReviewStatusPatchPtrOutput)
 }
 
 // NonResourceAttributes includes the authorization attributes available for non-resource requests to the Authorizer interface
@@ -1494,7 +1494,7 @@ func (o ResourceRulePatchArrayOutput) Index(i pulumi.IntInput) ResourceRulePatch
 }
 
 // SelfSubjectAccessReview checks whether or the current user can perform an action.  Not filling in a spec.namespace means "in all namespaces".  Self is a special case, because users should always be able to check whether they can perform an action
-type SelfSubjectAccessReviewType struct {
+type SelfSubjectAccessReview struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -1506,19 +1506,19 @@ type SelfSubjectAccessReviewType struct {
 	Status *SubjectAccessReviewStatus `pulumi:"status"`
 }
 
-// SelfSubjectAccessReviewTypeInput is an input type that accepts SelfSubjectAccessReviewTypeArgs and SelfSubjectAccessReviewTypeOutput values.
-// You can construct a concrete instance of `SelfSubjectAccessReviewTypeInput` via:
+// SelfSubjectAccessReviewInput is an input type that accepts SelfSubjectAccessReviewArgs and SelfSubjectAccessReviewOutput values.
+// You can construct a concrete instance of `SelfSubjectAccessReviewInput` via:
 //
-//	SelfSubjectAccessReviewTypeArgs{...}
-type SelfSubjectAccessReviewTypeInput interface {
+//	SelfSubjectAccessReviewArgs{...}
+type SelfSubjectAccessReviewInput interface {
 	pulumi.Input
 
-	ToSelfSubjectAccessReviewTypeOutput() SelfSubjectAccessReviewTypeOutput
-	ToSelfSubjectAccessReviewTypeOutputWithContext(context.Context) SelfSubjectAccessReviewTypeOutput
+	ToSelfSubjectAccessReviewOutput() SelfSubjectAccessReviewOutput
+	ToSelfSubjectAccessReviewOutputWithContext(context.Context) SelfSubjectAccessReviewOutput
 }
 
 // SelfSubjectAccessReview checks whether or the current user can perform an action.  Not filling in a spec.namespace means "in all namespaces".  Self is a special case, because users should always be able to check whether they can perform an action
-type SelfSubjectAccessReviewTypeArgs struct {
+type SelfSubjectAccessReviewArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -1530,59 +1530,59 @@ type SelfSubjectAccessReviewTypeArgs struct {
 	Status SubjectAccessReviewStatusPtrInput `pulumi:"status"`
 }
 
-func (SelfSubjectAccessReviewTypeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*SelfSubjectAccessReviewType)(nil)).Elem()
+func (SelfSubjectAccessReviewArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*SelfSubjectAccessReview)(nil)).Elem()
 }
 
-func (i SelfSubjectAccessReviewTypeArgs) ToSelfSubjectAccessReviewTypeOutput() SelfSubjectAccessReviewTypeOutput {
-	return i.ToSelfSubjectAccessReviewTypeOutputWithContext(context.Background())
+func (i SelfSubjectAccessReviewArgs) ToSelfSubjectAccessReviewOutput() SelfSubjectAccessReviewOutput {
+	return i.ToSelfSubjectAccessReviewOutputWithContext(context.Background())
 }
 
-func (i SelfSubjectAccessReviewTypeArgs) ToSelfSubjectAccessReviewTypeOutputWithContext(ctx context.Context) SelfSubjectAccessReviewTypeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectAccessReviewTypeOutput)
+func (i SelfSubjectAccessReviewArgs) ToSelfSubjectAccessReviewOutputWithContext(ctx context.Context) SelfSubjectAccessReviewOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectAccessReviewOutput)
 }
 
 // SelfSubjectAccessReview checks whether or the current user can perform an action.  Not filling in a spec.namespace means "in all namespaces".  Self is a special case, because users should always be able to check whether they can perform an action
-type SelfSubjectAccessReviewTypeOutput struct{ *pulumi.OutputState }
+type SelfSubjectAccessReviewOutput struct{ *pulumi.OutputState }
 
-func (SelfSubjectAccessReviewTypeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*SelfSubjectAccessReviewType)(nil)).Elem()
+func (SelfSubjectAccessReviewOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SelfSubjectAccessReview)(nil)).Elem()
 }
 
-func (o SelfSubjectAccessReviewTypeOutput) ToSelfSubjectAccessReviewTypeOutput() SelfSubjectAccessReviewTypeOutput {
+func (o SelfSubjectAccessReviewOutput) ToSelfSubjectAccessReviewOutput() SelfSubjectAccessReviewOutput {
 	return o
 }
 
-func (o SelfSubjectAccessReviewTypeOutput) ToSelfSubjectAccessReviewTypeOutputWithContext(ctx context.Context) SelfSubjectAccessReviewTypeOutput {
+func (o SelfSubjectAccessReviewOutput) ToSelfSubjectAccessReviewOutputWithContext(ctx context.Context) SelfSubjectAccessReviewOutput {
 	return o
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o SelfSubjectAccessReviewTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v SelfSubjectAccessReviewType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o SelfSubjectAccessReviewOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v SelfSubjectAccessReview) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o SelfSubjectAccessReviewTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v SelfSubjectAccessReviewType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o SelfSubjectAccessReviewOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v SelfSubjectAccessReview) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-func (o SelfSubjectAccessReviewTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v SelfSubjectAccessReviewType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o SelfSubjectAccessReviewOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v SelfSubjectAccessReview) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
 // Spec holds information about the request being evaluated.  user and groups must be empty
-func (o SelfSubjectAccessReviewTypeOutput) Spec() SelfSubjectAccessReviewSpecOutput {
-	return o.ApplyT(func(v SelfSubjectAccessReviewType) SelfSubjectAccessReviewSpec { return v.Spec }).(SelfSubjectAccessReviewSpecOutput)
+func (o SelfSubjectAccessReviewOutput) Spec() SelfSubjectAccessReviewSpecOutput {
+	return o.ApplyT(func(v SelfSubjectAccessReview) SelfSubjectAccessReviewSpec { return v.Spec }).(SelfSubjectAccessReviewSpecOutput)
 }
 
 // Status is filled in by the server and indicates whether the request is allowed or not
-func (o SelfSubjectAccessReviewTypeOutput) Status() SubjectAccessReviewStatusPtrOutput {
-	return o.ApplyT(func(v SelfSubjectAccessReviewType) *SubjectAccessReviewStatus { return v.Status }).(SubjectAccessReviewStatusPtrOutput)
+func (o SelfSubjectAccessReviewOutput) Status() SubjectAccessReviewStatusPtrOutput {
+	return o.ApplyT(func(v SelfSubjectAccessReview) *SubjectAccessReviewStatus { return v.Status }).(SubjectAccessReviewStatusPtrOutput)
 }
 
 // SelfSubjectAccessReview checks whether or the current user can perform an action.  Not filling in a spec.namespace means "in all namespaces".  Self is a special case, because users should always be able to check whether they can perform an action
-type SelfSubjectAccessReviewPatchType struct {
+type SelfSubjectAccessReviewPatch struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -1594,19 +1594,19 @@ type SelfSubjectAccessReviewPatchType struct {
 	Status *SubjectAccessReviewStatusPatch `pulumi:"status"`
 }
 
-// SelfSubjectAccessReviewPatchTypeInput is an input type that accepts SelfSubjectAccessReviewPatchTypeArgs and SelfSubjectAccessReviewPatchTypeOutput values.
-// You can construct a concrete instance of `SelfSubjectAccessReviewPatchTypeInput` via:
+// SelfSubjectAccessReviewPatchInput is an input type that accepts SelfSubjectAccessReviewPatchArgs and SelfSubjectAccessReviewPatchOutput values.
+// You can construct a concrete instance of `SelfSubjectAccessReviewPatchInput` via:
 //
-//	SelfSubjectAccessReviewPatchTypeArgs{...}
-type SelfSubjectAccessReviewPatchTypeInput interface {
+//	SelfSubjectAccessReviewPatchArgs{...}
+type SelfSubjectAccessReviewPatchInput interface {
 	pulumi.Input
 
-	ToSelfSubjectAccessReviewPatchTypeOutput() SelfSubjectAccessReviewPatchTypeOutput
-	ToSelfSubjectAccessReviewPatchTypeOutputWithContext(context.Context) SelfSubjectAccessReviewPatchTypeOutput
+	ToSelfSubjectAccessReviewPatchOutput() SelfSubjectAccessReviewPatchOutput
+	ToSelfSubjectAccessReviewPatchOutputWithContext(context.Context) SelfSubjectAccessReviewPatchOutput
 }
 
 // SelfSubjectAccessReview checks whether or the current user can perform an action.  Not filling in a spec.namespace means "in all namespaces".  Self is a special case, because users should always be able to check whether they can perform an action
-type SelfSubjectAccessReviewPatchTypeArgs struct {
+type SelfSubjectAccessReviewPatchArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -1618,55 +1618,55 @@ type SelfSubjectAccessReviewPatchTypeArgs struct {
 	Status SubjectAccessReviewStatusPatchPtrInput `pulumi:"status"`
 }
 
-func (SelfSubjectAccessReviewPatchTypeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*SelfSubjectAccessReviewPatchType)(nil)).Elem()
+func (SelfSubjectAccessReviewPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*SelfSubjectAccessReviewPatch)(nil)).Elem()
 }
 
-func (i SelfSubjectAccessReviewPatchTypeArgs) ToSelfSubjectAccessReviewPatchTypeOutput() SelfSubjectAccessReviewPatchTypeOutput {
-	return i.ToSelfSubjectAccessReviewPatchTypeOutputWithContext(context.Background())
+func (i SelfSubjectAccessReviewPatchArgs) ToSelfSubjectAccessReviewPatchOutput() SelfSubjectAccessReviewPatchOutput {
+	return i.ToSelfSubjectAccessReviewPatchOutputWithContext(context.Background())
 }
 
-func (i SelfSubjectAccessReviewPatchTypeArgs) ToSelfSubjectAccessReviewPatchTypeOutputWithContext(ctx context.Context) SelfSubjectAccessReviewPatchTypeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectAccessReviewPatchTypeOutput)
+func (i SelfSubjectAccessReviewPatchArgs) ToSelfSubjectAccessReviewPatchOutputWithContext(ctx context.Context) SelfSubjectAccessReviewPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectAccessReviewPatchOutput)
 }
 
 // SelfSubjectAccessReview checks whether or the current user can perform an action.  Not filling in a spec.namespace means "in all namespaces".  Self is a special case, because users should always be able to check whether they can perform an action
-type SelfSubjectAccessReviewPatchTypeOutput struct{ *pulumi.OutputState }
+type SelfSubjectAccessReviewPatchOutput struct{ *pulumi.OutputState }
 
-func (SelfSubjectAccessReviewPatchTypeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*SelfSubjectAccessReviewPatchType)(nil)).Elem()
+func (SelfSubjectAccessReviewPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SelfSubjectAccessReviewPatch)(nil)).Elem()
 }
 
-func (o SelfSubjectAccessReviewPatchTypeOutput) ToSelfSubjectAccessReviewPatchTypeOutput() SelfSubjectAccessReviewPatchTypeOutput {
+func (o SelfSubjectAccessReviewPatchOutput) ToSelfSubjectAccessReviewPatchOutput() SelfSubjectAccessReviewPatchOutput {
 	return o
 }
 
-func (o SelfSubjectAccessReviewPatchTypeOutput) ToSelfSubjectAccessReviewPatchTypeOutputWithContext(ctx context.Context) SelfSubjectAccessReviewPatchTypeOutput {
+func (o SelfSubjectAccessReviewPatchOutput) ToSelfSubjectAccessReviewPatchOutputWithContext(ctx context.Context) SelfSubjectAccessReviewPatchOutput {
 	return o
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o SelfSubjectAccessReviewPatchTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v SelfSubjectAccessReviewPatchType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o SelfSubjectAccessReviewPatchOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v SelfSubjectAccessReviewPatch) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o SelfSubjectAccessReviewPatchTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v SelfSubjectAccessReviewPatchType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o SelfSubjectAccessReviewPatchOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v SelfSubjectAccessReviewPatch) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-func (o SelfSubjectAccessReviewPatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
-	return o.ApplyT(func(v SelfSubjectAccessReviewPatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
+func (o SelfSubjectAccessReviewPatchOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
+	return o.ApplyT(func(v SelfSubjectAccessReviewPatch) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
 }
 
 // Spec holds information about the request being evaluated.  user and groups must be empty
-func (o SelfSubjectAccessReviewPatchTypeOutput) Spec() SelfSubjectAccessReviewSpecPatchPtrOutput {
-	return o.ApplyT(func(v SelfSubjectAccessReviewPatchType) *SelfSubjectAccessReviewSpecPatch { return v.Spec }).(SelfSubjectAccessReviewSpecPatchPtrOutput)
+func (o SelfSubjectAccessReviewPatchOutput) Spec() SelfSubjectAccessReviewSpecPatchPtrOutput {
+	return o.ApplyT(func(v SelfSubjectAccessReviewPatch) *SelfSubjectAccessReviewSpecPatch { return v.Spec }).(SelfSubjectAccessReviewSpecPatchPtrOutput)
 }
 
 // Status is filled in by the server and indicates whether the request is allowed or not
-func (o SelfSubjectAccessReviewPatchTypeOutput) Status() SubjectAccessReviewStatusPatchPtrOutput {
-	return o.ApplyT(func(v SelfSubjectAccessReviewPatchType) *SubjectAccessReviewStatusPatch { return v.Status }).(SubjectAccessReviewStatusPatchPtrOutput)
+func (o SelfSubjectAccessReviewPatchOutput) Status() SubjectAccessReviewStatusPatchPtrOutput {
+	return o.ApplyT(func(v SelfSubjectAccessReviewPatch) *SubjectAccessReviewStatusPatch { return v.Status }).(SubjectAccessReviewStatusPatchPtrOutput)
 }
 
 // SelfSubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
@@ -2258,7 +2258,7 @@ func (o SelfSubjectRulesReviewSpecPatchPtrOutput) Namespace() pulumi.StringPtrOu
 }
 
 // SubjectAccessReview checks whether or not a user or group can perform an action.
-type SubjectAccessReviewType struct {
+type SubjectAccessReview struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -2270,19 +2270,19 @@ type SubjectAccessReviewType struct {
 	Status *SubjectAccessReviewStatus `pulumi:"status"`
 }
 
-// SubjectAccessReviewTypeInput is an input type that accepts SubjectAccessReviewTypeArgs and SubjectAccessReviewTypeOutput values.
-// You can construct a concrete instance of `SubjectAccessReviewTypeInput` via:
+// SubjectAccessReviewInput is an input type that accepts SubjectAccessReviewArgs and SubjectAccessReviewOutput values.
+// You can construct a concrete instance of `SubjectAccessReviewInput` via:
 //
-//	SubjectAccessReviewTypeArgs{...}
-type SubjectAccessReviewTypeInput interface {
+//	SubjectAccessReviewArgs{...}
+type SubjectAccessReviewInput interface {
 	pulumi.Input
 
-	ToSubjectAccessReviewTypeOutput() SubjectAccessReviewTypeOutput
-	ToSubjectAccessReviewTypeOutputWithContext(context.Context) SubjectAccessReviewTypeOutput
+	ToSubjectAccessReviewOutput() SubjectAccessReviewOutput
+	ToSubjectAccessReviewOutputWithContext(context.Context) SubjectAccessReviewOutput
 }
 
 // SubjectAccessReview checks whether or not a user or group can perform an action.
-type SubjectAccessReviewTypeArgs struct {
+type SubjectAccessReviewArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -2294,59 +2294,59 @@ type SubjectAccessReviewTypeArgs struct {
 	Status SubjectAccessReviewStatusPtrInput `pulumi:"status"`
 }
 
-func (SubjectAccessReviewTypeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*SubjectAccessReviewType)(nil)).Elem()
+func (SubjectAccessReviewArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*SubjectAccessReview)(nil)).Elem()
 }
 
-func (i SubjectAccessReviewTypeArgs) ToSubjectAccessReviewTypeOutput() SubjectAccessReviewTypeOutput {
-	return i.ToSubjectAccessReviewTypeOutputWithContext(context.Background())
+func (i SubjectAccessReviewArgs) ToSubjectAccessReviewOutput() SubjectAccessReviewOutput {
+	return i.ToSubjectAccessReviewOutputWithContext(context.Background())
 }
 
-func (i SubjectAccessReviewTypeArgs) ToSubjectAccessReviewTypeOutputWithContext(ctx context.Context) SubjectAccessReviewTypeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(SubjectAccessReviewTypeOutput)
+func (i SubjectAccessReviewArgs) ToSubjectAccessReviewOutputWithContext(ctx context.Context) SubjectAccessReviewOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SubjectAccessReviewOutput)
 }
 
 // SubjectAccessReview checks whether or not a user or group can perform an action.
-type SubjectAccessReviewTypeOutput struct{ *pulumi.OutputState }
+type SubjectAccessReviewOutput struct{ *pulumi.OutputState }
 
-func (SubjectAccessReviewTypeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*SubjectAccessReviewType)(nil)).Elem()
+func (SubjectAccessReviewOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SubjectAccessReview)(nil)).Elem()
 }
 
-func (o SubjectAccessReviewTypeOutput) ToSubjectAccessReviewTypeOutput() SubjectAccessReviewTypeOutput {
+func (o SubjectAccessReviewOutput) ToSubjectAccessReviewOutput() SubjectAccessReviewOutput {
 	return o
 }
 
-func (o SubjectAccessReviewTypeOutput) ToSubjectAccessReviewTypeOutputWithContext(ctx context.Context) SubjectAccessReviewTypeOutput {
+func (o SubjectAccessReviewOutput) ToSubjectAccessReviewOutputWithContext(ctx context.Context) SubjectAccessReviewOutput {
 	return o
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o SubjectAccessReviewTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v SubjectAccessReviewType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o SubjectAccessReviewOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v SubjectAccessReview) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o SubjectAccessReviewTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v SubjectAccessReviewType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o SubjectAccessReviewOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v SubjectAccessReview) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-func (o SubjectAccessReviewTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v SubjectAccessReviewType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o SubjectAccessReviewOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v SubjectAccessReview) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
 // Spec holds information about the request being evaluated
-func (o SubjectAccessReviewTypeOutput) Spec() SubjectAccessReviewSpecOutput {
-	return o.ApplyT(func(v SubjectAccessReviewType) SubjectAccessReviewSpec { return v.Spec }).(SubjectAccessReviewSpecOutput)
+func (o SubjectAccessReviewOutput) Spec() SubjectAccessReviewSpecOutput {
+	return o.ApplyT(func(v SubjectAccessReview) SubjectAccessReviewSpec { return v.Spec }).(SubjectAccessReviewSpecOutput)
 }
 
 // Status is filled in by the server and indicates whether the request is allowed or not
-func (o SubjectAccessReviewTypeOutput) Status() SubjectAccessReviewStatusPtrOutput {
-	return o.ApplyT(func(v SubjectAccessReviewType) *SubjectAccessReviewStatus { return v.Status }).(SubjectAccessReviewStatusPtrOutput)
+func (o SubjectAccessReviewOutput) Status() SubjectAccessReviewStatusPtrOutput {
+	return o.ApplyT(func(v SubjectAccessReview) *SubjectAccessReviewStatus { return v.Status }).(SubjectAccessReviewStatusPtrOutput)
 }
 
 // SubjectAccessReview checks whether or not a user or group can perform an action.
-type SubjectAccessReviewPatchType struct {
+type SubjectAccessReviewPatch struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -2358,19 +2358,19 @@ type SubjectAccessReviewPatchType struct {
 	Status *SubjectAccessReviewStatusPatch `pulumi:"status"`
 }
 
-// SubjectAccessReviewPatchTypeInput is an input type that accepts SubjectAccessReviewPatchTypeArgs and SubjectAccessReviewPatchTypeOutput values.
-// You can construct a concrete instance of `SubjectAccessReviewPatchTypeInput` via:
+// SubjectAccessReviewPatchInput is an input type that accepts SubjectAccessReviewPatchArgs and SubjectAccessReviewPatchOutput values.
+// You can construct a concrete instance of `SubjectAccessReviewPatchInput` via:
 //
-//	SubjectAccessReviewPatchTypeArgs{...}
-type SubjectAccessReviewPatchTypeInput interface {
+//	SubjectAccessReviewPatchArgs{...}
+type SubjectAccessReviewPatchInput interface {
 	pulumi.Input
 
-	ToSubjectAccessReviewPatchTypeOutput() SubjectAccessReviewPatchTypeOutput
-	ToSubjectAccessReviewPatchTypeOutputWithContext(context.Context) SubjectAccessReviewPatchTypeOutput
+	ToSubjectAccessReviewPatchOutput() SubjectAccessReviewPatchOutput
+	ToSubjectAccessReviewPatchOutputWithContext(context.Context) SubjectAccessReviewPatchOutput
 }
 
 // SubjectAccessReview checks whether or not a user or group can perform an action.
-type SubjectAccessReviewPatchTypeArgs struct {
+type SubjectAccessReviewPatchArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -2382,55 +2382,55 @@ type SubjectAccessReviewPatchTypeArgs struct {
 	Status SubjectAccessReviewStatusPatchPtrInput `pulumi:"status"`
 }
 
-func (SubjectAccessReviewPatchTypeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*SubjectAccessReviewPatchType)(nil)).Elem()
+func (SubjectAccessReviewPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*SubjectAccessReviewPatch)(nil)).Elem()
 }
 
-func (i SubjectAccessReviewPatchTypeArgs) ToSubjectAccessReviewPatchTypeOutput() SubjectAccessReviewPatchTypeOutput {
-	return i.ToSubjectAccessReviewPatchTypeOutputWithContext(context.Background())
+func (i SubjectAccessReviewPatchArgs) ToSubjectAccessReviewPatchOutput() SubjectAccessReviewPatchOutput {
+	return i.ToSubjectAccessReviewPatchOutputWithContext(context.Background())
 }
 
-func (i SubjectAccessReviewPatchTypeArgs) ToSubjectAccessReviewPatchTypeOutputWithContext(ctx context.Context) SubjectAccessReviewPatchTypeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(SubjectAccessReviewPatchTypeOutput)
+func (i SubjectAccessReviewPatchArgs) ToSubjectAccessReviewPatchOutputWithContext(ctx context.Context) SubjectAccessReviewPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SubjectAccessReviewPatchOutput)
 }
 
 // SubjectAccessReview checks whether or not a user or group can perform an action.
-type SubjectAccessReviewPatchTypeOutput struct{ *pulumi.OutputState }
+type SubjectAccessReviewPatchOutput struct{ *pulumi.OutputState }
 
-func (SubjectAccessReviewPatchTypeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*SubjectAccessReviewPatchType)(nil)).Elem()
+func (SubjectAccessReviewPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SubjectAccessReviewPatch)(nil)).Elem()
 }
 
-func (o SubjectAccessReviewPatchTypeOutput) ToSubjectAccessReviewPatchTypeOutput() SubjectAccessReviewPatchTypeOutput {
+func (o SubjectAccessReviewPatchOutput) ToSubjectAccessReviewPatchOutput() SubjectAccessReviewPatchOutput {
 	return o
 }
 
-func (o SubjectAccessReviewPatchTypeOutput) ToSubjectAccessReviewPatchTypeOutputWithContext(ctx context.Context) SubjectAccessReviewPatchTypeOutput {
+func (o SubjectAccessReviewPatchOutput) ToSubjectAccessReviewPatchOutputWithContext(ctx context.Context) SubjectAccessReviewPatchOutput {
 	return o
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o SubjectAccessReviewPatchTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v SubjectAccessReviewPatchType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o SubjectAccessReviewPatchOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v SubjectAccessReviewPatch) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o SubjectAccessReviewPatchTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v SubjectAccessReviewPatchType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o SubjectAccessReviewPatchOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v SubjectAccessReviewPatch) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-func (o SubjectAccessReviewPatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
-	return o.ApplyT(func(v SubjectAccessReviewPatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
+func (o SubjectAccessReviewPatchOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
+	return o.ApplyT(func(v SubjectAccessReviewPatch) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
 }
 
 // Spec holds information about the request being evaluated
-func (o SubjectAccessReviewPatchTypeOutput) Spec() SubjectAccessReviewSpecPatchPtrOutput {
-	return o.ApplyT(func(v SubjectAccessReviewPatchType) *SubjectAccessReviewSpecPatch { return v.Spec }).(SubjectAccessReviewSpecPatchPtrOutput)
+func (o SubjectAccessReviewPatchOutput) Spec() SubjectAccessReviewSpecPatchPtrOutput {
+	return o.ApplyT(func(v SubjectAccessReviewPatch) *SubjectAccessReviewSpecPatch { return v.Spec }).(SubjectAccessReviewSpecPatchPtrOutput)
 }
 
 // Status is filled in by the server and indicates whether the request is allowed or not
-func (o SubjectAccessReviewPatchTypeOutput) Status() SubjectAccessReviewStatusPatchPtrOutput {
-	return o.ApplyT(func(v SubjectAccessReviewPatchType) *SubjectAccessReviewStatusPatch { return v.Status }).(SubjectAccessReviewStatusPatchPtrOutput)
+func (o SubjectAccessReviewPatchOutput) Status() SubjectAccessReviewStatusPatchPtrOutput {
+	return o.ApplyT(func(v SubjectAccessReviewPatch) *SubjectAccessReviewStatusPatch { return v.Status }).(SubjectAccessReviewStatusPatchPtrOutput)
 }
 
 // SubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
@@ -3557,8 +3557,8 @@ func (o SubjectRulesReviewStatusPatchPtrOutput) ResourceRules() ResourceRulePatc
 }
 
 func init() {
-	pulumi.RegisterInputType(reflect.TypeOf((*LocalSubjectAccessReviewTypeInput)(nil)).Elem(), LocalSubjectAccessReviewTypeArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*LocalSubjectAccessReviewPatchTypeInput)(nil)).Elem(), LocalSubjectAccessReviewPatchTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LocalSubjectAccessReviewInput)(nil)).Elem(), LocalSubjectAccessReviewArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*LocalSubjectAccessReviewPatchInput)(nil)).Elem(), LocalSubjectAccessReviewPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NonResourceAttributesInput)(nil)).Elem(), NonResourceAttributesArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NonResourceAttributesPtrInput)(nil)).Elem(), NonResourceAttributesArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*NonResourceAttributesPatchInput)(nil)).Elem(), NonResourceAttributesPatchArgs{})
@@ -3575,8 +3575,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourceRuleArrayInput)(nil)).Elem(), ResourceRuleArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourceRulePatchInput)(nil)).Elem(), ResourceRulePatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ResourceRulePatchArrayInput)(nil)).Elem(), ResourceRulePatchArray{})
-	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectAccessReviewTypeInput)(nil)).Elem(), SelfSubjectAccessReviewTypeArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectAccessReviewPatchTypeInput)(nil)).Elem(), SelfSubjectAccessReviewPatchTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectAccessReviewInput)(nil)).Elem(), SelfSubjectAccessReviewArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectAccessReviewPatchInput)(nil)).Elem(), SelfSubjectAccessReviewPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectAccessReviewSpecInput)(nil)).Elem(), SelfSubjectAccessReviewSpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectAccessReviewSpecPatchInput)(nil)).Elem(), SelfSubjectAccessReviewSpecPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectAccessReviewSpecPatchPtrInput)(nil)).Elem(), SelfSubjectAccessReviewSpecPatchArgs{})
@@ -3585,8 +3585,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectRulesReviewSpecInput)(nil)).Elem(), SelfSubjectRulesReviewSpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectRulesReviewSpecPatchInput)(nil)).Elem(), SelfSubjectRulesReviewSpecPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectRulesReviewSpecPatchPtrInput)(nil)).Elem(), SelfSubjectRulesReviewSpecPatchArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*SubjectAccessReviewTypeInput)(nil)).Elem(), SubjectAccessReviewTypeArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*SubjectAccessReviewPatchTypeInput)(nil)).Elem(), SubjectAccessReviewPatchTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SubjectAccessReviewInput)(nil)).Elem(), SubjectAccessReviewArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SubjectAccessReviewPatchInput)(nil)).Elem(), SubjectAccessReviewPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SubjectAccessReviewSpecInput)(nil)).Elem(), SubjectAccessReviewSpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SubjectAccessReviewSpecPatchInput)(nil)).Elem(), SubjectAccessReviewSpecPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SubjectAccessReviewSpecPatchPtrInput)(nil)).Elem(), SubjectAccessReviewSpecPatchArgs{})
@@ -3598,8 +3598,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*SubjectRulesReviewStatusPtrInput)(nil)).Elem(), SubjectRulesReviewStatusArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SubjectRulesReviewStatusPatchInput)(nil)).Elem(), SubjectRulesReviewStatusPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SubjectRulesReviewStatusPatchPtrInput)(nil)).Elem(), SubjectRulesReviewStatusPatchArgs{})
-	pulumi.RegisterOutputType(LocalSubjectAccessReviewTypeOutput{})
-	pulumi.RegisterOutputType(LocalSubjectAccessReviewPatchTypeOutput{})
+	pulumi.RegisterOutputType(LocalSubjectAccessReviewOutput{})
+	pulumi.RegisterOutputType(LocalSubjectAccessReviewPatchOutput{})
 	pulumi.RegisterOutputType(NonResourceAttributesOutput{})
 	pulumi.RegisterOutputType(NonResourceAttributesPtrOutput{})
 	pulumi.RegisterOutputType(NonResourceAttributesPatchOutput{})
@@ -3616,8 +3616,8 @@ func init() {
 	pulumi.RegisterOutputType(ResourceRuleArrayOutput{})
 	pulumi.RegisterOutputType(ResourceRulePatchOutput{})
 	pulumi.RegisterOutputType(ResourceRulePatchArrayOutput{})
-	pulumi.RegisterOutputType(SelfSubjectAccessReviewTypeOutput{})
-	pulumi.RegisterOutputType(SelfSubjectAccessReviewPatchTypeOutput{})
+	pulumi.RegisterOutputType(SelfSubjectAccessReviewOutput{})
+	pulumi.RegisterOutputType(SelfSubjectAccessReviewPatchOutput{})
 	pulumi.RegisterOutputType(SelfSubjectAccessReviewSpecOutput{})
 	pulumi.RegisterOutputType(SelfSubjectAccessReviewSpecPatchOutput{})
 	pulumi.RegisterOutputType(SelfSubjectAccessReviewSpecPatchPtrOutput{})
@@ -3626,8 +3626,8 @@ func init() {
 	pulumi.RegisterOutputType(SelfSubjectRulesReviewSpecOutput{})
 	pulumi.RegisterOutputType(SelfSubjectRulesReviewSpecPatchOutput{})
 	pulumi.RegisterOutputType(SelfSubjectRulesReviewSpecPatchPtrOutput{})
-	pulumi.RegisterOutputType(SubjectAccessReviewTypeOutput{})
-	pulumi.RegisterOutputType(SubjectAccessReviewPatchTypeOutput{})
+	pulumi.RegisterOutputType(SubjectAccessReviewOutput{})
+	pulumi.RegisterOutputType(SubjectAccessReviewPatchOutput{})
 	pulumi.RegisterOutputType(SubjectAccessReviewSpecOutput{})
 	pulumi.RegisterOutputType(SubjectAccessReviewSpecPatchOutput{})
 	pulumi.RegisterOutputType(SubjectAccessReviewSpecPatchPtrOutput{})

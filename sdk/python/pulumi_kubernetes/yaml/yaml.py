@@ -765,54 +765,12 @@ def _parse_yaml_object(
         return [identifier.apply(
             lambda x: (f"auditregistration.k8s.io/v1alpha1/AuditSinkList:{x}",
                        AuditSinkList(f"{x}", opts, **obj)))]
-    if gvk == "authorization.k8s.io/v1/LocalSubjectAccessReview":
-        # Import locally to avoid name collisions.
-        from pulumi_kubernetes.authorization.v1 import LocalSubjectAccessReview
-        return [identifier.apply(
-            lambda x: (f"authorization.k8s.io/v1/LocalSubjectAccessReview:{x}",
-                       LocalSubjectAccessReview(f"{x}", opts, **obj)))]
-    if gvk == "authorization.k8s.io/v1/SelfSubjectAccessReview":
-        # Import locally to avoid name collisions.
-        from pulumi_kubernetes.authorization.v1 import SelfSubjectAccessReview
-        return [identifier.apply(
-            lambda x: (f"authorization.k8s.io/v1/SelfSubjectAccessReview:{x}",
-                       SelfSubjectAccessReview(f"{x}", opts, **obj)))]
-    if gvk == "authorization.k8s.io/v1/SelfSubjectRulesReview":
-        # Import locally to avoid name collisions.
-        from pulumi_kubernetes.authorization.v1 import SelfSubjectRulesReview
-        return [identifier.apply(
-            lambda x: (f"authorization.k8s.io/v1/SelfSubjectRulesReview:{x}",
-                       SelfSubjectRulesReview(f"{x}", opts, **obj)))]
-    if gvk == "authorization.k8s.io/v1/SubjectAccessReview":
-        # Import locally to avoid name collisions.
-        from pulumi_kubernetes.authorization.v1 import SubjectAccessReview
-        return [identifier.apply(
-            lambda x: (f"authorization.k8s.io/v1/SubjectAccessReview:{x}",
-                       SubjectAccessReview(f"{x}", opts, **obj)))]
-    if gvk == "authorization.k8s.io/v1beta1/LocalSubjectAccessReview":
-        # Import locally to avoid name collisions.
-        from pulumi_kubernetes.authorization.v1beta1 import LocalSubjectAccessReview
-        return [identifier.apply(
-            lambda x: (f"authorization.k8s.io/v1beta1/LocalSubjectAccessReview:{x}",
-                       LocalSubjectAccessReview(f"{x}", opts, **obj)))]
-    if gvk == "authorization.k8s.io/v1beta1/SelfSubjectAccessReview":
-        # Import locally to avoid name collisions.
-        from pulumi_kubernetes.authorization.v1beta1 import SelfSubjectAccessReview
-        return [identifier.apply(
-            lambda x: (f"authorization.k8s.io/v1beta1/SelfSubjectAccessReview:{x}",
-                       SelfSubjectAccessReview(f"{x}", opts, **obj)))]
     if gvk == "authorization.k8s.io/v1beta1/SelfSubjectRulesReview":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.authorization.v1beta1 import SelfSubjectRulesReview
         return [identifier.apply(
             lambda x: (f"authorization.k8s.io/v1beta1/SelfSubjectRulesReview:{x}",
                        SelfSubjectRulesReview(f"{x}", opts, **obj)))]
-    if gvk == "authorization.k8s.io/v1beta1/SubjectAccessReview":
-        # Import locally to avoid name collisions.
-        from pulumi_kubernetes.authorization.v1beta1 import SubjectAccessReview
-        return [identifier.apply(
-            lambda x: (f"authorization.k8s.io/v1beta1/SubjectAccessReview:{x}",
-                       SubjectAccessReview(f"{x}", opts, **obj)))]
     if gvk == "autoscaling/v1/HorizontalPodAutoscaler":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.autoscaling.v1 import HorizontalPodAutoscaler

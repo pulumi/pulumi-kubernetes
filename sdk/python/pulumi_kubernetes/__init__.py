@@ -247,32 +247,11 @@ _utilities.register(
  },
  {
   "pkg": "kubernetes",
-  "mod": "authorization.k8s.io/v1",
-  "fqn": "pulumi_kubernetes.authorization.v1",
-  "classes": {
-   "kubernetes:authorization.k8s.io/v1:LocalSubjectAccessReview": "LocalSubjectAccessReview",
-   "kubernetes:authorization.k8s.io/v1:LocalSubjectAccessReviewPatch": "LocalSubjectAccessReviewPatch",
-   "kubernetes:authorization.k8s.io/v1:SelfSubjectAccessReview": "SelfSubjectAccessReview",
-   "kubernetes:authorization.k8s.io/v1:SelfSubjectAccessReviewPatch": "SelfSubjectAccessReviewPatch",
-   "kubernetes:authorization.k8s.io/v1:SelfSubjectRulesReview": "SelfSubjectRulesReview",
-   "kubernetes:authorization.k8s.io/v1:SelfSubjectRulesReviewPatch": "SelfSubjectRulesReviewPatch",
-   "kubernetes:authorization.k8s.io/v1:SubjectAccessReview": "SubjectAccessReview",
-   "kubernetes:authorization.k8s.io/v1:SubjectAccessReviewPatch": "SubjectAccessReviewPatch"
-  }
- },
- {
-  "pkg": "kubernetes",
   "mod": "authorization.k8s.io/v1beta1",
   "fqn": "pulumi_kubernetes.authorization.v1beta1",
   "classes": {
-   "kubernetes:authorization.k8s.io/v1beta1:LocalSubjectAccessReview": "LocalSubjectAccessReview",
-   "kubernetes:authorization.k8s.io/v1beta1:LocalSubjectAccessReviewPatch": "LocalSubjectAccessReviewPatch",
-   "kubernetes:authorization.k8s.io/v1beta1:SelfSubjectAccessReview": "SelfSubjectAccessReview",
-   "kubernetes:authorization.k8s.io/v1beta1:SelfSubjectAccessReviewPatch": "SelfSubjectAccessReviewPatch",
    "kubernetes:authorization.k8s.io/v1beta1:SelfSubjectRulesReview": "SelfSubjectRulesReview",
-   "kubernetes:authorization.k8s.io/v1beta1:SelfSubjectRulesReviewPatch": "SelfSubjectRulesReviewPatch",
-   "kubernetes:authorization.k8s.io/v1beta1:SubjectAccessReview": "SubjectAccessReview",
-   "kubernetes:authorization.k8s.io/v1beta1:SubjectAccessReviewPatch": "SubjectAccessReviewPatch"
+   "kubernetes:authorization.k8s.io/v1beta1:SelfSubjectRulesReviewPatch": "SelfSubjectRulesReviewPatch"
   }
  },
  {

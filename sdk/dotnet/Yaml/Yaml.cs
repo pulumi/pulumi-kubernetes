@@ -203,29 +203,8 @@ namespace Pulumi.Kubernetes.Yaml
                 case var t when t == typeof(AuditRegistraion.V1Alpha1.AuditSinkList):
                     groupVersionKind = "auditregistration.k8s.io/v1alpha1/AuditSinkList";
                     break;
-                case var t when t == typeof(Authorization.V1.LocalSubjectAccessReview):
-                    groupVersionKind = "authorization.k8s.io/v1/LocalSubjectAccessReview";
-                    break;
-                case var t when t == typeof(Authorization.V1.SelfSubjectAccessReview):
-                    groupVersionKind = "authorization.k8s.io/v1/SelfSubjectAccessReview";
-                    break;
-                case var t when t == typeof(Authorization.V1.SelfSubjectRulesReview):
-                    groupVersionKind = "authorization.k8s.io/v1/SelfSubjectRulesReview";
-                    break;
-                case var t when t == typeof(Authorization.V1.SubjectAccessReview):
-                    groupVersionKind = "authorization.k8s.io/v1/SubjectAccessReview";
-                    break;
-                case var t when t == typeof(Authorization.V1Beta1.LocalSubjectAccessReview):
-                    groupVersionKind = "authorization.k8s.io/v1beta1/LocalSubjectAccessReview";
-                    break;
-                case var t when t == typeof(Authorization.V1Beta1.SelfSubjectAccessReview):
-                    groupVersionKind = "authorization.k8s.io/v1beta1/SelfSubjectAccessReview";
-                    break;
                 case var t when t == typeof(Authorization.V1Beta1.SelfSubjectRulesReview):
                     groupVersionKind = "authorization.k8s.io/v1beta1/SelfSubjectRulesReview";
-                    break;
-                case var t when t == typeof(Authorization.V1Beta1.SubjectAccessReview):
-                    groupVersionKind = "authorization.k8s.io/v1beta1/SubjectAccessReview";
                     break;
                 case var t when t == typeof(Autoscaling.V1.HorizontalPodAutoscaler):
                     groupVersionKind = "autoscaling/v1/HorizontalPodAutoscaler";
@@ -1306,53 +1285,11 @@ namespace Pulumi.Kubernetes.Yaml
                             id.Apply(id => ($"auditregistration.k8s.io/v1alpha1/AuditSink::{id}",
                                 new AuditRegistraion.V1Alpha1.AuditSink(id, obj!, opts) as KubernetesResource))
                         };
-                    case "authorization.k8s.io/v1/LocalSubjectAccessReview":
-                        return new[]
-                        {
-                            id.Apply(id => ($"authorization.k8s.io/v1/LocalSubjectAccessReview::{id}",
-                                new Authorization.V1.LocalSubjectAccessReview(id, obj!, opts) as KubernetesResource))
-                        };
-                    case "authorization.k8s.io/v1/SelfSubjectAccessReview":
-                        return new[]
-                        {
-                            id.Apply(id => ($"authorization.k8s.io/v1/SelfSubjectAccessReview::{id}",
-                                new Authorization.V1.SelfSubjectAccessReview(id, obj!, opts) as KubernetesResource))
-                        };
-                    case "authorization.k8s.io/v1/SelfSubjectRulesReview":
-                        return new[]
-                        {
-                            id.Apply(id => ($"authorization.k8s.io/v1/SelfSubjectRulesReview::{id}",
-                                new Authorization.V1.SelfSubjectRulesReview(id, obj!, opts) as KubernetesResource))
-                        };
-                    case "authorization.k8s.io/v1/SubjectAccessReview":
-                        return new[]
-                        {
-                            id.Apply(id => ($"authorization.k8s.io/v1/SubjectAccessReview::{id}",
-                                new Authorization.V1.SubjectAccessReview(id, obj!, opts) as KubernetesResource))
-                        };
-                    case "authorization.k8s.io/v1beta1/LocalSubjectAccessReview":
-                        return new[]
-                        {
-                            id.Apply(id => ($"authorization.k8s.io/v1beta1/LocalSubjectAccessReview::{id}",
-                                new Authorization.V1Beta1.LocalSubjectAccessReview(id, obj!, opts) as KubernetesResource))
-                        };
-                    case "authorization.k8s.io/v1beta1/SelfSubjectAccessReview":
-                        return new[]
-                        {
-                            id.Apply(id => ($"authorization.k8s.io/v1beta1/SelfSubjectAccessReview::{id}",
-                                new Authorization.V1Beta1.SelfSubjectAccessReview(id, obj!, opts) as KubernetesResource))
-                        };
                     case "authorization.k8s.io/v1beta1/SelfSubjectRulesReview":
                         return new[]
                         {
                             id.Apply(id => ($"authorization.k8s.io/v1beta1/SelfSubjectRulesReview::{id}",
                                 new Authorization.V1Beta1.SelfSubjectRulesReview(id, obj!, opts) as KubernetesResource))
-                        };
-                    case "authorization.k8s.io/v1beta1/SubjectAccessReview":
-                        return new[]
-                        {
-                            id.Apply(id => ($"authorization.k8s.io/v1beta1/SubjectAccessReview::{id}",
-                                new Authorization.V1Beta1.SubjectAccessReview(id, obj!, opts) as KubernetesResource))
                         };
                     case "autoscaling/v1/HorizontalPodAutoscaler":
                         return new[]

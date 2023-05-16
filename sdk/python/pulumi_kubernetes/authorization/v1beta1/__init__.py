@@ -5,13 +5,7 @@
 from ... import _utilities
 import typing
 # Export this package's modules as members:
-from .LocalSubjectAccessReview import *
-from .LocalSubjectAccessReviewPatch import *
-from .SelfSubjectAccessReview import *
-from .SelfSubjectAccessReviewPatch import *
 from .SelfSubjectRulesReview import *
 from .SelfSubjectRulesReviewPatch import *
-from .SubjectAccessReview import *
-from .SubjectAccessReviewPatch import *
 from ._inputs import *
 from . import outputs
