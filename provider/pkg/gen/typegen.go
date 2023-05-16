@@ -203,8 +203,12 @@ func (d definition) isTopLevel() bool {
 	switch fmt.Sprintf("%s/%s", d.gvk.GroupVersion().String(), d.gvk.Kind) {
 	case "policy/v1beta1/Eviction", "policy/v1/Eviction", "v1/Status", "apps/v1beta1/Scale", "apps/v1beta2/Scale",
 		"autoscaling/v1/Scale", "extensions/v1beta1/Scale", "core/v1/ComponentStatus", "core/v1/ComponentStatusList",
-		"authentication/v1/TokenRequest", "authentication/v1/TokenReview", "authentication/v1beta1/TokenReview",
-		"authentication/v1beta1/SelfSubjectReview", "authentication/v1alpha1/SelfSubjectReview":
+		"authentication/v1/TokenRequest", "authentication/v1/TokenReview", "authentication/v1alpha1/SelfSubjectReview",
+		"authentication/v1beta1/SelfSubjectReview", "authentication/v1beta1/TokenReview",
+		"authorization/v1/LocalSubjectAccessReview", "authorization/v1/SelfSubjectAccessReview",
+		"authorization/v1/SelfSubjectRulesReview", "authorization/v1/SubjectAccessReview",
+		"authorization/v1beta1/LocalSubjectAccessReview", "authorization/v1beta1/SelfSubjectAccessReview",
+		"authorization/v1beta1/SubjectAccessReview":
 		return false
 	}
 
