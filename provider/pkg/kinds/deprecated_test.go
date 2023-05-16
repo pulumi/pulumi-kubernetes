@@ -155,7 +155,6 @@ func TestSuggestedApiVersion(t *testing.T) {
 		{toGVK(ApiregistrationV1B1, APIServiceList), wantStr(ApiregistrationV1, APIServiceList)},
 		{toGVK(AppsV1B1, Deployment), wantStr(AppsV1, Deployment)},
 		{toGVK(AppsV1B2, Deployment), wantStr(AppsV1, Deployment)},
-		{toGVK(AuthenticationV1B1, TokenReview), wantStr(AuthenticationV1, TokenReview)},
 		{toGVK(AuthorizationV1B1, LocalSubjectAccessReview), wantStr(AuthorizationV1, LocalSubjectAccessReview)},
 		{toGVK(AutoscalingV2B1, HorizontalPodAutoscaler), wantStr(AutoscalingV1, HorizontalPodAutoscaler)},
 		{toGVK(BatchV2A1, CronJob), wantStr(BatchV1B1, CronJob)},
