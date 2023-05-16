@@ -203,15 +203,6 @@ namespace Pulumi.Kubernetes.Yaml
                 case var t when t == typeof(AuditRegistraion.V1Alpha1.AuditSinkList):
                     groupVersionKind = "auditregistration.k8s.io/v1alpha1/AuditSinkList";
                     break;
-                case var t when t == typeof(Authentication.V1Alpha1.SelfSubjectReview):
-                    groupVersionKind = "authentication.k8s.io/v1alpha1/SelfSubjectReview";
-                    break;
-                case var t when t == typeof(Authentication.V1Beta1.SelfSubjectReview):
-                    groupVersionKind = "authentication.k8s.io/v1beta1/SelfSubjectReview";
-                    break;
-                case var t when t == typeof(Authentication.V1Beta1.TokenReview):
-                    groupVersionKind = "authentication.k8s.io/v1beta1/TokenReview";
-                    break;
                 case var t when t == typeof(Authorization.V1.LocalSubjectAccessReview):
                     groupVersionKind = "authorization.k8s.io/v1/LocalSubjectAccessReview";
                     break;
@@ -1314,24 +1305,6 @@ namespace Pulumi.Kubernetes.Yaml
                         {
                             id.Apply(id => ($"auditregistration.k8s.io/v1alpha1/AuditSink::{id}",
                                 new AuditRegistraion.V1Alpha1.AuditSink(id, obj!, opts) as KubernetesResource))
-                        };
-                    case "authentication.k8s.io/v1alpha1/SelfSubjectReview":
-                        return new[]
-                        {
-                            id.Apply(id => ($"authentication.k8s.io/v1alpha1/SelfSubjectReview::{id}",
-                                new Authentication.V1Alpha1.SelfSubjectReview(id, obj!, opts) as KubernetesResource))
-                        };
-                    case "authentication.k8s.io/v1beta1/SelfSubjectReview":
-                        return new[]
-                        {
-                            id.Apply(id => ($"authentication.k8s.io/v1beta1/SelfSubjectReview::{id}",
-                                new Authentication.V1Beta1.SelfSubjectReview(id, obj!, opts) as KubernetesResource))
-                        };
-                    case "authentication.k8s.io/v1beta1/TokenReview":
-                        return new[]
-                        {
-                            id.Apply(id => ($"authentication.k8s.io/v1beta1/TokenReview::{id}",
-                                new Authentication.V1Beta1.TokenReview(id, obj!, opts) as KubernetesResource))
                         };
                     case "authorization.k8s.io/v1/LocalSubjectAccessReview":
                         return new[]

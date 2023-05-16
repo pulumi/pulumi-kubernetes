@@ -135,7 +135,6 @@ const (
 	Secret                               Kind = "Secret"
 	SecretList                           Kind = "SecretList"
 	SelfSubjectAccessReview              Kind = "SelfSubjectAccessReview"
-	SelfSubjectReview                    Kind = "SelfSubjectReview"
 	SelfSubjectRulesReview               Kind = "SelfSubjectRulesReview"
 	Service                              Kind = "Service"
 	ServiceAccount                       Kind = "ServiceAccount"
@@ -147,7 +146,6 @@ const (
 	StorageClass                         Kind = "StorageClass"
 	StorageClassList                     Kind = "StorageClassList"
 	SubjectAccessReview                  Kind = "SubjectAccessReview"
-	TokenReview                          Kind = "TokenReview"
 	ValidatingAdmissionPolicy            Kind = "ValidatingAdmissionPolicy"
 	ValidatingAdmissionPolicyBinding     Kind = "ValidatingAdmissionPolicyBinding"
 	ValidatingAdmissionPolicyBindingList Kind = "ValidatingAdmissionPolicyBindingList"
@@ -214,7 +212,6 @@ func (k Kind) Namespaced() (known bool, namespaced bool) {
 		SelfSubjectRulesReview,
 		StorageClass,
 		SubjectAccessReview,
-		TokenReview,
 		ValidatingWebhookConfiguration,
 		VolumeAttachment:
 		return true, false
@@ -238,8 +235,6 @@ const (
 	AppsV1B1                  groupVersion = "apps/v1beta1"
 	AppsV1B2                  groupVersion = "apps/v1beta2"
 	AuditregistrationV1A1     groupVersion = "auditregistration.k8s.io/v1alpha1"
-	AuthenticationV1A1        groupVersion = "authentication.k8s.io/v1alpha1"
-	AuthenticationV1B1        groupVersion = "authentication.k8s.io/v1beta1"
 	AuthorizationV1           groupVersion = "authorization.k8s.io/v1"
 	AuthorizationV1B1         groupVersion = "authorization.k8s.io/v1beta1"
 	AutoscalingV1             groupVersion = "autoscaling/v1"
@@ -312,8 +307,6 @@ var KnownGroupVersions = codegen.NewStringSet(
 	"apps/v1beta1",
 	"apps/v1beta2",
 	"auditregistration.k8s.io/v1alpha1",
-	"authentication.k8s.io/v1alpha1",
-	"authentication.k8s.io/v1beta1",
 	"authorization.k8s.io/v1",
 	"authorization.k8s.io/v1beta1",
 	"autoscaling/v1",

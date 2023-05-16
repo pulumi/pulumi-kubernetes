@@ -20,8 +20,6 @@ if typing.TYPE_CHECKING:
     apps = __apps
     import pulumi_kubernetes.auditregistration as __auditregistration
     auditregistration = __auditregistration
-    import pulumi_kubernetes.authentication as __authentication
-    authentication = __authentication
     import pulumi_kubernetes.authorization as __authorization
     authorization = __authorization
     import pulumi_kubernetes.autoscaling as __autoscaling
@@ -72,7 +70,6 @@ else:
     apiregistration = _utilities.lazy_import('pulumi_kubernetes.apiregistration')
     apps = _utilities.lazy_import('pulumi_kubernetes.apps')
     auditregistration = _utilities.lazy_import('pulumi_kubernetes.auditregistration')
-    authentication = _utilities.lazy_import('pulumi_kubernetes.authentication')
     authorization = _utilities.lazy_import('pulumi_kubernetes.authorization')
     autoscaling = _utilities.lazy_import('pulumi_kubernetes.autoscaling')
     batch = _utilities.lazy_import('pulumi_kubernetes.batch')
@@ -246,26 +243,6 @@ _utilities.register(
    "kubernetes:auditregistration.k8s.io/v1alpha1:AuditSink": "AuditSink",
    "kubernetes:auditregistration.k8s.io/v1alpha1:AuditSinkList": "AuditSinkList",
    "kubernetes:auditregistration.k8s.io/v1alpha1:AuditSinkPatch": "AuditSinkPatch"
-  }
- },
- {
-  "pkg": "kubernetes",
-  "mod": "authentication.k8s.io/v1alpha1",
-  "fqn": "pulumi_kubernetes.authentication.v1alpha1",
-  "classes": {
-   "kubernetes:authentication.k8s.io/v1alpha1:SelfSubjectReview": "SelfSubjectReview",
-   "kubernetes:authentication.k8s.io/v1alpha1:SelfSubjectReviewPatch": "SelfSubjectReviewPatch"
-  }
- },
- {
-  "pkg": "kubernetes",
-  "mod": "authentication.k8s.io/v1beta1",
-  "fqn": "pulumi_kubernetes.authentication.v1beta1",
-  "classes": {
-   "kubernetes:authentication.k8s.io/v1beta1:SelfSubjectReview": "SelfSubjectReview",
-   "kubernetes:authentication.k8s.io/v1beta1:SelfSubjectReviewPatch": "SelfSubjectReviewPatch",
-   "kubernetes:authentication.k8s.io/v1beta1:TokenReview": "TokenReview",
-   "kubernetes:authentication.k8s.io/v1beta1:TokenReviewPatch": "TokenReviewPatch"
   }
  },
  {
