@@ -76,12 +76,6 @@ namespace Pulumi.Kubernetes
         public Input<bool>? EnableConfigMapMutable { get; set; }
 
         /// <summary>
-        /// Obsolete. This option has no effect.
-        /// </summary>
-        [Input("enableReplaceCRD", json: true)]
-        public Input<bool>? EnableReplaceCRD { get; set; }
-
-        /// <summary>
         /// BETA FEATURE - If present and set to true, enable Server-Side Apply mode.
         /// See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
         /// This feature is in developer preview, and is disabled by default.
@@ -147,7 +141,6 @@ namespace Pulumi.Kubernetes
         {
             DeleteUnreachable = Utilities.GetEnvBoolean("PULUMI_K8S_DELETE_UNREACHABLE");
             EnableConfigMapMutable = Utilities.GetEnvBoolean("PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE");
-            EnableReplaceCRD = Utilities.GetEnvBoolean("PULUMI_K8S_ENABLE_REPLACE_CRD");
             EnableServerSideApply = Utilities.GetEnvBoolean("PULUMI_K8S_ENABLE_SERVER_SIDE_APPLY");
             KubeConfig = Utilities.GetEnv("KUBECONFIG");
             SuppressDeprecationWarnings = Utilities.GetEnvBoolean("PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS");
