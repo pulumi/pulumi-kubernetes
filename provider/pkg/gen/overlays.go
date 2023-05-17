@@ -1,4 +1,4 @@
-// Copyright 2016-2021, Pulumi Corporation.
+// Copyright 2016-2023, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -45,94 +45,6 @@ var serviceSpecType = pschema.ComplexTypeSpec{
 		{Value: v1.ServiceTypeClusterIP},
 		{Value: v1.ServiceTypeNodePort},
 		{Value: v1.ServiceTypeLoadBalancer},
-	},
-}
-
-//go:embed examples/overlays/chartV2.md
-var helmV2ChartMD string
-
-var helmV2ChartResource = pschema.ResourceSpec{
-	IsComponent: true,
-	ObjectTypeSpec: pschema.ObjectTypeSpec{
-		IsOverlay:   true,
-		Description: helmV2ChartMD,
-		Properties: map[string]pschema.PropertySpec{
-			"resources": {
-				TypeSpec: pschema.TypeSpec{
-					Type: "string",
-				},
-				Description: "Resources created by the Chart.",
-			},
-			"urn": {
-				TypeSpec: pschema.TypeSpec{
-					Type: "string",
-				},
-				Description: "The stable logical URN used to distinctly address a resource, both before and after deployments.",
-			},
-		},
-		Type: "object",
-	},
-	InputProperties: map[string]pschema.PropertySpec{
-		"chart": {
-			TypeSpec: pschema.TypeSpec{
-				Type: "string",
-			},
-			Description: "The name of the chart to deploy. If [repo] is provided, this chart name will be prefixed by the repo name. Example: repo: \"stable\", chart: \"nginx-ingress\" -> \"stable/nginx-ingress\" Example: chart: \"stable/nginx-ingress\" -> \"stable/nginx-ingress\"\n\nRequired if specifying `ChartOpts` for a remote chart.",
-		},
-		"fetchOpts": {
-			TypeSpec: pschema.TypeSpec{
-				Ref: "#/types/kubernetes:helm.sh/v2:FetchOpts",
-			},
-			Description: "Additional options to customize the fetching of the Helm chart.",
-		},
-		"path": {
-			TypeSpec: pschema.TypeSpec{
-				Type: "string",
-			},
-			Description: "The path to the chart directory which contains the `Chart.yaml` file.\n\nRequired if specifying `LocalChartOpts`.",
-		},
-		"namespace": {
-			TypeSpec: pschema.TypeSpec{
-				Type: "string",
-			},
-			Description: "The optional namespace to install chart resources into.",
-		},
-		"repo": {
-			TypeSpec: pschema.TypeSpec{
-				Type: "string",
-			},
-			Description: "The repository name of the chart to deploy. Example: \"stable\".\n\nUsed only when specifying options for a remote chart.",
-		},
-		"resourcePrefix": {
-			TypeSpec: pschema.TypeSpec{
-				Type: "string",
-			},
-			Description: "An optional prefix for the auto-generated resource names. Example: A resource created with resourcePrefix=\"foo\" would produce a resource named \"foo-resourceName\".",
-		},
-		"transformations": {
-			TypeSpec: pschema.TypeSpec{
-				Type: "array",
-				Items: &pschema.TypeSpec{
-					Ref: "pulumi.json#/Any",
-				},
-			},
-			Description: "Optional array of transformations to apply to resources that will be created by this chart prior to creation. Allows customization of the chart behaviour without directly modifying the chart itself.",
-		},
-		"values": {
-			TypeSpec: pschema.TypeSpec{
-				Type: "object",
-				AdditionalProperties: &pschema.TypeSpec{
-					Ref: "pulumi.json#/Any",
-				},
-			},
-			Description: "Overrides for chart values.",
-		},
-		"version": {
-			TypeSpec: pschema.TypeSpec{
-				Type: "string",
-			},
-			Description: "The version of the chart to deploy. If not provided, the latest version will be deployed.",
-		},
 	},
 }
 
@@ -224,7 +136,7 @@ var helmV3ChartResource = pschema.ResourceSpec{
 	},
 }
 
-var helmV2FetchOpts = pschema.ComplexTypeSpec{
+var helmV3FetchOpts = pschema.ComplexTypeSpec{
 	ObjectTypeSpec: pschema.ObjectTypeSpec{
 		IsOverlay:   true,
 		Description: "Additional options to customize the fetching of the Helm chart.",
@@ -1373,8 +1285,7 @@ var apiextentionsCustomResourcePatch = pschema.ResourceSpec{
 func init() {
 	typeOverlays["kubernetes:core/v1:ServiceSpec"] = serviceSpec
 	typeOverlays["kubernetes:core/v1:ServiceSpecType"] = serviceSpecType
-	typeOverlays["kubernetes:helm.sh/v2:FetchOpts"] = helmV2FetchOpts
-	typeOverlays["kubernetes:helm.sh/v3:FetchOpts"] = helmV2FetchOpts // v2 fetch opts are identical to v3
+	typeOverlays["kubernetes:helm.sh/v3:FetchOpts"] = helmV3FetchOpts
 	typeOverlays["kubernetes:helm.sh/v3:RepositoryOpts"] = helmV3RepoOpts
 	typeOverlays["kubernetes:helm.sh/v3:ReleaseStatus"] = helmV3ReleaseStatus
 	typeOverlays["kubernetes:index:KubeClientSettings"] = kubeClientSettings
@@ -1382,7 +1293,6 @@ func init() {
 
 	resourceOverlays["kubernetes:apiextensions.k8s.io:CustomResource"] = apiextentionsCustomResource
 	resourceOverlays["kubernetes:apiextensions.k8s.io:CustomResourcePatch"] = apiextentionsCustomResourcePatch
-	resourceOverlays["kubernetes:helm.sh/v2:Chart"] = helmV2ChartResource
 	resourceOverlays["kubernetes:helm.sh/v3:Chart"] = helmV3ChartResource
 	resourceOverlays["kubernetes:helm.sh/v3:Release"] = helmV3ReleaseResource
 	resourceOverlays["kubernetes:kustomize:Directory"] = kustomizeDirectoryResource
