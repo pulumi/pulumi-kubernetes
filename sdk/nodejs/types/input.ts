@@ -6601,20 +6601,6 @@ export namespace authorization {
     }
 
     export namespace v1beta1 {
-        export interface SelfSubjectRulesReviewSpec {
-            /**
-             * Namespace to evaluate rules for. Required.
-             */
-            namespace?: pulumi.Input<string>;
-        }
-
-        export interface SelfSubjectRulesReviewSpecPatch {
-            /**
-             * Namespace to evaluate rules for. Required.
-             */
-            namespace?: pulumi.Input<string>;
-        }
-
     }
 }
 

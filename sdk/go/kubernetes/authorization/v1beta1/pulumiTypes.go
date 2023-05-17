@@ -1893,7 +1893,7 @@ func (o SelfSubjectAccessReviewSpecPatchPtrOutput) ResourceAttributes() Resource
 }
 
 // SelfSubjectRulesReview enumerates the set of actions the current user can perform within a namespace. The returned list of actions may be incomplete depending on the server's authorization mode, and any errors experienced during the evaluation. SelfSubjectRulesReview should be used by UIs to show/hide actions, or to quickly let an end user reason about their permissions. It should NOT Be used by external systems to drive authorization decisions as this raises confused deputy, cache lifetime/revocation, and correctness concerns. SubjectAccessReview, and LocalAccessReview are the correct way to defer authorization decisions to the API server.
-type SelfSubjectRulesReviewType struct {
+type SelfSubjectRulesReview struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -1905,19 +1905,19 @@ type SelfSubjectRulesReviewType struct {
 	Status *SubjectRulesReviewStatus `pulumi:"status"`
 }
 
-// SelfSubjectRulesReviewTypeInput is an input type that accepts SelfSubjectRulesReviewTypeArgs and SelfSubjectRulesReviewTypeOutput values.
-// You can construct a concrete instance of `SelfSubjectRulesReviewTypeInput` via:
+// SelfSubjectRulesReviewInput is an input type that accepts SelfSubjectRulesReviewArgs and SelfSubjectRulesReviewOutput values.
+// You can construct a concrete instance of `SelfSubjectRulesReviewInput` via:
 //
-//	SelfSubjectRulesReviewTypeArgs{...}
-type SelfSubjectRulesReviewTypeInput interface {
+//	SelfSubjectRulesReviewArgs{...}
+type SelfSubjectRulesReviewInput interface {
 	pulumi.Input
 
-	ToSelfSubjectRulesReviewTypeOutput() SelfSubjectRulesReviewTypeOutput
-	ToSelfSubjectRulesReviewTypeOutputWithContext(context.Context) SelfSubjectRulesReviewTypeOutput
+	ToSelfSubjectRulesReviewOutput() SelfSubjectRulesReviewOutput
+	ToSelfSubjectRulesReviewOutputWithContext(context.Context) SelfSubjectRulesReviewOutput
 }
 
 // SelfSubjectRulesReview enumerates the set of actions the current user can perform within a namespace. The returned list of actions may be incomplete depending on the server's authorization mode, and any errors experienced during the evaluation. SelfSubjectRulesReview should be used by UIs to show/hide actions, or to quickly let an end user reason about their permissions. It should NOT Be used by external systems to drive authorization decisions as this raises confused deputy, cache lifetime/revocation, and correctness concerns. SubjectAccessReview, and LocalAccessReview are the correct way to defer authorization decisions to the API server.
-type SelfSubjectRulesReviewTypeArgs struct {
+type SelfSubjectRulesReviewArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -1929,59 +1929,59 @@ type SelfSubjectRulesReviewTypeArgs struct {
 	Status SubjectRulesReviewStatusPtrInput `pulumi:"status"`
 }
 
-func (SelfSubjectRulesReviewTypeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*SelfSubjectRulesReviewType)(nil)).Elem()
+func (SelfSubjectRulesReviewArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*SelfSubjectRulesReview)(nil)).Elem()
 }
 
-func (i SelfSubjectRulesReviewTypeArgs) ToSelfSubjectRulesReviewTypeOutput() SelfSubjectRulesReviewTypeOutput {
-	return i.ToSelfSubjectRulesReviewTypeOutputWithContext(context.Background())
+func (i SelfSubjectRulesReviewArgs) ToSelfSubjectRulesReviewOutput() SelfSubjectRulesReviewOutput {
+	return i.ToSelfSubjectRulesReviewOutputWithContext(context.Background())
 }
 
-func (i SelfSubjectRulesReviewTypeArgs) ToSelfSubjectRulesReviewTypeOutputWithContext(ctx context.Context) SelfSubjectRulesReviewTypeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectRulesReviewTypeOutput)
+func (i SelfSubjectRulesReviewArgs) ToSelfSubjectRulesReviewOutputWithContext(ctx context.Context) SelfSubjectRulesReviewOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectRulesReviewOutput)
 }
 
 // SelfSubjectRulesReview enumerates the set of actions the current user can perform within a namespace. The returned list of actions may be incomplete depending on the server's authorization mode, and any errors experienced during the evaluation. SelfSubjectRulesReview should be used by UIs to show/hide actions, or to quickly let an end user reason about their permissions. It should NOT Be used by external systems to drive authorization decisions as this raises confused deputy, cache lifetime/revocation, and correctness concerns. SubjectAccessReview, and LocalAccessReview are the correct way to defer authorization decisions to the API server.
-type SelfSubjectRulesReviewTypeOutput struct{ *pulumi.OutputState }
+type SelfSubjectRulesReviewOutput struct{ *pulumi.OutputState }
 
-func (SelfSubjectRulesReviewTypeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*SelfSubjectRulesReviewType)(nil)).Elem()
+func (SelfSubjectRulesReviewOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SelfSubjectRulesReview)(nil)).Elem()
 }
 
-func (o SelfSubjectRulesReviewTypeOutput) ToSelfSubjectRulesReviewTypeOutput() SelfSubjectRulesReviewTypeOutput {
+func (o SelfSubjectRulesReviewOutput) ToSelfSubjectRulesReviewOutput() SelfSubjectRulesReviewOutput {
 	return o
 }
 
-func (o SelfSubjectRulesReviewTypeOutput) ToSelfSubjectRulesReviewTypeOutputWithContext(ctx context.Context) SelfSubjectRulesReviewTypeOutput {
+func (o SelfSubjectRulesReviewOutput) ToSelfSubjectRulesReviewOutputWithContext(ctx context.Context) SelfSubjectRulesReviewOutput {
 	return o
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o SelfSubjectRulesReviewTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v SelfSubjectRulesReviewType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o SelfSubjectRulesReviewOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v SelfSubjectRulesReview) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o SelfSubjectRulesReviewTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v SelfSubjectRulesReviewType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o SelfSubjectRulesReviewOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v SelfSubjectRulesReview) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-func (o SelfSubjectRulesReviewTypeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v SelfSubjectRulesReviewType) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o SelfSubjectRulesReviewOutput) Metadata() metav1.ObjectMetaPtrOutput {
+	return o.ApplyT(func(v SelfSubjectRulesReview) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
 }
 
 // Spec holds information about the request being evaluated.
-func (o SelfSubjectRulesReviewTypeOutput) Spec() SelfSubjectRulesReviewSpecOutput {
-	return o.ApplyT(func(v SelfSubjectRulesReviewType) SelfSubjectRulesReviewSpec { return v.Spec }).(SelfSubjectRulesReviewSpecOutput)
+func (o SelfSubjectRulesReviewOutput) Spec() SelfSubjectRulesReviewSpecOutput {
+	return o.ApplyT(func(v SelfSubjectRulesReview) SelfSubjectRulesReviewSpec { return v.Spec }).(SelfSubjectRulesReviewSpecOutput)
 }
 
 // Status is filled in by the server and indicates the set of actions a user can perform.
-func (o SelfSubjectRulesReviewTypeOutput) Status() SubjectRulesReviewStatusPtrOutput {
-	return o.ApplyT(func(v SelfSubjectRulesReviewType) *SubjectRulesReviewStatus { return v.Status }).(SubjectRulesReviewStatusPtrOutput)
+func (o SelfSubjectRulesReviewOutput) Status() SubjectRulesReviewStatusPtrOutput {
+	return o.ApplyT(func(v SelfSubjectRulesReview) *SubjectRulesReviewStatus { return v.Status }).(SubjectRulesReviewStatusPtrOutput)
 }
 
 // SelfSubjectRulesReview enumerates the set of actions the current user can perform within a namespace. The returned list of actions may be incomplete depending on the server's authorization mode, and any errors experienced during the evaluation. SelfSubjectRulesReview should be used by UIs to show/hide actions, or to quickly let an end user reason about their permissions. It should NOT Be used by external systems to drive authorization decisions as this raises confused deputy, cache lifetime/revocation, and correctness concerns. SubjectAccessReview, and LocalAccessReview are the correct way to defer authorization decisions to the API server.
-type SelfSubjectRulesReviewPatchType struct {
+type SelfSubjectRulesReviewPatch struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -1993,19 +1993,19 @@ type SelfSubjectRulesReviewPatchType struct {
 	Status *SubjectRulesReviewStatusPatch `pulumi:"status"`
 }
 
-// SelfSubjectRulesReviewPatchTypeInput is an input type that accepts SelfSubjectRulesReviewPatchTypeArgs and SelfSubjectRulesReviewPatchTypeOutput values.
-// You can construct a concrete instance of `SelfSubjectRulesReviewPatchTypeInput` via:
+// SelfSubjectRulesReviewPatchInput is an input type that accepts SelfSubjectRulesReviewPatchArgs and SelfSubjectRulesReviewPatchOutput values.
+// You can construct a concrete instance of `SelfSubjectRulesReviewPatchInput` via:
 //
-//	SelfSubjectRulesReviewPatchTypeArgs{...}
-type SelfSubjectRulesReviewPatchTypeInput interface {
+//	SelfSubjectRulesReviewPatchArgs{...}
+type SelfSubjectRulesReviewPatchInput interface {
 	pulumi.Input
 
-	ToSelfSubjectRulesReviewPatchTypeOutput() SelfSubjectRulesReviewPatchTypeOutput
-	ToSelfSubjectRulesReviewPatchTypeOutputWithContext(context.Context) SelfSubjectRulesReviewPatchTypeOutput
+	ToSelfSubjectRulesReviewPatchOutput() SelfSubjectRulesReviewPatchOutput
+	ToSelfSubjectRulesReviewPatchOutputWithContext(context.Context) SelfSubjectRulesReviewPatchOutput
 }
 
 // SelfSubjectRulesReview enumerates the set of actions the current user can perform within a namespace. The returned list of actions may be incomplete depending on the server's authorization mode, and any errors experienced during the evaluation. SelfSubjectRulesReview should be used by UIs to show/hide actions, or to quickly let an end user reason about their permissions. It should NOT Be used by external systems to drive authorization decisions as this raises confused deputy, cache lifetime/revocation, and correctness concerns. SubjectAccessReview, and LocalAccessReview are the correct way to defer authorization decisions to the API server.
-type SelfSubjectRulesReviewPatchTypeArgs struct {
+type SelfSubjectRulesReviewPatchArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
@@ -2017,55 +2017,55 @@ type SelfSubjectRulesReviewPatchTypeArgs struct {
 	Status SubjectRulesReviewStatusPatchPtrInput `pulumi:"status"`
 }
 
-func (SelfSubjectRulesReviewPatchTypeArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*SelfSubjectRulesReviewPatchType)(nil)).Elem()
+func (SelfSubjectRulesReviewPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*SelfSubjectRulesReviewPatch)(nil)).Elem()
 }
 
-func (i SelfSubjectRulesReviewPatchTypeArgs) ToSelfSubjectRulesReviewPatchTypeOutput() SelfSubjectRulesReviewPatchTypeOutput {
-	return i.ToSelfSubjectRulesReviewPatchTypeOutputWithContext(context.Background())
+func (i SelfSubjectRulesReviewPatchArgs) ToSelfSubjectRulesReviewPatchOutput() SelfSubjectRulesReviewPatchOutput {
+	return i.ToSelfSubjectRulesReviewPatchOutputWithContext(context.Background())
 }
 
-func (i SelfSubjectRulesReviewPatchTypeArgs) ToSelfSubjectRulesReviewPatchTypeOutputWithContext(ctx context.Context) SelfSubjectRulesReviewPatchTypeOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectRulesReviewPatchTypeOutput)
+func (i SelfSubjectRulesReviewPatchArgs) ToSelfSubjectRulesReviewPatchOutputWithContext(ctx context.Context) SelfSubjectRulesReviewPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectRulesReviewPatchOutput)
 }
 
 // SelfSubjectRulesReview enumerates the set of actions the current user can perform within a namespace. The returned list of actions may be incomplete depending on the server's authorization mode, and any errors experienced during the evaluation. SelfSubjectRulesReview should be used by UIs to show/hide actions, or to quickly let an end user reason about their permissions. It should NOT Be used by external systems to drive authorization decisions as this raises confused deputy, cache lifetime/revocation, and correctness concerns. SubjectAccessReview, and LocalAccessReview are the correct way to defer authorization decisions to the API server.
-type SelfSubjectRulesReviewPatchTypeOutput struct{ *pulumi.OutputState }
+type SelfSubjectRulesReviewPatchOutput struct{ *pulumi.OutputState }
 
-func (SelfSubjectRulesReviewPatchTypeOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*SelfSubjectRulesReviewPatchType)(nil)).Elem()
+func (SelfSubjectRulesReviewPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*SelfSubjectRulesReviewPatch)(nil)).Elem()
 }
 
-func (o SelfSubjectRulesReviewPatchTypeOutput) ToSelfSubjectRulesReviewPatchTypeOutput() SelfSubjectRulesReviewPatchTypeOutput {
+func (o SelfSubjectRulesReviewPatchOutput) ToSelfSubjectRulesReviewPatchOutput() SelfSubjectRulesReviewPatchOutput {
 	return o
 }
 
-func (o SelfSubjectRulesReviewPatchTypeOutput) ToSelfSubjectRulesReviewPatchTypeOutputWithContext(ctx context.Context) SelfSubjectRulesReviewPatchTypeOutput {
+func (o SelfSubjectRulesReviewPatchOutput) ToSelfSubjectRulesReviewPatchOutputWithContext(ctx context.Context) SelfSubjectRulesReviewPatchOutput {
 	return o
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o SelfSubjectRulesReviewPatchTypeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v SelfSubjectRulesReviewPatchType) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o SelfSubjectRulesReviewPatchOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v SelfSubjectRulesReviewPatch) *string { return v.ApiVersion }).(pulumi.StringPtrOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o SelfSubjectRulesReviewPatchTypeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v SelfSubjectRulesReviewPatchType) *string { return v.Kind }).(pulumi.StringPtrOutput)
+func (o SelfSubjectRulesReviewPatchOutput) Kind() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v SelfSubjectRulesReviewPatch) *string { return v.Kind }).(pulumi.StringPtrOutput)
 }
 
-func (o SelfSubjectRulesReviewPatchTypeOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
-	return o.ApplyT(func(v SelfSubjectRulesReviewPatchType) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
+func (o SelfSubjectRulesReviewPatchOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
+	return o.ApplyT(func(v SelfSubjectRulesReviewPatch) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
 }
 
 // Spec holds information about the request being evaluated.
-func (o SelfSubjectRulesReviewPatchTypeOutput) Spec() SelfSubjectRulesReviewSpecPatchPtrOutput {
-	return o.ApplyT(func(v SelfSubjectRulesReviewPatchType) *SelfSubjectRulesReviewSpecPatch { return v.Spec }).(SelfSubjectRulesReviewSpecPatchPtrOutput)
+func (o SelfSubjectRulesReviewPatchOutput) Spec() SelfSubjectRulesReviewSpecPatchPtrOutput {
+	return o.ApplyT(func(v SelfSubjectRulesReviewPatch) *SelfSubjectRulesReviewSpecPatch { return v.Spec }).(SelfSubjectRulesReviewSpecPatchPtrOutput)
 }
 
 // Status is filled in by the server and indicates the set of actions a user can perform.
-func (o SelfSubjectRulesReviewPatchTypeOutput) Status() SubjectRulesReviewStatusPatchPtrOutput {
-	return o.ApplyT(func(v SelfSubjectRulesReviewPatchType) *SubjectRulesReviewStatusPatch { return v.Status }).(SubjectRulesReviewStatusPatchPtrOutput)
+func (o SelfSubjectRulesReviewPatchOutput) Status() SubjectRulesReviewStatusPatchPtrOutput {
+	return o.ApplyT(func(v SelfSubjectRulesReviewPatch) *SubjectRulesReviewStatusPatch { return v.Status }).(SubjectRulesReviewStatusPatchPtrOutput)
 }
 
 type SelfSubjectRulesReviewSpec struct {
@@ -3580,8 +3580,8 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectAccessReviewSpecInput)(nil)).Elem(), SelfSubjectAccessReviewSpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectAccessReviewSpecPatchInput)(nil)).Elem(), SelfSubjectAccessReviewSpecPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectAccessReviewSpecPatchPtrInput)(nil)).Elem(), SelfSubjectAccessReviewSpecPatchArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectRulesReviewTypeInput)(nil)).Elem(), SelfSubjectRulesReviewTypeArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectRulesReviewPatchTypeInput)(nil)).Elem(), SelfSubjectRulesReviewPatchTypeArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectRulesReviewInput)(nil)).Elem(), SelfSubjectRulesReviewArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectRulesReviewPatchInput)(nil)).Elem(), SelfSubjectRulesReviewPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectRulesReviewSpecInput)(nil)).Elem(), SelfSubjectRulesReviewSpecArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectRulesReviewSpecPatchInput)(nil)).Elem(), SelfSubjectRulesReviewSpecPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*SelfSubjectRulesReviewSpecPatchPtrInput)(nil)).Elem(), SelfSubjectRulesReviewSpecPatchArgs{})
@@ -3621,8 +3621,8 @@ func init() {
 	pulumi.RegisterOutputType(SelfSubjectAccessReviewSpecOutput{})
 	pulumi.RegisterOutputType(SelfSubjectAccessReviewSpecPatchOutput{})
 	pulumi.RegisterOutputType(SelfSubjectAccessReviewSpecPatchPtrOutput{})
-	pulumi.RegisterOutputType(SelfSubjectRulesReviewTypeOutput{})
-	pulumi.RegisterOutputType(SelfSubjectRulesReviewPatchTypeOutput{})
+	pulumi.RegisterOutputType(SelfSubjectRulesReviewOutput{})
+	pulumi.RegisterOutputType(SelfSubjectRulesReviewPatchOutput{})
 	pulumi.RegisterOutputType(SelfSubjectRulesReviewSpecOutput{})
 	pulumi.RegisterOutputType(SelfSubjectRulesReviewSpecPatchOutput{})
 	pulumi.RegisterOutputType(SelfSubjectRulesReviewSpecPatchPtrOutput{})

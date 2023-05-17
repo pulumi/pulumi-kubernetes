@@ -20,8 +20,6 @@ if typing.TYPE_CHECKING:
     apps = __apps
     import pulumi_kubernetes.auditregistration as __auditregistration
     auditregistration = __auditregistration
-    import pulumi_kubernetes.authorization as __authorization
-    authorization = __authorization
     import pulumi_kubernetes.autoscaling as __autoscaling
     autoscaling = __autoscaling
     import pulumi_kubernetes.batch as __batch
@@ -70,7 +68,6 @@ else:
     apiregistration = _utilities.lazy_import('pulumi_kubernetes.apiregistration')
     apps = _utilities.lazy_import('pulumi_kubernetes.apps')
     auditregistration = _utilities.lazy_import('pulumi_kubernetes.auditregistration')
-    authorization = _utilities.lazy_import('pulumi_kubernetes.authorization')
     autoscaling = _utilities.lazy_import('pulumi_kubernetes.autoscaling')
     batch = _utilities.lazy_import('pulumi_kubernetes.batch')
     certificates = _utilities.lazy_import('pulumi_kubernetes.certificates')
@@ -243,15 +240,6 @@ _utilities.register(
    "kubernetes:auditregistration.k8s.io/v1alpha1:AuditSink": "AuditSink",
    "kubernetes:auditregistration.k8s.io/v1alpha1:AuditSinkList": "AuditSinkList",
    "kubernetes:auditregistration.k8s.io/v1alpha1:AuditSinkPatch": "AuditSinkPatch"
-  }
- },
- {
-  "pkg": "kubernetes",
-  "mod": "authorization.k8s.io/v1beta1",
-  "fqn": "pulumi_kubernetes.authorization.v1beta1",
-  "classes": {
-   "kubernetes:authorization.k8s.io/v1beta1:SelfSubjectRulesReview": "SelfSubjectRulesReview",
-   "kubernetes:authorization.k8s.io/v1beta1:SelfSubjectRulesReviewPatch": "SelfSubjectRulesReviewPatch"
   }
  },
  {

@@ -38,7 +38,6 @@ import (
 	appsv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/apps/v1beta1"
 	appsv1beta2 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/apps/v1beta2"
 	auditregistrationv1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/auditregistration/v1alpha1"
-	authorizationv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/authorization/v1beta1"
 	autoscalingv1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/autoscaling/v1"
 	autoscalingv2 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/autoscaling/v2"
 	autoscalingv2beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/autoscaling/v2beta1"
@@ -581,13 +580,6 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 	case "auditregistration.k8s.io/v1alpha1/AuditSink":
 		var res auditregistrationv1alpha1.AuditSink
 		err := ctx.RegisterResource("kubernetes:auditregistration.k8s.io/v1alpha1:AuditSink", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resourceTuple{{Name: key, Resource: &res}}, nil
-	case "authorization.k8s.io/v1beta1/SelfSubjectRulesReview":
-		var res authorizationv1beta1.SelfSubjectRulesReview
-		err := ctx.RegisterResource("kubernetes:authorization.k8s.io/v1beta1:SelfSubjectRulesReview", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}

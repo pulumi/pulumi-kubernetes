@@ -133,7 +133,6 @@ const (
 	RuntimeClassList                     Kind = "RuntimeClassList"
 	Secret                               Kind = "Secret"
 	SecretList                           Kind = "SecretList"
-	SelfSubjectRulesReview               Kind = "SelfSubjectRulesReview"
 	Service                              Kind = "Service"
 	ServiceAccount                       Kind = "ServiceAccount"
 	ServiceAccountList                   Kind = "ServiceAccountList"
@@ -228,7 +227,6 @@ const (
 	AppsV1B1                  groupVersion = "apps/v1beta1"
 	AppsV1B2                  groupVersion = "apps/v1beta2"
 	AuditregistrationV1A1     groupVersion = "auditregistration.k8s.io/v1alpha1"
-	AuthorizationV1B1         groupVersion = "authorization.k8s.io/v1beta1"
 	AutoscalingV1             groupVersion = "autoscaling/v1"
 	AutoscalingV2             groupVersion = "autoscaling/v2"
 	AutoscalingV2B1           groupVersion = "autoscaling/v2beta1"
@@ -299,7 +297,6 @@ var KnownGroupVersions = codegen.NewStringSet(
 	"apps/v1beta1",
 	"apps/v1beta2",
 	"auditregistration.k8s.io/v1alpha1",
-	"authorization.k8s.io/v1beta1",
 	"autoscaling/v1",
 	"autoscaling/v2",
 	"autoscaling/v2beta1",

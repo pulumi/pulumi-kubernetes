@@ -271,8 +271,6 @@ func RemovedInVersion(gvk schema.GroupVersionKind) *cluster.ServerVersion {
 		return &v122
 	case ApiextensionsV1B1:
 		return &v122
-	case AuthorizationV1B1:
-		return &v122
 	case BatchV2A1:
 		return &v121
 	case CoordinationV1B1:

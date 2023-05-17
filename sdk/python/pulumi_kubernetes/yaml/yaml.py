@@ -765,12 +765,6 @@ def _parse_yaml_object(
         return [identifier.apply(
             lambda x: (f"auditregistration.k8s.io/v1alpha1/AuditSinkList:{x}",
                        AuditSinkList(f"{x}", opts, **obj)))]
-    if gvk == "authorization.k8s.io/v1beta1/SelfSubjectRulesReview":
-        # Import locally to avoid name collisions.
-        from pulumi_kubernetes.authorization.v1beta1 import SelfSubjectRulesReview
-        return [identifier.apply(
-            lambda x: (f"authorization.k8s.io/v1beta1/SelfSubjectRulesReview:{x}",
-                       SelfSubjectRulesReview(f"{x}", opts, **obj)))]
     if gvk == "autoscaling/v1/HorizontalPodAutoscaler":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.autoscaling.v1 import HorizontalPodAutoscaler
