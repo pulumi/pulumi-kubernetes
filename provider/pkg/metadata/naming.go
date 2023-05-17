@@ -15,20 +15,15 @@
 package metadata
 
 import (
-	"math/rand"
-	"time"
-
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
-var dns1123Alphabet = []rune("abcdefghijklmnopqrstuvwxyz0123456789")
-
 // AssignNameIfAutonamable generates a name for an object. Uses DNS-1123-compliant characters.
 // All auto-named resources get the annotation `pulumi.com/autonamed` for tooling purposes.
 func AssignNameIfAutonamable(randomSeed []byte, obj *unstructured.Unstructured, propMap resource.PropertyMap, urn resource.URN) {
-	contract.Assert(urn.Name().String() != "")
+	contract.Assertf(urn.Name().String() != "", "expected non-empty name in URN: %s", urn)
 	// Check if the .metadata.name is set and is a computed value. If so, do not auto-name.
 	if md, ok := propMap["metadata"].V.(resource.PropertyMap); ok {
 		if name, ok := md["name"]; ok && name.IsComputed() {
@@ -39,7 +34,7 @@ func AssignNameIfAutonamable(randomSeed []byte, obj *unstructured.Unstructured, 
 	if obj.GetName() == "" {
 		prefix := urn.Name().String() + "-"
 		autoname, err := resource.NewUniqueName(randomSeed, prefix, 0, 0, nil)
-		contract.AssertNoError(err)
+		contract.AssertNoErrorf(err, "unexpected error while creating NewUniqueName")
 		obj.SetName(autoname)
 		SetAnnotationTrue(obj, AnnotationAutonamed)
 	}
@@ -48,7 +43,7 @@ func AssignNameIfAutonamable(randomSeed []byte, obj *unstructured.Unstructured, 
 // AdoptOldAutonameIfUnnamed checks if `newObj` has a name, and if not, "adopts" the name of `oldObj`
 // instead. If `oldObj` was autonamed, then we mark `newObj` as autonamed, too.
 func AdoptOldAutonameIfUnnamed(newObj, oldObj *unstructured.Unstructured) {
-	contract.Assert(oldObj.GetName() != "")
+	contract.Assertf(oldObj.GetName() != "", "expected nonempty name for object: %s", oldObj)
 	if newObj.GetName() == "" && IsAutonamed(oldObj) {
 		newObj.SetName(oldObj.GetName())
 		SetAnnotationTrue(newObj, AnnotationAutonamed)
@@ -57,18 +52,4 @@ func AdoptOldAutonameIfUnnamed(newObj, oldObj *unstructured.Unstructured) {
 
 func IsAutonamed(obj *unstructured.Unstructured) bool {
 	return IsAnnotationTrue(obj, AnnotationAutonamed)
-}
-
-func RandString(n int) string {
-	b := make([]rune, n)
-	for i := range b {
-		// nolint:gosec
-		b[i] = dns1123Alphabet[rand.Intn(len(dns1123Alphabet))]
-	}
-	return string(b)
-}
-
-// Seed RNG to get different random names at each suffix.
-func init() {
-	rand.Seed(time.Now().UTC().UnixNano())
 }

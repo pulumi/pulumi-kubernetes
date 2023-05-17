@@ -21,7 +21,7 @@ import (
 	"regexp"
 	"strings"
 
-	linq "github.com/ahmetb/go-linq"
+	"github.com/ahmetb/go-linq"
 	pschema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	"k8s.io/apimachinery/pkg/runtime/schema"
@@ -410,7 +410,7 @@ func makeSchemaTypeSpec(prop map[string]interface{}, canonicalGroups map[string]
 func makeSchemaType(prop map[string]interface{}, canonicalGroups map[string]string) string {
 	spec := makeSchemaTypeSpec(prop, canonicalGroups)
 	b, err := json.Marshal(spec)
-	contract.Assert(err == nil)
+	contract.AssertNoErrorf(err, "unexpected error while marshaling JSON")
 	return string(b)
 }
 
@@ -639,7 +639,7 @@ func createGroups(definitionsJSON map[string]interface{}) []GroupConfig {
 			schemaPkgName := func(gv string) string {
 				pkgName := strings.Replace(gv, ".k8s.io", "", -1)
 				parts := strings.Split(pkgName, "/")
-				contract.Assert(len(parts) == 2)
+				contract.Assertf(len(parts) == 2, "expected package name to have two parts: %s", pkgName)
 				g, v := parts[0], parts[1]
 				gParts := strings.Split(g, ".")
 				return fmt.Sprintf("%s/%s", gParts[0], v)
