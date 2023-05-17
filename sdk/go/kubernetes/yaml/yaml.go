@@ -19,9 +19,10 @@ package yaml
 
 import (
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
+	"os"
 	"path/filepath"
 
 	"github.com/pkg/errors"
@@ -103,7 +104,7 @@ func parseDecodeYamlFiles(ctx *pulumi.Context, args *ConfigGroupArgs, glob bool,
 				return nil, errors.Wrapf(err, "fetching YAML over network")
 			}
 			defer resp.Body.Close()
-			yaml, err = ioutil.ReadAll(resp.Body)
+			yaml, err = io.ReadAll(resp.Body)
 			if err != nil {
 				return nil, errors.Wrapf(err, "reading YAML over network")
 			}
@@ -121,7 +122,7 @@ func parseDecodeYamlFiles(ctx *pulumi.Context, args *ConfigGroupArgs, glob bool,
 				files = []string{file}
 			}
 			for _, f := range files {
-				yaml, err = ioutil.ReadFile(f)
+				yaml, err = os.ReadFile(f)
 				if err != nil {
 					return nil, errors.Wrapf(err, "reading YAML file from disk")
 				}

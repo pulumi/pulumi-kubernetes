@@ -15,11 +15,11 @@
 package provider
 
 import (
-	"io/ioutil"
 	"os"
 
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/workspace"
 	"sigs.k8s.io/kustomize/api/krusty"
 	"sigs.k8s.io/kustomize/kyaml/filesys"
@@ -36,10 +36,10 @@ func kustomizeDirectory(directory string, clientSet *clients.DynamicClientSet) (
 
 		// Create a temp dir.
 		var temp string
-		if temp, err = ioutil.TempDir("", "kustomize-"); err != nil {
+		if temp, err = os.MkdirTemp("", "kustomize-"); err != nil {
 			return nil, errors.Wrap(err, "failed to create temp directory for remote kustomize directory")
 		}
-		defer os.RemoveAll(temp)
+		defer contract.IgnoreError(os.RemoveAll(temp))
 
 		path, err = workspace.RetrieveGitFolder(directory, temp)
 		if err != nil {

@@ -16,7 +16,6 @@ package provider
 
 import (
 	"io"
-	"io/ioutil"
 	"strings"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
@@ -29,7 +28,7 @@ import (
 func decodeYaml(text, defaultNamespace string, clientSet *clients.DynamicClientSet) ([]interface{}, error) {
 	var resources []unstructured.Unstructured
 
-	dec := yaml.NewYAMLOrJSONDecoder(ioutil.NopCloser(strings.NewReader(text)), 128)
+	dec := yaml.NewYAMLOrJSONDecoder(io.NopCloser(strings.NewReader(text)), 128)
 	for {
 		var value map[string]interface{}
 		if err := dec.Decode(&value); err != nil {
