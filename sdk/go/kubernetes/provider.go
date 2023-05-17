@@ -25,9 +25,6 @@ func NewProvider(ctx *pulumi.Context,
 	if args.EnableConfigMapMutable == nil {
 		args.EnableConfigMapMutable = pulumi.BoolPtr(getEnvOrDefault(false, parseEnvBool, "PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE").(bool))
 	}
-	if args.EnableReplaceCRD == nil {
-		args.EnableReplaceCRD = pulumi.BoolPtr(getEnvOrDefault(false, parseEnvBool, "PULUMI_K8S_ENABLE_REPLACE_CRD").(bool))
-	}
 	if args.EnableServerSideApply == nil {
 		args.EnableServerSideApply = pulumi.BoolPtr(getEnvOrDefault(false, parseEnvBool, "PULUMI_K8S_ENABLE_SERVER_SIDE_APPLY").(bool))
 	}
@@ -68,10 +65,6 @@ type providerArgs struct {
 	// 1. This `enableConfigMapMutable` parameter.
 	// 2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.
 	EnableConfigMapMutable *bool `pulumi:"enableConfigMapMutable"`
-	// Obsolete. This option has no effect.
-	//
-	// Deprecated: This option is deprecated, and will be removed in a future release.
-	EnableReplaceCRD *bool `pulumi:"enableReplaceCRD"`
 	// BETA FEATURE - If present and set to true, enable Server-Side Apply mode.
 	// See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
 	// This feature is in developer preview, and is disabled by default.
@@ -119,10 +112,6 @@ type ProviderArgs struct {
 	// 1. This `enableConfigMapMutable` parameter.
 	// 2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.
 	EnableConfigMapMutable pulumi.BoolPtrInput
-	// Obsolete. This option has no effect.
-	//
-	// Deprecated: This option is deprecated, and will be removed in a future release.
-	EnableReplaceCRD pulumi.BoolPtrInput
 	// BETA FEATURE - If present and set to true, enable Server-Side Apply mode.
 	// See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
 	// This feature is in developer preview, and is disabled by default.
