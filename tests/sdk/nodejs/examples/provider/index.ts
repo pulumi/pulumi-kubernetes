@@ -7,7 +7,7 @@ const myk8s = new k8s.Provider("myk8s", {});
 
 // Create a new provider with dry run enabled.
 const myk8s2 = new k8s.Provider("myk8s2", {
-    enableDryRun: true,
+    enableServerSideApply: true,
 });
 
 // Create a Pod using the custom provider

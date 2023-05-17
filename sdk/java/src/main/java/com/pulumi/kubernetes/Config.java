@@ -45,13 +45,6 @@ public final class Config {
         return Codegen.booleanProp("enableConfigMapMutable").config(config).get();
     }
 /**
- * Deprecated. If present and set to true, enable server-side diff calculations.
- * 
- */
-    public Optional<Boolean> enableDryRun() {
-        return Codegen.booleanProp("enableDryRun").config(config).get();
-    }
-/**
  * Obsolete. This option has no effect.
  * 
  */

@@ -19,7 +19,6 @@ class ProviderArgs:
                  context: Optional[pulumi.Input[str]] = None,
                  delete_unreachable: Optional[pulumi.Input[bool]] = None,
                  enable_config_map_mutable: Optional[pulumi.Input[bool]] = None,
-                 enable_dry_run: Optional[pulumi.Input[bool]] = None,
                  enable_replace_crd: Optional[pulumi.Input[bool]] = None,
                  enable_server_side_apply: Optional[pulumi.Input[bool]] = None,
                  helm_release_settings: Optional[pulumi.Input['HelmReleaseSettingsArgs']] = None,
@@ -40,7 +39,6 @@ class ProviderArgs:
                This config can be specified in the following ways using this precedence:
                1. This `enableConfigMapMutable` parameter.
                2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.
-        :param pulumi.Input[bool] enable_dry_run: Deprecated. If present and set to true, enable server-side diff calculations.
         :param pulumi.Input[bool] enable_replace_crd: Obsolete. This option has no effect.
         :param pulumi.Input[bool] enable_server_side_apply: BETA FEATURE - If present and set to true, enable Server-Side Apply mode.
                See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
@@ -75,13 +73,6 @@ class ProviderArgs:
             enable_config_map_mutable = _utilities.get_env_bool('PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE')
         if enable_config_map_mutable is not None:
             pulumi.set(__self__, "enable_config_map_mutable", enable_config_map_mutable)
-        if enable_dry_run is None:
-            enable_dry_run = _utilities.get_env_bool('PULUMI_K8S_ENABLE_DRY_RUN')
-        if enable_dry_run is not None:
-            warnings.warn("""This option has been replaced by `enableServerSideApply`.""", DeprecationWarning)
-            pulumi.log.warn("""enable_dry_run is deprecated: This option has been replaced by `enableServerSideApply`.""")
-        if enable_dry_run is not None:
-            pulumi.set(__self__, "enable_dry_run", enable_dry_run)
         if enable_replace_crd is None:
             enable_replace_crd = _utilities.get_env_bool('PULUMI_K8S_ENABLE_REPLACE_CRD')
         if enable_replace_crd is not None:
@@ -166,18 +157,6 @@ class ProviderArgs:
     @enable_config_map_mutable.setter
     def enable_config_map_mutable(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "enable_config_map_mutable", value)
-
-    @property
-    @pulumi.getter(name="enableDryRun")
-    def enable_dry_run(self) -> Optional[pulumi.Input[bool]]:
-        """
-        Deprecated. If present and set to true, enable server-side diff calculations.
-        """
-        return pulumi.get(self, "enable_dry_run")
-
-    @enable_dry_run.setter
-    def enable_dry_run(self, value: Optional[pulumi.Input[bool]]):
-        pulumi.set(self, "enable_dry_run", value)
 
     @property
     @pulumi.getter(name="enableReplaceCRD")
@@ -311,7 +290,6 @@ class Provider(pulumi.ProviderResource):
                  context: Optional[pulumi.Input[str]] = None,
                  delete_unreachable: Optional[pulumi.Input[bool]] = None,
                  enable_config_map_mutable: Optional[pulumi.Input[bool]] = None,
-                 enable_dry_run: Optional[pulumi.Input[bool]] = None,
                  enable_replace_crd: Optional[pulumi.Input[bool]] = None,
                  enable_server_side_apply: Optional[pulumi.Input[bool]] = None,
                  helm_release_settings: Optional[pulumi.Input[pulumi.InputType['HelmReleaseSettingsArgs']]] = None,
@@ -336,7 +314,6 @@ class Provider(pulumi.ProviderResource):
                This config can be specified in the following ways using this precedence:
                1. This `enableConfigMapMutable` parameter.
                2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.
-        :param pulumi.Input[bool] enable_dry_run: Deprecated. If present and set to true, enable server-side diff calculations.
         :param pulumi.Input[bool] enable_replace_crd: Obsolete. This option has no effect.
         :param pulumi.Input[bool] enable_server_side_apply: BETA FEATURE - If present and set to true, enable Server-Side Apply mode.
                See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
@@ -389,7 +366,6 @@ class Provider(pulumi.ProviderResource):
                  context: Optional[pulumi.Input[str]] = None,
                  delete_unreachable: Optional[pulumi.Input[bool]] = None,
                  enable_config_map_mutable: Optional[pulumi.Input[bool]] = None,
-                 enable_dry_run: Optional[pulumi.Input[bool]] = None,
                  enable_replace_crd: Optional[pulumi.Input[bool]] = None,
                  enable_server_side_apply: Optional[pulumi.Input[bool]] = None,
                  helm_release_settings: Optional[pulumi.Input[pulumi.InputType['HelmReleaseSettingsArgs']]] = None,
@@ -414,12 +390,6 @@ class Provider(pulumi.ProviderResource):
             if enable_config_map_mutable is None:
                 enable_config_map_mutable = _utilities.get_env_bool('PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE')
             __props__.__dict__["enable_config_map_mutable"] = pulumi.Output.from_input(enable_config_map_mutable).apply(pulumi.runtime.to_json) if enable_config_map_mutable is not None else None
-            if enable_dry_run is None:
-                enable_dry_run = _utilities.get_env_bool('PULUMI_K8S_ENABLE_DRY_RUN')
-            if enable_dry_run is not None and not opts.urn:
-                warnings.warn("""This option has been replaced by `enableServerSideApply`.""", DeprecationWarning)
-                pulumi.log.warn("""enable_dry_run is deprecated: This option has been replaced by `enableServerSideApply`.""")
-            __props__.__dict__["enable_dry_run"] = pulumi.Output.from_input(enable_dry_run).apply(pulumi.runtime.to_json) if enable_dry_run is not None else None
             if enable_replace_crd is None:
                 enable_replace_crd = _utilities.get_env_bool('PULUMI_K8S_ENABLE_REPLACE_CRD')
             if enable_replace_crd is not None and not opts.urn:
