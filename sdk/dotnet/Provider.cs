@@ -76,12 +76,6 @@ namespace Pulumi.Kubernetes
         public Input<bool>? EnableConfigMapMutable { get; set; }
 
         /// <summary>
-        /// Deprecated. If present and set to true, enable server-side diff calculations.
-        /// </summary>
-        [Input("enableDryRun", json: true)]
-        public Input<bool>? EnableDryRun { get; set; }
-
-        /// <summary>
         /// Obsolete. This option has no effect.
         /// </summary>
         [Input("enableReplaceCRD", json: true)]
@@ -153,7 +147,6 @@ namespace Pulumi.Kubernetes
         {
             DeleteUnreachable = Utilities.GetEnvBoolean("PULUMI_K8S_DELETE_UNREACHABLE");
             EnableConfigMapMutable = Utilities.GetEnvBoolean("PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE");
-            EnableDryRun = Utilities.GetEnvBoolean("PULUMI_K8S_ENABLE_DRY_RUN");
             EnableReplaceCRD = Utilities.GetEnvBoolean("PULUMI_K8S_ENABLE_REPLACE_CRD");
             EnableServerSideApply = Utilities.GetEnvBoolean("PULUMI_K8S_ENABLE_SERVER_SIDE_APPLY");
             KubeConfig = Utilities.GetEnv("KUBECONFIG");
