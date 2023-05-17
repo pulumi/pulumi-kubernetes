@@ -14,7 +14,7 @@
 from os.path import expanduser
 
 from pulumi_kubernetes.core.v1 import Namespace
-from pulumi_kubernetes.helm.v2 import Chart, ChartOpts, FetchOpts
+from pulumi_kubernetes.helm.v3 import Chart, ChartOpts, FetchOpts
 from pulumi_random import RandomString
 
 namespace = Namespace("test")

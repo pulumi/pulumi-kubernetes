@@ -1,4 +1,4 @@
-// Copyright 2016-2021, Pulumi Corporation.
+// Copyright 2016-2023, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -216,7 +216,6 @@ func writeNodeJSClient(pkg *schema.Package, outdir, templateDir string) {
 	overlays := map[string][]byte{
 		"apiextensions/customResource.ts":      mustLoadFile(filepath.Join(templateDir, "apiextensions", "customResource.ts")),
 		"apiextensions/customResourcePatch.ts": mustLoadFile(filepath.Join(templateDir, "apiextensions", "customResourcePatch.ts")),
-		"helm/v2/helm.ts":                      mustLoadFile(filepath.Join(templateDir, "helm", "v2", "helm.ts")),
 		"helm/v3/helm.ts":                      mustLoadFile(filepath.Join(templateDir, "helm", "v3", "helm.ts")),
 		"kustomize/kustomize.ts":               mustLoadFile(filepath.Join(templateDir, "kustomize", "kustomize.ts")),
 		"yaml/yaml.ts":                         mustRenderTemplate(filepath.Join(templateDir, "yaml", "yaml.tmpl"), templateResources),
@@ -264,7 +263,6 @@ func writePythonClient(pkg *schema.Package, outdir string, templateDir string) {
 	overlays := map[string][]byte{
 		"apiextensions/CustomResource.py":      mustLoadFile(filepath.Join(templateDir, "apiextensions", "CustomResource.py")),
 		"apiextensions/CustomResourcePatch.py": mustLoadFile(filepath.Join(templateDir, "apiextensions", "CustomResourcePatch.py")),
-		"helm/v2/helm.py":                      mustLoadFile(filepath.Join(templateDir, "helm", "v2", "helm.py")),
 		"helm/v3/helm.py":                      mustLoadFile(filepath.Join(templateDir, "helm", "v3", "helm.py")),
 		"kustomize/kustomize.py":               mustLoadFile(filepath.Join(templateDir, "kustomize", "kustomize.py")),
 		"yaml/yaml.py":                         mustRenderTemplate(filepath.Join(templateDir, "yaml", "yaml.tmpl"), templateResources),
@@ -307,7 +305,6 @@ func writeDotnetClient(pkg *schema.Package, outdir, templateDir string) {
 		"ApiExtensions/CustomResourcePatch.cs": mustLoadFile(filepath.Join(templateDir, "apiextensions", "CustomResourcePatch.cs")),
 		"Helm/ChartBase.cs":                    mustLoadFile(filepath.Join(templateDir, "helm", "ChartBase.cs")),
 		"Helm/Unwraps.cs":                      mustLoadFile(filepath.Join(templateDir, "helm", "Unwraps.cs")),
-		"Helm/V2/Chart.cs":                     mustLoadFile(filepath.Join(templateDir, "helm", "v2", "Chart.cs")),
 		"Helm/V3/Chart.cs":                     mustLoadFile(filepath.Join(templateDir, "helm", "v3", "Chart.cs")),
 		"Helm/V3/Invokes.cs":                   mustLoadFile(filepath.Join(templateDir, "helm", "v3", "Invokes.cs")),
 		"Kustomize/Directory.cs":               mustLoadFile(filepath.Join(templateDir, "kustomize", "Directory.cs")),
@@ -392,8 +389,6 @@ func writeGoClient(pkg *schema.Package, outdir string, templateDir string) {
 	files["kubernetes/customPulumiTypes.go"] = mustLoadGoFile(filepath.Join(templateDir, "customPulumiTypes.go"))
 	files["kubernetes/apiextensions/customResource.go"] = mustLoadGoFile(filepath.Join(templateDir, "apiextensions", "customResource.go"))
 	files["kubernetes/apiextensions/customResourcePatch.go"] = mustLoadGoFile(filepath.Join(templateDir, "apiextensions", "customResourcePatch.go"))
-	files["kubernetes/helm/v2/chart.go"] = mustLoadGoFile(filepath.Join(templateDir, "helm", "v2", "chart.go"))
-	files["kubernetes/helm/v2/pulumiTypes.go"] = mustLoadGoFile(filepath.Join(templateDir, "helm", "v2", "pulumiTypes.go"))
 	files["kubernetes/helm/v3/chart.go"] = mustLoadGoFile(filepath.Join(templateDir, "helm", "v3", "chart.go"))
 	// Rename pulumiTypes.go to avoid conflict with schema generated Helm Release types.
 	files["kubernetes/helm/v3/chartPulumiTypes.go"] = mustLoadGoFile(filepath.Join(templateDir, "helm", "v3", "pulumiTypes.go"))

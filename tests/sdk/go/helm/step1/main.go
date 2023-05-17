@@ -2,7 +2,7 @@ package main
 
 import (
 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/core/v1"
-	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v2"
+	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v3"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 

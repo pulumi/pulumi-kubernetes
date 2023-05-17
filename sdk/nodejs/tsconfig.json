@@ -275,8 +275,6 @@
         "flowcontrol/v1beta3/priorityLevelConfigurationList.ts",
         "flowcontrol/v1beta3/priorityLevelConfigurationPatch.ts",
         "helm/index.ts",
-        "helm/v2/helm.ts",
-        "helm/v2/index.ts",
         "helm/v3/helm.ts",
         "helm/v3/index.ts",
         "helm/v3/release.ts",
