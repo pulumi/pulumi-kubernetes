@@ -90,29 +90,6 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Deprecated. If present and set to true, enable server-side diff calculations.
-     * 
-     * @deprecated
-     * This option has been replaced by `enableServerSideApply`.
-     * 
-     */
-    @Deprecated /* This option has been replaced by `enableServerSideApply`. */
-    @Import(name="enableDryRun", json=true)
-    private @Nullable Output<Boolean> enableDryRun;
-
-    /**
-     * @return Deprecated. If present and set to true, enable server-side diff calculations.
-     * 
-     * @deprecated
-     * This option has been replaced by `enableServerSideApply`.
-     * 
-     */
-    @Deprecated /* This option has been replaced by `enableServerSideApply`. */
-    public Optional<Output<Boolean>> enableDryRun() {
-        return Optional.ofNullable(this.enableDryRun);
-    }
-
-    /**
      * Obsolete. This option has no effect.
      * 
      * @deprecated
@@ -290,7 +267,6 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
         this.context = $.context;
         this.deleteUnreachable = $.deleteUnreachable;
         this.enableConfigMapMutable = $.enableConfigMapMutable;
-        this.enableDryRun = $.enableDryRun;
         this.enableReplaceCRD = $.enableReplaceCRD;
         this.enableServerSideApply = $.enableServerSideApply;
         this.helmReleaseSettings = $.helmReleaseSettings;
@@ -412,35 +388,6 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder enableConfigMapMutable(Boolean enableConfigMapMutable) {
             return enableConfigMapMutable(Output.of(enableConfigMapMutable));
-        }
-
-        /**
-         * @param enableDryRun Deprecated. If present and set to true, enable server-side diff calculations.
-         * 
-         * @return builder
-         * 
-         * @deprecated
-         * This option has been replaced by `enableServerSideApply`.
-         * 
-         */
-        @Deprecated /* This option has been replaced by `enableServerSideApply`. */
-        public Builder enableDryRun(@Nullable Output<Boolean> enableDryRun) {
-            $.enableDryRun = enableDryRun;
-            return this;
-        }
-
-        /**
-         * @param enableDryRun Deprecated. If present and set to true, enable server-side diff calculations.
-         * 
-         * @return builder
-         * 
-         * @deprecated
-         * This option has been replaced by `enableServerSideApply`.
-         * 
-         */
-        @Deprecated /* This option has been replaced by `enableServerSideApply`. */
-        public Builder enableDryRun(Boolean enableDryRun) {
-            return enableDryRun(Output.of(enableDryRun));
         }
 
         /**
@@ -671,7 +618,6 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
         public ProviderArgs build() {
             $.deleteUnreachable = Codegen.booleanProp("deleteUnreachable").output().arg($.deleteUnreachable).env("PULUMI_K8S_DELETE_UNREACHABLE").getNullable();
             $.enableConfigMapMutable = Codegen.booleanProp("enableConfigMapMutable").output().arg($.enableConfigMapMutable).env("PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE").getNullable();
-            $.enableDryRun = Codegen.booleanProp("enableDryRun").output().arg($.enableDryRun).env("PULUMI_K8S_ENABLE_DRY_RUN").getNullable();
             $.enableReplaceCRD = Codegen.booleanProp("enableReplaceCRD").output().arg($.enableReplaceCRD).env("PULUMI_K8S_ENABLE_REPLACE_CRD").getNullable();
             $.enableServerSideApply = Codegen.booleanProp("enableServerSideApply").output().arg($.enableServerSideApply).env("PULUMI_K8S_ENABLE_SERVER_SIDE_APPLY").getNullable();
             $.kubeconfig = Codegen.stringProp("kubeconfig").output().arg($.kubeconfig).env("KUBECONFIG").getNullable();

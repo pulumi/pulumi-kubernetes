@@ -41,7 +41,6 @@ export class Provider extends pulumi.ProviderResource {
             resourceInputs["context"] = args ? args.context : undefined;
             resourceInputs["deleteUnreachable"] = pulumi.output((args ? args.deleteUnreachable : undefined) ?? utilities.getEnvBoolean("PULUMI_K8S_DELETE_UNREACHABLE")).apply(JSON.stringify);
             resourceInputs["enableConfigMapMutable"] = pulumi.output((args ? args.enableConfigMapMutable : undefined) ?? utilities.getEnvBoolean("PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE")).apply(JSON.stringify);
-            resourceInputs["enableDryRun"] = pulumi.output((args ? args.enableDryRun : undefined) ?? utilities.getEnvBoolean("PULUMI_K8S_ENABLE_DRY_RUN")).apply(JSON.stringify);
             resourceInputs["enableReplaceCRD"] = pulumi.output((args ? args.enableReplaceCRD : undefined) ?? utilities.getEnvBoolean("PULUMI_K8S_ENABLE_REPLACE_CRD")).apply(JSON.stringify);
             resourceInputs["enableServerSideApply"] = pulumi.output((args ? args.enableServerSideApply : undefined) ?? utilities.getEnvBoolean("PULUMI_K8S_ENABLE_SERVER_SIDE_APPLY")).apply(JSON.stringify);
             resourceInputs["helmReleaseSettings"] = pulumi.output(args ? (args.helmReleaseSettings ? pulumi.output(args.helmReleaseSettings).apply(inputs.helmReleaseSettingsProvideDefaults) : undefined) : undefined).apply(JSON.stringify);
@@ -82,12 +81,6 @@ export interface ProviderArgs {
      * 2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.
      */
     enableConfigMapMutable?: pulumi.Input<boolean>;
-    /**
-     * Deprecated. If present and set to true, enable server-side diff calculations.
-     *
-     * @deprecated This option has been replaced by `enableServerSideApply`.
-     */
-    enableDryRun?: pulumi.Input<boolean>;
     /**
      * Obsolete. This option has no effect.
      *

@@ -127,7 +127,6 @@ type kubeProvider struct {
 	defaultNamespace string
 
 	deleteUnreachable           bool
-	enableDryRun                bool
 	enableConfigMapMutable      bool
 	enableSecrets               bool
 	suppressDeprecationWarnings bool
@@ -464,22 +463,6 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		k.deleteUnreachable = true
 	}
 
-	enableDryRun := func() bool {
-		// If the provider flag is set, use that value to determine behavior. This will override the ENV var.
-		if enabled, exists := vars["kubernetes:config:enableDryRun"]; exists {
-			return enabled == trueStr
-		}
-		// If the provider flag is not set, fall back to the ENV var.
-		if enabled, exists := os.LookupEnv("PULUMI_K8S_ENABLE_DRY_RUN"); exists {
-			return enabled == trueStr
-		}
-		// Default to false.
-		return false
-	}
-	if enableDryRun() {
-		k.enableDryRun = true
-	}
-
 	enableServerSideApply := func() bool {
 		// If the provider flag is set, use that value to determine behavior. This will override the ENV var.
 		if enabled, exists := vars["kubernetes:config:enableServerSideApply"]; exists {
@@ -493,7 +476,6 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 		return false
 	}
 	if enableServerSideApply() {
-		k.enableDryRun = true
 		k.serverSideApplyMode = true
 	}
 
@@ -1859,7 +1841,7 @@ func (k *kubeProvider) Create(
 				failedPreview = true
 			}
 
-			if k.enableDryRun && apierrors.IsAlreadyExists(awaitErr) {
+			if k.serverSideApplyMode && errors.IsAlreadyExists(awaitErr) {
 				failedPreview = true
 			}
 
@@ -2765,7 +2747,7 @@ func (k *kubeProvider) inputPatch(
 
 func (k *kubeProvider) supportsDryRun(gvk schema.GroupVersionKind) bool {
 	// Check to see if the configuration has explicitly disabled server-side dry run.
-	if !k.enableDryRun {
+	if !k.serverSideApplyMode {
 		logger.V(9).Infof("dry run is disabled")
 		return false
 	}

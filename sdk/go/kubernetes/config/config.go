@@ -33,13 +33,6 @@ func GetEnableConfigMapMutable(ctx *pulumi.Context) bool {
 	return config.GetBool(ctx, "kubernetes:enableConfigMapMutable")
 }
 
-// Deprecated. If present and set to true, enable server-side diff calculations.
-//
-// Deprecated: This option has been replaced by `enableServerSideApply`.
-func GetEnableDryRun(ctx *pulumi.Context) bool {
-	return config.GetBool(ctx, "kubernetes:enableDryRun")
-}
-
 // Obsolete. This option has no effect.
 //
 // Deprecated: This option is deprecated, and will be removed in a future release.

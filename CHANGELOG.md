@@ -1,5 +1,12 @@
 ## Unreleased
 
+Breaking changes:
+
+- Enable Server-side Apply by default (https://github.com/pulumi/pulumi-kubernetes/pull/2398)
+- Remove deprecated enableDryRun provider flag (https://github.com/pulumi/pulumi-kubernetes/pull/2400)
+
+Additional changes:
+
 ## 3.30.2 (July 11, 2023)
 
 - Improve deleteUnreachable workflow for unreachable clusters (https://github.com/pulumi/pulumi-kubernetes/pull/2489)

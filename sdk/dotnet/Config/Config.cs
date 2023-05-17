@@ -77,16 +77,6 @@ namespace Pulumi.Kubernetes
             set => _enableConfigMapMutable.Set(value);
         }
 
-        private static readonly __Value<bool?> _enableDryRun = new __Value<bool?>(() => __config.GetBoolean("enableDryRun"));
-        /// <summary>
-        /// Deprecated. If present and set to true, enable server-side diff calculations.
-        /// </summary>
-        public static bool? EnableDryRun
-        {
-            get => _enableDryRun.Get();
-            set => _enableDryRun.Set(value);
-        }
-
         private static readonly __Value<bool?> _enableReplaceCRD = new __Value<bool?>(() => __config.GetBoolean("enableReplaceCRD"));
         /// <summary>
         /// Obsolete. This option has no effect.

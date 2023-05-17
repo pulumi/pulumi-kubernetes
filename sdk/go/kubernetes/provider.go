@@ -32,11 +32,6 @@ func NewProvider(ctx *pulumi.Context,
 			args.EnableConfigMapMutable = pulumi.BoolPtr(d.(bool))
 		}
 	}
-	if args.EnableDryRun == nil {
-		if d := getEnvOrDefault(nil, parseEnvBool, "PULUMI_K8S_ENABLE_DRY_RUN"); d != nil {
-			args.EnableDryRun = pulumi.BoolPtr(d.(bool))
-		}
-	}
 	if args.EnableReplaceCRD == nil {
 		if d := getEnvOrDefault(nil, parseEnvBool, "PULUMI_K8S_ENABLE_REPLACE_CRD"); d != nil {
 			args.EnableReplaceCRD = pulumi.BoolPtr(d.(bool))
@@ -90,10 +85,6 @@ type providerArgs struct {
 	// 1. This `enableConfigMapMutable` parameter.
 	// 2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.
 	EnableConfigMapMutable *bool `pulumi:"enableConfigMapMutable"`
-	// Deprecated. If present and set to true, enable server-side diff calculations.
-	//
-	// Deprecated: This option has been replaced by `enableServerSideApply`.
-	EnableDryRun *bool `pulumi:"enableDryRun"`
 	// Obsolete. This option has no effect.
 	//
 	// Deprecated: This option is deprecated, and will be removed in a future release.
@@ -145,10 +136,6 @@ type ProviderArgs struct {
 	// 1. This `enableConfigMapMutable` parameter.
 	// 2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.
 	EnableConfigMapMutable pulumi.BoolPtrInput
-	// Deprecated. If present and set to true, enable server-side diff calculations.
-	//
-	// Deprecated: This option has been replaced by `enableServerSideApply`.
-	EnableDryRun pulumi.BoolPtrInput
 	// Obsolete. This option has no effect.
 	//
 	// Deprecated: This option is deprecated, and will be removed in a future release.
