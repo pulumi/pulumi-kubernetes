@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Pulumi;
 using Pulumi.Kubernetes.Core.V1;
 using Pulumi.Kubernetes.Helm;
-using Pulumi.Kubernetes.Helm.V2;
+using Pulumi.Kubernetes.Helm.V3;
 
 class HelmStack : Stack
 {

@@ -1,6 +1,7 @@
 ## Unreleased
 
 - Handle resource change from static name to autoname under SSA (https://github.com/pulumi/pulumi-kubernetes/pull/2392)
+- Remove deprecated helm/v2 SDK (https://github.com/pulumi/pulumi-kubernetes/pull/2396)
 
 ## 3.27.1 (May 11, 2023)
 

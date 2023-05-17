@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 from pulumi_kubernetes.core.v1 import Namespace
-from pulumi_kubernetes.helm.v2 import Chart, LocalChartOpts
+from pulumi_kubernetes.helm.v3 import Chart, LocalChartOpts
 
 namespace = Namespace("test")
 

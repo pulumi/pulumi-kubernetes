@@ -1,4 +1,4 @@
-// Copyright 2016-2022, Pulumi Corporation.
+// Copyright 2016-2023, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -106,13 +106,6 @@ func TestGo(t *testing.T) {
 					}
 				}
 			},
-			EditDirs: []integration.EditDir{
-				{
-					Dir:             filepath.Join(cwd, "helm-local", "step2"),
-					Additive:        true,
-					ExpectNoChanges: true,
-				},
-			},
 		})
 		integration.ProgramTest(t, &options)
 	})
@@ -159,13 +152,6 @@ func TestGo(t *testing.T) {
 		options := baseOptions.With(integration.ProgramTestOptions{
 			Dir:   filepath.Join(cwd, "helm", "step1"),
 			Quick: true,
-			EditDirs: []integration.EditDir{
-				{
-					Dir:             filepath.Join("helm", "step2"),
-					Additive:        true,
-					ExpectNoChanges: true,
-				},
-			},
 		})
 		integration.ProgramTest(t, &options)
 	})
@@ -227,13 +213,6 @@ func TestGo(t *testing.T) {
 		options := baseOptions.With(integration.ProgramTestOptions{
 			Dir:   filepath.Join(cwd, "helm-api-versions", "step1"),
 			Quick: true,
-			EditDirs: []integration.EditDir{
-				{
-					Dir:             filepath.Join("helm-api-versions", "step2"),
-					Additive:        true,
-					ExpectNoChanges: true,
-				},
-			},
 		})
 		integration.ProgramTest(t, &options)
 	})

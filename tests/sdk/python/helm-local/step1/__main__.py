@@ -14,7 +14,7 @@
 
 import pulumi
 from pulumi_kubernetes.core.v1 import ConfigMap, ConfigMapInitArgs
-from pulumi_kubernetes.helm.v2 import Chart, LocalChartOpts
+from pulumi_kubernetes.helm.v3 import Chart, LocalChartOpts
 
 values = {"service": {"type": "ClusterIP"}}
 

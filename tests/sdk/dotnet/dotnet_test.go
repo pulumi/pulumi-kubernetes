@@ -1,4 +1,4 @@
-// Copyright 2016-2022, Pulumi Corporation.
+// Copyright 2016-2023, Pulumi Corporation.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -90,12 +90,6 @@ func TestDotnet_YamlLocal(t *testing.T) {
 				Path:  true,
 			},
 		},
-		ExtraRuntimeValidation: func(
-			t *testing.T, stackInfo integration.RuntimeValidationStackInfo,
-		) {
-			assert.NotNil(t, stackInfo.Deployment)
-			assert.Equal(t, 7, len(stackInfo.Deployment.Resources))
-		},
 	})
 	integration.ProgramTest(t, &test)
 }
@@ -117,13 +111,6 @@ func TestDotnet_Helm(t *testing.T) {
 					assert.Equal(t, resource.SecretSig, sigKey)
 				}
 			}
-		},
-		EditDirs: []integration.EditDir{
-			{
-				Dir:             filepath.Join("helm", "step2"),
-				Additive:        true,
-				ExpectNoChanges: true,
-			},
 		},
 	})
 	integration.ProgramTest(t, &test)
@@ -189,13 +176,6 @@ func TestDotnet_HelmApiVersions(t *testing.T) {
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			assert.NotNil(t, stackInfo.Deployment)
 			assert.Equal(t, 7, len(stackInfo.Deployment.Resources))
-		},
-		EditDirs: []integration.EditDir{
-			{
-				Dir:             filepath.Join("helm-api-versions", "step2"),
-				Additive:        true,
-				ExpectNoChanges: true,
-			},
 		},
 	})
 	integration.ProgramTest(t, &test)
