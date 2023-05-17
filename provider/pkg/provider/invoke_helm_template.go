@@ -16,7 +16,6 @@ package provider
 
 import (
 	"fmt"
-	"io/ioutil"
 	"net/url"
 	"os"
 	"path/filepath"
@@ -25,6 +24,7 @@ import (
 
 	pkgerrors "github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	"helm.sh/helm/v3/pkg/action"
 	"helm.sh/helm/v3/pkg/chart/loader"
@@ -37,7 +37,7 @@ import (
 )
 
 // testHookAnnotation matches test-related Helm hook annotations (test, test-success, test-failure)
-var testHookAnnotation = regexp.MustCompile(`"?helm.sh\/hook"?:.*test`)
+var testHookAnnotation = regexp.MustCompile(`"?helm.sh/hook"?:.*test`)
 
 type HelmFetchOpts struct {
 	CAFile      string `json:"ca_file,omitempty"`
@@ -76,11 +76,11 @@ type HelmChartOpts struct {
 // helmTemplate performs Helm fetch/pull + template operations and returns the resulting YAML manifest based on the
 // provided chart options.
 func helmTemplate(opts HelmChartOpts, clientSet *clients.DynamicClientSet) (string, error) {
-	tempDir, err := ioutil.TempDir("", "helm")
+	tempDir, err := os.MkdirTemp("", "helm")
 	if err != nil {
 		return "", err
 	}
-	defer os.RemoveAll(tempDir)
+	defer contract.IgnoreError(os.RemoveAll(tempDir))
 	logger.V(9).Infof("Will download to: %q", tempDir)
 	chart := &chart{
 		opts:     opts,

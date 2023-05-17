@@ -4,11 +4,12 @@ Breaking changes:
 
 - Enable Server-side Apply by default (https://github.com/pulumi/pulumi-kubernetes/pull/2398)
 - Remove deprecated enableDryRun provider flag (https://github.com/pulumi/pulumi-kubernetes/pull/2400)
+- Remove deprecated helm/v2 SDK (https://github.com/pulumi/pulumi-kubernetes/pull/2396)
 
 Additional changes:
 
 - Handle resource change from static name to autoname under SSA (https://github.com/pulumi/pulumi-kubernetes/pull/2392)
-- Remove deprecated helm/v2 SDK (https://github.com/pulumi/pulumi-kubernetes/pull/2396)
+- Fix Helm release creation when the name of the chart conflicts with the name of a folder in the current working directory (https://github.com/pulumi/pulumi-kubernetes/pull/2410)
 
 ## 3.27.1 (May 11, 2023)
 

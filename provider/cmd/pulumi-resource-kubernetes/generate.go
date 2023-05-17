@@ -19,7 +19,6 @@ package main
 
 import (
 	"encoding/json"
-	"io/ioutil"
 	"log"
 	"os"
 
@@ -32,7 +31,7 @@ func main() {
 		log.Fatal("version not found")
 	}
 
-	schemaContents, err := ioutil.ReadFile("./schema.json")
+	schemaContents, err := os.ReadFile("./schema.json")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -49,7 +48,7 @@ func main() {
 		log.Fatalf("cannot reserialize schema: %v", err)
 	}
 
-	err = ioutil.WriteFile("./schema-embed.json", versionedContents, 0600)
+	err = os.WriteFile("./schema-embed.json", versionedContents, 0600)
 	if err != nil {
 		log.Fatal(err)
 	}

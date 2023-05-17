@@ -203,7 +203,3 @@ func RetryableError(err error) *RetryError {
 	}
 	return &RetryError{Err: err, Retryable: true}
 }
-
-func init() {
-	rand.Seed(time.Now().UTC().UnixNano())
-}

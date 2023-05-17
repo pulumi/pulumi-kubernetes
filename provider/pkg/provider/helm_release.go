@@ -633,7 +633,7 @@ func adoptOldNameIfUnnamed(new, old resource.PropertyMap) {
 	if _, ok := new["name"]; ok {
 		return
 	}
-	contract.Assert(old["name"].StringValue() != "")
+	contract.Assertf(old["name"].StringValue() != "", "expected 'name' value to be nonempty: %v", old)
 	new["name"] = old["name"]
 }
 
@@ -642,7 +642,7 @@ func assignNameIfAutonameable(pm resource.PropertyMap, urn resource.URN) {
 	if !ok || (name.IsString() && name.StringValue() == "") {
 		prefix := urn.Name().String() + "-"
 		autoname, err := resource.NewUniqueHex(prefix, 0, 0)
-		contract.AssertNoError(err)
+		contract.AssertNoErrorf(err, "unexpected error while executing NewUniqueHex")
 		pm["name"] = resource.NewStringProperty(autoname)
 	}
 }
@@ -966,7 +966,7 @@ func (r *helmReleaseProvider) Read(ctx context.Context, req *pulumirpc.ReadReque
 
 func (r *helmReleaseProvider) serializeImportInputs(release *Release) resource.PropertyMap {
 	inputs := resource.NewPropertyMap(release)
-	delete(inputs, resource.PropertyKey("status"))
+	delete(inputs, "status")
 	return inputs
 }
 
@@ -1403,7 +1403,7 @@ func locateChart(cpo *action.ChartPathOptions, registryClient *registry.Client, 
 	name = strings.TrimSpace(name)
 	version := strings.TrimSpace(cpo.Version)
 
-	if _, err := os.Stat(name); err == nil {
+	if _, err := os.Stat(filepath.Join(name, "Chart.yaml")); err == nil {
 		abs, err := filepath.Abs(name)
 		if err != nil {
 			return abs, err

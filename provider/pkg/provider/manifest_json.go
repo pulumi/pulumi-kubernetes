@@ -4,10 +4,10 @@ package provider
 
 import (
 	"fmt"
-	"github.com/pulumi/pulumi/pkg/v3/codegen"
-	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	"strings"
 
+	"github.com/pulumi/pulumi/pkg/v3/codegen"
+	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	"golang.org/x/crypto/sha3"
 	"helm.sh/helm/v3/pkg/releaseutil"
 	corev1 "k8s.io/api/core/v1"
