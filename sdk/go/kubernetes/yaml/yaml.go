@@ -39,11 +39,6 @@ import (
 	appsv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/apps/v1beta1"
 	appsv1beta2 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/apps/v1beta2"
 	auditregistrationv1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/auditregistration/v1alpha1"
-	authenticationv1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/authentication/v1"
-	authenticationv1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/authentication/v1alpha1"
-	authenticationv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/authentication/v1beta1"
-	authorizationv1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/authorization/v1"
-	authorizationv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/authorization/v1beta1"
 	autoscalingv1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/autoscaling/v1"
 	autoscalingv2 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/autoscaling/v2"
 	autoscalingv2beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/autoscaling/v2beta1"
@@ -586,97 +581,6 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 	case "auditregistration.k8s.io/v1alpha1/AuditSink":
 		var res auditregistrationv1alpha1.AuditSink
 		err := ctx.RegisterResource("kubernetes:auditregistration.k8s.io/v1alpha1:AuditSink", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resourceTuple{{Name: key, Resource: &res}}, nil
-	case "authentication.k8s.io/v1/TokenRequest":
-		var res authenticationv1.TokenRequest
-		err := ctx.RegisterResource("kubernetes:authentication.k8s.io/v1:TokenRequest", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resourceTuple{{Name: key, Resource: &res}}, nil
-	case "authentication.k8s.io/v1/TokenReview":
-		var res authenticationv1.TokenReview
-		err := ctx.RegisterResource("kubernetes:authentication.k8s.io/v1:TokenReview", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resourceTuple{{Name: key, Resource: &res}}, nil
-	case "authentication.k8s.io/v1alpha1/SelfSubjectReview":
-		var res authenticationv1alpha1.SelfSubjectReview
-		err := ctx.RegisterResource("kubernetes:authentication.k8s.io/v1alpha1:SelfSubjectReview", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resourceTuple{{Name: key, Resource: &res}}, nil
-	case "authentication.k8s.io/v1beta1/SelfSubjectReview":
-		var res authenticationv1beta1.SelfSubjectReview
-		err := ctx.RegisterResource("kubernetes:authentication.k8s.io/v1beta1:SelfSubjectReview", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resourceTuple{{Name: key, Resource: &res}}, nil
-	case "authentication.k8s.io/v1beta1/TokenReview":
-		var res authenticationv1beta1.TokenReview
-		err := ctx.RegisterResource("kubernetes:authentication.k8s.io/v1beta1:TokenReview", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resourceTuple{{Name: key, Resource: &res}}, nil
-	case "authorization.k8s.io/v1/LocalSubjectAccessReview":
-		var res authorizationv1.LocalSubjectAccessReview
-		err := ctx.RegisterResource("kubernetes:authorization.k8s.io/v1:LocalSubjectAccessReview", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resourceTuple{{Name: key, Resource: &res}}, nil
-	case "authorization.k8s.io/v1/SelfSubjectAccessReview":
-		var res authorizationv1.SelfSubjectAccessReview
-		err := ctx.RegisterResource("kubernetes:authorization.k8s.io/v1:SelfSubjectAccessReview", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resourceTuple{{Name: key, Resource: &res}}, nil
-	case "authorization.k8s.io/v1/SelfSubjectRulesReview":
-		var res authorizationv1.SelfSubjectRulesReview
-		err := ctx.RegisterResource("kubernetes:authorization.k8s.io/v1:SelfSubjectRulesReview", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resourceTuple{{Name: key, Resource: &res}}, nil
-	case "authorization.k8s.io/v1/SubjectAccessReview":
-		var res authorizationv1.SubjectAccessReview
-		err := ctx.RegisterResource("kubernetes:authorization.k8s.io/v1:SubjectAccessReview", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resourceTuple{{Name: key, Resource: &res}}, nil
-	case "authorization.k8s.io/v1beta1/LocalSubjectAccessReview":
-		var res authorizationv1beta1.LocalSubjectAccessReview
-		err := ctx.RegisterResource("kubernetes:authorization.k8s.io/v1beta1:LocalSubjectAccessReview", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resourceTuple{{Name: key, Resource: &res}}, nil
-	case "authorization.k8s.io/v1beta1/SelfSubjectAccessReview":
-		var res authorizationv1beta1.SelfSubjectAccessReview
-		err := ctx.RegisterResource("kubernetes:authorization.k8s.io/v1beta1:SelfSubjectAccessReview", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resourceTuple{{Name: key, Resource: &res}}, nil
-	case "authorization.k8s.io/v1beta1/SelfSubjectRulesReview":
-		var res authorizationv1beta1.SelfSubjectRulesReview
-		err := ctx.RegisterResource("kubernetes:authorization.k8s.io/v1beta1:SelfSubjectRulesReview", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
-		if err != nil {
-			return nil, err
-		}
-		return []resourceTuple{{Name: key, Resource: &res}}, nil
-	case "authorization.k8s.io/v1beta1/SubjectAccessReview":
-		var res authorizationv1beta1.SubjectAccessReview
-		err := ctx.RegisterResource("kubernetes:authorization.k8s.io/v1beta1:SubjectAccessReview", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}

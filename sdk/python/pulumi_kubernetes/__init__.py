@@ -20,10 +20,6 @@ if typing.TYPE_CHECKING:
     apps = __apps
     import pulumi_kubernetes.auditregistration as __auditregistration
     auditregistration = __auditregistration
-    import pulumi_kubernetes.authentication as __authentication
-    authentication = __authentication
-    import pulumi_kubernetes.authorization as __authorization
-    authorization = __authorization
     import pulumi_kubernetes.autoscaling as __autoscaling
     autoscaling = __autoscaling
     import pulumi_kubernetes.batch as __batch
@@ -72,8 +68,6 @@ else:
     apiregistration = _utilities.lazy_import('pulumi_kubernetes.apiregistration')
     apps = _utilities.lazy_import('pulumi_kubernetes.apps')
     auditregistration = _utilities.lazy_import('pulumi_kubernetes.auditregistration')
-    authentication = _utilities.lazy_import('pulumi_kubernetes.authentication')
-    authorization = _utilities.lazy_import('pulumi_kubernetes.authorization')
     autoscaling = _utilities.lazy_import('pulumi_kubernetes.autoscaling')
     batch = _utilities.lazy_import('pulumi_kubernetes.batch')
     certificates = _utilities.lazy_import('pulumi_kubernetes.certificates')
@@ -246,67 +240,6 @@ _utilities.register(
    "kubernetes:auditregistration.k8s.io/v1alpha1:AuditSink": "AuditSink",
    "kubernetes:auditregistration.k8s.io/v1alpha1:AuditSinkList": "AuditSinkList",
    "kubernetes:auditregistration.k8s.io/v1alpha1:AuditSinkPatch": "AuditSinkPatch"
-  }
- },
- {
-  "pkg": "kubernetes",
-  "mod": "authentication.k8s.io/v1",
-  "fqn": "pulumi_kubernetes.authentication.v1",
-  "classes": {
-   "kubernetes:authentication.k8s.io/v1:TokenRequest": "TokenRequest",
-   "kubernetes:authentication.k8s.io/v1:TokenRequestPatch": "TokenRequestPatch",
-   "kubernetes:authentication.k8s.io/v1:TokenReview": "TokenReview",
-   "kubernetes:authentication.k8s.io/v1:TokenReviewPatch": "TokenReviewPatch"
-  }
- },
- {
-  "pkg": "kubernetes",
-  "mod": "authentication.k8s.io/v1alpha1",
-  "fqn": "pulumi_kubernetes.authentication.v1alpha1",
-  "classes": {
-   "kubernetes:authentication.k8s.io/v1alpha1:SelfSubjectReview": "SelfSubjectReview",
-   "kubernetes:authentication.k8s.io/v1alpha1:SelfSubjectReviewPatch": "SelfSubjectReviewPatch"
-  }
- },
- {
-  "pkg": "kubernetes",
-  "mod": "authentication.k8s.io/v1beta1",
-  "fqn": "pulumi_kubernetes.authentication.v1beta1",
-  "classes": {
-   "kubernetes:authentication.k8s.io/v1beta1:SelfSubjectReview": "SelfSubjectReview",
-   "kubernetes:authentication.k8s.io/v1beta1:SelfSubjectReviewPatch": "SelfSubjectReviewPatch",
-   "kubernetes:authentication.k8s.io/v1beta1:TokenReview": "TokenReview",
-   "kubernetes:authentication.k8s.io/v1beta1:TokenReviewPatch": "TokenReviewPatch"
-  }
- },
- {
-  "pkg": "kubernetes",
-  "mod": "authorization.k8s.io/v1",
-  "fqn": "pulumi_kubernetes.authorization.v1",
-  "classes": {
-   "kubernetes:authorization.k8s.io/v1:LocalSubjectAccessReview": "LocalSubjectAccessReview",
-   "kubernetes:authorization.k8s.io/v1:LocalSubjectAccessReviewPatch": "LocalSubjectAccessReviewPatch",
-   "kubernetes:authorization.k8s.io/v1:SelfSubjectAccessReview": "SelfSubjectAccessReview",
-   "kubernetes:authorization.k8s.io/v1:SelfSubjectAccessReviewPatch": "SelfSubjectAccessReviewPatch",
-   "kubernetes:authorization.k8s.io/v1:SelfSubjectRulesReview": "SelfSubjectRulesReview",
-   "kubernetes:authorization.k8s.io/v1:SelfSubjectRulesReviewPatch": "SelfSubjectRulesReviewPatch",
-   "kubernetes:authorization.k8s.io/v1:SubjectAccessReview": "SubjectAccessReview",
-   "kubernetes:authorization.k8s.io/v1:SubjectAccessReviewPatch": "SubjectAccessReviewPatch"
-  }
- },
- {
-  "pkg": "kubernetes",
-  "mod": "authorization.k8s.io/v1beta1",
-  "fqn": "pulumi_kubernetes.authorization.v1beta1",
-  "classes": {
-   "kubernetes:authorization.k8s.io/v1beta1:LocalSubjectAccessReview": "LocalSubjectAccessReview",
-   "kubernetes:authorization.k8s.io/v1beta1:LocalSubjectAccessReviewPatch": "LocalSubjectAccessReviewPatch",
-   "kubernetes:authorization.k8s.io/v1beta1:SelfSubjectAccessReview": "SelfSubjectAccessReview",
-   "kubernetes:authorization.k8s.io/v1beta1:SelfSubjectAccessReviewPatch": "SelfSubjectAccessReviewPatch",
-   "kubernetes:authorization.k8s.io/v1beta1:SelfSubjectRulesReview": "SelfSubjectRulesReview",
-   "kubernetes:authorization.k8s.io/v1beta1:SelfSubjectRulesReviewPatch": "SelfSubjectRulesReviewPatch",
-   "kubernetes:authorization.k8s.io/v1beta1:SubjectAccessReview": "SubjectAccessReview",
-   "kubernetes:authorization.k8s.io/v1beta1:SubjectAccessReviewPatch": "SubjectAccessReviewPatch"
   }
  },
  {

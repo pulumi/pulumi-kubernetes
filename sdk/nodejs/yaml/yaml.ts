@@ -24,8 +24,6 @@ import * as apiextensions from "../apiextensions";
 import * as apiregistration from "../apiregistration";
 import * as apps from "../apps";
 import * as auditregistration from "../auditregistration";
-import * as authentication from "../authentication";
-import * as authorization from "../authorization";
 import * as autoscaling from "../autoscaling";
 import * as batch from "../batch";
 import * as certificates from "../certificates";
@@ -160,32 +158,6 @@ export abstract class CollectionComponentResource extends pulumi.ComponentResour
     public getResource(groupVersionKind: "auditregistration.k8s.io/v1alpha1/AuditSink", namespace: string, name: string): pulumi.Output<auditregistration.v1alpha1.AuditSink>;
     public getResource(groupVersionKind: "auditregistration.k8s.io/v1alpha1/AuditSinkList", name: string): pulumi.Output<auditregistration.v1alpha1.AuditSinkList>;
     public getResource(groupVersionKind: "auditregistration.k8s.io/v1alpha1/AuditSinkList", namespace: string, name: string): pulumi.Output<auditregistration.v1alpha1.AuditSinkList>;
-    public getResource(groupVersionKind: "authentication.k8s.io/v1/TokenRequest", name: string): pulumi.Output<authentication.v1.TokenRequest>;
-    public getResource(groupVersionKind: "authentication.k8s.io/v1/TokenRequest", namespace: string, name: string): pulumi.Output<authentication.v1.TokenRequest>;
-    public getResource(groupVersionKind: "authentication.k8s.io/v1/TokenReview", name: string): pulumi.Output<authentication.v1.TokenReview>;
-    public getResource(groupVersionKind: "authentication.k8s.io/v1/TokenReview", namespace: string, name: string): pulumi.Output<authentication.v1.TokenReview>;
-    public getResource(groupVersionKind: "authentication.k8s.io/v1alpha1/SelfSubjectReview", name: string): pulumi.Output<authentication.v1alpha1.SelfSubjectReview>;
-    public getResource(groupVersionKind: "authentication.k8s.io/v1alpha1/SelfSubjectReview", namespace: string, name: string): pulumi.Output<authentication.v1alpha1.SelfSubjectReview>;
-    public getResource(groupVersionKind: "authentication.k8s.io/v1beta1/SelfSubjectReview", name: string): pulumi.Output<authentication.v1beta1.SelfSubjectReview>;
-    public getResource(groupVersionKind: "authentication.k8s.io/v1beta1/SelfSubjectReview", namespace: string, name: string): pulumi.Output<authentication.v1beta1.SelfSubjectReview>;
-    public getResource(groupVersionKind: "authentication.k8s.io/v1beta1/TokenReview", name: string): pulumi.Output<authentication.v1beta1.TokenReview>;
-    public getResource(groupVersionKind: "authentication.k8s.io/v1beta1/TokenReview", namespace: string, name: string): pulumi.Output<authentication.v1beta1.TokenReview>;
-    public getResource(groupVersionKind: "authorization.k8s.io/v1/LocalSubjectAccessReview", name: string): pulumi.Output<authorization.v1.LocalSubjectAccessReview>;
-    public getResource(groupVersionKind: "authorization.k8s.io/v1/LocalSubjectAccessReview", namespace: string, name: string): pulumi.Output<authorization.v1.LocalSubjectAccessReview>;
-    public getResource(groupVersionKind: "authorization.k8s.io/v1/SelfSubjectAccessReview", name: string): pulumi.Output<authorization.v1.SelfSubjectAccessReview>;
-    public getResource(groupVersionKind: "authorization.k8s.io/v1/SelfSubjectAccessReview", namespace: string, name: string): pulumi.Output<authorization.v1.SelfSubjectAccessReview>;
-    public getResource(groupVersionKind: "authorization.k8s.io/v1/SelfSubjectRulesReview", name: string): pulumi.Output<authorization.v1.SelfSubjectRulesReview>;
-    public getResource(groupVersionKind: "authorization.k8s.io/v1/SelfSubjectRulesReview", namespace: string, name: string): pulumi.Output<authorization.v1.SelfSubjectRulesReview>;
-    public getResource(groupVersionKind: "authorization.k8s.io/v1/SubjectAccessReview", name: string): pulumi.Output<authorization.v1.SubjectAccessReview>;
-    public getResource(groupVersionKind: "authorization.k8s.io/v1/SubjectAccessReview", namespace: string, name: string): pulumi.Output<authorization.v1.SubjectAccessReview>;
-    public getResource(groupVersionKind: "authorization.k8s.io/v1beta1/LocalSubjectAccessReview", name: string): pulumi.Output<authorization.v1beta1.LocalSubjectAccessReview>;
-    public getResource(groupVersionKind: "authorization.k8s.io/v1beta1/LocalSubjectAccessReview", namespace: string, name: string): pulumi.Output<authorization.v1beta1.LocalSubjectAccessReview>;
-    public getResource(groupVersionKind: "authorization.k8s.io/v1beta1/SelfSubjectAccessReview", name: string): pulumi.Output<authorization.v1beta1.SelfSubjectAccessReview>;
-    public getResource(groupVersionKind: "authorization.k8s.io/v1beta1/SelfSubjectAccessReview", namespace: string, name: string): pulumi.Output<authorization.v1beta1.SelfSubjectAccessReview>;
-    public getResource(groupVersionKind: "authorization.k8s.io/v1beta1/SelfSubjectRulesReview", name: string): pulumi.Output<authorization.v1beta1.SelfSubjectRulesReview>;
-    public getResource(groupVersionKind: "authorization.k8s.io/v1beta1/SelfSubjectRulesReview", namespace: string, name: string): pulumi.Output<authorization.v1beta1.SelfSubjectRulesReview>;
-    public getResource(groupVersionKind: "authorization.k8s.io/v1beta1/SubjectAccessReview", name: string): pulumi.Output<authorization.v1beta1.SubjectAccessReview>;
-    public getResource(groupVersionKind: "authorization.k8s.io/v1beta1/SubjectAccessReview", namespace: string, name: string): pulumi.Output<authorization.v1beta1.SubjectAccessReview>;
     public getResource(groupVersionKind: "autoscaling/v1/HorizontalPodAutoscaler", name: string): pulumi.Output<autoscaling.v1.HorizontalPodAutoscaler>;
     public getResource(groupVersionKind: "autoscaling/v1/HorizontalPodAutoscaler", namespace: string, name: string): pulumi.Output<autoscaling.v1.HorizontalPodAutoscaler>;
     public getResource(groupVersionKind: "autoscaling/v1/HorizontalPodAutoscalerList", name: string): pulumi.Output<autoscaling.v1.HorizontalPodAutoscalerList>;
@@ -996,132 +968,6 @@ export abstract class CollectionComponentResource extends pulumi.ComponentResour
     public getResourceProperty(groupVersionKind: "auditregistration.k8s.io/v1alpha1/AuditSinkList", namespace: string, name: string, property: "kind"): pulumi.Output<"AuditSinkList">;
     public getResourceProperty(groupVersionKind: "auditregistration.k8s.io/v1alpha1/AuditSinkList", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
     public getResourceProperty(groupVersionKind: "auditregistration.k8s.io/v1alpha1/AuditSinkList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1/TokenRequest", name: string, property: "apiVersion"): pulumi.Output<"authentication.k8s.io/v1">;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1/TokenRequest", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"authentication.k8s.io/v1">;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1/TokenRequest", name: string, property: "kind"): pulumi.Output<"TokenRequest">;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1/TokenRequest", namespace: string, name: string, property: "kind"): pulumi.Output<"TokenRequest">;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1/TokenRequest", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1/TokenRequest", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1/TokenRequest", name: string, property: "spec"): pulumi.Output<outputs.authentication.v1.TokenRequestSpec>;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1/TokenRequest", namespace: string, name: string, property: "spec"): pulumi.Output<outputs.authentication.v1.TokenRequestSpec>;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1/TokenRequest", name: string, property: "status"): pulumi.Output<outputs.authentication.v1.TokenRequestStatus>;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1/TokenRequest", namespace: string, name: string, property: "status"): pulumi.Output<outputs.authentication.v1.TokenRequestStatus>;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1/TokenReview", name: string, property: "apiVersion"): pulumi.Output<"authentication.k8s.io/v1">;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1/TokenReview", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"authentication.k8s.io/v1">;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1/TokenReview", name: string, property: "kind"): pulumi.Output<"TokenReview">;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1/TokenReview", namespace: string, name: string, property: "kind"): pulumi.Output<"TokenReview">;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1/TokenReview", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1/TokenReview", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1/TokenReview", name: string, property: "spec"): pulumi.Output<outputs.authentication.v1.TokenReviewSpec>;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1/TokenReview", namespace: string, name: string, property: "spec"): pulumi.Output<outputs.authentication.v1.TokenReviewSpec>;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1/TokenReview", name: string, property: "status"): pulumi.Output<outputs.authentication.v1.TokenReviewStatus>;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1/TokenReview", namespace: string, name: string, property: "status"): pulumi.Output<outputs.authentication.v1.TokenReviewStatus>;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1alpha1/SelfSubjectReview", name: string, property: "apiVersion"): pulumi.Output<"authentication.k8s.io/v1alpha1">;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1alpha1/SelfSubjectReview", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"authentication.k8s.io/v1alpha1">;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1alpha1/SelfSubjectReview", name: string, property: "kind"): pulumi.Output<"SelfSubjectReview">;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1alpha1/SelfSubjectReview", namespace: string, name: string, property: "kind"): pulumi.Output<"SelfSubjectReview">;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1alpha1/SelfSubjectReview", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1alpha1/SelfSubjectReview", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1alpha1/SelfSubjectReview", name: string, property: "status"): pulumi.Output<outputs.authentication.v1alpha1.SelfSubjectReviewStatus>;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1alpha1/SelfSubjectReview", namespace: string, name: string, property: "status"): pulumi.Output<outputs.authentication.v1alpha1.SelfSubjectReviewStatus>;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1beta1/SelfSubjectReview", name: string, property: "apiVersion"): pulumi.Output<"authentication.k8s.io/v1beta1">;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1beta1/SelfSubjectReview", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"authentication.k8s.io/v1beta1">;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1beta1/SelfSubjectReview", name: string, property: "kind"): pulumi.Output<"SelfSubjectReview">;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1beta1/SelfSubjectReview", namespace: string, name: string, property: "kind"): pulumi.Output<"SelfSubjectReview">;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1beta1/SelfSubjectReview", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1beta1/SelfSubjectReview", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1beta1/SelfSubjectReview", name: string, property: "status"): pulumi.Output<outputs.authentication.v1beta1.SelfSubjectReviewStatus>;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1beta1/SelfSubjectReview", namespace: string, name: string, property: "status"): pulumi.Output<outputs.authentication.v1beta1.SelfSubjectReviewStatus>;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1beta1/TokenReview", name: string, property: "apiVersion"): pulumi.Output<"authentication.k8s.io/v1beta1">;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1beta1/TokenReview", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"authentication.k8s.io/v1beta1">;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1beta1/TokenReview", name: string, property: "kind"): pulumi.Output<"TokenReview">;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1beta1/TokenReview", namespace: string, name: string, property: "kind"): pulumi.Output<"TokenReview">;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1beta1/TokenReview", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1beta1/TokenReview", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1beta1/TokenReview", name: string, property: "spec"): pulumi.Output<outputs.authentication.v1beta1.TokenReviewSpec>;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1beta1/TokenReview", namespace: string, name: string, property: "spec"): pulumi.Output<outputs.authentication.v1beta1.TokenReviewSpec>;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1beta1/TokenReview", name: string, property: "status"): pulumi.Output<outputs.authentication.v1beta1.TokenReviewStatus>;
-    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1beta1/TokenReview", namespace: string, name: string, property: "status"): pulumi.Output<outputs.authentication.v1beta1.TokenReviewStatus>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1/LocalSubjectAccessReview", name: string, property: "apiVersion"): pulumi.Output<"authorization.k8s.io/v1">;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1/LocalSubjectAccessReview", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"authorization.k8s.io/v1">;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1/LocalSubjectAccessReview", name: string, property: "kind"): pulumi.Output<"LocalSubjectAccessReview">;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1/LocalSubjectAccessReview", namespace: string, name: string, property: "kind"): pulumi.Output<"LocalSubjectAccessReview">;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1/LocalSubjectAccessReview", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1/LocalSubjectAccessReview", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1/LocalSubjectAccessReview", name: string, property: "spec"): pulumi.Output<outputs.authorization.v1.SubjectAccessReviewSpec>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1/LocalSubjectAccessReview", namespace: string, name: string, property: "spec"): pulumi.Output<outputs.authorization.v1.SubjectAccessReviewSpec>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1/LocalSubjectAccessReview", name: string, property: "status"): pulumi.Output<outputs.authorization.v1.SubjectAccessReviewStatus>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1/LocalSubjectAccessReview", namespace: string, name: string, property: "status"): pulumi.Output<outputs.authorization.v1.SubjectAccessReviewStatus>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1/SelfSubjectAccessReview", name: string, property: "apiVersion"): pulumi.Output<"authorization.k8s.io/v1">;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1/SelfSubjectAccessReview", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"authorization.k8s.io/v1">;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1/SelfSubjectAccessReview", name: string, property: "kind"): pulumi.Output<"SelfSubjectAccessReview">;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1/SelfSubjectAccessReview", namespace: string, name: string, property: "kind"): pulumi.Output<"SelfSubjectAccessReview">;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1/SelfSubjectAccessReview", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1/SelfSubjectAccessReview", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1/SelfSubjectAccessReview", name: string, property: "spec"): pulumi.Output<outputs.authorization.v1.SelfSubjectAccessReviewSpec>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1/SelfSubjectAccessReview", namespace: string, name: string, property: "spec"): pulumi.Output<outputs.authorization.v1.SelfSubjectAccessReviewSpec>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1/SelfSubjectAccessReview", name: string, property: "status"): pulumi.Output<outputs.authorization.v1.SubjectAccessReviewStatus>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1/SelfSubjectAccessReview", namespace: string, name: string, property: "status"): pulumi.Output<outputs.authorization.v1.SubjectAccessReviewStatus>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1/SelfSubjectRulesReview", name: string, property: "apiVersion"): pulumi.Output<"authorization.k8s.io/v1">;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1/SelfSubjectRulesReview", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"authorization.k8s.io/v1">;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1/SelfSubjectRulesReview", name: string, property: "kind"): pulumi.Output<"SelfSubjectRulesReview">;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1/SelfSubjectRulesReview", namespace: string, name: string, property: "kind"): pulumi.Output<"SelfSubjectRulesReview">;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1/SelfSubjectRulesReview", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1/SelfSubjectRulesReview", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1/SelfSubjectRulesReview", name: string, property: "spec"): pulumi.Output<outputs.authorization.v1.SelfSubjectRulesReviewSpec>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1/SelfSubjectRulesReview", namespace: string, name: string, property: "spec"): pulumi.Output<outputs.authorization.v1.SelfSubjectRulesReviewSpec>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1/SelfSubjectRulesReview", name: string, property: "status"): pulumi.Output<outputs.authorization.v1.SubjectRulesReviewStatus>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1/SelfSubjectRulesReview", namespace: string, name: string, property: "status"): pulumi.Output<outputs.authorization.v1.SubjectRulesReviewStatus>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1/SubjectAccessReview", name: string, property: "apiVersion"): pulumi.Output<"authorization.k8s.io/v1">;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1/SubjectAccessReview", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"authorization.k8s.io/v1">;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1/SubjectAccessReview", name: string, property: "kind"): pulumi.Output<"SubjectAccessReview">;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1/SubjectAccessReview", namespace: string, name: string, property: "kind"): pulumi.Output<"SubjectAccessReview">;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1/SubjectAccessReview", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1/SubjectAccessReview", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1/SubjectAccessReview", name: string, property: "spec"): pulumi.Output<outputs.authorization.v1.SubjectAccessReviewSpec>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1/SubjectAccessReview", namespace: string, name: string, property: "spec"): pulumi.Output<outputs.authorization.v1.SubjectAccessReviewSpec>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1/SubjectAccessReview", name: string, property: "status"): pulumi.Output<outputs.authorization.v1.SubjectAccessReviewStatus>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1/SubjectAccessReview", namespace: string, name: string, property: "status"): pulumi.Output<outputs.authorization.v1.SubjectAccessReviewStatus>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1beta1/LocalSubjectAccessReview", name: string, property: "apiVersion"): pulumi.Output<"authorization.k8s.io/v1beta1">;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1beta1/LocalSubjectAccessReview", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"authorization.k8s.io/v1beta1">;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1beta1/LocalSubjectAccessReview", name: string, property: "kind"): pulumi.Output<"LocalSubjectAccessReview">;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1beta1/LocalSubjectAccessReview", namespace: string, name: string, property: "kind"): pulumi.Output<"LocalSubjectAccessReview">;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1beta1/LocalSubjectAccessReview", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1beta1/LocalSubjectAccessReview", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1beta1/LocalSubjectAccessReview", name: string, property: "spec"): pulumi.Output<outputs.authorization.v1beta1.SubjectAccessReviewSpec>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1beta1/LocalSubjectAccessReview", namespace: string, name: string, property: "spec"): pulumi.Output<outputs.authorization.v1beta1.SubjectAccessReviewSpec>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1beta1/LocalSubjectAccessReview", name: string, property: "status"): pulumi.Output<outputs.authorization.v1beta1.SubjectAccessReviewStatus>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1beta1/LocalSubjectAccessReview", namespace: string, name: string, property: "status"): pulumi.Output<outputs.authorization.v1beta1.SubjectAccessReviewStatus>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1beta1/SelfSubjectAccessReview", name: string, property: "apiVersion"): pulumi.Output<"authorization.k8s.io/v1beta1">;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1beta1/SelfSubjectAccessReview", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"authorization.k8s.io/v1beta1">;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1beta1/SelfSubjectAccessReview", name: string, property: "kind"): pulumi.Output<"SelfSubjectAccessReview">;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1beta1/SelfSubjectAccessReview", namespace: string, name: string, property: "kind"): pulumi.Output<"SelfSubjectAccessReview">;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1beta1/SelfSubjectAccessReview", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1beta1/SelfSubjectAccessReview", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1beta1/SelfSubjectAccessReview", name: string, property: "spec"): pulumi.Output<outputs.authorization.v1beta1.SelfSubjectAccessReviewSpec>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1beta1/SelfSubjectAccessReview", namespace: string, name: string, property: "spec"): pulumi.Output<outputs.authorization.v1beta1.SelfSubjectAccessReviewSpec>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1beta1/SelfSubjectAccessReview", name: string, property: "status"): pulumi.Output<outputs.authorization.v1beta1.SubjectAccessReviewStatus>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1beta1/SelfSubjectAccessReview", namespace: string, name: string, property: "status"): pulumi.Output<outputs.authorization.v1beta1.SubjectAccessReviewStatus>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1beta1/SelfSubjectRulesReview", name: string, property: "apiVersion"): pulumi.Output<"authorization.k8s.io/v1beta1">;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1beta1/SelfSubjectRulesReview", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"authorization.k8s.io/v1beta1">;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1beta1/SelfSubjectRulesReview", name: string, property: "kind"): pulumi.Output<"SelfSubjectRulesReview">;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1beta1/SelfSubjectRulesReview", namespace: string, name: string, property: "kind"): pulumi.Output<"SelfSubjectRulesReview">;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1beta1/SelfSubjectRulesReview", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1beta1/SelfSubjectRulesReview", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1beta1/SelfSubjectRulesReview", name: string, property: "spec"): pulumi.Output<outputs.authorization.v1beta1.SelfSubjectRulesReviewSpec>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1beta1/SelfSubjectRulesReview", namespace: string, name: string, property: "spec"): pulumi.Output<outputs.authorization.v1beta1.SelfSubjectRulesReviewSpec>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1beta1/SelfSubjectRulesReview", name: string, property: "status"): pulumi.Output<outputs.authorization.v1beta1.SubjectRulesReviewStatus>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1beta1/SelfSubjectRulesReview", namespace: string, name: string, property: "status"): pulumi.Output<outputs.authorization.v1beta1.SubjectRulesReviewStatus>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1beta1/SubjectAccessReview", name: string, property: "apiVersion"): pulumi.Output<"authorization.k8s.io/v1beta1">;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1beta1/SubjectAccessReview", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"authorization.k8s.io/v1beta1">;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1beta1/SubjectAccessReview", name: string, property: "kind"): pulumi.Output<"SubjectAccessReview">;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1beta1/SubjectAccessReview", namespace: string, name: string, property: "kind"): pulumi.Output<"SubjectAccessReview">;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1beta1/SubjectAccessReview", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1beta1/SubjectAccessReview", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1beta1/SubjectAccessReview", name: string, property: "spec"): pulumi.Output<outputs.authorization.v1beta1.SubjectAccessReviewSpec>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1beta1/SubjectAccessReview", namespace: string, name: string, property: "spec"): pulumi.Output<outputs.authorization.v1beta1.SubjectAccessReviewSpec>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1beta1/SubjectAccessReview", name: string, property: "status"): pulumi.Output<outputs.authorization.v1beta1.SubjectAccessReviewStatus>;
-    public getResourceProperty(groupVersionKind: "authorization.k8s.io/v1beta1/SubjectAccessReview", namespace: string, name: string, property: "status"): pulumi.Output<outputs.authorization.v1beta1.SubjectAccessReviewStatus>;
     public getResourceProperty(groupVersionKind: "autoscaling/v1/HorizontalPodAutoscaler", name: string, property: "apiVersion"): pulumi.Output<"autoscaling/v1">;
     public getResourceProperty(groupVersionKind: "autoscaling/v1/HorizontalPodAutoscaler", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"autoscaling/v1">;
     public getResourceProperty(groupVersionKind: "autoscaling/v1/HorizontalPodAutoscaler", name: string, property: "kind"): pulumi.Output<"HorizontalPodAutoscaler">;
@@ -3648,71 +3494,6 @@ export interface ConfigOpts {
             return [id.apply(id => ({
                 name: `auditregistration.k8s.io/v1alpha1/AuditSink::${id}`,
                 resource: new auditregistration.v1alpha1.AuditSink(id, obj, opts),
-            }))];
-        case "authentication.k8s.io/v1/TokenRequest":
-            return [id.apply(id => ({
-                name: `authentication.k8s.io/v1/TokenRequest::${id}`,
-                resource: new authentication.v1.TokenRequest(id, obj, opts),
-            }))];
-        case "authentication.k8s.io/v1/TokenReview":
-            return [id.apply(id => ({
-                name: `authentication.k8s.io/v1/TokenReview::${id}`,
-                resource: new authentication.v1.TokenReview(id, obj, opts),
-            }))];
-        case "authentication.k8s.io/v1alpha1/SelfSubjectReview":
-            return [id.apply(id => ({
-                name: `authentication.k8s.io/v1alpha1/SelfSubjectReview::${id}`,
-                resource: new authentication.v1alpha1.SelfSubjectReview(id, obj, opts),
-            }))];
-        case "authentication.k8s.io/v1beta1/SelfSubjectReview":
-            return [id.apply(id => ({
-                name: `authentication.k8s.io/v1beta1/SelfSubjectReview::${id}`,
-                resource: new authentication.v1beta1.SelfSubjectReview(id, obj, opts),
-            }))];
-        case "authentication.k8s.io/v1beta1/TokenReview":
-            return [id.apply(id => ({
-                name: `authentication.k8s.io/v1beta1/TokenReview::${id}`,
-                resource: new authentication.v1beta1.TokenReview(id, obj, opts),
-            }))];
-        case "authorization.k8s.io/v1/LocalSubjectAccessReview":
-            return [id.apply(id => ({
-                name: `authorization.k8s.io/v1/LocalSubjectAccessReview::${id}`,
-                resource: new authorization.v1.LocalSubjectAccessReview(id, obj, opts),
-            }))];
-        case "authorization.k8s.io/v1/SelfSubjectAccessReview":
-            return [id.apply(id => ({
-                name: `authorization.k8s.io/v1/SelfSubjectAccessReview::${id}`,
-                resource: new authorization.v1.SelfSubjectAccessReview(id, obj, opts),
-            }))];
-        case "authorization.k8s.io/v1/SelfSubjectRulesReview":
-            return [id.apply(id => ({
-                name: `authorization.k8s.io/v1/SelfSubjectRulesReview::${id}`,
-                resource: new authorization.v1.SelfSubjectRulesReview(id, obj, opts),
-            }))];
-        case "authorization.k8s.io/v1/SubjectAccessReview":
-            return [id.apply(id => ({
-                name: `authorization.k8s.io/v1/SubjectAccessReview::${id}`,
-                resource: new authorization.v1.SubjectAccessReview(id, obj, opts),
-            }))];
-        case "authorization.k8s.io/v1beta1/LocalSubjectAccessReview":
-            return [id.apply(id => ({
-                name: `authorization.k8s.io/v1beta1/LocalSubjectAccessReview::${id}`,
-                resource: new authorization.v1beta1.LocalSubjectAccessReview(id, obj, opts),
-            }))];
-        case "authorization.k8s.io/v1beta1/SelfSubjectAccessReview":
-            return [id.apply(id => ({
-                name: `authorization.k8s.io/v1beta1/SelfSubjectAccessReview::${id}`,
-                resource: new authorization.v1beta1.SelfSubjectAccessReview(id, obj, opts),
-            }))];
-        case "authorization.k8s.io/v1beta1/SelfSubjectRulesReview":
-            return [id.apply(id => ({
-                name: `authorization.k8s.io/v1beta1/SelfSubjectRulesReview::${id}`,
-                resource: new authorization.v1beta1.SelfSubjectRulesReview(id, obj, opts),
-            }))];
-        case "authorization.k8s.io/v1beta1/SubjectAccessReview":
-            return [id.apply(id => ({
-                name: `authorization.k8s.io/v1beta1/SubjectAccessReview::${id}`,
-                resource: new authorization.v1beta1.SubjectAccessReview(id, obj, opts),
             }))];
         case "autoscaling/v1/HorizontalPodAutoscaler":
             return [id.apply(id => ({
