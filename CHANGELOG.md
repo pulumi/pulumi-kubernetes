@@ -4,6 +4,8 @@ Breaking changes:
 
 - Enable Server-side Apply by default (https://github.com/pulumi/pulumi-kubernetes/pull/2398)
 - Remove deprecated enableDryRun provider flag (https://github.com/pulumi/pulumi-kubernetes/pull/2400)
+- Remove deprecated helm/v2 SDK (https://github.com/pulumi/pulumi-kubernetes/pull/2396)
+- Remove deprecated enableReplaceCRD provider flag (https://github.com/pulumi/pulumi-kubernetes/pull/2402)
 
 Additional changes:
 

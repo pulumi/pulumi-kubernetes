@@ -90,29 +90,6 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * Obsolete. This option has no effect.
-     * 
-     * @deprecated
-     * This option is deprecated, and will be removed in a future release.
-     * 
-     */
-    @Deprecated /* This option is deprecated, and will be removed in a future release. */
-    @Import(name="enableReplaceCRD", json=true)
-    private @Nullable Output<Boolean> enableReplaceCRD;
-
-    /**
-     * @return Obsolete. This option has no effect.
-     * 
-     * @deprecated
-     * This option is deprecated, and will be removed in a future release.
-     * 
-     */
-    @Deprecated /* This option is deprecated, and will be removed in a future release. */
-    public Optional<Output<Boolean>> enableReplaceCRD() {
-        return Optional.ofNullable(this.enableReplaceCRD);
-    }
-
-    /**
      * BETA FEATURE - If present and set to true, enable Server-Side Apply mode.
      * See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
      * This feature is in developer preview, and is disabled by default.
@@ -267,7 +244,6 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
         this.context = $.context;
         this.deleteUnreachable = $.deleteUnreachable;
         this.enableConfigMapMutable = $.enableConfigMapMutable;
-        this.enableReplaceCRD = $.enableReplaceCRD;
         this.enableServerSideApply = $.enableServerSideApply;
         this.helmReleaseSettings = $.helmReleaseSettings;
         this.kubeClientSettings = $.kubeClientSettings;
@@ -388,35 +364,6 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder enableConfigMapMutable(Boolean enableConfigMapMutable) {
             return enableConfigMapMutable(Output.of(enableConfigMapMutable));
-        }
-
-        /**
-         * @param enableReplaceCRD Obsolete. This option has no effect.
-         * 
-         * @return builder
-         * 
-         * @deprecated
-         * This option is deprecated, and will be removed in a future release.
-         * 
-         */
-        @Deprecated /* This option is deprecated, and will be removed in a future release. */
-        public Builder enableReplaceCRD(@Nullable Output<Boolean> enableReplaceCRD) {
-            $.enableReplaceCRD = enableReplaceCRD;
-            return this;
-        }
-
-        /**
-         * @param enableReplaceCRD Obsolete. This option has no effect.
-         * 
-         * @return builder
-         * 
-         * @deprecated
-         * This option is deprecated, and will be removed in a future release.
-         * 
-         */
-        @Deprecated /* This option is deprecated, and will be removed in a future release. */
-        public Builder enableReplaceCRD(Boolean enableReplaceCRD) {
-            return enableReplaceCRD(Output.of(enableReplaceCRD));
         }
 
         /**
@@ -618,7 +565,6 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
         public ProviderArgs build() {
             $.deleteUnreachable = Codegen.booleanProp("deleteUnreachable").output().arg($.deleteUnreachable).env("PULUMI_K8S_DELETE_UNREACHABLE").getNullable();
             $.enableConfigMapMutable = Codegen.booleanProp("enableConfigMapMutable").output().arg($.enableConfigMapMutable).env("PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE").getNullable();
-            $.enableReplaceCRD = Codegen.booleanProp("enableReplaceCRD").output().arg($.enableReplaceCRD).env("PULUMI_K8S_ENABLE_REPLACE_CRD").getNullable();
             $.enableServerSideApply = Codegen.booleanProp("enableServerSideApply").output().arg($.enableServerSideApply).env("PULUMI_K8S_ENABLE_SERVER_SIDE_APPLY").getNullable();
             $.kubeconfig = Codegen.stringProp("kubeconfig").output().arg($.kubeconfig).env("KUBECONFIG").getNullable();
             $.suppressDeprecationWarnings = Codegen.booleanProp("suppressDeprecationWarnings").output().arg($.suppressDeprecationWarnings).env("PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS").getNullable();
