@@ -80,9 +80,8 @@ type providerArgs struct {
 	// 1. This `enableConfigMapMutable` parameter.
 	// 2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.
 	EnableConfigMapMutable *bool `pulumi:"enableConfigMapMutable"`
-	// BETA FEATURE - If present and set to true, enable Server-Side Apply mode.
+	// If present and set to false, disable Server-Side Apply mode.
 	// See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
-	// This feature is in developer preview, and is disabled by default.
 	EnableServerSideApply *bool `pulumi:"enableServerSideApply"`
 	// Options to configure the Helm Release resource.
 	HelmReleaseSettings *HelmReleaseSettings `pulumi:"helmReleaseSettings"`
@@ -127,9 +126,8 @@ type ProviderArgs struct {
 	// 1. This `enableConfigMapMutable` parameter.
 	// 2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.
 	EnableConfigMapMutable pulumi.BoolPtrInput
-	// BETA FEATURE - If present and set to true, enable Server-Side Apply mode.
+	// If present and set to false, disable Server-Side Apply mode.
 	// See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
-	// This feature is in developer preview, and is disabled by default.
 	EnableServerSideApply pulumi.BoolPtrInput
 	// Options to configure the Helm Release resource.
 	HelmReleaseSettings HelmReleaseSettingsPtrInput

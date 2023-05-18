@@ -38,9 +38,8 @@ class ProviderArgs:
                This config can be specified in the following ways using this precedence:
                1. This `enableConfigMapMutable` parameter.
                2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.
-        :param pulumi.Input[bool] enable_server_side_apply: BETA FEATURE - If present and set to true, enable Server-Side Apply mode.
+        :param pulumi.Input[bool] enable_server_side_apply: If present and set to false, disable Server-Side Apply mode.
                See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
-               This feature is in developer preview, and is disabled by default.
         :param pulumi.Input['HelmReleaseSettingsArgs'] helm_release_settings: Options to configure the Helm Release resource.
         :param pulumi.Input['KubeClientSettingsArgs'] kube_client_settings: Options for tuning the Kubernetes client used by a Provider.
         :param pulumi.Input[str] kubeconfig: The contents of a kubeconfig file or the path to a kubeconfig file.
@@ -155,9 +154,8 @@ class ProviderArgs:
     @pulumi.getter(name="enableServerSideApply")
     def enable_server_side_apply(self) -> Optional[pulumi.Input[bool]]:
         """
-        BETA FEATURE - If present and set to true, enable Server-Side Apply mode.
+        If present and set to false, disable Server-Side Apply mode.
         See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
-        This feature is in developer preview, and is disabled by default.
         """
         return pulumi.get(self, "enable_server_side_apply")
 
@@ -294,9 +292,8 @@ class Provider(pulumi.ProviderResource):
                This config can be specified in the following ways using this precedence:
                1. This `enableConfigMapMutable` parameter.
                2. The `PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE` environment variable.
-        :param pulumi.Input[bool] enable_server_side_apply: BETA FEATURE - If present and set to true, enable Server-Side Apply mode.
+        :param pulumi.Input[bool] enable_server_side_apply: If present and set to false, disable Server-Side Apply mode.
                See https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.
-               This feature is in developer preview, and is disabled by default.
         :param pulumi.Input[pulumi.InputType['HelmReleaseSettingsArgs']] helm_release_settings: Options to configure the Helm Release resource.
         :param pulumi.Input[pulumi.InputType['KubeClientSettingsArgs']] kube_client_settings: Options for tuning the Kubernetes client used by a Provider.
         :param pulumi.Input[str] kubeconfig: The contents of a kubeconfig file or the path to a kubeconfig file.
