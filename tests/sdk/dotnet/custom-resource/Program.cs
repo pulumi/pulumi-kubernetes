@@ -25,7 +25,7 @@ class CronTabSpecArgs : ResourceArgs
 {
     [Input("cronSpec")]
     public Input<string>? CronSpec { get; set; }
-        
+
     [Input("image")]
     public Input<string>? Image { get; set; }
 }
@@ -35,7 +35,7 @@ class MyStack : Stack
     public MyStack()
     {
         var testNamespace = new Namespace("test-namespace");
-        
+
         var ct = new Pulumi.Kubernetes.ApiExtensions.V1.CustomResourceDefinition("crontab", new CustomResourceDefinitionArgs
         {
             Metadata = new ObjectMetaArgs
@@ -65,6 +65,11 @@ class MyStack : Stack
                                                     {
                                                         Type = "string",
                                                     }
+                                                },
+                                                { "image", new JSONSchemaPropsArgs
+                                                    {
+                                                        Type = "string",
+                                                    }
                                                 }
                                             }
                                         }
@@ -85,7 +90,7 @@ class MyStack : Stack
                 PreserveUnknownFields = false,
             }
         });
-        
+
         new Pulumi.Kubernetes.ApiExtensions.CustomResource("my-new-cron-object", new CronTabArgs
         {
             Metadata = new ObjectMetaArgs
@@ -95,7 +100,7 @@ class MyStack : Stack
             },
             Spec = new CronTabSpecArgs
             {
-                CronSpec = "* * * * */5", 
+                CronSpec = "* * * * */5",
                 Image = "my-awesome-cron-image"
             }
         }, new CustomResourceOptions { DependsOn = { ct } });
