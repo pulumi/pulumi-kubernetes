@@ -53,7 +53,7 @@ func kustomizeDirectory(directory string, clientSet *clients.DynamicClientSet) (
 
 	fSys := filesys.MakeFsOnDisk()
 	opts := krusty.MakeDefaultOptions()
-	opts.DoLegacyResourceSort = true
+	opts.Reorder = krusty.ReorderOptionLegacy
 
 	// TODO: kustomize helmChart support is currently enabled via an undocumented feature flag.
 	//       See https://github.com/pulumi/pulumi-kubernetes/issues/2470 for additional details.
