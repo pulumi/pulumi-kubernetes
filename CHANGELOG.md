@@ -13,6 +13,7 @@ Additional changes:
 - Fix Helm release creation when the name of the chart conflicts with the name of a folder in the current working directory (https://github.com/pulumi/pulumi-kubernetes/pull/2410)
 - Remove imperative authentication and authorization resources: TokenRequest, TokenReview, LocalSubjectAccessReview, 
     SelfSubjectReview, SelfSubjectAccessReview, SelfSubjectRulesReview, and SubjectAccessReview (https://github.com/pulumi/pulumi-kubernetes/pull/2413)
+- Improve check for existing resource GVK (https://github.com/pulumi/pulumi-kubernetes/pull/2418)
 
 ## 3.27.1 (May 11, 2023)
 
