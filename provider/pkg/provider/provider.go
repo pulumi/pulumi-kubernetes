@@ -2280,7 +2280,7 @@ func (k *kubeProvider) Update(
 	// Apply update.
 	initialized, awaitErr := await.Update(config)
 	if awaitErr != nil {
-		if req.GetPreview() && k.isDryRunDisabledError(err) {
+		if req.GetPreview() && apierrors.IsForbidden(awaitErr) {
 			logger.V(9).Infof("could not preview Update(%v): %v", urn, err)
 			return &pulumirpc.UpdateResponse{Properties: req.News}, nil
 		}
@@ -2732,6 +2732,11 @@ func (k *kubeProvider) tryServerSidePatch(
 		return ssPatch, ssPatchBase, true, nil
 	}
 
+	if apierrors.IsForbidden(err) {
+		// If the user doesn't have permission to run a Server-side preview, compute the patch using inputs
+		logger.V(1).Infof("unable to compute Server-side patch: %s", err)
+		return nil, nil, false, nil
+	}
 	if k.isDryRunDisabledError(err) {
 		return nil, nil, false, err
 	}
