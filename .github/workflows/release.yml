@@ -87,12 +87,13 @@ jobs:
         echo 'EOF' >> $GITHUB_ENV
     - if: github.event_name == 'pull_request'
       name: Comment on PR with Details of Schema Check
-      uses: thollander/actions-comment-pull-request@v1
+      uses: thollander/actions-comment-pull-request@v2
       with:
         message: |
           ### Does the PR have any schema changes?
 
           ${{ env.SCHEMA_CHANGES }}
+        comment_tag: schemaCheck
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - if: contains(env.SCHEMA_CHANGES, 'Looking good! No breaking changes found.') &&
         github.actor == 'pulumi-bot'

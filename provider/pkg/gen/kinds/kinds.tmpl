@@ -53,7 +53,6 @@ func (k Kind) Namespaced() (known bool, namespaced bool) {
 		Job,
 		Lease,
 		LimitRange,
-		LocalSubjectAccessReview,
 		NetworkPolicy,
 		PersistentVolumeClaim,
 		Pod,
@@ -85,11 +84,7 @@ func (k Kind) Namespaced() (known bool, namespaced bool) {
 		PodSecurityPolicy,
 		PriorityClass,
 		RuntimeClass,
-		SelfSubjectAccessReview,
-		SelfSubjectRulesReview,
 		StorageClass,
-		SubjectAccessReview,
-		TokenReview,
 		ValidatingWebhookConfiguration,
 		VolumeAttachment:
 		return true, false
