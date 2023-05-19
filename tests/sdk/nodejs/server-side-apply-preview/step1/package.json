@@ -1,0 +1,10 @@
+{
+    "name": "server-side-apply-preview",
+    "version": "0.1.0",
+    "dependencies": {
+        "@pulumi/pulumi": "latest"
+    },
+    "peerDependencies": {
+        "@pulumi/kubernetes": "latest"
+    }
+}

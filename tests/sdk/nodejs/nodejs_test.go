@@ -1206,6 +1206,92 @@ func TestServerSideApplyEmptyMaps(t *testing.T) {
 	assert.Contains(t, string(out), "bar") // ConfigMap should have been updated with label foo=bar.
 }
 
+// TestServerSideApplyPreview tests that we automatically fall back to a client-side preview if the user does not have
+// permission to run the "patch" operation used by SSA.
+func TestServerSideApplyPreview(t *testing.T) {
+	manifestFile := filepath.Join("server-side-apply-preview", "manifest.yaml")
+
+	applyStep := baseOptions.With(integration.ProgramTestOptions{
+		Dir: filepath.Join("server-side-apply-preview", "step1"),
+		//ExpectRefreshChanges: true,
+		Quick: true,
+		OrderedConfig: []integration.ConfigValue{
+			{
+				Key:   "pulumi:disable-default-providers[0]",
+				Value: "kubernetes",
+				Path:  true,
+			},
+		},
+		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+			cm := stackInfo.Outputs["cm"].(map[string]interface{})
+
+			// Validate we applied ConfigMap with expected data.
+			dataKeyV, ok, err := unstructured.NestedString(cm, "data", "dataKey")
+			assert.True(t, ok)
+			assert.NoError(t, err)
+			assert.Equal(t, "fake data", dataKeyV)
+		},
+		EditDirs: []integration.EditDir{
+			{
+				Dir:      filepath.Join("server-side-apply-preview", "step2"),
+				Additive: true,
+			},
+			{
+				Dir:           filepath.Join("server-side-apply-preview", "step3"),
+				Additive:      true,
+				ExpectFailure: true, // Update will fail with restricted permissions, but preview should still succeed.
+			},
+			{
+				Dir:      filepath.Join("server-side-apply-preview", "step4"),
+				Additive: true,
+			},
+		},
+	})
+
+	// Create a ServiceAccount and ClusterRoleBinding with "view"-only permission.
+	out, err := exec.Command("kubectl", "apply", "--filename", manifestFile).CombinedOutput()
+	assert.NoError(t, err)
+	assert.Contains(t, string(out), `serviceaccount/kubeconfig-sa created`)                           // Ensure ServiceAccount was created.
+	assert.Contains(t, string(out), `secret/sa-token created`)                                        // Ensure ServiceAccount token was created.
+	assert.Contains(t, string(out), `clusterrolebinding.rbac.authorization.k8s.io/view-only created`) // Ensure ClusterRoleBinding was created.
+
+	// Create a new kubeconfig context using the new "kubeconfig-sa" ServiceAccount.
+	newContextCmd := `kubectl config set-context kubeconfig-sa --user kubeconfig-sa --cluster $(kubectl config view -o jsonpath='{.clusters[0].name}')`
+	out, err = exec.Command("bash", "-c", newContextCmd).CombinedOutput()
+	assert.NoError(t, err)
+	assert.Contains(t, string(out), `Context "kubeconfig-sa" created`) // Ensure context was created.
+
+	// Create a new kubeconfig user using the new "kubeconfig-sa" ServiceAccount token.
+	newUserCmd := `kubectl config set-credentials kubeconfig-sa --token=$(kubectl -n kube-system get secret sa-token -o jsonpath='{.data.token}' | base64 --decode)`
+	out, err = exec.Command("bash", "-c", newUserCmd).CombinedOutput()
+	assert.NoError(t, err)
+	assert.Contains(t, string(out), `User "kubeconfig-sa" set.`) // Ensure user was created.
+
+	t.Log("created 'kubeconfig-sa' context")
+
+	// Run program to update the Provider context and show expected changes to the ConfigMap.
+	pt := integration.ProgramTestManualLifeCycle(t, &applyStep)
+	err = pt.TestLifeCycleInitAndDestroy()
+	assert.NoError(t, err)
+
+	// Clean up kubeconfig user.
+	out, err = exec.Command("kubectl", "config", "unset", "users.kubeconfig-sa").CombinedOutput()
+	assert.NoError(t, err)
+	assert.Contains(t, string(out), `"users.kubeconfig-sa" unset`)
+
+	// Clean up kubeconfig context.
+	out, err = exec.Command("kubectl", "config", "unset", "contexts.kubeconfig-sa").CombinedOutput()
+	assert.NoError(t, err)
+	assert.Contains(t, string(out), `"contexts.kubeconfig-sa" unset`)
+
+	// Clean up ServiceAccount and ClusterRoleBinding.
+	out, err = exec.Command("kubectl", "delete", "--filename", manifestFile).CombinedOutput()
+	assert.Contains(t, string(out), `serviceaccount "kubeconfig-sa" deleted`)
+	assert.Contains(t, string(out), `clusterrolebinding.rbac.authorization.k8s.io "view-only" deleted`)
+
+	t.Log("finished cleaning up 'kubeconfig-sa' context")
+}
+
 func TestServerSideApplyUpgrade(t *testing.T) {
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:                  filepath.Join("server-side-apply-upgrade", "step1"),
