@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 3.28.0 (May 19, 2023)
+
 - Handle resource change from static name to autoname under SSA (https://github.com/pulumi/pulumi-kubernetes/pull/2392)
 - Fix Helm release creation when the name of the chart conflicts with the name of a folder in the current working directory (https://github.com/pulumi/pulumi-kubernetes/pull/2410)
 - Remove imperative authentication and authorization resources: TokenRequest, TokenReview, LocalSubjectAccessReview, 
