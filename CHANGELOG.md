@@ -8,7 +8,7 @@ Breaking changes:
 - Remove deprecated enableReplaceCRD provider flag (https://github.com/pulumi/pulumi-kubernetes/pull/2402)
 - Drop support for Kubernetes clusters older than v1.13 (https://github.com/pulumi/pulumi-kubernetes/pull/2414)
 
-Additional changes:
+## 3.28.0 (May 19, 2023)
 
 - Handle resource change from static name to autoname under SSA (https://github.com/pulumi/pulumi-kubernetes/pull/2392)
 - Fix Helm release creation when the name of the chart conflicts with the name of a folder in the current working directory (https://github.com/pulumi/pulumi-kubernetes/pull/2410)
