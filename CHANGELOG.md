@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 4.0.0 (TBD)
+
 Breaking changes:
 
 - Enable Server-side Apply by default (https://github.com/pulumi/pulumi-kubernetes/pull/2398)
@@ -8,7 +10,14 @@ Breaking changes:
 - Remove deprecated enableReplaceCRD provider flag (https://github.com/pulumi/pulumi-kubernetes/pull/2402)
 - Drop support for Kubernetes clusters older than v1.13 (https://github.com/pulumi/pulumi-kubernetes/pull/2414)
 
-Additional changes:
+Other changes:
+
+- Automatically fall back to client-side preview if server-side preview fails (https://github.com/pulumi/pulumi-kubernetes/pull/2419)
+- Enable Server-side Apply by default (https://github.com/pulumi/pulumi-kubernetes/pull/2398)
+- Remove deprecated enableDryRun provider flag (https://github.com/pulumi/pulumi-kubernetes/pull/2400)
+- Remove deprecated helm/v2 SDK (https://github.com/pulumi/pulumi-kubernetes/pull/2396)
+- Remove deprecated enableReplaceCRD provider flag (https://github.com/pulumi/pulumi-kubernetes/pull/2402)
+- Drop support for Kubernetes clusters older than v1.13 (https://github.com/pulumi/pulumi-kubernetes/pull/2414)
 
 ## 3.30.2 (July 11, 2023)
 
