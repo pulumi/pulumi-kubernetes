@@ -1,7 +1,7 @@
 ## Unreleased
 
 - Handle resource change from static name to autoname under SSA (https://github.com/pulumi/pulumi-kubernetes/pull/2392)
-- Fix Helm release creation when the name of the chart conflicts with the name of a folder in the current working directory (https://github.com/pulumi/pulumi-kubernetes/pull/2410)
+- Fix Helm release creation when the name of the chart conflicts with the name of a folder in the current working directory (https://github.com/pulumi/pulumi-kubernetes/pull/2410, https://github.com/pulumi/pulumi-kubernetes/pull/2420)
 - Remove imperative authentication and authorization resources: TokenRequest, TokenReview, LocalSubjectAccessReview, 
     SelfSubjectReview, SelfSubjectAccessReview, SelfSubjectRulesReview, and SubjectAccessReview (https://github.com/pulumi/pulumi-kubernetes/pull/2413)
 

@@ -1403,7 +1403,7 @@ func locateChart(cpo *action.ChartPathOptions, registryClient *registry.Client, 
 	name = strings.TrimSpace(name)
 	version := strings.TrimSpace(cpo.Version)
 
-	if _, err := os.Stat(filepath.Join(name, "Chart.yaml")); err == nil {
+	if _, err := os.Stat(filepath.Join(name, "Chart.yaml")); err == nil && cpo.RepoURL == "" {
 		abs, err := filepath.Abs(name)
 		if err != nil {
 			return abs, err
