@@ -717,15 +717,15 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 
 		k.k8sVersion = cluster.TryGetServerVersion(cs.DiscoveryClientCached)
 
+		if k.k8sVersion.Compare(cluster.ServerVersion{Major: 1, Minor: 13}) < 0 {
+			return nil, fmt.Errorf("minimum supported cluster version is v1.13. found v%s", k.k8sVersion)
+		}
+
 		if _, err = k.getResources(); err != nil {
 			k.clusterUnreachable = true
 			k.clusterUnreachableReason = fmt.Sprintf(
 				"unable to load schema information from the API server: %v", err)
 		}
-	}
-
-	if k.k8sVersion.Compare(cluster.ServerVersion{Major: 1, Minor: 13}) < 0 {
-		return nil, fmt.Errorf("minimum supported cluster version is v1.13. found v%s", k.k8sVersion)
 	}
 
 	var err error
@@ -2711,6 +2711,11 @@ func (k *kubeProvider) tryServerSidePatch(
 	gvk schema.GroupVersionKind,
 	fieldManager string,
 ) (ssPatch []byte, ssPatchBase map[string]interface{}, ok bool, err error) {
+	// If the cluster is unreachable, compute patch using inputs.
+	if k.clusterUnreachable {
+		return nil, nil, false, nil
+	}
+
 	// If the resource's GVK changed, so compute patch using inputs.
 	if oldInputs.GroupVersionKind().String() != gvk.String() {
 		return nil, nil, false, nil
@@ -2826,6 +2831,10 @@ func (k *kubeProvider) fieldManagerName(
 // may be an unregistered CustomResource.
 func (k *kubeProvider) gvkExists(obj *unstructured.Unstructured) bool {
 	gvk := obj.GroupVersionKind()
+	if k.clusterUnreachable {
+		logger.V(3).Infof("gvkExists check failed due to unreachable cluster")
+		return false
+	}
 	if _, err := k.clientSet.RESTMapper.RESTMapping(gvk.GroupKind(), gvk.Version); err != nil {
 		if !meta.IsNoMatchError(err) {
 			logger.V(3).Infof("RESTMapping(%q) returned unexpected error %v", gvk, err)
