@@ -17,13 +17,13 @@ type ResourceClassList struct {
 	pulumi.CustomResourceState
 
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringOutput `pulumi:"apiVersion"`
 	// Items is the list of resource classes.
 	Items ResourceClassTypeArrayOutput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrOutput `pulumi:"kind"`
+	Kind pulumi.StringOutput `pulumi:"kind"`
 	// Standard list metadata
-	Metadata metav1.ListMetaPtrOutput `pulumi:"metadata"`
+	Metadata metav1.ListMetaOutput `pulumi:"metadata"`
 }
 
 // NewResourceClassList registers a new resource with the given unique name, arguments, and options.
@@ -180,8 +180,8 @@ func (o ResourceClassListOutput) ToResourceClassListOutputWithContext(ctx contex
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o ResourceClassListOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ResourceClassList) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o ResourceClassListOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v *ResourceClassList) pulumi.StringOutput { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // Items is the list of resource classes.
@@ -190,13 +190,13 @@ func (o ResourceClassListOutput) Items() ResourceClassTypeArrayOutput {
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o ResourceClassListOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ResourceClassList) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+func (o ResourceClassListOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v *ResourceClassList) pulumi.StringOutput { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard list metadata
-func (o ResourceClassListOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v *ResourceClassList) metav1.ListMetaPtrOutput { return v.Metadata }).(metav1.ListMetaPtrOutput)
+func (o ResourceClassListOutput) Metadata() metav1.ListMetaOutput {
+	return o.ApplyT(func(v *ResourceClassList) metav1.ListMetaOutput { return v.Metadata }).(metav1.ListMetaOutput)
 }
 
 type ResourceClassListArrayOutput struct{ *pulumi.OutputState }

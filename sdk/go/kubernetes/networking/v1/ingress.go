@@ -135,13 +135,13 @@ type Ingress struct {
 	pulumi.CustomResourceState
 
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringOutput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrOutput `pulumi:"kind"`
+	Kind pulumi.StringOutput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaOutput `pulumi:"metadata"`
 	// spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec IngressSpecPtrOutput `pulumi:"spec"`
+	Spec IngressSpecOutput `pulumi:"spec"`
 	// status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Status IngressStatusPtrOutput `pulumi:"status"`
 }
@@ -306,23 +306,23 @@ func (o IngressOutput) ToIngressOutputWithContext(ctx context.Context) IngressOu
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o IngressOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Ingress) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o IngressOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v *Ingress) pulumi.StringOutput { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o IngressOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Ingress) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+func (o IngressOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v *Ingress) pulumi.StringOutput { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o IngressOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v *Ingress) metav1.ObjectMetaPtrOutput { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o IngressOutput) Metadata() metav1.ObjectMetaOutput {
+	return o.ApplyT(func(v *Ingress) metav1.ObjectMetaOutput { return v.Metadata }).(metav1.ObjectMetaOutput)
 }
 
 // spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-func (o IngressOutput) Spec() IngressSpecPtrOutput {
-	return o.ApplyT(func(v *Ingress) IngressSpecPtrOutput { return v.Spec }).(IngressSpecPtrOutput)
+func (o IngressOutput) Spec() IngressSpecOutput {
+	return o.ApplyT(func(v *Ingress) IngressSpecOutput { return v.Spec }).(IngressSpecOutput)
 }
 
 // status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status

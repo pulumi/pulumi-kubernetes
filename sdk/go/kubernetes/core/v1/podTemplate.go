@@ -16,13 +16,13 @@ type PodTemplate struct {
 	pulumi.CustomResourceState
 
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringOutput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrOutput `pulumi:"kind"`
+	Kind pulumi.StringOutput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaOutput `pulumi:"metadata"`
 	// Template defines the pods that will be created from this pod template. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Template PodTemplateSpecPtrOutput `pulumi:"template"`
+	Template PodTemplateSpecOutput `pulumi:"template"`
 }
 
 // NewPodTemplate registers a new resource with the given unique name, arguments, and options.
@@ -176,23 +176,23 @@ func (o PodTemplateOutput) ToPodTemplateOutputWithContext(ctx context.Context) P
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o PodTemplateOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *PodTemplate) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o PodTemplateOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v *PodTemplate) pulumi.StringOutput { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o PodTemplateOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *PodTemplate) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+func (o PodTemplateOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v *PodTemplate) pulumi.StringOutput { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o PodTemplateOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v *PodTemplate) metav1.ObjectMetaPtrOutput { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o PodTemplateOutput) Metadata() metav1.ObjectMetaOutput {
+	return o.ApplyT(func(v *PodTemplate) metav1.ObjectMetaOutput { return v.Metadata }).(metav1.ObjectMetaOutput)
 }
 
 // Template defines the pods that will be created from this pod template. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-func (o PodTemplateOutput) Template() PodTemplateSpecPtrOutput {
-	return o.ApplyT(func(v *PodTemplate) PodTemplateSpecPtrOutput { return v.Template }).(PodTemplateSpecPtrOutput)
+func (o PodTemplateOutput) Template() PodTemplateSpecOutput {
+	return o.ApplyT(func(v *PodTemplate) PodTemplateSpecOutput { return v.Template }).(PodTemplateSpecOutput)
 }
 
 type PodTemplateArrayOutput struct{ *pulumi.OutputState }

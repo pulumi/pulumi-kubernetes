@@ -17,12 +17,12 @@ type AuditSinkList struct {
 	pulumi.CustomResourceState
 
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringOutput `pulumi:"apiVersion"`
 	// List of audit configurations.
 	Items AuditSinkTypeArrayOutput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind     pulumi.StringPtrOutput   `pulumi:"kind"`
-	Metadata metav1.ListMetaPtrOutput `pulumi:"metadata"`
+	Kind     pulumi.StringOutput   `pulumi:"kind"`
+	Metadata metav1.ListMetaOutput `pulumi:"metadata"`
 }
 
 // NewAuditSinkList registers a new resource with the given unique name, arguments, and options.
@@ -177,8 +177,8 @@ func (o AuditSinkListOutput) ToAuditSinkListOutputWithContext(ctx context.Contex
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o AuditSinkListOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *AuditSinkList) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o AuditSinkListOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v *AuditSinkList) pulumi.StringOutput { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // List of audit configurations.
@@ -187,12 +187,12 @@ func (o AuditSinkListOutput) Items() AuditSinkTypeArrayOutput {
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o AuditSinkListOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *AuditSinkList) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+func (o AuditSinkListOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v *AuditSinkList) pulumi.StringOutput { return v.Kind }).(pulumi.StringOutput)
 }
 
-func (o AuditSinkListOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v *AuditSinkList) metav1.ListMetaPtrOutput { return v.Metadata }).(metav1.ListMetaPtrOutput)
+func (o AuditSinkListOutput) Metadata() metav1.ListMetaOutput {
+	return o.ApplyT(func(v *AuditSinkList) metav1.ListMetaOutput { return v.Metadata }).(metav1.ListMetaOutput)
 }
 
 type AuditSinkListArrayOutput struct{ *pulumi.OutputState }

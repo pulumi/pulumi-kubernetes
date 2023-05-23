@@ -20,15 +20,15 @@ type StorageClass struct {
 	pulumi.CustomResourceState
 
 	// allowVolumeExpansion shows whether the storage class allow volume expand.
-	AllowVolumeExpansion pulumi.BoolPtrOutput `pulumi:"allowVolumeExpansion"`
+	AllowVolumeExpansion pulumi.BoolOutput `pulumi:"allowVolumeExpansion"`
 	// allowedTopologies restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
 	AllowedTopologies corev1.TopologySelectorTermArrayOutput `pulumi:"allowedTopologies"`
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringOutput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrOutput `pulumi:"kind"`
+	Kind pulumi.StringOutput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaOutput `pulumi:"metadata"`
 	// mountOptions controls the mountOptions for dynamically provisioned PersistentVolumes of this storage class. e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
 	MountOptions pulumi.StringArrayOutput `pulumi:"mountOptions"`
 	// parameters holds the parameters for the provisioner that should create volumes of this storage class.
@@ -36,9 +36,9 @@ type StorageClass struct {
 	// provisioner indicates the type of the provisioner.
 	Provisioner pulumi.StringOutput `pulumi:"provisioner"`
 	// reclaimPolicy controls the reclaimPolicy for dynamically provisioned PersistentVolumes of this storage class. Defaults to Delete.
-	ReclaimPolicy pulumi.StringPtrOutput `pulumi:"reclaimPolicy"`
+	ReclaimPolicy pulumi.StringOutput `pulumi:"reclaimPolicy"`
 	// volumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
-	VolumeBindingMode pulumi.StringPtrOutput `pulumi:"volumeBindingMode"`
+	VolumeBindingMode pulumi.StringOutput `pulumi:"volumeBindingMode"`
 }
 
 // NewStorageClass registers a new resource with the given unique name, arguments, and options.
@@ -225,8 +225,8 @@ func (o StorageClassOutput) ToStorageClassOutputWithContext(ctx context.Context)
 }
 
 // allowVolumeExpansion shows whether the storage class allow volume expand.
-func (o StorageClassOutput) AllowVolumeExpansion() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *StorageClass) pulumi.BoolPtrOutput { return v.AllowVolumeExpansion }).(pulumi.BoolPtrOutput)
+func (o StorageClassOutput) AllowVolumeExpansion() pulumi.BoolOutput {
+	return o.ApplyT(func(v *StorageClass) pulumi.BoolOutput { return v.AllowVolumeExpansion }).(pulumi.BoolOutput)
 }
 
 // allowedTopologies restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
@@ -235,18 +235,18 @@ func (o StorageClassOutput) AllowedTopologies() corev1.TopologySelectorTermArray
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o StorageClassOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *StorageClass) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o StorageClassOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v *StorageClass) pulumi.StringOutput { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o StorageClassOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *StorageClass) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+func (o StorageClassOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v *StorageClass) pulumi.StringOutput { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o StorageClassOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v *StorageClass) metav1.ObjectMetaPtrOutput { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o StorageClassOutput) Metadata() metav1.ObjectMetaOutput {
+	return o.ApplyT(func(v *StorageClass) metav1.ObjectMetaOutput { return v.Metadata }).(metav1.ObjectMetaOutput)
 }
 
 // mountOptions controls the mountOptions for dynamically provisioned PersistentVolumes of this storage class. e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
@@ -265,13 +265,13 @@ func (o StorageClassOutput) Provisioner() pulumi.StringOutput {
 }
 
 // reclaimPolicy controls the reclaimPolicy for dynamically provisioned PersistentVolumes of this storage class. Defaults to Delete.
-func (o StorageClassOutput) ReclaimPolicy() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *StorageClass) pulumi.StringPtrOutput { return v.ReclaimPolicy }).(pulumi.StringPtrOutput)
+func (o StorageClassOutput) ReclaimPolicy() pulumi.StringOutput {
+	return o.ApplyT(func(v *StorageClass) pulumi.StringOutput { return v.ReclaimPolicy }).(pulumi.StringOutput)
 }
 
 // volumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
-func (o StorageClassOutput) VolumeBindingMode() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *StorageClass) pulumi.StringPtrOutput { return v.VolumeBindingMode }).(pulumi.StringPtrOutput)
+func (o StorageClassOutput) VolumeBindingMode() pulumi.StringOutput {
+	return o.ApplyT(func(v *StorageClass) pulumi.StringOutput { return v.VolumeBindingMode }).(pulumi.StringOutput)
 }
 
 type StorageClassArrayOutput struct{ *pulumi.OutputState }

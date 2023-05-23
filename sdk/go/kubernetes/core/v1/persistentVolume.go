@@ -16,13 +16,13 @@ type PersistentVolume struct {
 	pulumi.CustomResourceState
 
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringOutput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrOutput `pulumi:"kind"`
+	Kind pulumi.StringOutput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaOutput `pulumi:"metadata"`
 	// spec defines a specification of a persistent volume owned by the cluster. Provisioned by an administrator. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
-	Spec PersistentVolumeSpecPtrOutput `pulumi:"spec"`
+	Spec PersistentVolumeSpecOutput `pulumi:"spec"`
 	// status represents the current information/status for the persistent volume. Populated by the system. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
 	Status PersistentVolumeStatusPtrOutput `pulumi:"status"`
 }
@@ -178,23 +178,23 @@ func (o PersistentVolumeOutput) ToPersistentVolumeOutputWithContext(ctx context.
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o PersistentVolumeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *PersistentVolume) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o PersistentVolumeOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v *PersistentVolume) pulumi.StringOutput { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o PersistentVolumeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *PersistentVolume) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+func (o PersistentVolumeOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v *PersistentVolume) pulumi.StringOutput { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o PersistentVolumeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v *PersistentVolume) metav1.ObjectMetaPtrOutput { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o PersistentVolumeOutput) Metadata() metav1.ObjectMetaOutput {
+	return o.ApplyT(func(v *PersistentVolume) metav1.ObjectMetaOutput { return v.Metadata }).(metav1.ObjectMetaOutput)
 }
 
 // spec defines a specification of a persistent volume owned by the cluster. Provisioned by an administrator. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
-func (o PersistentVolumeOutput) Spec() PersistentVolumeSpecPtrOutput {
-	return o.ApplyT(func(v *PersistentVolume) PersistentVolumeSpecPtrOutput { return v.Spec }).(PersistentVolumeSpecPtrOutput)
+func (o PersistentVolumeOutput) Spec() PersistentVolumeSpecOutput {
+	return o.ApplyT(func(v *PersistentVolume) PersistentVolumeSpecOutput { return v.Spec }).(PersistentVolumeSpecOutput)
 }
 
 // status represents the current information/status for the persistent volume. Populated by the system. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes

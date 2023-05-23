@@ -17,13 +17,13 @@ type FlowSchemaList struct {
 	pulumi.CustomResourceState
 
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringOutput `pulumi:"apiVersion"`
 	// `items` is a list of FlowSchemas.
 	Items FlowSchemaTypeArrayOutput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrOutput `pulumi:"kind"`
+	Kind pulumi.StringOutput `pulumi:"kind"`
 	// `metadata` is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ListMetaPtrOutput `pulumi:"metadata"`
+	Metadata metav1.ListMetaOutput `pulumi:"metadata"`
 }
 
 // NewFlowSchemaList registers a new resource with the given unique name, arguments, and options.
@@ -180,8 +180,8 @@ func (o FlowSchemaListOutput) ToFlowSchemaListOutputWithContext(ctx context.Cont
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o FlowSchemaListOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *FlowSchemaList) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o FlowSchemaListOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v *FlowSchemaList) pulumi.StringOutput { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // `items` is a list of FlowSchemas.
@@ -190,13 +190,13 @@ func (o FlowSchemaListOutput) Items() FlowSchemaTypeArrayOutput {
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o FlowSchemaListOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *FlowSchemaList) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+func (o FlowSchemaListOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v *FlowSchemaList) pulumi.StringOutput { return v.Kind }).(pulumi.StringOutput)
 }
 
 // `metadata` is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o FlowSchemaListOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v *FlowSchemaList) metav1.ListMetaPtrOutput { return v.Metadata }).(metav1.ListMetaPtrOutput)
+func (o FlowSchemaListOutput) Metadata() metav1.ListMetaOutput {
+	return o.ApplyT(func(v *FlowSchemaList) metav1.ListMetaOutput { return v.Metadata }).(metav1.ListMetaOutput)
 }
 
 type FlowSchemaListArrayOutput struct{ *pulumi.OutputState }

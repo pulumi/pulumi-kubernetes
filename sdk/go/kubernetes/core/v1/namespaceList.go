@@ -17,13 +17,13 @@ type NamespaceList struct {
 	pulumi.CustomResourceState
 
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringOutput `pulumi:"apiVersion"`
 	// Items is the list of Namespace objects in the list. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
 	Items NamespaceTypeArrayOutput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrOutput `pulumi:"kind"`
+	Kind pulumi.StringOutput `pulumi:"kind"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Metadata metav1.ListMetaPtrOutput `pulumi:"metadata"`
+	Metadata metav1.ListMetaOutput `pulumi:"metadata"`
 }
 
 // NewNamespaceList registers a new resource with the given unique name, arguments, and options.
@@ -180,8 +180,8 @@ func (o NamespaceListOutput) ToNamespaceListOutputWithContext(ctx context.Contex
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o NamespaceListOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *NamespaceList) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o NamespaceListOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v *NamespaceList) pulumi.StringOutput { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // Items is the list of Namespace objects in the list. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
@@ -190,13 +190,13 @@ func (o NamespaceListOutput) Items() NamespaceTypeArrayOutput {
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o NamespaceListOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *NamespaceList) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+func (o NamespaceListOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v *NamespaceList) pulumi.StringOutput { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o NamespaceListOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v *NamespaceList) metav1.ListMetaPtrOutput { return v.Metadata }).(metav1.ListMetaPtrOutput)
+func (o NamespaceListOutput) Metadata() metav1.ListMetaOutput {
+	return o.ApplyT(func(v *NamespaceList) metav1.ListMetaOutput { return v.Metadata }).(metav1.ListMetaOutput)
 }
 
 type NamespaceListArrayOutput struct{ *pulumi.OutputState }
