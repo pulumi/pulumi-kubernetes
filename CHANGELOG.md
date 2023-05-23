@@ -1,5 +1,7 @@
 ## Unreleased
 
+- Add a "strict mode" configuration option (https://github.com/pulumi/pulumi-kubernetes/pull/2425)
+
 ## 3.28.0 (May 19, 2023)
 
 - Handle resource change from static name to autoname under SSA (https://github.com/pulumi/pulumi-kubernetes/pull/2392)
