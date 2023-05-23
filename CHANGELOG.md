@@ -10,6 +10,8 @@ Breaking changes:
 
 ## Unreleased
 
+- Automatically fall back to client-side preview if server-side preview fails (https://github.com/pulumi/pulumi-kubernetes/pull/2419)
+
 ## 3.28.0 (May 19, 2023)
 
 Breaking changes:
