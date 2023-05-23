@@ -1269,27 +1269,30 @@ func TestServerSideApplyPreview(t *testing.T) {
 
 	t.Log("created 'kubeconfig-sa' context")
 
+	// Register cleanup to undo kubeconfig and related resource changes.
+	t.Cleanup(func() {
+		// Clean up kubeconfig user.
+		out, err = exec.Command("kubectl", "config", "unset", "users.kubeconfig-sa").CombinedOutput()
+		assert.NoError(t, err)
+		assert.Contains(t, string(out), `"users.kubeconfig-sa" unset`)
+
+		// Clean up kubeconfig context.
+		out, err = exec.Command("kubectl", "config", "unset", "contexts.kubeconfig-sa").CombinedOutput()
+		assert.NoError(t, err)
+		assert.Contains(t, string(out), `"contexts.kubeconfig-sa" unset`)
+
+		// Clean up ServiceAccount and ClusterRoleBinding.
+		out, err = exec.Command("kubectl", "delete", "--filename", manifestFile).CombinedOutput()
+		assert.Contains(t, string(out), `serviceaccount "kubeconfig-sa" deleted`)
+		assert.Contains(t, string(out), `clusterrolebinding.rbac.authorization.k8s.io "view-only" deleted`)
+
+		t.Log("finished cleaning up 'kubeconfig-sa' context")
+	})
+
 	// Run program to update the Provider context and show expected changes to the ConfigMap.
 	pt := integration.ProgramTestManualLifeCycle(t, &applyStep)
 	err = pt.TestLifeCycleInitAndDestroy()
 	assert.NoError(t, err)
-
-	// Clean up kubeconfig user.
-	out, err = exec.Command("kubectl", "config", "unset", "users.kubeconfig-sa").CombinedOutput()
-	assert.NoError(t, err)
-	assert.Contains(t, string(out), `"users.kubeconfig-sa" unset`)
-
-	// Clean up kubeconfig context.
-	out, err = exec.Command("kubectl", "config", "unset", "contexts.kubeconfig-sa").CombinedOutput()
-	assert.NoError(t, err)
-	assert.Contains(t, string(out), `"contexts.kubeconfig-sa" unset`)
-
-	// Clean up ServiceAccount and ClusterRoleBinding.
-	out, err = exec.Command("kubectl", "delete", "--filename", manifestFile).CombinedOutput()
-	assert.Contains(t, string(out), `serviceaccount "kubeconfig-sa" deleted`)
-	assert.Contains(t, string(out), `clusterrolebinding.rbac.authorization.k8s.io "view-only" deleted`)
-
-	t.Log("finished cleaning up 'kubeconfig-sa' context")
 }
 
 func TestServerSideApplyUpgrade(t *testing.T) {
