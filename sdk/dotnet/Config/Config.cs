@@ -151,6 +151,16 @@ namespace Pulumi.Kubernetes
             set => _renderYamlToDirectory.Set(value);
         }
 
+        private static readonly __Value<bool?> _strictMode = new __Value<bool?>(() => __config.GetBoolean("strictMode"));
+        /// <summary>
+        /// If present and set to true, the provider will use strict configuration mode. Recommended for production stacks. In this mode, the default Kubernetes provider is disabled, and the `kubeconfig` and `context` settings are required for Provider configuration. These settings unambiguously ensure that every Kubernetes resource is associated with a particular cluster.
+        /// </summary>
+        public static bool? StrictMode
+        {
+            get => _strictMode.Get();
+            set => _strictMode.Set(value);
+        }
+
         private static readonly __Value<bool?> _suppressDeprecationWarnings = new __Value<bool?>(() => __config.GetBoolean("suppressDeprecationWarnings"));
         /// <summary>
         /// If present and set to true, suppress apiVersion deprecation warnings from the CLI.
