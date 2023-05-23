@@ -19,6 +19,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/gen/examples"
@@ -331,6 +332,12 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 				for _, p := range kind.OptionalInputProperties() {
 					resourceSpec.InputProperties[p.name] = genPropertySpec(p, kind.kind)
 				}
+				var required []string
+				for p := range resourceSpec.InputProperties {
+					required = append(required, p)
+				}
+				sort.Strings(required)
+				resourceSpec.Required = required
 
 				for _, t := range kind.Aliases() {
 					aliasedType := t
