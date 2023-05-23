@@ -1338,3 +1338,67 @@ func TestServiceAccountTokenSecret(t *testing.T) {
 	})
 	integration.ProgramTest(t, &test)
 }
+
+func TestStrictMode(t *testing.T) {
+	test := baseOptions.With(integration.ProgramTestOptions{
+		Dir:           filepath.Join("strict-mode", "step1"),
+		Quick:         true,
+		ExpectFailure: true,
+		SkipRefresh:   true,
+		OrderedConfig: []integration.ConfigValue{
+			{
+				Key:   "kubernetes:strictMode",
+				Value: "true",
+			},
+		},
+		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+			// Check the event stream for a diagnostic event showing that a default provider is prohibited.
+			foundMessage := false
+			msg := "strict mode prohibits default provider"
+			for _, e := range stackInfo.Events {
+				if e.DiagnosticEvent != nil && strings.Contains(e.DiagnosticEvent.Message, msg) {
+					foundMessage = true
+					break
+				}
+			}
+			assert.Truef(t, foundMessage, "did not find expected failure message: %q", msg)
+		},
+		EditDirs: []integration.EditDir{
+			{
+				Dir:           filepath.Join("strict-mode", "step2"),
+				Additive:      true,
+				ExpectFailure: true,
+				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+					// Check the event stream for a diagnostic event showing that a Provider requires a "context".
+					foundMessage := false
+					msg := `strict mode requires Provider "context" argument`
+					for _, e := range stackInfo.Events {
+						if e.DiagnosticEvent != nil && strings.Contains(e.DiagnosticEvent.Message, msg) {
+							foundMessage = true
+							break
+						}
+					}
+					assert.Truef(t, foundMessage, "did not find expected failure message: %q", msg)
+				},
+			},
+			{
+				Dir:           filepath.Join("strict-mode", "step3"),
+				Additive:      true,
+				ExpectFailure: true,
+				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+					// Check the event stream for a diagnostic event showing that a Provider requires a "kubeconfig".
+					foundMessage := false
+					msg := `strict mode requires Provider "kubeconfig" argument`
+					for _, e := range stackInfo.Events {
+						if e.DiagnosticEvent != nil && strings.Contains(e.DiagnosticEvent.Message, msg) {
+							foundMessage = true
+							break
+						}
+					}
+					assert.Truef(t, foundMessage, "did not find expected failure message: %q", msg)
+				},
+			},
+		},
+	})
+	integration.ProgramTest(t, &test)
+}
