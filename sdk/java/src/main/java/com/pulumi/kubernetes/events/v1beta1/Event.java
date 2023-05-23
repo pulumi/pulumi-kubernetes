@@ -17,7 +17,6 @@ import com.pulumi.kubernetes.meta.v1.outputs.ObjectMeta;
 import java.lang.Integer;
 import java.lang.String;
 import java.util.List;
-import java.util.Optional;
 import javax.annotation.Nullable;
 
 /**
@@ -31,84 +30,84 @@ public class Event extends com.pulumi.resources.CustomResource {
      * 
      */
     @Export(name="action", refs={String.class}, tree="[0]")
-    private Output</* @Nullable */ String> action;
+    private Output<String> action;
 
     /**
      * @return What action was taken/failed regarding to the regarding object.
      * 
      */
-    public Output<Optional<String>> action() {
-        return Codegen.optional(this.action);
+    public Output<String> action() {
+        return this.action;
     }
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      * 
      */
     @Export(name="apiVersion", refs={String.class}, tree="[0]")
-    private Output</* @Nullable */ String> apiVersion;
+    private Output<String> apiVersion;
 
     /**
      * @return APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      * 
      */
-    public Output<Optional<String>> apiVersion() {
-        return Codegen.optional(this.apiVersion);
+    public Output<String> apiVersion() {
+        return this.apiVersion;
     }
     /**
      * Deprecated field assuring backward compatibility with core.v1 Event type
      * 
      */
     @Export(name="deprecatedCount", refs={Integer.class}, tree="[0]")
-    private Output</* @Nullable */ Integer> deprecatedCount;
+    private Output<Integer> deprecatedCount;
 
     /**
      * @return Deprecated field assuring backward compatibility with core.v1 Event type
      * 
      */
-    public Output<Optional<Integer>> deprecatedCount() {
-        return Codegen.optional(this.deprecatedCount);
+    public Output<Integer> deprecatedCount() {
+        return this.deprecatedCount;
     }
     /**
      * Deprecated field assuring backward compatibility with core.v1 Event type
      * 
      */
     @Export(name="deprecatedFirstTimestamp", refs={String.class}, tree="[0]")
-    private Output</* @Nullable */ String> deprecatedFirstTimestamp;
+    private Output<String> deprecatedFirstTimestamp;
 
     /**
      * @return Deprecated field assuring backward compatibility with core.v1 Event type
      * 
      */
-    public Output<Optional<String>> deprecatedFirstTimestamp() {
-        return Codegen.optional(this.deprecatedFirstTimestamp);
+    public Output<String> deprecatedFirstTimestamp() {
+        return this.deprecatedFirstTimestamp;
     }
     /**
      * Deprecated field assuring backward compatibility with core.v1 Event type
      * 
      */
     @Export(name="deprecatedLastTimestamp", refs={String.class}, tree="[0]")
-    private Output</* @Nullable */ String> deprecatedLastTimestamp;
+    private Output<String> deprecatedLastTimestamp;
 
     /**
      * @return Deprecated field assuring backward compatibility with core.v1 Event type
      * 
      */
-    public Output<Optional<String>> deprecatedLastTimestamp() {
-        return Codegen.optional(this.deprecatedLastTimestamp);
+    public Output<String> deprecatedLastTimestamp() {
+        return this.deprecatedLastTimestamp;
     }
     /**
      * Deprecated field assuring backward compatibility with core.v1 Event type
      * 
      */
     @Export(name="deprecatedSource", refs={EventSource.class}, tree="[0]")
-    private Output</* @Nullable */ EventSource> deprecatedSource;
+    private Output<EventSource> deprecatedSource;
 
     /**
      * @return Deprecated field assuring backward compatibility with core.v1 Event type
      * 
      */
-    public Output<Optional<EventSource>> deprecatedSource() {
-        return Codegen.optional(this.deprecatedSource);
+    public Output<EventSource> deprecatedSource() {
+        return this.deprecatedSource;
     }
     /**
      * Required. Time when this Event was first observed.
@@ -129,132 +128,132 @@ public class Event extends com.pulumi.resources.CustomResource {
      * 
      */
     @Export(name="kind", refs={String.class}, tree="[0]")
-    private Output</* @Nullable */ String> kind;
+    private Output<String> kind;
 
     /**
      * @return Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
-    public Output<Optional<String>> kind() {
-        return Codegen.optional(this.kind);
+    public Output<String> kind() {
+        return this.kind;
     }
     @Export(name="metadata", refs={ObjectMeta.class}, tree="[0]")
-    private Output</* @Nullable */ ObjectMeta> metadata;
+    private Output<ObjectMeta> metadata;
 
-    public Output<Optional<ObjectMeta>> metadata() {
-        return Codegen.optional(this.metadata);
+    public Output<ObjectMeta> metadata() {
+        return this.metadata;
     }
     /**
      * Optional. A human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
      * 
      */
     @Export(name="note", refs={String.class}, tree="[0]")
-    private Output</* @Nullable */ String> note;
+    private Output<String> note;
 
     /**
      * @return Optional. A human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
      * 
      */
-    public Output<Optional<String>> note() {
-        return Codegen.optional(this.note);
+    public Output<String> note() {
+        return this.note;
     }
     /**
      * Why the action was taken.
      * 
      */
     @Export(name="reason", refs={String.class}, tree="[0]")
-    private Output</* @Nullable */ String> reason;
+    private Output<String> reason;
 
     /**
      * @return Why the action was taken.
      * 
      */
-    public Output<Optional<String>> reason() {
-        return Codegen.optional(this.reason);
+    public Output<String> reason() {
+        return this.reason;
     }
     /**
      * The object this Event is about. In most cases it&#39;s an Object reporting controller implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
      * 
      */
     @Export(name="regarding", refs={ObjectReference.class}, tree="[0]")
-    private Output</* @Nullable */ ObjectReference> regarding;
+    private Output<ObjectReference> regarding;
 
     /**
      * @return The object this Event is about. In most cases it&#39;s an Object reporting controller implements. E.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
      * 
      */
-    public Output<Optional<ObjectReference>> regarding() {
-        return Codegen.optional(this.regarding);
+    public Output<ObjectReference> regarding() {
+        return this.regarding;
     }
     /**
      * Optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
      * 
      */
     @Export(name="related", refs={ObjectReference.class}, tree="[0]")
-    private Output</* @Nullable */ ObjectReference> related;
+    private Output<ObjectReference> related;
 
     /**
      * @return Optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
      * 
      */
-    public Output<Optional<ObjectReference>> related() {
-        return Codegen.optional(this.related);
+    public Output<ObjectReference> related() {
+        return this.related;
     }
     /**
      * Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
      * 
      */
     @Export(name="reportingController", refs={String.class}, tree="[0]")
-    private Output</* @Nullable */ String> reportingController;
+    private Output<String> reportingController;
 
     /**
      * @return Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
      * 
      */
-    public Output<Optional<String>> reportingController() {
-        return Codegen.optional(this.reportingController);
+    public Output<String> reportingController() {
+        return this.reportingController;
     }
     /**
      * ID of the controller instance, e.g. `kubelet-xyzf`.
      * 
      */
     @Export(name="reportingInstance", refs={String.class}, tree="[0]")
-    private Output</* @Nullable */ String> reportingInstance;
+    private Output<String> reportingInstance;
 
     /**
      * @return ID of the controller instance, e.g. `kubelet-xyzf`.
      * 
      */
-    public Output<Optional<String>> reportingInstance() {
-        return Codegen.optional(this.reportingInstance);
+    public Output<String> reportingInstance() {
+        return this.reportingInstance;
     }
     /**
      * Data about the Event series this event represents or nil if it&#39;s a singleton Event.
      * 
      */
     @Export(name="series", refs={EventSeries.class}, tree="[0]")
-    private Output</* @Nullable */ EventSeries> series;
+    private Output<EventSeries> series;
 
     /**
      * @return Data about the Event series this event represents or nil if it&#39;s a singleton Event.
      * 
      */
-    public Output<Optional<EventSeries>> series() {
-        return Codegen.optional(this.series);
+    public Output<EventSeries> series() {
+        return this.series;
     }
     /**
      * Type of this event (Normal, Warning), new types could be added in the future.
      * 
      */
     @Export(name="type", refs={String.class}, tree="[0]")
-    private Output</* @Nullable */ String> type;
+    private Output<String> type;
 
     /**
      * @return Type of this event (Normal, Warning), new types could be added in the future.
      * 
      */
-    public Output<Optional<String>> type() {
-        return Codegen.optional(this.type);
+    public Output<String> type() {
+        return this.type;
     }
 
     /**

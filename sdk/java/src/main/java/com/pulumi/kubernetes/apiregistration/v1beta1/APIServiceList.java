@@ -14,7 +14,6 @@ import com.pulumi.kubernetes.apiregistration.v1beta1.outputs.APIService;
 import com.pulumi.kubernetes.meta.v1.outputs.ListMeta;
 import java.lang.String;
 import java.util.List;
-import java.util.Optional;
 import javax.annotation.Nullable;
 
 /**
@@ -28,14 +27,14 @@ public class APIServiceList extends com.pulumi.resources.CustomResource {
      * 
      */
     @Export(name="apiVersion", refs={String.class}, tree="[0]")
-    private Output</* @Nullable */ String> apiVersion;
+    private Output<String> apiVersion;
 
     /**
      * @return APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      * 
      */
-    public Output<Optional<String>> apiVersion() {
-        return Codegen.optional(this.apiVersion);
+    public Output<String> apiVersion() {
+        return this.apiVersion;
     }
     @Export(name="items", refs={List.class,APIService.class}, tree="[0,1]")
     private Output<List<APIService>> items;
@@ -48,20 +47,20 @@ public class APIServiceList extends com.pulumi.resources.CustomResource {
      * 
      */
     @Export(name="kind", refs={String.class}, tree="[0]")
-    private Output</* @Nullable */ String> kind;
+    private Output<String> kind;
 
     /**
      * @return Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
-    public Output<Optional<String>> kind() {
-        return Codegen.optional(this.kind);
+    public Output<String> kind() {
+        return this.kind;
     }
     @Export(name="metadata", refs={ListMeta.class}, tree="[0]")
-    private Output</* @Nullable */ ListMeta> metadata;
+    private Output<ListMeta> metadata;
 
-    public Output<Optional<ListMeta>> metadata() {
-        return Codegen.optional(this.metadata);
+    public Output<ListMeta> metadata() {
+        return this.metadata;
     }
 
     /**
