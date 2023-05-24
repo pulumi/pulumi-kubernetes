@@ -1393,6 +1393,44 @@ func getChart(cpo *action.ChartPathOptions, registryClient *registry.Client, set
 	return c, path, nil
 }
 
+// localChart determines if the specified chart is avaialble locally (either compressed or not),
+// and if so, validates it and returns the path to the chart.
+func localChart(name string, verify bool, keyring string) (string, bool, error) {
+	fi, err := os.Stat(name)
+	if err != nil {
+		if errors.Is(err, os.ErrNotExist) {
+			return "", false, nil
+		}
+
+		return "", false, err
+	}
+
+	// If a folder is of the same name as a chart, use the folder if it contains a Chart.yaml.
+	if err == nil && fi.IsDir() {
+		if _, err := os.Stat(filepath.Join(name, "Chart.yaml")); err != nil {
+			// This is not a chart directory, so do not error as Helm could still
+			// resolve this as a locally added chart repository, eg. `helm repo add`.
+			return "", false, nil
+		}
+	}
+
+	// Get the absolute path to the local compressed chart archive if it's a file.
+	absPath, err := filepath.Abs(name)
+	if err != nil {
+		return "", false, err
+	}
+
+	// Verify the chart with the specified keyring if enabled. The chart must be in a compressed
+	// archive, with a valid adjancent provenance file.
+	if verify {
+		if _, err := downloader.VerifyChart(name, keyring); err != nil {
+			return "", false, err
+		}
+	}
+
+	return absPath, true, nil
+}
+
 // locateChart is a copy of cpo.LocateChart with a fix to actually honor the registry client
 // configured with a registry config. As currently written, LocateChart will only ever honor
 // the registry config in $HELM_HOME/registry/config.json or the platform specific docker
@@ -1403,35 +1441,20 @@ func locateChart(cpo *action.ChartPathOptions, registryClient *registry.Client, 
 	name = strings.TrimSpace(name)
 	version := strings.TrimSpace(cpo.Version)
 
-	if _, err := os.Stat(filepath.Join(name, "Chart.yaml")); err == nil {
-		abs, err := filepath.Abs(name)
-		if err != nil {
+	// Determine if chart is already available locally.
+	if cpo.RepoURL == "" {
+		abs, found, err := localChart(name, cpo.Verify, cpo.Keyring)
+		if found || err != nil {
 			return abs, err
 		}
-		if cpo.Verify {
-			if _, err := downloader.VerifyChart(abs, cpo.Keyring); err != nil {
-				return "", err
-			}
+
+		// If not found, do more validations. This is from the original LocateChart.
+		if filepath.IsAbs(name) || strings.HasPrefix(name, ".") {
+			return name, pkgerrors.Errorf("path %q not found", name)
 		}
-		return abs, nil
-	} else if cpo.RepoURL == "" {
-		if _, err := os.Stat(name); err == nil {
-			abs, err := filepath.Abs(name)
-			if err != nil {
-				return abs, err
-			}
-			if cpo.Verify {
-				if _, err := downloader.VerifyChart(abs, cpo.Keyring); err != nil {
-					return "", err
-				}
-			}
-			return abs, nil
-		}
-	}
-	if filepath.IsAbs(name) || strings.HasPrefix(name, ".") {
-		return name, pkgerrors.Errorf("path %q not found", name)
 	}
 
+	// If local chart not found, try to download it.
 	dl := downloader.ChartDownloader{
 		Out:     os.Stdout,
 		Keyring: cpo.Keyring,
