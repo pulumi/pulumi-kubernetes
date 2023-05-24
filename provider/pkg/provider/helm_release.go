@@ -1393,7 +1393,7 @@ func getChart(cpo *action.ChartPathOptions, registryClient *registry.Client, set
 	return c, path, nil
 }
 
-// localChart determines if the specified chart is avaialble locally (either compressed or not),
+// localChart determines if the specified chart is available locally (either compressed or not),
 // and if so, validates it and returns the path to the chart.
 func localChart(name string, verify bool, keyring string) (string, bool, error) {
 	fi, err := os.Stat(name)
