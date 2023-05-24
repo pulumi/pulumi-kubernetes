@@ -17,13 +17,13 @@ type NodeList struct {
 	pulumi.CustomResourceState
 
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringOutput `pulumi:"apiVersion"`
 	// List of nodes
 	Items NodeTypeArrayOutput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrOutput `pulumi:"kind"`
+	Kind pulumi.StringOutput `pulumi:"kind"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Metadata metav1.ListMetaPtrOutput `pulumi:"metadata"`
+	Metadata metav1.ListMetaOutput `pulumi:"metadata"`
 }
 
 // NewNodeList registers a new resource with the given unique name, arguments, and options.
@@ -180,8 +180,8 @@ func (o NodeListOutput) ToNodeListOutputWithContext(ctx context.Context) NodeLis
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o NodeListOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *NodeList) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o NodeListOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v *NodeList) pulumi.StringOutput { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // List of nodes
@@ -190,13 +190,13 @@ func (o NodeListOutput) Items() NodeTypeArrayOutput {
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o NodeListOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *NodeList) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+func (o NodeListOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v *NodeList) pulumi.StringOutput { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o NodeListOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v *NodeList) metav1.ListMetaPtrOutput { return v.Metadata }).(metav1.ListMetaPtrOutput)
+func (o NodeListOutput) Metadata() metav1.ListMetaOutput {
+	return o.ApplyT(func(v *NodeList) metav1.ListMetaOutput { return v.Metadata }).(metav1.ListMetaOutput)
 }
 
 type NodeListArrayOutput struct{ *pulumi.OutputState }

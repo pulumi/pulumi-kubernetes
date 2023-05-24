@@ -14,7 +14,6 @@ import com.pulumi.kubernetes.meta.v1.outputs.ObjectMeta;
 import com.pulumi.kubernetes.storage.v1beta1.CSIStorageCapacityArgs;
 import java.lang.String;
 import java.util.List;
-import java.util.Optional;
 import javax.annotation.Nullable;
 
 /**
@@ -36,14 +35,14 @@ public class CSIStorageCapacity extends com.pulumi.resources.CustomResource {
      * 
      */
     @Export(name="apiVersion", refs={String.class}, tree="[0]")
-    private Output</* @Nullable */ String> apiVersion;
+    private Output<String> apiVersion;
 
     /**
      * @return APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      * 
      */
-    public Output<Optional<String>> apiVersion() {
-        return Codegen.optional(this.apiVersion);
+    public Output<String> apiVersion() {
+        return this.apiVersion;
     }
     /**
      * Capacity is the value reported by the CSI driver in its GetCapacityResponse for a GetCapacityRequest with topology and parameters that match the previous fields.
@@ -52,7 +51,7 @@ public class CSIStorageCapacity extends com.pulumi.resources.CustomResource {
      * 
      */
     @Export(name="capacity", refs={String.class}, tree="[0]")
-    private Output</* @Nullable */ String> capacity;
+    private Output<String> capacity;
 
     /**
      * @return Capacity is the value reported by the CSI driver in its GetCapacityResponse for a GetCapacityRequest with topology and parameters that match the previous fields.
@@ -60,22 +59,22 @@ public class CSIStorageCapacity extends com.pulumi.resources.CustomResource {
      * The semantic is currently (CSI spec 1.2) defined as: The available capacity, in bytes, of the storage that can be used to provision volumes. If not set, that information is currently unavailable.
      * 
      */
-    public Output<Optional<String>> capacity() {
-        return Codegen.optional(this.capacity);
+    public Output<String> capacity() {
+        return this.capacity;
     }
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
     @Export(name="kind", refs={String.class}, tree="[0]")
-    private Output</* @Nullable */ String> kind;
+    private Output<String> kind;
 
     /**
      * @return Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
-    public Output<Optional<String>> kind() {
-        return Codegen.optional(this.kind);
+    public Output<String> kind() {
+        return this.kind;
     }
     /**
      * MaximumVolumeSize is the value reported by the CSI driver in its GetCapacityResponse for a GetCapacityRequest with topology and parameters that match the previous fields.
@@ -84,7 +83,7 @@ public class CSIStorageCapacity extends com.pulumi.resources.CustomResource {
      * 
      */
     @Export(name="maximumVolumeSize", refs={String.class}, tree="[0]")
-    private Output</* @Nullable */ String> maximumVolumeSize;
+    private Output<String> maximumVolumeSize;
 
     /**
      * @return MaximumVolumeSize is the value reported by the CSI driver in its GetCapacityResponse for a GetCapacityRequest with topology and parameters that match the previous fields.
@@ -92,8 +91,8 @@ public class CSIStorageCapacity extends com.pulumi.resources.CustomResource {
      * This is defined since CSI spec 1.4.0 as the largest size that may be used in a CreateVolumeRequest.capacity_range.required_bytes field to create a volume with the same parameters as those in GetCapacityRequest. The corresponding value in the Kubernetes API is ResourceRequirements.Requests in a volume claim.
      * 
      */
-    public Output<Optional<String>> maximumVolumeSize() {
-        return Codegen.optional(this.maximumVolumeSize);
+    public Output<String> maximumVolumeSize() {
+        return this.maximumVolumeSize;
     }
     /**
      * Standard object&#39;s metadata. The name has no particular meaning. It must be be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-&lt;uuid&gt;, a generated name, or a reverse-domain name which ends with the unique CSI driver name.
@@ -104,7 +103,7 @@ public class CSIStorageCapacity extends com.pulumi.resources.CustomResource {
      * 
      */
     @Export(name="metadata", refs={ObjectMeta.class}, tree="[0]")
-    private Output</* @Nullable */ ObjectMeta> metadata;
+    private Output<ObjectMeta> metadata;
 
     /**
      * @return Standard object&#39;s metadata. The name has no particular meaning. It must be be a DNS subdomain (dots allowed, 253 characters). To ensure that there are no conflicts with other CSI drivers on the cluster, the recommendation is to use csisc-&lt;uuid&gt;, a generated name, or a reverse-domain name which ends with the unique CSI driver name.
@@ -114,22 +113,22 @@ public class CSIStorageCapacity extends com.pulumi.resources.CustomResource {
      * More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      * 
      */
-    public Output<Optional<ObjectMeta>> metadata() {
-        return Codegen.optional(this.metadata);
+    public Output<ObjectMeta> metadata() {
+        return this.metadata;
     }
     /**
      * NodeTopology defines which nodes have access to the storage for which capacity was reported. If not set, the storage is not accessible from any node in the cluster. If empty, the storage is accessible from all nodes. This field is immutable.
      * 
      */
     @Export(name="nodeTopology", refs={LabelSelector.class}, tree="[0]")
-    private Output</* @Nullable */ LabelSelector> nodeTopology;
+    private Output<LabelSelector> nodeTopology;
 
     /**
      * @return NodeTopology defines which nodes have access to the storage for which capacity was reported. If not set, the storage is not accessible from any node in the cluster. If empty, the storage is accessible from all nodes. This field is immutable.
      * 
      */
-    public Output<Optional<LabelSelector>> nodeTopology() {
-        return Codegen.optional(this.nodeTopology);
+    public Output<LabelSelector> nodeTopology() {
+        return this.nodeTopology;
     }
     /**
      * The name of the StorageClass that the reported capacity applies to. It must meet the same requirements as the name of a StorageClass object (non-empty, DNS subdomain). If that object no longer exists, the CSIStorageCapacity object is obsolete and should be removed by its creator. This field is immutable.

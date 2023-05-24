@@ -17,13 +17,13 @@ type ReplicaSetList struct {
 	pulumi.CustomResourceState
 
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringOutput `pulumi:"apiVersion"`
 	// List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
 	Items ReplicaSetTypeArrayOutput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrOutput `pulumi:"kind"`
+	Kind pulumi.StringOutput `pulumi:"kind"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Metadata metav1.ListMetaPtrOutput `pulumi:"metadata"`
+	Metadata metav1.ListMetaOutput `pulumi:"metadata"`
 }
 
 // NewReplicaSetList registers a new resource with the given unique name, arguments, and options.
@@ -180,8 +180,8 @@ func (o ReplicaSetListOutput) ToReplicaSetListOutputWithContext(ctx context.Cont
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o ReplicaSetListOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ReplicaSetList) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o ReplicaSetListOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v *ReplicaSetList) pulumi.StringOutput { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // List of ReplicaSets. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller
@@ -190,13 +190,13 @@ func (o ReplicaSetListOutput) Items() ReplicaSetTypeArrayOutput {
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o ReplicaSetListOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ReplicaSetList) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+func (o ReplicaSetListOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v *ReplicaSetList) pulumi.StringOutput { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o ReplicaSetListOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v *ReplicaSetList) metav1.ListMetaPtrOutput { return v.Metadata }).(metav1.ListMetaPtrOutput)
+func (o ReplicaSetListOutput) Metadata() metav1.ListMetaOutput {
+	return o.ApplyT(func(v *ReplicaSetList) metav1.ListMetaOutput { return v.Metadata }).(metav1.ListMetaOutput)
 }
 
 type ReplicaSetListArrayOutput struct{ *pulumi.OutputState }

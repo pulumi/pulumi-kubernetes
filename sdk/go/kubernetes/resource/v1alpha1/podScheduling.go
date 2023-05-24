@@ -19,11 +19,11 @@ type PodScheduling struct {
 	pulumi.CustomResourceState
 
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringOutput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrOutput `pulumi:"kind"`
+	Kind pulumi.StringOutput `pulumi:"kind"`
 	// Standard object metadata
-	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaOutput `pulumi:"metadata"`
 	// Spec describes where resources for the Pod are needed.
 	Spec PodSchedulingSpecOutput `pulumi:"spec"`
 	// Status describes where resources for the Pod can be allocated.
@@ -184,18 +184,18 @@ func (o PodSchedulingOutput) ToPodSchedulingOutputWithContext(ctx context.Contex
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o PodSchedulingOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *PodScheduling) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o PodSchedulingOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v *PodScheduling) pulumi.StringOutput { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o PodSchedulingOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *PodScheduling) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+func (o PodSchedulingOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v *PodScheduling) pulumi.StringOutput { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard object metadata
-func (o PodSchedulingOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v *PodScheduling) metav1.ObjectMetaPtrOutput { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o PodSchedulingOutput) Metadata() metav1.ObjectMetaOutput {
+	return o.ApplyT(func(v *PodScheduling) metav1.ObjectMetaOutput { return v.Metadata }).(metav1.ObjectMetaOutput)
 }
 
 // Spec describes where resources for the Pod are needed.

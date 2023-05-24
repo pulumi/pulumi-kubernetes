@@ -117,13 +117,13 @@ type Service struct {
 	pulumi.CustomResourceState
 
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringOutput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrOutput `pulumi:"kind"`
+	Kind pulumi.StringOutput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaOutput `pulumi:"metadata"`
 	// Spec defines the behavior of a service. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec ServiceSpecPtrOutput `pulumi:"spec"`
+	Spec ServiceSpecOutput `pulumi:"spec"`
 	// Most recently observed status of the service. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Status ServiceStatusPtrOutput `pulumi:"status"`
 }
@@ -279,23 +279,23 @@ func (o ServiceOutput) ToServiceOutputWithContext(ctx context.Context) ServiceOu
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o ServiceOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Service) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o ServiceOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v *Service) pulumi.StringOutput { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o ServiceOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Service) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+func (o ServiceOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v *Service) pulumi.StringOutput { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o ServiceOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v *Service) metav1.ObjectMetaPtrOutput { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o ServiceOutput) Metadata() metav1.ObjectMetaOutput {
+	return o.ApplyT(func(v *Service) metav1.ObjectMetaOutput { return v.Metadata }).(metav1.ObjectMetaOutput)
 }
 
 // Spec defines the behavior of a service. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-func (o ServiceOutput) Spec() ServiceSpecPtrOutput {
-	return o.ApplyT(func(v *Service) ServiceSpecPtrOutput { return v.Spec }).(ServiceSpecPtrOutput)
+func (o ServiceOutput) Spec() ServiceSpecOutput {
+	return o.ApplyT(func(v *Service) ServiceSpecOutput { return v.Spec }).(ServiceSpecOutput)
 }
 
 // Most recently observed status of the service. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status

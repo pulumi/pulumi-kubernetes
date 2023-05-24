@@ -27,98 +27,98 @@ public class Status extends com.pulumi.resources.CustomResource {
      * 
      */
     @Export(name="apiVersion", refs={String.class}, tree="[0]")
-    private Output</* @Nullable */ String> apiVersion;
+    private Output<String> apiVersion;
 
     /**
      * @return APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      * 
      */
-    public Output<Optional<String>> apiVersion() {
-        return Codegen.optional(this.apiVersion);
+    public Output<String> apiVersion() {
+        return this.apiVersion;
     }
     /**
      * Suggested HTTP return code for this status, 0 if not set.
      * 
      */
     @Export(name="code", refs={Integer.class}, tree="[0]")
-    private Output</* @Nullable */ Integer> code;
+    private Output<Integer> code;
 
     /**
      * @return Suggested HTTP return code for this status, 0 if not set.
      * 
      */
-    public Output<Optional<Integer>> code() {
-        return Codegen.optional(this.code);
+    public Output<Integer> code() {
+        return this.code;
     }
     /**
      * Extended data associated with the reason.  Each reason may define its own extended details. This field is optional and the data returned is not guaranteed to conform to any schema except that defined by the reason type.
      * 
      */
     @Export(name="details", refs={StatusDetails.class}, tree="[0]")
-    private Output</* @Nullable */ StatusDetails> details;
+    private Output<StatusDetails> details;
 
     /**
      * @return Extended data associated with the reason.  Each reason may define its own extended details. This field is optional and the data returned is not guaranteed to conform to any schema except that defined by the reason type.
      * 
      */
-    public Output<Optional<StatusDetails>> details() {
-        return Codegen.optional(this.details);
+    public Output<StatusDetails> details() {
+        return this.details;
     }
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
     @Export(name="kind", refs={String.class}, tree="[0]")
-    private Output</* @Nullable */ String> kind;
+    private Output<String> kind;
 
     /**
      * @return Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
-    public Output<Optional<String>> kind() {
-        return Codegen.optional(this.kind);
+    public Output<String> kind() {
+        return this.kind;
     }
     /**
      * A human-readable description of the status of this operation.
      * 
      */
     @Export(name="message", refs={String.class}, tree="[0]")
-    private Output</* @Nullable */ String> message;
+    private Output<String> message;
 
     /**
      * @return A human-readable description of the status of this operation.
      * 
      */
-    public Output<Optional<String>> message() {
-        return Codegen.optional(this.message);
+    public Output<String> message() {
+        return this.message;
     }
     /**
      * Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
     @Export(name="metadata", refs={ListMeta.class}, tree="[0]")
-    private Output</* @Nullable */ ListMeta> metadata;
+    private Output<ListMeta> metadata;
 
     /**
      * @return Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
-    public Output<Optional<ListMeta>> metadata() {
-        return Codegen.optional(this.metadata);
+    public Output<ListMeta> metadata() {
+        return this.metadata;
     }
     /**
      * A machine-readable description of why this operation is in the &#34;Failure&#34; status. If this value is empty there is no information available. A Reason clarifies an HTTP status code but does not override it.
      * 
      */
     @Export(name="reason", refs={String.class}, tree="[0]")
-    private Output</* @Nullable */ String> reason;
+    private Output<String> reason;
 
     /**
      * @return A machine-readable description of why this operation is in the &#34;Failure&#34; status. If this value is empty there is no information available. A Reason clarifies an HTTP status code but does not override it.
      * 
      */
-    public Output<Optional<String>> reason() {
-        return Codegen.optional(this.reason);
+    public Output<String> reason() {
+        return this.reason;
     }
     /**
      * Status of the operation. One of: &#34;Success&#34; or &#34;Failure&#34;. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status

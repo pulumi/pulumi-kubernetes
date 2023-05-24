@@ -219,7 +219,7 @@ class ServiceAccount(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> pulumi.Output[Optional[str]]:
+    def api_version(self) -> pulumi.Output[str]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
@@ -227,7 +227,7 @@ class ServiceAccount(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="automountServiceAccountToken")
-    def automount_service_account_token(self) -> pulumi.Output[Optional[bool]]:
+    def automount_service_account_token(self) -> pulumi.Output[bool]:
         """
         AutomountServiceAccountToken indicates whether pods running as this service account should have an API token automatically mounted. Can be overridden at the pod level.
         """
@@ -235,7 +235,7 @@ class ServiceAccount(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="imagePullSecrets")
-    def image_pull_secrets(self) -> pulumi.Output[Optional[Sequence['outputs.LocalObjectReference']]]:
+    def image_pull_secrets(self) -> pulumi.Output[Sequence['outputs.LocalObjectReference']]:
         """
         ImagePullSecrets is a list of references to secrets in the same namespace to use for pulling any images in pods that reference this ServiceAccount. ImagePullSecrets are distinct from Secrets because Secrets can be mounted in the pod, but ImagePullSecrets are only accessed by the kubelet. More info: https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
         """
@@ -243,7 +243,7 @@ class ServiceAccount(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def kind(self) -> pulumi.Output[Optional[str]]:
+    def kind(self) -> pulumi.Output[str]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
@@ -251,7 +251,7 @@ class ServiceAccount(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def metadata(self) -> pulumi.Output[Optional['_meta.v1.outputs.ObjectMeta']]:
+    def metadata(self) -> pulumi.Output['_meta.v1.outputs.ObjectMeta']:
         """
         Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
@@ -259,7 +259,7 @@ class ServiceAccount(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def secrets(self) -> pulumi.Output[Optional[Sequence['outputs.ObjectReference']]]:
+    def secrets(self) -> pulumi.Output[Sequence['outputs.ObjectReference']]:
         """
         Secrets is a list of the secrets in the same namespace that pods running using this ServiceAccount are allowed to use. Pods are only limited to this list if this service account has a "kubernetes.io/enforce-mountable-secrets" annotation set to "true". This field should not be used to find auto-generated service account token secrets for use outside of pods. Instead, tokens can be requested directly using the TokenRequest API, or service account token secrets can be manually created. More info: https://kubernetes.io/docs/concepts/configuration/secret
         """

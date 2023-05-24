@@ -217,7 +217,7 @@ class ConfigMap(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> pulumi.Output[Optional[str]]:
+    def api_version(self) -> pulumi.Output[str]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
@@ -225,7 +225,7 @@ class ConfigMap(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="binaryData")
-    def binary_data(self) -> pulumi.Output[Optional[Mapping[str, str]]]:
+    def binary_data(self) -> pulumi.Output[Mapping[str, str]]:
         """
         BinaryData contains the binary data. Each key must consist of alphanumeric characters, '-', '_' or '.'. BinaryData can contain byte sequences that are not in the UTF-8 range. The keys stored in BinaryData must not overlap with the ones in the Data field, this is enforced during validation process. Using this field will require 1.10+ apiserver and kubelet.
         """
@@ -233,7 +233,7 @@ class ConfigMap(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def data(self) -> pulumi.Output[Optional[Mapping[str, str]]]:
+    def data(self) -> pulumi.Output[Mapping[str, str]]:
         """
         Data contains the configuration data. Each key must consist of alphanumeric characters, '-', '_' or '.'. Values with non-UTF-8 byte sequences must use the BinaryData field. The keys stored in Data must not overlap with the keys in the BinaryData field, this is enforced during validation process.
         """
@@ -241,7 +241,7 @@ class ConfigMap(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def immutable(self) -> pulumi.Output[Optional[bool]]:
+    def immutable(self) -> pulumi.Output[bool]:
         """
         Immutable, if set to true, ensures that data stored in the ConfigMap cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil.
         """
@@ -249,7 +249,7 @@ class ConfigMap(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def kind(self) -> pulumi.Output[Optional[str]]:
+    def kind(self) -> pulumi.Output[str]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
@@ -257,7 +257,7 @@ class ConfigMap(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def metadata(self) -> pulumi.Output[Optional['_meta.v1.outputs.ObjectMeta']]:
+    def metadata(self) -> pulumi.Output['_meta.v1.outputs.ObjectMeta']:
         """
         Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """

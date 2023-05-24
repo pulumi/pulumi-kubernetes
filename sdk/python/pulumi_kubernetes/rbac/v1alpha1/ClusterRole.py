@@ -200,7 +200,7 @@ class ClusterRole(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="aggregationRule")
-    def aggregation_rule(self) -> pulumi.Output[Optional['outputs.AggregationRule']]:
+    def aggregation_rule(self) -> pulumi.Output['outputs.AggregationRule']:
         """
         AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
         """
@@ -208,7 +208,7 @@ class ClusterRole(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> pulumi.Output[Optional[str]]:
+    def api_version(self) -> pulumi.Output[str]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
@@ -216,7 +216,7 @@ class ClusterRole(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def kind(self) -> pulumi.Output[Optional[str]]:
+    def kind(self) -> pulumi.Output[str]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
@@ -224,7 +224,7 @@ class ClusterRole(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def metadata(self) -> pulumi.Output[Optional['_meta.v1.outputs.ObjectMeta']]:
+    def metadata(self) -> pulumi.Output['_meta.v1.outputs.ObjectMeta']:
         """
         Standard object's metadata.
         """
@@ -232,7 +232,7 @@ class ClusterRole(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def rules(self) -> pulumi.Output[Optional[Sequence['outputs.PolicyRule']]]:
+    def rules(self) -> pulumi.Output[Sequence['outputs.PolicyRule']]:
         """
         Rules holds all the PolicyRules for this ClusterRole
         """

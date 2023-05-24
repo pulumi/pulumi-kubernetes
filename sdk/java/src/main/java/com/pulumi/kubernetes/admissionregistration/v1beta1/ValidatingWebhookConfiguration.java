@@ -14,7 +14,6 @@ import com.pulumi.kubernetes.admissionregistration.v1beta1.outputs.ValidatingWeb
 import com.pulumi.kubernetes.meta.v1.outputs.ObjectMeta;
 import java.lang.String;
 import java.util.List;
-import java.util.Optional;
 import javax.annotation.Nullable;
 
 /**
@@ -28,56 +27,56 @@ public class ValidatingWebhookConfiguration extends com.pulumi.resources.CustomR
      * 
      */
     @Export(name="apiVersion", refs={String.class}, tree="[0]")
-    private Output</* @Nullable */ String> apiVersion;
+    private Output<String> apiVersion;
 
     /**
      * @return APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      * 
      */
-    public Output<Optional<String>> apiVersion() {
-        return Codegen.optional(this.apiVersion);
+    public Output<String> apiVersion() {
+        return this.apiVersion;
     }
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
     @Export(name="kind", refs={String.class}, tree="[0]")
-    private Output</* @Nullable */ String> kind;
+    private Output<String> kind;
 
     /**
      * @return Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
-    public Output<Optional<String>> kind() {
-        return Codegen.optional(this.kind);
+    public Output<String> kind() {
+        return this.kind;
     }
     /**
      * Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      * 
      */
     @Export(name="metadata", refs={ObjectMeta.class}, tree="[0]")
-    private Output</* @Nullable */ ObjectMeta> metadata;
+    private Output<ObjectMeta> metadata;
 
     /**
      * @return Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
      * 
      */
-    public Output<Optional<ObjectMeta>> metadata() {
-        return Codegen.optional(this.metadata);
+    public Output<ObjectMeta> metadata() {
+        return this.metadata;
     }
     /**
      * Webhooks is a list of webhooks and the affected resources and operations.
      * 
      */
     @Export(name="webhooks", refs={List.class,ValidatingWebhook.class}, tree="[0,1]")
-    private Output</* @Nullable */ List<ValidatingWebhook>> webhooks;
+    private Output<List<ValidatingWebhook>> webhooks;
 
     /**
      * @return Webhooks is a list of webhooks and the affected resources and operations.
      * 
      */
-    public Output<Optional<List<ValidatingWebhook>>> webhooks() {
-        return Codegen.optional(this.webhooks);
+    public Output<List<ValidatingWebhook>> webhooks() {
+        return this.webhooks;
     }
 
     /**

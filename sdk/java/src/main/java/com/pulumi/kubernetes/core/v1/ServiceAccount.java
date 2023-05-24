@@ -15,7 +15,6 @@ import com.pulumi.kubernetes.meta.v1.outputs.ObjectMeta;
 import java.lang.Boolean;
 import java.lang.String;
 import java.util.List;
-import java.util.Optional;
 import javax.annotation.Nullable;
 
 /**
@@ -29,84 +28,84 @@ public class ServiceAccount extends com.pulumi.resources.CustomResource {
      * 
      */
     @Export(name="apiVersion", refs={String.class}, tree="[0]")
-    private Output</* @Nullable */ String> apiVersion;
+    private Output<String> apiVersion;
 
     /**
      * @return APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      * 
      */
-    public Output<Optional<String>> apiVersion() {
-        return Codegen.optional(this.apiVersion);
+    public Output<String> apiVersion() {
+        return this.apiVersion;
     }
     /**
      * AutomountServiceAccountToken indicates whether pods running as this service account should have an API token automatically mounted. Can be overridden at the pod level.
      * 
      */
     @Export(name="automountServiceAccountToken", refs={Boolean.class}, tree="[0]")
-    private Output</* @Nullable */ Boolean> automountServiceAccountToken;
+    private Output<Boolean> automountServiceAccountToken;
 
     /**
      * @return AutomountServiceAccountToken indicates whether pods running as this service account should have an API token automatically mounted. Can be overridden at the pod level.
      * 
      */
-    public Output<Optional<Boolean>> automountServiceAccountToken() {
-        return Codegen.optional(this.automountServiceAccountToken);
+    public Output<Boolean> automountServiceAccountToken() {
+        return this.automountServiceAccountToken;
     }
     /**
      * ImagePullSecrets is a list of references to secrets in the same namespace to use for pulling any images in pods that reference this ServiceAccount. ImagePullSecrets are distinct from Secrets because Secrets can be mounted in the pod, but ImagePullSecrets are only accessed by the kubelet. More info: https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
      * 
      */
     @Export(name="imagePullSecrets", refs={List.class,LocalObjectReference.class}, tree="[0,1]")
-    private Output</* @Nullable */ List<LocalObjectReference>> imagePullSecrets;
+    private Output<List<LocalObjectReference>> imagePullSecrets;
 
     /**
      * @return ImagePullSecrets is a list of references to secrets in the same namespace to use for pulling any images in pods that reference this ServiceAccount. ImagePullSecrets are distinct from Secrets because Secrets can be mounted in the pod, but ImagePullSecrets are only accessed by the kubelet. More info: https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod
      * 
      */
-    public Output<Optional<List<LocalObjectReference>>> imagePullSecrets() {
-        return Codegen.optional(this.imagePullSecrets);
+    public Output<List<LocalObjectReference>> imagePullSecrets() {
+        return this.imagePullSecrets;
     }
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
     @Export(name="kind", refs={String.class}, tree="[0]")
-    private Output</* @Nullable */ String> kind;
+    private Output<String> kind;
 
     /**
      * @return Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
-    public Output<Optional<String>> kind() {
-        return Codegen.optional(this.kind);
+    public Output<String> kind() {
+        return this.kind;
     }
     /**
      * Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      * 
      */
     @Export(name="metadata", refs={ObjectMeta.class}, tree="[0]")
-    private Output</* @Nullable */ ObjectMeta> metadata;
+    private Output<ObjectMeta> metadata;
 
     /**
      * @return Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      * 
      */
-    public Output<Optional<ObjectMeta>> metadata() {
-        return Codegen.optional(this.metadata);
+    public Output<ObjectMeta> metadata() {
+        return this.metadata;
     }
     /**
      * Secrets is a list of the secrets in the same namespace that pods running using this ServiceAccount are allowed to use. Pods are only limited to this list if this service account has a &#34;kubernetes.io/enforce-mountable-secrets&#34; annotation set to &#34;true&#34;. This field should not be used to find auto-generated service account token secrets for use outside of pods. Instead, tokens can be requested directly using the TokenRequest API, or service account token secrets can be manually created. More info: https://kubernetes.io/docs/concepts/configuration/secret
      * 
      */
     @Export(name="secrets", refs={List.class,ObjectReference.class}, tree="[0,1]")
-    private Output</* @Nullable */ List<ObjectReference>> secrets;
+    private Output<List<ObjectReference>> secrets;
 
     /**
      * @return Secrets is a list of the secrets in the same namespace that pods running using this ServiceAccount are allowed to use. Pods are only limited to this list if this service account has a &#34;kubernetes.io/enforce-mountable-secrets&#34; annotation set to &#34;true&#34;. This field should not be used to find auto-generated service account token secrets for use outside of pods. Instead, tokens can be requested directly using the TokenRequest API, or service account token secrets can be manually created. More info: https://kubernetes.io/docs/concepts/configuration/secret
      * 
      */
-    public Output<Optional<List<ObjectReference>>> secrets() {
-        return Codegen.optional(this.secrets);
+    public Output<List<ObjectReference>> secrets() {
+        return this.secrets;
     }
 
     /**

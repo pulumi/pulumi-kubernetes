@@ -16,13 +16,13 @@ type LimitRange struct {
 	pulumi.CustomResourceState
 
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringOutput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrOutput `pulumi:"kind"`
+	Kind pulumi.StringOutput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaOutput `pulumi:"metadata"`
 	// Spec defines the limits enforced. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec LimitRangeSpecPtrOutput `pulumi:"spec"`
+	Spec LimitRangeSpecOutput `pulumi:"spec"`
 }
 
 // NewLimitRange registers a new resource with the given unique name, arguments, and options.
@@ -176,23 +176,23 @@ func (o LimitRangeOutput) ToLimitRangeOutputWithContext(ctx context.Context) Lim
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o LimitRangeOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *LimitRange) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o LimitRangeOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v *LimitRange) pulumi.StringOutput { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o LimitRangeOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *LimitRange) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+func (o LimitRangeOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v *LimitRange) pulumi.StringOutput { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o LimitRangeOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v *LimitRange) metav1.ObjectMetaPtrOutput { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o LimitRangeOutput) Metadata() metav1.ObjectMetaOutput {
+	return o.ApplyT(func(v *LimitRange) metav1.ObjectMetaOutput { return v.Metadata }).(metav1.ObjectMetaOutput)
 }
 
 // Spec defines the limits enforced. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-func (o LimitRangeOutput) Spec() LimitRangeSpecPtrOutput {
-	return o.ApplyT(func(v *LimitRange) LimitRangeSpecPtrOutput { return v.Spec }).(LimitRangeSpecPtrOutput)
+func (o LimitRangeOutput) Spec() LimitRangeSpecOutput {
+	return o.ApplyT(func(v *LimitRange) LimitRangeSpecOutput { return v.Spec }).(LimitRangeSpecOutput)
 }
 
 type LimitRangeArrayOutput struct{ *pulumi.OutputState }

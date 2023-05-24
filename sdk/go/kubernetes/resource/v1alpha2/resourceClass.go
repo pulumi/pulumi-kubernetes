@@ -20,21 +20,21 @@ type ResourceClass struct {
 	pulumi.CustomResourceState
 
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringOutput `pulumi:"apiVersion"`
 	// DriverName defines the name of the dynamic resource driver that is used for allocation of a ResourceClaim that uses this class.
 	//
 	// Resource drivers have a unique name in forward domain order (acme.example.com).
 	DriverName pulumi.StringOutput `pulumi:"driverName"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrOutput `pulumi:"kind"`
+	Kind pulumi.StringOutput `pulumi:"kind"`
 	// Standard object metadata
-	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaOutput `pulumi:"metadata"`
 	// ParametersRef references an arbitrary separate object that may hold parameters that will be used by the driver when allocating a resource that uses this class. A dynamic resource driver can distinguish between parameters stored here and and those stored in ResourceClaimSpec.
-	ParametersRef ResourceClassParametersReferencePtrOutput `pulumi:"parametersRef"`
+	ParametersRef ResourceClassParametersReferenceOutput `pulumi:"parametersRef"`
 	// Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a ResourceClaim that has not been allocated yet.
 	//
 	// Setting this field is optional. If null, all nodes are candidates.
-	SuitableNodes corev1.NodeSelectorPtrOutput `pulumi:"suitableNodes"`
+	SuitableNodes corev1.NodeSelectorOutput `pulumi:"suitableNodes"`
 }
 
 // NewResourceClass registers a new resource with the given unique name, arguments, and options.
@@ -213,8 +213,8 @@ func (o ResourceClassOutput) ToResourceClassOutputWithContext(ctx context.Contex
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o ResourceClassOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ResourceClass) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o ResourceClassOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v *ResourceClass) pulumi.StringOutput { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // DriverName defines the name of the dynamic resource driver that is used for allocation of a ResourceClaim that uses this class.
@@ -225,25 +225,25 @@ func (o ResourceClassOutput) DriverName() pulumi.StringOutput {
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o ResourceClassOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ResourceClass) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+func (o ResourceClassOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v *ResourceClass) pulumi.StringOutput { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard object metadata
-func (o ResourceClassOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v *ResourceClass) metav1.ObjectMetaPtrOutput { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o ResourceClassOutput) Metadata() metav1.ObjectMetaOutput {
+	return o.ApplyT(func(v *ResourceClass) metav1.ObjectMetaOutput { return v.Metadata }).(metav1.ObjectMetaOutput)
 }
 
 // ParametersRef references an arbitrary separate object that may hold parameters that will be used by the driver when allocating a resource that uses this class. A dynamic resource driver can distinguish between parameters stored here and and those stored in ResourceClaimSpec.
-func (o ResourceClassOutput) ParametersRef() ResourceClassParametersReferencePtrOutput {
-	return o.ApplyT(func(v *ResourceClass) ResourceClassParametersReferencePtrOutput { return v.ParametersRef }).(ResourceClassParametersReferencePtrOutput)
+func (o ResourceClassOutput) ParametersRef() ResourceClassParametersReferenceOutput {
+	return o.ApplyT(func(v *ResourceClass) ResourceClassParametersReferenceOutput { return v.ParametersRef }).(ResourceClassParametersReferenceOutput)
 }
 
 // Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a ResourceClaim that has not been allocated yet.
 //
 // Setting this field is optional. If null, all nodes are candidates.
-func (o ResourceClassOutput) SuitableNodes() corev1.NodeSelectorPtrOutput {
-	return o.ApplyT(func(v *ResourceClass) corev1.NodeSelectorPtrOutput { return v.SuitableNodes }).(corev1.NodeSelectorPtrOutput)
+func (o ResourceClassOutput) SuitableNodes() corev1.NodeSelectorOutput {
+	return o.ApplyT(func(v *ResourceClass) corev1.NodeSelectorOutput { return v.SuitableNodes }).(corev1.NodeSelectorOutput)
 }
 
 type ResourceClassArrayOutput struct{ *pulumi.OutputState }

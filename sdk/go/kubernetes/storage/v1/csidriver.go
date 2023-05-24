@@ -17,11 +17,11 @@ type CSIDriver struct {
 	pulumi.CustomResourceState
 
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringOutput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrOutput `pulumi:"kind"`
+	Kind pulumi.StringOutput `pulumi:"kind"`
 	// Standard object metadata. metadata.Name indicates the name of the CSI driver that this object refers to; it MUST be the same name returned by the CSI GetPluginName() call for that driver. The driver name must be 63 characters or less, beginning and ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaOutput `pulumi:"metadata"`
 	// spec represents the specification of the CSI Driver.
 	Spec CSIDriverSpecOutput `pulumi:"spec"`
 }
@@ -186,18 +186,18 @@ func (o CSIDriverOutput) ToCSIDriverOutputWithContext(ctx context.Context) CSIDr
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o CSIDriverOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *CSIDriver) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o CSIDriverOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v *CSIDriver) pulumi.StringOutput { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o CSIDriverOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *CSIDriver) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+func (o CSIDriverOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v *CSIDriver) pulumi.StringOutput { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard object metadata. metadata.Name indicates the name of the CSI driver that this object refers to; it MUST be the same name returned by the CSI GetPluginName() call for that driver. The driver name must be 63 characters or less, beginning and ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o CSIDriverOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v *CSIDriver) metav1.ObjectMetaPtrOutput { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o CSIDriverOutput) Metadata() metav1.ObjectMetaOutput {
+	return o.ApplyT(func(v *CSIDriver) metav1.ObjectMetaOutput { return v.Metadata }).(metav1.ObjectMetaOutput)
 }
 
 // spec represents the specification of the CSI Driver.

@@ -17,13 +17,13 @@ type StorageClassList struct {
 	pulumi.CustomResourceState
 
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringOutput `pulumi:"apiVersion"`
 	// items is the list of StorageClasses
 	Items StorageClassTypeArrayOutput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrOutput `pulumi:"kind"`
+	Kind pulumi.StringOutput `pulumi:"kind"`
 	// Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ListMetaPtrOutput `pulumi:"metadata"`
+	Metadata metav1.ListMetaOutput `pulumi:"metadata"`
 }
 
 // NewStorageClassList registers a new resource with the given unique name, arguments, and options.
@@ -180,8 +180,8 @@ func (o StorageClassListOutput) ToStorageClassListOutputWithContext(ctx context.
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o StorageClassListOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *StorageClassList) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o StorageClassListOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v *StorageClassList) pulumi.StringOutput { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // items is the list of StorageClasses
@@ -190,13 +190,13 @@ func (o StorageClassListOutput) Items() StorageClassTypeArrayOutput {
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o StorageClassListOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *StorageClassList) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+func (o StorageClassListOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v *StorageClassList) pulumi.StringOutput { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o StorageClassListOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v *StorageClassList) metav1.ListMetaPtrOutput { return v.Metadata }).(metav1.ListMetaPtrOutput)
+func (o StorageClassListOutput) Metadata() metav1.ListMetaOutput {
+	return o.ApplyT(func(v *StorageClassList) metav1.ListMetaOutput { return v.Metadata }).(metav1.ListMetaOutput)
 }
 
 type StorageClassListArrayOutput struct{ *pulumi.OutputState }
