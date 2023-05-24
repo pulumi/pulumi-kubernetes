@@ -1414,6 +1414,19 @@ func locateChart(cpo *action.ChartPathOptions, registryClient *registry.Client, 
 			}
 		}
 		return abs, nil
+	} else if cpo.RepoURL == "" {
+		if _, err := os.Stat(name); err == nil {
+			abs, err := filepath.Abs(name)
+			if err != nil {
+				return abs, err
+			}
+			if cpo.Verify {
+				if _, err := downloader.VerifyChart(abs, cpo.Keyring); err != nil {
+					return "", err
+				}
+			}
+			return abs, nil
+		}
 	}
 	if filepath.IsAbs(name) || strings.HasPrefix(name, ".") {
 		return name, pkgerrors.Errorf("path %q not found", name)
