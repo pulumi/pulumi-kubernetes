@@ -20,6 +20,11 @@ import * as k8s from "@pulumi/kubernetes";
 // 3. Each Provider requires a "kubeconfig" argument.
 
 // Create a new provider with no kubeconfig specified.
-new k8s.Provider("missingKubeconfig", {
+const provider = new k8s.Provider("missingKubeconfig", {
     context: "test",
 });
+
+// The ConfigMap should not be created since the Provider is invalid under "strict mode".
+const cm = new k8s.core.v1.ConfigMap("default", {
+    data: {foo: "bar"},
+}, {provider});

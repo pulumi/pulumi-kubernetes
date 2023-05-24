@@ -2921,7 +2921,7 @@ func (k *kubeProvider) loadPulumiConfig() (map[string]interface{}, bool) {
 	var pConfig map[string]interface{}
 	err := json.Unmarshal([]byte(configStr), &pConfig)
 	if err != nil {
-		logger.V(3).Infof("failed to load provider config from PULUMI_CONFIG")
+		logger.V(3).Infof("failed to load provider config from PULUMI_CONFIG: %v", err)
 		return nil, false
 	}
 

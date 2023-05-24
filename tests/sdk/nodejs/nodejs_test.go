@@ -1379,6 +1379,8 @@ func TestStrictMode(t *testing.T) {
 						}
 					}
 					assert.Truef(t, foundMessage, "did not find expected failure message: %q", msg)
+					_, ok := stackInfo.Outputs["cm"]
+					assert.Falsef(t, ok, "ConfigMap should not be present since Provider is invalid")
 				},
 			},
 			{
@@ -1396,6 +1398,8 @@ func TestStrictMode(t *testing.T) {
 						}
 					}
 					assert.Truef(t, foundMessage, "did not find expected failure message: %q", msg)
+					_, ok := stackInfo.Outputs["cm"]
+					assert.Falsef(t, ok, "ConfigMap should not be present since Provider is invalid")
 				},
 			},
 		},
