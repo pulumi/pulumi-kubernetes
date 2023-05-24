@@ -101,6 +101,13 @@ public final class Config {
         return Codegen.stringProp("renderYamlToDirectory").config(config).get();
     }
 /**
+ * If present and set to true, the provider will use strict configuration mode. Recommended for production stacks. In this mode, the default Kubernetes provider is disabled, and the `kubeconfig` and `context` settings are required for Provider configuration. These settings unambiguously ensure that every Kubernetes resource is associated with a particular cluster.
+ * 
+ */
+    public Optional<Boolean> strictMode() {
+        return Codegen.booleanProp("strictMode").config(config).get();
+    }
+/**
  * If present and set to true, suppress apiVersion deprecation warnings from the CLI.
  * 
  * This config can be specified in the following ways, using this precedence:

@@ -48,6 +48,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/openapi"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/ssa"
 	pulumischema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
+	"github.com/pulumi/pulumi/pkg/v3/resource/deploy/providers"
 	"github.com/pulumi/pulumi/pkg/v3/resource/provider"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
@@ -254,6 +255,44 @@ func (k *kubeProvider) CheckConfig(ctx context.Context, req *pulumirpc.CheckRequ
 			}
 		}
 		return false
+	}
+
+	strictMode := false
+	if pConfig, ok := k.loadPulumiConfig(); ok {
+		if v, ok := pConfig["strictMode"]; ok {
+			if v, ok := v.(string); ok {
+				strictMode = v == "true"
+			}
+		}
+	}
+	if v := news["strictMode"]; v.HasValue() && v.IsString() {
+		strictMode = v.StringValue() == "true"
+	}
+
+	if strictMode && providers.IsProviderType(urn.Type()) {
+		var failures []*pulumirpc.CheckFailure
+
+		if providers.IsDefaultProvider(urn) {
+			failures = append(failures, &pulumirpc.CheckFailure{
+				Reason: fmt.Sprintf("strict mode prohibits default provider"),
+			})
+		}
+		if v := news["kubeconfig"]; !v.HasValue() || v.StringValue() == "" {
+			failures = append(failures, &pulumirpc.CheckFailure{
+				Property: "kubeconfig",
+				Reason:   fmt.Sprintf(`strict mode requires Provider "kubeconfig" argument`),
+			})
+		}
+		if v := news["context"]; !v.HasValue() || v.StringValue() == "" {
+			failures = append(failures, &pulumirpc.CheckFailure{
+				Property: "context",
+				Reason:   fmt.Sprintf(`strict mode requires Provider "context" argument`),
+			})
+		}
+
+		if len(failures) > 0 {
+			return &pulumirpc.CheckResponse{Inputs: req.GetNews(), Failures: failures}, nil
+		}
 	}
 
 	renderYamlEnabled := truthyValue("renderYamlToDirectory", news)
@@ -2865,6 +2904,28 @@ func (k *kubeProvider) gvkExists(obj *unstructured.Unstructured) bool {
 		return false
 	}
 	return true
+}
+
+// loadPulumiConfig loads the PULUMI_CONFIG environment variable set by the engine, unmarshals the JSON string into
+// a map, and returns the map and a bool indicating if the operation succeeded.
+func (k *kubeProvider) loadPulumiConfig() (map[string]interface{}, bool) {
+	configStr, ok := os.LookupEnv("PULUMI_CONFIG")
+	// PULUMI_CONFIG is not set on older versions of the engine, so check if the lookup succeeds.
+	if !ok || configStr == "" {
+		return nil, false
+	}
+
+	// PULUMI_CONFIG should be a JSON string that looks something like this:
+	// {"enableServerSideApply":"true","kubeClientSettings":"{\"burst\":120,\"qps\":50}","strictMode":"true"}
+	// The keys correspond to any project/stack config with a "kubernetes" prefix.
+	var pConfig map[string]interface{}
+	err := json.Unmarshal([]byte(configStr), &pConfig)
+	if err != nil {
+		logger.V(3).Infof("failed to load provider config from PULUMI_CONFIG: %v", err)
+		return nil, false
+	}
+
+	return pConfig, true
 }
 
 func mapReplStripSecrets(v resource.PropertyValue) (interface{}, bool) {
