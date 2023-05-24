@@ -16,7 +16,6 @@ import java.lang.Boolean;
 import java.lang.String;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import javax.annotation.Nullable;
 
 /**
@@ -32,98 +31,98 @@ public class StorageClass extends com.pulumi.resources.CustomResource {
      * 
      */
     @Export(name="allowVolumeExpansion", refs={Boolean.class}, tree="[0]")
-    private Output</* @Nullable */ Boolean> allowVolumeExpansion;
+    private Output<Boolean> allowVolumeExpansion;
 
     /**
      * @return allowVolumeExpansion shows whether the storage class allow volume expand.
      * 
      */
-    public Output<Optional<Boolean>> allowVolumeExpansion() {
-        return Codegen.optional(this.allowVolumeExpansion);
+    public Output<Boolean> allowVolumeExpansion() {
+        return this.allowVolumeExpansion;
     }
     /**
      * allowedTopologies restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
      * 
      */
     @Export(name="allowedTopologies", refs={List.class,TopologySelectorTerm.class}, tree="[0,1]")
-    private Output</* @Nullable */ List<TopologySelectorTerm>> allowedTopologies;
+    private Output<List<TopologySelectorTerm>> allowedTopologies;
 
     /**
      * @return allowedTopologies restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
      * 
      */
-    public Output<Optional<List<TopologySelectorTerm>>> allowedTopologies() {
-        return Codegen.optional(this.allowedTopologies);
+    public Output<List<TopologySelectorTerm>> allowedTopologies() {
+        return this.allowedTopologies;
     }
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      * 
      */
     @Export(name="apiVersion", refs={String.class}, tree="[0]")
-    private Output</* @Nullable */ String> apiVersion;
+    private Output<String> apiVersion;
 
     /**
      * @return APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      * 
      */
-    public Output<Optional<String>> apiVersion() {
-        return Codegen.optional(this.apiVersion);
+    public Output<String> apiVersion() {
+        return this.apiVersion;
     }
     /**
      * Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
     @Export(name="kind", refs={String.class}, tree="[0]")
-    private Output</* @Nullable */ String> kind;
+    private Output<String> kind;
 
     /**
      * @return Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
-    public Output<Optional<String>> kind() {
-        return Codegen.optional(this.kind);
+    public Output<String> kind() {
+        return this.kind;
     }
     /**
      * Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      * 
      */
     @Export(name="metadata", refs={ObjectMeta.class}, tree="[0]")
-    private Output</* @Nullable */ ObjectMeta> metadata;
+    private Output<ObjectMeta> metadata;
 
     /**
      * @return Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
      * 
      */
-    public Output<Optional<ObjectMeta>> metadata() {
-        return Codegen.optional(this.metadata);
+    public Output<ObjectMeta> metadata() {
+        return this.metadata;
     }
     /**
      * mountOptions controls the mountOptions for dynamically provisioned PersistentVolumes of this storage class. e.g. [&#34;ro&#34;, &#34;soft&#34;]. Not validated - mount of the PVs will simply fail if one is invalid.
      * 
      */
     @Export(name="mountOptions", refs={List.class,String.class}, tree="[0,1]")
-    private Output</* @Nullable */ List<String>> mountOptions;
+    private Output<List<String>> mountOptions;
 
     /**
      * @return mountOptions controls the mountOptions for dynamically provisioned PersistentVolumes of this storage class. e.g. [&#34;ro&#34;, &#34;soft&#34;]. Not validated - mount of the PVs will simply fail if one is invalid.
      * 
      */
-    public Output<Optional<List<String>>> mountOptions() {
-        return Codegen.optional(this.mountOptions);
+    public Output<List<String>> mountOptions() {
+        return this.mountOptions;
     }
     /**
      * parameters holds the parameters for the provisioner that should create volumes of this storage class.
      * 
      */
     @Export(name="parameters", refs={Map.class,String.class}, tree="[0,1,1]")
-    private Output</* @Nullable */ Map<String,String>> parameters;
+    private Output<Map<String,String>> parameters;
 
     /**
      * @return parameters holds the parameters for the provisioner that should create volumes of this storage class.
      * 
      */
-    public Output<Optional<Map<String,String>>> parameters() {
-        return Codegen.optional(this.parameters);
+    public Output<Map<String,String>> parameters() {
+        return this.parameters;
     }
     /**
      * provisioner indicates the type of the provisioner.
@@ -144,28 +143,28 @@ public class StorageClass extends com.pulumi.resources.CustomResource {
      * 
      */
     @Export(name="reclaimPolicy", refs={String.class}, tree="[0]")
-    private Output</* @Nullable */ String> reclaimPolicy;
+    private Output<String> reclaimPolicy;
 
     /**
      * @return reclaimPolicy controls the reclaimPolicy for dynamically provisioned PersistentVolumes of this storage class. Defaults to Delete.
      * 
      */
-    public Output<Optional<String>> reclaimPolicy() {
-        return Codegen.optional(this.reclaimPolicy);
+    public Output<String> reclaimPolicy() {
+        return this.reclaimPolicy;
     }
     /**
      * volumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
      * 
      */
     @Export(name="volumeBindingMode", refs={String.class}, tree="[0]")
-    private Output</* @Nullable */ String> volumeBindingMode;
+    private Output<String> volumeBindingMode;
 
     /**
      * @return volumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
      * 
      */
-    public Output<Optional<String>> volumeBindingMode() {
-        return Codegen.optional(this.volumeBindingMode);
+    public Output<String> volumeBindingMode() {
+        return this.volumeBindingMode;
     }
 
     /**

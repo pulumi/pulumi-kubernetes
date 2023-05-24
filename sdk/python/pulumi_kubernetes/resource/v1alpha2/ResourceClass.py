@@ -239,7 +239,7 @@ class ResourceClass(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> pulumi.Output[Optional[str]]:
+    def api_version(self) -> pulumi.Output[str]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
@@ -257,7 +257,7 @@ class ResourceClass(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def kind(self) -> pulumi.Output[Optional[str]]:
+    def kind(self) -> pulumi.Output[str]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
@@ -265,7 +265,7 @@ class ResourceClass(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def metadata(self) -> pulumi.Output[Optional['_meta.v1.outputs.ObjectMeta']]:
+    def metadata(self) -> pulumi.Output['_meta.v1.outputs.ObjectMeta']:
         """
         Standard object metadata
         """
@@ -273,7 +273,7 @@ class ResourceClass(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="parametersRef")
-    def parameters_ref(self) -> pulumi.Output[Optional['outputs.ResourceClassParametersReference']]:
+    def parameters_ref(self) -> pulumi.Output['outputs.ResourceClassParametersReference']:
         """
         ParametersRef references an arbitrary separate object that may hold parameters that will be used by the driver when allocating a resource that uses this class. A dynamic resource driver can distinguish between parameters stored here and and those stored in ResourceClaimSpec.
         """
@@ -281,7 +281,7 @@ class ResourceClass(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="suitableNodes")
-    def suitable_nodes(self) -> pulumi.Output[Optional['_core.v1.outputs.NodeSelector']]:
+    def suitable_nodes(self) -> pulumi.Output['_core.v1.outputs.NodeSelector']:
         """
         Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a ResourceClaim that has not been allocated yet.
 

@@ -17,7 +17,6 @@ import com.pulumi.kubernetes.meta.v1.outputs.ObjectMeta;
 import java.lang.Integer;
 import java.lang.String;
 import java.util.List;
-import java.util.Optional;
 import javax.annotation.Nullable;
 
 /**
@@ -31,70 +30,70 @@ public class Event extends com.pulumi.resources.CustomResource {
      * 
      */
     @Export(name="action", refs={String.class}, tree="[0]")
-    private Output</* @Nullable */ String> action;
+    private Output<String> action;
 
     /**
      * @return What action was taken/failed regarding to the Regarding object.
      * 
      */
-    public Output<Optional<String>> action() {
-        return Codegen.optional(this.action);
+    public Output<String> action() {
+        return this.action;
     }
     /**
      * APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      * 
      */
     @Export(name="apiVersion", refs={String.class}, tree="[0]")
-    private Output</* @Nullable */ String> apiVersion;
+    private Output<String> apiVersion;
 
     /**
      * @return APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      * 
      */
-    public Output<Optional<String>> apiVersion() {
-        return Codegen.optional(this.apiVersion);
+    public Output<String> apiVersion() {
+        return this.apiVersion;
     }
     /**
      * The number of times this event has occurred.
      * 
      */
     @Export(name="count", refs={Integer.class}, tree="[0]")
-    private Output</* @Nullable */ Integer> count;
+    private Output<Integer> count;
 
     /**
      * @return The number of times this event has occurred.
      * 
      */
-    public Output<Optional<Integer>> count() {
-        return Codegen.optional(this.count);
+    public Output<Integer> count() {
+        return this.count;
     }
     /**
      * Time when this Event was first observed.
      * 
      */
     @Export(name="eventTime", refs={String.class}, tree="[0]")
-    private Output</* @Nullable */ String> eventTime;
+    private Output<String> eventTime;
 
     /**
      * @return Time when this Event was first observed.
      * 
      */
-    public Output<Optional<String>> eventTime() {
-        return Codegen.optional(this.eventTime);
+    public Output<String> eventTime() {
+        return this.eventTime;
     }
     /**
      * The time at which the event was first recorded. (Time of server receipt is in TypeMeta.)
      * 
      */
     @Export(name="firstTimestamp", refs={String.class}, tree="[0]")
-    private Output</* @Nullable */ String> firstTimestamp;
+    private Output<String> firstTimestamp;
 
     /**
      * @return The time at which the event was first recorded. (Time of server receipt is in TypeMeta.)
      * 
      */
-    public Output<Optional<String>> firstTimestamp() {
-        return Codegen.optional(this.firstTimestamp);
+    public Output<String> firstTimestamp() {
+        return this.firstTimestamp;
     }
     /**
      * The object that this event is about.
@@ -115,42 +114,42 @@ public class Event extends com.pulumi.resources.CustomResource {
      * 
      */
     @Export(name="kind", refs={String.class}, tree="[0]")
-    private Output</* @Nullable */ String> kind;
+    private Output<String> kind;
 
     /**
      * @return Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
-    public Output<Optional<String>> kind() {
-        return Codegen.optional(this.kind);
+    public Output<String> kind() {
+        return this.kind;
     }
     /**
      * The time at which the most recent occurrence of this event was recorded.
      * 
      */
     @Export(name="lastTimestamp", refs={String.class}, tree="[0]")
-    private Output</* @Nullable */ String> lastTimestamp;
+    private Output<String> lastTimestamp;
 
     /**
      * @return The time at which the most recent occurrence of this event was recorded.
      * 
      */
-    public Output<Optional<String>> lastTimestamp() {
-        return Codegen.optional(this.lastTimestamp);
+    public Output<String> lastTimestamp() {
+        return this.lastTimestamp;
     }
     /**
      * A human-readable description of the status of this operation.
      * 
      */
     @Export(name="message", refs={String.class}, tree="[0]")
-    private Output</* @Nullable */ String> message;
+    private Output<String> message;
 
     /**
      * @return A human-readable description of the status of this operation.
      * 
      */
-    public Output<Optional<String>> message() {
-        return Codegen.optional(this.message);
+    public Output<String> message() {
+        return this.message;
     }
     /**
      * Standard object&#39;s metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
@@ -171,98 +170,98 @@ public class Event extends com.pulumi.resources.CustomResource {
      * 
      */
     @Export(name="reason", refs={String.class}, tree="[0]")
-    private Output</* @Nullable */ String> reason;
+    private Output<String> reason;
 
     /**
      * @return This should be a short, machine understandable string that gives the reason for the transition into the object&#39;s current status.
      * 
      */
-    public Output<Optional<String>> reason() {
-        return Codegen.optional(this.reason);
+    public Output<String> reason() {
+        return this.reason;
     }
     /**
      * Optional secondary object for more complex actions.
      * 
      */
     @Export(name="related", refs={ObjectReference.class}, tree="[0]")
-    private Output</* @Nullable */ ObjectReference> related;
+    private Output<ObjectReference> related;
 
     /**
      * @return Optional secondary object for more complex actions.
      * 
      */
-    public Output<Optional<ObjectReference>> related() {
-        return Codegen.optional(this.related);
+    public Output<ObjectReference> related() {
+        return this.related;
     }
     /**
      * Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
      * 
      */
     @Export(name="reportingComponent", refs={String.class}, tree="[0]")
-    private Output</* @Nullable */ String> reportingComponent;
+    private Output<String> reportingComponent;
 
     /**
      * @return Name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`.
      * 
      */
-    public Output<Optional<String>> reportingComponent() {
-        return Codegen.optional(this.reportingComponent);
+    public Output<String> reportingComponent() {
+        return this.reportingComponent;
     }
     /**
      * ID of the controller instance, e.g. `kubelet-xyzf`.
      * 
      */
     @Export(name="reportingInstance", refs={String.class}, tree="[0]")
-    private Output</* @Nullable */ String> reportingInstance;
+    private Output<String> reportingInstance;
 
     /**
      * @return ID of the controller instance, e.g. `kubelet-xyzf`.
      * 
      */
-    public Output<Optional<String>> reportingInstance() {
-        return Codegen.optional(this.reportingInstance);
+    public Output<String> reportingInstance() {
+        return this.reportingInstance;
     }
     /**
      * Data about the Event series this event represents or nil if it&#39;s a singleton Event.
      * 
      */
     @Export(name="series", refs={EventSeries.class}, tree="[0]")
-    private Output</* @Nullable */ EventSeries> series;
+    private Output<EventSeries> series;
 
     /**
      * @return Data about the Event series this event represents or nil if it&#39;s a singleton Event.
      * 
      */
-    public Output<Optional<EventSeries>> series() {
-        return Codegen.optional(this.series);
+    public Output<EventSeries> series() {
+        return this.series;
     }
     /**
      * The component reporting this event. Should be a short machine understandable string.
      * 
      */
     @Export(name="source", refs={EventSource.class}, tree="[0]")
-    private Output</* @Nullable */ EventSource> source;
+    private Output<EventSource> source;
 
     /**
      * @return The component reporting this event. Should be a short machine understandable string.
      * 
      */
-    public Output<Optional<EventSource>> source() {
-        return Codegen.optional(this.source);
+    public Output<EventSource> source() {
+        return this.source;
     }
     /**
      * Type of this event (Normal, Warning), new types could be added in the future
      * 
      */
     @Export(name="type", refs={String.class}, tree="[0]")
-    private Output</* @Nullable */ String> type;
+    private Output<String> type;
 
     /**
      * @return Type of this event (Normal, Warning), new types could be added in the future
      * 
      */
-    public Output<Optional<String>> type() {
-        return Codegen.optional(this.type);
+    public Output<String> type() {
+        return this.type;
     }
 
     /**

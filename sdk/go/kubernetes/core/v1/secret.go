@@ -26,19 +26,19 @@ type Secret struct {
 	pulumi.CustomResourceState
 
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringOutput `pulumi:"apiVersion"`
 	// Data contains the secret data. Each key must consist of alphanumeric characters, '-', '_' or '.'. The serialized form of the secret data is a base64 encoded string, representing the arbitrary (possibly non-string) data value here. Described in https://tools.ietf.org/html/rfc4648#section-4
 	Data pulumi.StringMapOutput `pulumi:"data"`
 	// Immutable, if set to true, ensures that data stored in the Secret cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil.
-	Immutable pulumi.BoolPtrOutput `pulumi:"immutable"`
+	Immutable pulumi.BoolOutput `pulumi:"immutable"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrOutput `pulumi:"kind"`
+	Kind pulumi.StringOutput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaOutput `pulumi:"metadata"`
 	// stringData allows specifying non-binary secret data in string form. It is provided as a write-only input field for convenience. All keys and values are merged into the data field on write, overwriting any existing values. The stringData field is never output when reading from the API.
 	StringData pulumi.StringMapOutput `pulumi:"stringData"`
 	// Used to facilitate programmatic handling of secret data. More info: https://kubernetes.io/docs/concepts/configuration/secret/#secret-types
-	Type pulumi.StringPtrOutput `pulumi:"type"`
+	Type pulumi.StringOutput `pulumi:"type"`
 }
 
 // NewSecret registers a new resource with the given unique name, arguments, and options.
@@ -215,8 +215,8 @@ func (o SecretOutput) ToSecretOutputWithContext(ctx context.Context) SecretOutpu
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o SecretOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Secret) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o SecretOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v *Secret) pulumi.StringOutput { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // Data contains the secret data. Each key must consist of alphanumeric characters, '-', '_' or '.'. The serialized form of the secret data is a base64 encoded string, representing the arbitrary (possibly non-string) data value here. Described in https://tools.ietf.org/html/rfc4648#section-4
@@ -225,18 +225,18 @@ func (o SecretOutput) Data() pulumi.StringMapOutput {
 }
 
 // Immutable, if set to true, ensures that data stored in the Secret cannot be updated (only object metadata can be modified). If not set to true, the field can be modified at any time. Defaulted to nil.
-func (o SecretOutput) Immutable() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *Secret) pulumi.BoolPtrOutput { return v.Immutable }).(pulumi.BoolPtrOutput)
+func (o SecretOutput) Immutable() pulumi.BoolOutput {
+	return o.ApplyT(func(v *Secret) pulumi.BoolOutput { return v.Immutable }).(pulumi.BoolOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o SecretOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Secret) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+func (o SecretOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v *Secret) pulumi.StringOutput { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o SecretOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v *Secret) metav1.ObjectMetaPtrOutput { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o SecretOutput) Metadata() metav1.ObjectMetaOutput {
+	return o.ApplyT(func(v *Secret) metav1.ObjectMetaOutput { return v.Metadata }).(metav1.ObjectMetaOutput)
 }
 
 // stringData allows specifying non-binary secret data in string form. It is provided as a write-only input field for convenience. All keys and values are merged into the data field on write, overwriting any existing values. The stringData field is never output when reading from the API.
@@ -245,8 +245,8 @@ func (o SecretOutput) StringData() pulumi.StringMapOutput {
 }
 
 // Used to facilitate programmatic handling of secret data. More info: https://kubernetes.io/docs/concepts/configuration/secret/#secret-types
-func (o SecretOutput) Type() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Secret) pulumi.StringPtrOutput { return v.Type }).(pulumi.StringPtrOutput)
+func (o SecretOutput) Type() pulumi.StringOutput {
+	return o.ApplyT(func(v *Secret) pulumi.StringOutput { return v.Type }).(pulumi.StringOutput)
 }
 
 type SecretArrayOutput struct{ *pulumi.OutputState }

@@ -454,7 +454,7 @@ class Event(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def action(self) -> pulumi.Output[Optional[str]]:
+    def action(self) -> pulumi.Output[str]:
         """
         action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field cannot be empty for new Events and it can have at most 128 characters.
         """
@@ -462,7 +462,7 @@ class Event(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="apiVersion")
-    def api_version(self) -> pulumi.Output[Optional[str]]:
+    def api_version(self) -> pulumi.Output[str]:
         """
         APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         """
@@ -470,7 +470,7 @@ class Event(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="deprecatedCount")
-    def deprecated_count(self) -> pulumi.Output[Optional[int]]:
+    def deprecated_count(self) -> pulumi.Output[int]:
         """
         deprecatedCount is the deprecated field assuring backward compatibility with core.v1 Event type.
         """
@@ -478,7 +478,7 @@ class Event(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="deprecatedFirstTimestamp")
-    def deprecated_first_timestamp(self) -> pulumi.Output[Optional[str]]:
+    def deprecated_first_timestamp(self) -> pulumi.Output[str]:
         """
         deprecatedFirstTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
         """
@@ -486,7 +486,7 @@ class Event(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="deprecatedLastTimestamp")
-    def deprecated_last_timestamp(self) -> pulumi.Output[Optional[str]]:
+    def deprecated_last_timestamp(self) -> pulumi.Output[str]:
         """
         deprecatedLastTimestamp is the deprecated field assuring backward compatibility with core.v1 Event type.
         """
@@ -494,7 +494,7 @@ class Event(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="deprecatedSource")
-    def deprecated_source(self) -> pulumi.Output[Optional['_core.v1.outputs.EventSource']]:
+    def deprecated_source(self) -> pulumi.Output['_core.v1.outputs.EventSource']:
         """
         deprecatedSource is the deprecated field assuring backward compatibility with core.v1 Event type.
         """
@@ -510,7 +510,7 @@ class Event(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def kind(self) -> pulumi.Output[Optional[str]]:
+    def kind(self) -> pulumi.Output[str]:
         """
         Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
@@ -518,7 +518,7 @@ class Event(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def metadata(self) -> pulumi.Output[Optional['_meta.v1.outputs.ObjectMeta']]:
+    def metadata(self) -> pulumi.Output['_meta.v1.outputs.ObjectMeta']:
         """
         Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
@@ -526,7 +526,7 @@ class Event(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def note(self) -> pulumi.Output[Optional[str]]:
+    def note(self) -> pulumi.Output[str]:
         """
         note is a human-readable description of the status of this operation. Maximal length of the note is 1kB, but libraries should be prepared to handle values up to 64kB.
         """
@@ -534,7 +534,7 @@ class Event(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def reason(self) -> pulumi.Output[Optional[str]]:
+    def reason(self) -> pulumi.Output[str]:
         """
         reason is why the action was taken. It is human-readable. This field cannot be empty for new Events and it can have at most 128 characters.
         """
@@ -542,7 +542,7 @@ class Event(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def regarding(self) -> pulumi.Output[Optional['_core.v1.outputs.ObjectReference']]:
+    def regarding(self) -> pulumi.Output['_core.v1.outputs.ObjectReference']:
         """
         regarding contains the object this Event is about. In most cases it's an Object reporting controller implements, e.g. ReplicaSetController implements ReplicaSets and this event is emitted because it acts on some changes in a ReplicaSet object.
         """
@@ -550,7 +550,7 @@ class Event(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def related(self) -> pulumi.Output[Optional['_core.v1.outputs.ObjectReference']]:
+    def related(self) -> pulumi.Output['_core.v1.outputs.ObjectReference']:
         """
         related is the optional secondary object for more complex actions. E.g. when regarding object triggers a creation or deletion of related object.
         """
@@ -558,7 +558,7 @@ class Event(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="reportingController")
-    def reporting_controller(self) -> pulumi.Output[Optional[str]]:
+    def reporting_controller(self) -> pulumi.Output[str]:
         """
         reportingController is the name of the controller that emitted this Event, e.g. `kubernetes.io/kubelet`. This field cannot be empty for new Events.
         """
@@ -566,7 +566,7 @@ class Event(pulumi.CustomResource):
 
     @property
     @pulumi.getter(name="reportingInstance")
-    def reporting_instance(self) -> pulumi.Output[Optional[str]]:
+    def reporting_instance(self) -> pulumi.Output[str]:
         """
         reportingInstance is the ID of the controller instance, e.g. `kubelet-xyzf`. This field cannot be empty for new Events and it can have at most 128 characters.
         """
@@ -574,7 +574,7 @@ class Event(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def series(self) -> pulumi.Output[Optional['outputs.EventSeries']]:
+    def series(self) -> pulumi.Output['outputs.EventSeries']:
         """
         series is data about the Event series this event represents or nil if it's a singleton Event.
         """
@@ -582,7 +582,7 @@ class Event(pulumi.CustomResource):
 
     @property
     @pulumi.getter
-    def type(self) -> pulumi.Output[Optional[str]]:
+    def type(self) -> pulumi.Output[str]:
         """
         type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable. This field cannot be empty for new Events.
         """

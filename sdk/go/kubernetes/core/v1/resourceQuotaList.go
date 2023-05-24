@@ -17,13 +17,13 @@ type ResourceQuotaList struct {
 	pulumi.CustomResourceState
 
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringOutput `pulumi:"apiVersion"`
 	// Items is a list of ResourceQuota objects. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/
 	Items ResourceQuotaTypeArrayOutput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrOutput `pulumi:"kind"`
+	Kind pulumi.StringOutput `pulumi:"kind"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Metadata metav1.ListMetaPtrOutput `pulumi:"metadata"`
+	Metadata metav1.ListMetaOutput `pulumi:"metadata"`
 }
 
 // NewResourceQuotaList registers a new resource with the given unique name, arguments, and options.
@@ -180,8 +180,8 @@ func (o ResourceQuotaListOutput) ToResourceQuotaListOutputWithContext(ctx contex
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o ResourceQuotaListOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ResourceQuotaList) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o ResourceQuotaListOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v *ResourceQuotaList) pulumi.StringOutput { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // Items is a list of ResourceQuota objects. More info: https://kubernetes.io/docs/concepts/policy/resource-quotas/
@@ -190,13 +190,13 @@ func (o ResourceQuotaListOutput) Items() ResourceQuotaTypeArrayOutput {
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o ResourceQuotaListOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ResourceQuotaList) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+func (o ResourceQuotaListOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v *ResourceQuotaList) pulumi.StringOutput { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o ResourceQuotaListOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v *ResourceQuotaList) metav1.ListMetaPtrOutput { return v.Metadata }).(metav1.ListMetaPtrOutput)
+func (o ResourceQuotaListOutput) Metadata() metav1.ListMetaOutput {
+	return o.ApplyT(func(v *ResourceQuotaList) metav1.ListMetaOutput { return v.Metadata }).(metav1.ListMetaOutput)
 }
 
 type ResourceQuotaListArrayOutput struct{ *pulumi.OutputState }

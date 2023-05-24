@@ -16,13 +16,13 @@ type ValidatingAdmissionPolicyBindingList struct {
 	pulumi.CustomResourceState
 
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringOutput `pulumi:"apiVersion"`
 	// List of PolicyBinding.
 	Items ValidatingAdmissionPolicyBindingTypeArrayOutput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrOutput `pulumi:"kind"`
+	Kind pulumi.StringOutput `pulumi:"kind"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Metadata metav1.ListMetaPtrOutput `pulumi:"metadata"`
+	Metadata metav1.ListMetaOutput `pulumi:"metadata"`
 }
 
 // NewValidatingAdmissionPolicyBindingList registers a new resource with the given unique name, arguments, and options.
@@ -176,8 +176,8 @@ func (o ValidatingAdmissionPolicyBindingListOutput) ToValidatingAdmissionPolicyB
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o ValidatingAdmissionPolicyBindingListOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ValidatingAdmissionPolicyBindingList) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o ValidatingAdmissionPolicyBindingListOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v *ValidatingAdmissionPolicyBindingList) pulumi.StringOutput { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // List of PolicyBinding.
@@ -188,13 +188,13 @@ func (o ValidatingAdmissionPolicyBindingListOutput) Items() ValidatingAdmissionP
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o ValidatingAdmissionPolicyBindingListOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ValidatingAdmissionPolicyBindingList) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+func (o ValidatingAdmissionPolicyBindingListOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v *ValidatingAdmissionPolicyBindingList) pulumi.StringOutput { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o ValidatingAdmissionPolicyBindingListOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v *ValidatingAdmissionPolicyBindingList) metav1.ListMetaPtrOutput { return v.Metadata }).(metav1.ListMetaPtrOutput)
+func (o ValidatingAdmissionPolicyBindingListOutput) Metadata() metav1.ListMetaOutput {
+	return o.ApplyT(func(v *ValidatingAdmissionPolicyBindingList) metav1.ListMetaOutput { return v.Metadata }).(metav1.ListMetaOutput)
 }
 
 type ValidatingAdmissionPolicyBindingListArrayOutput struct{ *pulumi.OutputState }

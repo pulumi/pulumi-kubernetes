@@ -16,13 +16,13 @@ type PriorityLevelConfiguration struct {
 	pulumi.CustomResourceState
 
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringOutput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrOutput `pulumi:"kind"`
+	Kind pulumi.StringOutput `pulumi:"kind"`
 	// `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaOutput `pulumi:"metadata"`
 	// `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec PriorityLevelConfigurationSpecPtrOutput `pulumi:"spec"`
+	Spec PriorityLevelConfigurationSpecOutput `pulumi:"spec"`
 	// `status` is the current status of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Status PriorityLevelConfigurationStatusPtrOutput `pulumi:"status"`
 }
@@ -190,23 +190,23 @@ func (o PriorityLevelConfigurationOutput) ToPriorityLevelConfigurationOutputWith
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o PriorityLevelConfigurationOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *PriorityLevelConfiguration) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o PriorityLevelConfigurationOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v *PriorityLevelConfiguration) pulumi.StringOutput { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o PriorityLevelConfigurationOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *PriorityLevelConfiguration) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+func (o PriorityLevelConfigurationOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v *PriorityLevelConfiguration) pulumi.StringOutput { return v.Kind }).(pulumi.StringOutput)
 }
 
 // `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o PriorityLevelConfigurationOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v *PriorityLevelConfiguration) metav1.ObjectMetaPtrOutput { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o PriorityLevelConfigurationOutput) Metadata() metav1.ObjectMetaOutput {
+	return o.ApplyT(func(v *PriorityLevelConfiguration) metav1.ObjectMetaOutput { return v.Metadata }).(metav1.ObjectMetaOutput)
 }
 
 // `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-func (o PriorityLevelConfigurationOutput) Spec() PriorityLevelConfigurationSpecPtrOutput {
-	return o.ApplyT(func(v *PriorityLevelConfiguration) PriorityLevelConfigurationSpecPtrOutput { return v.Spec }).(PriorityLevelConfigurationSpecPtrOutput)
+func (o PriorityLevelConfigurationOutput) Spec() PriorityLevelConfigurationSpecOutput {
+	return o.ApplyT(func(v *PriorityLevelConfiguration) PriorityLevelConfigurationSpecOutput { return v.Spec }).(PriorityLevelConfigurationSpecOutput)
 }
 
 // `status` is the current status of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status

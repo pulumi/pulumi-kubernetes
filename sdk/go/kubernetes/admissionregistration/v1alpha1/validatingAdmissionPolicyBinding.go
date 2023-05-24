@@ -16,13 +16,13 @@ type ValidatingAdmissionPolicyBinding struct {
 	pulumi.CustomResourceState
 
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringOutput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrOutput `pulumi:"kind"`
+	Kind pulumi.StringOutput `pulumi:"kind"`
 	// Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
-	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaOutput `pulumi:"metadata"`
 	// Specification of the desired behavior of the ValidatingAdmissionPolicyBinding.
-	Spec ValidatingAdmissionPolicyBindingSpecPtrOutput `pulumi:"spec"`
+	Spec ValidatingAdmissionPolicyBindingSpecOutput `pulumi:"spec"`
 }
 
 // NewValidatingAdmissionPolicyBinding registers a new resource with the given unique name, arguments, and options.
@@ -176,23 +176,23 @@ func (o ValidatingAdmissionPolicyBindingOutput) ToValidatingAdmissionPolicyBindi
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o ValidatingAdmissionPolicyBindingOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ValidatingAdmissionPolicyBinding) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o ValidatingAdmissionPolicyBindingOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v *ValidatingAdmissionPolicyBinding) pulumi.StringOutput { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o ValidatingAdmissionPolicyBindingOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ValidatingAdmissionPolicyBinding) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+func (o ValidatingAdmissionPolicyBindingOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v *ValidatingAdmissionPolicyBinding) pulumi.StringOutput { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
-func (o ValidatingAdmissionPolicyBindingOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v *ValidatingAdmissionPolicyBinding) metav1.ObjectMetaPtrOutput { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o ValidatingAdmissionPolicyBindingOutput) Metadata() metav1.ObjectMetaOutput {
+	return o.ApplyT(func(v *ValidatingAdmissionPolicyBinding) metav1.ObjectMetaOutput { return v.Metadata }).(metav1.ObjectMetaOutput)
 }
 
 // Specification of the desired behavior of the ValidatingAdmissionPolicyBinding.
-func (o ValidatingAdmissionPolicyBindingOutput) Spec() ValidatingAdmissionPolicyBindingSpecPtrOutput {
-	return o.ApplyT(func(v *ValidatingAdmissionPolicyBinding) ValidatingAdmissionPolicyBindingSpecPtrOutput { return v.Spec }).(ValidatingAdmissionPolicyBindingSpecPtrOutput)
+func (o ValidatingAdmissionPolicyBindingOutput) Spec() ValidatingAdmissionPolicyBindingSpecOutput {
+	return o.ApplyT(func(v *ValidatingAdmissionPolicyBinding) ValidatingAdmissionPolicyBindingSpecOutput { return v.Spec }).(ValidatingAdmissionPolicyBindingSpecOutput)
 }
 
 type ValidatingAdmissionPolicyBindingArrayOutput struct{ *pulumi.OutputState }
