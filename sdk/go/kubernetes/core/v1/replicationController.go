@@ -16,13 +16,13 @@ type ReplicationController struct {
 	pulumi.CustomResourceState
 
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringOutput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrOutput `pulumi:"kind"`
+	Kind pulumi.StringOutput `pulumi:"kind"`
 	// If the Labels of a ReplicationController are empty, they are defaulted to be the same as the Pod(s) that the replication controller manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaOutput `pulumi:"metadata"`
 	// Spec defines the specification of the desired behavior of the replication controller. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec ReplicationControllerSpecPtrOutput `pulumi:"spec"`
+	Spec ReplicationControllerSpecOutput `pulumi:"spec"`
 	// Status is the most recently observed status of the replication controller. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Status ReplicationControllerStatusPtrOutput `pulumi:"status"`
 }
@@ -178,23 +178,23 @@ func (o ReplicationControllerOutput) ToReplicationControllerOutputWithContext(ct
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o ReplicationControllerOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ReplicationController) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o ReplicationControllerOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v *ReplicationController) pulumi.StringOutput { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o ReplicationControllerOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ReplicationController) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+func (o ReplicationControllerOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v *ReplicationController) pulumi.StringOutput { return v.Kind }).(pulumi.StringOutput)
 }
 
 // If the Labels of a ReplicationController are empty, they are defaulted to be the same as the Pod(s) that the replication controller manages. Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o ReplicationControllerOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v *ReplicationController) metav1.ObjectMetaPtrOutput { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o ReplicationControllerOutput) Metadata() metav1.ObjectMetaOutput {
+	return o.ApplyT(func(v *ReplicationController) metav1.ObjectMetaOutput { return v.Metadata }).(metav1.ObjectMetaOutput)
 }
 
 // Spec defines the specification of the desired behavior of the replication controller. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-func (o ReplicationControllerOutput) Spec() ReplicationControllerSpecPtrOutput {
-	return o.ApplyT(func(v *ReplicationController) ReplicationControllerSpecPtrOutput { return v.Spec }).(ReplicationControllerSpecPtrOutput)
+func (o ReplicationControllerOutput) Spec() ReplicationControllerSpecOutput {
+	return o.ApplyT(func(v *ReplicationController) ReplicationControllerSpecOutput { return v.Spec }).(ReplicationControllerSpecOutput)
 }
 
 // Status is the most recently observed status of the replication controller. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status

@@ -109,13 +109,13 @@ type Pod struct {
 	pulumi.CustomResourceState
 
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringOutput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrOutput `pulumi:"kind"`
+	Kind pulumi.StringOutput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaOutput `pulumi:"metadata"`
 	// Specification of the desired behavior of the pod. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec PodSpecPtrOutput `pulumi:"spec"`
+	Spec PodSpecOutput `pulumi:"spec"`
 	// Most recently observed status of the pod. This data may not be up to date. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Status PodStatusPtrOutput `pulumi:"status"`
 }
@@ -271,23 +271,23 @@ func (o PodOutput) ToPodOutputWithContext(ctx context.Context) PodOutput {
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o PodOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o PodOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v *Pod) pulumi.StringOutput { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o PodOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Pod) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+func (o PodOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v *Pod) pulumi.StringOutput { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o PodOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v *Pod) metav1.ObjectMetaPtrOutput { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o PodOutput) Metadata() metav1.ObjectMetaOutput {
+	return o.ApplyT(func(v *Pod) metav1.ObjectMetaOutput { return v.Metadata }).(metav1.ObjectMetaOutput)
 }
 
 // Specification of the desired behavior of the pod. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-func (o PodOutput) Spec() PodSpecPtrOutput {
-	return o.ApplyT(func(v *Pod) PodSpecPtrOutput { return v.Spec }).(PodSpecPtrOutput)
+func (o PodOutput) Spec() PodSpecOutput {
+	return o.ApplyT(func(v *Pod) PodSpecOutput { return v.Spec }).(PodSpecOutput)
 }
 
 // Most recently observed status of the pod. This data may not be up to date. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status

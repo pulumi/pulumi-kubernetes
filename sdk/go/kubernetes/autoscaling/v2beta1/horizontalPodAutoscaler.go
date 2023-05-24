@@ -16,13 +16,13 @@ type HorizontalPodAutoscaler struct {
 	pulumi.CustomResourceState
 
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringOutput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrOutput `pulumi:"kind"`
+	Kind pulumi.StringOutput `pulumi:"kind"`
 	// metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaOutput `pulumi:"metadata"`
 	// spec is the specification for the behaviour of the autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
-	Spec HorizontalPodAutoscalerSpecPtrOutput `pulumi:"spec"`
+	Spec HorizontalPodAutoscalerSpecOutput `pulumi:"spec"`
 	// status is the current information about the autoscaler.
 	Status HorizontalPodAutoscalerStatusPtrOutput `pulumi:"status"`
 }
@@ -190,23 +190,23 @@ func (o HorizontalPodAutoscalerOutput) ToHorizontalPodAutoscalerOutputWithContex
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o HorizontalPodAutoscalerOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *HorizontalPodAutoscaler) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o HorizontalPodAutoscalerOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v *HorizontalPodAutoscaler) pulumi.StringOutput { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o HorizontalPodAutoscalerOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *HorizontalPodAutoscaler) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+func (o HorizontalPodAutoscalerOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v *HorizontalPodAutoscaler) pulumi.StringOutput { return v.Kind }).(pulumi.StringOutput)
 }
 
 // metadata is the standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o HorizontalPodAutoscalerOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v *HorizontalPodAutoscaler) metav1.ObjectMetaPtrOutput { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o HorizontalPodAutoscalerOutput) Metadata() metav1.ObjectMetaOutput {
+	return o.ApplyT(func(v *HorizontalPodAutoscaler) metav1.ObjectMetaOutput { return v.Metadata }).(metav1.ObjectMetaOutput)
 }
 
 // spec is the specification for the behaviour of the autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
-func (o HorizontalPodAutoscalerOutput) Spec() HorizontalPodAutoscalerSpecPtrOutput {
-	return o.ApplyT(func(v *HorizontalPodAutoscaler) HorizontalPodAutoscalerSpecPtrOutput { return v.Spec }).(HorizontalPodAutoscalerSpecPtrOutput)
+func (o HorizontalPodAutoscalerOutput) Spec() HorizontalPodAutoscalerSpecOutput {
+	return o.ApplyT(func(v *HorizontalPodAutoscaler) HorizontalPodAutoscalerSpecOutput { return v.Spec }).(HorizontalPodAutoscalerSpecOutput)
 }
 
 // status is the current information about the autoscaler.

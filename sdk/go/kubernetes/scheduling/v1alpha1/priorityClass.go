@@ -17,17 +17,17 @@ type PriorityClass struct {
 	pulumi.CustomResourceState
 
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringOutput `pulumi:"apiVersion"`
 	// description is an arbitrary string that usually provides guidelines on when this priority class should be used.
-	Description pulumi.StringPtrOutput `pulumi:"description"`
+	Description pulumi.StringOutput `pulumi:"description"`
 	// globalDefault specifies whether this PriorityClass should be considered as the default priority for pods that do not have any priority class. Only one PriorityClass can be marked as `globalDefault`. However, if more than one PriorityClasses exists with their `globalDefault` field set to true, the smallest value of such global default PriorityClasses will be used as the default priority.
-	GlobalDefault pulumi.BoolPtrOutput `pulumi:"globalDefault"`
+	GlobalDefault pulumi.BoolOutput `pulumi:"globalDefault"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrOutput `pulumi:"kind"`
+	Kind pulumi.StringOutput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaOutput `pulumi:"metadata"`
 	// PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is alpha-level and is only honored by servers that enable the NonPreemptingPriority feature.
-	PreemptionPolicy pulumi.StringPtrOutput `pulumi:"preemptionPolicy"`
+	PreemptionPolicy pulumi.StringOutput `pulumi:"preemptionPolicy"`
 	// The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
 	Value pulumi.IntOutput `pulumi:"value"`
 }
@@ -207,33 +207,33 @@ func (o PriorityClassOutput) ToPriorityClassOutputWithContext(ctx context.Contex
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o PriorityClassOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *PriorityClass) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o PriorityClassOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v *PriorityClass) pulumi.StringOutput { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // description is an arbitrary string that usually provides guidelines on when this priority class should be used.
-func (o PriorityClassOutput) Description() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *PriorityClass) pulumi.StringPtrOutput { return v.Description }).(pulumi.StringPtrOutput)
+func (o PriorityClassOutput) Description() pulumi.StringOutput {
+	return o.ApplyT(func(v *PriorityClass) pulumi.StringOutput { return v.Description }).(pulumi.StringOutput)
 }
 
 // globalDefault specifies whether this PriorityClass should be considered as the default priority for pods that do not have any priority class. Only one PriorityClass can be marked as `globalDefault`. However, if more than one PriorityClasses exists with their `globalDefault` field set to true, the smallest value of such global default PriorityClasses will be used as the default priority.
-func (o PriorityClassOutput) GlobalDefault() pulumi.BoolPtrOutput {
-	return o.ApplyT(func(v *PriorityClass) pulumi.BoolPtrOutput { return v.GlobalDefault }).(pulumi.BoolPtrOutput)
+func (o PriorityClassOutput) GlobalDefault() pulumi.BoolOutput {
+	return o.ApplyT(func(v *PriorityClass) pulumi.BoolOutput { return v.GlobalDefault }).(pulumi.BoolOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o PriorityClassOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *PriorityClass) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+func (o PriorityClassOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v *PriorityClass) pulumi.StringOutput { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o PriorityClassOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v *PriorityClass) metav1.ObjectMetaPtrOutput { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o PriorityClassOutput) Metadata() metav1.ObjectMetaOutput {
+	return o.ApplyT(func(v *PriorityClass) metav1.ObjectMetaOutput { return v.Metadata }).(metav1.ObjectMetaOutput)
 }
 
 // PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is alpha-level and is only honored by servers that enable the NonPreemptingPriority feature.
-func (o PriorityClassOutput) PreemptionPolicy() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *PriorityClass) pulumi.StringPtrOutput { return v.PreemptionPolicy }).(pulumi.StringPtrOutput)
+func (o PriorityClassOutput) PreemptionPolicy() pulumi.StringOutput {
+	return o.ApplyT(func(v *PriorityClass) pulumi.StringOutput { return v.PreemptionPolicy }).(pulumi.StringOutput)
 }
 
 // The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.

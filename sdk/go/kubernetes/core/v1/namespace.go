@@ -16,13 +16,13 @@ type Namespace struct {
 	pulumi.CustomResourceState
 
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringOutput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrOutput `pulumi:"kind"`
+	Kind pulumi.StringOutput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaOutput `pulumi:"metadata"`
 	// Spec defines the behavior of the Namespace. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec NamespaceSpecPtrOutput `pulumi:"spec"`
+	Spec NamespaceSpecOutput `pulumi:"spec"`
 	// Status describes the current status of a Namespace. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Status NamespaceStatusPtrOutput `pulumi:"status"`
 }
@@ -178,23 +178,23 @@ func (o NamespaceOutput) ToNamespaceOutputWithContext(ctx context.Context) Names
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o NamespaceOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Namespace) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o NamespaceOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v *Namespace) pulumi.StringOutput { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o NamespaceOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *Namespace) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+func (o NamespaceOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v *Namespace) pulumi.StringOutput { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o NamespaceOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v *Namespace) metav1.ObjectMetaPtrOutput { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o NamespaceOutput) Metadata() metav1.ObjectMetaOutput {
+	return o.ApplyT(func(v *Namespace) metav1.ObjectMetaOutput { return v.Metadata }).(metav1.ObjectMetaOutput)
 }
 
 // Spec defines the behavior of the Namespace. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-func (o NamespaceOutput) Spec() NamespaceSpecPtrOutput {
-	return o.ApplyT(func(v *Namespace) NamespaceSpecPtrOutput { return v.Spec }).(NamespaceSpecPtrOutput)
+func (o NamespaceOutput) Spec() NamespaceSpecOutput {
+	return o.ApplyT(func(v *Namespace) NamespaceSpecOutput { return v.Spec }).(NamespaceSpecOutput)
 }
 
 // Status describes the current status of a Namespace. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status

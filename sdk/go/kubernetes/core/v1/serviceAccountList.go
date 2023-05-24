@@ -17,13 +17,13 @@ type ServiceAccountList struct {
 	pulumi.CustomResourceState
 
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringOutput `pulumi:"apiVersion"`
 	// List of ServiceAccounts. More info: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
 	Items ServiceAccountTypeArrayOutput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrOutput `pulumi:"kind"`
+	Kind pulumi.StringOutput `pulumi:"kind"`
 	// Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Metadata metav1.ListMetaPtrOutput `pulumi:"metadata"`
+	Metadata metav1.ListMetaOutput `pulumi:"metadata"`
 }
 
 // NewServiceAccountList registers a new resource with the given unique name, arguments, and options.
@@ -180,8 +180,8 @@ func (o ServiceAccountListOutput) ToServiceAccountListOutputWithContext(ctx cont
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o ServiceAccountListOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ServiceAccountList) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o ServiceAccountListOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v *ServiceAccountList) pulumi.StringOutput { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // List of ServiceAccounts. More info: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
@@ -190,13 +190,13 @@ func (o ServiceAccountListOutput) Items() ServiceAccountTypeArrayOutput {
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o ServiceAccountListOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ServiceAccountList) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+func (o ServiceAccountListOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v *ServiceAccountList) pulumi.StringOutput { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o ServiceAccountListOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v *ServiceAccountList) metav1.ListMetaPtrOutput { return v.Metadata }).(metav1.ListMetaPtrOutput)
+func (o ServiceAccountListOutput) Metadata() metav1.ListMetaOutput {
+	return o.ApplyT(func(v *ServiceAccountList) metav1.ListMetaOutput { return v.Metadata }).(metav1.ListMetaOutput)
 }
 
 type ServiceAccountListArrayOutput struct{ *pulumi.OutputState }

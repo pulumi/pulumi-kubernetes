@@ -18,13 +18,13 @@ type DaemonSet struct {
 	pulumi.CustomResourceState
 
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringOutput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrOutput `pulumi:"kind"`
+	Kind pulumi.StringOutput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaOutput `pulumi:"metadata"`
 	// The desired behavior of this daemon set. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec DaemonSetSpecPtrOutput `pulumi:"spec"`
+	Spec DaemonSetSpecOutput `pulumi:"spec"`
 	// The current status of this daemon set. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Status DaemonSetStatusPtrOutput `pulumi:"status"`
 }
@@ -189,23 +189,23 @@ func (o DaemonSetOutput) ToDaemonSetOutputWithContext(ctx context.Context) Daemo
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o DaemonSetOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *DaemonSet) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o DaemonSetOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v *DaemonSet) pulumi.StringOutput { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o DaemonSetOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *DaemonSet) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+func (o DaemonSetOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v *DaemonSet) pulumi.StringOutput { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o DaemonSetOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v *DaemonSet) metav1.ObjectMetaPtrOutput { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o DaemonSetOutput) Metadata() metav1.ObjectMetaOutput {
+	return o.ApplyT(func(v *DaemonSet) metav1.ObjectMetaOutput { return v.Metadata }).(metav1.ObjectMetaOutput)
 }
 
 // The desired behavior of this daemon set. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-func (o DaemonSetOutput) Spec() DaemonSetSpecPtrOutput {
-	return o.ApplyT(func(v *DaemonSet) DaemonSetSpecPtrOutput { return v.Spec }).(DaemonSetSpecPtrOutput)
+func (o DaemonSetOutput) Spec() DaemonSetSpecOutput {
+	return o.ApplyT(func(v *DaemonSet) DaemonSetSpecOutput { return v.Spec }).(DaemonSetSpecOutput)
 }
 
 // The current status of this daemon set. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status

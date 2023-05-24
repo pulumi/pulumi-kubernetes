@@ -16,13 +16,13 @@ type ResourceQuota struct {
 	pulumi.CustomResourceState
 
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringOutput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrOutput `pulumi:"kind"`
+	Kind pulumi.StringOutput `pulumi:"kind"`
 	// Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaOutput `pulumi:"metadata"`
 	// Spec defines the desired quota. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-	Spec ResourceQuotaSpecPtrOutput `pulumi:"spec"`
+	Spec ResourceQuotaSpecOutput `pulumi:"spec"`
 	// Status defines the actual enforced quota and its current usage. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Status ResourceQuotaStatusPtrOutput `pulumi:"status"`
 }
@@ -178,23 +178,23 @@ func (o ResourceQuotaOutput) ToResourceQuotaOutputWithContext(ctx context.Contex
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o ResourceQuotaOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ResourceQuota) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o ResourceQuotaOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v *ResourceQuota) pulumi.StringOutput { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o ResourceQuotaOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ResourceQuota) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+func (o ResourceQuotaOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v *ResourceQuota) pulumi.StringOutput { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-func (o ResourceQuotaOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v *ResourceQuota) metav1.ObjectMetaPtrOutput { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o ResourceQuotaOutput) Metadata() metav1.ObjectMetaOutput {
+	return o.ApplyT(func(v *ResourceQuota) metav1.ObjectMetaOutput { return v.Metadata }).(metav1.ObjectMetaOutput)
 }
 
 // Spec defines the desired quota. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-func (o ResourceQuotaOutput) Spec() ResourceQuotaSpecPtrOutput {
-	return o.ApplyT(func(v *ResourceQuota) ResourceQuotaSpecPtrOutput { return v.Spec }).(ResourceQuotaSpecPtrOutput)
+func (o ResourceQuotaOutput) Spec() ResourceQuotaSpecOutput {
+	return o.ApplyT(func(v *ResourceQuota) ResourceQuotaSpecOutput { return v.Spec }).(ResourceQuotaSpecOutput)
 }
 
 // Status defines the actual enforced quota and its current usage. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status

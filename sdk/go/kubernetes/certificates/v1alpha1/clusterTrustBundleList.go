@@ -17,13 +17,13 @@ type ClusterTrustBundleList struct {
 	pulumi.CustomResourceState
 
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringOutput `pulumi:"apiVersion"`
 	// items is a collection of ClusterTrustBundle objects
 	Items ClusterTrustBundleTypeArrayOutput `pulumi:"items"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrOutput `pulumi:"kind"`
+	Kind pulumi.StringOutput `pulumi:"kind"`
 	// metadata contains the list metadata.
-	Metadata metav1.ListMetaPtrOutput `pulumi:"metadata"`
+	Metadata metav1.ListMetaOutput `pulumi:"metadata"`
 }
 
 // NewClusterTrustBundleList registers a new resource with the given unique name, arguments, and options.
@@ -180,8 +180,8 @@ func (o ClusterTrustBundleListOutput) ToClusterTrustBundleListOutputWithContext(
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o ClusterTrustBundleListOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterTrustBundleList) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o ClusterTrustBundleListOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v *ClusterTrustBundleList) pulumi.StringOutput { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // items is a collection of ClusterTrustBundle objects
@@ -190,13 +190,13 @@ func (o ClusterTrustBundleListOutput) Items() ClusterTrustBundleTypeArrayOutput 
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o ClusterTrustBundleListOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterTrustBundleList) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+func (o ClusterTrustBundleListOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v *ClusterTrustBundleList) pulumi.StringOutput { return v.Kind }).(pulumi.StringOutput)
 }
 
 // metadata contains the list metadata.
-func (o ClusterTrustBundleListOutput) Metadata() metav1.ListMetaPtrOutput {
-	return o.ApplyT(func(v *ClusterTrustBundleList) metav1.ListMetaPtrOutput { return v.Metadata }).(metav1.ListMetaPtrOutput)
+func (o ClusterTrustBundleListOutput) Metadata() metav1.ListMetaOutput {
+	return o.ApplyT(func(v *ClusterTrustBundleList) metav1.ListMetaOutput { return v.Metadata }).(metav1.ListMetaOutput)
 }
 
 type ClusterTrustBundleListArrayOutput struct{ *pulumi.OutputState }

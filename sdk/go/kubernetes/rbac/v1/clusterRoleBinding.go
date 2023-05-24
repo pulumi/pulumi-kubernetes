@@ -17,11 +17,11 @@ type ClusterRoleBinding struct {
 	pulumi.CustomResourceState
 
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-	ApiVersion pulumi.StringPtrOutput `pulumi:"apiVersion"`
+	ApiVersion pulumi.StringOutput `pulumi:"apiVersion"`
 	// Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-	Kind pulumi.StringPtrOutput `pulumi:"kind"`
+	Kind pulumi.StringOutput `pulumi:"kind"`
 	// Standard object's metadata.
-	Metadata metav1.ObjectMetaPtrOutput `pulumi:"metadata"`
+	Metadata metav1.ObjectMetaOutput `pulumi:"metadata"`
 	// RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
 	RoleRef RoleRefOutput `pulumi:"roleRef"`
 	// Subjects holds references to the objects the role applies to.
@@ -195,18 +195,18 @@ func (o ClusterRoleBindingOutput) ToClusterRoleBindingOutputWithContext(ctx cont
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
-func (o ClusterRoleBindingOutput) ApiVersion() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterRoleBinding) pulumi.StringPtrOutput { return v.ApiVersion }).(pulumi.StringPtrOutput)
+func (o ClusterRoleBindingOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v *ClusterRoleBinding) pulumi.StringOutput { return v.ApiVersion }).(pulumi.StringOutput)
 }
 
 // Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
-func (o ClusterRoleBindingOutput) Kind() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v *ClusterRoleBinding) pulumi.StringPtrOutput { return v.Kind }).(pulumi.StringPtrOutput)
+func (o ClusterRoleBindingOutput) Kind() pulumi.StringOutput {
+	return o.ApplyT(func(v *ClusterRoleBinding) pulumi.StringOutput { return v.Kind }).(pulumi.StringOutput)
 }
 
 // Standard object's metadata.
-func (o ClusterRoleBindingOutput) Metadata() metav1.ObjectMetaPtrOutput {
-	return o.ApplyT(func(v *ClusterRoleBinding) metav1.ObjectMetaPtrOutput { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
+func (o ClusterRoleBindingOutput) Metadata() metav1.ObjectMetaOutput {
+	return o.ApplyT(func(v *ClusterRoleBinding) metav1.ObjectMetaOutput { return v.Metadata }).(metav1.ObjectMetaOutput)
 }
 
 // RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.

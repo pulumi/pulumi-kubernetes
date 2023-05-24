@@ -15,7 +15,6 @@ import com.pulumi.kubernetes.resource.v1alpha2.ResourceClassArgs;
 import com.pulumi.kubernetes.resource.v1alpha2.outputs.ResourceClassParametersReference;
 import java.lang.String;
 import java.util.List;
-import java.util.Optional;
 import javax.annotation.Nullable;
 
 /**
@@ -31,14 +30,14 @@ public class ResourceClass extends com.pulumi.resources.CustomResource {
      * 
      */
     @Export(name="apiVersion", refs={String.class}, tree="[0]")
-    private Output</* @Nullable */ String> apiVersion;
+    private Output<String> apiVersion;
 
     /**
      * @return APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
      * 
      */
-    public Output<Optional<String>> apiVersion() {
-        return Codegen.optional(this.apiVersion);
+    public Output<String> apiVersion() {
+        return this.apiVersion;
     }
     /**
      * DriverName defines the name of the dynamic resource driver that is used for allocation of a ResourceClaim that uses this class.
@@ -63,42 +62,42 @@ public class ResourceClass extends com.pulumi.resources.CustomResource {
      * 
      */
     @Export(name="kind", refs={String.class}, tree="[0]")
-    private Output</* @Nullable */ String> kind;
+    private Output<String> kind;
 
     /**
      * @return Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
      * 
      */
-    public Output<Optional<String>> kind() {
-        return Codegen.optional(this.kind);
+    public Output<String> kind() {
+        return this.kind;
     }
     /**
      * Standard object metadata
      * 
      */
     @Export(name="metadata", refs={ObjectMeta.class}, tree="[0]")
-    private Output</* @Nullable */ ObjectMeta> metadata;
+    private Output<ObjectMeta> metadata;
 
     /**
      * @return Standard object metadata
      * 
      */
-    public Output<Optional<ObjectMeta>> metadata() {
-        return Codegen.optional(this.metadata);
+    public Output<ObjectMeta> metadata() {
+        return this.metadata;
     }
     /**
      * ParametersRef references an arbitrary separate object that may hold parameters that will be used by the driver when allocating a resource that uses this class. A dynamic resource driver can distinguish between parameters stored here and and those stored in ResourceClaimSpec.
      * 
      */
     @Export(name="parametersRef", refs={ResourceClassParametersReference.class}, tree="[0]")
-    private Output</* @Nullable */ ResourceClassParametersReference> parametersRef;
+    private Output<ResourceClassParametersReference> parametersRef;
 
     /**
      * @return ParametersRef references an arbitrary separate object that may hold parameters that will be used by the driver when allocating a resource that uses this class. A dynamic resource driver can distinguish between parameters stored here and and those stored in ResourceClaimSpec.
      * 
      */
-    public Output<Optional<ResourceClassParametersReference>> parametersRef() {
-        return Codegen.optional(this.parametersRef);
+    public Output<ResourceClassParametersReference> parametersRef() {
+        return this.parametersRef;
     }
     /**
      * Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a ResourceClaim that has not been allocated yet.
@@ -107,7 +106,7 @@ public class ResourceClass extends com.pulumi.resources.CustomResource {
      * 
      */
     @Export(name="suitableNodes", refs={NodeSelector.class}, tree="[0]")
-    private Output</* @Nullable */ NodeSelector> suitableNodes;
+    private Output<NodeSelector> suitableNodes;
 
     /**
      * @return Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a ResourceClaim that has not been allocated yet.
@@ -115,8 +114,8 @@ public class ResourceClass extends com.pulumi.resources.CustomResource {
      * Setting this field is optional. If null, all nodes are candidates.
      * 
      */
-    public Output<Optional<NodeSelector>> suitableNodes() {
-        return Codegen.optional(this.suitableNodes);
+    public Output<NodeSelector> suitableNodes() {
+        return this.suitableNodes;
     }
 
     /**
