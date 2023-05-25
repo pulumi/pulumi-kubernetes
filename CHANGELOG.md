@@ -1,5 +1,7 @@
 ## Unreleased
 
+- Update Patch resources rather than replacing (https://github.com/pulumi/pulumi-kubernetes/pull/2429)
+
 ## 3.28.1 (May 24, 2023)
 
 - Add a "strict mode" configuration option (https://github.com/pulumi/pulumi-kubernetes/pull/2425)
