@@ -178,9 +178,34 @@ func TestGo(t *testing.T) {
 		integration.ProgramTest(t, &options)
 	})
 
+	t.Run("Helm Release With Empty Local Folder", func(t *testing.T) {
+		options := baseOptions.With(integration.ProgramTestOptions{
+			Dir:   filepath.Join(cwd, "helm-release", "step1"),
+			Quick: true,
+			PrePulumiCommand: func(verb string) (func(err error) error, error) {
+				// Create an empty folder to test that the Helm provider doesn't fail when the folder is empty, and we should
+				// be fetching from remote.
+				emptyDir := filepath.Join(cwd, "helm-release", "step1", "nginx")
+				if err := os.MkdirAll(emptyDir, 0700); err != nil {
+					return nil, err
+				}
+				return nil, nil
+			},
+		})
+		integration.ProgramTest(t, &options)
+	})
+
 	t.Run("Helm Release Local", func(t *testing.T) {
 		options := baseOptions.With(integration.ProgramTestOptions{
 			Dir:   filepath.Join(cwd, "helm-release-local", "step1"),
+			Quick: true,
+		})
+		integration.ProgramTest(t, &options)
+	})
+
+	t.Run("Helm Release Local Compressed", func(t *testing.T) {
+		options := baseOptions.With(integration.ProgramTestOptions{
+			Dir:   filepath.Join(cwd, "helm-release-local-tar", "step1"),
 			Quick: true,
 		})
 		integration.ProgramTest(t, &options)
