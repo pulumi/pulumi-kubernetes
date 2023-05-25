@@ -1629,7 +1629,11 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 	var replaces []string
 	var detailedDiff map[string]*pulumirpc.PropertyDiff
 	if len(patchObj) != 0 {
-		forceNewFields := k.forceNewProperties(oldInputs)
+		// Changing the identity of the resource always causes a replacement.
+		forceNewFields := []string{".metadata.name", ".metadata.namespace"}
+		if !isPatchURN(urn) { // Patch resources can be updated in place for all other properties.
+			forceNewFields = k.forceNewProperties(oldInputs)
+		}
 		if detailedDiff, err = convertPatchToDiff(patchObj, patchBase, newInputs.Object, oldInputs.Object, forceNewFields...); err != nil {
 			return nil, pkgerrors.Wrapf(
 				err, "Failed to check for changes in resource %s/%s because of an error "+

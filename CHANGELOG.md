@@ -1,6 +1,7 @@
 ## Unreleased
 
 - Fix regression in file/folder checking logic that caused incorrect parsing of compressed chart files (https://github.com/pulumi/pulumi-kubernetes/pull/2428)
+- Update Patch resources rather than replacing (https://github.com/pulumi/pulumi-kubernetes/pull/2429)
 
 ## 3.28.1 (May 24, 2023)
 
