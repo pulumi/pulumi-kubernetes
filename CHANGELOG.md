@@ -1,5 +1,7 @@
 ## Unreleased
 
+- Fix regression in file/folder checking logic that caused incorrect parsing of compressed chart files (https://github.com/pulumi/pulumi-kubernetes/pull/2428)
+
 ## 3.28.1 (May 24, 2023)
 
 - Add a "strict mode" configuration option (https://github.com/pulumi/pulumi-kubernetes/pull/2425)
