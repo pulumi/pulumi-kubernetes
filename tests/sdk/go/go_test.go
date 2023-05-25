@@ -117,49 +117,6 @@ func TestGo(t *testing.T) {
 		integration.ProgramTest(t, &options)
 	})
 
-	t.Run("Helm Local Compressed", func(t *testing.T) {
-		options := baseOptions.With(integration.ProgramTestOptions{
-			Dir:   filepath.Join(cwd, "helm-local-tar", "step1"),
-			Quick: true,
-			ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
-				// Verify resource creation order using the Event stream. The Chart resources must be created
-				// first, followed by the dependent ConfigMap. (The ConfigMap doesn't actually need the Chart, but
-				// it creates almost instantly, so it's a good choice to test creation ordering)
-				cmRegex := regexp.MustCompile(`ConfigMap::nginx-server-block`)
-				svcRegex := regexp.MustCompile(`Service::nginx`)
-				deployRegex := regexp.MustCompile(`Deployment::nginx`)
-				dependentRegex := regexp.MustCompile(`ConfigMap::foo`)
-
-				var configmapFound, serviceFound, deploymentFound, dependentFound bool
-				for _, e := range stackInfo.Events {
-					if e.ResOutputsEvent != nil {
-						switch {
-						case cmRegex.MatchString(e.ResOutputsEvent.Metadata.URN):
-							configmapFound = true
-						case svcRegex.MatchString(e.ResOutputsEvent.Metadata.URN):
-							serviceFound = true
-						case deployRegex.MatchString(e.ResOutputsEvent.Metadata.URN):
-							deploymentFound = true
-						case dependentRegex.MatchString(e.ResOutputsEvent.Metadata.URN):
-							dependentFound = true
-						}
-						assert.Falsef(t, dependentFound && !(configmapFound && serviceFound && deploymentFound),
-							"dependent ConfigMap created before all chart resources were ready")
-						fmt.Println(e.ResOutputsEvent.Metadata.URN)
-					}
-				}
-			},
-			EditDirs: []integration.EditDir{
-				{
-					Dir:             filepath.Join(cwd, "helm-local", "step2"),
-					Additive:        true,
-					ExpectNoChanges: true,
-				},
-			},
-		})
-		integration.ProgramTest(t, &options)
-	})
-
 	t.Run("Helm Import", func(t *testing.T) {
 		baseDir := filepath.Join(cwd, "helm-release-import", "step1")
 		namespace := getRandomNamespace("importtest")
@@ -241,6 +198,14 @@ func TestGo(t *testing.T) {
 	t.Run("Helm Release Local", func(t *testing.T) {
 		options := baseOptions.With(integration.ProgramTestOptions{
 			Dir:   filepath.Join(cwd, "helm-release-local", "step1"),
+			Quick: true,
+		})
+		integration.ProgramTest(t, &options)
+	})
+
+	t.Run("Helm Release Local Compressed", func(t *testing.T) {
+		options := baseOptions.With(integration.ProgramTestOptions{
+			Dir:   filepath.Join(cwd, "helm-release-local-tar", "step1"),
 			Quick: true,
 		})
 		integration.ProgramTest(t, &options)
