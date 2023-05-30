@@ -1591,36 +1591,39 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 
 	fieldManager := k.fieldManagerName(nil, newResInputs, newInputs)
 
-	// Try to compute a server-side patch.
-	ssPatch, ssPatchBase, ssPatchOk, err := k.tryServerSidePatch(oldInputs, newInputs, gvk, fieldManager)
-	if err != nil {
-		return nil, err
-	}
-
-	// If the server-side patch succeeded, then merge that patch into the client-side patch and override any conflicts
-	// with the server-side values.
-	if ssPatchOk {
-		logger.V(1).Infof("calculated diffs for %s/%s using dry-run and inputs", newInputs.GetNamespace(), newInputs.GetName())
-		// Merge the server-side patch into the client-side patch, and ensure that any fields that are set to null in the
-		// server-side patch are set to null in the client-side patch.
-		err = mergo.Merge(&patchBase, ssPatchBase, mergo.WithOverwriteWithEmptyValue)
+	if len(patch) > 0 {
+		// Try to compute a server-side patch.
+		ssPatch, ssPatchBase, ssPatchOk, err := k.tryServerSidePatch(oldInputs, newInputs, gvk, fieldManager)
 		if err != nil {
 			return nil, err
 		}
 
-		ssPatchObj := map[string]interface{}{}
-		if err = json.Unmarshal(ssPatch, &ssPatchObj); err != nil {
-			return nil, pkgerrors.Wrapf(
-				err, "Failed to check for changes in resource %s/%s because of an error serializing "+
-					"the JSON patch describing resource changes",
-				newInputs.GetNamespace(), newInputs.GetName())
+		// If the server-side patch succeeded, then merge that patch into the client-side patch and override any conflicts
+		// with the server-side values.
+		if ssPatchOk {
+			logger.V(1).Infof("calculated diffs for %s/%s using dry-run and inputs", newInputs.GetNamespace(), newInputs.GetName())
+			// Merge the server-side patch into the client-side patch, and ensure that any fields that are set to null in the
+			// server-side patch are set to null in the client-side patch.
+			err = mergo.Merge(&patchBase, ssPatchBase, mergo.WithOverwriteWithEmptyValue)
+			if err != nil {
+				return nil, err
+			}
+
+			ssPatchObj := map[string]interface{}{}
+			if err = json.Unmarshal(ssPatch, &ssPatchObj); err != nil {
+				return nil, pkgerrors.Wrapf(
+					err, "Failed to check for changes in resource %s/%s because of an error serializing "+
+						"the JSON patch describing resource changes",
+					newInputs.GetNamespace(), newInputs.GetName())
+			}
+			err = mergo.Merge(&patchObj, ssPatchObj, mergo.WithOverride)
+			if err != nil {
+				return nil, err
+			}
+		} else {
+			logger.V(1).Infof("calculated diffs for %s/%s using inputs only", newInputs.GetNamespace(), newInputs.GetName())
 		}
-		err = mergo.Merge(&patchObj, ssPatchObj, mergo.WithOverride)
-		if err != nil {
-			return nil, err
-		}
-	} else {
-		logger.V(1).Infof("calculated diffs for %s/%s using inputs only", newInputs.GetNamespace(), newInputs.GetName())
+
 	}
 
 	// Pack up PB, ship response back.
