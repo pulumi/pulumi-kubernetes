@@ -5,6 +5,7 @@ package provider
 import (
 	"encoding/json"
 	"fmt"
+	"reflect"
 	"strings"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
@@ -132,4 +133,100 @@ func getActiveClusterFromConfig(config *clientapi.Config, overrides resource.Pro
 	}
 
 	return activeCluster
+}
+
+// pruneMap recursively drops keys from the source map that don't have a matching key in the target map and returns
+// the result. This is useful as a preprocessing step for live resource state before comparing it to program inputs.
+func pruneMap(source, target map[string]interface{}) map[string]interface{} {
+	result := make(map[string]interface{})
+
+	for key, value := range source {
+		if targetValue, ok := target[key]; ok {
+			valueT := reflect.TypeOf(value)
+			targetValueT := reflect.TypeOf(targetValue)
+
+			if valueT == nil || targetValueT == nil {
+				result[key] = value
+				continue
+			}
+
+			if valueT.Kind() == reflect.Map {
+				if targetValueT.Kind() == reflect.Map {
+					nestedResult := pruneMap(value.(map[string]interface{}), targetValue.(map[string]interface{}))
+					if len(nestedResult) > 0 {
+						result[key] = nestedResult
+						continue
+					}
+				} else {
+					result[key] = value
+					continue
+				}
+			}
+
+			if reflect.TypeOf(value).Kind() == reflect.Slice {
+				if reflect.TypeOf(targetValue).Kind() == reflect.Slice {
+					nestedResult := pruneSlice(value.([]interface{}), targetValue.([]interface{}))
+					if len(nestedResult) > 0 {
+						result[key] = nestedResult
+						continue
+					}
+				} else {
+					result[key] = value
+					continue
+				}
+			}
+
+			result[key] = value
+		}
+	}
+
+	return result
+}
+
+// pruneSlice drops elements from the source slice that don't have a matching element in the target slice
+func pruneSlice(source, target []interface{}) []interface{} {
+	result := make([]interface{}, 0)
+
+	for i, targetValue := range target {
+		if i+1 > len(source) {
+			break
+		}
+		value := source[i]
+
+		valueT := reflect.TypeOf(value)
+		targetValueT := reflect.TypeOf(targetValue)
+
+		if valueT == nil || targetValueT == nil {
+			result = append(result, value)
+			continue
+		}
+
+		if valueT.Kind() == reflect.Map {
+			if targetValueT.Kind() == reflect.Map {
+				nestedResult := pruneMap(value.(map[string]interface{}), targetValue.(map[string]interface{}))
+				if len(nestedResult) > 0 {
+					result = append(result, nestedResult)
+				}
+			} else {
+				result = append(result, value)
+			}
+			continue
+		}
+
+		if valueT.Kind() == reflect.Slice {
+			if targetValueT.Kind() == reflect.Map {
+				nestedResult := pruneSlice(value.([]interface{}), targetValue.([]interface{}))
+				if len(nestedResult) > 0 {
+					result = append(result, nestedResult)
+				}
+			} else {
+				result = append(result, value)
+			}
+			continue
+		}
+
+		result = append(result, value)
+	}
+
+	return result
 }

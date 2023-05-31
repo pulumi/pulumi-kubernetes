@@ -15,6 +15,7 @@
 package provider
 
 import (
+	"encoding/json"
 	"reflect"
 	"testing"
 
@@ -314,6 +315,772 @@ v0dohqdVlO32gd6+BQNF8fP29o0dOCAjV/4wBbccuHubvBgu4rqHsHog371ETul/
 		t.Run(tt.name, func(t *testing.T) {
 			if got := getActiveClusterFromConfig(tt.args.config, tt.args.overrides); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("getActiveClusterFromConfig() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestPruneMap(t *testing.T) {
+	oldLiveJSON := []byte(`{
+	 "__fieldManager": "pulumi-kubernetes-b5647a00",
+	 "__initialApiVersion": "apps/v1",
+	 "apiVersion": "apps/v1",
+	 "kind": "Deployment",
+	 "metadata": {
+	   "annotations": {
+	     "deployment.kubernetes.io/revision": "1"
+	   },
+	   "creationTimestamp": "2023-05-31T15:37:37Z",
+	   "generation": 1,
+	   "managedFields": [
+	     {
+	       "apiVersion": "apps/v1",
+	       "fieldsType": "FieldsV1",
+	       "fieldsV1": {
+	         "f:spec": {
+	           "f:replicas": {},
+	           "f:selector": {},
+	           "f:template": {
+	             "f:metadata": {
+	               "f:labels": {
+	                 "f:app": {}
+	               }
+	             },
+	             "f:spec": {
+	               "f:containers": {
+	                 "k:{\"name\":\"nginx\"}": {
+	                   ".": {},
+	                   "f:image": {},
+	                   "f:name": {},
+	                   "f:ports": {
+	                     "k:{\"containerPort\":80,\"protocol\":\"TCP\"}": {
+	                       ".": {},
+	                       "f:containerPort": {}
+	                     }
+	                   }
+	                 }
+	               }
+	             }
+	           }
+	         }
+	       },
+	       "manager": "pulumi-kubernetes-b5647a00",
+	       "operation": "Apply",
+	       "time": "2023-05-31T15:37:37Z"
+	     },
+	     {
+	       "apiVersion": "apps/v1",
+	       "fieldsType": "FieldsV1",
+	       "fieldsV1": {
+	         "f:metadata": {
+	           "f:annotations": {
+	             ".": {},
+	             "f:deployment.kubernetes.io/revision": {}
+	           }
+	         },
+	         "f:status": {
+	           "f:availableReplicas": {},
+	           "f:conditions": {
+	             ".": {},
+	             "k:{\"type\":\"Available\"}": {
+	               ".": {},
+	               "f:lastTransitionTime": {},
+	               "f:lastUpdateTime": {},
+	               "f:message": {},
+	               "f:reason": {},
+	               "f:status": {},
+	               "f:type": {}
+	             },
+	             "k:{\"type\":\"Progressing\"}": {
+	               ".": {},
+	               "f:lastTransitionTime": {},
+	               "f:lastUpdateTime": {},
+	               "f:message": {},
+	               "f:reason": {},
+	               "f:status": {},
+	               "f:type": {}
+	             }
+	           },
+	           "f:observedGeneration": {},
+	           "f:readyReplicas": {},
+	           "f:replicas": {},
+	           "f:updatedReplicas": {}
+	         }
+	       },
+	       "manager": "kube-controller-manager",
+	       "operation": "Update",
+	       "subresource": "status",
+	       "time": "2023-05-31T15:37:37Z"
+	     }
+	   ],
+	   "name": "scale-test",
+	   "namespace": "default",
+	   "resourceVersion": "6559979",
+	   "uid": "a02656af-058c-47fd-9754-555c24ace524"
+	 },
+	 "spec": {
+	   "progressDeadlineSeconds": 600,
+	   "replicas": 1,
+	   "revisionHistoryLimit": 10,
+	   "selector": {
+	     "matchLabels": {
+	       "app": "nginx"
+	     }
+	   },
+	   "strategy": {
+	     "rollingUpdate": {
+	       "maxSurge": "25%",
+	       "maxUnavailable": "25%"
+	     },
+	     "type": "RollingUpdate"
+	   },
+	   "template": {
+	     "metadata": {
+	       "labels": {
+	         "app": "nginx"
+	       }
+	     },
+	     "spec": {
+	       "containers": [
+	         {
+	           "image": "nginx:1.13",
+	           "imagePullPolicy": "IfNotPresent",
+	           "name": "nginx",
+	           "ports": [
+	             {
+	               "containerPort": 80,
+	               "protocol": "TCP"
+	             }
+	           ],
+	           "resources": {},
+	           "terminationMessagePath": "/dev/termination-log",
+	           "terminationMessagePolicy": "File"
+	         }
+	       ],
+	       "dnsPolicy": "ClusterFirst",
+	       "restartPolicy": "Always",
+	       "schedulerName": "default-scheduler",
+	       "securityContext": {},
+	       "terminationGracePeriodSeconds": 30
+	     }
+	   }
+	 },
+	 "status": {
+	   "availableReplicas": 1,
+	   "conditions": [
+	     {
+	       "lastTransitionTime": "2023-05-31T15:37:37Z",
+	       "lastUpdateTime": "2023-05-31T15:37:37Z",
+	       "message": "Deployment has minimum availability.",
+	       "reason": "MinimumReplicasAvailable",
+	       "status": "True",
+	       "type": "Available"
+	     },
+	     {
+	       "lastTransitionTime": "2023-05-31T15:37:37Z",
+	       "lastUpdateTime": "2023-05-31T15:37:37Z",
+	       "message": "ReplicaSet \"scale-test-75c9695c65\" has successfully progressed.",
+	       "reason": "NewReplicaSetAvailable",
+	       "status": "True",
+	       "type": "Progressing"
+	     }
+	   ],
+	   "observedGeneration": 1,
+	   "readyReplicas": 1,
+	   "replicas": 1,
+	   "updatedReplicas": 1
+	 }
+	}`)
+
+	oldInputsJSON := []byte(`{
+	 "apiVersion": "apps/v1",
+	 "kind": "Deployment",
+	 "metadata": {
+	   "name": "scale-test",
+	   "namespace": "default"
+	 },
+	 "spec": {
+	   "replicas": 1,
+	   "selector": {
+	     "matchLabels": {
+	       "app": "nginx"
+	     }
+	   },
+	   "template": {
+	     "metadata": {
+	       "labels": {
+	         "app": "nginx"
+	       }
+	     },
+	     "spec": {
+	       "containers": [
+	         {
+	           "image": "nginx:1.13",
+	           "name": "nginx",
+	           "ports": [
+	             {
+	               "containerPort": 80
+	             }
+	           ]
+	         }
+	       ]
+	     }
+	   }
+	 }
+	}`)
+
+	var err error
+	var source, target map[string]interface{}
+	err = json.Unmarshal(oldInputsJSON, &target)
+	assert.NoErrorf(t, err, "failed to unmarshal oldInputsJSON")
+	err = json.Unmarshal(oldLiveJSON, &source)
+	assert.NoErrorf(t, err, "failed to unmarshal oldLiveJSON")
+
+	type args struct {
+		source map[string]interface{}
+		target map[string]interface{}
+	}
+	tests := []struct {
+		name        string
+		description string
+		args        args
+		want        map[string]interface{}
+	}{
+		{
+			name:        "empty target",
+			description: "empty target map should result in empty result map",
+			args: args{
+				source: map[string]interface{}{
+					"a": "a",
+					"b": "b",
+				},
+				target: map[string]interface{}{},
+			},
+			want: map[string]interface{}{},
+		},
+		{
+			name:        "empty source",
+			description: "empty source map should result in empty result map",
+			args: args{
+				source: map[string]interface{}{},
+				target: map[string]interface{}{
+					"a": "a",
+					"b": "b",
+				},
+			},
+			want: map[string]interface{}{},
+		},
+		{
+			name:        "matching keys with different values",
+			description: "a map where target has matching keys and different values",
+			args: args{
+				source: map[string]interface{}{
+					"a": "a",
+					"b": "b",
+				},
+				target: map[string]interface{}{
+					"a": "A",
+					"b": "B",
+				},
+			},
+			want: map[string]interface{}{
+				"a": "a",
+				"b": "b",
+			},
+		},
+		{
+			name:        "matching keys with nil source value",
+			description: "a map where target has matching keys and source has a nil value",
+			args: args{
+				source: map[string]interface{}{
+					"a": "a",
+					"b": nil,
+				},
+				target: map[string]interface{}{
+					"a": "A",
+					"b": "B",
+				},
+			},
+			want: map[string]interface{}{
+				"a": "a",
+				"b": nil,
+			},
+		},
+		{
+			name:        "matching keys with nil target value",
+			description: "a map where target has matching keys and target has a nil value",
+			args: args{
+				source: map[string]interface{}{
+					"a": "a",
+					"b": "b",
+				},
+				target: map[string]interface{}{
+					"a": "A",
+					"b": nil,
+				},
+			},
+			want: map[string]interface{}{
+				"a": "a",
+				"b": "b",
+			},
+		},
+		{
+			name:        "matching keys but different value types",
+			description: "a map where target has matching keys and different value types",
+			args: args{
+				source: map[string]interface{}{
+					"a": "a",
+					"b": "b",
+				},
+				target: map[string]interface{}{
+					"a": "A",
+					"b": 2,
+				},
+			},
+			want: map[string]interface{}{
+				"a": "a",
+				"b": "b", // key is present in target, so keep it even though the value type doesn't match
+			},
+		},
+		{
+			name:        "simple map",
+			description: "a map where target matches",
+			args: args{
+				source: map[string]interface{}{
+					"a": "a",
+					"b": "b",
+				},
+				target: map[string]interface{}{
+					"a": "a",
+					"b": "b",
+				},
+			},
+			want: map[string]interface{}{
+				"a": "a",
+				"b": "b",
+			},
+		},
+		{
+			name:        "simple map subset",
+			description: "a map where target is a subset",
+			args: args{
+				source: map[string]interface{}{
+					"a": "a",
+					"b": "b", // not present in target, so will be ignored
+				},
+				target: map[string]interface{}{
+					"a": "A",
+				},
+			},
+			want: map[string]interface{}{
+				"a": "a",
+			},
+		},
+		{
+			name:        "simple map superset",
+			description: "a map where target is a superset",
+			args: args{
+				source: map[string]interface{}{
+					"a": "a",
+				},
+				target: map[string]interface{}{
+					"a": "A",
+					"b": "B", // the extra key will be ignored if not present in source
+				},
+			},
+			want: map[string]interface{}{
+				"a": "a",
+			},
+		},
+		{
+			name:        "nested map",
+			description: "a map with a nested map where target matches",
+			args: args{
+				source: map[string]interface{}{
+					"a": "a",
+					"b": map[string]interface{}{
+						"c": "c",
+					},
+				},
+				target: map[string]interface{}{
+					"a": "a",
+					"b": map[string]interface{}{
+						"c": "c",
+					},
+				},
+			},
+			want: map[string]interface{}{
+				"a": "a",
+				"b": map[string]interface{}{
+					"c": "c",
+				},
+			},
+		},
+		{
+			name:        "nested map subset",
+			description: "a map with a nested map where target is a subset",
+			args: args{
+				source: map[string]interface{}{
+					"a": "a", // not present in target, so will be ignored
+					"b": map[string]interface{}{
+						"c": "c",
+					},
+				},
+				target: map[string]interface{}{
+					"b": map[string]interface{}{
+						"c": "C",
+					},
+				},
+			},
+			want: map[string]interface{}{
+				"b": map[string]interface{}{
+					"c": "c",
+				},
+			},
+		},
+		{
+			name:        "nested map superset",
+			description: "a map with a nested map where target is a superset",
+			args: args{
+				source: map[string]interface{}{
+					"a": "a", // not present in target, so will be ignored
+					"b": map[string]interface{}{
+						"c": "c",
+					},
+				},
+				target: map[string]interface{}{
+					"b": map[string]interface{}{
+						"c": "C",
+					},
+					"d": "D", // the extra key will be ignored if not present in source
+				},
+			},
+			want: map[string]interface{}{
+				"b": map[string]interface{}{
+					"c": "c",
+				},
+			},
+		},
+		{
+			name:        "nested value slice",
+			description: "a map with a nested slice of simple values where target matches",
+			args: args{
+				source: map[string]interface{}{
+					"a": "a",
+					"b": []interface{}{"c", "d"},
+				},
+				target: map[string]interface{}{
+					"a": "a",
+					"b": []interface{}{"c", "d"},
+				},
+			},
+			want: map[string]interface{}{
+				"a": "a",
+				"b": []interface{}{"c", "d"},
+			},
+		},
+		{
+			name:        "nested value slice subset",
+			description: "a map with a nested slice of simple values where target is a subset",
+			args: args{
+				source: map[string]interface{}{
+					"a": "a", // not present in target, so will be ignored
+					"b": []interface{}{"c", "d"},
+				},
+				target: map[string]interface{}{
+					"b": []interface{}{"c"},
+				},
+			},
+			want: map[string]interface{}{
+				"b": []interface{}{"c"}, // items compared by index, so only the first item in source will be kept
+			},
+		},
+		{
+			name:        "nested value slice superset",
+			description: "a map with a nested slice of simple values where target is a superset",
+			args: args{
+				source: map[string]interface{}{
+					"a": "a", // not present in target, so will be ignored
+					"b": []interface{}{"c", "d"},
+				},
+				target: map[string]interface{}{
+					"b": []interface{}{"c", "d", "e"},
+				},
+			},
+			want: map[string]interface{}{
+				"b": []interface{}{"c", "d"},
+			},
+		},
+		{
+			name:        "nested map slice",
+			description: "a map with a nested slice of map values where target matches",
+			args: args{
+				source: map[string]interface{}{
+					"a": "a",
+					"b": []interface{}{
+						map[string]interface{}{
+							"c": "c",
+							"d": "d",
+						},
+					},
+				},
+				target: map[string]interface{}{
+					"a": "a",
+					"b": []interface{}{
+						map[string]interface{}{
+							"c": "c",
+							"d": "d",
+						},
+					},
+				},
+			},
+			want: map[string]interface{}{
+				"a": "a",
+				"b": []interface{}{
+					map[string]interface{}{
+						"c": "c",
+						"d": "d",
+					},
+				},
+			},
+		},
+		{
+			name:        "nested map slice subset",
+			description: "a map with a nested slice of map values where target is a subset",
+			args: args{
+				source: map[string]interface{}{
+					"a": "a", // not present in target, so will be ignored
+					"b": []interface{}{
+						map[string]interface{}{
+							"c": "c",
+							"d": "d", // not present in target, so will be ignored
+						},
+					},
+				},
+				target: map[string]interface{}{
+					"b": []interface{}{
+						map[string]interface{}{
+							"c": "c",
+						},
+					},
+				},
+			},
+			want: map[string]interface{}{
+				"b": []interface{}{
+					map[string]interface{}{
+						"c": "c",
+					},
+				},
+			},
+		},
+		{
+			name:        "nested map slice superset",
+			description: "a map with a nested slice of map values where target is a superset",
+			args: args{
+				source: map[string]interface{}{
+					"a": "a", // not present in target, so will be ignored
+					"b": []interface{}{
+						map[string]interface{}{
+							"c": "c",
+							"d": "d",
+						},
+					},
+				},
+				target: map[string]interface{}{
+					"b": []interface{}{
+						map[string]interface{}{
+							"c": "c",
+							"d": "d",
+							"e": "e",
+						},
+					},
+				},
+			},
+			want: map[string]interface{}{
+				"b": []interface{}{
+					map[string]interface{}{
+						"c": "c",
+						"d": "d",
+					},
+				},
+			},
+		},
+		{
+			name:        "real data",
+			description: "a complex source and target using real data from the provider",
+			args: args{
+				source: source,
+				target: target,
+			},
+			want: target,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := pruneMap(tt.args.source, tt.args.target); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("\nDescription: %s\nExpected:    %+v\nActual:      %+v", tt.description, tt.want, got)
+			}
+		})
+	}
+}
+
+func TestPruneSlice(t *testing.T) {
+	type args struct {
+		source []interface{}
+		target []interface{}
+	}
+	tests := []struct {
+		name        string
+		description string
+		args        args
+		want        []interface{}
+	}{
+		{
+			name:        "empty target",
+			description: "empty target slice should result in empty result slice",
+			args: args{
+				source: []interface{}{"a", "b"},
+				target: []interface{}{},
+			},
+			want: []interface{}{},
+		},
+		{
+			name:        "empty source",
+			description: "empty source slice should result in empty result slice",
+			args: args{
+				source: []interface{}{},
+				target: []interface{}{"a", "b"},
+			},
+			want: []interface{}{},
+		},
+		{
+			name:        "matching number of elements with different values",
+			description: "a slice where target has matching number of elements with different values",
+			args: args{
+				source: []interface{}{"a", "b"},
+				target: []interface{}{"c", "d"},
+			},
+			want: []interface{}{"a", "b"},
+		},
+		{
+			name:        "matching number of elements but different types",
+			description: "a slice where target has matching number of elements with different types",
+			args: args{
+				source: []interface{}{"a", "b"},
+				target: []interface{}{1, 2},
+			},
+			want: []interface{}{"a", "b"},
+		},
+		{
+			name:        "simple slice",
+			description: "a slice where target matches",
+			args: args{
+				source: []interface{}{"a", "b"},
+				target: []interface{}{"a", "b"},
+			},
+			want: []interface{}{"a", "b"},
+		},
+		{
+			name:        "simple slice subset",
+			description: "a slice where target is a subset",
+			args: args{
+				source: []interface{}{"a", "b"},
+				target: []interface{}{"a"},
+			},
+			want: []interface{}{"a"},
+		},
+		{
+			name:        "simple slice superset",
+			description: "a slice where target is a superset",
+			args: args{
+				source: []interface{}{"a"},
+				target: []interface{}{"a", "b"},
+			},
+			want: []interface{}{"a"},
+		},
+		{
+			name:        "map slice",
+			description: "a slice of map values where target matches",
+			args: args{
+				source: []interface{}{
+					map[string]interface{}{
+						"a": "a",
+						"b": "b",
+					},
+				},
+				target: []interface{}{
+					map[string]interface{}{
+						"a": "a",
+						"b": "b",
+					},
+				},
+			},
+			want: []interface{}{
+				map[string]interface{}{
+					"a": "a",
+					"b": "b",
+				},
+			},
+		},
+		{
+			name:        "map slice subset",
+			description: "a slice of map values where target is a subset",
+			args: args{
+				source: []interface{}{
+					map[string]interface{}{
+						"a": "a",
+						"b": "b", // not present in target, so will be dropped
+					},
+					map[string]interface{}{ // not present in target, so will be dropped
+						"c": "c",
+						"d": "d",
+					},
+				},
+				target: []interface{}{
+					map[string]interface{}{
+						"a": "a",
+					},
+				},
+			},
+			want: []interface{}{
+				map[string]interface{}{
+					"a": "a",
+				},
+			},
+		},
+		{
+			name:        "map slice superset",
+			description: "a slice of map values where target is a superset",
+			args: args{
+				source: []interface{}{
+					map[string]interface{}{
+						"a": "a",
+						"b": "b",
+					},
+				},
+				target: []interface{}{
+					map[string]interface{}{
+						"a": "a",
+						"b": "b",
+					},
+					map[string]interface{}{
+						"c": "c",
+						"d": "d",
+					},
+				},
+			},
+			want: []interface{}{
+				map[string]interface{}{
+					"a": "a",
+					"b": "b",
+				},
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := pruneSlice(tt.args.source, tt.args.target); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("\nDescription: %s\nExpected:    %+v\nActual:      %+v", tt.description, tt.want, got)
 			}
 		})
 	}
