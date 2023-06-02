@@ -142,42 +142,30 @@ func pruneMap(source, target map[string]interface{}) map[string]interface{} {
 	result := make(map[string]interface{})
 
 	for key, value := range source {
+		valueT := reflect.TypeOf(value)
+
 		if targetValue, ok := target[key]; ok {
-			valueT := reflect.TypeOf(value)
 			targetValueT := reflect.TypeOf(targetValue)
 
-			if valueT == nil || targetValueT == nil {
+			if valueT == nil || targetValueT == nil || valueT != targetValueT {
 				result[key] = value
 				continue
 			}
 
-			if valueT.Kind() == reflect.Map {
-				if targetValueT.Kind() == reflect.Map {
-					nestedResult := pruneMap(value.(map[string]interface{}), targetValue.(map[string]interface{}))
-					if len(nestedResult) > 0 {
-						result[key] = nestedResult
-						continue
-					}
-				} else {
-					result[key] = value
-					continue
+			switch valueT.Kind() {
+			case reflect.Map:
+				nestedResult := pruneMap(value.(map[string]interface{}), targetValue.(map[string]interface{}))
+				if len(nestedResult) > 0 {
+					result[key] = nestedResult
 				}
-			}
-
-			if reflect.TypeOf(value).Kind() == reflect.Slice {
-				if reflect.TypeOf(targetValue).Kind() == reflect.Slice {
-					nestedResult := pruneSlice(value.([]interface{}), targetValue.([]interface{}))
-					if len(nestedResult) > 0 {
-						result[key] = nestedResult
-						continue
-					}
-				} else {
-					result[key] = value
-					continue
+			case reflect.Slice:
+				nestedResult := pruneSlice(value.([]interface{}), targetValue.([]interface{}))
+				if len(nestedResult) > 0 {
+					result[key] = nestedResult
 				}
+			default:
+				result[key] = value
 			}
-
-			result[key] = value
 		}
 	}
 
