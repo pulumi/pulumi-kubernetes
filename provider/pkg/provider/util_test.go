@@ -1031,7 +1031,7 @@ func TestPruneSlice(t *testing.T) {
 						"a": "a",
 						"b": "b", // not present in target, so will be dropped
 					},
-					map[string]interface{}{ // not present in target, so will be dropped
+					map[string]interface{}{ // map not present in target, so will be dropped
 						"c": "c",
 						"d": "d",
 					},

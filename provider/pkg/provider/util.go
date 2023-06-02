@@ -135,8 +135,8 @@ func getActiveClusterFromConfig(config *clientapi.Config, overrides resource.Pro
 	return activeCluster
 }
 
-// pruneMap recursively drops keys from the source map that don't have a matching key in the target map and returns
-// the result. This is useful as a preprocessing step for live resource state before comparing it to program inputs.
+// pruneMap builds a pruned map by recursively copying elements from the source map that have a matching key in the
+// target map. This is useful as a preprocessing step for live resource state before comparing it to program inputs.
 func pruneMap(source, target map[string]interface{}) map[string]interface{} {
 	result := make(map[string]interface{})
 
@@ -183,7 +183,8 @@ func pruneMap(source, target map[string]interface{}) map[string]interface{} {
 	return result
 }
 
-// pruneSlice drops elements from the source slice that don't have a matching element in the target slice
+// pruneSlice builds a pruned slice by copying elements from the source slice that have a matching element in the
+// target slice.
 func pruneSlice(source, target []interface{}) []interface{} {
 	result := make([]interface{}, 0)
 
