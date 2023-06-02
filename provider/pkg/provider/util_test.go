@@ -322,212 +322,273 @@ v0dohqdVlO32gd6+BQNF8fP29o0dOCAjV/4wBbccuHubvBgu4rqHsHog371ETul/
 
 func TestPruneMap(t *testing.T) {
 	oldLiveJSON := []byte(`{
-	 "__fieldManager": "pulumi-kubernetes-b5647a00",
-	 "__initialApiVersion": "apps/v1",
-	 "apiVersion": "apps/v1",
-	 "kind": "Deployment",
-	 "metadata": {
-	   "annotations": {
-	     "deployment.kubernetes.io/revision": "1"
-	   },
-	   "creationTimestamp": "2023-05-31T15:37:37Z",
-	   "generation": 1,
-	   "managedFields": [
-	     {
-	       "apiVersion": "apps/v1",
-	       "fieldsType": "FieldsV1",
-	       "fieldsV1": {
-	         "f:spec": {
-	           "f:replicas": {},
-	           "f:selector": {},
-	           "f:template": {
-	             "f:metadata": {
-	               "f:labels": {
-	                 "f:app": {}
-	               }
-	             },
-	             "f:spec": {
-	               "f:containers": {
-	                 "k:{\"name\":\"nginx\"}": {
-	                   ".": {},
-	                   "f:image": {},
-	                   "f:name": {},
-	                   "f:ports": {
-	                     "k:{\"containerPort\":80,\"protocol\":\"TCP\"}": {
-	                       ".": {},
-	                       "f:containerPort": {}
-	                     }
-	                   }
-	                 }
-	               }
-	             }
-	           }
-	         }
-	       },
-	       "manager": "pulumi-kubernetes-b5647a00",
-	       "operation": "Apply",
-	       "time": "2023-05-31T15:37:37Z"
-	     },
-	     {
-	       "apiVersion": "apps/v1",
-	       "fieldsType": "FieldsV1",
-	       "fieldsV1": {
-	         "f:metadata": {
-	           "f:annotations": {
-	             ".": {},
-	             "f:deployment.kubernetes.io/revision": {}
-	           }
-	         },
-	         "f:status": {
-	           "f:availableReplicas": {},
-	           "f:conditions": {
-	             ".": {},
-	             "k:{\"type\":\"Available\"}": {
-	               ".": {},
-	               "f:lastTransitionTime": {},
-	               "f:lastUpdateTime": {},
-	               "f:message": {},
-	               "f:reason": {},
-	               "f:status": {},
-	               "f:type": {}
-	             },
-	             "k:{\"type\":\"Progressing\"}": {
-	               ".": {},
-	               "f:lastTransitionTime": {},
-	               "f:lastUpdateTime": {},
-	               "f:message": {},
-	               "f:reason": {},
-	               "f:status": {},
-	               "f:type": {}
-	             }
-	           },
-	           "f:observedGeneration": {},
-	           "f:readyReplicas": {},
-	           "f:replicas": {},
-	           "f:updatedReplicas": {}
-	         }
-	       },
-	       "manager": "kube-controller-manager",
-	       "operation": "Update",
-	       "subresource": "status",
-	       "time": "2023-05-31T15:37:37Z"
-	     }
-	   ],
-	   "name": "scale-test",
-	   "namespace": "default",
-	   "resourceVersion": "6559979",
-	   "uid": "a02656af-058c-47fd-9754-555c24ace524"
-	 },
-	 "spec": {
-	   "progressDeadlineSeconds": 600,
-	   "replicas": 1,
-	   "revisionHistoryLimit": 10,
-	   "selector": {
-	     "matchLabels": {
-	       "app": "nginx"
-	     }
-	   },
-	   "strategy": {
-	     "rollingUpdate": {
-	       "maxSurge": "25%",
-	       "maxUnavailable": "25%"
-	     },
-	     "type": "RollingUpdate"
-	   },
-	   "template": {
-	     "metadata": {
-	       "labels": {
-	         "app": "nginx"
-	       }
-	     },
-	     "spec": {
-	       "containers": [
-	         {
-	           "image": "nginx:1.13",
-	           "imagePullPolicy": "IfNotPresent",
-	           "name": "nginx",
-	           "ports": [
-	             {
-	               "containerPort": 80,
-	               "protocol": "TCP"
-	             }
-	           ],
-	           "resources": {},
-	           "terminationMessagePath": "/dev/termination-log",
-	           "terminationMessagePolicy": "File"
-	         }
-	       ],
-	       "dnsPolicy": "ClusterFirst",
-	       "restartPolicy": "Always",
-	       "schedulerName": "default-scheduler",
-	       "securityContext": {},
-	       "terminationGracePeriodSeconds": 30
-	     }
-	   }
-	 },
-	 "status": {
-	   "availableReplicas": 1,
-	   "conditions": [
-	     {
-	       "lastTransitionTime": "2023-05-31T15:37:37Z",
-	       "lastUpdateTime": "2023-05-31T15:37:37Z",
-	       "message": "Deployment has minimum availability.",
-	       "reason": "MinimumReplicasAvailable",
-	       "status": "True",
-	       "type": "Available"
-	     },
-	     {
-	       "lastTransitionTime": "2023-05-31T15:37:37Z",
-	       "lastUpdateTime": "2023-05-31T15:37:37Z",
-	       "message": "ReplicaSet \"scale-test-75c9695c65\" has successfully progressed.",
-	       "reason": "NewReplicaSetAvailable",
-	       "status": "True",
-	       "type": "Progressing"
-	     }
-	   ],
-	   "observedGeneration": 1,
-	   "readyReplicas": 1,
-	   "replicas": 1,
-	   "updatedReplicas": 1
-	 }
-	}`)
+  "__fieldManager": "pulumi-kubernetes",
+  "__initialApiVersion": "apps/v1",
+  "apiVersion": "apps/v1",
+  "kind": "Deployment",
+  "metadata": {
+    "annotations": {
+      "deployment.kubernetes.io/revision": "1",
+      "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"apps/v1\",\"kind\":\"Deployment\",\"metadata\":{\"labels\":{\"app.kubernetes.io/managed-by\":\"pulumi\"},\"name\":\"scale-test\",\"namespace\":\"default\"},\"spec\":{\"replicas\":1,\"selector\":{\"matchLabels\":{\"app\":\"nginx\"}},\"template\":{\"metadata\":{\"labels\":{\"app\":\"nginx\"}},\"spec\":{\"containers\":[{\"image\":\"nginx:1.13\",\"name\":\"nginx\",\"ports\":[{\"containerPort\":80}],\"securityContext\":{\"capabilities\":{\"add\":[\"NET_ADMIN\",\"SYS_TIME\"]}}}]}}}}\n"
+    },
+    "creationTimestamp": "2023-06-02T15:33:42Z",
+    "generation": 1,
+    "labels": {
+      "app.kubernetes.io/managed-by": "pulumi"
+    },
+    "managedFields": [
+      {
+        "apiVersion": "apps/v1",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              ".": {},
+              "f:kubectl.kubernetes.io/last-applied-configuration": {}
+            },
+            "f:labels": {
+              ".": {},
+              "f:app.kubernetes.io/managed-by": {}
+            }
+          },
+          "f:spec": {
+            "f:progressDeadlineSeconds": {},
+            "f:replicas": {},
+            "f:revisionHistoryLimit": {},
+            "f:selector": {},
+            "f:strategy": {
+              "f:rollingUpdate": {
+                ".": {},
+                "f:maxSurge": {},
+                "f:maxUnavailable": {}
+              },
+              "f:type": {}
+            },
+            "f:template": {
+              "f:metadata": {
+                "f:labels": {
+                  ".": {},
+                  "f:app": {}
+                }
+              },
+              "f:spec": {
+                "f:containers": {
+                  "k:{\"name\":\"nginx\"}": {
+                    ".": {},
+                    "f:image": {},
+                    "f:imagePullPolicy": {},
+                    "f:name": {},
+                    "f:ports": {
+                      ".": {},
+                      "k:{\"containerPort\":80,\"protocol\":\"TCP\"}": {
+                        ".": {},
+                        "f:containerPort": {},
+                        "f:protocol": {}
+                      }
+                    },
+                    "f:resources": {},
+                    "f:securityContext": {
+                      ".": {},
+                      "f:capabilities": {
+                        ".": {},
+                        "f:add": {}
+                      }
+                    },
+                    "f:terminationMessagePath": {},
+                    "f:terminationMessagePolicy": {}
+                  }
+                },
+                "f:dnsPolicy": {},
+                "f:restartPolicy": {},
+                "f:schedulerName": {},
+                "f:securityContext": {},
+                "f:terminationGracePeriodSeconds": {}
+              }
+            }
+          }
+        },
+        "manager": "pulumi-kubernetes",
+        "operation": "Update",
+        "time": "2023-06-02T15:33:42Z"
+      },
+      {
+        "apiVersion": "apps/v1",
+        "fieldsType": "FieldsV1",
+        "fieldsV1": {
+          "f:metadata": {
+            "f:annotations": {
+              "f:deployment.kubernetes.io/revision": {}
+            }
+          },
+          "f:status": {
+            "f:availableReplicas": {},
+            "f:conditions": {
+              ".": {},
+              "k:{\"type\":\"Available\"}": {
+                ".": {},
+                "f:lastTransitionTime": {},
+                "f:lastUpdateTime": {},
+                "f:message": {},
+                "f:reason": {},
+                "f:status": {},
+                "f:type": {}
+              },
+              "k:{\"type\":\"Progressing\"}": {
+                ".": {},
+                "f:lastTransitionTime": {},
+                "f:lastUpdateTime": {},
+                "f:message": {},
+                "f:reason": {},
+                "f:status": {},
+                "f:type": {}
+              }
+            },
+            "f:observedGeneration": {},
+            "f:readyReplicas": {},
+            "f:replicas": {},
+            "f:updatedReplicas": {}
+          }
+        },
+        "manager": "kube-controller-manager",
+        "operation": "Update",
+        "subresource": "status",
+        "time": "2023-06-02T15:33:43Z"
+      }
+    ],
+    "name": "scale-test",
+    "namespace": "default",
+    "resourceVersion": "6639864",
+    "uid": "12990b2a-5476-4f4c-be63-cb5fcafe0cf2"
+  },
+  "spec": {
+    "progressDeadlineSeconds": 600,
+    "replicas": 1,
+    "revisionHistoryLimit": 10,
+    "selector": {
+      "matchLabels": {
+        "app": "nginx"
+      }
+    },
+    "strategy": {
+      "rollingUpdate": {
+        "maxSurge": "25%",
+        "maxUnavailable": "25%"
+      },
+      "type": "RollingUpdate"
+    },
+    "template": {
+      "metadata": {
+        "labels": {
+          "app": "nginx"
+        }
+      },
+      "spec": {
+        "containers": [
+          {
+            "image": "nginx:1.13",
+            "imagePullPolicy": "IfNotPresent",
+            "name": "nginx",
+            "ports": [
+              {
+                "containerPort": 80,
+                "protocol": "TCP"
+              }
+            ],
+            "resources": {},
+            "securityContext": {
+              "capabilities": {
+                "add": [
+                  "NET_ADMIN",
+                  "SYS_TIME"
+                ]
+              }
+            },
+            "terminationMessagePath": "/dev/termination-log",
+            "terminationMessagePolicy": "File"
+          }
+        ],
+        "dnsPolicy": "ClusterFirst",
+        "restartPolicy": "Always",
+        "schedulerName": "default-scheduler",
+        "securityContext": {},
+        "terminationGracePeriodSeconds": 30
+      }
+    }
+  },
+  "status": {
+    "availableReplicas": 1,
+    "conditions": [
+      {
+        "lastTransitionTime": "2023-06-02T15:33:43Z",
+        "lastUpdateTime": "2023-06-02T15:33:43Z",
+        "message": "Deployment has minimum availability.",
+        "reason": "MinimumReplicasAvailable",
+        "status": "True",
+        "type": "Available"
+      },
+      {
+        "lastTransitionTime": "2023-06-02T15:33:42Z",
+        "lastUpdateTime": "2023-06-02T15:33:43Z",
+        "message": "ReplicaSet \"scale-test-544b74d7f9\" has successfully progressed.",
+        "reason": "NewReplicaSetAvailable",
+        "status": "True",
+        "type": "Progressing"
+      }
+    ],
+    "observedGeneration": 1,
+    "readyReplicas": 1,
+    "replicas": 1,
+    "updatedReplicas": 1
+  }
+}`)
 
 	oldInputsJSON := []byte(`{
-	 "apiVersion": "apps/v1",
-	 "kind": "Deployment",
-	 "metadata": {
-	   "name": "scale-test",
-	   "namespace": "default"
-	 },
-	 "spec": {
-	   "replicas": 1,
-	   "selector": {
-	     "matchLabels": {
-	       "app": "nginx"
-	     }
-	   },
-	   "template": {
-	     "metadata": {
-	       "labels": {
-	         "app": "nginx"
-	       }
-	     },
-	     "spec": {
-	       "containers": [
-	         {
-	           "image": "nginx:1.13",
-	           "name": "nginx",
-	           "ports": [
-	             {
-	               "containerPort": 80
-	             }
-	           ]
-	         }
-	       ]
-	     }
-	   }
-	 }
-	}`)
+  "apiVersion": "apps/v1",
+  "kind": "Deployment",
+  "metadata": {
+    "labels": {
+      "app.kubernetes.io/managed-by": "pulumi"
+    },
+    "name": "scale-test",
+    "namespace": "default"
+  },
+  "spec": {
+    "replicas": 1,
+    "selector": {
+      "matchLabels": {
+        "app": "nginx"
+      }
+    },
+    "template": {
+      "metadata": {
+        "labels": {
+          "app": "nginx"
+        }
+      },
+      "spec": {
+        "containers": [
+          {
+            "image": "nginx:1.13",
+            "name": "nginx",
+            "ports": [
+              {
+                "containerPort": 80
+              }
+            ],
+            "securityContext": {
+              "capabilities": {
+                "add": [
+                  "NET_ADMIN",
+                  "SYS_TIME"
+                ]
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}`)
 
 	var err error
 	var source, target map[string]interface{}
