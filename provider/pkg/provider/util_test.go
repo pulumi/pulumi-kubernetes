@@ -823,6 +823,30 @@ func TestPruneMap(t *testing.T) {
 			},
 		},
 		{
+			name:        "nested map with nil",
+			description: "a map with a nested map with nil where target matches",
+			args: args{
+				source: map[string]interface{}{
+					"a": "a",
+					"b": map[string]interface{}{
+						"c": nil,
+					},
+				},
+				target: map[string]interface{}{
+					"a": "a",
+					"b": map[string]interface{}{
+						"c": nil,
+					},
+				},
+			},
+			want: map[string]interface{}{
+				"a": "a",
+				"b": map[string]interface{}{
+					"c": nil,
+				},
+			},
+		},
+		{
 			name:        "nested value slice",
 			description: "a map with a nested slice of simple values where target matches",
 			args: args{
@@ -1135,6 +1159,33 @@ func TestPruneSlice(t *testing.T) {
 					"a": "a",
 					"b": "b",
 				},
+			},
+		},
+		{
+			name:        "map slice with nil value",
+			description: "a slice of map values that include a nil value",
+			args: args{
+				source: []interface{}{
+					map[string]interface{}{
+						"a": "a",
+						"b": "b",
+					},
+					nil,
+				},
+				target: []interface{}{
+					map[string]interface{}{
+						"a": "a",
+						"b": "b",
+					},
+					nil,
+				},
+			},
+			want: []interface{}{
+				map[string]interface{}{
+					"a": "a",
+					"b": "b",
+				},
+				nil,
 			},
 		},
 	}

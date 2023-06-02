@@ -196,6 +196,11 @@ func pruneSlice(source, target []interface{}) []interface{} {
 		}
 		value := source[i]
 
+		if value == nil || targetValue == nil {
+			result = append(result, value)
+			continue
+		}
+
 		switch valueT.Kind() {
 		case reflect.Map:
 			nestedResult := pruneMap(value.(map[string]interface{}), targetValue.(map[string]interface{}))
