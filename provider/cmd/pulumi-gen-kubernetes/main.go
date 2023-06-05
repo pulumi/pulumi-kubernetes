@@ -460,7 +460,7 @@ func genK8sResourceTypes(pkg *schema.Package) {
 			continue
 		}
 		if strings.HasSuffix(kind, "Patch") {
-			patchKinds.Add(kind)
+			patchKinds.Add(resource.Token)
 			continue
 		}
 
