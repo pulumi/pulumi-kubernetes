@@ -343,9 +343,9 @@ var KnownGroupVersions = codegen.NewStringSet(
 	"v1", // alias for "core/v1"
 )
 
-// IsPatchURN is the set of "Patch" resource kinds. Checking against this known set rather than using the Patch suffix
-// avoids unintended clashes with CustomResources that also contain a Patch suffix.
-var IsPatchURN = codegen.NewStringSet(
+// PatchQualifiedTypes is the set of "Patch" resource QualifiedType URN tokens. Checking against this known set rather
+// than using the Patch suffix avoids unintended clashes with CustomResources that also contain a Patch suffix.
+var PatchQualifiedTypes = codegen.NewStringSet(
 	"kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfigurationPatch",
 	"kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfigurationPatch",
 	"kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicyBindingPatch",

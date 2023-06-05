@@ -575,7 +575,7 @@ func Deletion(c DeleteConfig) error {
 		return nilIfGVKDeleted(err)
 	}
 
-	patchResource := kinds.IsPatchURN.Has(c.URN.QualifiedType().String())
+	patchResource := kinds.PatchQualifiedTypes.Has(c.URN.QualifiedType().String())
 	if c.ServerSideApply && patchResource {
 		err = ssa.Relinquish(c.Context, client, c.Inputs, c.FieldManager)
 		return err
