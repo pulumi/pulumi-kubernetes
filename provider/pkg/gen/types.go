@@ -108,6 +108,7 @@ func (tr GoTemplateResources) Imports() []string {
 type GVK struct {
 	GroupVersions []GroupVersion
 	Kinds         []string
+	PatchKinds    []string
 }
 
 // GroupVersion is the GroupVersion for a k8s resource.

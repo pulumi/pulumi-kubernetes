@@ -121,3 +121,11 @@ var KnownGroupVersions = codegen.NewStringSet(
 {{- end}}
     "v1", // alias for "core/v1"
 )
+
+// PatchKind is the set of "Patch" resource kinds. Checking against this known set rather than using the Patch suffix
+// avoids unintended clashes with CustomResources that also contain a Patch suffix.
+var PatchKinds = codegen.NewStringSet(
+{{- range .PatchKinds}}
+	"{{.}}",
+{{- end}}
+)
