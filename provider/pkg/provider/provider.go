@@ -1301,15 +1301,6 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 
 	k.helmHookWarning(ctx, newInputs, urn)
 
-	annotatedInputs, err := legacyInitialAPIVersion(oldInputs, newInputs)
-	if err != nil {
-		return nil, pkgerrors.Wrapf(
-			err, "Failed to create resource %s/%s because of an error generating the %s value in "+
-				"`.metadata.annotations`",
-			newInputs.GetNamespace(), newInputs.GetName(), metadata.AnnotationInitialAPIVersion)
-	}
-	newInputs = annotatedInputs
-
 	// Adopt name from old object if appropriate.
 	//
 	// If the user HAS NOT assigned a name in the new inputs, we autoname it and mark the object as
@@ -2953,37 +2944,11 @@ func getAnnotations(config *unstructured.Unstructured) map[string]string {
 	return annotations
 }
 
-// legacyInitialAPIVersion maintains backward compatibility with behavior introduced in the 1.2.0 release. This
-// information is now stored in the checkpoint file and the annotation is no longer used by the provider.
-func legacyInitialAPIVersion(oldConfig, newConfig *unstructured.Unstructured) (*unstructured.Unstructured, error) {
-	oldAnnotations := getAnnotations(oldConfig)
-	newAnnotations := getAnnotations(newConfig)
-
-	apiVersion, exists := oldAnnotations[metadata.AnnotationInitialAPIVersion]
-	if exists {
-		// Keep the annotation if it was already created previously to minimize further disruption
-		// to existing resources.
-		newAnnotations[metadata.AnnotationInitialAPIVersion] = apiVersion
-	}
-
-	if len(newConfig.GetAnnotations()) > 0 {
-		newConfig.SetAnnotations(newAnnotations)
-	}
-
-	return newConfig, nil
-}
-
 // initialAPIVersion retrieves the initialAPIVersion property from the checkpoint file and falls back to using
-// the `pulumi.com/initialAPIVersion` annotation if that property is not present.
+// the version from the resource metadata if that property is not present.
 func initialAPIVersion(state resource.PropertyMap, oldConfig *unstructured.Unstructured) (string, error) {
 	if v, ok := state[initialAPIVersionKey]; ok {
 		return v.StringValue(), nil
-	}
-
-	oldAnnotations := getAnnotations(oldConfig)
-	apiVersion, exists := oldAnnotations[metadata.AnnotationInitialAPIVersion]
-	if exists {
-		return apiVersion, nil
 	}
 
 	return oldConfig.GetAPIVersion(), nil
