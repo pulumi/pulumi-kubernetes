@@ -1512,7 +1512,10 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 	}
 
 	newInputs := propMapToUnstructured(newResInputs)
-	_, oldLive := parseCheckpointObject(oldState)
+	oldInputs, oldLive := parseCheckpointObject(oldState)
+	oldLivePruned := &unstructured.Unstructured{
+		Object: pruneMap(oldLive.Object, oldInputs.Object),
+	}
 
 	gvk := k.gvkFromUnstructured(newInputs)
 
@@ -1535,33 +1538,32 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 
 	if namespacedKind {
 		// Explicitly set the "default" namespace if unset so that the diff ignores it.
-		oldLive.SetNamespace(canonicalNamespace(oldLive.GetNamespace()))
+		oldLivePruned.SetNamespace(canonicalNamespace(oldLivePruned.GetNamespace()))
 		newInputs.SetNamespace(canonicalNamespace(newInputs.GetNamespace()))
 	} else {
 		// Clear the namespace if it was set erroneously.
-		oldLive.SetNamespace("")
+		oldLivePruned.SetNamespace("")
 		newInputs.SetNamespace("")
 	}
-	if oldLive.GroupVersionKind().Empty() {
-		oldLive.SetGroupVersionKind(gvk)
+	if oldLivePruned.GroupVersionKind().Empty() {
+		oldLivePruned.SetGroupVersionKind(gvk)
 	}
 	// If a resource was created without SSA enabled, and then the related provider was changed to enable SSA, a
 	// resourceVersion may have been set on the old resource state. This produces erroneous diffs, so remove the
 	// value from the oldInputs prior to computing the diff.
-	if k.serverSideApplyMode && len(oldLive.GetResourceVersion()) > 0 {
-		oldLive.SetResourceVersion("")
+	if k.serverSideApplyMode && len(oldLivePruned.GetResourceVersion()) > 0 {
+		oldLivePruned.SetResourceVersion("")
 	}
 
 	var patch []byte
-	var patchBase map[string]interface{}
+	patchBase := oldLivePruned.Object
 
 	// Always compute a client-side patch.
-	patch, err = k.inputPatch(oldLive, newInputs)
+	patch, err = k.inputPatch(oldLivePruned, newInputs)
 	if err != nil {
 		return nil, pkgerrors.Wrapf(
 			err, "Failed to check for changes in resource %s/%s", newInputs.GetNamespace(), newInputs.GetName())
 	}
-	patchBase = oldLive.Object
 
 	patchObj := map[string]interface{}{}
 	if err = json.Unmarshal(patch, &patchObj); err != nil {
@@ -1574,7 +1576,7 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 	fieldManager := k.fieldManagerName(nil, newResInputs, newInputs)
 
 	// Try to compute a server-side patch.
-	ssPatch, ssPatchBase, ssPatchOk, err := k.tryServerSidePatch(oldLive, newInputs, gvk, fieldManager)
+	ssPatch, ssPatchBase, ssPatchOk, err := k.tryServerSidePatch(oldLivePruned, newInputs, gvk, fieldManager)
 	if err != nil {
 		return nil, err
 	}
@@ -1614,9 +1616,9 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 		// Changing the identity of the resource always causes a replacement.
 		forceNewFields := []string{".metadata.name", ".metadata.namespace"}
 		if !isPatchURN(urn) { // Patch resources can be updated in place for all other properties.
-			forceNewFields = k.forceNewProperties(oldLive)
+			forceNewFields = k.forceNewProperties(oldLivePruned)
 		}
-		if detailedDiff, err = convertPatchToDiff(patchObj, patchBase, newInputs.Object, oldLive.Object, forceNewFields...); err != nil {
+		if detailedDiff, err = convertPatchToDiff(patchObj, patchBase, newInputs.Object, oldLivePruned.Object, forceNewFields...); err != nil {
 			return nil, pkgerrors.Wrapf(
 				err, "Failed to check for changes in resource %s/%s because of an error "+
 					"converting JSON patch describing resource changes to a diff",
@@ -1694,10 +1696,10 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 			// auto-generate the name).
 			!metadata.IsAutonamed(newInputs) &&
 			// 3. The new, user-specified name is the same as the old name.
-			newInputs.GetName() == oldLive.GetName() &&
+			newInputs.GetName() == oldLivePruned.GetName() &&
 			// 4. The resource is being deployed to the same namespace (i.e., we aren't creating the
 			// object in a new namespace and then deleting the old one).
-			newInputs.GetNamespace() == oldLive.GetNamespace()
+			newInputs.GetNamespace() == oldLivePruned.GetNamespace()
 
 	return &pulumirpc.DiffResponse{
 		Changes:             hasChanges,
