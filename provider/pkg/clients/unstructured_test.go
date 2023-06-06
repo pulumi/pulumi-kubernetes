@@ -21,7 +21,6 @@ import (
 	appsv1 "k8s.io/api/apps/v1"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
@@ -35,11 +34,11 @@ type podBasic struct {
 func PodBasic() *podBasic {
 	return &podBasic{
 		&corev1.Pod{
-			TypeMeta: v1.TypeMeta{
+			TypeMeta: metav1.TypeMeta{
 				APIVersion: "v1",
 				Kind:       "Pod",
 			},
-			ObjectMeta: v1.ObjectMeta{
+			ObjectMeta: metav1.ObjectMeta{
 				Name: "foo",
 			},
 			Spec: corev1.PodSpec{
@@ -130,12 +129,12 @@ func TestFromUnstructured(t *testing.T) {
 	tests := []struct {
 		name    string
 		args    args
-		want    v1.Object
+		want    metav1.Object
 		wantErr bool
 	}{
-		{"valid-pod", args{obj: pod.Unstructured}, v1.Object(pod.Object), false},
+		{"valid-pod", args{obj: pod.Unstructured}, metav1.Object(pod.Object), false},
 		{"valid-deployment", args{obj: deployment.Unstructured},
-			v1.Object(deployment.Object), false},
+			metav1.Object(deployment.Object), false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

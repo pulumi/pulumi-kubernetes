@@ -21,6 +21,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	batchv1 "k8s.io/api/batch/v1"
 	corev1 "k8s.io/api/core/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
 	kscheme "k8s.io/client-go/kubernetes/scheme"
@@ -30,18 +31,23 @@ var scheme = runtime.NewScheme()
 
 // FromUnstructured dynamically converts an Unstructured Kubernetes resource into the typed equivalent. Only built-in
 // resource types are supported, so CustomResources will fail conversion with an error.
-func FromUnstructured(uns *unstructured.Unstructured) (runtime.Object, error) {
+func FromUnstructured(uns *unstructured.Unstructured) (metav1.Object, error) {
 	obj, err := scheme.New(uns.GroupVersionKind())
 	if err != nil {
 		return nil, err
 	}
 
-	err = runtime.DefaultUnstructuredConverter.FromUnstructured(uns.Object, obj)
+	metaObj, ok := obj.(metav1.Object)
+	if !ok {
+		return nil, fmt.Errorf("failed to convert Unstructured to metav1.Object")
+	}
+
+	err = runtime.DefaultUnstructuredConverter.FromUnstructured(uns.Object, metaObj)
 	if err != nil {
 		return nil, err
 	}
 
-	return obj, nil
+	return metaObj, nil
 }
 
 func PodFromUnstructured(uns *unstructured.Unstructured) (*corev1.Pod, error) {
