@@ -27,11 +27,10 @@ const (
 
 	AnnotationPrefix = "pulumi.com/"
 
-	AnnotationAutonamed         = AnnotationPrefix + "autonamed"
-	AnnotationSkipAwait         = AnnotationPrefix + "skipAwait"
-	AnnotationTimeoutSeconds    = AnnotationPrefix + "timeoutSeconds"
-	AnnotationInitialAPIVersion = AnnotationPrefix + "initialApiVersion"
-	AnnotationReplaceUnready    = AnnotationPrefix + "replaceUnready"
+	AnnotationAutonamed      = AnnotationPrefix + "autonamed"
+	AnnotationSkipAwait      = AnnotationPrefix + "skipAwait"
+	AnnotationTimeoutSeconds = AnnotationPrefix + "timeoutSeconds"
+	AnnotationReplaceUnready = AnnotationPrefix + "replaceUnready"
 
 	AnnotationPatchForce        = AnnotationPrefix + "patchForce"
 	AnnotationPatchFieldManager = AnnotationPrefix + "patchFieldManager"

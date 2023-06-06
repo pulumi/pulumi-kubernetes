@@ -1301,15 +1301,6 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 
 	k.helmHookWarning(ctx, newInputs, urn)
 
-	annotatedInputs, err := legacyInitialAPIVersion(oldInputs, newInputs)
-	if err != nil {
-		return nil, pkgerrors.Wrapf(
-			err, "Failed to create resource %s/%s because of an error generating the %s value in "+
-				"`.metadata.annotations`",
-			newInputs.GetNamespace(), newInputs.GetName(), metadata.AnnotationInitialAPIVersion)
-	}
-	newInputs = annotatedInputs
-
 	// Adopt name from old object if appropriate.
 	//
 	// If the user HAS NOT assigned a name in the new inputs, we autoname it and mark the object as
@@ -1997,10 +1988,7 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 		}
 	}
 
-	initialAPIVersion, err := initialAPIVersion(oldState, oldInputs)
-	if err != nil {
-		return nil, err
-	}
+	initialAPIVersion := initialAPIVersion(oldState, oldInputs)
 	fieldManager := k.fieldManagerName(nil, oldState, oldInputs)
 
 	if k.yamlRenderMode {
@@ -2262,11 +2250,7 @@ func (k *kubeProvider) Update(
 			newInputs.GetNamespace(), newInputs.GetName(), lastAppliedConfigKey)
 	}
 
-	initialAPIVersion, err := initialAPIVersion(oldState, oldInputs)
-	if err != nil {
-		return nil, err
-	}
-
+	initialAPIVersion := initialAPIVersion(oldState, oldInputs)
 	fieldManagerOld := k.fieldManagerName(nil, oldState, oldInputs)
 	fieldManager := k.fieldManagerName(nil, oldState, newInputs)
 
@@ -2450,10 +2434,7 @@ func (k *kubeProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest)
 			"PULUMI_K8S_DELETE_UNREACHABLE environment variable set to \"true\"")
 	}
 
-	initialAPIVersion, err := initialAPIVersion(oldState, &unstructured.Unstructured{})
-	if err != nil {
-		return nil, err
-	}
+	initialAPIVersion := initialAPIVersion(oldState, &unstructured.Unstructured{})
 	fieldManager := k.fieldManagerName(nil, oldState, oldInputs)
 	resources, err := k.getResources()
 	if err != nil {
@@ -2962,40 +2943,14 @@ func getAnnotations(config *unstructured.Unstructured) map[string]string {
 	return annotations
 }
 
-// legacyInitialAPIVersion maintains backward compatibility with behavior introduced in the 1.2.0 release. This
-// information is now stored in the checkpoint file and the annotation is no longer used by the provider.
-func legacyInitialAPIVersion(oldConfig, newConfig *unstructured.Unstructured) (*unstructured.Unstructured, error) {
-	oldAnnotations := getAnnotations(oldConfig)
-	newAnnotations := getAnnotations(newConfig)
-
-	apiVersion, exists := oldAnnotations[metadata.AnnotationInitialAPIVersion]
-	if exists {
-		// Keep the annotation if it was already created previously to minimize further disruption
-		// to existing resources.
-		newAnnotations[metadata.AnnotationInitialAPIVersion] = apiVersion
-	}
-
-	if len(newConfig.GetAnnotations()) > 0 {
-		newConfig.SetAnnotations(newAnnotations)
-	}
-
-	return newConfig, nil
-}
-
 // initialAPIVersion retrieves the initialAPIVersion property from the checkpoint file and falls back to using
-// the `pulumi.com/initialAPIVersion` annotation if that property is not present.
-func initialAPIVersion(state resource.PropertyMap, oldConfig *unstructured.Unstructured) (string, error) {
+// the version from the resource metadata if that property is not present.
+func initialAPIVersion(state resource.PropertyMap, oldInputs *unstructured.Unstructured) string {
 	if v, ok := state[initialAPIVersionKey]; ok {
-		return v.StringValue(), nil
+		return v.StringValue()
 	}
 
-	oldAnnotations := getAnnotations(oldConfig)
-	apiVersion, exists := oldAnnotations[metadata.AnnotationInitialAPIVersion]
-	if exists {
-		return apiVersion, nil
-	}
-
-	return oldConfig.GetAPIVersion(), nil
+	return oldInputs.GetAPIVersion()
 }
 
 func checkpointObject(inputs, live *unstructured.Unstructured, fromInputs resource.PropertyMap,
