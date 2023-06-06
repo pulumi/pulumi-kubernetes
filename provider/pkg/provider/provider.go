@@ -1988,10 +1988,7 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 		}
 	}
 
-	initialAPIVersion, err := initialAPIVersion(oldState, oldInputs)
-	if err != nil {
-		return nil, err
-	}
+	initialAPIVersion := initialAPIVersion(oldState, oldInputs)
 	fieldManager := k.fieldManagerName(nil, oldState, oldInputs)
 
 	if k.yamlRenderMode {
@@ -2253,11 +2250,7 @@ func (k *kubeProvider) Update(
 			newInputs.GetNamespace(), newInputs.GetName(), lastAppliedConfigKey)
 	}
 
-	initialAPIVersion, err := initialAPIVersion(oldState, oldInputs)
-	if err != nil {
-		return nil, err
-	}
-
+	initialAPIVersion := initialAPIVersion(oldState, oldInputs)
 	fieldManagerOld := k.fieldManagerName(nil, oldState, oldInputs)
 	fieldManager := k.fieldManagerName(nil, oldState, newInputs)
 
@@ -2432,10 +2425,7 @@ func (k *kubeProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest)
 			k.clusterUnreachableReason)
 	}
 
-	initialAPIVersion, err := initialAPIVersion(oldState, &unstructured.Unstructured{})
-	if err != nil {
-		return nil, err
-	}
+	initialAPIVersion := initialAPIVersion(oldState, &unstructured.Unstructured{})
 	fieldManager := k.fieldManagerName(nil, oldState, oldInputs)
 	resources, err := k.getResources()
 	if err != nil {
@@ -2946,12 +2936,12 @@ func getAnnotations(config *unstructured.Unstructured) map[string]string {
 
 // initialAPIVersion retrieves the initialAPIVersion property from the checkpoint file and falls back to using
 // the version from the resource metadata if that property is not present.
-func initialAPIVersion(state resource.PropertyMap, oldConfig *unstructured.Unstructured) (string, error) {
+func initialAPIVersion(state resource.PropertyMap, oldInputs *unstructured.Unstructured) string {
 	if v, ok := state[initialAPIVersionKey]; ok {
-		return v.StringValue(), nil
+		return v.StringValue()
 	}
 
-	return oldConfig.GetAPIVersion(), nil
+	return oldInputs.GetAPIVersion()
 }
 
 func checkpointObject(inputs, live *unstructured.Unstructured, fromInputs resource.PropertyMap,
