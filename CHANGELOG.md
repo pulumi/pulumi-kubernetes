@@ -8,6 +8,7 @@ Breaking changes:
 - Remove deprecated enableReplaceCRD provider flag (https://github.com/pulumi/pulumi-kubernetes/pull/2402)
 - Drop support for Kubernetes clusters older than v1.13 (https://github.com/pulumi/pulumi-kubernetes/pull/2414)
 - Make all resource output properties required (https://github.com/pulumi/pulumi-kubernetes/pull/2422)
+- Drop support for legacy pulumi.com/initialApiVersion annotation (https://github.com/pulumi/pulumi-kubernetes/pull/2443)
 
 Other changes:
 
