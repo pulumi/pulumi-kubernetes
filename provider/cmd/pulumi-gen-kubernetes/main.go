@@ -441,7 +441,7 @@ func mustRenderGoTemplate(path string, resources interface{}) []byte {
 }
 
 func genK8sResourceTypes(pkg *schema.Package) {
-	groupVersions, kinds := codegen.NewStringSet(), codegen.NewStringSet()
+	groupVersions, kinds, patchKinds := codegen.NewStringSet(), codegen.NewStringSet(), codegen.NewStringSet()
 	for _, resource := range pkg.Resources {
 		if resourcesToFilterFromTemplate.Has(resource.Token) {
 			continue
@@ -455,6 +455,7 @@ func genK8sResourceTypes(pkg *schema.Package) {
 			continue
 		}
 		if strings.HasSuffix(kind, "Patch") {
+			patchKinds.Add(resource.Token)
 			continue
 		}
 
@@ -462,7 +463,7 @@ func genK8sResourceTypes(pkg *schema.Package) {
 		kinds.Add(kind)
 	}
 
-	gvk := gen.GVK{Kinds: kinds.SortedValues()}
+	gvk := gen.GVK{Kinds: kinds.SortedValues(), PatchKinds: patchKinds.SortedValues()}
 	gvStrings := groupVersions.SortedValues()
 	for _, gvString := range gvStrings {
 		gvk.GroupVersions = append(gvk.GroupVersions, gen.GroupVersion(gvString))

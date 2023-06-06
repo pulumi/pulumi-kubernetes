@@ -19,7 +19,6 @@ import (
 	"fmt"
 	"os"
 	"regexp"
-	"strings"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/cluster"
@@ -576,7 +575,7 @@ func Deletion(c DeleteConfig) error {
 		return nilIfGVKDeleted(err)
 	}
 
-	patchResource := strings.HasSuffix(c.URN.Type().String(), "Patch")
+	patchResource := kinds.PatchQualifiedTypes.Has(c.URN.QualifiedType().String())
 	if c.ServerSideApply && patchResource {
 		err = ssa.Relinquish(c.Context, client, c.Inputs, c.FieldManager)
 		return err
