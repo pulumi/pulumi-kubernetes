@@ -71,7 +71,10 @@ import (
 // https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-1.21.md#deprecation-1
 //
 // storage/v1alpha1/CSIStorageCapacity / 1.24 / 1.24
-// TODO: Keep updating this list on every release.
+
+// TODO: This module can be revised to use client-go's built-in deprecation information rather than hard coding the
+//       lookup table. This logic predates client-go's deprecation support, and may not match in all cases.
+//       https://github.com/kubernetes/apiserver/blob/kubernetes-1.27.2/pkg/endpoints/deprecation/deprecation.go
 
 var v18 = cluster.ServerVersion{Major: 1, Minor: 8}
 var v19 = cluster.ServerVersion{Major: 1, Minor: 9}
@@ -83,7 +86,6 @@ var v114 = cluster.ServerVersion{Major: 1, Minor: 14}
 var v116 = cluster.ServerVersion{Major: 1, Minor: 16}
 var v117 = cluster.ServerVersion{Major: 1, Minor: 17}
 var v118 = cluster.ServerVersion{Major: 1, Minor: 18}
-var v119 = cluster.ServerVersion{Major: 1, Minor: 19}
 var v120 = cluster.ServerVersion{Major: 1, Minor: 20}
 var v121 = cluster.ServerVersion{Major: 1, Minor: 21}
 var v122 = cluster.ServerVersion{Major: 1, Minor: 22}
@@ -355,47 +357,4 @@ func SuggestedAPIVersion(gvk schema.GroupVersionKind) string {
 	default:
 		return gvkStr(gvk)
 	}
-}
-
-// upstreamDocsLink returns a link to information about apiVersion deprecations for the given k8s version.
-func upstreamDocsLink(version cluster.ServerVersion) string {
-	switch version {
-	case v116:
-		return "https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-1.16.md#deprecations-and-removals"
-	case v117:
-		return "https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-1.17.md#deprecations-and-removals"
-	case v119:
-		return "https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-1.19.md#deprecation-1"
-	case v120:
-		return "https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-1.20.md#deprecation"
-	case v121:
-		return "https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-1.21.md#deprecation"
-		// TODO: 1.22
-	case v127:
-		return "https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-1.27.md#deprecation"
-	default:
-		return ""
-	}
-}
-
-// RemovedAPIError is returned if the provided GVK does not exist in the targeted k8s cluster because the apiVersion
-// has been deprecated and removed.
-type RemovedAPIError struct {
-	GVK     schema.GroupVersionKind
-	Version *cluster.ServerVersion
-}
-
-func (e *RemovedAPIError) Error() string {
-	if e.Version == nil {
-		return fmt.Sprintf("apiVersion %q was removed in a previous version of Kubernetes", gvkStr(e.GVK))
-	}
-
-	link := upstreamDocsLink(*e.Version)
-	str := fmt.Sprintf("apiVersion %q was removed in Kubernetes %s. Use %q instead.",
-		gvkStr(e.GVK), e.Version, SuggestedAPIVersion(e.GVK))
-
-	if len(link) > 0 {
-		str += fmt.Sprintf("\nSee %s for more information.", link)
-	}
-	return str
 }

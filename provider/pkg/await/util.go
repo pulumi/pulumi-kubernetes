@@ -19,6 +19,7 @@ import (
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
+	"k8s.io/apiserver/pkg/endpoints/deprecation"
 )
 
 const trueStatus = "True"
@@ -106,4 +107,16 @@ func isOwnedBy(obj, possibleOwner *unstructured.Unstructured) bool {
 	}
 
 	return false
+}
+
+func RemovedResource(obj runtime.Object, clusterVersion string) (bool, *RemovedAPIError) {
+	if removedVersion := deprecation.RemovedRelease(obj); removedVersion != "" {
+		return true, &RemovedAPIError{
+			Message:        deprecation.WarningMessage(obj),
+			ClusterVersion: clusterVersion,
+			Version:        removedVersion,
+		}
+	}
+
+	return false, nil
 }

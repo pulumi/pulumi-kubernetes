@@ -41,7 +41,6 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/cluster"
-	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/gen"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/kinds"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/logging"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/metadata"
@@ -64,8 +63,10 @@ import (
 	"k8s.io/apimachinery/pkg/api/meta"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/types"
+	"k8s.io/apiserver/pkg/endpoints/deprecation"
 	k8sresource "k8s.io/cli-runtime/pkg/resource"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
@@ -1369,12 +1370,16 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		return nil, err
 	}
 
-	// Skip the API version check if the cluster is unreachable.
-	if !k.clusterUnreachable {
-		if removed, version := kinds.RemovedAPIVersion(gvk, k.k8sVersion); removed {
-			_ = k.host.Log(ctx, diag.Warning, urn, (&kinds.RemovedAPIError{GVK: gvk, Version: version}).Error())
-		} else if !k.suppressDeprecationWarnings && kinds.DeprecatedAPIVersion(gvk, &k.k8sVersion) {
-			_ = k.host.Log(ctx, diag.Warning, urn, gen.APIVersionComment(gvk))
+	// Skip the API version check if the cluster is unreachable or deprecation warnings are suppressed.
+	if !k.clusterUnreachable && !k.suppressDeprecationWarnings {
+		obj, err := clients.FromUnstructured(newInputs)
+		rObj, ok := obj.(runtime.Object)
+		if err == nil && ok { // Ignore conversion errors
+			if deprecation.IsDeprecated(rObj, k.k8sVersion.Major, k.k8sVersion.Minor) {
+				if msg := deprecation.WarningMessage(rObj); msg != "" {
+					_ = k.host.Log(ctx, diag.Warning, urn, msg)
+				}
+			}
 		}
 	}
 

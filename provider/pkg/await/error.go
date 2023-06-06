@@ -136,3 +136,16 @@ func IsResourceExistsErr(err error) bool {
 func IsDeleteRequiredFieldErr(err error) bool {
 	return errors.IsInvalid(err) && strings.Contains(err.Error(), "Required value")
 }
+
+// RemovedAPIError is returned if the provided GVK does not exist in the targeted k8s cluster because the apiVersion
+// has been deprecated and removed.
+type RemovedAPIError struct {
+	Message        string
+	ClusterVersion string
+	Version        string
+}
+
+func (e *RemovedAPIError) Error() string {
+	return fmt.Sprintf(
+		"apiVersion was removed in %s, cluster version is %s. %s", e.Version, e.ClusterVersion, e.Message)
+}
