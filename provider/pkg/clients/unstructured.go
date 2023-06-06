@@ -18,43 +18,30 @@ import (
 	"fmt"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/kinds"
-	appsv1 "k8s.io/api/apps/v1"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	batchv1 "k8s.io/api/batch/v1"
 	corev1 "k8s.io/api/core/v1"
-	networkingv1 "k8s.io/api/networking/v1"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
+	kscheme "k8s.io/client-go/kubernetes/scheme"
 )
 
-func FromUnstructured(obj *unstructured.Unstructured) (metav1.Object, error) {
-	var output metav1.Object
-	switch kinds.Kind(obj.GetKind()) {
-	case kinds.Deployment:
-		output = new(appsv1.Deployment)
-	case kinds.Job:
-		output = new(batchv1.Job)
-	case kinds.Ingress:
-		output = new(networkingv1.Ingress)
-	case kinds.PersistentVolume:
-		output = new(corev1.PersistentVolume)
-	case kinds.PersistentVolumeClaim:
-		output = new(corev1.PersistentVolumeClaim)
-	case kinds.Pod:
-		output = new(corev1.Pod)
-	case kinds.ReplicaSet:
-		output = new(appsv1.ReplicaSet)
-	case kinds.StatefulSet:
-		output = new(appsv1.StatefulSet)
-	default:
-		return nil, fmt.Errorf("unhandled Kind: %s", obj.GetKind())
-	}
-	err := runtime.DefaultUnstructuredConverter.FromUnstructured(obj.Object, output)
+var scheme = runtime.NewScheme()
+
+// FromUnstructured dynamically converts an Unstructured Kubernetes resource into the typed equivalent. Only built-in
+// resource types are supported, so CustomResources will fail conversion with an error.
+func FromUnstructured(uns *unstructured.Unstructured) (runtime.Object, error) {
+	obj, err := scheme.New(uns.GroupVersionKind())
 	if err != nil {
 		return nil, err
 	}
 
-	return output, nil
+	err = runtime.DefaultUnstructuredConverter.FromUnstructured(uns.Object, obj)
+	if err != nil {
+		return nil, err
+	}
+
+	return obj, nil
 }
 
 func PodFromUnstructured(uns *unstructured.Unstructured) (*corev1.Pod, error) {
@@ -91,4 +78,9 @@ func JobFromUnstructured(uns *unstructured.Unstructured) (*batchv1.Job, error) {
 	}
 
 	return obj.(*batchv1.Job), nil
+}
+
+func init() {
+	// Load the default Kubernetes scheme that will be used for Unstructured conversion.
+	contract.IgnoreError(kscheme.AddToScheme(scheme))
 }
