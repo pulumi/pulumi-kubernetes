@@ -2536,7 +2536,7 @@ func (k *kubeProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest)
 
 // isPatchURN returns true if the URN is for a Patch resource.
 func isPatchURN(urn resource.URN) bool {
-	return strings.HasSuffix(urn.Type().String(), "Patch")
+	return kinds.PatchQualifiedTypes.Has(urn.QualifiedType().String())
 }
 
 // GetPluginInfo returns generic information about this plugin, like its version.

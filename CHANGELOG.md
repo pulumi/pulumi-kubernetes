@@ -1,5 +1,7 @@
 ## Unreleased
 
+- Fix provider handling of CustomResources with Patch suffix (https://github.com/pulumi/pulumi-kubernetes/pull/2438)
+
 ## 3.29.0 (June 2, 2023)
 
 - Fix regression in file/folder checking logic that caused incorrect parsing of compressed chart files (https://github.com/pulumi/pulumi-kubernetes/pull/2428)
