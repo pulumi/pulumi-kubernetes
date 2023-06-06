@@ -21,121 +21,118 @@ import (
 	appsv1 "k8s.io/api/apps/v1"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
-type podBasic struct {
-	Object       *corev1.Pod
-	Unstructured *unstructured.Unstructured
-}
-
-// PodBasic returns a corev1.Pod struct and a corresponding Unstructured struct.
-// nolint: golint
-func PodBasic() *podBasic {
-	return &podBasic{
-		&corev1.Pod{
-			TypeMeta: v1.TypeMeta{
-				APIVersion: "v1",
-				Kind:       "Pod",
-			},
-			ObjectMeta: v1.ObjectMeta{
-				Name: "foo",
-			},
-			Spec: corev1.PodSpec{
-				Containers: []corev1.Container{
-					{
-						Name:  "foo",
-						Image: "nginx",
-					},
-				},
-			},
+var (
+	validPodObject = &corev1.Pod{
+		TypeMeta: metav1.TypeMeta{
+			APIVersion: "v1",
+			Kind:       "Pod",
 		},
-
-		&unstructured.Unstructured{
-			Object: map[string]interface{}{
-				"apiVersion": "v1",
-				"kind":       "Pod",
-				"metadata": map[string]interface{}{
-					"name": "foo"},
-				"spec": map[string]interface{}{
-					"containers": []interface{}{
-						map[string]interface{}{
-							"name":  "foo",
-							"image": "nginx"}},
+		ObjectMeta: metav1.ObjectMeta{
+			Name: "foo",
+		},
+		Spec: corev1.PodSpec{
+			Containers: []corev1.Container{
+				{
+					Name:  "foo",
+					Image: "nginx",
 				},
 			},
 		},
 	}
-}
 
-type deploymentBasic struct {
-	Object       *appsv1.Deployment
-	Unstructured *unstructured.Unstructured
-}
-
-// nolint: golint
-func DeploymentBasic() *deploymentBasic {
-	return &deploymentBasic{
-		&appsv1.Deployment{
-			TypeMeta: metav1.TypeMeta{
-				APIVersion: "apps/v1",
-				Kind:       "Deployment",
-			},
-			ObjectMeta: metav1.ObjectMeta{
-				Name: "foo",
-			},
-			Spec: appsv1.DeploymentSpec{
-				Template: corev1.PodTemplateSpec{
-					Spec: corev1.PodSpec{
-						Containers: []corev1.Container{
-							{
-								Name:  "foo",
-								Image: "nginx",
-							},
-						},
-					},
-				},
+	validPodUnstructured = &unstructured.Unstructured{
+		Object: map[string]interface{}{
+			"apiVersion": "v1",
+			"kind":       "Pod",
+			"metadata": map[string]interface{}{
+				"name": "foo"},
+			"spec": map[string]interface{}{
+				"containers": []interface{}{
+					map[string]interface{}{
+						"name":  "foo",
+						"image": "nginx"}},
 			},
 		},
+	}
 
-		&unstructured.Unstructured{
-			Object: map[string]interface{}{
-				"apiVersion": "apps/v1",
-				"kind":       "Deployment",
-				"metadata": map[string]interface{}{
-					"name": "foo"},
-				"spec": map[string]interface{}{
-					"template": map[string]interface{}{
-						"spec": map[string]interface{}{
-							"containers": []interface{}{
-								map[string]interface{}{
-									"name":  "foo",
-									"image": "nginx"}},
+	validDeploymentObject = &appsv1.Deployment{
+		TypeMeta: metav1.TypeMeta{
+			APIVersion: "apps/v1",
+			Kind:       "Deployment",
+		},
+		ObjectMeta: metav1.ObjectMeta{
+			Name: "foo",
+		},
+		Spec: appsv1.DeploymentSpec{
+			Template: corev1.PodTemplateSpec{
+				Spec: corev1.PodSpec{
+					Containers: []corev1.Container{
+						{
+							Name:  "foo",
+							Image: "nginx",
 						},
 					},
 				},
 			},
 		},
 	}
-}
+
+	validDeploymentUnstructured = &unstructured.Unstructured{
+		Object: map[string]interface{}{
+			"apiVersion": "apps/v1",
+			"kind":       "Deployment",
+			"metadata": map[string]interface{}{
+				"name": "foo"},
+			"spec": map[string]interface{}{
+				"template": map[string]interface{}{
+					"spec": map[string]interface{}{
+						"containers": []interface{}{
+							map[string]interface{}{
+								"name":  "foo",
+								"image": "nginx"}},
+					},
+				},
+			},
+		},
+	}
+
+	// Unregistered GVK
+	unregisteredGVK = &unstructured.Unstructured{
+		Object: map[string]interface{}{
+			"apiVersion": "pulumi/test",
+			"kind":       "Foo",
+			"metadata": map[string]interface{}{
+				"name": "foo"},
+			"spec": map[string]interface{}{
+				"template": map[string]interface{}{
+					"spec": map[string]interface{}{
+						"containers": []interface{}{
+							map[string]interface{}{
+								"name":  "foo",
+								"image": "nginx"}},
+					},
+				},
+			},
+		},
+	}
+)
 
 func TestFromUnstructured(t *testing.T) {
-	pod := PodBasic()
-	deployment := DeploymentBasic()
-
 	type args struct {
 		obj *unstructured.Unstructured
 	}
 	tests := []struct {
 		name    string
 		args    args
-		want    v1.Object
+		want    metav1.Object
 		wantErr bool
 	}{
-		{"valid-pod", args{obj: pod.Unstructured}, v1.Object(pod.Object), false},
-		{"valid-deployment", args{obj: deployment.Unstructured},
-			v1.Object(deployment.Object), false},
+		{"valid Pod", args{obj: validPodUnstructured}, metav1.Object(validPodObject), false},
+		{"valid Deployment", args{obj: validDeploymentUnstructured}, metav1.Object(validDeploymentObject), false},
+		{"unregistered GVK", args{obj: unregisteredGVK}, nil, true},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
