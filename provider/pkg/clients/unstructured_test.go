@@ -130,9 +130,9 @@ func TestFromUnstructured(t *testing.T) {
 		want    metav1.Object
 		wantErr bool
 	}{
-		{"valid-pod", args{obj: validPodUnstructured}, metav1.Object(validPodObject), false},
-		{"valid-deployment", args{obj: validDeploymentUnstructured}, metav1.Object(validDeploymentObject), false},
-		{"invalid-deployment", args{obj: unregisteredGVK}, nil, true},
+		{"valid Pod", args{obj: validPodUnstructured}, metav1.Object(validPodObject), false},
+		{"valid Deployment", args{obj: validDeploymentUnstructured}, metav1.Object(validDeploymentObject), false},
+		{"unregistered GVK", args{obj: unregisteredGVK}, nil, true},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
