@@ -31,24 +31,34 @@ func (val *HelmReleaseSettings) Defaults() *HelmReleaseSettings {
 	}
 	tmp := *val
 	if tmp.Driver == nil {
-		driver_ := getEnvOrDefault("", nil, "PULUMI_K8S_HELM_DRIVER").(string)
-		tmp.Driver = &driver_
+		if d := getEnvOrDefault(nil, nil, "PULUMI_K8S_HELM_DRIVER"); d != nil {
+			driver_ := d.(string)
+			tmp.Driver = &driver_
+		}
 	}
 	if tmp.PluginsPath == nil {
-		pluginsPath_ := getEnvOrDefault("", nil, "PULUMI_K8S_HELM_PLUGINS_PATH").(string)
-		tmp.PluginsPath = &pluginsPath_
+		if d := getEnvOrDefault(nil, nil, "PULUMI_K8S_HELM_PLUGINS_PATH"); d != nil {
+			pluginsPath_ := d.(string)
+			tmp.PluginsPath = &pluginsPath_
+		}
 	}
 	if tmp.RegistryConfigPath == nil {
-		registryConfigPath_ := getEnvOrDefault("", nil, "PULUMI_K8S_HELM_REGISTRY_CONFIG_PATH").(string)
-		tmp.RegistryConfigPath = &registryConfigPath_
+		if d := getEnvOrDefault(nil, nil, "PULUMI_K8S_HELM_REGISTRY_CONFIG_PATH"); d != nil {
+			registryConfigPath_ := d.(string)
+			tmp.RegistryConfigPath = &registryConfigPath_
+		}
 	}
 	if tmp.RepositoryCache == nil {
-		repositoryCache_ := getEnvOrDefault("", nil, "PULUMI_K8S_HELM_REPOSITORY_CACHE").(string)
-		tmp.RepositoryCache = &repositoryCache_
+		if d := getEnvOrDefault(nil, nil, "PULUMI_K8S_HELM_REPOSITORY_CACHE"); d != nil {
+			repositoryCache_ := d.(string)
+			tmp.RepositoryCache = &repositoryCache_
+		}
 	}
 	if tmp.RepositoryConfigPath == nil {
-		repositoryConfigPath_ := getEnvOrDefault("", nil, "PULUMI_K8S_HELM_REPOSITORY_CONFIG_PATH").(string)
-		tmp.RepositoryConfigPath = &repositoryConfigPath_
+		if d := getEnvOrDefault(nil, nil, "PULUMI_K8S_HELM_REPOSITORY_CONFIG_PATH"); d != nil {
+			repositoryConfigPath_ := d.(string)
+			tmp.RepositoryConfigPath = &repositoryConfigPath_
+		}
 	}
 	return &tmp
 }
@@ -85,19 +95,29 @@ func (val *HelmReleaseSettingsArgs) Defaults() *HelmReleaseSettingsArgs {
 	}
 	tmp := *val
 	if tmp.Driver == nil {
-		tmp.Driver = pulumi.StringPtr(getEnvOrDefault("", nil, "PULUMI_K8S_HELM_DRIVER").(string))
+		if d := getEnvOrDefault(nil, nil, "PULUMI_K8S_HELM_DRIVER"); d != nil {
+			tmp.Driver = pulumi.StringPtr(d.(string))
+		}
 	}
 	if tmp.PluginsPath == nil {
-		tmp.PluginsPath = pulumi.StringPtr(getEnvOrDefault("", nil, "PULUMI_K8S_HELM_PLUGINS_PATH").(string))
+		if d := getEnvOrDefault(nil, nil, "PULUMI_K8S_HELM_PLUGINS_PATH"); d != nil {
+			tmp.PluginsPath = pulumi.StringPtr(d.(string))
+		}
 	}
 	if tmp.RegistryConfigPath == nil {
-		tmp.RegistryConfigPath = pulumi.StringPtr(getEnvOrDefault("", nil, "PULUMI_K8S_HELM_REGISTRY_CONFIG_PATH").(string))
+		if d := getEnvOrDefault(nil, nil, "PULUMI_K8S_HELM_REGISTRY_CONFIG_PATH"); d != nil {
+			tmp.RegistryConfigPath = pulumi.StringPtr(d.(string))
+		}
 	}
 	if tmp.RepositoryCache == nil {
-		tmp.RepositoryCache = pulumi.StringPtr(getEnvOrDefault("", nil, "PULUMI_K8S_HELM_REPOSITORY_CACHE").(string))
+		if d := getEnvOrDefault(nil, nil, "PULUMI_K8S_HELM_REPOSITORY_CACHE"); d != nil {
+			tmp.RepositoryCache = pulumi.StringPtr(d.(string))
+		}
 	}
 	if tmp.RepositoryConfigPath == nil {
-		tmp.RepositoryConfigPath = pulumi.StringPtr(getEnvOrDefault("", nil, "PULUMI_K8S_HELM_REPOSITORY_CONFIG_PATH").(string))
+		if d := getEnvOrDefault(nil, nil, "PULUMI_K8S_HELM_REPOSITORY_CONFIG_PATH"); d != nil {
+			tmp.RepositoryConfigPath = pulumi.StringPtr(d.(string))
+		}
 	}
 	return &tmp
 }
@@ -295,16 +315,22 @@ func (val *KubeClientSettings) Defaults() *KubeClientSettings {
 	}
 	tmp := *val
 	if tmp.Burst == nil {
-		burst_ := getEnvOrDefault(0, parseEnvInt, "PULUMI_K8S_CLIENT_BURST").(int)
-		tmp.Burst = &burst_
+		if d := getEnvOrDefault(nil, parseEnvInt, "PULUMI_K8S_CLIENT_BURST"); d != nil {
+			burst_ := d.(int)
+			tmp.Burst = &burst_
+		}
 	}
 	if tmp.Qps == nil {
-		qps_ := getEnvOrDefault(0.0, parseEnvFloat, "PULUMI_K8S_CLIENT_QPS").(float64)
-		tmp.Qps = &qps_
+		if d := getEnvOrDefault(nil, parseEnvFloat, "PULUMI_K8S_CLIENT_QPS"); d != nil {
+			qps_ := d.(float64)
+			tmp.Qps = &qps_
+		}
 	}
 	if tmp.Timeout == nil {
-		timeout_ := getEnvOrDefault(0, parseEnvInt, "PULUMI_K8S_CLIENT_TIMEOUT").(int)
-		tmp.Timeout = &timeout_
+		if d := getEnvOrDefault(nil, parseEnvInt, "PULUMI_K8S_CLIENT_TIMEOUT"); d != nil {
+			timeout_ := d.(int)
+			tmp.Timeout = &timeout_
+		}
 	}
 	return &tmp
 }
@@ -337,13 +363,19 @@ func (val *KubeClientSettingsArgs) Defaults() *KubeClientSettingsArgs {
 	}
 	tmp := *val
 	if tmp.Burst == nil {
-		tmp.Burst = pulumi.IntPtr(getEnvOrDefault(0, parseEnvInt, "PULUMI_K8S_CLIENT_BURST").(int))
+		if d := getEnvOrDefault(nil, parseEnvInt, "PULUMI_K8S_CLIENT_BURST"); d != nil {
+			tmp.Burst = pulumi.IntPtr(d.(int))
+		}
 	}
 	if tmp.Qps == nil {
-		tmp.Qps = pulumi.Float64Ptr(getEnvOrDefault(0.0, parseEnvFloat, "PULUMI_K8S_CLIENT_QPS").(float64))
+		if d := getEnvOrDefault(nil, parseEnvFloat, "PULUMI_K8S_CLIENT_QPS"); d != nil {
+			tmp.Qps = pulumi.Float64Ptr(d.(float64))
+		}
 	}
 	if tmp.Timeout == nil {
-		tmp.Timeout = pulumi.IntPtr(getEnvOrDefault(0, parseEnvInt, "PULUMI_K8S_CLIENT_TIMEOUT").(int))
+		if d := getEnvOrDefault(nil, parseEnvInt, "PULUMI_K8S_CLIENT_TIMEOUT"); d != nil {
+			tmp.Timeout = pulumi.IntPtr(d.(int))
+		}
 	}
 	return &tmp
 }

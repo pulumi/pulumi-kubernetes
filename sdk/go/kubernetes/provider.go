@@ -23,16 +23,24 @@ func NewProvider(ctx *pulumi.Context,
 	}
 
 	if args.EnableConfigMapMutable == nil {
-		args.EnableConfigMapMutable = pulumi.BoolPtr(getEnvOrDefault(false, parseEnvBool, "PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE").(bool))
+		if d := getEnvOrDefault(nil, parseEnvBool, "PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE"); d != nil {
+			args.EnableConfigMapMutable = pulumi.BoolPtr(d.(bool))
+		}
 	}
 	if args.EnableDryRun == nil {
-		args.EnableDryRun = pulumi.BoolPtr(getEnvOrDefault(false, parseEnvBool, "PULUMI_K8S_ENABLE_DRY_RUN").(bool))
+		if d := getEnvOrDefault(nil, parseEnvBool, "PULUMI_K8S_ENABLE_DRY_RUN"); d != nil {
+			args.EnableDryRun = pulumi.BoolPtr(d.(bool))
+		}
 	}
 	if args.EnableReplaceCRD == nil {
-		args.EnableReplaceCRD = pulumi.BoolPtr(getEnvOrDefault(false, parseEnvBool, "PULUMI_K8S_ENABLE_REPLACE_CRD").(bool))
+		if d := getEnvOrDefault(nil, parseEnvBool, "PULUMI_K8S_ENABLE_REPLACE_CRD"); d != nil {
+			args.EnableReplaceCRD = pulumi.BoolPtr(d.(bool))
+		}
 	}
 	if args.EnableServerSideApply == nil {
-		args.EnableServerSideApply = pulumi.BoolPtr(getEnvOrDefault(false, parseEnvBool, "PULUMI_K8S_ENABLE_SERVER_SIDE_APPLY").(bool))
+		if d := getEnvOrDefault(nil, parseEnvBool, "PULUMI_K8S_ENABLE_SERVER_SIDE_APPLY"); d != nil {
+			args.EnableServerSideApply = pulumi.BoolPtr(d.(bool))
+		}
 	}
 	if args.HelmReleaseSettings != nil {
 		args.HelmReleaseSettings = args.HelmReleaseSettings.ToHelmReleaseSettingsPtrOutput().ApplyT(func(v *HelmReleaseSettings) *HelmReleaseSettings { return v.Defaults() }).(HelmReleaseSettingsPtrOutput)
@@ -41,13 +49,19 @@ func NewProvider(ctx *pulumi.Context,
 		args.KubeClientSettings = args.KubeClientSettings.ToKubeClientSettingsPtrOutput().ApplyT(func(v *KubeClientSettings) *KubeClientSettings { return v.Defaults() }).(KubeClientSettingsPtrOutput)
 	}
 	if args.Kubeconfig == nil {
-		args.Kubeconfig = pulumi.StringPtr(getEnvOrDefault("", nil, "KUBECONFIG").(string))
+		if d := getEnvOrDefault(nil, nil, "KUBECONFIG"); d != nil {
+			args.Kubeconfig = pulumi.StringPtr(d.(string))
+		}
 	}
 	if args.SuppressDeprecationWarnings == nil {
-		args.SuppressDeprecationWarnings = pulumi.BoolPtr(getEnvOrDefault(false, parseEnvBool, "PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS").(bool))
+		if d := getEnvOrDefault(nil, parseEnvBool, "PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS"); d != nil {
+			args.SuppressDeprecationWarnings = pulumi.BoolPtr(d.(bool))
+		}
 	}
 	if args.SuppressHelmHookWarnings == nil {
-		args.SuppressHelmHookWarnings = pulumi.BoolPtr(getEnvOrDefault(false, parseEnvBool, "PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS").(bool))
+		if d := getEnvOrDefault(nil, parseEnvBool, "PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS"); d != nil {
+			args.SuppressHelmHookWarnings = pulumi.BoolPtr(d.(bool))
+		}
 	}
 	var resource Provider
 	err := ctx.RegisterResource("pulumi:providers:kubernetes", name, args, &resource, opts...)
