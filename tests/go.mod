@@ -10,8 +10,8 @@ replace (
 require (
 	github.com/pulumi/pulumi-kubernetes/provider/v3 v3.0.0-rc.1
 	github.com/pulumi/pulumi-kubernetes/sdk/v3 v3.0.0-rc.1
-	github.com/pulumi/pulumi/pkg/v3 v3.68.0
-	github.com/pulumi/pulumi/sdk/v3 v3.68.0
+	github.com/pulumi/pulumi/pkg/v3 v3.69.0
+	github.com/pulumi/pulumi/sdk/v3 v3.69.0
 	github.com/stretchr/testify v1.8.2
 	helm.sh/helm/v3 v3.11.3
 	k8s.io/apimachinery v0.27.1
@@ -219,7 +219,7 @@ require (
 	github.com/prometheus/common v0.37.0 // indirect
 	github.com/prometheus/procfs v0.8.0 // indirect
 	github.com/pulumi/cloud-ready-checks v1.0.1-0.20230201174945-00fe9c1b68fd // indirect
-	github.com/rivo/uniseg v0.2.0 // indirect
+	github.com/rivo/uniseg v0.4.4 // indirect
 	github.com/rogpeppe/go-internal v1.10.0 // indirect
 	github.com/rubenv/sql-migrate v1.3.1 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
