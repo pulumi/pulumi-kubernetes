@@ -25,12 +25,12 @@ import (
 
 // decodeYaml parses a YAML string, and then returns a slice of untyped structs that can be marshalled into
 // Pulumi RPC calls. If a default namespace is specified, set that on the relevant decoded objects.
-func decodeYaml(text, defaultNamespace string, clientSet *clients.DynamicClientSet) ([]interface{}, error) {
+func decodeYaml(text, defaultNamespace string, clientSet *clients.DynamicClientSet) ([]any, error) {
 	var resources []unstructured.Unstructured
 
 	dec := yaml.NewYAMLOrJSONDecoder(io.NopCloser(strings.NewReader(text)), 128)
 	for {
-		var value map[string]interface{}
+		var value map[string]any
 		if err := dec.Decode(&value); err != nil {
 			if err == io.EOF {
 				break
@@ -63,7 +63,7 @@ func decodeYaml(text, defaultNamespace string, clientSet *clients.DynamicClientS
 		resources = append(resources, resource)
 	}
 
-	result := make([]interface{}, 0, len(resources))
+	result := make([]any, 0, len(resources))
 	for _, resource := range resources {
 		result = append(result, resource.Object)
 	}

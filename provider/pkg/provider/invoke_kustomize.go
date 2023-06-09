@@ -27,7 +27,7 @@ import (
 
 // kustomizeDirectory takes a path to a kustomization directory, either a local directory or a folder in a git repo,
 // and then returns a slice of untyped structs that can be marshalled into Pulumi RPC calls.
-func kustomizeDirectory(directory string, clientSet *clients.DynamicClientSet) ([]interface{}, error) {
+func kustomizeDirectory(directory string, clientSet *clients.DynamicClientSet) ([]any, error) {
 	path := directory
 
 	// If provided directory doesn't exist locally, assume it's a git repo link.

@@ -68,16 +68,16 @@ func SetAnnotation(obj *unstructured.Unstructured, key, value string) {
 	if isComputedValue(metadataRaw) {
 		return
 	}
-	metadata := metadataRaw.(map[string]interface{})
+	metadata := metadataRaw.(map[string]any)
 	annotationsRaw, ok := metadata["annotations"]
 	if isComputedValue(annotationsRaw) {
 		return
 	}
-	var annotations map[string]interface{}
+	var annotations map[string]any
 	if !ok {
-		annotations = make(map[string]interface{})
+		annotations = make(map[string]any)
 	} else {
-		annotations = annotationsRaw.(map[string]interface{})
+		annotations = annotationsRaw.(map[string]any)
 	}
 	annotations[key] = value
 
@@ -102,7 +102,7 @@ func GetAnnotationValue(obj *unstructured.Unstructured, key string) string {
 	return annotations[key]
 }
 
-func isComputedValue(v interface{}) bool {
+func isComputedValue(v any) bool {
 	_, isComputed := v.(resource.Computed)
 	return isComputed
 }

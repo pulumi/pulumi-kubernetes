@@ -42,9 +42,9 @@ func main() {
 			&yaml.ConfigGroupArgs{
 				Files: []string{filepath.Join("manifests", "*.yaml")},
 				Transformations: []yaml.Transformation{
-					func(state map[string]interface{}, opts ...pulumi.ResourceOption) {
+					func(state map[string]any, opts ...pulumi.ResourceOption) {
 						if state["apiVersion"] == "v1" && state["kind"] == "Pod" {
-							metadata := state["metadata"].(map[string]interface{})
+							metadata := state["metadata"].(map[string]any)
 							_, ok := metadata["labels"]
 							if !ok {
 								metadata["labels"] = map[string]string{"foo": "bar"}
@@ -66,9 +66,9 @@ func main() {
 		ctx.Export("hostIP", hostIP)
 
 		ct := resources.GetResource("stable.example.com/v1/GoYamlCronTab", "my-new-cron-object", "")
-		cronSpec := ct.(*apiextensions.CustomResource).OtherFields.ApplyT(func(otherFields interface{}) string {
-			fields := otherFields.(map[string]interface{})
-			spec := fields["spec"].(map[string]interface{})
+		cronSpec := ct.(*apiextensions.CustomResource).OtherFields.ApplyT(func(otherFields any) string {
+			fields := otherFields.(map[string]any)
+			spec := fields["spec"].(map[string]any)
 			return spec["cronSpec"].(string)
 		})
 		ctx.Export("cronSpec", cronSpec)

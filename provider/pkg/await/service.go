@@ -303,7 +303,7 @@ func (sia *serviceInitAwaiter) processServiceEvent(event watch.Event) {
 		status, _ := openapi.Pluck(service.Object, "status")
 
 		logger.V(3).Infof("Received status for service %q: %#v", inputServiceName, status)
-		ing, isSlice := lbIngress.([]interface{})
+		ing, isSlice := lbIngress.([]any)
 
 		// Update status of service object so that we can check success.
 		sia.serviceReady = isSlice && len(ing) > 0
@@ -341,7 +341,7 @@ func (sia *serviceInitAwaiter) processEndpointEvent(event watch.Event, settledCh
 	// Update status of endpoint objects so we can check success.
 	if event.Type == watch.Added || event.Type == watch.Modified {
 		subsets, hasTargets := openapi.Pluck(endpoint.Object, "subsets")
-		targets, targetsIsSlice := subsets.([]interface{})
+		targets, targetsIsSlice := subsets.([]any)
 		endpointTargetsPod := hasTargets && targetsIsSlice && len(targets) > 0
 
 		sia.endpointsReady = endpointTargetsPod
@@ -397,7 +397,7 @@ func (sia *serviceInitAwaiter) isExternalNameService() bool {
 // [1]: https://kubernetes.io/docs/concepts/services-networking/service/#headless-services
 func (sia *serviceInitAwaiter) emptyHeadlessOrExternalName() bool {
 	selectorI, _ := openapi.Pluck(sia.service.Object, "spec", "selector")
-	selector, _ := selectorI.(map[string]interface{})
+	selector, _ := selectorI.(map[string]any)
 
 	headlessEmpty := len(selector) == 0 && sia.isHeadlessService()
 	return headlessEmpty || sia.isExternalNameService()
@@ -419,7 +419,7 @@ func (sia *serviceInitAwaiter) hasHeadlessServicePortBug(version cluster.ServerV
 	// k8s versions < 1.12 have the bug.
 	if version.Compare(cluster.ServerVersion{Major: 1, Minor: 12}) < 0 {
 		portsI, _ := openapi.Pluck(sia.service.Object, "spec", "ports")
-		ports, _ := portsI.([]map[string]interface{})
+		ports, _ := portsI.([]map[string]any)
 		hasPorts := len(ports) > 0
 
 		// The bug affects Services with no specified ports.

@@ -23,9 +23,9 @@ import (
 // a deserialized map representation of the manifest (with secrets masked), a map
 // grouping resource names in the manifests by group version and any error encountered.
 // Not, currently only kubernetes secret data is masked.
-func convertYAMLManifestToJSON(manifest string) (map[string]interface{}, map[string][]string, error) {
+func convertYAMLManifestToJSON(manifest string) (map[string]any, map[string][]string, error) {
 	releaseResources := map[string]codegen.StringSet{}
-	m := map[string]interface{}{}
+	m := map[string]any{}
 
 	resources := releaseutil.SplitManifests(manifest)
 	for _, resource := range resources {
@@ -60,7 +60,7 @@ func convertYAMLManifestToJSON(manifest string) (map[string]interface{}, map[str
 			key = fmt.Sprintf("%s/%s", namespace, key)
 		}
 
-		var o interface{} = &obj.Object
+		var o any = &obj.Object
 		if gvk.Kind == "Secret" {
 			var secret corev1.Secret
 			err = runtime.DefaultUnstructuredConverter.FromUnstructured(obj.Object, &secret)

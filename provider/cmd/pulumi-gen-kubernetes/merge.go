@@ -22,7 +22,7 @@ import (
 
 func mergeSwaggerSpecs(legacyBytes, currentBytes []byte) []byte {
 
-	var legacyObj, newObj map[string]interface{}
+	var legacyObj, newObj map[string]any
 	err := json.Unmarshal(legacyBytes, &legacyObj)
 	if err != nil {
 		panic(err)

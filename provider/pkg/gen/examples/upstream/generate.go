@@ -91,7 +91,7 @@ func processYaml(path string, mdDir string) error {
 	decoder := yaml.NewDecoder(yamlFile)
 	exampleStrings := []string{}
 	for {
-		example := map[string]interface{}{}
+		example := map[string]any{}
 		err := decoder.Decode(&example)
 		if err == io.EOF {
 			break

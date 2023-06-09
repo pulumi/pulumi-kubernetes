@@ -44,14 +44,14 @@ var (
 	}
 
 	validPodUnstructured = &unstructured.Unstructured{
-		Object: map[string]interface{}{
+		Object: map[string]any{
 			"apiVersion": "v1",
 			"kind":       "Pod",
-			"metadata": map[string]interface{}{
+			"metadata": map[string]any{
 				"name": "foo"},
-			"spec": map[string]interface{}{
-				"containers": []interface{}{
-					map[string]interface{}{
+			"spec": map[string]any{
+				"containers": []any{
+					map[string]any{
 						"name":  "foo",
 						"image": "nginx"}},
 			},
@@ -81,16 +81,16 @@ var (
 	}
 
 	validDeploymentUnstructured = &unstructured.Unstructured{
-		Object: map[string]interface{}{
+		Object: map[string]any{
 			"apiVersion": "apps/v1",
 			"kind":       "Deployment",
-			"metadata": map[string]interface{}{
+			"metadata": map[string]any{
 				"name": "foo"},
-			"spec": map[string]interface{}{
-				"template": map[string]interface{}{
-					"spec": map[string]interface{}{
-						"containers": []interface{}{
-							map[string]interface{}{
+			"spec": map[string]any{
+				"template": map[string]any{
+					"spec": map[string]any{
+						"containers": []any{
+							map[string]any{
 								"name":  "foo",
 								"image": "nginx"}},
 					},
@@ -101,16 +101,16 @@ var (
 
 	// Unregistered GVK
 	unregisteredGVK = &unstructured.Unstructured{
-		Object: map[string]interface{}{
+		Object: map[string]any{
 			"apiVersion": "pulumi/test",
 			"kind":       "Foo",
-			"metadata": map[string]interface{}{
+			"metadata": map[string]any{
 				"name": "foo"},
-			"spec": map[string]interface{}{
-				"template": map[string]interface{}{
-					"spec": map[string]interface{}{
-						"containers": []interface{}{
-							map[string]interface{}{
+			"spec": map[string]any{
+				"template": map[string]any{
+					"spec": map[string]any{
+						"containers": []any{
+							map[string]any{
 								"name":  "foo",
 								"image": "nginx"}},
 					},

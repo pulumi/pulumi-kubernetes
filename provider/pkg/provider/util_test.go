@@ -45,19 +45,19 @@ func TestHasComputedValue(t *testing.T) {
 		},
 		{
 			name:             "Object with no computed values does not have a computed value",
-			obj:              &unstructured.Unstructured{Object: map[string]interface{}{}},
+			obj:              &unstructured.Unstructured{Object: map[string]any{}},
 			hasComputedValue: false,
 		},
 		{
 			name: "Object with one concrete value does not have a computed value",
-			obj: &unstructured.Unstructured{Object: map[string]interface{}{
+			obj: &unstructured.Unstructured{Object: map[string]any{
 				"field1": 1,
 			}},
 			hasComputedValue: false,
 		},
 		{
 			name: "Object with one computed value does have a computed value",
-			obj: &unstructured.Unstructured{Object: map[string]interface{}{
+			obj: &unstructured.Unstructured{Object: map[string]any{
 				"field1": 1,
 				"field2": resource.Computed{},
 			}},
@@ -65,9 +65,9 @@ func TestHasComputedValue(t *testing.T) {
 		},
 		{
 			name: "Object with one nested computed value does have a computed value",
-			obj: &unstructured.Unstructured{Object: map[string]interface{}{
+			obj: &unstructured.Unstructured{Object: map[string]any{
 				"field1": 1,
-				"field2": map[string]interface{}{
+				"field2": map[string]any{
 					"field3": resource.Computed{},
 				},
 			}},
@@ -75,9 +75,9 @@ func TestHasComputedValue(t *testing.T) {
 		},
 		{
 			name: "Object with nested maps and no computed values",
-			obj: &unstructured.Unstructured{Object: map[string]interface{}{
+			obj: &unstructured.Unstructured{Object: map[string]any{
 				"field1": 1,
-				"field2": map[string]interface{}{
+				"field2": map[string]any{
 					"field3": "3",
 				},
 			}},
@@ -85,11 +85,11 @@ func TestHasComputedValue(t *testing.T) {
 		},
 		{
 			name: "Object with doubly nested maps and 1 computed value",
-			obj: &unstructured.Unstructured{Object: map[string]interface{}{
+			obj: &unstructured.Unstructured{Object: map[string]any{
 				"field1": 1,
-				"field2": map[string]interface{}{
+				"field2": map[string]any{
 					"field3": "3",
-					"field4": map[string]interface{}{
+					"field4": map[string]any{
 						"field5": resource.Computed{},
 					},
 				},
@@ -98,9 +98,9 @@ func TestHasComputedValue(t *testing.T) {
 		},
 		{
 			name: "Object with nested slice of map[string]interface{} has a computed value",
-			obj: &unstructured.Unstructured{Object: map[string]interface{}{
+			obj: &unstructured.Unstructured{Object: map[string]any{
 				"field1": 1,
-				"field2": []map[string]interface{}{
+				"field2": []map[string]any{
 					{"field3": resource.Computed{}},
 				},
 			}},
@@ -108,9 +108,9 @@ func TestHasComputedValue(t *testing.T) {
 		},
 		{
 			name: "Object with nested slice of interface{} has a computed value",
-			obj: &unstructured.Unstructured{Object: map[string]interface{}{
+			obj: &unstructured.Unstructured{Object: map[string]any{
 				"field1": 1,
-				"field2": []interface{}{
+				"field2": []any{
 					resource.Computed{},
 				},
 			}},
@@ -118,10 +118,10 @@ func TestHasComputedValue(t *testing.T) {
 		},
 		{
 			name: "Object with nested slice of map[string]interface{} with nested slice of interface{} has a computed value",
-			obj: &unstructured.Unstructured{Object: map[string]interface{}{
+			obj: &unstructured.Unstructured{Object: map[string]any{
 				"field1": 1,
-				"field2": []map[string]interface{}{
-					{"field3": []interface{}{
+				"field2": []map[string]any{
+					{"field3": []any{
 						resource.Computed{},
 					}},
 				},
@@ -130,12 +130,12 @@ func TestHasComputedValue(t *testing.T) {
 		},
 		{
 			name: "Complex nested object with computed value",
-			obj: &unstructured.Unstructured{Object: map[string]interface{}{
+			obj: &unstructured.Unstructured{Object: map[string]any{
 				"field1": 1,
-				"field2": []map[string]interface{}{
-					{"field3": []interface{}{
-						[]map[string]interface{}{
-							{"field4": []interface{}{
+				"field2": []map[string]any{
+					{"field3": []any{
+						[]map[string]any{
+							{"field4": []any{
 								resource.Computed{},
 							}},
 						},
@@ -146,12 +146,12 @@ func TestHasComputedValue(t *testing.T) {
 		},
 		{
 			name: "Complex nested object with no computed value",
-			obj: &unstructured.Unstructured{Object: map[string]interface{}{
+			obj: &unstructured.Unstructured{Object: map[string]any{
 				"field1": 1,
-				"field2": []map[string]interface{}{
-					{"field3": []interface{}{
-						[]map[string]interface{}{
-							{"field4": []interface{}{
+				"field2": []map[string]any{
+					{"field3": []any{
+						[]map[string]any{
+							{"field4": []any{
 								"field5",
 							}},
 						},
@@ -169,10 +169,10 @@ func TestHasComputedValue(t *testing.T) {
 
 func TestFqName(t *testing.T) {
 	obj := &unstructured.Unstructured{
-		Object: map[string]interface{}{
+		Object: map[string]any{
 			"apiVersion": "tests/v1alpha1",
 			"kind":       "Test",
-			"metadata": map[string]interface{}{
+			"metadata": map[string]any{
 				"name": "myname",
 			},
 		},
@@ -591,60 +591,60 @@ func TestPruneMap(t *testing.T) {
 }`)
 
 	var err error
-	var source, target map[string]interface{}
+	var source, target map[string]any
 	err = json.Unmarshal(oldInputsJSON, &target)
 	assert.NoErrorf(t, err, "failed to unmarshal oldInputsJSON")
 	err = json.Unmarshal(oldLiveJSON, &source)
 	assert.NoErrorf(t, err, "failed to unmarshal oldLiveJSON")
 
 	type args struct {
-		source map[string]interface{}
-		target map[string]interface{}
+		source map[string]any
+		target map[string]any
 	}
 	tests := []struct {
 		name        string
 		description string
 		args        args
-		want        map[string]interface{}
+		want        map[string]any
 	}{
 		{
 			name:        "empty target",
 			description: "empty target map should result in empty result map",
 			args: args{
-				source: map[string]interface{}{
+				source: map[string]any{
 					"a": "a",
 					"b": "b",
 				},
-				target: map[string]interface{}{},
+				target: map[string]any{},
 			},
-			want: map[string]interface{}{},
+			want: map[string]any{},
 		},
 		{
 			name:        "empty source",
 			description: "empty source map should result in empty result map",
 			args: args{
-				source: map[string]interface{}{},
-				target: map[string]interface{}{
+				source: map[string]any{},
+				target: map[string]any{
 					"a": "a",
 					"b": "b",
 				},
 			},
-			want: map[string]interface{}{},
+			want: map[string]any{},
 		},
 		{
 			name:        "matching keys with different values",
 			description: "a map where target has matching keys and different values",
 			args: args{
-				source: map[string]interface{}{
+				source: map[string]any{
 					"a": "a",
 					"b": "b",
 				},
-				target: map[string]interface{}{
+				target: map[string]any{
 					"a": "A",
 					"b": "B",
 				},
 			},
-			want: map[string]interface{}{
+			want: map[string]any{
 				"a": "a",
 				"b": "b",
 			},
@@ -653,16 +653,16 @@ func TestPruneMap(t *testing.T) {
 			name:        "matching keys with nil source value",
 			description: "a map where target has matching keys and source has a nil value",
 			args: args{
-				source: map[string]interface{}{
+				source: map[string]any{
 					"a": "a",
 					"b": nil,
 				},
-				target: map[string]interface{}{
+				target: map[string]any{
 					"a": "A",
 					"b": "B",
 				},
 			},
-			want: map[string]interface{}{
+			want: map[string]any{
 				"a": "a",
 				"b": nil,
 			},
@@ -671,16 +671,16 @@ func TestPruneMap(t *testing.T) {
 			name:        "matching keys with nil target value",
 			description: "a map where target has matching keys and target has a nil value",
 			args: args{
-				source: map[string]interface{}{
+				source: map[string]any{
 					"a": "a",
 					"b": "b",
 				},
-				target: map[string]interface{}{
+				target: map[string]any{
 					"a": "A",
 					"b": nil,
 				},
 			},
-			want: map[string]interface{}{
+			want: map[string]any{
 				"a": "a",
 				"b": "b",
 			},
@@ -689,16 +689,16 @@ func TestPruneMap(t *testing.T) {
 			name:        "matching keys but different value types",
 			description: "a map where target has matching keys and different value types",
 			args: args{
-				source: map[string]interface{}{
+				source: map[string]any{
 					"a": "a",
 					"b": "b",
 				},
-				target: map[string]interface{}{
+				target: map[string]any{
 					"a": "A",
 					"b": 2,
 				},
 			},
-			want: map[string]interface{}{
+			want: map[string]any{
 				"a": "a",
 				"b": "b", // key is present in target, so keep it even though the value type doesn't match
 			},
@@ -707,16 +707,16 @@ func TestPruneMap(t *testing.T) {
 			name:        "simple map",
 			description: "a map where target matches",
 			args: args{
-				source: map[string]interface{}{
+				source: map[string]any{
 					"a": "a",
 					"b": "b",
 				},
-				target: map[string]interface{}{
+				target: map[string]any{
 					"a": "a",
 					"b": "b",
 				},
 			},
-			want: map[string]interface{}{
+			want: map[string]any{
 				"a": "a",
 				"b": "b",
 			},
@@ -725,15 +725,15 @@ func TestPruneMap(t *testing.T) {
 			name:        "simple map subset",
 			description: "a map where target is a subset",
 			args: args{
-				source: map[string]interface{}{
+				source: map[string]any{
 					"a": "a",
 					"b": "b", // not present in target, so will be ignored
 				},
-				target: map[string]interface{}{
+				target: map[string]any{
 					"a": "A",
 				},
 			},
-			want: map[string]interface{}{
+			want: map[string]any{
 				"a": "a",
 			},
 		},
@@ -741,15 +741,15 @@ func TestPruneMap(t *testing.T) {
 			name:        "simple map superset",
 			description: "a map where target is a superset",
 			args: args{
-				source: map[string]interface{}{
+				source: map[string]any{
 					"a": "a",
 				},
-				target: map[string]interface{}{
+				target: map[string]any{
 					"a": "A",
 					"b": "B", // the extra key will be ignored if not present in source
 				},
 			},
-			want: map[string]interface{}{
+			want: map[string]any{
 				"a": "a",
 			},
 		},
@@ -757,22 +757,22 @@ func TestPruneMap(t *testing.T) {
 			name:        "nested map",
 			description: "a map with a nested map where target matches",
 			args: args{
-				source: map[string]interface{}{
+				source: map[string]any{
 					"a": "a",
-					"b": map[string]interface{}{
+					"b": map[string]any{
 						"c": "c",
 					},
 				},
-				target: map[string]interface{}{
+				target: map[string]any{
 					"a": "a",
-					"b": map[string]interface{}{
+					"b": map[string]any{
 						"c": "c",
 					},
 				},
 			},
-			want: map[string]interface{}{
+			want: map[string]any{
 				"a": "a",
-				"b": map[string]interface{}{
+				"b": map[string]any{
 					"c": "c",
 				},
 			},
@@ -781,20 +781,20 @@ func TestPruneMap(t *testing.T) {
 			name:        "nested map subset",
 			description: "a map with a nested map where target is a subset",
 			args: args{
-				source: map[string]interface{}{
+				source: map[string]any{
 					"a": "a", // not present in target, so will be ignored
-					"b": map[string]interface{}{
+					"b": map[string]any{
 						"c": "c",
 					},
 				},
-				target: map[string]interface{}{
-					"b": map[string]interface{}{
+				target: map[string]any{
+					"b": map[string]any{
 						"c": "C",
 					},
 				},
 			},
-			want: map[string]interface{}{
-				"b": map[string]interface{}{
+			want: map[string]any{
+				"b": map[string]any{
 					"c": "c",
 				},
 			},
@@ -803,21 +803,21 @@ func TestPruneMap(t *testing.T) {
 			name:        "nested map superset",
 			description: "a map with a nested map where target is a superset",
 			args: args{
-				source: map[string]interface{}{
+				source: map[string]any{
 					"a": "a", // not present in target, so will be ignored
-					"b": map[string]interface{}{
+					"b": map[string]any{
 						"c": "c",
 					},
 				},
-				target: map[string]interface{}{
-					"b": map[string]interface{}{
+				target: map[string]any{
+					"b": map[string]any{
 						"c": "C",
 					},
 					"d": "D", // the extra key will be ignored if not present in source
 				},
 			},
-			want: map[string]interface{}{
-				"b": map[string]interface{}{
+			want: map[string]any{
+				"b": map[string]any{
 					"c": "c",
 				},
 			},
@@ -826,22 +826,22 @@ func TestPruneMap(t *testing.T) {
 			name:        "nested map with nil",
 			description: "a map with a nested map with nil where target matches",
 			args: args{
-				source: map[string]interface{}{
+				source: map[string]any{
 					"a": "a",
-					"b": map[string]interface{}{
+					"b": map[string]any{
 						"c": nil,
 					},
 				},
-				target: map[string]interface{}{
+				target: map[string]any{
 					"a": "a",
-					"b": map[string]interface{}{
+					"b": map[string]any{
 						"c": nil,
 					},
 				},
 			},
-			want: map[string]interface{}{
+			want: map[string]any{
 				"a": "a",
-				"b": map[string]interface{}{
+				"b": map[string]any{
 					"c": nil,
 				},
 			},
@@ -850,79 +850,79 @@ func TestPruneMap(t *testing.T) {
 			name:        "nested value slice",
 			description: "a map with a nested slice of simple values where target matches",
 			args: args{
-				source: map[string]interface{}{
+				source: map[string]any{
 					"a": "a",
-					"b": []interface{}{"c", "d"},
+					"b": []any{"c", "d"},
 				},
-				target: map[string]interface{}{
+				target: map[string]any{
 					"a": "a",
-					"b": []interface{}{"c", "d"},
+					"b": []any{"c", "d"},
 				},
 			},
-			want: map[string]interface{}{
+			want: map[string]any{
 				"a": "a",
-				"b": []interface{}{"c", "d"},
+				"b": []any{"c", "d"},
 			},
 		},
 		{
 			name:        "nested value slice subset",
 			description: "a map with a nested slice of simple values where target is a subset",
 			args: args{
-				source: map[string]interface{}{
+				source: map[string]any{
 					"a": "a", // not present in target, so will be ignored
-					"b": []interface{}{"c", "d"},
+					"b": []any{"c", "d"},
 				},
-				target: map[string]interface{}{
-					"b": []interface{}{"c"},
+				target: map[string]any{
+					"b": []any{"c"},
 				},
 			},
-			want: map[string]interface{}{
-				"b": []interface{}{"c"}, // items compared by index, so only the first item in source will be kept
+			want: map[string]any{
+				"b": []any{"c"}, // items compared by index, so only the first item in source will be kept
 			},
 		},
 		{
 			name:        "nested value slice superset",
 			description: "a map with a nested slice of simple values where target is a superset",
 			args: args{
-				source: map[string]interface{}{
+				source: map[string]any{
 					"a": "a", // not present in target, so will be ignored
-					"b": []interface{}{"c", "d"},
+					"b": []any{"c", "d"},
 				},
-				target: map[string]interface{}{
-					"b": []interface{}{"c", "d", "e"},
+				target: map[string]any{
+					"b": []any{"c", "d", "e"},
 				},
 			},
-			want: map[string]interface{}{
-				"b": []interface{}{"c", "d"},
+			want: map[string]any{
+				"b": []any{"c", "d"},
 			},
 		},
 		{
 			name:        "nested map slice",
 			description: "a map with a nested slice of map values where target matches",
 			args: args{
-				source: map[string]interface{}{
+				source: map[string]any{
 					"a": "a",
-					"b": []interface{}{
-						map[string]interface{}{
+					"b": []any{
+						map[string]any{
 							"c": "c",
 							"d": "d",
 						},
 					},
 				},
-				target: map[string]interface{}{
+				target: map[string]any{
 					"a": "a",
-					"b": []interface{}{
-						map[string]interface{}{
+					"b": []any{
+						map[string]any{
 							"c": "c",
 							"d": "d",
 						},
 					},
 				},
 			},
-			want: map[string]interface{}{
+			want: map[string]any{
 				"a": "a",
-				"b": []interface{}{
-					map[string]interface{}{
+				"b": []any{
+					map[string]any{
 						"c": "c",
 						"d": "d",
 					},
@@ -933,26 +933,26 @@ func TestPruneMap(t *testing.T) {
 			name:        "nested map slice subset",
 			description: "a map with a nested slice of map values where target is a subset",
 			args: args{
-				source: map[string]interface{}{
+				source: map[string]any{
 					"a": "a", // not present in target, so will be ignored
-					"b": []interface{}{
-						map[string]interface{}{
+					"b": []any{
+						map[string]any{
 							"c": "c",
 							"d": "d", // not present in target, so will be ignored
 						},
 					},
 				},
-				target: map[string]interface{}{
-					"b": []interface{}{
-						map[string]interface{}{
+				target: map[string]any{
+					"b": []any{
+						map[string]any{
 							"c": "c",
 						},
 					},
 				},
 			},
-			want: map[string]interface{}{
-				"b": []interface{}{
-					map[string]interface{}{
+			want: map[string]any{
+				"b": []any{
+					map[string]any{
 						"c": "c",
 					},
 				},
@@ -962,18 +962,18 @@ func TestPruneMap(t *testing.T) {
 			name:        "nested map slice superset",
 			description: "a map with a nested slice of map values where target is a superset",
 			args: args{
-				source: map[string]interface{}{
+				source: map[string]any{
 					"a": "a", // not present in target, so will be ignored
-					"b": []interface{}{
-						map[string]interface{}{
+					"b": []any{
+						map[string]any{
 							"c": "c",
 							"d": "d",
 						},
 					},
 				},
-				target: map[string]interface{}{
-					"b": []interface{}{
-						map[string]interface{}{
+				target: map[string]any{
+					"b": []any{
+						map[string]any{
 							"c": "c",
 							"d": "d",
 							"e": "e",
@@ -981,9 +981,9 @@ func TestPruneMap(t *testing.T) {
 					},
 				},
 			},
-			want: map[string]interface{}{
-				"b": []interface{}{
-					map[string]interface{}{
+			want: map[string]any{
+				"b": []any{
+					map[string]any{
 						"c": "c",
 						"d": "d",
 					},
@@ -1011,97 +1011,97 @@ func TestPruneMap(t *testing.T) {
 
 func TestPruneSlice(t *testing.T) {
 	type args struct {
-		source []interface{}
-		target []interface{}
+		source []any
+		target []any
 	}
 	tests := []struct {
 		name        string
 		description string
 		args        args
-		want        []interface{}
+		want        []any
 	}{
 		{
 			name:        "empty target",
 			description: "empty target slice should result in empty result slice",
 			args: args{
-				source: []interface{}{"a", "b"},
-				target: []interface{}{},
+				source: []any{"a", "b"},
+				target: []any{},
 			},
-			want: []interface{}{},
+			want: []any{},
 		},
 		{
 			name:        "empty source",
 			description: "empty source slice should result in empty result slice",
 			args: args{
-				source: []interface{}{},
-				target: []interface{}{"a", "b"},
+				source: []any{},
+				target: []any{"a", "b"},
 			},
-			want: []interface{}{},
+			want: []any{},
 		},
 		{
 			name:        "matching number of elements with different values",
 			description: "a slice where target has matching number of elements with different values",
 			args: args{
-				source: []interface{}{"a", "b"},
-				target: []interface{}{"c", "d"},
+				source: []any{"a", "b"},
+				target: []any{"c", "d"},
 			},
-			want: []interface{}{"a", "b"},
+			want: []any{"a", "b"},
 		},
 		{
 			name:        "matching number of elements but different types",
 			description: "a slice where target has matching number of elements with different types",
 			args: args{
-				source: []interface{}{"a", "b"},
-				target: []interface{}{1, 2},
+				source: []any{"a", "b"},
+				target: []any{1, 2},
 			},
-			want: []interface{}{"a", "b"},
+			want: []any{"a", "b"},
 		},
 		{
 			name:        "simple slice",
 			description: "a slice where target matches",
 			args: args{
-				source: []interface{}{"a", "b"},
-				target: []interface{}{"a", "b"},
+				source: []any{"a", "b"},
+				target: []any{"a", "b"},
 			},
-			want: []interface{}{"a", "b"},
+			want: []any{"a", "b"},
 		},
 		{
 			name:        "simple slice subset",
 			description: "a slice where target is a subset",
 			args: args{
-				source: []interface{}{"a", "b"},
-				target: []interface{}{"a"},
+				source: []any{"a", "b"},
+				target: []any{"a"},
 			},
-			want: []interface{}{"a"},
+			want: []any{"a"},
 		},
 		{
 			name:        "simple slice superset",
 			description: "a slice where target is a superset",
 			args: args{
-				source: []interface{}{"a"},
-				target: []interface{}{"a", "b"},
+				source: []any{"a"},
+				target: []any{"a", "b"},
 			},
-			want: []interface{}{"a"},
+			want: []any{"a"},
 		},
 		{
 			name:        "map slice",
 			description: "a slice of map values where target matches",
 			args: args{
-				source: []interface{}{
-					map[string]interface{}{
+				source: []any{
+					map[string]any{
 						"a": "a",
 						"b": "b",
 					},
 				},
-				target: []interface{}{
-					map[string]interface{}{
+				target: []any{
+					map[string]any{
 						"a": "a",
 						"b": "b",
 					},
 				},
 			},
-			want: []interface{}{
-				map[string]interface{}{
+			want: []any{
+				map[string]any{
 					"a": "a",
 					"b": "b",
 				},
@@ -1111,24 +1111,24 @@ func TestPruneSlice(t *testing.T) {
 			name:        "map slice subset",
 			description: "a slice of map values where target is a subset",
 			args: args{
-				source: []interface{}{
-					map[string]interface{}{
+				source: []any{
+					map[string]any{
 						"a": "a",
 						"b": "b", // not present in target, so will be dropped
 					},
-					map[string]interface{}{ // map not present in target, so will be dropped
+					map[string]any{
 						"c": "c",
 						"d": "d",
 					},
 				},
-				target: []interface{}{
-					map[string]interface{}{
+				target: []any{
+					map[string]any{
 						"a": "a",
 					},
 				},
 			},
-			want: []interface{}{
-				map[string]interface{}{
+			want: []any{
+				map[string]any{
 					"a": "a",
 				},
 			},
@@ -1137,25 +1137,25 @@ func TestPruneSlice(t *testing.T) {
 			name:        "map slice superset",
 			description: "a slice of map values where target is a superset",
 			args: args{
-				source: []interface{}{
-					map[string]interface{}{
+				source: []any{
+					map[string]any{
 						"a": "a",
 						"b": "b",
 					},
 				},
-				target: []interface{}{
-					map[string]interface{}{
+				target: []any{
+					map[string]any{
 						"a": "a",
 						"b": "b",
 					},
-					map[string]interface{}{
+					map[string]any{
 						"c": "c",
 						"d": "d",
 					},
 				},
 			},
-			want: []interface{}{
-				map[string]interface{}{
+			want: []any{
+				map[string]any{
 					"a": "a",
 					"b": "b",
 				},
@@ -1165,23 +1165,23 @@ func TestPruneSlice(t *testing.T) {
 			name:        "map slice with nil value",
 			description: "a slice of map values that include a nil value",
 			args: args{
-				source: []interface{}{
-					map[string]interface{}{
+				source: []any{
+					map[string]any{
 						"a": "a",
 						"b": "b",
 					},
 					nil,
 				},
-				target: []interface{}{
-					map[string]interface{}{
+				target: []any{
+					map[string]any{
 						"a": "a",
 						"b": "b",
 					},
 					nil,
 				},
 			},
-			want: []interface{}{
-				map[string]interface{}{
+			want: []any{
+				map[string]any{
 					"a": "a",
 					"b": "b",
 				},

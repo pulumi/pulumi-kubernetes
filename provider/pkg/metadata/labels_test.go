@@ -24,27 +24,27 @@ import (
 )
 
 func TestSetLabel(t *testing.T) {
-	noLabelObj := &unstructured.Unstructured{Object: map[string]interface{}{
-		"metadata": map[string]interface{}{},
+	noLabelObj := &unstructured.Unstructured{Object: map[string]any{
+		"metadata": map[string]any{},
 	}}
-	existingLabelObj := &unstructured.Unstructured{Object: map[string]interface{}{
-		"metadata": map[string]interface{}{
-			"labels": map[string]interface{}{
+	existingLabelObj := &unstructured.Unstructured{Object: map[string]any{
+		"metadata": map[string]any{
+			"labels": map[string]any{
 				"pulumi": "rocks",
 			},
 		},
 	}}
-	incorrectMetadataType := &unstructured.Unstructured{Object: map[string]interface{}{
+	incorrectMetadataType := &unstructured.Unstructured{Object: map[string]any{
 		"metadata": "badtyping",
 	}}
-	incorrectLabelsType := &unstructured.Unstructured{Object: map[string]interface{}{
-		"metadata": map[string]interface{}{"labels": "badtyping"},
+	incorrectLabelsType := &unstructured.Unstructured{Object: map[string]any{
+		"metadata": map[string]any{"labels": "badtyping"},
 	}}
-	computedMetadataObj := &unstructured.Unstructured{Object: map[string]interface{}{
+	computedMetadataObj := &unstructured.Unstructured{Object: map[string]any{
 		"metadata": resource.Computed{Element: resource.NewObjectProperty(nil)},
 	}}
-	computedLabelObj := &unstructured.Unstructured{Object: map[string]interface{}{
-		"metadata": map[string]interface{}{
+	computedLabelObj := &unstructured.Unstructured{Object: map[string]any{
+		"metadata": map[string]any{
 			"labels": resource.Computed{Element: resource.NewObjectProperty(nil)},
 		},
 	}}
