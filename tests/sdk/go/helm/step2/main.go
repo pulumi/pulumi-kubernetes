@@ -21,7 +21,7 @@ func main() {
 		}
 
 		svc := chart.GetResource("v1/Service", "test-nginx", "").
-			ApplyT(func(r interface{}) (interface{}, error) {
+			ApplyT(func(r any) (any, error) {
 				svc := r.(*corev1.Service)
 				return svc.Spec.ClusterIP(), nil
 			})

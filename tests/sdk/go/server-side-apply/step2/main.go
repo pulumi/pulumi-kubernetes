@@ -104,7 +104,7 @@ func main() {
 		}
 
 		crPatchedLabels := pulumi.All(ns.Metadata.Name(), crPatch.Metadata.Name()).
-			ApplyT(func(arr []interface{}) (interface{}, error) {
+			ApplyT(func(arr []any) (any, error) {
 				namespace := arr[0].(*string)
 				name := arr[1].(*string)
 				cr, err := apiextensions.GetCustomResource(ctx, "crPatched",

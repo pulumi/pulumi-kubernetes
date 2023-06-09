@@ -69,7 +69,7 @@ func createRelease(releaseName, releaseNamespace, baseDir string, createNamespac
 	}
 
 	actionConfig := new(action.Configuration)
-	if err := actionConfig.Init(kubeconfig, releaseNamespace, os.Getenv("HELM_DRIVER"), func(format string, v ...interface{}) {
+	if err := actionConfig.Init(kubeconfig, releaseNamespace, os.Getenv("HELM_DRIVER"), func(format string, v ...any) {
 		_ = fmt.Sprintf(format, v)
 	}); err != nil {
 		panic(err)
@@ -83,7 +83,7 @@ func createRelease(releaseName, releaseNamespace, baseDir string, createNamespac
 	// we might end up with mysterious test failures (initErrors during updates might trigger an update).
 	install.Wait = true
 	install.Timeout = 5 * time.Minute
-	rel, err := install.Run(chart, map[string]interface{}{"service": map[string]interface{}{"type": "ClusterIP"}})
+	rel, err := install.Run(chart, map[string]any{"service": map[string]any{"type": "ClusterIP"}})
 	if err != nil {
 		return err
 	}
@@ -101,7 +101,7 @@ func listReleases(releaseNamespace string) ([]*release.Release, error) {
 		return nil, err
 	}
 	if err := actionConfig.Init(kubeconfig, releaseNamespace, os.Getenv("HELM_DRIVER"), func(format string,
-		v ...interface{}) {
+		v ...any) {
 		_ = fmt.Sprintf(format, v)
 	}); err != nil {
 		panic(err)
@@ -121,7 +121,7 @@ func deleteRelease(releaseName, releaseNamespace string) error {
 	}
 
 	actionConfig := new(action.Configuration)
-	if err := actionConfig.Init(kubeconfig, releaseNamespace, os.Getenv("HELM_DRIVER"), func(format string, v ...interface{}) {
+	if err := actionConfig.Init(kubeconfig, releaseNamespace, os.Getenv("HELM_DRIVER"), func(format string, v ...any) {
 		_ = fmt.Sprintf(format, v)
 	}); err != nil {
 		panic(err)

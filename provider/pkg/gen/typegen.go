@@ -151,7 +151,7 @@ func (p Property) DefaultValue() string { return p.defaultValue }
 type definition struct {
 	gvk            schema.GroupVersionKind
 	name           string
-	data           map[string]interface{}
+	data           map[string]any
 	canonicalGroup string
 }
 
@@ -173,8 +173,8 @@ func (d definition) apiVersion(canonicalGroups map[string]string) string {
 // YAML (e.g., `v1` instead of `core/v1`).
 func (d definition) defaultAPIVersion() string {
 	// Pull the canonical GVK from the OpenAPI `x-kubernetes-group-version-kind` field if it exists.
-	if gvks, gvkExists := d.data["x-kubernetes-group-version-kind"].([]interface{}); gvkExists && len(gvks) > 0 {
-		gvk := gvks[0].(map[string]interface{})
+	if gvks, gvkExists := d.data["x-kubernetes-group-version-kind"].([]any); gvkExists && len(gvks) > 0 {
+		gvk := gvks[0].(map[string]any)
 		group := gvk["group"].(string)
 		version := gvk["version"].(string)
 
@@ -192,7 +192,7 @@ func (d definition) defaultAPIVersion() string {
 
 func (d definition) isTopLevel() bool {
 	gvks, gvkExists :=
-		d.data["x-kubernetes-group-version-kind"].([]interface{})
+		d.data["x-kubernetes-group-version-kind"].([]any)
 	hasGVK := gvkExists && len(gvks) > 0
 	if !hasGVK {
 		return false
@@ -227,12 +227,12 @@ func (d definition) isTopLevel() bool {
 		return false
 	}
 
-	properties, hasProperties := d.data["properties"].(map[string]interface{})
+	properties, hasProperties := d.data["properties"].(map[string]any)
 	if !hasProperties {
 		return false
 	}
 
-	meta, hasMetadata := properties["metadata"].(map[string]interface{})
+	meta, hasMetadata := properties["metadata"].(map[string]any)
 	if !hasMetadata {
 		return false
 	}
@@ -268,7 +268,7 @@ func stripPrefix(name string) string {
 }
 
 // extractDeprecationComment returns the comment with deprecation comment removed and the extracted deprecation comment.
-func extractDeprecationComment(comment interface{}, gvk schema.GroupVersionKind) (string, string) {
+func extractDeprecationComment(comment any, gvk schema.GroupVersionKind) (string, string) {
 	if comment == nil {
 		return "", ""
 	}
@@ -288,7 +288,7 @@ func extractDeprecationComment(comment interface{}, gvk schema.GroupVersionKind)
 	return commentstr, ""
 }
 
-func fmtComment(comment interface{}) string {
+func fmtComment(comment any) string {
 	if comment == nil {
 		return ""
 	}
@@ -333,11 +333,11 @@ const (
 	v1CRSubresourceStatus               = apiextensionsV1 + ".CustomResourceSubresourceStatus"
 )
 
-func makeSchemaTypeSpec(prop map[string]interface{}, canonicalGroups map[string]string) pschema.TypeSpec {
+func makeSchemaTypeSpec(prop map[string]any, canonicalGroups map[string]string) pschema.TypeSpec {
 	if t, exists := prop["type"]; exists {
 		switch t := t.(string); t {
 		case "array":
-			elemSpec := makeSchemaTypeSpec(prop["items"].(map[string]interface{}), canonicalGroups)
+			elemSpec := makeSchemaTypeSpec(prop["items"].(map[string]any), canonicalGroups)
 			return pschema.TypeSpec{
 				Type:  "array",
 				Items: &elemSpec,
@@ -348,7 +348,7 @@ func makeSchemaTypeSpec(prop map[string]interface{}, canonicalGroups map[string]
 				return pschema.TypeSpec{Type: "object"}
 			}
 
-			elemSpec := makeSchemaTypeSpec(additionalProperties.(map[string]interface{}), canonicalGroups)
+			elemSpec := makeSchemaTypeSpec(additionalProperties.(map[string]any), canonicalGroups)
 			return pschema.TypeSpec{
 				Type:                 "object",
 				AdditionalProperties: &elemSpec,
@@ -428,7 +428,7 @@ func makeSchemaTypeSpec(prop map[string]interface{}, canonicalGroups map[string]
 	panic("Canonical group not set for ref: " + ref)
 }
 
-func makeSchemaType(prop map[string]interface{}, canonicalGroups map[string]string) string {
+func makeSchemaType(prop map[string]any, canonicalGroups map[string]string) string {
 	spec := makeSchemaTypeSpec(prop, canonicalGroups)
 	b, err := json.Marshal(spec)
 	contract.AssertNoErrorf(err, "unexpected error while marshaling JSON")
@@ -441,7 +441,7 @@ func makeSchemaType(prop map[string]interface{}, canonicalGroups map[string]stri
 
 // --------------------------------------------------------------------------
 
-func createGroups(definitionsJSON map[string]interface{}) []GroupConfig {
+func createGroups(definitionsJSON map[string]any) []GroupConfig {
 	// Map Group -> canonical Group
 	// e.g., flowcontrol -> flowcontrol.apiserver.k8s.io
 	canonicalGroups := map[string]string{
@@ -454,11 +454,11 @@ func createGroups(definitionsJSON map[string]interface{}) []GroupConfig {
 			def := definition{
 				gvk:  gvk,
 				name: defName,
-				data: definitionsJSON[defName].(map[string]interface{}),
+				data: definitionsJSON[defName].(map[string]any),
 			}
 			// Top-level kinds include a canonical GVK.
-			if gvks, gvkExists := def.data["x-kubernetes-group-version-kind"].([]interface{}); gvkExists && len(gvks) > 0 {
-				gvk := gvks[0].(map[string]interface{})
+			if gvks, gvkExists := def.data["x-kubernetes-group-version-kind"].([]any); gvkExists && len(gvks) > 0 {
+				gvk := gvks[0].(map[string]any)
 				group := gvk["group"].(string)
 				// The "core" group shows up as "" in the OpenAPI spec.
 				if group == "" && def.gvk.Group == "core" {
@@ -482,7 +482,7 @@ func createGroups(definitionsJSON map[string]interface{}) []GroupConfig {
 			def := definition{
 				gvk:  gvk,
 				name: defName,
-				data: definitionsJSON[defName].(map[string]interface{}),
+				data: definitionsJSON[defName].(map[string]any),
 			}
 			if canonicalGroup, ok := canonicalGroups[gvk.Group]; ok {
 				def.canonicalGroup = canonicalGroup
@@ -495,7 +495,7 @@ func createGroups(definitionsJSON map[string]interface{}) []GroupConfig {
 
 	// Compute aliases for Kinds. Many k8s resources have multiple GVs, so create a map from Kind -> GV string.
 	// For Kinds with more than one GV, create aliases in the SDKs.
-	aliases := map[string][]interface{}{}
+	aliases := map[string][]any{}
 	linq.From(definitions).
 		WhereT(func(d definition) bool { return d.isTopLevel() && !strings.HasSuffix(d.gvk.Kind, "List") }).
 		OrderByT(func(d definition) string { return d.gvk.String() }).
@@ -518,10 +518,10 @@ func createGroups(definitionsJSON map[string]interface{}) []GroupConfig {
 			return len(group.Group) > 1
 		}).
 		ToMapBy(&aliases,
-			func(i interface{}) interface{} {
+			func(i any) any {
 				return i.(linq.Group).Key
 			},
-			func(i interface{}) interface{} {
+			func(i any) any {
 				return i.(linq.Group).Group
 			})
 	aliasesForKind := func(kind, apiVersion string) []string {
@@ -578,7 +578,7 @@ func createGroups(definitionsJSON map[string]interface{}) []GroupConfig {
 				OrderByT(func(kv linq.KeyValue) string { return kv.Key.(string) }).
 				SelectT(func(kv linq.KeyValue) Property {
 					propName := kv.Key.(string)
-					prop := d.data["properties"].(map[string]interface{})[propName].(map[string]interface{})
+					prop := d.data["properties"].(map[string]any)[propName].(map[string]any)
 
 					schemaType := makeSchemaType(prop, canonicalGroups)
 
@@ -631,7 +631,7 @@ func createGroups(definitionsJSON map[string]interface{}) []GroupConfig {
 			// Required properties.
 			reqdProps := sets.NewString()
 			if reqd, hasReqd := d.data["required"]; hasReqd {
-				for _, propName := range reqd.([]interface{}) {
+				for _, propName := range reqd.([]any) {
 					reqdProps.Insert(propName.(string))
 				}
 			}

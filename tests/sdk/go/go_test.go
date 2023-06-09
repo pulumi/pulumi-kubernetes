@@ -345,7 +345,7 @@ func TestGo(t *testing.T) {
 					Additive: true,
 					ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 						// Validate patched CustomResource
-						crPatchedLabels := stackInfo.Outputs["crPatchedLabels"].(map[string]interface{})
+						crPatchedLabels := stackInfo.Outputs["crPatchedLabels"].(map[string]any)
 						fooV, ok, err := unstructured.NestedString(crPatchedLabels, "foo")
 						assert.True(t, ok)
 						assert.NoError(t, err)

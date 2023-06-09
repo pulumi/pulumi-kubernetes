@@ -110,7 +110,7 @@ func TestDotnet_Helm(t *testing.T) {
 				if res.Type == tokens.Type("kubernetes:core/v1:Service") {
 					spec, has := res.Outputs["status"]
 					assert.True(t, has)
-					specMap, is := spec.(map[string]interface{})
+					specMap, is := spec.(map[string]any)
 					assert.True(t, is)
 					sigKey, has := specMap[resource.SigKey]
 					assert.True(t, has)

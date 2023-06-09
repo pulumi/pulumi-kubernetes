@@ -40,12 +40,12 @@ func TrySetLabel(obj *unstructured.Unstructured, key, value string) (succeeded b
 	}
 
 	var isMap bool
-	var metadata map[string]interface{}
+	var metadata map[string]any
 	if !ok {
-		metadata = map[string]interface{}{}
+		metadata = map[string]any{}
 		obj.Object["metadata"] = metadata
 	} else {
-		metadata, isMap = metadataRaw.(map[string]interface{})
+		metadata, isMap = metadataRaw.(map[string]any)
 		if !isMap {
 			return false, fmt.Errorf("expected .metadata to be a map[string]interface{}, got %q",
 				reflect.TypeOf(metadata))
@@ -56,11 +56,11 @@ func TrySetLabel(obj *unstructured.Unstructured, key, value string) (succeeded b
 	if isComputedValue(labelsRaw) {
 		return false, nil
 	}
-	var labels map[string]interface{}
+	var labels map[string]any
 	if !ok {
-		labels = make(map[string]interface{})
+		labels = make(map[string]any)
 	} else {
-		labels, isMap = labelsRaw.(map[string]interface{})
+		labels, isMap = labelsRaw.(map[string]any)
 		if !isMap {
 			return false, fmt.Errorf("expected .metadata.labels to be a map[string]interface{}, got %q",
 				reflect.TypeOf(labels))
@@ -73,17 +73,17 @@ func TrySetLabel(obj *unstructured.Unstructured, key, value string) (succeeded b
 }
 
 // GetLabel gets the value of the specified label from the given object.
-func GetLabel(obj *unstructured.Unstructured, key string) interface{} {
+func GetLabel(obj *unstructured.Unstructured, key string) any {
 	metadataRaw := obj.Object["metadata"]
 	if isComputedValue(metadataRaw) || metadataRaw == nil {
 		return metadataRaw
 	}
-	metadata := metadataRaw.(map[string]interface{})
+	metadata := metadataRaw.(map[string]any)
 	labelsRaw := metadata["labels"]
 	if isComputedValue(labelsRaw) || labelsRaw == nil {
 		return labelsRaw
 	}
-	return labelsRaw.(map[string]interface{})[key]
+	return labelsRaw.(map[string]any)[key]
 }
 
 // TrySetManagedByLabel attempts to set the `app.kubernetes.io/managed-by` label to the `pulumi` key

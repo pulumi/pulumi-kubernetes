@@ -102,19 +102,19 @@ func New(
 
 	if options.informChan != nil {
 		_, err := informer.Informer().AddEventHandler(cache.ResourceEventHandlerFuncs{
-			AddFunc: func(obj interface{}) {
+			AddFunc: func(obj any) {
 				options.informChan <- watch.Event{
 					Object: obj.(*unstructured.Unstructured),
 					Type:   watch.Added,
 				}
 			},
-			UpdateFunc: func(_, newObj interface{}) {
+			UpdateFunc: func(_, newObj any) {
 				options.informChan <- watch.Event{
 					Object: newObj.(*unstructured.Unstructured),
 					Type:   watch.Modified,
 				}
 			},
-			DeleteFunc: func(obj interface{}) {
+			DeleteFunc: func(obj any) {
 				if unknown, ok := obj.(cache.DeletedFinalStateUnknown); ok {
 					options.informChan <- watch.Event{
 						Object: unknown.Obj.(*unstructured.Unstructured),

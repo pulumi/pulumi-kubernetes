@@ -15,7 +15,7 @@ import (
 // PropertiesChanged compares two versions of an object to see if any path specified in `paths` has
 // been changed. Paths are specified as JSONPaths, e.g., `.spec.accessModes` refers to `{spec:
 // {accessModes: {}}}`.
-func PropertiesChanged(oldObj, newObj map[string]interface{}, paths []string) ([]string, error) {
+func PropertiesChanged(oldObj, newObj map[string]any, paths []string) ([]string, error) {
 	patch, err := mergePatchObj(oldObj, newObj)
 	if err != nil {
 		return nil, err
@@ -26,7 +26,7 @@ func PropertiesChanged(oldObj, newObj map[string]interface{}, paths []string) ([
 // PatchPropertiesChanged scrapes the given patch object to see if any path specified in `paths` has
 // been changed. Paths are specified as JSONPaths, e.g., `.spec.accessModes` refers to `{spec:
 // {accessModes: {}}}`.
-func PatchPropertiesChanged(patch map[string]interface{}, paths []string) ([]string, error) {
+func PatchPropertiesChanged(patch map[string]any, paths []string) ([]string, error) {
 	j := jsonpath.New("")
 	matches := []string{}
 	for _, path := range paths {
@@ -54,7 +54,7 @@ func PatchPropertiesChanged(patch map[string]interface{}, paths []string) ([]str
 // For example, say we have {a: 1, c:3} and {a:1, b:2}. This function would then return {b:2, c:3}.
 //
 // This is useful so that we can (e.g.) use jsonpath to see which fields were altered.
-func mergePatchObj(oldObj, newObj map[string]interface{}) (map[string]interface{}, error) {
+func mergePatchObj(oldObj, newObj map[string]any) (map[string]any, error) {
 	oldJSON, err := json.Marshal(oldObj)
 	if err != nil {
 		return nil, err
@@ -70,7 +70,7 @@ func mergePatchObj(oldObj, newObj map[string]interface{}) (map[string]interface{
 		return nil, err
 	}
 
-	patch := map[string]interface{}{}
+	patch := map[string]any{}
 	err = json.Unmarshal(patchBytes, &patch)
 	if err != nil {
 		return nil, err

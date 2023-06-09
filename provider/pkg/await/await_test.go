@@ -73,7 +73,7 @@ func (mri *mockResourceInterface) DeleteCollection(
 func (mri *mockResourceInterface) Get(
 	ctx context.Context, name string, options metav1.GetOptions, subresources ...string,
 ) (*unstructured.Unstructured, error) {
-	return &unstructured.Unstructured{Object: map[string]interface{}{}}, nil
+	return &unstructured.Unstructured{Object: map[string]any{}}, nil
 }
 func (mri *mockResourceInterface) List(ctx context.Context, opts metav1.ListOptions) (*unstructured.UnstructuredList, error) {
 	panic("List not implemented")

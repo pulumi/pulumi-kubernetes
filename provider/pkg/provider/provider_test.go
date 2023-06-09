@@ -23,26 +23,26 @@ import (
 )
 
 var (
-	objInputs = map[string]interface{}{
+	objInputs = map[string]any{
 		"foo": "bar",
 		"baz": float64(1234),
-		"qux": map[string]interface{}{
+		"qux": map[string]any{
 			"xuq": "oof",
 		},
 	}
-	objLive = map[string]interface{}{
+	objLive = map[string]any{
 		initialAPIVersionKey: "",
 		fieldManagerKey:      "",
 		"oof":                "bar",
 		"zab":                float64(4321),
-		"xuq": map[string]interface{}{
+		"xuq": map[string]any{
 			"qux": "foo",
 		},
 	}
 )
 
 func TestParseOldCheckpointObject(t *testing.T) {
-	old := resource.NewPropertyMapFromMap(map[string]interface{}{
+	old := resource.NewPropertyMapFromMap(map[string]any{
 		"inputs": objInputs,
 		"live":   objLive,
 	})
@@ -77,17 +77,17 @@ func TestCheckpointObject(t *testing.T) {
 
 // #2300 - Read() on top-level k8s objects of kind "secret" led to unencrypted __input
 func TestCheckpointSecretObject(t *testing.T) {
-	objInputSecret := map[string]interface{}{
+	objInputSecret := map[string]any{
 		"kind": "Secret",
-		"data": map[string]interface{}{
+		"data": map[string]any{
 			"password": "verysecret",
 		},
 	}
-	objSecretLive := map[string]interface{}{
+	objSecretLive := map[string]any{
 		initialAPIVersionKey: "",
 		fieldManagerKey:      "",
 		"kind":               "Secret",
-		"data": map[string]interface{}{
+		"data": map[string]any{
 			"password": "verysecret",
 		},
 	}
@@ -126,8 +126,8 @@ func TestRoundtripCheckpointObject(t *testing.T) {
 
 func Test_equalNumbers(t *testing.T) {
 	type args struct {
-		a interface{}
-		b interface{}
+		a any
+		b any
 	}
 	tests := []struct {
 		name string

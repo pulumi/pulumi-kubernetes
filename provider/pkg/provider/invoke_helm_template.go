@@ -59,18 +59,18 @@ type HelmFetchOpts struct {
 type HelmChartOpts struct {
 	HelmFetchOpts `json:"fetch_opts,omitempty"`
 
-	APIVersions              []string               `json:"api_versions,omitempty"`
-	Chart                    string                 `json:"chart,omitempty"`
-	IncludeTestHookResources bool                   `json:"include_test_hook_resources,omitempty"`
-	SkipCRDRendering         bool                   `json:"skip_crd_rendering,omitempty"`
-	Namespace                string                 `json:"namespace,omitempty"`
-	Path                     string                 `json:"path,omitempty"`
-	ReleaseName              string                 `json:"release_name,omitempty"`
-	Repo                     string                 `json:"repo,omitempty"`
-	Values                   map[string]interface{} `json:"values,omitempty"`
-	Version                  string                 `json:"version,omitempty"`
-	HelmChartDebug           bool                   `json:"helm_chart_debug,omitempty"`
-	HelmRegistryConfig       string                 `json:"helm_registry_config,omitempty"`
+	APIVersions              []string       `json:"api_versions,omitempty"`
+	Chart                    string         `json:"chart,omitempty"`
+	IncludeTestHookResources bool           `json:"include_test_hook_resources,omitempty"`
+	SkipCRDRendering         bool           `json:"skip_crd_rendering,omitempty"`
+	Namespace                string         `json:"namespace,omitempty"`
+	Path                     string         `json:"path,omitempty"`
+	ReleaseName              string         `json:"release_name,omitempty"`
+	Repo                     string         `json:"repo,omitempty"`
+	Values                   map[string]any `json:"values,omitempty"`
+	Version                  string         `json:"version,omitempty"`
+	HelmChartDebug           bool           `json:"helm_chart_debug,omitempty"`
+	HelmRegistryConfig       string         `json:"helm_registry_config,omitempty"`
 }
 
 // helmTemplate performs Helm fetch/pull + template operations and returns the resulting YAML manifest based on the
