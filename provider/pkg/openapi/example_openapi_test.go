@@ -7,9 +7,9 @@ import (
 )
 
 func ExamplePluck_pathFound() {
-	obj := map[string]interface{}{
-		"a": map[string]interface{}{
-			"x": map[string]interface{}{
+	obj := map[string]any{
+		"a": map[string]any{
+			"x": map[string]any{
 				"foo": 1,
 				"bar": 2,
 			},
@@ -26,9 +26,9 @@ func ExamplePluck_pathFound() {
 }
 
 func ExamplePluck_pathNotFound() {
-	obj := map[string]interface{}{
-		"a": map[string]interface{}{
-			"x": map[string]interface{}{
+	obj := map[string]any{
+		"a": map[string]any{
+			"x": map[string]any{
 				"foo": 1,
 				"bar": 2,
 			},

@@ -157,11 +157,11 @@ func SupportsDryRun(dryRunVerifier *resource.QueryParamVerifier, gvk schema.Grou
 
 // Pluck obtains the property identified by the string components in `path`. For example,
 // `Pluck(foo, "bar", "baz")` returns `foo.bar.baz`.
-func Pluck(obj map[string]interface{}, path ...string) (interface{}, bool) {
-	var curr interface{} = obj
+func Pluck(obj map[string]any, path ...string) (any, bool) {
+	var curr any = obj
 	for _, component := range path {
 		// Make sure we can actually dot into the current element.
-		currObj, isMap := curr.(map[string]interface{})
+		currObj, isMap := curr.(map[string]any)
 		if !isMap {
 			return nil, false
 		}

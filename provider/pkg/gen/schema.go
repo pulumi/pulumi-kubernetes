@@ -34,7 +34,7 @@ var typeOverlays = map[string]pschema.ComplexTypeSpec{}
 var resourceOverlays = map[string]pschema.ResourceSpec{}
 
 // PulumiSchema will generate a Pulumi schema for the given k8s schema.
-func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
+func PulumiSchema(swagger map[string]any) pschema.PackageSpec {
 	pkg := pschema.PackageSpec{
 		Name:        "kubernetes",
 		Description: "A Pulumi package for creating and managing Kubernetes resources.",
@@ -52,7 +52,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 						" this config will be used instead of $KUBECONFIG.",
 					TypeSpec: pschema.TypeSpec{Type: "string"},
 					Language: map[string]pschema.RawMessage{
-						"csharp": rawMessage(map[string]interface{}{
+						"csharp": rawMessage(map[string]any{
 							"name": "KubeConfig",
 						}),
 					},
@@ -120,7 +120,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 					Description: "The contents of a kubeconfig file or the path to a kubeconfig file.",
 					TypeSpec:    pschema.TypeSpec{Type: "string"},
 					Language: map[string]pschema.RawMessage{
-						"csharp": rawMessage(map[string]interface{}{
+						"csharp": rawMessage(map[string]any{
 							"name": "KubeConfig",
 						}),
 					},
@@ -221,7 +221,7 @@ func PulumiSchema(swagger map[string]interface{}) pschema.PackageSpec {
 		"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v3": "helmv3",
 	}
 
-	definitions := swagger["definitions"].(map[string]interface{})
+	definitions := swagger["definitions"].(map[string]any)
 	groupsSlice := createGroups(definitions)
 
 	for _, group := range groupsSlice {
@@ -443,7 +443,7 @@ additional information about using Server-Side Apply to manage Kubernetes resour
 	// Compatibility mode for Kubernetes 2.0 SDK
 	const kubernetes20 = "kubernetes20"
 
-	pkg.Language["csharp"] = rawMessage(map[string]interface{}{
+	pkg.Language["csharp"] = rawMessage(map[string]any{
 		"packageReferences": map[string]string{
 			"Glob":   "1.1.5",
 			"Pulumi": "3.*",
@@ -453,18 +453,18 @@ additional information about using Server-Side Apply to manage Kubernetes resour
 		"dictionaryConstructors": true,
 	})
 
-	pkg.Language["java"] = rawMessage(map[string]interface{}{
+	pkg.Language["java"] = rawMessage(map[string]any{
 		"packages": javaPackages,
 	})
 
-	pkg.Language["go"] = rawMessage(map[string]interface{}{
+	pkg.Language["go"] = rawMessage(map[string]any{
 		"importBasePath":                 goImportPath,
 		"moduleToPackage":                modToPkg,
 		"packageImportAliases":           pkgImportAliases,
 		"generateResourceContainerTypes": true,
 		"generateExtraInputTypes":        true,
 	})
-	pkg.Language["nodejs"] = rawMessage(map[string]interface{}{
+	pkg.Language["nodejs"] = rawMessage(map[string]any{
 		"compatibility": kubernetes20,
 		"dependencies": map[string]string{
 			"@pulumi/pulumi":    "^3.25.0",
@@ -498,7 +498,7 @@ If this is your first time using this package, these two resources may be helpfu
 Use the navigation below to see detailed documentation for each of the supported Kubernetes resources.
 `,
 	})
-	pkg.Language["python"] = rawMessage(map[string]interface{}{
+	pkg.Language["python"] = rawMessage(map[string]any{
 		"requires": map[string]string{
 			"pulumi":   ">=3.25.0,<4.0.0",
 			"requests": ">=2.21,<3.0",
@@ -570,7 +570,7 @@ func genPropertySpec(p Property, resourceKind string) pschema.PropertySpec {
 	if languageName == resourceKind {
 		// .NET does not allow properties to be the same as the enclosing class - so special case these
 		propertySpec.Language = map[string]pschema.RawMessage{
-			"csharp": rawMessage(map[string]interface{}{
+			"csharp": rawMessage(map[string]any{
 				"name": languageName + "Value",
 			}),
 		}
@@ -579,7 +579,7 @@ func genPropertySpec(p Property, resourceKind string) pschema.PropertySpec {
 	// the generated names. Replace them with `Ref` and `Schema`.
 	if strings.HasPrefix(p.name, "$") {
 		propertySpec.Language = map[string]pschema.RawMessage{
-			"csharp": rawMessage(map[string]interface{}{
+			"csharp": rawMessage(map[string]any{
 				"name": strings.ToUpper(p.name[1:2]) + p.name[2:],
 			}),
 		}
@@ -593,7 +593,7 @@ func genPropertySpec(p Property, resourceKind string) pschema.PropertySpec {
 	return propertySpec
 }
 
-func rawMessage(v interface{}) pschema.RawMessage {
+func rawMessage(v any) pschema.RawMessage {
 	var out bytes.Buffer
 	encoder := json.NewEncoder(&out)
 	encoder.SetEscapeHTML(false)

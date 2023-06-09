@@ -156,7 +156,7 @@ func generateSchema(swaggerPath string) schema.PackageSpec {
 		swagger = mergeSwaggerSpecs(legacySwagger, swagger)
 	}
 
-	var schemaMap map[string]interface{}
+	var schemaMap map[string]any
 	err = json.Unmarshal(swagger, &schemaMap)
 	if err != nil {
 		panic(err)
@@ -420,7 +420,7 @@ func mustLoadGoFile(path string) []byte {
 	return formattedSource
 }
 
-func mustRenderTemplate(path string, resources interface{}) []byte {
+func mustRenderTemplate(path string, resources any) []byte {
 	b := mustLoadFile(path)
 	t := template.Must(template.New("resources").Parse(string(b)))
 
@@ -432,7 +432,7 @@ func mustRenderTemplate(path string, resources interface{}) []byte {
 	return buf.Bytes()
 }
 
-func mustRenderGoTemplate(path string, resources interface{}) []byte {
+func mustRenderGoTemplate(path string, resources any) []byte {
 	bytes := mustRenderTemplate(path, resources)
 
 	formattedSource, err := format.Source(bytes)
@@ -492,7 +492,7 @@ func mustWriteFile(rootDir, filename string, contents []byte) {
 	}
 }
 
-func makeJSONString(v interface{}) ([]byte, error) {
+func makeJSONString(v any) ([]byte, error) {
 	var out bytes.Buffer
 	encoder := json.NewEncoder(&out)
 	encoder.SetEscapeHTML(false)

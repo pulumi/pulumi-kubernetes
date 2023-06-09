@@ -23,8 +23,8 @@ func main() {
 			return err
 		}
 		svc := pulumi.All(rel.Status.Namespace(), rel.Status.Name()).
-			ApplyT(func(r interface{}) (interface{}, error) {
-				arr := r.([]interface{})
+			ApplyT(func(r any) (any, error) {
+				arr := r.([]any)
 				namespace := arr[0].(*string)
 				name := arr[1].(*string)
 				svc, err := corev1.GetService(ctx, "svc", pulumi.ID(fmt.Sprintf("%s/%s-nginx", *namespace, *name)), nil)

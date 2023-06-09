@@ -115,7 +115,7 @@ type Release struct {
 	// When upgrading, reuse the last release's values and merge in any overrides. If 'reset_values' is specified, this is ignored
 	ReuseValues bool `json:"reuseValues,omitempty"`
 	// Custom values to be merged with items loaded from values.
-	Values map[string]interface{} `json:"values,omitempty"`
+	Values map[string]any `json:"values,omitempty"`
 	// If set, no CRDs will be installed. By default, CRDs are installed if not already present
 	SkipCrds bool `json:"skipCrds,omitempty"`
 	// Time in seconds to wait for any individual kubernetes operation.
@@ -226,7 +226,7 @@ func newHelmReleaseProvider(
 	}, nil
 }
 
-func debug(format string, a ...interface{}) {
+func debug(format string, a ...any) {
 	logger.V(6).Infof("[DEBUG] %s", fmt.Sprintf(format, a...))
 }
 
@@ -275,7 +275,7 @@ func (r *helmReleaseProvider) getActionConfig(namespace string) (*action.Configu
 
 func decodeRelease(pm resource.PropertyMap, label string) (*Release, error) {
 	var release Release
-	values := map[string]interface{}{}
+	values := map[string]any{}
 	stripped := pm.MapRepl(nil, mapReplStripSecrets)
 	logger.V(9).Infof("[%s] Decoding release: %#v", label, stripped)
 
@@ -714,7 +714,7 @@ func (r *helmReleaseProvider) Diff(ctx context.Context, req *pulumirpc.DiffReque
 	if err != nil {
 		return nil, err
 	}
-	patchObj := map[string]interface{}{}
+	patchObj := map[string]any{}
 	if err = json.Unmarshal(patch, &patchObj); err != nil {
 		return nil, pkgerrors.Wrapf(
 			err, "Failed to check for changes in Helm release %s because of an error serializing "+
@@ -782,7 +782,7 @@ func resourceReleaseValidate(cpo *action.ChartPathOptions, release *Release, set
 	return lintChart(settings, name, cpo, values)
 }
 
-func lintChart(settings *cli.EnvSettings, name string, cpo *action.ChartPathOptions, values map[string]interface{}) (err error) {
+func lintChart(settings *cli.EnvSettings, name string, cpo *action.ChartPathOptions, values map[string]any) (err error) {
 	path, err := cpo.LocateChart(name, settings)
 	if err != nil {
 		return err
@@ -1265,9 +1265,9 @@ func isChartInstallable(ch *helmchart.Chart) error {
 	return fmt.Errorf("%s charts are not installable", ch.Metadata.Type)
 }
 
-func getValues(release *Release) (map[string]interface{}, error) {
+func getValues(release *Release) (map[string]any, error) {
 	var err error
-	base := map[string]interface{}{}
+	base := map[string]any{}
 	base, err = mergeMaps(base, release.Values, release.AllowNullValues)
 	if err != nil {
 		return nil, err
@@ -1275,10 +1275,10 @@ func getValues(release *Release) (map[string]interface{}, error) {
 	return base, logValues(base)
 }
 
-func logValues(values map[string]interface{}) error {
+func logValues(values map[string]any) error {
 	// copy array to avoid change values by the cloak function.
 	asJSON, _ := json.Marshal(values)
-	var c map[string]interface{}
+	var c map[string]any
 	err := json.Unmarshal(asJSON, &c)
 	if err != nil {
 		return err
@@ -1298,13 +1298,13 @@ func logValues(values map[string]interface{}) error {
 }
 
 // Merges a and b map, preferring values from b map
-func mergeMaps(a, b map[string]interface{}, allowNullValues bool) (map[string]interface{}, error) {
+func mergeMaps(a, b map[string]any, allowNullValues bool) (map[string]any, error) {
 	if allowNullValues {
-		a = mapToInterface(a).(map[string]interface{})
-		b = mapToInterface(b).(map[string]interface{})
+		a = mapToInterface(a).(map[string]any)
+		b = mapToInterface(b).(map[string]any)
 	} else {
-		a = excludeNulls(a).(map[string]interface{})
-		b = excludeNulls(b).(map[string]interface{})
+		a = excludeNulls(a).(map[string]any)
+		b = excludeNulls(b).(map[string]any)
 	}
 	if err := mergo.Merge(&a, b, mergo.WithOverride, mergo.WithTypeCheck); err != nil {
 		return nil, err
@@ -1312,11 +1312,11 @@ func mergeMaps(a, b map[string]interface{}, allowNullValues bool) (map[string]in
 	return a, nil
 }
 
-func excludeNulls(in interface{}) interface{} {
+func excludeNulls(in any) any {
 	switch reflect.TypeOf(in).Kind() {
 	case reflect.Map:
-		out := map[string]interface{}{}
-		m := in.(map[string]interface{})
+		out := map[string]any{}
+		m := in.(map[string]any)
 		for k, v := range m {
 			val := reflect.ValueOf(v)
 			if val.IsValid() {
@@ -1331,8 +1331,8 @@ func excludeNulls(in interface{}) interface{} {
 		}
 		return out
 	case reflect.Slice, reflect.Array:
-		var out []interface{}
-		s := in.([]interface{})
+		var out []any
+		s := in.([]any)
 		for _, i := range s {
 			if i != nil {
 				out = append(out, excludeNulls(i))
@@ -1343,11 +1343,11 @@ func excludeNulls(in interface{}) interface{} {
 	return in
 }
 
-func mapToInterface(in interface{}) interface{} {
+func mapToInterface(in any) any {
 	switch reflect.TypeOf(in).Kind() {
 	case reflect.Map:
-		out := map[string]interface{}{}
-		m := in.(map[string]interface{})
+		out := map[string]any{}
+		m := in.(map[string]any)
 		for k, v := range m {
 			val := reflect.ValueOf(v)
 			if !val.IsValid() {
@@ -1358,8 +1358,8 @@ func mapToInterface(in interface{}) interface{} {
 		}
 		return out
 	case reflect.Slice, reflect.Array:
-		var out []interface{}
-		s := in.([]interface{})
+		var out []any
+		s := in.([]any)
 		for _, i := range s {
 			out = append(out, mapToInterface(i))
 		}

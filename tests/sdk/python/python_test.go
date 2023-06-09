@@ -148,8 +148,8 @@ func TestYaml(t *testing.T) {
 					fmt.Sprintf("%s/%s/%s", rj.URN.Type(), rjnamespace, rjname)
 			})
 
-			var name interface{}
-			var ns interface{}
+			var name any
+			var ns any
 			var namespaceName, namespace2Name string
 
 			// Verify CRD.
@@ -219,7 +219,7 @@ func TestYaml(t *testing.T) {
 				if res.Type == "kubernetes:core/v1:Pod" {
 					spec, has := res.Outputs["apiVersion"]
 					assert.True(t, has)
-					specMap, is := spec.(map[string]interface{})
+					specMap, is := spec.(map[string]any)
 					assert.True(t, is)
 					sigKey, has := specMap[resource.SigKey]
 					assert.True(t, has)
@@ -256,8 +256,8 @@ func TestGuestbook(t *testing.T) {
 							fmt.Sprintf("%s/%s/%s", rj.URN.Type(), rjnamespace, rjname)
 					})
 
-					var name interface{}
-					var status interface{}
+					var name any
+					var status any
 
 					// Verify frontend deployment.
 					frontendDepl := stackInfo.Deployment.Resources[0]
@@ -514,7 +514,7 @@ func TestServerSideApply(t *testing.T) {
 		},
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			// Validate patched CustomResource
-			crPatched := stackInfo.Outputs["crPatched"].(map[string]interface{})
+			crPatched := stackInfo.Outputs["crPatched"].(map[string]any)
 			fooV, ok, err := unstructured.NestedString(crPatched, "metadata", "labels", "foo")
 			assert.True(t, ok)
 			assert.NoError(t, err)

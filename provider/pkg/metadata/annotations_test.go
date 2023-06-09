@@ -23,21 +23,21 @@ import (
 )
 
 func TestSetAnnotation(t *testing.T) {
-	noAnnotationObj := &unstructured.Unstructured{Object: map[string]interface{}{
-		"metadata": map[string]interface{}{},
+	noAnnotationObj := &unstructured.Unstructured{Object: map[string]any{
+		"metadata": map[string]any{},
 	}}
-	existingAnnotationObj := &unstructured.Unstructured{Object: map[string]interface{}{
-		"metadata": map[string]interface{}{
-			"annotations": map[string]interface{}{
+	existingAnnotationObj := &unstructured.Unstructured{Object: map[string]any{
+		"metadata": map[string]any{
+			"annotations": map[string]any{
 				"pulumi": "rocks",
 			},
 		},
 	}}
-	computedMetadataObj := &unstructured.Unstructured{Object: map[string]interface{}{
+	computedMetadataObj := &unstructured.Unstructured{Object: map[string]any{
 		"metadata": resource.Computed{Element: resource.NewObjectProperty(nil)},
 	}}
-	computedAnnotationObj := &unstructured.Unstructured{Object: map[string]interface{}{
-		"metadata": map[string]interface{}{
+	computedAnnotationObj := &unstructured.Unstructured{Object: map[string]any{
+		"metadata": map[string]any{
 			"annotations": resource.Computed{Element: resource.NewObjectProperty(nil)},
 		},
 	}}

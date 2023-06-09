@@ -64,7 +64,7 @@ func TestAliases(t *testing.T) {
 			assert.Equal(t, "alias-test", string(deployment.URN.Name()))
 			assert.Equal(t, "kubernetes:apps/v1:Deployment", string(deployment.Type))
 			containers, _ := openapi.Pluck(deployment.Outputs, "spec", "template", "spec", "containers")
-			containerStatus := containers.([]interface{})[0].(map[string]interface{})
+			containerStatus := containers.([]any)[0].(map[string]any)
 			image := containerStatus["image"]
 			assert.Equal(t, image.(string), "nginx:1.14")
 		},
@@ -82,7 +82,7 @@ func TestAliases(t *testing.T) {
 					assert.Equal(t, "alias-test", string(deployment.URN.Name()))
 					assert.Equal(t, "kubernetes:apps/v1:Deployment", string(deployment.Type))
 					containers, _ := openapi.Pluck(deployment.Outputs, "spec", "template", "spec", "containers")
-					containerStatus := containers.([]interface{})[0].(map[string]interface{})
+					containerStatus := containers.([]any)[0].(map[string]any)
 					image := containerStatus["image"]
 					assert.Equal(t, image.(string), "nginx:1.15")
 				},
@@ -93,9 +93,9 @@ func TestAliases(t *testing.T) {
 }
 
 func TestAutonaming(t *testing.T) {
-	var step1Name interface{}
-	var step2Name interface{}
-	var step3Name interface{}
+	var step1Name any
+	var step2Name any
+	var step3Name any
 
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:   filepath.Join("autonaming", "step1"),
@@ -307,7 +307,7 @@ func TestPod(t *testing.T) {
 
 			// Status "Ready" is "True".
 			conditions, _ := openapi.Pluck(pod.Outputs, "status", "conditions")
-			ready := conditions.([]interface{})[1].(map[string]interface{})
+			ready := conditions.([]any)[1].(map[string]any)
 			readyType := ready["type"]
 			assert.Equal(t, "Ready", readyType)
 			readyStatus := ready["status"]
@@ -315,7 +315,7 @@ func TestPod(t *testing.T) {
 
 			// Container is called "nginx" and uses image "docker.io/library/nginx:1.13-alpine".
 			containerStatuses, _ := openapi.Pluck(pod.Outputs, "status", "containerStatuses")
-			containerStatus := containerStatuses.([]interface{})[0].(map[string]interface{})
+			containerStatus := containerStatuses.([]any)[0].(map[string]any)
 			containerName := containerStatus["name"]
 			assert.Equal(t, "nginx", containerName)
 			image := containerStatus["image"]
@@ -360,7 +360,7 @@ func TestPod(t *testing.T) {
 
 					// Status "Ready" is "True".
 					conditions, _ := openapi.Pluck(pod.Outputs, "status", "conditions")
-					ready := conditions.([]interface{})[1].(map[string]interface{})
+					ready := conditions.([]any)[1].(map[string]any)
 					readyType := ready["type"]
 					assert.Equal(t, "Ready", readyType)
 					readyStatus := ready["status"]
@@ -368,7 +368,7 @@ func TestPod(t *testing.T) {
 
 					// Container is called "nginx" and uses image "docker.io/library/nginx:1.15-alpine".
 					containerStatuses, _ := openapi.Pluck(pod.Outputs, "status", "containerStatuses")
-					containerStatus := containerStatuses.([]interface{})[0].(map[string]interface{})
+					containerStatus := containerStatuses.([]any)[0].(map[string]any)
 					containerName := containerStatus["name"]
 					assert.Equal(t, "nginx", containerName)
 					image := containerStatus["image"]
@@ -407,13 +407,13 @@ func TestDeploymentRollout(t *testing.T) {
 			name, _ := openapi.Pluck(appsv1Deploy.Outputs, "metadata", "name")
 			assert.True(t, strings.Contains(name.(string), "nginx"))
 			containers, _ := openapi.Pluck(appsv1Deploy.Outputs, "spec", "template", "spec", "containers")
-			containerStatus := containers.([]interface{})[0].(map[string]interface{})
+			containerStatus := containers.([]any)[0].(map[string]any)
 			image := containerStatus["image"]
 			assert.Equal(t, image.(string), "nginx")
 
 			assert.True(t, strings.Contains(name.(string), "nginx"))
 			containers, _ = openapi.Pluck(appsv1Deploy.Outputs, "spec", "template", "spec", "containers")
-			containerStatus = containers.([]interface{})[0].(map[string]interface{})
+			containerStatus = containers.([]any)[0].(map[string]any)
 			image = containerStatus["image"]
 			assert.Equal(t, image.(string), "nginx")
 		},
@@ -444,7 +444,7 @@ func TestDeploymentRollout(t *testing.T) {
 					name, _ := openapi.Pluck(appsv1Deploy.Outputs, "metadata", "name")
 					assert.True(t, strings.Contains(name.(string), "nginx"))
 					containers, _ := openapi.Pluck(appsv1Deploy.Outputs, "spec", "template", "spec", "containers")
-					containerStatus := containers.([]interface{})[0].(map[string]interface{})
+					containerStatus := containers.([]any)[0].(map[string]any)
 					image := containerStatus["image"]
 					assert.Equal(t, image.(string), "nginx:stable")
 				},
@@ -480,7 +480,7 @@ func TestGet(t *testing.T) {
 			// Assert we can use .get to retrieve the kube-api Service.
 			//
 
-			service := stackInfo.Outputs["svc"].(map[string]interface{})
+			service := stackInfo.Outputs["svc"].(map[string]any)
 			svcURN, _ := openapi.Pluck(service, "urn")
 			assert.Containsf(t, svcURN, "kube-api", "urn missing expected name")
 			svcName, _ := openapi.Pluck(service, "metadata", "name")
@@ -490,7 +490,7 @@ func TestGet(t *testing.T) {
 			// Assert that the uninitialized Service exists
 			//
 
-			awaitSvc := stackInfo.Outputs["awaitSvc"].(map[string]interface{})
+			awaitSvc := stackInfo.Outputs["awaitSvc"].(map[string]any)
 			awaitSvcName, _ := openapi.Pluck(awaitSvc, "metadata", "name")
 			assert.Equalf(t, "test", awaitSvcName, "unexpected service name")
 			awaitSvcAnnotation, ok := openapi.Pluck(awaitSvc, "metadata", "annotations", "pulumi.com/skipAwait")
@@ -501,11 +501,11 @@ func TestGet(t *testing.T) {
 			// Assert that CRD and CR exist
 			//
 
-			crd := stackInfo.Outputs["ct"].(map[string]interface{})
+			crd := stackInfo.Outputs["ct"].(map[string]any)
 			crdURN, _ := openapi.Pluck(crd, "urn")
 			assert.Containsf(t, crdURN, "crontab", "urn missing expected name")
 
-			cr := stackInfo.Outputs["cr"].(map[string]interface{})
+			cr := stackInfo.Outputs["cr"].(map[string]any)
 			crURN, _ := openapi.Pluck(cr, "urn")
 			assert.Containsf(t, crURN, "my-new-cron-object", "urn missing expected name")
 		},
@@ -521,7 +521,7 @@ func TestGet(t *testing.T) {
 					// Assert we can use .get to retrieve the kube-api Service.
 					//
 
-					service := stackInfo.Outputs["svc"].(map[string]interface{})
+					service := stackInfo.Outputs["svc"].(map[string]any)
 					svcURN, _ := openapi.Pluck(service, "urn")
 					assert.Containsf(t, svcURN, "kube-api", "urn missing expected name")
 					svcName, _ := openapi.Pluck(service, "metadata", "name")
@@ -531,7 +531,7 @@ func TestGet(t *testing.T) {
 					// Assert that the uninitialized Service exists
 					//
 
-					awaitSvc := stackInfo.Outputs["awaitSvc"].(map[string]interface{})
+					awaitSvc := stackInfo.Outputs["awaitSvc"].(map[string]any)
 					awaitSvcName, _ := openapi.Pluck(awaitSvc, "metadata", "name")
 					assert.Equalf(t, "test", awaitSvcName, "unexpected service name")
 					awaitSvcAnnotation, ok := openapi.Pluck(awaitSvc, "metadata", "annotations", "pulumi.com/skipAwait")
@@ -542,7 +542,7 @@ func TestGet(t *testing.T) {
 					// Assert we can use .get to retrieve a Service that would fail await logic.
 					//
 
-					awaitSvcGet := stackInfo.Outputs["awaitSvcGet"].(map[string]interface{})
+					awaitSvcGet := stackInfo.Outputs["awaitSvcGet"].(map[string]any)
 					awaitSvcGetURN, _ := openapi.Pluck(awaitSvcGet, "urn")
 					assert.Containsf(t, awaitSvcGetURN, "await", "urn missing expected name")
 
@@ -550,7 +550,7 @@ func TestGet(t *testing.T) {
 					// Assert we can use an output from a Service that would fail await logic.
 					//
 
-					cm := stackInfo.Outputs["cm"].(map[string]interface{})
+					cm := stackInfo.Outputs["cm"].(map[string]any)
 					cmURN, _ := openapi.Pluck(cm, "urn")
 					assert.Containsf(t, cmURN, "svc-test", "urn missing expected name")
 					clusterIP, _ := openapi.Pluck(cm, "data", "key")
@@ -560,11 +560,11 @@ func TestGet(t *testing.T) {
 					// Assert that CRD and CR exist
 					//
 
-					crd := stackInfo.Outputs["ct"].(map[string]interface{})
+					crd := stackInfo.Outputs["ct"].(map[string]any)
 					crdURN, _ := openapi.Pluck(crd, "urn")
 					assert.Containsf(t, crdURN, "crontab", "urn missing expected name")
 
-					cr := stackInfo.Outputs["cr"].(map[string]interface{})
+					cr := stackInfo.Outputs["cr"].(map[string]any)
 					crURN, _ := openapi.Pluck(cr, "urn")
 					assert.Containsf(t, crURN, "my-new-cron-object", "urn missing expected name")
 
@@ -572,7 +572,7 @@ func TestGet(t *testing.T) {
 					// Assert we can use .get to retrieve CRDs.
 					//
 
-					crGet := stackInfo.Outputs["crGet"].(map[string]interface{})
+					crGet := stackInfo.Outputs["crGet"].(map[string]any)
 					crGetURN, _ := openapi.Pluck(crGet, "urn")
 					assert.Containsf(t, crGetURN, "my-new-cron-object-get", "urn missing expected name")
 				},
@@ -688,7 +688,7 @@ func TestNamespace(t *testing.T) {
 					namespace := stackInfo.Deployment.Resources[0]
 					assert.Equal(t, tokens.Type("kubernetes:core/v1:Namespace"), namespace.URN.Type())
 					namespaceLabels, _ := openapi.Pluck(namespace.Outputs, "metadata", "labels")
-					assert.True(t, namespaceLabels.(map[string]interface{})["hello"] == "world")
+					assert.True(t, namespaceLabels.(map[string]any)["hello"] == "world")
 				},
 			},
 			{
@@ -1056,14 +1056,14 @@ func TestServerSideApply(t *testing.T) {
 		},
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			// Validate patched Namespace
-			nsPatched := stackInfo.Outputs["nsPatched"].(map[string]interface{})
+			nsPatched := stackInfo.Outputs["nsPatched"].(map[string]any)
 			fooV, ok, err := unstructured.NestedString(nsPatched, "metadata", "labels", "foo")
 			assert.True(t, ok)
 			assert.NoError(t, err)
 			assert.Equal(t, "foo", fooV)
 
 			// Validate patched CustomResource
-			crPatched := stackInfo.Outputs["crPatched"].(map[string]interface{})
+			crPatched := stackInfo.Outputs["crPatched"].(map[string]any)
 			fooV, ok, err = unstructured.NestedString(crPatched, "metadata", "labels", "foo")
 			assert.True(t, ok)
 			assert.NoError(t, err)
@@ -1098,14 +1098,14 @@ func TestServerSideApply(t *testing.T) {
 				Additive: true,
 				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 					// Validate patched Deployment
-					deploymentPatched := stackInfo.Outputs["deploymentPatched"].(map[string]interface{})
+					deploymentPatched := stackInfo.Outputs["deploymentPatched"].(map[string]any)
 					containersV, ok, err := unstructured.NestedSlice(
 						deploymentPatched, "spec", "template", "spec", "containers")
 					assert.True(t, ok)
 					assert.NoError(t, err)
 					assert.Len(t, containersV, 1)
 					limitsV, ok, err := unstructured.NestedMap(
-						containersV[0].(map[string]interface{}), "resources", "limits")
+						containersV[0].(map[string]any), "resources", "limits")
 					assert.True(t, ok)
 					assert.NoError(t, err)
 					assert.Contains(t, limitsV, "memory")
@@ -1158,13 +1158,13 @@ func TestServerSideApplyEmptyMaps(t *testing.T) {
 			},
 		},
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
-			cm := stackInfo.Outputs["cm"].(map[string]interface{})
+			cm := stackInfo.Outputs["cm"].(map[string]any)
 			// Save the name and namespace for later use with kubectl. We check that the vars are empty,
 			// in case pulumi up creates a new ConfigMap/Namespace instead of updating the existing one on
 			// subsequent runs.
 			if ns == "" && cmName == "" {
-				ns = cm["metadata"].(map[string]interface{})["namespace"].(string)
-				cmName = cm["metadata"].(map[string]interface{})["name"].(string)
+				ns = cm["metadata"].(map[string]any)["namespace"].(string)
+				cmName = cm["metadata"].(map[string]any)["name"].(string)
 			}
 
 			// Validate we applied ConfigMap with wanted labels.
@@ -1223,7 +1223,7 @@ func TestServerSideApplyPreview(t *testing.T) {
 			},
 		},
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
-			cm := stackInfo.Outputs["cm"].(map[string]interface{})
+			cm := stackInfo.Outputs["cm"].(map[string]any)
 
 			// Validate we applied ConfigMap with expected data.
 			dataKeyV, ok, err := unstructured.NestedString(cm, "data", "dataKey")
@@ -1308,7 +1308,7 @@ func TestServerSideApplyUpgrade(t *testing.T) {
 		},
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			// Validate Provider config
-			provider := stackInfo.Outputs["provider"].(map[string]interface{})
+			provider := stackInfo.Outputs["provider"].(map[string]any)
 			enableSSA, ok, err := unstructured.NestedString(provider, "enableServerSideApply")
 			assert.True(t, ok)
 			assert.NoError(t, err)
@@ -1320,7 +1320,7 @@ func TestServerSideApplyUpgrade(t *testing.T) {
 				Additive: true,
 				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 					// Validate Provider config
-					provider := stackInfo.Outputs["provider"].(map[string]interface{})
+					provider := stackInfo.Outputs["provider"].(map[string]any)
 					enableSSA, ok, err := unstructured.NestedString(provider, "enableServerSideApply")
 					assert.True(t, ok)
 					assert.NoError(t, err)
@@ -1335,7 +1335,7 @@ func TestServerSideApplyUpgrade(t *testing.T) {
 						if res.Type == "kubernetes:apps/v1:Deployment" {
 							containers, ok := openapi.Pluck(res.Outputs, "spec", "template", "spec", "containers")
 							assert.True(t, ok)
-							containerStatus := containers.([]interface{})[0].(map[string]interface{})
+							containerStatus := containers.([]any)[0].(map[string]any)
 							image := containerStatus["image"]
 							assert.Equalf(t, image.(string), "nginx:1.17", "image should be updated")
 						}
@@ -1419,7 +1419,7 @@ func TestServiceAccountTokenSecret(t *testing.T) {
 			_, err := json.Marshal(stackInfo.Deployment)
 			assert.NoError(t, err)
 
-			secretData := stackInfo.Outputs["data"].(map[string]interface{})
+			secretData := stackInfo.Outputs["data"].(map[string]any)
 
 			assert.Contains(t, secretData, "ca.crt")
 			assert.Contains(t, secretData, "token")

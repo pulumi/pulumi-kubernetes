@@ -63,8 +63,8 @@ func TestAccGuestbook(t *testing.T) {
 						fmt.Sprintf("%s/%s/%s", rj.URN.Type(), rjnamespace, rjname)
 				})
 
-				var name interface{}
-				var status interface{}
+				var name any
+				var status any
 
 				// Verify frontend deployment.
 				frontendDepl := stackInfo.Deployment.Resources[0]
@@ -174,7 +174,7 @@ func TestAccHelm(t *testing.T) {
 					if res.Type == "kubernetes:core/v1:Service" {
 						spec, has := res.Outputs["status"]
 						assert.True(t, has)
-						specMap, is := spec.(map[string]interface{})
+						specMap, is := spec.(map[string]any)
 						assert.True(t, is)
 						sigKey, has := specMap[resource.SigKey]
 						assert.True(t, has)
@@ -349,7 +349,7 @@ func TestHelmRelease(t *testing.T) {
 				assert.True(t, has)
 				stat, has := res.Outputs["status"]
 				assert.True(t, has)
-				specMap, is := stat.(map[string]interface{})
+				specMap, is := stat.(map[string]any)
 				assert.True(t, is)
 				versionOut, has := specMap["version"]
 				assert.True(t, has)
@@ -357,24 +357,24 @@ func TestHelmRelease(t *testing.T) {
 				values, has := res.Outputs["values"]
 				assert.True(t, has)
 				assert.Contains(t, values, "cluster")
-				valMap := values.(map[string]interface{})
-				assert.Equal(t, valMap["cluster"], map[string]interface{}{
+				valMap := values.(map[string]any)
+				assert.Equal(t, valMap["cluster"], map[string]any{
 					"enabled":    true,
 					"slaveCount": float64(2),
 				})
 				// not asserting contents since the secret is hard to assert equality on.
 				assert.Contains(t, values, "global")
 				assert.Contains(t, values, "metrics")
-				assert.Equal(t, valMap["metrics"], map[string]interface{}{
+				assert.Equal(t, valMap["metrics"], map[string]any{
 					"enabled": true,
-					"service": map[string]interface{}{
-						"annotations": map[string]interface{}{
+					"service": map[string]any{
+						"annotations": map[string]any{
 							"prometheus.io/port": "9127",
 						},
 					},
 				})
 				assert.Contains(t, values, "rbac")
-				assert.Equal(t, valMap["rbac"], map[string]interface{}{
+				assert.Equal(t, valMap["rbac"], map[string]any{
 					"create": true,
 				})
 			}

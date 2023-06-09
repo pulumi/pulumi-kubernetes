@@ -38,7 +38,7 @@ func TestAssignNameIfAutonamable(t *testing.T) {
 
 	// o2 has a name, so autonaming fails.
 	o2 := &unstructured.Unstructured{
-		Object: map[string]interface{}{"metadata": map[string]interface{}{"name": "bar"}},
+		Object: map[string]any{"metadata": map[string]any{"name": "bar"}},
 	}
 	pm2 := resource.PropertyMap{
 		"metadata": resource.NewObjectProperty(resource.PropertyMap{
@@ -52,7 +52,7 @@ func TestAssignNameIfAutonamable(t *testing.T) {
 
 	// o3 has a computed name, so autonaming fails.
 	o3 := &unstructured.Unstructured{
-		Object: map[string]interface{}{"metadata": map[string]interface{}{"name": "[Computed]"}},
+		Object: map[string]any{"metadata": map[string]any{"name": "[Computed]"}},
 	}
 	pm3 := resource.PropertyMap{
 		"metadata": resource.NewObjectProperty(resource.PropertyMap{
@@ -68,17 +68,17 @@ func TestAssignNameIfAutonamable(t *testing.T) {
 func TestAdoptName(t *testing.T) {
 	// new1 is named and therefore DOES NOT adopt old1's name.
 	old1 := &unstructured.Unstructured{
-		Object: map[string]interface{}{
-			"metadata": map[string]interface{}{
+		Object: map[string]any{
+			"metadata": map[string]any{
 				"name": "old1",
 				// NOTE: annotations needs to be a `map[string]interface{}` rather than `map[string]string`
 				// or the k8s utility functions fail.
-				"annotations": map[string]interface{}{AnnotationAutonamed: "true"},
+				"annotations": map[string]any{AnnotationAutonamed: "true"},
 			},
 		},
 	}
 	new1 := &unstructured.Unstructured{
-		Object: map[string]interface{}{"metadata": map[string]interface{}{"name": "new1"}},
+		Object: map[string]any{"metadata": map[string]any{"name": "new1"}},
 	}
 	AdoptOldAutonameIfUnnamed(new1, old1)
 	assert.Equal(t, "old1", old1.GetName())
@@ -88,7 +88,7 @@ func TestAdoptName(t *testing.T) {
 
 	// new2 is unnamed and therefore DOES adopt old1's name.
 	new2 := &unstructured.Unstructured{
-		Object: map[string]interface{}{},
+		Object: map[string]any{},
 	}
 	AdoptOldAutonameIfUnnamed(new2, old1)
 	assert.Equal(t, "old1", new2.GetName())
@@ -96,11 +96,11 @@ func TestAdoptName(t *testing.T) {
 
 	// old2 is not autonamed, so new3 DOES NOT adopt old2's name.
 	new3 := &unstructured.Unstructured{
-		Object: map[string]interface{}{},
+		Object: map[string]any{},
 	}
 	old2 := &unstructured.Unstructured{
-		Object: map[string]interface{}{
-			"metadata": map[string]interface{}{
+		Object: map[string]any{
+			"metadata": map[string]any{
 				"name": "old1",
 			},
 		},

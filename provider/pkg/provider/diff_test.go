@@ -14,8 +14,8 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 
-type object = map[string]interface{}
-type list = []interface{}
+type object = map[string]any
+type list = []any
 type expected = map[string]*pulumirpc.PropertyDiff
 
 func TestPatchToDiff(t *testing.T) {
@@ -204,7 +204,7 @@ func TestPatchToDiff(t *testing.T) {
 			patchBytes, err := jsonpatch.CreateMergePatch(oldJSON, newJSON)
 			assert.NoError(t, err)
 
-			patch := map[string]interface{}{}
+			patch := map[string]any{}
 			err = json.Unmarshal(patchBytes, &patch)
 			assert.NoError(t, err)
 

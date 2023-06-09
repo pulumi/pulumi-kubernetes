@@ -828,7 +828,7 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 		}
 
 		objProps, err := plugin.MarshalProperties(
-			resource.NewPropertyMapFromMap(map[string]interface{}{"result": result}),
+			resource.NewPropertyMapFromMap(map[string]any{"result": result}),
 			plugin.MarshalOptions{
 				Label: label, KeepUnknowns: true, SkipNulls: true,
 			})
@@ -863,7 +863,7 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 		}
 
 		objProps, err := plugin.MarshalProperties(
-			resource.NewPropertyMapFromMap(map[string]interface{}{"result": result}),
+			resource.NewPropertyMapFromMap(map[string]any{"result": result}),
 			plugin.MarshalOptions{
 				Label: label, KeepUnknowns: true, SkipNulls: true,
 			})
@@ -887,7 +887,7 @@ func (k *kubeProvider) Invoke(ctx context.Context,
 		}
 
 		objProps, err := plugin.MarshalProperties(
-			resource.NewPropertyMapFromMap(map[string]interface{}{"result": result}),
+			resource.NewPropertyMapFromMap(map[string]any{"result": result}),
 			plugin.MarshalOptions{
 				Label: label, KeepUnknowns: true, SkipNulls: true,
 			})
@@ -976,7 +976,7 @@ func (k *kubeProvider) StreamInvoke(
 		// List resources. Send them one-by-one, asynchronously, to the client requesting them.
 		//
 
-		objects := make(chan map[string]interface{})
+		objects := make(chan map[string]any)
 		defer close(objects)
 		done := make(chan struct{})
 		defer close(done)
@@ -1087,7 +1087,7 @@ func (k *kubeProvider) StreamInvoke(
 
 				resp, err := plugin.MarshalProperties(
 					resource.NewPropertyMapFromMap(
-						map[string]interface{}{
+						map[string]any{
 							"type":   event.Type,
 							"object": event.Object.(*unstructured.Unstructured).Object,
 						}),
@@ -1191,7 +1191,7 @@ func (k *kubeProvider) StreamInvoke(
 
 				resp, err := plugin.MarshalProperties(
 					resource.NewPropertyMapFromMap(
-						map[string]interface{}{"lines": []string{line}}),
+						map[string]any{"lines": []string{line}}),
 					plugin.MarshalOptions{})
 				if err != nil {
 					return err
@@ -1544,7 +1544,7 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 	}
 
 	var patch []byte
-	var patchBase map[string]interface{}
+	var patchBase map[string]any
 
 	// Always compute a client-side patch.
 	patch, err = k.inputPatch(oldInputs, newInputs)
@@ -1554,7 +1554,7 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 	}
 	patchBase = oldInputs.Object
 
-	patchObj := map[string]interface{}{}
+	patchObj := map[string]any{}
 	if err = json.Unmarshal(patch, &patchObj); err != nil {
 		return nil, pkgerrors.Wrapf(
 			err, "Failed to check for changes in resource %s/%s because of an error serializing "+
@@ -1581,7 +1581,7 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 			return nil, err
 		}
 
-		ssPatchObj := map[string]interface{}{}
+		ssPatchObj := map[string]any{}
 		if err = json.Unmarshal(ssPatch, &ssPatchObj); err != nil {
 			return nil, pkgerrors.Wrapf(
 				err, "Failed to check for changes in resource %s/%s because of an error serializing "+
@@ -2582,7 +2582,7 @@ func (k *kubeProvider) readLiveObject(obj *unstructured.Unstructured) (*unstruct
 }
 
 func (k *kubeProvider) serverSidePatch(oldInputs, newInputs *unstructured.Unstructured, fieldManager string,
-) ([]byte, map[string]interface{}, error) {
+) ([]byte, map[string]any, error) {
 
 	client, err := k.clientSet.ResourceClient(oldInputs.GroupVersionKind(), oldInputs.GetNamespace())
 	if err != nil {
@@ -2665,17 +2665,17 @@ func (k *kubeProvider) serverSidePatch(oldInputs, newInputs *unstructured.Unstru
 	}
 
 	if k.serverSideApplyMode {
-		objMetadata := newObject.Object["metadata"].(map[string]interface{})
+		objMetadata := newObject.Object["metadata"].(map[string]any)
 		if len(objMetadata) == 1 {
 			delete(newObject.Object, "metadata")
 		} else {
-			delete(newObject.Object["metadata"].(map[string]interface{}), "managedFields")
+			delete(newObject.Object["metadata"].(map[string]any), "managedFields")
 		}
-		objMetadata = liveObject.Object["metadata"].(map[string]interface{})
+		objMetadata = liveObject.Object["metadata"].(map[string]any)
 		if len(objMetadata) == 1 {
 			delete(liveObject.Object, "metadata")
 		} else {
-			delete(liveObject.Object["metadata"].(map[string]interface{}), "managedFields")
+			delete(liveObject.Object["metadata"].(map[string]any), "managedFields")
 		}
 	}
 
@@ -2734,7 +2734,7 @@ func (k *kubeProvider) tryServerSidePatch(
 	oldInputs, newInputs *unstructured.Unstructured,
 	gvk schema.GroupVersionKind,
 	fieldManager string,
-) (ssPatch []byte, ssPatchBase map[string]interface{}, ok bool, err error) {
+) (ssPatch []byte, ssPatchBase map[string]any, ok bool, err error) {
 	// If the cluster is unreachable, compute patch using inputs.
 	if k.clusterUnreachable {
 		return nil, nil, false, nil
@@ -2870,7 +2870,7 @@ func (k *kubeProvider) gvkExists(obj *unstructured.Unstructured) bool {
 
 // loadPulumiConfig loads the PULUMI_CONFIG environment variable set by the engine, unmarshals the JSON string into
 // a map, and returns the map and a bool indicating if the operation succeeded.
-func (k *kubeProvider) loadPulumiConfig() (map[string]interface{}, bool) {
+func (k *kubeProvider) loadPulumiConfig() (map[string]any, bool) {
 	configStr, ok := os.LookupEnv("PULUMI_CONFIG")
 	// PULUMI_CONFIG is not set on older versions of the engine, so check if the lookup succeeds.
 	if !ok || configStr == "" {
@@ -2880,7 +2880,7 @@ func (k *kubeProvider) loadPulumiConfig() (map[string]interface{}, bool) {
 	// PULUMI_CONFIG should be a JSON string that looks something like this:
 	// {"enableServerSideApply":"true","kubeClientSettings":"{\"burst\":120,\"qps\":50}","strictMode":"true"}
 	// The keys correspond to any project/stack config with a "kubernetes" prefix.
-	var pConfig map[string]interface{}
+	var pConfig map[string]any
 	err := json.Unmarshal([]byte(configStr), &pConfig)
 	if err != nil {
 		logger.V(3).Infof("failed to load provider config from PULUMI_CONFIG: %v", err)
@@ -2890,7 +2890,7 @@ func (k *kubeProvider) loadPulumiConfig() (map[string]interface{}, bool) {
 	return pConfig, true
 }
 
-func mapReplStripSecrets(v resource.PropertyValue) (interface{}, bool) {
+func mapReplStripSecrets(v resource.PropertyValue) (any, bool) {
 	if v.IsSecret() {
 		return v.SecretValue().Element.MapRepl(nil, mapReplStripSecrets), true
 	}
@@ -3015,14 +3015,14 @@ func parseCheckpointObject(obj resource.PropertyMap) (oldInputs, live *unstructu
 
 		inputs, hasInputs = pm["__inputs"]
 		if hasInputs {
-			delete(liveMap.(map[string]interface{}), "__inputs")
+			delete(liveMap.(map[string]any), "__inputs")
 		} else {
-			inputs = map[string]interface{}{}
+			inputs = map[string]any{}
 		}
 	}
 
-	oldInputs = &unstructured.Unstructured{Object: inputs.(map[string]interface{})}
-	live = &unstructured.Unstructured{Object: liveMap.(map[string]interface{})}
+	oldInputs = &unstructured.Unstructured{Object: inputs.(map[string]any)}
+	live = &unstructured.Unstructured{Object: liveMap.(map[string]any)}
 	return
 }
 
@@ -3096,7 +3096,7 @@ func parseLiveInputs(live, oldInputs *unstructured.Unstructured) *unstructured.U
 		return oldInputs
 	}
 
-	inputs := &unstructured.Unstructured{Object: map[string]interface{}{}}
+	inputs := &unstructured.Unstructured{Object: map[string]any{}}
 	inputs.SetGroupVersionKind(live.GroupVersionKind())
 	metadata.AdoptOldAutonameIfUnnamed(inputs, live)
 
@@ -3105,7 +3105,7 @@ func parseLiveInputs(live, oldInputs *unstructured.Unstructured) *unstructured.U
 
 // convertPatchToDiff converts the given JSON merge patch to a Pulumi detailed diff.
 func convertPatchToDiff(
-	patch, oldLiveState, newInputs, oldInputs map[string]interface{}, forceNewFields ...string,
+	patch, oldLiveState, newInputs, oldInputs map[string]any, forceNewFields ...string,
 ) (map[string]*pulumirpc.PropertyDiff, error) {
 
 	contract.Requiref(len(patch) != 0, "patch", "expected len() != 0")
@@ -3122,17 +3122,17 @@ func convertPatchToDiff(
 // makePatchSlice recursively processes the given path to create a slice of a POJO value that is appropriately shaped
 // for querying using a JSON path. We use this in addPatchValueToDiff when deciding whether or not a particular
 // property causes a replacement.
-func makePatchSlice(path []interface{}, v interface{}) interface{} {
+func makePatchSlice(path []any, v any) any {
 	if len(path) == 0 {
 		return v
 	}
 	switch p := path[0].(type) {
 	case string:
-		return map[string]interface{}{
+		return map[string]any{
 			p: makePatchSlice(path[1:], v),
 		}
 	case int:
-		return []interface{}{makePatchSlice(path[1:], v)}
+		return []any{makePatchSlice(path[1:], v)}
 	default:
 		contract.Failf("unexpected element type in path: %T", p)
 		return nil
@@ -3141,13 +3141,13 @@ func makePatchSlice(path []interface{}, v interface{}) interface{} {
 
 // equalNumbers returns true if both a and b are number values (int64 or float64). Note that if a this will fail if
 // either value is not representable as a float64.
-func equalNumbers(a, b interface{}) bool {
+func equalNumbers(a, b any) bool {
 	aKind, bKind := reflect.TypeOf(a).Kind(), reflect.TypeOf(b).Kind()
 	if aKind == bKind {
 		return reflect.DeepEqual(a, b)
 	}
 
-	toFloat := func(v interface{}) (float64, bool) {
+	toFloat := func(v any) (float64, bool) {
 		switch field := v.(type) {
 		case int64:
 			return float64(field), true
@@ -3185,7 +3185,7 @@ type patchConverter struct {
 // force-new properties, the diff is amended to indicate that the resource needs to be replaced due to the change in
 // this property.
 func (pc *patchConverter) addPatchValueToDiff(
-	path []interface{}, v, old, newInput, oldInput interface{}, inArray bool,
+	path []any, v, old, newInput, oldInput any, inArray bool,
 ) error {
 	contract.Assertf(v != nil || old != nil || oldInput != nil,
 		"path: %+v  |  v: %+v  | old: %+v  |  oldInput: %+v",
@@ -3206,17 +3206,17 @@ func (pc *patchConverter) addPatchValueToDiff(
 		diffKind = pulumirpc.PropertyDiff_ADD
 	} else {
 		switch v := v.(type) {
-		case map[string]interface{}:
-			if oldMap, ok := old.(map[string]interface{}); ok {
-				newInputMap, _ := newInput.(map[string]interface{})
-				oldInputMap, _ := oldInput.(map[string]interface{})
+		case map[string]any:
+			if oldMap, ok := old.(map[string]any); ok {
+				newInputMap, _ := newInput.(map[string]any)
+				oldInputMap, _ := oldInput.(map[string]any)
 				return pc.addPatchMapToDiff(path, v, oldMap, newInputMap, oldInputMap, inArray)
 			}
 			diffKind = pulumirpc.PropertyDiff_UPDATE
-		case []interface{}:
-			if oldArray, ok := old.([]interface{}); ok {
-				newInputArray, _ := newInput.([]interface{})
-				oldInputArray, _ := oldInput.([]interface{})
+		case []any:
+			if oldArray, ok := old.([]any); ok {
+				newInputArray, _ := newInput.([]any)
+				oldInputArray, _ := oldInput.([]any)
 				return pc.addPatchArrayToDiff(path, v, oldArray, newInputArray, oldInputArray, inArray)
 			}
 			diffKind = pulumirpc.PropertyDiff_UPDATE
@@ -3238,7 +3238,7 @@ func (pc *patchConverter) addPatchValueToDiff(
 	}
 
 	// Determine if this change causes a replace.
-	matches, err := openapi.PatchPropertiesChanged(makePatchSlice(path, v).(map[string]interface{}), pc.forceNew)
+	matches, err := openapi.PatchPropertiesChanged(makePatchSlice(path, v).(map[string]any), pc.forceNew)
 	if err != nil {
 		return err
 	}
@@ -3278,14 +3278,14 @@ func (pc *patchConverter) addPatchValueToDiff(
 // If this map is contained within an array, we do a little bit more work to detect deletes, as they are not recorded
 // in the patch in this case (see the note in addPatchValueToDiff for more details).
 func (pc *patchConverter) addPatchMapToDiff(
-	path []interface{}, m, old, newInput, oldInput map[string]interface{}, inArray bool,
+	path []any, m, old, newInput, oldInput map[string]any, inArray bool,
 ) error {
 
 	if newInput == nil {
-		newInput = map[string]interface{}{}
+		newInput = map[string]any{}
 	}
 	if oldInput == nil {
-		oldInput = map[string]interface{}{}
+		oldInput = map[string]any{}
 	}
 
 	for k, v := range m {
@@ -3308,10 +3308,10 @@ func (pc *patchConverter) addPatchMapToDiff(
 
 // addPatchArrayToDiff adds the diffs in the given patched array to the detailed diff.
 func (pc *patchConverter) addPatchArrayToDiff(
-	path []interface{}, a, old, newInput, oldInput []interface{}, inArray bool,
+	path []any, a, old, newInput, oldInput []any, inArray bool,
 ) error {
 
-	at := func(arr []interface{}, i int) interface{} {
+	at := func(arr []any, i int) any {
 		if i < len(arr) {
 			return arr[i]
 		}

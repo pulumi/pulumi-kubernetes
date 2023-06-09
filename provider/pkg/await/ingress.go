@@ -319,7 +319,7 @@ func (iia *ingressInitAwaiter) processIngressEvent(event watch.Event) {
 		return
 	}
 
-	ingresses, ok := ingressesRaw.([]interface{})
+	ingresses, ok := ingressesRaw.([]any)
 	if !ok {
 		logger.V(3).Infof("Unexpected ingress object structure from unstructured: %#v", ingress)
 		return
@@ -332,7 +332,7 @@ func (iia *ingressInitAwaiter) processIngressEvent(event watch.Event) {
 		inputIngressName)
 }
 
-func decodeIngress(u *unstructured.Unstructured, to interface{}) error {
+func decodeIngress(u *unstructured.Unstructured, to any) error {
 	b, err := u.MarshalJSON()
 	if err != nil {
 		return err

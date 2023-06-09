@@ -472,7 +472,7 @@ func (dia *deploymentInitAwaiter) processDeploymentEvent(event watch.Event) {
 	// Check Deployments conditions to see whether new ReplicaSet is available. If it is, we are
 	// successful.
 	rawConditions, hasConditions := openapi.Pluck(deployment.Object, "status", "conditions")
-	conditions, isSlice := rawConditions.([]interface{})
+	conditions, isSlice := rawConditions.([]any)
 	if !hasConditions || !isSlice {
 		// Deployment controller has not made progress yet. Do nothing.
 		return
@@ -481,7 +481,7 @@ func (dia *deploymentInitAwaiter) processDeploymentEvent(event watch.Event) {
 	// Success occurs when the ReplicaSet of the `replicaSetGeneration` is marked as available, and
 	// when the deployment is available.
 	for _, rawCondition := range conditions {
-		condition, isMap := rawCondition.(map[string]interface{})
+		condition, isMap := rawCondition.(map[string]any)
 		if !isMap {
 			continue
 		}
@@ -592,7 +592,7 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 		specReplicas = 1
 	}
 
-	var rawReadyReplicas interface{}
+	var rawReadyReplicas any
 	var readyReplicas int64
 	var readyReplicasExists bool
 	var unavailableReplicas int64
@@ -775,11 +775,11 @@ func (dia *deploymentInitAwaiter) processPersistentVolumeClaimsEvent(event watch
 	// Check any PersistentVolumeClaims that the Deployments Volumes may have
 	// by name against the PersistentVolumeClaim in the event
 	volumes, _ := openapi.Pluck(dia.deployment.Object, "spec", "template", "spec", "volumes")
-	vols, _ := volumes.([]interface{})
+	vols, _ := volumes.([]any)
 	for _, vol := range vols {
-		v := vol.(map[string]interface{})
+		v := vol.(map[string]any)
 		if deployPVC, exists := v["persistentVolumeClaim"]; exists {
-			p := deployPVC.(map[string]interface{})
+			p := deployPVC.(map[string]any)
 			claimName := p["claimName"].(string)
 
 			if claimName == pvc.GetName() {

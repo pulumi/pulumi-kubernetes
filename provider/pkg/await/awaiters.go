@@ -274,7 +274,7 @@ var awaiters = map[string]awaitSpec{
 
 // --------------------------------------------------------------------------
 
-func deploymentSpecReplicas(deployment *unstructured.Unstructured) (interface{}, bool) {
+func deploymentSpecReplicas(deployment *unstructured.Unstructured) (any, bool) {
 	return openapi.Pluck(deployment.Object, "spec", "replicas")
 }
 
@@ -285,7 +285,7 @@ func untilAppsDeploymentDeleted(config deleteAwaitConfig) error {
 	// transient network partition (or something) that it could be successfully deleted and GC'd
 	// before we get to check it, which I think would require manual intervention.
 	//
-	statusReplicas := func(deployment *unstructured.Unstructured) (interface{}, bool) {
+	statusReplicas := func(deployment *unstructured.Unstructured) (any, bool) {
 		return openapi.Pluck(deployment.Object, "status", "replicas")
 	}
 
@@ -325,10 +325,10 @@ func untilAppsDeploymentDeleted(config deleteAwaitConfig) error {
 // --------------------------------------------------------------------------
 
 func untilAppsStatefulSetDeleted(config deleteAwaitConfig) error {
-	specReplicas := func(statefulset *unstructured.Unstructured) (interface{}, bool) {
+	specReplicas := func(statefulset *unstructured.Unstructured) (any, bool) {
 		return openapi.Pluck(statefulset.Object, "spec", "replicas")
 	}
-	statusReplicas := func(statefulset *unstructured.Unstructured) (interface{}, bool) {
+	statusReplicas := func(statefulset *unstructured.Unstructured) (any, bool) {
 		return openapi.Pluck(statefulset.Object, "status", "replicas")
 	}
 
@@ -494,12 +494,12 @@ func untilCoreV1PodDeleted(config deleteAwaitConfig) error {
 
 // --------------------------------------------------------------------------
 
-func replicationControllerSpecReplicas(rc *unstructured.Unstructured) (interface{}, bool) {
+func replicationControllerSpecReplicas(rc *unstructured.Unstructured) (any, bool) {
 	return openapi.Pluck(rc.Object, "spec", "replicas")
 }
 
 func untilCoreV1ReplicationControllerInitialized(c createAwaitConfig) error {
-	availableReplicas := func(rc *unstructured.Unstructured) (interface{}, bool) {
+	availableReplicas := func(rc *unstructured.Unstructured) (any, bool) {
 		return openapi.Pluck(rc.Object, "status", "availableReplicas")
 	}
 
@@ -542,7 +542,7 @@ func untilCoreV1ReplicationControllerDeleted(config deleteAwaitConfig) error {
 	// transient network partition (or something) that it could be successfully deleted and GC'd
 	// before we get to check it, which I think would require manual intervention.
 	//
-	statusReplicas := func(rc *unstructured.Unstructured) (interface{}, bool) {
+	statusReplicas := func(rc *unstructured.Unstructured) (any, bool) {
 		return openapi.Pluck(rc.Object, "status", "replicas")
 	}
 
@@ -586,8 +586,8 @@ func untilCoreV1ResourceQuotaInitialized(c createAwaitConfig) error {
 		hardRaw, _ := openapi.Pluck(quota.Object, "spec", "hard")
 		hardStatusRaw, _ := openapi.Pluck(quota.Object, "status", "hard")
 
-		hard, hardIsMap := hardRaw.(map[string]interface{})
-		hardStatus, hardStatusIsMap := hardStatusRaw.(map[string]interface{})
+		hard, hardIsMap := hardRaw.(map[string]any)
+		hardStatus, hardStatusIsMap := hardStatusRaw.(map[string]any)
 		if hardIsMap && hardStatusIsMap && reflect.DeepEqual(hard, hardStatus) {
 			logger.V(3).Infof("ResourceQuota %q initialized: %#v", c.currentInputs.GetName(),
 				c.currentInputs)
@@ -636,7 +636,7 @@ func untilCoreV1SecretInitialized(c createAwaitConfig) error {
 
 	secretDataAllocated := func(secret *unstructured.Unstructured) bool {
 		data, _ := openapi.Pluck(secret.Object, "data")
-		if secretData, isMap := data.(map[string]interface{}); isMap {
+		if secretData, isMap := data.(map[string]any); isMap {
 			// We don't need to wait for any specific initialization. Most of the time we create a secret with
 			// empty data which are propagated by controller so it's enough to check if data map is not empty.
 			return len(secretData) > 0
@@ -674,7 +674,7 @@ func untilCoreV1ServiceAccountInitialized(c createAwaitConfig) error {
 
 	specSecrets, _ := openapi.Pluck(c.currentInputs.Object, "secrets")
 	var numSpecSecrets int
-	if specSecretsArr, isArr := specSecrets.([]interface{}); isArr {
+	if specSecretsArr, isArr := specSecrets.([]any); isArr {
 		numSpecSecrets = len(specSecretsArr)
 	} else {
 		numSpecSecrets = 0
@@ -683,7 +683,7 @@ func untilCoreV1ServiceAccountInitialized(c createAwaitConfig) error {
 	defaultSecretAllocated := func(sa *unstructured.Unstructured) bool {
 		secrets, _ := openapi.Pluck(sa.Object, "secrets")
 		logger.V(3).Infof("ServiceAccount %q contains secrets: %#v", sa.GetName(), secrets)
-		if secretsArr, isArr := secrets.([]interface{}); isArr {
+		if secretsArr, isArr := secrets.([]any); isArr {
 			numSecrets := len(secretsArr)
 			logger.V(3).Infof("ServiceAccount %q has allocated '%d' of '%d' secrets",
 				sa.GetName(), numSecrets, numSpecSecrets+1)
@@ -710,8 +710,8 @@ func untilCoreV1ServiceAccountInitialized(c createAwaitConfig) error {
 // it until the desired replicas are the same as the current replicas. The user provides two
 // functions to obtain the replicas spec and status fields, as well as a client to access them.
 func waitForDesiredReplicasFunc(
-	getReplicasSpec func(*unstructured.Unstructured) (interface{}, bool),
-	getReplicasStatus func(*unstructured.Unstructured) (interface{}, bool),
+	getReplicasSpec func(*unstructured.Unstructured) (any, bool),
+	getReplicasStatus func(*unstructured.Unstructured) (any, bool),
 ) watcher.Predicate {
 	return func(replicator *unstructured.Unstructured) bool {
 		desiredReplicas, hasReplicasSpec := getReplicasSpec(replicator)
