@@ -337,8 +337,6 @@ func (dia *deploymentInitAwaiter) await(
 	timeout,
 	aggregateErrorTicker <-chan time.Time,
 ) error {
-	dia.config.logStatus(diag.Info, "[1/2] Waiting for app ReplicaSet be marked available")
-
 	for {
 		if dia.checkAndLogStatus() {
 			return nil
@@ -676,7 +674,7 @@ func (dia *deploymentInitAwaiter) checkReplicaSetStatus() {
 	if !dia.updatedReplicaSetReady {
 		dia.config.logStatus(
 			diag.Info,
-			fmt.Sprintf("[1/2] Waiting for app ReplicaSet be marked available (%d/%d Pods available)",
+			fmt.Sprintf("Waiting for app ReplicaSet to be available (%d/%d Pods available)",
 				readyReplicas, specReplicas))
 	}
 
