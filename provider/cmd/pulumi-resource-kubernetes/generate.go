@@ -52,4 +52,25 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	terraformContents, err := os.ReadFile("./terraform-mapping.json")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var mapping interface{}
+	err = json.Unmarshal(terraformContents, &mapping)
+	if err != nil {
+		log.Fatalf("cannot deserialize terraform mapping: %v", err)
+	}
+
+	embeddedMapping, err := json.Marshal(mapping)
+	if err != nil {
+		log.Fatalf("cannot reserialize terraform mapping: %v", err)
+	}
+
+	err = os.WriteFile("./terraform-mapping-embed.json", embeddedMapping, 0600)
+	if err != nil {
+		log.Fatal(err)
+	}
 }

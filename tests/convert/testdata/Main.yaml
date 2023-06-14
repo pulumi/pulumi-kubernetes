@@ -1,0 +1,43 @@
+resources:
+  nginx:
+    type: kubernetes:apps/v1:Deployment
+    properties:
+      metadata:
+        name: scalable-nginx-example
+        labels:
+          app: ScalableNginxExample
+      spec:
+        replicas: 2
+        selector:
+          matchLabels:
+            app: ScalableNginxExample
+        template:
+          metadata:
+            labels:
+              app: ScalableNginxExample
+          spec:
+            containers:
+              - image: nginx:1.7.8
+                name: example
+                ports:
+                  - containerPort: 80
+                resources:
+                  limits:
+                    cpu: '0.5'
+                    memory: 512Mi
+                  requests:
+                    cpu: 250m
+                    memory: 50Mi
+  nginxResource:
+    type: kubernetes:core/v1:Service
+    properties:
+      metadata:
+        name: nginx-example
+      spec:
+        selector:
+          app: ${nginx.spec.template.metadata.labels.app}
+        ports:
+          - nodePort: 30201
+            port: 80
+            targetPort: 80
+        type: NodePort

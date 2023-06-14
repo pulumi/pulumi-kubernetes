@@ -24,11 +24,11 @@ import (
 )
 
 // Serve launches the gRPC server for the Pulumi Kubernetes resource provider.
-func Serve(providerName, version string, pulumiSchema []byte) {
+func Serve(providerName, version string, pulumiSchema, terraformMapping []byte) {
 	// Start gRPC service.
 	err := provider.Main(
 		providerName, func(host *provider.HostClient) (lumirpc.ResourceProviderServer, error) {
-			return makeKubeProvider(host, providerName, version, pulumiSchema)
+			return makeKubeProvider(host, providerName, version, pulumiSchema, terraformMapping)
 		})
 
 	if err != nil {

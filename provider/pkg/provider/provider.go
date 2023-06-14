@@ -119,6 +119,7 @@ type kubeProvider struct {
 	name             string
 	version          string
 	pulumiSchema     []byte
+	terraformMapping []byte
 	providerPackage  string
 	opts             kubeOpts
 	defaultNamespace string
@@ -156,7 +157,7 @@ type kubeProvider struct {
 var _ pulumirpc.ResourceProviderServer = (*kubeProvider)(nil)
 
 func makeKubeProvider(
-	host *provider.HostClient, name, version string, pulumiSchema []byte,
+	host *provider.HostClient, name, version string, pulumiSchema, terraformMapping []byte,
 ) (pulumirpc.ResourceProviderServer, error) {
 	return &kubeProvider{
 		host:                        host,
@@ -164,6 +165,7 @@ func makeKubeProvider(
 		name:                        name,
 		version:                     version,
 		pulumiSchema:                pulumiSchema,
+		terraformMapping:            terraformMapping,
 		providerPackage:             name,
 		enableSecrets:               false,
 		suppressDeprecationWarnings: false,
@@ -205,8 +207,17 @@ func (k *kubeProvider) Call(ctx context.Context, req *pulumirpc.CallRequest) (*p
 
 // GetMapping fetches the mapping for this resource provider, if any. A provider should return an empty
 // response (not an error) if it doesn't have a mapping for the given key.
-func (k *kubeProvider) GetMapping(ctx context.Context, req *pulumirpc.GetMappingRequest) (*pulumirpc.GetMappingResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "GetMapping is not yet implemented")
+func (k *kubeProvider) GetMapping(ctx context.Context, request *pulumirpc.GetMappingRequest) (*pulumirpc.GetMappingResponse, error) {
+	// We only return a mapping for terraform
+	if request.Key != "terraform" {
+		// an empty response means no mapping, by design we don't return an error here
+		return &pulumirpc.GetMappingResponse{}, nil
+	}
+
+	return &pulumirpc.GetMappingResponse{
+		Provider: "kubernetes",
+		Data:     k.terraformMapping,
+	}, nil
 }
 
 // Construct creates a new instance of the provided component resource and returns its state.
