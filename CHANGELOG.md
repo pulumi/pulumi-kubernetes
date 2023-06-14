@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 3.29.1 (June 14, 2023)
+
 - Fix provider handling of CustomResources with Patch suffix (https://github.com/pulumi/pulumi-kubernetes/pull/2438)
 - Improve status message for Deployment awaiter (https://github.com/pulumi/pulumi-kubernetes/pull/2456)
 
