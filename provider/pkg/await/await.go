@@ -16,10 +16,12 @@ package await
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"os"
 	"regexp"
 
+	fluxssa "github.com/fluxcd/pkg/ssa"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/cluster"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/kinds"
@@ -427,6 +429,13 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 		}
 	} else {
 		if c.ServerSideApply {
+			if !c.Preview {
+				err = fixCSAFieldManagers(c, liveOldObj, client)
+				if err != nil {
+					return nil, err
+				}
+			}
+
 			objYAML, err := yaml.Marshal(c.Inputs.Object)
 			if err != nil {
 				return nil, err
@@ -545,6 +554,60 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 		return currentOutputs, nil
 	}
 	return live, nil
+}
+
+// fixCSAFieldManagers patches the field managers for an existing resource that was managed using client-side apply.
+// The new server-side apply field manager takes ownership of all these fields to avoid conflicts.
+func fixCSAFieldManagers(c UpdateConfig, live *unstructured.Unstructured, client dynamic.ResourceInterface) error {
+	if managedFields := live.GetManagedFields(); len(managedFields) > 0 {
+		patches, err := fluxssa.PatchReplaceFieldsManagers(live, []fluxssa.FieldManager{
+			{
+				// take ownership of changes made with 'kubectl apply --server-side --force-conflicts'
+				Name:          "kubectl",
+				OperationType: metav1.ManagedFieldsOperationApply,
+			},
+			{
+				// take ownership of changes made with 'kubectl apply'
+				Name:          "kubectl",
+				OperationType: metav1.ManagedFieldsOperationUpdate,
+			},
+			{
+				// take ownership of changes made with 'kubectl apply'
+				Name:          "before-first-apply",
+				OperationType: metav1.ManagedFieldsOperationUpdate,
+			},
+			// The following are possible field manager values for resources that were created using this provider under
+			// CSA mode. Note the "Update" operation type, which Kubernetes treats as a separate field manager even if
+			// the name is identical. See https://github.com/kubernetes/kubernetes/issues/99003
+			{
+				// take ownership of changes made with pulumi-kubernetes CSA
+				Name:          "pulumi-kubernetes",
+				OperationType: metav1.ManagedFieldsOperationUpdate,
+			},
+			{
+				// take ownership of changes made with pulumi-kubernetes CSA
+				Name:          "pulumi-kubernetes.exe",
+				OperationType: metav1.ManagedFieldsOperationUpdate,
+			},
+			{
+				// take ownership of changes made with pulumi-kubernetes CSA
+				Name:          "pulumi-resource-kubernetes",
+				OperationType: metav1.ManagedFieldsOperationUpdate,
+			},
+		}, c.FieldManager)
+		if err != nil {
+			return err
+		}
+		patch, err := json.Marshal(patches)
+		if err != nil {
+			return err
+		}
+		live, err = client.Patch(c.Context, live.GetName(), types.JSONPatchType, patch, metav1.PatchOptions{})
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 // Deletion (as the usage, `await.Deletion`, implies) will block until one of the following is true:
