@@ -1150,6 +1150,7 @@ func TestServerSideApplyEmptyMaps(t *testing.T) {
 		ExpectRefreshChanges: true,
 		// Enable destroy-on-cleanup so we can shell out to kubectl to make external changes to the resource and reuse the same stack.
 		DestroyOnCleanup: true,
+		Quick:            true,
 		OrderedConfig: []integration.ConfigValue{
 			{
 				Key:   "pulumi:disable-default-providers[0]",
@@ -1196,7 +1197,13 @@ func TestServerSideApplyEmptyMaps(t *testing.T) {
 	assert.NoError(t, err)
 	assert.NotContains(t, string(out), "bar") // ConfigMap should no longer have label foo=bar.
 
-	// Re-run `pulumi up --refresh` to update the ConfigMap and re-add the label.
+	// Run `pulumi up` + `pulumi refresh` to refresh the state and detect the missing label.
+	// (The program tester runs these as separate steps, so the `pulumi up` doesn't detect a change until after the
+	// subsequent refresh is performed.)
+	err = pt.TestPreviewUpdateAndEdits()
+	assert.NoError(t, err)
+
+	// Re-run `pulumi up` to update the ConfigMap and re-add the label.
 	err = pt.TestPreviewUpdateAndEdits()
 	assert.NoError(t, err)
 

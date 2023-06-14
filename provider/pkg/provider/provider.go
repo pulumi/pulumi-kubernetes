@@ -35,7 +35,6 @@ import (
 	"github.com/golang/protobuf/ptypes/empty"
 	pbempty "github.com/golang/protobuf/ptypes/empty"
 	structpb "github.com/golang/protobuf/ptypes/struct"
-	"github.com/imdario/mergo"
 	pkgerrors "github.com/pkg/errors"
 	checkjob "github.com/pulumi/cloud-ready-checks/pkg/kubernetes/job"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await"
@@ -65,7 +64,6 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
 	clientapi "k8s.io/client-go/tools/clientcmd/api"
@@ -1577,40 +1575,6 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 			newInputs.GetNamespace(), newInputs.GetName())
 	}
 
-	fieldManager := k.fieldManagerName(nil, oldState, newInputs)
-
-	// Try to compute a server-side patch.
-	ssPatch, ssPatchBase, ssPatchOk, err := k.tryServerSidePatch(oldLivePruned, newInputs, gvk, fieldManager)
-	if err != nil {
-		return nil, err
-	}
-
-	// If the server-side patch succeeded, then merge that patch into the client-side patch and override any conflicts
-	// with the server-side values.
-	if ssPatchOk {
-		logger.V(1).Infof("calculated diffs for %s/%s using dry-run and inputs", newInputs.GetNamespace(), newInputs.GetName())
-		// Merge the server-side patch into the client-side patch, and ensure that any fields that are set to null in the
-		// server-side patch are set to null in the client-side patch.
-		err = mergo.Merge(&patchBase, ssPatchBase, mergo.WithOverwriteWithEmptyValue)
-		if err != nil {
-			return nil, err
-		}
-
-		ssPatchObj := map[string]any{}
-		if err = json.Unmarshal(ssPatch, &ssPatchObj); err != nil {
-			return nil, pkgerrors.Wrapf(
-				err, "Failed to check for changes in resource %s/%s because of an error serializing "+
-					"the JSON patch describing resource changes",
-				newInputs.GetNamespace(), newInputs.GetName())
-		}
-		err = mergo.Merge(&patchObj, ssPatchObj, mergo.WithOverride)
-		if err != nil {
-			return nil, err
-		}
-	} else {
-		logger.V(1).Infof("calculated diffs for %s/%s using inputs only", newInputs.GetNamespace(), newInputs.GetName())
-	}
-
 	// Pack up PB, ship response back.
 	hasChanges := pulumirpc.DiffResponse_DIFF_NONE
 
@@ -2622,99 +2586,6 @@ func (k *kubeProvider) readLiveObject(obj *unstructured.Unstructured) (*unstruct
 	return rc.Get(k.canceler.context, obj.GetName(), metav1.GetOptions{})
 }
 
-func (k *kubeProvider) serverSidePatch(oldInputs, newInputs *unstructured.Unstructured, fieldManager string,
-) ([]byte, map[string]any, error) {
-
-	client, err := k.clientSet.ResourceClient(oldInputs.GroupVersionKind(), oldInputs.GetNamespace())
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var newObject *unstructured.Unstructured
-	_, err = client.Get(k.canceler.context, newInputs.GetName(), metav1.GetOptions{})
-	switch {
-	case apierrors.IsNotFound(err):
-		// If the new resource does not exist, we need to dry-run a Create rather than a Patch.
-		newObject, err = client.Create(k.canceler.context, newInputs, metav1.CreateOptions{
-			DryRun: []string{metav1.DryRunAll},
-		})
-		if err != nil {
-			return nil, nil, err
-		}
-	case newInputs.GetNamespace() != oldInputs.GetNamespace():
-		client, err := k.clientSet.ResourceClient(newInputs.GroupVersionKind(), newInputs.GetNamespace())
-		if err != nil {
-			return nil, nil, err
-		}
-		// If the new resource is in a different Namespace, we need to dry-run a Create rather than a Patch.
-		newObject, err = client.Create(k.canceler.context, newInputs, metav1.CreateOptions{
-			DryRun: []string{metav1.DryRunAll},
-		})
-		if err != nil {
-			return nil, nil, err
-		}
-	case err == nil:
-		objYAML, err := yaml.Marshal(newInputs.Object)
-		if err != nil {
-			return nil, nil, err
-		}
-
-		// Always force on diff to avoid erroneous conflict errors for resource replacements
-		force := true
-		if v := metadata.GetAnnotationValue(newInputs, metadata.AnnotationPatchFieldManager); len(v) > 0 {
-			fieldManager = v
-		}
-
-		newObject, err = client.Patch(
-			k.canceler.context, newInputs.GetName(), types.ApplyPatchType, objYAML, metav1.PatchOptions{
-				DryRun:          []string{metav1.DryRunAll},
-				FieldManager:    fieldManager,
-				FieldValidation: metav1.FieldValidationWarn,
-				Force:           &force,
-			})
-		if err != nil {
-			return nil, nil, err
-		}
-	default:
-		return nil, nil, err
-	}
-
-	// TODO: It might be better to compute the patch between oldLive and newObject
-	live, err := client.Get(k.canceler.context, oldInputs.GetName(), metav1.GetOptions{})
-	if err != nil {
-		return nil, nil, err
-	}
-
-	objMetadata := newObject.Object["metadata"].(map[string]any)
-	if len(objMetadata) == 1 {
-		delete(newObject.Object, "metadata")
-	} else {
-		delete(newObject.Object["metadata"].(map[string]any), "managedFields")
-	}
-	objMetadata = live.Object["metadata"].(map[string]any)
-	if len(objMetadata) == 1 {
-		delete(live.Object, "metadata")
-	} else {
-		delete(live.Object["metadata"].(map[string]any), "managedFields")
-	}
-
-	liveJSON, err := live.MarshalJSON()
-	if err != nil {
-		return nil, nil, err
-	}
-	newJSON, err := newObject.MarshalJSON()
-	if err != nil {
-		return nil, nil, err
-	}
-
-	patch, err := jsonpatch.CreateMergePatch(liveJSON, newJSON)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	return patch, live.Object, nil
-}
-
 // inputPatch calculates a patch on the client-side by comparing old inputs to the current inputs.
 func (k *kubeProvider) inputPatch(
 	oldInputs, newInputs *unstructured.Unstructured,
@@ -2741,65 +2612,6 @@ func (k *kubeProvider) isDryRunDisabledError(err error) bool {
 		(se.Status().Message == "the dryRun alpha feature is disabled" ||
 			se.Status().Message == "the dryRun beta feature is disabled" ||
 			strings.Contains(se.Status().Message, "does not support dry run"))
-}
-
-// tryServerSidePatch attempts to compute a server-side patch. Returns true iff the operation succeeded.
-// The following are expected ways in which the server-side apply can not work;
-// we return no error, but a `false` value indicating that there's no result either.
-// The caller will fall back to using the client-side diff. In the particular case of an
-// update to an immutable field, it is already known from the schema when
-// replacement will be necessary.
-func (k *kubeProvider) tryServerSidePatch(
-	oldInputs, newInputs *unstructured.Unstructured,
-	gvk schema.GroupVersionKind,
-	fieldManager string,
-) (ssPatch []byte, ssPatchBase map[string]any, ok bool, err error) {
-	// If the cluster is unreachable, compute patch using inputs.
-	if k.clusterUnreachable {
-		return nil, nil, false, nil
-	}
-	// If the resource's GVK changed, so compute patch using inputs.
-	if oldInputs.GroupVersionKind().String() != gvk.String() {
-		return nil, nil, false, nil
-	}
-	// If the GVK is unregistered, compute the patch using inputs.
-	if !k.gvkExists(newInputs) {
-		return nil, nil, false, nil
-	}
-	// If the resource contains computed values, compute the patch using inputs.
-	if hasComputedValue(newInputs) || hasComputedValue(oldInputs) {
-		return nil, nil, false, nil
-	}
-
-	ssPatch, ssPatchBase, err = k.serverSidePatch(oldInputs, newInputs, fieldManager)
-	if err == nil {
-		// The server-side patch succeeded.
-		return ssPatch, ssPatchBase, true, nil
-	}
-
-	if apierrors.IsForbidden(err) {
-		// If the user doesn't have permission to run a Server-side preview, compute the patch using inputs
-		logger.V(1).Infof("unable to compute Server-side patch: %s", err)
-		return nil, nil, false, nil
-	}
-	if k.isDryRunDisabledError(err) {
-		return nil, nil, false, err
-	}
-	if se, isStatusError := err.(*apierrors.StatusError); isStatusError {
-		if se.Status().Code == http.StatusUnprocessableEntity &&
-			strings.Contains(se.ErrStatus.Message, "field is immutable") {
-			// This error occurs if the resource field is immutable.
-			// Ignore this error since this case is handled by the replacement logic.
-			return nil, nil, false, nil
-		}
-	}
-	if err.Error() == "name is required" {
-		// If the name was removed in this update, then the resource will be replaced with an auto-named resource.
-		// Ignore this error since this case is handled by the replacement logic.
-		return nil, nil, false, nil
-	}
-
-	return nil, nil, false, err
 }
 
 // fieldManagerName returns the name to use for the Server-Side Apply fieldManager. The values are looked up with the
