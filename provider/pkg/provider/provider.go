@@ -1466,17 +1466,24 @@ func (k *kubeProvider) helmHookWarning(ctx context.Context, newInputs *unstructu
 // Diff checks what impacts a hypothetical update will have on the resource's properties.
 func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*pulumirpc.DiffResponse, error) {
 	//
-	// Behavior as of v0.12.x: We take 2 inputs:
+	// Behavior as of v4.0: We take 2 inputs:
 	//
 	// 1. req.News, the new resource inputs, i.e., the property bag coming from a custom resource like
 	//    k8s.core.v1.Service
-	// 2. req.Olds, the old _state_ returned by a `Create` or an `Update`. The old state has the form
-	//    {inputs: {...}, live: {...}}, and is a struct that contains the old inputs as well as the
-	//    last computed value obtained from the Kubernetes API server.
+	// 2. req.Olds, the old _state_ returned by a `Create` or an `Update`.
 	//
-	// The list of properties that would cause replacement is then computed between the old and new
-	// _inputs_, as in Kubernetes this captures changes the user made that result in replacement
-	// (which is not true of the old computed values).
+	// Kubernetes sets many additional fields that are not present in the resource inputs. We want to compare new inputs
+	// to the most recent "live" values for the resource, but also don't want to show diffs for fields that are managed
+	// by the cluster. We accomplish this by pruning the live state to match the shape of the old inputs, and then
+	// comparing between the "pruned live" inputs and the new inputs.
+	//
+	// Note that comparing the old inputs to the new inputs will miss resource drift caused by other controllers
+	// modifying the resources because the Pulumi inputs have not changed. Prior versions (pre-4.0) of the provider
+	// used the "kubectl.kubernetes.io/last-applied-configuration" annotation to partially work around this problem.
+	// This annotation was updated by the provider and some `kubectl` commands to capture the most recent set of inputs
+	// used to produce the current resource state. When the annotation was present, this value was used instead of the
+	// old inputs for the diff computation. This approach led to many problems, so the v4.0 release of the provider
+	// removed the use of this annotation in favor of the "pruned live" input approach.
 	//
 
 	urn := resource.URN(req.GetUrn())
@@ -1484,8 +1491,7 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 	label := fmt.Sprintf("%s.Diff(%s)", k.label(), urn)
 	logger.V(9).Infof("%s executing", label)
 
-	// Get old state. This is an object of the form {inputs: {...}, live: {...}} where `inputs` is the
-	// previous resource inputs supplied by the user, and `live` is the computed state of that inputs
+	// Get old state. This is an object that includes `inputs` previously supplied by the user, and the live state
 	// we received back from the API server.
 	oldState, err := plugin.UnmarshalProperties(req.GetOlds(), plugin.MarshalOptions{
 		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: true, KeepSecrets: true,
@@ -1560,7 +1566,7 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 	var patch []byte
 	patchBase := oldLivePruned.Object
 
-	// Always compute a client-side patch.
+	// Compute a diff between the pruned live state and the new inputs.
 	patch, err = k.inputPatch(oldLivePruned, newInputs)
 	if err != nil {
 		return nil, pkgerrors.Wrapf(
@@ -1575,7 +1581,6 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 			newInputs.GetNamespace(), newInputs.GetName())
 	}
 
-	// Pack up PB, ship response back.
 	hasChanges := pulumirpc.DiffResponse_DIFF_NONE
 
 	var replaces []string
@@ -1679,23 +1684,22 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 	}, nil
 }
 
-// Create allocates a new instance of the provided resource and returns its unique ID afterwards.
+// Create allocates a new instance of the provided resource and returns its unique ID.
 // (The input ID must be blank.)  If this call fails, the resource must not have been created (i.e.,
 // it is "transactional").
 func (k *kubeProvider) Create(
 	ctx context.Context, req *pulumirpc.CreateRequest,
 ) (*pulumirpc.CreateResponse, error) {
 	//
-	// Behavior as of v0.12.x: We take 1 input:
+	// Behavior as of v4.0: We take 1 input:
 	//
 	// 1. `req.Properties`, the new resource inputs submitted by the user, after having been returned
 	// by `Check`.
 	//
 	// This is used to create a new resource, and the computed values are returned. Importantly:
 	//
-	// * The return is formatted as a "checkpoint object", i.e., an object of the form
-	//   {inputs: {...}, live: {...}}. This is important both for `Diff` and for `Update`. See
-	//   comments in those methods for details.
+	// * The return is formatted as a "checkpoint object", which includes both inputs and the live state of the
+	//   resource. This is important both for `Diff` and for `Update`. See comments in those methods for details.
 	//
 	urn := resource.URN(req.GetUrn())
 
@@ -1876,17 +1880,17 @@ func (k *kubeProvider) Create(
 // include some properties.
 func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*pulumirpc.ReadResponse, error) {
 	//
-	// Behavior as of v0.12.x: We take 1 input:
+	// Behavior as of v4.0: We take 2 inputs:
 	//
-	// 1. `req.Properties`, the new resource inputs submitted by the user, after having been persisted
+	// 1. `req.Properties`, the previous state of the resource.
+	// 2. `req.Inputs`, the old resource inputs submitted by the user, after having been persisted
 	// (e.g., by `Create` or `Update`).
 	//
 	// We use this information to read the live version of a Kubernetes resource. This is sometimes
 	// then checkpointed (e.g., in the case of `refresh`). Specifically:
 	//
-	// * The return is formatted as a "checkpoint object", i.e., an object of the form
-	//   {inputs: {...}, live: {...}}. This is important both for `Diff` and for `Update`. See
-	//   comments in those methods for details.
+	// * The return is formatted as a "checkpoint object", which includes both inputs and the live state of the
+	//   resource. This is important both for `Diff` and for `Update`. See comments in those methods for details.
 	//
 
 	urn := resource.URN(req.GetUrn())
@@ -2109,8 +2113,9 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	return &pulumirpc.ReadResponse{Id: id, Properties: state, Inputs: inputs}, nil
 }
 
-// Update updates an existing resource with new values. Currently, this client supports the
-// Kubernetes-standard three-way JSON patch, and the newer Server-side Apply patch. See references [1], [2], [3].
+// Update updates an existing resource with new values. This client uses a Server-side Apply (SSA) patch by default, but
+// also supports the older three-way JSON patch and the strategic merge patch as fallback options.
+// See references [1], [2], [3].
 //
 // nolint
 // [1]:
@@ -2123,61 +2128,25 @@ func (k *kubeProvider) Update(
 	ctx context.Context, req *pulumirpc.UpdateRequest,
 ) (*pulumirpc.UpdateResponse, error) {
 	//
-	// Behavior as of v3.20.0: We take 2 inputs:
+	// Behavior as of v4.0: We take 2 inputs:
 	//
 	// 1. req.News, the new resource inputs, i.e., the property bag coming from a custom resource like
 	//    k8s.core.v1.Service
-	// 2. req.Olds, the old _state_ returned by a `Create` or an `Update`. The old state has the form
-	//    {inputs: {...}, live: {...}}, and is a struct that contains the old inputs as well as the
-	//    last computed value obtained from the Kubernetes API server.
+	// 2. req.Olds, the old _state_ returned by a `Create` or an `Update`. The old state is a struct that
+	//    contains the old inputs as well as the last computed value obtained from the Kubernetes API server.
 	//
-	// Unlike other providers, the update is computed as a three-way merge between: (1) the new
-	// inputs, (2) the computed state returned by the API server, and (3) the old inputs. This is the
+	// The provider uses Server-side Apply (SSA) patches by default, which allows the provider to send the desired
+	// state of the resource to Kubernetes, and let the server decide how to merge in the changes. Previews are
+	// computed using the dry-run option for the API call, which computes the result on the server without persisting
+	// the changes.
+	//
+	// Previous versions of the provider used Client-side Apply (CSA) instead, which required the provider to compute
+	// the merge patch, and then send the patch to the server. This patch is computed as a three-way merge between:
+	// (1) the new inputs, (2) the computed state returned by the API server, and (3) the old inputs. This is the
 	// main reason why the old state is an object with both the old inputs and the live version of the
-	// object.
+	// object. CSA is provided as a fallback option, but is generally less reliable than using SSA.
 	//
 
-	//
-	// TREAD CAREFULLY. The semantics of a Kubernetes update are subtle, and you should proceed to
-	// change them only if you understand them deeply.
-	//
-	// Briefly: when a user updates an existing resource definition (e.g., by modifying YAML), the API
-	// server must decide how to apply the changes inside it, to the version of the resource that it
-	// has stored in etcd. In Kubernetes this decision is turns out to be quite complex. `kubectl`
-	// currently uses the three-way "strategic merge" and falls back to the three-way JSON merge. We
-	// currently support the second, but eventually we'll have to support the first, too.
-	//
-	// (NOTE: This comment is scoped to the question of how to patch an existing resource, rather than
-	// how to recognize when a resource needs to be re-created from scratch.)
-	//
-	// There are several reasons for this complexity:
-	//
-	// * It's important not to clobber fields set or default-set by the server (e.g., NodePort,
-	//   namespace, service type, etc.), or by out-of-band tooling like admission controllers
-	//   (which, e.g., might do something like add a sidecar to a container list).
-	// * For example, consider a scenario where a user renames a container. It is a reasonable
-	//   expectation the old version of the container gets destroyed when the update is applied. And
-	//   if the update strategy is set to three-way JSON merge patching, it is.
-	// * But, consider if their administrator has set up (say) the Istio admission controller, which
-	//   embeds a sidecar container in pods submitted to the API. This container would not be present
-	//   in the YAML file representing that pod, but when an update is applied by the user, they
-	//   not want it to get destroyed. And, so, when the strategy is set to three-way strategic
-	//   merge, the container is not destroyed. (With this strategy, fields can have "merge keys" as
-	//   part of their schema, which tells the API server how to merge each particular field.)
-	//
-	// What's worse is, currently nearly all of this logic exists on the client rather than the
-	// server, though there is work moving forward to move this to the server.
-	//
-	// So the roadmap is:
-	//
-	// - [x] Implement `Update` using the three-way JSON merge strategy.
-	// - [x] Cause `Update` to default to the three-way JSON merge patch strategy. (This will require
-	//       plumbing, because it expects nominal types representing the API schema, but the
-	//       discovery client is completely dynamic.)
-	// - [x] Support server-side apply.
-	//
-	// In the next major release, we will default to using Server-side Apply, which will simplify this logic.
-	//
 	urn := resource.URN(req.GetUrn())
 	label := fmt.Sprintf("%s.Update(%s)", k.label(), urn)
 	logger.V(9).Infof("%s executing", label)
@@ -2363,22 +2332,6 @@ func (k *kubeProvider) Update(
 	}
 
 	return &pulumirpc.UpdateResponse{Properties: inputsAndComputed}, nil
-}
-
-// removeLastAppliedConfigurationAnnotation is used by the Update method to remove an existing
-// last-applied-configuration annotation from a resource. This annotation was set automatically by the provider, so it
-// does not show up in the resource inputs. If the value is present in the live state, copy that value into the old
-// inputs so that a negative diff will be generated for it.
-func removeLastAppliedConfigurationAnnotation(oldLive, oldInputs *unstructured.Unstructured) {
-	oldLiveValue, existsInOldLive, _ := unstructured.NestedString(oldLive.Object,
-		"metadata", "annotations", lastAppliedConfigKey)
-	_, existsInOldInputs, _ := unstructured.NestedString(oldInputs.Object,
-		"metadata", "annotations", lastAppliedConfigKey)
-
-	if existsInOldLive && !existsInOldInputs {
-		contract.IgnoreError(unstructured.SetNestedField(
-			oldInputs.Object, oldLiveValue, "metadata", "annotations", lastAppliedConfigKey))
-	}
 }
 
 // Delete tears down an existing resource with the given ID.  If it fails, the resource is assumed
@@ -2683,6 +2636,22 @@ func (k *kubeProvider) loadPulumiConfig() (map[string]any, bool) {
 	}
 
 	return pConfig, true
+}
+
+// removeLastAppliedConfigurationAnnotation is used by the Update method to remove an existing
+// last-applied-configuration annotation from a resource. This annotation was set automatically by the provider, so it
+// does not show up in the resource inputs. If the value is present in the live state, copy that value into the old
+// inputs so that a negative diff will be generated for it.
+func removeLastAppliedConfigurationAnnotation(oldLive, oldInputs *unstructured.Unstructured) {
+	oldLiveValue, existsInOldLive, _ := unstructured.NestedString(oldLive.Object,
+		"metadata", "annotations", lastAppliedConfigKey)
+	_, existsInOldInputs, _ := unstructured.NestedString(oldInputs.Object,
+		"metadata", "annotations", lastAppliedConfigKey)
+
+	if existsInOldLive && !existsInOldInputs {
+		contract.IgnoreError(unstructured.SetNestedField(
+			oldInputs.Object, oldLiveValue, "metadata", "annotations", lastAppliedConfigKey))
+	}
 }
 
 // pruneLiveState prunes a live resource object to match the shape of the input object that created the resource.

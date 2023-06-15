@@ -344,14 +344,9 @@ func Read(c ReadConfig) (*unstructured.Unstructured, error) {
 	return live, nil
 }
 
-// Update takes `lastSubmitted` (the last version of a Kubernetes API object submitted to the API
-// server) and `currentSubmitted` (the version of the Kubernetes API object being submitted for an
-// update currently) and blocks until one of the following is true: (1) the Kubernetes resource is
-// reported to be updated; (2) the update timeout has occurred; or (3) an error has occurred while
-// the resource was being updated.
-//
-// Update updates an existing resource with new values. Currently, this client supports the
-// Kubernetes-standard three-way JSON patch, and the newer Server-side Apply patch. See references [1], [2], [3].
+// Update updates an existing resource with new values. This client uses a Server-side Apply (SSA) patch by default, but
+// also supports the older three-way JSON patch and the strategic merge patch as fallback options.
+// See references [1], [2], [3].
 //
 // nolint
 // [1]:
@@ -361,48 +356,6 @@ func Read(c ReadConfig) (*unstructured.Unstructured, error) {
 // [3]:
 // https://kubernetes.io/docs/reference/using-api/server-side-apply
 func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
-	//
-	// TREAD CAREFULLY. The semantics of a Kubernetes update are subtle, and you should proceed to
-	// change them only if you understand them deeply.
-	//
-	// Briefly: when a user updates an existing resource definition (e.g., by modifying YAML), the API
-	// server must decide how to apply the changes inside it, to the version of the resource that it
-	// has stored in etcd. In Kubernetes this decision is turns out to be quite complex. `kubectl`
-	// currently uses the three-way "strategic merge" and falls back to the three-way JSON merge. We
-	// currently support the second, but eventually we'll have to support the first, too.
-	//
-	// (NOTE: This comment is scoped to the question of how to patch an existing resource, rather than
-	// how to recognize when a resource needs to be re-created from scratch.)
-	//
-	// There are several reasons for this complexity:
-	//
-	// * It's important not to clobber fields set or default-set by the server (e.g., NodePort,
-	//   namespace, service type, etc.), or by out-of-band tooling like admission controllers
-	//   (which, e.g., might do something like add a sidecar to a container list).
-	// * For example, consider a scenario where a user renames a container. It is a reasonable
-	//   expectation the old version of the container gets destroyed when the update is applied. And
-	//   if the update strategy is set to three-way JSON merge patching, it is.
-	// * But, consider if their administrator has set up (say) the Istio admission controller, which
-	//   embeds a sidecar container in pods submitted to the API. This container would not be present
-	//   in the YAML file representing that pod, but when an update is applied by the user, they
-	//   not want it to get destroyed. And, so, when the strategy is set to three-way strategic
-	//   merge, the container is not destroyed. (With this strategy, fields can have "merge keys" as
-	//   part of their schema, which tells the API server how to merge each particular field.)
-	//
-	// What's worse is, currently nearly all of this logic exists on the client rather than the
-	// server, though there is work moving forward to move this to the server.
-	//
-	// So the roadmap is:
-	//
-	// - [x] Implement `Update` using the three-way JSON merge strategy.
-	// - [x] Cause `Update` to default to the three-way JSON merge patch strategy. (This will require
-	//       plumbing, because it expects nominal types representing the API schema, but the
-	//       discovery client is completely dynamic.)
-	// - [x] Support server-side apply.
-	//
-	// In the next major release, we will default to using Server-side Apply, which will simplify this logic.
-	//
-
 	client, err := c.ClientSet.ResourceClientForObject(c.Inputs)
 	if err != nil {
 		return nil, err
