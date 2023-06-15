@@ -1320,6 +1320,19 @@ func TestServerSideApplyUpgrade(t *testing.T) {
 			assert.True(t, ok)
 			assert.NoError(t, err)
 			assert.Equalf(t, "false", enableSSA, "SSA should be disabled")
+			for _, res := range stackInfo.Deployment.Resources {
+				if res.Type == "kubernetes:apps/v1:Deployment" {
+					live := &unstructured.Unstructured{Object: res.Outputs}
+					foundExpectedManager := false
+					for _, managedField := range live.GetManagedFields() {
+						if managedField.Manager == "pulumi-kubernetes" && managedField.Operation == "Update" {
+							foundExpectedManager = true
+							break
+						}
+					}
+					assert.Truef(t, foundExpectedManager, "missing expected pulumi-kubernetes field manager with operation type Update")
+				}
+			}
 		},
 		EditDirs: []integration.EditDir{
 			{
@@ -1332,6 +1345,19 @@ func TestServerSideApplyUpgrade(t *testing.T) {
 					assert.True(t, ok)
 					assert.NoError(t, err)
 					assert.Equalf(t, "true", enableSSA, "SSA should be enabled")
+					for _, res := range stackInfo.Deployment.Resources {
+						if res.Type == "kubernetes:apps/v1:Deployment" {
+							live := &unstructured.Unstructured{Object: res.Outputs}
+							foundExpectedManager := false
+							for _, managedField := range live.GetManagedFields() {
+								if managedField.Manager == "pulumi-kubernetes" && managedField.Operation == "Update" {
+									foundExpectedManager = true
+									break
+								}
+							}
+							assert.Truef(t, foundExpectedManager, "missing expected pulumi-kubernetes field manager with operation type Update")
+						}
+					}
 				},
 			},
 			{
@@ -1340,11 +1366,26 @@ func TestServerSideApplyUpgrade(t *testing.T) {
 				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 					for _, res := range stackInfo.Deployment.Resources {
 						if res.Type == "kubernetes:apps/v1:Deployment" {
+							live := &unstructured.Unstructured{Object: res.Outputs}
+							foundExpectedManager := false
+							for _, managedField := range live.GetManagedFields() {
+								// Operation type should change to Apply on first update to the Deployment.
+								if managedField.Manager == "pulumi-kubernetes" && managedField.Operation == "Apply" {
+									foundExpectedManager = true
+									break
+								}
+							}
+							assert.Truef(t, foundExpectedManager, "missing expected pulumi-kubernetes field manager with operation type Apply")
 							containers, ok := openapi.Pluck(res.Outputs, "spec", "template", "spec", "containers")
-							assert.True(t, ok)
+							assert.Truef(t, ok, "failed to get containers")
 							containerStatus := containers.([]any)[0].(map[string]any)
 							image := containerStatus["image"]
 							assert.Equalf(t, image.(string), "nginx:1.17", "image should be updated")
+							portsRaw := containerStatus["ports"]
+							portsArray := portsRaw.([]any)
+							assert.Equalf(t, len(portsArray), 1, "only one port should be set")
+							portMap := portsArray[0].(map[string]any)
+							assert.Equalf(t, portMap["containerPort"], float64(81), "port should be updated to 81")
 						}
 					}
 				},
