@@ -414,17 +414,17 @@ class Provider(pulumi.ProviderResource):
             if enable_config_map_mutable is None:
                 enable_config_map_mutable = _utilities.get_env_bool('PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE')
             __props__.__dict__["enable_config_map_mutable"] = pulumi.Output.from_input(enable_config_map_mutable).apply(pulumi.runtime.to_json) if enable_config_map_mutable is not None else None
-            if enable_dry_run is None:
-                enable_dry_run = _utilities.get_env_bool('PULUMI_K8S_ENABLE_DRY_RUN')
             if enable_dry_run is not None and not opts.urn:
                 warnings.warn("""This option has been replaced by `enableServerSideApply`.""", DeprecationWarning)
                 pulumi.log.warn("""enable_dry_run is deprecated: This option has been replaced by `enableServerSideApply`.""")
+            if enable_dry_run is None:
+                enable_dry_run = _utilities.get_env_bool('PULUMI_K8S_ENABLE_DRY_RUN')
             __props__.__dict__["enable_dry_run"] = pulumi.Output.from_input(enable_dry_run).apply(pulumi.runtime.to_json) if enable_dry_run is not None else None
-            if enable_replace_crd is None:
-                enable_replace_crd = _utilities.get_env_bool('PULUMI_K8S_ENABLE_REPLACE_CRD')
             if enable_replace_crd is not None and not opts.urn:
                 warnings.warn("""This option is deprecated, and will be removed in a future release.""", DeprecationWarning)
                 pulumi.log.warn("""enable_replace_crd is deprecated: This option is deprecated, and will be removed in a future release.""")
+            if enable_replace_crd is None:
+                enable_replace_crd = _utilities.get_env_bool('PULUMI_K8S_ENABLE_REPLACE_CRD')
             __props__.__dict__["enable_replace_crd"] = pulumi.Output.from_input(enable_replace_crd).apply(pulumi.runtime.to_json) if enable_replace_crd is not None else None
             if enable_server_side_apply is None:
                 enable_server_side_apply = _utilities.get_env_bool('PULUMI_K8S_ENABLE_SERVER_SIDE_APPLY')
