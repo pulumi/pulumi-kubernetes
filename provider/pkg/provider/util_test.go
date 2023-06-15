@@ -847,6 +847,24 @@ func TestPruneMap(t *testing.T) {
 			},
 		},
 		{
+			name:        "nested empty map",
+			description: "a map with an empty nested map where target matches",
+			args: args{
+				source: map[string]any{
+					"a": "a",
+					"b": map[string]any{},
+				},
+				target: map[string]any{
+					"a": "a",
+					"b": map[string]any{},
+				},
+			},
+			want: map[string]any{
+				"a": "a",
+				"b": map[string]any{},
+			},
+		},
+		{
 			name:        "nested value slice",
 			description: "a map with a nested slice of simple values where target matches",
 			args: args{
@@ -894,6 +912,24 @@ func TestPruneMap(t *testing.T) {
 			},
 			want: map[string]any{
 				"b": []any{"c", "d"},
+			},
+		},
+		{
+			name:        "nested empty slice",
+			description: "a map with an empty nested slice of simple values where target matches",
+			args: args{
+				source: map[string]any{
+					"a": "a",
+					"b": []any{},
+				},
+				target: map[string]any{
+					"a": "a",
+					"b": []any{},
+				},
+			},
+			want: map[string]any{
+				"a": "a",
+				"b": []any{},
 			},
 		},
 		{
