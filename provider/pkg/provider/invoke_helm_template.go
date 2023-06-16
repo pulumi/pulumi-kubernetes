@@ -23,7 +23,7 @@ import (
 	"strings"
 
 	pkgerrors "github.com/pkg/errors"
-	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	"helm.sh/helm/v3/pkg/action"

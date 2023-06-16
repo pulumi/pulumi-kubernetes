@@ -9,7 +9,7 @@ NUGET_PKG_NAME   := Pulumi.Kubernetes
 PROVIDER        := pulumi-resource-${PACK}
 CODEGEN         := pulumi-gen-${PACK}
 VERSION         ?= $(shell pulumictl get version)
-PROVIDER_PATH   := provider/v3
+PROVIDER_PATH   := provider/v4
 VERSION_PATH     := ${PROVIDER_PATH}/pkg/version.Version
 
 KUBE_VERSION    ?= v1.27.0

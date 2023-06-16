@@ -20,7 +20,7 @@ import (
 	"io"
 	"strings"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/kinds"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
 	corev1 "k8s.io/api/core/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"

@@ -28,8 +28,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/openapi"
-	"github.com/pulumi/pulumi-kubernetes/tests/v3"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
+	"github.com/pulumi/pulumi-kubernetes/tests/v4"
 	"github.com/pulumi/pulumi/pkg/v3/resource/deploy/providers"
 	"github.com/pulumi/pulumi/pkg/v3/testing/integration"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/apitype"

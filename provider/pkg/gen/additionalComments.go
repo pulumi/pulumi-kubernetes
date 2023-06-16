@@ -18,8 +18,8 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await"
-	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/kinds"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 
