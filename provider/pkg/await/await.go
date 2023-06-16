@@ -19,7 +19,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
-	"regexp"
 
 	fluxssa "github.com/fluxcd/pkg/ssa"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
@@ -144,11 +143,6 @@ func skipRetry(gvk schema.GroupVersionKind, k8sVersion *cluster.ServerVersion, e
 
 const ssaConflictDocLink = "https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/managing-resources-with-server-side-apply/#handle-field-conflicts-on-existing-resources"
 
-// Resources created with Client-side Apply (CSA) will assign a field manager with an operation of type "Update" that
-// conflicts with Server-side Apply (SSA) field managers that use type "Apply". This regex is used to check for known
-// CSA field manager names to determine if the apply operation should be retried.
-var csaConflictRegex = regexp.MustCompile(`conflict with "(pulumi-resource-kubernetes|pulumi-resource-kubernetes.exe|pulumi-kubernetes)"`)
-
 // Creation (as the usage, `await.Creation`, implies) will block until one of the following is true:
 // (1) the Kubernetes resource is reported to be initialized; (2) the initialization timeout has
 // occurred; or (3) an error has occurred while the resource was being initialized.
@@ -190,8 +184,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 			}
 
 			if c.ServerSideApply {
-				// Always force on preview to avoid erroneous conflict errors for resource replacements
-				force := c.Preview || patchForce(c.Inputs)
+				force := patchForce(c.Inputs, nil, c.Preview)
 				options := metav1.PatchOptions{
 					FieldManager:    c.FieldManager,
 					Force:           &force,
@@ -393,7 +386,7 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 			if err != nil {
 				return nil, err
 			}
-			force := patchForce(c.Inputs)
+			force := patchForce(c.Inputs, liveOldObj, c.Preview)
 			options := metav1.PatchOptions{
 				FieldManager: c.FieldManager,
 				Force:        &force,
@@ -405,23 +398,10 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 			// Issue patch request.
 			// NOTE: We can use the same client because if the `kind` changes, this will cause
 			// a replace (i.e., destroy and create).
-			maybeRetry := true
 			for {
 				currentOutputs, err = client.Patch(c.Context, c.Inputs.GetName(), types.ApplyPatchType, objYAML, options)
 				if err != nil {
 					if errors.IsConflict(err) {
-						if maybeRetry {
-							// If the patch failed, use heuristics to determine if the resource was created using
-							// Client-side Apply. If so, retry once with the force patch option.
-							if csaConflictRegex.MatchString(err.Error()) &&
-								metadata.GetLabel(c.Inputs, metadata.LabelManagedBy) == "pulumi" {
-								force = true
-								options.Force = &force
-								maybeRetry = false // Only retry once
-								continue
-							}
-						}
-
 						err = fmt.Errorf("Server-Side Apply field conflict detected. see %s for troubleshooting help\n: %w",
 							ssaConflictDocLink, err)
 					}
@@ -728,12 +708,30 @@ func clearStatus(context context.Context, host *pulumiprovider.HostClient, urn r
 }
 
 // patchForce decides whether to overwrite patch conflicts.
-func patchForce(obj *unstructured.Unstructured) bool {
-	if metadata.IsAnnotationTrue(obj, metadata.AnnotationPatchForce) {
+func patchForce(inputs, live *unstructured.Unstructured, preview bool) bool {
+	if metadata.IsAnnotationTrue(inputs, metadata.AnnotationPatchForce) {
 		return true
 	}
 	if enabled, exists := os.LookupEnv("PULUMI_K8S_ENABLE_PATCH_FORCE"); exists {
 		return enabled == "true"
 	}
+	if preview {
+		// Always force on preview if no previous state to avoid erroneous conflict errors for resource replacements.
+		if live == nil {
+			return true
+		}
+		// If the resource includes a CSA field manager for this provider, then force the update. Field managers will be
+		// adjusted before this on real updates, so only force on preview.
+		for _, managedField := range live.GetManagedFields() {
+			if managedField.Operation != metav1.ManagedFieldsOperationUpdate {
+				continue
+			}
+			switch managedField.Manager {
+			case "pulumi-resource-kubernetes", "pulumi-kubernetes", "pulumi-kubernetes.exe":
+				return true
+			}
+		}
+	}
+
 	return false
 }
