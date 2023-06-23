@@ -155,14 +155,10 @@ func pruneMap(source, target map[string]any) map[string]any {
 			switch valueT.Kind() {
 			case reflect.Map:
 				nestedResult := pruneMap(value.(map[string]any), targetValue.(map[string]any))
-				if len(nestedResult) > 0 {
-					result[key] = nestedResult
-				}
+				result[key] = nestedResult
 			case reflect.Slice:
 				nestedResult := pruneSlice(value.([]any), targetValue.([]any))
-				if len(nestedResult) > 0 {
-					result[key] = nestedResult
-				}
+				result[key] = nestedResult
 			default:
 				result[key] = value
 			}

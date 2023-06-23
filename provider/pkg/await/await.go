@@ -16,10 +16,11 @@ package await
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"os"
-	"regexp"
 
+	fluxssa "github.com/fluxcd/pkg/ssa"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/cluster"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/kinds"
@@ -142,11 +143,6 @@ func skipRetry(gvk schema.GroupVersionKind, k8sVersion *cluster.ServerVersion, e
 
 const ssaConflictDocLink = "https://www.pulumi.com/registry/packages/kubernetes/how-to-guides/managing-resources-with-server-side-apply/#handle-field-conflicts-on-existing-resources"
 
-// Resources created with Client-side Apply (CSA) will assign a field manager with an operation of type "Update" that
-// conflicts with Server-side Apply (SSA) field managers that use type "Apply". This regex is used to check for known
-// CSA field manager names to determine if the apply operation should be retried.
-var csaConflictRegex = regexp.MustCompile(`conflict with "(pulumi-resource-kubernetes|pulumi-resource-kubernetes.exe|pulumi-kubernetes)"`)
-
 // Creation (as the usage, `await.Creation`, implies) will block until one of the following is true:
 // (1) the Kubernetes resource is reported to be initialized; (2) the initialization timeout has
 // occurred; or (3) an error has occurred while the resource was being initialized.
@@ -188,8 +184,7 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 			}
 
 			if c.ServerSideApply {
-				// Always force on preview to avoid erroneous conflict errors for resource replacements
-				force := c.Preview || patchForce(c.Inputs)
+				force := patchForce(c.Inputs, nil, c.Preview)
 				options := metav1.PatchOptions{
 					FieldManager:    c.FieldManager,
 					Force:           &force,
@@ -342,14 +337,9 @@ func Read(c ReadConfig) (*unstructured.Unstructured, error) {
 	return live, nil
 }
 
-// Update takes `lastSubmitted` (the last version of a Kubernetes API object submitted to the API
-// server) and `currentSubmitted` (the version of the Kubernetes API object being submitted for an
-// update currently) and blocks until one of the following is true: (1) the Kubernetes resource is
-// reported to be updated; (2) the update timeout has occurred; or (3) an error has occurred while
-// the resource was being updated.
-//
-// Update updates an existing resource with new values. Currently, this client supports the
-// Kubernetes-standard three-way JSON patch, and the newer Server-side Apply patch. See references [1], [2], [3].
+// Update updates an existing resource with new values. This client uses a Server-side Apply (SSA) patch by default, but
+// also supports the older three-way JSON patch and the strategic merge patch as fallback options.
+// See references [1], [2], [3].
 //
 // nolint
 // [1]:
@@ -359,48 +349,6 @@ func Read(c ReadConfig) (*unstructured.Unstructured, error) {
 // [3]:
 // https://kubernetes.io/docs/reference/using-api/server-side-apply
 func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
-	//
-	// TREAD CAREFULLY. The semantics of a Kubernetes update are subtle, and you should proceed to
-	// change them only if you understand them deeply.
-	//
-	// Briefly: when a user updates an existing resource definition (e.g., by modifying YAML), the API
-	// server must decide how to apply the changes inside it, to the version of the resource that it
-	// has stored in etcd. In Kubernetes this decision is turns out to be quite complex. `kubectl`
-	// currently uses the three-way "strategic merge" and falls back to the three-way JSON merge. We
-	// currently support the second, but eventually we'll have to support the first, too.
-	//
-	// (NOTE: This comment is scoped to the question of how to patch an existing resource, rather than
-	// how to recognize when a resource needs to be re-created from scratch.)
-	//
-	// There are several reasons for this complexity:
-	//
-	// * It's important not to clobber fields set or default-set by the server (e.g., NodePort,
-	//   namespace, service type, etc.), or by out-of-band tooling like admission controllers
-	//   (which, e.g., might do something like add a sidecar to a container list).
-	// * For example, consider a scenario where a user renames a container. It is a reasonable
-	//   expectation the old version of the container gets destroyed when the update is applied. And
-	//   if the update strategy is set to three-way JSON merge patching, it is.
-	// * But, consider if their administrator has set up (say) the Istio admission controller, which
-	//   embeds a sidecar container in pods submitted to the API. This container would not be present
-	//   in the YAML file representing that pod, but when an update is applied by the user, they
-	//   not want it to get destroyed. And, so, when the strategy is set to three-way strategic
-	//   merge, the container is not destroyed. (With this strategy, fields can have "merge keys" as
-	//   part of their schema, which tells the API server how to merge each particular field.)
-	//
-	// What's worse is, currently nearly all of this logic exists on the client rather than the
-	// server, though there is work moving forward to move this to the server.
-	//
-	// So the roadmap is:
-	//
-	// - [x] Implement `Update` using the three-way JSON merge strategy.
-	// - [x] Cause `Update` to default to the three-way JSON merge patch strategy. (This will require
-	//       plumbing, because it expects nominal types representing the API schema, but the
-	//       discovery client is completely dynamic.)
-	// - [x] Support server-side apply.
-	//
-	// In the next major release, we will default to using Server-side Apply, which will simplify this logic.
-	//
-
 	client, err := c.ClientSet.ResourceClientForObject(c.Inputs)
 	if err != nil {
 		return nil, err
@@ -427,11 +375,18 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 		}
 	} else {
 		if c.ServerSideApply {
+			if !c.Preview {
+				err = fixCSAFieldManagers(c, liveOldObj, client)
+				if err != nil {
+					return nil, err
+				}
+			}
+
 			objYAML, err := yaml.Marshal(c.Inputs.Object)
 			if err != nil {
 				return nil, err
 			}
-			force := patchForce(c.Inputs)
+			force := patchForce(c.Inputs, liveOldObj, c.Preview)
 			options := metav1.PatchOptions{
 				FieldManager: c.FieldManager,
 				Force:        &force,
@@ -443,23 +398,10 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 			// Issue patch request.
 			// NOTE: We can use the same client because if the `kind` changes, this will cause
 			// a replace (i.e., destroy and create).
-			maybeRetry := true
 			for {
 				currentOutputs, err = client.Patch(c.Context, c.Inputs.GetName(), types.ApplyPatchType, objYAML, options)
 				if err != nil {
 					if errors.IsConflict(err) {
-						if maybeRetry {
-							// If the patch failed, use heuristics to determine if the resource was created using
-							// Client-side Apply. If so, retry once with the force patch option.
-							if csaConflictRegex.MatchString(err.Error()) &&
-								metadata.GetLabel(c.Inputs, metadata.LabelManagedBy) == "pulumi" {
-								force = true
-								options.Force = &force
-								maybeRetry = false // Only retry once
-								continue
-							}
-						}
-
 						err = fmt.Errorf("Server-Side Apply field conflict detected. see %s for troubleshooting help\n: %w",
 							ssaConflictDocLink, err)
 					}
@@ -545,6 +487,60 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 		return currentOutputs, nil
 	}
 	return live, nil
+}
+
+// fixCSAFieldManagers patches the field managers for an existing resource that was managed using client-side apply.
+// The new server-side apply field manager takes ownership of all these fields to avoid conflicts.
+func fixCSAFieldManagers(c UpdateConfig, live *unstructured.Unstructured, client dynamic.ResourceInterface) error {
+	if managedFields := live.GetManagedFields(); len(managedFields) > 0 {
+		patches, err := fluxssa.PatchReplaceFieldsManagers(live, []fluxssa.FieldManager{
+			{
+				// take ownership of changes made with 'kubectl apply --server-side --force-conflicts'
+				Name:          "kubectl",
+				OperationType: metav1.ManagedFieldsOperationApply,
+			},
+			{
+				// take ownership of changes made with 'kubectl apply'
+				Name:          "kubectl",
+				OperationType: metav1.ManagedFieldsOperationUpdate,
+			},
+			{
+				// take ownership of changes made with 'kubectl apply'
+				Name:          "before-first-apply",
+				OperationType: metav1.ManagedFieldsOperationUpdate,
+			},
+			// The following are possible field manager values for resources that were created using this provider under
+			// CSA mode. Note the "Update" operation type, which Kubernetes treats as a separate field manager even if
+			// the name is identical. See https://github.com/kubernetes/kubernetes/issues/99003
+			{
+				// take ownership of changes made with pulumi-kubernetes CSA
+				Name:          "pulumi-kubernetes",
+				OperationType: metav1.ManagedFieldsOperationUpdate,
+			},
+			{
+				// take ownership of changes made with pulumi-kubernetes CSA
+				Name:          "pulumi-kubernetes.exe",
+				OperationType: metav1.ManagedFieldsOperationUpdate,
+			},
+			{
+				// take ownership of changes made with pulumi-kubernetes CSA
+				Name:          "pulumi-resource-kubernetes",
+				OperationType: metav1.ManagedFieldsOperationUpdate,
+			},
+		}, c.FieldManager)
+		if err != nil {
+			return err
+		}
+		patch, err := json.Marshal(patches)
+		if err != nil {
+			return err
+		}
+		live, err = client.Patch(c.Context, live.GetName(), types.JSONPatchType, patch, metav1.PatchOptions{})
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 // Deletion (as the usage, `await.Deletion`, implies) will block until one of the following is true:
@@ -712,12 +708,30 @@ func clearStatus(context context.Context, host *pulumiprovider.HostClient, urn r
 }
 
 // patchForce decides whether to overwrite patch conflicts.
-func patchForce(obj *unstructured.Unstructured) bool {
-	if metadata.IsAnnotationTrue(obj, metadata.AnnotationPatchForce) {
+func patchForce(inputs, live *unstructured.Unstructured, preview bool) bool {
+	if metadata.IsAnnotationTrue(inputs, metadata.AnnotationPatchForce) {
 		return true
 	}
 	if enabled, exists := os.LookupEnv("PULUMI_K8S_ENABLE_PATCH_FORCE"); exists {
 		return enabled == "true"
 	}
+	if preview {
+		// Always force on preview if no previous state to avoid erroneous conflict errors for resource replacements.
+		if live == nil {
+			return true
+		}
+		// If the resource includes a CSA field manager for this provider, then force the update. Field managers will be
+		// adjusted before this on real updates, so only force on preview.
+		for _, managedField := range live.GetManagedFields() {
+			if managedField.Operation != metav1.ManagedFieldsOperationUpdate {
+				continue
+			}
+			switch managedField.Manager {
+			case "pulumi-resource-kubernetes", "pulumi-kubernetes", "pulumi-kubernetes.exe":
+				return true
+			}
+		}
+	}
+
 	return false
 }

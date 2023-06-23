@@ -4,22 +4,22 @@
 
 Breaking changes:
 
-- Enable Server-side Apply by default (https://github.com/pulumi/pulumi-kubernetes/pull/2398)
 - Remove deprecated enableDryRun provider flag (https://github.com/pulumi/pulumi-kubernetes/pull/2400)
 - Remove deprecated helm/v2 SDK (https://github.com/pulumi/pulumi-kubernetes/pull/2396)
 - Remove deprecated enableReplaceCRD provider flag (https://github.com/pulumi/pulumi-kubernetes/pull/2402)
 - Drop support for Kubernetes clusters older than v1.13 (https://github.com/pulumi/pulumi-kubernetes/pull/2414)
 - Make all resource output properties required (https://github.com/pulumi/pulumi-kubernetes/pull/2422)
-- Drop support for legacy pulumi.com/initialApiVersion annotation (https://github.com/pulumi/pulumi-kubernetes/pull/2443)
 
 Other changes:
 
-- Automatically fall back to client-side preview if server-side preview fails (https://github.com/pulumi/pulumi-kubernetes/pull/2419)
 - Enable Server-side Apply by default (https://github.com/pulumi/pulumi-kubernetes/pull/2398)
-- Remove deprecated enableDryRun provider flag (https://github.com/pulumi/pulumi-kubernetes/pull/2400)
-- Remove deprecated helm/v2 SDK (https://github.com/pulumi/pulumi-kubernetes/pull/2396)
-- Remove deprecated enableReplaceCRD provider flag (https://github.com/pulumi/pulumi-kubernetes/pull/2402)
-- Drop support for Kubernetes clusters older than v1.13 (https://github.com/pulumi/pulumi-kubernetes/pull/2414)
+- Automatically fall back to client-side preview if server-side preview fails (https://github.com/pulumi/pulumi-kubernetes/pull/2419)
+- Drop support for legacy pulumi.com/initialApiVersion annotation (https://github.com/pulumi/pulumi-kubernetes/pull/2443)
+- Overhaul logic for resource diffing (https://github.com/pulumi/pulumi-kubernetes/pull/2445)
+    - Drop usage of the "kubectl.kubernetes.io/last-applied-configuration" annotation.
+    - Compute preview diffs using resource inputs rather than making a dry-run API call.
+    - Automatically update .metadata.managedFields to work with resources that were managed with client-side apply, and later upgraded to use server-side apply.
+    - Fix a bug with the diff calculation so that resource drift is detected accurately after a refresh.
 
 ## 3.30.2 (July 11, 2023)
 

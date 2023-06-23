@@ -76,8 +76,9 @@ func TestGo(t *testing.T) {
 
 	t.Run("Helm Local", func(t *testing.T) {
 		options := baseOptions.With(integration.ProgramTestOptions{
-			Dir:   filepath.Join(cwd, "helm-local", "step1"),
-			Quick: true,
+			Dir:                  filepath.Join(cwd, "helm-local", "step1"),
+			Quick:                true,
+			ExpectRefreshChanges: true,
 			ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 				// Verify resource creation order using the Event stream. The Chart resources must be created
 				// first, followed by the dependent ConfigMap. (The ConfigMap doesn't actually need the Chart, but
@@ -122,6 +123,7 @@ func TestGo(t *testing.T) {
 			Config: map[string]string{
 				"namespace": namespace,
 			},
+			ExpectRefreshChanges: true,
 			ExtraRuntimeValidation: func(t *testing.T, stack integration.RuntimeValidationStackInfo) {
 				assert.NotEmpty(t, stack.Outputs["svc_ip"])
 			},
@@ -142,32 +144,36 @@ func TestGo(t *testing.T) {
 			Config: map[string]string{
 				"namespace": namespace,
 			},
-			NoParallel: true,
-			Verbose:    true,
+			ExpectRefreshChanges: true,
+			NoParallel:           true,
+			Verbose:              true,
 		})
 		integration.ProgramTest(t, &options)
 	})
 
 	t.Run("Helm Remote", func(t *testing.T) {
 		options := baseOptions.With(integration.ProgramTestOptions{
-			Dir:   filepath.Join(cwd, "helm", "step1"),
-			Quick: true,
+			Dir:                  filepath.Join(cwd, "helm", "step1"),
+			Quick:                true,
+			ExpectRefreshChanges: true,
 		})
 		integration.ProgramTest(t, &options)
 	})
 
 	t.Run("Helm Release", func(t *testing.T) {
 		options := baseOptions.With(integration.ProgramTestOptions{
-			Dir:   filepath.Join(cwd, "helm-release", "step1"),
-			Quick: true,
+			Dir:                  filepath.Join(cwd, "helm-release", "step1"),
+			Quick:                true,
+			ExpectRefreshChanges: true,
 		})
 		integration.ProgramTest(t, &options)
 	})
 
 	t.Run("Helm Release With Empty Local Folder", func(t *testing.T) {
 		options := baseOptions.With(integration.ProgramTestOptions{
-			Dir:   filepath.Join(cwd, "helm-release", "step1"),
-			Quick: true,
+			Dir:                  filepath.Join(cwd, "helm-release", "step1"),
+			Quick:                true,
+			ExpectRefreshChanges: true,
 			PrePulumiCommand: func(verb string) (func(err error) error, error) {
 				// Create an empty folder to test that the Helm provider doesn't fail when the folder is empty, and we should
 				// be fetching from remote.
@@ -183,16 +189,18 @@ func TestGo(t *testing.T) {
 
 	t.Run("Helm Release Local", func(t *testing.T) {
 		options := baseOptions.With(integration.ProgramTestOptions{
-			Dir:   filepath.Join(cwd, "helm-release-local", "step1"),
-			Quick: true,
+			Dir:                  filepath.Join(cwd, "helm-release-local", "step1"),
+			Quick:                true,
+			ExpectRefreshChanges: true,
 		})
 		integration.ProgramTest(t, &options)
 	})
 
 	t.Run("Helm Release Local Compressed", func(t *testing.T) {
 		options := baseOptions.With(integration.ProgramTestOptions{
-			Dir:   filepath.Join(cwd, "helm-release-local-tar", "step1"),
-			Quick: true,
+			Dir:                  filepath.Join(cwd, "helm-release-local-tar", "step1"),
+			Quick:                true,
+			ExpectRefreshChanges: true,
 		})
 		integration.ProgramTest(t, &options)
 	})
@@ -236,8 +244,9 @@ func TestGo(t *testing.T) {
 
 	t.Run("Helm API Versions", func(t *testing.T) {
 		options := baseOptions.With(integration.ProgramTestOptions{
-			Dir:   filepath.Join(cwd, "helm-api-versions", "step1"),
-			Quick: true,
+			Dir:                  filepath.Join(cwd, "helm-api-versions", "step1"),
+			Quick:                true,
+			ExpectRefreshChanges: true,
 		})
 		integration.ProgramTest(t, &options)
 	})

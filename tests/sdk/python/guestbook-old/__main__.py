@@ -25,7 +25,7 @@ redis_leader_labels = {
 redis_leader_deployment = Deployment(
     "redis-leader",
     metadata={
-        "namespace": namespace
+        "namespace": namespace.metadata.apply(lambda x: x.name),
     },
     spec={
         "selector": {
@@ -57,7 +57,7 @@ redis_leader_deployment = Deployment(
 redis_leader_service = Service(
     "redis-leader",
     metadata={
-        "namespace": namespace,
+        "namespace": namespace.metadata.apply(lambda x: x.name),
         "labels": redis_leader_labels
     },
     spec={
@@ -77,7 +77,7 @@ redis_follower_labels = {
 redis_follower_deployment = Deployment(
     "redis-follower",
     metadata={
-        "namespace": namespace
+        "namespace": namespace.metadata.apply(lambda x: x.name),
     },
     spec={
         "selector": {
@@ -117,7 +117,7 @@ redis_follower_deployment = Deployment(
 redis_follower_service = Service(
     "redis-follower",
     metadata={
-        "namespace": namespace,
+        "namespace": namespace.metadata.apply(lambda x: x.name),
         "labels": redis_follower_labels
     },
     spec={
@@ -136,7 +136,7 @@ frontend_labels = {
 frontend_service = Service(
     "frontend",
     metadata={
-        "namespace": namespace,
+        "namespace": namespace.metadata.apply(lambda x: x.name),
         "labels": frontend_labels
     },
     spec={
@@ -152,7 +152,7 @@ frontend_service = Service(
 frontend_deployment = Deployment(
     "frontend",
     metadata={
-        "namespace": namespace,
+        "namespace": namespace.metadata.apply(lambda x: x.name),
     },
     spec={
         "selector": {
