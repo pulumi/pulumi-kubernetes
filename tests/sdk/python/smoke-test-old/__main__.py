@@ -19,7 +19,7 @@ namespace = Namespace("ns")
 pod = Pod(
     "smoke-test",
     metadata={
-        "namespace": namespace,
+        "namespace": namespace.metadata.apply(lambda x: x.name),
     },
     spec={
         "containers": [

@@ -50,6 +50,27 @@ func FromUnstructured(uns *unstructured.Unstructured) (metav1.Object, error) {
 	return metaObj, nil
 }
 
+// ToUnstructured converts a typed Kubernetes resource into the Unstructured equivalent.
+func ToUnstructured(object metav1.Object) (*unstructured.Unstructured, error) {
+	result, err := runtime.DefaultUnstructuredConverter.ToUnstructured(object)
+	if err != nil {
+		return nil, err
+	}
+	return &unstructured.Unstructured{
+		Object: result,
+	}, nil
+}
+
+// Normalize converts an Unstructured Kubernetes resource into the typed equivalent and then back to Unstructured.
+// This process normalizes semantically-equivalent resources into an identical output, which is important for diffing.
+func Normalize(uns *unstructured.Unstructured) (*unstructured.Unstructured, error) {
+	obj, err := FromUnstructured(uns)
+	if err != nil {
+		return nil, err
+	}
+	return ToUnstructured(obj)
+}
+
 func PodFromUnstructured(uns *unstructured.Unstructured) (*corev1.Pod, error) {
 	const expectedAPIVersion = "v1"
 

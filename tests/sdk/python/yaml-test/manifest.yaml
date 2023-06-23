@@ -46,6 +46,11 @@ spec:
               type: object
             spec:
               type: object
+              properties:
+                foo:
+                  type: string
+                bar:
+                  type: string
           type: object
       served: true
       storage: true

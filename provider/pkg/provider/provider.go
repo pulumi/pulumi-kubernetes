@@ -35,7 +35,6 @@ import (
 	"github.com/golang/protobuf/ptypes/empty"
 	pbempty "github.com/golang/protobuf/ptypes/empty"
 	structpb "github.com/golang/protobuf/ptypes/struct"
-	"github.com/imdario/mergo"
 	pkgerrors "github.com/pkg/errors"
 	checkjob "github.com/pulumi/cloud-ready-checks/pkg/kubernetes/job"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/await"
@@ -65,7 +64,6 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
 	clientapi "k8s.io/client-go/tools/clientcmd/api"
@@ -1291,6 +1289,11 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	oldInputs := propMapToUnstructured(olds)
 	newInputs := propMapToUnstructured(news)
 
+	newInputs, err = normalize(newInputs)
+	if err != nil {
+		return nil, err
+	}
+
 	if k.serverSideApplyMode && isPatchURN(urn) {
 		if len(newInputs.GetName()) == 0 {
 			return nil, fmt.Errorf("patch resources require the resource `.metadata.name` to be set")
@@ -1463,17 +1466,24 @@ func (k *kubeProvider) helmHookWarning(ctx context.Context, newInputs *unstructu
 // Diff checks what impacts a hypothetical update will have on the resource's properties.
 func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*pulumirpc.DiffResponse, error) {
 	//
-	// Behavior as of v0.12.x: We take 2 inputs:
+	// Behavior as of v4.0: We take 2 inputs:
 	//
 	// 1. req.News, the new resource inputs, i.e., the property bag coming from a custom resource like
 	//    k8s.core.v1.Service
-	// 2. req.Olds, the old _state_ returned by a `Create` or an `Update`. The old state has the form
-	//    {inputs: {...}, live: {...}}, and is a struct that contains the old inputs as well as the
-	//    last computed value obtained from the Kubernetes API server.
+	// 2. req.Olds, the old _state_ returned by a `Create` or an `Update`.
 	//
-	// The list of properties that would cause replacement is then computed between the old and new
-	// _inputs_, as in Kubernetes this captures changes the user made that result in replacement
-	// (which is not true of the old computed values).
+	// Kubernetes sets many additional fields that are not present in the resource inputs. We want to compare new inputs
+	// to the most recent "live" values for the resource, but also don't want to show diffs for fields that are managed
+	// by the cluster. We accomplish this by pruning the live state to match the shape of the old inputs, and then
+	// comparing between the "pruned live" inputs and the new inputs.
+	//
+	// Note that comparing the old inputs to the new inputs will miss resource drift caused by other controllers
+	// modifying the resources because the Pulumi inputs have not changed. Prior versions (pre-4.0) of the provider
+	// used the "kubectl.kubernetes.io/last-applied-configuration" annotation to partially work around this problem.
+	// This annotation was updated by the provider and some `kubectl` commands to capture the most recent set of inputs
+	// used to produce the current resource state. When the annotation was present, this value was used instead of the
+	// old inputs for the diff computation. This approach led to many problems, so the v4.0 release of the provider
+	// removed the use of this annotation in favor of the "pruned live" input approach.
 	//
 
 	urn := resource.URN(req.GetUrn())
@@ -1481,8 +1491,7 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 	label := fmt.Sprintf("%s.Diff(%s)", k.label(), urn)
 	logger.V(9).Infof("%s executing", label)
 
-	// Get old state. This is an object of the form {inputs: {...}, live: {...}} where `inputs` is the
-	// previous resource inputs supplied by the user, and `live` is the computed state of that inputs
+	// Get old state. This is an object that includes `inputs` previously supplied by the user, and the live state
 	// we received back from the API server.
 	oldState, err := plugin.UnmarshalProperties(req.GetOlds(), plugin.MarshalOptions{
 		Label: fmt.Sprintf("%s.olds", label), KeepUnknowns: true, SkipNulls: true, KeepSecrets: true,
@@ -1503,7 +1512,18 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 	}
 
 	newInputs := propMapToUnstructured(newResInputs)
-	oldInputs, _ := parseCheckpointObject(oldState)
+
+	oldInputs, oldLive := parseCheckpointObject(oldState)
+
+	oldInputs, err = normalize(oldInputs)
+	if err != nil {
+		return nil, err
+	}
+	newInputs, err = normalize(newInputs)
+	if err != nil {
+		return nil, err
+	}
+	oldLivePruned := pruneLiveState(oldLive, oldInputs)
 
 	gvk := k.gvkFromUnstructured(newInputs)
 
@@ -1526,33 +1546,32 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 
 	if namespacedKind {
 		// Explicitly set the "default" namespace if unset so that the diff ignores it.
-		oldInputs.SetNamespace(canonicalNamespace(oldInputs.GetNamespace()))
+		oldLivePruned.SetNamespace(canonicalNamespace(oldLivePruned.GetNamespace()))
 		newInputs.SetNamespace(canonicalNamespace(newInputs.GetNamespace()))
 	} else {
 		// Clear the namespace if it was set erroneously.
-		oldInputs.SetNamespace("")
+		oldLivePruned.SetNamespace("")
 		newInputs.SetNamespace("")
 	}
-	if oldInputs.GroupVersionKind().Empty() {
-		oldInputs.SetGroupVersionKind(gvk)
+	if oldLivePruned.GroupVersionKind().Empty() {
+		oldLivePruned.SetGroupVersionKind(gvk)
 	}
 	// If a resource was created without SSA enabled, and then the related provider was changed to enable SSA, a
 	// resourceVersion may have been set on the old resource state. This produces erroneous diffs, so remove the
-	// value from the oldInputs prior to computing the diff.
-	if k.serverSideApplyMode && len(oldInputs.GetResourceVersion()) > 0 {
-		oldInputs.SetResourceVersion("")
+	// value from the oldLivePruned prior to computing the diff.
+	if k.serverSideApplyMode && len(oldLivePruned.GetResourceVersion()) > 0 {
+		oldLivePruned.SetResourceVersion("")
 	}
 
 	var patch []byte
-	var patchBase map[string]any
+	patchBase := oldLivePruned.Object
 
-	// Always compute a client-side patch.
-	patch, err = k.inputPatch(oldInputs, newInputs)
+	// Compute a diff between the pruned live state and the new inputs.
+	patch, err = k.inputPatch(oldLivePruned, newInputs)
 	if err != nil {
 		return nil, pkgerrors.Wrapf(
 			err, "Failed to check for changes in resource %s/%s", newInputs.GetNamespace(), newInputs.GetName())
 	}
-	patchBase = oldInputs.Object
 
 	patchObj := map[string]any{}
 	if err = json.Unmarshal(patch, &patchObj); err != nil {
@@ -1562,41 +1581,6 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 			newInputs.GetNamespace(), newInputs.GetName())
 	}
 
-	fieldManager := k.fieldManagerName(nil, newResInputs, newInputs)
-
-	// Try to compute a server-side patch.
-	ssPatch, ssPatchBase, ssPatchOk, err := k.tryServerSidePatch(oldInputs, newInputs, gvk, fieldManager)
-	if err != nil {
-		return nil, err
-	}
-
-	// If the server-side patch succeeded, then merge that patch into the client-side patch and override any conflicts
-	// with the server-side values.
-	if ssPatchOk {
-		logger.V(1).Infof("calculated diffs for %s/%s using dry-run and inputs", newInputs.GetNamespace(), newInputs.GetName())
-		// Merge the server-side patch into the client-side patch, and ensure that any fields that are set to null in the
-		// server-side patch are set to null in the client-side patch.
-		err = mergo.Merge(&patchBase, ssPatchBase, mergo.WithOverwriteWithEmptyValue)
-		if err != nil {
-			return nil, err
-		}
-
-		ssPatchObj := map[string]any{}
-		if err = json.Unmarshal(ssPatch, &ssPatchObj); err != nil {
-			return nil, pkgerrors.Wrapf(
-				err, "Failed to check for changes in resource %s/%s because of an error serializing "+
-					"the JSON patch describing resource changes",
-				newInputs.GetNamespace(), newInputs.GetName())
-		}
-		err = mergo.Merge(&patchObj, ssPatchObj, mergo.WithOverride)
-		if err != nil {
-			return nil, err
-		}
-	} else {
-		logger.V(1).Infof("calculated diffs for %s/%s using inputs only", newInputs.GetNamespace(), newInputs.GetName())
-	}
-
-	// Pack up PB, ship response back.
 	hasChanges := pulumirpc.DiffResponse_DIFF_NONE
 
 	var replaces []string
@@ -1605,9 +1589,9 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 		// Changing the identity of the resource always causes a replacement.
 		forceNewFields := []string{".metadata.name", ".metadata.namespace"}
 		if !isPatchURN(urn) { // Patch resources can be updated in place for all other properties.
-			forceNewFields = k.forceNewProperties(oldInputs)
+			forceNewFields = k.forceNewProperties(newInputs)
 		}
-		if detailedDiff, err = convertPatchToDiff(patchObj, patchBase, newInputs.Object, oldInputs.Object, forceNewFields...); err != nil {
+		if detailedDiff, err = convertPatchToDiff(patchObj, patchBase, newInputs.Object, oldLivePruned.Object, forceNewFields...); err != nil {
 			return nil, pkgerrors.Wrapf(
 				err, "Failed to check for changes in resource %s/%s because of an error "+
 					"converting JSON patch describing resource changes to a diff",
@@ -1685,10 +1669,10 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 			// auto-generate the name).
 			!metadata.IsAutonamed(newInputs) &&
 			// 3. The new, user-specified name is the same as the old name.
-			newInputs.GetName() == oldInputs.GetName() &&
+			newInputs.GetName() == oldLivePruned.GetName() &&
 			// 4. The resource is being deployed to the same namespace (i.e., we aren't creating the
 			// object in a new namespace and then deleting the old one).
-			newInputs.GetNamespace() == oldInputs.GetNamespace()
+			newInputs.GetNamespace() == oldLivePruned.GetNamespace()
 
 	return &pulumirpc.DiffResponse{
 		Changes:             hasChanges,
@@ -1700,23 +1684,22 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 	}, nil
 }
 
-// Create allocates a new instance of the provided resource and returns its unique ID afterwards.
+// Create allocates a new instance of the provided resource and returns its unique ID.
 // (The input ID must be blank.)  If this call fails, the resource must not have been created (i.e.,
 // it is "transactional").
 func (k *kubeProvider) Create(
 	ctx context.Context, req *pulumirpc.CreateRequest,
 ) (*pulumirpc.CreateResponse, error) {
 	//
-	// Behavior as of v0.12.x: We take 1 input:
+	// Behavior as of v4.0: We take 1 input:
 	//
 	// 1. `req.Properties`, the new resource inputs submitted by the user, after having been returned
 	// by `Check`.
 	//
 	// This is used to create a new resource, and the computed values are returned. Importantly:
 	//
-	// * The return is formatted as a "checkpoint object", i.e., an object of the form
-	//   {inputs: {...}, live: {...}}. This is important both for `Diff` and for `Update`. See
-	//   comments in those methods for details.
+	// * The return is formatted as a "checkpoint object", which includes both inputs and the live state of the
+	//   resource. This is important both for `Diff` and for `Update`. See comments in those methods for details.
 	//
 	urn := resource.URN(req.GetUrn())
 
@@ -1758,14 +1741,6 @@ func (k *kubeProvider) Create(
 		return &pulumirpc.CreateResponse{Id: "", Properties: req.GetProperties()}, nil
 	}
 
-	annotatedInputs, err := k.withLastAppliedConfig(newInputs)
-	if err != nil {
-		return nil, pkgerrors.Wrapf(
-			err, "Failed to create resource %s/%s because of an error generating the %s value in "+
-				"`.metadata.annotations`",
-			newInputs.GetNamespace(), newInputs.GetName(), lastAppliedConfigKey)
-	}
-
 	initialAPIVersion := newInputs.GetAPIVersion()
 	fieldManager := k.fieldManagerName(nil, newResInputs, newInputs)
 
@@ -1773,14 +1748,14 @@ func (k *kubeProvider) Create(
 		if newResInputs.ContainsSecrets() {
 			_ = k.host.Log(ctx, diag.Warning, urn, fmt.Sprintf(
 				"rendered file %s contains a secret value in plaintext",
-				renderPathForResource(annotatedInputs, k.yamlDirectory)))
+				renderPathForResource(newInputs, k.yamlDirectory)))
 		}
-		err := renderYaml(annotatedInputs, k.yamlDirectory)
+		err := renderYaml(newInputs, k.yamlDirectory)
 		if err != nil {
 			return nil, err
 		}
 
-		obj := checkpointObject(newInputs, annotatedInputs, newResInputs, initialAPIVersion, fieldManager)
+		obj := checkpointObject(newInputs, newInputs, newResInputs, initialAPIVersion, fieldManager)
 		inputsAndComputed, err := plugin.MarshalProperties(
 			obj, plugin.MarshalOptions{
 				Label:        fmt.Sprintf("%s.inputsAndComputed", label),
@@ -1793,10 +1768,10 @@ func (k *kubeProvider) Create(
 		}
 
 		_ = k.host.LogStatus(ctx, diag.Info, urn, fmt.Sprintf(
-			"rendered %s", renderPathForResource(annotatedInputs, k.yamlDirectory)))
+			"rendered %s", renderPathForResource(newInputs, k.yamlDirectory)))
 
 		return &pulumirpc.CreateResponse{
-			Id: fqObjName(annotatedInputs), Properties: inputsAndComputed,
+			Id: fqObjName(newInputs), Properties: inputsAndComputed,
 		}, nil
 	}
 
@@ -1817,7 +1792,7 @@ func (k *kubeProvider) Create(
 			Resources:         resources,
 			ServerSideApply:   k.serverSideApplyMode,
 		},
-		Inputs:  annotatedInputs,
+		Inputs:  newInputs,
 		Timeout: req.Timeout,
 		Preview: req.GetPreview(),
 	}
@@ -1905,17 +1880,17 @@ func (k *kubeProvider) Create(
 // include some properties.
 func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*pulumirpc.ReadResponse, error) {
 	//
-	// Behavior as of v0.12.x: We take 1 input:
+	// Behavior as of v4.0: We take 2 inputs:
 	//
-	// 1. `req.Properties`, the new resource inputs submitted by the user, after having been persisted
+	// 1. `req.Properties`, the previous state of the resource.
+	// 2. `req.Inputs`, the old resource inputs submitted by the user, after having been persisted
 	// (e.g., by `Create` or `Update`).
 	//
 	// We use this information to read the live version of a Kubernetes resource. This is sometimes
 	// then checkpointed (e.g., in the case of `refresh`). Specifically:
 	//
-	// * The return is formatted as a "checkpoint object", i.e., an object of the form
-	//   {inputs: {...}, live: {...}}. This is important both for `Diff` and for `Update`. See
-	//   comments in those methods for details.
+	// * The return is formatted as a "checkpoint object", which includes both inputs and the live state of the
+	//   resource. This is important both for `Diff` and for `Update`. See comments in those methods for details.
 	//
 
 	urn := resource.URN(req.GetUrn())
@@ -1966,7 +1941,14 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	}
 
 	readFromCluster := false
-	oldInputs, oldLive := parseCheckpointObject(oldState)
+	oldInputs := propMapToUnstructured(oldInputsPM)
+	_, oldLive := parseCheckpointObject(oldState)
+
+	oldInputs, err = normalize(oldInputs)
+	if err != nil {
+		return nil, err
+	}
+
 	if oldInputs.GroupVersionKind().Empty() {
 		if oldLive.GroupVersionKind().Empty() {
 			gvk, err := k.gvkFromURN(urn)
@@ -2065,8 +2047,8 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 		// initialize.
 	}
 
-	// Attempt to parse the inputs for this object. If parsing was unsuccessful, retain the old inputs.
-	liveInputs := parseLiveInputs(liveObj, oldInputs)
+	// Prune the live inputs to remove properties that are not present in the program inputs.
+	liveInputs := pruneLiveState(liveObj, oldInputs)
 
 	if readFromCluster {
 		// If no previous inputs were known, populate the inputs from the live cluster state for the resource.
@@ -2089,6 +2071,7 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 		unstructured.RemoveNestedField(liveInputs.Object, "metadata", "managedFields")
 		unstructured.RemoveNestedField(liveInputs.Object, "metadata", "resourceVersion")
 		unstructured.RemoveNestedField(liveInputs.Object, "metadata", "uid")
+		unstructured.RemoveNestedField(liveInputs.Object, "metadata", "annotations", "deployment.kubernetes.io/revision")
 		unstructured.RemoveNestedField(liveInputs.Object, "metadata", "annotations", lastAppliedConfigKey)
 	}
 
@@ -2130,8 +2113,9 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	return &pulumirpc.ReadResponse{Id: id, Properties: state, Inputs: inputs}, nil
 }
 
-// Update updates an existing resource with new values. Currently, this client supports the
-// Kubernetes-standard three-way JSON patch, and the newer Server-side Apply patch. See references [1], [2], [3].
+// Update updates an existing resource with new values. This client uses a Server-side Apply (SSA) patch by default, but
+// also supports the older three-way JSON patch and the strategic merge patch as fallback options.
+// See references [1], [2], [3].
 //
 // nolint
 // [1]:
@@ -2144,61 +2128,25 @@ func (k *kubeProvider) Update(
 	ctx context.Context, req *pulumirpc.UpdateRequest,
 ) (*pulumirpc.UpdateResponse, error) {
 	//
-	// Behavior as of v3.20.0: We take 2 inputs:
+	// Behavior as of v4.0: We take 2 inputs:
 	//
 	// 1. req.News, the new resource inputs, i.e., the property bag coming from a custom resource like
 	//    k8s.core.v1.Service
-	// 2. req.Olds, the old _state_ returned by a `Create` or an `Update`. The old state has the form
-	//    {inputs: {...}, live: {...}}, and is a struct that contains the old inputs as well as the
-	//    last computed value obtained from the Kubernetes API server.
+	// 2. req.Olds, the old _state_ returned by a `Create` or an `Update`. The old state is a struct that
+	//    contains the old inputs as well as the last computed value obtained from the Kubernetes API server.
 	//
-	// Unlike other providers, the update is computed as a three-way merge between: (1) the new
-	// inputs, (2) the computed state returned by the API server, and (3) the old inputs. This is the
+	// The provider uses Server-side Apply (SSA) patches by default, which allows the provider to send the desired
+	// state of the resource to Kubernetes, and let the server decide how to merge in the changes. Previews are
+	// computed using the dry-run option for the API call, which computes the result on the server without persisting
+	// the changes.
+	//
+	// Previous versions of the provider used Client-side Apply (CSA) instead, which required the provider to compute
+	// the merge patch, and then send the patch to the server. This patch is computed as a three-way merge between:
+	// (1) the new inputs, (2) the computed state returned by the API server, and (3) the old inputs. This is the
 	// main reason why the old state is an object with both the old inputs and the live version of the
-	// object.
+	// object. CSA is provided as a fallback option, but is generally less reliable than using SSA.
 	//
 
-	//
-	// TREAD CAREFULLY. The semantics of a Kubernetes update are subtle, and you should proceed to
-	// change them only if you understand them deeply.
-	//
-	// Briefly: when a user updates an existing resource definition (e.g., by modifying YAML), the API
-	// server must decide how to apply the changes inside it, to the version of the resource that it
-	// has stored in etcd. In Kubernetes this decision is turns out to be quite complex. `kubectl`
-	// currently uses the three-way "strategic merge" and falls back to the three-way JSON merge. We
-	// currently support the second, but eventually we'll have to support the first, too.
-	//
-	// (NOTE: This comment is scoped to the question of how to patch an existing resource, rather than
-	// how to recognize when a resource needs to be re-created from scratch.)
-	//
-	// There are several reasons for this complexity:
-	//
-	// * It's important not to clobber fields set or default-set by the server (e.g., NodePort,
-	//   namespace, service type, etc.), or by out-of-band tooling like admission controllers
-	//   (which, e.g., might do something like add a sidecar to a container list).
-	// * For example, consider a scenario where a user renames a container. It is a reasonable
-	//   expectation the old version of the container gets destroyed when the update is applied. And
-	//   if the update strategy is set to three-way JSON merge patching, it is.
-	// * But, consider if their administrator has set up (say) the Istio admission controller, which
-	//   embeds a sidecar container in pods submitted to the API. This container would not be present
-	//   in the YAML file representing that pod, but when an update is applied by the user, they
-	//   not want it to get destroyed. And, so, when the strategy is set to three-way strategic
-	//   merge, the container is not destroyed. (With this strategy, fields can have "merge keys" as
-	//   part of their schema, which tells the API server how to merge each particular field.)
-	//
-	// What's worse is, currently nearly all of this logic exists on the client rather than the
-	// server, though there is work moving forward to move this to the server.
-	//
-	// So the roadmap is:
-	//
-	// - [x] Implement `Update` using the three-way JSON merge strategy.
-	// - [x] Cause `Update` to default to the three-way JSON merge patch strategy. (This will require
-	//       plumbing, because it expects nominal types representing the API schema, but the
-	//       discovery client is completely dynamic.)
-	// - [x] Support server-side apply.
-	//
-	// In the next major release, we will default to using Server-side Apply, which will simplify this logic.
-	//
 	urn := resource.URN(req.GetUrn())
 	label := fmt.Sprintf("%s.Update(%s)", k.label(), urn)
 	logger.V(9).Infof("%s executing", label)
@@ -2228,6 +2176,10 @@ func (k *kubeProvider) Update(
 		return nil, pkgerrors.Wrapf(err, "update failed because malformed resource inputs")
 	}
 	newInputs := propMapToUnstructured(newResInputs)
+	newInputs, err = normalize(newInputs)
+	if err != nil {
+		return nil, err
+	}
 
 	// If this is a preview and the input values contain unknowns, or an unregistered GVK, return them as-is. This is
 	// compatible with prior behavior implemented by the Pulumi engine.
@@ -2240,15 +2192,21 @@ func (k *kubeProvider) Update(
 		return k.helmReleaseProvider.Update(ctx, req)
 	}
 	// Ignore old state; we'll get it from Kubernetes later.
-	oldInputs, _ := parseCheckpointObject(oldState)
+	oldInputs, oldLive := parseCheckpointObject(oldState)
 
-	annotatedInputs, err := k.withLastAppliedConfig(newInputs)
+	// Pre-4.0 versions of the provider used the last-applied-configuration annotation for client-side diffing. This
+	// annotation was automatically added to all resources by Pulumi. This annotation is no longer used, and needs to
+	// be removed from resources where it is present. To avoid causing a large update after upgrading to a 4.x release,
+	// only perform this operation during Update for resources that include other changes. This removal will not show
+	// up in the preview, which is symmetric with the previous creation behavior, which also does not show this
+	// annotation during preview.
+	removeLastAppliedConfigurationAnnotation(oldLive, oldInputs)
+
+	oldInputs, err = normalize(oldInputs)
 	if err != nil {
-		return nil, pkgerrors.Wrapf(
-			err, "Failed to update resource %s/%s because of an error generating the %s value in "+
-				"`.metadata.annotations`",
-			newInputs.GetNamespace(), newInputs.GetName(), lastAppliedConfigKey)
+		return nil, err
 	}
+	oldLivePruned := pruneLiveState(oldLive, oldInputs)
 
 	initialAPIVersion := initialAPIVersion(oldState, oldInputs)
 	fieldManagerOld := k.fieldManagerName(nil, oldState, oldInputs)
@@ -2258,14 +2216,14 @@ func (k *kubeProvider) Update(
 		if newResInputs.ContainsSecrets() {
 			_ = k.host.LogStatus(ctx, diag.Warning, urn, fmt.Sprintf(
 				"rendered file %s contains a secret value in plaintext",
-				renderPathForResource(annotatedInputs, k.yamlDirectory)))
+				renderPathForResource(newInputs, k.yamlDirectory)))
 		}
-		err := renderYaml(annotatedInputs, k.yamlDirectory)
+		err := renderYaml(newInputs, k.yamlDirectory)
 		if err != nil {
 			return nil, err
 		}
 
-		obj := checkpointObject(newInputs, annotatedInputs, newResInputs, initialAPIVersion, fieldManager)
+		obj := checkpointObject(newInputs, oldLive, newResInputs, initialAPIVersion, fieldManager)
 		inputsAndComputed, err := plugin.MarshalProperties(
 			obj, plugin.MarshalOptions{
 				Label:        fmt.Sprintf("%s.inputsAndComputed", label),
@@ -2278,7 +2236,7 @@ func (k *kubeProvider) Update(
 		}
 
 		_ = k.host.LogStatus(ctx, diag.Info, urn, fmt.Sprintf(
-			"rendered %s", renderPathForResource(annotatedInputs, k.yamlDirectory)))
+			"rendered %s", renderPathForResource(newInputs, k.yamlDirectory)))
 
 		return &pulumirpc.UpdateResponse{Properties: inputsAndComputed}, nil
 	}
@@ -2299,8 +2257,8 @@ func (k *kubeProvider) Update(
 			Resources:         resources,
 			ServerSideApply:   k.serverSideApplyMode,
 		},
-		Previous: oldInputs,
-		Inputs:   annotatedInputs,
+		Previous: oldLivePruned,
+		Inputs:   newInputs,
 		Timeout:  req.Timeout,
 		Preview:  req.GetPreview(),
 	}
@@ -2581,121 +2539,6 @@ func (k *kubeProvider) readLiveObject(obj *unstructured.Unstructured) (*unstruct
 	return rc.Get(k.canceler.context, obj.GetName(), metav1.GetOptions{})
 }
 
-func (k *kubeProvider) serverSidePatch(oldInputs, newInputs *unstructured.Unstructured, fieldManager string,
-) ([]byte, map[string]any, error) {
-
-	client, err := k.clientSet.ResourceClient(oldInputs.GroupVersionKind(), oldInputs.GetNamespace())
-	if err != nil {
-		return nil, nil, err
-	}
-
-	liveObject, err := client.Get(k.canceler.context, oldInputs.GetName(), metav1.GetOptions{})
-	if err != nil {
-		return nil, nil, err
-	}
-
-	// If the new resource does not exist, we need to dry-run a Create rather than a Patch.
-	var newObject *unstructured.Unstructured
-	_, err = client.Get(k.canceler.context, newInputs.GetName(), metav1.GetOptions{})
-	switch {
-	case apierrors.IsNotFound(err):
-		newObject, err = client.Create(k.canceler.context, newInputs, metav1.CreateOptions{
-			DryRun: []string{metav1.DryRunAll},
-		})
-	case newInputs.GetNamespace() != oldInputs.GetNamespace():
-		client, err := k.clientSet.ResourceClient(newInputs.GroupVersionKind(), newInputs.GetNamespace())
-		if err != nil {
-			return nil, nil, err
-		}
-		newObject, err = client.Create(k.canceler.context, newInputs, metav1.CreateOptions{
-			DryRun: []string{metav1.DryRunAll},
-		})
-		if err != nil {
-			return nil, nil, err
-		}
-	case err == nil:
-		if k.serverSideApplyMode {
-			objYAML, err := yaml.Marshal(newInputs.Object)
-			if err != nil {
-				return nil, nil, err
-			}
-
-			// Always force on diff to avoid erroneous conflict errors for resource replacements
-			force := true
-			if v := metadata.GetAnnotationValue(newInputs, metadata.AnnotationPatchFieldManager); len(v) > 0 {
-				fieldManager = v
-			}
-
-			newObject, err = client.Patch(
-				k.canceler.context, newInputs.GetName(), types.ApplyPatchType, objYAML, metav1.PatchOptions{
-					DryRun:          []string{metav1.DryRunAll},
-					FieldManager:    fieldManager,
-					FieldValidation: metav1.FieldValidationWarn,
-					Force:           &force,
-				})
-			if err != nil {
-				return nil, nil, err
-			}
-		} else {
-			liveInputs := parseLiveInputs(liveObject, oldInputs)
-
-			resources, err := k.getResources()
-			if err != nil {
-				return nil, nil, err
-			}
-
-			patch, patchType, _, err := openapi.PatchForResourceUpdate(resources, liveInputs, newInputs, liveObject)
-			if err != nil {
-				return nil, nil, err
-			}
-
-			newObject, err = client.Patch(k.canceler.context, newInputs.GetName(), patchType, patch, metav1.PatchOptions{
-				DryRun: []string{metav1.DryRunAll},
-			})
-			if err != nil {
-				return nil, nil, err
-			}
-		}
-
-	default:
-		return nil, nil, err
-	}
-	if err != nil {
-		return nil, nil, err
-	}
-
-	if k.serverSideApplyMode {
-		objMetadata := newObject.Object["metadata"].(map[string]any)
-		if len(objMetadata) == 1 {
-			delete(newObject.Object, "metadata")
-		} else {
-			delete(newObject.Object["metadata"].(map[string]any), "managedFields")
-		}
-		objMetadata = liveObject.Object["metadata"].(map[string]any)
-		if len(objMetadata) == 1 {
-			delete(liveObject.Object, "metadata")
-		} else {
-			delete(liveObject.Object["metadata"].(map[string]any), "managedFields")
-		}
-	}
-
-	liveJSON, err := liveObject.MarshalJSON()
-	if err != nil {
-		return nil, nil, err
-	}
-	newJSON, err := newObject.MarshalJSON()
-	if err != nil {
-		return nil, nil, err
-	}
-
-	patch, err := jsonpatch.CreateMergePatch(liveJSON, newJSON)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	return patch, liveObject.Object, nil
-}
-
 // inputPatch calculates a patch on the client-side by comparing old inputs to the current inputs.
 func (k *kubeProvider) inputPatch(
 	oldInputs, newInputs *unstructured.Unstructured,
@@ -2722,101 +2565,6 @@ func (k *kubeProvider) isDryRunDisabledError(err error) bool {
 		(se.Status().Message == "the dryRun alpha feature is disabled" ||
 			se.Status().Message == "the dryRun beta feature is disabled" ||
 			strings.Contains(se.Status().Message, "does not support dry run"))
-}
-
-// tryServerSidePatch attempts to compute a server-side patch. Returns true iff the operation succeeded.
-// The following are expected ways in which the server-side apply can not work;
-// we return no error, but a `false` value indicating that there's no result either.
-// The caller will fall back to using the client-side diff. In the particular case of an
-// update to an immutable field, it is already known from the schema when
-// replacement will be necessary.
-func (k *kubeProvider) tryServerSidePatch(
-	oldInputs, newInputs *unstructured.Unstructured,
-	gvk schema.GroupVersionKind,
-	fieldManager string,
-) (ssPatch []byte, ssPatchBase map[string]any, ok bool, err error) {
-	// If the cluster is unreachable, compute patch using inputs.
-	if k.clusterUnreachable {
-		return nil, nil, false, nil
-	}
-
-	// If the resource's GVK changed, so compute patch using inputs.
-	if oldInputs.GroupVersionKind().String() != gvk.String() {
-		return nil, nil, false, nil
-	}
-	// If the GVK is unregistered, compute the patch using inputs.
-	if !k.gvkExists(newInputs) {
-		return nil, nil, false, nil
-	}
-	// TODO: Skipping server-side diff for resources with computed values is a hack. We will want to address this
-	// more granularly so that previews are as accurate as possible, but this is an easy workaround for a critical
-	// bug.
-	if hasComputedValue(newInputs) || hasComputedValue(oldInputs) {
-		return nil, nil, false, nil
-	}
-
-	ssPatch, ssPatchBase, err = k.serverSidePatch(oldInputs, newInputs, fieldManager)
-	if err == nil {
-		// The server-side patch succeeded.
-		return ssPatch, ssPatchBase, true, nil
-	}
-
-	if apierrors.IsForbidden(err) {
-		// If the user doesn't have permission to run a Server-side preview, compute the patch using inputs
-		logger.V(1).Infof("unable to compute Server-side patch: %s", err)
-		return nil, nil, false, nil
-	}
-	if k.isDryRunDisabledError(err) {
-		return nil, nil, false, err
-	}
-	if se, isStatusError := err.(*apierrors.StatusError); isStatusError {
-		if se.Status().Code == http.StatusUnprocessableEntity &&
-			strings.Contains(se.ErrStatus.Message, "field is immutable") {
-			// This error occurs if the resource field is immutable.
-			// Ignore this error since this case is handled by the replacement logic.
-			return nil, nil, false, nil
-		}
-	}
-	if err.Error() == "name is required" {
-		// If the name was removed in this update, then the resource will be replaced with an auto-named resource.
-		// Ignore this error since this case is handled by the replacement logic.
-		return nil, nil, false, nil
-	}
-
-	return nil, nil, false, err
-}
-
-func (k *kubeProvider) withLastAppliedConfig(config *unstructured.Unstructured) (*unstructured.Unstructured, error) {
-	if k.serverSideApplyMode {
-		// Skip last-applied-config annotation if the resource supports server-side apply.
-		return config, nil
-	}
-
-	// CRDs are updated using a separate mechanism, so skip the last-applied-configuration annotation, and delete it
-	// if it was present from a previous update.
-	if clients.IsCRD(config) {
-		// Deep copy the config before returning.
-		config = config.DeepCopy()
-
-		annotations := getAnnotations(config)
-		delete(annotations, lastAppliedConfigKey)
-		config.SetAnnotations(annotations)
-		return config, nil
-	}
-
-	// Serialize the inputs and add the last-applied-configuration annotation.
-	marshaled, err := config.MarshalJSON()
-	if err != nil {
-		return nil, err
-	}
-
-	// Deep copy the config before returning.
-	config = config.DeepCopy()
-
-	annotations := getAnnotations(config)
-	annotations[lastAppliedConfigKey] = string(marshaled)
-	config.SetAnnotations(annotations)
-	return config, nil
 }
 
 // fieldManagerName returns the name to use for the Server-Side Apply fieldManager. The values are looked up with the
@@ -2890,6 +2638,50 @@ func (k *kubeProvider) loadPulumiConfig() (map[string]any, bool) {
 	return pConfig, true
 }
 
+// removeLastAppliedConfigurationAnnotation is used by the Update method to remove an existing
+// last-applied-configuration annotation from a resource. This annotation was set automatically by the provider, so it
+// does not show up in the resource inputs. If the value is present in the live state, copy that value into the old
+// inputs so that a negative diff will be generated for it.
+func removeLastAppliedConfigurationAnnotation(oldLive, oldInputs *unstructured.Unstructured) {
+	oldLiveValue, existsInOldLive, _ := unstructured.NestedString(oldLive.Object,
+		"metadata", "annotations", lastAppliedConfigKey)
+	_, existsInOldInputs, _ := unstructured.NestedString(oldInputs.Object,
+		"metadata", "annotations", lastAppliedConfigKey)
+
+	if existsInOldLive && !existsInOldInputs {
+		contract.IgnoreError(unstructured.SetNestedField(
+			oldInputs.Object, oldLiveValue, "metadata", "annotations", lastAppliedConfigKey))
+	}
+}
+
+// pruneLiveState prunes a live resource object to match the shape of the input object that created the resource.
+func pruneLiveState(live, oldInputs *unstructured.Unstructured) *unstructured.Unstructured {
+	oldLivePruned := &unstructured.Unstructured{
+		Object: pruneMap(live.Object, oldInputs.Object),
+	}
+
+	return oldLivePruned
+}
+
+// shouldNormalize returns false for CRDs and CustomResources, and true otherwise.
+func shouldNormalize(uns *unstructured.Unstructured) bool {
+	return !clients.IsCRD(uns) && kinds.KnownGroupVersions.Has(uns.GetAPIVersion())
+}
+
+// normalize converts an Unstructured resource into a normalized form so that semantically equivalent representations
+// are set to the same output shape. This is important to avoid generating diffs for inputs that will produce the same
+// result on the cluster.
+func normalize(uns *unstructured.Unstructured) (*unstructured.Unstructured, error) {
+	if shouldNormalize(uns) {
+		normalized, err := clients.Normalize(uns)
+		if err != nil {
+			return nil, err
+		}
+		uns = pruneLiveState(normalized, uns)
+	}
+	return uns, nil
+}
+
 func mapReplStripSecrets(v resource.PropertyValue) (any, bool) {
 	if v.IsSecret() {
 		return v.SecretValue().Element.MapRepl(nil, mapReplStripSecrets), true
@@ -2923,15 +2715,6 @@ func mapReplUnderscoreToDash(v string) (string, bool) {
 
 func propMapToUnstructured(pm resource.PropertyMap) *unstructured.Unstructured {
 	return &unstructured.Unstructured{Object: pm.MapRepl(mapReplUnderscoreToDash, mapReplStripSecrets)}
-}
-
-func getAnnotations(config *unstructured.Unstructured) map[string]string {
-	annotations := config.GetAnnotations()
-	if annotations == nil {
-		annotations = make(map[string]string)
-	}
-
-	return annotations
 }
 
 // initialAPIVersion retrieves the initialAPIVersion property from the checkpoint file and falls back to using
@@ -2969,21 +2752,6 @@ func checkpointObject(inputs, live *unstructured.Unstructured, fromInputs resour
 
 			if stringData.IsObject() && data.IsObject() {
 				annotateSecrets(data.ObjectValue(), stringData.ObjectValue())
-			}
-		}
-	}
-
-	// Ensure that the annotation we add for lastAppliedConfig is treated as a secret if any of the inputs were secret
-	// (the value of this annotation is a string-ified JSON so marking the entire thing as a secret is really the best
-	// that we can do).
-	if fromInputs.ContainsSecrets() || isSecretKind {
-		if _, has := object["metadata"]; has && object["metadata"].IsObject() {
-			metadata := object["metadata"].ObjectValue()
-			if _, has := metadata["annotations"]; has && metadata["annotations"].IsObject() {
-				annotations := metadata["annotations"].ObjectValue()
-				if lastAppliedConfig, has := annotations[lastAppliedConfigKey]; has && !lastAppliedConfig.IsSecret() {
-					annotations[lastAppliedConfigKey] = resource.MakeSecret(lastAppliedConfig)
-				}
 			}
 		}
 	}
@@ -3054,54 +2822,6 @@ func canonicalNamespace(ns string) string {
 
 // deleteResponse causes the resource to be deleted from the state.
 var deleteResponse = &pulumirpc.ReadResponse{Id: "", Properties: nil}
-
-// parseLastAppliedConfig attempts to find and parse an annotation that records the last applied configuration for the
-// given live object state.
-func parseLastAppliedConfig(live *unstructured.Unstructured) *unstructured.Unstructured {
-	// If `kubectl.kubernetes.io/last-applied-configuration` metadata annotation is present, parse it into a real object
-	// and use it as the current set of live inputs. Otherwise, return nil.
-	if live == nil {
-		return nil
-	}
-
-	annotations := live.GetAnnotations()
-	if annotations == nil {
-		return nil
-	}
-	lastAppliedConfig, ok := annotations[lastAppliedConfigKey]
-	if !ok {
-		return nil
-	}
-
-	liveInputs := &unstructured.Unstructured{}
-	if err := liveInputs.UnmarshalJSON([]byte(lastAppliedConfig)); err != nil {
-		return nil
-	}
-	return liveInputs
-}
-
-// parseLiveInputs attempts to parse the provider inputs that produced the given live object out of the object's state.
-// This is used by Read.
-func parseLiveInputs(live, oldInputs *unstructured.Unstructured) *unstructured.Unstructured {
-	// First try to find and parse a `kubectl.kubernetes.io/last-applied-configuration` metadata anotation. If that
-	// succeeds, we are done.
-	if inputs := parseLastAppliedConfig(live); inputs != nil {
-		return inputs
-	}
-
-	// If no such annotation was present--or if parsing failed--either retain the old inputs if they exist, or
-	// attempt to propagate the live object's GVK, any Pulumi-generated autoname and its annotation, and return
-	// the result.
-	if oldInputs != nil && len(oldInputs.Object) > 0 {
-		return oldInputs
-	}
-
-	inputs := &unstructured.Unstructured{Object: map[string]any{}}
-	inputs.SetGroupVersionKind(live.GroupVersionKind())
-	metadata.AdoptOldAutonameIfUnnamed(inputs, live)
-
-	return inputs
-}
 
 // convertPatchToDiff converts the given JSON merge patch to a Pulumi detailed diff.
 func convertPatchToDiff(

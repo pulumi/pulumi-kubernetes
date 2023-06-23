@@ -19,7 +19,7 @@ import * as k8s from "@pulumi/kubernetes";
 // Server-side Apply (SSA). This test validates the following scenario does not fail with a field manager conflict:
 // 1. Create a Deployment with Client-side Apply.
 // 2. Update the Provider to use Server-side Apply.
-// 3. Change a field in the Deployment.
+// 3. Change fields in the Deployment.
 
 // Create provider with SSA disabled.
 export const provider = new k8s.Provider("k8s", {enableServerSideApply: true}); // Enable SSA
@@ -40,6 +40,7 @@ const deployment = new k8s.apps.v1.Deployment("nginx", {
                 containers: [{
                     name: "nginx",
                     image: "nginx:1.16",
+                    ports: [{containerPort: 80}],
                 }],
             }
         }

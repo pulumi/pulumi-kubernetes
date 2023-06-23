@@ -24,7 +24,7 @@ namespace = Namespace("test")
 nginx = Pod(
     "nginx",
     metadata=ObjectMetaArgs(
-        namespace=namespace,
+        namespace=namespace.metadata.apply(lambda x: x.name),
     ),
     spec=PodSpecArgs(
         containers=[ContainerArgs(

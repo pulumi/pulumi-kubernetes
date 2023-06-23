@@ -1150,6 +1150,7 @@ func TestServerSideApplyEmptyMaps(t *testing.T) {
 		ExpectRefreshChanges: true,
 		// Enable destroy-on-cleanup so we can shell out to kubectl to make external changes to the resource and reuse the same stack.
 		DestroyOnCleanup: true,
+		Quick:            true,
 		OrderedConfig: []integration.ConfigValue{
 			{
 				Key:   "pulumi:disable-default-providers[0]",
@@ -1196,7 +1197,13 @@ func TestServerSideApplyEmptyMaps(t *testing.T) {
 	assert.NoError(t, err)
 	assert.NotContains(t, string(out), "bar") // ConfigMap should no longer have label foo=bar.
 
-	// Re-run `pulumi up --refresh` to update the ConfigMap and re-add the label.
+	// Run `pulumi up` + `pulumi refresh` to refresh the state and detect the missing label.
+	// (The program tester runs these as separate steps, so the `pulumi up` doesn't detect a change until after the
+	// subsequent refresh is performed.)
+	err = pt.TestPreviewUpdateAndEdits()
+	assert.NoError(t, err)
+
+	// Re-run `pulumi up` to update the ConfigMap and re-add the label.
 	err = pt.TestPreviewUpdateAndEdits()
 	assert.NoError(t, err)
 
@@ -1313,6 +1320,19 @@ func TestServerSideApplyUpgrade(t *testing.T) {
 			assert.True(t, ok)
 			assert.NoError(t, err)
 			assert.Equalf(t, "false", enableSSA, "SSA should be disabled")
+			for _, res := range stackInfo.Deployment.Resources {
+				if res.Type == "kubernetes:apps/v1:Deployment" {
+					live := &unstructured.Unstructured{Object: res.Outputs}
+					foundExpectedManager := false
+					for _, managedField := range live.GetManagedFields() {
+						if managedField.Manager == "pulumi-kubernetes" && managedField.Operation == "Update" {
+							foundExpectedManager = true
+							break
+						}
+					}
+					assert.Truef(t, foundExpectedManager, "missing expected pulumi-kubernetes field manager with operation type Update")
+				}
+			}
 		},
 		EditDirs: []integration.EditDir{
 			{
@@ -1325,6 +1345,19 @@ func TestServerSideApplyUpgrade(t *testing.T) {
 					assert.True(t, ok)
 					assert.NoError(t, err)
 					assert.Equalf(t, "true", enableSSA, "SSA should be enabled")
+					for _, res := range stackInfo.Deployment.Resources {
+						if res.Type == "kubernetes:apps/v1:Deployment" {
+							live := &unstructured.Unstructured{Object: res.Outputs}
+							foundExpectedManager := false
+							for _, managedField := range live.GetManagedFields() {
+								if managedField.Manager == "pulumi-kubernetes" && managedField.Operation == "Update" {
+									foundExpectedManager = true
+									break
+								}
+							}
+							assert.Truef(t, foundExpectedManager, "missing expected pulumi-kubernetes field manager with operation type Update")
+						}
+					}
 				},
 			},
 			{
@@ -1333,11 +1366,26 @@ func TestServerSideApplyUpgrade(t *testing.T) {
 				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 					for _, res := range stackInfo.Deployment.Resources {
 						if res.Type == "kubernetes:apps/v1:Deployment" {
+							live := &unstructured.Unstructured{Object: res.Outputs}
+							foundExpectedManager := false
+							for _, managedField := range live.GetManagedFields() {
+								// Operation type should change to Apply on first update to the Deployment.
+								if managedField.Manager == "pulumi-kubernetes" && managedField.Operation == "Apply" {
+									foundExpectedManager = true
+									break
+								}
+							}
+							assert.Truef(t, foundExpectedManager, "missing expected pulumi-kubernetes field manager with operation type Apply")
 							containers, ok := openapi.Pluck(res.Outputs, "spec", "template", "spec", "containers")
-							assert.True(t, ok)
+							assert.Truef(t, ok, "failed to get containers")
 							containerStatus := containers.([]any)[0].(map[string]any)
 							image := containerStatus["image"]
 							assert.Equalf(t, image.(string), "nginx:1.17", "image should be updated")
+							portsRaw := containerStatus["ports"]
+							portsArray := portsRaw.([]any)
+							assert.Equalf(t, len(portsArray), 1, "only one port should be set")
+							portMap := portsArray[0].(map[string]any)
+							assert.Equalf(t, portMap["containerPort"], float64(81), "port should be updated to 81")
 						}
 					}
 				},
@@ -1494,4 +1542,158 @@ func TestStrictMode(t *testing.T) {
 		},
 	})
 	integration.ProgramTest(t, &test)
+}
+
+// TestClientSideDriftCorrectCSA tests that we can successfully reapply a resource that has been
+// modified outside of Pulumi using the client-side apply strategy.
+func TestClientSideDriftCorrectCSA(t *testing.T) {
+	var ns, cmName string
+
+	applyStep := baseOptions.With(integration.ProgramTestOptions{
+		Dir:                  filepath.Join("drift-correct", "configmap-csa"),
+		ExpectRefreshChanges: true,
+		// Enable destroy-on-cleanup so we can shell out to kubectl to make external changes to the resource and reuse the same stack.
+		DestroyOnCleanup: true,
+		OrderedConfig: []integration.ConfigValue{
+			{
+				Key:   "pulumi:disable-default-providers[0]",
+				Value: "kubernetes",
+				Path:  true,
+			},
+		},
+		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+			cm, ok := stackInfo.Outputs["cm"].(map[string]interface{})
+			assert.True(t, ok)
+
+			// Save the name and namespace for later use with kubectl. We check that the vars are empty,
+			// in case pulumi up creates a new ConfigMap/Namespace instead of updating the existing one on
+			// subsequent runs.
+			if ns == "" && cmName == "" {
+				ns = cm["metadata"].(map[string]interface{})["namespace"].(string)
+				cmName = cm["metadata"].(map[string]interface{})["name"].(string)
+			}
+
+			// Validate we applied ConfigMap with data.
+			fooV, ok, err := unstructured.NestedString(cm, "data", "foo")
+			assert.True(t, ok)
+			assert.NoError(t, err)
+			assert.Equal(t, "bar", fooV)
+		},
+	})
+
+	// Use manual lifecycle management since we need to run external commands in between pulumi up steps, while referencing
+	// the same stack.
+	pt := integration.ProgramTestManualLifeCycle(t, &applyStep)
+	err := pt.TestLifeCycleInitAndDestroy()
+	assert.NoError(t, err)
+
+	// Sanity check with kubectl to verify that the ConfigMap was created with the wanted label.
+	out, err := exec.Command("kubectl", "get", "configmap", "-o", "yaml", "-n", ns, cmName).CombinedOutput()
+	assert.NoError(t, err)
+	assert.Contains(t, string(out), "bar") // ConfigMap should have been created with data foo: bar.
+
+	// Update the ConfigMap and change the data foo: bar to foo: baz.
+	out, err = exec.Command("kubectl", "patch", "configmap", "-n", ns, cmName, "-p", `{"data":{"foo":"baz"}}`).CombinedOutput()
+	assert.NoError(t, err)
+	assert.Contains(t, string(out), "configmap/"+cmName+" patched") // Ensure CM was patched.
+
+	// Use kubectl to verify that the ConfigMap was updated and now has data foo: baz.
+	out, err = exec.Command("kubectl", "get", "configmap", "-o", "yaml", "-n", ns, cmName).CombinedOutput()
+	assert.NoError(t, err)
+	assert.NotContains(t, string(out), "foo: bar") // ConfigMap should no longer have data foo: bar.
+	assert.Contains(t, string(out), "foo: baz")    // ConfigMap should have data foo: baz.
+
+	// Run `pulumi up` + `pulumi refresh` to refresh the state and detect the missing label.
+	// (The program tester runs these as separate steps, so the `pulumi up` doesn't detect a change until after the
+	// subsequent refresh is performed.)
+	err = pt.TestPreviewUpdateAndEdits()
+	assert.NoError(t, err)
+
+	// Re-run `pulumi up` to update the ConfigMap and re-add the label.
+	err = pt.TestPreviewUpdateAndEdits()
+	assert.NoError(t, err)
+
+	// Use kubectl to verify that the ConfigMap was updated and has the label again.
+	out, err = exec.Command("kubectl", "get", "configmap", "-o", "yaml", "-n", ns, cmName).CombinedOutput()
+	assert.NoError(t, err)
+
+	assert.Contains(t, string(out), "foo: bar")    // ConfigMap should have been updated with data foo: bar.
+	assert.NotContains(t, string(out), "foo: baz") // ConfigMap should no longer have data foo: baz.
+}
+
+// TestClientSideDriftCorrectSSA tests that we can successfully reapply a resource that has been
+// modified outside of Pulumi, with SSA enabled.
+func TestClientSideDriftCorrectSSA(t *testing.T) {
+	var ns, cmName string
+
+	applyStep := baseOptions.With(integration.ProgramTestOptions{
+		Dir:                  filepath.Join("drift-correct", "configmap-ssa"),
+		ExpectRefreshChanges: true,
+		// Enable destroy-on-cleanup so we can shell out to kubectl to make external changes to the resource and reuse the same stack.
+		DestroyOnCleanup: true,
+		OrderedConfig: []integration.ConfigValue{
+			{
+				Key:   "pulumi:disable-default-providers[0]",
+				Value: "kubernetes",
+				Path:  true,
+			},
+		},
+		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+			cm, ok := stackInfo.Outputs["cm"].(map[string]interface{})
+			assert.True(t, ok)
+
+			// Save the name and namespace for later use with kubectl. We check that the vars are empty,
+			// in case pulumi up creates a new ConfigMap/Namespace instead of updating the existing one on
+			// subsequent runs.
+			if ns == "" && cmName == "" {
+				ns = cm["metadata"].(map[string]interface{})["namespace"].(string)
+				cmName = cm["metadata"].(map[string]interface{})["name"].(string)
+			}
+
+			// Validate we applied ConfigMap with data.
+			fooV, ok, err := unstructured.NestedString(cm, "data", "foo")
+			assert.True(t, ok)
+			assert.NoError(t, err)
+			assert.Equal(t, "bar", fooV)
+		},
+	})
+
+	// Use manual lifecycle management since we need to run external commands in between pulumi up steps, while referencing
+	// the same stack.
+	pt := integration.ProgramTestManualLifeCycle(t, &applyStep)
+	err := pt.TestLifeCycleInitAndDestroy()
+	assert.NoError(t, err)
+
+	// Sanity check with kubectl to verify that the ConfigMap was created with the wanted label.
+	out, err := exec.Command("kubectl", "get", "configmap", "-o", "yaml", "-n", ns, cmName).CombinedOutput()
+	assert.NoError(t, err)
+	assert.Contains(t, string(out), "bar") // ConfigMap should have been created with data foo: bar.
+
+	// Update the ConfigMap and change the data foo: bar to foo: baz.
+	out, err = exec.Command("kubectl", "patch", "configmap", "-n", ns, cmName, "-p", `{"data":{"foo":"baz"}}`).CombinedOutput()
+	assert.NoError(t, err)
+	assert.Contains(t, string(out), "configmap/"+cmName+" patched") // Ensure CM was patched.
+
+	// Use kubectl to verify that the ConfigMap was updated and now has data foo: baz.
+	out, err = exec.Command("kubectl", "get", "configmap", "-o", "yaml", "-n", ns, cmName).CombinedOutput()
+	assert.NoError(t, err)
+	assert.NotContains(t, string(out), "foo: bar") // ConfigMap should no longer have data foo: bar.
+	assert.Contains(t, string(out), "foo: baz")    // ConfigMap should have data foo: baz.
+
+	// Run `pulumi up` + `pulumi refresh` to refresh the state and detect the missing label.
+	// (The program tester runs these as separate steps, so the `pulumi up` doesn't detect a change until after the
+	// subsequent refresh is performed.)
+	err = pt.TestPreviewUpdateAndEdits()
+	assert.NoError(t, err)
+
+	// Re-run `pulumi up` to update the ConfigMap and re-add the label.
+	err = pt.TestPreviewUpdateAndEdits()
+	assert.NoError(t, err)
+
+	// Use kubectl to verify that the ConfigMap was updated and has the label again.
+	out, err = exec.Command("kubectl", "get", "configmap", "-o", "yaml", "-n", ns, cmName).CombinedOutput()
+	assert.NoError(t, err)
+
+	assert.Contains(t, string(out), "foo: bar")    // ConfigMap should have been updated with data foo: bar.
+	assert.NotContains(t, string(out), "foo: baz") // ConfigMap should no longer have data foo: baz.
 }
