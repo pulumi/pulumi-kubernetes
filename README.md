@@ -2,7 +2,7 @@
 [![Slack](http://www.pulumi.com/images/docs/badges/slack.svg)](https://slack.pulumi.com)
 [![NPM version](https://badge.fury.io/js/%40pulumi%2Fkubernetes.svg)](https://www.npmjs.com/package/@pulumi/kubernetes)
 [![Python version](https://badge.fury.io/py/pulumi-kubernetes.svg)](https://pypi.org/project/pulumi-kubernetes/)
-[![GoDoc](https://godoc.org/github.com/pulumi/pulumi-kubernetes/sdk/v3?status.svg)](https://pkg.go.dev/github.com/pulumi/pulumi-kubernetes/sdk/v3)
+[![GoDoc](https://godoc.org/github.com/pulumi/pulumi-kubernetes/sdk/v4?status.svg)](https://pkg.go.dev/github.com/pulumi/pulumi-kubernetes/sdk/v4)
 [![License](https://img.shields.io/github/license/pulumi/pulumi-kubernetes)](https://github.com/pulumi/pulumi-kubernetes/blob/master/LICENSE)
 
 # Pulumi Kubernetes Resource Provider
@@ -116,7 +116,7 @@ For .NET, dependencies will be automatically installed as part of your Pulumi de
 
 To use from Go, use `go install` to grab the latest version of the library
 
-    $ go install github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes@latest
+    $ go install github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes@latest
 
 ## Quick Examples
 

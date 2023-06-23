@@ -20,6 +20,7 @@ Other changes:
     - Compute preview diffs using resource inputs rather than making a dry-run API call.
     - Automatically update .metadata.managedFields to work with resources that were managed with client-side apply, and later upgraded to use server-side apply.
     - Fix a bug with the diff calculation so that resource drift is detected accurately after a refresh.
+- Update go module version to v4 (https://github.com/pulumi/pulumi-kubernetes/pull/2466)
 
 ## 3.30.2 (July 11, 2023)
 
