@@ -6,7 +6,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/logging"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 

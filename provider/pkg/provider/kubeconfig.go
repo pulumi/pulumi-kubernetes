@@ -3,7 +3,7 @@
 package provider
 
 import (
-	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"k8s.io/apimachinery/pkg/api/meta"
 	"k8s.io/client-go/discovery"
 	"k8s.io/client-go/rest"
