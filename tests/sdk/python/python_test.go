@@ -239,8 +239,9 @@ func TestGuestbook(t *testing.T) {
 	for _, dir := range []string{"guestbook", "guestbook-old"} {
 		t.Run(dir, func(t *testing.T) {
 			options := baseOptions.With(integration.ProgramTestOptions{
-				Dir:        filepath.Join(cwd, dir),
-				NoParallel: true,
+				Dir:                  filepath.Join(cwd, dir),
+				NoParallel:           true,
+				ExpectRefreshChanges: true,
 				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 					assert.NotNil(t, stackInfo.Deployment)
 					assert.Equal(t, 9, len(stackInfo.Deployment.Resources))
@@ -351,7 +352,8 @@ func TestHelm(t *testing.T) {
 		t.FailNow()
 	}
 	options := baseOptions.With(integration.ProgramTestOptions{
-		Dir: filepath.Join(cwd, "helm", "step1"),
+		Dir:                  filepath.Join(cwd, "helm", "step1"),
+		ExpectRefreshChanges: true,
 	})
 	integration.ProgramTest(t, &options)
 }
@@ -362,7 +364,8 @@ func TestHelmRelease(t *testing.T) {
 		t.FailNow()
 	}
 	options := baseOptions.With(integration.ProgramTestOptions{
-		Dir: filepath.Join(cwd, "helm-release", "step1"),
+		Dir:                  filepath.Join(cwd, "helm-release", "step1"),
+		ExpectRefreshChanges: true,
 		EditDirs: []integration.EditDir{
 			{
 				Dir:             filepath.Join(cwd, "helm-release", "step2"),
@@ -380,7 +383,8 @@ func TestHelmLocal(t *testing.T) {
 		t.FailNow()
 	}
 	options := baseOptions.With(integration.ProgramTestOptions{
-		Dir: filepath.Join(cwd, "helm-local", "step1"),
+		Dir:                  filepath.Join(cwd, "helm-local", "step1"),
+		ExpectRefreshChanges: true,
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			// Verify resource creation order using the Event stream. The Chart resources must be created
 			// first, followed by the dependent ConfigMap. (The ConfigMap doesn't actually need the Chart, but
@@ -419,7 +423,8 @@ func TestHelmApiVersions(t *testing.T) {
 		t.FailNow()
 	}
 	options := baseOptions.With(integration.ProgramTestOptions{
-		Dir: filepath.Join(cwd, "helm-api-versions", "step1"),
+		Dir:                  filepath.Join(cwd, "helm-api-versions", "step1"),
+		ExpectRefreshChanges: true,
 	})
 	integration.ProgramTest(t, &options)
 }

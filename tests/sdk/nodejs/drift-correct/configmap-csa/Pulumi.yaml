@@ -1,0 +1,3 @@
+name: drift-correct-tests
+description: Tests handling of drift correction with refresh an reapply
+runtime: nodejs

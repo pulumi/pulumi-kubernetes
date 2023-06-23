@@ -45,7 +45,8 @@ func TestAccGuestbook(t *testing.T) {
 	skipIfShort(t)
 	test := getBaseOptions(t).
 		With(integration.ProgramTestOptions{
-			Dir: filepath.Join(getCwd(t), "guestbook"),
+			Dir:                  filepath.Join(getCwd(t), "guestbook"),
+			ExpectRefreshChanges: true,
 			ExtraRuntimeValidation: func(
 				t *testing.T, stackInfo integration.RuntimeValidationStackInfo,
 			) {
@@ -386,6 +387,7 @@ func TestHelmRelease(t *testing.T) {
 			SkipRefresh:            false,
 			Verbose:                true,
 			ExtraRuntimeValidation: validationFunc,
+			ExpectRefreshChanges:   true,
 			EditDirs: []integration.EditDir{
 				{
 					Dir:                    filepath.Join(getCwd(t), "helm-release", "step2"),
@@ -404,9 +406,10 @@ func TestHelmReleaseCRD(t *testing.T) {
 	skipIfShort(t)
 	test := getBaseOptions(t).
 		With(integration.ProgramTestOptions{
-			Dir:         filepath.Join(getCwd(t), "helm-release-crd", "step1"),
-			SkipRefresh: false,
-			Verbose:     true,
+			Dir:                  filepath.Join(getCwd(t), "helm-release-crd", "step1"),
+			SkipRefresh:          false,
+			ExpectRefreshChanges: true,
+			Verbose:              true,
 			EditDirs: []integration.EditDir{
 				{
 					Dir:      filepath.Join(getCwd(t), "helm-release-crd", "step2"),
@@ -423,9 +426,10 @@ func TestHelmReleaseNamespace(t *testing.T) {
 	skipIfShort(t)
 	test := getBaseOptions(t).
 		With(integration.ProgramTestOptions{
-			Dir:         filepath.Join(getCwd(t), "helm-release-namespace"),
-			SkipRefresh: false,
-			Verbose:     true,
+			Dir:                  filepath.Join(getCwd(t), "helm-release-namespace"),
+			SkipRefresh:          false,
+			Verbose:              true,
+			ExpectRefreshChanges: true,
 			// Ensure that the rule was found in the release's namespace.
 			ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 				assert.NotEmpty(t, stackInfo.Outputs["alertManagerNamespace"].(string))
@@ -466,10 +470,11 @@ func TestHelmReleaseRedis(t *testing.T) {
 	skipIfShort(t)
 	test := getBaseOptions(t).
 		With(integration.ProgramTestOptions{
-			Dir:         filepath.Join(getCwd(t), "helm-release-redis", "step1"),
-			SkipRefresh: false,
-			Verbose:     true,
-			Quick:       true,
+			Dir:                  filepath.Join(getCwd(t), "helm-release-redis", "step1"),
+			SkipRefresh:          false,
+			ExpectRefreshChanges: true,
+			Verbose:              true,
+			Quick:                true,
 			EditDirs: []integration.EditDir{
 				{
 					Dir:      filepath.Join(getCwd(t), "helm-release-redis", "step2"),

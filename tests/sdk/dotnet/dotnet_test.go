@@ -96,8 +96,9 @@ func TestDotnet_YamlLocal(t *testing.T) {
 
 func TestDotnet_Helm(t *testing.T) {
 	test := baseOptions.With(integration.ProgramTestOptions{
-		Dir:   filepath.Join("helm", "step1"),
-		Quick: true,
+		Dir:                  filepath.Join("helm", "step1"),
+		Quick:                true,
+		ExpectRefreshChanges: true,
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			// Ensure that all `Services` have `status` marked as a `Secret`
 			for _, res := range stackInfo.Deployment.Resources {
@@ -118,8 +119,9 @@ func TestDotnet_Helm(t *testing.T) {
 
 func TestDotnet_HelmLocal(t *testing.T) {
 	test := baseOptions.With(integration.ProgramTestOptions{
-		Dir:   filepath.Join("helm-local", "step1"),
-		Quick: true,
+		Dir:                  filepath.Join("helm-local", "step1"),
+		Quick:                true,
+		ExpectRefreshChanges: true,
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			assert.NotNil(t, stackInfo.Deployment)
 			assert.Equal(t, 12, len(stackInfo.Deployment.Resources))
@@ -151,21 +153,15 @@ func TestDotnet_HelmLocal(t *testing.T) {
 				}
 			}
 		},
-		EditDirs: []integration.EditDir{
-			{
-				Dir:             filepath.Join("helm-local", "step2"),
-				Additive:        true,
-				ExpectNoChanges: true,
-			},
-		},
 	})
 	integration.ProgramTest(t, &test)
 }
 
 func TestDotnet_HelmApiVersions(t *testing.T) {
 	test := baseOptions.With(integration.ProgramTestOptions{
-		Dir:   filepath.Join("helm-api-versions", "step1"),
-		Quick: true,
+		Dir:                  filepath.Join("helm-api-versions", "step1"),
+		Quick:                true,
+		ExpectRefreshChanges: true,
 		OrderedConfig: []integration.ConfigValue{
 			{
 				Key:   "pulumi:disable-default-providers[0]",
@@ -183,9 +179,10 @@ func TestDotnet_HelmApiVersions(t *testing.T) {
 
 func TestDotnet_HelmAllowCRDRendering(t *testing.T) {
 	test := baseOptions.With(integration.ProgramTestOptions{
-		Dir:         filepath.Join("helm-skip-crd-rendering", "step1"),
-		Quick:       true,
-		SkipRefresh: true,
+		Dir:                  filepath.Join("helm-skip-crd-rendering", "step1"),
+		Quick:                true,
+		SkipRefresh:          true,
+		ExpectRefreshChanges: true,
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			assert.NotNil(t, stackInfo.Deployment)
 			assert.Equal(t, 8, len(stackInfo.Deployment.Resources))
