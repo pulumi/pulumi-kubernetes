@@ -19,8 +19,8 @@ package main
 import (
 	_ "embed"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/provider"
-	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/version"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/version"
 )
 
 var providerName = "kubernetes"

@@ -15,7 +15,7 @@
 package provider
 
 import (
-	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 

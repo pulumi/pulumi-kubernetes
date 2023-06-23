@@ -22,7 +22,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/provider"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/provider"
 	"helm.sh/helm/v3/pkg/action"
 	"helm.sh/helm/v3/pkg/chart/loader"
 	"helm.sh/helm/v3/pkg/release"

@@ -24,7 +24,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/openapi"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
 	"github.com/pulumi/pulumi/pkg/v3/testing/integration"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	"github.com/stretchr/testify/assert"
@@ -35,7 +35,7 @@ import (
 var baseOptions = &integration.ProgramTestOptions{
 	Verbose: true,
 	Dependencies: []string{
-		"github.com/pulumi/pulumi-kubernetes/sdk/v3",
+		"github.com/pulumi/pulumi-kubernetes/sdk/v4",
 	},
 	Env: []string{
 		"PULUMI_K8S_CLIENT_BURST=200",

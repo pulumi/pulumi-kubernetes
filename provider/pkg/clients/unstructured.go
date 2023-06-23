@@ -17,7 +17,7 @@ package clients
 import (
 	"fmt"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/kinds"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	batchv1 "k8s.io/api/batch/v1"
 	corev1 "k8s.io/api/core/v1"

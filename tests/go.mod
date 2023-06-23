@@ -1,17 +1,17 @@
-module github.com/pulumi/pulumi-kubernetes/tests/v3
+module github.com/pulumi/pulumi-kubernetes/tests/v4
 
 go 1.19
 
 replace (
-	github.com/pulumi/pulumi-kubernetes/provider/v3 => ../provider
-	github.com/pulumi/pulumi-kubernetes/sdk/v3 => ../sdk
+	github.com/pulumi/pulumi-kubernetes/provider/v4 => ../provider
+	github.com/pulumi/pulumi-kubernetes/sdk/v4 => ../sdk
 )
 
 require (
-	github.com/pulumi/pulumi-kubernetes/provider/v3 v3.0.0-rc.1
-	github.com/pulumi/pulumi-kubernetes/sdk/v3 v3.0.0-rc.1
-	github.com/pulumi/pulumi/pkg/v3 v3.70.0
-	github.com/pulumi/pulumi/sdk/v3 v3.70.0
+	github.com/pulumi/pulumi-kubernetes/provider/v4 v4.0.0
+	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.0.0
+	github.com/pulumi/pulumi/pkg/v3 v3.71.0
+	github.com/pulumi/pulumi/sdk/v3 v3.71.0
 	github.com/stretchr/testify v1.8.3
 	helm.sh/helm/v3 v3.12.0
 	k8s.io/apimachinery v0.27.2

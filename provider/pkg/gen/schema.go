@@ -22,7 +22,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/gen/examples"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gen/examples"
 	pschema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 )
@@ -198,7 +198,7 @@ func PulumiSchema(swagger map[string]any) pschema.PackageSpec {
 		Language:  map[string]pschema.RawMessage{},
 	}
 
-	goImportPath := "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes"
+	goImportPath := "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes"
 
 	csharpNamespaces := map[string]string{
 		"apiextensions": "ApiExtensions",
@@ -218,7 +218,7 @@ func PulumiSchema(swagger map[string]any) pschema.PackageSpec {
 		"helm.sh/v3":           "helm/v3",
 	}
 	pkgImportAliases := map[string]string{
-		"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/helm/v3": "helmv3",
+		"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v3": "helmv3",
 	}
 
 	definitions := swagger["definitions"].(map[string]any)

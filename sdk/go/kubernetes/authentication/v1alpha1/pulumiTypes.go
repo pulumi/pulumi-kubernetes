@@ -7,8 +7,8 @@ import (
 	"context"
 	"reflect"
 
-	authenticationv1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/authentication/v1"
-	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
+	authenticationv1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/authentication/v1"
+	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
