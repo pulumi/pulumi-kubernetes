@@ -590,7 +590,7 @@ func Deletion(c DeleteConfig) error {
 		return nilIfGVKDeleted(err)
 	}
 
-	err = deleteResource(c.Context, c.Name, client, cluster.TryGetServerVersion(c.ClientSet.DiscoveryClientCached))
+	err = deleteResource(c.Context, c.Name, client)
 	if err != nil {
 		return nilIfGVKDeleted(err)
 	}
@@ -672,22 +672,14 @@ func Deletion(c DeleteConfig) error {
 	return waitErr
 }
 
-func deleteResource(
-	ctx context.Context, name string, client dynamic.ResourceInterface, version cluster.ServerVersion) error {
-	// Manually set delete propagation for Kubernetes versions < 1.6 to avoid bugs.
-	deleteOpts := metav1.DeleteOptions{}
-	if version.Compare(cluster.ServerVersion{Major: 1, Minor: 6}) < 0 {
-		// 1.5.x option.
-		boolFalse := false
-		// nolint
-		deleteOpts.OrphanDependents = &boolFalse
-	} else {
-		fg := metav1.DeletePropagationForeground
-		deleteOpts.PropagationPolicy = &fg
+// deleteResource deletes the specified resource using foreground cascading delete.
+func deleteResource(ctx context.Context, name string, client dynamic.ResourceInterface) error {
+	fg := metav1.DeletePropagationForeground
+	deleteOpts := metav1.DeleteOptions{
+		PropagationPolicy: &fg,
 	}
 
-	// Issue deletion request.
-	return client.Delete(ctx, name, *&deleteOpts)
+	return client.Delete(ctx, name, deleteOpts)
 }
 
 // checkIfResourceDeleted attempts to get a k8s resource, and returns true if the resource is not found (was deleted).
