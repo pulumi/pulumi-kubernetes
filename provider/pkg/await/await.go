@@ -37,6 +37,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/fields"
+	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/apimachinery/pkg/watch"
@@ -128,12 +129,11 @@ func ResourceIDFromUnstructured(uns *unstructured.Unstructured) ResourceID {
 }
 
 // skipRetry checks if we should skip retrying creation for unresolvable errors.
-func skipRetry(gvk schema.GroupVersionKind, k8sVersion *cluster.ServerVersion, err error,
-) (bool, *cluster.ServerVersion) {
+func skipRetry(obj metav1.Object, clusterVersion string, err error) (bool, error) {
 	if meta.IsNoMatchError(err) {
 		// If the GVK is known to have been removed, it's not waiting on any CRD creation, and we can return early.
-		if removed, version := kinds.RemovedAPIVersion(gvk, *k8sVersion); removed {
-			return true, version
+		if removed, err := RemovedResource(obj.(runtime.Object), clusterVersion); removed {
+			return true, err
 		}
 	}
 
@@ -174,11 +174,9 @@ func Creation(c CreateConfig) (*unstructured.Unstructured, error) {
 			if client == nil {
 				client, err = c.ClientSet.ResourceClient(c.Inputs.GroupVersionKind(), c.Inputs.GetNamespace())
 				if err != nil {
-					if skip, version := skipRetry(c.Inputs.GroupVersionKind(), c.ClusterVersion, err); skip {
-						return &kinds.RemovedAPIError{
-							GVK:     c.Inputs.GroupVersionKind(),
-							Version: version,
-						}
+					r, _ := clients.FromUnstructured(c.Inputs)
+					if skip, err := skipRetry(r, c.ClusterVersion.String(), err); skip {
+						return err
 					}
 
 					_ = c.Host.LogStatus(c.Context, diag.Info, c.URN, fmt.Sprintf(
