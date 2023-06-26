@@ -19,6 +19,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"regexp"
 	"strings"
@@ -343,5 +344,48 @@ func TestGo(t *testing.T) {
 			},
 		})
 		integration.ProgramTest(t, &options)
+	})
+
+	// Test to ensure https://github.com/pulumi/pulumi-kubernetes/issues/2336 is fixed. This spins up a deployment pod with
+	// 2 containers using CSA. Then, it updates the deployment to use SSA while deleting one of the containers.
+	t.Run("switchSSADeleteContainer", func(t *testing.T) {
+		validation := func(expectedContainers string) func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+			return func(t *testing.T, stack integration.RuntimeValidationStackInfo) {
+				// Check that the stack has the expected number of deployments/resources.
+				var count int
+				for _, res := range stack.Deployment.Resources {
+					// Validate that the deployment has the expected number of containers. We use kubectl to verify this,
+					// as there have been issues in the past with Pulumi outputs not accurately reflecting the state of the
+					// cluster.
+					if !strings.Contains(string(res.URN), "v1:Deployment::deployment") {
+						continue
+					}
+
+					count++
+					out, err := exec.Command("kubectl", "get", "deployment", "-o", "jsonpath={.spec.template.spec.containers[*].name}", "-n", "default", "nginx").CombinedOutput()
+					assert.NoError(t, err)
+					assert.Equal(t, expectedContainers, string(out))
+				}
+
+				if count != 1 {
+					t.Errorf("expected 1 resource, got %d", count)
+				}
+			}
+		}
+
+		test := baseOptions.With(integration.ProgramTestOptions{
+			Dir:                    filepath.Join("switch-ssa-delete-container", "step1"),
+			Verbose:                true,
+			ExtraRuntimeValidation: validation("nginx sidecar"),
+			EditDirs: []integration.EditDir{
+				{
+					Dir:                    filepath.Join("switch-ssa-delete-container", "step2"),
+					Additive:               true,
+					ExpectNoChanges:        false,
+					ExtraRuntimeValidation: validation("nginx"),
+				},
+			},
+		})
+		integration.ProgramTest(t, &test)
 	})
 }
