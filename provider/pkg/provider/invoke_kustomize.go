@@ -16,6 +16,7 @@ package provider
 
 import (
 	"os"
+	"sigs.k8s.io/kustomize/api/types"
 
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
@@ -50,6 +51,7 @@ func kustomizeDirectory(directory string, clientSet *clients.DynamicClientSet) (
 	fSys := filesys.MakeFsOnDisk()
 	opts := krusty.MakeDefaultOptions()
 	opts.DoLegacyResourceSort = true
+	opts.PluginConfig = types.EnabledPluginConfig(types.BploUseStaticallyLinked)
 
 	k := krusty.MakeKustomizer(opts)
 
