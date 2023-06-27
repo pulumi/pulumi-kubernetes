@@ -25,6 +25,11 @@ import (
 	"k8s.io/apimachinery/pkg/watch"
 )
 
+const (
+	rollingUpdate = "RollingUpdate"
+	onDelete      = "OnDelete"
+)
+
 func Test_Apps_StatefulSet(t *testing.T) {
 	const (
 		inputNamespace = "default"
@@ -37,71 +42,105 @@ func Test_Apps_StatefulSet(t *testing.T) {
 		expectedError error
 	}{
 		{
-			description: "[Revision 1] Should succeed after creating StatefulSet",
+			description: "Should succeed after creating StatefulSet",
 			do: func(statefulsets, pods chan watch.Event, timeout chan time.Time) {
 				// API server successfully creates and initializes StatefulSet object.
 				statefulsets <- watchAddedEvent(
-					statefulsetAdded(inputNamespace, inputName, targetService))
+					statefulsetAdded(inputNamespace, inputName, targetService, ""))
 				statefulsets <- watchAddedEvent(
-					statefulsetCreating(inputNamespace, inputName, targetService))
+					statefulsetCreating(inputNamespace, inputName, targetService, ""))
 				statefulsets <- watchAddedEvent(
-					statefulsetProgressing(inputNamespace, inputName, targetService))
+					statefulsetProgressing(inputNamespace, inputName, targetService, ""))
 				statefulsets <- watchAddedEvent(
-					statefulsetReady(inputNamespace, inputName, targetService))
+					statefulsetReady(inputNamespace, inputName, targetService, ""))
 
 				// Timeout. Success.
 				timeout <- time.Now()
 			},
 		},
 		{
-			description: "[Revision 2] Should succeed after updating StatefulSet",
+			description: "Should succeed after creating StatefulSet with OnDelete strategy",
+			do: func(statefulsets, pods chan watch.Event, timeout chan time.Time) {
+				// API server successfully creates and initializes StatefulSet object.
+				statefulsets <- watchAddedEvent(
+					statefulsetAdded(inputNamespace, inputName, targetService, onDelete))
+				statefulsets <- watchAddedEvent(
+					statefulsetCreating(inputNamespace, inputName, targetService, onDelete))
+				statefulsets <- watchAddedEvent(
+					statefulsetProgressing(inputNamespace, inputName, targetService, onDelete))
+				statefulsets <- watchAddedEvent(
+					statefulsetReady(inputNamespace, inputName, targetService, onDelete))
+
+				// Timeout. Success.
+				timeout <- time.Now()
+			},
+		},
+		{
+			description: "Should succeed after updating StatefulSet",
 			do: func(statefulsets, pods chan watch.Event, timeout chan time.Time) {
 				// API server successfully updates StatefulSet object.
 				statefulsets <- watchAddedEvent(
-					statefulsetUpdate(inputNamespace, inputName, targetService))
+					statefulsetUpdate(inputNamespace, inputName, targetService, ""))
 				statefulsets <- watchAddedEvent(
-					statefulsetUpdating(inputNamespace, inputName, targetService))
+					statefulsetUpdating(inputNamespace, inputName, targetService, ""))
 				statefulsets <- watchAddedEvent(
-					statefulsetUpdatingWithActiveReplica(inputNamespace, inputName, targetService))
+					statefulsetUpdatingWithActiveReplica(inputNamespace, inputName, targetService, ""))
 				statefulsets <- watchAddedEvent(
-					statefulsetUpdateSuccess(inputNamespace, inputName, targetService))
+					statefulsetUpdateSuccess(inputNamespace, inputName, targetService, ""))
 
 				// Timeout. Success.
 				timeout <- time.Now()
 			},
 		},
 		{
-			description: "[Revision 1] Should fail if timeout occurs before successful creation",
+			description: "Should succeed after updating StatefulSet with OnDelete strategy",
+			do: func(statefulsets, pods chan watch.Event, timeout chan time.Time) {
+				// API server successfully updates StatefulSet object.
+				statefulsets <- watchAddedEvent(
+					statefulsetUpdate(inputNamespace, inputName, targetService, onDelete))
+				statefulsets <- watchAddedEvent(
+					statefulsetUpdatingOnDelete(inputNamespace, inputName, targetService, onDelete))
+				statefulsets <- watchAddedEvent(
+					statefulsetUpdatingWithActiveReplicaOnDelete(inputNamespace, inputName, targetService, onDelete))
+				statefulsets <- watchAddedEvent(
+					statefulsetUpdateSuccessOnDelete(inputNamespace, inputName, targetService, onDelete))
+
+				// Timeout. Success.
+				timeout <- time.Now()
+			},
+		},
+		{
+			description: "Should fail if timeout occurs before successful creation",
 			do: func(statefulsets, pods chan watch.Event, timeout chan time.Time) {
 				// API server successfully creates StatefulSet object.
 				statefulsets <- watchAddedEvent(
-					statefulsetAdded(inputNamespace, inputName, targetService))
+					statefulsetAdded(inputNamespace, inputName, targetService, ""))
 				statefulsets <- watchAddedEvent(
-					statefulsetCreating(inputNamespace, inputName, targetService))
+					statefulsetCreating(inputNamespace, inputName, targetService, ""))
 
 				// Timeout. Failure.
 				timeout <- time.Now()
 			},
 			expectedError: &timeoutError{
-				object: statefulsetCreating(inputNamespace, inputName, targetService),
+				object: statefulsetCreating(inputNamespace, inputName, targetService, ""),
 				subErrors: []string{
 					"0 out of 2 replicas succeeded readiness checks",
 				}},
 		},
 		{
-			description: "[Revision 2] Should fail if timeout occurs before successful update rollout",
+			description: "Should fail if timeout occurs before successful update rollout",
 			do: func(statefulsets, pods chan watch.Event, timeout chan time.Time) {
 				// API server successfully updates StatefulSet object.
 				statefulsets <- watchAddedEvent(
-					statefulsetUpdate(inputNamespace, inputName, targetService))
+					statefulsetUpdate(inputNamespace, inputName, targetService, ""))
 				statefulsets <- watchAddedEvent(
-					statefulsetUpdating(inputNamespace, inputName, targetService))
+					statefulsetUpdating(inputNamespace, inputName, targetService, ""))
 
 				// Timeout. Failure.
 				timeout <- time.Now()
 			},
 			expectedError: &timeoutError{
-				object: statefulsetUpdating(inputNamespace, inputName, targetService),
+				object: statefulsetUpdating(inputNamespace, inputName, targetService, ""),
 				subErrors: []string{
 					"0 out of 2 replicas succeeded readiness checks",
 					"StatefulSet controller failed to advance from revision \"foo-7b5cf87b78\" to revision \"foo-789c4b994f\"",
@@ -113,7 +152,7 @@ func Test_Apps_StatefulSet(t *testing.T) {
 				podName := "foo-0"
 
 				statefulsets <- watchAddedEvent(
-					statefulsetProgressing(inputNamespace, inputName, targetService))
+					statefulsetProgressing(inputNamespace, inputName, targetService, ""))
 
 				// Ready Pod should generate no errors.
 				pods <- watchAddedEvent(statefulsetReadyPod(inputNamespace, podName, inputName))
@@ -125,7 +164,7 @@ func Test_Apps_StatefulSet(t *testing.T) {
 				timeout <- time.Now()
 			},
 			expectedError: &timeoutError{
-				object: statefulsetProgressing(inputNamespace, inputName, targetService),
+				object: statefulsetProgressing(inputNamespace, inputName, targetService, ""),
 				subErrors: []string{
 					"1 out of 2 replicas succeeded readiness checks",
 				}},
@@ -136,7 +175,7 @@ func Test_Apps_StatefulSet(t *testing.T) {
 				podName := "foo-0"
 
 				statefulsets <- watchAddedEvent(
-					statefulsetUpdating(inputNamespace, inputName, targetService))
+					statefulsetUpdating(inputNamespace, inputName, targetService, ""))
 
 				// Ready Pod should generate no errors.
 				pods <- watchAddedEvent(statefulsetReadyPod(inputNamespace, podName, inputName))
@@ -148,7 +187,7 @@ func Test_Apps_StatefulSet(t *testing.T) {
 				timeout <- time.Now()
 			},
 			expectedError: &timeoutError{
-				object: statefulsetUpdating(inputNamespace, inputName, targetService),
+				object: statefulsetUpdating(inputNamespace, inputName, targetService, ""),
 				subErrors: []string{
 					"0 out of 2 replicas succeeded readiness checks",
 					"StatefulSet controller failed to advance from revision \"foo-7b5cf87b78\" to revision \"foo-789c4b994f\"",
@@ -160,7 +199,7 @@ func Test_Apps_StatefulSet(t *testing.T) {
 				podName := "foo-0"
 
 				statefulsets <- watchAddedEvent(
-					statefulsetProgressing(inputNamespace, inputName, targetService))
+					statefulsetProgressing(inputNamespace, inputName, targetService, ""))
 
 				// Failed Pod should show up in the errors.
 				pods <- watchAddedEvent(statefulsetFailedPod(inputNamespace, podName, inputName))
@@ -172,7 +211,7 @@ func Test_Apps_StatefulSet(t *testing.T) {
 				timeout <- time.Now()
 			},
 			expectedError: &timeoutError{
-				object: statefulsetProgressing(inputNamespace, inputName, targetService),
+				object: statefulsetProgressing(inputNamespace, inputName, targetService, ""),
 				subErrors: []string{
 					"1 out of 2 replicas succeeded readiness checks",
 					"[Pod foo-0]: containers with unready status: [nginx] -- [ErrImagePull] manifest for nginx:busted not found",
@@ -184,7 +223,7 @@ func Test_Apps_StatefulSet(t *testing.T) {
 				podName := "foo-0"
 
 				statefulsets <- watchAddedEvent(
-					statefulsetUpdating(inputNamespace, inputName, targetService))
+					statefulsetUpdating(inputNamespace, inputName, targetService, ""))
 
 				// Failed Pod should show up in the errors.
 				pods <- watchAddedEvent(statefulsetFailedPod(inputNamespace, podName, inputName))
@@ -196,7 +235,7 @@ func Test_Apps_StatefulSet(t *testing.T) {
 				timeout <- time.Now()
 			},
 			expectedError: &timeoutError{
-				object: statefulsetUpdating(inputNamespace, inputName, targetService),
+				object: statefulsetUpdating(inputNamespace, inputName, targetService, ""),
 				subErrors: []string{
 					"0 out of 2 replicas succeeded readiness checks",
 					"StatefulSet controller failed to advance from revision \"foo-7b5cf87b78\" to revision \"foo-789c4b994f\"",
@@ -208,7 +247,7 @@ func Test_Apps_StatefulSet(t *testing.T) {
 	for _, test := range tests {
 		awaiter := makeStatefulSetInitAwaiter(
 			updateAwaitConfig{
-				createAwaitConfig: mockAwaitConfig(statefulsetInput(inputNamespace, inputName, targetService)),
+				createAwaitConfig: mockAwaitConfig(statefulsetInput(inputNamespace, inputName, targetService, "")),
 			})
 		statefulsets := make(chan watch.Event)
 		pods := make(chan watch.Event)
@@ -298,7 +337,7 @@ func Test_Apps_StatefulSetRead(t *testing.T) {
 	)
 	tests := []struct {
 		description       string
-		statefulset       func(namespace, name, targetService string) *unstructured.Unstructured
+		statefulset       func(namespace, name, targetService, updateStrategy string) *unstructured.Unstructured
 		expectedSubErrors []string
 	}{
 		{
@@ -329,9 +368,9 @@ func Test_Apps_StatefulSetRead(t *testing.T) {
 	for _, test := range tests {
 		awaiter := makeStatefulSetInitAwaiter(
 			updateAwaitConfig{
-				createAwaitConfig: mockAwaitConfig(statefulsetInput(inputNamespace, inputName, targetService)),
+				createAwaitConfig: mockAwaitConfig(statefulsetInput(inputNamespace, inputName, targetService, "")),
 			})
-		statefulset := test.statefulset(inputNamespace, inputName, targetService)
+		statefulset := test.statefulset(inputNamespace, inputName, targetService, "")
 		err := awaiter.read(statefulset, unstructuredList())
 		if test.expectedSubErrors != nil {
 			assert.Equal(t, test.expectedSubErrors, err.(*initializationError).SubErrors(), test.description)
@@ -348,7 +387,10 @@ func Test_Apps_StatefulSetRead(t *testing.T) {
 // --------------------------------------------------------------------------
 
 // statefulsetInput is the user-provided declaration of a StatefulSet
-func statefulsetInput(namespace, name, targetService string) *unstructured.Unstructured {
+func statefulsetInput(namespace, name, targetService, updateStrategy string) *unstructured.Unstructured {
+	if updateStrategy == "" {
+		updateStrategy = rollingUpdate
+	}
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
     "kind": "StatefulSet",
     "apiVersion": "apps/v1beta1",
@@ -389,6 +431,9 @@ func statefulsetInput(namespace, name, targetService string) *unstructured.Unstr
 				"terminationGracePeriodSeconds": 10
             }
         },
+        "updateStrategy": {
+            "type": "%s"
+        },
 		"volumeClaimTemplates": [
 			{
 				"metadata": {
@@ -407,7 +452,7 @@ func statefulsetInput(namespace, name, targetService string) *unstructured.Unstr
 			}
 		]
     }
-}`, namespace, name, targetService))
+}`, namespace, name, targetService, updateStrategy))
 	if err != nil {
 		panic(err)
 	}
@@ -415,7 +460,10 @@ func statefulsetInput(namespace, name, targetService string) *unstructured.Unstr
 }
 
 // statefulsetAdded is the initial state of the StatefulSet object after being added through the API
-func statefulsetAdded(namespace, name, targetService string) *unstructured.Unstructured {
+func statefulsetAdded(namespace, name, targetService, updateStrategy string) *unstructured.Unstructured {
+	if updateStrategy == "" {
+		updateStrategy = rollingUpdate
+	}
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
     "kind": "StatefulSet",
     "apiVersion": "apps/v1beta1",
@@ -456,6 +504,9 @@ func statefulsetAdded(namespace, name, targetService string) *unstructured.Unstr
                 ],
 				"terminationGracePeriodSeconds": 10
             }
+        },
+        "updateStrategy": {
+            "type": "%s"
         },
 		"volumeClaimTemplates": [
 			{
@@ -478,7 +529,7 @@ func statefulsetAdded(namespace, name, targetService string) *unstructured.Unstr
 	"status": {
         "replicas": 0
     }
-}`, namespace, name, targetService))
+}`, namespace, name, targetService, updateStrategy))
 	if err != nil {
 		panic(err)
 	}
@@ -486,7 +537,10 @@ func statefulsetAdded(namespace, name, targetService string) *unstructured.Unstr
 }
 
 // statefulsetCreating is the state of the StatefulSet object while initial Pods are created but before any are ready
-func statefulsetCreating(namespace, name, targetService string) *unstructured.Unstructured {
+func statefulsetCreating(namespace, name, targetService, updateStrategy string) *unstructured.Unstructured {
+	if updateStrategy == "" {
+		updateStrategy = rollingUpdate
+	}
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
     "kind": "StatefulSet",
     "apiVersion": "apps/v1beta1",
@@ -527,6 +581,9 @@ func statefulsetCreating(namespace, name, targetService string) *unstructured.Un
                 ],
 				"terminationGracePeriodSeconds": 10
             }
+        },
+        "updateStrategy": {
+            "type": "%s"
         },
 		"volumeClaimTemplates": [
 			{
@@ -554,7 +611,7 @@ func statefulsetCreating(namespace, name, targetService string) *unstructured.Un
 		"observedGeneration": 1,
 		"updateRevision": "foo-7b5cf87b78"
     }
-}`, namespace, name, targetService))
+}`, namespace, name, targetService, updateStrategy))
 	if err != nil {
 		panic(err)
 	}
@@ -562,7 +619,10 @@ func statefulsetCreating(namespace, name, targetService string) *unstructured.Un
 }
 
 // statefulsetProgressing is the state of the StatefulSet object after a Pod is ready
-func statefulsetProgressing(namespace, name, targetService string) *unstructured.Unstructured {
+func statefulsetProgressing(namespace, name, targetService, updateStrategy string) *unstructured.Unstructured {
+	if updateStrategy == "" {
+		updateStrategy = rollingUpdate
+	}
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
     "kind": "StatefulSet",
     "apiVersion": "apps/v1beta1",
@@ -603,6 +663,9 @@ func statefulsetProgressing(namespace, name, targetService string) *unstructured
                 ],
 				"terminationGracePeriodSeconds": 10
             }
+        },
+        "updateStrategy": {
+            "type": "%s"
         },
 		"volumeClaimTemplates": [
 			{
@@ -631,7 +694,7 @@ func statefulsetProgressing(namespace, name, targetService string) *unstructured
 		"updateRevision": "foo-7b5cf87b78",
 		"readyReplicas": 1
     }
-}`, namespace, name, targetService))
+}`, namespace, name, targetService, updateStrategy))
 	if err != nil {
 		panic(err)
 	}
@@ -639,7 +702,10 @@ func statefulsetProgressing(namespace, name, targetService string) *unstructured
 }
 
 // statefulsetReady is the state of the StatefulSet object after all Pods are ready
-func statefulsetReady(namespace, name, targetService string) *unstructured.Unstructured {
+func statefulsetReady(namespace, name, targetService, updateStrategy string) *unstructured.Unstructured {
+	if updateStrategy == "" {
+		updateStrategy = rollingUpdate
+	}
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
     "kind": "StatefulSet",
     "apiVersion": "apps/v1beta1",
@@ -681,6 +747,9 @@ func statefulsetReady(namespace, name, targetService string) *unstructured.Unstr
 				"terminationGracePeriodSeconds": 10
             }
         },
+        "updateStrategy": {
+            "type": "%s"
+        },
 		"volumeClaimTemplates": [
 			{
 				"metadata": {
@@ -708,7 +777,7 @@ func statefulsetReady(namespace, name, targetService string) *unstructured.Unstr
 		"updateRevision": "foo-7b5cf87b78",
 		"readyReplicas": 2
     }
-}`, namespace, name, targetService))
+}`, namespace, name, targetService, updateStrategy))
 	if err != nil {
 		panic(err)
 	}
@@ -716,7 +785,10 @@ func statefulsetReady(namespace, name, targetService string) *unstructured.Unstr
 }
 
 // statefulsetReady is the state of the StatefulSet object after an update is issued through the API
-func statefulsetUpdate(namespace, name, targetService string) *unstructured.Unstructured {
+func statefulsetUpdate(namespace, name, targetService, updateStrategy string) *unstructured.Unstructured {
+	if updateStrategy == "" {
+		updateStrategy = rollingUpdate
+	}
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
     "kind": "StatefulSet",
     "apiVersion": "apps/v1beta1",
@@ -757,6 +829,9 @@ func statefulsetUpdate(namespace, name, targetService string) *unstructured.Unst
                 ],
 				"terminationGracePeriodSeconds": 10
             }
+        },
+        "updateStrategy": {
+            "type": "%s"
         },
 		"volumeClaimTemplates": [
 			{
@@ -776,7 +851,7 @@ func statefulsetUpdate(namespace, name, targetService string) *unstructured.Unst
 			}
 		]
     }
-}`, namespace, name, targetService))
+}`, namespace, name, targetService, updateStrategy))
 	if err != nil {
 		panic(err)
 	}
@@ -784,7 +859,10 @@ func statefulsetUpdate(namespace, name, targetService string) *unstructured.Unst
 }
 
 // statefulsetUpdating is the state of the StatefulSet object while an update is rolling out
-func statefulsetUpdating(namespace, name, targetService string) *unstructured.Unstructured {
+func statefulsetUpdating(namespace, name, targetService, updateStrategy string) *unstructured.Unstructured {
+	if updateStrategy == "" {
+		updateStrategy = rollingUpdate
+	}
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
     "kind": "StatefulSet",
     "apiVersion": "apps/v1beta1",
@@ -825,6 +903,9 @@ func statefulsetUpdating(namespace, name, targetService string) *unstructured.Un
                 ],
 				"terminationGracePeriodSeconds": 10
             }
+        },
+        "updateStrategy": {
+            "type": "%s"
         },
 		"volumeClaimTemplates": [
 			{
@@ -853,15 +934,19 @@ func statefulsetUpdating(namespace, name, targetService string) *unstructured.Un
 		"updateRevision": "foo-789c4b994f",
 		"readyReplicas": 2
     }
-}`, namespace, name, targetService))
+}`, namespace, name, targetService, updateStrategy))
 	if err != nil {
 		panic(err)
 	}
 	return obj
 }
 
-// statefulsetUpdating is the state of the StatefulSet object while an update is rolling out and a new Pod is active
-func statefulsetUpdatingWithActiveReplica(namespace, name, targetService string) *unstructured.Unstructured {
+// statefulsetUpdatingOnDelete is the state of the StatefulSet object while an update is pending a manual update using
+// the OnDelete update strategy
+func statefulsetUpdatingOnDelete(namespace, name, targetService, updateStrategy string) *unstructured.Unstructured {
+	if updateStrategy == "" {
+		updateStrategy = rollingUpdate
+	}
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
     "kind": "StatefulSet",
     "apiVersion": "apps/v1beta1",
@@ -902,6 +987,91 @@ func statefulsetUpdatingWithActiveReplica(namespace, name, targetService string)
                 ],
 				"terminationGracePeriodSeconds": 10
             }
+        },
+        "updateStrategy": {
+            "type": "%s"
+        },
+		"volumeClaimTemplates": [
+			{
+				"metadata": {
+					"name": "www"
+				},
+				"spec": {
+					"accessModes": [
+						"ReadWriteOnce"
+					],
+					"resources": {
+						"requests": {
+							"storage": "1Gi"
+						}
+					}
+				}
+			}
+		]
+    },
+	"status": {
+		"replicas": 2,
+		"collisionCount": 0,
+		"currentRevision": "foo-7b5cf87b78",
+		"observedGeneration": 2,
+		"updateRevision": "foo-789c4b994f",
+		"readyReplicas": 2
+    }
+}`, namespace, name, targetService, updateStrategy))
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// statefulsetUpdating is the state of the StatefulSet object while an update is rolling out and a new Pod is active
+func statefulsetUpdatingWithActiveReplica(namespace, name, targetService, updateStrategy string) *unstructured.Unstructured {
+	if updateStrategy == "" {
+		updateStrategy = rollingUpdate
+	}
+	obj, err := decodeUnstructured(fmt.Sprintf(`{
+    "kind": "StatefulSet",
+    "apiVersion": "apps/v1beta1",
+    "metadata": {
+        "namespace": "%s",
+        "name": "%s",
+		"generation": 2,
+        "labels": {
+            "app": "foo"
+        }
+    },
+    "spec": {
+        "replicas": 2,
+        "selector": {
+            "matchLabels": {
+                "app": "foo"
+            }
+        },
+		"serviceName": "%s",
+        "template": {
+            "metadata": {
+                "labels": {
+                    "app": "foo"
+                }
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "name": "nginx",
+                        "image": "nginx:stable",
+						"volumeMounts": [
+							{
+								"mountPath": "/usr/share/nginx/html",
+								"name": "www"
+							}
+						]
+                    }
+                ],
+				"terminationGracePeriodSeconds": 10
+            }
+        },
+        "updateStrategy": {
+            "type": "%s"
         },
 		"volumeClaimTemplates": [
 			{
@@ -931,15 +1101,19 @@ func statefulsetUpdatingWithActiveReplica(namespace, name, targetService string)
 		"readyReplicas": 1,
 		"updatedReplicas": 1
     }
-}`, namespace, name, targetService))
+}`, namespace, name, targetService, updateStrategy))
 	if err != nil {
 		panic(err)
 	}
 	return obj
 }
 
-// statefulsetUpdateSuccess is the state of the StatefulSet object after an update is rolled out successfully
-func statefulsetUpdateSuccess(namespace, name, targetService string) *unstructured.Unstructured {
+// statefulsetUpdatingWithActiveReplicaOnDelete is the state of the StatefulSet object while an update is in progress
+// using the OnDelete update strategy and a new Pod is active
+func statefulsetUpdatingWithActiveReplicaOnDelete(namespace, name, targetService, updateStrategy string) *unstructured.Unstructured {
+	if updateStrategy == "" {
+		updateStrategy = rollingUpdate
+	}
 	obj, err := decodeUnstructured(fmt.Sprintf(`{
     "kind": "StatefulSet",
     "apiVersion": "apps/v1beta1",
@@ -981,6 +1155,92 @@ func statefulsetUpdateSuccess(namespace, name, targetService string) *unstructur
 				"terminationGracePeriodSeconds": 10
             }
         },
+        "updateStrategy": {
+            "type": "%s"
+        },
+		"volumeClaimTemplates": [
+			{
+				"metadata": {
+					"name": "www"
+				},
+				"spec": {
+					"accessModes": [
+						"ReadWriteOnce"
+					],
+					"resources": {
+						"requests": {
+							"storage": "1Gi"
+						}
+					}
+				}
+			}
+		]
+    },
+	"status": {
+		"replicas": 2,
+		"collisionCount": 0,
+		"currentRevision": "foo-7b5cf87b78",
+		"observedGeneration": 2,
+		"updateRevision": "foo-789c4b994f",
+		"readyReplicas": 1,
+		"updatedReplicas": 1
+    }
+}`, namespace, name, targetService, updateStrategy))
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// statefulsetUpdateSuccess is the state of the StatefulSet object after an update is rolled out successfully
+func statefulsetUpdateSuccess(namespace, name, targetService, updateStrategy string) *unstructured.Unstructured {
+	if updateStrategy == "" {
+		updateStrategy = rollingUpdate
+	}
+	obj, err := decodeUnstructured(fmt.Sprintf(`{
+    "kind": "StatefulSet",
+    "apiVersion": "apps/v1beta1",
+    "metadata": {
+        "namespace": "%s",
+        "name": "%s",
+		"generation": 2,
+        "labels": {
+            "app": "foo"
+        }
+    },
+    "spec": {
+        "replicas": 2,
+        "selector": {
+            "matchLabels": {
+                "app": "foo"
+            }
+        },
+		"serviceName": "%s",
+        "template": {
+            "metadata": {
+                "labels": {
+                    "app": "foo"
+                }
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "name": "nginx",
+                        "image": "nginx:stable",
+						"volumeMounts": [
+							{
+								"mountPath": "/usr/share/nginx/html",
+								"name": "www"
+							}
+						]
+                    }
+                ],
+				"terminationGracePeriodSeconds": 10
+            }
+        },
+        "updateStrategy": {
+            "type": "%s"
+        },
 		"volumeClaimTemplates": [
 			{
 				"metadata": {
@@ -1008,7 +1268,90 @@ func statefulsetUpdateSuccess(namespace, name, targetService string) *unstructur
 		"updateRevision": "foo-789c4b994f",
 		"readyReplicas": 2
     }
-}`, namespace, name, targetService))
+}`, namespace, name, targetService, updateStrategy))
+	if err != nil {
+		panic(err)
+	}
+	return obj
+}
+
+// statefulsetUpdateSuccessOnDelete is the state of the StatefulSet object after an update completed with the OnDelete
+// update strategy
+func statefulsetUpdateSuccessOnDelete(namespace, name, targetService, updateStrategy string) *unstructured.Unstructured {
+	if updateStrategy == "" {
+		updateStrategy = rollingUpdate
+	}
+	obj, err := decodeUnstructured(fmt.Sprintf(`{
+    "kind": "StatefulSet",
+    "apiVersion": "apps/v1beta1",
+    "metadata": {
+        "namespace": "%s",
+        "name": "%s",
+		"generation": 2,
+        "labels": {
+            "app": "foo"
+        }
+    },
+    "spec": {
+        "replicas": 2,
+        "selector": {
+            "matchLabels": {
+                "app": "foo"
+            }
+        },
+		"serviceName": "%s",
+        "template": {
+            "metadata": {
+                "labels": {
+                    "app": "foo"
+                }
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "name": "nginx",
+                        "image": "nginx:stable",
+						"volumeMounts": [
+							{
+								"mountPath": "/usr/share/nginx/html",
+								"name": "www"
+							}
+						]
+                    }
+                ],
+				"terminationGracePeriodSeconds": 10
+            }
+        },
+        "updateStrategy": {
+            "type": "%s"
+        },
+		"volumeClaimTemplates": [
+			{
+				"metadata": {
+					"name": "www"
+				},
+				"spec": {
+					"accessModes": [
+						"ReadWriteOnce"
+					],
+					"resources": {
+						"requests": {
+							"storage": "1Gi"
+						}
+					}
+				}
+			}
+		]
+    },
+	"status": {
+		"replicas": 2,
+		"collisionCount": 0,
+		"currentRevision": "foo-7b5cf87b78",
+		"observedGeneration": 2,
+		"updateRevision": "foo-789c4b994f",
+		"readyReplicas": 2
+    }
+}`, namespace, name, targetService, updateStrategy))
 	if err != nil {
 		panic(err)
 	}
