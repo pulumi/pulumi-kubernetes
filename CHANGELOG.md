@@ -1,5 +1,7 @@
 ## Unreleased
 
+- Fix StatefulSet await logic for OnDelete update (https://github.com/pulumi/pulumi-kubernetes/pull/2473)
+
 ## 3.29.1 (June 14, 2023)
 
 - Fix provider handling of CustomResources with Patch suffix (https://github.com/pulumi/pulumi-kubernetes/pull/2438)
