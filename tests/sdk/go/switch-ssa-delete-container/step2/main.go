@@ -11,7 +11,8 @@ import (
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
 		prov, err := kubernetes.NewProvider(ctx, "k8s", &kubernetes.ProviderArgs{
-			EnableServerSideApply: pulumi.BoolPtr(false),
+			// Enable server-side apply in second step to test CSA->SSA.
+			EnableServerSideApply: pulumi.BoolPtr(true),
 		})
 		if err != nil {
 			return err
