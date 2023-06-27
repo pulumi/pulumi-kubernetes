@@ -360,7 +360,7 @@ func (sia *serviceInitAwaiter) processEndpointEvent(event watch.Event, settledCh
 
 func (sia *serviceInitAwaiter) errorMessages() []string {
 	messages := make([]string, 0)
-	if sia.emptyHeadlessOrExternalName() {
+	if sia.isHeadlessService() || sia.isExternalNameService() {
 		return messages
 	}
 
@@ -387,21 +387,6 @@ func (sia *serviceInitAwaiter) isHeadlessService() bool {
 // isExternalNameService checks if the Service type is "ExternalName"
 func (sia *serviceInitAwaiter) isExternalNameService() bool {
 	return sia.serviceType == string(v1.ServiceTypeExternalName)
-}
-
-// emptyHeadlessOrExternalName checks whether the current `Service` is either an "empty" headless
-// `Service`[1] (i.e., it targets 0 `Pod`s) or a `Service` with `.spec.type: ExternalName` (which
-// also targets 0 `Pod`s). This is useful to know when deciding whether to wait for a `Service` to
-// target some number of `Pod`s.
-//
-// [1]: https://kubernetes.io/docs/concepts/services-networking/service/#headless-services
-func (sia *serviceInitAwaiter) emptyHeadlessOrExternalName() bool {
-	selectorI, _ := openapi.Pluck(sia.service.Object, "spec", "selector")
-	selector, _ := selectorI.(map[string]any)
-
-	headlessEmpty := len(selector) == 0 && sia.isHeadlessService()
-	return headlessEmpty || sia.isExternalNameService()
-
 }
 
 // hasHeadlessServicePortBug checks whether the current `Service` is affected by a bug [1][2]
@@ -434,7 +419,7 @@ func (sia *serviceInitAwaiter) hasHeadlessServicePortBug(version cluster.ServerV
 // shouldWaitForPods determines whether to wait for Pods to be ready before marking the Service ready.
 func (sia *serviceInitAwaiter) shouldWaitForPods(version cluster.ServerVersion) bool {
 	// For these special cases, skip the wait for Pod logic.
-	if sia.emptyHeadlessOrExternalName() || sia.hasHeadlessServicePortBug(version) {
+	if sia.isExternalNameService() || sia.isHeadlessService() || sia.hasHeadlessServicePortBug(version) {
 		sia.endpointsReady = true
 		return false
 	}
