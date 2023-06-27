@@ -36,6 +36,109 @@ import javax.annotation.Nullable;
  * by setting the &#39;customTimeouts&#39; option on the resource.
  * 
  * ## Example Usage
+ * ### Create an Ingress with auto-naming
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.kubernetes.networking.k8s.io_v1.Ingress;
+ * import com.pulumi.kubernetes.networking.k8s.io_v1.IngressArgs;
+ * import com.pulumi.kubernetes.meta_v1.inputs.ObjectMetaArgs;
+ * import com.pulumi.kubernetes.networking.k8s.io_v1.inputs.IngressSpecArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         var ingress = new Ingress(&#34;ingress&#34;, IngressArgs.builder()        
+ *             .metadata(ObjectMetaArgs.builder()
+ *                 .annotations(Map.of(&#34;nginx.ingress.kubernetes.io/rewrite-target&#34;, &#34;/&#34;))
+ *                 .build())
+ *             .spec(IngressSpecArgs.builder()
+ *                 .rules(IngressRuleArgs.builder()
+ *                     .http(HTTPIngressRuleValueArgs.builder()
+ *                         .paths(HTTPIngressPathArgs.builder()
+ *                             .backend(IngressBackendArgs.builder()
+ *                                 .service(IngressServiceBackendArgs.builder()
+ *                                     .name(&#34;test&#34;)
+ *                                     .port(ServiceBackendPortArgs.builder()
+ *                                         .number(80)
+ *                                         .build())
+ *                                     .build())
+ *                                 .build())
+ *                             .path(&#34;/testpath&#34;)
+ *                             .pathType(&#34;Prefix&#34;)
+ *                             .build())
+ *                         .build())
+ *                     .build())
+ *                 .build())
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
+ * ### Create an Ingress with a user-specified name
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.kubernetes.networking.k8s.io_v1.Ingress;
+ * import com.pulumi.kubernetes.networking.k8s.io_v1.IngressArgs;
+ * import com.pulumi.kubernetes.meta_v1.inputs.ObjectMetaArgs;
+ * import com.pulumi.kubernetes.networking.k8s.io_v1.inputs.IngressSpecArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         var ingress = new Ingress(&#34;ingress&#34;, IngressArgs.builder()        
+ *             .metadata(ObjectMetaArgs.builder()
+ *                 .annotations(Map.of(&#34;nginx.ingress.kubernetes.io/rewrite-target&#34;, &#34;/&#34;))
+ *                 .name(&#34;minimal-ingress&#34;)
+ *                 .build())
+ *             .spec(IngressSpecArgs.builder()
+ *                 .rules(IngressRuleArgs.builder()
+ *                     .http(HTTPIngressRuleValueArgs.builder()
+ *                         .paths(HTTPIngressPathArgs.builder()
+ *                             .backend(IngressBackendArgs.builder()
+ *                                 .service(IngressServiceBackendArgs.builder()
+ *                                     .name(&#34;test&#34;)
+ *                                     .port(ServiceBackendPortArgs.builder()
+ *                                         .number(80)
+ *                                         .build())
+ *                                     .build())
+ *                                 .build())
+ *                             .path(&#34;/testpath&#34;)
+ *                             .pathType(&#34;Prefix&#34;)
+ *                             .build())
+ *                         .build())
+ *                     .build())
+ *                 .build())
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
  * 
  */
 @ResourceType(type="kubernetes:networking.k8s.io/v1:Ingress")

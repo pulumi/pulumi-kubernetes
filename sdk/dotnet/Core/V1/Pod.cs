@@ -30,75 +30,75 @@ namespace Pulumi.Kubernetes.Core.V1
     /// ## Example Usage
     /// ### Create a Pod with auto-naming
     /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
     /// using Pulumi;
     /// using Kubernetes = Pulumi.Kubernetes;
     /// 
-    /// class MyStack : Stack
+    /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     public MyStack()
+    ///     var pod = new Kubernetes.Core.V1.Pod("pod", new()
     ///     {
-    ///         var pod = new Kubernetes.Core.V1.Pod("pod", new Kubernetes.Types.Inputs.Core.V1.PodArgs
+    ///         Spec = new Kubernetes.Types.Inputs.Core.V1.PodSpecArgs
     ///         {
-    ///             Spec = new Kubernetes.Types.Inputs.Core.V1.PodSpecArgs
+    ///             Containers = new[]
     ///             {
-    ///                 Containers = 
+    ///                 new Kubernetes.Types.Inputs.Core.V1.ContainerArgs
     ///                 {
-    ///                     new Kubernetes.Types.Inputs.Core.V1.ContainerArgs
+    ///                     Image = "nginx:1.14.2",
+    ///                     Name = "nginx",
+    ///                     Ports = new[]
     ///                     {
-    ///                         Image = "nginx:1.14.2",
-    ///                         Name = "nginx",
-    ///                         Ports = 
+    ///                         new Kubernetes.Types.Inputs.Core.V1.ContainerPortArgs
     ///                         {
-    ///                             new Kubernetes.Types.Inputs.Core.V1.ContainerPortArgs
-    ///                             {
-    ///                                 ContainerPort = 80,
-    ///                             },
+    ///                             ContainerPortValue = 80,
     ///                         },
     ///                     },
     ///                 },
     ///             },
-    ///         });
-    ///     }
+    ///         },
+    ///     });
     /// 
-    /// }
+    /// });
+    /// 
     /// ```
     /// ### Create a Pod with a user-specified name
     /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
     /// using Pulumi;
     /// using Kubernetes = Pulumi.Kubernetes;
     /// 
-    /// class MyStack : Stack
+    /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     public MyStack()
+    ///     var pod = new Kubernetes.Core.V1.Pod("pod", new()
     ///     {
-    ///         var pod = new Kubernetes.Core.V1.Pod("pod", new Kubernetes.Types.Inputs.Core.V1.PodArgs
+    ///         Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
     ///         {
-    ///             Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
+    ///             Name = "nginx",
+    ///         },
+    ///         Spec = new Kubernetes.Types.Inputs.Core.V1.PodSpecArgs
+    ///         {
+    ///             Containers = new[]
     ///             {
-    ///                 Name = "nginx",
-    ///             },
-    ///             Spec = new Kubernetes.Types.Inputs.Core.V1.PodSpecArgs
-    ///             {
-    ///                 Containers = 
+    ///                 new Kubernetes.Types.Inputs.Core.V1.ContainerArgs
     ///                 {
-    ///                     new Kubernetes.Types.Inputs.Core.V1.ContainerArgs
+    ///                     Image = "nginx:1.14.2",
+    ///                     Name = "nginx",
+    ///                     Ports = new[]
     ///                     {
-    ///                         Image = "nginx:1.14.2",
-    ///                         Name = "nginx",
-    ///                         Ports = 
+    ///                         new Kubernetes.Types.Inputs.Core.V1.ContainerPortArgs
     ///                         {
-    ///                             new Kubernetes.Types.Inputs.Core.V1.ContainerPortArgs
-    ///                             {
-    ///                                 ContainerPort = 80,
-    ///                             },
+    ///                             ContainerPortValue = 80,
     ///                         },
     ///                     },
     ///                 },
     ///             },
-    ///         });
-    ///     }
+    ///         },
+    ///     });
     /// 
-    /// }
+    /// });
+    /// 
     /// ```
     /// </summary>
     [KubernetesResourceType("kubernetes:core/v1:Pod")]

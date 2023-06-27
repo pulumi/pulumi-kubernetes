@@ -29,112 +29,112 @@ namespace Pulumi.Kubernetes.Networking.V1
     /// ## Example Usage
     /// ### Create an Ingress with auto-naming
     /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
     /// using Pulumi;
     /// using Kubernetes = Pulumi.Kubernetes;
     /// 
-    /// class MyStack : Stack
+    /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     public MyStack()
+    ///     var ingress = new Kubernetes.Networking.V1.Ingress("ingress", new()
     ///     {
-    ///         var ingress = new Kubernetes.Networking.V1.Ingress("ingress", new Kubernetes.Types.Inputs.Networking.V1.IngressArgs
+    ///         Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
     ///         {
-    ///             Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
+    ///             Annotations = 
     ///             {
-    ///                 Annotations = 
-    ///                 {
-    ///                     { "nginx.ingress.kubernetes.io/rewrite-target", "/" },
-    ///                 },
+    ///                 { "nginx.ingress.kubernetes.io/rewrite-target", "/" },
     ///             },
-    ///             Spec = new Kubernetes.Types.Inputs.Networking.V1.IngressSpecArgs
+    ///         },
+    ///         Spec = new Kubernetes.Types.Inputs.Networking.V1.IngressSpecArgs
+    ///         {
+    ///             Rules = new[]
     ///             {
-    ///                 Rules = 
+    ///                 new Kubernetes.Types.Inputs.Networking.V1.IngressRuleArgs
     ///                 {
-    ///                     new Kubernetes.Types.Inputs.Networking.V1.IngressRuleArgs
+    ///                     Http = new Kubernetes.Types.Inputs.Networking.V1.HTTPIngressRuleValueArgs
     ///                     {
-    ///                         Http = new Kubernetes.Types.Inputs.Networking.V1.HTTPIngressRuleValueArgs
+    ///                         Paths = new[]
     ///                         {
-    ///                             Paths = 
+    ///                             new Kubernetes.Types.Inputs.Networking.V1.HTTPIngressPathArgs
     ///                             {
-    ///                                 new Kubernetes.Types.Inputs.Networking.V1.HTTPIngressPathArgs
+    ///                                 Backend = new Kubernetes.Types.Inputs.Networking.V1.IngressBackendArgs
     ///                                 {
-    ///                                     Backend = new Kubernetes.Types.Inputs.Networking.V1.IngressBackendArgs
+    ///                                     Service = new Kubernetes.Types.Inputs.Networking.V1.IngressServiceBackendArgs
     ///                                     {
-    ///                                         Service = new Kubernetes.Types.Inputs.Networking.V1.IngressServiceBackendArgs
+    ///                                         Name = "test",
+    ///                                         Port = new Kubernetes.Types.Inputs.Networking.V1.ServiceBackendPortArgs
     ///                                         {
-    ///                                             Name = "test",
-    ///                                             Port = new Kubernetes.Types.Inputs.Networking.V1.ServiceBackendPortArgs
-    ///                                             {
-    ///                                                 Number = 80,
-    ///                                             },
+    ///                                             Number = 80,
     ///                                         },
     ///                                     },
-    ///                                     Path = "/testpath",
-    ///                                     PathType = "Prefix",
     ///                                 },
+    ///                                 Path = "/testpath",
+    ///                                 PathType = "Prefix",
     ///                             },
     ///                         },
     ///                     },
     ///                 },
     ///             },
-    ///         });
-    ///     }
+    ///         },
+    ///     });
     /// 
-    /// }
+    /// });
+    /// 
     /// ```
     /// ### Create an Ingress with a user-specified name
     /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
     /// using Pulumi;
     /// using Kubernetes = Pulumi.Kubernetes;
     /// 
-    /// class MyStack : Stack
+    /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     public MyStack()
+    ///     var ingress = new Kubernetes.Networking.V1.Ingress("ingress", new()
     ///     {
-    ///         var ingress = new Kubernetes.Networking.V1.Ingress("ingress", new Kubernetes.Types.Inputs.Networking.V1.IngressArgs
+    ///         Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
     ///         {
-    ///             Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
+    ///             Annotations = 
     ///             {
-    ///                 Annotations = 
-    ///                 {
-    ///                     { "nginx.ingress.kubernetes.io/rewrite-target", "/" },
-    ///                 },
-    ///                 Name = "minimal-ingress",
+    ///                 { "nginx.ingress.kubernetes.io/rewrite-target", "/" },
     ///             },
-    ///             Spec = new Kubernetes.Types.Inputs.Networking.V1.IngressSpecArgs
+    ///             Name = "minimal-ingress",
+    ///         },
+    ///         Spec = new Kubernetes.Types.Inputs.Networking.V1.IngressSpecArgs
+    ///         {
+    ///             Rules = new[]
     ///             {
-    ///                 Rules = 
+    ///                 new Kubernetes.Types.Inputs.Networking.V1.IngressRuleArgs
     ///                 {
-    ///                     new Kubernetes.Types.Inputs.Networking.V1.IngressRuleArgs
+    ///                     Http = new Kubernetes.Types.Inputs.Networking.V1.HTTPIngressRuleValueArgs
     ///                     {
-    ///                         Http = new Kubernetes.Types.Inputs.Networking.V1.HTTPIngressRuleValueArgs
+    ///                         Paths = new[]
     ///                         {
-    ///                             Paths = 
+    ///                             new Kubernetes.Types.Inputs.Networking.V1.HTTPIngressPathArgs
     ///                             {
-    ///                                 new Kubernetes.Types.Inputs.Networking.V1.HTTPIngressPathArgs
+    ///                                 Backend = new Kubernetes.Types.Inputs.Networking.V1.IngressBackendArgs
     ///                                 {
-    ///                                     Backend = new Kubernetes.Types.Inputs.Networking.V1.IngressBackendArgs
+    ///                                     Service = new Kubernetes.Types.Inputs.Networking.V1.IngressServiceBackendArgs
     ///                                     {
-    ///                                         Service = new Kubernetes.Types.Inputs.Networking.V1.IngressServiceBackendArgs
+    ///                                         Name = "test",
+    ///                                         Port = new Kubernetes.Types.Inputs.Networking.V1.ServiceBackendPortArgs
     ///                                         {
-    ///                                             Name = "test",
-    ///                                             Port = new Kubernetes.Types.Inputs.Networking.V1.ServiceBackendPortArgs
-    ///                                             {
-    ///                                                 Number = 80,
-    ///                                             },
+    ///                                             Number = 80,
     ///                                         },
     ///                                     },
-    ///                                     Path = "/testpath",
-    ///                                     PathType = "Prefix",
     ///                                 },
+    ///                                 Path = "/testpath",
+    ///                                 PathType = "Prefix",
     ///                             },
     ///                         },
     ///                     },
     ///                 },
     ///             },
-    ///         });
-    ///     }
+    ///         },
+    ///     });
     /// 
-    /// }
+    /// });
+    /// 
     /// ```
     /// </summary>
     [KubernetesResourceType("kubernetes:networking.k8s.io/v1:Ingress")]

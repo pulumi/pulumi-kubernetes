@@ -35,92 +35,92 @@ namespace Pulumi.Kubernetes.Batch.V1
     /// ## Example Usage
     /// ### Create a Job with auto-naming
     /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
     /// using Pulumi;
     /// using Kubernetes = Pulumi.Kubernetes;
     /// 
-    /// class MyStack : Stack
+    /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     public MyStack()
+    ///     var job = new Kubernetes.Batch.V1.Job("job", new()
     ///     {
-    ///         var job = new Kubernetes.Batch.V1.Job("job", new Kubernetes.Types.Inputs.Batch.V1.JobArgs
+    ///         Metadata = null,
+    ///         Spec = new Kubernetes.Types.Inputs.Batch.V1.JobSpecArgs
     ///         {
-    ///             Metadata = null,
-    ///             Spec = new Kubernetes.Types.Inputs.Batch.V1.JobSpecArgs
+    ///             BackoffLimit = 4,
+    ///             Template = new Kubernetes.Types.Inputs.Core.V1.PodTemplateSpecArgs
     ///             {
-    ///                 BackoffLimit = 4,
-    ///                 Template = new Kubernetes.Types.Inputs.Core.V1.PodTemplateSpecArgs
+    ///                 Spec = new Kubernetes.Types.Inputs.Core.V1.PodSpecArgs
     ///                 {
-    ///                     Spec = new Kubernetes.Types.Inputs.Core.V1.PodSpecArgs
+    ///                     Containers = new[]
     ///                     {
-    ///                         Containers = 
+    ///                         new Kubernetes.Types.Inputs.Core.V1.ContainerArgs
     ///                         {
-    ///                             new Kubernetes.Types.Inputs.Core.V1.ContainerArgs
+    ///                             Command = new[]
     ///                             {
-    ///                                 Command = 
-    ///                                 {
-    ///                                     "perl",
-    ///                                     "-Mbignum=bpi",
-    ///                                     "-wle",
-    ///                                     "print bpi(2000)",
-    ///                                 },
-    ///                                 Image = "perl",
-    ///                                 Name = "pi",
+    ///                                 "perl",
+    ///                                 "-Mbignum=bpi",
+    ///                                 "-wle",
+    ///                                 "print bpi(2000)",
     ///                             },
+    ///                             Image = "perl",
+    ///                             Name = "pi",
     ///                         },
-    ///                         RestartPolicy = "Never",
     ///                     },
+    ///                     RestartPolicy = "Never",
     ///                 },
     ///             },
-    ///         });
-    ///     }
+    ///         },
+    ///     });
     /// 
-    /// }
+    /// });
+    /// 
     /// ```
     /// ### Create a Job with a user-specified name
     /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
     /// using Pulumi;
     /// using Kubernetes = Pulumi.Kubernetes;
     /// 
-    /// class MyStack : Stack
+    /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     public MyStack()
+    ///     var job = new Kubernetes.Batch.V1.Job("job", new()
     ///     {
-    ///         var job = new Kubernetes.Batch.V1.Job("job", new Kubernetes.Types.Inputs.Batch.V1.JobArgs
+    ///         Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
     ///         {
-    ///             Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
+    ///             Name = "pi",
+    ///         },
+    ///         Spec = new Kubernetes.Types.Inputs.Batch.V1.JobSpecArgs
+    ///         {
+    ///             BackoffLimit = 4,
+    ///             Template = new Kubernetes.Types.Inputs.Core.V1.PodTemplateSpecArgs
     ///             {
-    ///                 Name = "pi",
-    ///             },
-    ///             Spec = new Kubernetes.Types.Inputs.Batch.V1.JobSpecArgs
-    ///             {
-    ///                 BackoffLimit = 4,
-    ///                 Template = new Kubernetes.Types.Inputs.Core.V1.PodTemplateSpecArgs
+    ///                 Spec = new Kubernetes.Types.Inputs.Core.V1.PodSpecArgs
     ///                 {
-    ///                     Spec = new Kubernetes.Types.Inputs.Core.V1.PodSpecArgs
+    ///                     Containers = new[]
     ///                     {
-    ///                         Containers = 
+    ///                         new Kubernetes.Types.Inputs.Core.V1.ContainerArgs
     ///                         {
-    ///                             new Kubernetes.Types.Inputs.Core.V1.ContainerArgs
+    ///                             Command = new[]
     ///                             {
-    ///                                 Command = 
-    ///                                 {
-    ///                                     "perl",
-    ///                                     "-Mbignum=bpi",
-    ///                                     "-wle",
-    ///                                     "print bpi(2000)",
-    ///                                 },
-    ///                                 Image = "perl",
-    ///                                 Name = "pi",
+    ///                                 "perl",
+    ///                                 "-Mbignum=bpi",
+    ///                                 "-wle",
+    ///                                 "print bpi(2000)",
     ///                             },
+    ///                             Image = "perl",
+    ///                             Name = "pi",
     ///                         },
-    ///                         RestartPolicy = "Never",
     ///                     },
+    ///                     RestartPolicy = "Never",
     ///                 },
     ///             },
-    ///         });
-    ///     }
+    ///         },
+    ///     });
     /// 
-    /// }
+    /// });
+    /// 
     /// ```
     /// </summary>
     [KubernetesResourceType("kubernetes:batch/v1:Job")]
