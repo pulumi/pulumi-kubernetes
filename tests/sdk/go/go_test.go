@@ -351,6 +351,11 @@ func TestGo(t *testing.T) {
 	t.Run("switchSSADeleteContainer", func(t *testing.T) {
 		validation := func(expectedContainers string) func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			return func(t *testing.T, stack integration.RuntimeValidationStackInfo) {
+				ns, ok := stack.Outputs["namespace"].(string)
+				if !ok {
+					t.Fatalf("expected a string namespace output")
+				}
+
 				// Check that the stack has the expected number of deployments/resources.
 				var count int
 				for _, res := range stack.Deployment.Resources {
@@ -362,7 +367,7 @@ func TestGo(t *testing.T) {
 					}
 
 					count++
-					out, err := exec.Command("kubectl", "get", "deployment", "-o", "jsonpath={.spec.template.spec.containers[*].name}", "-n", "default", "nginx").CombinedOutput()
+					out, err := exec.Command("kubectl", "get", "deployment", "-o", "jsonpath={.spec.template.spec.containers[*].name}", "-n", ns, "nginx").CombinedOutput()
 					assert.NoError(t, err)
 					assert.Equal(t, expectedContainers, string(out))
 				}

@@ -17,6 +17,13 @@ func main() {
 			return err
 		}
 
+		ns, err := corev1.NewNamespace(ctx, "test", nil, pulumi.Provider(prov))
+		if err != nil {
+			return err
+		}
+
+		ctx.Export("namespace", ns.Metadata.Name())
+
 		_, err = appsv1.NewDeployment(ctx, "deployment", &appsv1.DeploymentArgs{
 			ApiVersion: pulumi.String("apps/v1"),
 			Kind:       pulumi.String("Deployment"),
@@ -25,7 +32,7 @@ func main() {
 					"deployment.kubernetes.io/revision": pulumi.String("1"),
 				},
 				Name:      pulumi.String("nginx"),
-				Namespace: pulumi.String("default"),
+				Namespace: ns.Metadata.Name(),
 			},
 			Spec: &appsv1.DeploymentSpecArgs{
 				ProgressDeadlineSeconds: pulumi.Int(600),

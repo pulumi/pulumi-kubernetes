@@ -11,11 +11,18 @@ import (
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
 		prov, err := kubernetes.NewProvider(ctx, "k8s", &kubernetes.ProviderArgs{
-			EnableServerSideApply: pulumi.BoolPtr(true),
+			EnableServerSideApply: pulumi.BoolPtr(false),
 		})
 		if err != nil {
 			return err
 		}
+
+		ns, err := corev1.NewNamespace(ctx, "test", nil, pulumi.Provider(prov))
+		if err != nil {
+			return err
+		}
+
+		ctx.Export("namespace", ns.Metadata.Name())
 
 		_, err = appsv1.NewDeployment(ctx, "deployment", &appsv1.DeploymentArgs{
 			ApiVersion: pulumi.String("apps/v1"),
@@ -25,7 +32,7 @@ func main() {
 					"deployment.kubernetes.io/revision": pulumi.String("1"),
 				},
 				Name:      pulumi.String("nginx"),
-				Namespace: pulumi.String("default"),
+				Namespace: ns.Metadata.Name(),
 			},
 			Spec: &appsv1.DeploymentSpecArgs{
 				ProgressDeadlineSeconds: pulumi.Int(600),
@@ -59,22 +66,6 @@ func main() {
 								TerminationMessagePath:   pulumi.String("/dev/termination-log"),
 								TerminationMessagePolicy: pulumi.String("File"),
 							},
-							// &corev1.ContainerArgs{
-							// 	Args: pulumi.StringArray{
-							// 		pulumi.String("while true; do sleep 30; done;"),
-							// 	},
-							// 	Command: pulumi.StringArray{
-							// 		pulumi.String("/bin/bash"),
-							// 		pulumi.String("-c"),
-							// 		pulumi.String("--"),
-							// 	},
-							// 	Image:                    pulumi.String("ubuntu:latest"),
-							// 	ImagePullPolicy:          pulumi.String("Always"),
-							// 	Name:                     pulumi.String("sidecar"),
-							// 	Resources:                nil,
-							// 	TerminationMessagePath:   pulumi.String("/dev/termination-log"),
-							// 	TerminationMessagePolicy: pulumi.String("File"),
-							// },
 						},
 						DnsPolicy:                     pulumi.String("ClusterFirst"),
 						RestartPolicy:                 pulumi.String("Always"),
