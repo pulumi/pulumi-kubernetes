@@ -32,37 +32,37 @@ pod = kubernetes.core.v1.Pod("pod", spec=kubernetes.core.v1.PodSpecArgs(
 ))
 ```
 ```csharp
+using System.Collections.Generic;
+using System.Linq;
 using Pulumi;
 using Kubernetes = Pulumi.Kubernetes;
 
-class MyStack : Stack
+return await Deployment.RunAsync(() => 
 {
-    public MyStack()
+    var pod = new Kubernetes.Core.V1.Pod("pod", new()
     {
-        var pod = new Kubernetes.Core.V1.Pod("pod", new Kubernetes.Types.Inputs.Core.V1.PodArgs
+        Spec = new Kubernetes.Types.Inputs.Core.V1.PodSpecArgs
         {
-            Spec = new Kubernetes.Types.Inputs.Core.V1.PodSpecArgs
+            Containers = new[]
             {
-                Containers = 
+                new Kubernetes.Types.Inputs.Core.V1.ContainerArgs
                 {
-                    new Kubernetes.Types.Inputs.Core.V1.ContainerArgs
+                    Image = "nginx:1.14.2",
+                    Name = "nginx",
+                    Ports = new[]
                     {
-                        Image = "nginx:1.14.2",
-                        Name = "nginx",
-                        Ports = 
+                        new Kubernetes.Types.Inputs.Core.V1.ContainerPortArgs
                         {
-                            new Kubernetes.Types.Inputs.Core.V1.ContainerPortArgs
-                            {
-                                ContainerPort = 80,
-                            },
+                            ContainerPortValue = 80,
                         },
                     },
                 },
             },
-        });
-    }
+        },
+    });
 
-}
+});
+
 ```
 ```go
 package main
@@ -94,6 +94,43 @@ func main() {
 		}
 		return nil
 	})
+}
+```
+```java
+package generated_program;
+
+import com.pulumi.Context;
+import com.pulumi.Pulumi;
+import com.pulumi.core.Output;
+import com.pulumi.kubernetes.core_v1.Pod;
+import com.pulumi.kubernetes.core_v1.PodArgs;
+import com.pulumi.kubernetes.core_v1.inputs.PodSpecArgs;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+public class App {
+    public static void main(String[] args) {
+        Pulumi.run(App::stack);
+    }
+
+    public static void stack(Context ctx) {
+        var pod = new Pod("pod", PodArgs.builder()        
+            .spec(PodSpecArgs.builder()
+                .containers(ContainerArgs.builder()
+                    .image("nginx:1.14.2")
+                    .name("nginx")
+                    .ports(ContainerPortArgs.builder()
+                        .containerPort(80)
+                        .build())
+                    .build())
+                .build())
+            .build());
+
+    }
 }
 ```
 ```yaml
@@ -153,41 +190,41 @@ pod = kubernetes.core.v1.Pod("pod",
     ))
 ```
 ```csharp
+using System.Collections.Generic;
+using System.Linq;
 using Pulumi;
 using Kubernetes = Pulumi.Kubernetes;
 
-class MyStack : Stack
+return await Deployment.RunAsync(() => 
 {
-    public MyStack()
+    var pod = new Kubernetes.Core.V1.Pod("pod", new()
     {
-        var pod = new Kubernetes.Core.V1.Pod("pod", new Kubernetes.Types.Inputs.Core.V1.PodArgs
+        Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
         {
-            Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
+            Name = "nginx",
+        },
+        Spec = new Kubernetes.Types.Inputs.Core.V1.PodSpecArgs
+        {
+            Containers = new[]
             {
-                Name = "nginx",
-            },
-            Spec = new Kubernetes.Types.Inputs.Core.V1.PodSpecArgs
-            {
-                Containers = 
+                new Kubernetes.Types.Inputs.Core.V1.ContainerArgs
                 {
-                    new Kubernetes.Types.Inputs.Core.V1.ContainerArgs
+                    Image = "nginx:1.14.2",
+                    Name = "nginx",
+                    Ports = new[]
                     {
-                        Image = "nginx:1.14.2",
-                        Name = "nginx",
-                        Ports = 
+                        new Kubernetes.Types.Inputs.Core.V1.ContainerPortArgs
                         {
-                            new Kubernetes.Types.Inputs.Core.V1.ContainerPortArgs
-                            {
-                                ContainerPort = 80,
-                            },
+                            ContainerPortValue = 80,
                         },
                     },
                 },
             },
-        });
-    }
+        },
+    });
 
-}
+});
+
 ```
 ```go
 package main
@@ -223,6 +260,47 @@ func main() {
 		}
 		return nil
 	})
+}
+```
+```java
+package generated_program;
+
+import com.pulumi.Context;
+import com.pulumi.Pulumi;
+import com.pulumi.core.Output;
+import com.pulumi.kubernetes.core_v1.Pod;
+import com.pulumi.kubernetes.core_v1.PodArgs;
+import com.pulumi.kubernetes.meta_v1.inputs.ObjectMetaArgs;
+import com.pulumi.kubernetes.core_v1.inputs.PodSpecArgs;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+public class App {
+    public static void main(String[] args) {
+        Pulumi.run(App::stack);
+    }
+
+    public static void stack(Context ctx) {
+        var pod = new Pod("pod", PodArgs.builder()        
+            .metadata(ObjectMetaArgs.builder()
+                .name("nginx")
+                .build())
+            .spec(PodSpecArgs.builder()
+                .containers(ContainerArgs.builder()
+                    .image("nginx:1.14.2")
+                    .name("nginx")
+                    .ports(ContainerPortArgs.builder()
+                        .containerPort(80)
+                        .build())
+                    .build())
+                .build())
+            .build());
+
+    }
 }
 ```
 ```yaml

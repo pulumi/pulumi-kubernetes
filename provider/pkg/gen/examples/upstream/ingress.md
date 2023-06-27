@@ -63,57 +63,57 @@ ingress = kubernetes.networking.v1.Ingress("ingress",
     ))
 ```
 ```csharp
+using System.Collections.Generic;
+using System.Linq;
 using Pulumi;
 using Kubernetes = Pulumi.Kubernetes;
 
-class MyStack : Stack
+return await Deployment.RunAsync(() => 
 {
-    public MyStack()
+    var ingress = new Kubernetes.Networking.V1.Ingress("ingress", new()
     {
-        var ingress = new Kubernetes.Networking.V1.Ingress("ingress", new Kubernetes.Types.Inputs.Networking.V1.IngressArgs
+        Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
         {
-            Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
+            Annotations = 
             {
-                Annotations = 
-                {
-                    { "nginx.ingress.kubernetes.io/rewrite-target", "/" },
-                },
+                { "nginx.ingress.kubernetes.io/rewrite-target", "/" },
             },
-            Spec = new Kubernetes.Types.Inputs.Networking.V1.IngressSpecArgs
+        },
+        Spec = new Kubernetes.Types.Inputs.Networking.V1.IngressSpecArgs
+        {
+            Rules = new[]
             {
-                Rules = 
+                new Kubernetes.Types.Inputs.Networking.V1.IngressRuleArgs
                 {
-                    new Kubernetes.Types.Inputs.Networking.V1.IngressRuleArgs
+                    Http = new Kubernetes.Types.Inputs.Networking.V1.HTTPIngressRuleValueArgs
                     {
-                        Http = new Kubernetes.Types.Inputs.Networking.V1.HTTPIngressRuleValueArgs
+                        Paths = new[]
                         {
-                            Paths = 
+                            new Kubernetes.Types.Inputs.Networking.V1.HTTPIngressPathArgs
                             {
-                                new Kubernetes.Types.Inputs.Networking.V1.HTTPIngressPathArgs
+                                Backend = new Kubernetes.Types.Inputs.Networking.V1.IngressBackendArgs
                                 {
-                                    Backend = new Kubernetes.Types.Inputs.Networking.V1.IngressBackendArgs
+                                    Service = new Kubernetes.Types.Inputs.Networking.V1.IngressServiceBackendArgs
                                     {
-                                        Service = new Kubernetes.Types.Inputs.Networking.V1.IngressServiceBackendArgs
+                                        Name = "test",
+                                        Port = new Kubernetes.Types.Inputs.Networking.V1.ServiceBackendPortArgs
                                         {
-                                            Name = "test",
-                                            Port = new Kubernetes.Types.Inputs.Networking.V1.ServiceBackendPortArgs
-                                            {
-                                                Number = 80,
-                                            },
+                                            Number = 80,
                                         },
                                     },
-                                    Path = "/testpath",
-                                    PathType = "Prefix",
                                 },
+                                Path = "/testpath",
+                                PathType = "Prefix",
                             },
                         },
                     },
                 },
             },
-        });
-    }
+        },
+    });
 
-}
+});
+
 ```
 ```go
 package main
@@ -160,6 +160,56 @@ func main() {
 		}
 		return nil
 	})
+}
+```
+```java
+package generated_program;
+
+import com.pulumi.Context;
+import com.pulumi.Pulumi;
+import com.pulumi.core.Output;
+import com.pulumi.kubernetes.networking.k8s.io_v1.Ingress;
+import com.pulumi.kubernetes.networking.k8s.io_v1.IngressArgs;
+import com.pulumi.kubernetes.meta_v1.inputs.ObjectMetaArgs;
+import com.pulumi.kubernetes.networking.k8s.io_v1.inputs.IngressSpecArgs;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+public class App {
+    public static void main(String[] args) {
+        Pulumi.run(App::stack);
+    }
+
+    public static void stack(Context ctx) {
+        var ingress = new Ingress("ingress", IngressArgs.builder()        
+            .metadata(ObjectMetaArgs.builder()
+                .annotations(Map.of("nginx.ingress.kubernetes.io/rewrite-target", "/"))
+                .build())
+            .spec(IngressSpecArgs.builder()
+                .rules(IngressRuleArgs.builder()
+                    .http(HTTPIngressRuleValueArgs.builder()
+                        .paths(HTTPIngressPathArgs.builder()
+                            .backend(IngressBackendArgs.builder()
+                                .service(IngressServiceBackendArgs.builder()
+                                    .name("test")
+                                    .port(ServiceBackendPortArgs.builder()
+                                        .number(80)
+                                        .build())
+                                    .build())
+                                .build())
+                            .path("/testpath")
+                            .pathType("Prefix")
+                            .build())
+                        .build())
+                    .build())
+                .build())
+            .build());
+
+    }
 }
 ```
 ```yaml
@@ -251,58 +301,58 @@ ingress = kubernetes.networking.v1.Ingress("ingress",
     ))
 ```
 ```csharp
+using System.Collections.Generic;
+using System.Linq;
 using Pulumi;
 using Kubernetes = Pulumi.Kubernetes;
 
-class MyStack : Stack
+return await Deployment.RunAsync(() => 
 {
-    public MyStack()
+    var ingress = new Kubernetes.Networking.V1.Ingress("ingress", new()
     {
-        var ingress = new Kubernetes.Networking.V1.Ingress("ingress", new Kubernetes.Types.Inputs.Networking.V1.IngressArgs
+        Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
         {
-            Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
+            Annotations = 
             {
-                Annotations = 
-                {
-                    { "nginx.ingress.kubernetes.io/rewrite-target", "/" },
-                },
-                Name = "minimal-ingress",
+                { "nginx.ingress.kubernetes.io/rewrite-target", "/" },
             },
-            Spec = new Kubernetes.Types.Inputs.Networking.V1.IngressSpecArgs
+            Name = "minimal-ingress",
+        },
+        Spec = new Kubernetes.Types.Inputs.Networking.V1.IngressSpecArgs
+        {
+            Rules = new[]
             {
-                Rules = 
+                new Kubernetes.Types.Inputs.Networking.V1.IngressRuleArgs
                 {
-                    new Kubernetes.Types.Inputs.Networking.V1.IngressRuleArgs
+                    Http = new Kubernetes.Types.Inputs.Networking.V1.HTTPIngressRuleValueArgs
                     {
-                        Http = new Kubernetes.Types.Inputs.Networking.V1.HTTPIngressRuleValueArgs
+                        Paths = new[]
                         {
-                            Paths = 
+                            new Kubernetes.Types.Inputs.Networking.V1.HTTPIngressPathArgs
                             {
-                                new Kubernetes.Types.Inputs.Networking.V1.HTTPIngressPathArgs
+                                Backend = new Kubernetes.Types.Inputs.Networking.V1.IngressBackendArgs
                                 {
-                                    Backend = new Kubernetes.Types.Inputs.Networking.V1.IngressBackendArgs
+                                    Service = new Kubernetes.Types.Inputs.Networking.V1.IngressServiceBackendArgs
                                     {
-                                        Service = new Kubernetes.Types.Inputs.Networking.V1.IngressServiceBackendArgs
+                                        Name = "test",
+                                        Port = new Kubernetes.Types.Inputs.Networking.V1.ServiceBackendPortArgs
                                         {
-                                            Name = "test",
-                                            Port = new Kubernetes.Types.Inputs.Networking.V1.ServiceBackendPortArgs
-                                            {
-                                                Number = 80,
-                                            },
+                                            Number = 80,
                                         },
                                     },
-                                    Path = "/testpath",
-                                    PathType = "Prefix",
                                 },
+                                Path = "/testpath",
+                                PathType = "Prefix",
                             },
                         },
                     },
                 },
             },
-        });
-    }
+        },
+    });
 
-}
+});
+
 ```
 ```go
 package main
@@ -350,6 +400,57 @@ func main() {
 		}
 		return nil
 	})
+}
+```
+```java
+package generated_program;
+
+import com.pulumi.Context;
+import com.pulumi.Pulumi;
+import com.pulumi.core.Output;
+import com.pulumi.kubernetes.networking.k8s.io_v1.Ingress;
+import com.pulumi.kubernetes.networking.k8s.io_v1.IngressArgs;
+import com.pulumi.kubernetes.meta_v1.inputs.ObjectMetaArgs;
+import com.pulumi.kubernetes.networking.k8s.io_v1.inputs.IngressSpecArgs;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+public class App {
+    public static void main(String[] args) {
+        Pulumi.run(App::stack);
+    }
+
+    public static void stack(Context ctx) {
+        var ingress = new Ingress("ingress", IngressArgs.builder()        
+            .metadata(ObjectMetaArgs.builder()
+                .annotations(Map.of("nginx.ingress.kubernetes.io/rewrite-target", "/"))
+                .name("minimal-ingress")
+                .build())
+            .spec(IngressSpecArgs.builder()
+                .rules(IngressRuleArgs.builder()
+                    .http(HTTPIngressRuleValueArgs.builder()
+                        .paths(HTTPIngressPathArgs.builder()
+                            .backend(IngressBackendArgs.builder()
+                                .service(IngressServiceBackendArgs.builder()
+                                    .name("test")
+                                    .port(ServiceBackendPortArgs.builder()
+                                        .number(80)
+                                        .build())
+                                    .build())
+                                .build())
+                            .path("/testpath")
+                            .pathType("Prefix")
+                            .build())
+                        .build())
+                    .build())
+                .build())
+            .build());
+
+    }
 }
 ```
 ```yaml
