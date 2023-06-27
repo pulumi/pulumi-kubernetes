@@ -1,5 +1,7 @@
 ## Unreleased
 
+- [sdk/python] Fix bug with class methods for YAML transformations (https://github.com/pulumi/pulumi-kubernetes/pull/2469)
+
 ## 3.29.1 (June 14, 2023)
 
 - Fix provider handling of CustomResources with Patch suffix (https://github.com/pulumi/pulumi-kubernetes/pull/2438)
