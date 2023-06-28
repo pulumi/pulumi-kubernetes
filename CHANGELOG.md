@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 3.30.0 (June 28, 2023)
+
 - [sdk/python] Fix bug with class methods for YAML transformations (https://github.com/pulumi/pulumi-kubernetes/pull/2469)
 - Fix StatefulSet await logic for OnDelete update (https://github.com/pulumi/pulumi-kubernetes/pull/2473)
 - Skip wait for Pods on headless Service (https://github.com/pulumi/pulumi-kubernetes/pull/2475)
