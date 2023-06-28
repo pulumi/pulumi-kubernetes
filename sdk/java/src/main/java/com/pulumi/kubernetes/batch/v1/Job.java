@@ -40,6 +40,107 @@ import javax.annotation.Nullable;
  * &#34;pulumi.com/replaceUnready&#34;: &#34;true&#34; annotation to the resource definition.
  * 
  * ## Example Usage
+ * ### Create a Job with auto-naming
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.kubernetes.batch_v1.Job;
+ * import com.pulumi.kubernetes.batch_v1.JobArgs;
+ * import com.pulumi.kubernetes.batch_v1.inputs.JobSpecArgs;
+ * import com.pulumi.kubernetes.core_v1.inputs.PodTemplateSpecArgs;
+ * import com.pulumi.kubernetes.core_v1.inputs.PodSpecArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         var job = new Job(&#34;job&#34;, JobArgs.builder()        
+ *             .metadata(null)
+ *             .spec(JobSpecArgs.builder()
+ *                 .backoffLimit(4)
+ *                 .template(PodTemplateSpecArgs.builder()
+ *                     .spec(PodSpecArgs.builder()
+ *                         .containers(ContainerArgs.builder()
+ *                             .command(                            
+ *                                 &#34;perl&#34;,
+ *                                 &#34;-Mbignum=bpi&#34;,
+ *                                 &#34;-wle&#34;,
+ *                                 &#34;print bpi(2000)&#34;)
+ *                             .image(&#34;perl&#34;)
+ *                             .name(&#34;pi&#34;)
+ *                             .build())
+ *                         .restartPolicy(&#34;Never&#34;)
+ *                         .build())
+ *                     .build())
+ *                 .build())
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
+ * ### Create a Job with a user-specified name
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.kubernetes.batch_v1.Job;
+ * import com.pulumi.kubernetes.batch_v1.JobArgs;
+ * import com.pulumi.kubernetes.meta_v1.inputs.ObjectMetaArgs;
+ * import com.pulumi.kubernetes.batch_v1.inputs.JobSpecArgs;
+ * import com.pulumi.kubernetes.core_v1.inputs.PodTemplateSpecArgs;
+ * import com.pulumi.kubernetes.core_v1.inputs.PodSpecArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         var job = new Job(&#34;job&#34;, JobArgs.builder()        
+ *             .metadata(ObjectMetaArgs.builder()
+ *                 .name(&#34;pi&#34;)
+ *                 .build())
+ *             .spec(JobSpecArgs.builder()
+ *                 .backoffLimit(4)
+ *                 .template(PodTemplateSpecArgs.builder()
+ *                     .spec(PodSpecArgs.builder()
+ *                         .containers(ContainerArgs.builder()
+ *                             .command(                            
+ *                                 &#34;perl&#34;,
+ *                                 &#34;-Mbignum=bpi&#34;,
+ *                                 &#34;-wle&#34;,
+ *                                 &#34;print bpi(2000)&#34;)
+ *                             .image(&#34;perl&#34;)
+ *                             .name(&#34;pi&#34;)
+ *                             .build())
+ *                         .restartPolicy(&#34;Never&#34;)
+ *                         .build())
+ *                     .build())
+ *                 .build())
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
  * 
  */
 @ResourceType(type="kubernetes:batch/v1:Job")

@@ -155,7 +155,7 @@ class StatefulSet(pulumi.CustomResource):
                 ),
                 spec=kubernetes.core.v1.PodSpecArgs(
                     containers=[kubernetes.core.v1.ContainerArgs(
-                        image="k8s.gcr.io/nginx-slim:0.8",
+                        image="nginx:stable-alpine3.17-slim",
                         name="nginx",
                         ports=[kubernetes.core.v1.ContainerPortArgs(
                             container_port=80,
@@ -180,7 +180,6 @@ class StatefulSet(pulumi.CustomResource):
                             "storage": "1Gi",
                         },
                     ),
-                    storage_class_name="my-storage-class",
                 ),
             )],
         ))
@@ -227,7 +226,7 @@ class StatefulSet(pulumi.CustomResource):
                     ),
                     spec=kubernetes.core.v1.PodSpecArgs(
                         containers=[kubernetes.core.v1.ContainerArgs(
-                            image="k8s.gcr.io/nginx-slim:0.8",
+                            image="nginx:stable-alpine3.17-slim",
                             name="nginx",
                             ports=[kubernetes.core.v1.ContainerPortArgs(
                                 container_port=80,
@@ -252,7 +251,6 @@ class StatefulSet(pulumi.CustomResource):
                                 "storage": "1Gi",
                             },
                         ),
-                        storage_class_name="my-storage-class",
                     ),
                 )],
             ))
@@ -329,7 +327,7 @@ class StatefulSet(pulumi.CustomResource):
                 ),
                 spec=kubernetes.core.v1.PodSpecArgs(
                     containers=[kubernetes.core.v1.ContainerArgs(
-                        image="k8s.gcr.io/nginx-slim:0.8",
+                        image="nginx:stable-alpine3.17-slim",
                         name="nginx",
                         ports=[kubernetes.core.v1.ContainerPortArgs(
                             container_port=80,
@@ -354,7 +352,6 @@ class StatefulSet(pulumi.CustomResource):
                             "storage": "1Gi",
                         },
                     ),
-                    storage_class_name="my-storage-class",
                 ),
             )],
         ))
@@ -401,7 +398,7 @@ class StatefulSet(pulumi.CustomResource):
                     ),
                     spec=kubernetes.core.v1.PodSpecArgs(
                         containers=[kubernetes.core.v1.ContainerArgs(
-                            image="k8s.gcr.io/nginx-slim:0.8",
+                            image="nginx:stable-alpine3.17-slim",
                             name="nginx",
                             ports=[kubernetes.core.v1.ContainerPortArgs(
                                 container_port=80,
@@ -426,7 +423,6 @@ class StatefulSet(pulumi.CustomResource):
                                 "storage": "1Gi",
                             },
                         ),
-                        storage_class_name="my-storage-class",
                     ),
                 )],
             ))

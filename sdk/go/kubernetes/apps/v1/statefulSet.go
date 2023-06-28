@@ -76,9 +76,9 @@ import (
 //							"app": pulumi.String("nginx"),
 //						},
 //					},
-//					ServiceName: service.Metadata.ApplyT(func(metadata metav1.ObjectMeta) (string, error) {
-//						return metadata.Name, nil
-//					}).(pulumi.StringOutput),
+//					ServiceName: service.Metadata.ApplyT(func(metadata metav1.ObjectMeta) (*string, error) {
+//						return &metadata.Name, nil
+//					}).(pulumi.StringPtrOutput),
 //					Template: &corev1.PodTemplateSpecArgs{
 //						Metadata: &metav1.ObjectMetaArgs{
 //							Labels: pulumi.StringMap{
@@ -88,7 +88,7 @@ import (
 //						Spec: &corev1.PodSpecArgs{
 //							Containers: corev1.ContainerArray{
 //								&corev1.ContainerArgs{
-//									Image: pulumi.String("k8s.gcr.io/nginx-slim:0.8"),
+//									Image: pulumi.String("nginx:stable-alpine3.17-slim"),
 //									Name:  pulumi.String("nginx"),
 //									Ports: corev1.ContainerPortArray{
 //										&corev1.ContainerPortArgs{
@@ -107,21 +107,20 @@ import (
 //							TerminationGracePeriodSeconds: pulumi.Int(10),
 //						},
 //					},
-//					VolumeClaimTemplates: []corev1.PersistentVolumeClaimArgs{
-//						&corev1.PersistentVolumeClaimArgs{
-//							Metadata: &metav1.ObjectMetaArgs{
+//					VolumeClaimTemplates: []corev1.PersistentVolumeClaimTypeArgs{
+//						{
+//							Metadata: {
 //								Name: pulumi.String("www"),
 //							},
-//							Spec: &corev1.PersistentVolumeClaimSpecArgs{
+//							Spec: {
 //								AccessModes: pulumi.StringArray{
 //									pulumi.String("ReadWriteOnce"),
 //								},
-//								Resources: &corev1.ResourceRequirementsArgs{
-//									Requests: pulumi.StringMap{
+//								Resources: {
+//									Requests: {
 //										"storage": pulumi.String("1Gi"),
 //									},
 //								},
-//								StorageClassName: pulumi.String("my-storage-class"),
 //							},
 //						},
 //					},
@@ -184,9 +183,9 @@ import (
 //							"app": pulumi.String("nginx"),
 //						},
 //					},
-//					ServiceName: service.Metadata.ApplyT(func(metadata metav1.ObjectMeta) (string, error) {
-//						return metadata.Name, nil
-//					}).(pulumi.StringOutput),
+//					ServiceName: service.Metadata.ApplyT(func(metadata metav1.ObjectMeta) (*string, error) {
+//						return &metadata.Name, nil
+//					}).(pulumi.StringPtrOutput),
 //					Template: &corev1.PodTemplateSpecArgs{
 //						Metadata: &metav1.ObjectMetaArgs{
 //							Labels: pulumi.StringMap{
@@ -196,7 +195,7 @@ import (
 //						Spec: &corev1.PodSpecArgs{
 //							Containers: corev1.ContainerArray{
 //								&corev1.ContainerArgs{
-//									Image: pulumi.String("k8s.gcr.io/nginx-slim:0.8"),
+//									Image: pulumi.String("nginx:stable-alpine3.17-slim"),
 //									Name:  pulumi.String("nginx"),
 //									Ports: corev1.ContainerPortArray{
 //										&corev1.ContainerPortArgs{
@@ -215,21 +214,20 @@ import (
 //							TerminationGracePeriodSeconds: pulumi.Int(10),
 //						},
 //					},
-//					VolumeClaimTemplates: []corev1.PersistentVolumeClaimArgs{
-//						&corev1.PersistentVolumeClaimArgs{
-//							Metadata: &metav1.ObjectMetaArgs{
+//					VolumeClaimTemplates: []corev1.PersistentVolumeClaimTypeArgs{
+//						{
+//							Metadata: {
 //								Name: pulumi.String("www"),
 //							},
-//							Spec: &corev1.PersistentVolumeClaimSpecArgs{
+//							Spec: {
 //								AccessModes: pulumi.StringArray{
 //									pulumi.String("ReadWriteOnce"),
 //								},
-//								Resources: &corev1.ResourceRequirementsArgs{
-//									Requests: pulumi.StringMap{
+//								Resources: {
+//									Requests: {
 //										"storage": pulumi.String("1Gi"),
 //									},
 //								},
-//								StorageClassName: pulumi.String("my-storage-class"),
 //							},
 //						},
 //					},

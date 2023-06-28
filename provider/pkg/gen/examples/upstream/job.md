@@ -55,46 +55,46 @@ job = kubernetes.batch.v1.Job("job",
     ))
 ```
 ```csharp
+using System.Collections.Generic;
+using System.Linq;
 using Pulumi;
 using Kubernetes = Pulumi.Kubernetes;
 
-class MyStack : Stack
+return await Deployment.RunAsync(() => 
 {
-    public MyStack()
+    var job = new Kubernetes.Batch.V1.Job("job", new()
     {
-        var job = new Kubernetes.Batch.V1.Job("job", new Kubernetes.Types.Inputs.Batch.V1.JobArgs
+        Metadata = null,
+        Spec = new Kubernetes.Types.Inputs.Batch.V1.JobSpecArgs
         {
-            Metadata = null,
-            Spec = new Kubernetes.Types.Inputs.Batch.V1.JobSpecArgs
+            BackoffLimit = 4,
+            Template = new Kubernetes.Types.Inputs.Core.V1.PodTemplateSpecArgs
             {
-                BackoffLimit = 4,
-                Template = new Kubernetes.Types.Inputs.Core.V1.PodTemplateSpecArgs
+                Spec = new Kubernetes.Types.Inputs.Core.V1.PodSpecArgs
                 {
-                    Spec = new Kubernetes.Types.Inputs.Core.V1.PodSpecArgs
+                    Containers = new[]
                     {
-                        Containers = 
+                        new Kubernetes.Types.Inputs.Core.V1.ContainerArgs
                         {
-                            new Kubernetes.Types.Inputs.Core.V1.ContainerArgs
+                            Command = new[]
                             {
-                                Command = 
-                                {
-                                    "perl",
-                                    "-Mbignum=bpi",
-                                    "-wle",
-                                    "print bpi(2000)",
-                                },
-                                Image = "perl",
-                                Name = "pi",
+                                "perl",
+                                "-Mbignum=bpi",
+                                "-wle",
+                                "print bpi(2000)",
                             },
+                            Image = "perl",
+                            Name = "pi",
                         },
-                        RestartPolicy = "Never",
                     },
+                    RestartPolicy = "Never",
                 },
             },
-        });
-    }
+        },
+    });
 
-}
+});
+
 ```
 ```go
 package main
@@ -136,6 +136,54 @@ func main() {
 		}
 		return nil
 	})
+}
+```
+```java
+package generated_program;
+
+import com.pulumi.Context;
+import com.pulumi.Pulumi;
+import com.pulumi.core.Output;
+import com.pulumi.kubernetes.batch_v1.Job;
+import com.pulumi.kubernetes.batch_v1.JobArgs;
+import com.pulumi.kubernetes.batch_v1.inputs.JobSpecArgs;
+import com.pulumi.kubernetes.core_v1.inputs.PodTemplateSpecArgs;
+import com.pulumi.kubernetes.core_v1.inputs.PodSpecArgs;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+public class App {
+    public static void main(String[] args) {
+        Pulumi.run(App::stack);
+    }
+
+    public static void stack(Context ctx) {
+        var job = new Job("job", JobArgs.builder()        
+            .metadata(null)
+            .spec(JobSpecArgs.builder()
+                .backoffLimit(4)
+                .template(PodTemplateSpecArgs.builder()
+                    .spec(PodSpecArgs.builder()
+                        .containers(ContainerArgs.builder()
+                            .command(                            
+                                "perl",
+                                "-Mbignum=bpi",
+                                "-wle",
+                                "print bpi(2000)")
+                            .image("perl")
+                            .name("pi")
+                            .build())
+                        .restartPolicy("Never")
+                        .build())
+                    .build())
+                .build())
+            .build());
+
+    }
 }
 ```
 ```yaml
@@ -221,49 +269,49 @@ job = kubernetes.batch.v1.Job("job",
     ))
 ```
 ```csharp
+using System.Collections.Generic;
+using System.Linq;
 using Pulumi;
 using Kubernetes = Pulumi.Kubernetes;
 
-class MyStack : Stack
+return await Deployment.RunAsync(() => 
 {
-    public MyStack()
+    var job = new Kubernetes.Batch.V1.Job("job", new()
     {
-        var job = new Kubernetes.Batch.V1.Job("job", new Kubernetes.Types.Inputs.Batch.V1.JobArgs
+        Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
         {
-            Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
+            Name = "pi",
+        },
+        Spec = new Kubernetes.Types.Inputs.Batch.V1.JobSpecArgs
+        {
+            BackoffLimit = 4,
+            Template = new Kubernetes.Types.Inputs.Core.V1.PodTemplateSpecArgs
             {
-                Name = "pi",
-            },
-            Spec = new Kubernetes.Types.Inputs.Batch.V1.JobSpecArgs
-            {
-                BackoffLimit = 4,
-                Template = new Kubernetes.Types.Inputs.Core.V1.PodTemplateSpecArgs
+                Spec = new Kubernetes.Types.Inputs.Core.V1.PodSpecArgs
                 {
-                    Spec = new Kubernetes.Types.Inputs.Core.V1.PodSpecArgs
+                    Containers = new[]
                     {
-                        Containers = 
+                        new Kubernetes.Types.Inputs.Core.V1.ContainerArgs
                         {
-                            new Kubernetes.Types.Inputs.Core.V1.ContainerArgs
+                            Command = new[]
                             {
-                                Command = 
-                                {
-                                    "perl",
-                                    "-Mbignum=bpi",
-                                    "-wle",
-                                    "print bpi(2000)",
-                                },
-                                Image = "perl",
-                                Name = "pi",
+                                "perl",
+                                "-Mbignum=bpi",
+                                "-wle",
+                                "print bpi(2000)",
                             },
+                            Image = "perl",
+                            Name = "pi",
                         },
-                        RestartPolicy = "Never",
                     },
+                    RestartPolicy = "Never",
                 },
             },
-        });
-    }
+        },
+    });
 
-}
+});
+
 ```
 ```go
 package main
@@ -307,6 +355,57 @@ func main() {
 		}
 		return nil
 	})
+}
+```
+```java
+package generated_program;
+
+import com.pulumi.Context;
+import com.pulumi.Pulumi;
+import com.pulumi.core.Output;
+import com.pulumi.kubernetes.batch_v1.Job;
+import com.pulumi.kubernetes.batch_v1.JobArgs;
+import com.pulumi.kubernetes.meta_v1.inputs.ObjectMetaArgs;
+import com.pulumi.kubernetes.batch_v1.inputs.JobSpecArgs;
+import com.pulumi.kubernetes.core_v1.inputs.PodTemplateSpecArgs;
+import com.pulumi.kubernetes.core_v1.inputs.PodSpecArgs;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+public class App {
+    public static void main(String[] args) {
+        Pulumi.run(App::stack);
+    }
+
+    public static void stack(Context ctx) {
+        var job = new Job("job", JobArgs.builder()        
+            .metadata(ObjectMetaArgs.builder()
+                .name("pi")
+                .build())
+            .spec(JobSpecArgs.builder()
+                .backoffLimit(4)
+                .template(PodTemplateSpecArgs.builder()
+                    .spec(PodSpecArgs.builder()
+                        .containers(ContainerArgs.builder()
+                            .command(                            
+                                "perl",
+                                "-Mbignum=bpi",
+                                "-wle",
+                                "print bpi(2000)")
+                            .image("perl")
+                            .name("pi")
+                            .build())
+                        .restartPolicy("Never")
+                        .build())
+                    .build())
+                .build())
+            .build());
+
+    }
 }
 ```
 ```yaml

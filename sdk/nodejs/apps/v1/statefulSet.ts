@@ -67,7 +67,7 @@ import * as utilities from "../../utilities";
  *         },
  *         spec: {
  *             containers: [{
- *                 image: "k8s.gcr.io/nginx-slim:0.8",
+ *                 image: "nginx:stable-alpine3.17-slim",
  *                 name: "nginx",
  *                 ports: [{
  *                     containerPort: 80,
@@ -92,7 +92,6 @@ import * as utilities from "../../utilities";
  *                     storage: "1Gi",
  *                 },
  *             },
- *             storageClassName: "my-storage-class",
  *         },
  *     }],
  * }});
@@ -141,7 +140,7 @@ import * as utilities from "../../utilities";
  *             },
  *             spec: {
  *                 containers: [{
- *                     image: "k8s.gcr.io/nginx-slim:0.8",
+ *                     image: "nginx:stable-alpine3.17-slim",
  *                     name: "nginx",
  *                     ports: [{
  *                         containerPort: 80,
@@ -166,7 +165,6 @@ import * as utilities from "../../utilities";
  *                         storage: "1Gi",
  *                     },
  *                 },
- *                 storageClassName: "my-storage-class",
  *             },
  *         }],
  *     },

@@ -75,65 +75,65 @@ deployment = kubernetes.apps.v1.Deployment("deployment",
     ))
 ```
 ```csharp
+using System.Collections.Generic;
+using System.Linq;
 using Pulumi;
 using Kubernetes = Pulumi.Kubernetes;
 
-class MyStack : Stack
+return await Deployment.RunAsync(() => 
 {
-    public MyStack()
+    var deployment = new Kubernetes.Apps.V1.Deployment("deployment", new()
     {
-        var deployment = new Kubernetes.Apps.V1.Deployment("deployment", new Kubernetes.Types.Inputs.Apps.V1.DeploymentArgs
+        Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
         {
-            Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
+            Labels = 
             {
-                Labels = 
+                { "app", "nginx" },
+            },
+        },
+        Spec = new Kubernetes.Types.Inputs.Apps.V1.DeploymentSpecArgs
+        {
+            Replicas = 3,
+            Selector = new Kubernetes.Types.Inputs.Meta.V1.LabelSelectorArgs
+            {
+                MatchLabels = 
                 {
                     { "app", "nginx" },
                 },
             },
-            Spec = new Kubernetes.Types.Inputs.Apps.V1.DeploymentSpecArgs
+            Template = new Kubernetes.Types.Inputs.Core.V1.PodTemplateSpecArgs
             {
-                Replicas = 3,
-                Selector = new Kubernetes.Types.Inputs.Meta.V1.LabelSelectorArgs
+                Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
                 {
-                    MatchLabels = 
+                    Labels = 
                     {
                         { "app", "nginx" },
                     },
                 },
-                Template = new Kubernetes.Types.Inputs.Core.V1.PodTemplateSpecArgs
+                Spec = new Kubernetes.Types.Inputs.Core.V1.PodSpecArgs
                 {
-                    Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
+                    Containers = new[]
                     {
-                        Labels = 
+                        new Kubernetes.Types.Inputs.Core.V1.ContainerArgs
                         {
-                            { "app", "nginx" },
-                        },
-                    },
-                    Spec = new Kubernetes.Types.Inputs.Core.V1.PodSpecArgs
-                    {
-                        Containers = 
-                        {
-                            new Kubernetes.Types.Inputs.Core.V1.ContainerArgs
+                            Image = "nginx:1.14.2",
+                            Name = "nginx",
+                            Ports = new[]
                             {
-                                Image = "nginx:1.14.2",
-                                Name = "nginx",
-                                Ports = 
+                                new Kubernetes.Types.Inputs.Core.V1.ContainerPortArgs
                                 {
-                                    new Kubernetes.Types.Inputs.Core.V1.ContainerPortArgs
-                                    {
-                                        ContainerPort = 80,
-                                    },
+                                    ContainerPortValue = 80,
                                 },
                             },
                         },
                     },
                 },
             },
-        });
-    }
+        },
+    });
 
-}
+});
+
 ```
 ```go
 package main
@@ -187,6 +187,61 @@ func main() {
 		}
 		return nil
 	})
+}
+```
+```java
+package generated_program;
+
+import com.pulumi.Context;
+import com.pulumi.Pulumi;
+import com.pulumi.core.Output;
+import com.pulumi.kubernetes.apps_v1.Deployment;
+import com.pulumi.kubernetes.apps_v1.DeploymentArgs;
+import com.pulumi.kubernetes.meta_v1.inputs.ObjectMetaArgs;
+import com.pulumi.kubernetes.apps_v1.inputs.DeploymentSpecArgs;
+import com.pulumi.kubernetes.meta_v1.inputs.LabelSelectorArgs;
+import com.pulumi.kubernetes.core_v1.inputs.PodTemplateSpecArgs;
+import com.pulumi.kubernetes.core_v1.inputs.PodSpecArgs;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+public class App {
+    public static void main(String[] args) {
+        Pulumi.run(App::stack);
+    }
+
+    public static void stack(Context ctx) {
+        var deployment = new Deployment("deployment", DeploymentArgs.builder()        
+            .metadata(ObjectMetaArgs.builder()
+                .labels(Map.of("app", "nginx"))
+                .build())
+            .spec(DeploymentSpecArgs.builder()
+                .replicas(3)
+                .selector(LabelSelectorArgs.builder()
+                    .matchLabels(Map.of("app", "nginx"))
+                    .build())
+                .template(PodTemplateSpecArgs.builder()
+                    .metadata(ObjectMetaArgs.builder()
+                        .labels(Map.of("app", "nginx"))
+                        .build())
+                    .spec(PodSpecArgs.builder()
+                        .containers(ContainerArgs.builder()
+                            .image("nginx:1.14.2")
+                            .name("nginx")
+                            .ports(ContainerPortArgs.builder()
+                                .containerPort(80)
+                                .build())
+                            .build())
+                        .build())
+                    .build())
+                .build())
+            .build());
+
+    }
 }
 ```
 ```yaml
@@ -294,66 +349,66 @@ deployment = kubernetes.apps.v1.Deployment("deployment",
     ))
 ```
 ```csharp
+using System.Collections.Generic;
+using System.Linq;
 using Pulumi;
 using Kubernetes = Pulumi.Kubernetes;
 
-class MyStack : Stack
+return await Deployment.RunAsync(() => 
 {
-    public MyStack()
+    var deployment = new Kubernetes.Apps.V1.Deployment("deployment", new()
     {
-        var deployment = new Kubernetes.Apps.V1.Deployment("deployment", new Kubernetes.Types.Inputs.Apps.V1.DeploymentArgs
+        Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
         {
-            Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
+            Labels = 
             {
-                Labels = 
+                { "app", "nginx" },
+            },
+            Name = "nginx-deployment",
+        },
+        Spec = new Kubernetes.Types.Inputs.Apps.V1.DeploymentSpecArgs
+        {
+            Replicas = 3,
+            Selector = new Kubernetes.Types.Inputs.Meta.V1.LabelSelectorArgs
+            {
+                MatchLabels = 
                 {
                     { "app", "nginx" },
                 },
-                Name = "nginx-deployment",
             },
-            Spec = new Kubernetes.Types.Inputs.Apps.V1.DeploymentSpecArgs
+            Template = new Kubernetes.Types.Inputs.Core.V1.PodTemplateSpecArgs
             {
-                Replicas = 3,
-                Selector = new Kubernetes.Types.Inputs.Meta.V1.LabelSelectorArgs
+                Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
                 {
-                    MatchLabels = 
+                    Labels = 
                     {
                         { "app", "nginx" },
                     },
                 },
-                Template = new Kubernetes.Types.Inputs.Core.V1.PodTemplateSpecArgs
+                Spec = new Kubernetes.Types.Inputs.Core.V1.PodSpecArgs
                 {
-                    Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
+                    Containers = new[]
                     {
-                        Labels = 
+                        new Kubernetes.Types.Inputs.Core.V1.ContainerArgs
                         {
-                            { "app", "nginx" },
-                        },
-                    },
-                    Spec = new Kubernetes.Types.Inputs.Core.V1.PodSpecArgs
-                    {
-                        Containers = 
-                        {
-                            new Kubernetes.Types.Inputs.Core.V1.ContainerArgs
+                            Image = "nginx:1.14.2",
+                            Name = "nginx",
+                            Ports = new[]
                             {
-                                Image = "nginx:1.14.2",
-                                Name = "nginx",
-                                Ports = 
+                                new Kubernetes.Types.Inputs.Core.V1.ContainerPortArgs
                                 {
-                                    new Kubernetes.Types.Inputs.Core.V1.ContainerPortArgs
-                                    {
-                                        ContainerPort = 80,
-                                    },
+                                    ContainerPortValue = 80,
                                 },
                             },
                         },
                     },
                 },
             },
-        });
-    }
+        },
+    });
 
-}
+});
+
 ```
 ```go
 package main
@@ -408,6 +463,62 @@ func main() {
 		}
 		return nil
 	})
+}
+```
+```java
+package generated_program;
+
+import com.pulumi.Context;
+import com.pulumi.Pulumi;
+import com.pulumi.core.Output;
+import com.pulumi.kubernetes.apps_v1.Deployment;
+import com.pulumi.kubernetes.apps_v1.DeploymentArgs;
+import com.pulumi.kubernetes.meta_v1.inputs.ObjectMetaArgs;
+import com.pulumi.kubernetes.apps_v1.inputs.DeploymentSpecArgs;
+import com.pulumi.kubernetes.meta_v1.inputs.LabelSelectorArgs;
+import com.pulumi.kubernetes.core_v1.inputs.PodTemplateSpecArgs;
+import com.pulumi.kubernetes.core_v1.inputs.PodSpecArgs;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+public class App {
+    public static void main(String[] args) {
+        Pulumi.run(App::stack);
+    }
+
+    public static void stack(Context ctx) {
+        var deployment = new Deployment("deployment", DeploymentArgs.builder()        
+            .metadata(ObjectMetaArgs.builder()
+                .labels(Map.of("app", "nginx"))
+                .name("nginx-deployment")
+                .build())
+            .spec(DeploymentSpecArgs.builder()
+                .replicas(3)
+                .selector(LabelSelectorArgs.builder()
+                    .matchLabels(Map.of("app", "nginx"))
+                    .build())
+                .template(PodTemplateSpecArgs.builder()
+                    .metadata(ObjectMetaArgs.builder()
+                        .labels(Map.of("app", "nginx"))
+                        .build())
+                    .spec(PodSpecArgs.builder()
+                        .containers(ContainerArgs.builder()
+                            .image("nginx:1.14.2")
+                            .name("nginx")
+                            .ports(ContainerPortArgs.builder()
+                                .containerPort(80)
+                                .build())
+                            .build())
+                        .build())
+                    .build())
+                .build())
+            .build());
+
+    }
 }
 ```
 ```yaml
