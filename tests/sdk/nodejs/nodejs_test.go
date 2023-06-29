@@ -647,6 +647,9 @@ func TestKustomizeHelmChart(t *testing.T) {
 				Path:  true,
 			},
 		},
+		Env: []string{
+			"PULUMI_K8S_KUSTOMIZE_HELM=true", // This experimental feature is currently gated behind a feature flag.
+		},
 	})
 	integration.ProgramTest(t, &test)
 }
