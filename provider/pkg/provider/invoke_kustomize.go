@@ -55,6 +55,7 @@ func kustomizeDirectory(directory string, clientSet *clients.DynamicClientSet) (
 	opts.DoLegacyResourceSort = true
 
 	// Add support for helmCharts plugin
+	// See https://github.com/kubernetes-sigs/kustomize/blob/v3.3.1/examples/chart.md for more details.
 	helmPath := "helm" // TODO: support this as a parameter to kustomize.Directory; this won't work for Windows
 	opts.PluginConfig = types.EnabledPluginConfig(types.BploUseStaticallyLinked)
 	opts.PluginConfig.HelmConfig.Command = helmPath

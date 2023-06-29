@@ -631,6 +631,7 @@ func TestKustomize(t *testing.T) {
 
 // TestKustomizeHelmChart verifies the helmChart plugin support for Kustomize. This requires the `helm` binary to be
 // on the system PATH to succeed.
+// Example based on https://github.com/kubernetes-sigs/kustomize/blob/v3.3.1/examples/chart.md
 func TestKustomizeHelmChart(t *testing.T) {
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir: filepath.Join("kustomizeHelmChart", "step1"),
