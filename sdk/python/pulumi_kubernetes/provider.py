@@ -173,6 +173,9 @@ class ProviderArgs:
         """
         Deprecated. If present and set to true, enable server-side diff calculations.
         """
+        warnings.warn("""This option has been replaced by `enableServerSideApply`.""", DeprecationWarning)
+        pulumi.log.warn("""enable_dry_run is deprecated: This option has been replaced by `enableServerSideApply`.""")
+
         return pulumi.get(self, "enable_dry_run")
 
     @enable_dry_run.setter
@@ -185,6 +188,9 @@ class ProviderArgs:
         """
         Obsolete. This option has no effect.
         """
+        warnings.warn("""This option is deprecated, and will be removed in a future release.""", DeprecationWarning)
+        pulumi.log.warn("""enable_replace_crd is deprecated: This option is deprecated, and will be removed in a future release.""")
+
         return pulumi.get(self, "enable_replace_crd")
 
     @enable_replace_crd.setter
