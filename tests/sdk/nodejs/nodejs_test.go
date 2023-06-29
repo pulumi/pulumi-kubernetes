@@ -40,7 +40,9 @@ import (
 )
 
 var baseOptions = &integration.ProgramTestOptions{
-	Verbose: true,
+	// Disable verbosity as it messes up grouping due to ProgramTest not
+	// printing a new-line which causes parsing errors.
+	Verbose: false,
 	Dependencies: []string{
 		"@pulumi/kubernetes",
 	},
