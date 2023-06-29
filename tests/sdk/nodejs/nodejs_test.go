@@ -629,6 +629,27 @@ func TestKustomize(t *testing.T) {
 	integration.ProgramTest(t, &test)
 }
 
+// TestKustomizeHelmChart verifies the helmChart plugin support for Kustomize. This requires the `helm` binary to be
+// on the system PATH to succeed.
+func TestKustomizeHelmChart(t *testing.T) {
+	test := baseOptions.With(integration.ProgramTestOptions{
+		Dir: filepath.Join("kustomizeHelmChart", "step1"),
+		// Just test that the plugin integration is working with preview
+		SkipUpdate:             true,
+		SkipRefresh:            true,
+		SkipEmptyPreviewUpdate: true,
+		SkipExportImport:       true,
+		OrderedConfig: []integration.ConfigValue{
+			{
+				Key:   "pulumi:disable-default-providers[0]",
+				Value: "kubernetes",
+				Path:  true,
+			},
+		},
+	})
+	integration.ProgramTest(t, &test)
+}
+
 func TestNamespace(t *testing.T) {
 	var nmPodName, defaultPodName string
 	test := baseOptions.With(integration.ProgramTestOptions{
