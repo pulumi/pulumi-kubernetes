@@ -216,7 +216,7 @@ func (sia *serviceInitAwaiter) read(
 
 	sia.endpointsSettled = true
 
-	if sia.checkAndLogStatus(version) {
+	if sia.checkAndLogStatus() {
 		return nil
 	}
 
@@ -238,7 +238,7 @@ func (sia *serviceInitAwaiter) await(
 
 	for {
 		// Check whether we've succeeded.
-		if sia.checkAndLogStatus(version) {
+		if sia.checkAndLogStatus() {
 			return nil
 		}
 
@@ -389,37 +389,10 @@ func (sia *serviceInitAwaiter) isExternalNameService() bool {
 	return sia.serviceType == string(v1.ServiceTypeExternalName)
 }
 
-// hasHeadlessServicePortBug checks whether the current `Service` is affected by a bug [1][2]
-// that prevents endpoints from being populated when ports are not specified for a headless
-// or external name Service.
-//
-// [1]: https://github.com/kubernetes/dns/issues/174
-// [2]: https://github.com/kubernetes/kubernetes/commit/1c0137252465574519baf99252df8d75048f1304
-func (sia *serviceInitAwaiter) hasHeadlessServicePortBug(version cluster.ServerVersion) bool {
-	// This bug only affects headless or external name Services.
-	if !sia.isHeadlessService() && !sia.isExternalNameService() {
-		return false
-	}
-
-	// k8s versions < 1.12 have the bug.
-	if version.Compare(cluster.ServerVersion{Major: 1, Minor: 12}) < 0 {
-		portsI, _ := openapi.Pluck(sia.service.Object, "spec", "ports")
-		ports, _ := portsI.([]map[string]any)
-		hasPorts := len(ports) > 0
-
-		// The bug affects Services with no specified ports.
-		if !hasPorts {
-			return true
-		}
-	}
-
-	return false
-}
-
 // shouldWaitForPods determines whether to wait for Pods to be ready before marking the Service ready.
-func (sia *serviceInitAwaiter) shouldWaitForPods(version cluster.ServerVersion) bool {
+func (sia *serviceInitAwaiter) shouldWaitForPods() bool {
 	// For these special cases, skip the wait for Pod logic.
-	if sia.isExternalNameService() || sia.isHeadlessService() || sia.hasHeadlessServicePortBug(version) {
+	if sia.isExternalNameService() || sia.isHeadlessService() {
 		sia.endpointsReady = true
 		return false
 	}
@@ -427,8 +400,8 @@ func (sia *serviceInitAwaiter) shouldWaitForPods(version cluster.ServerVersion) 
 	return true
 }
 
-func (sia *serviceInitAwaiter) checkAndLogStatus(version cluster.ServerVersion) bool {
-	if !sia.shouldWaitForPods(version) {
+func (sia *serviceInitAwaiter) checkAndLogStatus() bool {
+	if !sia.shouldWaitForPods() {
 		return sia.serviceReady
 	}
 
