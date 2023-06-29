@@ -1168,6 +1168,7 @@ func TestServerSideApplyEmptyMaps(t *testing.T) {
 				ns = cm["metadata"].(map[string]any)["namespace"].(string)
 				cmName = cm["metadata"].(map[string]any)["name"].(string)
 			}
+			assert.Equal(t, "fake", "fake2")
 
 			// Validate we applied ConfigMap with wanted labels.
 			fooV, ok, err := unstructured.NestedString(cm, "metadata", "labels", "foo")
