@@ -391,7 +391,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Run tests
         run:
-          cd tests/sdk/${{ matrix.language }} && go test -v -count=1 -cover -timeout
+          cd tests/sdk/${{ matrix.language }} && go test -v -json -count=1 -cover -timeout
           2h -parallel 4 ./... | tee /tmp/gotest.log | gotestfmt
       - if: failure() && github.event_name == 'push'
         name: Notify Slack
