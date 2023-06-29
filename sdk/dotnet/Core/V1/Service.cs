@@ -40,71 +40,71 @@ namespace Pulumi.Kubernetes.Core.V1
     /// ## Example Usage
     /// ### Create a Service with auto-naming
     /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
     /// using Pulumi;
     /// using Kubernetes = Pulumi.Kubernetes;
     /// 
-    /// class MyStack : Stack
+    /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     public MyStack()
+    ///     var service = new Kubernetes.Core.V1.Service("service", new()
     ///     {
-    ///         var service = new Kubernetes.Core.V1.Service("service", new Kubernetes.Types.Inputs.Core.V1.ServiceArgs
+    ///         Spec = new Kubernetes.Types.Inputs.Core.V1.ServiceSpecArgs
     ///         {
-    ///             Spec = new Kubernetes.Types.Inputs.Core.V1.ServiceSpecArgs
+    ///             Ports = new[]
     ///             {
-    ///                 Ports = 
+    ///                 new Kubernetes.Types.Inputs.Core.V1.ServicePortArgs
     ///                 {
-    ///                     new Kubernetes.Types.Inputs.Core.V1.ServicePortArgs
-    ///                     {
-    ///                         Port = 80,
-    ///                         Protocol = "TCP",
-    ///                         TargetPort = 9376,
-    ///                     },
-    ///                 },
-    ///                 Selector = 
-    ///                 {
-    ///                     { "app", "MyApp" },
+    ///                     Port = 80,
+    ///                     Protocol = "TCP",
+    ///                     TargetPort = 9376,
     ///                 },
     ///             },
-    ///         });
-    ///     }
+    ///             Selector = 
+    ///             {
+    ///                 { "app", "MyApp" },
+    ///             },
+    ///         },
+    ///     });
     /// 
-    /// }
+    /// });
+    /// 
     /// ```
     /// ### Create a Service with a user-specified name
     /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
     /// using Pulumi;
     /// using Kubernetes = Pulumi.Kubernetes;
     /// 
-    /// class MyStack : Stack
+    /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     public MyStack()
+    ///     var service = new Kubernetes.Core.V1.Service("service", new()
     ///     {
-    ///         var service = new Kubernetes.Core.V1.Service("service", new Kubernetes.Types.Inputs.Core.V1.ServiceArgs
+    ///         Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
     ///         {
-    ///             Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
+    ///             Name = "my-service",
+    ///         },
+    ///         Spec = new Kubernetes.Types.Inputs.Core.V1.ServiceSpecArgs
+    ///         {
+    ///             Ports = new[]
     ///             {
-    ///                 Name = "my-service",
-    ///             },
-    ///             Spec = new Kubernetes.Types.Inputs.Core.V1.ServiceSpecArgs
-    ///             {
-    ///                 Ports = 
+    ///                 new Kubernetes.Types.Inputs.Core.V1.ServicePortArgs
     ///                 {
-    ///                     new Kubernetes.Types.Inputs.Core.V1.ServicePortArgs
-    ///                     {
-    ///                         Port = 80,
-    ///                         Protocol = "TCP",
-    ///                         TargetPort = 9376,
-    ///                     },
-    ///                 },
-    ///                 Selector = 
-    ///                 {
-    ///                     { "app", "MyApp" },
+    ///                     Port = 80,
+    ///                     Protocol = "TCP",
+    ///                     TargetPort = 9376,
     ///                 },
     ///             },
-    ///         });
-    ///     }
+    ///             Selector = 
+    ///             {
+    ///                 { "app", "MyApp" },
+    ///             },
+    ///         },
+    ///     });
     /// 
-    /// }
+    /// });
+    /// 
     /// ```
     /// </summary>
     [KubernetesResourceType("kubernetes:core/v1:Service")]

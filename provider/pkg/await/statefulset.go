@@ -30,6 +30,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/cmdutil"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
+	appsv1 "k8s.io/api/apps/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -48,19 +49,29 @@ import (
 // alert the user so they can cancel the operation instead of waiting for timeout (~10 minutes).
 //
 // A StatefulSet is a construct that allows users to specify how to execute an update to a stateful
-// application that is replicated some number of times in a cluster. When an application is updated,
-// the StatefulSet will incrementally roll out the new version (according to the policy requested by
-// the user). When the new application Pods becomes "live" (as specified by the liveness and
-// readiness probes), the old Pods are killed and deleted.
+// application that is replicated some number of times in a cluster. StatefulSets operate in two different update modes,
+// depending on the specified .spec.updateStrategy.type:
 //
-// The success conditions are somewhat complex:
+//   1. RollingUpdate (default) - When an application is updated, the StatefulSet will incrementally roll out the new
+//      version (according to the policy requested by the user). When the new application Pods becomes "live" (as
+//      specified by the liveness and readiness probes), the old Pods are killed and deleted.
+//   2. OnDelete - When an application is updated, the user must manually delete the old Pods to update them to the
+//      new version.
 //
-//   1. `.status.replicas`, `.status.currentReplicas` and `.status.readyReplicas` match the
-//      value of `.spec.replicas`.
+// The success conditions are somewhat complex, and depend on the update strategy:
+//
+// For the RollingUpdate strategy:
+//   1. `.status.replicas`, `.status.currentReplicas` and `.status.readyReplicas` match the value of `.spec.replicas`.
 //   2. `.status.updateRevision` matches `.status.currentRevision`.
 //
+// For the OnDelete strategy:
+//   1. If `.metadata.generation` == 1, `.status.replicas`, `.status.currentReplicas` and `.status.readyReplicas`
+//      match the value of `.spec.replicas`.
+//   2. If `.metadata.generation` > 1, `.status.replicas`, and `.status.readyReplicas` match the value of
+//      `.spec.replicas`.
+//
 // ------
-// The following table illustrates the timeline of status updates:
+// The following table illustrates the timeline of status updates with the RollingUpdate strategy:
 //
 // Current replicas    Ready replicas  Updated replicas    Notes
 // 3                   3               --
@@ -80,6 +91,28 @@ import (
 // (1) observedGeneration updated (corresponds to .metadata.generation)
 // (2) updateRevision updated -> currentRevision matches updateRevision
 // (3) spec.replicas == current replicas == ready replicas == updated replicas (field deleted after currentRevision updates)
+//
+// ------
+// The following table illustrates the timeline of status updates with the OnDelete strategy:
+//
+// Current replicas    Ready replicas  Updated replicas    Notes
+// 3                   3               --
+// <Update image>
+// --                  3               --                  observedGeneration/updateRevision changes
+// <Manually delete Pods to Update>
+// --                  2               --                  currentReplicas is removed
+// --                  2               1
+// --                  3               1
+// --                  2               1
+// --                  2               2
+// --                  3               2
+// --                  2               2
+// --                  2               3
+// --                  3               3
+//
+// (1) observedGeneration updated (corresponds to .metadata.generation)
+// (2) updateRevision updated, and currentRevision no longer matches updateRevision
+// (3) spec.replicas == ready replicas == updated replicas
 //
 // ------
 //
@@ -344,6 +377,11 @@ func (sia *statefulsetInitAwaiter) processStatefulSetEvent(event watch.Event) {
 		return
 	}
 
+	var updateStrategyType string
+	if rawUpdateStrategyType, ok := openapi.Pluck(statefulset.Object, "spec", "updateStrategy", "type"); ok {
+		updateStrategyType = rawUpdateStrategyType.(string)
+	}
+
 	// Check if current revision matches update revision.
 	var currentRevision, updateRevision string
 	if rawCurrentRevision, ok := openapi.Pluck(statefulset.Object, "status", "currentRevision"); ok {
@@ -352,7 +390,6 @@ func (sia *statefulsetInitAwaiter) processStatefulSetEvent(event watch.Event) {
 	if rawUpdateRevision, ok := openapi.Pluck(statefulset.Object, "status", "updateRevision"); ok {
 		updateRevision = rawUpdateRevision.(string)
 	}
-	sia.revisionReady = (currentRevision != "") && (currentRevision == updateRevision)
 	sia.currentRevision, sia.targetRevision = currentRevision, updateRevision
 
 	// Check if all expected replicas are ready.
@@ -374,9 +411,15 @@ func (sia *statefulsetInitAwaiter) processStatefulSetEvent(event watch.Event) {
 	} else {
 		statusUpdatedReplicas = 0
 	}
-	sia.replicasReady = (replicas == statusReplicas) &&
-		(replicas == statusReadyReplicas) &&
-		(replicas == statusCurrentReplicas)
+	if sia.currentGeneration > 1 && updateStrategyType == string(appsv1.OnDeleteStatefulSetStrategyType) {
+		sia.revisionReady = true
+		sia.replicasReady = (replicas == statusReplicas) && (replicas == statusReadyReplicas)
+	} else {
+		sia.revisionReady = (currentRevision != "") && (currentRevision == updateRevision)
+		sia.replicasReady = (replicas == statusReplicas) &&
+			(replicas == statusReadyReplicas) &&
+			(replicas == statusCurrentReplicas)
+	}
 
 	// Set current and target replica counts for logging purposes.
 	sia.targetReplicas = replicas

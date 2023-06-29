@@ -37,128 +37,128 @@ namespace Pulumi.Kubernetes.Apps.V1
     /// ## Example Usage
     /// ### Create a Deployment with auto-naming
     /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
     /// using Pulumi;
     /// using Kubernetes = Pulumi.Kubernetes;
     /// 
-    /// class MyStack : Stack
+    /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     public MyStack()
+    ///     var deployment = new Kubernetes.Apps.V1.Deployment("deployment", new()
     ///     {
-    ///         var deployment = new Kubernetes.Apps.V1.Deployment("deployment", new Kubernetes.Types.Inputs.Apps.V1.DeploymentArgs
+    ///         Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
     ///         {
-    ///             Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
+    ///             Labels = 
     ///             {
-    ///                 Labels = 
+    ///                 { "app", "nginx" },
+    ///             },
+    ///         },
+    ///         Spec = new Kubernetes.Types.Inputs.Apps.V1.DeploymentSpecArgs
+    ///         {
+    ///             Replicas = 3,
+    ///             Selector = new Kubernetes.Types.Inputs.Meta.V1.LabelSelectorArgs
+    ///             {
+    ///                 MatchLabels = 
     ///                 {
     ///                     { "app", "nginx" },
     ///                 },
     ///             },
-    ///             Spec = new Kubernetes.Types.Inputs.Apps.V1.DeploymentSpecArgs
+    ///             Template = new Kubernetes.Types.Inputs.Core.V1.PodTemplateSpecArgs
     ///             {
-    ///                 Replicas = 3,
-    ///                 Selector = new Kubernetes.Types.Inputs.Meta.V1.LabelSelectorArgs
+    ///                 Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
     ///                 {
-    ///                     MatchLabels = 
+    ///                     Labels = 
     ///                     {
     ///                         { "app", "nginx" },
     ///                     },
     ///                 },
-    ///                 Template = new Kubernetes.Types.Inputs.Core.V1.PodTemplateSpecArgs
+    ///                 Spec = new Kubernetes.Types.Inputs.Core.V1.PodSpecArgs
     ///                 {
-    ///                     Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
+    ///                     Containers = new[]
     ///                     {
-    ///                         Labels = 
+    ///                         new Kubernetes.Types.Inputs.Core.V1.ContainerArgs
     ///                         {
-    ///                             { "app", "nginx" },
-    ///                         },
-    ///                     },
-    ///                     Spec = new Kubernetes.Types.Inputs.Core.V1.PodSpecArgs
-    ///                     {
-    ///                         Containers = 
-    ///                         {
-    ///                             new Kubernetes.Types.Inputs.Core.V1.ContainerArgs
+    ///                             Image = "nginx:1.14.2",
+    ///                             Name = "nginx",
+    ///                             Ports = new[]
     ///                             {
-    ///                                 Image = "nginx:1.14.2",
-    ///                                 Name = "nginx",
-    ///                                 Ports = 
+    ///                                 new Kubernetes.Types.Inputs.Core.V1.ContainerPortArgs
     ///                                 {
-    ///                                     new Kubernetes.Types.Inputs.Core.V1.ContainerPortArgs
-    ///                                     {
-    ///                                         ContainerPort = 80,
-    ///                                     },
+    ///                                     ContainerPortValue = 80,
     ///                                 },
     ///                             },
     ///                         },
     ///                     },
     ///                 },
     ///             },
-    ///         });
-    ///     }
+    ///         },
+    ///     });
     /// 
-    /// }
+    /// });
+    /// 
     /// ```
     /// ### Create a Deployment with a user-specified name
     /// ```csharp
+    /// using System.Collections.Generic;
+    /// using System.Linq;
     /// using Pulumi;
     /// using Kubernetes = Pulumi.Kubernetes;
     /// 
-    /// class MyStack : Stack
+    /// return await Deployment.RunAsync(() =&gt; 
     /// {
-    ///     public MyStack()
+    ///     var deployment = new Kubernetes.Apps.V1.Deployment("deployment", new()
     ///     {
-    ///         var deployment = new Kubernetes.Apps.V1.Deployment("deployment", new Kubernetes.Types.Inputs.Apps.V1.DeploymentArgs
+    ///         Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
     ///         {
-    ///             Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
+    ///             Labels = 
     ///             {
-    ///                 Labels = 
+    ///                 { "app", "nginx" },
+    ///             },
+    ///             Name = "nginx-deployment",
+    ///         },
+    ///         Spec = new Kubernetes.Types.Inputs.Apps.V1.DeploymentSpecArgs
+    ///         {
+    ///             Replicas = 3,
+    ///             Selector = new Kubernetes.Types.Inputs.Meta.V1.LabelSelectorArgs
+    ///             {
+    ///                 MatchLabels = 
     ///                 {
     ///                     { "app", "nginx" },
     ///                 },
-    ///                 Name = "nginx-deployment",
     ///             },
-    ///             Spec = new Kubernetes.Types.Inputs.Apps.V1.DeploymentSpecArgs
+    ///             Template = new Kubernetes.Types.Inputs.Core.V1.PodTemplateSpecArgs
     ///             {
-    ///                 Replicas = 3,
-    ///                 Selector = new Kubernetes.Types.Inputs.Meta.V1.LabelSelectorArgs
+    ///                 Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
     ///                 {
-    ///                     MatchLabels = 
+    ///                     Labels = 
     ///                     {
     ///                         { "app", "nginx" },
     ///                     },
     ///                 },
-    ///                 Template = new Kubernetes.Types.Inputs.Core.V1.PodTemplateSpecArgs
+    ///                 Spec = new Kubernetes.Types.Inputs.Core.V1.PodSpecArgs
     ///                 {
-    ///                     Metadata = new Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs
+    ///                     Containers = new[]
     ///                     {
-    ///                         Labels = 
+    ///                         new Kubernetes.Types.Inputs.Core.V1.ContainerArgs
     ///                         {
-    ///                             { "app", "nginx" },
-    ///                         },
-    ///                     },
-    ///                     Spec = new Kubernetes.Types.Inputs.Core.V1.PodSpecArgs
-    ///                     {
-    ///                         Containers = 
-    ///                         {
-    ///                             new Kubernetes.Types.Inputs.Core.V1.ContainerArgs
+    ///                             Image = "nginx:1.14.2",
+    ///                             Name = "nginx",
+    ///                             Ports = new[]
     ///                             {
-    ///                                 Image = "nginx:1.14.2",
-    ///                                 Name = "nginx",
-    ///                                 Ports = 
+    ///                                 new Kubernetes.Types.Inputs.Core.V1.ContainerPortArgs
     ///                                 {
-    ///                                     new Kubernetes.Types.Inputs.Core.V1.ContainerPortArgs
-    ///                                     {
-    ///                                         ContainerPort = 80,
-    ///                                     },
+    ///                                     ContainerPortValue = 80,
     ///                                 },
     ///                             },
     ///                         },
     ///                     },
     ///                 },
     ///             },
-    ///         });
-    ///     }
+    ///         },
+    ///     });
     /// 
-    /// }
+    /// });
+    /// 
     /// ```
     /// </summary>
     [KubernetesResourceType("kubernetes:apps/v1:Deployment")]

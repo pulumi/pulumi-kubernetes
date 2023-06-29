@@ -44,6 +44,119 @@ import javax.annotation.Nullable;
  * by setting the &#39;customTimeouts&#39; option on the resource.
  * 
  * ## Example Usage
+ * ### Create a Deployment with auto-naming
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.kubernetes.apps_v1.Deployment;
+ * import com.pulumi.kubernetes.apps_v1.DeploymentArgs;
+ * import com.pulumi.kubernetes.meta_v1.inputs.ObjectMetaArgs;
+ * import com.pulumi.kubernetes.apps_v1.inputs.DeploymentSpecArgs;
+ * import com.pulumi.kubernetes.meta_v1.inputs.LabelSelectorArgs;
+ * import com.pulumi.kubernetes.core_v1.inputs.PodTemplateSpecArgs;
+ * import com.pulumi.kubernetes.core_v1.inputs.PodSpecArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         var deployment = new Deployment(&#34;deployment&#34;, DeploymentArgs.builder()        
+ *             .metadata(ObjectMetaArgs.builder()
+ *                 .labels(Map.of(&#34;app&#34;, &#34;nginx&#34;))
+ *                 .build())
+ *             .spec(DeploymentSpecArgs.builder()
+ *                 .replicas(3)
+ *                 .selector(LabelSelectorArgs.builder()
+ *                     .matchLabels(Map.of(&#34;app&#34;, &#34;nginx&#34;))
+ *                     .build())
+ *                 .template(PodTemplateSpecArgs.builder()
+ *                     .metadata(ObjectMetaArgs.builder()
+ *                         .labels(Map.of(&#34;app&#34;, &#34;nginx&#34;))
+ *                         .build())
+ *                     .spec(PodSpecArgs.builder()
+ *                         .containers(ContainerArgs.builder()
+ *                             .image(&#34;nginx:1.14.2&#34;)
+ *                             .name(&#34;nginx&#34;)
+ *                             .ports(ContainerPortArgs.builder()
+ *                                 .containerPort(80)
+ *                                 .build())
+ *                             .build())
+ *                         .build())
+ *                     .build())
+ *                 .build())
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
+ * ### Create a Deployment with a user-specified name
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.kubernetes.apps_v1.Deployment;
+ * import com.pulumi.kubernetes.apps_v1.DeploymentArgs;
+ * import com.pulumi.kubernetes.meta_v1.inputs.ObjectMetaArgs;
+ * import com.pulumi.kubernetes.apps_v1.inputs.DeploymentSpecArgs;
+ * import com.pulumi.kubernetes.meta_v1.inputs.LabelSelectorArgs;
+ * import com.pulumi.kubernetes.core_v1.inputs.PodTemplateSpecArgs;
+ * import com.pulumi.kubernetes.core_v1.inputs.PodSpecArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         var deployment = new Deployment(&#34;deployment&#34;, DeploymentArgs.builder()        
+ *             .metadata(ObjectMetaArgs.builder()
+ *                 .labels(Map.of(&#34;app&#34;, &#34;nginx&#34;))
+ *                 .name(&#34;nginx-deployment&#34;)
+ *                 .build())
+ *             .spec(DeploymentSpecArgs.builder()
+ *                 .replicas(3)
+ *                 .selector(LabelSelectorArgs.builder()
+ *                     .matchLabels(Map.of(&#34;app&#34;, &#34;nginx&#34;))
+ *                     .build())
+ *                 .template(PodTemplateSpecArgs.builder()
+ *                     .metadata(ObjectMetaArgs.builder()
+ *                         .labels(Map.of(&#34;app&#34;, &#34;nginx&#34;))
+ *                         .build())
+ *                     .spec(PodSpecArgs.builder()
+ *                         .containers(ContainerArgs.builder()
+ *                             .image(&#34;nginx:1.14.2&#34;)
+ *                             .name(&#34;nginx&#34;)
+ *                             .ports(ContainerPortArgs.builder()
+ *                                 .containerPort(80)
+ *                                 .build())
+ *                             .build())
+ *                         .build())
+ *                     .build())
+ *                 .build())
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
  * 
  */
 @ResourceType(type="kubernetes:apps/v1:Deployment")

@@ -45,6 +45,84 @@ import javax.annotation.Nullable;
  * by setting the &#39;customTimeouts&#39; option on the resource.
  * 
  * ## Example Usage
+ * ### Create a Service with auto-naming
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.kubernetes.core_v1.Service;
+ * import com.pulumi.kubernetes.core_v1.ServiceArgs;
+ * import com.pulumi.kubernetes.core_v1.inputs.ServiceSpecArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         var service = new Service(&#34;service&#34;, ServiceArgs.builder()        
+ *             .spec(ServiceSpecArgs.builder()
+ *                 .ports(ServicePortArgs.builder()
+ *                     .port(80)
+ *                     .protocol(&#34;TCP&#34;)
+ *                     .targetPort(9376)
+ *                     .build())
+ *                 .selector(Map.of(&#34;app&#34;, &#34;MyApp&#34;))
+ *                 .build())
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
+ * ### Create a Service with a user-specified name
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.kubernetes.core_v1.Service;
+ * import com.pulumi.kubernetes.core_v1.ServiceArgs;
+ * import com.pulumi.kubernetes.meta_v1.inputs.ObjectMetaArgs;
+ * import com.pulumi.kubernetes.core_v1.inputs.ServiceSpecArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         var service = new Service(&#34;service&#34;, ServiceArgs.builder()        
+ *             .metadata(ObjectMetaArgs.builder()
+ *                 .name(&#34;my-service&#34;)
+ *                 .build())
+ *             .spec(ServiceSpecArgs.builder()
+ *                 .ports(ServicePortArgs.builder()
+ *                     .port(80)
+ *                     .protocol(&#34;TCP&#34;)
+ *                     .targetPort(9376)
+ *                     .build())
+ *                 .selector(Map.of(&#34;app&#34;, &#34;MyApp&#34;))
+ *                 .build())
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
  * 
  */
 @ResourceType(type="kubernetes:core/v1:Service")

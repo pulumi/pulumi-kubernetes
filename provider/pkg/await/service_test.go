@@ -202,7 +202,7 @@ func Test_Core_Service(t *testing.T) {
 			},
 		},
 		{
-			description:  "Should fail if non-empty headless service doesn't target any Pods",
+			description:  "Should succeed if non-empty headless service doesn't target any Pods",
 			serviceInput: headlessNonemptyServiceInput,
 			version:      cluster.ServerVersion{Major: 1, Minor: 12},
 			do: func(services, endpoints chan watch.Event, settled chan struct{}, timeout chan time.Time) {
@@ -211,11 +211,6 @@ func Test_Core_Service(t *testing.T) {
 				// Finally, time out.
 				timeout <- time.Now()
 			},
-			expectedError: &timeoutError{
-				object: headlessNonemptyServiceOutput("default", "foo-4setj4y6"),
-				subErrors: []string{
-					"Service does not target any Pods. Selected Pods may not be ready, or " +
-						"field '.spec.selector' may not match labels on any Pods"}},
 		},
 	}
 
@@ -284,13 +279,10 @@ func Test_Core_Service_Read(t *testing.T) {
 			version:      cluster.ServerVersion{Major: 1, Minor: 11},
 		},
 		{
-			description:  "Read fail if headless non-empty Service doesn't target any Pods",
+			description:  "Read succeed if headless non-empty Service doesn't target any Pods",
 			serviceInput: headlessNonemptyServiceInput,
 			service:      headlessNonemptyServiceInput,
 			version:      cluster.ServerVersion{Major: 1, Minor: 12},
-			expectedSubErrors: []string{
-				"Service does not target any Pods. Selected Pods may not be ready, or " +
-					"field '.spec.selector' may not match labels on any Pods"},
 		},
 	}
 

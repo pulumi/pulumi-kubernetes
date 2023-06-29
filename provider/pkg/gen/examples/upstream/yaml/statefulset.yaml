@@ -32,7 +32,7 @@ resources:
             terminationGracePeriodSeconds: 10
             containers:
               - name: nginx
-                image: k8s.gcr.io/nginx-slim:0.8
+                image: nginx:stable-alpine3.17-slim
                 ports:
                   - containerPort: 80
                     name: web
@@ -44,7 +44,6 @@ resources:
               name: www
             spec:
               accessModes: [ "ReadWriteOnce" ]
-              storageClassName: "my-storage-class"
               resources:
                 requests:
                   storage: 1Gi
@@ -86,7 +85,7 @@ resources:
             terminationGracePeriodSeconds: 10
             containers:
               - name: nginx
-                image: k8s.gcr.io/nginx-slim:0.8
+                image: nginx:stable-alpine3.17-slim
                 ports:
                   - containerPort: 80
                     name: web
@@ -98,7 +97,6 @@ resources:
               name: www
             spec:
               accessModes: [ "ReadWriteOnce" ]
-              storageClassName: "my-storage-class"
               resources:
                 requests:
                   storage: 1Gi

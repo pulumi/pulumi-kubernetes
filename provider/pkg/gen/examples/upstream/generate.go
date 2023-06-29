@@ -66,6 +66,7 @@ func markdownExample(description string,
 	python string,
 	csharp string,
 	golang string,
+	java string,
 	yaml string) string {
 
 	return fmt.Sprintf("{{%% example %%}}\n### %s\n\n"+
@@ -73,9 +74,10 @@ func markdownExample(description string,
 		"```python\n%s```\n"+
 		"```csharp\n%s```\n"+
 		"```go\n%s```\n"+
+		"```java\n%s```\n"+
 		"```yaml\n%s```\n"+
 		"{{%% /example %%}}\n",
-		description, typescript, python, csharp, golang, yaml)
+		description, typescript, python, csharp, golang, java, yaml)
 }
 
 func processYaml(path string, mdDir string) error {
@@ -120,7 +122,7 @@ func processYaml(path string, mdDir string) error {
 		}
 		contract.AssertNoErrorf(src.Close(), "unexpected error while encoding YAML")
 
-		cmd := exec.Command("pulumi", "convert", "--language", "typescript", "--out",
+		cmd := exec.Command("pulumi", "convert", "--generate-only", "--language", "typescript", "--out",
 			filepath.Join(dir, "example-nodejs"))
 		cmd.Stderr = os.Stderr
 		cmd.Stdout = os.Stdout
@@ -134,7 +136,7 @@ func processYaml(path string, mdDir string) error {
 		}
 		typescript := string(content)
 
-		cmd = exec.Command("pulumi", "convert", "--language", "python", "--out",
+		cmd = exec.Command("pulumi", "convert", "--generate-only", "--language", "python", "--out",
 			filepath.Join(dir, "example-py"))
 		cmd.Stderr = os.Stderr
 		cmd.Stdout = os.Stdout
@@ -148,21 +150,21 @@ func processYaml(path string, mdDir string) error {
 		}
 		python := string(content)
 
-		cmd = exec.Command("pulumi", "convert", "--language", "csharp", "--out",
+		cmd = exec.Command("pulumi", "convert", "--generate-only", "--language", "csharp", "--out",
 			filepath.Join(dir, "example-dotnet"))
 		cmd.Stderr = os.Stderr
 		cmd.Stdout = os.Stdout
 		cmd.Dir = dir
 		if err = cmd.Run(); err != nil {
-			_, _ = fmt.Fprintf(os.Stderr, "convert go failed, ignoring: %+v", err)
+			_, _ = fmt.Fprintf(os.Stderr, "convert dotnet failed, ignoring: %+v", err)
 		}
-		content, err = os.ReadFile(filepath.Join(dir, "example-dotnet", "MyStack.cs"))
+		content, err = os.ReadFile(filepath.Join(dir, "example-dotnet", "Program.cs"))
 		if err != nil {
 			return err
 		}
 		csharp := string(content)
 
-		cmd = exec.Command("pulumi", "convert", "--language", "go", "--out",
+		cmd = exec.Command("pulumi", "convert", "--generate-only", "--language", "go", "--out",
 			filepath.Join(dir, "example-go"))
 		cmd.Stderr = os.Stderr
 		cmd.Stdout = os.Stdout
@@ -176,7 +178,19 @@ func processYaml(path string, mdDir string) error {
 		}
 		golang := string(content)
 
-		// TODO add java when convert supports it.
+		cmd = exec.Command("pulumi", "convert", "--generate-only", "--language", "java", "--out",
+			filepath.Join(dir, "example-java"))
+		cmd.Stderr = os.Stderr
+		cmd.Stdout = os.Stdout
+		cmd.Dir = dir
+		if err = cmd.Run(); err != nil {
+			_, _ = fmt.Fprintf(os.Stderr, "convert java failed, ignoring: %+v", err)
+		}
+		content, err = os.ReadFile(filepath.Join(dir, "example-java", "src", "main", "java", "generated_program", "App.java"))
+		if err != nil {
+			return err
+		}
+		java := string(content)
 
 		content, err = os.ReadFile(filepath.Join(dir, "Pulumi.yaml"))
 		if err != nil {
@@ -184,7 +198,7 @@ func processYaml(path string, mdDir string) error {
 		}
 		yaml := string(content)
 
-		exampleStrings = append(exampleStrings, markdownExample(description, typescript, python, csharp, golang, yaml))
+		exampleStrings = append(exampleStrings, markdownExample(description, typescript, python, csharp, golang, java, yaml))
 	}
 	fmt.Fprintf(os.Stdout, "Writing %s\n", filepath.Join(mdDir, md))
 	f, err := os.OpenFile(filepath.Join(mdDir, md), os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0777)

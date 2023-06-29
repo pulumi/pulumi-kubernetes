@@ -39,6 +39,186 @@ import javax.annotation.Nullable;
  * by setting the &#39;customTimeouts&#39; option on the resource.
  * 
  * ## Example Usage
+ * ### Create a StatefulSet with auto-naming
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.kubernetes.core_v1.Service;
+ * import com.pulumi.kubernetes.core_v1.ServiceArgs;
+ * import com.pulumi.kubernetes.meta_v1.inputs.ObjectMetaArgs;
+ * import com.pulumi.kubernetes.core_v1.inputs.ServiceSpecArgs;
+ * import com.pulumi.kubernetes.apps_v1.StatefulSet;
+ * import com.pulumi.kubernetes.apps_v1.StatefulSetArgs;
+ * import com.pulumi.kubernetes.apps_v1.inputs.StatefulSetSpecArgs;
+ * import com.pulumi.kubernetes.meta_v1.inputs.LabelSelectorArgs;
+ * import com.pulumi.kubernetes.core_v1.inputs.PodTemplateSpecArgs;
+ * import com.pulumi.kubernetes.core_v1.inputs.PodSpecArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         var service = new Service(&#34;service&#34;, ServiceArgs.builder()        
+ *             .metadata(ObjectMetaArgs.builder()
+ *                 .labels(Map.of(&#34;app&#34;, &#34;nginx&#34;))
+ *                 .build())
+ *             .spec(ServiceSpecArgs.builder()
+ *                 .clusterIP(&#34;None&#34;)
+ *                 .ports(ServicePortArgs.builder()
+ *                     .name(&#34;web&#34;)
+ *                     .port(80)
+ *                     .build())
+ *                 .selector(Map.of(&#34;app&#34;, &#34;nginx&#34;))
+ *                 .build())
+ *             .build());
+ * 
+ *         var statefulset = new StatefulSet(&#34;statefulset&#34;, StatefulSetArgs.builder()        
+ *             .spec(StatefulSetSpecArgs.builder()
+ *                 .replicas(3)
+ *                 .selector(LabelSelectorArgs.builder()
+ *                     .matchLabels(Map.of(&#34;app&#34;, &#34;nginx&#34;))
+ *                     .build())
+ *                 .serviceName(service.metadata().applyValue(metadata -&gt; metadata.name()))
+ *                 .template(PodTemplateSpecArgs.builder()
+ *                     .metadata(ObjectMetaArgs.builder()
+ *                         .labels(Map.of(&#34;app&#34;, &#34;nginx&#34;))
+ *                         .build())
+ *                     .spec(PodSpecArgs.builder()
+ *                         .containers(ContainerArgs.builder()
+ *                             .image(&#34;nginx:stable-alpine3.17-slim&#34;)
+ *                             .name(&#34;nginx&#34;)
+ *                             .ports(ContainerPortArgs.builder()
+ *                                 .containerPort(80)
+ *                                 .name(&#34;web&#34;)
+ *                                 .build())
+ *                             .volumeMounts(VolumeMountArgs.builder()
+ *                                 .mountPath(&#34;/usr/share/nginx/html&#34;)
+ *                                 .name(&#34;www&#34;)
+ *                                 .build())
+ *                             .build())
+ *                         .terminationGracePeriodSeconds(10)
+ *                         .build())
+ *                     .build())
+ *                 .volumeClaimTemplates(PersistentVolumeClaimArgs.builder()
+ *                     .metadata(ObjectMetaArgs.builder()
+ *                         .name(&#34;www&#34;)
+ *                         .build())
+ *                     .spec(PersistentVolumeClaimSpecArgs.builder()
+ *                         .accessModes(&#34;ReadWriteOnce&#34;)
+ *                         .resources(ResourceRequirementsArgs.builder()
+ *                             .requests(Map.of(&#34;storage&#34;, &#34;1Gi&#34;))
+ *                             .build())
+ *                         .build())
+ *                     .build())
+ *                 .build())
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
+ * ### Create a StatefulSet with a user-specified name
+ * ```java
+ * package generated_program;
+ * 
+ * import com.pulumi.Context;
+ * import com.pulumi.Pulumi;
+ * import com.pulumi.core.Output;
+ * import com.pulumi.kubernetes.core_v1.Service;
+ * import com.pulumi.kubernetes.core_v1.ServiceArgs;
+ * import com.pulumi.kubernetes.meta_v1.inputs.ObjectMetaArgs;
+ * import com.pulumi.kubernetes.core_v1.inputs.ServiceSpecArgs;
+ * import com.pulumi.kubernetes.apps_v1.StatefulSet;
+ * import com.pulumi.kubernetes.apps_v1.StatefulSetArgs;
+ * import com.pulumi.kubernetes.apps_v1.inputs.StatefulSetSpecArgs;
+ * import com.pulumi.kubernetes.meta_v1.inputs.LabelSelectorArgs;
+ * import com.pulumi.kubernetes.core_v1.inputs.PodTemplateSpecArgs;
+ * import com.pulumi.kubernetes.core_v1.inputs.PodSpecArgs;
+ * import java.util.List;
+ * import java.util.ArrayList;
+ * import java.util.Map;
+ * import java.io.File;
+ * import java.nio.file.Files;
+ * import java.nio.file.Paths;
+ * 
+ * public class App {
+ *     public static void main(String[] args) {
+ *         Pulumi.run(App::stack);
+ *     }
+ * 
+ *     public static void stack(Context ctx) {
+ *         var service = new Service(&#34;service&#34;, ServiceArgs.builder()        
+ *             .metadata(ObjectMetaArgs.builder()
+ *                 .labels(Map.of(&#34;app&#34;, &#34;nginx&#34;))
+ *                 .name(&#34;nginx&#34;)
+ *                 .build())
+ *             .spec(ServiceSpecArgs.builder()
+ *                 .clusterIP(&#34;None&#34;)
+ *                 .ports(ServicePortArgs.builder()
+ *                     .name(&#34;web&#34;)
+ *                     .port(80)
+ *                     .build())
+ *                 .selector(Map.of(&#34;app&#34;, &#34;nginx&#34;))
+ *                 .build())
+ *             .build());
+ * 
+ *         var statefulset = new StatefulSet(&#34;statefulset&#34;, StatefulSetArgs.builder()        
+ *             .metadata(ObjectMetaArgs.builder()
+ *                 .name(&#34;web&#34;)
+ *                 .build())
+ *             .spec(StatefulSetSpecArgs.builder()
+ *                 .replicas(3)
+ *                 .selector(LabelSelectorArgs.builder()
+ *                     .matchLabels(Map.of(&#34;app&#34;, &#34;nginx&#34;))
+ *                     .build())
+ *                 .serviceName(service.metadata().applyValue(metadata -&gt; metadata.name()))
+ *                 .template(PodTemplateSpecArgs.builder()
+ *                     .metadata(ObjectMetaArgs.builder()
+ *                         .labels(Map.of(&#34;app&#34;, &#34;nginx&#34;))
+ *                         .build())
+ *                     .spec(PodSpecArgs.builder()
+ *                         .containers(ContainerArgs.builder()
+ *                             .image(&#34;nginx:stable-alpine3.17-slim&#34;)
+ *                             .name(&#34;nginx&#34;)
+ *                             .ports(ContainerPortArgs.builder()
+ *                                 .containerPort(80)
+ *                                 .name(&#34;web&#34;)
+ *                                 .build())
+ *                             .volumeMounts(VolumeMountArgs.builder()
+ *                                 .mountPath(&#34;/usr/share/nginx/html&#34;)
+ *                                 .name(&#34;www&#34;)
+ *                                 .build())
+ *                             .build())
+ *                         .terminationGracePeriodSeconds(10)
+ *                         .build())
+ *                     .build())
+ *                 .volumeClaimTemplates(PersistentVolumeClaimArgs.builder()
+ *                     .metadata(ObjectMetaArgs.builder()
+ *                         .name(&#34;www&#34;)
+ *                         .build())
+ *                     .spec(PersistentVolumeClaimSpecArgs.builder()
+ *                         .accessModes(&#34;ReadWriteOnce&#34;)
+ *                         .resources(ResourceRequirementsArgs.builder()
+ *                             .requests(Map.of(&#34;storage&#34;, &#34;1Gi&#34;))
+ *                             .build())
+ *                         .build())
+ *                     .build())
+ *                 .build())
+ *             .build());
+ * 
+ *     }
+ * }
+ * ```
  * 
  */
 @ResourceType(type="kubernetes:apps/v1:StatefulSet")
