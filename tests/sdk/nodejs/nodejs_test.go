@@ -629,6 +629,31 @@ func TestKustomize(t *testing.T) {
 	integration.ProgramTest(t, &test)
 }
 
+// TestKustomizeHelmChart verifies the helmChart plugin support for Kustomize. This requires the `helm` binary to be
+// on the system PATH to succeed.
+// Example based on https://github.com/kubernetes-sigs/kustomize/blob/v3.3.1/examples/chart.md
+func TestKustomizeHelmChart(t *testing.T) {
+	test := baseOptions.With(integration.ProgramTestOptions{
+		Dir: filepath.Join("kustomizeHelmChart", "step1"),
+		// Just test that the plugin integration is working with preview
+		SkipUpdate:             true,
+		SkipRefresh:            true,
+		SkipEmptyPreviewUpdate: true,
+		SkipExportImport:       true,
+		OrderedConfig: []integration.ConfigValue{
+			{
+				Key:   "pulumi:disable-default-providers[0]",
+				Value: "kubernetes",
+				Path:  true,
+			},
+		},
+		Env: []string{
+			"PULUMI_K8S_KUSTOMIZE_HELM=true", // This experimental feature is currently gated behind a feature flag.
+		},
+	})
+	integration.ProgramTest(t, &test)
+}
+
 func TestNamespace(t *testing.T) {
 	var nmPodName, defaultPodName string
 	test := baseOptions.With(integration.ProgramTestOptions{
