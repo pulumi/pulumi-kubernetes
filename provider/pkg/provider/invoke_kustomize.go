@@ -52,6 +52,7 @@ func kustomizeDirectory(directory string, clientSet *clients.DynamicClientSet) (
 	opts := krusty.MakeDefaultOptions()
 	opts.DoLegacyResourceSort = true
 	opts.PluginConfig = types.EnabledPluginConfig(types.BploUseStaticallyLinked)
+	opts.PluginConfig.HelmConfig.Command = "helm"
 
 	k := krusty.MakeKustomizer(opts)
 
