@@ -15,13 +15,17 @@
 package provider
 
 import (
+	"fmt"
 	"os"
+	"strings"
 
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/cmdutil"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/workspace"
 	"sigs.k8s.io/kustomize/api/krusty"
+	"sigs.k8s.io/kustomize/api/types"
 	"sigs.k8s.io/kustomize/kyaml/filesys"
 )
 
@@ -51,10 +55,27 @@ func kustomizeDirectory(directory string, clientSet *clients.DynamicClientSet) (
 	opts := krusty.MakeDefaultOptions()
 	opts.Reorder = krusty.ReorderOptionLegacy
 
+	// TODO: kustomize helmChart support is currently enabled via an undocumented feature flag.
+	//       See https://github.com/pulumi/pulumi-kubernetes/issues/2470 for additional details.
+	enableHelmChartSupport := false
+	helmPath := "helm" // TODO: support this as a parameter to kustomize.Directory; this won't work for Windows
+	if v, ok := os.LookupEnv("PULUMI_K8S_KUSTOMIZE_HELM"); ok && cmdutil.IsTruthy(v) {
+		enableHelmChartSupport = true
+	}
+	// Add support for helmCharts plugin
+	// See https://github.com/kubernetes-sigs/kustomize/blob/v3.3.1/examples/chart.md for more details.
+	if enableHelmChartSupport {
+		opts.PluginConfig = types.EnabledPluginConfig(types.BploUseStaticallyLinked)
+		opts.PluginConfig.HelmConfig.Command = helmPath
+	}
+
 	k := krusty.MakeKustomizer(opts)
 
 	rm, err := k.Run(fSys, path)
 	if err != nil {
+		if enableHelmChartSupport && strings.Contains(err.Error(), `(is 'helm' installed?)`) {
+			err = fmt.Errorf("the helmCharts feature requires %q binary to be on the system PATH", helmPath)
+		}
 		return nil, errors.Wrapf(err, "kustomize failed for directory %q", path)
 	}
 

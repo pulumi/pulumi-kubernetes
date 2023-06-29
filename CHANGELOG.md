@@ -23,6 +23,10 @@ Other changes:
 
 ## Unreleased
 
+## 3.30.1 (June 29, 2023)
+
+- Add experimental helmChart support to kustomize.Directory (https://github.com/pulumi/pulumi-kubernetes/pull/2471)
+
 ## 3.30.0 (June 28, 2023)
 
 - [sdk/python] Fix bug with class methods for YAML transformations (https://github.com/pulumi/pulumi-kubernetes/pull/2469)
