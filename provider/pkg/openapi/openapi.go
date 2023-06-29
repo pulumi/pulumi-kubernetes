@@ -24,7 +24,6 @@ import (
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/apimachinery/pkg/util/jsonmergepatch"
 	"k8s.io/apimachinery/pkg/util/strategicpatch"
-	"k8s.io/cli-runtime/pkg/resource"
 	"k8s.io/client-go/discovery"
 	"k8s.io/kube-openapi/pkg/util/proto"
 	"k8s.io/kubectl/pkg/scheme"
@@ -144,15 +143,6 @@ func MergePatch(
 		gvk.String(), lastSubmitted.GetNamespace(), lastSubmitted.GetName())
 	patch, patchType, err = jsonMergePatch(lastSubmittedJSON, currentSubmittedJSON, liveOldJSON)
 	return patch, patchType, err
-}
-
-// SupportsDryRun returns true if the given GVK supports dry-run applies.
-func SupportsDryRun(dryRunVerifier *resource.QueryParamVerifier, gvk schema.GroupVersionKind) bool {
-	// If an error is returned, DryRun is not supported.
-	if err := dryRunVerifier.HasSupport(gvk); err != nil {
-		return false
-	}
-	return true
 }
 
 // Pluck obtains the property identified by the string components in `path`. For example,
