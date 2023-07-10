@@ -69,6 +69,8 @@ class ProviderArgs:
             pulumi.set(__self__, "cluster", cluster)
         if context is not None:
             pulumi.set(__self__, "context", context)
+        if delete_unreachable is None:
+            delete_unreachable = _utilities.get_env_bool('PULUMI_K8S_DELETE_UNREACHABLE')
         if delete_unreachable is not None:
             pulumi.set(__self__, "delete_unreachable", delete_unreachable)
         if enable_config_map_mutable is None:
@@ -416,6 +418,8 @@ class Provider(pulumi.ProviderResource):
 
             __props__.__dict__["cluster"] = cluster
             __props__.__dict__["context"] = context
+            if delete_unreachable is None:
+                delete_unreachable = _utilities.get_env_bool('PULUMI_K8S_DELETE_UNREACHABLE')
             __props__.__dict__["delete_unreachable"] = pulumi.Output.from_input(delete_unreachable).apply(pulumi.runtime.to_json) if delete_unreachable is not None else None
             if enable_config_map_mutable is None:
                 enable_config_map_mutable = _utilities.get_env_bool('PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE')
