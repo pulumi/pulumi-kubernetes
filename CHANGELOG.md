@@ -23,6 +23,10 @@ Other changes:
 
 ## Unreleased
 
+## 3.30.2 (July 11, 2023)
+
+- Improve deleteUnreachable workflow for unreachable clusters (https://github.com/pulumi/pulumi-kubernetes/pull/2489)
+
 ## 3.30.1 (June 29, 2023)
 
 - Add experimental helmChart support to kustomize.Directory (https://github.com/pulumi/pulumi-kubernetes/pull/2471)

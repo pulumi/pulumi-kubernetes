@@ -22,6 +22,11 @@ func NewProvider(ctx *pulumi.Context,
 		args = &ProviderArgs{}
 	}
 
+	if args.DeleteUnreachable == nil {
+		if d := getEnvOrDefault(nil, parseEnvBool, "PULUMI_K8S_DELETE_UNREACHABLE"); d != nil {
+			args.DeleteUnreachable = pulumi.BoolPtr(d.(bool))
+		}
+	}
 	if args.EnableConfigMapMutable == nil {
 		if d := getEnvOrDefault(nil, parseEnvBool, "PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE"); d != nil {
 			args.EnableConfigMapMutable = pulumi.BoolPtr(d.(bool))

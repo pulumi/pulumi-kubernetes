@@ -136,6 +136,11 @@ func PulumiSchema(swagger map[string]any) pschema.PackageSpec {
 				"deleteUnreachable": {
 					Description: "If present and set to true, the provider will delete resources associated with an unreachable Kubernetes cluster from Pulumi state",
 					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
+					DefaultInfo: &pschema.DefaultSpec{
+						Environment: []string{
+							"PULUMI_K8S_DELETE_UNREACHABLE",
+						},
+					},
 				},
 				"namespace": {
 					Description: "If present, the default namespace to use. This flag is ignored for cluster-scoped resources.\n\nA namespace can be specified in multiple places, and the precedence is as follows:\n1. `.metadata.namespace` set on the resource.\n2. This `namespace` parameter.\n3. `namespace` set for the active context in the kubeconfig.",

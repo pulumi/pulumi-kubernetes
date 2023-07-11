@@ -138,6 +138,7 @@ namespace Pulumi.Kubernetes
 
         public ProviderArgs()
         {
+            DeleteUnreachable = Utilities.GetEnvBoolean("PULUMI_K8S_DELETE_UNREACHABLE");
             EnableConfigMapMutable = Utilities.GetEnvBoolean("PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE");
             EnableServerSideApply = Utilities.GetEnvBoolean("PULUMI_K8S_ENABLE_SERVER_SIDE_APPLY");
             KubeConfig = Utilities.GetEnv("KUBECONFIG");
