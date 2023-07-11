@@ -1953,18 +1953,18 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 
 	// If the cluster is unreachable, return an error unless the user has opted in to mark the resources to be deleted
 	if k.clusterUnreachable {
+		_ = k.host.Log(ctx, diag.Warning, urn, fmt.Sprintf(
+			"configured Kubernetes cluster is unreachable: %s", k.clusterUnreachableReason))
 		if k.deleteUnreachable {
-			_ = k.host.Log(ctx, diag.Warning, urn, fmt.Sprintf(
-				"configured Kubernetes cluster is unreachable and configuration is specified to ensure that "+
-					"the resources are deleted: %s", k.clusterUnreachableReason))
+			_ = k.host.Log(ctx, diag.Info, urn, fmt.Sprintf(
+				"configured Kubernetes cluster is unreachable and the `deleteUnreachable` option is enabled. "+
+					"Deleting the unreachable resource from Pulumi state"))
 			return deleteResponse, nil
 		}
 
-		_ = k.host.Log(ctx, diag.Warning, urn, fmt.Sprintf(
-			"configured Kubernetes cluster is unreachable: %s", k.clusterUnreachableReason))
-		return nil, fmt.Errorf("failed to read resource state due to unreachable cluster. " +
-			"If the cluster has been deleted, you can edit the pulumi state to remove this resource or retry " +
-			"with the PULUMI_K8S_DELETE_UNREACHABLE environment variable set to true.")
+		return nil, fmt.Errorf("failed to read resource state due to unreachable cluster. If the cluster was " +
+			"deleted, you can remove this resource from Pulumi state by rerunning the operation with the " +
+			"PULUMI_K8S_DELETE_UNREACHABLE environment variable set to \"true\"")
 	}
 
 	if isHelmRelease(urn) {
@@ -2459,9 +2459,18 @@ func (k *kubeProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest)
 	}
 
 	if k.clusterUnreachable {
-		return nil, fmt.Errorf("configured Kubernetes cluster is unreachable: %s\n"+
-			"If the cluster has been deleted, you can edit the pulumi state to remove this resource",
-			k.clusterUnreachableReason)
+		_ = k.host.Log(ctx, diag.Warning, urn, fmt.Sprintf(
+			"configured Kubernetes cluster is unreachable: %s", k.clusterUnreachableReason))
+		if k.deleteUnreachable {
+			_ = k.host.Log(ctx, diag.Info, urn, fmt.Sprintf(
+				"configured Kubernetes cluster is unreachable and the `deleteUnreachable` option is enabled. "+
+					"Deleting the unreachable resource from Pulumi state"))
+			return &pbempty.Empty{}, nil
+		}
+
+		return nil, fmt.Errorf("configured Kubernetes cluster is unreachable. If the cluster was deleted, " +
+			"you can remove this resource from Pulumi state by rerunning the operation with the " +
+			"PULUMI_K8S_DELETE_UNREACHABLE environment variable set to \"true\"")
 	}
 
 	initialAPIVersion, err := initialAPIVersion(oldState, &unstructured.Unstructured{})
