@@ -20,7 +20,7 @@ Other changes:
     - Fix a bug with the diff calculation so that resource drift is detected accurately after a refresh.
 - Update go module version to v4 (https://github.com/pulumi/pulumi-kubernetes/pull/2466)
 - Upgrade to latest helm dependency (https://github.com/pulumi/pulumi-kubernetes/pull/2474)
-- Fix Namespaced method (https://github.com/pulumi/pulumi-kubernetes/pull/2493)
+- Improve error handling for List resources (https://github.com/pulumi/pulumi-kubernetes/pull/2493)
 
 ## Unreleased
 
