@@ -191,3 +191,41 @@ func Test_isPatchURN(t *testing.T) {
 		})
 	}
 }
+
+func Test_isListURN(t *testing.T) {
+	type args struct {
+		urn resource.URN
+	}
+	tests := []struct {
+		name string
+		args args
+		want bool
+	}{
+		{
+			name: "list URN",
+			args: args{
+				urn: resource.NewURN("test", "test", "", "kubernetes:apps/v1:DeploymentList", "test"),
+			},
+			want: true,
+		},
+		{
+			name: "regular URN",
+			args: args{
+				urn: resource.NewURN("test", "test", "", "kubernetes:apps/v1:Deployment", "test"),
+			},
+			want: false,
+		},
+		{
+			name: "CustomResource with List suffix",
+			args: args{
+				urn: resource.NewURN("test", "test", "", "kubernetes:example/v1alpha1:ExampleList", "test"),
+			},
+			want: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			assert.Equalf(t, tt.want, isListURN(tt.args.urn), "isListURN(%v)", tt.args.urn)
+		})
+	}
+}

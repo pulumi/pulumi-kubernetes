@@ -2464,6 +2464,11 @@ func isPatchURN(urn resource.URN) bool {
 	return kinds.PatchQualifiedTypes.Has(urn.QualifiedType().String())
 }
 
+// isListURN returns true if the URN is for a List resource.
+func isListURN(urn resource.URN) bool {
+	return kinds.ListQualifiedTypes.Has(urn.QualifiedType().String())
+}
+
 // GetPluginInfo returns generic information about this plugin, like its version.
 func (k *kubeProvider) GetPluginInfo(context.Context, *pbempty.Empty) (*pulumirpc.PluginInfo, error) {
 	return &pulumirpc.PluginInfo{
