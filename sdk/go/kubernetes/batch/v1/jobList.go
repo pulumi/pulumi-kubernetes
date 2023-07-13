@@ -8,6 +8,7 @@ import (
 	"reflect"
 
 	"errors"
+	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
@@ -38,6 +39,7 @@ func NewJobList(ctx *pulumi.Context,
 	}
 	args.ApiVersion = pulumi.StringPtr("batch/v1")
 	args.Kind = pulumi.StringPtr("JobList")
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource JobList
 	err := ctx.RegisterResource("kubernetes:batch/v1:JobList", name, args, &resource, opts...)
 	if err != nil {

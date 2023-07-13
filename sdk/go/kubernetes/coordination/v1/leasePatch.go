@@ -7,6 +7,7 @@ import (
 	"context"
 	"reflect"
 
+	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
@@ -46,6 +47,7 @@ func NewLeasePatch(ctx *pulumi.Context,
 		},
 	})
 	opts = append(opts, aliases)
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource LeasePatch
 	err := ctx.RegisterResource("kubernetes:coordination.k8s.io/v1:LeasePatch", name, args, &resource, opts...)
 	if err != nil {

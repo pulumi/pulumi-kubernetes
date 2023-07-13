@@ -8,6 +8,7 @@ import (
 	"reflect"
 
 	"errors"
+	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
@@ -38,6 +39,7 @@ func NewDeploymentList(ctx *pulumi.Context,
 	}
 	args.ApiVersion = pulumi.StringPtr("apps/v1")
 	args.Kind = pulumi.StringPtr("DeploymentList")
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource DeploymentList
 	err := ctx.RegisterResource("kubernetes:apps/v1:DeploymentList", name, args, &resource, opts...)
 	if err != nil {

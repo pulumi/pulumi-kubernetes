@@ -7,6 +7,7 @@ import (
 	"context"
 	"reflect"
 
+	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
@@ -34,6 +35,7 @@ func NewValidatingAdmissionPolicyBindingList(ctx *pulumi.Context,
 
 	args.ApiVersion = pulumi.StringPtr("admissionregistration.k8s.io/v1alpha1")
 	args.Kind = pulumi.StringPtr("ValidatingAdmissionPolicyBindingList")
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource ValidatingAdmissionPolicyBindingList
 	err := ctx.RegisterResource("kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicyBindingList", name, args, &resource, opts...)
 	if err != nil {

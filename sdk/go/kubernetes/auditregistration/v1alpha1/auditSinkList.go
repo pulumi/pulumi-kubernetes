@@ -8,6 +8,7 @@ import (
 	"reflect"
 
 	"errors"
+	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
@@ -37,6 +38,7 @@ func NewAuditSinkList(ctx *pulumi.Context,
 	}
 	args.ApiVersion = pulumi.StringPtr("auditregistration.k8s.io/v1alpha1")
 	args.Kind = pulumi.StringPtr("AuditSinkList")
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource AuditSinkList
 	err := ctx.RegisterResource("kubernetes:auditregistration.k8s.io/v1alpha1:AuditSinkList", name, args, &resource, opts...)
 	if err != nil {

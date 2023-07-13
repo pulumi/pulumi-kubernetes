@@ -7,6 +7,7 @@ import (
 	"context"
 	"reflect"
 
+	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
@@ -48,6 +49,7 @@ func NewHorizontalPodAutoscaler(ctx *pulumi.Context,
 		},
 	})
 	opts = append(opts, aliases)
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource HorizontalPodAutoscaler
 	err := ctx.RegisterResource("kubernetes:autoscaling/v2:HorizontalPodAutoscaler", name, args, &resource, opts...)
 	if err != nil {

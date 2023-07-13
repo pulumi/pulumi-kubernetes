@@ -4,9 +4,12 @@
 package config
 
 import (
+	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/config"
 )
+
+var _ = internal.GetEnvOrDefault
 
 // If present, the name of the kubeconfig cluster to use.
 func GetCluster(ctx *pulumi.Context) string {

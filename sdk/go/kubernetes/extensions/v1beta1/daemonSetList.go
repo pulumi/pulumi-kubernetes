@@ -8,6 +8,7 @@ import (
 	"reflect"
 
 	"errors"
+	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
@@ -38,6 +39,7 @@ func NewDaemonSetList(ctx *pulumi.Context,
 	}
 	args.ApiVersion = pulumi.StringPtr("extensions/v1beta1")
 	args.Kind = pulumi.StringPtr("DaemonSetList")
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource DaemonSetList
 	err := ctx.RegisterResource("kubernetes:extensions/v1beta1:DaemonSetList", name, args, &resource, opts...)
 	if err != nil {

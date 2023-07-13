@@ -8,6 +8,7 @@ import (
 	"reflect"
 
 	"errors"
+	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
@@ -46,6 +47,7 @@ func NewResourceClaimTemplate(ctx *pulumi.Context,
 		},
 	})
 	opts = append(opts, aliases)
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource ResourceClaimTemplate
 	err := ctx.RegisterResource("kubernetes:resource.k8s.io/v1alpha1:ResourceClaimTemplate", name, args, &resource, opts...)
 	if err != nil {

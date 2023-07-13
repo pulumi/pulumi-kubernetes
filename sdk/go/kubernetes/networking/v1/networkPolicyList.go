@@ -8,6 +8,7 @@ import (
 	"reflect"
 
 	"errors"
+	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
@@ -38,6 +39,7 @@ func NewNetworkPolicyList(ctx *pulumi.Context,
 	}
 	args.ApiVersion = pulumi.StringPtr("networking.k8s.io/v1")
 	args.Kind = pulumi.StringPtr("NetworkPolicyList")
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource NetworkPolicyList
 	err := ctx.RegisterResource("kubernetes:networking.k8s.io/v1:NetworkPolicyList", name, args, &resource, opts...)
 	if err != nil {

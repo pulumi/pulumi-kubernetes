@@ -8,6 +8,7 @@ import (
 	"reflect"
 
 	"errors"
+	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -377,6 +378,7 @@ func NewRelease(ctx *pulumi.Context,
 		return nil, errors.New("invalid value for required argument 'Chart'")
 	}
 	args.Compat = pulumi.StringPtr("true")
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Release
 	err := ctx.RegisterResource("kubernetes:helm.sh/v3:Release", name, args, &resource, opts...)
 	if err != nil {

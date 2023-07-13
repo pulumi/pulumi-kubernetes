@@ -7,6 +7,7 @@ import (
 	"context"
 	"reflect"
 
+	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
@@ -67,6 +68,7 @@ func NewServicePatch(ctx *pulumi.Context,
 
 	args.ApiVersion = pulumi.StringPtr("v1")
 	args.Kind = pulumi.StringPtr("Service")
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource ServicePatch
 	err := ctx.RegisterResource("kubernetes:core/v1:ServicePatch", name, args, &resource, opts...)
 	if err != nil {

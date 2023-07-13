@@ -7,6 +7,7 @@ import (
 	"context"
 	"reflect"
 
+	"github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v3/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
@@ -34,6 +35,7 @@ func NewIPAddress(ctx *pulumi.Context,
 
 	args.ApiVersion = pulumi.StringPtr("networking.k8s.io/v1alpha1")
 	args.Kind = pulumi.StringPtr("IPAddress")
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource IPAddress
 	err := ctx.RegisterResource("kubernetes:networking.k8s.io/v1alpha1:IPAddress", name, args, &resource, opts...)
 	if err != nil {
