@@ -156,12 +156,16 @@ const (
 // known return value will be false, and the namespaced value is unknown. In this case, this information can be
 // queried separately from the k8s API server.
 func (k Kind) Namespaced() (known bool, namespaced bool) {
-	switch k {
+	baseKind := Kind(strings.TrimSuffix(string(k), "List"))
+
+	switch baseKind {
 	// Note: Use `kubectl api-resources --namespaced=true -o name` to retrieve a list of namespace-scoped resources.
+	//       Ignoring the same imperative endpoints as in `pkg/gen/typegen.go:isTopLevel`
 	case Binding,
 		ConfigMap,
 		ControllerRevision,
 		CronJob,
+		CSIStorageCapacity,
 		DaemonSet,
 		Deployment,
 		Endpoints,
@@ -188,6 +192,7 @@ func (k Kind) Namespaced() (known bool, namespaced bool) {
 		StatefulSet:
 		return true, true
 	// Note: Use `kubectl api-resources --namespaced=false -o name` to retrieve a list of cluster-scoped resources.
+	//       Ignoring the same imperative endpoints as in `pkg/gen/typegen.go:isTopLevel`
 	case APIService,
 		CertificateSigningRequest,
 		ClusterRole,
@@ -195,6 +200,7 @@ func (k Kind) Namespaced() (known bool, namespaced bool) {
 		CSIDriver,
 		CSINode,
 		CustomResourceDefinition,
+		FlowSchema,
 		IngressClass,
 		MutatingWebhookConfiguration,
 		Namespace,
@@ -202,6 +208,7 @@ func (k Kind) Namespaced() (known bool, namespaced bool) {
 		PersistentVolume,
 		PodSecurityPolicy,
 		PriorityClass,
+		PriorityLevelConfiguration,
 		RuntimeClass,
 		StorageClass,
 		ValidatingWebhookConfiguration,
