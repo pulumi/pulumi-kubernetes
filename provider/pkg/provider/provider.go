@@ -1255,6 +1255,13 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		return k.helmReleaseProvider.Check(ctx, req)
 	}
 
+	if isListURN(urn) {
+		// TODO: It might be possible to automatically expand List resources into a list of the underlying resources.
+		//       Until then, return a descriptive error message. https://github.com/pulumi/pulumi-kubernetes/issues/2494
+		return nil, fmt.Errorf("list resources exist for compatibility with YAML manifests and Helm charts, " +
+			"and cannot be created directly. Use the underlying resource type instead")
+	}
+
 	if !k.serverSideApplyMode && isPatchURN(urn) {
 		return nil, fmt.Errorf("patch resources require Server-side Apply mode, which is enabled using the " +
 			"`enableServerSideApply` Provider config")
@@ -2677,9 +2684,11 @@ func pruneLiveState(live, oldInputs *unstructured.Unstructured) *unstructured.Un
 	return oldLivePruned
 }
 
-// shouldNormalize returns false for CRDs and CustomResources, and true otherwise.
+// shouldNormalize returns false for CRDs, CustomResources, and List kinds and true otherwise.
 func shouldNormalize(uns *unstructured.Unstructured) bool {
-	return !clients.IsCRD(uns) && kinds.KnownGroupVersions.Has(uns.GetAPIVersion())
+	return !clients.IsCRD(uns) &&
+		kinds.KnownGroupVersions.Has(uns.GetAPIVersion()) &&
+		!strings.HasSuffix(uns.GetKind(), "List")
 }
 
 // normalize converts an Unstructured resource into a normalized form so that semantically equivalent representations
