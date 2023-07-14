@@ -109,6 +109,7 @@ type GVK struct {
 	GroupVersions []GroupVersion
 	Kinds         []string
 	PatchKinds    []string
+	ListKinds     []string
 }
 
 // GroupVersion is the GroupVersion for a k8s resource.

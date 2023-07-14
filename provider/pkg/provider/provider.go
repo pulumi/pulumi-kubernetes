@@ -1255,6 +1255,13 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		return k.helmReleaseProvider.Check(ctx, req)
 	}
 
+	if isListURN(urn) {
+		// TODO: It might be possible to automatically expand List resources into a list of the underlying resources.
+		//       Until then, return a descriptive error message. https://github.com/pulumi/pulumi-kubernetes/issues/2494
+		return nil, fmt.Errorf("list resources exist for compatibility with YAML manifests and Helm charts, " +
+			"and cannot be created directly. Use the underlying resource type instead")
+	}
+
 	if !k.serverSideApplyMode && isPatchURN(urn) {
 		return nil, fmt.Errorf("patch resources require Server-side Apply mode, which is enabled using the " +
 			"`enableServerSideApply` Provider config")
@@ -2462,6 +2469,11 @@ func (k *kubeProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest)
 // isPatchURN returns true if the URN is for a Patch resource.
 func isPatchURN(urn resource.URN) bool {
 	return kinds.PatchQualifiedTypes.Has(urn.QualifiedType().String())
+}
+
+// isListURN returns true if the URN is for a List resource.
+func isListURN(urn resource.URN) bool {
+	return kinds.ListQualifiedTypes.Has(urn.QualifiedType().String())
 }
 
 // GetPluginInfo returns generic information about this plugin, like its version.
