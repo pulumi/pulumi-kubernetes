@@ -22,6 +22,7 @@ Other changes:
     - Fix a bug with the diff calculation so that resource drift is detected accurately after a refresh.
 - Update go module version to v4 (https://github.com/pulumi/pulumi-kubernetes/pull/2466)
 - Upgrade to latest helm dependency (https://github.com/pulumi/pulumi-kubernetes/pull/2474)
+- Improve error handling for List resources (https://github.com/pulumi/pulumi-kubernetes/pull/2493)
 
 ## 3.30.2 (July 11, 2023)
 
