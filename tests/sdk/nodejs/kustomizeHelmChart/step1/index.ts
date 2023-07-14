@@ -13,23 +13,14 @@
 // limitations under the License.
 
 import * as k8s from "@pulumi/kubernetes";
+import * as random from "@pulumi/random";
 
 const provider = new k8s.Provider("k8s");
 
-// Create test namespace to allow test parallelism.
-const namespace = new k8s.core.v1.Namespace("test-namespace", {}, {provider});
+// Create random prefix to allow test parallelism.
+const prefix = new random.RandomPet("prefix", {length: 1}).id;
 
-new k8s.kustomize.Directory("moria", {
+prefix.apply(prefix => new k8s.kustomize.Directory("moria", {
     directory: "moria/base",
-    transformations: [
-        (obj: any) => {
-            if (obj !== undefined) {
-                if (obj.metadata !== undefined) {
-                    obj.metadata.namespace = namespace;
-                } else {
-                    obj.metadata = {namespace: namespace};
-                }
-            }
-        },
-    ]
-}, {provider});
+    resourcePrefix: prefix,
+}, {provider}));
