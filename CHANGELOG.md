@@ -39,6 +39,7 @@ Other changes:
 - Update go module version to v4 (https://github.com/pulumi/pulumi-kubernetes/pull/2466)
 - Upgrade to latest helm dependency (https://github.com/pulumi/pulumi-kubernetes/pull/2474)
 - Improve error handling for List resources (https://github.com/pulumi/pulumi-kubernetes/pull/2493)
+- [sdk/python] Add wheel support (https://github.com/pulumi/pulumi-kubernetes/pull/2493)
 
 ## 3.30.2 (July 11, 2023)
 
