@@ -91,7 +91,9 @@ python_sdk::
 		rm -rf ./bin/ ../python.bin/ && cp -R . ../python.bin && mv ../python.bin ./bin && \
 		sed -i.bak -e 's/^VERSION = .*/VERSION = "$(PYPI_VERSION)"/g' -e 's/^PLUGIN_VERSION = .*/PLUGIN_VERSION = "$(VERSION)"/g' ./bin/setup.py && \
 		rm ./bin/setup.py.bak && \
-		cd ./bin && python3 setup.py build sdist
+		sed -i.bak -e 's/^  version = .*/  version = "$(PYPI_VERSION)"/g' ./bin/pyproject.toml && \
+		rm ./bin/pyproject.toml.bak && \
+		cd ./bin && python3 setup.py sdist bdist_wheel
 
 java_sdk:: PACKAGE_VERSION := $(shell pulumictl get version --language generic)
 java_sdk:: bin/pulumi-java-gen
