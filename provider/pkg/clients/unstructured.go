@@ -63,10 +63,12 @@ func ToUnstructured(object metav1.Object) (*unstructured.Unstructured, error) {
 
 // Normalize converts an Unstructured Kubernetes resource into the typed equivalent and then back to Unstructured.
 // This process normalizes semantically-equivalent resources into an identical output, which is important for diffing.
+// If the scheme is not defined, then return the original resource.
 func Normalize(uns *unstructured.Unstructured) (*unstructured.Unstructured, error) {
 	obj, err := FromUnstructured(uns)
+	// Return the input resource rather than an error if this operation fails.
 	if err != nil {
-		return nil, err
+		return uns, nil
 	}
 	return ToUnstructured(obj)
 }
