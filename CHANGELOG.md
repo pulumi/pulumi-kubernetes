@@ -1,5 +1,7 @@
 ## Unreleased
 
+- [sdk/python] Drop unused pyyaml dependency (https://github.com/pulumi/pulumi-kubernetes/pull/2502)
+
 ## 4.0.0 (July 19, 2023)
 
 Breaking changes:
