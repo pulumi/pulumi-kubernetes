@@ -2684,9 +2684,9 @@ func pruneLiveState(live, oldInputs *unstructured.Unstructured) *unstructured.Un
 	return oldLivePruned
 }
 
-// shouldNormalize returns false for CRDs and CustomResources, and true otherwise.
+// shouldNormalize returns false for CustomResources, and true otherwise.
 func shouldNormalize(uns *unstructured.Unstructured) bool {
-	return !clients.IsCRD(uns) && kinds.KnownGroupVersions.Has(uns.GetAPIVersion())
+	return kinds.KnownGroupVersions.Has(uns.GetAPIVersion())
 }
 
 // normalize converts an Unstructured resource into a normalized form so that semantically equivalent representations
