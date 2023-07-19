@@ -1,6 +1,6 @@
 ## Unreleased
 
-## 4.0.0 (TBD)
+## 4.0.0 (July 19, 2023)
 
 Breaking changes:
 
