@@ -68,6 +68,9 @@ func Normalize(uns *unstructured.Unstructured) (*unstructured.Unstructured, erro
 	if IsCRD(uns) {
 		return normalizeCRD(uns), nil
 	}
+	if IsSecret(uns) {
+		return normalizeSecret(uns), nil
+	}
 
 	obj, err := FromUnstructured(uns)
 	// Return the input resource rather than an error if this operation fails.
@@ -80,7 +83,7 @@ func Normalize(uns *unstructured.Unstructured) (*unstructured.Unstructured, erro
 // normalizeCRD manually normalizes CRD resources, which require special handling due to the lack of defined conversion
 // scheme for CRDs.
 func normalizeCRD(uns *unstructured.Unstructured) *unstructured.Unstructured {
-	contract.Assertf(IsCRD(uns), "normalizeCRD called on a non-CRD resource: %s", uns.GetAPIVersion())
+	contract.Assertf(IsCRD(uns), "normalizeCRD called on a non-CRD resource: %s:%s", uns.GetAPIVersion(), uns.GetKind())
 
 	// .spec.preserveUnknownFields is deprecated, and will be removed by the apiserver on the created resource if the
 	// value is false. Normalize for diffing by removing this field if present and set to "false".
@@ -90,6 +93,37 @@ func normalizeCRD(uns *unstructured.Unstructured) *unstructured.Unstructured {
 		unstructured.RemoveNestedField(uns.Object, "spec", "preserveUnknownFields")
 	}
 	return uns
+}
+
+// normalizeSecret manually normalizes Secret resources, which require special handling due to the apiserver replacing
+// the .stringData field with a base64-encoded value in the .data field.
+func normalizeSecret(uns *unstructured.Unstructured) *unstructured.Unstructured {
+	contract.Assertf(IsSecret(uns), "normalizeSecret called on a non-Secret resource: %s:%s", uns.GetAPIVersion(), uns.GetKind())
+
+	obj, err := FromUnstructured(uns)
+	if err != nil {
+		return uns // If the operation fails, just return the original object
+	}
+	secret := obj.(*corev1.Secret)
+
+	// See https://github.com/kubernetes/kubernetes/blob/v1.27.4/pkg/apis/core/v1/conversion.go#L406-L414
+	// StringData overwrites Data
+	if len(secret.StringData) > 0 {
+		if secret.Data == nil {
+			secret.Data = map[string][]byte{}
+		}
+		for k, v := range secret.StringData {
+			secret.Data[k] = []byte(v)
+		}
+
+		secret.StringData = nil
+	}
+
+	updated, err := ToUnstructured(secret)
+	if err != nil {
+		return uns // If the operation fails, just return the original object
+	}
+	return updated
 }
 
 func PodFromUnstructured(uns *unstructured.Unstructured) (*corev1.Pod, error) {

@@ -207,6 +207,32 @@ var (
 			},
 		},
 	}
+
+	secretUnstructured = &unstructured.Unstructured{
+		Object: map[string]any{
+			"apiVersion": "v1",
+			"kind":       "Secret",
+			"metadata": map[string]any{
+				"name": "foo"},
+			"stringData": map[string]any{
+				"foo": "bar",
+			},
+		},
+	}
+
+	secretNormalizedUnstructured = &unstructured.Unstructured{
+		Object: map[string]any{
+			"apiVersion": "v1",
+			"kind":       "Secret",
+			"metadata": map[string]any{
+				"creationTimestamp": nil,
+				"name":              "foo",
+			},
+			"data": map[string]any{
+				"foo": "YmFy",
+			},
+		},
+	}
 )
 
 func TestFromUnstructured(t *testing.T) {
@@ -259,6 +285,27 @@ func TestNormalize(t *testing.T) {
 			}
 			if !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("Normalize() got = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_normalizeSecret(t *testing.T) {
+	type args struct {
+		uns *unstructured.Unstructured
+	}
+	tests := []struct {
+		name string
+		args args
+		want *unstructured.Unstructured
+	}{
+		{"secretData", args{uns: secretUnstructured}, secretNormalizedUnstructured},
+		{"data", args{uns: secretNormalizedUnstructured}, secretNormalizedUnstructured},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := normalizeSecret(tt.args.uns); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("normalizeSecret() = %v, want %v", got, tt.want)
 			}
 		})
 	}

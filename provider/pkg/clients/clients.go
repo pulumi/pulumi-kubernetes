@@ -246,6 +246,11 @@ func IsCRD(obj *unstructured.Unstructured) bool {
 		strings.HasPrefix(obj.GetAPIVersion(), "apiextensions.k8s.io/")
 }
 
+func IsSecret(obj *unstructured.Unstructured) bool {
+	gvk := obj.GroupVersionKind()
+	return (gvk.Group == corev1.GroupName || gvk.Group == "core") && gvk.Kind == string(kinds.Secret)
+}
+
 // IsConfigMap returns true if the resource is a configmap marked as immutable.
 func IsConfigMap(obj *unstructured.Unstructured) bool {
 	gvk := obj.GroupVersionKind()
