@@ -621,7 +621,7 @@ func TestPruneMap(t *testing.T) {
 		},
 		{
 			name:        "empty source",
-			description: "empty source map should result in empty result map",
+			description: "empty source map should result in target map",
 			args: args{
 				source: map[string]any{},
 				target: map[string]any{
@@ -629,7 +629,10 @@ func TestPruneMap(t *testing.T) {
 					"b": "b",
 				},
 			},
-			want: map[string]any{},
+			want: map[string]any{
+				"a": "a",
+				"b": "b",
+			},
 		},
 		{
 			name:        "matching keys with different values",
@@ -751,6 +754,7 @@ func TestPruneMap(t *testing.T) {
 			},
 			want: map[string]any{
 				"a": "a",
+				"b": "B", // the extra key will be ignored if not present in source
 			},
 		},
 		{
@@ -813,13 +817,14 @@ func TestPruneMap(t *testing.T) {
 					"b": map[string]any{
 						"c": "C",
 					},
-					"d": "D", // the extra key will be ignored if not present in source
+					"d": "D", // the extra key will be added to the result
 				},
 			},
 			want: map[string]any{
 				"b": map[string]any{
 					"c": "c",
 				},
+				"d": "D",
 			},
 		},
 		{
@@ -911,7 +916,7 @@ func TestPruneMap(t *testing.T) {
 				},
 			},
 			want: map[string]any{
-				"b": []any{"c", "d"},
+				"b": []any{"c", "d", "e"},
 			},
 		},
 		{
@@ -1012,7 +1017,7 @@ func TestPruneMap(t *testing.T) {
 						map[string]any{
 							"c": "c",
 							"d": "d",
-							"e": "e",
+							"e": "e", // The extra key will be added to the result
 						},
 					},
 				},
@@ -1022,6 +1027,7 @@ func TestPruneMap(t *testing.T) {
 					map[string]any{
 						"c": "c",
 						"d": "d",
+						"e": "e",
 					},
 				},
 			},
@@ -1067,12 +1073,12 @@ func TestPruneSlice(t *testing.T) {
 		},
 		{
 			name:        "empty source",
-			description: "empty source slice should result in empty result slice",
+			description: "empty source slice should result in target slice",
 			args: args{
 				source: []any{},
 				target: []any{"a", "b"},
 			},
-			want: []any{},
+			want: []any{"a", "b"},
 		},
 		{
 			name:        "matching number of elements with different values",
@@ -1085,12 +1091,12 @@ func TestPruneSlice(t *testing.T) {
 		},
 		{
 			name:        "matching number of elements but different types",
-			description: "a slice where target has matching number of elements with different types",
+			description: "a slice where target has matching number of elements with different types should result in target slice",
 			args: args{
 				source: []any{"a", "b"},
 				target: []any{1, 2},
 			},
-			want: []any{"a", "b"},
+			want: []any{1, 2},
 		},
 		{
 			name:        "simple slice",
@@ -1117,7 +1123,7 @@ func TestPruneSlice(t *testing.T) {
 				source: []any{"a"},
 				target: []any{"a", "b"},
 			},
-			want: []any{"a"},
+			want: []any{"a", "b"},
 		},
 		{
 			name:        "map slice",
@@ -1194,6 +1200,10 @@ func TestPruneSlice(t *testing.T) {
 				map[string]any{
 					"a": "a",
 					"b": "b",
+				},
+				map[string]any{
+					"c": "c",
+					"d": "d",
 				},
 			},
 		},

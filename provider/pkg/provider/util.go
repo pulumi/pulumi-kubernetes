@@ -137,7 +137,8 @@ func getActiveClusterFromConfig(config *clientapi.Config, overrides resource.Pro
 }
 
 // pruneMap builds a pruned map by recursively copying elements from the source map that have a matching key in the
-// target map. This is useful as a preprocessing step for live resource state before comparing it to program inputs.
+// target map. Elements present in the target, but not the source will also be included in the result.
+// This is useful as a preprocessing step for live resource state before comparing it to program inputs.
 func pruneMap(source, target map[string]any) map[string]any {
 	result := make(map[string]any)
 
@@ -165,30 +166,40 @@ func pruneMap(source, target map[string]any) map[string]any {
 		}
 	}
 
+	for key, value := range target {
+		if _, ok := source[key]; !ok {
+			result[key] = value
+		}
+	}
+
 	return result
 }
 
 // pruneSlice builds a pruned slice by copying elements from the source slice that have a matching element in the
-// target slice.
+// target slice. Elements present in the target, but not the source will also be included in the result.
 func pruneSlice(source, target []any) []any {
 	result := make([]any, 0, len(target))
 
-	// If either slice is empty, return an empty slice.
-	if len(source) == 0 || len(target) == 0 {
+	// If target slice is empty, return an empty slice.
+	if len(target) == 0 {
 		return result
 	}
-
-	valueT := reflect.TypeOf(source[0])
 	targetValueT := reflect.TypeOf(target[0])
 
-	// If slices are of different types, return a copy of the source.
+	var valueT reflect.Type
+	if len(source) > 0 {
+		valueT = reflect.TypeOf(source[0])
+	}
+
+	// If slices are of different types, return a copy of the target.
 	if valueT != targetValueT {
-		return deepcopy.Copy(source).([]any)
+		return deepcopy.Copy(target).([]any)
 	}
 
 	for i, targetValue := range target {
 		if i+1 > len(source) {
-			break
+			result = append(result, targetValue)
+			continue
 		}
 		value := source[i]
 
