@@ -83,6 +83,9 @@ func Normalize(uns *unstructured.Unstructured) (*unstructured.Unstructured, erro
 			return uns, err
 		}
 	}
+	if IsSecret(uns) {
+		return normalizeSecret(uns), nil
+	}
 
 	// Remove output-only fields
 	unstructured.RemoveNestedField(result.Object, "metadata", "creationTimestamp")
