@@ -63,12 +63,33 @@ func ToUnstructured(object metav1.Object) (*unstructured.Unstructured, error) {
 
 // Normalize converts an Unstructured Kubernetes resource into the typed equivalent and then back to Unstructured.
 // This process normalizes semantically-equivalent resources into an identical output, which is important for diffing.
+// If the scheme is not defined, then return the original resource.
 func Normalize(uns *unstructured.Unstructured) (*unstructured.Unstructured, error) {
+	if IsCRD(uns) {
+		return normalizeCRD(uns), nil
+	}
+
 	obj, err := FromUnstructured(uns)
+	// Return the input resource rather than an error if this operation fails.
 	if err != nil {
-		return nil, err
+		return uns, nil
 	}
 	return ToUnstructured(obj)
+}
+
+// normalizeCRD manually normalizes CRD resources, which require special handling due to the lack of defined conversion
+// scheme for CRDs.
+func normalizeCRD(uns *unstructured.Unstructured) *unstructured.Unstructured {
+	contract.Assertf(IsCRD(uns), "normalizeCRD called on a non-CRD resource: %s", uns.GetAPIVersion())
+
+	// .spec.preserveUnknownFields is deprecated, and will be removed by the apiserver on the created resource if the
+	// value is false. Normalize for diffing by removing this field if present and set to "false".
+	// See https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#field-pruning
+	preserve, found, err := unstructured.NestedBool(uns.Object, "spec", "preserveUnknownFields")
+	if err == nil && found && !preserve {
+		unstructured.RemoveNestedField(uns.Object, "spec", "preserveUnknownFields")
+	}
+	return uns
 }
 
 func PodFromUnstructured(uns *unstructured.Unstructured) (*corev1.Pod, error) {

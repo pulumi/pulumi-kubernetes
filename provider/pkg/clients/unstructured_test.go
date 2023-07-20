@@ -118,6 +118,95 @@ var (
 			},
 		},
 	}
+
+	crdPreserveUnknownFieldsUnstructured = &unstructured.Unstructured{
+		Object: map[string]any{
+			"apiVersion": "apiextensions.k8s.io/v1",
+			"kind":       "CustomResourceDefinition",
+			"metadata": map[string]any{
+				"name": "foobars.stable.example.com",
+			},
+			"spec": map[string]any{
+				"group": "stable.example.com",
+				"names": map[string]any{
+					"kind":   "FooBar",
+					"plural": "foobars",
+					"shortNames": []string{
+						"fb",
+					},
+					"singular": "foobar",
+				},
+				"preserveUnknownFields": false,
+				"scope":                 "Namespaced",
+				"versions": []map[string]any{
+					{
+						"name": "v1",
+						"schema": map[string]any{
+							"openAPIV3Schema": map[string]any{
+								"properties": map[string]any{
+									"spec": map[string]any{
+										"properties": map[string]any{
+											"foo": map[string]any{
+												"type": "string",
+											},
+										},
+										"type": "object",
+									},
+								},
+								"type": "object",
+							},
+						},
+						"served":  true,
+						"storage": true,
+					},
+				},
+			},
+		},
+	}
+
+	crdUnstructured = &unstructured.Unstructured{
+		Object: map[string]any{
+			"apiVersion": "apiextensions.k8s.io/v1",
+			"kind":       "CustomResourceDefinition",
+			"metadata": map[string]any{
+				"name": "foobars.stable.example.com",
+			},
+			"spec": map[string]any{
+				"group": "stable.example.com",
+				"names": map[string]any{
+					"kind":   "FooBar",
+					"plural": "foobars",
+					"shortNames": []string{
+						"fb",
+					},
+					"singular": "foobar",
+				},
+				"scope": "Namespaced",
+				"versions": []map[string]any{
+					{
+						"name": "v1",
+						"schema": map[string]any{
+							"openAPIV3Schema": map[string]any{
+								"properties": map[string]any{
+									"spec": map[string]any{
+										"properties": map[string]any{
+											"foo": map[string]any{
+												"type": "string",
+											},
+										},
+										"type": "object",
+									},
+								},
+								"type": "object",
+							},
+						},
+						"served":  true,
+						"storage": true,
+					},
+				},
+			},
+		},
+	}
 )
 
 func TestFromUnstructured(t *testing.T) {
@@ -143,6 +232,33 @@ func TestFromUnstructured(t *testing.T) {
 			}
 			if !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("FromUnstructured() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestNormalize(t *testing.T) {
+	type args struct {
+		uns *unstructured.Unstructured
+	}
+	tests := []struct {
+		name    string
+		args    args
+		want    *unstructured.Unstructured
+		wantErr bool
+	}{
+		{"unregistered GVK", args{uns: unregisteredGVK}, unregisteredGVK, false},
+		{"CRD with preserveUnknownFields", args{uns: crdPreserveUnknownFieldsUnstructured}, crdUnstructured, false},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := Normalize(tt.args.uns)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Normalize() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("Normalize() got = %v, want %v", got, tt.want)
 			}
 		})
 	}
