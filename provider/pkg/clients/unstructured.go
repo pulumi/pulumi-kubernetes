@@ -65,19 +65,29 @@ func ToUnstructured(object metav1.Object) (*unstructured.Unstructured, error) {
 // This process normalizes semantically-equivalent resources into an identical output, which is important for diffing.
 // If the scheme is not defined, then return the original resource.
 func Normalize(uns *unstructured.Unstructured) (*unstructured.Unstructured, error) {
+	var result *unstructured.Unstructured
+
 	if IsCRD(uns) {
-		return normalizeCRD(uns), nil
-	}
-	if IsSecret(uns) {
-		return normalizeSecret(uns), nil
+		result = normalizeCRD(uns)
+	} else if IsSecret(uns) {
+		result = normalizeSecret(uns)
+	} else {
+		obj, err := FromUnstructured(uns)
+		// Return the input resource rather than an error if this operation fails.
+		if err != nil {
+			return uns, nil
+		}
+		result, err = ToUnstructured(obj)
+		// Return the input resource rather than an error if this operation fails.
+		if err != nil {
+			return uns, err
+		}
 	}
 
-	obj, err := FromUnstructured(uns)
-	// Return the input resource rather than an error if this operation fails.
-	if err != nil {
-		return uns, nil
-	}
-	return ToUnstructured(obj)
+	// Remove output-only fields
+	unstructured.RemoveNestedField(result.Object, "metadata", "creationTimestamp")
+
+	return result, nil
 }
 
 // normalizeCRD manually normalizes CRD resources, which require special handling due to the lack of defined conversion
