@@ -1051,8 +1051,7 @@ func TestSecrets(t *testing.T) {
 				Path:  true,
 			},
 		},
-		ExpectRefreshChanges: true,
-		Quick:                true,
+		Quick: true,
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			assert.NotNil(t, stackInfo.Deployment)
 			state, err := json.Marshal(stackInfo.Deployment)
