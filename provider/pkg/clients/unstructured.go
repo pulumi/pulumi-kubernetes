@@ -102,6 +102,11 @@ func normalizeCRD(uns *unstructured.Unstructured) *unstructured.Unstructured {
 	if err == nil && found && !preserve {
 		unstructured.RemoveNestedField(uns.Object, "spec", "preserveUnknownFields")
 	}
+
+	// status is an output field, so the apiserver will ignore it in the inputs. However, this can cause
+	// erroneous diffs, so preemptively remove it here.
+	unstructured.RemoveNestedField(uns.Object, "status")
+
 	return uns
 }
 

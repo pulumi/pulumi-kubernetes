@@ -164,6 +164,58 @@ var (
 		},
 	}
 
+	crdStatusUnstructured = &unstructured.Unstructured{
+		Object: map[string]any{
+			"apiVersion": "apiextensions.k8s.io/v1",
+			"kind":       "CustomResourceDefinition",
+			"metadata": map[string]any{
+				"name": "foobars.stable.example.com",
+			},
+			"spec": map[string]any{
+				"group": "stable.example.com",
+				"names": map[string]any{
+					"kind":   "FooBar",
+					"plural": "foobars",
+					"shortNames": []string{
+						"fb",
+					},
+					"singular": "foobar",
+				},
+				"scope": "Namespaced",
+				"versions": []map[string]any{
+					{
+						"name": "v1",
+						"schema": map[string]any{
+							"openAPIV3Schema": map[string]any{
+								"properties": map[string]any{
+									"spec": map[string]any{
+										"properties": map[string]any{
+											"foo": map[string]any{
+												"type": "string",
+											},
+										},
+										"type": "object",
+									},
+								},
+								"type": "object",
+							},
+						},
+						"served":  true,
+						"storage": true,
+					},
+				},
+			},
+			"status": map[string]any{
+				"accceptedNames": map[string]any{
+					"kind":   "",
+					"plural": "",
+				},
+				"conditions":     []any{},
+				"storedVersions": []any{},
+			},
+		},
+	}
+
 	crdUnstructured = &unstructured.Unstructured{
 		Object: map[string]any{
 			"apiVersion": "apiextensions.k8s.io/v1",
@@ -288,6 +340,7 @@ func TestNormalize(t *testing.T) {
 	}{
 		{"unregistered GVK", args{uns: unregisteredGVK}, unregisteredGVK, false},
 		{"CRD with preserveUnknownFields", args{uns: crdPreserveUnknownFieldsUnstructured}, crdUnstructured, false},
+		{"CRD with status", args{uns: crdStatusUnstructured}, crdUnstructured, false},
 		{"Secret with stringData input", args{uns: secretUnstructured}, secretNormalizedUnstructured, false},
 		{"Secret with data input", args{uns: secretNormalizedUnstructured}, secretNormalizedUnstructured, false},
 		{"Secret with creationTimestamp set on input", args{uns: secretWithCreationTimestampUnstructured}, secretNormalizedUnstructured, false},
