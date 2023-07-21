@@ -295,6 +295,15 @@ func TestAccPrometheusOperator(t *testing.T) {
 		With(integration.ProgramTestOptions{
 			Dir:         filepath.Join(getCwd(t), "prometheus-operator"),
 			SkipRefresh: true,
+			// TODO: set to SSA false to fix https://github.com/pulumi/pulumi-kubernetes/issues/2482.
+			//       https://github.com/pulumi/pulumi-kubernetes/issues/2243 tracks work to split tests across different
+			//       clusters, which would fix this problem
+			OrderedConfig: []integration.ConfigValue{
+				{
+					Key:   "kubernetes:enableServerSideApply",
+					Value: "false",
+				},
+			},
 			ExtraRuntimeValidation: func(
 				t *testing.T, stackInfo integration.RuntimeValidationStackInfo,
 			) {
@@ -499,6 +508,15 @@ func TestRancher(t *testing.T) {
 			SkipRefresh: true,
 			Verbose:     true,
 			NoParallel:  true,
+			// TODO: set to SSA false to fix https://github.com/pulumi/pulumi-kubernetes/issues/2482.
+			//       https://github.com/pulumi/pulumi-kubernetes/issues/2243 tracks work to split tests across different
+			//       clusters, which would fix this problem
+			OrderedConfig: []integration.ConfigValue{
+				{
+					Key:   "kubernetes:enableServerSideApply",
+					Value: "false",
+				},
+			},
 			EditDirs: []integration.EditDir{
 				{
 					Dir:      filepath.Join(getCwd(t), "rancher", "step2"),
