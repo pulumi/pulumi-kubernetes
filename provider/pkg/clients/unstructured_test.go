@@ -305,24 +305,3 @@ func TestNormalize(t *testing.T) {
 		})
 	}
 }
-
-func Test_normalizeSecret(t *testing.T) {
-	type args struct {
-		uns *unstructured.Unstructured
-	}
-	tests := []struct {
-		name string
-		args args
-		want *unstructured.Unstructured
-	}{
-		{"secretData", args{uns: secretUnstructured}, secretNormalizedUnstructured},
-		{"data", args{uns: secretNormalizedUnstructured}, secretNormalizedUnstructured},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := normalizeSecret(tt.args.uns); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("normalizeSecret() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
