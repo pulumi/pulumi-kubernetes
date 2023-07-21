@@ -15,6 +15,7 @@
 package clients
 
 import (
+	"encoding/base64"
 	"fmt"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
@@ -115,30 +116,28 @@ func normalizeCRD(uns *unstructured.Unstructured) *unstructured.Unstructured {
 func normalizeSecret(uns *unstructured.Unstructured) *unstructured.Unstructured {
 	contract.Assertf(IsSecret(uns), "normalizeSecret called on a non-Secret resource: %s:%s", uns.GetAPIVersion(), uns.GetKind())
 
-	obj, err := FromUnstructured(uns)
-	if err != nil {
-		return uns // If the operation fails, just return the original object
+	stringData, found, err := unstructured.NestedStringMap(uns.Object, "stringData")
+	if err != nil || !found {
+		return uns
 	}
-	secret := obj.(*corev1.Secret)
+
+	data, found, err := unstructured.NestedMap(uns.Object, "data")
+	if err != nil || !found {
+		data = map[string]any{}
+	}
 
 	// See https://github.com/kubernetes/kubernetes/blob/v1.27.4/pkg/apis/core/v1/conversion.go#L406-L414
 	// StringData overwrites Data
-	if len(secret.StringData) > 0 {
-		if secret.Data == nil {
-			secret.Data = map[string][]byte{}
-		}
-		for k, v := range secret.StringData {
-			secret.Data[k] = []byte(v)
+	if len(stringData) > 0 {
+		for k, v := range stringData {
+			data[k] = base64.StdEncoding.EncodeToString([]byte(v))
 		}
 
-		secret.StringData = nil
+		contract.IgnoreError(unstructured.SetNestedMap(uns.Object, data, "data"))
+		unstructured.RemoveNestedField(uns.Object, "stringData")
 	}
 
-	updated, err := ToUnstructured(secret)
-	if err != nil {
-		return uns // If the operation fails, just return the original object
-	}
-	return updated
+	return uns
 }
 
 func PodFromUnstructured(uns *unstructured.Unstructured) (*corev1.Pod, error) {
