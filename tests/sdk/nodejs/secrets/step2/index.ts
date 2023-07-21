@@ -18,7 +18,7 @@ import * as k8s from "@pulumi/kubernetes";
 const config = new pulumi.Config();
 
 const pw = config.requireSecret("message");
-const rawPW = config.require("message");
+const rawPW = config.require("message")+"updated"; // Add suffix
 
 const provider = new k8s.Provider("k8s");
 
@@ -63,7 +63,7 @@ const cg = new k8s.yaml.ConfigGroup("example", {
 
 export const cmDataData = cmData.data;
 export const cmBinaryDataData = cmBinaryData.binaryData;
-export const ssStringDataStringData = ssStringData.stringData;
 export const ssStringDataData = ssStringData.data;
+export const ssStringDataStringData = ssStringData.stringData;
 export const ssDataData = ssData.data;
 export const cgSecret = cg.getResource("v1/Secret", name).stringData;
