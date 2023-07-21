@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 4.0.2 (July 20, 2023)
+
 - [sdk/python] Drop unused pyyaml dependency (https://github.com/pulumi/pulumi-kubernetes/pull/2502)
 - Fix continuous diff for Secret stringData field (https://github.com/pulumi/pulumi-kubernetes/pull/2511)
 - Fix diff for CRD with status set on input (https://github.com/pulumi/pulumi-kubernetes/pull/2512)
