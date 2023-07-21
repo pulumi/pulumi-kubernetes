@@ -131,15 +131,15 @@ var (
 				"names": map[string]any{
 					"kind":   "FooBar",
 					"plural": "foobars",
-					"shortNames": []string{
+					"shortNames": []any{
 						"fb",
 					},
 					"singular": "foobar",
 				},
 				"preserveUnknownFields": false,
 				"scope":                 "Namespaced",
-				"versions": []map[string]any{
-					{
+				"versions": []any{
+					map[string]any{
 						"name": "v1",
 						"schema": map[string]any{
 							"openAPIV3Schema": map[string]any{
@@ -176,14 +176,14 @@ var (
 				"names": map[string]any{
 					"kind":   "FooBar",
 					"plural": "foobars",
-					"shortNames": []string{
+					"shortNames": []any{
 						"fb",
 					},
 					"singular": "foobar",
 				},
 				"scope": "Namespaced",
-				"versions": []map[string]any{
-					{
+				"versions": []any{
+					map[string]any{
 						"name": "v1",
 						"schema": map[string]any{
 							"openAPIV3Schema": map[string]any{
@@ -228,14 +228,14 @@ var (
 				"names": map[string]any{
 					"kind":   "FooBar",
 					"plural": "foobars",
-					"shortNames": []string{
+					"shortNames": []any{
 						"fb",
 					},
 					"singular": "foobar",
 				},
 				"scope": "Namespaced",
-				"versions": []map[string]any{
-					{
+				"versions": []any{
+					map[string]any{
 						"name": "v1",
 						"schema": map[string]any{
 							"openAPIV3Schema": map[string]any{
@@ -333,25 +333,20 @@ func TestNormalize(t *testing.T) {
 		uns *unstructured.Unstructured
 	}
 	tests := []struct {
-		name    string
-		args    args
-		want    *unstructured.Unstructured
-		wantErr bool
+		name string
+		args args
+		want *unstructured.Unstructured
 	}{
-		{"unregistered GVK", args{uns: unregisteredGVK}, unregisteredGVK, false},
-		{"CRD with preserveUnknownFields", args{uns: crdPreserveUnknownFieldsUnstructured}, crdUnstructured, false},
-		{"CRD with status", args{uns: crdStatusUnstructured}, crdUnstructured, false},
-		{"Secret with stringData input", args{uns: secretUnstructured}, secretNormalizedUnstructured, false},
-		{"Secret with data input", args{uns: secretNormalizedUnstructured}, secretNormalizedUnstructured, false},
-		{"Secret with creationTimestamp set on input", args{uns: secretWithCreationTimestampUnstructured}, secretNormalizedUnstructured, false},
+		{"unregistered GVK", args{uns: unregisteredGVK}, unregisteredGVK},
+		{"CRD with preserveUnknownFields", args{uns: crdPreserveUnknownFieldsUnstructured}, crdUnstructured},
+		{"CRD with status", args{uns: crdStatusUnstructured}, crdUnstructured},
+		{"Secret with stringData input", args{uns: secretUnstructured}, secretNormalizedUnstructured},
+		{"Secret with data input", args{uns: secretNormalizedUnstructured}, secretNormalizedUnstructured},
+		{"Secret with creationTimestamp set on input", args{uns: secretWithCreationTimestampUnstructured}, secretNormalizedUnstructured},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := Normalize(tt.args.uns)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("Normalize() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
+			got := Normalize(tt.args.uns)
 			if !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("Normalize() got = %v, want %v", got, tt.want)
 			}

@@ -1296,10 +1296,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	oldInputs := propMapToUnstructured(olds)
 	newInputs := propMapToUnstructured(news)
 
-	newInputs, err = normalize(newInputs)
-	if err != nil {
-		return nil, err
-	}
+	newInputs = normalize(newInputs)
 
 	if k.serverSideApplyMode && isPatchURN(urn) {
 		if len(newInputs.GetName()) == 0 {
@@ -1522,14 +1519,8 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 
 	oldInputs, oldLive := parseCheckpointObject(oldState)
 
-	oldInputs, err = normalize(oldInputs)
-	if err != nil {
-		return nil, err
-	}
-	newInputs, err = normalize(newInputs)
-	if err != nil {
-		return nil, err
-	}
+	oldInputs = normalize(oldInputs)
+	newInputs = normalize(newInputs)
 	oldLivePruned := pruneLiveState(oldLive, oldInputs)
 
 	gvk := k.gvkFromUnstructured(newInputs)
@@ -1951,10 +1942,7 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	oldInputs := propMapToUnstructured(oldInputsPM)
 	_, oldLive := parseCheckpointObject(oldState)
 
-	oldInputs, err = normalize(oldInputs)
-	if err != nil {
-		return nil, err
-	}
+	oldInputs = normalize(oldInputs)
 
 	if oldInputs.GroupVersionKind().Empty() {
 		if oldLive.GroupVersionKind().Empty() {
@@ -2183,10 +2171,7 @@ func (k *kubeProvider) Update(
 		return nil, pkgerrors.Wrapf(err, "update failed because malformed resource inputs")
 	}
 	newInputs := propMapToUnstructured(newResInputs)
-	newInputs, err = normalize(newInputs)
-	if err != nil {
-		return nil, err
-	}
+	newInputs = normalize(newInputs)
 
 	// If this is a preview and the input values contain unknowns, or an unregistered GVK, return them as-is. This is
 	// compatible with prior behavior implemented by the Pulumi engine.
@@ -2209,10 +2194,7 @@ func (k *kubeProvider) Update(
 	// annotation during preview.
 	removeLastAppliedConfigurationAnnotation(oldLive, oldInputs)
 
-	oldInputs, err = normalize(oldInputs)
-	if err != nil {
-		return nil, err
-	}
+	oldInputs = normalize(oldInputs)
 	oldLivePruned := pruneLiveState(oldLive, oldInputs)
 
 	initialAPIVersion := initialAPIVersion(oldState, oldInputs)
@@ -2692,15 +2674,11 @@ func shouldNormalize(uns *unstructured.Unstructured) bool {
 // normalize converts an Unstructured resource into a normalized form so that semantically equivalent representations
 // are set to the same output shape. This is important to avoid generating diffs for inputs that will produce the same
 // result on the cluster.
-func normalize(uns *unstructured.Unstructured) (*unstructured.Unstructured, error) {
+func normalize(uns *unstructured.Unstructured) *unstructured.Unstructured {
 	if shouldNormalize(uns) {
-		normalized, err := clients.Normalize(uns)
-		if err != nil {
-			return nil, err
-		}
-		uns = pruneLiveState(normalized, uns)
+		return clients.Normalize(uns)
 	}
-	return uns, nil
+	return uns
 }
 
 func mapReplStripSecrets(v resource.PropertyValue) (any, bool) {

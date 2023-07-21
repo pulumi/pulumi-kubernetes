@@ -62,33 +62,46 @@ func ToUnstructured(object metav1.Object) (*unstructured.Unstructured, error) {
 	}, nil
 }
 
-// Normalize converts an Unstructured Kubernetes resource into the typed equivalent and then back to Unstructured.
-// This process normalizes semantically-equivalent resources into an identical output, which is important for diffing.
-// If the scheme is not defined, then return the original resource.
-func Normalize(uns *unstructured.Unstructured) (*unstructured.Unstructured, error) {
-	var result *unstructured.Unstructured
+// Normalize semantically-equivalent resources into an identical output, which is important for diffing.
+func Normalize(uns *unstructured.Unstructured) *unstructured.Unstructured {
+	result := uns.DeepCopy()
 
-	if IsCRD(uns) {
-		result = normalizeCRD(uns)
-	} else if IsSecret(uns) {
-		result = normalizeSecret(uns)
-	} else {
-		obj, err := FromUnstructured(uns)
-		// Return the input resource rather than an error if this operation fails.
+	switch {
+	case IsCRD(uns):
+		result = normalizeCRD(result)
+	case IsSecret(uns):
+		result = normalizeSecret(result)
+	default:
+		// Convert an Unstructured Kubernetes resource into the typed equivalent and then back to Unstructured.
+		// This process automatically normalizes resources with a defined scheme. If the operation fails,
+		// then return the original resource.
+		obj, err := FromUnstructured(result)
 		if err != nil {
-			return uns, nil
+			return uns
 		}
 		result, err = ToUnstructured(obj)
-		// Return the input resource rather than an error if this operation fails.
 		if err != nil {
-			return uns, err
+			return uns
 		}
 	}
 
 	// Remove output-only fields
 	unstructured.RemoveNestedField(result.Object, "metadata", "creationTimestamp")
+	unstructured.RemoveNestedField(result.Object, "metadata", "deletionGracePeriodSeconds")
+	unstructured.RemoveNestedField(result.Object, "metadata", "deletionTimestamp")
+	unstructured.RemoveNestedField(result.Object, "metadata", "generation")
+	unstructured.RemoveNestedField(result.Object, "metadata", "resourceVersion")
+	unstructured.RemoveNestedField(result.Object, "metadata", "selfLink")
+	unstructured.RemoveNestedField(result.Object, "metadata", "uid")
+	unstructured.RemoveNestedField(result.Object, "spec", "template", "metadata", "creationTimestamp")
+	unstructured.RemoveNestedField(result.Object, "spec", "template", "metadata", "deletionGracePeriodSeconds")
+	unstructured.RemoveNestedField(result.Object, "spec", "template", "metadata", "deletionTimestamp")
+	unstructured.RemoveNestedField(result.Object, "spec", "template", "metadata", "generation")
+	unstructured.RemoveNestedField(result.Object, "spec", "template", "metadata", "resourceVersion")
+	unstructured.RemoveNestedField(result.Object, "spec", "template", "metadata", "selfLink")
+	unstructured.RemoveNestedField(result.Object, "spec", "template", "metadata", "uid")
 
-	return result, nil
+	return result
 }
 
 // normalizeCRD manually normalizes CRD resources, which require special handling due to the lack of defined conversion

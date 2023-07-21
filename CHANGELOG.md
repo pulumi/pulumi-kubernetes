@@ -1,5 +1,7 @@
 ## Unreleased
 
+- Improve resource normalization for diffing (https://github.com/pulumi/pulumi-kubernetes/pull/2516)
+
 ## 4.0.3 (July 21, 2023)
 
 - fix: ensure data is not dropped when normalizing Secrets (https://github.com/pulumi/pulumi-kubernetes/pull/2514)
