@@ -123,7 +123,7 @@ func normalizeSecret(uns *unstructured.Unstructured) *unstructured.Unstructured 
 
 	data, found, err := unstructured.NestedMap(uns.Object, "data")
 	if err != nil || !found {
-		data = map[string]interface{}{}
+		data = map[string]any{}
 	}
 
 	// See https://github.com/kubernetes/kubernetes/blob/v1.27.4/pkg/apis/core/v1/conversion.go#L406-L414
@@ -133,7 +133,7 @@ func normalizeSecret(uns *unstructured.Unstructured) *unstructured.Unstructured 
 			data[k] = base64.StdEncoding.EncodeToString([]byte(v))
 		}
 
-		unstructured.SetNestedMap(uns.Object, data, "data")
+		contract.IgnoreError(unstructured.SetNestedMap(uns.Object, data, "data"))
 		unstructured.RemoveNestedField(uns.Object, "stringData")
 	}
 

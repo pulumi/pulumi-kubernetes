@@ -1,5 +1,9 @@
 ## Unreleased
 
+## 4.0.3 (July 21, 2023)
+
+- fix: ensure data is not dropped when normalizing Secrets (https://github.com/pulumi/pulumi-kubernetes/pull/2514)
+
 ## 4.0.2 (July 20, 2023)
 
 - [sdk/python] Drop unused pyyaml dependency (https://github.com/pulumi/pulumi-kubernetes/pull/2502)
