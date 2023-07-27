@@ -8,6 +8,7 @@ import (
 	"reflect"
 
 	"errors"
+	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
@@ -38,6 +39,7 @@ func NewCSIStorageCapacityList(ctx *pulumi.Context,
 	}
 	args.ApiVersion = pulumi.StringPtr("storage.k8s.io/v1")
 	args.Kind = pulumi.StringPtr("CSIStorageCapacityList")
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource CSIStorageCapacityList
 	err := ctx.RegisterResource("kubernetes:storage.k8s.io/v1:CSIStorageCapacityList", name, args, &resource, opts...)
 	if err != nil {

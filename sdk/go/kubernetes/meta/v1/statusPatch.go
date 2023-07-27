@@ -7,6 +7,7 @@ import (
 	"context"
 	"reflect"
 
+	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
@@ -47,6 +48,7 @@ func NewStatusPatch(ctx *pulumi.Context,
 
 	args.ApiVersion = pulumi.StringPtr("v1")
 	args.Kind = pulumi.StringPtr("Status")
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource StatusPatch
 	err := ctx.RegisterResource("kubernetes:meta/v1:StatusPatch", name, args, &resource, opts...)
 	if err != nil {

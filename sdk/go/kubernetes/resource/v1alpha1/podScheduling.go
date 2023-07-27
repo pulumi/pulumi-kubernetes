@@ -8,6 +8,7 @@ import (
 	"reflect"
 
 	"errors"
+	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
@@ -42,6 +43,7 @@ func NewPodScheduling(ctx *pulumi.Context,
 	}
 	args.ApiVersion = pulumi.StringPtr("resource.k8s.io/v1alpha1")
 	args.Kind = pulumi.StringPtr("PodScheduling")
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource PodScheduling
 	err := ctx.RegisterResource("kubernetes:resource.k8s.io/v1alpha1:PodScheduling", name, args, &resource, opts...)
 	if err != nil {

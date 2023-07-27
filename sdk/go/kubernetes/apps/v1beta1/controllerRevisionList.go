@@ -8,6 +8,7 @@ import (
 	"reflect"
 
 	"errors"
+	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
@@ -38,6 +39,7 @@ func NewControllerRevisionList(ctx *pulumi.Context,
 	}
 	args.ApiVersion = pulumi.StringPtr("apps/v1beta1")
 	args.Kind = pulumi.StringPtr("ControllerRevisionList")
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource ControllerRevisionList
 	err := ctx.RegisterResource("kubernetes:apps/v1beta1:ControllerRevisionList", name, args, &resource, opts...)
 	if err != nil {
