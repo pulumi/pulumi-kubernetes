@@ -7,6 +7,7 @@ import (
 	"context"
 	"reflect"
 
+	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
@@ -32,6 +33,7 @@ func NewPodPreset(ctx *pulumi.Context,
 
 	args.ApiVersion = pulumi.StringPtr("settings.k8s.io/v1alpha1")
 	args.Kind = pulumi.StringPtr("PodPreset")
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource PodPreset
 	err := ctx.RegisterResource("kubernetes:settings.k8s.io/v1alpha1:PodPreset", name, args, &resource, opts...)
 	if err != nil {

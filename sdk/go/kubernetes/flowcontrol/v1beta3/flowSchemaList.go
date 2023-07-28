@@ -8,6 +8,7 @@ import (
 	"reflect"
 
 	"errors"
+	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
@@ -38,6 +39,7 @@ func NewFlowSchemaList(ctx *pulumi.Context,
 	}
 	args.ApiVersion = pulumi.StringPtr("flowcontrol.apiserver.k8s.io/v1beta3")
 	args.Kind = pulumi.StringPtr("FlowSchemaList")
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource FlowSchemaList
 	err := ctx.RegisterResource("kubernetes:flowcontrol.apiserver.k8s.io/v1beta3:FlowSchemaList", name, args, &resource, opts...)
 	if err != nil {

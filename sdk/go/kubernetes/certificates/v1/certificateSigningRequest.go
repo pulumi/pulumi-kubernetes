@@ -8,6 +8,7 @@ import (
 	"reflect"
 
 	"errors"
+	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
@@ -51,6 +52,7 @@ func NewCertificateSigningRequest(ctx *pulumi.Context,
 		},
 	})
 	opts = append(opts, aliases)
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource CertificateSigningRequest
 	err := ctx.RegisterResource("kubernetes:certificates.k8s.io/v1:CertificateSigningRequest", name, args, &resource, opts...)
 	if err != nil {

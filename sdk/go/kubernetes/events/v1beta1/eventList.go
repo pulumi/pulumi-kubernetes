@@ -8,6 +8,7 @@ import (
 	"reflect"
 
 	"errors"
+	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
@@ -38,6 +39,7 @@ func NewEventList(ctx *pulumi.Context,
 	}
 	args.ApiVersion = pulumi.StringPtr("events.k8s.io/v1beta1")
 	args.Kind = pulumi.StringPtr("EventList")
+	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource EventList
 	err := ctx.RegisterResource("kubernetes:events.k8s.io/v1beta1:EventList", name, args, &resource, opts...)
 	if err != nil {
