@@ -1808,10 +1808,8 @@ func (k *kubeProvider) Create(
 	if awaitErr != nil {
 		if req.GetPreview() {
 			if apierrors.IsForbidden(awaitErr) {
-				logger.V(1).Infof("unable to compute Server-side dry-run: %s", awaitErr)
-				return &pulumirpc.CreateResponse{Id: "", Properties: req.GetProperties()}, pkgerrors.Wrapf(
-					awaitErr, "preview of resource %q failed because you do not have sufficient permissions. "+
-						"Verify that you have set up your cluster RBAC correctly", fqObjName(newInputs))
+				logger.V(1).Infof("unable to compute Server-side dry-run and defaulting to client-side: %s", awaitErr)
+				return &pulumirpc.CreateResponse{Id: "", Properties: req.GetProperties()}, nil
 			}
 
 			failedPreview := false
