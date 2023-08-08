@@ -39,6 +39,7 @@ import (
 	appsv1beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/apps/v1beta1"
 	appsv1beta2 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/apps/v1beta2"
 	auditregistrationv1alpha1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/auditregistration/v1alpha1"
+	authenticationv1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/authentication/v1"
 	autoscalingv1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/autoscaling/v1"
 	autoscalingv2 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/autoscaling/v2"
 	autoscalingv2beta1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/autoscaling/v2beta1"
@@ -249,6 +250,8 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 		"admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyBindingList",
 		"admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyList",
 		"admissionregistration.k8s.io/v1beta1/MutatingWebhookConfigurationList",
+		"admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyBindingList",
+		"admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyList",
 		"admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfigurationList",
 		"apiextensions.k8s.io/v1/CustomResourceDefinitionList",
 		"apiextensions.k8s.io/v1beta1/CustomResourceDefinitionList",
@@ -452,6 +455,20 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 			return nil, err
 		}
 		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicy":
+		var res admissionregistrationv1beta1.ValidatingAdmissionPolicy
+		err := ctx.RegisterResource("kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingAdmissionPolicy", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyBinding":
+		var res admissionregistrationv1beta1.ValidatingAdmissionPolicyBinding
+		err := ctx.RegisterResource("kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingAdmissionPolicyBinding", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
 	case "admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfiguration":
 		var res admissionregistrationv1beta1.ValidatingWebhookConfiguration
 		err := ctx.RegisterResource("kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfiguration", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
@@ -581,6 +598,13 @@ func parseYamlObject(ctx *pulumi.Context, obj map[string]interface{}, transforma
 	case "auditregistration.k8s.io/v1alpha1/AuditSink":
 		var res auditregistrationv1alpha1.AuditSink
 		err := ctx.RegisterResource("kubernetes:auditregistration.k8s.io/v1alpha1:AuditSink", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
+		if err != nil {
+			return nil, err
+		}
+		return []resourceTuple{{Name: key, Resource: &res}}, nil
+	case "authentication.k8s.io/v1/SelfSubjectReview":
+		var res authenticationv1.SelfSubjectReview
+		err := ctx.RegisterResource("kubernetes:authentication.k8s.io/v1:SelfSubjectReview", metaName, kubernetes.UntypedArgs(obj), &res, opts...)
 		if err != nil {
 			return nil, err
 		}

@@ -99,6 +99,21 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * FailedIndexes holds the failed indexes when backoffLimitPerIndex=true. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as &#34;1,3-5,7&#34;. This field is alpha-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (disabled by default).
+     * 
+     */
+    @Import(name="failedIndexes")
+    private @Nullable Output<String> failedIndexes;
+
+    /**
+     * @return FailedIndexes holds the failed indexes when backoffLimitPerIndex=true. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as &#34;1,3-5,7&#34;. This field is alpha-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (disabled by default).
+     * 
+     */
+    public Optional<Output<String>> failedIndexes() {
+        return Optional.ofNullable(this.failedIndexes);
+    }
+
+    /**
      * The number of pods which have a Ready condition.
      * 
      * This field is beta-level. The job controller populates the field when the feature gate JobReadyPods is enabled (enabled by default).
@@ -148,6 +163,25 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * The number of pods which are terminating (in phase Pending or Running and have a deletionTimestamp).
+     * 
+     * This field is alpha-level. The job controller populates the field when the feature gate JobPodReplacementPolicy is enabled (disabled by default).
+     * 
+     */
+    @Import(name="terminating")
+    private @Nullable Output<Integer> terminating;
+
+    /**
+     * @return The number of pods which are terminating (in phase Pending or Running and have a deletionTimestamp).
+     * 
+     * This field is alpha-level. The job controller populates the field when the feature gate JobPodReplacementPolicy is enabled (disabled by default).
+     * 
+     */
+    public Optional<Output<Integer>> terminating() {
+        return Optional.ofNullable(this.terminating);
+    }
+
+    /**
      * uncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn&#39;t yet accounted for in the status counters.
      * 
      * The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status:
@@ -184,9 +218,11 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
         this.completionTime = $.completionTime;
         this.conditions = $.conditions;
         this.failed = $.failed;
+        this.failedIndexes = $.failedIndexes;
         this.ready = $.ready;
         this.startTime = $.startTime;
         this.succeeded = $.succeeded;
+        this.terminating = $.terminating;
         this.uncountedTerminatedPods = $.uncountedTerminatedPods;
     }
 
@@ -324,6 +360,27 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
+         * @param failedIndexes FailedIndexes holds the failed indexes when backoffLimitPerIndex=true. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as &#34;1,3-5,7&#34;. This field is alpha-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (disabled by default).
+         * 
+         * @return builder
+         * 
+         */
+        public Builder failedIndexes(@Nullable Output<String> failedIndexes) {
+            $.failedIndexes = failedIndexes;
+            return this;
+        }
+
+        /**
+         * @param failedIndexes FailedIndexes holds the failed indexes when backoffLimitPerIndex=true. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as &#34;1,3-5,7&#34;. This field is alpha-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (disabled by default).
+         * 
+         * @return builder
+         * 
+         */
+        public Builder failedIndexes(String failedIndexes) {
+            return failedIndexes(Output.of(failedIndexes));
+        }
+
+        /**
          * @param ready The number of pods which have a Ready condition.
          * 
          * This field is beta-level. The job controller populates the field when the feature gate JobReadyPods is enabled (enabled by default).
@@ -388,6 +445,31 @@ public final class JobStatusArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder succeeded(Integer succeeded) {
             return succeeded(Output.of(succeeded));
+        }
+
+        /**
+         * @param terminating The number of pods which are terminating (in phase Pending or Running and have a deletionTimestamp).
+         * 
+         * This field is alpha-level. The job controller populates the field when the feature gate JobPodReplacementPolicy is enabled (disabled by default).
+         * 
+         * @return builder
+         * 
+         */
+        public Builder terminating(@Nullable Output<Integer> terminating) {
+            $.terminating = terminating;
+            return this;
+        }
+
+        /**
+         * @param terminating The number of pods which are terminating (in phase Pending or Running and have a deletionTimestamp).
+         * 
+         * This field is alpha-level. The job controller populates the field when the feature gate JobPodReplacementPolicy is enabled (disabled by default).
+         * 
+         * @return builder
+         * 
+         */
+        public Builder terminating(Integer terminating) {
+            return terminating(Output.of(terminating));
         }
 
         /**

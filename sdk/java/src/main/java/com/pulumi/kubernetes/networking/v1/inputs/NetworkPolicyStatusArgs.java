@@ -13,7 +13,7 @@ import javax.annotation.Nullable;
 
 
 /**
- * NetworkPolicyStatus describes the current state of the NetworkPolicy.
+ * NetworkPolicyStatus describe the current state of the NetworkPolicy.
  * 
  */
 public final class NetworkPolicyStatusArgs extends com.pulumi.resources.ResourceArgs {
@@ -21,14 +21,14 @@ public final class NetworkPolicyStatusArgs extends com.pulumi.resources.Resource
     public static final NetworkPolicyStatusArgs Empty = new NetworkPolicyStatusArgs();
 
     /**
-     * conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
+     * Conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
      * 
      */
     @Import(name="conditions")
     private @Nullable Output<List<ConditionArgs>> conditions;
 
     /**
-     * @return conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
+     * @return Conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
      * 
      */
     public Optional<Output<List<ConditionArgs>>> conditions() {
@@ -60,7 +60,7 @@ public final class NetworkPolicyStatusArgs extends com.pulumi.resources.Resource
         }
 
         /**
-         * @param conditions conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
+         * @param conditions Conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
          * 
          * @return builder
          * 
@@ -71,7 +71,7 @@ public final class NetworkPolicyStatusArgs extends com.pulumi.resources.Resource
         }
 
         /**
-         * @param conditions conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
+         * @param conditions Conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
          * 
          * @return builder
          * 
@@ -81,7 +81,7 @@ public final class NetworkPolicyStatusArgs extends com.pulumi.resources.Resource
         }
 
         /**
-         * @param conditions conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
+         * @param conditions Conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
          * 
          * @return builder
          * 

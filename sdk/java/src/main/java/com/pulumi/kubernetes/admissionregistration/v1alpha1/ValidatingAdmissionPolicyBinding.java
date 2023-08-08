@@ -3,6 +3,7 @@
 
 package com.pulumi.kubernetes.admissionregistration.v1alpha1;
 
+import com.pulumi.core.Alias;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Export;
 import com.pulumi.core.annotations.ResourceType;
@@ -12,10 +13,15 @@ import com.pulumi.kubernetes.admissionregistration.v1alpha1.ValidatingAdmissionP
 import com.pulumi.kubernetes.admissionregistration.v1alpha1.outputs.ValidatingAdmissionPolicyBindingSpec;
 import com.pulumi.kubernetes.meta.v1.outputs.ObjectMeta;
 import java.lang.String;
+import java.util.List;
 import javax.annotation.Nullable;
 
 /**
  * ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with paramerized resources. ValidatingAdmissionPolicyBinding and parameter CRDs together define how cluster administrators configure policies for clusters.
+ * 
+ * For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don&#39;t use params, otherwise N is the number of parameters selected by the binding.
+ * 
+ * The CEL expressions of a policy must have a computed CEL cost below the maximum CEL budget. Each evaluation of the policy is given an independent CEL cost budget. Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.
  * 
  */
 @ResourceType(type="kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicyBinding")
@@ -117,6 +123,9 @@ public class ValidatingAdmissionPolicyBinding extends com.pulumi.resources.Custo
     private static com.pulumi.resources.CustomResourceOptions makeResourceOptions(@Nullable com.pulumi.resources.CustomResourceOptions options, @Nullable Output<String> id) {
         var defaultOptions = com.pulumi.resources.CustomResourceOptions.builder()
             .version(Utilities.getVersion())
+            .aliases(List.of(
+                Output.of(Alias.builder().type("kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingAdmissionPolicyBinding").build())
+            ))
             .build();
         return com.pulumi.resources.CustomResourceOptions.merge(defaultOptions, options, id);
     }

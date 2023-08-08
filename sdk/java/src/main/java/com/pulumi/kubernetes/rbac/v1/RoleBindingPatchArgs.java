@@ -66,14 +66,14 @@ public final class RoleBindingPatchArgs extends com.pulumi.resources.ResourceArg
     }
 
     /**
-     * RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+     * RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
      * 
      */
     @Import(name="roleRef")
     private @Nullable Output<RoleRefPatchArgs> roleRef;
 
     /**
-     * @return RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+     * @return RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
      * 
      */
     public Optional<Output<RoleRefPatchArgs>> roleRef() {
@@ -187,7 +187,7 @@ public final class RoleBindingPatchArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param roleRef RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+         * @param roleRef RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
          * 
          * @return builder
          * 
@@ -198,7 +198,7 @@ public final class RoleBindingPatchArgs extends com.pulumi.resources.ResourceArg
         }
 
         /**
-         * @param roleRef RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+         * @param roleRef RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
          * 
          * @return builder
          * 

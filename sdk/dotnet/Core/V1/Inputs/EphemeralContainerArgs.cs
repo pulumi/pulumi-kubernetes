@@ -132,6 +132,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public Input<Pulumi.Kubernetes.Types.Inputs.Core.V1.ResourceRequirementsArgs>? Resources { get; set; }
 
         /// <summary>
+        /// Restart policy for the container to manage the restart behavior of each container within a pod. This may only be set for init containers. You cannot set this field on ephemeral containers.
+        /// </summary>
+        [Input("restartPolicy")]
+        public Input<string>? RestartPolicy { get; set; }
+
+        /// <summary>
         /// Optional: SecurityContext defines the security options the ephemeral container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext.
         /// </summary>
         [Input("securityContext")]

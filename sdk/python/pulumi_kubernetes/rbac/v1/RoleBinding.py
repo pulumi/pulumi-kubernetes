@@ -24,7 +24,7 @@ class RoleBindingInitArgs:
                  subjects: Optional[pulumi.Input[Sequence[pulumi.Input['SubjectArgs']]]] = None):
         """
         The set of arguments for constructing a RoleBinding resource.
-        :param pulumi.Input['RoleRefArgs'] role_ref: RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+        :param pulumi.Input['RoleRefArgs'] role_ref: RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata.
@@ -44,7 +44,7 @@ class RoleBindingInitArgs:
     @pulumi.getter(name="roleRef")
     def role_ref(self) -> pulumi.Input['RoleRefArgs']:
         """
-        RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+        RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
         """
         return pulumi.get(self, "role_ref")
 
@@ -120,7 +120,7 @@ class RoleBinding(pulumi.CustomResource):
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaArgs']] metadata: Standard object's metadata.
-        :param pulumi.Input[pulumi.InputType['RoleRefArgs']] role_ref: RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+        :param pulumi.Input[pulumi.InputType['RoleRefArgs']] role_ref: RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['SubjectArgs']]]] subjects: Subjects holds references to the objects the role applies to.
         """
         ...
@@ -227,7 +227,7 @@ class RoleBinding(pulumi.CustomResource):
     @pulumi.getter(name="roleRef")
     def role_ref(self) -> pulumi.Output['outputs.RoleRef']:
         """
-        RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+        RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
         """
         return pulumi.get(self, "role_ref")
 

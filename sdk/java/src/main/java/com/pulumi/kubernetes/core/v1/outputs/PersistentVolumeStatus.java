@@ -12,6 +12,11 @@ import javax.annotation.Nullable;
 @CustomType
 public final class PersistentVolumeStatus {
     /**
+     * @return lastPhaseTransitionTime is the time the phase transitioned from one to another and automatically resets to current time everytime a volume phase transitions. This is an alpha field and requires enabling PersistentVolumeLastPhaseTransitionTime feature.
+     * 
+     */
+    private @Nullable String lastPhaseTransitionTime;
+    /**
      * @return message is a human-readable message indicating details about why the volume is in this state.
      * 
      */
@@ -28,6 +33,13 @@ public final class PersistentVolumeStatus {
     private @Nullable String reason;
 
     private PersistentVolumeStatus() {}
+    /**
+     * @return lastPhaseTransitionTime is the time the phase transitioned from one to another and automatically resets to current time everytime a volume phase transitions. This is an alpha field and requires enabling PersistentVolumeLastPhaseTransitionTime feature.
+     * 
+     */
+    public Optional<String> lastPhaseTransitionTime() {
+        return Optional.ofNullable(this.lastPhaseTransitionTime);
+    }
     /**
      * @return message is a human-readable message indicating details about why the volume is in this state.
      * 
@@ -59,17 +71,24 @@ public final class PersistentVolumeStatus {
     }
     @CustomType.Builder
     public static final class Builder {
+        private @Nullable String lastPhaseTransitionTime;
         private @Nullable String message;
         private @Nullable String phase;
         private @Nullable String reason;
         public Builder() {}
         public Builder(PersistentVolumeStatus defaults) {
     	      Objects.requireNonNull(defaults);
+    	      this.lastPhaseTransitionTime = defaults.lastPhaseTransitionTime;
     	      this.message = defaults.message;
     	      this.phase = defaults.phase;
     	      this.reason = defaults.reason;
         }
 
+        @CustomType.Setter
+        public Builder lastPhaseTransitionTime(@Nullable String lastPhaseTransitionTime) {
+            this.lastPhaseTransitionTime = lastPhaseTransitionTime;
+            return this;
+        }
         @CustomType.Setter
         public Builder message(@Nullable String message) {
             this.message = message;
@@ -87,6 +106,7 @@ public final class PersistentVolumeStatus {
         }
         public PersistentVolumeStatus build() {
             final var o = new PersistentVolumeStatus();
+            o.lastPhaseTransitionTime = lastPhaseTransitionTime;
             o.message = message;
             o.phase = phase;
             o.reason = reason;

@@ -4,6 +4,7 @@
 package com.pulumi.kubernetes.flowcontrol.v1beta3.outputs;
 
 import com.pulumi.core.annotations.CustomType;
+import com.pulumi.kubernetes.flowcontrol.v1beta3.outputs.ExemptPriorityLevelConfigurationPatch;
 import com.pulumi.kubernetes.flowcontrol.v1beta3.outputs.LimitedPriorityLevelConfigurationPatch;
 import java.lang.String;
 import java.util.Objects;
@@ -12,6 +13,11 @@ import javax.annotation.Nullable;
 
 @CustomType
 public final class PriorityLevelConfigurationSpecPatch {
+    /**
+     * @return `exempt` specifies how requests are handled for an exempt priority level. This field MUST be empty if `type` is `&#34;Limited&#34;`. This field MAY be non-empty if `type` is `&#34;Exempt&#34;`. If empty and `type` is `&#34;Exempt&#34;` then the default values for `ExemptPriorityLevelConfiguration` apply.
+     * 
+     */
+    private @Nullable ExemptPriorityLevelConfigurationPatch exempt;
     /**
      * @return `limited` specifies how requests are handled for a Limited priority level. This field must be non-empty if and only if `type` is `&#34;Limited&#34;`.
      * 
@@ -24,6 +30,13 @@ public final class PriorityLevelConfigurationSpecPatch {
     private @Nullable String type;
 
     private PriorityLevelConfigurationSpecPatch() {}
+    /**
+     * @return `exempt` specifies how requests are handled for an exempt priority level. This field MUST be empty if `type` is `&#34;Limited&#34;`. This field MAY be non-empty if `type` is `&#34;Exempt&#34;`. If empty and `type` is `&#34;Exempt&#34;` then the default values for `ExemptPriorityLevelConfiguration` apply.
+     * 
+     */
+    public Optional<ExemptPriorityLevelConfigurationPatch> exempt() {
+        return Optional.ofNullable(this.exempt);
+    }
     /**
      * @return `limited` specifies how requests are handled for a Limited priority level. This field must be non-empty if and only if `type` is `&#34;Limited&#34;`.
      * 
@@ -48,15 +61,22 @@ public final class PriorityLevelConfigurationSpecPatch {
     }
     @CustomType.Builder
     public static final class Builder {
+        private @Nullable ExemptPriorityLevelConfigurationPatch exempt;
         private @Nullable LimitedPriorityLevelConfigurationPatch limited;
         private @Nullable String type;
         public Builder() {}
         public Builder(PriorityLevelConfigurationSpecPatch defaults) {
     	      Objects.requireNonNull(defaults);
+    	      this.exempt = defaults.exempt;
     	      this.limited = defaults.limited;
     	      this.type = defaults.type;
         }
 
+        @CustomType.Setter
+        public Builder exempt(@Nullable ExemptPriorityLevelConfigurationPatch exempt) {
+            this.exempt = exempt;
+            return this;
+        }
         @CustomType.Setter
         public Builder limited(@Nullable LimitedPriorityLevelConfigurationPatch limited) {
             this.limited = limited;
@@ -69,6 +89,7 @@ public final class PriorityLevelConfigurationSpecPatch {
         }
         public PriorityLevelConfigurationSpecPatch build() {
             final var o = new PriorityLevelConfigurationSpecPatch();
+            o.exempt = exempt;
             o.limited = limited;
             o.type = type;
             return o;

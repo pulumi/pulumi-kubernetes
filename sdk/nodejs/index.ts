@@ -17,6 +17,7 @@ import * as apiextensions from "./apiextensions";
 import * as apiregistration from "./apiregistration";
 import * as apps from "./apps";
 import * as auditregistration from "./auditregistration";
+import * as authentication from "./authentication";
 import * as autoscaling from "./autoscaling";
 import * as batch from "./batch";
 import * as certificates from "./certificates";
@@ -46,6 +47,7 @@ export {
     apiregistration,
     apps,
     auditregistration,
+    authentication,
     autoscaling,
     batch,
     certificates,

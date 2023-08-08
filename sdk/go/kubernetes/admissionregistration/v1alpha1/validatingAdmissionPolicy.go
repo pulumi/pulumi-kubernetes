@@ -37,6 +37,12 @@ func NewValidatingAdmissionPolicy(ctx *pulumi.Context,
 
 	args.ApiVersion = pulumi.StringPtr("admissionregistration.k8s.io/v1alpha1")
 	args.Kind = pulumi.StringPtr("ValidatingAdmissionPolicy")
+	aliases := pulumi.Aliases([]pulumi.Alias{
+		{
+			Type: pulumi.String("kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingAdmissionPolicy"),
+		},
+	})
+	opts = append(opts, aliases)
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource ValidatingAdmissionPolicy
 	err := ctx.RegisterResource("kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicy", name, args, &resource, opts...)

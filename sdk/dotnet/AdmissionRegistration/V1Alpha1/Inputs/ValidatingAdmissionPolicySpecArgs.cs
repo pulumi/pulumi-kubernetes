@@ -86,6 +86,20 @@ namespace Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1Alpha1
             set => _validations = value;
         }
 
+        [Input("variables")]
+        private InputList<Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1Alpha1.VariableArgs>? _variables;
+
+        /// <summary>
+        /// Variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except MatchConditions because MatchConditions are evaluated before the rest of the policy.
+        /// 
+        /// The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, Variables must be sorted by the order of first appearance and acyclic.
+        /// </summary>
+        public InputList<Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1Alpha1.VariableArgs> Variables
+        {
+            get => _variables ?? (_variables = new InputList<Pulumi.Kubernetes.Types.Inputs.AdmissionRegistration.V1Alpha1.VariableArgs>());
+            set => _variables = value;
+        }
+
         public ValidatingAdmissionPolicySpecArgs()
         {
         }

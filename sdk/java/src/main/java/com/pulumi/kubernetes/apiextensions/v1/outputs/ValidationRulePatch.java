@@ -12,6 +12,11 @@ import javax.annotation.Nullable;
 @CustomType
 public final class ValidationRulePatch {
     /**
+     * @return fieldPath represents the field path returned when the validation fails. It must be a relative JSON path (i.e. with array notation) scoped to the location of this x-kubernetes-validations extension in the schema and refer to an existing field. e.g. when validation checks if a specific attribute `foo` under a map `testMap`, the fieldPath could be set to `.testMap.foo` If the validation checks two lists must have unique attributes, the fieldPath could be set to either of the list: e.g. `.testList` It does not support list numeric index. It supports child operation to refer to an existing field currently. Refer to [JSONPath support in Kubernetes](https://kubernetes.io/docs/reference/kubectl/jsonpath/) for more info. Numeric index of array is not supported. For field name which contains special characters, use `[&#39;specialName&#39;]` to refer the field name. e.g. for attribute `foo.34$` appears in a list `testList`, the fieldPath could be set to `.testList[&#39;foo.34$&#39;]`
+     * 
+     */
+    private @Nullable String fieldPath;
+    /**
      * @return Message represents the message displayed when validation fails. The message is required if the Rule contains line breaks. The message must not contain line breaks. If unset, the message is &#34;failed rule: {Rule}&#34;. e.g. &#34;must be a URL with the host matching spec.host&#34;
      * 
      */
@@ -21,6 +26,11 @@ public final class ValidationRulePatch {
      * 
      */
     private @Nullable String messageExpression;
+    /**
+     * @return reason provides a machine-readable validation failure reason that is returned to the caller when a request fails this validation rule. The HTTP status code returned to the caller will match the reason of the reason of the first failed validation rule. The currently supported reasons are: &#34;FieldValueInvalid&#34;, &#34;FieldValueForbidden&#34;, &#34;FieldValueRequired&#34;, &#34;FieldValueDuplicate&#34;. If not set, default to use &#34;FieldValueInvalid&#34;. All future added reasons must be accepted by clients when reading this value and unknown reasons should be treated as FieldValueInvalid.
+     * 
+     */
+    private @Nullable String reason;
     /**
      * @return Rule represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec The Rule is scoped to the location of the x-kubernetes-validations extension in the schema. The `self` variable in the CEL expression is bound to the scoped value. Example: - Rule scoped to the root of a resource with a status subresource: {&#34;rule&#34;: &#34;self.status.actual &lt;= self.spec.maxDesired&#34;}
      * 
@@ -53,6 +63,13 @@ public final class ValidationRulePatch {
 
     private ValidationRulePatch() {}
     /**
+     * @return fieldPath represents the field path returned when the validation fails. It must be a relative JSON path (i.e. with array notation) scoped to the location of this x-kubernetes-validations extension in the schema and refer to an existing field. e.g. when validation checks if a specific attribute `foo` under a map `testMap`, the fieldPath could be set to `.testMap.foo` If the validation checks two lists must have unique attributes, the fieldPath could be set to either of the list: e.g. `.testList` It does not support list numeric index. It supports child operation to refer to an existing field currently. Refer to [JSONPath support in Kubernetes](https://kubernetes.io/docs/reference/kubectl/jsonpath/) for more info. Numeric index of array is not supported. For field name which contains special characters, use `[&#39;specialName&#39;]` to refer the field name. e.g. for attribute `foo.34$` appears in a list `testList`, the fieldPath could be set to `.testList[&#39;foo.34$&#39;]`
+     * 
+     */
+    public Optional<String> fieldPath() {
+        return Optional.ofNullable(this.fieldPath);
+    }
+    /**
      * @return Message represents the message displayed when validation fails. The message is required if the Rule contains line breaks. The message must not contain line breaks. If unset, the message is &#34;failed rule: {Rule}&#34;. e.g. &#34;must be a URL with the host matching spec.host&#34;
      * 
      */
@@ -65,6 +82,13 @@ public final class ValidationRulePatch {
      */
     public Optional<String> messageExpression() {
         return Optional.ofNullable(this.messageExpression);
+    }
+    /**
+     * @return reason provides a machine-readable validation failure reason that is returned to the caller when a request fails this validation rule. The HTTP status code returned to the caller will match the reason of the reason of the first failed validation rule. The currently supported reasons are: &#34;FieldValueInvalid&#34;, &#34;FieldValueForbidden&#34;, &#34;FieldValueRequired&#34;, &#34;FieldValueDuplicate&#34;. If not set, default to use &#34;FieldValueInvalid&#34;. All future added reasons must be accepted by clients when reading this value and unknown reasons should be treated as FieldValueInvalid.
+     * 
+     */
+    public Optional<String> reason() {
+        return Optional.ofNullable(this.reason);
     }
     /**
      * @return Rule represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec The Rule is scoped to the location of the x-kubernetes-validations extension in the schema. The `self` variable in the CEL expression is bound to the scoped value. Example: - Rule scoped to the root of a resource with a status subresource: {&#34;rule&#34;: &#34;self.status.actual &lt;= self.spec.maxDesired&#34;}
@@ -107,17 +131,26 @@ public final class ValidationRulePatch {
     }
     @CustomType.Builder
     public static final class Builder {
+        private @Nullable String fieldPath;
         private @Nullable String message;
         private @Nullable String messageExpression;
+        private @Nullable String reason;
         private @Nullable String rule;
         public Builder() {}
         public Builder(ValidationRulePatch defaults) {
     	      Objects.requireNonNull(defaults);
+    	      this.fieldPath = defaults.fieldPath;
     	      this.message = defaults.message;
     	      this.messageExpression = defaults.messageExpression;
+    	      this.reason = defaults.reason;
     	      this.rule = defaults.rule;
         }
 
+        @CustomType.Setter
+        public Builder fieldPath(@Nullable String fieldPath) {
+            this.fieldPath = fieldPath;
+            return this;
+        }
         @CustomType.Setter
         public Builder message(@Nullable String message) {
             this.message = message;
@@ -129,14 +162,21 @@ public final class ValidationRulePatch {
             return this;
         }
         @CustomType.Setter
+        public Builder reason(@Nullable String reason) {
+            this.reason = reason;
+            return this;
+        }
+        @CustomType.Setter
         public Builder rule(@Nullable String rule) {
             this.rule = rule;
             return this;
         }
         public ValidationRulePatch build() {
             final var o = new ValidationRulePatch();
+            o.fieldPath = fieldPath;
             o.message = message;
             o.messageExpression = messageExpression;
+            o.reason = reason;
             o.rule = rule;
             return o;
         }

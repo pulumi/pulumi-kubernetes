@@ -5,8 +5,10 @@ package com.pulumi.kubernetes.core.v1.outputs;
 
 import com.pulumi.core.annotations.CustomType;
 import com.pulumi.kubernetes.core.v1.outputs.ContainerStatusPatch;
+import com.pulumi.kubernetes.core.v1.outputs.HostIPPatch;
 import com.pulumi.kubernetes.core.v1.outputs.PodConditionPatch;
 import com.pulumi.kubernetes.core.v1.outputs.PodIPPatch;
+import com.pulumi.kubernetes.core.v1.outputs.PodResourceClaimStatusPatch;
 import java.lang.String;
 import java.util.List;
 import java.util.Objects;
@@ -31,10 +33,15 @@ public final class PodStatusPatch {
      */
     private @Nullable List<ContainerStatusPatch> ephemeralContainerStatuses;
     /**
-     * @return IP address of the host to which the pod is assigned. Empty if not yet scheduled.
+     * @return hostIP holds the IP address of the host to which the pod is assigned. Empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns mean that HostIP will not be updated even if there is a node is assigned to pod
      * 
      */
     private @Nullable String hostIP;
+    /**
+     * @return hostIPs holds the IP addresses allocated to the host. If this field is specified, the first entry must match the hostIP field. This list is empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns means that HostIPs will not be updated even if there is a node is assigned to this pod.
+     * 
+     */
+    private @Nullable List<HostIPPatch> hostIPs;
     /**
      * @return The list has one entry per init container in the manifest. The most recent successful init container will have ready = true, the most recently started container will have startTime set. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
      * 
@@ -60,7 +67,7 @@ public final class PodStatusPatch {
      */
     private @Nullable String phase;
     /**
-     * @return IP address allocated to the pod. Routable at least within the cluster. Empty if not yet allocated.
+     * @return podIP address allocated to the pod. Routable at least within the cluster. Empty if not yet allocated.
      * 
      */
     private @Nullable String podIP;
@@ -84,6 +91,11 @@ public final class PodStatusPatch {
      * 
      */
     private @Nullable String resize;
+    /**
+     * @return Status of resource claims.
+     * 
+     */
+    private @Nullable List<PodResourceClaimStatusPatch> resourceClaimStatuses;
     /**
      * @return RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.
      * 
@@ -113,11 +125,18 @@ public final class PodStatusPatch {
         return this.ephemeralContainerStatuses == null ? List.of() : this.ephemeralContainerStatuses;
     }
     /**
-     * @return IP address of the host to which the pod is assigned. Empty if not yet scheduled.
+     * @return hostIP holds the IP address of the host to which the pod is assigned. Empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns mean that HostIP will not be updated even if there is a node is assigned to pod
      * 
      */
     public Optional<String> hostIP() {
         return Optional.ofNullable(this.hostIP);
+    }
+    /**
+     * @return hostIPs holds the IP addresses allocated to the host. If this field is specified, the first entry must match the hostIP field. This list is empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns means that HostIPs will not be updated even if there is a node is assigned to this pod.
+     * 
+     */
+    public List<HostIPPatch> hostIPs() {
+        return this.hostIPs == null ? List.of() : this.hostIPs;
     }
     /**
      * @return The list has one entry per init container in the manifest. The most recent successful init container will have ready = true, the most recently started container will have startTime set. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
@@ -152,7 +171,7 @@ public final class PodStatusPatch {
         return Optional.ofNullable(this.phase);
     }
     /**
-     * @return IP address allocated to the pod. Routable at least within the cluster. Empty if not yet allocated.
+     * @return podIP address allocated to the pod. Routable at least within the cluster. Empty if not yet allocated.
      * 
      */
     public Optional<String> podIP() {
@@ -187,6 +206,13 @@ public final class PodStatusPatch {
         return Optional.ofNullable(this.resize);
     }
     /**
+     * @return Status of resource claims.
+     * 
+     */
+    public List<PodResourceClaimStatusPatch> resourceClaimStatuses() {
+        return this.resourceClaimStatuses == null ? List.of() : this.resourceClaimStatuses;
+    }
+    /**
      * @return RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.
      * 
      */
@@ -207,6 +233,7 @@ public final class PodStatusPatch {
         private @Nullable List<ContainerStatusPatch> containerStatuses;
         private @Nullable List<ContainerStatusPatch> ephemeralContainerStatuses;
         private @Nullable String hostIP;
+        private @Nullable List<HostIPPatch> hostIPs;
         private @Nullable List<ContainerStatusPatch> initContainerStatuses;
         private @Nullable String message;
         private @Nullable String nominatedNodeName;
@@ -216,6 +243,7 @@ public final class PodStatusPatch {
         private @Nullable String qosClass;
         private @Nullable String reason;
         private @Nullable String resize;
+        private @Nullable List<PodResourceClaimStatusPatch> resourceClaimStatuses;
         private @Nullable String startTime;
         public Builder() {}
         public Builder(PodStatusPatch defaults) {
@@ -224,6 +252,7 @@ public final class PodStatusPatch {
     	      this.containerStatuses = defaults.containerStatuses;
     	      this.ephemeralContainerStatuses = defaults.ephemeralContainerStatuses;
     	      this.hostIP = defaults.hostIP;
+    	      this.hostIPs = defaults.hostIPs;
     	      this.initContainerStatuses = defaults.initContainerStatuses;
     	      this.message = defaults.message;
     	      this.nominatedNodeName = defaults.nominatedNodeName;
@@ -233,6 +262,7 @@ public final class PodStatusPatch {
     	      this.qosClass = defaults.qosClass;
     	      this.reason = defaults.reason;
     	      this.resize = defaults.resize;
+    	      this.resourceClaimStatuses = defaults.resourceClaimStatuses;
     	      this.startTime = defaults.startTime;
         }
 
@@ -264,6 +294,14 @@ public final class PodStatusPatch {
         public Builder hostIP(@Nullable String hostIP) {
             this.hostIP = hostIP;
             return this;
+        }
+        @CustomType.Setter
+        public Builder hostIPs(@Nullable List<HostIPPatch> hostIPs) {
+            this.hostIPs = hostIPs;
+            return this;
+        }
+        public Builder hostIPs(HostIPPatch... hostIPs) {
+            return hostIPs(List.of(hostIPs));
         }
         @CustomType.Setter
         public Builder initContainerStatuses(@Nullable List<ContainerStatusPatch> initContainerStatuses) {
@@ -317,6 +355,14 @@ public final class PodStatusPatch {
             return this;
         }
         @CustomType.Setter
+        public Builder resourceClaimStatuses(@Nullable List<PodResourceClaimStatusPatch> resourceClaimStatuses) {
+            this.resourceClaimStatuses = resourceClaimStatuses;
+            return this;
+        }
+        public Builder resourceClaimStatuses(PodResourceClaimStatusPatch... resourceClaimStatuses) {
+            return resourceClaimStatuses(List.of(resourceClaimStatuses));
+        }
+        @CustomType.Setter
         public Builder startTime(@Nullable String startTime) {
             this.startTime = startTime;
             return this;
@@ -327,6 +373,7 @@ public final class PodStatusPatch {
             o.containerStatuses = containerStatuses;
             o.ephemeralContainerStatuses = ephemeralContainerStatuses;
             o.hostIP = hostIP;
+            o.hostIPs = hostIPs;
             o.initContainerStatuses = initContainerStatuses;
             o.message = message;
             o.nominatedNodeName = nominatedNodeName;
@@ -336,6 +383,7 @@ public final class PodStatusPatch {
             o.qosClass = qosClass;
             o.reason = reason;
             o.resize = resize;
+            o.resourceClaimStatuses = resourceClaimStatuses;
             o.startTime = startTime;
             return o;
         }

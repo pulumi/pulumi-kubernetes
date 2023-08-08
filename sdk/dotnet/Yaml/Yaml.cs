@@ -89,6 +89,18 @@ namespace Pulumi.Kubernetes.Yaml
                 case var t when t == typeof(AdmissionRegistration.V1Beta1.MutatingWebhookConfigurationList):
                     groupVersionKind = "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfigurationList";
                     break;
+                case var t when t == typeof(AdmissionRegistration.V1Beta1.ValidatingAdmissionPolicy):
+                    groupVersionKind = "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicy";
+                    break;
+                case var t when t == typeof(AdmissionRegistration.V1Beta1.ValidatingAdmissionPolicyBinding):
+                    groupVersionKind = "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyBinding";
+                    break;
+                case var t when t == typeof(AdmissionRegistration.V1Beta1.ValidatingAdmissionPolicyBindingList):
+                    groupVersionKind = "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyBindingList";
+                    break;
+                case var t when t == typeof(AdmissionRegistration.V1Beta1.ValidatingAdmissionPolicyList):
+                    groupVersionKind = "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyList";
+                    break;
                 case var t when t == typeof(AdmissionRegistration.V1Beta1.ValidatingWebhookConfiguration):
                     groupVersionKind = "admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfiguration";
                     break;
@@ -202,6 +214,9 @@ namespace Pulumi.Kubernetes.Yaml
                     break;
                 case var t when t == typeof(AuditRegistraion.V1Alpha1.AuditSinkList):
                     groupVersionKind = "auditregistration.k8s.io/v1alpha1/AuditSinkList";
+                    break;
+                case var t when t == typeof(Authentication.V1.SelfSubjectReview):
+                    groupVersionKind = "authentication.k8s.io/v1/SelfSubjectReview";
                     break;
                 case var t when t == typeof(Autoscaling.V1.HorizontalPodAutoscaler):
                     groupVersionKind = "autoscaling/v1/HorizontalPodAutoscaler";
@@ -986,6 +1001,8 @@ namespace Pulumi.Kubernetes.Yaml
                 || gvk == "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyBindingList"
                 || gvk == "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyList"
                 || gvk == "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfigurationList"
+                || gvk == "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyBindingList"
+                || gvk == "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyList"
                 || gvk == "admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfigurationList"
                 || gvk == "apiextensions.k8s.io/v1/CustomResourceDefinitionList"
                 || gvk == "apiextensions.k8s.io/v1beta1/CustomResourceDefinitionList"
@@ -1168,6 +1185,18 @@ namespace Pulumi.Kubernetes.Yaml
                             id.Apply(id => ($"admissionregistration.k8s.io/v1beta1/MutatingWebhookConfiguration::{id}",
                                 new AdmissionRegistration.V1Beta1.MutatingWebhookConfiguration(id, obj!, opts) as KubernetesResource))
                         };
+                    case "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicy":
+                        return new[]
+                        {
+                            id.Apply(id => ($"admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicy::{id}",
+                                new AdmissionRegistration.V1Beta1.ValidatingAdmissionPolicy(id, obj!, opts) as KubernetesResource))
+                        };
+                    case "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyBinding":
+                        return new[]
+                        {
+                            id.Apply(id => ($"admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyBinding::{id}",
+                                new AdmissionRegistration.V1Beta1.ValidatingAdmissionPolicyBinding(id, obj!, opts) as KubernetesResource))
+                        };
                     case "admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfiguration":
                         return new[]
                         {
@@ -1281,6 +1310,12 @@ namespace Pulumi.Kubernetes.Yaml
                         {
                             id.Apply(id => ($"auditregistration.k8s.io/v1alpha1/AuditSink::{id}",
                                 new AuditRegistraion.V1Alpha1.AuditSink(id, obj!, opts) as KubernetesResource))
+                        };
+                    case "authentication.k8s.io/v1/SelfSubjectReview":
+                        return new[]
+                        {
+                            id.Apply(id => ($"authentication.k8s.io/v1/SelfSubjectReview::{id}",
+                                new Authentication.V1.SelfSubjectReview(id, obj!, opts) as KubernetesResource))
                         };
                     case "autoscaling/v1/HorizontalPodAutoscaler":
                         return new[]

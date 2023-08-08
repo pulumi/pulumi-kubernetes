@@ -80,7 +80,7 @@ public final class ValidatingWebhookPatchArgs extends com.pulumi.resources.Resou
      *      - If failurePolicy=Fail, reject the request
      *      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
      * 
-     * This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+     * This is a beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
      * 
      */
     @Import(name="matchConditions")
@@ -96,7 +96,7 @@ public final class ValidatingWebhookPatchArgs extends com.pulumi.resources.Resou
      *      - If failurePolicy=Fail, reject the request
      *      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
      * 
-     * This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+     * This is a beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
      * 
      */
     public Optional<Output<List<MatchConditionPatchArgs>>> matchConditions() {
@@ -397,7 +397,7 @@ public final class ValidatingWebhookPatchArgs extends com.pulumi.resources.Resou
          *      - If failurePolicy=Fail, reject the request
          *      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
          * 
-         * This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+         * This is a beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
          * 
          * @return builder
          * 
@@ -417,7 +417,7 @@ public final class ValidatingWebhookPatchArgs extends com.pulumi.resources.Resou
          *      - If failurePolicy=Fail, reject the request
          *      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
          * 
-         * This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+         * This is a beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
          * 
          * @return builder
          * 
@@ -436,7 +436,7 @@ public final class ValidatingWebhookPatchArgs extends com.pulumi.resources.Resou
          *      - If failurePolicy=Fail, reject the request
          *      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
          * 
-         * This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+         * This is a beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
          * 
          * @return builder
          * 

@@ -89,6 +89,11 @@ public final class EphemeralContainerPatch {
      */
     private @Nullable ResourceRequirementsPatch resources;
     /**
+     * @return Restart policy for the container to manage the restart behavior of each container within a pod. This may only be set for init containers. You cannot set this field on ephemeral containers.
+     * 
+     */
+    private @Nullable String restartPolicy;
+    /**
      * @return Optional: SecurityContext defines the security options the ephemeral container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext.
      * 
      */
@@ -239,6 +244,13 @@ public final class EphemeralContainerPatch {
         return Optional.ofNullable(this.resources);
     }
     /**
+     * @return Restart policy for the container to manage the restart behavior of each container within a pod. This may only be set for init containers. You cannot set this field on ephemeral containers.
+     * 
+     */
+    public Optional<String> restartPolicy() {
+        return Optional.ofNullable(this.restartPolicy);
+    }
+    /**
      * @return Optional: SecurityContext defines the security options the ephemeral container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext.
      * 
      */
@@ -340,6 +352,7 @@ public final class EphemeralContainerPatch {
         private @Nullable ProbePatch readinessProbe;
         private @Nullable List<ContainerResizePolicyPatch> resizePolicy;
         private @Nullable ResourceRequirementsPatch resources;
+        private @Nullable String restartPolicy;
         private @Nullable SecurityContextPatch securityContext;
         private @Nullable ProbePatch startupProbe;
         private @Nullable Boolean stdin;
@@ -367,6 +380,7 @@ public final class EphemeralContainerPatch {
     	      this.readinessProbe = defaults.readinessProbe;
     	      this.resizePolicy = defaults.resizePolicy;
     	      this.resources = defaults.resources;
+    	      this.restartPolicy = defaults.restartPolicy;
     	      this.securityContext = defaults.securityContext;
     	      this.startupProbe = defaults.startupProbe;
     	      this.stdin = defaults.stdin;
@@ -464,6 +478,11 @@ public final class EphemeralContainerPatch {
             return this;
         }
         @CustomType.Setter
+        public Builder restartPolicy(@Nullable String restartPolicy) {
+            this.restartPolicy = restartPolicy;
+            return this;
+        }
+        @CustomType.Setter
         public Builder securityContext(@Nullable SecurityContextPatch securityContext) {
             this.securityContext = securityContext;
             return this;
@@ -539,6 +558,7 @@ public final class EphemeralContainerPatch {
             o.readinessProbe = readinessProbe;
             o.resizePolicy = resizePolicy;
             o.resources = resources;
+            o.restartPolicy = restartPolicy;
             o.securityContext = securityContext;
             o.startupProbe = startupProbe;
             o.stdin = stdin;

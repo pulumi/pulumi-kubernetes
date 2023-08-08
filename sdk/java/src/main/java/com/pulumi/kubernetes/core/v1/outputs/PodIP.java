@@ -12,14 +12,14 @@ import javax.annotation.Nullable;
 @CustomType
 public final class PodIP {
     /**
-     * @return ip is an IP address (IPv4 or IPv6) assigned to the pod
+     * @return IP is the IP address assigned to the pod
      * 
      */
     private @Nullable String ip;
 
     private PodIP() {}
     /**
-     * @return ip is an IP address (IPv4 or IPv6) assigned to the pod
+     * @return IP is the IP address assigned to the pod
      * 
      */
     public Optional<String> ip() {

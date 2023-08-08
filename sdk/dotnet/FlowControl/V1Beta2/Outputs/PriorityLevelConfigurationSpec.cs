@@ -17,6 +17,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.FlowControl.V1Beta2
     public sealed class PriorityLevelConfigurationSpec
     {
         /// <summary>
+        /// `exempt` specifies how requests are handled for an exempt priority level. This field MUST be empty if `type` is `"Limited"`. This field MAY be non-empty if `type` is `"Exempt"`. If empty and `type` is `"Exempt"` then the default values for `ExemptPriorityLevelConfiguration` apply.
+        /// </summary>
+        public readonly Pulumi.Kubernetes.Types.Outputs.FlowControl.V1Beta2.ExemptPriorityLevelConfiguration Exempt;
+        /// <summary>
         /// `limited` specifies how requests are handled for a Limited priority level. This field must be non-empty if and only if `type` is `"Limited"`.
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.FlowControl.V1Beta2.LimitedPriorityLevelConfiguration Limited;
@@ -27,10 +31,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.FlowControl.V1Beta2
 
         [OutputConstructor]
         private PriorityLevelConfigurationSpec(
+            Pulumi.Kubernetes.Types.Outputs.FlowControl.V1Beta2.ExemptPriorityLevelConfiguration exempt,
+
             Pulumi.Kubernetes.Types.Outputs.FlowControl.V1Beta2.LimitedPriorityLevelConfiguration limited,
 
             string type)
         {
+            Exempt = exempt;
             Limited = limited;
             Type = type;
         }

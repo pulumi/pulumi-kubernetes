@@ -20,6 +20,8 @@ if typing.TYPE_CHECKING:
     apps = __apps
     import pulumi_kubernetes.auditregistration as __auditregistration
     auditregistration = __auditregistration
+    import pulumi_kubernetes.authentication as __authentication
+    authentication = __authentication
     import pulumi_kubernetes.autoscaling as __autoscaling
     autoscaling = __autoscaling
     import pulumi_kubernetes.batch as __batch
@@ -68,6 +70,7 @@ else:
     apiregistration = _utilities.lazy_import('pulumi_kubernetes.apiregistration')
     apps = _utilities.lazy_import('pulumi_kubernetes.apps')
     auditregistration = _utilities.lazy_import('pulumi_kubernetes.auditregistration')
+    authentication = _utilities.lazy_import('pulumi_kubernetes.authentication')
     autoscaling = _utilities.lazy_import('pulumi_kubernetes.autoscaling')
     batch = _utilities.lazy_import('pulumi_kubernetes.batch')
     certificates = _utilities.lazy_import('pulumi_kubernetes.certificates')
@@ -127,6 +130,12 @@ _utilities.register(
    "kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfiguration": "MutatingWebhookConfiguration",
    "kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfigurationList": "MutatingWebhookConfigurationList",
    "kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfigurationPatch": "MutatingWebhookConfigurationPatch",
+   "kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingAdmissionPolicy": "ValidatingAdmissionPolicy",
+   "kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingAdmissionPolicyBinding": "ValidatingAdmissionPolicyBinding",
+   "kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingAdmissionPolicyBindingList": "ValidatingAdmissionPolicyBindingList",
+   "kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingAdmissionPolicyBindingPatch": "ValidatingAdmissionPolicyBindingPatch",
+   "kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingAdmissionPolicyList": "ValidatingAdmissionPolicyList",
+   "kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingAdmissionPolicyPatch": "ValidatingAdmissionPolicyPatch",
    "kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfiguration": "ValidatingWebhookConfiguration",
    "kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfigurationList": "ValidatingWebhookConfigurationList",
    "kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfigurationPatch": "ValidatingWebhookConfigurationPatch"
@@ -240,6 +249,15 @@ _utilities.register(
    "kubernetes:auditregistration.k8s.io/v1alpha1:AuditSink": "AuditSink",
    "kubernetes:auditregistration.k8s.io/v1alpha1:AuditSinkList": "AuditSinkList",
    "kubernetes:auditregistration.k8s.io/v1alpha1:AuditSinkPatch": "AuditSinkPatch"
+  }
+ },
+ {
+  "pkg": "kubernetes",
+  "mod": "authentication.k8s.io/v1",
+  "fqn": "pulumi_kubernetes.authentication.v1",
+  "classes": {
+   "kubernetes:authentication.k8s.io/v1:SelfSubjectReview": "SelfSubjectReview",
+   "kubernetes:authentication.k8s.io/v1:SelfSubjectReviewPatch": "SelfSubjectReviewPatch"
   }
  },
  {

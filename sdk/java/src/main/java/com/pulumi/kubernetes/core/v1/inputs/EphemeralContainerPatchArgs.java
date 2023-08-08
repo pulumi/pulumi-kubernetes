@@ -229,6 +229,21 @@ public final class EphemeralContainerPatchArgs extends com.pulumi.resources.Reso
     }
 
     /**
+     * Restart policy for the container to manage the restart behavior of each container within a pod. This may only be set for init containers. You cannot set this field on ephemeral containers.
+     * 
+     */
+    @Import(name="restartPolicy")
+    private @Nullable Output<String> restartPolicy;
+
+    /**
+     * @return Restart policy for the container to manage the restart behavior of each container within a pod. This may only be set for init containers. You cannot set this field on ephemeral containers.
+     * 
+     */
+    public Optional<Output<String>> restartPolicy() {
+        return Optional.ofNullable(this.restartPolicy);
+    }
+
+    /**
      * Optional: SecurityContext defines the security options the ephemeral container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext.
      * 
      */
@@ -413,6 +428,7 @@ public final class EphemeralContainerPatchArgs extends com.pulumi.resources.Reso
         this.readinessProbe = $.readinessProbe;
         this.resizePolicy = $.resizePolicy;
         this.resources = $.resources;
+        this.restartPolicy = $.restartPolicy;
         this.securityContext = $.securityContext;
         this.startupProbe = $.startupProbe;
         this.stdin = $.stdin;
@@ -775,6 +791,27 @@ public final class EphemeralContainerPatchArgs extends com.pulumi.resources.Reso
          */
         public Builder resources(ResourceRequirementsPatchArgs resources) {
             return resources(Output.of(resources));
+        }
+
+        /**
+         * @param restartPolicy Restart policy for the container to manage the restart behavior of each container within a pod. This may only be set for init containers. You cannot set this field on ephemeral containers.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder restartPolicy(@Nullable Output<String> restartPolicy) {
+            $.restartPolicy = restartPolicy;
+            return this;
+        }
+
+        /**
+         * @param restartPolicy Restart policy for the container to manage the restart behavior of each container within a pod. This may only be set for init containers. You cannot set this field on ephemeral containers.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder restartPolicy(String restartPolicy) {
+            return restartPolicy(Output.of(restartPolicy));
         }
 
         /**

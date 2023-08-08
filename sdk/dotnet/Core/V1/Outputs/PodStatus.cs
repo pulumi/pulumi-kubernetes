@@ -29,9 +29,13 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.ContainerStatus> EphemeralContainerStatuses;
         /// <summary>
-        /// IP address of the host to which the pod is assigned. Empty if not yet scheduled.
+        /// hostIP holds the IP address of the host to which the pod is assigned. Empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns mean that HostIP will not be updated even if there is a node is assigned to pod
         /// </summary>
         public readonly string HostIP;
+        /// <summary>
+        /// hostIPs holds the IP addresses allocated to the host. If this field is specified, the first entry must match the hostIP field. This list is empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns means that HostIPs will not be updated even if there is a node is assigned to this pod.
+        /// </summary>
+        public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.HostIP> HostIPs;
         /// <summary>
         /// The list has one entry per init container in the manifest. The most recent successful init container will have ready = true, the most recently started container will have startTime set. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
         /// </summary>
@@ -53,7 +57,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly string Phase;
         /// <summary>
-        /// IP address allocated to the pod. Routable at least within the cluster. Empty if not yet allocated.
+        /// podIP address allocated to the pod. Routable at least within the cluster. Empty if not yet allocated.
         /// </summary>
         public readonly string PodIP;
         /// <summary>
@@ -73,6 +77,10 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
         /// </summary>
         public readonly string Resize;
         /// <summary>
+        /// Status of resource claims.
+        /// </summary>
+        public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.PodResourceClaimStatus> ResourceClaimStatuses;
+        /// <summary>
         /// RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.
         /// </summary>
         public readonly string StartTime;
@@ -86,6 +94,8 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
             ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.ContainerStatus> ephemeralContainerStatuses,
 
             string hostIP,
+
+            ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.HostIP> hostIPs,
 
             ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.ContainerStatus> initContainerStatuses,
 
@@ -105,12 +115,15 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
 
             string resize,
 
+            ImmutableArray<Pulumi.Kubernetes.Types.Outputs.Core.V1.PodResourceClaimStatus> resourceClaimStatuses,
+
             string startTime)
         {
             Conditions = conditions;
             ContainerStatuses = containerStatuses;
             EphemeralContainerStatuses = ephemeralContainerStatuses;
             HostIP = hostIP;
+            HostIPs = hostIPs;
             InitContainerStatuses = initContainerStatuses;
             Message = message;
             NominatedNodeName = nominatedNodeName;
@@ -120,6 +133,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
             QosClass = qosClass;
             Reason = reason;
             Resize = resize;
+            ResourceClaimStatuses = resourceClaimStatuses;
             StartTime = startTime;
         }
     }

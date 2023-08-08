@@ -133,6 +133,7 @@ const (
 	RuntimeClassList                     Kind = "RuntimeClassList"
 	Secret                               Kind = "Secret"
 	SecretList                           Kind = "SecretList"
+	SelfSubjectReview                    Kind = "SelfSubjectReview"
 	Service                              Kind = "Service"
 	ServiceAccount                       Kind = "ServiceAccount"
 	ServiceAccountList                   Kind = "ServiceAccountList"
@@ -234,6 +235,7 @@ const (
 	AppsV1B1                  groupVersion = "apps/v1beta1"
 	AppsV1B2                  groupVersion = "apps/v1beta2"
 	AuditregistrationV1A1     groupVersion = "auditregistration.k8s.io/v1alpha1"
+	AuthenticationV1          groupVersion = "authentication.k8s.io/v1"
 	AutoscalingV1             groupVersion = "autoscaling/v1"
 	AutoscalingV2             groupVersion = "autoscaling/v2"
 	AutoscalingV2B1           groupVersion = "autoscaling/v2beta1"
@@ -304,6 +306,7 @@ var KnownGroupVersions = codegen.NewStringSet(
 	"apps/v1beta1",
 	"apps/v1beta2",
 	"auditregistration.k8s.io/v1alpha1",
+	"authentication.k8s.io/v1",
 	"autoscaling/v1",
 	"autoscaling/v2",
 	"autoscaling/v2beta1",
@@ -358,6 +361,8 @@ var PatchQualifiedTypes = codegen.NewStringSet(
 	"kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicyBindingPatch",
 	"kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicyPatch",
 	"kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfigurationPatch",
+	"kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingAdmissionPolicyBindingPatch",
+	"kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingAdmissionPolicyPatch",
 	"kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfigurationPatch",
 	"kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinitionPatch",
 	"kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinitionPatch",
@@ -377,6 +382,7 @@ var PatchQualifiedTypes = codegen.NewStringSet(
 	"kubernetes:apps/v1beta2:ReplicaSetPatch",
 	"kubernetes:apps/v1beta2:StatefulSetPatch",
 	"kubernetes:auditregistration.k8s.io/v1alpha1:AuditSinkPatch",
+	"kubernetes:authentication.k8s.io/v1:SelfSubjectReviewPatch",
 	"kubernetes:autoscaling/v1:HorizontalPodAutoscalerPatch",
 	"kubernetes:autoscaling/v2:HorizontalPodAutoscalerPatch",
 	"kubernetes:autoscaling/v2beta1:HorizontalPodAutoscalerPatch",
@@ -483,6 +489,8 @@ var ListQualifiedTypes = codegen.NewStringSet(
 	"kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicyBindingList",
 	"kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicyList",
 	"kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfigurationList",
+	"kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingAdmissionPolicyBindingList",
+	"kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingAdmissionPolicyList",
 	"kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfigurationList",
 	"kubernetes:apiextensions.k8s.io/v1:CustomResourceDefinitionList",
 	"kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinitionList",

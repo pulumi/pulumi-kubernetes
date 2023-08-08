@@ -317,7 +317,7 @@ type MutatingWebhook struct {
 	//      - If failurePolicy=Fail, reject the request
 	//      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
 	//
-	// This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+	// This is a beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
 	MatchConditions []MatchCondition `pulumi:"matchConditions"`
 	// matchPolicy defines how the "rules" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
 	//
@@ -407,7 +407,7 @@ type MutatingWebhookArgs struct {
 	//      - If failurePolicy=Fail, reject the request
 	//      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
 	//
-	// This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+	// This is a beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
 	MatchConditions MatchConditionArrayInput `pulumi:"matchConditions"`
 	// matchPolicy defines how the "rules" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
 	//
@@ -545,7 +545,7 @@ func (o MutatingWebhookOutput) FailurePolicy() pulumi.StringPtrOutput {
 //     - If failurePolicy=Fail, reject the request
 //     - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
 //
-// This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+// This is a beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
 func (o MutatingWebhookOutput) MatchConditions() MatchConditionArrayOutput {
 	return o.ApplyT(func(v MutatingWebhook) []MatchCondition { return v.MatchConditions }).(MatchConditionArrayOutput)
 }
@@ -960,7 +960,7 @@ type MutatingWebhookPatch struct {
 	//      - If failurePolicy=Fail, reject the request
 	//      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
 	//
-	// This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+	// This is a beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
 	MatchConditions []MatchConditionPatch `pulumi:"matchConditions"`
 	// matchPolicy defines how the "rules" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
 	//
@@ -1050,7 +1050,7 @@ type MutatingWebhookPatchArgs struct {
 	//      - If failurePolicy=Fail, reject the request
 	//      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
 	//
-	// This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+	// This is a beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
 	MatchConditions MatchConditionPatchArrayInput `pulumi:"matchConditions"`
 	// matchPolicy defines how the "rules" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
 	//
@@ -1188,7 +1188,7 @@ func (o MutatingWebhookPatchOutput) FailurePolicy() pulumi.StringPtrOutput {
 //     - If failurePolicy=Fail, reject the request
 //     - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
 //
-// This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+// This is a beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
 func (o MutatingWebhookPatchOutput) MatchConditions() MatchConditionPatchArrayOutput {
 	return o.ApplyT(func(v MutatingWebhookPatch) []MatchConditionPatch { return v.MatchConditions }).(MatchConditionPatchArrayOutput)
 }
@@ -2014,7 +2014,7 @@ type ValidatingWebhook struct {
 	//      - If failurePolicy=Fail, reject the request
 	//      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
 	//
-	// This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+	// This is a beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
 	MatchConditions []MatchCondition `pulumi:"matchConditions"`
 	// matchPolicy defines how the "rules" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
 	//
@@ -2096,7 +2096,7 @@ type ValidatingWebhookArgs struct {
 	//      - If failurePolicy=Fail, reject the request
 	//      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
 	//
-	// This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+	// This is a beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
 	MatchConditions MatchConditionArrayInput `pulumi:"matchConditions"`
 	// matchPolicy defines how the "rules" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
 	//
@@ -2226,7 +2226,7 @@ func (o ValidatingWebhookOutput) FailurePolicy() pulumi.StringPtrOutput {
 //     - If failurePolicy=Fail, reject the request
 //     - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
 //
-// This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+// This is a beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
 func (o ValidatingWebhookOutput) MatchConditions() MatchConditionArrayOutput {
 	return o.ApplyT(func(v ValidatingWebhook) []MatchCondition { return v.MatchConditions }).(MatchConditionArrayOutput)
 }
@@ -2630,7 +2630,7 @@ type ValidatingWebhookPatch struct {
 	//      - If failurePolicy=Fail, reject the request
 	//      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
 	//
-	// This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+	// This is a beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
 	MatchConditions []MatchConditionPatch `pulumi:"matchConditions"`
 	// matchPolicy defines how the "rules" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
 	//
@@ -2712,7 +2712,7 @@ type ValidatingWebhookPatchArgs struct {
 	//      - If failurePolicy=Fail, reject the request
 	//      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
 	//
-	// This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+	// This is a beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
 	MatchConditions MatchConditionPatchArrayInput `pulumi:"matchConditions"`
 	// matchPolicy defines how the "rules" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
 	//
@@ -2842,7 +2842,7 @@ func (o ValidatingWebhookPatchOutput) FailurePolicy() pulumi.StringPtrOutput {
 //     - If failurePolicy=Fail, reject the request
 //     - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
 //
-// This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+// This is a beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
 func (o ValidatingWebhookPatchOutput) MatchConditions() MatchConditionPatchArrayOutput {
 	return o.ApplyT(func(v ValidatingWebhookPatch) []MatchConditionPatch { return v.MatchConditions }).(MatchConditionPatchArrayOutput)
 }

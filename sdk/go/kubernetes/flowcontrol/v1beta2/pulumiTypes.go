@@ -14,6 +14,372 @@ import (
 
 var _ = internal.GetEnvOrDefault
 
+// ExemptPriorityLevelConfiguration describes the configurable aspects of the handling of exempt requests. In the mandatory exempt configuration object the values in the fields here can be modified by authorized users, unlike the rest of the `spec`.
+type ExemptPriorityLevelConfiguration struct {
+	// `lendablePercent` prescribes the fraction of the level's NominalCL that can be borrowed by other priority levels.  This value of this field must be between 0 and 100, inclusive, and it defaults to 0. The number of seats that other levels can borrow from this level, known as this level's LendableConcurrencyLimit (LendableCL), is defined as follows.
+	//
+	// LendableCL(i) = round( NominalCL(i) * lendablePercent(i)/100.0 )
+	LendablePercent *int `pulumi:"lendablePercent"`
+	// `nominalConcurrencyShares` (NCS) contributes to the computation of the NominalConcurrencyLimit (NominalCL) of this level. This is the number of execution seats nominally reserved for this priority level. This DOES NOT limit the dispatching from this priority level but affects the other priority levels through the borrowing mechanism. The server's concurrency limit (ServerCL) is divided among all the priority levels in proportion to their NCS values:
+	//
+	// NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[priority level k] NCS(k)
+	//
+	// Bigger numbers mean a larger nominal concurrency limit, at the expense of every other priority level. This field has a default value of zero.
+	NominalConcurrencyShares *int `pulumi:"nominalConcurrencyShares"`
+}
+
+// ExemptPriorityLevelConfigurationInput is an input type that accepts ExemptPriorityLevelConfigurationArgs and ExemptPriorityLevelConfigurationOutput values.
+// You can construct a concrete instance of `ExemptPriorityLevelConfigurationInput` via:
+//
+//	ExemptPriorityLevelConfigurationArgs{...}
+type ExemptPriorityLevelConfigurationInput interface {
+	pulumi.Input
+
+	ToExemptPriorityLevelConfigurationOutput() ExemptPriorityLevelConfigurationOutput
+	ToExemptPriorityLevelConfigurationOutputWithContext(context.Context) ExemptPriorityLevelConfigurationOutput
+}
+
+// ExemptPriorityLevelConfiguration describes the configurable aspects of the handling of exempt requests. In the mandatory exempt configuration object the values in the fields here can be modified by authorized users, unlike the rest of the `spec`.
+type ExemptPriorityLevelConfigurationArgs struct {
+	// `lendablePercent` prescribes the fraction of the level's NominalCL that can be borrowed by other priority levels.  This value of this field must be between 0 and 100, inclusive, and it defaults to 0. The number of seats that other levels can borrow from this level, known as this level's LendableConcurrencyLimit (LendableCL), is defined as follows.
+	//
+	// LendableCL(i) = round( NominalCL(i) * lendablePercent(i)/100.0 )
+	LendablePercent pulumi.IntPtrInput `pulumi:"lendablePercent"`
+	// `nominalConcurrencyShares` (NCS) contributes to the computation of the NominalConcurrencyLimit (NominalCL) of this level. This is the number of execution seats nominally reserved for this priority level. This DOES NOT limit the dispatching from this priority level but affects the other priority levels through the borrowing mechanism. The server's concurrency limit (ServerCL) is divided among all the priority levels in proportion to their NCS values:
+	//
+	// NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[priority level k] NCS(k)
+	//
+	// Bigger numbers mean a larger nominal concurrency limit, at the expense of every other priority level. This field has a default value of zero.
+	NominalConcurrencyShares pulumi.IntPtrInput `pulumi:"nominalConcurrencyShares"`
+}
+
+func (ExemptPriorityLevelConfigurationArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ExemptPriorityLevelConfiguration)(nil)).Elem()
+}
+
+func (i ExemptPriorityLevelConfigurationArgs) ToExemptPriorityLevelConfigurationOutput() ExemptPriorityLevelConfigurationOutput {
+	return i.ToExemptPriorityLevelConfigurationOutputWithContext(context.Background())
+}
+
+func (i ExemptPriorityLevelConfigurationArgs) ToExemptPriorityLevelConfigurationOutputWithContext(ctx context.Context) ExemptPriorityLevelConfigurationOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ExemptPriorityLevelConfigurationOutput)
+}
+
+func (i ExemptPriorityLevelConfigurationArgs) ToExemptPriorityLevelConfigurationPtrOutput() ExemptPriorityLevelConfigurationPtrOutput {
+	return i.ToExemptPriorityLevelConfigurationPtrOutputWithContext(context.Background())
+}
+
+func (i ExemptPriorityLevelConfigurationArgs) ToExemptPriorityLevelConfigurationPtrOutputWithContext(ctx context.Context) ExemptPriorityLevelConfigurationPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ExemptPriorityLevelConfigurationOutput).ToExemptPriorityLevelConfigurationPtrOutputWithContext(ctx)
+}
+
+// ExemptPriorityLevelConfigurationPtrInput is an input type that accepts ExemptPriorityLevelConfigurationArgs, ExemptPriorityLevelConfigurationPtr and ExemptPriorityLevelConfigurationPtrOutput values.
+// You can construct a concrete instance of `ExemptPriorityLevelConfigurationPtrInput` via:
+//
+//	        ExemptPriorityLevelConfigurationArgs{...}
+//
+//	or:
+//
+//	        nil
+type ExemptPriorityLevelConfigurationPtrInput interface {
+	pulumi.Input
+
+	ToExemptPriorityLevelConfigurationPtrOutput() ExemptPriorityLevelConfigurationPtrOutput
+	ToExemptPriorityLevelConfigurationPtrOutputWithContext(context.Context) ExemptPriorityLevelConfigurationPtrOutput
+}
+
+type exemptPriorityLevelConfigurationPtrType ExemptPriorityLevelConfigurationArgs
+
+func ExemptPriorityLevelConfigurationPtr(v *ExemptPriorityLevelConfigurationArgs) ExemptPriorityLevelConfigurationPtrInput {
+	return (*exemptPriorityLevelConfigurationPtrType)(v)
+}
+
+func (*exemptPriorityLevelConfigurationPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ExemptPriorityLevelConfiguration)(nil)).Elem()
+}
+
+func (i *exemptPriorityLevelConfigurationPtrType) ToExemptPriorityLevelConfigurationPtrOutput() ExemptPriorityLevelConfigurationPtrOutput {
+	return i.ToExemptPriorityLevelConfigurationPtrOutputWithContext(context.Background())
+}
+
+func (i *exemptPriorityLevelConfigurationPtrType) ToExemptPriorityLevelConfigurationPtrOutputWithContext(ctx context.Context) ExemptPriorityLevelConfigurationPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ExemptPriorityLevelConfigurationPtrOutput)
+}
+
+// ExemptPriorityLevelConfiguration describes the configurable aspects of the handling of exempt requests. In the mandatory exempt configuration object the values in the fields here can be modified by authorized users, unlike the rest of the `spec`.
+type ExemptPriorityLevelConfigurationOutput struct{ *pulumi.OutputState }
+
+func (ExemptPriorityLevelConfigurationOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ExemptPriorityLevelConfiguration)(nil)).Elem()
+}
+
+func (o ExemptPriorityLevelConfigurationOutput) ToExemptPriorityLevelConfigurationOutput() ExemptPriorityLevelConfigurationOutput {
+	return o
+}
+
+func (o ExemptPriorityLevelConfigurationOutput) ToExemptPriorityLevelConfigurationOutputWithContext(ctx context.Context) ExemptPriorityLevelConfigurationOutput {
+	return o
+}
+
+func (o ExemptPriorityLevelConfigurationOutput) ToExemptPriorityLevelConfigurationPtrOutput() ExemptPriorityLevelConfigurationPtrOutput {
+	return o.ToExemptPriorityLevelConfigurationPtrOutputWithContext(context.Background())
+}
+
+func (o ExemptPriorityLevelConfigurationOutput) ToExemptPriorityLevelConfigurationPtrOutputWithContext(ctx context.Context) ExemptPriorityLevelConfigurationPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ExemptPriorityLevelConfiguration) *ExemptPriorityLevelConfiguration {
+		return &v
+	}).(ExemptPriorityLevelConfigurationPtrOutput)
+}
+
+// `lendablePercent` prescribes the fraction of the level's NominalCL that can be borrowed by other priority levels.  This value of this field must be between 0 and 100, inclusive, and it defaults to 0. The number of seats that other levels can borrow from this level, known as this level's LendableConcurrencyLimit (LendableCL), is defined as follows.
+//
+// LendableCL(i) = round( NominalCL(i) * lendablePercent(i)/100.0 )
+func (o ExemptPriorityLevelConfigurationOutput) LendablePercent() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ExemptPriorityLevelConfiguration) *int { return v.LendablePercent }).(pulumi.IntPtrOutput)
+}
+
+// `nominalConcurrencyShares` (NCS) contributes to the computation of the NominalConcurrencyLimit (NominalCL) of this level. This is the number of execution seats nominally reserved for this priority level. This DOES NOT limit the dispatching from this priority level but affects the other priority levels through the borrowing mechanism. The server's concurrency limit (ServerCL) is divided among all the priority levels in proportion to their NCS values:
+//
+// NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[priority level k] NCS(k)
+//
+// Bigger numbers mean a larger nominal concurrency limit, at the expense of every other priority level. This field has a default value of zero.
+func (o ExemptPriorityLevelConfigurationOutput) NominalConcurrencyShares() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ExemptPriorityLevelConfiguration) *int { return v.NominalConcurrencyShares }).(pulumi.IntPtrOutput)
+}
+
+type ExemptPriorityLevelConfigurationPtrOutput struct{ *pulumi.OutputState }
+
+func (ExemptPriorityLevelConfigurationPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ExemptPriorityLevelConfiguration)(nil)).Elem()
+}
+
+func (o ExemptPriorityLevelConfigurationPtrOutput) ToExemptPriorityLevelConfigurationPtrOutput() ExemptPriorityLevelConfigurationPtrOutput {
+	return o
+}
+
+func (o ExemptPriorityLevelConfigurationPtrOutput) ToExemptPriorityLevelConfigurationPtrOutputWithContext(ctx context.Context) ExemptPriorityLevelConfigurationPtrOutput {
+	return o
+}
+
+func (o ExemptPriorityLevelConfigurationPtrOutput) Elem() ExemptPriorityLevelConfigurationOutput {
+	return o.ApplyT(func(v *ExemptPriorityLevelConfiguration) ExemptPriorityLevelConfiguration {
+		if v != nil {
+			return *v
+		}
+		var ret ExemptPriorityLevelConfiguration
+		return ret
+	}).(ExemptPriorityLevelConfigurationOutput)
+}
+
+// `lendablePercent` prescribes the fraction of the level's NominalCL that can be borrowed by other priority levels.  This value of this field must be between 0 and 100, inclusive, and it defaults to 0. The number of seats that other levels can borrow from this level, known as this level's LendableConcurrencyLimit (LendableCL), is defined as follows.
+//
+// LendableCL(i) = round( NominalCL(i) * lendablePercent(i)/100.0 )
+func (o ExemptPriorityLevelConfigurationPtrOutput) LendablePercent() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ExemptPriorityLevelConfiguration) *int {
+		if v == nil {
+			return nil
+		}
+		return v.LendablePercent
+	}).(pulumi.IntPtrOutput)
+}
+
+// `nominalConcurrencyShares` (NCS) contributes to the computation of the NominalConcurrencyLimit (NominalCL) of this level. This is the number of execution seats nominally reserved for this priority level. This DOES NOT limit the dispatching from this priority level but affects the other priority levels through the borrowing mechanism. The server's concurrency limit (ServerCL) is divided among all the priority levels in proportion to their NCS values:
+//
+// NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[priority level k] NCS(k)
+//
+// Bigger numbers mean a larger nominal concurrency limit, at the expense of every other priority level. This field has a default value of zero.
+func (o ExemptPriorityLevelConfigurationPtrOutput) NominalConcurrencyShares() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ExemptPriorityLevelConfiguration) *int {
+		if v == nil {
+			return nil
+		}
+		return v.NominalConcurrencyShares
+	}).(pulumi.IntPtrOutput)
+}
+
+// ExemptPriorityLevelConfiguration describes the configurable aspects of the handling of exempt requests. In the mandatory exempt configuration object the values in the fields here can be modified by authorized users, unlike the rest of the `spec`.
+type ExemptPriorityLevelConfigurationPatch struct {
+	// `lendablePercent` prescribes the fraction of the level's NominalCL that can be borrowed by other priority levels.  This value of this field must be between 0 and 100, inclusive, and it defaults to 0. The number of seats that other levels can borrow from this level, known as this level's LendableConcurrencyLimit (LendableCL), is defined as follows.
+	//
+	// LendableCL(i) = round( NominalCL(i) * lendablePercent(i)/100.0 )
+	LendablePercent *int `pulumi:"lendablePercent"`
+	// `nominalConcurrencyShares` (NCS) contributes to the computation of the NominalConcurrencyLimit (NominalCL) of this level. This is the number of execution seats nominally reserved for this priority level. This DOES NOT limit the dispatching from this priority level but affects the other priority levels through the borrowing mechanism. The server's concurrency limit (ServerCL) is divided among all the priority levels in proportion to their NCS values:
+	//
+	// NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[priority level k] NCS(k)
+	//
+	// Bigger numbers mean a larger nominal concurrency limit, at the expense of every other priority level. This field has a default value of zero.
+	NominalConcurrencyShares *int `pulumi:"nominalConcurrencyShares"`
+}
+
+// ExemptPriorityLevelConfigurationPatchInput is an input type that accepts ExemptPriorityLevelConfigurationPatchArgs and ExemptPriorityLevelConfigurationPatchOutput values.
+// You can construct a concrete instance of `ExemptPriorityLevelConfigurationPatchInput` via:
+//
+//	ExemptPriorityLevelConfigurationPatchArgs{...}
+type ExemptPriorityLevelConfigurationPatchInput interface {
+	pulumi.Input
+
+	ToExemptPriorityLevelConfigurationPatchOutput() ExemptPriorityLevelConfigurationPatchOutput
+	ToExemptPriorityLevelConfigurationPatchOutputWithContext(context.Context) ExemptPriorityLevelConfigurationPatchOutput
+}
+
+// ExemptPriorityLevelConfiguration describes the configurable aspects of the handling of exempt requests. In the mandatory exempt configuration object the values in the fields here can be modified by authorized users, unlike the rest of the `spec`.
+type ExemptPriorityLevelConfigurationPatchArgs struct {
+	// `lendablePercent` prescribes the fraction of the level's NominalCL that can be borrowed by other priority levels.  This value of this field must be between 0 and 100, inclusive, and it defaults to 0. The number of seats that other levels can borrow from this level, known as this level's LendableConcurrencyLimit (LendableCL), is defined as follows.
+	//
+	// LendableCL(i) = round( NominalCL(i) * lendablePercent(i)/100.0 )
+	LendablePercent pulumi.IntPtrInput `pulumi:"lendablePercent"`
+	// `nominalConcurrencyShares` (NCS) contributes to the computation of the NominalConcurrencyLimit (NominalCL) of this level. This is the number of execution seats nominally reserved for this priority level. This DOES NOT limit the dispatching from this priority level but affects the other priority levels through the borrowing mechanism. The server's concurrency limit (ServerCL) is divided among all the priority levels in proportion to their NCS values:
+	//
+	// NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[priority level k] NCS(k)
+	//
+	// Bigger numbers mean a larger nominal concurrency limit, at the expense of every other priority level. This field has a default value of zero.
+	NominalConcurrencyShares pulumi.IntPtrInput `pulumi:"nominalConcurrencyShares"`
+}
+
+func (ExemptPriorityLevelConfigurationPatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ExemptPriorityLevelConfigurationPatch)(nil)).Elem()
+}
+
+func (i ExemptPriorityLevelConfigurationPatchArgs) ToExemptPriorityLevelConfigurationPatchOutput() ExemptPriorityLevelConfigurationPatchOutput {
+	return i.ToExemptPriorityLevelConfigurationPatchOutputWithContext(context.Background())
+}
+
+func (i ExemptPriorityLevelConfigurationPatchArgs) ToExemptPriorityLevelConfigurationPatchOutputWithContext(ctx context.Context) ExemptPriorityLevelConfigurationPatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ExemptPriorityLevelConfigurationPatchOutput)
+}
+
+func (i ExemptPriorityLevelConfigurationPatchArgs) ToExemptPriorityLevelConfigurationPatchPtrOutput() ExemptPriorityLevelConfigurationPatchPtrOutput {
+	return i.ToExemptPriorityLevelConfigurationPatchPtrOutputWithContext(context.Background())
+}
+
+func (i ExemptPriorityLevelConfigurationPatchArgs) ToExemptPriorityLevelConfigurationPatchPtrOutputWithContext(ctx context.Context) ExemptPriorityLevelConfigurationPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ExemptPriorityLevelConfigurationPatchOutput).ToExemptPriorityLevelConfigurationPatchPtrOutputWithContext(ctx)
+}
+
+// ExemptPriorityLevelConfigurationPatchPtrInput is an input type that accepts ExemptPriorityLevelConfigurationPatchArgs, ExemptPriorityLevelConfigurationPatchPtr and ExemptPriorityLevelConfigurationPatchPtrOutput values.
+// You can construct a concrete instance of `ExemptPriorityLevelConfigurationPatchPtrInput` via:
+//
+//	        ExemptPriorityLevelConfigurationPatchArgs{...}
+//
+//	or:
+//
+//	        nil
+type ExemptPriorityLevelConfigurationPatchPtrInput interface {
+	pulumi.Input
+
+	ToExemptPriorityLevelConfigurationPatchPtrOutput() ExemptPriorityLevelConfigurationPatchPtrOutput
+	ToExemptPriorityLevelConfigurationPatchPtrOutputWithContext(context.Context) ExemptPriorityLevelConfigurationPatchPtrOutput
+}
+
+type exemptPriorityLevelConfigurationPatchPtrType ExemptPriorityLevelConfigurationPatchArgs
+
+func ExemptPriorityLevelConfigurationPatchPtr(v *ExemptPriorityLevelConfigurationPatchArgs) ExemptPriorityLevelConfigurationPatchPtrInput {
+	return (*exemptPriorityLevelConfigurationPatchPtrType)(v)
+}
+
+func (*exemptPriorityLevelConfigurationPatchPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ExemptPriorityLevelConfigurationPatch)(nil)).Elem()
+}
+
+func (i *exemptPriorityLevelConfigurationPatchPtrType) ToExemptPriorityLevelConfigurationPatchPtrOutput() ExemptPriorityLevelConfigurationPatchPtrOutput {
+	return i.ToExemptPriorityLevelConfigurationPatchPtrOutputWithContext(context.Background())
+}
+
+func (i *exemptPriorityLevelConfigurationPatchPtrType) ToExemptPriorityLevelConfigurationPatchPtrOutputWithContext(ctx context.Context) ExemptPriorityLevelConfigurationPatchPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ExemptPriorityLevelConfigurationPatchPtrOutput)
+}
+
+// ExemptPriorityLevelConfiguration describes the configurable aspects of the handling of exempt requests. In the mandatory exempt configuration object the values in the fields here can be modified by authorized users, unlike the rest of the `spec`.
+type ExemptPriorityLevelConfigurationPatchOutput struct{ *pulumi.OutputState }
+
+func (ExemptPriorityLevelConfigurationPatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ExemptPriorityLevelConfigurationPatch)(nil)).Elem()
+}
+
+func (o ExemptPriorityLevelConfigurationPatchOutput) ToExemptPriorityLevelConfigurationPatchOutput() ExemptPriorityLevelConfigurationPatchOutput {
+	return o
+}
+
+func (o ExemptPriorityLevelConfigurationPatchOutput) ToExemptPriorityLevelConfigurationPatchOutputWithContext(ctx context.Context) ExemptPriorityLevelConfigurationPatchOutput {
+	return o
+}
+
+func (o ExemptPriorityLevelConfigurationPatchOutput) ToExemptPriorityLevelConfigurationPatchPtrOutput() ExemptPriorityLevelConfigurationPatchPtrOutput {
+	return o.ToExemptPriorityLevelConfigurationPatchPtrOutputWithContext(context.Background())
+}
+
+func (o ExemptPriorityLevelConfigurationPatchOutput) ToExemptPriorityLevelConfigurationPatchPtrOutputWithContext(ctx context.Context) ExemptPriorityLevelConfigurationPatchPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ExemptPriorityLevelConfigurationPatch) *ExemptPriorityLevelConfigurationPatch {
+		return &v
+	}).(ExemptPriorityLevelConfigurationPatchPtrOutput)
+}
+
+// `lendablePercent` prescribes the fraction of the level's NominalCL that can be borrowed by other priority levels.  This value of this field must be between 0 and 100, inclusive, and it defaults to 0. The number of seats that other levels can borrow from this level, known as this level's LendableConcurrencyLimit (LendableCL), is defined as follows.
+//
+// LendableCL(i) = round( NominalCL(i) * lendablePercent(i)/100.0 )
+func (o ExemptPriorityLevelConfigurationPatchOutput) LendablePercent() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ExemptPriorityLevelConfigurationPatch) *int { return v.LendablePercent }).(pulumi.IntPtrOutput)
+}
+
+// `nominalConcurrencyShares` (NCS) contributes to the computation of the NominalConcurrencyLimit (NominalCL) of this level. This is the number of execution seats nominally reserved for this priority level. This DOES NOT limit the dispatching from this priority level but affects the other priority levels through the borrowing mechanism. The server's concurrency limit (ServerCL) is divided among all the priority levels in proportion to their NCS values:
+//
+// NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[priority level k] NCS(k)
+//
+// Bigger numbers mean a larger nominal concurrency limit, at the expense of every other priority level. This field has a default value of zero.
+func (o ExemptPriorityLevelConfigurationPatchOutput) NominalConcurrencyShares() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v ExemptPriorityLevelConfigurationPatch) *int { return v.NominalConcurrencyShares }).(pulumi.IntPtrOutput)
+}
+
+type ExemptPriorityLevelConfigurationPatchPtrOutput struct{ *pulumi.OutputState }
+
+func (ExemptPriorityLevelConfigurationPatchPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ExemptPriorityLevelConfigurationPatch)(nil)).Elem()
+}
+
+func (o ExemptPriorityLevelConfigurationPatchPtrOutput) ToExemptPriorityLevelConfigurationPatchPtrOutput() ExemptPriorityLevelConfigurationPatchPtrOutput {
+	return o
+}
+
+func (o ExemptPriorityLevelConfigurationPatchPtrOutput) ToExemptPriorityLevelConfigurationPatchPtrOutputWithContext(ctx context.Context) ExemptPriorityLevelConfigurationPatchPtrOutput {
+	return o
+}
+
+func (o ExemptPriorityLevelConfigurationPatchPtrOutput) Elem() ExemptPriorityLevelConfigurationPatchOutput {
+	return o.ApplyT(func(v *ExemptPriorityLevelConfigurationPatch) ExemptPriorityLevelConfigurationPatch {
+		if v != nil {
+			return *v
+		}
+		var ret ExemptPriorityLevelConfigurationPatch
+		return ret
+	}).(ExemptPriorityLevelConfigurationPatchOutput)
+}
+
+// `lendablePercent` prescribes the fraction of the level's NominalCL that can be borrowed by other priority levels.  This value of this field must be between 0 and 100, inclusive, and it defaults to 0. The number of seats that other levels can borrow from this level, known as this level's LendableConcurrencyLimit (LendableCL), is defined as follows.
+//
+// LendableCL(i) = round( NominalCL(i) * lendablePercent(i)/100.0 )
+func (o ExemptPriorityLevelConfigurationPatchPtrOutput) LendablePercent() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ExemptPriorityLevelConfigurationPatch) *int {
+		if v == nil {
+			return nil
+		}
+		return v.LendablePercent
+	}).(pulumi.IntPtrOutput)
+}
+
+// `nominalConcurrencyShares` (NCS) contributes to the computation of the NominalConcurrencyLimit (NominalCL) of this level. This is the number of execution seats nominally reserved for this priority level. This DOES NOT limit the dispatching from this priority level but affects the other priority levels through the borrowing mechanism. The server's concurrency limit (ServerCL) is divided among all the priority levels in proportion to their NCS values:
+//
+// NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[priority level k] NCS(k)
+//
+// Bigger numbers mean a larger nominal concurrency limit, at the expense of every other priority level. This field has a default value of zero.
+func (o ExemptPriorityLevelConfigurationPatchPtrOutput) NominalConcurrencyShares() pulumi.IntPtrOutput {
+	return o.ApplyT(func(v *ExemptPriorityLevelConfigurationPatch) *int {
+		if v == nil {
+			return nil
+		}
+		return v.NominalConcurrencyShares
+	}).(pulumi.IntPtrOutput)
+}
+
 // FlowDistinguisherMethod specifies the method of a flow distinguisher.
 type FlowDistinguisherMethod struct {
 	// `type` is the type of flow distinguisher method The supported types are "ByUser" and "ByNamespace". Required.
@@ -3988,6 +4354,8 @@ func (o PriorityLevelConfigurationReferencePatchPtrOutput) Name() pulumi.StringP
 
 // PriorityLevelConfigurationSpec specifies the configuration of a priority level.
 type PriorityLevelConfigurationSpec struct {
+	// `exempt` specifies how requests are handled for an exempt priority level. This field MUST be empty if `type` is `"Limited"`. This field MAY be non-empty if `type` is `"Exempt"`. If empty and `type` is `"Exempt"` then the default values for `ExemptPriorityLevelConfiguration` apply.
+	Exempt *ExemptPriorityLevelConfiguration `pulumi:"exempt"`
 	// `limited` specifies how requests are handled for a Limited priority level. This field must be non-empty if and only if `type` is `"Limited"`.
 	Limited *LimitedPriorityLevelConfiguration `pulumi:"limited"`
 	// `type` indicates whether this priority level is subject to limitation on request execution.  A value of `"Exempt"` means that requests of this priority level are not subject to a limit (and thus are never queued) and do not detract from the capacity made available to other priority levels.  A value of `"Limited"` means that (a) requests of this priority level _are_ subject to limits and (b) some of the server's limited capacity is made available exclusively to this priority level. Required.
@@ -4007,6 +4375,8 @@ type PriorityLevelConfigurationSpecInput interface {
 
 // PriorityLevelConfigurationSpec specifies the configuration of a priority level.
 type PriorityLevelConfigurationSpecArgs struct {
+	// `exempt` specifies how requests are handled for an exempt priority level. This field MUST be empty if `type` is `"Limited"`. This field MAY be non-empty if `type` is `"Exempt"`. If empty and `type` is `"Exempt"` then the default values for `ExemptPriorityLevelConfiguration` apply.
+	Exempt ExemptPriorityLevelConfigurationPtrInput `pulumi:"exempt"`
 	// `limited` specifies how requests are handled for a Limited priority level. This field must be non-empty if and only if `type` is `"Limited"`.
 	Limited LimitedPriorityLevelConfigurationPtrInput `pulumi:"limited"`
 	// `type` indicates whether this priority level is subject to limitation on request execution.  A value of `"Exempt"` means that requests of this priority level are not subject to a limit (and thus are never queued) and do not detract from the capacity made available to other priority levels.  A value of `"Limited"` means that (a) requests of this priority level _are_ subject to limits and (b) some of the server's limited capacity is made available exclusively to this priority level. Required.
@@ -4091,6 +4461,11 @@ func (o PriorityLevelConfigurationSpecOutput) ToPriorityLevelConfigurationSpecPt
 	}).(PriorityLevelConfigurationSpecPtrOutput)
 }
 
+// `exempt` specifies how requests are handled for an exempt priority level. This field MUST be empty if `type` is `"Limited"`. This field MAY be non-empty if `type` is `"Exempt"`. If empty and `type` is `"Exempt"` then the default values for `ExemptPriorityLevelConfiguration` apply.
+func (o PriorityLevelConfigurationSpecOutput) Exempt() ExemptPriorityLevelConfigurationPtrOutput {
+	return o.ApplyT(func(v PriorityLevelConfigurationSpec) *ExemptPriorityLevelConfiguration { return v.Exempt }).(ExemptPriorityLevelConfigurationPtrOutput)
+}
+
 // `limited` specifies how requests are handled for a Limited priority level. This field must be non-empty if and only if `type` is `"Limited"`.
 func (o PriorityLevelConfigurationSpecOutput) Limited() LimitedPriorityLevelConfigurationPtrOutput {
 	return o.ApplyT(func(v PriorityLevelConfigurationSpec) *LimitedPriorityLevelConfiguration { return v.Limited }).(LimitedPriorityLevelConfigurationPtrOutput)
@@ -4125,6 +4500,16 @@ func (o PriorityLevelConfigurationSpecPtrOutput) Elem() PriorityLevelConfigurati
 	}).(PriorityLevelConfigurationSpecOutput)
 }
 
+// `exempt` specifies how requests are handled for an exempt priority level. This field MUST be empty if `type` is `"Limited"`. This field MAY be non-empty if `type` is `"Exempt"`. If empty and `type` is `"Exempt"` then the default values for `ExemptPriorityLevelConfiguration` apply.
+func (o PriorityLevelConfigurationSpecPtrOutput) Exempt() ExemptPriorityLevelConfigurationPtrOutput {
+	return o.ApplyT(func(v *PriorityLevelConfigurationSpec) *ExemptPriorityLevelConfiguration {
+		if v == nil {
+			return nil
+		}
+		return v.Exempt
+	}).(ExemptPriorityLevelConfigurationPtrOutput)
+}
+
 // `limited` specifies how requests are handled for a Limited priority level. This field must be non-empty if and only if `type` is `"Limited"`.
 func (o PriorityLevelConfigurationSpecPtrOutput) Limited() LimitedPriorityLevelConfigurationPtrOutput {
 	return o.ApplyT(func(v *PriorityLevelConfigurationSpec) *LimitedPriorityLevelConfiguration {
@@ -4147,6 +4532,8 @@ func (o PriorityLevelConfigurationSpecPtrOutput) Type() pulumi.StringPtrOutput {
 
 // PriorityLevelConfigurationSpec specifies the configuration of a priority level.
 type PriorityLevelConfigurationSpecPatch struct {
+	// `exempt` specifies how requests are handled for an exempt priority level. This field MUST be empty if `type` is `"Limited"`. This field MAY be non-empty if `type` is `"Exempt"`. If empty and `type` is `"Exempt"` then the default values for `ExemptPriorityLevelConfiguration` apply.
+	Exempt *ExemptPriorityLevelConfigurationPatch `pulumi:"exempt"`
 	// `limited` specifies how requests are handled for a Limited priority level. This field must be non-empty if and only if `type` is `"Limited"`.
 	Limited *LimitedPriorityLevelConfigurationPatch `pulumi:"limited"`
 	// `type` indicates whether this priority level is subject to limitation on request execution.  A value of `"Exempt"` means that requests of this priority level are not subject to a limit (and thus are never queued) and do not detract from the capacity made available to other priority levels.  A value of `"Limited"` means that (a) requests of this priority level _are_ subject to limits and (b) some of the server's limited capacity is made available exclusively to this priority level. Required.
@@ -4166,6 +4553,8 @@ type PriorityLevelConfigurationSpecPatchInput interface {
 
 // PriorityLevelConfigurationSpec specifies the configuration of a priority level.
 type PriorityLevelConfigurationSpecPatchArgs struct {
+	// `exempt` specifies how requests are handled for an exempt priority level. This field MUST be empty if `type` is `"Limited"`. This field MAY be non-empty if `type` is `"Exempt"`. If empty and `type` is `"Exempt"` then the default values for `ExemptPriorityLevelConfiguration` apply.
+	Exempt ExemptPriorityLevelConfigurationPatchPtrInput `pulumi:"exempt"`
 	// `limited` specifies how requests are handled for a Limited priority level. This field must be non-empty if and only if `type` is `"Limited"`.
 	Limited LimitedPriorityLevelConfigurationPatchPtrInput `pulumi:"limited"`
 	// `type` indicates whether this priority level is subject to limitation on request execution.  A value of `"Exempt"` means that requests of this priority level are not subject to a limit (and thus are never queued) and do not detract from the capacity made available to other priority levels.  A value of `"Limited"` means that (a) requests of this priority level _are_ subject to limits and (b) some of the server's limited capacity is made available exclusively to this priority level. Required.
@@ -4250,6 +4639,11 @@ func (o PriorityLevelConfigurationSpecPatchOutput) ToPriorityLevelConfigurationS
 	}).(PriorityLevelConfigurationSpecPatchPtrOutput)
 }
 
+// `exempt` specifies how requests are handled for an exempt priority level. This field MUST be empty if `type` is `"Limited"`. This field MAY be non-empty if `type` is `"Exempt"`. If empty and `type` is `"Exempt"` then the default values for `ExemptPriorityLevelConfiguration` apply.
+func (o PriorityLevelConfigurationSpecPatchOutput) Exempt() ExemptPriorityLevelConfigurationPatchPtrOutput {
+	return o.ApplyT(func(v PriorityLevelConfigurationSpecPatch) *ExemptPriorityLevelConfigurationPatch { return v.Exempt }).(ExemptPriorityLevelConfigurationPatchPtrOutput)
+}
+
 // `limited` specifies how requests are handled for a Limited priority level. This field must be non-empty if and only if `type` is `"Limited"`.
 func (o PriorityLevelConfigurationSpecPatchOutput) Limited() LimitedPriorityLevelConfigurationPatchPtrOutput {
 	return o.ApplyT(func(v PriorityLevelConfigurationSpecPatch) *LimitedPriorityLevelConfigurationPatch { return v.Limited }).(LimitedPriorityLevelConfigurationPatchPtrOutput)
@@ -4282,6 +4676,16 @@ func (o PriorityLevelConfigurationSpecPatchPtrOutput) Elem() PriorityLevelConfig
 		var ret PriorityLevelConfigurationSpecPatch
 		return ret
 	}).(PriorityLevelConfigurationSpecPatchOutput)
+}
+
+// `exempt` specifies how requests are handled for an exempt priority level. This field MUST be empty if `type` is `"Limited"`. This field MAY be non-empty if `type` is `"Exempt"`. If empty and `type` is `"Exempt"` then the default values for `ExemptPriorityLevelConfiguration` apply.
+func (o PriorityLevelConfigurationSpecPatchPtrOutput) Exempt() ExemptPriorityLevelConfigurationPatchPtrOutput {
+	return o.ApplyT(func(v *PriorityLevelConfigurationSpecPatch) *ExemptPriorityLevelConfigurationPatch {
+		if v == nil {
+			return nil
+		}
+		return v.Exempt
+	}).(ExemptPriorityLevelConfigurationPatchPtrOutput)
 }
 
 // `limited` specifies how requests are handled for a Limited priority level. This field must be non-empty if and only if `type` is `"Limited"`.
@@ -6067,6 +6471,10 @@ func (o UserSubjectPatchPtrOutput) Name() pulumi.StringPtrOutput {
 }
 
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*ExemptPriorityLevelConfigurationInput)(nil)).Elem(), ExemptPriorityLevelConfigurationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ExemptPriorityLevelConfigurationPtrInput)(nil)).Elem(), ExemptPriorityLevelConfigurationArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ExemptPriorityLevelConfigurationPatchInput)(nil)).Elem(), ExemptPriorityLevelConfigurationPatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ExemptPriorityLevelConfigurationPatchPtrInput)(nil)).Elem(), ExemptPriorityLevelConfigurationPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FlowDistinguisherMethodInput)(nil)).Elem(), FlowDistinguisherMethodArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FlowDistinguisherMethodPtrInput)(nil)).Elem(), FlowDistinguisherMethodArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*FlowDistinguisherMethodPatchInput)(nil)).Elem(), FlowDistinguisherMethodPatchArgs{})
@@ -6147,6 +6555,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*UserSubjectPtrInput)(nil)).Elem(), UserSubjectArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*UserSubjectPatchInput)(nil)).Elem(), UserSubjectPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*UserSubjectPatchPtrInput)(nil)).Elem(), UserSubjectPatchArgs{})
+	pulumi.RegisterOutputType(ExemptPriorityLevelConfigurationOutput{})
+	pulumi.RegisterOutputType(ExemptPriorityLevelConfigurationPtrOutput{})
+	pulumi.RegisterOutputType(ExemptPriorityLevelConfigurationPatchOutput{})
+	pulumi.RegisterOutputType(ExemptPriorityLevelConfigurationPatchPtrOutput{})
 	pulumi.RegisterOutputType(FlowDistinguisherMethodOutput{})
 	pulumi.RegisterOutputType(FlowDistinguisherMethodPtrOutput{})
 	pulumi.RegisterOutputType(FlowDistinguisherMethodPatchOutput{})

@@ -9,6 +9,7 @@ import com.pulumi.kubernetes.admissionregistration.v1alpha1.outputs.MatchConditi
 import com.pulumi.kubernetes.admissionregistration.v1alpha1.outputs.MatchResources;
 import com.pulumi.kubernetes.admissionregistration.v1alpha1.outputs.ParamKind;
 import com.pulumi.kubernetes.admissionregistration.v1alpha1.outputs.Validation;
+import com.pulumi.kubernetes.admissionregistration.v1alpha1.outputs.Variable;
 import java.lang.String;
 import java.util.List;
 import java.util.Objects;
@@ -64,6 +65,13 @@ public final class ValidatingAdmissionPolicySpec {
      * 
      */
     private List<Validation> validations;
+    /**
+     * @return Variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except MatchConditions because MatchConditions are evaluated before the rest of the policy.
+     * 
+     * The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, Variables must be sorted by the order of first appearance and acyclic.
+     * 
+     */
+    private @Nullable List<Variable> variables;
 
     private ValidatingAdmissionPolicySpec() {}
     /**
@@ -125,6 +133,15 @@ public final class ValidatingAdmissionPolicySpec {
     public List<Validation> validations() {
         return this.validations;
     }
+    /**
+     * @return Variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except MatchConditions because MatchConditions are evaluated before the rest of the policy.
+     * 
+     * The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, Variables must be sorted by the order of first appearance and acyclic.
+     * 
+     */
+    public List<Variable> variables() {
+        return this.variables == null ? List.of() : this.variables;
+    }
 
     public static Builder builder() {
         return new Builder();
@@ -141,6 +158,7 @@ public final class ValidatingAdmissionPolicySpec {
         private @Nullable MatchResources matchConstraints;
         private @Nullable ParamKind paramKind;
         private List<Validation> validations;
+        private @Nullable List<Variable> variables;
         public Builder() {}
         public Builder(ValidatingAdmissionPolicySpec defaults) {
     	      Objects.requireNonNull(defaults);
@@ -150,6 +168,7 @@ public final class ValidatingAdmissionPolicySpec {
     	      this.matchConstraints = defaults.matchConstraints;
     	      this.paramKind = defaults.paramKind;
     	      this.validations = defaults.validations;
+    	      this.variables = defaults.variables;
         }
 
         @CustomType.Setter
@@ -191,6 +210,14 @@ public final class ValidatingAdmissionPolicySpec {
         public Builder validations(Validation... validations) {
             return validations(List.of(validations));
         }
+        @CustomType.Setter
+        public Builder variables(@Nullable List<Variable> variables) {
+            this.variables = variables;
+            return this;
+        }
+        public Builder variables(Variable... variables) {
+            return variables(List.of(variables));
+        }
         public ValidatingAdmissionPolicySpec build() {
             final var o = new ValidatingAdmissionPolicySpec();
             o.auditAnnotations = auditAnnotations;
@@ -199,6 +226,7 @@ public final class ValidatingAdmissionPolicySpec {
             o.matchConstraints = matchConstraints;
             o.paramKind = paramKind;
             o.validations = validations;
+            o.variables = variables;
             return o;
         }
     }

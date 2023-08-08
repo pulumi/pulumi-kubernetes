@@ -52,6 +52,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Batch.V1
         public Input<int>? Failed { get; set; }
 
         /// <summary>
+        /// FailedIndexes holds the failed indexes when backoffLimitPerIndex=true. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7". This field is alpha-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (disabled by default).
+        /// </summary>
+        [Input("failedIndexes")]
+        public Input<string>? FailedIndexes { get; set; }
+
+        /// <summary>
         /// The number of pods which have a Ready condition.
         /// 
         /// This field is beta-level. The job controller populates the field when the feature gate JobReadyPods is enabled (enabled by default).
@@ -70,6 +76,14 @@ namespace Pulumi.Kubernetes.Types.Inputs.Batch.V1
         /// </summary>
         [Input("succeeded")]
         public Input<int>? Succeeded { get; set; }
+
+        /// <summary>
+        /// The number of pods which are terminating (in phase Pending or Running and have a deletionTimestamp).
+        /// 
+        /// This field is alpha-level. The job controller populates the field when the feature gate JobPodReplacementPolicy is enabled (disabled by default).
+        /// </summary>
+        [Input("terminating")]
+        public Input<int>? Terminating { get; set; }
 
         /// <summary>
         /// uncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.

@@ -24,6 +24,7 @@ import * as apiextensions from "../apiextensions";
 import * as apiregistration from "../apiregistration";
 import * as apps from "../apps";
 import * as auditregistration from "../auditregistration";
+import * as authentication from "../authentication";
 import * as autoscaling from "../autoscaling";
 import * as batch from "../batch";
 import * as certificates from "../certificates";
@@ -82,6 +83,14 @@ export abstract class CollectionComponentResource extends pulumi.ComponentResour
     public getResource(groupVersionKind: "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfiguration", namespace: string, name: string): pulumi.Output<admissionregistration.v1beta1.MutatingWebhookConfiguration>;
     public getResource(groupVersionKind: "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfigurationList", name: string): pulumi.Output<admissionregistration.v1beta1.MutatingWebhookConfigurationList>;
     public getResource(groupVersionKind: "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfigurationList", namespace: string, name: string): pulumi.Output<admissionregistration.v1beta1.MutatingWebhookConfigurationList>;
+    public getResource(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicy", name: string): pulumi.Output<admissionregistration.v1beta1.ValidatingAdmissionPolicy>;
+    public getResource(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicy", namespace: string, name: string): pulumi.Output<admissionregistration.v1beta1.ValidatingAdmissionPolicy>;
+    public getResource(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyBinding", name: string): pulumi.Output<admissionregistration.v1beta1.ValidatingAdmissionPolicyBinding>;
+    public getResource(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyBinding", namespace: string, name: string): pulumi.Output<admissionregistration.v1beta1.ValidatingAdmissionPolicyBinding>;
+    public getResource(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyBindingList", name: string): pulumi.Output<admissionregistration.v1beta1.ValidatingAdmissionPolicyBindingList>;
+    public getResource(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyBindingList", namespace: string, name: string): pulumi.Output<admissionregistration.v1beta1.ValidatingAdmissionPolicyBindingList>;
+    public getResource(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyList", name: string): pulumi.Output<admissionregistration.v1beta1.ValidatingAdmissionPolicyList>;
+    public getResource(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyList", namespace: string, name: string): pulumi.Output<admissionregistration.v1beta1.ValidatingAdmissionPolicyList>;
     public getResource(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfiguration", name: string): pulumi.Output<admissionregistration.v1beta1.ValidatingWebhookConfiguration>;
     public getResource(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfiguration", namespace: string, name: string): pulumi.Output<admissionregistration.v1beta1.ValidatingWebhookConfiguration>;
     public getResource(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfigurationList", name: string): pulumi.Output<admissionregistration.v1beta1.ValidatingWebhookConfigurationList>;
@@ -158,6 +167,8 @@ export abstract class CollectionComponentResource extends pulumi.ComponentResour
     public getResource(groupVersionKind: "auditregistration.k8s.io/v1alpha1/AuditSink", namespace: string, name: string): pulumi.Output<auditregistration.v1alpha1.AuditSink>;
     public getResource(groupVersionKind: "auditregistration.k8s.io/v1alpha1/AuditSinkList", name: string): pulumi.Output<auditregistration.v1alpha1.AuditSinkList>;
     public getResource(groupVersionKind: "auditregistration.k8s.io/v1alpha1/AuditSinkList", namespace: string, name: string): pulumi.Output<auditregistration.v1alpha1.AuditSinkList>;
+    public getResource(groupVersionKind: "authentication.k8s.io/v1/SelfSubjectReview", name: string): pulumi.Output<authentication.v1.SelfSubjectReview>;
+    public getResource(groupVersionKind: "authentication.k8s.io/v1/SelfSubjectReview", namespace: string, name: string): pulumi.Output<authentication.v1.SelfSubjectReview>;
     public getResource(groupVersionKind: "autoscaling/v1/HorizontalPodAutoscaler", name: string): pulumi.Output<autoscaling.v1.HorizontalPodAutoscaler>;
     public getResource(groupVersionKind: "autoscaling/v1/HorizontalPodAutoscaler", namespace: string, name: string): pulumi.Output<autoscaling.v1.HorizontalPodAutoscaler>;
     public getResource(groupVersionKind: "autoscaling/v1/HorizontalPodAutoscalerList", name: string): pulumi.Output<autoscaling.v1.HorizontalPodAutoscalerList>;
@@ -630,6 +641,40 @@ export abstract class CollectionComponentResource extends pulumi.ComponentResour
     public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfigurationList", namespace: string, name: string, property: "kind"): pulumi.Output<"MutatingWebhookConfigurationList">;
     public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfigurationList", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
     public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfigurationList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicy", name: string, property: "apiVersion"): pulumi.Output<"admissionregistration.k8s.io/v1beta1">;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicy", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"admissionregistration.k8s.io/v1beta1">;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicy", name: string, property: "kind"): pulumi.Output<"ValidatingAdmissionPolicy">;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicy", namespace: string, name: string, property: "kind"): pulumi.Output<"ValidatingAdmissionPolicy">;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicy", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicy", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicy", name: string, property: "spec"): pulumi.Output<outputs.admissionregistration.v1beta1.ValidatingAdmissionPolicySpec>;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicy", namespace: string, name: string, property: "spec"): pulumi.Output<outputs.admissionregistration.v1beta1.ValidatingAdmissionPolicySpec>;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicy", name: string, property: "status"): pulumi.Output<outputs.admissionregistration.v1beta1.ValidatingAdmissionPolicyStatus>;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicy", namespace: string, name: string, property: "status"): pulumi.Output<outputs.admissionregistration.v1beta1.ValidatingAdmissionPolicyStatus>;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyBinding", name: string, property: "apiVersion"): pulumi.Output<"admissionregistration.k8s.io/v1beta1">;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyBinding", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"admissionregistration.k8s.io/v1beta1">;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyBinding", name: string, property: "kind"): pulumi.Output<"ValidatingAdmissionPolicyBinding">;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyBinding", namespace: string, name: string, property: "kind"): pulumi.Output<"ValidatingAdmissionPolicyBinding">;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyBinding", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyBinding", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyBinding", name: string, property: "spec"): pulumi.Output<outputs.admissionregistration.v1beta1.ValidatingAdmissionPolicyBindingSpec>;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyBinding", namespace: string, name: string, property: "spec"): pulumi.Output<outputs.admissionregistration.v1beta1.ValidatingAdmissionPolicyBindingSpec>;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyBindingList", name: string, property: "apiVersion"): pulumi.Output<"admissionregistration.k8s.io/v1beta1">;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyBindingList", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"admissionregistration.k8s.io/v1beta1">;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyBindingList", name: string, property: "items"): pulumi.Output<outputs.admissionregistration.v1beta1.ValidatingAdmissionPolicyBinding[]>;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyBindingList", namespace: string, name: string, property: "items"): pulumi.Output<outputs.admissionregistration.v1beta1.ValidatingAdmissionPolicyBinding[]>;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyBindingList", name: string, property: "kind"): pulumi.Output<"ValidatingAdmissionPolicyBindingList">;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyBindingList", namespace: string, name: string, property: "kind"): pulumi.Output<"ValidatingAdmissionPolicyBindingList">;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyBindingList", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyBindingList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyList", name: string, property: "apiVersion"): pulumi.Output<"admissionregistration.k8s.io/v1beta1">;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyList", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"admissionregistration.k8s.io/v1beta1">;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyList", name: string, property: "items"): pulumi.Output<outputs.admissionregistration.v1beta1.ValidatingAdmissionPolicy[]>;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyList", namespace: string, name: string, property: "items"): pulumi.Output<outputs.admissionregistration.v1beta1.ValidatingAdmissionPolicy[]>;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyList", name: string, property: "kind"): pulumi.Output<"ValidatingAdmissionPolicyList">;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyList", namespace: string, name: string, property: "kind"): pulumi.Output<"ValidatingAdmissionPolicyList">;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyList", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
+    public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
     public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfiguration", name: string, property: "apiVersion"): pulumi.Output<"admissionregistration.k8s.io/v1beta1">;
     public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfiguration", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"admissionregistration.k8s.io/v1beta1">;
     public getResourceProperty(groupVersionKind: "admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfiguration", name: string, property: "kind"): pulumi.Output<"ValidatingWebhookConfiguration">;
@@ -968,6 +1013,14 @@ export abstract class CollectionComponentResource extends pulumi.ComponentResour
     public getResourceProperty(groupVersionKind: "auditregistration.k8s.io/v1alpha1/AuditSinkList", namespace: string, name: string, property: "kind"): pulumi.Output<"AuditSinkList">;
     public getResourceProperty(groupVersionKind: "auditregistration.k8s.io/v1alpha1/AuditSinkList", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
     public getResourceProperty(groupVersionKind: "auditregistration.k8s.io/v1alpha1/AuditSinkList", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ListMeta>;
+    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1/SelfSubjectReview", name: string, property: "apiVersion"): pulumi.Output<"authentication.k8s.io/v1">;
+    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1/SelfSubjectReview", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"authentication.k8s.io/v1">;
+    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1/SelfSubjectReview", name: string, property: "kind"): pulumi.Output<"SelfSubjectReview">;
+    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1/SelfSubjectReview", namespace: string, name: string, property: "kind"): pulumi.Output<"SelfSubjectReview">;
+    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1/SelfSubjectReview", name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
+    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1/SelfSubjectReview", namespace: string, name: string, property: "metadata"): pulumi.Output<outputs.meta.v1.ObjectMeta>;
+    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1/SelfSubjectReview", name: string, property: "status"): pulumi.Output<outputs.authentication.v1.SelfSubjectReviewStatus>;
+    public getResourceProperty(groupVersionKind: "authentication.k8s.io/v1/SelfSubjectReview", namespace: string, name: string, property: "status"): pulumi.Output<outputs.authentication.v1.SelfSubjectReviewStatus>;
     public getResourceProperty(groupVersionKind: "autoscaling/v1/HorizontalPodAutoscaler", name: string, property: "apiVersion"): pulumi.Output<"autoscaling/v1">;
     public getResourceProperty(groupVersionKind: "autoscaling/v1/HorizontalPodAutoscaler", namespace: string, name: string, property: "apiVersion"): pulumi.Output<"autoscaling/v1">;
     public getResourceProperty(groupVersionKind: "autoscaling/v1/HorizontalPodAutoscaler", name: string, property: "kind"): pulumi.Output<"HorizontalPodAutoscaler">;
@@ -3239,6 +3292,8 @@ export interface ConfigOpts {
         || (gvk === "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyBindingList")
         || (gvk === "admissionregistration.k8s.io/v1alpha1/ValidatingAdmissionPolicyList")
         || (gvk === "admissionregistration.k8s.io/v1beta1/MutatingWebhookConfigurationList")
+        || (gvk === "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyBindingList")
+        || (gvk === "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyList")
         || (gvk === "admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfigurationList")
         || (gvk === "apiextensions.k8s.io/v1/CustomResourceDefinitionList")
         || (gvk === "apiextensions.k8s.io/v1beta1/CustomResourceDefinitionList")
@@ -3400,6 +3455,16 @@ export interface ConfigOpts {
                 name: `admissionregistration.k8s.io/v1beta1/MutatingWebhookConfiguration::${id}`,
                 resource: new admissionregistration.v1beta1.MutatingWebhookConfiguration(id, obj, opts),
             }))];
+        case "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicy":
+            return [id.apply(id => ({
+                name: `admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicy::${id}`,
+                resource: new admissionregistration.v1beta1.ValidatingAdmissionPolicy(id, obj, opts),
+            }))];
+        case "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyBinding":
+            return [id.apply(id => ({
+                name: `admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyBinding::${id}`,
+                resource: new admissionregistration.v1beta1.ValidatingAdmissionPolicyBinding(id, obj, opts),
+            }))];
         case "admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfiguration":
             return [id.apply(id => ({
                 name: `admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfiguration::${id}`,
@@ -3494,6 +3559,11 @@ export interface ConfigOpts {
             return [id.apply(id => ({
                 name: `auditregistration.k8s.io/v1alpha1/AuditSink::${id}`,
                 resource: new auditregistration.v1alpha1.AuditSink(id, obj, opts),
+            }))];
+        case "authentication.k8s.io/v1/SelfSubjectReview":
+            return [id.apply(id => ({
+                name: `authentication.k8s.io/v1/SelfSubjectReview::${id}`,
+                resource: new authentication.v1.SelfSubjectReview(id, obj, opts),
             }))];
         case "autoscaling/v1/HorizontalPodAutoscaler":
             return [id.apply(id => ({

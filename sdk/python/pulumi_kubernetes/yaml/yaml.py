@@ -549,6 +549,30 @@ def _parse_yaml_object(
         return [identifier.apply(
             lambda x: (f"admissionregistration.k8s.io/v1beta1/MutatingWebhookConfigurationList:{x}",
                        MutatingWebhookConfigurationList(f"{x}", opts, **obj)))]
+    if gvk == "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicy":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.admissionregistration.v1beta1 import ValidatingAdmissionPolicy
+        return [identifier.apply(
+            lambda x: (f"admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicy:{x}",
+                       ValidatingAdmissionPolicy(f"{x}", opts, **obj)))]
+    if gvk == "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyBinding":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.admissionregistration.v1beta1 import ValidatingAdmissionPolicyBinding
+        return [identifier.apply(
+            lambda x: (f"admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyBinding:{x}",
+                       ValidatingAdmissionPolicyBinding(f"{x}", opts, **obj)))]
+    if gvk == "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyBindingList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.admissionregistration.v1beta1 import ValidatingAdmissionPolicyBindingList
+        return [identifier.apply(
+            lambda x: (f"admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyBindingList:{x}",
+                       ValidatingAdmissionPolicyBindingList(f"{x}", opts, **obj)))]
+    if gvk == "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.admissionregistration.v1beta1 import ValidatingAdmissionPolicyList
+        return [identifier.apply(
+            lambda x: (f"admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyList:{x}",
+                       ValidatingAdmissionPolicyList(f"{x}", opts, **obj)))]
     if gvk == "admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfiguration":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.admissionregistration.v1beta1 import ValidatingWebhookConfiguration
@@ -765,6 +789,12 @@ def _parse_yaml_object(
         return [identifier.apply(
             lambda x: (f"auditregistration.k8s.io/v1alpha1/AuditSinkList:{x}",
                        AuditSinkList(f"{x}", opts, **obj)))]
+    if gvk == "authentication.k8s.io/v1/SelfSubjectReview":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.authentication.v1 import SelfSubjectReview
+        return [identifier.apply(
+            lambda x: (f"authentication.k8s.io/v1/SelfSubjectReview:{x}",
+                       SelfSubjectReview(f"{x}", opts, **obj)))]
     if gvk == "autoscaling/v1/HorizontalPodAutoscaler":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.autoscaling.v1 import HorizontalPodAutoscaler

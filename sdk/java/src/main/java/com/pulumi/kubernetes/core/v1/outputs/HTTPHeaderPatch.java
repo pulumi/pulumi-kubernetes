@@ -12,7 +12,7 @@ import javax.annotation.Nullable;
 @CustomType
 public final class HTTPHeaderPatch {
     /**
-     * @return The header field name
+     * @return The header field name. This will be canonicalized upon output, so case-variant names will be understood as the same header.
      * 
      */
     private @Nullable String name;
@@ -24,7 +24,7 @@ public final class HTTPHeaderPatch {
 
     private HTTPHeaderPatch() {}
     /**
-     * @return The header field name
+     * @return The header field name. This will be canonicalized upon output, so case-variant names will be understood as the same header.
      * 
      */
     public Optional<String> name() {

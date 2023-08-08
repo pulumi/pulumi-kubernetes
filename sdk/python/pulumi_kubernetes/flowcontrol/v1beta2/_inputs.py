@@ -11,6 +11,8 @@ from ... import _utilities
 from ... import meta as _meta
 
 __all__ = [
+    'ExemptPriorityLevelConfigurationPatchArgs',
+    'ExemptPriorityLevelConfigurationArgs',
     'FlowDistinguisherMethodPatchArgs',
     'FlowDistinguisherMethodArgs',
     'FlowSchemaConditionArgs',
@@ -46,6 +48,110 @@ __all__ = [
     'UserSubjectPatchArgs',
     'UserSubjectArgs',
 ]
+
+@pulumi.input_type
+class ExemptPriorityLevelConfigurationPatchArgs:
+    def __init__(__self__, *,
+                 lendable_percent: Optional[pulumi.Input[int]] = None,
+                 nominal_concurrency_shares: Optional[pulumi.Input[int]] = None):
+        """
+        ExemptPriorityLevelConfiguration describes the configurable aspects of the handling of exempt requests. In the mandatory exempt configuration object the values in the fields here can be modified by authorized users, unlike the rest of the `spec`.
+        :param pulumi.Input[int] lendable_percent: `lendablePercent` prescribes the fraction of the level's NominalCL that can be borrowed by other priority levels.  This value of this field must be between 0 and 100, inclusive, and it defaults to 0. The number of seats that other levels can borrow from this level, known as this level's LendableConcurrencyLimit (LendableCL), is defined as follows.
+               
+               LendableCL(i) = round( NominalCL(i) * lendablePercent(i)/100.0 )
+        :param pulumi.Input[int] nominal_concurrency_shares: `nominalConcurrencyShares` (NCS) contributes to the computation of the NominalConcurrencyLimit (NominalCL) of this level. This is the number of execution seats nominally reserved for this priority level. This DOES NOT limit the dispatching from this priority level but affects the other priority levels through the borrowing mechanism. The server's concurrency limit (ServerCL) is divided among all the priority levels in proportion to their NCS values:
+               
+               NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[priority level k] NCS(k)
+               
+               Bigger numbers mean a larger nominal concurrency limit, at the expense of every other priority level. This field has a default value of zero.
+        """
+        if lendable_percent is not None:
+            pulumi.set(__self__, "lendable_percent", lendable_percent)
+        if nominal_concurrency_shares is not None:
+            pulumi.set(__self__, "nominal_concurrency_shares", nominal_concurrency_shares)
+
+    @property
+    @pulumi.getter(name="lendablePercent")
+    def lendable_percent(self) -> Optional[pulumi.Input[int]]:
+        """
+        `lendablePercent` prescribes the fraction of the level's NominalCL that can be borrowed by other priority levels.  This value of this field must be between 0 and 100, inclusive, and it defaults to 0. The number of seats that other levels can borrow from this level, known as this level's LendableConcurrencyLimit (LendableCL), is defined as follows.
+
+        LendableCL(i) = round( NominalCL(i) * lendablePercent(i)/100.0 )
+        """
+        return pulumi.get(self, "lendable_percent")
+
+    @lendable_percent.setter
+    def lendable_percent(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "lendable_percent", value)
+
+    @property
+    @pulumi.getter(name="nominalConcurrencyShares")
+    def nominal_concurrency_shares(self) -> Optional[pulumi.Input[int]]:
+        """
+        `nominalConcurrencyShares` (NCS) contributes to the computation of the NominalConcurrencyLimit (NominalCL) of this level. This is the number of execution seats nominally reserved for this priority level. This DOES NOT limit the dispatching from this priority level but affects the other priority levels through the borrowing mechanism. The server's concurrency limit (ServerCL) is divided among all the priority levels in proportion to their NCS values:
+
+        NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[priority level k] NCS(k)
+
+        Bigger numbers mean a larger nominal concurrency limit, at the expense of every other priority level. This field has a default value of zero.
+        """
+        return pulumi.get(self, "nominal_concurrency_shares")
+
+    @nominal_concurrency_shares.setter
+    def nominal_concurrency_shares(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "nominal_concurrency_shares", value)
+
+
+@pulumi.input_type
+class ExemptPriorityLevelConfigurationArgs:
+    def __init__(__self__, *,
+                 lendable_percent: Optional[pulumi.Input[int]] = None,
+                 nominal_concurrency_shares: Optional[pulumi.Input[int]] = None):
+        """
+        ExemptPriorityLevelConfiguration describes the configurable aspects of the handling of exempt requests. In the mandatory exempt configuration object the values in the fields here can be modified by authorized users, unlike the rest of the `spec`.
+        :param pulumi.Input[int] lendable_percent: `lendablePercent` prescribes the fraction of the level's NominalCL that can be borrowed by other priority levels.  This value of this field must be between 0 and 100, inclusive, and it defaults to 0. The number of seats that other levels can borrow from this level, known as this level's LendableConcurrencyLimit (LendableCL), is defined as follows.
+               
+               LendableCL(i) = round( NominalCL(i) * lendablePercent(i)/100.0 )
+        :param pulumi.Input[int] nominal_concurrency_shares: `nominalConcurrencyShares` (NCS) contributes to the computation of the NominalConcurrencyLimit (NominalCL) of this level. This is the number of execution seats nominally reserved for this priority level. This DOES NOT limit the dispatching from this priority level but affects the other priority levels through the borrowing mechanism. The server's concurrency limit (ServerCL) is divided among all the priority levels in proportion to their NCS values:
+               
+               NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[priority level k] NCS(k)
+               
+               Bigger numbers mean a larger nominal concurrency limit, at the expense of every other priority level. This field has a default value of zero.
+        """
+        if lendable_percent is not None:
+            pulumi.set(__self__, "lendable_percent", lendable_percent)
+        if nominal_concurrency_shares is not None:
+            pulumi.set(__self__, "nominal_concurrency_shares", nominal_concurrency_shares)
+
+    @property
+    @pulumi.getter(name="lendablePercent")
+    def lendable_percent(self) -> Optional[pulumi.Input[int]]:
+        """
+        `lendablePercent` prescribes the fraction of the level's NominalCL that can be borrowed by other priority levels.  This value of this field must be between 0 and 100, inclusive, and it defaults to 0. The number of seats that other levels can borrow from this level, known as this level's LendableConcurrencyLimit (LendableCL), is defined as follows.
+
+        LendableCL(i) = round( NominalCL(i) * lendablePercent(i)/100.0 )
+        """
+        return pulumi.get(self, "lendable_percent")
+
+    @lendable_percent.setter
+    def lendable_percent(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "lendable_percent", value)
+
+    @property
+    @pulumi.getter(name="nominalConcurrencyShares")
+    def nominal_concurrency_shares(self) -> Optional[pulumi.Input[int]]:
+        """
+        `nominalConcurrencyShares` (NCS) contributes to the computation of the NominalConcurrencyLimit (NominalCL) of this level. This is the number of execution seats nominally reserved for this priority level. This DOES NOT limit the dispatching from this priority level but affects the other priority levels through the borrowing mechanism. The server's concurrency limit (ServerCL) is divided among all the priority levels in proportion to their NCS values:
+
+        NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[priority level k] NCS(k)
+
+        Bigger numbers mean a larger nominal concurrency limit, at the expense of every other priority level. This field has a default value of zero.
+        """
+        return pulumi.get(self, "nominal_concurrency_shares")
+
+    @nominal_concurrency_shares.setter
+    def nominal_concurrency_shares(self, value: Optional[pulumi.Input[int]]):
+        pulumi.set(self, "nominal_concurrency_shares", value)
+
 
 @pulumi.input_type
 class FlowDistinguisherMethodPatchArgs:
@@ -1102,17 +1208,33 @@ class PriorityLevelConfigurationReferenceArgs:
 @pulumi.input_type
 class PriorityLevelConfigurationSpecPatchArgs:
     def __init__(__self__, *,
+                 exempt: Optional[pulumi.Input['ExemptPriorityLevelConfigurationPatchArgs']] = None,
                  limited: Optional[pulumi.Input['LimitedPriorityLevelConfigurationPatchArgs']] = None,
                  type: Optional[pulumi.Input[str]] = None):
         """
         PriorityLevelConfigurationSpec specifies the configuration of a priority level.
+        :param pulumi.Input['ExemptPriorityLevelConfigurationPatchArgs'] exempt: `exempt` specifies how requests are handled for an exempt priority level. This field MUST be empty if `type` is `"Limited"`. This field MAY be non-empty if `type` is `"Exempt"`. If empty and `type` is `"Exempt"` then the default values for `ExemptPriorityLevelConfiguration` apply.
         :param pulumi.Input['LimitedPriorityLevelConfigurationPatchArgs'] limited: `limited` specifies how requests are handled for a Limited priority level. This field must be non-empty if and only if `type` is `"Limited"`.
         :param pulumi.Input[str] type: `type` indicates whether this priority level is subject to limitation on request execution.  A value of `"Exempt"` means that requests of this priority level are not subject to a limit (and thus are never queued) and do not detract from the capacity made available to other priority levels.  A value of `"Limited"` means that (a) requests of this priority level _are_ subject to limits and (b) some of the server's limited capacity is made available exclusively to this priority level. Required.
         """
+        if exempt is not None:
+            pulumi.set(__self__, "exempt", exempt)
         if limited is not None:
             pulumi.set(__self__, "limited", limited)
         if type is not None:
             pulumi.set(__self__, "type", type)
+
+    @property
+    @pulumi.getter
+    def exempt(self) -> Optional[pulumi.Input['ExemptPriorityLevelConfigurationPatchArgs']]:
+        """
+        `exempt` specifies how requests are handled for an exempt priority level. This field MUST be empty if `type` is `"Limited"`. This field MAY be non-empty if `type` is `"Exempt"`. If empty and `type` is `"Exempt"` then the default values for `ExemptPriorityLevelConfiguration` apply.
+        """
+        return pulumi.get(self, "exempt")
+
+    @exempt.setter
+    def exempt(self, value: Optional[pulumi.Input['ExemptPriorityLevelConfigurationPatchArgs']]):
+        pulumi.set(self, "exempt", value)
 
     @property
     @pulumi.getter
@@ -1143,13 +1265,17 @@ class PriorityLevelConfigurationSpecPatchArgs:
 class PriorityLevelConfigurationSpecArgs:
     def __init__(__self__, *,
                  type: pulumi.Input[str],
+                 exempt: Optional[pulumi.Input['ExemptPriorityLevelConfigurationArgs']] = None,
                  limited: Optional[pulumi.Input['LimitedPriorityLevelConfigurationArgs']] = None):
         """
         PriorityLevelConfigurationSpec specifies the configuration of a priority level.
         :param pulumi.Input[str] type: `type` indicates whether this priority level is subject to limitation on request execution.  A value of `"Exempt"` means that requests of this priority level are not subject to a limit (and thus are never queued) and do not detract from the capacity made available to other priority levels.  A value of `"Limited"` means that (a) requests of this priority level _are_ subject to limits and (b) some of the server's limited capacity is made available exclusively to this priority level. Required.
+        :param pulumi.Input['ExemptPriorityLevelConfigurationArgs'] exempt: `exempt` specifies how requests are handled for an exempt priority level. This field MUST be empty if `type` is `"Limited"`. This field MAY be non-empty if `type` is `"Exempt"`. If empty and `type` is `"Exempt"` then the default values for `ExemptPriorityLevelConfiguration` apply.
         :param pulumi.Input['LimitedPriorityLevelConfigurationArgs'] limited: `limited` specifies how requests are handled for a Limited priority level. This field must be non-empty if and only if `type` is `"Limited"`.
         """
         pulumi.set(__self__, "type", type)
+        if exempt is not None:
+            pulumi.set(__self__, "exempt", exempt)
         if limited is not None:
             pulumi.set(__self__, "limited", limited)
 
@@ -1164,6 +1290,18 @@ class PriorityLevelConfigurationSpecArgs:
     @type.setter
     def type(self, value: pulumi.Input[str]):
         pulumi.set(self, "type", value)
+
+    @property
+    @pulumi.getter
+    def exempt(self) -> Optional[pulumi.Input['ExemptPriorityLevelConfigurationArgs']]:
+        """
+        `exempt` specifies how requests are handled for an exempt priority level. This field MUST be empty if `type` is `"Limited"`. This field MAY be non-empty if `type` is `"Exempt"`. If empty and `type` is `"Exempt"` then the default values for `ExemptPriorityLevelConfiguration` apply.
+        """
+        return pulumi.get(self, "exempt")
+
+    @exempt.setter
+    def exempt(self, value: Optional[pulumi.Input['ExemptPriorityLevelConfigurationArgs']]):
+        pulumi.set(self, "exempt", value)
 
     @property
     @pulumi.getter

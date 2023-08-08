@@ -52,10 +52,22 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         }
 
         /// <summary>
-        /// IP address of the host to which the pod is assigned. Empty if not yet scheduled.
+        /// hostIP holds the IP address of the host to which the pod is assigned. Empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns mean that HostIP will not be updated even if there is a node is assigned to pod
         /// </summary>
         [Input("hostIP")]
         public Input<string>? HostIP { get; set; }
+
+        [Input("hostIPs")]
+        private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.HostIPArgs>? _hostIPs;
+
+        /// <summary>
+        /// hostIPs holds the IP addresses allocated to the host. If this field is specified, the first entry must match the hostIP field. This list is empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns means that HostIPs will not be updated even if there is a node is assigned to this pod.
+        /// </summary>
+        public InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.HostIPArgs> HostIPs
+        {
+            get => _hostIPs ?? (_hostIPs = new InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.HostIPArgs>());
+            set => _hostIPs = value;
+        }
 
         [Input("initContainerStatuses")]
         private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.ContainerStatusArgs>? _initContainerStatuses;
@@ -92,7 +104,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         public Input<string>? Phase { get; set; }
 
         /// <summary>
-        /// IP address allocated to the pod. Routable at least within the cluster. Empty if not yet allocated.
+        /// podIP address allocated to the pod. Routable at least within the cluster. Empty if not yet allocated.
         /// </summary>
         [Input("podIP")]
         public Input<string>? PodIP { get; set; }
@@ -126,6 +138,18 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
         /// </summary>
         [Input("resize")]
         public Input<string>? Resize { get; set; }
+
+        [Input("resourceClaimStatuses")]
+        private InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.PodResourceClaimStatusArgs>? _resourceClaimStatuses;
+
+        /// <summary>
+        /// Status of resource claims.
+        /// </summary>
+        public InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.PodResourceClaimStatusArgs> ResourceClaimStatuses
+        {
+            get => _resourceClaimStatuses ?? (_resourceClaimStatuses = new InputList<Pulumi.Kubernetes.Types.Inputs.Core.V1.PodResourceClaimStatusArgs>());
+            set => _resourceClaimStatuses = value;
+        }
 
         /// <summary>
         /// RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.

@@ -12,9 +12,7 @@ import javax.annotation.Nullable;
 
 
 /**
- * IP address information for entries in the (plural) PodIPs field. Each entry includes:
- * 
- *     IP: An IP address allocated to the pod. Routable at least within the cluster.
+ * PodIP represents a single IP address allocated to the pod.
  * 
  */
 public final class PodIPArgs extends com.pulumi.resources.ResourceArgs {
@@ -22,14 +20,14 @@ public final class PodIPArgs extends com.pulumi.resources.ResourceArgs {
     public static final PodIPArgs Empty = new PodIPArgs();
 
     /**
-     * ip is an IP address (IPv4 or IPv6) assigned to the pod
+     * IP is the IP address assigned to the pod
      * 
      */
     @Import(name="ip")
     private @Nullable Output<String> ip;
 
     /**
-     * @return ip is an IP address (IPv4 or IPv6) assigned to the pod
+     * @return IP is the IP address assigned to the pod
      * 
      */
     public Optional<Output<String>> ip() {
@@ -61,7 +59,7 @@ public final class PodIPArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param ip ip is an IP address (IPv4 or IPv6) assigned to the pod
+         * @param ip IP is the IP address assigned to the pod
          * 
          * @return builder
          * 
@@ -72,7 +70,7 @@ public final class PodIPArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param ip ip is an IP address (IPv4 or IPv6) assigned to the pod
+         * @param ip IP is the IP address assigned to the pod
          * 
          * @return builder
          * 

@@ -57,6 +57,12 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration.V1Alpha1
         /// Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
         /// </summary>
         public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration.V1Alpha1.Validation> Validations;
+        /// <summary>
+        /// Variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except MatchConditions because MatchConditions are evaluated before the rest of the policy.
+        /// 
+        /// The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, Variables must be sorted by the order of first appearance and acyclic.
+        /// </summary>
+        public readonly ImmutableArray<Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration.V1Alpha1.Variable> Variables;
 
         [OutputConstructor]
         private ValidatingAdmissionPolicySpec(
@@ -70,7 +76,9 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration.V1Alpha1
 
             Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration.V1Alpha1.ParamKind paramKind,
 
-            ImmutableArray<Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration.V1Alpha1.Validation> validations)
+            ImmutableArray<Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration.V1Alpha1.Validation> validations,
+
+            ImmutableArray<Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration.V1Alpha1.Variable> variables)
         {
             AuditAnnotations = auditAnnotations;
             FailurePolicy = failurePolicy;
@@ -78,6 +86,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.AdmissionRegistration.V1Alpha1
             MatchConstraints = matchConstraints;
             ParamKind = paramKind;
             Validations = validations;
+            Variables = variables;
         }
     }
 }

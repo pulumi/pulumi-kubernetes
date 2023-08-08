@@ -12,7 +12,7 @@ import javax.annotation.Nullable;
 @CustomType
 public final class SeccompProfilePatch {
     /**
-     * @return localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet&#39;s configured seccomp profile location. Must only be set if type is &#34;Localhost&#34;.
+     * @return localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet&#39;s configured seccomp profile location. Must be set if type is &#34;Localhost&#34;. Must NOT be set for any other type.
      * 
      */
     private @Nullable String localhostProfile;
@@ -26,7 +26,7 @@ public final class SeccompProfilePatch {
 
     private SeccompProfilePatch() {}
     /**
-     * @return localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet&#39;s configured seccomp profile location. Must only be set if type is &#34;Localhost&#34;.
+     * @return localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet&#39;s configured seccomp profile location. Must be set if type is &#34;Localhost&#34;. Must NOT be set for any other type.
      * 
      */
     public Optional<String> localhostProfile() {
