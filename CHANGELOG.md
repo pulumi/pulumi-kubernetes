@@ -6,7 +6,7 @@
   installs based on the source distribution.
 
 - Return mapping information for terraform conversions (https://github.com/pulumi/pulumi-kubernetes/pull/2457)
-
+- feature: added skipUpdateUnreachable flag to proceed with the updates without failing (https://github.com/pulumi/pulumi-kubernetes/pull/2528)
 ## 4.1.1 (August 23, 2023)
 
 - Revert the switch to pyproject.toml and wheel-based PyPI publishing as it impacts users that run pip with --no-binary
