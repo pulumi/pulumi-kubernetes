@@ -206,6 +206,21 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * If present and set to true, the provider will skip resources update associated with an unreachable Kubernetes cluster from Pulumi state
+     * 
+     */
+    @Import(name="skipUpdateUnreachable", json=true)
+    private @Nullable Output<Boolean> skipUpdateUnreachable;
+
+    /**
+     * @return If present and set to true, the provider will skip resources update associated with an unreachable Kubernetes cluster from Pulumi state
+     * 
+     */
+    public Optional<Output<Boolean>> skipUpdateUnreachable() {
+        return Optional.ofNullable(this.skipUpdateUnreachable);
+    }
+
+    /**
      * If present and set to true, suppress apiVersion deprecation warnings from the CLI.
      * 
      */
@@ -248,6 +263,7 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
         this.kubeconfig = $.kubeconfig;
         this.namespace = $.namespace;
         this.renderYamlToDirectory = $.renderYamlToDirectory;
+        this.skipUpdateUnreachable = $.skipUpdateUnreachable;
         this.suppressDeprecationWarnings = $.suppressDeprecationWarnings;
         this.suppressHelmHookWarnings = $.suppressHelmHookWarnings;
     }
@@ -517,6 +533,27 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
+         * @param skipUpdateUnreachable If present and set to true, the provider will skip resources update associated with an unreachable Kubernetes cluster from Pulumi state
+         * 
+         * @return builder
+         * 
+         */
+        public Builder skipUpdateUnreachable(@Nullable Output<Boolean> skipUpdateUnreachable) {
+            $.skipUpdateUnreachable = skipUpdateUnreachable;
+            return this;
+        }
+
+        /**
+         * @param skipUpdateUnreachable If present and set to true, the provider will skip resources update associated with an unreachable Kubernetes cluster from Pulumi state
+         * 
+         * @return builder
+         * 
+         */
+        public Builder skipUpdateUnreachable(Boolean skipUpdateUnreachable) {
+            return skipUpdateUnreachable(Output.of(skipUpdateUnreachable));
+        }
+
+        /**
          * @param suppressDeprecationWarnings If present and set to true, suppress apiVersion deprecation warnings from the CLI.
          * 
          * @return builder
@@ -563,6 +600,7 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
             $.enableConfigMapMutable = Codegen.booleanProp("enableConfigMapMutable").output().arg($.enableConfigMapMutable).env("PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE").getNullable();
             $.enableServerSideApply = Codegen.booleanProp("enableServerSideApply").output().arg($.enableServerSideApply).env("PULUMI_K8S_ENABLE_SERVER_SIDE_APPLY").getNullable();
             $.kubeconfig = Codegen.stringProp("kubeconfig").output().arg($.kubeconfig).env("KUBECONFIG").getNullable();
+            $.skipUpdateUnreachable = Codegen.booleanProp("skipUpdateUnreachable").output().arg($.skipUpdateUnreachable).env("PULUMI_K8S_SKIP_UPDATE_UNREACHABLE").getNullable();
             $.suppressDeprecationWarnings = Codegen.booleanProp("suppressDeprecationWarnings").output().arg($.suppressDeprecationWarnings).env("PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS").getNullable();
             $.suppressHelmHookWarnings = Codegen.booleanProp("suppressHelmHookWarnings").output().arg($.suppressHelmHookWarnings).env("PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS").getNullable();
             return $;

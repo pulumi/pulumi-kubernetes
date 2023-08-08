@@ -93,6 +93,13 @@ public final class Config {
         return Codegen.stringProp("renderYamlToDirectory").config(config).get();
     }
 /**
+ * If present and set to true, the provider will skip resources update associated with an unreachable Kubernetes cluster from Pulumi state
+ * 
+ */
+    public Optional<Boolean> skipUpdateUnreachable() {
+        return Codegen.booleanProp("skipUpdateUnreachable").config(config).get();
+    }
+/**
  * If present and set to true, the provider will use strict configuration mode. Recommended for production stacks. In this mode, the default Kubernetes provider is disabled, and the `kubeconfig` and `context` settings are required for Provider configuration. These settings unambiguously ensure that every Kubernetes resource is associated with a particular cluster.
  * 
  */

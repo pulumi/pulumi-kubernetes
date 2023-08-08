@@ -140,6 +140,16 @@ namespace Pulumi.Kubernetes
             set => _renderYamlToDirectory.Set(value);
         }
 
+        private static readonly __Value<bool?> _skipUpdateUnreachable = new __Value<bool?>(() => __config.GetBoolean("skipUpdateUnreachable"));
+        /// <summary>
+        /// If present and set to true, the provider will skip resources update associated with an unreachable Kubernetes cluster from Pulumi state
+        /// </summary>
+        public static bool? SkipUpdateUnreachable
+        {
+            get => _skipUpdateUnreachable.Get();
+            set => _skipUpdateUnreachable.Set(value);
+        }
+
         private static readonly __Value<bool?> _strictMode = new __Value<bool?>(() => __config.GetBoolean("strictMode"));
         /// <summary>
         /// If present and set to true, the provider will use strict configuration mode. Recommended for production stacks. In this mode, the default Kubernetes provider is disabled, and the `kubeconfig` and `context` settings are required for Provider configuration. These settings unambiguously ensure that every Kubernetes resource is associated with a particular cluster.

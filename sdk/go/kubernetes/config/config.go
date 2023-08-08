@@ -76,6 +76,11 @@ func GetRenderYamlToDirectory(ctx *pulumi.Context) string {
 	return config.Get(ctx, "kubernetes:renderYamlToDirectory")
 }
 
+// If present and set to true, the provider will skip resources update associated with an unreachable Kubernetes cluster from Pulumi state
+func GetSkipUpdateUnreachable(ctx *pulumi.Context) bool {
+	return config.GetBool(ctx, "kubernetes:skipUpdateUnreachable")
+}
+
 // If present and set to true, the provider will use strict configuration mode. Recommended for production stacks. In this mode, the default Kubernetes provider is disabled, and the `kubeconfig` and `context` settings are required for Provider configuration. These settings unambiguously ensure that every Kubernetes resource is associated with a particular cluster.
 func GetStrictMode(ctx *pulumi.Context) bool {
 	return config.GetBool(ctx, "kubernetes:strictMode")
