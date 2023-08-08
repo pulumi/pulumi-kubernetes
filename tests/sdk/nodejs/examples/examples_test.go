@@ -289,19 +289,16 @@ func TestAccHelmLocal(t *testing.T) {
 	integration.ProgramTest(t, &test)
 }
 
-func TestAccPrometheusOperator(t *testing.T) {
+func testAccPrometheusOperator(t *testing.T) {
 	skipIfShort(t)
 	test := getBaseOptions(t).
 		With(integration.ProgramTestOptions{
 			Dir:         filepath.Join(getCwd(t), "prometheus-operator"),
 			SkipRefresh: true,
-			// TODO: set to SSA false to fix https://github.com/pulumi/pulumi-kubernetes/issues/2482.
-			//       https://github.com/pulumi/pulumi-kubernetes/issues/2243 tracks work to split tests across different
-			//       clusters, which would fix this problem
 			OrderedConfig: []integration.ConfigValue{
 				{
 					Key:   "kubernetes:enableServerSideApply",
-					Value: "false",
+					Value: "true",
 				},
 			},
 			ExtraRuntimeValidation: func(
@@ -499,7 +496,7 @@ func TestHelmReleaseRedis(t *testing.T) {
 	integration.ProgramTest(t, &test)
 }
 
-func TestRancher(t *testing.T) {
+func testRancher(t *testing.T) {
 	// Validate fix for https://github.com/pulumi/pulumi-kubernetes/issues/1848
 	skipIfShort(t)
 	test := getBaseOptions(t).
@@ -508,13 +505,10 @@ func TestRancher(t *testing.T) {
 			SkipRefresh: true,
 			Verbose:     true,
 			NoParallel:  true,
-			// TODO: set to SSA false to fix https://github.com/pulumi/pulumi-kubernetes/issues/2482.
-			//       https://github.com/pulumi/pulumi-kubernetes/issues/2243 tracks work to split tests across different
-			//       clusters, which would fix this problem
 			OrderedConfig: []integration.ConfigValue{
 				{
 					Key:   "kubernetes:enableServerSideApply",
-					Value: "false",
+					Value: "true",
 				},
 			},
 			EditDirs: []integration.EditDir{
@@ -525,6 +519,15 @@ func TestRancher(t *testing.T) {
 			},
 		})
 	integration.ProgramTest(t, &test)
+}
+
+// TestCRDs runs 2 sub tests that cannot be parallelized as they touch
+// the same cluster-scoped CRD. This is required until we can run tests
+// in parallel with different clusters (tracked by: https://github.com/pulumi/pulumi-kubernetes/issues/2243).
+// The tests run are: `testAccPrometheusOperator` and `testRancher`.
+func TestCRDs(t *testing.T) {
+	t.Run("testAccPrometheusOperator", testAccPrometheusOperator)
+	t.Run("testRancher", testRancher)
 }
 
 func skipIfShort(t *testing.T) {
