@@ -215,9 +215,6 @@ namespace Pulumi.Kubernetes.Yaml
                 case var t when t == typeof(AuditRegistraion.V1Alpha1.AuditSinkList):
                     groupVersionKind = "auditregistration.k8s.io/v1alpha1/AuditSinkList";
                     break;
-                case var t when t == typeof(Authentication.V1.SelfSubjectReview):
-                    groupVersionKind = "authentication.k8s.io/v1/SelfSubjectReview";
-                    break;
                 case var t when t == typeof(Autoscaling.V1.HorizontalPodAutoscaler):
                     groupVersionKind = "autoscaling/v1/HorizontalPodAutoscaler";
                     break;
@@ -1310,12 +1307,6 @@ namespace Pulumi.Kubernetes.Yaml
                         {
                             id.Apply(id => ($"auditregistration.k8s.io/v1alpha1/AuditSink::{id}",
                                 new AuditRegistraion.V1Alpha1.AuditSink(id, obj!, opts) as KubernetesResource))
-                        };
-                    case "authentication.k8s.io/v1/SelfSubjectReview":
-                        return new[]
-                        {
-                            id.Apply(id => ($"authentication.k8s.io/v1/SelfSubjectReview::{id}",
-                                new Authentication.V1.SelfSubjectReview(id, obj!, opts) as KubernetesResource))
                         };
                     case "autoscaling/v1/HorizontalPodAutoscaler":
                         return new[]
