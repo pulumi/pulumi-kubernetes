@@ -83,7 +83,7 @@ python_sdk:: PYPI_VERSION := $(shell pulumictl get version --language python)
 python_sdk::
 	# Delete only files and folders that are generated.
 	rm -rf sdk/python/pulumi_kubernetes/*/ sdk/python/pulumi_kubernetes/__init__.py
-	# Delete files not in Git
+	# Delete files not tracked in Git
 	cd ${PACKDIR}/python/ && git clean -fxd
 	$(WORKING_DIR)/bin/$(CODEGEN) -version=${VERSION} python $(SCHEMA_FILE) $(CURDIR)
 	cp README.md ${PACKDIR}/python/
