@@ -1,3 +1,0 @@
-name: server-side-apply-preview-tests
-description: Tests Server-side Apply preview support with view-only user permissions
-runtime: nodejs
