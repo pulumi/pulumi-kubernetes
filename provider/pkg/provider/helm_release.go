@@ -739,7 +739,8 @@ func (r *helmReleaseProvider) Diff(ctx context.Context, req *pulumirpc.DiffReque
 		logger.V(9).Infof("news: %+v", news.Mappable())
 		logger.V(9).Infof("oldInputs: %+v", oldInputs.Mappable())
 
-		if detailedDiff, err = convertPatchToDiff(patchObj, olds.Mappable(), news.Mappable(), oldInputs.Mappable(), ".releaseSpec.name", ".releaseSpec.namespace"); err != nil {
+		forceNewFields := []string{".name", ".namespace"}
+		if detailedDiff, err = convertPatchToDiff(patchObj, olds.Mappable(), news.Mappable(), oldInputs.Mappable(), forceNewFields...); err != nil {
 			return nil, pkgerrors.Wrapf(
 				err, "Failed to check for changes in helm release %s/%s because of an error "+
 					"converting JSON patch describing resource changes to a diff",
