@@ -18,8 +18,5 @@ import * as k8s from "@pulumi/kubernetes";
 const provider = new k8s.Provider("k8s", {enableServerSideApply: true});
 
 new k8s.core.v1.ConfigMap("test", {
-    metadata: {
-        name: "foo",
-    },
     data: {foo: "bar"},
 }, {provider});
