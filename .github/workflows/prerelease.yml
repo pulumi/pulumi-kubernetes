@@ -52,6 +52,7 @@ jobs:
       with:
         path: ci-scripts
         repository: pulumi/scripts
+        ref: t0yv0/more-pypi-publish-options
     - name: Unshallow clone for tags
       run: git fetch --prune --unshallow --tags
     - name: Install Go
@@ -147,6 +148,7 @@ jobs:
       with:
         path: ci-scripts
         repository: pulumi/scripts
+        ref: t0yv0/more-pypi-publish-options
     - name: Unshallow clone for tags
       run: git fetch --prune --unshallow --tags
     - name: Install Go
@@ -240,6 +242,7 @@ jobs:
       with:
         path: ci-scripts
         repository: pulumi/scripts
+        ref: t0yv0/more-pypi-publish-options
     - name: Unshallow clone for tags
       run: git fetch --prune --unshallow --tags
     - name: Install Go
@@ -425,6 +428,7 @@ jobs:
       with:
         path: ci-scripts
         repository: pulumi/scripts
+        ref: t0yv0/more-pypi-publish-options
     - name: Unshallow clone for tags
       run: git fetch --prune --unshallow --tags
     - name: Install Go
@@ -505,6 +509,7 @@ jobs:
       with:
         path: ci-scripts
         repository: pulumi/scripts
+        ref: t0yv0/more-pypi-publish-options
     - name: Unshallow clone for tags
       run: git fetch --prune --unshallow --tags
     - name: Install Go
