@@ -1,6 +1,7 @@
 ## Unreleased
 
 - fix: ensure CSA does not hit API Server for preview (https://github.com/pulumi/pulumi-kubernetes/pull/2522)
+- [sdk/python] Switch to pyproject.toml and wheel-based PyPI publishing (https://github.com/pulumi/pulumi-kubernetes/pull/2493)
 
 ## 4.0.3 (July 21, 2023)
 
@@ -74,7 +75,7 @@ Other changes:
 
 - Handle resource change from static name to autoname under SSA (https://github.com/pulumi/pulumi-kubernetes/pull/2392)
 - Fix Helm release creation when the name of the chart conflicts with the name of a folder in the current working directory (https://github.com/pulumi/pulumi-kubernetes/pull/2410)
-- Remove imperative authentication and authorization resources: TokenRequest, TokenReview, LocalSubjectAccessReview, 
+- Remove imperative authentication and authorization resources: TokenRequest, TokenReview, LocalSubjectAccessReview,
     SelfSubjectReview, SelfSubjectAccessReview, SelfSubjectRulesReview, and SubjectAccessReview (https://github.com/pulumi/pulumi-kubernetes/pull/2413)
 - Improve check for existing resource GVK (https://github.com/pulumi/pulumi-kubernetes/pull/2418)
 
