@@ -432,13 +432,29 @@ func TestHelmReleaseNamespace(t *testing.T) {
 	skipIfShort(t)
 	test := getBaseOptions(t).
 		With(integration.ProgramTestOptions{
-			Dir:                  filepath.Join(getCwd(t), "helm-release-namespace"),
+			Dir:                  filepath.Join(getCwd(t), "helm-release-namespace", "step1"),
 			SkipRefresh:          false,
 			Verbose:              true,
 			ExpectRefreshChanges: true,
 			// Ensure that the rule was found in the release's namespace.
 			ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
-				assert.NotEmpty(t, stackInfo.Outputs["alertManagerNamespace"].(string))
+				assert.Equalf(t, stackInfo.Outputs["namespaceName"], stackInfo.Outputs["alertManagerNamespace"],
+					"expected Helm resources to reside in the provided Namespace")
+				assert.NotEmptyf(t, stackInfo.Outputs["alertManagerNamespace"].(string),
+					"Helm resources should not be in the default Namespace")
+			},
+			EditDirs: []integration.EditDir{
+				{
+					Dir:      filepath.Join(getCwd(t), "helm-release-namespace", "step2"),
+					Additive: true,
+					// Ensure that the rule was found in the release's namespace.
+					ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+						assert.Equalf(t, stackInfo.Outputs["namespaceName"], stackInfo.Outputs["alertManagerNamespace"],
+							"expected Helm resources to reside in the provided Namespace")
+						assert.NotEmptyf(t, stackInfo.Outputs["alertManagerNamespace"].(string),
+							"Helm resources should not be in the default Namespace")
+					},
+				},
 			},
 		})
 
