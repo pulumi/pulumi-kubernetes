@@ -19,11 +19,10 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"os/exec"
 	"path/filepath"
-	"strings"
 	"testing"
 
+	"github.com/pulumi/pulumi-kubernetes/tests/v4"
 	"github.com/pulumi/pulumi/pkg/v3/testing/integration"
 	"github.com/stretchr/testify/assert"
 	"k8s.io/client-go/tools/clientcmd"
@@ -50,13 +49,13 @@ func TestPreview(t *testing.T) {
 	})
 
 	// Create service account and RBAC policies for the service account.
-	out, err := kubectl("apply -f preview-auth/service-account.yaml")
+	out, err := tests.Kubectl("apply -f preview-auth/service-account.yaml")
 	if err != nil {
 		t.Fatalf("unable to create RBAC policies: %s, out: %s", err, string(out))
 	}
 	t.Cleanup(func() {
 		log.Println("Deleting service-account and rbac")
-		kubectl("delete -f preview-auth/service-account.yaml")
+		tests.Kubectl("delete -f preview-auth/service-account.yaml")
 	})
 
 	// Create kubeconfig for service account.
@@ -96,7 +95,7 @@ func TestPreview(t *testing.T) {
 	assert.Error(t, err)
 
 	// Check that the configmap was not created using kubectl.
-	out, err = kubectl("get configmap foo")
+	out, err = tests.Kubectl("get configmap foo")
 	assert.Error(t, err)
 	assert.Contains(t, string(out), `Error from server (NotFound): configmaps "foo" not found`)
 }
@@ -107,7 +106,7 @@ func createSAKubeconfig(t *testing.T, saName string) (string, error) {
 	t.Helper()
 
 	// Create token to use for the service account.
-	token, err := kubectl(fmt.Sprintf("create token %s --duration=1h", saName))
+	token, err := tests.Kubectl(fmt.Sprintf("create token %s --duration=1h", saName))
 	if err != nil {
 		return "", err
 	}
@@ -142,14 +141,4 @@ func createSAKubeconfig(t *testing.T, saName string) (string, error) {
 	err = clientcmd.WriteToFile(*config, kubeconfigPath)
 
 	return kubeconfigPath, err
-}
-
-// kubectl is a helper function to shell out and run kubectl commands.
-func kubectl(args ...string) ([]byte, error) {
-	var fmtArgs []string
-	for _, arg := range args {
-		fmtArgs = append(fmtArgs, strings.Fields(arg)...)
-	}
-
-	return exec.Command("kubectl", fmtArgs...).CombinedOutput()
 }

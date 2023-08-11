@@ -1,6 +1,7 @@
 ## Unreleased
 
 - fix: ensure CSA does not hit API Server for preview (https://github.com/pulumi/pulumi-kubernetes/pull/2522)
+- Fix helm.v3.Release replace behavior (https://github.com/pulumi/pulumi-kubernetes/pull/2532)
 - [sdk/python] Switch to pyproject.toml and wheel-based PyPI publishing (https://github.com/pulumi/pulumi-kubernetes/pull/2493)
 
 ## 4.0.3 (July 21, 2023)

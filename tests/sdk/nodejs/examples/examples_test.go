@@ -25,6 +25,7 @@ import (
 	"time"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
+	"github.com/pulumi/pulumi-kubernetes/tests/v4"
 	"github.com/pulumi/pulumi/pkg/v3/resource/deploy/providers"
 	"github.com/pulumi/pulumi/pkg/v3/testing/integration"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
@@ -432,13 +433,39 @@ func TestHelmReleaseNamespace(t *testing.T) {
 	skipIfShort(t)
 	test := getBaseOptions(t).
 		With(integration.ProgramTestOptions{
-			Dir:                  filepath.Join(getCwd(t), "helm-release-namespace"),
+			Dir:                  filepath.Join(getCwd(t), "helm-release-namespace", "step1"),
 			SkipRefresh:          false,
 			Verbose:              true,
 			ExpectRefreshChanges: true,
 			// Ensure that the rule was found in the release's namespace.
 			ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
-				assert.NotEmpty(t, stackInfo.Outputs["alertManagerNamespace"].(string))
+				assert.Equalf(t, stackInfo.Outputs["namespaceName"], stackInfo.Outputs["alertManagerNamespace"],
+					"expected Helm resources to reside in the provided Namespace")
+				assert.NotEmptyf(t, stackInfo.Outputs["alertManagerNamespace"].(string),
+					"Helm resources should not be in the default Namespace")
+				getResponse, err := tests.Kubectl(fmt.Sprintf("get statefulset -n %s alertmanager",
+					stackInfo.Outputs["alertManagerNamespace"]))
+				assert.NoErrorf(t, err, "kubectl command failed")
+				assert.NotContainsf(t, getResponse, "No resources found",
+					"kubectl did not find the expected resource")
+			},
+			EditDirs: []integration.EditDir{
+				{
+					Dir:      filepath.Join(getCwd(t), "helm-release-namespace", "step2"),
+					Additive: true,
+					// Ensure that the rule was found in the release's namespace.
+					ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+						assert.Equalf(t, stackInfo.Outputs["namespaceName"], stackInfo.Outputs["alertManagerNamespace"],
+							"expected Helm resources to reside in the provided Namespace")
+						assert.NotEmptyf(t, stackInfo.Outputs["alertManagerNamespace"].(string),
+							"Helm resources should not be in the default Namespace")
+						getResponse, err := tests.Kubectl(fmt.Sprintf("get statefulset -n %s alertmanager",
+							stackInfo.Outputs["alertManagerNamespace"]))
+						assert.NoErrorf(t, err, "kubectl command failed")
+						assert.NotContainsf(t, getResponse, "No resources found",
+							"kubectl did not find the expected resource")
+					},
+				},
 			},
 		})
 

@@ -16,10 +16,11 @@ import * as pulumi from "@pulumi/pulumi";
 import * as k8s from "@pulumi/kubernetes";
 
 const namespace = new k8s.core.v1.Namespace("release-ns");
+export const namespaceName = namespace.metadata.name;
 
 const alertManager = new k8s.helm.v3.Release("alertmanager", {
     name: "alertmanager",
-    namespace: namespace.metadata.name,
+    namespace: namespaceName,
     chart: "alertmanager",
     version: "0.12.2",
     repositoryOpts: {
