@@ -1,8 +1,9 @@
 {
-    "name": "server-side-apply-preview",
+    "name": "preview-auth",
     "version": "0.1.0",
     "dependencies": {
-        "@pulumi/pulumi": "latest"
+        "@pulumi/pulumi": "latest",
+        "@pulumi/random": "latest"
     },
     "peerDependencies": {
         "@pulumi/kubernetes": "latest"

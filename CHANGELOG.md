@@ -1,5 +1,7 @@
 ## Unreleased
 
+- fix: ensure CSA does not hit API Server for preview (https://github.com/pulumi/pulumi-kubernetes/pull/2522)
+
 ## 4.0.3 (July 21, 2023)
 
 - fix: ensure data is not dropped when normalizing Secrets (https://github.com/pulumi/pulumi-kubernetes/pull/2514)

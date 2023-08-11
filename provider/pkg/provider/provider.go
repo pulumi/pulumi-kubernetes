@@ -1740,7 +1740,8 @@ func (k *kubeProvider) Create(
 	// 1: The input values contain unknowns
 	// 2: The resource GVK does not exist
 	// 3: The resource is a Patch resource
-	skipPreview := hasComputedValue(newInputs) || !k.gvkExists(newInputs) || isPatchURN(urn)
+	// 4: We are in client-side-apply mode
+	skipPreview := hasComputedValue(newInputs) || !k.gvkExists(newInputs) || isPatchURN(urn) || !k.serverSideApplyMode
 	// If this is a preview and the input meets one of the skip criteria, then return them as-is. This is compatible
 	// with prior behavior implemented by the Pulumi engine.
 	if req.GetPreview() && skipPreview {
@@ -1806,6 +1807,11 @@ func (k *kubeProvider) Create(
 	initialized, awaitErr := await.Creation(config)
 	if awaitErr != nil {
 		if req.GetPreview() {
+			if apierrors.IsForbidden(awaitErr) {
+				logger.V(1).Infof("unable to compute Server-side dry-run and defaulting to client-side: %s", awaitErr)
+				return &pulumirpc.CreateResponse{Id: "", Properties: req.GetProperties()}, nil
+			}
+
 			failedPreview := false
 			_, isPreviewErr := awaitErr.(await.PreviewError)
 			if k.isDryRunDisabledError(awaitErr) || isPreviewErr {
