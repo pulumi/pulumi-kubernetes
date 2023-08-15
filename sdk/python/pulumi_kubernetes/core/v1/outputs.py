@@ -11338,41 +11338,20 @@ class LoadBalancerIngress(dict):
     """
     LoadBalancerIngress represents the status of a load-balancer ingress point: traffic intended for the service should be sent to an ingress point.
     """
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "ipMode":
-            suggest = "ip_mode"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in LoadBalancerIngress. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        LoadBalancerIngress.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        LoadBalancerIngress.__key_warning(key)
-        return super().get(key, default)
-
     def __init__(__self__, *,
                  hostname: Optional[str] = None,
                  ip: Optional[str] = None,
-                 ip_mode: Optional[str] = None,
                  ports: Optional[Sequence['outputs.PortStatus']] = None):
         """
         LoadBalancerIngress represents the status of a load-balancer ingress point: traffic intended for the service should be sent to an ingress point.
         :param str hostname: Hostname is set for load-balancer ingress points that are DNS based (typically AWS load-balancers)
         :param str ip: IP is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers)
-        :param str ip_mode: IPMode specifies how the load-balancer IP behaves, and may only be specified when the ip field is specified. Setting this to "VIP" indicates that traffic is delivered to the node with the destination set to the load-balancer's IP and port. Setting this to "Proxy" indicates that traffic is delivered to the node or pod with the destination set to the node's IP and node port or the pod's IP and port. Service implementations may use this information to adjust traffic routing.
         :param Sequence['PortStatusArgs'] ports: Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
         """
         if hostname is not None:
             pulumi.set(__self__, "hostname", hostname)
         if ip is not None:
             pulumi.set(__self__, "ip", ip)
-        if ip_mode is not None:
-            pulumi.set(__self__, "ip_mode", ip_mode)
         if ports is not None:
             pulumi.set(__self__, "ports", ports)
 
@@ -11391,14 +11370,6 @@ class LoadBalancerIngress(dict):
         IP is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers)
         """
         return pulumi.get(self, "ip")
-
-    @property
-    @pulumi.getter(name="ipMode")
-    def ip_mode(self) -> Optional[str]:
-        """
-        IPMode specifies how the load-balancer IP behaves, and may only be specified when the ip field is specified. Setting this to "VIP" indicates that traffic is delivered to the node with the destination set to the load-balancer's IP and port. Setting this to "Proxy" indicates that traffic is delivered to the node or pod with the destination set to the node's IP and node port or the pod's IP and port. Service implementations may use this information to adjust traffic routing.
-        """
-        return pulumi.get(self, "ip_mode")
 
     @property
     @pulumi.getter
@@ -11414,41 +11385,20 @@ class LoadBalancerIngressPatch(dict):
     """
     LoadBalancerIngress represents the status of a load-balancer ingress point: traffic intended for the service should be sent to an ingress point.
     """
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "ipMode":
-            suggest = "ip_mode"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in LoadBalancerIngressPatch. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        LoadBalancerIngressPatch.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        LoadBalancerIngressPatch.__key_warning(key)
-        return super().get(key, default)
-
     def __init__(__self__, *,
                  hostname: Optional[str] = None,
                  ip: Optional[str] = None,
-                 ip_mode: Optional[str] = None,
                  ports: Optional[Sequence['outputs.PortStatusPatch']] = None):
         """
         LoadBalancerIngress represents the status of a load-balancer ingress point: traffic intended for the service should be sent to an ingress point.
         :param str hostname: Hostname is set for load-balancer ingress points that are DNS based (typically AWS load-balancers)
         :param str ip: IP is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers)
-        :param str ip_mode: IPMode specifies how the load-balancer IP behaves, and may only be specified when the ip field is specified. Setting this to "VIP" indicates that traffic is delivered to the node with the destination set to the load-balancer's IP and port. Setting this to "Proxy" indicates that traffic is delivered to the node or pod with the destination set to the node's IP and node port or the pod's IP and port. Service implementations may use this information to adjust traffic routing.
         :param Sequence['PortStatusPatchArgs'] ports: Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
         """
         if hostname is not None:
             pulumi.set(__self__, "hostname", hostname)
         if ip is not None:
             pulumi.set(__self__, "ip", ip)
-        if ip_mode is not None:
-            pulumi.set(__self__, "ip_mode", ip_mode)
         if ports is not None:
             pulumi.set(__self__, "ports", ports)
 
@@ -11467,14 +11417,6 @@ class LoadBalancerIngressPatch(dict):
         IP is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers)
         """
         return pulumi.get(self, "ip")
-
-    @property
-    @pulumi.getter(name="ipMode")
-    def ip_mode(self) -> Optional[str]:
-        """
-        IPMode specifies how the load-balancer IP behaves, and may only be specified when the ip field is specified. Setting this to "VIP" indicates that traffic is delivered to the node with the destination set to the load-balancer's IP and port. Setting this to "Proxy" indicates that traffic is delivered to the node or pod with the destination set to the node's IP and node port or the pod's IP and port. Service implementations may use this information to adjust traffic routing.
-        """
-        return pulumi.get(self, "ip_mode")
 
     @property
     @pulumi.getter

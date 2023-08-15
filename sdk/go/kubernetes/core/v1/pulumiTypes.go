@@ -26193,8 +26193,6 @@ type LoadBalancerIngress struct {
 	Hostname *string `pulumi:"hostname"`
 	// IP is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers)
 	Ip *string `pulumi:"ip"`
-	// IPMode specifies how the load-balancer IP behaves, and may only be specified when the ip field is specified. Setting this to "VIP" indicates that traffic is delivered to the node with the destination set to the load-balancer's IP and port. Setting this to "Proxy" indicates that traffic is delivered to the node or pod with the destination set to the node's IP and node port or the pod's IP and port. Service implementations may use this information to adjust traffic routing.
-	IpMode *string `pulumi:"ipMode"`
 	// Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
 	Ports []PortStatus `pulumi:"ports"`
 }
@@ -26216,8 +26214,6 @@ type LoadBalancerIngressArgs struct {
 	Hostname pulumi.StringPtrInput `pulumi:"hostname"`
 	// IP is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers)
 	Ip pulumi.StringPtrInput `pulumi:"ip"`
-	// IPMode specifies how the load-balancer IP behaves, and may only be specified when the ip field is specified. Setting this to "VIP" indicates that traffic is delivered to the node with the destination set to the load-balancer's IP and port. Setting this to "Proxy" indicates that traffic is delivered to the node or pod with the destination set to the node's IP and node port or the pod's IP and port. Service implementations may use this information to adjust traffic routing.
-	IpMode pulumi.StringPtrInput `pulumi:"ipMode"`
 	// Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
 	Ports PortStatusArrayInput `pulumi:"ports"`
 }
@@ -26284,11 +26280,6 @@ func (o LoadBalancerIngressOutput) Ip() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LoadBalancerIngress) *string { return v.Ip }).(pulumi.StringPtrOutput)
 }
 
-// IPMode specifies how the load-balancer IP behaves, and may only be specified when the ip field is specified. Setting this to "VIP" indicates that traffic is delivered to the node with the destination set to the load-balancer's IP and port. Setting this to "Proxy" indicates that traffic is delivered to the node or pod with the destination set to the node's IP and node port or the pod's IP and port. Service implementations may use this information to adjust traffic routing.
-func (o LoadBalancerIngressOutput) IpMode() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v LoadBalancerIngress) *string { return v.IpMode }).(pulumi.StringPtrOutput)
-}
-
 // Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
 func (o LoadBalancerIngressOutput) Ports() PortStatusArrayOutput {
 	return o.ApplyT(func(v LoadBalancerIngress) []PortStatus { return v.Ports }).(PortStatusArrayOutput)
@@ -26320,8 +26311,6 @@ type LoadBalancerIngressPatch struct {
 	Hostname *string `pulumi:"hostname"`
 	// IP is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers)
 	Ip *string `pulumi:"ip"`
-	// IPMode specifies how the load-balancer IP behaves, and may only be specified when the ip field is specified. Setting this to "VIP" indicates that traffic is delivered to the node with the destination set to the load-balancer's IP and port. Setting this to "Proxy" indicates that traffic is delivered to the node or pod with the destination set to the node's IP and node port or the pod's IP and port. Service implementations may use this information to adjust traffic routing.
-	IpMode *string `pulumi:"ipMode"`
 	// Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
 	Ports []PortStatusPatch `pulumi:"ports"`
 }
@@ -26343,8 +26332,6 @@ type LoadBalancerIngressPatchArgs struct {
 	Hostname pulumi.StringPtrInput `pulumi:"hostname"`
 	// IP is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers)
 	Ip pulumi.StringPtrInput `pulumi:"ip"`
-	// IPMode specifies how the load-balancer IP behaves, and may only be specified when the ip field is specified. Setting this to "VIP" indicates that traffic is delivered to the node with the destination set to the load-balancer's IP and port. Setting this to "Proxy" indicates that traffic is delivered to the node or pod with the destination set to the node's IP and node port or the pod's IP and port. Service implementations may use this information to adjust traffic routing.
-	IpMode pulumi.StringPtrInput `pulumi:"ipMode"`
 	// Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
 	Ports PortStatusPatchArrayInput `pulumi:"ports"`
 }
@@ -26409,11 +26396,6 @@ func (o LoadBalancerIngressPatchOutput) Hostname() pulumi.StringPtrOutput {
 // IP is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers)
 func (o LoadBalancerIngressPatchOutput) Ip() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LoadBalancerIngressPatch) *string { return v.Ip }).(pulumi.StringPtrOutput)
-}
-
-// IPMode specifies how the load-balancer IP behaves, and may only be specified when the ip field is specified. Setting this to "VIP" indicates that traffic is delivered to the node with the destination set to the load-balancer's IP and port. Setting this to "Proxy" indicates that traffic is delivered to the node or pod with the destination set to the node's IP and node port or the pod's IP and port. Service implementations may use this information to adjust traffic routing.
-func (o LoadBalancerIngressPatchOutput) IpMode() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v LoadBalancerIngressPatch) *string { return v.IpMode }).(pulumi.StringPtrOutput)
 }
 
 // Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
