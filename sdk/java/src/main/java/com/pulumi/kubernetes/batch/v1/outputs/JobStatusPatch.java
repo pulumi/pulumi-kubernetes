@@ -41,6 +41,11 @@ public final class JobStatusPatch {
      */
     private @Nullable Integer failed;
     /**
+     * @return FailedIndexes holds the failed indexes when backoffLimitPerIndex=true. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as &#34;1,3-5,7&#34;. This field is alpha-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (disabled by default).
+     * 
+     */
+    private @Nullable String failedIndexes;
+    /**
      * @return The number of pods which have a Ready condition.
      * 
      * This field is beta-level. The job controller populates the field when the feature gate JobReadyPods is enabled (enabled by default).
@@ -57,6 +62,13 @@ public final class JobStatusPatch {
      * 
      */
     private @Nullable Integer succeeded;
+    /**
+     * @return The number of pods which are terminating (in phase Pending or Running and have a deletionTimestamp).
+     * 
+     * This field is alpha-level. The job controller populates the field when the feature gate JobPodReplacementPolicy is enabled (disabled by default).
+     * 
+     */
+    private @Nullable Integer terminating;
     /**
      * @return uncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn&#39;t yet accounted for in the status counters.
      * 
@@ -107,6 +119,13 @@ public final class JobStatusPatch {
         return Optional.ofNullable(this.failed);
     }
     /**
+     * @return FailedIndexes holds the failed indexes when backoffLimitPerIndex=true. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as &#34;1,3-5,7&#34;. This field is alpha-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (disabled by default).
+     * 
+     */
+    public Optional<String> failedIndexes() {
+        return Optional.ofNullable(this.failedIndexes);
+    }
+    /**
      * @return The number of pods which have a Ready condition.
      * 
      * This field is beta-level. The job controller populates the field when the feature gate JobReadyPods is enabled (enabled by default).
@@ -128,6 +147,15 @@ public final class JobStatusPatch {
      */
     public Optional<Integer> succeeded() {
         return Optional.ofNullable(this.succeeded);
+    }
+    /**
+     * @return The number of pods which are terminating (in phase Pending or Running and have a deletionTimestamp).
+     * 
+     * This field is alpha-level. The job controller populates the field when the feature gate JobPodReplacementPolicy is enabled (disabled by default).
+     * 
+     */
+    public Optional<Integer> terminating() {
+        return Optional.ofNullable(this.terminating);
     }
     /**
      * @return uncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn&#39;t yet accounted for in the status counters.
@@ -158,9 +186,11 @@ public final class JobStatusPatch {
         private @Nullable String completionTime;
         private @Nullable List<JobConditionPatch> conditions;
         private @Nullable Integer failed;
+        private @Nullable String failedIndexes;
         private @Nullable Integer ready;
         private @Nullable String startTime;
         private @Nullable Integer succeeded;
+        private @Nullable Integer terminating;
         private @Nullable UncountedTerminatedPodsPatch uncountedTerminatedPods;
         public Builder() {}
         public Builder(JobStatusPatch defaults) {
@@ -170,9 +200,11 @@ public final class JobStatusPatch {
     	      this.completionTime = defaults.completionTime;
     	      this.conditions = defaults.conditions;
     	      this.failed = defaults.failed;
+    	      this.failedIndexes = defaults.failedIndexes;
     	      this.ready = defaults.ready;
     	      this.startTime = defaults.startTime;
     	      this.succeeded = defaults.succeeded;
+    	      this.terminating = defaults.terminating;
     	      this.uncountedTerminatedPods = defaults.uncountedTerminatedPods;
         }
 
@@ -205,6 +237,11 @@ public final class JobStatusPatch {
             return this;
         }
         @CustomType.Setter
+        public Builder failedIndexes(@Nullable String failedIndexes) {
+            this.failedIndexes = failedIndexes;
+            return this;
+        }
+        @CustomType.Setter
         public Builder ready(@Nullable Integer ready) {
             this.ready = ready;
             return this;
@@ -220,6 +257,11 @@ public final class JobStatusPatch {
             return this;
         }
         @CustomType.Setter
+        public Builder terminating(@Nullable Integer terminating) {
+            this.terminating = terminating;
+            return this;
+        }
+        @CustomType.Setter
         public Builder uncountedTerminatedPods(@Nullable UncountedTerminatedPodsPatch uncountedTerminatedPods) {
             this.uncountedTerminatedPods = uncountedTerminatedPods;
             return this;
@@ -231,9 +273,11 @@ public final class JobStatusPatch {
             o.completionTime = completionTime;
             o.conditions = conditions;
             o.failed = failed;
+            o.failedIndexes = failedIndexes;
             o.ready = ready;
             o.startTime = startTime;
             o.succeeded = succeeded;
+            o.terminating = terminating;
             o.uncountedTerminatedPods = uncountedTerminatedPods;
             return o;
         }

@@ -17,7 +17,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Core.V1
     public sealed class HTTPHeaderPatch
     {
         /// <summary>
-        /// The header field name
+        /// The header field name. This will be canonicalized upon output, so case-variant names will be understood as the same header.
         /// </summary>
         public readonly string Name;
         /// <summary>

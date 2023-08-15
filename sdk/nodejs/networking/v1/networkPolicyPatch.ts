@@ -60,7 +60,7 @@ export class NetworkPolicyPatch extends pulumi.CustomResource {
      */
     public readonly spec!: pulumi.Output<outputs.networking.v1.NetworkPolicySpecPatch>;
     /**
-     * status represents the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+     * Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      */
     public /*out*/ readonly status!: pulumi.Output<outputs.networking.v1.NetworkPolicyStatusPatch>;
 

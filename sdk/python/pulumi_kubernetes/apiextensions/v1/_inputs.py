@@ -2969,13 +2969,17 @@ class ServiceReferenceArgs:
 @pulumi.input_type
 class ValidationRulePatchArgs:
     def __init__(__self__, *,
+                 field_path: Optional[pulumi.Input[str]] = None,
                  message: Optional[pulumi.Input[str]] = None,
                  message_expression: Optional[pulumi.Input[str]] = None,
+                 reason: Optional[pulumi.Input[str]] = None,
                  rule: Optional[pulumi.Input[str]] = None):
         """
         ValidationRule describes a validation rule written in the CEL expression language.
+        :param pulumi.Input[str] field_path: fieldPath represents the field path returned when the validation fails. It must be a relative JSON path (i.e. with array notation) scoped to the location of this x-kubernetes-validations extension in the schema and refer to an existing field. e.g. when validation checks if a specific attribute `foo` under a map `testMap`, the fieldPath could be set to `.testMap.foo` If the validation checks two lists must have unique attributes, the fieldPath could be set to either of the list: e.g. `.testList` It does not support list numeric index. It supports child operation to refer to an existing field currently. Refer to [JSONPath support in Kubernetes](https://kubernetes.io/docs/reference/kubectl/jsonpath/) for more info. Numeric index of array is not supported. For field name which contains special characters, use `['specialName']` to refer the field name. e.g. for attribute `foo.34$` appears in a list `testList`, the fieldPath could be set to `.testList['foo.34$']`
         :param pulumi.Input[str] message: Message represents the message displayed when validation fails. The message is required if the Rule contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host"
         :param pulumi.Input[str] message_expression: MessageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a rule, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the rule; the only difference is the return type. Example: "x must be less than max ("+string(self.max)+")"
+        :param pulumi.Input[str] reason: reason provides a machine-readable validation failure reason that is returned to the caller when a request fails this validation rule. The HTTP status code returned to the caller will match the reason of the reason of the first failed validation rule. The currently supported reasons are: "FieldValueInvalid", "FieldValueForbidden", "FieldValueRequired", "FieldValueDuplicate". If not set, default to use "FieldValueInvalid". All future added reasons must be accepted by clients when reading this value and unknown reasons should be treated as FieldValueInvalid.
         :param pulumi.Input[str] rule: Rule represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec The Rule is scoped to the location of the x-kubernetes-validations extension in the schema. The `self` variable in the CEL expression is bound to the scoped value. Example: - Rule scoped to the root of a resource with a status subresource: {"rule": "self.status.actual <= self.spec.maxDesired"}
                
                If the Rule is scoped to an object with properties, the accessible properties of the object are field selectable via `self.field` and field presence can be checked via `has(self.field)`. Null valued fields are treated as absent fields in CEL expressions. If the Rule is scoped to an object with additionalProperties (i.e. a map) the value of the map are accessible via `self[mapKey]`, map containment can be checked via `mapKey in self` and all entries of the map are accessible via CEL macros and functions such as `self.all(...)`. If the Rule is scoped to an array, the elements of the array are accessible via `self[i]` and also by macros and functions. If the Rule is scoped to a scalar, `self` is bound to the scalar value. Examples: - Rule scoped to a map of objects: {"rule": "self.components['Widget'].priority < 10"} - Rule scoped to a list of integers: {"rule": "self.values.all(value, value >= 0 && value < 100)"} - Rule scoped to a string value: {"rule": "self.startsWith('kube')"}
@@ -3002,12 +3006,28 @@ class ValidationRulePatchArgs:
                    are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
                    non-intersecting keys are appended, retaining their partial order.
         """
+        if field_path is not None:
+            pulumi.set(__self__, "field_path", field_path)
         if message is not None:
             pulumi.set(__self__, "message", message)
         if message_expression is not None:
             pulumi.set(__self__, "message_expression", message_expression)
+        if reason is not None:
+            pulumi.set(__self__, "reason", reason)
         if rule is not None:
             pulumi.set(__self__, "rule", rule)
+
+    @property
+    @pulumi.getter(name="fieldPath")
+    def field_path(self) -> Optional[pulumi.Input[str]]:
+        """
+        fieldPath represents the field path returned when the validation fails. It must be a relative JSON path (i.e. with array notation) scoped to the location of this x-kubernetes-validations extension in the schema and refer to an existing field. e.g. when validation checks if a specific attribute `foo` under a map `testMap`, the fieldPath could be set to `.testMap.foo` If the validation checks two lists must have unique attributes, the fieldPath could be set to either of the list: e.g. `.testList` It does not support list numeric index. It supports child operation to refer to an existing field currently. Refer to [JSONPath support in Kubernetes](https://kubernetes.io/docs/reference/kubectl/jsonpath/) for more info. Numeric index of array is not supported. For field name which contains special characters, use `['specialName']` to refer the field name. e.g. for attribute `foo.34$` appears in a list `testList`, the fieldPath could be set to `.testList['foo.34$']`
+        """
+        return pulumi.get(self, "field_path")
+
+    @field_path.setter
+    def field_path(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "field_path", value)
 
     @property
     @pulumi.getter
@@ -3032,6 +3052,18 @@ class ValidationRulePatchArgs:
     @message_expression.setter
     def message_expression(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "message_expression", value)
+
+    @property
+    @pulumi.getter
+    def reason(self) -> Optional[pulumi.Input[str]]:
+        """
+        reason provides a machine-readable validation failure reason that is returned to the caller when a request fails this validation rule. The HTTP status code returned to the caller will match the reason of the reason of the first failed validation rule. The currently supported reasons are: "FieldValueInvalid", "FieldValueForbidden", "FieldValueRequired", "FieldValueDuplicate". If not set, default to use "FieldValueInvalid". All future added reasons must be accepted by clients when reading this value and unknown reasons should be treated as FieldValueInvalid.
+        """
+        return pulumi.get(self, "reason")
+
+    @reason.setter
+    def reason(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "reason", value)
 
     @property
     @pulumi.getter
@@ -3074,8 +3106,10 @@ class ValidationRulePatchArgs:
 class ValidationRuleArgs:
     def __init__(__self__, *,
                  rule: pulumi.Input[str],
+                 field_path: Optional[pulumi.Input[str]] = None,
                  message: Optional[pulumi.Input[str]] = None,
-                 message_expression: Optional[pulumi.Input[str]] = None):
+                 message_expression: Optional[pulumi.Input[str]] = None,
+                 reason: Optional[pulumi.Input[str]] = None):
         """
         ValidationRule describes a validation rule written in the CEL expression language.
         :param pulumi.Input[str] rule: Rule represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec The Rule is scoped to the location of the x-kubernetes-validations extension in the schema. The `self` variable in the CEL expression is bound to the scoped value. Example: - Rule scoped to the root of a resource with a status subresource: {"rule": "self.status.actual <= self.spec.maxDesired"}
@@ -3103,14 +3137,20 @@ class ValidationRuleArgs:
                  - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
                    are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
                    non-intersecting keys are appended, retaining their partial order.
+        :param pulumi.Input[str] field_path: fieldPath represents the field path returned when the validation fails. It must be a relative JSON path (i.e. with array notation) scoped to the location of this x-kubernetes-validations extension in the schema and refer to an existing field. e.g. when validation checks if a specific attribute `foo` under a map `testMap`, the fieldPath could be set to `.testMap.foo` If the validation checks two lists must have unique attributes, the fieldPath could be set to either of the list: e.g. `.testList` It does not support list numeric index. It supports child operation to refer to an existing field currently. Refer to [JSONPath support in Kubernetes](https://kubernetes.io/docs/reference/kubectl/jsonpath/) for more info. Numeric index of array is not supported. For field name which contains special characters, use `['specialName']` to refer the field name. e.g. for attribute `foo.34$` appears in a list `testList`, the fieldPath could be set to `.testList['foo.34$']`
         :param pulumi.Input[str] message: Message represents the message displayed when validation fails. The message is required if the Rule contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host"
         :param pulumi.Input[str] message_expression: MessageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a rule, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the rule; the only difference is the return type. Example: "x must be less than max ("+string(self.max)+")"
+        :param pulumi.Input[str] reason: reason provides a machine-readable validation failure reason that is returned to the caller when a request fails this validation rule. The HTTP status code returned to the caller will match the reason of the reason of the first failed validation rule. The currently supported reasons are: "FieldValueInvalid", "FieldValueForbidden", "FieldValueRequired", "FieldValueDuplicate". If not set, default to use "FieldValueInvalid". All future added reasons must be accepted by clients when reading this value and unknown reasons should be treated as FieldValueInvalid.
         """
         pulumi.set(__self__, "rule", rule)
+        if field_path is not None:
+            pulumi.set(__self__, "field_path", field_path)
         if message is not None:
             pulumi.set(__self__, "message", message)
         if message_expression is not None:
             pulumi.set(__self__, "message_expression", message_expression)
+        if reason is not None:
+            pulumi.set(__self__, "reason", reason)
 
     @property
     @pulumi.getter
@@ -3149,6 +3189,18 @@ class ValidationRuleArgs:
         pulumi.set(self, "rule", value)
 
     @property
+    @pulumi.getter(name="fieldPath")
+    def field_path(self) -> Optional[pulumi.Input[str]]:
+        """
+        fieldPath represents the field path returned when the validation fails. It must be a relative JSON path (i.e. with array notation) scoped to the location of this x-kubernetes-validations extension in the schema and refer to an existing field. e.g. when validation checks if a specific attribute `foo` under a map `testMap`, the fieldPath could be set to `.testMap.foo` If the validation checks two lists must have unique attributes, the fieldPath could be set to either of the list: e.g. `.testList` It does not support list numeric index. It supports child operation to refer to an existing field currently. Refer to [JSONPath support in Kubernetes](https://kubernetes.io/docs/reference/kubectl/jsonpath/) for more info. Numeric index of array is not supported. For field name which contains special characters, use `['specialName']` to refer the field name. e.g. for attribute `foo.34$` appears in a list `testList`, the fieldPath could be set to `.testList['foo.34$']`
+        """
+        return pulumi.get(self, "field_path")
+
+    @field_path.setter
+    def field_path(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "field_path", value)
+
+    @property
     @pulumi.getter
     def message(self) -> Optional[pulumi.Input[str]]:
         """
@@ -3171,6 +3223,18 @@ class ValidationRuleArgs:
     @message_expression.setter
     def message_expression(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "message_expression", value)
+
+    @property
+    @pulumi.getter
+    def reason(self) -> Optional[pulumi.Input[str]]:
+        """
+        reason provides a machine-readable validation failure reason that is returned to the caller when a request fails this validation rule. The HTTP status code returned to the caller will match the reason of the reason of the first failed validation rule. The currently supported reasons are: "FieldValueInvalid", "FieldValueForbidden", "FieldValueRequired", "FieldValueDuplicate". If not set, default to use "FieldValueInvalid". All future added reasons must be accepted by clients when reading this value and unknown reasons should be treated as FieldValueInvalid.
+        """
+        return pulumi.get(self, "reason")
+
+    @reason.setter
+    def reason(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "reason", value)
 
 
 @pulumi.input_type

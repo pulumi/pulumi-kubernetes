@@ -38,14 +38,107 @@ public final class PersistentVolumeClaimStatusPatchArgs extends com.pulumi.resou
     }
 
     /**
-     * allocatedResources is the storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+     * allocatedResourceStatuses stores status of resource being resized for the given PVC. Key names follow standard Kubernetes label syntax. Valid values are either:
+     * 	* Un-prefixed keys:
+     * 		- storage - the capacity of the volume.
+     * 	* Custom resources must use implementation-defined prefixed names such as &#34;example.com/my-custom-resource&#34;
+     * Apart from above values - keys that are unprefixed or have kubernetes.io prefix are considered reserved and hence may not be used.
+     * 
+     * ClaimResourceStatus can be in any of following states:
+     * 	- ControllerResizeInProgress:
+     * 		State set when resize controller starts resizing the volume in control-plane.
+     * 	- ControllerResizeFailed:
+     * 		State set when resize has failed in resize controller with a terminal error.
+     * 	- NodeResizePending:
+     * 		State set when resize controller has finished resizing the volume but further resizing of
+     * 		volume is needed on the node.
+     * 	- NodeResizeInProgress:
+     * 		State set when kubelet starts resizing the volume.
+     * 	- NodeResizeFailed:
+     * 		State set when resizing has failed in kubelet with a terminal error. Transient errors don&#39;t set
+     * 		NodeResizeFailed.
+     * For example: if expanding a PVC for more capacity - this field can be one of the following states:
+     * 	- pvc.status.allocatedResourceStatus[&#39;storage&#39;] = &#34;ControllerResizeInProgress&#34;
+     *      - pvc.status.allocatedResourceStatus[&#39;storage&#39;] = &#34;ControllerResizeFailed&#34;
+     *      - pvc.status.allocatedResourceStatus[&#39;storage&#39;] = &#34;NodeResizePending&#34;
+     *      - pvc.status.allocatedResourceStatus[&#39;storage&#39;] = &#34;NodeResizeInProgress&#34;
+     *      - pvc.status.allocatedResourceStatus[&#39;storage&#39;] = &#34;NodeResizeFailed&#34;
+     * When this field is not set, it means that no resize operation is in progress for the given PVC.
+     * 
+     * A controller that receives PVC update with previously unknown resourceName or ClaimResourceStatus should ignore the update for the purpose it was designed. For example - a controller that only is responsible for resizing capacity of the volume, should ignore PVC updates that change other valid resources associated with PVC.
+     * 
+     * This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+     * 
+     */
+    @Import(name="allocatedResourceStatuses")
+    private @Nullable Output<Map<String,String>> allocatedResourceStatuses;
+
+    /**
+     * @return allocatedResourceStatuses stores status of resource being resized for the given PVC. Key names follow standard Kubernetes label syntax. Valid values are either:
+     * 	* Un-prefixed keys:
+     * 		- storage - the capacity of the volume.
+     * 	* Custom resources must use implementation-defined prefixed names such as &#34;example.com/my-custom-resource&#34;
+     * Apart from above values - keys that are unprefixed or have kubernetes.io prefix are considered reserved and hence may not be used.
+     * 
+     * ClaimResourceStatus can be in any of following states:
+     * 	- ControllerResizeInProgress:
+     * 		State set when resize controller starts resizing the volume in control-plane.
+     * 	- ControllerResizeFailed:
+     * 		State set when resize has failed in resize controller with a terminal error.
+     * 	- NodeResizePending:
+     * 		State set when resize controller has finished resizing the volume but further resizing of
+     * 		volume is needed on the node.
+     * 	- NodeResizeInProgress:
+     * 		State set when kubelet starts resizing the volume.
+     * 	- NodeResizeFailed:
+     * 		State set when resizing has failed in kubelet with a terminal error. Transient errors don&#39;t set
+     * 		NodeResizeFailed.
+     * For example: if expanding a PVC for more capacity - this field can be one of the following states:
+     * 	- pvc.status.allocatedResourceStatus[&#39;storage&#39;] = &#34;ControllerResizeInProgress&#34;
+     *      - pvc.status.allocatedResourceStatus[&#39;storage&#39;] = &#34;ControllerResizeFailed&#34;
+     *      - pvc.status.allocatedResourceStatus[&#39;storage&#39;] = &#34;NodeResizePending&#34;
+     *      - pvc.status.allocatedResourceStatus[&#39;storage&#39;] = &#34;NodeResizeInProgress&#34;
+     *      - pvc.status.allocatedResourceStatus[&#39;storage&#39;] = &#34;NodeResizeFailed&#34;
+     * When this field is not set, it means that no resize operation is in progress for the given PVC.
+     * 
+     * A controller that receives PVC update with previously unknown resourceName or ClaimResourceStatus should ignore the update for the purpose it was designed. For example - a controller that only is responsible for resizing capacity of the volume, should ignore PVC updates that change other valid resources associated with PVC.
+     * 
+     * This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+     * 
+     */
+    public Optional<Output<Map<String,String>>> allocatedResourceStatuses() {
+        return Optional.ofNullable(this.allocatedResourceStatuses);
+    }
+
+    /**
+     * allocatedResources tracks the resources allocated to a PVC including its capacity. Key names follow standard Kubernetes label syntax. Valid values are either:
+     * 	* Un-prefixed keys:
+     * 		- storage - the capacity of the volume.
+     * 	* Custom resources must use implementation-defined prefixed names such as &#34;example.com/my-custom-resource&#34;
+     * Apart from above values - keys that are unprefixed or have kubernetes.io prefix are considered reserved and hence may not be used.
+     * 
+     * Capacity reported here may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity.
+     * 
+     * A controller that receives PVC update with previously unknown resourceName should ignore the update for the purpose it was designed. For example - a controller that only is responsible for resizing capacity of the volume, should ignore PVC updates that change other valid resources associated with PVC.
+     * 
+     * This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
      * 
      */
     @Import(name="allocatedResources")
     private @Nullable Output<Map<String,String>> allocatedResources;
 
     /**
-     * @return allocatedResources is the storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+     * @return allocatedResources tracks the resources allocated to a PVC including its capacity. Key names follow standard Kubernetes label syntax. Valid values are either:
+     * 	* Un-prefixed keys:
+     * 		- storage - the capacity of the volume.
+     * 	* Custom resources must use implementation-defined prefixed names such as &#34;example.com/my-custom-resource&#34;
+     * Apart from above values - keys that are unprefixed or have kubernetes.io prefix are considered reserved and hence may not be used.
+     * 
+     * Capacity reported here may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity.
+     * 
+     * A controller that receives PVC update with previously unknown resourceName should ignore the update for the purpose it was designed. For example - a controller that only is responsible for resizing capacity of the volume, should ignore PVC updates that change other valid resources associated with PVC.
+     * 
+     * This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
      * 
      */
     public Optional<Output<Map<String,String>>> allocatedResources() {
@@ -116,6 +209,7 @@ public final class PersistentVolumeClaimStatusPatchArgs extends com.pulumi.resou
 
     private PersistentVolumeClaimStatusPatchArgs(PersistentVolumeClaimStatusPatchArgs $) {
         this.accessModes = $.accessModes;
+        this.allocatedResourceStatuses = $.allocatedResourceStatuses;
         this.allocatedResources = $.allocatedResources;
         this.capacity = $.capacity;
         this.conditions = $.conditions;
@@ -173,7 +267,96 @@ public final class PersistentVolumeClaimStatusPatchArgs extends com.pulumi.resou
         }
 
         /**
-         * @param allocatedResources allocatedResources is the storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+         * @param allocatedResourceStatuses allocatedResourceStatuses stores status of resource being resized for the given PVC. Key names follow standard Kubernetes label syntax. Valid values are either:
+         * 	* Un-prefixed keys:
+         * 		- storage - the capacity of the volume.
+         * 	* Custom resources must use implementation-defined prefixed names such as &#34;example.com/my-custom-resource&#34;
+         * Apart from above values - keys that are unprefixed or have kubernetes.io prefix are considered reserved and hence may not be used.
+         * 
+         * ClaimResourceStatus can be in any of following states:
+         * 	- ControllerResizeInProgress:
+         * 		State set when resize controller starts resizing the volume in control-plane.
+         * 	- ControllerResizeFailed:
+         * 		State set when resize has failed in resize controller with a terminal error.
+         * 	- NodeResizePending:
+         * 		State set when resize controller has finished resizing the volume but further resizing of
+         * 		volume is needed on the node.
+         * 	- NodeResizeInProgress:
+         * 		State set when kubelet starts resizing the volume.
+         * 	- NodeResizeFailed:
+         * 		State set when resizing has failed in kubelet with a terminal error. Transient errors don&#39;t set
+         * 		NodeResizeFailed.
+         * For example: if expanding a PVC for more capacity - this field can be one of the following states:
+         * 	- pvc.status.allocatedResourceStatus[&#39;storage&#39;] = &#34;ControllerResizeInProgress&#34;
+         *      - pvc.status.allocatedResourceStatus[&#39;storage&#39;] = &#34;ControllerResizeFailed&#34;
+         *      - pvc.status.allocatedResourceStatus[&#39;storage&#39;] = &#34;NodeResizePending&#34;
+         *      - pvc.status.allocatedResourceStatus[&#39;storage&#39;] = &#34;NodeResizeInProgress&#34;
+         *      - pvc.status.allocatedResourceStatus[&#39;storage&#39;] = &#34;NodeResizeFailed&#34;
+         * When this field is not set, it means that no resize operation is in progress for the given PVC.
+         * 
+         * A controller that receives PVC update with previously unknown resourceName or ClaimResourceStatus should ignore the update for the purpose it was designed. For example - a controller that only is responsible for resizing capacity of the volume, should ignore PVC updates that change other valid resources associated with PVC.
+         * 
+         * This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder allocatedResourceStatuses(@Nullable Output<Map<String,String>> allocatedResourceStatuses) {
+            $.allocatedResourceStatuses = allocatedResourceStatuses;
+            return this;
+        }
+
+        /**
+         * @param allocatedResourceStatuses allocatedResourceStatuses stores status of resource being resized for the given PVC. Key names follow standard Kubernetes label syntax. Valid values are either:
+         * 	* Un-prefixed keys:
+         * 		- storage - the capacity of the volume.
+         * 	* Custom resources must use implementation-defined prefixed names such as &#34;example.com/my-custom-resource&#34;
+         * Apart from above values - keys that are unprefixed or have kubernetes.io prefix are considered reserved and hence may not be used.
+         * 
+         * ClaimResourceStatus can be in any of following states:
+         * 	- ControllerResizeInProgress:
+         * 		State set when resize controller starts resizing the volume in control-plane.
+         * 	- ControllerResizeFailed:
+         * 		State set when resize has failed in resize controller with a terminal error.
+         * 	- NodeResizePending:
+         * 		State set when resize controller has finished resizing the volume but further resizing of
+         * 		volume is needed on the node.
+         * 	- NodeResizeInProgress:
+         * 		State set when kubelet starts resizing the volume.
+         * 	- NodeResizeFailed:
+         * 		State set when resizing has failed in kubelet with a terminal error. Transient errors don&#39;t set
+         * 		NodeResizeFailed.
+         * For example: if expanding a PVC for more capacity - this field can be one of the following states:
+         * 	- pvc.status.allocatedResourceStatus[&#39;storage&#39;] = &#34;ControllerResizeInProgress&#34;
+         *      - pvc.status.allocatedResourceStatus[&#39;storage&#39;] = &#34;ControllerResizeFailed&#34;
+         *      - pvc.status.allocatedResourceStatus[&#39;storage&#39;] = &#34;NodeResizePending&#34;
+         *      - pvc.status.allocatedResourceStatus[&#39;storage&#39;] = &#34;NodeResizeInProgress&#34;
+         *      - pvc.status.allocatedResourceStatus[&#39;storage&#39;] = &#34;NodeResizeFailed&#34;
+         * When this field is not set, it means that no resize operation is in progress for the given PVC.
+         * 
+         * A controller that receives PVC update with previously unknown resourceName or ClaimResourceStatus should ignore the update for the purpose it was designed. For example - a controller that only is responsible for resizing capacity of the volume, should ignore PVC updates that change other valid resources associated with PVC.
+         * 
+         * This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder allocatedResourceStatuses(Map<String,String> allocatedResourceStatuses) {
+            return allocatedResourceStatuses(Output.of(allocatedResourceStatuses));
+        }
+
+        /**
+         * @param allocatedResources allocatedResources tracks the resources allocated to a PVC including its capacity. Key names follow standard Kubernetes label syntax. Valid values are either:
+         * 	* Un-prefixed keys:
+         * 		- storage - the capacity of the volume.
+         * 	* Custom resources must use implementation-defined prefixed names such as &#34;example.com/my-custom-resource&#34;
+         * Apart from above values - keys that are unprefixed or have kubernetes.io prefix are considered reserved and hence may not be used.
+         * 
+         * Capacity reported here may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity.
+         * 
+         * A controller that receives PVC update with previously unknown resourceName should ignore the update for the purpose it was designed. For example - a controller that only is responsible for resizing capacity of the volume, should ignore PVC updates that change other valid resources associated with PVC.
+         * 
+         * This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
          * 
          * @return builder
          * 
@@ -184,7 +367,17 @@ public final class PersistentVolumeClaimStatusPatchArgs extends com.pulumi.resou
         }
 
         /**
-         * @param allocatedResources allocatedResources is the storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+         * @param allocatedResources allocatedResources tracks the resources allocated to a PVC including its capacity. Key names follow standard Kubernetes label syntax. Valid values are either:
+         * 	* Un-prefixed keys:
+         * 		- storage - the capacity of the volume.
+         * 	* Custom resources must use implementation-defined prefixed names such as &#34;example.com/my-custom-resource&#34;
+         * Apart from above values - keys that are unprefixed or have kubernetes.io prefix are considered reserved and hence may not be used.
+         * 
+         * Capacity reported here may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity.
+         * 
+         * A controller that receives PVC update with previously unknown resourceName should ignore the update for the purpose it was designed. For example - a controller that only is responsible for resizing capacity of the volume, should ignore PVC updates that change other valid resources associated with PVC.
+         * 
+         * This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
          * 
          * @return builder
          * 

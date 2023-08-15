@@ -16,6 +16,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     public class PersistentVolumeStatusArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
+        /// lastPhaseTransitionTime is the time the phase transitioned from one to another and automatically resets to current time everytime a volume phase transitions. This is an alpha field and requires enabling PersistentVolumeLastPhaseTransitionTime feature.
+        /// </summary>
+        [Input("lastPhaseTransitionTime")]
+        public Input<string>? LastPhaseTransitionTime { get; set; }
+
+        /// <summary>
         /// message is a human-readable message indicating details about why the volume is in this state.
         /// </summary>
         [Input("message")]

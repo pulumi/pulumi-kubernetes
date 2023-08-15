@@ -4913,7 +4913,7 @@ type NetworkPolicyType struct {
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
 	// spec represents the specification of the desired behavior for this NetworkPolicy.
 	Spec *NetworkPolicySpec `pulumi:"spec"`
-	// status represents the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	// Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Status *NetworkPolicyStatus `pulumi:"status"`
 }
 
@@ -4938,7 +4938,7 @@ type NetworkPolicyTypeArgs struct {
 	Metadata metav1.ObjectMetaPtrInput `pulumi:"metadata"`
 	// spec represents the specification of the desired behavior for this NetworkPolicy.
 	Spec NetworkPolicySpecPtrInput `pulumi:"spec"`
-	// status represents the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	// Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Status NetworkPolicyStatusPtrInput `pulumi:"status"`
 }
 
@@ -5014,7 +5014,7 @@ func (o NetworkPolicyTypeOutput) Spec() NetworkPolicySpecPtrOutput {
 	return o.ApplyT(func(v NetworkPolicyType) *NetworkPolicySpec { return v.Spec }).(NetworkPolicySpecPtrOutput)
 }
 
-// status represents the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+// Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 func (o NetworkPolicyTypeOutput) Status() NetworkPolicyStatusPtrOutput {
 	return o.ApplyT(func(v NetworkPolicyType) *NetworkPolicyStatus { return v.Status }).(NetworkPolicyStatusPtrOutput)
 }
@@ -5567,7 +5567,7 @@ type NetworkPolicyPatchType struct {
 	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
 	// spec represents the specification of the desired behavior for this NetworkPolicy.
 	Spec *NetworkPolicySpecPatch `pulumi:"spec"`
-	// status represents the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	// Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Status *NetworkPolicyStatusPatch `pulumi:"status"`
 }
 
@@ -5592,7 +5592,7 @@ type NetworkPolicyPatchTypeArgs struct {
 	Metadata metav1.ObjectMetaPatchPtrInput `pulumi:"metadata"`
 	// spec represents the specification of the desired behavior for this NetworkPolicy.
 	Spec NetworkPolicySpecPatchPtrInput `pulumi:"spec"`
-	// status represents the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+	// Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 	Status NetworkPolicyStatusPatchPtrInput `pulumi:"status"`
 }
 
@@ -5643,7 +5643,7 @@ func (o NetworkPolicyPatchTypeOutput) Spec() NetworkPolicySpecPatchPtrOutput {
 	return o.ApplyT(func(v NetworkPolicyPatchType) *NetworkPolicySpecPatch { return v.Spec }).(NetworkPolicySpecPatchPtrOutput)
 }
 
-// status represents the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+// Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 func (o NetworkPolicyPatchTypeOutput) Status() NetworkPolicyStatusPatchPtrOutput {
 	return o.ApplyT(func(v NetworkPolicyPatchType) *NetworkPolicyStatusPatch { return v.Status }).(NetworkPolicyStatusPatchPtrOutput)
 }
@@ -6538,9 +6538,9 @@ func (o NetworkPolicySpecPatchPtrOutput) PolicyTypes() pulumi.StringArrayOutput 
 	}).(pulumi.StringArrayOutput)
 }
 
-// NetworkPolicyStatus describes the current state of the NetworkPolicy.
+// NetworkPolicyStatus describe the current state of the NetworkPolicy.
 type NetworkPolicyStatus struct {
-	// conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
+	// Conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
 	Conditions []metav1.Condition `pulumi:"conditions"`
 }
 
@@ -6555,9 +6555,9 @@ type NetworkPolicyStatusInput interface {
 	ToNetworkPolicyStatusOutputWithContext(context.Context) NetworkPolicyStatusOutput
 }
 
-// NetworkPolicyStatus describes the current state of the NetworkPolicy.
+// NetworkPolicyStatus describe the current state of the NetworkPolicy.
 type NetworkPolicyStatusArgs struct {
-	// conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
+	// Conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
 	Conditions metav1.ConditionArrayInput `pulumi:"conditions"`
 }
 
@@ -6614,7 +6614,7 @@ func (i *networkPolicyStatusPtrType) ToNetworkPolicyStatusPtrOutputWithContext(c
 	return pulumi.ToOutputWithContext(ctx, i).(NetworkPolicyStatusPtrOutput)
 }
 
-// NetworkPolicyStatus describes the current state of the NetworkPolicy.
+// NetworkPolicyStatus describe the current state of the NetworkPolicy.
 type NetworkPolicyStatusOutput struct{ *pulumi.OutputState }
 
 func (NetworkPolicyStatusOutput) ElementType() reflect.Type {
@@ -6639,7 +6639,7 @@ func (o NetworkPolicyStatusOutput) ToNetworkPolicyStatusPtrOutputWithContext(ctx
 	}).(NetworkPolicyStatusPtrOutput)
 }
 
-// conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
+// Conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
 func (o NetworkPolicyStatusOutput) Conditions() metav1.ConditionArrayOutput {
 	return o.ApplyT(func(v NetworkPolicyStatus) []metav1.Condition { return v.Conditions }).(metav1.ConditionArrayOutput)
 }
@@ -6668,7 +6668,7 @@ func (o NetworkPolicyStatusPtrOutput) Elem() NetworkPolicyStatusOutput {
 	}).(NetworkPolicyStatusOutput)
 }
 
-// conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
+// Conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
 func (o NetworkPolicyStatusPtrOutput) Conditions() metav1.ConditionArrayOutput {
 	return o.ApplyT(func(v *NetworkPolicyStatus) []metav1.Condition {
 		if v == nil {
@@ -6678,9 +6678,9 @@ func (o NetworkPolicyStatusPtrOutput) Conditions() metav1.ConditionArrayOutput {
 	}).(metav1.ConditionArrayOutput)
 }
 
-// NetworkPolicyStatus describes the current state of the NetworkPolicy.
+// NetworkPolicyStatus describe the current state of the NetworkPolicy.
 type NetworkPolicyStatusPatch struct {
-	// conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
+	// Conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
 	Conditions []metav1.ConditionPatch `pulumi:"conditions"`
 }
 
@@ -6695,9 +6695,9 @@ type NetworkPolicyStatusPatchInput interface {
 	ToNetworkPolicyStatusPatchOutputWithContext(context.Context) NetworkPolicyStatusPatchOutput
 }
 
-// NetworkPolicyStatus describes the current state of the NetworkPolicy.
+// NetworkPolicyStatus describe the current state of the NetworkPolicy.
 type NetworkPolicyStatusPatchArgs struct {
-	// conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
+	// Conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
 	Conditions metav1.ConditionPatchArrayInput `pulumi:"conditions"`
 }
 
@@ -6754,7 +6754,7 @@ func (i *networkPolicyStatusPatchPtrType) ToNetworkPolicyStatusPatchPtrOutputWit
 	return pulumi.ToOutputWithContext(ctx, i).(NetworkPolicyStatusPatchPtrOutput)
 }
 
-// NetworkPolicyStatus describes the current state of the NetworkPolicy.
+// NetworkPolicyStatus describe the current state of the NetworkPolicy.
 type NetworkPolicyStatusPatchOutput struct{ *pulumi.OutputState }
 
 func (NetworkPolicyStatusPatchOutput) ElementType() reflect.Type {
@@ -6779,7 +6779,7 @@ func (o NetworkPolicyStatusPatchOutput) ToNetworkPolicyStatusPatchPtrOutputWithC
 	}).(NetworkPolicyStatusPatchPtrOutput)
 }
 
-// conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
+// Conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
 func (o NetworkPolicyStatusPatchOutput) Conditions() metav1.ConditionPatchArrayOutput {
 	return o.ApplyT(func(v NetworkPolicyStatusPatch) []metav1.ConditionPatch { return v.Conditions }).(metav1.ConditionPatchArrayOutput)
 }
@@ -6808,7 +6808,7 @@ func (o NetworkPolicyStatusPatchPtrOutput) Elem() NetworkPolicyStatusPatchOutput
 	}).(NetworkPolicyStatusPatchOutput)
 }
 
-// conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
+// Conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
 func (o NetworkPolicyStatusPatchPtrOutput) Conditions() metav1.ConditionPatchArrayOutput {
 	return o.ApplyT(func(v *NetworkPolicyStatusPatch) []metav1.ConditionPatch {
 		if v == nil {

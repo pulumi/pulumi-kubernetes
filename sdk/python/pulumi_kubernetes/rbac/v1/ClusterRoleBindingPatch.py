@@ -27,7 +27,7 @@ class ClusterRoleBindingPatchArgs:
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaPatchArgs'] metadata: Standard object's metadata.
-        :param pulumi.Input['RoleRefPatchArgs'] role_ref: RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+        :param pulumi.Input['RoleRefPatchArgs'] role_ref: RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
         :param pulumi.Input[Sequence[pulumi.Input['SubjectPatchArgs']]] subjects: Subjects holds references to the objects the role applies to.
         """
         if api_version is not None:
@@ -81,7 +81,7 @@ class ClusterRoleBindingPatchArgs:
     @pulumi.getter(name="roleRef")
     def role_ref(self) -> Optional[pulumi.Input['RoleRefPatchArgs']]:
         """
-        RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+        RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
         """
         return pulumi.get(self, "role_ref")
 
@@ -127,7 +127,7 @@ class ClusterRoleBindingPatch(pulumi.CustomResource):
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input[pulumi.InputType['_meta.v1.ObjectMetaPatchArgs']] metadata: Standard object's metadata.
-        :param pulumi.Input[pulumi.InputType['RoleRefPatchArgs']] role_ref: RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+        :param pulumi.Input[pulumi.InputType['RoleRefPatchArgs']] role_ref: RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
         :param pulumi.Input[Sequence[pulumi.Input[pulumi.InputType['SubjectPatchArgs']]]] subjects: Subjects holds references to the objects the role applies to.
         """
         ...
@@ -238,7 +238,7 @@ class ClusterRoleBindingPatch(pulumi.CustomResource):
     @pulumi.getter(name="roleRef")
     def role_ref(self) -> pulumi.Output[Optional['outputs.RoleRefPatch']]:
         """
-        RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+        RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
         """
         return pulumi.get(self, "role_ref")
 

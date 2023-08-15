@@ -16,7 +16,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Core.V1
     public class HTTPHeaderPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
-        /// The header field name
+        /// The header field name. This will be canonicalized upon output, so case-variant names will be understood as the same header.
         /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }

@@ -82,6 +82,8 @@ export class ValidatingAdmissionPolicy extends pulumi.CustomResource {
             resourceInputs["status"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const aliasOpts = { aliases: [{ type: "kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingAdmissionPolicy" }] };
+        opts = pulumi.mergeOptions(opts, aliasOpts);
         super(ValidatingAdmissionPolicy.__pulumiType, name, resourceInputs, opts);
     }
 }

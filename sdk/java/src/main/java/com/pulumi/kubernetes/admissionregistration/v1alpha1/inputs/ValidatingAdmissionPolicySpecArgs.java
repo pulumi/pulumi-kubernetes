@@ -10,6 +10,7 @@ import com.pulumi.kubernetes.admissionregistration.v1alpha1.inputs.MatchConditio
 import com.pulumi.kubernetes.admissionregistration.v1alpha1.inputs.MatchResourcesArgs;
 import com.pulumi.kubernetes.admissionregistration.v1alpha1.inputs.ParamKindArgs;
 import com.pulumi.kubernetes.admissionregistration.v1alpha1.inputs.ValidationArgs;
+import com.pulumi.kubernetes.admissionregistration.v1alpha1.inputs.VariableArgs;
 import java.lang.String;
 import java.util.List;
 import java.util.Objects;
@@ -149,6 +150,25 @@ public final class ValidatingAdmissionPolicySpecArgs extends com.pulumi.resource
         return this.validations;
     }
 
+    /**
+     * Variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except MatchConditions because MatchConditions are evaluated before the rest of the policy.
+     * 
+     * The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, Variables must be sorted by the order of first appearance and acyclic.
+     * 
+     */
+    @Import(name="variables")
+    private @Nullable Output<List<VariableArgs>> variables;
+
+    /**
+     * @return Variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except MatchConditions because MatchConditions are evaluated before the rest of the policy.
+     * 
+     * The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, Variables must be sorted by the order of first appearance and acyclic.
+     * 
+     */
+    public Optional<Output<List<VariableArgs>>> variables() {
+        return Optional.ofNullable(this.variables);
+    }
+
     private ValidatingAdmissionPolicySpecArgs() {}
 
     private ValidatingAdmissionPolicySpecArgs(ValidatingAdmissionPolicySpecArgs $) {
@@ -158,6 +178,7 @@ public final class ValidatingAdmissionPolicySpecArgs extends com.pulumi.resource
         this.matchConstraints = $.matchConstraints;
         this.paramKind = $.paramKind;
         this.validations = $.validations;
+        this.variables = $.variables;
     }
 
     public static Builder builder() {
@@ -375,6 +396,43 @@ public final class ValidatingAdmissionPolicySpecArgs extends com.pulumi.resource
          */
         public Builder validations(ValidationArgs... validations) {
             return validations(List.of(validations));
+        }
+
+        /**
+         * @param variables Variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except MatchConditions because MatchConditions are evaluated before the rest of the policy.
+         * 
+         * The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, Variables must be sorted by the order of first appearance and acyclic.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder variables(@Nullable Output<List<VariableArgs>> variables) {
+            $.variables = variables;
+            return this;
+        }
+
+        /**
+         * @param variables Variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except MatchConditions because MatchConditions are evaluated before the rest of the policy.
+         * 
+         * The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, Variables must be sorted by the order of first appearance and acyclic.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder variables(List<VariableArgs> variables) {
+            return variables(Output.of(variables));
+        }
+
+        /**
+         * @param variables Variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except MatchConditions because MatchConditions are evaluated before the rest of the policy.
+         * 
+         * The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, Variables must be sorted by the order of first appearance and acyclic.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder variables(VariableArgs... variables) {
+            return variables(List.of(variables));
         }
 
         public ValidatingAdmissionPolicySpecArgs build() {

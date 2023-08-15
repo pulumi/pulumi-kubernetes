@@ -50,7 +50,7 @@ export class RoleBinding extends pulumi.CustomResource {
      */
     public readonly metadata!: pulumi.Output<outputs.meta.v1.ObjectMeta>;
     /**
-     * RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+     * RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
      */
     public readonly roleRef!: pulumi.Output<outputs.rbac.v1.RoleRef>;
     /**
@@ -108,7 +108,7 @@ export interface RoleBindingArgs {
      */
     metadata?: pulumi.Input<inputs.meta.v1.ObjectMeta>;
     /**
-     * RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+     * RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
      */
     roleRef: pulumi.Input<inputs.rbac.v1.RoleRef>;
     /**

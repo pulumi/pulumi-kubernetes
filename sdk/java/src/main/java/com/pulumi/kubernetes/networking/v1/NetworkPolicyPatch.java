@@ -87,14 +87,14 @@ public class NetworkPolicyPatch extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.spec);
     }
     /**
-     * status represents the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+     * Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
     @Export(name="status", refs={NetworkPolicyStatusPatch.class}, tree="[0]")
     private Output</* @Nullable */ NetworkPolicyStatusPatch> status;
 
     /**
-     * @return status represents the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+     * @return Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
     public Output<Optional<NetworkPolicyStatusPatch>> status() {

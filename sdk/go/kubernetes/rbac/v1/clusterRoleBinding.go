@@ -23,7 +23,7 @@ type ClusterRoleBinding struct {
 	Kind pulumi.StringOutput `pulumi:"kind"`
 	// Standard object's metadata.
 	Metadata metav1.ObjectMetaOutput `pulumi:"metadata"`
-	// RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+	// RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
 	RoleRef RoleRefOutput `pulumi:"roleRef"`
 	// Subjects holds references to the objects the role applies to.
 	Subjects SubjectArrayOutput `pulumi:"subjects"`
@@ -89,7 +89,7 @@ type clusterRoleBindingArgs struct {
 	Kind *string `pulumi:"kind"`
 	// Standard object's metadata.
 	Metadata *metav1.ObjectMeta `pulumi:"metadata"`
-	// RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+	// RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
 	RoleRef RoleRef `pulumi:"roleRef"`
 	// Subjects holds references to the objects the role applies to.
 	Subjects []Subject `pulumi:"subjects"`
@@ -103,7 +103,7 @@ type ClusterRoleBindingArgs struct {
 	Kind pulumi.StringPtrInput
 	// Standard object's metadata.
 	Metadata metav1.ObjectMetaPtrInput
-	// RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+	// RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
 	RoleRef RoleRefInput
 	// Subjects holds references to the objects the role applies to.
 	Subjects SubjectArrayInput
@@ -211,7 +211,7 @@ func (o ClusterRoleBindingOutput) Metadata() metav1.ObjectMetaOutput {
 	return o.ApplyT(func(v *ClusterRoleBinding) metav1.ObjectMetaOutput { return v.Metadata }).(metav1.ObjectMetaOutput)
 }
 
-// RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+// RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
 func (o ClusterRoleBindingOutput) RoleRef() RoleRefOutput {
 	return o.ApplyT(func(v *ClusterRoleBinding) RoleRefOutput { return v.RoleRef }).(RoleRefOutput)
 }

@@ -985,6 +985,8 @@ type EndpointPort struct {
 	//
 	// * Kubernetes-defined prefixed names:
 	//   * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+	//   * 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455
+	//   * 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455
 	//
 	// * Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.
 	AppProtocol *string `pulumi:"appProtocol"`
@@ -1015,6 +1017,8 @@ type EndpointPortArgs struct {
 	//
 	// * Kubernetes-defined prefixed names:
 	//   * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+	//   * 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455
+	//   * 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455
 	//
 	// * Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.
 	AppProtocol pulumi.StringPtrInput `pulumi:"appProtocol"`
@@ -1084,6 +1088,8 @@ func (o EndpointPortOutput) ToEndpointPortOutputWithContext(ctx context.Context)
 //
 // * Kubernetes-defined prefixed names:
 //   - 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+//   - 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455
+//   - 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455
 //
 // * Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.
 func (o EndpointPortOutput) AppProtocol() pulumi.StringPtrOutput {
@@ -1133,6 +1139,8 @@ type EndpointPortPatch struct {
 	//
 	// * Kubernetes-defined prefixed names:
 	//   * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+	//   * 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455
+	//   * 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455
 	//
 	// * Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.
 	AppProtocol *string `pulumi:"appProtocol"`
@@ -1163,6 +1171,8 @@ type EndpointPortPatchArgs struct {
 	//
 	// * Kubernetes-defined prefixed names:
 	//   * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+	//   * 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455
+	//   * 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455
 	//
 	// * Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.
 	AppProtocol pulumi.StringPtrInput `pulumi:"appProtocol"`
@@ -1232,6 +1242,8 @@ func (o EndpointPortPatchOutput) ToEndpointPortPatchOutputWithContext(ctx contex
 //
 // * Kubernetes-defined prefixed names:
 //   - 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+//   - 'kubernetes.io/ws'  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455
+//   - 'kubernetes.io/wss' - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455
 //
 // * Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.
 func (o EndpointPortPatchOutput) AppProtocol() pulumi.StringPtrOutput {

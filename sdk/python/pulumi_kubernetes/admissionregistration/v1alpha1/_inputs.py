@@ -34,6 +34,8 @@ __all__ = [
     'ValidatingAdmissionPolicyArgs',
     'ValidationPatchArgs',
     'ValidationArgs',
+    'VariablePatchArgs',
+    'VariableArgs',
 ]
 
 @pulumi.input_type
@@ -944,22 +946,46 @@ class ParamKindArgs:
 class ParamRefPatchArgs:
     def __init__(__self__, *,
                  name: Optional[pulumi.Input[str]] = None,
-                 namespace: Optional[pulumi.Input[str]] = None):
+                 namespace: Optional[pulumi.Input[str]] = None,
+                 parameter_not_found_action: Optional[pulumi.Input[str]] = None,
+                 selector: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']] = None):
         """
-        ParamRef references a parameter resource
-        :param pulumi.Input[str] name: Name of the resource being referenced.
-        :param pulumi.Input[str] namespace: Namespace of the referenced resource. Should be empty for the cluster-scoped resources
+        ParamRef describes how to locate the params to be used as input to expressions of rules applied by a policy binding.
+        :param pulumi.Input[str] name: `name` is the name of the resource being referenced.
+               
+               `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
+        :param pulumi.Input[str] namespace: namespace is the namespace of the referenced resource. Allows limiting the search for params to a specific namespace. Applies to both `name` and `selector` fields.
+               
+               A per-namespace parameter may be used by specifying a namespace-scoped `paramKind` in the policy and leaving this field empty.
+               
+               - If `paramKind` is cluster-scoped, this field MUST be unset. Setting this field results in a configuration error.
+               
+               - If `paramKind` is namespace-scoped, the namespace of the object being evaluated for admission will be used when this field is left unset. Take care that if this is left empty the binding must not match any cluster-scoped resources, which will result in an error.
+        :param pulumi.Input[str] parameter_not_found_action: `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
+               
+               Allowed values are `Allow` or `Deny` Default to `Deny`
+        :param pulumi.Input['_meta.v1.LabelSelectorPatchArgs'] selector: selector can be used to match multiple param objects based on their labels. Supply selector: {} to match all resources of the ParamKind.
+               
+               If multiple params are found, they are all evaluated with the policy expressions and the results are ANDed together.
+               
+               One of `name` or `selector` must be set, but `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
         """
         if name is not None:
             pulumi.set(__self__, "name", name)
         if namespace is not None:
             pulumi.set(__self__, "namespace", namespace)
+        if parameter_not_found_action is not None:
+            pulumi.set(__self__, "parameter_not_found_action", parameter_not_found_action)
+        if selector is not None:
+            pulumi.set(__self__, "selector", selector)
 
     @property
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
         """
-        Name of the resource being referenced.
+        `name` is the name of the resource being referenced.
+
+        `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
         """
         return pulumi.get(self, "name")
 
@@ -971,35 +997,95 @@ class ParamRefPatchArgs:
     @pulumi.getter
     def namespace(self) -> Optional[pulumi.Input[str]]:
         """
-        Namespace of the referenced resource. Should be empty for the cluster-scoped resources
+        namespace is the namespace of the referenced resource. Allows limiting the search for params to a specific namespace. Applies to both `name` and `selector` fields.
+
+        A per-namespace parameter may be used by specifying a namespace-scoped `paramKind` in the policy and leaving this field empty.
+
+        - If `paramKind` is cluster-scoped, this field MUST be unset. Setting this field results in a configuration error.
+
+        - If `paramKind` is namespace-scoped, the namespace of the object being evaluated for admission will be used when this field is left unset. Take care that if this is left empty the binding must not match any cluster-scoped resources, which will result in an error.
         """
         return pulumi.get(self, "namespace")
 
     @namespace.setter
     def namespace(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "namespace", value)
+
+    @property
+    @pulumi.getter(name="parameterNotFoundAction")
+    def parameter_not_found_action(self) -> Optional[pulumi.Input[str]]:
+        """
+        `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
+
+        Allowed values are `Allow` or `Deny` Default to `Deny`
+        """
+        return pulumi.get(self, "parameter_not_found_action")
+
+    @parameter_not_found_action.setter
+    def parameter_not_found_action(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "parameter_not_found_action", value)
+
+    @property
+    @pulumi.getter
+    def selector(self) -> Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']]:
+        """
+        selector can be used to match multiple param objects based on their labels. Supply selector: {} to match all resources of the ParamKind.
+
+        If multiple params are found, they are all evaluated with the policy expressions and the results are ANDed together.
+
+        One of `name` or `selector` must be set, but `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
+        """
+        return pulumi.get(self, "selector")
+
+    @selector.setter
+    def selector(self, value: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']]):
+        pulumi.set(self, "selector", value)
 
 
 @pulumi.input_type
 class ParamRefArgs:
     def __init__(__self__, *,
                  name: Optional[pulumi.Input[str]] = None,
-                 namespace: Optional[pulumi.Input[str]] = None):
+                 namespace: Optional[pulumi.Input[str]] = None,
+                 parameter_not_found_action: Optional[pulumi.Input[str]] = None,
+                 selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None):
         """
-        ParamRef references a parameter resource
-        :param pulumi.Input[str] name: Name of the resource being referenced.
-        :param pulumi.Input[str] namespace: Namespace of the referenced resource. Should be empty for the cluster-scoped resources
+        ParamRef describes how to locate the params to be used as input to expressions of rules applied by a policy binding.
+        :param pulumi.Input[str] name: `name` is the name of the resource being referenced.
+               
+               `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
+        :param pulumi.Input[str] namespace: namespace is the namespace of the referenced resource. Allows limiting the search for params to a specific namespace. Applies to both `name` and `selector` fields.
+               
+               A per-namespace parameter may be used by specifying a namespace-scoped `paramKind` in the policy and leaving this field empty.
+               
+               - If `paramKind` is cluster-scoped, this field MUST be unset. Setting this field results in a configuration error.
+               
+               - If `paramKind` is namespace-scoped, the namespace of the object being evaluated for admission will be used when this field is left unset. Take care that if this is left empty the binding must not match any cluster-scoped resources, which will result in an error.
+        :param pulumi.Input[str] parameter_not_found_action: `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
+               
+               Allowed values are `Allow` or `Deny` Default to `Deny`
+        :param pulumi.Input['_meta.v1.LabelSelectorArgs'] selector: selector can be used to match multiple param objects based on their labels. Supply selector: {} to match all resources of the ParamKind.
+               
+               If multiple params are found, they are all evaluated with the policy expressions and the results are ANDed together.
+               
+               One of `name` or `selector` must be set, but `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
         """
         if name is not None:
             pulumi.set(__self__, "name", name)
         if namespace is not None:
             pulumi.set(__self__, "namespace", namespace)
+        if parameter_not_found_action is not None:
+            pulumi.set(__self__, "parameter_not_found_action", parameter_not_found_action)
+        if selector is not None:
+            pulumi.set(__self__, "selector", selector)
 
     @property
     @pulumi.getter
     def name(self) -> Optional[pulumi.Input[str]]:
         """
-        Name of the resource being referenced.
+        `name` is the name of the resource being referenced.
+
+        `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
         """
         return pulumi.get(self, "name")
 
@@ -1011,13 +1097,49 @@ class ParamRefArgs:
     @pulumi.getter
     def namespace(self) -> Optional[pulumi.Input[str]]:
         """
-        Namespace of the referenced resource. Should be empty for the cluster-scoped resources
+        namespace is the namespace of the referenced resource. Allows limiting the search for params to a specific namespace. Applies to both `name` and `selector` fields.
+
+        A per-namespace parameter may be used by specifying a namespace-scoped `paramKind` in the policy and leaving this field empty.
+
+        - If `paramKind` is cluster-scoped, this field MUST be unset. Setting this field results in a configuration error.
+
+        - If `paramKind` is namespace-scoped, the namespace of the object being evaluated for admission will be used when this field is left unset. Take care that if this is left empty the binding must not match any cluster-scoped resources, which will result in an error.
         """
         return pulumi.get(self, "namespace")
 
     @namespace.setter
     def namespace(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "namespace", value)
+
+    @property
+    @pulumi.getter(name="parameterNotFoundAction")
+    def parameter_not_found_action(self) -> Optional[pulumi.Input[str]]:
+        """
+        `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
+
+        Allowed values are `Allow` or `Deny` Default to `Deny`
+        """
+        return pulumi.get(self, "parameter_not_found_action")
+
+    @parameter_not_found_action.setter
+    def parameter_not_found_action(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "parameter_not_found_action", value)
+
+    @property
+    @pulumi.getter
+    def selector(self) -> Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']]:
+        """
+        selector can be used to match multiple param objects based on their labels. Supply selector: {} to match all resources of the ParamKind.
+
+        If multiple params are found, they are all evaluated with the policy expressions and the results are ANDed together.
+
+        One of `name` or `selector` must be set, but `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
+        """
+        return pulumi.get(self, "selector")
+
+    @selector.setter
+    def selector(self, value: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']]):
+        pulumi.set(self, "selector", value)
 
 
 @pulumi.input_type
@@ -1054,7 +1176,7 @@ class ValidatingAdmissionPolicyBindingSpecPatchArgs:
         """
         ValidatingAdmissionPolicyBindingSpec is the specification of the ValidatingAdmissionPolicyBinding.
         :param pulumi.Input['MatchResourcesPatchArgs'] match_resources: MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy's matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
-        :param pulumi.Input['ParamRefPatchArgs'] param_ref: ParamRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied.
+        :param pulumi.Input['ParamRefPatchArgs'] param_ref: paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
         :param pulumi.Input[str] policy_name: PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] validation_actions: validationActions declares how Validations of the referenced ValidatingAdmissionPolicy are enforced. If a validation evaluates to false it is always enforced according to these actions.
                
@@ -1101,7 +1223,7 @@ class ValidatingAdmissionPolicyBindingSpecPatchArgs:
     @pulumi.getter(name="paramRef")
     def param_ref(self) -> Optional[pulumi.Input['ParamRefPatchArgs']]:
         """
-        ParamRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied.
+        paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
         """
         return pulumi.get(self, "param_ref")
 
@@ -1162,7 +1284,7 @@ class ValidatingAdmissionPolicyBindingSpecArgs:
         """
         ValidatingAdmissionPolicyBindingSpec is the specification of the ValidatingAdmissionPolicyBinding.
         :param pulumi.Input['MatchResourcesArgs'] match_resources: MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy's matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
-        :param pulumi.Input['ParamRefArgs'] param_ref: ParamRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied.
+        :param pulumi.Input['ParamRefArgs'] param_ref: paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
         :param pulumi.Input[str] policy_name: PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] validation_actions: validationActions declares how Validations of the referenced ValidatingAdmissionPolicy are enforced. If a validation evaluates to false it is always enforced according to these actions.
                
@@ -1209,7 +1331,7 @@ class ValidatingAdmissionPolicyBindingSpecArgs:
     @pulumi.getter(name="paramRef")
     def param_ref(self) -> Optional[pulumi.Input['ParamRefArgs']]:
         """
-        ParamRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied.
+        paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
         """
         return pulumi.get(self, "param_ref")
 
@@ -1269,6 +1391,10 @@ class ValidatingAdmissionPolicyBindingArgs:
                  spec: Optional[pulumi.Input['ValidatingAdmissionPolicyBindingSpecArgs']] = None):
         """
         ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with paramerized resources. ValidatingAdmissionPolicyBinding and parameter CRDs together define how cluster administrators configure policies for clusters.
+
+        For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding.
+
+        The CEL expressions of a policy must have a computed CEL cost below the maximum CEL budget. Each evaluation of the policy is given an independent CEL cost budget. Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
@@ -1340,7 +1466,8 @@ class ValidatingAdmissionPolicySpecPatchArgs:
                  match_conditions: Optional[pulumi.Input[Sequence[pulumi.Input['MatchConditionPatchArgs']]]] = None,
                  match_constraints: Optional[pulumi.Input['MatchResourcesPatchArgs']] = None,
                  param_kind: Optional[pulumi.Input['ParamKindPatchArgs']] = None,
-                 validations: Optional[pulumi.Input[Sequence[pulumi.Input['ValidationPatchArgs']]]] = None):
+                 validations: Optional[pulumi.Input[Sequence[pulumi.Input['ValidationPatchArgs']]]] = None,
+                 variables: Optional[pulumi.Input[Sequence[pulumi.Input['VariablePatchArgs']]]] = None):
         """
         ValidatingAdmissionPolicySpec is the specification of the desired behavior of the AdmissionPolicy.
         :param pulumi.Input[Sequence[pulumi.Input['AuditAnnotationPatchArgs']]] audit_annotations: auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
@@ -1366,6 +1493,9 @@ class ValidatingAdmissionPolicySpecPatchArgs:
         :param pulumi.Input['MatchResourcesPatchArgs'] match_constraints: MatchConstraints specifies what resources this policy is designed to validate. The AdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API ValidatingAdmissionPolicy cannot match ValidatingAdmissionPolicy and ValidatingAdmissionPolicyBinding. Required.
         :param pulumi.Input['ParamKindPatchArgs'] param_kind: ParamKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If ParamKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in ValidatingAdmissionPolicyBinding, the params variable will be null.
         :param pulumi.Input[Sequence[pulumi.Input['ValidationPatchArgs']]] validations: Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
+        :param pulumi.Input[Sequence[pulumi.Input['VariablePatchArgs']]] variables: Variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except MatchConditions because MatchConditions are evaluated before the rest of the policy.
+               
+               The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, Variables must be sorted by the order of first appearance and acyclic.
         """
         if audit_annotations is not None:
             pulumi.set(__self__, "audit_annotations", audit_annotations)
@@ -1379,6 +1509,8 @@ class ValidatingAdmissionPolicySpecPatchArgs:
             pulumi.set(__self__, "param_kind", param_kind)
         if validations is not None:
             pulumi.set(__self__, "validations", validations)
+        if variables is not None:
+            pulumi.set(__self__, "variables", variables)
 
     @property
     @pulumi.getter(name="auditAnnotations")
@@ -1469,6 +1601,20 @@ class ValidatingAdmissionPolicySpecPatchArgs:
     def validations(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['ValidationPatchArgs']]]]):
         pulumi.set(self, "validations", value)
 
+    @property
+    @pulumi.getter
+    def variables(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['VariablePatchArgs']]]]:
+        """
+        Variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except MatchConditions because MatchConditions are evaluated before the rest of the policy.
+
+        The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, Variables must be sorted by the order of first appearance and acyclic.
+        """
+        return pulumi.get(self, "variables")
+
+    @variables.setter
+    def variables(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['VariablePatchArgs']]]]):
+        pulumi.set(self, "variables", value)
+
 
 @pulumi.input_type
 class ValidatingAdmissionPolicySpecArgs:
@@ -1478,7 +1624,8 @@ class ValidatingAdmissionPolicySpecArgs:
                  failure_policy: Optional[pulumi.Input[str]] = None,
                  match_conditions: Optional[pulumi.Input[Sequence[pulumi.Input['MatchConditionArgs']]]] = None,
                  match_constraints: Optional[pulumi.Input['MatchResourcesArgs']] = None,
-                 param_kind: Optional[pulumi.Input['ParamKindArgs']] = None):
+                 param_kind: Optional[pulumi.Input['ParamKindArgs']] = None,
+                 variables: Optional[pulumi.Input[Sequence[pulumi.Input['VariableArgs']]]] = None):
         """
         ValidatingAdmissionPolicySpec is the specification of the desired behavior of the AdmissionPolicy.
         :param pulumi.Input[Sequence[pulumi.Input['ValidationArgs']]] validations: Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
@@ -1504,6 +1651,9 @@ class ValidatingAdmissionPolicySpecArgs:
                     - If failurePolicy=Ignore, the policy is skipped
         :param pulumi.Input['MatchResourcesArgs'] match_constraints: MatchConstraints specifies what resources this policy is designed to validate. The AdmissionPolicy cares about a request if it matches _all_ Constraints. However, in order to prevent clusters from being put into an unstable state that cannot be recovered from via the API ValidatingAdmissionPolicy cannot match ValidatingAdmissionPolicy and ValidatingAdmissionPolicyBinding. Required.
         :param pulumi.Input['ParamKindArgs'] param_kind: ParamKind specifies the kind of resources used to parameterize this policy. If absent, there are no parameters for this policy and the param CEL variable will not be provided to validation expressions. If ParamKind refers to a non-existent kind, this policy definition is mis-configured and the FailurePolicy is applied. If paramKind is specified but paramRef is unset in ValidatingAdmissionPolicyBinding, the params variable will be null.
+        :param pulumi.Input[Sequence[pulumi.Input['VariableArgs']]] variables: Variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except MatchConditions because MatchConditions are evaluated before the rest of the policy.
+               
+               The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, Variables must be sorted by the order of first appearance and acyclic.
         """
         pulumi.set(__self__, "validations", validations)
         if audit_annotations is not None:
@@ -1516,6 +1666,8 @@ class ValidatingAdmissionPolicySpecArgs:
             pulumi.set(__self__, "match_constraints", match_constraints)
         if param_kind is not None:
             pulumi.set(__self__, "param_kind", param_kind)
+        if variables is not None:
+            pulumi.set(__self__, "variables", variables)
 
     @property
     @pulumi.getter
@@ -1605,6 +1757,20 @@ class ValidatingAdmissionPolicySpecArgs:
     @param_kind.setter
     def param_kind(self, value: Optional[pulumi.Input['ParamKindArgs']]):
         pulumi.set(self, "param_kind", value)
+
+    @property
+    @pulumi.getter
+    def variables(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['VariableArgs']]]]:
+        """
+        Variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except MatchConditions because MatchConditions are evaluated before the rest of the policy.
+
+        The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, Variables must be sorted by the order of first appearance and acyclic.
+        """
+        return pulumi.get(self, "variables")
+
+    @variables.setter
+    def variables(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['VariableArgs']]]]):
+        pulumi.set(self, "variables", value)
 
 
 @pulumi.input_type
@@ -1762,7 +1928,9 @@ class ValidationPatchArgs:
         Validation specifies the CEL expression which is used to apply the validation.
         :param pulumi.Input[str] expression: Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
                
-               - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+               - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+                 For example, a variable named 'foo' can be accessed as 'variables.foo'.
+               - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
                  See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
                - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
                  request resource.
@@ -1803,7 +1971,9 @@ class ValidationPatchArgs:
         """
         Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
 
-        - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+        - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+          For example, a variable named 'foo' can be accessed as 'variables.foo'.
+        - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
           See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
         - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
           request resource.
@@ -1880,7 +2050,9 @@ class ValidationArgs:
         Validation specifies the CEL expression which is used to apply the validation.
         :param pulumi.Input[str] expression: Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
                
-               - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+               - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+                 For example, a variable named 'foo' can be accessed as 'variables.foo'.
+               - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
                  See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
                - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
                  request resource.
@@ -1920,7 +2092,9 @@ class ValidationArgs:
         """
         Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
 
-        - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+        - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+          For example, a variable named 'foo' can be accessed as 'variables.foo'.
+        - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
           See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
         - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
           request resource.
@@ -1984,5 +2158,83 @@ class ValidationArgs:
     @reason.setter
     def reason(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "reason", value)
+
+
+@pulumi.input_type
+class VariablePatchArgs:
+    def __init__(__self__, *,
+                 expression: Optional[pulumi.Input[str]] = None,
+                 name: Optional[pulumi.Input[str]] = None):
+        """
+        Variable is the definition of a variable that is used for composition.
+        :param pulumi.Input[str] expression: Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
+        :param pulumi.Input[str] name: Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
+        """
+        if expression is not None:
+            pulumi.set(__self__, "expression", expression)
+        if name is not None:
+            pulumi.set(__self__, "name", name)
+
+    @property
+    @pulumi.getter
+    def expression(self) -> Optional[pulumi.Input[str]]:
+        """
+        Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
+        """
+        return pulumi.get(self, "expression")
+
+    @expression.setter
+    def expression(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "expression", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> Optional[pulumi.Input[str]]:
+        """
+        Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "name", value)
+
+
+@pulumi.input_type
+class VariableArgs:
+    def __init__(__self__, *,
+                 expression: pulumi.Input[str],
+                 name: pulumi.Input[str]):
+        """
+        Variable is the definition of a variable that is used for composition.
+        :param pulumi.Input[str] expression: Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
+        :param pulumi.Input[str] name: Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
+        """
+        pulumi.set(__self__, "expression", expression)
+        pulumi.set(__self__, "name", name)
+
+    @property
+    @pulumi.getter
+    def expression(self) -> pulumi.Input[str]:
+        """
+        Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
+        """
+        return pulumi.get(self, "expression")
+
+    @expression.setter
+    def expression(self, value: pulumi.Input[str]):
+        pulumi.set(self, "expression", value)
+
+    @property
+    @pulumi.getter
+    def name(self) -> pulumi.Input[str]:
+        """
+        Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
+        """
+        return pulumi.get(self, "name")
+
+    @name.setter
+    def name(self, value: pulumi.Input[str]):
+        pulumi.set(self, "name", value)
 
 

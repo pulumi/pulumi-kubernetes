@@ -20,14 +20,14 @@ public final class SeccompProfileArgs extends com.pulumi.resources.ResourceArgs 
     public static final SeccompProfileArgs Empty = new SeccompProfileArgs();
 
     /**
-     * localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet&#39;s configured seccomp profile location. Must only be set if type is &#34;Localhost&#34;.
+     * localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet&#39;s configured seccomp profile location. Must be set if type is &#34;Localhost&#34;. Must NOT be set for any other type.
      * 
      */
     @Import(name="localhostProfile")
     private @Nullable Output<String> localhostProfile;
 
     /**
-     * @return localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet&#39;s configured seccomp profile location. Must only be set if type is &#34;Localhost&#34;.
+     * @return localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet&#39;s configured seccomp profile location. Must be set if type is &#34;Localhost&#34;. Must NOT be set for any other type.
      * 
      */
     public Optional<Output<String>> localhostProfile() {
@@ -79,7 +79,7 @@ public final class SeccompProfileArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
-         * @param localhostProfile localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet&#39;s configured seccomp profile location. Must only be set if type is &#34;Localhost&#34;.
+         * @param localhostProfile localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet&#39;s configured seccomp profile location. Must be set if type is &#34;Localhost&#34;. Must NOT be set for any other type.
          * 
          * @return builder
          * 
@@ -90,7 +90,7 @@ public final class SeccompProfileArgs extends com.pulumi.resources.ResourceArgs 
         }
 
         /**
-         * @param localhostProfile localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet&#39;s configured seccomp profile location. Must only be set if type is &#34;Localhost&#34;.
+         * @param localhostProfile localhostProfile indicates a profile defined in a file on the node should be used. The profile must be preconfigured on the node to work. Must be a descending path, relative to the kubelet&#39;s configured seccomp profile location. Must be set if type is &#34;Localhost&#34;. Must NOT be set for any other type.
          * 
          * @return builder
          * 

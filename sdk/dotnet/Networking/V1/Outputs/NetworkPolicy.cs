@@ -33,7 +33,7 @@ namespace Pulumi.Kubernetes.Types.Outputs.Networking.V1
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Networking.V1.NetworkPolicySpec Spec;
         /// <summary>
-        /// status represents the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        /// Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         /// </summary>
         public readonly Pulumi.Kubernetes.Types.Outputs.Networking.V1.NetworkPolicyStatus Status;
 

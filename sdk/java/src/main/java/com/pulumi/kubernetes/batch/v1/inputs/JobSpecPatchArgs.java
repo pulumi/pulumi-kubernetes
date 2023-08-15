@@ -55,6 +55,21 @@ public final class JobSpecPatchArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod&#39;s batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job&#39;s completionMode=Indexed, and the Pod&#39;s restart policy is Never. The field is immutable. This field is alpha-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (disabled by default).
+     * 
+     */
+    @Import(name="backoffLimitPerIndex")
+    private @Nullable Output<Integer> backoffLimitPerIndex;
+
+    /**
+     * @return Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod&#39;s batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job&#39;s completionMode=Indexed, and the Pod&#39;s restart policy is Never. The field is immutable. This field is alpha-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (disabled by default).
+     * 
+     */
+    public Optional<Output<Integer>> backoffLimitPerIndex() {
+        return Optional.ofNullable(this.backoffLimitPerIndex);
+    }
+
+    /**
      * completionMode specifies how Pod completions are tracked. It can be `NonIndexed` (default) or `Indexed`.
      * 
      * `NonIndexed` means that the Job is considered complete when there have been .spec.completions successfully completed Pods. Each Pod completion is homologous to each other.
@@ -112,6 +127,21 @@ public final class JobSpecPatchArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5. This field is alpha-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (disabled by default).
+     * 
+     */
+    @Import(name="maxFailedIndexes")
+    private @Nullable Output<Integer> maxFailedIndexes;
+
+    /**
+     * @return Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5. This field is alpha-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (disabled by default).
+     * 
+     */
+    public Optional<Output<Integer>> maxFailedIndexes() {
+        return Optional.ofNullable(this.maxFailedIndexes);
+    }
+
+    /**
      * Specifies the maximum desired number of pods the job should run at any given time. The actual number of pods running in steady state will be less than this number when ((.spec.completions - .status.successful) &lt; .spec.parallelism), i.e. when the work left to do is less than max parallelism. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
      * 
      */
@@ -129,7 +159,7 @@ public final class JobSpecPatchArgs extends com.pulumi.resources.ResourceArgs {
     /**
      * Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs&#39;s .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
      * 
-     * This field is alpha-level. To use this field, you must enable the `JobPodFailurePolicy` feature gate (disabled by default).
+     * This field is beta-level. It can be used when the `JobPodFailurePolicy` feature gate is enabled (enabled by default).
      * 
      */
     @Import(name="podFailurePolicy")
@@ -138,11 +168,36 @@ public final class JobSpecPatchArgs extends com.pulumi.resources.ResourceArgs {
     /**
      * @return Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs&#39;s .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
      * 
-     * This field is alpha-level. To use this field, you must enable the `JobPodFailurePolicy` feature gate (disabled by default).
+     * This field is beta-level. It can be used when the `JobPodFailurePolicy` feature gate is enabled (enabled by default).
      * 
      */
     public Optional<Output<PodFailurePolicyPatchArgs>> podFailurePolicy() {
         return Optional.ofNullable(this.podFailurePolicy);
+    }
+
+    /**
+     * podReplacementPolicy specifies when to create replacement Pods. Possible values are: - TerminatingOrFailed means that we recreate pods
+     *   when they are terminating (has a metadata.deletionTimestamp) or failed.
+     * - Failed means to wait until a previously created Pod is fully terminated (has phase
+     *   Failed or Succeeded) before creating a replacement Pod.
+     * 
+     * When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an alpha field. Enable JobPodReplacementPolicy to be able to use this field.
+     * 
+     */
+    @Import(name="podReplacementPolicy")
+    private @Nullable Output<String> podReplacementPolicy;
+
+    /**
+     * @return podReplacementPolicy specifies when to create replacement Pods. Possible values are: - TerminatingOrFailed means that we recreate pods
+     *   when they are terminating (has a metadata.deletionTimestamp) or failed.
+     * - Failed means to wait until a previously created Pod is fully terminated (has phase
+     *   Failed or Succeeded) before creating a replacement Pod.
+     * 
+     * When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an alpha field. Enable JobPodReplacementPolicy to be able to use this field.
+     * 
+     */
+    public Optional<Output<String>> podReplacementPolicy() {
+        return Optional.ofNullable(this.podReplacementPolicy);
     }
 
     /**
@@ -210,11 +265,14 @@ public final class JobSpecPatchArgs extends com.pulumi.resources.ResourceArgs {
     private JobSpecPatchArgs(JobSpecPatchArgs $) {
         this.activeDeadlineSeconds = $.activeDeadlineSeconds;
         this.backoffLimit = $.backoffLimit;
+        this.backoffLimitPerIndex = $.backoffLimitPerIndex;
         this.completionMode = $.completionMode;
         this.completions = $.completions;
         this.manualSelector = $.manualSelector;
+        this.maxFailedIndexes = $.maxFailedIndexes;
         this.parallelism = $.parallelism;
         this.podFailurePolicy = $.podFailurePolicy;
+        this.podReplacementPolicy = $.podReplacementPolicy;
         this.selector = $.selector;
         this.suspend = $.suspend;
         this.template = $.template;
@@ -279,6 +337,27 @@ public final class JobSpecPatchArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder backoffLimit(Integer backoffLimit) {
             return backoffLimit(Output.of(backoffLimit));
+        }
+
+        /**
+         * @param backoffLimitPerIndex Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod&#39;s batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job&#39;s completionMode=Indexed, and the Pod&#39;s restart policy is Never. The field is immutable. This field is alpha-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (disabled by default).
+         * 
+         * @return builder
+         * 
+         */
+        public Builder backoffLimitPerIndex(@Nullable Output<Integer> backoffLimitPerIndex) {
+            $.backoffLimitPerIndex = backoffLimitPerIndex;
+            return this;
+        }
+
+        /**
+         * @param backoffLimitPerIndex Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod&#39;s batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job&#39;s completionMode=Indexed, and the Pod&#39;s restart policy is Never. The field is immutable. This field is alpha-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (disabled by default).
+         * 
+         * @return builder
+         * 
+         */
+        public Builder backoffLimitPerIndex(Integer backoffLimitPerIndex) {
+            return backoffLimitPerIndex(Output.of(backoffLimitPerIndex));
         }
 
         /**
@@ -357,6 +436,27 @@ public final class JobSpecPatchArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
+         * @param maxFailedIndexes Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5. This field is alpha-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (disabled by default).
+         * 
+         * @return builder
+         * 
+         */
+        public Builder maxFailedIndexes(@Nullable Output<Integer> maxFailedIndexes) {
+            $.maxFailedIndexes = maxFailedIndexes;
+            return this;
+        }
+
+        /**
+         * @param maxFailedIndexes Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5. This field is alpha-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (disabled by default).
+         * 
+         * @return builder
+         * 
+         */
+        public Builder maxFailedIndexes(Integer maxFailedIndexes) {
+            return maxFailedIndexes(Output.of(maxFailedIndexes));
+        }
+
+        /**
          * @param parallelism Specifies the maximum desired number of pods the job should run at any given time. The actual number of pods running in steady state will be less than this number when ((.spec.completions - .status.successful) &lt; .spec.parallelism), i.e. when the work left to do is less than max parallelism. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
          * 
          * @return builder
@@ -380,7 +480,7 @@ public final class JobSpecPatchArgs extends com.pulumi.resources.ResourceArgs {
         /**
          * @param podFailurePolicy Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs&#39;s .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
          * 
-         * This field is alpha-level. To use this field, you must enable the `JobPodFailurePolicy` feature gate (disabled by default).
+         * This field is beta-level. It can be used when the `JobPodFailurePolicy` feature gate is enabled (enabled by default).
          * 
          * @return builder
          * 
@@ -393,13 +493,44 @@ public final class JobSpecPatchArgs extends com.pulumi.resources.ResourceArgs {
         /**
          * @param podFailurePolicy Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs&#39;s .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
          * 
-         * This field is alpha-level. To use this field, you must enable the `JobPodFailurePolicy` feature gate (disabled by default).
+         * This field is beta-level. It can be used when the `JobPodFailurePolicy` feature gate is enabled (enabled by default).
          * 
          * @return builder
          * 
          */
         public Builder podFailurePolicy(PodFailurePolicyPatchArgs podFailurePolicy) {
             return podFailurePolicy(Output.of(podFailurePolicy));
+        }
+
+        /**
+         * @param podReplacementPolicy podReplacementPolicy specifies when to create replacement Pods. Possible values are: - TerminatingOrFailed means that we recreate pods
+         *   when they are terminating (has a metadata.deletionTimestamp) or failed.
+         * - Failed means to wait until a previously created Pod is fully terminated (has phase
+         *   Failed or Succeeded) before creating a replacement Pod.
+         * 
+         * When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an alpha field. Enable JobPodReplacementPolicy to be able to use this field.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder podReplacementPolicy(@Nullable Output<String> podReplacementPolicy) {
+            $.podReplacementPolicy = podReplacementPolicy;
+            return this;
+        }
+
+        /**
+         * @param podReplacementPolicy podReplacementPolicy specifies when to create replacement Pods. Possible values are: - TerminatingOrFailed means that we recreate pods
+         *   when they are terminating (has a metadata.deletionTimestamp) or failed.
+         * - Failed means to wait until a previously created Pod is fully terminated (has phase
+         *   Failed or Succeeded) before creating a replacement Pod.
+         * 
+         * When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an alpha field. Enable JobPodReplacementPolicy to be able to use this field.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder podReplacementPolicy(String podReplacementPolicy) {
+            return podReplacementPolicy(Output.of(podReplacementPolicy));
         }
 
         /**

@@ -42,7 +42,7 @@ public final class ValidatingWebhookPatch {
      *      - If failurePolicy=Fail, reject the request
      *      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
      * 
-     * This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+     * This is a beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
      * 
      */
     private @Nullable List<MatchConditionPatch> matchConditions;
@@ -150,7 +150,7 @@ public final class ValidatingWebhookPatch {
      *      - If failurePolicy=Fail, reject the request
      *      - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
      * 
-     * This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+     * This is a beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
      * 
      */
     public List<MatchConditionPatch> matchConditions() {

@@ -28,7 +28,7 @@ type RoleBindingPatch struct {
 	Kind pulumi.StringPtrOutput `pulumi:"kind"`
 	// Standard object's metadata.
 	Metadata metav1.ObjectMetaPatchPtrOutput `pulumi:"metadata"`
-	// RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+	// RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
 	RoleRef RoleRefPatchPtrOutput `pulumi:"roleRef"`
 	// Subjects holds references to the objects the role applies to.
 	Subjects SubjectPatchArrayOutput `pulumi:"subjects"`
@@ -91,7 +91,7 @@ type roleBindingPatchArgs struct {
 	Kind *string `pulumi:"kind"`
 	// Standard object's metadata.
 	Metadata *metav1.ObjectMetaPatch `pulumi:"metadata"`
-	// RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+	// RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
 	RoleRef *RoleRefPatch `pulumi:"roleRef"`
 	// Subjects holds references to the objects the role applies to.
 	Subjects []SubjectPatch `pulumi:"subjects"`
@@ -105,7 +105,7 @@ type RoleBindingPatchArgs struct {
 	Kind pulumi.StringPtrInput
 	// Standard object's metadata.
 	Metadata metav1.ObjectMetaPatchPtrInput
-	// RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+	// RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
 	RoleRef RoleRefPatchPtrInput
 	// Subjects holds references to the objects the role applies to.
 	Subjects SubjectPatchArrayInput
@@ -213,7 +213,7 @@ func (o RoleBindingPatchOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
 	return o.ApplyT(func(v *RoleBindingPatch) metav1.ObjectMetaPatchPtrOutput { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
 }
 
-// RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+// RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
 func (o RoleBindingPatchOutput) RoleRef() RoleRefPatchPtrOutput {
 	return o.ApplyT(func(v *RoleBindingPatch) RoleRefPatchPtrOutput { return v.RoleRef }).(RoleRefPatchPtrOutput)
 }

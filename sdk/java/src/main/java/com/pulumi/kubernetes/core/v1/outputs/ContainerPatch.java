@@ -89,6 +89,11 @@ public final class ContainerPatch {
      */
     private @Nullable ResourceRequirementsPatch resources;
     /**
+     * @return RestartPolicy defines the restart behavior of individual containers in a pod. This field may only be set for init containers, and the only allowed value is &#34;Always&#34;. For non-init containers or when this field is not specified, the restart behavior is defined by the Pod&#39;s restart policy and the container type. Setting the RestartPolicy as &#34;Always&#34; for the init container will have the following effect: this init container will be continually restarted on exit until all regular containers have terminated. Once all regular containers have completed, all init containers with restartPolicy &#34;Always&#34; will be shut down. This lifecycle differs from normal init containers and is often referred to as a &#34;sidecar&#34; container. Although this init container still starts in the init container sequence, it does not wait for the container to complete before proceeding to the next init container. Instead, the next init container starts immediately after this init container is started, or after any startupProbe has successfully completed.
+     * 
+     */
+    private @Nullable String restartPolicy;
+    /**
      * @return SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
      * 
      */
@@ -232,6 +237,13 @@ public final class ContainerPatch {
         return Optional.ofNullable(this.resources);
     }
     /**
+     * @return RestartPolicy defines the restart behavior of individual containers in a pod. This field may only be set for init containers, and the only allowed value is &#34;Always&#34;. For non-init containers or when this field is not specified, the restart behavior is defined by the Pod&#39;s restart policy and the container type. Setting the RestartPolicy as &#34;Always&#34; for the init container will have the following effect: this init container will be continually restarted on exit until all regular containers have terminated. Once all regular containers have completed, all init containers with restartPolicy &#34;Always&#34; will be shut down. This lifecycle differs from normal init containers and is often referred to as a &#34;sidecar&#34; container. Although this init container still starts in the init container sequence, it does not wait for the container to complete before proceeding to the next init container. Instead, the next init container starts immediately after this init container is started, or after any startupProbe has successfully completed.
+     * 
+     */
+    public Optional<String> restartPolicy() {
+        return Optional.ofNullable(this.restartPolicy);
+    }
+    /**
      * @return SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
      * 
      */
@@ -324,6 +336,7 @@ public final class ContainerPatch {
         private @Nullable ProbePatch readinessProbe;
         private @Nullable List<ContainerResizePolicyPatch> resizePolicy;
         private @Nullable ResourceRequirementsPatch resources;
+        private @Nullable String restartPolicy;
         private @Nullable SecurityContextPatch securityContext;
         private @Nullable ProbePatch startupProbe;
         private @Nullable Boolean stdin;
@@ -350,6 +363,7 @@ public final class ContainerPatch {
     	      this.readinessProbe = defaults.readinessProbe;
     	      this.resizePolicy = defaults.resizePolicy;
     	      this.resources = defaults.resources;
+    	      this.restartPolicy = defaults.restartPolicy;
     	      this.securityContext = defaults.securityContext;
     	      this.startupProbe = defaults.startupProbe;
     	      this.stdin = defaults.stdin;
@@ -446,6 +460,11 @@ public final class ContainerPatch {
             return this;
         }
         @CustomType.Setter
+        public Builder restartPolicy(@Nullable String restartPolicy) {
+            this.restartPolicy = restartPolicy;
+            return this;
+        }
+        @CustomType.Setter
         public Builder securityContext(@Nullable SecurityContextPatch securityContext) {
             this.securityContext = securityContext;
             return this;
@@ -516,6 +535,7 @@ public final class ContainerPatch {
             o.readinessProbe = readinessProbe;
             o.resizePolicy = resizePolicy;
             o.resources = resources;
+            o.restartPolicy = restartPolicy;
             o.securityContext = securityContext;
             o.startupProbe = startupProbe;
             o.stdin = stdin;

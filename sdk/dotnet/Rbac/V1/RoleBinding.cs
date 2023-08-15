@@ -34,7 +34,7 @@ namespace Pulumi.Kubernetes.Rbac.V1
         public Output<Pulumi.Kubernetes.Types.Outputs.Meta.V1.ObjectMeta> Metadata { get; private set; } = null!;
 
         /// <summary>
-        /// RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+        /// RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
         /// </summary>
         [Output("roleRef")]
         public Output<Pulumi.Kubernetes.Types.Outputs.Rbac.V1.RoleRef> RoleRef { get; private set; } = null!;
@@ -129,7 +129,7 @@ namespace Pulumi.Kubernetes.Types.Inputs.Rbac.V1
         public Input<Pulumi.Kubernetes.Types.Inputs.Meta.V1.ObjectMetaArgs>? Metadata { get; set; }
 
         /// <summary>
-        /// RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+        /// RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
         /// </summary>
         [Input("roleRef", required: true)]
         public Input<Pulumi.Kubernetes.Types.Inputs.Rbac.V1.RoleRefArgs> RoleRef { get; set; } = null!;

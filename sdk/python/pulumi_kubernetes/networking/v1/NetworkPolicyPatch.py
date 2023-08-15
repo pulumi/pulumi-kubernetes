@@ -227,7 +227,7 @@ class NetworkPolicyPatch(pulumi.CustomResource):
     @pulumi.getter
     def status(self) -> pulumi.Output[Optional['outputs.NetworkPolicyStatusPatch']]:
         """
-        status represents the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
         return pulumi.get(self, "status")
 

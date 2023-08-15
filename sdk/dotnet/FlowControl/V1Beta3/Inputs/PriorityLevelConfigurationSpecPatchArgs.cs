@@ -16,6 +16,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Beta3
     public class PriorityLevelConfigurationSpecPatchArgs : global::Pulumi.ResourceArgs
     {
         /// <summary>
+        /// `exempt` specifies how requests are handled for an exempt priority level. This field MUST be empty if `type` is `"Limited"`. This field MAY be non-empty if `type` is `"Exempt"`. If empty and `type` is `"Exempt"` then the default values for `ExemptPriorityLevelConfiguration` apply.
+        /// </summary>
+        [Input("exempt")]
+        public Input<Pulumi.Kubernetes.Types.Inputs.FlowControl.V1Beta3.ExemptPriorityLevelConfigurationPatchArgs>? Exempt { get; set; }
+
+        /// <summary>
         /// `limited` specifies how requests are handled for a Limited priority level. This field must be non-empty if and only if `type` is `"Limited"`.
         /// </summary>
         [Input("limited")]

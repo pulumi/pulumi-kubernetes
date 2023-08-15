@@ -6,8 +6,10 @@ package com.pulumi.kubernetes.core.v1.inputs;
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
 import com.pulumi.kubernetes.core.v1.inputs.ContainerStatusArgs;
+import com.pulumi.kubernetes.core.v1.inputs.HostIPArgs;
 import com.pulumi.kubernetes.core.v1.inputs.PodConditionArgs;
 import com.pulumi.kubernetes.core.v1.inputs.PodIPArgs;
+import com.pulumi.kubernetes.core.v1.inputs.PodResourceClaimStatusArgs;
 import java.lang.String;
 import java.util.List;
 import java.util.Objects;
@@ -69,18 +71,33 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * IP address of the host to which the pod is assigned. Empty if not yet scheduled.
+     * hostIP holds the IP address of the host to which the pod is assigned. Empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns mean that HostIP will not be updated even if there is a node is assigned to pod
      * 
      */
     @Import(name="hostIP")
     private @Nullable Output<String> hostIP;
 
     /**
-     * @return IP address of the host to which the pod is assigned. Empty if not yet scheduled.
+     * @return hostIP holds the IP address of the host to which the pod is assigned. Empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns mean that HostIP will not be updated even if there is a node is assigned to pod
      * 
      */
     public Optional<Output<String>> hostIP() {
         return Optional.ofNullable(this.hostIP);
+    }
+
+    /**
+     * hostIPs holds the IP addresses allocated to the host. If this field is specified, the first entry must match the hostIP field. This list is empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns means that HostIPs will not be updated even if there is a node is assigned to this pod.
+     * 
+     */
+    @Import(name="hostIPs")
+    private @Nullable Output<List<HostIPArgs>> hostIPs;
+
+    /**
+     * @return hostIPs holds the IP addresses allocated to the host. If this field is specified, the first entry must match the hostIP field. This list is empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns means that HostIPs will not be updated even if there is a node is assigned to this pod.
+     * 
+     */
+    public Optional<Output<List<HostIPArgs>>> hostIPs() {
+        return Optional.ofNullable(this.hostIPs);
     }
 
     /**
@@ -152,14 +169,14 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * IP address allocated to the pod. Routable at least within the cluster. Empty if not yet allocated.
+     * podIP address allocated to the pod. Routable at least within the cluster. Empty if not yet allocated.
      * 
      */
     @Import(name="podIP")
     private @Nullable Output<String> podIP;
 
     /**
-     * @return IP address allocated to the pod. Routable at least within the cluster. Empty if not yet allocated.
+     * @return podIP address allocated to the pod. Routable at least within the cluster. Empty if not yet allocated.
      * 
      */
     public Optional<Output<String>> podIP() {
@@ -227,6 +244,21 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * Status of resource claims.
+     * 
+     */
+    @Import(name="resourceClaimStatuses")
+    private @Nullable Output<List<PodResourceClaimStatusArgs>> resourceClaimStatuses;
+
+    /**
+     * @return Status of resource claims.
+     * 
+     */
+    public Optional<Output<List<PodResourceClaimStatusArgs>>> resourceClaimStatuses() {
+        return Optional.ofNullable(this.resourceClaimStatuses);
+    }
+
+    /**
      * RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod.
      * 
      */
@@ -248,6 +280,7 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
         this.containerStatuses = $.containerStatuses;
         this.ephemeralContainerStatuses = $.ephemeralContainerStatuses;
         this.hostIP = $.hostIP;
+        this.hostIPs = $.hostIPs;
         this.initContainerStatuses = $.initContainerStatuses;
         this.message = $.message;
         this.nominatedNodeName = $.nominatedNodeName;
@@ -257,6 +290,7 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
         this.qosClass = $.qosClass;
         this.reason = $.reason;
         this.resize = $.resize;
+        this.resourceClaimStatuses = $.resourceClaimStatuses;
         this.startTime = $.startTime;
     }
 
@@ -372,7 +406,7 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param hostIP IP address of the host to which the pod is assigned. Empty if not yet scheduled.
+         * @param hostIP hostIP holds the IP address of the host to which the pod is assigned. Empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns mean that HostIP will not be updated even if there is a node is assigned to pod
          * 
          * @return builder
          * 
@@ -383,13 +417,44 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param hostIP IP address of the host to which the pod is assigned. Empty if not yet scheduled.
+         * @param hostIP hostIP holds the IP address of the host to which the pod is assigned. Empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns mean that HostIP will not be updated even if there is a node is assigned to pod
          * 
          * @return builder
          * 
          */
         public Builder hostIP(String hostIP) {
             return hostIP(Output.of(hostIP));
+        }
+
+        /**
+         * @param hostIPs hostIPs holds the IP addresses allocated to the host. If this field is specified, the first entry must match the hostIP field. This list is empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns means that HostIPs will not be updated even if there is a node is assigned to this pod.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder hostIPs(@Nullable Output<List<HostIPArgs>> hostIPs) {
+            $.hostIPs = hostIPs;
+            return this;
+        }
+
+        /**
+         * @param hostIPs hostIPs holds the IP addresses allocated to the host. If this field is specified, the first entry must match the hostIP field. This list is empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns means that HostIPs will not be updated even if there is a node is assigned to this pod.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder hostIPs(List<HostIPArgs> hostIPs) {
+            return hostIPs(Output.of(hostIPs));
+        }
+
+        /**
+         * @param hostIPs hostIPs holds the IP addresses allocated to the host. If this field is specified, the first entry must match the hostIP field. This list is empty if the pod has not started yet. A pod can be assigned to a node that has a problem in kubelet which in turns means that HostIPs will not be updated even if there is a node is assigned to this pod.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder hostIPs(HostIPArgs... hostIPs) {
+            return hostIPs(List.of(hostIPs));
         }
 
         /**
@@ -495,7 +560,7 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param podIP IP address allocated to the pod. Routable at least within the cluster. Empty if not yet allocated.
+         * @param podIP podIP address allocated to the pod. Routable at least within the cluster. Empty if not yet allocated.
          * 
          * @return builder
          * 
@@ -506,7 +571,7 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param podIP IP address allocated to the pod. Routable at least within the cluster. Empty if not yet allocated.
+         * @param podIP podIP address allocated to the pod. Routable at least within the cluster. Empty if not yet allocated.
          * 
          * @return builder
          * 
@@ -607,6 +672,37 @@ public final class PodStatusArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder resize(String resize) {
             return resize(Output.of(resize));
+        }
+
+        /**
+         * @param resourceClaimStatuses Status of resource claims.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder resourceClaimStatuses(@Nullable Output<List<PodResourceClaimStatusArgs>> resourceClaimStatuses) {
+            $.resourceClaimStatuses = resourceClaimStatuses;
+            return this;
+        }
+
+        /**
+         * @param resourceClaimStatuses Status of resource claims.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder resourceClaimStatuses(List<PodResourceClaimStatusArgs> resourceClaimStatuses) {
+            return resourceClaimStatuses(Output.of(resourceClaimStatuses));
+        }
+
+        /**
+         * @param resourceClaimStatuses Status of resource claims.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder resourceClaimStatuses(PodResourceClaimStatusArgs... resourceClaimStatuses) {
+            return resourceClaimStatuses(List.of(resourceClaimStatuses));
         }
 
         /**

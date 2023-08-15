@@ -227,6 +227,21 @@ public final class ContainerArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * RestartPolicy defines the restart behavior of individual containers in a pod. This field may only be set for init containers, and the only allowed value is &#34;Always&#34;. For non-init containers or when this field is not specified, the restart behavior is defined by the Pod&#39;s restart policy and the container type. Setting the RestartPolicy as &#34;Always&#34; for the init container will have the following effect: this init container will be continually restarted on exit until all regular containers have terminated. Once all regular containers have completed, all init containers with restartPolicy &#34;Always&#34; will be shut down. This lifecycle differs from normal init containers and is often referred to as a &#34;sidecar&#34; container. Although this init container still starts in the init container sequence, it does not wait for the container to complete before proceeding to the next init container. Instead, the next init container starts immediately after this init container is started, or after any startupProbe has successfully completed.
+     * 
+     */
+    @Import(name="restartPolicy")
+    private @Nullable Output<String> restartPolicy;
+
+    /**
+     * @return RestartPolicy defines the restart behavior of individual containers in a pod. This field may only be set for init containers, and the only allowed value is &#34;Always&#34;. For non-init containers or when this field is not specified, the restart behavior is defined by the Pod&#39;s restart policy and the container type. Setting the RestartPolicy as &#34;Always&#34; for the init container will have the following effect: this init container will be continually restarted on exit until all regular containers have terminated. Once all regular containers have completed, all init containers with restartPolicy &#34;Always&#34; will be shut down. This lifecycle differs from normal init containers and is often referred to as a &#34;sidecar&#34; container. Although this init container still starts in the init container sequence, it does not wait for the container to complete before proceeding to the next init container. Instead, the next init container starts immediately after this init container is started, or after any startupProbe has successfully completed.
+     * 
+     */
+    public Optional<Output<String>> restartPolicy() {
+        return Optional.ofNullable(this.restartPolicy);
+    }
+
+    /**
      * SecurityContext defines the security options the container should be run with. If set, the fields of SecurityContext override the equivalent fields of PodSecurityContext. More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
      * 
      */
@@ -392,6 +407,7 @@ public final class ContainerArgs extends com.pulumi.resources.ResourceArgs {
         this.readinessProbe = $.readinessProbe;
         this.resizePolicy = $.resizePolicy;
         this.resources = $.resources;
+        this.restartPolicy = $.restartPolicy;
         this.securityContext = $.securityContext;
         this.startupProbe = $.startupProbe;
         this.stdin = $.stdin;
@@ -753,6 +769,27 @@ public final class ContainerArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder resources(ResourceRequirementsArgs resources) {
             return resources(Output.of(resources));
+        }
+
+        /**
+         * @param restartPolicy RestartPolicy defines the restart behavior of individual containers in a pod. This field may only be set for init containers, and the only allowed value is &#34;Always&#34;. For non-init containers or when this field is not specified, the restart behavior is defined by the Pod&#39;s restart policy and the container type. Setting the RestartPolicy as &#34;Always&#34; for the init container will have the following effect: this init container will be continually restarted on exit until all regular containers have terminated. Once all regular containers have completed, all init containers with restartPolicy &#34;Always&#34; will be shut down. This lifecycle differs from normal init containers and is often referred to as a &#34;sidecar&#34; container. Although this init container still starts in the init container sequence, it does not wait for the container to complete before proceeding to the next init container. Instead, the next init container starts immediately after this init container is started, or after any startupProbe has successfully completed.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder restartPolicy(@Nullable Output<String> restartPolicy) {
+            $.restartPolicy = restartPolicy;
+            return this;
+        }
+
+        /**
+         * @param restartPolicy RestartPolicy defines the restart behavior of individual containers in a pod. This field may only be set for init containers, and the only allowed value is &#34;Always&#34;. For non-init containers or when this field is not specified, the restart behavior is defined by the Pod&#39;s restart policy and the container type. Setting the RestartPolicy as &#34;Always&#34; for the init container will have the following effect: this init container will be continually restarted on exit until all regular containers have terminated. Once all regular containers have completed, all init containers with restartPolicy &#34;Always&#34; will be shut down. This lifecycle differs from normal init containers and is often referred to as a &#34;sidecar&#34; container. Although this init container still starts in the init container sequence, it does not wait for the container to complete before proceeding to the next init container. Instead, the next init container starts immediately after this init container is started, or after any startupProbe has successfully completed.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder restartPolicy(String restartPolicy) {
+            return restartPolicy(Output.of(restartPolicy));
         }
 
         /**

@@ -205,7 +205,7 @@ class MutatingWebhook(dict):
                     - If failurePolicy=Fail, reject the request
                     - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
                
-               This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+               This is a beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
         :param str match_policy: matchPolicy defines how the "rules" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
                
                - Exact: match a request only if it exactly matches a specified rule. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, but "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would not be sent to the webhook.
@@ -329,7 +329,7 @@ class MutatingWebhook(dict):
              - If failurePolicy=Fail, reject the request
              - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
 
-        This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+        This is a beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
         """
         return pulumi.get(self, "match_conditions")
 
@@ -567,7 +567,7 @@ class MutatingWebhookPatch(dict):
                     - If failurePolicy=Fail, reject the request
                     - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
                
-               This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+               This is a beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
         :param str match_policy: matchPolicy defines how the "rules" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
                
                - Exact: match a request only if it exactly matches a specified rule. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, but "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would not be sent to the webhook.
@@ -681,7 +681,7 @@ class MutatingWebhookPatch(dict):
              - If failurePolicy=Fail, reject the request
              - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
 
-        This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+        This is a beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
         """
         return pulumi.get(self, "match_conditions")
 
@@ -1178,7 +1178,7 @@ class ValidatingWebhook(dict):
                     - If failurePolicy=Fail, reject the request
                     - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
                
-               This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+               This is a beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
         :param str match_policy: matchPolicy defines how the "rules" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
                
                - Exact: match a request only if it exactly matches a specified rule. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, but "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would not be sent to the webhook.
@@ -1293,7 +1293,7 @@ class ValidatingWebhook(dict):
              - If failurePolicy=Fail, reject the request
              - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
 
-        This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+        This is a beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
         """
         return pulumi.get(self, "match_conditions")
 
@@ -1514,7 +1514,7 @@ class ValidatingWebhookPatch(dict):
                     - If failurePolicy=Fail, reject the request
                     - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
                
-               This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+               This is a beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
         :param str match_policy: matchPolicy defines how the "rules" list is used to match incoming requests. Allowed values are "Exact" or "Equivalent".
                
                - Exact: match a request only if it exactly matches a specified rule. For example, if deployments can be modified via apps/v1, apps/v1beta1, and extensions/v1beta1, but "rules" only included `apiGroups:["apps"], apiVersions:["v1"], resources: ["deployments"]`, a request to apps/v1beta1 or extensions/v1beta1 would not be sent to the webhook.
@@ -1619,7 +1619,7 @@ class ValidatingWebhookPatch(dict):
              - If failurePolicy=Fail, reject the request
              - If failurePolicy=Ignore, the error is ignored and the webhook is skipped
 
-        This is an alpha feature and managed by the AdmissionWebhookMatchConditions feature gate.
+        This is a beta feature and managed by the AdmissionWebhookMatchConditions feature gate.
         """
         return pulumi.get(self, "match_conditions")
 

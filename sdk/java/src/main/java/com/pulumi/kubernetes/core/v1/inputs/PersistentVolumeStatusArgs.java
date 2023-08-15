@@ -20,6 +20,21 @@ public final class PersistentVolumeStatusArgs extends com.pulumi.resources.Resou
     public static final PersistentVolumeStatusArgs Empty = new PersistentVolumeStatusArgs();
 
     /**
+     * lastPhaseTransitionTime is the time the phase transitioned from one to another and automatically resets to current time everytime a volume phase transitions. This is an alpha field and requires enabling PersistentVolumeLastPhaseTransitionTime feature.
+     * 
+     */
+    @Import(name="lastPhaseTransitionTime")
+    private @Nullable Output<String> lastPhaseTransitionTime;
+
+    /**
+     * @return lastPhaseTransitionTime is the time the phase transitioned from one to another and automatically resets to current time everytime a volume phase transitions. This is an alpha field and requires enabling PersistentVolumeLastPhaseTransitionTime feature.
+     * 
+     */
+    public Optional<Output<String>> lastPhaseTransitionTime() {
+        return Optional.ofNullable(this.lastPhaseTransitionTime);
+    }
+
+    /**
      * message is a human-readable message indicating details about why the volume is in this state.
      * 
      */
@@ -67,6 +82,7 @@ public final class PersistentVolumeStatusArgs extends com.pulumi.resources.Resou
     private PersistentVolumeStatusArgs() {}
 
     private PersistentVolumeStatusArgs(PersistentVolumeStatusArgs $) {
+        this.lastPhaseTransitionTime = $.lastPhaseTransitionTime;
         this.message = $.message;
         this.phase = $.phase;
         this.reason = $.reason;
@@ -88,6 +104,27 @@ public final class PersistentVolumeStatusArgs extends com.pulumi.resources.Resou
 
         public Builder(PersistentVolumeStatusArgs defaults) {
             $ = new PersistentVolumeStatusArgs(Objects.requireNonNull(defaults));
+        }
+
+        /**
+         * @param lastPhaseTransitionTime lastPhaseTransitionTime is the time the phase transitioned from one to another and automatically resets to current time everytime a volume phase transitions. This is an alpha field and requires enabling PersistentVolumeLastPhaseTransitionTime feature.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder lastPhaseTransitionTime(@Nullable Output<String> lastPhaseTransitionTime) {
+            $.lastPhaseTransitionTime = lastPhaseTransitionTime;
+            return this;
+        }
+
+        /**
+         * @param lastPhaseTransitionTime lastPhaseTransitionTime is the time the phase transitioned from one to another and automatically resets to current time everytime a volume phase transitions. This is an alpha field and requires enabling PersistentVolumeLastPhaseTransitionTime feature.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder lastPhaseTransitionTime(String lastPhaseTransitionTime) {
+            return lastPhaseTransitionTime(Output.of(lastPhaseTransitionTime));
         }
 
         /**

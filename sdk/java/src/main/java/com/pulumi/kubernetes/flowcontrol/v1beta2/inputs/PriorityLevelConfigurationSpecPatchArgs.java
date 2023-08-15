@@ -5,6 +5,7 @@ package com.pulumi.kubernetes.flowcontrol.v1beta2.inputs;
 
 import com.pulumi.core.Output;
 import com.pulumi.core.annotations.Import;
+import com.pulumi.kubernetes.flowcontrol.v1beta2.inputs.ExemptPriorityLevelConfigurationPatchArgs;
 import com.pulumi.kubernetes.flowcontrol.v1beta2.inputs.LimitedPriorityLevelConfigurationPatchArgs;
 import java.lang.String;
 import java.util.Objects;
@@ -19,6 +20,21 @@ import javax.annotation.Nullable;
 public final class PriorityLevelConfigurationSpecPatchArgs extends com.pulumi.resources.ResourceArgs {
 
     public static final PriorityLevelConfigurationSpecPatchArgs Empty = new PriorityLevelConfigurationSpecPatchArgs();
+
+    /**
+     * `exempt` specifies how requests are handled for an exempt priority level. This field MUST be empty if `type` is `&#34;Limited&#34;`. This field MAY be non-empty if `type` is `&#34;Exempt&#34;`. If empty and `type` is `&#34;Exempt&#34;` then the default values for `ExemptPriorityLevelConfiguration` apply.
+     * 
+     */
+    @Import(name="exempt")
+    private @Nullable Output<ExemptPriorityLevelConfigurationPatchArgs> exempt;
+
+    /**
+     * @return `exempt` specifies how requests are handled for an exempt priority level. This field MUST be empty if `type` is `&#34;Limited&#34;`. This field MAY be non-empty if `type` is `&#34;Exempt&#34;`. If empty and `type` is `&#34;Exempt&#34;` then the default values for `ExemptPriorityLevelConfiguration` apply.
+     * 
+     */
+    public Optional<Output<ExemptPriorityLevelConfigurationPatchArgs>> exempt() {
+        return Optional.ofNullable(this.exempt);
+    }
 
     /**
      * `limited` specifies how requests are handled for a Limited priority level. This field must be non-empty if and only if `type` is `&#34;Limited&#34;`.
@@ -53,6 +69,7 @@ public final class PriorityLevelConfigurationSpecPatchArgs extends com.pulumi.re
     private PriorityLevelConfigurationSpecPatchArgs() {}
 
     private PriorityLevelConfigurationSpecPatchArgs(PriorityLevelConfigurationSpecPatchArgs $) {
+        this.exempt = $.exempt;
         this.limited = $.limited;
         this.type = $.type;
     }
@@ -73,6 +90,27 @@ public final class PriorityLevelConfigurationSpecPatchArgs extends com.pulumi.re
 
         public Builder(PriorityLevelConfigurationSpecPatchArgs defaults) {
             $ = new PriorityLevelConfigurationSpecPatchArgs(Objects.requireNonNull(defaults));
+        }
+
+        /**
+         * @param exempt `exempt` specifies how requests are handled for an exempt priority level. This field MUST be empty if `type` is `&#34;Limited&#34;`. This field MAY be non-empty if `type` is `&#34;Exempt&#34;`. If empty and `type` is `&#34;Exempt&#34;` then the default values for `ExemptPriorityLevelConfiguration` apply.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder exempt(@Nullable Output<ExemptPriorityLevelConfigurationPatchArgs> exempt) {
+            $.exempt = exempt;
+            return this;
+        }
+
+        /**
+         * @param exempt `exempt` specifies how requests are handled for an exempt priority level. This field MUST be empty if `type` is `&#34;Limited&#34;`. This field MAY be non-empty if `type` is `&#34;Exempt&#34;`. If empty and `type` is `&#34;Exempt&#34;` then the default values for `ExemptPriorityLevelConfiguration` apply.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder exempt(ExemptPriorityLevelConfigurationPatchArgs exempt) {
+            return exempt(Output.of(exempt));
         }
 
         /**

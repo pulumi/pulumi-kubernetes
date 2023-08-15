@@ -11,6 +11,10 @@ namespace Pulumi.Kubernetes.AdmissionRegistration.V1Alpha1
 {
     /// <summary>
     /// ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with paramerized resources. ValidatingAdmissionPolicyBinding and parameter CRDs together define how cluster administrators configure policies for clusters.
+    /// 
+    /// For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding.
+    /// 
+    /// The CEL expressions of a policy must have a computed CEL cost below the maximum CEL budget. Each evaluation of the policy is given an independent CEL cost budget. Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.
     /// </summary>
     [KubernetesResourceType("kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicyBinding")]
     public partial class ValidatingAdmissionPolicyBinding : KubernetesResource
@@ -74,6 +78,10 @@ namespace Pulumi.Kubernetes.AdmissionRegistration.V1Alpha1
             var defaultOptions = new CustomResourceOptions
             {
                 Version = Utilities.Version,
+                Aliases =
+                {
+                    new global::Pulumi.Alias { Type = "kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingAdmissionPolicyBinding"},
+                },
             };
             var merged = CustomResourceOptions.Merge(defaultOptions, options);
             // Override the ID if one was specified for consistency with other language SDKs.

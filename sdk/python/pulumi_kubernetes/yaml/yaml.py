@@ -549,6 +549,30 @@ def _parse_yaml_object(
         return [identifier.apply(
             lambda x: (f"admissionregistration.k8s.io/v1beta1/MutatingWebhookConfigurationList:{x}",
                        MutatingWebhookConfigurationList(f"{x}", opts, **obj)))]
+    if gvk == "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicy":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.admissionregistration.v1beta1 import ValidatingAdmissionPolicy
+        return [identifier.apply(
+            lambda x: (f"admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicy:{x}",
+                       ValidatingAdmissionPolicy(f"{x}", opts, **obj)))]
+    if gvk == "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyBinding":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.admissionregistration.v1beta1 import ValidatingAdmissionPolicyBinding
+        return [identifier.apply(
+            lambda x: (f"admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyBinding:{x}",
+                       ValidatingAdmissionPolicyBinding(f"{x}", opts, **obj)))]
+    if gvk == "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyBindingList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.admissionregistration.v1beta1 import ValidatingAdmissionPolicyBindingList
+        return [identifier.apply(
+            lambda x: (f"admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyBindingList:{x}",
+                       ValidatingAdmissionPolicyBindingList(f"{x}", opts, **obj)))]
+    if gvk == "admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyList":
+        # Import locally to avoid name collisions.
+        from pulumi_kubernetes.admissionregistration.v1beta1 import ValidatingAdmissionPolicyList
+        return [identifier.apply(
+            lambda x: (f"admissionregistration.k8s.io/v1beta1/ValidatingAdmissionPolicyList:{x}",
+                       ValidatingAdmissionPolicyList(f"{x}", opts, **obj)))]
     if gvk == "admissionregistration.k8s.io/v1beta1/ValidatingWebhookConfiguration":
         # Import locally to avoid name collisions.
         from pulumi_kubernetes.admissionregistration.v1beta1 import ValidatingWebhookConfiguration

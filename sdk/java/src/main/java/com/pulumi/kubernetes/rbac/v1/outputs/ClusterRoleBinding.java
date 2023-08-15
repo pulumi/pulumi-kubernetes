@@ -31,7 +31,7 @@ public final class ClusterRoleBinding {
      */
     private @Nullable ObjectMeta metadata;
     /**
-     * @return RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+     * @return RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
      * 
      */
     private RoleRef roleRef;
@@ -64,7 +64,7 @@ public final class ClusterRoleBinding {
         return Optional.ofNullable(this.metadata);
     }
     /**
-     * @return RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+     * @return RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
      * 
      */
     public RoleRef roleRef() {

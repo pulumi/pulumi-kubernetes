@@ -18,14 +18,14 @@ public final class HTTPHeaderArgs extends com.pulumi.resources.ResourceArgs {
     public static final HTTPHeaderArgs Empty = new HTTPHeaderArgs();
 
     /**
-     * The header field name
+     * The header field name. This will be canonicalized upon output, so case-variant names will be understood as the same header.
      * 
      */
     @Import(name="name", required=true)
     private Output<String> name;
 
     /**
-     * @return The header field name
+     * @return The header field name. This will be canonicalized upon output, so case-variant names will be understood as the same header.
      * 
      */
     public Output<String> name() {
@@ -73,7 +73,7 @@ public final class HTTPHeaderArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param name The header field name
+         * @param name The header field name. This will be canonicalized upon output, so case-variant names will be understood as the same header.
          * 
          * @return builder
          * 
@@ -84,7 +84,7 @@ public final class HTTPHeaderArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param name The header field name
+         * @param name The header field name. This will be canonicalized upon output, so case-variant names will be understood as the same header.
          * 
          * @return builder
          * 

@@ -27,6 +27,8 @@ public final class EndpointPortArgs extends com.pulumi.resources.ResourceArgs {
      * 
      * * Kubernetes-defined prefixed names:
      *   * &#39;kubernetes.io/h2c&#39; - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+     *   * &#39;kubernetes.io/ws&#39;  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455
+     *   * &#39;kubernetes.io/wss&#39; - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455
      * 
      * * Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.
      * 
@@ -41,6 +43,8 @@ public final class EndpointPortArgs extends com.pulumi.resources.ResourceArgs {
      * 
      * * Kubernetes-defined prefixed names:
      *   * &#39;kubernetes.io/h2c&#39; - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+     *   * &#39;kubernetes.io/ws&#39;  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455
+     *   * &#39;kubernetes.io/wss&#39; - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455
      * 
      * * Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.
      * 
@@ -128,6 +132,8 @@ public final class EndpointPortArgs extends com.pulumi.resources.ResourceArgs {
          * 
          * * Kubernetes-defined prefixed names:
          *   * &#39;kubernetes.io/h2c&#39; - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+         *   * &#39;kubernetes.io/ws&#39;  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455
+         *   * &#39;kubernetes.io/wss&#39; - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455
          * 
          * * Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.
          * 
@@ -146,6 +152,8 @@ public final class EndpointPortArgs extends com.pulumi.resources.ResourceArgs {
          * 
          * * Kubernetes-defined prefixed names:
          *   * &#39;kubernetes.io/h2c&#39; - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+         *   * &#39;kubernetes.io/ws&#39;  - WebSocket over cleartext as described in https://www.rfc-editor.org/rfc/rfc6455
+         *   * &#39;kubernetes.io/wss&#39; - WebSocket over TLS as described in https://www.rfc-editor.org/rfc/rfc6455
          * 
          * * Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.
          * 

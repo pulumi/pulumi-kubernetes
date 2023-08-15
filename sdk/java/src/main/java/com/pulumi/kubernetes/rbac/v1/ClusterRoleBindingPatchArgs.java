@@ -66,14 +66,14 @@ public final class ClusterRoleBindingPatchArgs extends com.pulumi.resources.Reso
     }
 
     /**
-     * RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+     * RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
      * 
      */
     @Import(name="roleRef")
     private @Nullable Output<RoleRefPatchArgs> roleRef;
 
     /**
-     * @return RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+     * @return RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
      * 
      */
     public Optional<Output<RoleRefPatchArgs>> roleRef() {
@@ -187,7 +187,7 @@ public final class ClusterRoleBindingPatchArgs extends com.pulumi.resources.Reso
         }
 
         /**
-         * @param roleRef RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+         * @param roleRef RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
          * 
          * @return builder
          * 
@@ -198,7 +198,7 @@ public final class ClusterRoleBindingPatchArgs extends com.pulumi.resources.Reso
         }
 
         /**
-         * @param roleRef RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+         * @param roleRef RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
          * 
          * @return builder
          * 

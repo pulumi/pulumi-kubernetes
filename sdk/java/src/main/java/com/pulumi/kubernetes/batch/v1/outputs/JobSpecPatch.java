@@ -27,6 +27,11 @@ public final class JobSpecPatch {
      */
     private @Nullable Integer backoffLimit;
     /**
+     * @return Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod&#39;s batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job&#39;s completionMode=Indexed, and the Pod&#39;s restart policy is Never. The field is immutable. This field is alpha-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (disabled by default).
+     * 
+     */
+    private @Nullable Integer backoffLimitPerIndex;
+    /**
      * @return completionMode specifies how Pod completions are tracked. It can be `NonIndexed` (default) or `Indexed`.
      * 
      * `NonIndexed` means that the Job is considered complete when there have been .spec.completions successfully completed Pods. Each Pod completion is homologous to each other.
@@ -48,6 +53,11 @@ public final class JobSpecPatch {
      */
     private @Nullable Boolean manualSelector;
     /**
+     * @return Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5. This field is alpha-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (disabled by default).
+     * 
+     */
+    private @Nullable Integer maxFailedIndexes;
+    /**
      * @return Specifies the maximum desired number of pods the job should run at any given time. The actual number of pods running in steady state will be less than this number when ((.spec.completions - .status.successful) &lt; .spec.parallelism), i.e. when the work left to do is less than max parallelism. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
      * 
      */
@@ -55,10 +65,20 @@ public final class JobSpecPatch {
     /**
      * @return Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs&#39;s .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
      * 
-     * This field is alpha-level. To use this field, you must enable the `JobPodFailurePolicy` feature gate (disabled by default).
+     * This field is beta-level. It can be used when the `JobPodFailurePolicy` feature gate is enabled (enabled by default).
      * 
      */
     private @Nullable PodFailurePolicyPatch podFailurePolicy;
+    /**
+     * @return podReplacementPolicy specifies when to create replacement Pods. Possible values are: - TerminatingOrFailed means that we recreate pods
+     *   when they are terminating (has a metadata.deletionTimestamp) or failed.
+     * - Failed means to wait until a previously created Pod is fully terminated (has phase
+     *   Failed or Succeeded) before creating a replacement Pod.
+     * 
+     * When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an alpha field. Enable JobPodReplacementPolicy to be able to use this field.
+     * 
+     */
+    private @Nullable String podReplacementPolicy;
     /**
      * @return A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
      * 
@@ -96,6 +116,13 @@ public final class JobSpecPatch {
         return Optional.ofNullable(this.backoffLimit);
     }
     /**
+     * @return Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod&#39;s batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job&#39;s completionMode=Indexed, and the Pod&#39;s restart policy is Never. The field is immutable. This field is alpha-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (disabled by default).
+     * 
+     */
+    public Optional<Integer> backoffLimitPerIndex() {
+        return Optional.ofNullable(this.backoffLimitPerIndex);
+    }
+    /**
      * @return completionMode specifies how Pod completions are tracked. It can be `NonIndexed` (default) or `Indexed`.
      * 
      * `NonIndexed` means that the Job is considered complete when there have been .spec.completions successfully completed Pods. Each Pod completion is homologous to each other.
@@ -123,6 +150,13 @@ public final class JobSpecPatch {
         return Optional.ofNullable(this.manualSelector);
     }
     /**
+     * @return Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5. This field is alpha-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (disabled by default).
+     * 
+     */
+    public Optional<Integer> maxFailedIndexes() {
+        return Optional.ofNullable(this.maxFailedIndexes);
+    }
+    /**
      * @return Specifies the maximum desired number of pods the job should run at any given time. The actual number of pods running in steady state will be less than this number when ((.spec.completions - .status.successful) &lt; .spec.parallelism), i.e. when the work left to do is less than max parallelism. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
      * 
      */
@@ -132,11 +166,23 @@ public final class JobSpecPatch {
     /**
      * @return Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs&#39;s .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
      * 
-     * This field is alpha-level. To use this field, you must enable the `JobPodFailurePolicy` feature gate (disabled by default).
+     * This field is beta-level. It can be used when the `JobPodFailurePolicy` feature gate is enabled (enabled by default).
      * 
      */
     public Optional<PodFailurePolicyPatch> podFailurePolicy() {
         return Optional.ofNullable(this.podFailurePolicy);
+    }
+    /**
+     * @return podReplacementPolicy specifies when to create replacement Pods. Possible values are: - TerminatingOrFailed means that we recreate pods
+     *   when they are terminating (has a metadata.deletionTimestamp) or failed.
+     * - Failed means to wait until a previously created Pod is fully terminated (has phase
+     *   Failed or Succeeded) before creating a replacement Pod.
+     * 
+     * When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an alpha field. Enable JobPodReplacementPolicy to be able to use this field.
+     * 
+     */
+    public Optional<String> podReplacementPolicy() {
+        return Optional.ofNullable(this.podReplacementPolicy);
     }
     /**
      * @return A label query over pods that should match the pod count. Normally, the system sets this field for you. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
@@ -178,11 +224,14 @@ public final class JobSpecPatch {
     public static final class Builder {
         private @Nullable Integer activeDeadlineSeconds;
         private @Nullable Integer backoffLimit;
+        private @Nullable Integer backoffLimitPerIndex;
         private @Nullable String completionMode;
         private @Nullable Integer completions;
         private @Nullable Boolean manualSelector;
+        private @Nullable Integer maxFailedIndexes;
         private @Nullable Integer parallelism;
         private @Nullable PodFailurePolicyPatch podFailurePolicy;
+        private @Nullable String podReplacementPolicy;
         private @Nullable LabelSelectorPatch selector;
         private @Nullable Boolean suspend;
         private @Nullable PodTemplateSpecPatch template;
@@ -192,11 +241,14 @@ public final class JobSpecPatch {
     	      Objects.requireNonNull(defaults);
     	      this.activeDeadlineSeconds = defaults.activeDeadlineSeconds;
     	      this.backoffLimit = defaults.backoffLimit;
+    	      this.backoffLimitPerIndex = defaults.backoffLimitPerIndex;
     	      this.completionMode = defaults.completionMode;
     	      this.completions = defaults.completions;
     	      this.manualSelector = defaults.manualSelector;
+    	      this.maxFailedIndexes = defaults.maxFailedIndexes;
     	      this.parallelism = defaults.parallelism;
     	      this.podFailurePolicy = defaults.podFailurePolicy;
+    	      this.podReplacementPolicy = defaults.podReplacementPolicy;
     	      this.selector = defaults.selector;
     	      this.suspend = defaults.suspend;
     	      this.template = defaults.template;
@@ -211,6 +263,11 @@ public final class JobSpecPatch {
         @CustomType.Setter
         public Builder backoffLimit(@Nullable Integer backoffLimit) {
             this.backoffLimit = backoffLimit;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder backoffLimitPerIndex(@Nullable Integer backoffLimitPerIndex) {
+            this.backoffLimitPerIndex = backoffLimitPerIndex;
             return this;
         }
         @CustomType.Setter
@@ -229,6 +286,11 @@ public final class JobSpecPatch {
             return this;
         }
         @CustomType.Setter
+        public Builder maxFailedIndexes(@Nullable Integer maxFailedIndexes) {
+            this.maxFailedIndexes = maxFailedIndexes;
+            return this;
+        }
+        @CustomType.Setter
         public Builder parallelism(@Nullable Integer parallelism) {
             this.parallelism = parallelism;
             return this;
@@ -236,6 +298,11 @@ public final class JobSpecPatch {
         @CustomType.Setter
         public Builder podFailurePolicy(@Nullable PodFailurePolicyPatch podFailurePolicy) {
             this.podFailurePolicy = podFailurePolicy;
+            return this;
+        }
+        @CustomType.Setter
+        public Builder podReplacementPolicy(@Nullable String podReplacementPolicy) {
+            this.podReplacementPolicy = podReplacementPolicy;
             return this;
         }
         @CustomType.Setter
@@ -262,11 +329,14 @@ public final class JobSpecPatch {
             final var o = new JobSpecPatch();
             o.activeDeadlineSeconds = activeDeadlineSeconds;
             o.backoffLimit = backoffLimit;
+            o.backoffLimitPerIndex = backoffLimitPerIndex;
             o.completionMode = completionMode;
             o.completions = completions;
             o.manualSelector = manualSelector;
+            o.maxFailedIndexes = maxFailedIndexes;
             o.parallelism = parallelism;
             o.podFailurePolicy = podFailurePolicy;
+            o.podReplacementPolicy = podReplacementPolicy;
             o.selector = selector;
             o.suspend = suspend;
             o.template = template;

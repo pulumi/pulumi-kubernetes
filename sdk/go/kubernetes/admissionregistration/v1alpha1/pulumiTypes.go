@@ -2154,12 +2154,30 @@ func (o ParamKindPatchPtrOutput) Kind() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// ParamRef references a parameter resource
+// ParamRef describes how to locate the params to be used as input to expressions of rules applied by a policy binding.
 type ParamRef struct {
-	// Name of the resource being referenced.
+	// `name` is the name of the resource being referenced.
+	//
+	// `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
 	Name *string `pulumi:"name"`
-	// Namespace of the referenced resource. Should be empty for the cluster-scoped resources
+	// namespace is the namespace of the referenced resource. Allows limiting the search for params to a specific namespace. Applies to both `name` and `selector` fields.
+	//
+	// A per-namespace parameter may be used by specifying a namespace-scoped `paramKind` in the policy and leaving this field empty.
+	//
+	// - If `paramKind` is cluster-scoped, this field MUST be unset. Setting this field results in a configuration error.
+	//
+	// - If `paramKind` is namespace-scoped, the namespace of the object being evaluated for admission will be used when this field is left unset. Take care that if this is left empty the binding must not match any cluster-scoped resources, which will result in an error.
 	Namespace *string `pulumi:"namespace"`
+	// `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
+	//
+	// Allowed values are `Allow` or `Deny` Default to `Deny`
+	ParameterNotFoundAction *string `pulumi:"parameterNotFoundAction"`
+	// selector can be used to match multiple param objects based on their labels. Supply selector: {} to match all resources of the ParamKind.
+	//
+	// If multiple params are found, they are all evaluated with the policy expressions and the results are ANDed together.
+	//
+	// One of `name` or `selector` must be set, but `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
+	Selector *metav1.LabelSelector `pulumi:"selector"`
 }
 
 // ParamRefInput is an input type that accepts ParamRefArgs and ParamRefOutput values.
@@ -2173,12 +2191,30 @@ type ParamRefInput interface {
 	ToParamRefOutputWithContext(context.Context) ParamRefOutput
 }
 
-// ParamRef references a parameter resource
+// ParamRef describes how to locate the params to be used as input to expressions of rules applied by a policy binding.
 type ParamRefArgs struct {
-	// Name of the resource being referenced.
+	// `name` is the name of the resource being referenced.
+	//
+	// `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
 	Name pulumi.StringPtrInput `pulumi:"name"`
-	// Namespace of the referenced resource. Should be empty for the cluster-scoped resources
+	// namespace is the namespace of the referenced resource. Allows limiting the search for params to a specific namespace. Applies to both `name` and `selector` fields.
+	//
+	// A per-namespace parameter may be used by specifying a namespace-scoped `paramKind` in the policy and leaving this field empty.
+	//
+	// - If `paramKind` is cluster-scoped, this field MUST be unset. Setting this field results in a configuration error.
+	//
+	// - If `paramKind` is namespace-scoped, the namespace of the object being evaluated for admission will be used when this field is left unset. Take care that if this is left empty the binding must not match any cluster-scoped resources, which will result in an error.
 	Namespace pulumi.StringPtrInput `pulumi:"namespace"`
+	// `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
+	//
+	// Allowed values are `Allow` or `Deny` Default to `Deny`
+	ParameterNotFoundAction pulumi.StringPtrInput `pulumi:"parameterNotFoundAction"`
+	// selector can be used to match multiple param objects based on their labels. Supply selector: {} to match all resources of the ParamKind.
+	//
+	// If multiple params are found, they are all evaluated with the policy expressions and the results are ANDed together.
+	//
+	// One of `name` or `selector` must be set, but `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
+	Selector metav1.LabelSelectorPtrInput `pulumi:"selector"`
 }
 
 func (ParamRefArgs) ElementType() reflect.Type {
@@ -2234,7 +2270,7 @@ func (i *paramRefPtrType) ToParamRefPtrOutputWithContext(ctx context.Context) Pa
 	return pulumi.ToOutputWithContext(ctx, i).(ParamRefPtrOutput)
 }
 
-// ParamRef references a parameter resource
+// ParamRef describes how to locate the params to be used as input to expressions of rules applied by a policy binding.
 type ParamRefOutput struct{ *pulumi.OutputState }
 
 func (ParamRefOutput) ElementType() reflect.Type {
@@ -2259,14 +2295,38 @@ func (o ParamRefOutput) ToParamRefPtrOutputWithContext(ctx context.Context) Para
 	}).(ParamRefPtrOutput)
 }
 
-// Name of the resource being referenced.
+// `name` is the name of the resource being referenced.
+//
+// `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
 func (o ParamRefOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ParamRef) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-// Namespace of the referenced resource. Should be empty for the cluster-scoped resources
+// namespace is the namespace of the referenced resource. Allows limiting the search for params to a specific namespace. Applies to both `name` and `selector` fields.
+//
+// A per-namespace parameter may be used by specifying a namespace-scoped `paramKind` in the policy and leaving this field empty.
+//
+// - If `paramKind` is cluster-scoped, this field MUST be unset. Setting this field results in a configuration error.
+//
+// - If `paramKind` is namespace-scoped, the namespace of the object being evaluated for admission will be used when this field is left unset. Take care that if this is left empty the binding must not match any cluster-scoped resources, which will result in an error.
 func (o ParamRefOutput) Namespace() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ParamRef) *string { return v.Namespace }).(pulumi.StringPtrOutput)
+}
+
+// `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
+//
+// Allowed values are `Allow` or `Deny` Default to `Deny`
+func (o ParamRefOutput) ParameterNotFoundAction() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ParamRef) *string { return v.ParameterNotFoundAction }).(pulumi.StringPtrOutput)
+}
+
+// selector can be used to match multiple param objects based on their labels. Supply selector: {} to match all resources of the ParamKind.
+//
+// If multiple params are found, they are all evaluated with the policy expressions and the results are ANDed together.
+//
+// One of `name` or `selector` must be set, but `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
+func (o ParamRefOutput) Selector() metav1.LabelSelectorPtrOutput {
+	return o.ApplyT(func(v ParamRef) *metav1.LabelSelector { return v.Selector }).(metav1.LabelSelectorPtrOutput)
 }
 
 type ParamRefPtrOutput struct{ *pulumi.OutputState }
@@ -2293,7 +2353,9 @@ func (o ParamRefPtrOutput) Elem() ParamRefOutput {
 	}).(ParamRefOutput)
 }
 
-// Name of the resource being referenced.
+// `name` is the name of the resource being referenced.
+//
+// `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
 func (o ParamRefPtrOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ParamRef) *string {
 		if v == nil {
@@ -2303,7 +2365,13 @@ func (o ParamRefPtrOutput) Name() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Namespace of the referenced resource. Should be empty for the cluster-scoped resources
+// namespace is the namespace of the referenced resource. Allows limiting the search for params to a specific namespace. Applies to both `name` and `selector` fields.
+//
+// A per-namespace parameter may be used by specifying a namespace-scoped `paramKind` in the policy and leaving this field empty.
+//
+// - If `paramKind` is cluster-scoped, this field MUST be unset. Setting this field results in a configuration error.
+//
+// - If `paramKind` is namespace-scoped, the namespace of the object being evaluated for admission will be used when this field is left unset. Take care that if this is left empty the binding must not match any cluster-scoped resources, which will result in an error.
 func (o ParamRefPtrOutput) Namespace() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ParamRef) *string {
 		if v == nil {
@@ -2313,12 +2381,56 @@ func (o ParamRefPtrOutput) Namespace() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// ParamRef references a parameter resource
+// `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
+//
+// Allowed values are `Allow` or `Deny` Default to `Deny`
+func (o ParamRefPtrOutput) ParameterNotFoundAction() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ParamRef) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ParameterNotFoundAction
+	}).(pulumi.StringPtrOutput)
+}
+
+// selector can be used to match multiple param objects based on their labels. Supply selector: {} to match all resources of the ParamKind.
+//
+// If multiple params are found, they are all evaluated with the policy expressions and the results are ANDed together.
+//
+// One of `name` or `selector` must be set, but `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
+func (o ParamRefPtrOutput) Selector() metav1.LabelSelectorPtrOutput {
+	return o.ApplyT(func(v *ParamRef) *metav1.LabelSelector {
+		if v == nil {
+			return nil
+		}
+		return v.Selector
+	}).(metav1.LabelSelectorPtrOutput)
+}
+
+// ParamRef describes how to locate the params to be used as input to expressions of rules applied by a policy binding.
 type ParamRefPatch struct {
-	// Name of the resource being referenced.
+	// `name` is the name of the resource being referenced.
+	//
+	// `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
 	Name *string `pulumi:"name"`
-	// Namespace of the referenced resource. Should be empty for the cluster-scoped resources
+	// namespace is the namespace of the referenced resource. Allows limiting the search for params to a specific namespace. Applies to both `name` and `selector` fields.
+	//
+	// A per-namespace parameter may be used by specifying a namespace-scoped `paramKind` in the policy and leaving this field empty.
+	//
+	// - If `paramKind` is cluster-scoped, this field MUST be unset. Setting this field results in a configuration error.
+	//
+	// - If `paramKind` is namespace-scoped, the namespace of the object being evaluated for admission will be used when this field is left unset. Take care that if this is left empty the binding must not match any cluster-scoped resources, which will result in an error.
 	Namespace *string `pulumi:"namespace"`
+	// `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
+	//
+	// Allowed values are `Allow` or `Deny` Default to `Deny`
+	ParameterNotFoundAction *string `pulumi:"parameterNotFoundAction"`
+	// selector can be used to match multiple param objects based on their labels. Supply selector: {} to match all resources of the ParamKind.
+	//
+	// If multiple params are found, they are all evaluated with the policy expressions and the results are ANDed together.
+	//
+	// One of `name` or `selector` must be set, but `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
+	Selector *metav1.LabelSelectorPatch `pulumi:"selector"`
 }
 
 // ParamRefPatchInput is an input type that accepts ParamRefPatchArgs and ParamRefPatchOutput values.
@@ -2332,12 +2444,30 @@ type ParamRefPatchInput interface {
 	ToParamRefPatchOutputWithContext(context.Context) ParamRefPatchOutput
 }
 
-// ParamRef references a parameter resource
+// ParamRef describes how to locate the params to be used as input to expressions of rules applied by a policy binding.
 type ParamRefPatchArgs struct {
-	// Name of the resource being referenced.
+	// `name` is the name of the resource being referenced.
+	//
+	// `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
 	Name pulumi.StringPtrInput `pulumi:"name"`
-	// Namespace of the referenced resource. Should be empty for the cluster-scoped resources
+	// namespace is the namespace of the referenced resource. Allows limiting the search for params to a specific namespace. Applies to both `name` and `selector` fields.
+	//
+	// A per-namespace parameter may be used by specifying a namespace-scoped `paramKind` in the policy and leaving this field empty.
+	//
+	// - If `paramKind` is cluster-scoped, this field MUST be unset. Setting this field results in a configuration error.
+	//
+	// - If `paramKind` is namespace-scoped, the namespace of the object being evaluated for admission will be used when this field is left unset. Take care that if this is left empty the binding must not match any cluster-scoped resources, which will result in an error.
 	Namespace pulumi.StringPtrInput `pulumi:"namespace"`
+	// `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
+	//
+	// Allowed values are `Allow` or `Deny` Default to `Deny`
+	ParameterNotFoundAction pulumi.StringPtrInput `pulumi:"parameterNotFoundAction"`
+	// selector can be used to match multiple param objects based on their labels. Supply selector: {} to match all resources of the ParamKind.
+	//
+	// If multiple params are found, they are all evaluated with the policy expressions and the results are ANDed together.
+	//
+	// One of `name` or `selector` must be set, but `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
+	Selector metav1.LabelSelectorPatchPtrInput `pulumi:"selector"`
 }
 
 func (ParamRefPatchArgs) ElementType() reflect.Type {
@@ -2393,7 +2523,7 @@ func (i *paramRefPatchPtrType) ToParamRefPatchPtrOutputWithContext(ctx context.C
 	return pulumi.ToOutputWithContext(ctx, i).(ParamRefPatchPtrOutput)
 }
 
-// ParamRef references a parameter resource
+// ParamRef describes how to locate the params to be used as input to expressions of rules applied by a policy binding.
 type ParamRefPatchOutput struct{ *pulumi.OutputState }
 
 func (ParamRefPatchOutput) ElementType() reflect.Type {
@@ -2418,14 +2548,38 @@ func (o ParamRefPatchOutput) ToParamRefPatchPtrOutputWithContext(ctx context.Con
 	}).(ParamRefPatchPtrOutput)
 }
 
-// Name of the resource being referenced.
+// `name` is the name of the resource being referenced.
+//
+// `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
 func (o ParamRefPatchOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ParamRefPatch) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-// Namespace of the referenced resource. Should be empty for the cluster-scoped resources
+// namespace is the namespace of the referenced resource. Allows limiting the search for params to a specific namespace. Applies to both `name` and `selector` fields.
+//
+// A per-namespace parameter may be used by specifying a namespace-scoped `paramKind` in the policy and leaving this field empty.
+//
+// - If `paramKind` is cluster-scoped, this field MUST be unset. Setting this field results in a configuration error.
+//
+// - If `paramKind` is namespace-scoped, the namespace of the object being evaluated for admission will be used when this field is left unset. Take care that if this is left empty the binding must not match any cluster-scoped resources, which will result in an error.
 func (o ParamRefPatchOutput) Namespace() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ParamRefPatch) *string { return v.Namespace }).(pulumi.StringPtrOutput)
+}
+
+// `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
+//
+// Allowed values are `Allow` or `Deny` Default to `Deny`
+func (o ParamRefPatchOutput) ParameterNotFoundAction() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v ParamRefPatch) *string { return v.ParameterNotFoundAction }).(pulumi.StringPtrOutput)
+}
+
+// selector can be used to match multiple param objects based on their labels. Supply selector: {} to match all resources of the ParamKind.
+//
+// If multiple params are found, they are all evaluated with the policy expressions and the results are ANDed together.
+//
+// One of `name` or `selector` must be set, but `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
+func (o ParamRefPatchOutput) Selector() metav1.LabelSelectorPatchPtrOutput {
+	return o.ApplyT(func(v ParamRefPatch) *metav1.LabelSelectorPatch { return v.Selector }).(metav1.LabelSelectorPatchPtrOutput)
 }
 
 type ParamRefPatchPtrOutput struct{ *pulumi.OutputState }
@@ -2452,7 +2606,9 @@ func (o ParamRefPatchPtrOutput) Elem() ParamRefPatchOutput {
 	}).(ParamRefPatchOutput)
 }
 
-// Name of the resource being referenced.
+// `name` is the name of the resource being referenced.
+//
+// `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
 func (o ParamRefPatchPtrOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ParamRefPatch) *string {
 		if v == nil {
@@ -2462,7 +2618,13 @@ func (o ParamRefPatchPtrOutput) Name() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
-// Namespace of the referenced resource. Should be empty for the cluster-scoped resources
+// namespace is the namespace of the referenced resource. Allows limiting the search for params to a specific namespace. Applies to both `name` and `selector` fields.
+//
+// A per-namespace parameter may be used by specifying a namespace-scoped `paramKind` in the policy and leaving this field empty.
+//
+// - If `paramKind` is cluster-scoped, this field MUST be unset. Setting this field results in a configuration error.
+//
+// - If `paramKind` is namespace-scoped, the namespace of the object being evaluated for admission will be used when this field is left unset. Take care that if this is left empty the binding must not match any cluster-scoped resources, which will result in an error.
 func (o ParamRefPatchPtrOutput) Namespace() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ParamRefPatch) *string {
 		if v == nil {
@@ -2470,6 +2632,32 @@ func (o ParamRefPatchPtrOutput) Namespace() pulumi.StringPtrOutput {
 		}
 		return v.Namespace
 	}).(pulumi.StringPtrOutput)
+}
+
+// `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
+//
+// Allowed values are `Allow` or `Deny` Default to `Deny`
+func (o ParamRefPatchPtrOutput) ParameterNotFoundAction() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ParamRefPatch) *string {
+		if v == nil {
+			return nil
+		}
+		return v.ParameterNotFoundAction
+	}).(pulumi.StringPtrOutput)
+}
+
+// selector can be used to match multiple param objects based on their labels. Supply selector: {} to match all resources of the ParamKind.
+//
+// If multiple params are found, they are all evaluated with the policy expressions and the results are ANDed together.
+//
+// One of `name` or `selector` must be set, but `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
+func (o ParamRefPatchPtrOutput) Selector() metav1.LabelSelectorPatchPtrOutput {
+	return o.ApplyT(func(v *ParamRefPatch) *metav1.LabelSelectorPatch {
+		if v == nil {
+			return nil
+		}
+		return v.Selector
+	}).(metav1.LabelSelectorPatchPtrOutput)
 }
 
 // TypeChecking contains results of type checking the expressions in the ValidatingAdmissionPolicy
@@ -2889,6 +3077,10 @@ func (o ValidatingAdmissionPolicyTypeArrayOutput) Index(i pulumi.IntInput) Valid
 }
 
 // ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with paramerized resources. ValidatingAdmissionPolicyBinding and parameter CRDs together define how cluster administrators configure policies for clusters.
+//
+// For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding.
+//
+// The CEL expressions of a policy must have a computed CEL cost below the maximum CEL budget. Each evaluation of the policy is given an independent CEL cost budget. Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.
 type ValidatingAdmissionPolicyBindingType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -2912,6 +3104,10 @@ type ValidatingAdmissionPolicyBindingTypeInput interface {
 }
 
 // ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with paramerized resources. ValidatingAdmissionPolicyBinding and parameter CRDs together define how cluster administrators configure policies for clusters.
+//
+// For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding.
+//
+// The CEL expressions of a policy must have a computed CEL cost below the maximum CEL budget. Each evaluation of the policy is given an independent CEL cost budget. Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.
 type ValidatingAdmissionPolicyBindingTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -2961,6 +3157,10 @@ func (i ValidatingAdmissionPolicyBindingTypeArray) ToValidatingAdmissionPolicyBi
 }
 
 // ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with paramerized resources. ValidatingAdmissionPolicyBinding and parameter CRDs together define how cluster administrators configure policies for clusters.
+//
+// For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding.
+//
+// The CEL expressions of a policy must have a computed CEL cost below the maximum CEL budget. Each evaluation of the policy is given an independent CEL cost budget. Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.
 type ValidatingAdmissionPolicyBindingTypeOutput struct{ *pulumi.OutputState }
 
 func (ValidatingAdmissionPolicyBindingTypeOutput) ElementType() reflect.Type {
@@ -3100,6 +3300,10 @@ func (o ValidatingAdmissionPolicyBindingListTypeOutput) Metadata() metav1.ListMe
 }
 
 // ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with paramerized resources. ValidatingAdmissionPolicyBinding and parameter CRDs together define how cluster administrators configure policies for clusters.
+//
+// For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding.
+//
+// The CEL expressions of a policy must have a computed CEL cost below the maximum CEL budget. Each evaluation of the policy is given an independent CEL cost budget. Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.
 type ValidatingAdmissionPolicyBindingPatchType struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion *string `pulumi:"apiVersion"`
@@ -3123,6 +3327,10 @@ type ValidatingAdmissionPolicyBindingPatchTypeInput interface {
 }
 
 // ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with paramerized resources. ValidatingAdmissionPolicyBinding and parameter CRDs together define how cluster administrators configure policies for clusters.
+//
+// For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding.
+//
+// The CEL expressions of a policy must have a computed CEL cost below the maximum CEL budget. Each evaluation of the policy is given an independent CEL cost budget. Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.
 type ValidatingAdmissionPolicyBindingPatchTypeArgs struct {
 	// APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 	ApiVersion pulumi.StringPtrInput `pulumi:"apiVersion"`
@@ -3147,6 +3355,10 @@ func (i ValidatingAdmissionPolicyBindingPatchTypeArgs) ToValidatingAdmissionPoli
 }
 
 // ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with paramerized resources. ValidatingAdmissionPolicyBinding and parameter CRDs together define how cluster administrators configure policies for clusters.
+//
+// For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding.
+//
+// The CEL expressions of a policy must have a computed CEL cost below the maximum CEL budget. Each evaluation of the policy is given an independent CEL cost budget. Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.
 type ValidatingAdmissionPolicyBindingPatchTypeOutput struct{ *pulumi.OutputState }
 
 func (ValidatingAdmissionPolicyBindingPatchTypeOutput) ElementType() reflect.Type {
@@ -3187,7 +3399,7 @@ func (o ValidatingAdmissionPolicyBindingPatchTypeOutput) Spec() ValidatingAdmiss
 type ValidatingAdmissionPolicyBindingSpec struct {
 	// MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy's matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
 	MatchResources *MatchResources `pulumi:"matchResources"`
-	// ParamRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied.
+	// paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
 	ParamRef *ParamRef `pulumi:"paramRef"`
 	// PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
 	PolicyName *string `pulumi:"policyName"`
@@ -3228,7 +3440,7 @@ type ValidatingAdmissionPolicyBindingSpecInput interface {
 type ValidatingAdmissionPolicyBindingSpecArgs struct {
 	// MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy's matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
 	MatchResources MatchResourcesPtrInput `pulumi:"matchResources"`
-	// ParamRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied.
+	// paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
 	ParamRef ParamRefPtrInput `pulumi:"paramRef"`
 	// PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
 	PolicyName pulumi.StringPtrInput `pulumi:"policyName"`
@@ -3337,7 +3549,7 @@ func (o ValidatingAdmissionPolicyBindingSpecOutput) MatchResources() MatchResour
 	return o.ApplyT(func(v ValidatingAdmissionPolicyBindingSpec) *MatchResources { return v.MatchResources }).(MatchResourcesPtrOutput)
 }
 
-// ParamRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied.
+// paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
 func (o ValidatingAdmissionPolicyBindingSpecOutput) ParamRef() ParamRefPtrOutput {
 	return o.ApplyT(func(v ValidatingAdmissionPolicyBindingSpec) *ParamRef { return v.ParamRef }).(ParamRefPtrOutput)
 }
@@ -3404,7 +3616,7 @@ func (o ValidatingAdmissionPolicyBindingSpecPtrOutput) MatchResources() MatchRes
 	}).(MatchResourcesPtrOutput)
 }
 
-// ParamRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied.
+// paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
 func (o ValidatingAdmissionPolicyBindingSpecPtrOutput) ParamRef() ParamRefPtrOutput {
 	return o.ApplyT(func(v *ValidatingAdmissionPolicyBindingSpec) *ParamRef {
 		if v == nil {
@@ -3456,7 +3668,7 @@ func (o ValidatingAdmissionPolicyBindingSpecPtrOutput) ValidationActions() pulum
 type ValidatingAdmissionPolicyBindingSpecPatch struct {
 	// MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy's matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
 	MatchResources *MatchResourcesPatch `pulumi:"matchResources"`
-	// ParamRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied.
+	// paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
 	ParamRef *ParamRefPatch `pulumi:"paramRef"`
 	// PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
 	PolicyName *string `pulumi:"policyName"`
@@ -3497,7 +3709,7 @@ type ValidatingAdmissionPolicyBindingSpecPatchInput interface {
 type ValidatingAdmissionPolicyBindingSpecPatchArgs struct {
 	// MatchResources declares what resources match this binding and will be validated by it. Note that this is intersected with the policy's matchConstraints, so only requests that are matched by the policy can be selected by this. If this is unset, all resources matched by the policy are validated by this binding When resourceRules is unset, it does not constrain resource matching. If a resource is matched by the other fields of this object, it will be validated. Note that this is differs from ValidatingAdmissionPolicy matchConstraints, where resourceRules are required.
 	MatchResources MatchResourcesPatchPtrInput `pulumi:"matchResources"`
-	// ParamRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied.
+	// paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
 	ParamRef ParamRefPatchPtrInput `pulumi:"paramRef"`
 	// PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
 	PolicyName pulumi.StringPtrInput `pulumi:"policyName"`
@@ -3606,7 +3818,7 @@ func (o ValidatingAdmissionPolicyBindingSpecPatchOutput) MatchResources() MatchR
 	return o.ApplyT(func(v ValidatingAdmissionPolicyBindingSpecPatch) *MatchResourcesPatch { return v.MatchResources }).(MatchResourcesPatchPtrOutput)
 }
 
-// ParamRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied.
+// paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
 func (o ValidatingAdmissionPolicyBindingSpecPatchOutput) ParamRef() ParamRefPatchPtrOutput {
 	return o.ApplyT(func(v ValidatingAdmissionPolicyBindingSpecPatch) *ParamRefPatch { return v.ParamRef }).(ParamRefPatchPtrOutput)
 }
@@ -3673,7 +3885,7 @@ func (o ValidatingAdmissionPolicyBindingSpecPatchPtrOutput) MatchResources() Mat
 	}).(MatchResourcesPatchPtrOutput)
 }
 
-// ParamRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied.
+// paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
 func (o ValidatingAdmissionPolicyBindingSpecPatchPtrOutput) ParamRef() ParamRefPatchPtrOutput {
 	return o.ApplyT(func(v *ValidatingAdmissionPolicyBindingSpecPatch) *ParamRefPatch {
 		if v == nil {
@@ -3925,6 +4137,10 @@ type ValidatingAdmissionPolicySpec struct {
 	ParamKind *ParamKind `pulumi:"paramKind"`
 	// Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
 	Validations []Validation `pulumi:"validations"`
+	// Variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except MatchConditions because MatchConditions are evaluated before the rest of the policy.
+	//
+	// The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, Variables must be sorted by the order of first appearance and acyclic.
+	Variables []Variable `pulumi:"variables"`
 }
 
 // ValidatingAdmissionPolicySpecInput is an input type that accepts ValidatingAdmissionPolicySpecArgs and ValidatingAdmissionPolicySpecOutput values.
@@ -3969,6 +4185,10 @@ type ValidatingAdmissionPolicySpecArgs struct {
 	ParamKind ParamKindPtrInput `pulumi:"paramKind"`
 	// Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
 	Validations ValidationArrayInput `pulumi:"validations"`
+	// Variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except MatchConditions because MatchConditions are evaluated before the rest of the policy.
+	//
+	// The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, Variables must be sorted by the order of first appearance and acyclic.
+	Variables VariableArrayInput `pulumi:"variables"`
 }
 
 func (ValidatingAdmissionPolicySpecArgs) ElementType() reflect.Type {
@@ -4096,6 +4316,13 @@ func (o ValidatingAdmissionPolicySpecOutput) Validations() ValidationArrayOutput
 	return o.ApplyT(func(v ValidatingAdmissionPolicySpec) []Validation { return v.Validations }).(ValidationArrayOutput)
 }
 
+// Variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except MatchConditions because MatchConditions are evaluated before the rest of the policy.
+//
+// The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, Variables must be sorted by the order of first appearance and acyclic.
+func (o ValidatingAdmissionPolicySpecOutput) Variables() VariableArrayOutput {
+	return o.ApplyT(func(v ValidatingAdmissionPolicySpec) []Variable { return v.Variables }).(VariableArrayOutput)
+}
+
 type ValidatingAdmissionPolicySpecPtrOutput struct{ *pulumi.OutputState }
 
 func (ValidatingAdmissionPolicySpecPtrOutput) ElementType() reflect.Type {
@@ -4197,6 +4424,18 @@ func (o ValidatingAdmissionPolicySpecPtrOutput) Validations() ValidationArrayOut
 	}).(ValidationArrayOutput)
 }
 
+// Variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except MatchConditions because MatchConditions are evaluated before the rest of the policy.
+//
+// The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, Variables must be sorted by the order of first appearance and acyclic.
+func (o ValidatingAdmissionPolicySpecPtrOutput) Variables() VariableArrayOutput {
+	return o.ApplyT(func(v *ValidatingAdmissionPolicySpec) []Variable {
+		if v == nil {
+			return nil
+		}
+		return v.Variables
+	}).(VariableArrayOutput)
+}
+
 // ValidatingAdmissionPolicySpec is the specification of the desired behavior of the AdmissionPolicy.
 type ValidatingAdmissionPolicySpecPatch struct {
 	// auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
@@ -4228,6 +4467,10 @@ type ValidatingAdmissionPolicySpecPatch struct {
 	ParamKind *ParamKindPatch `pulumi:"paramKind"`
 	// Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
 	Validations []ValidationPatch `pulumi:"validations"`
+	// Variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except MatchConditions because MatchConditions are evaluated before the rest of the policy.
+	//
+	// The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, Variables must be sorted by the order of first appearance and acyclic.
+	Variables []VariablePatch `pulumi:"variables"`
 }
 
 // ValidatingAdmissionPolicySpecPatchInput is an input type that accepts ValidatingAdmissionPolicySpecPatchArgs and ValidatingAdmissionPolicySpecPatchOutput values.
@@ -4272,6 +4515,10 @@ type ValidatingAdmissionPolicySpecPatchArgs struct {
 	ParamKind ParamKindPatchPtrInput `pulumi:"paramKind"`
 	// Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
 	Validations ValidationPatchArrayInput `pulumi:"validations"`
+	// Variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except MatchConditions because MatchConditions are evaluated before the rest of the policy.
+	//
+	// The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, Variables must be sorted by the order of first appearance and acyclic.
+	Variables VariablePatchArrayInput `pulumi:"variables"`
 }
 
 func (ValidatingAdmissionPolicySpecPatchArgs) ElementType() reflect.Type {
@@ -4399,6 +4646,13 @@ func (o ValidatingAdmissionPolicySpecPatchOutput) Validations() ValidationPatchA
 	return o.ApplyT(func(v ValidatingAdmissionPolicySpecPatch) []ValidationPatch { return v.Validations }).(ValidationPatchArrayOutput)
 }
 
+// Variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except MatchConditions because MatchConditions are evaluated before the rest of the policy.
+//
+// The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, Variables must be sorted by the order of first appearance and acyclic.
+func (o ValidatingAdmissionPolicySpecPatchOutput) Variables() VariablePatchArrayOutput {
+	return o.ApplyT(func(v ValidatingAdmissionPolicySpecPatch) []VariablePatch { return v.Variables }).(VariablePatchArrayOutput)
+}
+
 type ValidatingAdmissionPolicySpecPatchPtrOutput struct{ *pulumi.OutputState }
 
 func (ValidatingAdmissionPolicySpecPatchPtrOutput) ElementType() reflect.Type {
@@ -4498,6 +4752,18 @@ func (o ValidatingAdmissionPolicySpecPatchPtrOutput) Validations() ValidationPat
 		}
 		return v.Validations
 	}).(ValidationPatchArrayOutput)
+}
+
+// Variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except MatchConditions because MatchConditions are evaluated before the rest of the policy.
+//
+// The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, Variables must be sorted by the order of first appearance and acyclic.
+func (o ValidatingAdmissionPolicySpecPatchPtrOutput) Variables() VariablePatchArrayOutput {
+	return o.ApplyT(func(v *ValidatingAdmissionPolicySpecPatch) []VariablePatch {
+		if v == nil {
+			return nil
+		}
+		return v.Variables
+	}).(VariablePatchArrayOutput)
 }
 
 // ValidatingAdmissionPolicyStatus represents the status of a ValidatingAdmissionPolicy.
@@ -4860,7 +5126,9 @@ func (o ValidatingAdmissionPolicyStatusPatchPtrOutput) TypeChecking() TypeChecki
 type Validation struct {
 	// Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
 	//
-	// - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+	// - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+	//   For example, a variable named 'foo' can be accessed as 'variables.foo'.
+	// - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
 	//   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
 	// - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
 	//   request resource.
@@ -4906,7 +5174,9 @@ type ValidationInput interface {
 type ValidationArgs struct {
 	// Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
 	//
-	// - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+	// - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+	//   For example, a variable named 'foo' can be accessed as 'variables.foo'.
+	// - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
 	//   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
 	// - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
 	//   request resource.
@@ -4991,7 +5261,9 @@ func (o ValidationOutput) ToValidationOutputWithContext(ctx context.Context) Val
 
 // Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
 //
-//   - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+//   - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+//     For example, a variable named 'foo' can be accessed as 'variables.foo'.
+//   - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
 //     See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
 //   - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
 //     request resource.
@@ -5058,7 +5330,9 @@ func (o ValidationArrayOutput) Index(i pulumi.IntInput) ValidationOutput {
 type ValidationPatch struct {
 	// Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
 	//
-	// - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+	// - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+	//   For example, a variable named 'foo' can be accessed as 'variables.foo'.
+	// - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
 	//   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
 	// - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
 	//   request resource.
@@ -5104,7 +5378,9 @@ type ValidationPatchInput interface {
 type ValidationPatchArgs struct {
 	// Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
 	//
-	// - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+	// - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+	//   For example, a variable named 'foo' can be accessed as 'variables.foo'.
+	// - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
 	//   See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
 	// - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
 	//   request resource.
@@ -5189,7 +5465,9 @@ func (o ValidationPatchOutput) ToValidationPatchOutputWithContext(ctx context.Co
 
 // Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
 //
-//   - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+//   - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+//     For example, a variable named 'foo' can be accessed as 'variables.foo'.
+//   - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
 //     See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
 //   - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
 //     request resource.
@@ -5252,6 +5530,224 @@ func (o ValidationPatchArrayOutput) Index(i pulumi.IntInput) ValidationPatchOutp
 	}).(ValidationPatchOutput)
 }
 
+// Variable is the definition of a variable that is used for composition.
+type Variable struct {
+	// Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
+	Expression string `pulumi:"expression"`
+	// Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
+	Name string `pulumi:"name"`
+}
+
+// VariableInput is an input type that accepts VariableArgs and VariableOutput values.
+// You can construct a concrete instance of `VariableInput` via:
+//
+//	VariableArgs{...}
+type VariableInput interface {
+	pulumi.Input
+
+	ToVariableOutput() VariableOutput
+	ToVariableOutputWithContext(context.Context) VariableOutput
+}
+
+// Variable is the definition of a variable that is used for composition.
+type VariableArgs struct {
+	// Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
+	Expression pulumi.StringInput `pulumi:"expression"`
+	// Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
+	Name pulumi.StringInput `pulumi:"name"`
+}
+
+func (VariableArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*Variable)(nil)).Elem()
+}
+
+func (i VariableArgs) ToVariableOutput() VariableOutput {
+	return i.ToVariableOutputWithContext(context.Background())
+}
+
+func (i VariableArgs) ToVariableOutputWithContext(ctx context.Context) VariableOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VariableOutput)
+}
+
+// VariableArrayInput is an input type that accepts VariableArray and VariableArrayOutput values.
+// You can construct a concrete instance of `VariableArrayInput` via:
+//
+//	VariableArray{ VariableArgs{...} }
+type VariableArrayInput interface {
+	pulumi.Input
+
+	ToVariableArrayOutput() VariableArrayOutput
+	ToVariableArrayOutputWithContext(context.Context) VariableArrayOutput
+}
+
+type VariableArray []VariableInput
+
+func (VariableArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]Variable)(nil)).Elem()
+}
+
+func (i VariableArray) ToVariableArrayOutput() VariableArrayOutput {
+	return i.ToVariableArrayOutputWithContext(context.Background())
+}
+
+func (i VariableArray) ToVariableArrayOutputWithContext(ctx context.Context) VariableArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VariableArrayOutput)
+}
+
+// Variable is the definition of a variable that is used for composition.
+type VariableOutput struct{ *pulumi.OutputState }
+
+func (VariableOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*Variable)(nil)).Elem()
+}
+
+func (o VariableOutput) ToVariableOutput() VariableOutput {
+	return o
+}
+
+func (o VariableOutput) ToVariableOutputWithContext(ctx context.Context) VariableOutput {
+	return o
+}
+
+// Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
+func (o VariableOutput) Expression() pulumi.StringOutput {
+	return o.ApplyT(func(v Variable) string { return v.Expression }).(pulumi.StringOutput)
+}
+
+// Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
+func (o VariableOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v Variable) string { return v.Name }).(pulumi.StringOutput)
+}
+
+type VariableArrayOutput struct{ *pulumi.OutputState }
+
+func (VariableArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]Variable)(nil)).Elem()
+}
+
+func (o VariableArrayOutput) ToVariableArrayOutput() VariableArrayOutput {
+	return o
+}
+
+func (o VariableArrayOutput) ToVariableArrayOutputWithContext(ctx context.Context) VariableArrayOutput {
+	return o
+}
+
+func (o VariableArrayOutput) Index(i pulumi.IntInput) VariableOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) Variable {
+		return vs[0].([]Variable)[vs[1].(int)]
+	}).(VariableOutput)
+}
+
+// Variable is the definition of a variable that is used for composition.
+type VariablePatch struct {
+	// Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
+	Expression *string `pulumi:"expression"`
+	// Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
+	Name *string `pulumi:"name"`
+}
+
+// VariablePatchInput is an input type that accepts VariablePatchArgs and VariablePatchOutput values.
+// You can construct a concrete instance of `VariablePatchInput` via:
+//
+//	VariablePatchArgs{...}
+type VariablePatchInput interface {
+	pulumi.Input
+
+	ToVariablePatchOutput() VariablePatchOutput
+	ToVariablePatchOutputWithContext(context.Context) VariablePatchOutput
+}
+
+// Variable is the definition of a variable that is used for composition.
+type VariablePatchArgs struct {
+	// Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
+	Expression pulumi.StringPtrInput `pulumi:"expression"`
+	// Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
+	Name pulumi.StringPtrInput `pulumi:"name"`
+}
+
+func (VariablePatchArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*VariablePatch)(nil)).Elem()
+}
+
+func (i VariablePatchArgs) ToVariablePatchOutput() VariablePatchOutput {
+	return i.ToVariablePatchOutputWithContext(context.Background())
+}
+
+func (i VariablePatchArgs) ToVariablePatchOutputWithContext(ctx context.Context) VariablePatchOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VariablePatchOutput)
+}
+
+// VariablePatchArrayInput is an input type that accepts VariablePatchArray and VariablePatchArrayOutput values.
+// You can construct a concrete instance of `VariablePatchArrayInput` via:
+//
+//	VariablePatchArray{ VariablePatchArgs{...} }
+type VariablePatchArrayInput interface {
+	pulumi.Input
+
+	ToVariablePatchArrayOutput() VariablePatchArrayOutput
+	ToVariablePatchArrayOutputWithContext(context.Context) VariablePatchArrayOutput
+}
+
+type VariablePatchArray []VariablePatchInput
+
+func (VariablePatchArray) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]VariablePatch)(nil)).Elem()
+}
+
+func (i VariablePatchArray) ToVariablePatchArrayOutput() VariablePatchArrayOutput {
+	return i.ToVariablePatchArrayOutputWithContext(context.Background())
+}
+
+func (i VariablePatchArray) ToVariablePatchArrayOutputWithContext(ctx context.Context) VariablePatchArrayOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(VariablePatchArrayOutput)
+}
+
+// Variable is the definition of a variable that is used for composition.
+type VariablePatchOutput struct{ *pulumi.OutputState }
+
+func (VariablePatchOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*VariablePatch)(nil)).Elem()
+}
+
+func (o VariablePatchOutput) ToVariablePatchOutput() VariablePatchOutput {
+	return o
+}
+
+func (o VariablePatchOutput) ToVariablePatchOutputWithContext(ctx context.Context) VariablePatchOutput {
+	return o
+}
+
+// Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
+func (o VariablePatchOutput) Expression() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v VariablePatch) *string { return v.Expression }).(pulumi.StringPtrOutput)
+}
+
+// Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
+func (o VariablePatchOutput) Name() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v VariablePatch) *string { return v.Name }).(pulumi.StringPtrOutput)
+}
+
+type VariablePatchArrayOutput struct{ *pulumi.OutputState }
+
+func (VariablePatchArrayOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*[]VariablePatch)(nil)).Elem()
+}
+
+func (o VariablePatchArrayOutput) ToVariablePatchArrayOutput() VariablePatchArrayOutput {
+	return o
+}
+
+func (o VariablePatchArrayOutput) ToVariablePatchArrayOutputWithContext(ctx context.Context) VariablePatchArrayOutput {
+	return o
+}
+
+func (o VariablePatchArrayOutput) Index(i pulumi.IntInput) VariablePatchOutput {
+	return pulumi.All(o, i).ApplyT(func(vs []interface{}) VariablePatch {
+		return vs[0].([]VariablePatch)[vs[1].(int)]
+	}).(VariablePatchOutput)
+}
+
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*AuditAnnotationInput)(nil)).Elem(), AuditAnnotationArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*AuditAnnotationArrayInput)(nil)).Elem(), AuditAnnotationArray{})
@@ -5309,6 +5805,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ValidationArrayInput)(nil)).Elem(), ValidationArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ValidationPatchInput)(nil)).Elem(), ValidationPatchArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ValidationPatchArrayInput)(nil)).Elem(), ValidationPatchArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VariableInput)(nil)).Elem(), VariableArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VariableArrayInput)(nil)).Elem(), VariableArray{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VariablePatchInput)(nil)).Elem(), VariablePatchArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*VariablePatchArrayInput)(nil)).Elem(), VariablePatchArray{})
 	pulumi.RegisterOutputType(AuditAnnotationOutput{})
 	pulumi.RegisterOutputType(AuditAnnotationArrayOutput{})
 	pulumi.RegisterOutputType(AuditAnnotationPatchOutput{})
@@ -5365,4 +5865,8 @@ func init() {
 	pulumi.RegisterOutputType(ValidationArrayOutput{})
 	pulumi.RegisterOutputType(ValidationPatchOutput{})
 	pulumi.RegisterOutputType(ValidationPatchArrayOutput{})
+	pulumi.RegisterOutputType(VariableOutput{})
+	pulumi.RegisterOutputType(VariableArrayOutput{})
+	pulumi.RegisterOutputType(VariablePatchOutput{})
+	pulumi.RegisterOutputType(VariablePatchArrayOutput{})
 }

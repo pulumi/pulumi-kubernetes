@@ -127,6 +127,12 @@ _utilities.register(
    "kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfiguration": "MutatingWebhookConfiguration",
    "kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfigurationList": "MutatingWebhookConfigurationList",
    "kubernetes:admissionregistration.k8s.io/v1beta1:MutatingWebhookConfigurationPatch": "MutatingWebhookConfigurationPatch",
+   "kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingAdmissionPolicy": "ValidatingAdmissionPolicy",
+   "kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingAdmissionPolicyBinding": "ValidatingAdmissionPolicyBinding",
+   "kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingAdmissionPolicyBindingList": "ValidatingAdmissionPolicyBindingList",
+   "kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingAdmissionPolicyBindingPatch": "ValidatingAdmissionPolicyBindingPatch",
+   "kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingAdmissionPolicyList": "ValidatingAdmissionPolicyList",
+   "kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingAdmissionPolicyPatch": "ValidatingAdmissionPolicyPatch",
    "kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfiguration": "ValidatingWebhookConfiguration",
    "kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfigurationList": "ValidatingWebhookConfigurationList",
    "kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfigurationPatch": "ValidatingWebhookConfigurationPatch"

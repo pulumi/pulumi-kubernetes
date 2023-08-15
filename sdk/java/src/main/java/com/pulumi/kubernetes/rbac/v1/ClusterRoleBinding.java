@@ -66,14 +66,14 @@ public class ClusterRoleBinding extends com.pulumi.resources.CustomResource {
         return this.metadata;
     }
     /**
-     * RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+     * RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
      * 
      */
     @Export(name="roleRef", refs={RoleRef.class}, tree="[0]")
     private Output<RoleRef> roleRef;
 
     /**
-     * @return RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error.
+     * @return RoleRef can only reference a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
      * 
      */
     public Output<RoleRef> roleRef() {

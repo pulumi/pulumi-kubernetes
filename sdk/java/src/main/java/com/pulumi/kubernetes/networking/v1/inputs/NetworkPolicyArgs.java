@@ -84,14 +84,14 @@ public final class NetworkPolicyArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
-     * status represents the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+     * Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
     @Import(name="status")
     private @Nullable Output<NetworkPolicyStatusArgs> status;
 
     /**
-     * @return status represents the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+     * @return Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
      * 
      */
     public Optional<Output<NetworkPolicyStatusArgs>> status() {
@@ -211,7 +211,7 @@ public final class NetworkPolicyArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param status status represents the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+         * @param status Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
          * 
          * @return builder
          * 
@@ -222,7 +222,7 @@ public final class NetworkPolicyArgs extends com.pulumi.resources.ResourceArgs {
         }
 
         /**
-         * @param status status represents the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+         * @param status Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
          * 
          * @return builder
          * 

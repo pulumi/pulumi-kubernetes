@@ -10,7 +10,7 @@ import java.util.Objects;
 @CustomType
 public final class HTTPHeader {
     /**
-     * @return The header field name
+     * @return The header field name. This will be canonicalized upon output, so case-variant names will be understood as the same header.
      * 
      */
     private String name;
@@ -22,7 +22,7 @@ public final class HTTPHeader {
 
     private HTTPHeader() {}
     /**
-     * @return The header field name
+     * @return The header field name. This will be canonicalized upon output, so case-variant names will be understood as the same header.
      * 
      */
     public String name() {

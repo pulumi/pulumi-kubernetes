@@ -1657,7 +1657,7 @@ class NetworkPolicy(dict):
         :param str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param 'NetworkPolicySpecArgs' spec: spec represents the specification of the desired behavior for this NetworkPolicy.
-        :param 'NetworkPolicyStatusArgs' status: status represents the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        :param 'NetworkPolicyStatusArgs' status: Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
         if api_version is not None:
             pulumi.set(__self__, "api_version", 'networking.k8s.io/v1')
@@ -1706,7 +1706,7 @@ class NetworkPolicy(dict):
     @pulumi.getter
     def status(self) -> Optional['outputs.NetworkPolicyStatus']:
         """
-        status represents the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+        Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
         return pulumi.get(self, "status")
 
@@ -2323,13 +2323,13 @@ class NetworkPolicySpecPatch(dict):
 @pulumi.output_type
 class NetworkPolicyStatus(dict):
     """
-    NetworkPolicyStatus describes the current state of the NetworkPolicy.
+    NetworkPolicyStatus describe the current state of the NetworkPolicy.
     """
     def __init__(__self__, *,
                  conditions: Optional[Sequence['_meta.v1.outputs.Condition']] = None):
         """
-        NetworkPolicyStatus describes the current state of the NetworkPolicy.
-        :param Sequence['_meta.v1.ConditionArgs'] conditions: conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
+        NetworkPolicyStatus describe the current state of the NetworkPolicy.
+        :param Sequence['_meta.v1.ConditionArgs'] conditions: Conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
         """
         if conditions is not None:
             pulumi.set(__self__, "conditions", conditions)
@@ -2338,7 +2338,7 @@ class NetworkPolicyStatus(dict):
     @pulumi.getter
     def conditions(self) -> Optional[Sequence['_meta.v1.outputs.Condition']]:
         """
-        conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
+        Conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
         """
         return pulumi.get(self, "conditions")
 
@@ -2346,13 +2346,13 @@ class NetworkPolicyStatus(dict):
 @pulumi.output_type
 class NetworkPolicyStatusPatch(dict):
     """
-    NetworkPolicyStatus describes the current state of the NetworkPolicy.
+    NetworkPolicyStatus describe the current state of the NetworkPolicy.
     """
     def __init__(__self__, *,
                  conditions: Optional[Sequence['_meta.v1.outputs.ConditionPatch']] = None):
         """
-        NetworkPolicyStatus describes the current state of the NetworkPolicy.
-        :param Sequence['_meta.v1.ConditionPatchArgs'] conditions: conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
+        NetworkPolicyStatus describe the current state of the NetworkPolicy.
+        :param Sequence['_meta.v1.ConditionPatchArgs'] conditions: Conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
         """
         if conditions is not None:
             pulumi.set(__self__, "conditions", conditions)
@@ -2361,7 +2361,7 @@ class NetworkPolicyStatusPatch(dict):
     @pulumi.getter
     def conditions(self) -> Optional[Sequence['_meta.v1.outputs.ConditionPatch']]:
         """
-        conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
+        Conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
         """
         return pulumi.get(self, "conditions")
 

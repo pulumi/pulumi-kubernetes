@@ -209,6 +209,7 @@ func (d definition) isTopLevel() bool {
 		"authentication/v1/TokenReview",
 		"authentication/v1alpha1/SelfSubjectReview",
 		"authentication/v1beta1/SelfSubjectReview",
+		"authentication/v1/SelfSubjectReview",
 		"authentication/v1beta1/TokenReview",
 		"authorization/v1/LocalSubjectAccessReview",
 		"authorization/v1/SelfSubjectAccessReview",
