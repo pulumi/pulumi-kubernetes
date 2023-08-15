@@ -296,6 +296,7 @@ func testAccPrometheusOperator(t *testing.T) {
 		With(integration.ProgramTestOptions{
 			Dir:         filepath.Join(getCwd(t), "prometheus-operator"),
 			SkipRefresh: true,
+			NoParallel:  true,
 			OrderedConfig: []integration.ConfigValue{
 				{
 					Key:   "kubernetes:enableServerSideApply",
@@ -551,7 +552,6 @@ func testRancher(t *testing.T) {
 // TestCRDs runs 2 sub tests that cannot be parallelized as they touch
 // the same cluster-scoped CRD. This is required until we can run tests
 // in parallel with different clusters (tracked by: https://github.com/pulumi/pulumi-kubernetes/issues/2243).
-// The tests run are: `testAccPrometheusOperator` and `testRancher`.
 func TestCRDs(t *testing.T) {
 	t.Run("testAccPrometheusOperator", testAccPrometheusOperator)
 	t.Run("testRancher", testRancher)
