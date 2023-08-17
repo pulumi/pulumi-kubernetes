@@ -10,8 +10,8 @@ replace (
 require (
 	github.com/pulumi/pulumi-kubernetes/provider/v4 v4.0.0
 	github.com/pulumi/pulumi-kubernetes/sdk/v4 v4.0.0
-	github.com/pulumi/pulumi/pkg/v3 v3.78.0
-	github.com/pulumi/pulumi/sdk/v3 v3.78.0
+	github.com/pulumi/pulumi/pkg/v3 v3.78.1
+	github.com/pulumi/pulumi/sdk/v3 v3.78.1
 	github.com/stretchr/testify v1.8.3
 	helm.sh/helm/v3 v3.12.1
 	k8s.io/apimachinery v0.27.2
@@ -62,7 +62,7 @@ require (
 	github.com/armon/go-metrics v0.4.0 // indirect
 	github.com/armon/go-radix v1.0.0 // indirect
 	github.com/asaskevich/govalidator v0.0.0-20210307081110-f21760c49a8d // indirect
-	github.com/aws/aws-sdk-go v1.44.122 // indirect
+	github.com/aws/aws-sdk-go v1.44.298 // indirect
 	github.com/aws/aws-sdk-go-v2 v1.17.3 // indirect
 	github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream v1.4.3 // indirect
 	github.com/aws/aws-sdk-go-v2/config v1.15.15 // indirect
