@@ -4,9 +4,17 @@ import (
 	"os/exec"
 	"sort"
 	"strings"
+	"testing"
 
 	"github.com/pulumi/pulumi/pkg/v3/testing/integration"
 )
+
+// SkipIfShort skips the test if the -short flag is passed to `go test`.
+func SkipIfShort(t *testing.T) {
+	if testing.Short() {
+		t.Skip("skipping long-running test in short mode")
+	}
+}
 
 func SortResourcesByURN(stackInfo integration.RuntimeValidationStackInfo) {
 	sort.Slice(stackInfo.Deployment.Resources, func(i, j int) bool {
