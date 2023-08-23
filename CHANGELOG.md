@@ -1,5 +1,8 @@
 ## Unreleased
 
+- Revert the switch to pyproject.toml and wheel-based PyPI publishing as it impacts users that run pip with --no-binary
+  (see https://github.com/pulumi/pulumi-kubernetes/issues/2540)
+
 ## 4.1.0 (August 15, 2023)
 
 - fix: ensure CSA does not hit API Server for preview (https://github.com/pulumi/pulumi-kubernetes/pull/2522)

@@ -508,9 +508,6 @@ Use the navigation below to see detailed documentation for each of the supported
 			"pulumi":   ">=3.25.0,<4.0.0",
 			"requests": ">=2.21,<3.0",
 		},
-		"pyproject": map[string]bool{
-			"enabled": true,
-		},
 		"moduleNameOverrides": modToPkg,
 		"compatibility":       kubernetes20,
 		"usesIOClasses":       true,
