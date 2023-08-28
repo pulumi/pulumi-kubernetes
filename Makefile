@@ -87,19 +87,7 @@ python_sdk::
 	cd ${PACKDIR}/python/ && git clean -fxd
 	$(WORKING_DIR)/bin/$(CODEGEN) -version=${VERSION} python $(SCHEMA_FILE) $(CURDIR)
 	cp README.md ${PACKDIR}/python/
-	cd ${PACKDIR}/python/ && \
-		rm setup.py && \
-		echo "module fake_python_module // Exclude this directory from Go tools\n\ngo 1.17" > go.mod && \
-		pip3 install wheel && \
-		rm -rf ./bin/ ../python.bin/ && cp -R . ../python.bin && mv ../python.bin ./bin && \
-		sed -i.bak -e 's/^  version = .*/  version = "$(PYPI_VERSION)"/g' ./bin/pyproject.toml && \
-		rm ./bin/pyproject.toml.bak && \
-		echo '[build-system]' >> ./bin/pyproject.toml && \
-		echo 'requires = ["setuptools>=61.0"]' >> ./bin/pyproject.toml && \
-		echo 'build-backend = "setuptools.build_meta"' >> ./bin/pyproject.toml && \
-		echo '[tool.setuptools.package-data]' >> ./bin/pyproject.toml && \
-		echo 'pulumi_kubernetes = ["py.typed", "pulumi-plugin.json"]' >> ./bin/pyproject.toml && \
-		cd ./bin && python3 -m pip wheel --use-pep517 --no-deps -w dist .
+	PYPI_VERSION=$(PYPI_VERSION) ./scripts/build_python_sdk.sh
 
 java_sdk:: PACKAGE_VERSION := $(shell pulumictl get version --language generic)
 java_sdk:: bin/pulumi-java-gen
