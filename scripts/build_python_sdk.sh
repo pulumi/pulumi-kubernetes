@@ -31,8 +31,10 @@ cat << EOF >> ./bin/pyproject.toml
 [build-system]
 requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
-[tool.setuptools.package-data]
-pulumi_kubernetes = ["py.typed", "pulumi-plugin.json"]
+[tool]
+  [tool.setuptools]
+    [tool.setuptools.package-data]
+      pulumi_kubernetes = ["py.typed", "pulumi-plugin.json"]
 EOF
 
 # Creating an isolated venv for the bulid.
@@ -40,13 +42,8 @@ python3 -m venv venv
 
 source ./venv/bin/activate
 
-python -m pip install pip --upgrade
-python -m pip install wheel build
+python -m pip install build
 
 cd ./bin
 
-# Build the source distribution *.tar.gz.
-python -m build . --sdist
-
-# Build the wheel distribution *.whl.
-python -m pip wheel --use-pep517 --no-deps -w dist .
+python -m build .
