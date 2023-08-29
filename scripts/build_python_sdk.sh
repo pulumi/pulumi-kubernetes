@@ -7,6 +7,8 @@
 
 set -euo pipefail
 
+: ${PYPI_VERSION:?"PYPI_VERSION env var needs to be set and cannot be empty"}
+
 cd ./sdk/python
 
 # Removing auto-generated setup.py; this is needed until there is an option on the SDK generator to
