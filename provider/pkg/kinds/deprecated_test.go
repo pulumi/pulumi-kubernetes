@@ -97,6 +97,7 @@ func TestExistsInVersion(t *testing.T) {
 		{toGVK(AppsV1, Deployment), &v19, true},
 	}
 	for _, tt := range tests {
+		tt := tt
 		t.Run(tt.gvk.String(), func(t *testing.T) {
 			if got := ExistsInVersion(&tt.gvk, tt.version); got != tt.want {
 				t.Errorf("ExistsInVersion() = %v, want %v", got, tt.want)
