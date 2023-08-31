@@ -598,7 +598,7 @@ func createGroups(definitionsJSON map[string]any) []GroupConfig {
 					case "x-kubernetes-preserve-unknown-fields":
 						propName = "x_kubernetes_preserve_unknown_fields"
 					case "x-kubernetes-validations":
-						propName = "x_kubernetes_validations"
+						propName = "x_kubernetes_validations" //nolint:gosec
 					}
 					contract.Assertf(!strings.Contains(propName, "-"), "property names may not contain `-`")
 
