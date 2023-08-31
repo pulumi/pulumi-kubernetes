@@ -22,7 +22,7 @@ builds:
   main: ./cmd/pulumi-resource-kubernetes/
   ldflags:
   - -X
-    github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/version.Version={{.Tag}}
+    github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/version.Version={{.Tag}}
   binary: pulumi-resource-kubernetes
 archives:
 - name_template: "{{ .Binary }}-{{ .Tag }}-{{ .Os }}-{{ .Arch }}"
