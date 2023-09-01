@@ -28,6 +28,9 @@ var providerName = "kubernetes"
 //go:embed schema-embed.json
 var pulumiSchema []byte
 
+//go:embed terraform-mapping-embed.json
+var terraformMapping []byte
+
 func main() {
-	provider.Serve(providerName, version.Version, pulumiSchema)
+	provider.Serve(providerName, version.Version, pulumiSchema, terraformMapping)
 }

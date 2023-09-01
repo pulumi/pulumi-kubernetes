@@ -11,6 +11,7 @@ Pulumi.*.yaml
 /provider/pkg/gen/openapi-specs
 /provider/cmd/pulumi-resource-kubernetes/schema.go
 /provider/cmd/pulumi-resource-kubernetes/schema-embed.json
+/provider/cmd/pulumi-resource-kubernetes/terraform-mapping-embed.json
 yarn.lock
 ci-scripts
 /nuget/

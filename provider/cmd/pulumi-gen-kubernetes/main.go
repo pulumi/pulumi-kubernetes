@@ -27,6 +27,7 @@ import (
 	"sort"
 	"strings"
 	"text/template"
+	"unicode"
 
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gen"
@@ -37,7 +38,10 @@ import (
 	nodejsgen "github.com/pulumi/pulumi/pkg/v3/codegen/nodejs"
 	pythongen "github.com/pulumi/pulumi/pkg/v3/codegen/python"
 	"github.com/pulumi/pulumi/pkg/v3/codegen/schema"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
 )
 
 // TemplateDir is the path to the base directory for code generator templates.
@@ -101,6 +105,7 @@ func main() {
 	case Schema:
 		pkgSpec := generateSchema(inputFile)
 		mustWritePulumiSchema(pkgSpec, version)
+		mustWriteTerraformMapping(pkgSpec)
 	default:
 		panic(fmt.Sprintf("Unrecognized language '%s'", language))
 	}
@@ -521,4 +526,244 @@ func mustWritePulumiSchema(pkgSpec schema.PackageSpec, version string) {
 		panic(errors.Wrap(err, "marshaling Pulumi schema"))
 	}
 	mustWriteFile(BaseDir, filepath.Join("sdk", "schema", "schema.json"), versionedSchemaJSON)
+}
+
+// Minimal types for reading the terraform schema file
+type TerraformAttributeSchema struct{}
+
+type TerraformBlockTypeSchema struct {
+	Block    *TerraformBlockSchema `json:"block"`
+	MaxItems int                   `json:"max_items"`
+}
+
+type TerraformBlockSchema struct {
+	Attributes map[string]*TerraformAttributeSchema `json:"attributes"`
+	BlockTypes map[string]*TerraformBlockTypeSchema `json:"block_types"`
+}
+
+type TerraformResourceSchema struct {
+	Block *TerraformBlockSchema `json:"block"`
+}
+
+type TerraformSchema struct {
+	Provider          *TerraformResourceSchema            `json:"provider"`
+	ResourceSchemas   map[string]*TerraformResourceSchema `json:"resource_schemas"`
+	DataSourceSchemas map[string]*TerraformResourceSchema `json:"data_source_schemas"`
+}
+
+func findPulumiTokenFromTerraformToken(pkgSpec schema.PackageSpec, token string) tokens.Token {
+	// strip off the leading "kubernetes_"
+	token = strings.TrimPrefix(token, "kubernetes_")
+	// split of any _v1, _v2, etc. suffix
+	tokenParts := strings.Split(token, "_")
+	maybeVersion := tokenParts[len(tokenParts)-1]
+	versions := []string{
+		"v1alpha1",
+		"v1beta1",
+		"v1beta2",
+		"v1",
+		"v2alpha1",
+		"v2beta1",
+		"v2beta2",
+		"v2",
+	}
+	versionIndex := -1
+	if maybeVersion[0] == 'v' && unicode.IsDigit(rune(maybeVersion[1])) {
+		for i, v := range versions {
+			if maybeVersion == v {
+				versionIndex = i
+				break
+			}
+		}
+		if versionIndex == -1 {
+			panic(fmt.Sprintf("unexpected version suffix %q in token %q", maybeVersion, token))
+		}
+	}
+
+	// Get the full token as a pulumi camel case name
+	length := len(tokenParts) - 1
+	if versionIndex == -1 {
+		// If the last item wasn't a version add it back to the token and clear maybeVersion
+		length++
+		maybeVersion = ""
+	}
+	caser := cases.Title(language.English)
+	for i := 0; i < length; i++ {
+		tokenParts[i] = caser.String(tokenParts[i])
+	}
+	searchToken := strings.Join(tokenParts[:length], "")
+
+	foundTokens := make([]tokens.Token, 0)
+	for t := range pkgSpec.Resources {
+		pulumiToken := tokens.Token(t)
+		member := pulumiToken.ModuleMember()
+		memberName := member.Name()
+		if string(memberName) == searchToken {
+			foundTokens = append(foundTokens, pulumiToken)
+		}
+	}
+
+	// If we didn't find any tokens, return an empty string
+	if len(foundTokens) == 0 {
+		return ""
+	}
+
+	// Else try and workout the right version to use. If we have a version suffix, try to use that...
+	var foundToken tokens.Token
+	if versionIndex != -1 {
+		contract.Assertf(maybeVersion != "", "expected maybeVersion to be set")
+
+		for _, t := range foundTokens {
+			module := t.Module()
+			if strings.HasSuffix(string(module), maybeVersion) {
+				// Exact match, but we might see this from multiple modules. Prefer the the non-extension one.
+				if foundToken == "" {
+					foundToken = t
+				}
+
+				if !strings.Contains(string(t), ":extensions/") {
+					foundToken = t
+				}
+			}
+		}
+		if foundToken != "" {
+			return foundToken
+		}
+	}
+
+	// ...otherwise use the _newest_ version. e.g. kubernetes_thing should map to kubernetes:core/v2:Thing,
+	// not kubernetes:core/v1:Thing. `versions` is sorted for this purpose.
+	highestIndex := -1
+	for _, t := range foundTokens {
+		module := t.Module()
+		modulesVersionIndex := -1
+		for i, v := range versions {
+			if strings.HasSuffix(string(module), v) {
+				modulesVersionIndex = i
+				break
+			}
+		}
+
+		if modulesVersionIndex == -1 {
+			panic(fmt.Sprintf("unexpected module version %q in token %q", module, t))
+		}
+
+		if highestIndex == modulesVersionIndex {
+			// If we've seen this version before prefer the non-extension module
+			if !strings.Contains(string(t), ":extensions/") {
+				foundToken = t
+			}
+		} else if highestIndex < modulesVersionIndex {
+			highestIndex = modulesVersionIndex
+			foundToken = t
+		}
+	}
+
+	return foundToken
+}
+
+func buildPulumiFieldsFromTerraform(path string, block *TerraformBlockSchema) map[string]any {
+	// Recursively build up the fields for this resource
+	fields := make(map[string]any)
+
+	// Attributes _might_ need to be renamed
+	for attrName := range block.Attributes {
+		field := map[string]any{}
+
+		// Manual fixups for the schema
+
+		// Only add this field if it says something meaningful
+		if len(field) > 0 {
+			fields[attrName] = field
+		}
+	}
+
+	for blockName, blockType := range block.BlockTypes {
+		field := map[string]any{}
+
+		// If the block has a max_items of 1, then we need to tell the converter that
+		if blockType.MaxItems == 1 {
+			field["maxItemsOne"] = true
+		}
+
+		// Recurse to see if the block needs to return any fields
+		elem := buildPulumiFieldsFromTerraform(path+"."+blockName, blockType.Block)
+		if len(elem) > 0 {
+			// Based on if we're treating this as a list of not elem should either be added to the "fields"
+			// field or nested under the "element" field
+			if field["maxItemsOne"] == true {
+				field["fields"] = elem
+			} else {
+				field["element"] = map[string]any{
+					"fields": elem,
+				}
+			}
+		}
+
+		// Manual fixups for the schema, most of these look like pluralization issues, but not sure if there's
+		// a safe way to do this automatically.
+
+		//1. kubernetes_deployment has a field "container" which is a list, but we call it "containers"
+		if path == "kubernetes_deployment.spec.template.spec" && blockName == "container" {
+			field["name"] = "containers"
+		}
+		// 2. kubernetes_deployment has a field "port" which is a list, but we call it "ports"
+		if path == "kubernetes_deployment.spec.template.spec.container" && blockName == "port" {
+			field["name"] = "ports"
+		}
+		// 3. kubernetes_service has a field "port" wich is a list, but we call it "ports"
+		if path == "kubernetes_service.spec" && blockName == "port" {
+			field["name"] = "ports"
+		}
+
+		// Only add this field if it says something meaningful
+		if len(field) > 0 {
+			fields[blockName] = field
+		}
+	}
+	return fields
+}
+
+func mustWriteTerraformMapping(pkgSpec schema.PackageSpec) {
+	// The terraform converter expects the mapping to be the JSON serialization of it's ProviderInfo
+	// structure. We can get away with returning a _very_ limited subset of the information here, since the
+	// converter only cares about a few fields and is tolerant of missing fields. We get the terraform
+	// kubernetes schema by running `terraform providers schema -json` in a minimal terraform project that
+	// defines a kubernetes provider.
+	rawTerraformSchema := mustLoadFile(filepath.Join(BaseDir, "provider", "cmd", "pulumi-gen-kubernetes", "terraform.json"))
+
+	var terraformSchema TerraformSchema
+	err := json.Unmarshal(rawTerraformSchema, &terraformSchema)
+	if err != nil {
+		panic(err)
+	}
+
+	resources := make(map[string]any)
+	for tftok, resource := range terraformSchema.ResourceSchemas {
+		putok := findPulumiTokenFromTerraformToken(pkgSpec, tftok)
+		// Skip if the token is empty.
+		if putok == "" {
+			continue
+		}
+
+		// Need to fill in just enough fields so that MaxItemsOne is set correctly for things.
+		resources[tftok] = map[string]any{
+			"tok":    putok,
+			"fields": buildPulumiFieldsFromTerraform(tftok, resource.Block),
+		}
+	}
+
+	info := map[string]any{
+		"name":        "kubernetes",
+		"provider":    map[string]any{},
+		"resources":   resources,
+		"dataSources": map[string]any{},
+	}
+
+	data, err := makeJSONString(info)
+	if err != nil {
+		panic(err)
+	}
+
+	mustWriteFile(BaseDir, filepath.Join("provider", "cmd", "pulumi-resource-kubernetes", "terraform-mapping.json"), data)
 }
