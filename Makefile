@@ -19,7 +19,7 @@ OPENAPI_FILE    := ${OPENAPI_DIR}/swagger-${KUBE_VERSION}.json
 SCHEMA_FILE     := provider/cmd/pulumi-resource-kubernetes/schema.json
 GOPATH			:= $(shell go env GOPATH)
 
-JAVA_GEN 		 := pulumi-java-gen
+JAVA_GEN		 := pulumi-java-gen
 JAVA_GEN_VERSION := v0.8.0
 
 WORKING_DIR     := $(shell pwd)
@@ -53,7 +53,7 @@ k8sprovider_debug::
 	(cd provider && CGO_ENABLED=0 go build -o $(WORKING_DIR)/bin/${PROVIDER} -gcflags="all=-N -l" -ldflags "-X ${PROJECT}/${VERSION_PATH}=${VERSION}" $(PROJECT)/${PROVIDER_PATH}/cmd/$(PROVIDER))
 
 test_provider::
-	cd provider/pkg && go test -short -v -count=1 -cover -timeout 2h -parallel ${TESTPARALLELISM} ./...
+	cd provider/pkg && go test -short -v -count=1 -coverprofile="coverage.txt" -timeout 2h -parallel ${TESTPARALLELISM} ./...
 
 dotnet_sdk:: DOTNET_VERSION := $(shell pulumictl get version --language dotnet)
 dotnet_sdk::
@@ -116,7 +116,7 @@ install_provider::
 install:: install_nodejs_sdk install_dotnet_sdk install_provider
 
 GO_TEST_FAST := go test -short -v -count=1 -cover -timeout 2h -parallel ${TESTPARALLELISM}
-GO_TEST 	 := go test -v -count=1 -cover -timeout 2h -parallel ${TESTPARALLELISM}
+GO_TEST		 := go test -v -count=1 -cover -timeout 2h -parallel ${TESTPARALLELISM}
 
 test_fast::
 # TODO: re-enable this test once https://github.com/pulumi/pulumi/issues/4954 is fixed.

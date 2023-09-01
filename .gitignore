@@ -8,6 +8,7 @@
 **/.ionide
 .pulumi
 Pulumi.*.yaml
+provider/pkg/coverage.txt
 /provider/pkg/gen/openapi-specs
 /provider/cmd/pulumi-resource-kubernetes/schema.go
 /provider/cmd/pulumi-resource-kubernetes/schema-embed.json
