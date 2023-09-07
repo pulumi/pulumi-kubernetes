@@ -11,10 +11,6 @@ set -euo pipefail
 
 cd ./sdk/python
 
-# Removing auto-generated setup.py; this is needed until there is an option on the SDK generator to
-# opt out of generating this file.
-rm setup.py
-
 cat << EOF > go.mod
 module fake_python_module // Exclude this directory from Go tools
 
@@ -27,17 +23,6 @@ mv ../python.bin ./bin
 
 sed -i.bak -e "s/^  version = .*/  version = \"$PYPI_VERSION\"/g" ./bin/pyproject.toml
 rm ./bin/pyproject.toml.bak
-
-# Modifying generated pyproject.toml until there is an option to populate these settings.
-cat << EOF >> ./bin/pyproject.toml
-[build-system]
-requires = ["setuptools>=61.0"]
-build-backend = "setuptools.build_meta"
-[tool]
-  [tool.setuptools]
-    [tool.setuptools.package-data]
-      pulumi_kubernetes = ["py.typed", "pulumi-plugin.json"]
-EOF
 
 # Creating an isolated venv for the bulid.
 python3 -m venv venv
