@@ -11,6 +11,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // RoleBinding references a role, but does not contain it.  It can reference a Role in the same namespace or a ClusterRole in the global namespace. It adds who information via Subjects and namespace information by which namespace it exists in.  RoleBindings in a given namespace only have effect in that namespace. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 RoleBinding, and will no longer be served in v1.20.
@@ -132,6 +133,12 @@ func (i *RoleBinding) ToRoleBindingOutputWithContext(ctx context.Context) RoleBi
 	return pulumi.ToOutputWithContext(ctx, i).(RoleBindingOutput)
 }
 
+func (i *RoleBinding) ToOutput(ctx context.Context) pulumix.Output[*RoleBinding] {
+	return pulumix.Output[*RoleBinding]{
+		OutputState: i.ToRoleBindingOutputWithContext(ctx).OutputState,
+	}
+}
+
 // RoleBindingArrayInput is an input type that accepts RoleBindingArray and RoleBindingArrayOutput values.
 // You can construct a concrete instance of `RoleBindingArrayInput` via:
 //
@@ -155,6 +162,12 @@ func (i RoleBindingArray) ToRoleBindingArrayOutput() RoleBindingArrayOutput {
 
 func (i RoleBindingArray) ToRoleBindingArrayOutputWithContext(ctx context.Context) RoleBindingArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(RoleBindingArrayOutput)
+}
+
+func (i RoleBindingArray) ToOutput(ctx context.Context) pulumix.Output[[]*RoleBinding] {
+	return pulumix.Output[[]*RoleBinding]{
+		OutputState: i.ToRoleBindingArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // RoleBindingMapInput is an input type that accepts RoleBindingMap and RoleBindingMapOutput values.
@@ -182,6 +195,12 @@ func (i RoleBindingMap) ToRoleBindingMapOutputWithContext(ctx context.Context) R
 	return pulumi.ToOutputWithContext(ctx, i).(RoleBindingMapOutput)
 }
 
+func (i RoleBindingMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*RoleBinding] {
+	return pulumix.Output[map[string]*RoleBinding]{
+		OutputState: i.ToRoleBindingMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type RoleBindingOutput struct{ *pulumi.OutputState }
 
 func (RoleBindingOutput) ElementType() reflect.Type {
@@ -194,6 +213,12 @@ func (o RoleBindingOutput) ToRoleBindingOutput() RoleBindingOutput {
 
 func (o RoleBindingOutput) ToRoleBindingOutputWithContext(ctx context.Context) RoleBindingOutput {
 	return o
+}
+
+func (o RoleBindingOutput) ToOutput(ctx context.Context) pulumix.Output[*RoleBinding] {
+	return pulumix.Output[*RoleBinding]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -235,6 +260,12 @@ func (o RoleBindingArrayOutput) ToRoleBindingArrayOutputWithContext(ctx context.
 	return o
 }
 
+func (o RoleBindingArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*RoleBinding] {
+	return pulumix.Output[[]*RoleBinding]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o RoleBindingArrayOutput) Index(i pulumi.IntInput) RoleBindingOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *RoleBinding {
 		return vs[0].([]*RoleBinding)[vs[1].(int)]
@@ -253,6 +284,12 @@ func (o RoleBindingMapOutput) ToRoleBindingMapOutput() RoleBindingMapOutput {
 
 func (o RoleBindingMapOutput) ToRoleBindingMapOutputWithContext(ctx context.Context) RoleBindingMapOutput {
 	return o
+}
+
+func (o RoleBindingMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*RoleBinding] {
+	return pulumix.Output[map[string]*RoleBinding]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o RoleBindingMapOutput) MapIndex(k pulumi.StringInput) RoleBindingOutput {

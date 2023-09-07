@@ -11,6 +11,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // ClusterTrustBundle is a cluster-scoped container for X.509 trust anchors (root certificates).
@@ -121,6 +122,12 @@ func (i *ClusterTrustBundle) ToClusterTrustBundleOutputWithContext(ctx context.C
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterTrustBundleOutput)
 }
 
+func (i *ClusterTrustBundle) ToOutput(ctx context.Context) pulumix.Output[*ClusterTrustBundle] {
+	return pulumix.Output[*ClusterTrustBundle]{
+		OutputState: i.ToClusterTrustBundleOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ClusterTrustBundleArrayInput is an input type that accepts ClusterTrustBundleArray and ClusterTrustBundleArrayOutput values.
 // You can construct a concrete instance of `ClusterTrustBundleArrayInput` via:
 //
@@ -144,6 +151,12 @@ func (i ClusterTrustBundleArray) ToClusterTrustBundleArrayOutput() ClusterTrustB
 
 func (i ClusterTrustBundleArray) ToClusterTrustBundleArrayOutputWithContext(ctx context.Context) ClusterTrustBundleArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterTrustBundleArrayOutput)
+}
+
+func (i ClusterTrustBundleArray) ToOutput(ctx context.Context) pulumix.Output[[]*ClusterTrustBundle] {
+	return pulumix.Output[[]*ClusterTrustBundle]{
+		OutputState: i.ToClusterTrustBundleArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // ClusterTrustBundleMapInput is an input type that accepts ClusterTrustBundleMap and ClusterTrustBundleMapOutput values.
@@ -171,6 +184,12 @@ func (i ClusterTrustBundleMap) ToClusterTrustBundleMapOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterTrustBundleMapOutput)
 }
 
+func (i ClusterTrustBundleMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*ClusterTrustBundle] {
+	return pulumix.Output[map[string]*ClusterTrustBundle]{
+		OutputState: i.ToClusterTrustBundleMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type ClusterTrustBundleOutput struct{ *pulumi.OutputState }
 
 func (ClusterTrustBundleOutput) ElementType() reflect.Type {
@@ -183,6 +202,12 @@ func (o ClusterTrustBundleOutput) ToClusterTrustBundleOutput() ClusterTrustBundl
 
 func (o ClusterTrustBundleOutput) ToClusterTrustBundleOutputWithContext(ctx context.Context) ClusterTrustBundleOutput {
 	return o
+}
+
+func (o ClusterTrustBundleOutput) ToOutput(ctx context.Context) pulumix.Output[*ClusterTrustBundle] {
+	return pulumix.Output[*ClusterTrustBundle]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -219,6 +244,12 @@ func (o ClusterTrustBundleArrayOutput) ToClusterTrustBundleArrayOutputWithContex
 	return o
 }
 
+func (o ClusterTrustBundleArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*ClusterTrustBundle] {
+	return pulumix.Output[[]*ClusterTrustBundle]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o ClusterTrustBundleArrayOutput) Index(i pulumi.IntInput) ClusterTrustBundleOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *ClusterTrustBundle {
 		return vs[0].([]*ClusterTrustBundle)[vs[1].(int)]
@@ -237,6 +268,12 @@ func (o ClusterTrustBundleMapOutput) ToClusterTrustBundleMapOutput() ClusterTrus
 
 func (o ClusterTrustBundleMapOutput) ToClusterTrustBundleMapOutputWithContext(ctx context.Context) ClusterTrustBundleMapOutput {
 	return o
+}
+
+func (o ClusterTrustBundleMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*ClusterTrustBundle] {
+	return pulumix.Output[map[string]*ClusterTrustBundle]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ClusterTrustBundleMapOutput) MapIndex(k pulumi.StringInput) ClusterTrustBundleOutput {

@@ -10,6 +10,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods
@@ -121,6 +122,12 @@ func (i *PodDisruptionBudget) ToPodDisruptionBudgetOutputWithContext(ctx context
 	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetOutput)
 }
 
+func (i *PodDisruptionBudget) ToOutput(ctx context.Context) pulumix.Output[*PodDisruptionBudget] {
+	return pulumix.Output[*PodDisruptionBudget]{
+		OutputState: i.ToPodDisruptionBudgetOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PodDisruptionBudgetArrayInput is an input type that accepts PodDisruptionBudgetArray and PodDisruptionBudgetArrayOutput values.
 // You can construct a concrete instance of `PodDisruptionBudgetArrayInput` via:
 //
@@ -144,6 +151,12 @@ func (i PodDisruptionBudgetArray) ToPodDisruptionBudgetArrayOutput() PodDisrupti
 
 func (i PodDisruptionBudgetArray) ToPodDisruptionBudgetArrayOutputWithContext(ctx context.Context) PodDisruptionBudgetArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetArrayOutput)
+}
+
+func (i PodDisruptionBudgetArray) ToOutput(ctx context.Context) pulumix.Output[[]*PodDisruptionBudget] {
+	return pulumix.Output[[]*PodDisruptionBudget]{
+		OutputState: i.ToPodDisruptionBudgetArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // PodDisruptionBudgetMapInput is an input type that accepts PodDisruptionBudgetMap and PodDisruptionBudgetMapOutput values.
@@ -171,6 +184,12 @@ func (i PodDisruptionBudgetMap) ToPodDisruptionBudgetMapOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetMapOutput)
 }
 
+func (i PodDisruptionBudgetMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*PodDisruptionBudget] {
+	return pulumix.Output[map[string]*PodDisruptionBudget]{
+		OutputState: i.ToPodDisruptionBudgetMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type PodDisruptionBudgetOutput struct{ *pulumi.OutputState }
 
 func (PodDisruptionBudgetOutput) ElementType() reflect.Type {
@@ -183,6 +202,12 @@ func (o PodDisruptionBudgetOutput) ToPodDisruptionBudgetOutput() PodDisruptionBu
 
 func (o PodDisruptionBudgetOutput) ToPodDisruptionBudgetOutputWithContext(ctx context.Context) PodDisruptionBudgetOutput {
 	return o
+}
+
+func (o PodDisruptionBudgetOutput) ToOutput(ctx context.Context) pulumix.Output[*PodDisruptionBudget] {
+	return pulumix.Output[*PodDisruptionBudget]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -224,6 +249,12 @@ func (o PodDisruptionBudgetArrayOutput) ToPodDisruptionBudgetArrayOutputWithCont
 	return o
 }
 
+func (o PodDisruptionBudgetArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*PodDisruptionBudget] {
+	return pulumix.Output[[]*PodDisruptionBudget]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o PodDisruptionBudgetArrayOutput) Index(i pulumi.IntInput) PodDisruptionBudgetOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *PodDisruptionBudget {
 		return vs[0].([]*PodDisruptionBudget)[vs[1].(int)]
@@ -242,6 +273,12 @@ func (o PodDisruptionBudgetMapOutput) ToPodDisruptionBudgetMapOutput() PodDisrup
 
 func (o PodDisruptionBudgetMapOutput) ToPodDisruptionBudgetMapOutputWithContext(ctx context.Context) PodDisruptionBudgetMapOutput {
 	return o
+}
+
+func (o PodDisruptionBudgetMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*PodDisruptionBudget] {
+	return pulumix.Output[map[string]*PodDisruptionBudget]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o PodDisruptionBudgetMapOutput) MapIndex(k pulumi.StringInput) PodDisruptionBudgetOutput {

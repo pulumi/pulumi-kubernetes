@@ -11,6 +11,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 var _ = internal.GetEnvOrDefault
@@ -70,6 +71,12 @@ func (i VolumeAttachmentTypeArgs) ToVolumeAttachmentTypeOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentTypeOutput)
 }
 
+func (i VolumeAttachmentTypeArgs) ToOutput(ctx context.Context) pulumix.Output[VolumeAttachmentType] {
+	return pulumix.Output[VolumeAttachmentType]{
+		OutputState: i.ToVolumeAttachmentTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // VolumeAttachmentTypeArrayInput is an input type that accepts VolumeAttachmentTypeArray and VolumeAttachmentTypeArrayOutput values.
 // You can construct a concrete instance of `VolumeAttachmentTypeArrayInput` via:
 //
@@ -95,6 +102,12 @@ func (i VolumeAttachmentTypeArray) ToVolumeAttachmentTypeArrayOutputWithContext(
 	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentTypeArrayOutput)
 }
 
+func (i VolumeAttachmentTypeArray) ToOutput(ctx context.Context) pulumix.Output[[]VolumeAttachmentType] {
+	return pulumix.Output[[]VolumeAttachmentType]{
+		OutputState: i.ToVolumeAttachmentTypeArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node.
 //
 // VolumeAttachment objects are non-namespaced.
@@ -110,6 +123,12 @@ func (o VolumeAttachmentTypeOutput) ToVolumeAttachmentTypeOutput() VolumeAttachm
 
 func (o VolumeAttachmentTypeOutput) ToVolumeAttachmentTypeOutputWithContext(ctx context.Context) VolumeAttachmentTypeOutput {
 	return o
+}
+
+func (o VolumeAttachmentTypeOutput) ToOutput(ctx context.Context) pulumix.Output[VolumeAttachmentType] {
+	return pulumix.Output[VolumeAttachmentType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -149,6 +168,12 @@ func (o VolumeAttachmentTypeArrayOutput) ToVolumeAttachmentTypeArrayOutput() Vol
 
 func (o VolumeAttachmentTypeArrayOutput) ToVolumeAttachmentTypeArrayOutputWithContext(ctx context.Context) VolumeAttachmentTypeArrayOutput {
 	return o
+}
+
+func (o VolumeAttachmentTypeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]VolumeAttachmentType] {
+	return pulumix.Output[[]VolumeAttachmentType]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o VolumeAttachmentTypeArrayOutput) Index(i pulumi.IntInput) VolumeAttachmentTypeOutput {
@@ -204,6 +229,12 @@ func (i VolumeAttachmentListTypeArgs) ToVolumeAttachmentListTypeOutputWithContex
 	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentListTypeOutput)
 }
 
+func (i VolumeAttachmentListTypeArgs) ToOutput(ctx context.Context) pulumix.Output[VolumeAttachmentListType] {
+	return pulumix.Output[VolumeAttachmentListType]{
+		OutputState: i.ToVolumeAttachmentListTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // VolumeAttachmentList is a collection of VolumeAttachment objects.
 type VolumeAttachmentListTypeOutput struct{ *pulumi.OutputState }
 
@@ -217,6 +248,12 @@ func (o VolumeAttachmentListTypeOutput) ToVolumeAttachmentListTypeOutput() Volum
 
 func (o VolumeAttachmentListTypeOutput) ToVolumeAttachmentListTypeOutputWithContext(ctx context.Context) VolumeAttachmentListTypeOutput {
 	return o
+}
+
+func (o VolumeAttachmentListTypeOutput) ToOutput(ctx context.Context) pulumix.Output[VolumeAttachmentListType] {
+	return pulumix.Output[VolumeAttachmentListType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -294,6 +331,12 @@ func (i VolumeAttachmentPatchTypeArgs) ToVolumeAttachmentPatchTypeOutputWithCont
 	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentPatchTypeOutput)
 }
 
+func (i VolumeAttachmentPatchTypeArgs) ToOutput(ctx context.Context) pulumix.Output[VolumeAttachmentPatchType] {
+	return pulumix.Output[VolumeAttachmentPatchType]{
+		OutputState: i.ToVolumeAttachmentPatchTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // VolumeAttachment captures the intent to attach or detach the specified volume to/from the specified node.
 //
 // VolumeAttachment objects are non-namespaced.
@@ -309,6 +352,12 @@ func (o VolumeAttachmentPatchTypeOutput) ToVolumeAttachmentPatchTypeOutput() Vol
 
 func (o VolumeAttachmentPatchTypeOutput) ToVolumeAttachmentPatchTypeOutputWithContext(ctx context.Context) VolumeAttachmentPatchTypeOutput {
 	return o
+}
+
+func (o VolumeAttachmentPatchTypeOutput) ToOutput(ctx context.Context) pulumix.Output[VolumeAttachmentPatchType] {
+	return pulumix.Output[VolumeAttachmentPatchType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -375,6 +424,12 @@ func (i VolumeAttachmentSourceArgs) ToVolumeAttachmentSourceOutputWithContext(ct
 	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentSourceOutput)
 }
 
+func (i VolumeAttachmentSourceArgs) ToOutput(ctx context.Context) pulumix.Output[VolumeAttachmentSource] {
+	return pulumix.Output[VolumeAttachmentSource]{
+		OutputState: i.ToVolumeAttachmentSourceOutputWithContext(ctx).OutputState,
+	}
+}
+
 // VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.
 type VolumeAttachmentSourceOutput struct{ *pulumi.OutputState }
 
@@ -388,6 +443,12 @@ func (o VolumeAttachmentSourceOutput) ToVolumeAttachmentSourceOutput() VolumeAtt
 
 func (o VolumeAttachmentSourceOutput) ToVolumeAttachmentSourceOutputWithContext(ctx context.Context) VolumeAttachmentSourceOutput {
 	return o
+}
+
+func (o VolumeAttachmentSourceOutput) ToOutput(ctx context.Context) pulumix.Output[VolumeAttachmentSource] {
+	return pulumix.Output[VolumeAttachmentSource]{
+		OutputState: o.OutputState,
+	}
 }
 
 // inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is alpha-level and is only honored by servers that enabled the CSIMigration feature.
@@ -439,6 +500,12 @@ func (i VolumeAttachmentSourcePatchArgs) ToVolumeAttachmentSourcePatchOutputWith
 	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentSourcePatchOutput)
 }
 
+func (i VolumeAttachmentSourcePatchArgs) ToOutput(ctx context.Context) pulumix.Output[VolumeAttachmentSourcePatch] {
+	return pulumix.Output[VolumeAttachmentSourcePatch]{
+		OutputState: i.ToVolumeAttachmentSourcePatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i VolumeAttachmentSourcePatchArgs) ToVolumeAttachmentSourcePatchPtrOutput() VolumeAttachmentSourcePatchPtrOutput {
 	return i.ToVolumeAttachmentSourcePatchPtrOutputWithContext(context.Background())
 }
@@ -480,6 +547,12 @@ func (i *volumeAttachmentSourcePatchPtrType) ToVolumeAttachmentSourcePatchPtrOut
 	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentSourcePatchPtrOutput)
 }
 
+func (i *volumeAttachmentSourcePatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*VolumeAttachmentSourcePatch] {
+	return pulumix.Output[*VolumeAttachmentSourcePatch]{
+		OutputState: i.ToVolumeAttachmentSourcePatchPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // VolumeAttachmentSource represents a volume that should be attached. Right now only PersistenVolumes can be attached via external attacher, in future we may allow also inline volumes in pods. Exactly one member can be set.
 type VolumeAttachmentSourcePatchOutput struct{ *pulumi.OutputState }
 
@@ -505,6 +578,12 @@ func (o VolumeAttachmentSourcePatchOutput) ToVolumeAttachmentSourcePatchPtrOutpu
 	}).(VolumeAttachmentSourcePatchPtrOutput)
 }
 
+func (o VolumeAttachmentSourcePatchOutput) ToOutput(ctx context.Context) pulumix.Output[VolumeAttachmentSourcePatch] {
+	return pulumix.Output[VolumeAttachmentSourcePatch]{
+		OutputState: o.OutputState,
+	}
+}
+
 // inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is alpha-level and is only honored by servers that enabled the CSIMigration feature.
 func (o VolumeAttachmentSourcePatchOutput) InlineVolumeSpec() corev1.PersistentVolumeSpecPatchPtrOutput {
 	return o.ApplyT(func(v VolumeAttachmentSourcePatch) *corev1.PersistentVolumeSpecPatch { return v.InlineVolumeSpec }).(corev1.PersistentVolumeSpecPatchPtrOutput)
@@ -527,6 +606,12 @@ func (o VolumeAttachmentSourcePatchPtrOutput) ToVolumeAttachmentSourcePatchPtrOu
 
 func (o VolumeAttachmentSourcePatchPtrOutput) ToVolumeAttachmentSourcePatchPtrOutputWithContext(ctx context.Context) VolumeAttachmentSourcePatchPtrOutput {
 	return o
+}
+
+func (o VolumeAttachmentSourcePatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*VolumeAttachmentSourcePatch] {
+	return pulumix.Output[*VolumeAttachmentSourcePatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o VolumeAttachmentSourcePatchPtrOutput) Elem() VolumeAttachmentSourcePatchOutput {
@@ -602,6 +687,12 @@ func (i VolumeAttachmentSpecArgs) ToVolumeAttachmentSpecOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentSpecOutput)
 }
 
+func (i VolumeAttachmentSpecArgs) ToOutput(ctx context.Context) pulumix.Output[VolumeAttachmentSpec] {
+	return pulumix.Output[VolumeAttachmentSpec]{
+		OutputState: i.ToVolumeAttachmentSpecOutputWithContext(ctx).OutputState,
+	}
+}
+
 // VolumeAttachmentSpec is the specification of a VolumeAttachment request.
 type VolumeAttachmentSpecOutput struct{ *pulumi.OutputState }
 
@@ -615,6 +706,12 @@ func (o VolumeAttachmentSpecOutput) ToVolumeAttachmentSpecOutput() VolumeAttachm
 
 func (o VolumeAttachmentSpecOutput) ToVolumeAttachmentSpecOutputWithContext(ctx context.Context) VolumeAttachmentSpecOutput {
 	return o
+}
+
+func (o VolumeAttachmentSpecOutput) ToOutput(ctx context.Context) pulumix.Output[VolumeAttachmentSpec] {
+	return pulumix.Output[VolumeAttachmentSpec]{
+		OutputState: o.OutputState,
+	}
 }
 
 // Attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
@@ -675,6 +772,12 @@ func (i VolumeAttachmentSpecPatchArgs) ToVolumeAttachmentSpecPatchOutputWithCont
 	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentSpecPatchOutput)
 }
 
+func (i VolumeAttachmentSpecPatchArgs) ToOutput(ctx context.Context) pulumix.Output[VolumeAttachmentSpecPatch] {
+	return pulumix.Output[VolumeAttachmentSpecPatch]{
+		OutputState: i.ToVolumeAttachmentSpecPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i VolumeAttachmentSpecPatchArgs) ToVolumeAttachmentSpecPatchPtrOutput() VolumeAttachmentSpecPatchPtrOutput {
 	return i.ToVolumeAttachmentSpecPatchPtrOutputWithContext(context.Background())
 }
@@ -716,6 +819,12 @@ func (i *volumeAttachmentSpecPatchPtrType) ToVolumeAttachmentSpecPatchPtrOutputW
 	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentSpecPatchPtrOutput)
 }
 
+func (i *volumeAttachmentSpecPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*VolumeAttachmentSpecPatch] {
+	return pulumix.Output[*VolumeAttachmentSpecPatch]{
+		OutputState: i.ToVolumeAttachmentSpecPatchPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // VolumeAttachmentSpec is the specification of a VolumeAttachment request.
 type VolumeAttachmentSpecPatchOutput struct{ *pulumi.OutputState }
 
@@ -739,6 +848,12 @@ func (o VolumeAttachmentSpecPatchOutput) ToVolumeAttachmentSpecPatchPtrOutputWit
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v VolumeAttachmentSpecPatch) *VolumeAttachmentSpecPatch {
 		return &v
 	}).(VolumeAttachmentSpecPatchPtrOutput)
+}
+
+func (o VolumeAttachmentSpecPatchOutput) ToOutput(ctx context.Context) pulumix.Output[VolumeAttachmentSpecPatch] {
+	return pulumix.Output[VolumeAttachmentSpecPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // Attacher indicates the name of the volume driver that MUST handle this request. This is the name returned by GetPluginName().
@@ -768,6 +883,12 @@ func (o VolumeAttachmentSpecPatchPtrOutput) ToVolumeAttachmentSpecPatchPtrOutput
 
 func (o VolumeAttachmentSpecPatchPtrOutput) ToVolumeAttachmentSpecPatchPtrOutputWithContext(ctx context.Context) VolumeAttachmentSpecPatchPtrOutput {
 	return o
+}
+
+func (o VolumeAttachmentSpecPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*VolumeAttachmentSpecPatch] {
+	return pulumix.Output[*VolumeAttachmentSpecPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o VolumeAttachmentSpecPatchPtrOutput) Elem() VolumeAttachmentSpecPatchOutput {
@@ -857,6 +978,12 @@ func (i VolumeAttachmentStatusArgs) ToVolumeAttachmentStatusOutputWithContext(ct
 	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentStatusOutput)
 }
 
+func (i VolumeAttachmentStatusArgs) ToOutput(ctx context.Context) pulumix.Output[VolumeAttachmentStatus] {
+	return pulumix.Output[VolumeAttachmentStatus]{
+		OutputState: i.ToVolumeAttachmentStatusOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i VolumeAttachmentStatusArgs) ToVolumeAttachmentStatusPtrOutput() VolumeAttachmentStatusPtrOutput {
 	return i.ToVolumeAttachmentStatusPtrOutputWithContext(context.Background())
 }
@@ -898,6 +1025,12 @@ func (i *volumeAttachmentStatusPtrType) ToVolumeAttachmentStatusPtrOutputWithCon
 	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentStatusPtrOutput)
 }
 
+func (i *volumeAttachmentStatusPtrType) ToOutput(ctx context.Context) pulumix.Output[*VolumeAttachmentStatus] {
+	return pulumix.Output[*VolumeAttachmentStatus]{
+		OutputState: i.ToVolumeAttachmentStatusPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // VolumeAttachmentStatus is the status of a VolumeAttachment request.
 type VolumeAttachmentStatusOutput struct{ *pulumi.OutputState }
 
@@ -921,6 +1054,12 @@ func (o VolumeAttachmentStatusOutput) ToVolumeAttachmentStatusPtrOutputWithConte
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v VolumeAttachmentStatus) *VolumeAttachmentStatus {
 		return &v
 	}).(VolumeAttachmentStatusPtrOutput)
+}
+
+func (o VolumeAttachmentStatusOutput) ToOutput(ctx context.Context) pulumix.Output[VolumeAttachmentStatus] {
+	return pulumix.Output[VolumeAttachmentStatus]{
+		OutputState: o.OutputState,
+	}
 }
 
 // The last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
@@ -955,6 +1094,12 @@ func (o VolumeAttachmentStatusPtrOutput) ToVolumeAttachmentStatusPtrOutput() Vol
 
 func (o VolumeAttachmentStatusPtrOutput) ToVolumeAttachmentStatusPtrOutputWithContext(ctx context.Context) VolumeAttachmentStatusPtrOutput {
 	return o
+}
+
+func (o VolumeAttachmentStatusPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*VolumeAttachmentStatus] {
+	return pulumix.Output[*VolumeAttachmentStatus]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o VolumeAttachmentStatusPtrOutput) Elem() VolumeAttachmentStatusOutput {
@@ -1054,6 +1199,12 @@ func (i VolumeAttachmentStatusPatchArgs) ToVolumeAttachmentStatusPatchOutputWith
 	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentStatusPatchOutput)
 }
 
+func (i VolumeAttachmentStatusPatchArgs) ToOutput(ctx context.Context) pulumix.Output[VolumeAttachmentStatusPatch] {
+	return pulumix.Output[VolumeAttachmentStatusPatch]{
+		OutputState: i.ToVolumeAttachmentStatusPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i VolumeAttachmentStatusPatchArgs) ToVolumeAttachmentStatusPatchPtrOutput() VolumeAttachmentStatusPatchPtrOutput {
 	return i.ToVolumeAttachmentStatusPatchPtrOutputWithContext(context.Background())
 }
@@ -1095,6 +1246,12 @@ func (i *volumeAttachmentStatusPatchPtrType) ToVolumeAttachmentStatusPatchPtrOut
 	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentStatusPatchPtrOutput)
 }
 
+func (i *volumeAttachmentStatusPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*VolumeAttachmentStatusPatch] {
+	return pulumix.Output[*VolumeAttachmentStatusPatch]{
+		OutputState: i.ToVolumeAttachmentStatusPatchPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // VolumeAttachmentStatus is the status of a VolumeAttachment request.
 type VolumeAttachmentStatusPatchOutput struct{ *pulumi.OutputState }
 
@@ -1118,6 +1275,12 @@ func (o VolumeAttachmentStatusPatchOutput) ToVolumeAttachmentStatusPatchPtrOutpu
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v VolumeAttachmentStatusPatch) *VolumeAttachmentStatusPatch {
 		return &v
 	}).(VolumeAttachmentStatusPatchPtrOutput)
+}
+
+func (o VolumeAttachmentStatusPatchOutput) ToOutput(ctx context.Context) pulumix.Output[VolumeAttachmentStatusPatch] {
+	return pulumix.Output[VolumeAttachmentStatusPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // The last error encountered during attach operation, if any. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
@@ -1152,6 +1315,12 @@ func (o VolumeAttachmentStatusPatchPtrOutput) ToVolumeAttachmentStatusPatchPtrOu
 
 func (o VolumeAttachmentStatusPatchPtrOutput) ToVolumeAttachmentStatusPatchPtrOutputWithContext(ctx context.Context) VolumeAttachmentStatusPatchPtrOutput {
 	return o
+}
+
+func (o VolumeAttachmentStatusPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*VolumeAttachmentStatusPatch] {
+	return pulumix.Output[*VolumeAttachmentStatusPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o VolumeAttachmentStatusPatchPtrOutput) Elem() VolumeAttachmentStatusPatchOutput {
@@ -1243,6 +1412,12 @@ func (i VolumeErrorArgs) ToVolumeErrorOutputWithContext(ctx context.Context) Vol
 	return pulumi.ToOutputWithContext(ctx, i).(VolumeErrorOutput)
 }
 
+func (i VolumeErrorArgs) ToOutput(ctx context.Context) pulumix.Output[VolumeError] {
+	return pulumix.Output[VolumeError]{
+		OutputState: i.ToVolumeErrorOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i VolumeErrorArgs) ToVolumeErrorPtrOutput() VolumeErrorPtrOutput {
 	return i.ToVolumeErrorPtrOutputWithContext(context.Background())
 }
@@ -1284,6 +1459,12 @@ func (i *volumeErrorPtrType) ToVolumeErrorPtrOutputWithContext(ctx context.Conte
 	return pulumi.ToOutputWithContext(ctx, i).(VolumeErrorPtrOutput)
 }
 
+func (i *volumeErrorPtrType) ToOutput(ctx context.Context) pulumix.Output[*VolumeError] {
+	return pulumix.Output[*VolumeError]{
+		OutputState: i.ToVolumeErrorPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // VolumeError captures an error encountered during a volume operation.
 type VolumeErrorOutput struct{ *pulumi.OutputState }
 
@@ -1309,6 +1490,12 @@ func (o VolumeErrorOutput) ToVolumeErrorPtrOutputWithContext(ctx context.Context
 	}).(VolumeErrorPtrOutput)
 }
 
+func (o VolumeErrorOutput) ToOutput(ctx context.Context) pulumix.Output[VolumeError] {
+	return pulumix.Output[VolumeError]{
+		OutputState: o.OutputState,
+	}
+}
+
 // String detailing the error encountered during Attach or Detach operation. This string maybe logged, so it should not contain sensitive information.
 func (o VolumeErrorOutput) Message() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v VolumeError) *string { return v.Message }).(pulumi.StringPtrOutput)
@@ -1331,6 +1518,12 @@ func (o VolumeErrorPtrOutput) ToVolumeErrorPtrOutput() VolumeErrorPtrOutput {
 
 func (o VolumeErrorPtrOutput) ToVolumeErrorPtrOutputWithContext(ctx context.Context) VolumeErrorPtrOutput {
 	return o
+}
+
+func (o VolumeErrorPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*VolumeError] {
+	return pulumix.Output[*VolumeError]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o VolumeErrorPtrOutput) Elem() VolumeErrorOutput {
@@ -1402,6 +1595,12 @@ func (i VolumeErrorPatchArgs) ToVolumeErrorPatchOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(VolumeErrorPatchOutput)
 }
 
+func (i VolumeErrorPatchArgs) ToOutput(ctx context.Context) pulumix.Output[VolumeErrorPatch] {
+	return pulumix.Output[VolumeErrorPatch]{
+		OutputState: i.ToVolumeErrorPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i VolumeErrorPatchArgs) ToVolumeErrorPatchPtrOutput() VolumeErrorPatchPtrOutput {
 	return i.ToVolumeErrorPatchPtrOutputWithContext(context.Background())
 }
@@ -1443,6 +1642,12 @@ func (i *volumeErrorPatchPtrType) ToVolumeErrorPatchPtrOutputWithContext(ctx con
 	return pulumi.ToOutputWithContext(ctx, i).(VolumeErrorPatchPtrOutput)
 }
 
+func (i *volumeErrorPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*VolumeErrorPatch] {
+	return pulumix.Output[*VolumeErrorPatch]{
+		OutputState: i.ToVolumeErrorPatchPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // VolumeError captures an error encountered during a volume operation.
 type VolumeErrorPatchOutput struct{ *pulumi.OutputState }
 
@@ -1468,6 +1673,12 @@ func (o VolumeErrorPatchOutput) ToVolumeErrorPatchPtrOutputWithContext(ctx conte
 	}).(VolumeErrorPatchPtrOutput)
 }
 
+func (o VolumeErrorPatchOutput) ToOutput(ctx context.Context) pulumix.Output[VolumeErrorPatch] {
+	return pulumix.Output[VolumeErrorPatch]{
+		OutputState: o.OutputState,
+	}
+}
+
 // String detailing the error encountered during Attach or Detach operation. This string maybe logged, so it should not contain sensitive information.
 func (o VolumeErrorPatchOutput) Message() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v VolumeErrorPatch) *string { return v.Message }).(pulumi.StringPtrOutput)
@@ -1490,6 +1701,12 @@ func (o VolumeErrorPatchPtrOutput) ToVolumeErrorPatchPtrOutput() VolumeErrorPatc
 
 func (o VolumeErrorPatchPtrOutput) ToVolumeErrorPatchPtrOutputWithContext(ctx context.Context) VolumeErrorPatchPtrOutput {
 	return o
+}
+
+func (o VolumeErrorPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*VolumeErrorPatch] {
+	return pulumix.Output[*VolumeErrorPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o VolumeErrorPatchPtrOutput) Elem() VolumeErrorPatchOutput {

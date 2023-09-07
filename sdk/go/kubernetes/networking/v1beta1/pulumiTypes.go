@@ -11,6 +11,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 var _ = internal.GetEnvOrDefault
@@ -78,6 +79,12 @@ func (i HTTPIngressPathArgs) ToHTTPIngressPathOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(HTTPIngressPathOutput)
 }
 
+func (i HTTPIngressPathArgs) ToOutput(ctx context.Context) pulumix.Output[HTTPIngressPath] {
+	return pulumix.Output[HTTPIngressPath]{
+		OutputState: i.ToHTTPIngressPathOutputWithContext(ctx).OutputState,
+	}
+}
+
 // HTTPIngressPathArrayInput is an input type that accepts HTTPIngressPathArray and HTTPIngressPathArrayOutput values.
 // You can construct a concrete instance of `HTTPIngressPathArrayInput` via:
 //
@@ -103,6 +110,12 @@ func (i HTTPIngressPathArray) ToHTTPIngressPathArrayOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(HTTPIngressPathArrayOutput)
 }
 
+func (i HTTPIngressPathArray) ToOutput(ctx context.Context) pulumix.Output[[]HTTPIngressPath] {
+	return pulumix.Output[[]HTTPIngressPath]{
+		OutputState: i.ToHTTPIngressPathArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // HTTPIngressPath associates a path regex with a backend. Incoming urls matching the path are forwarded to the backend.
 type HTTPIngressPathOutput struct{ *pulumi.OutputState }
 
@@ -116,6 +129,12 @@ func (o HTTPIngressPathOutput) ToHTTPIngressPathOutput() HTTPIngressPathOutput {
 
 func (o HTTPIngressPathOutput) ToHTTPIngressPathOutputWithContext(ctx context.Context) HTTPIngressPathOutput {
 	return o
+}
+
+func (o HTTPIngressPathOutput) ToOutput(ctx context.Context) pulumix.Output[HTTPIngressPath] {
+	return pulumix.Output[HTTPIngressPath]{
+		OutputState: o.OutputState,
+	}
 }
 
 // Backend defines the referenced service endpoint to which the traffic will be forwarded to.
@@ -156,6 +175,12 @@ func (o HTTPIngressPathArrayOutput) ToHTTPIngressPathArrayOutput() HTTPIngressPa
 
 func (o HTTPIngressPathArrayOutput) ToHTTPIngressPathArrayOutputWithContext(ctx context.Context) HTTPIngressPathArrayOutput {
 	return o
+}
+
+func (o HTTPIngressPathArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]HTTPIngressPath] {
+	return pulumix.Output[[]HTTPIngressPath]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o HTTPIngressPathArrayOutput) Index(i pulumi.IntInput) HTTPIngressPathOutput {
@@ -227,6 +252,12 @@ func (i HTTPIngressPathPatchArgs) ToHTTPIngressPathPatchOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(HTTPIngressPathPatchOutput)
 }
 
+func (i HTTPIngressPathPatchArgs) ToOutput(ctx context.Context) pulumix.Output[HTTPIngressPathPatch] {
+	return pulumix.Output[HTTPIngressPathPatch]{
+		OutputState: i.ToHTTPIngressPathPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 // HTTPIngressPathPatchArrayInput is an input type that accepts HTTPIngressPathPatchArray and HTTPIngressPathPatchArrayOutput values.
 // You can construct a concrete instance of `HTTPIngressPathPatchArrayInput` via:
 //
@@ -252,6 +283,12 @@ func (i HTTPIngressPathPatchArray) ToHTTPIngressPathPatchArrayOutputWithContext(
 	return pulumi.ToOutputWithContext(ctx, i).(HTTPIngressPathPatchArrayOutput)
 }
 
+func (i HTTPIngressPathPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]HTTPIngressPathPatch] {
+	return pulumix.Output[[]HTTPIngressPathPatch]{
+		OutputState: i.ToHTTPIngressPathPatchArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // HTTPIngressPath associates a path regex with a backend. Incoming urls matching the path are forwarded to the backend.
 type HTTPIngressPathPatchOutput struct{ *pulumi.OutputState }
 
@@ -265,6 +302,12 @@ func (o HTTPIngressPathPatchOutput) ToHTTPIngressPathPatchOutput() HTTPIngressPa
 
 func (o HTTPIngressPathPatchOutput) ToHTTPIngressPathPatchOutputWithContext(ctx context.Context) HTTPIngressPathPatchOutput {
 	return o
+}
+
+func (o HTTPIngressPathPatchOutput) ToOutput(ctx context.Context) pulumix.Output[HTTPIngressPathPatch] {
+	return pulumix.Output[HTTPIngressPathPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // Backend defines the referenced service endpoint to which the traffic will be forwarded to.
@@ -305,6 +348,12 @@ func (o HTTPIngressPathPatchArrayOutput) ToHTTPIngressPathPatchArrayOutput() HTT
 
 func (o HTTPIngressPathPatchArrayOutput) ToHTTPIngressPathPatchArrayOutputWithContext(ctx context.Context) HTTPIngressPathPatchArrayOutput {
 	return o
+}
+
+func (o HTTPIngressPathPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]HTTPIngressPathPatch] {
+	return pulumix.Output[[]HTTPIngressPathPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o HTTPIngressPathPatchArrayOutput) Index(i pulumi.IntInput) HTTPIngressPathPatchOutput {
@@ -348,6 +397,12 @@ func (i HTTPIngressRuleValueArgs) ToHTTPIngressRuleValueOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(HTTPIngressRuleValueOutput)
 }
 
+func (i HTTPIngressRuleValueArgs) ToOutput(ctx context.Context) pulumix.Output[HTTPIngressRuleValue] {
+	return pulumix.Output[HTTPIngressRuleValue]{
+		OutputState: i.ToHTTPIngressRuleValueOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i HTTPIngressRuleValueArgs) ToHTTPIngressRuleValuePtrOutput() HTTPIngressRuleValuePtrOutput {
 	return i.ToHTTPIngressRuleValuePtrOutputWithContext(context.Background())
 }
@@ -389,6 +444,12 @@ func (i *httpingressRuleValuePtrType) ToHTTPIngressRuleValuePtrOutputWithContext
 	return pulumi.ToOutputWithContext(ctx, i).(HTTPIngressRuleValuePtrOutput)
 }
 
+func (i *httpingressRuleValuePtrType) ToOutput(ctx context.Context) pulumix.Output[*HTTPIngressRuleValue] {
+	return pulumix.Output[*HTTPIngressRuleValue]{
+		OutputState: i.ToHTTPIngressRuleValuePtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example: http://<host>/<path>?<searchpart> -> backend where where parts of the url correspond to RFC 3986, this resource will be used to match against everything after the last '/' and before the first '?' or '#'.
 type HTTPIngressRuleValueOutput struct{ *pulumi.OutputState }
 
@@ -414,6 +475,12 @@ func (o HTTPIngressRuleValueOutput) ToHTTPIngressRuleValuePtrOutputWithContext(c
 	}).(HTTPIngressRuleValuePtrOutput)
 }
 
+func (o HTTPIngressRuleValueOutput) ToOutput(ctx context.Context) pulumix.Output[HTTPIngressRuleValue] {
+	return pulumix.Output[HTTPIngressRuleValue]{
+		OutputState: o.OutputState,
+	}
+}
+
 // A collection of paths that map requests to backends.
 func (o HTTPIngressRuleValueOutput) Paths() HTTPIngressPathArrayOutput {
 	return o.ApplyT(func(v HTTPIngressRuleValue) []HTTPIngressPath { return v.Paths }).(HTTPIngressPathArrayOutput)
@@ -431,6 +498,12 @@ func (o HTTPIngressRuleValuePtrOutput) ToHTTPIngressRuleValuePtrOutput() HTTPIng
 
 func (o HTTPIngressRuleValuePtrOutput) ToHTTPIngressRuleValuePtrOutputWithContext(ctx context.Context) HTTPIngressRuleValuePtrOutput {
 	return o
+}
+
+func (o HTTPIngressRuleValuePtrOutput) ToOutput(ctx context.Context) pulumix.Output[*HTTPIngressRuleValue] {
+	return pulumix.Output[*HTTPIngressRuleValue]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o HTTPIngressRuleValuePtrOutput) Elem() HTTPIngressRuleValueOutput {
@@ -488,6 +561,12 @@ func (i HTTPIngressRuleValuePatchArgs) ToHTTPIngressRuleValuePatchOutputWithCont
 	return pulumi.ToOutputWithContext(ctx, i).(HTTPIngressRuleValuePatchOutput)
 }
 
+func (i HTTPIngressRuleValuePatchArgs) ToOutput(ctx context.Context) pulumix.Output[HTTPIngressRuleValuePatch] {
+	return pulumix.Output[HTTPIngressRuleValuePatch]{
+		OutputState: i.ToHTTPIngressRuleValuePatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i HTTPIngressRuleValuePatchArgs) ToHTTPIngressRuleValuePatchPtrOutput() HTTPIngressRuleValuePatchPtrOutput {
 	return i.ToHTTPIngressRuleValuePatchPtrOutputWithContext(context.Background())
 }
@@ -529,6 +608,12 @@ func (i *httpingressRuleValuePatchPtrType) ToHTTPIngressRuleValuePatchPtrOutputW
 	return pulumi.ToOutputWithContext(ctx, i).(HTTPIngressRuleValuePatchPtrOutput)
 }
 
+func (i *httpingressRuleValuePatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*HTTPIngressRuleValuePatch] {
+	return pulumix.Output[*HTTPIngressRuleValuePatch]{
+		OutputState: i.ToHTTPIngressRuleValuePatchPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example: http://<host>/<path>?<searchpart> -> backend where where parts of the url correspond to RFC 3986, this resource will be used to match against everything after the last '/' and before the first '?' or '#'.
 type HTTPIngressRuleValuePatchOutput struct{ *pulumi.OutputState }
 
@@ -554,6 +639,12 @@ func (o HTTPIngressRuleValuePatchOutput) ToHTTPIngressRuleValuePatchPtrOutputWit
 	}).(HTTPIngressRuleValuePatchPtrOutput)
 }
 
+func (o HTTPIngressRuleValuePatchOutput) ToOutput(ctx context.Context) pulumix.Output[HTTPIngressRuleValuePatch] {
+	return pulumix.Output[HTTPIngressRuleValuePatch]{
+		OutputState: o.OutputState,
+	}
+}
+
 // A collection of paths that map requests to backends.
 func (o HTTPIngressRuleValuePatchOutput) Paths() HTTPIngressPathPatchArrayOutput {
 	return o.ApplyT(func(v HTTPIngressRuleValuePatch) []HTTPIngressPathPatch { return v.Paths }).(HTTPIngressPathPatchArrayOutput)
@@ -571,6 +662,12 @@ func (o HTTPIngressRuleValuePatchPtrOutput) ToHTTPIngressRuleValuePatchPtrOutput
 
 func (o HTTPIngressRuleValuePatchPtrOutput) ToHTTPIngressRuleValuePatchPtrOutputWithContext(ctx context.Context) HTTPIngressRuleValuePatchPtrOutput {
 	return o
+}
+
+func (o HTTPIngressRuleValuePatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*HTTPIngressRuleValuePatch] {
+	return pulumix.Output[*HTTPIngressRuleValuePatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o HTTPIngressRuleValuePatchPtrOutput) Elem() HTTPIngressRuleValuePatchOutput {
@@ -672,6 +769,12 @@ func (i IngressTypeArgs) ToIngressTypeOutputWithContext(ctx context.Context) Ing
 	return pulumi.ToOutputWithContext(ctx, i).(IngressTypeOutput)
 }
 
+func (i IngressTypeArgs) ToOutput(ctx context.Context) pulumix.Output[IngressType] {
+	return pulumix.Output[IngressType]{
+		OutputState: i.ToIngressTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // IngressTypeArrayInput is an input type that accepts IngressTypeArray and IngressTypeArrayOutput values.
 // You can construct a concrete instance of `IngressTypeArrayInput` via:
 //
@@ -695,6 +798,12 @@ func (i IngressTypeArray) ToIngressTypeArrayOutput() IngressTypeArrayOutput {
 
 func (i IngressTypeArray) ToIngressTypeArrayOutputWithContext(ctx context.Context) IngressTypeArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(IngressTypeArrayOutput)
+}
+
+func (i IngressTypeArray) ToOutput(ctx context.Context) pulumix.Output[[]IngressType] {
+	return pulumix.Output[[]IngressType]{
+		OutputState: i.ToIngressTypeArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // Ingress is a collection of rules that allow inbound connections to reach the endpoints defined by a backend. An Ingress can be configured to give services externally-reachable urls, load balance traffic, terminate SSL, offer name based virtual hosting etc.
@@ -724,6 +833,12 @@ func (o IngressTypeOutput) ToIngressTypeOutput() IngressTypeOutput {
 
 func (o IngressTypeOutput) ToIngressTypeOutputWithContext(ctx context.Context) IngressTypeOutput {
 	return o
+}
+
+func (o IngressTypeOutput) ToOutput(ctx context.Context) pulumix.Output[IngressType] {
+	return pulumix.Output[IngressType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -763,6 +878,12 @@ func (o IngressTypeArrayOutput) ToIngressTypeArrayOutput() IngressTypeArrayOutpu
 
 func (o IngressTypeArrayOutput) ToIngressTypeArrayOutputWithContext(ctx context.Context) IngressTypeArrayOutput {
 	return o
+}
+
+func (o IngressTypeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]IngressType] {
+	return pulumix.Output[[]IngressType]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o IngressTypeArrayOutput) Index(i pulumi.IntInput) IngressTypeOutput {
@@ -814,6 +935,12 @@ func (i IngressBackendArgs) ToIngressBackendOutputWithContext(ctx context.Contex
 	return pulumi.ToOutputWithContext(ctx, i).(IngressBackendOutput)
 }
 
+func (i IngressBackendArgs) ToOutput(ctx context.Context) pulumix.Output[IngressBackend] {
+	return pulumix.Output[IngressBackend]{
+		OutputState: i.ToIngressBackendOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i IngressBackendArgs) ToIngressBackendPtrOutput() IngressBackendPtrOutput {
 	return i.ToIngressBackendPtrOutputWithContext(context.Background())
 }
@@ -855,6 +982,12 @@ func (i *ingressBackendPtrType) ToIngressBackendPtrOutputWithContext(ctx context
 	return pulumi.ToOutputWithContext(ctx, i).(IngressBackendPtrOutput)
 }
 
+func (i *ingressBackendPtrType) ToOutput(ctx context.Context) pulumix.Output[*IngressBackend] {
+	return pulumix.Output[*IngressBackend]{
+		OutputState: i.ToIngressBackendPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // IngressBackend describes all endpoints for a given service and port.
 type IngressBackendOutput struct{ *pulumi.OutputState }
 
@@ -878,6 +1011,12 @@ func (o IngressBackendOutput) ToIngressBackendPtrOutputWithContext(ctx context.C
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v IngressBackend) *IngressBackend {
 		return &v
 	}).(IngressBackendPtrOutput)
+}
+
+func (o IngressBackendOutput) ToOutput(ctx context.Context) pulumix.Output[IngressBackend] {
+	return pulumix.Output[IngressBackend]{
+		OutputState: o.OutputState,
+	}
 }
 
 // Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, serviceName and servicePort must not be specified.
@@ -907,6 +1046,12 @@ func (o IngressBackendPtrOutput) ToIngressBackendPtrOutput() IngressBackendPtrOu
 
 func (o IngressBackendPtrOutput) ToIngressBackendPtrOutputWithContext(ctx context.Context) IngressBackendPtrOutput {
 	return o
+}
+
+func (o IngressBackendPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*IngressBackend] {
+	return pulumix.Output[*IngressBackend]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o IngressBackendPtrOutput) Elem() IngressBackendOutput {
@@ -992,6 +1137,12 @@ func (i IngressBackendPatchArgs) ToIngressBackendPatchOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(IngressBackendPatchOutput)
 }
 
+func (i IngressBackendPatchArgs) ToOutput(ctx context.Context) pulumix.Output[IngressBackendPatch] {
+	return pulumix.Output[IngressBackendPatch]{
+		OutputState: i.ToIngressBackendPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i IngressBackendPatchArgs) ToIngressBackendPatchPtrOutput() IngressBackendPatchPtrOutput {
 	return i.ToIngressBackendPatchPtrOutputWithContext(context.Background())
 }
@@ -1033,6 +1184,12 @@ func (i *ingressBackendPatchPtrType) ToIngressBackendPatchPtrOutputWithContext(c
 	return pulumi.ToOutputWithContext(ctx, i).(IngressBackendPatchPtrOutput)
 }
 
+func (i *ingressBackendPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*IngressBackendPatch] {
+	return pulumix.Output[*IngressBackendPatch]{
+		OutputState: i.ToIngressBackendPatchPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // IngressBackend describes all endpoints for a given service and port.
 type IngressBackendPatchOutput struct{ *pulumi.OutputState }
 
@@ -1056,6 +1213,12 @@ func (o IngressBackendPatchOutput) ToIngressBackendPatchPtrOutputWithContext(ctx
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v IngressBackendPatch) *IngressBackendPatch {
 		return &v
 	}).(IngressBackendPatchPtrOutput)
+}
+
+func (o IngressBackendPatchOutput) ToOutput(ctx context.Context) pulumix.Output[IngressBackendPatch] {
+	return pulumix.Output[IngressBackendPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, serviceName and servicePort must not be specified.
@@ -1085,6 +1248,12 @@ func (o IngressBackendPatchPtrOutput) ToIngressBackendPatchPtrOutput() IngressBa
 
 func (o IngressBackendPatchPtrOutput) ToIngressBackendPatchPtrOutputWithContext(ctx context.Context) IngressBackendPatchPtrOutput {
 	return o
+}
+
+func (o IngressBackendPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*IngressBackendPatch] {
+	return pulumix.Output[*IngressBackendPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o IngressBackendPatchPtrOutput) Elem() IngressBackendPatchOutput {
@@ -1174,6 +1343,12 @@ func (i IngressClassTypeArgs) ToIngressClassTypeOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(IngressClassTypeOutput)
 }
 
+func (i IngressClassTypeArgs) ToOutput(ctx context.Context) pulumix.Output[IngressClassType] {
+	return pulumix.Output[IngressClassType]{
+		OutputState: i.ToIngressClassTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // IngressClassTypeArrayInput is an input type that accepts IngressClassTypeArray and IngressClassTypeArrayOutput values.
 // You can construct a concrete instance of `IngressClassTypeArrayInput` via:
 //
@@ -1199,6 +1374,12 @@ func (i IngressClassTypeArray) ToIngressClassTypeArrayOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(IngressClassTypeArrayOutput)
 }
 
+func (i IngressClassTypeArray) ToOutput(ctx context.Context) pulumix.Output[[]IngressClassType] {
+	return pulumix.Output[[]IngressClassType]{
+		OutputState: i.ToIngressClassTypeArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // IngressClass represents the class of the Ingress, referenced by the Ingress Spec. The `ingressclass.kubernetes.io/is-default-class` annotation can be used to indicate that an IngressClass should be considered default. When a single IngressClass resource has this annotation set to true, new Ingress resources without a class specified will be assigned this default class.
 type IngressClassTypeOutput struct{ *pulumi.OutputState }
 
@@ -1212,6 +1393,12 @@ func (o IngressClassTypeOutput) ToIngressClassTypeOutput() IngressClassTypeOutpu
 
 func (o IngressClassTypeOutput) ToIngressClassTypeOutputWithContext(ctx context.Context) IngressClassTypeOutput {
 	return o
+}
+
+func (o IngressClassTypeOutput) ToOutput(ctx context.Context) pulumix.Output[IngressClassType] {
+	return pulumix.Output[IngressClassType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -1246,6 +1433,12 @@ func (o IngressClassTypeArrayOutput) ToIngressClassTypeArrayOutput() IngressClas
 
 func (o IngressClassTypeArrayOutput) ToIngressClassTypeArrayOutputWithContext(ctx context.Context) IngressClassTypeArrayOutput {
 	return o
+}
+
+func (o IngressClassTypeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]IngressClassType] {
+	return pulumix.Output[[]IngressClassType]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o IngressClassTypeArrayOutput) Index(i pulumi.IntInput) IngressClassTypeOutput {
@@ -1301,6 +1494,12 @@ func (i IngressClassListTypeArgs) ToIngressClassListTypeOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(IngressClassListTypeOutput)
 }
 
+func (i IngressClassListTypeArgs) ToOutput(ctx context.Context) pulumix.Output[IngressClassListType] {
+	return pulumix.Output[IngressClassListType]{
+		OutputState: i.ToIngressClassListTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // IngressClassList is a collection of IngressClasses.
 type IngressClassListTypeOutput struct{ *pulumi.OutputState }
 
@@ -1314,6 +1513,12 @@ func (o IngressClassListTypeOutput) ToIngressClassListTypeOutput() IngressClassL
 
 func (o IngressClassListTypeOutput) ToIngressClassListTypeOutputWithContext(ctx context.Context) IngressClassListTypeOutput {
 	return o
+}
+
+func (o IngressClassListTypeOutput) ToOutput(ctx context.Context) pulumix.Output[IngressClassListType] {
+	return pulumix.Output[IngressClassListType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -1383,6 +1588,12 @@ func (i IngressClassPatchTypeArgs) ToIngressClassPatchTypeOutputWithContext(ctx 
 	return pulumi.ToOutputWithContext(ctx, i).(IngressClassPatchTypeOutput)
 }
 
+func (i IngressClassPatchTypeArgs) ToOutput(ctx context.Context) pulumix.Output[IngressClassPatchType] {
+	return pulumix.Output[IngressClassPatchType]{
+		OutputState: i.ToIngressClassPatchTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // IngressClass represents the class of the Ingress, referenced by the Ingress Spec. The `ingressclass.kubernetes.io/is-default-class` annotation can be used to indicate that an IngressClass should be considered default. When a single IngressClass resource has this annotation set to true, new Ingress resources without a class specified will be assigned this default class.
 type IngressClassPatchTypeOutput struct{ *pulumi.OutputState }
 
@@ -1396,6 +1607,12 @@ func (o IngressClassPatchTypeOutput) ToIngressClassPatchTypeOutput() IngressClas
 
 func (o IngressClassPatchTypeOutput) ToIngressClassPatchTypeOutputWithContext(ctx context.Context) IngressClassPatchTypeOutput {
 	return o
+}
+
+func (o IngressClassPatchTypeOutput) ToOutput(ctx context.Context) pulumix.Output[IngressClassPatchType] {
+	return pulumix.Output[IngressClassPatchType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -1457,6 +1674,12 @@ func (i IngressClassSpecArgs) ToIngressClassSpecOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(IngressClassSpecOutput)
 }
 
+func (i IngressClassSpecArgs) ToOutput(ctx context.Context) pulumix.Output[IngressClassSpec] {
+	return pulumix.Output[IngressClassSpec]{
+		OutputState: i.ToIngressClassSpecOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i IngressClassSpecArgs) ToIngressClassSpecPtrOutput() IngressClassSpecPtrOutput {
 	return i.ToIngressClassSpecPtrOutputWithContext(context.Background())
 }
@@ -1498,6 +1721,12 @@ func (i *ingressClassSpecPtrType) ToIngressClassSpecPtrOutputWithContext(ctx con
 	return pulumi.ToOutputWithContext(ctx, i).(IngressClassSpecPtrOutput)
 }
 
+func (i *ingressClassSpecPtrType) ToOutput(ctx context.Context) pulumix.Output[*IngressClassSpec] {
+	return pulumix.Output[*IngressClassSpec]{
+		OutputState: i.ToIngressClassSpecPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // IngressClassSpec provides information about the class of an Ingress.
 type IngressClassSpecOutput struct{ *pulumi.OutputState }
 
@@ -1523,6 +1752,12 @@ func (o IngressClassSpecOutput) ToIngressClassSpecPtrOutputWithContext(ctx conte
 	}).(IngressClassSpecPtrOutput)
 }
 
+func (o IngressClassSpecOutput) ToOutput(ctx context.Context) pulumix.Output[IngressClassSpec] {
+	return pulumix.Output[IngressClassSpec]{
+		OutputState: o.OutputState,
+	}
+}
+
 // Controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
 func (o IngressClassSpecOutput) Controller() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IngressClassSpec) *string { return v.Controller }).(pulumi.StringPtrOutput)
@@ -1545,6 +1780,12 @@ func (o IngressClassSpecPtrOutput) ToIngressClassSpecPtrOutput() IngressClassSpe
 
 func (o IngressClassSpecPtrOutput) ToIngressClassSpecPtrOutputWithContext(ctx context.Context) IngressClassSpecPtrOutput {
 	return o
+}
+
+func (o IngressClassSpecPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*IngressClassSpec] {
+	return pulumix.Output[*IngressClassSpec]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o IngressClassSpecPtrOutput) Elem() IngressClassSpecOutput {
@@ -1616,6 +1857,12 @@ func (i IngressClassSpecPatchArgs) ToIngressClassSpecPatchOutputWithContext(ctx 
 	return pulumi.ToOutputWithContext(ctx, i).(IngressClassSpecPatchOutput)
 }
 
+func (i IngressClassSpecPatchArgs) ToOutput(ctx context.Context) pulumix.Output[IngressClassSpecPatch] {
+	return pulumix.Output[IngressClassSpecPatch]{
+		OutputState: i.ToIngressClassSpecPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i IngressClassSpecPatchArgs) ToIngressClassSpecPatchPtrOutput() IngressClassSpecPatchPtrOutput {
 	return i.ToIngressClassSpecPatchPtrOutputWithContext(context.Background())
 }
@@ -1657,6 +1904,12 @@ func (i *ingressClassSpecPatchPtrType) ToIngressClassSpecPatchPtrOutputWithConte
 	return pulumi.ToOutputWithContext(ctx, i).(IngressClassSpecPatchPtrOutput)
 }
 
+func (i *ingressClassSpecPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*IngressClassSpecPatch] {
+	return pulumix.Output[*IngressClassSpecPatch]{
+		OutputState: i.ToIngressClassSpecPatchPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // IngressClassSpec provides information about the class of an Ingress.
 type IngressClassSpecPatchOutput struct{ *pulumi.OutputState }
 
@@ -1682,6 +1935,12 @@ func (o IngressClassSpecPatchOutput) ToIngressClassSpecPatchPtrOutputWithContext
 	}).(IngressClassSpecPatchPtrOutput)
 }
 
+func (o IngressClassSpecPatchOutput) ToOutput(ctx context.Context) pulumix.Output[IngressClassSpecPatch] {
+	return pulumix.Output[IngressClassSpecPatch]{
+		OutputState: o.OutputState,
+	}
+}
+
 // Controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
 func (o IngressClassSpecPatchOutput) Controller() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v IngressClassSpecPatch) *string { return v.Controller }).(pulumi.StringPtrOutput)
@@ -1704,6 +1963,12 @@ func (o IngressClassSpecPatchPtrOutput) ToIngressClassSpecPatchPtrOutput() Ingre
 
 func (o IngressClassSpecPatchPtrOutput) ToIngressClassSpecPatchPtrOutputWithContext(ctx context.Context) IngressClassSpecPatchPtrOutput {
 	return o
+}
+
+func (o IngressClassSpecPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*IngressClassSpecPatch] {
+	return pulumix.Output[*IngressClassSpecPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o IngressClassSpecPatchPtrOutput) Elem() IngressClassSpecPatchOutput {
@@ -1783,6 +2048,12 @@ func (i IngressListTypeArgs) ToIngressListTypeOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(IngressListTypeOutput)
 }
 
+func (i IngressListTypeArgs) ToOutput(ctx context.Context) pulumix.Output[IngressListType] {
+	return pulumix.Output[IngressListType]{
+		OutputState: i.ToIngressListTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // IngressList is a collection of Ingress.
 type IngressListTypeOutput struct{ *pulumi.OutputState }
 
@@ -1796,6 +2067,12 @@ func (o IngressListTypeOutput) ToIngressListTypeOutput() IngressListTypeOutput {
 
 func (o IngressListTypeOutput) ToIngressListTypeOutputWithContext(ctx context.Context) IngressListTypeOutput {
 	return o
+}
+
+func (o IngressListTypeOutput) ToOutput(ctx context.Context) pulumix.Output[IngressListType] {
+	return pulumix.Output[IngressListType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -1897,6 +2174,12 @@ func (i IngressPatchTypeArgs) ToIngressPatchTypeOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(IngressPatchTypeOutput)
 }
 
+func (i IngressPatchTypeArgs) ToOutput(ctx context.Context) pulumix.Output[IngressPatchType] {
+	return pulumix.Output[IngressPatchType]{
+		OutputState: i.ToIngressPatchTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // Ingress is a collection of rules that allow inbound connections to reach the endpoints defined by a backend. An Ingress can be configured to give services externally-reachable urls, load balance traffic, terminate SSL, offer name based virtual hosting etc.
 //
 // This resource waits until its status is ready before registering success
@@ -1924,6 +2207,12 @@ func (o IngressPatchTypeOutput) ToIngressPatchTypeOutput() IngressPatchTypeOutpu
 
 func (o IngressPatchTypeOutput) ToIngressPatchTypeOutputWithContext(ctx context.Context) IngressPatchTypeOutput {
 	return o
+}
+
+func (o IngressPatchTypeOutput) ToOutput(ctx context.Context) pulumix.Output[IngressPatchType] {
+	return pulumix.Output[IngressPatchType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -1998,6 +2287,12 @@ func (i IngressRuleArgs) ToIngressRuleOutputWithContext(ctx context.Context) Ing
 	return pulumi.ToOutputWithContext(ctx, i).(IngressRuleOutput)
 }
 
+func (i IngressRuleArgs) ToOutput(ctx context.Context) pulumix.Output[IngressRule] {
+	return pulumix.Output[IngressRule]{
+		OutputState: i.ToIngressRuleOutputWithContext(ctx).OutputState,
+	}
+}
+
 // IngressRuleArrayInput is an input type that accepts IngressRuleArray and IngressRuleArrayOutput values.
 // You can construct a concrete instance of `IngressRuleArrayInput` via:
 //
@@ -2023,6 +2318,12 @@ func (i IngressRuleArray) ToIngressRuleArrayOutputWithContext(ctx context.Contex
 	return pulumi.ToOutputWithContext(ctx, i).(IngressRuleArrayOutput)
 }
 
+func (i IngressRuleArray) ToOutput(ctx context.Context) pulumix.Output[[]IngressRule] {
+	return pulumix.Output[[]IngressRule]{
+		OutputState: i.ToIngressRuleArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // IngressRule represents the rules mapping the paths under a specified host to the related backend services. Incoming requests are first evaluated for a host match, then routed to the backend associated with the matching IngressRuleValue.
 type IngressRuleOutput struct{ *pulumi.OutputState }
 
@@ -2036,6 +2337,12 @@ func (o IngressRuleOutput) ToIngressRuleOutput() IngressRuleOutput {
 
 func (o IngressRuleOutput) ToIngressRuleOutputWithContext(ctx context.Context) IngressRuleOutput {
 	return o
+}
+
+func (o IngressRuleOutput) ToOutput(ctx context.Context) pulumix.Output[IngressRule] {
+	return pulumix.Output[IngressRule]{
+		OutputState: o.OutputState,
+	}
 }
 
 // Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the "host" part of the URI as defined in the RFC: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to the
@@ -2066,6 +2373,12 @@ func (o IngressRuleArrayOutput) ToIngressRuleArrayOutput() IngressRuleArrayOutpu
 
 func (o IngressRuleArrayOutput) ToIngressRuleArrayOutputWithContext(ctx context.Context) IngressRuleArrayOutput {
 	return o
+}
+
+func (o IngressRuleArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]IngressRule] {
+	return pulumix.Output[[]IngressRule]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o IngressRuleArrayOutput) Index(i pulumi.IntInput) IngressRuleOutput {
@@ -2121,6 +2434,12 @@ func (i IngressRulePatchArgs) ToIngressRulePatchOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(IngressRulePatchOutput)
 }
 
+func (i IngressRulePatchArgs) ToOutput(ctx context.Context) pulumix.Output[IngressRulePatch] {
+	return pulumix.Output[IngressRulePatch]{
+		OutputState: i.ToIngressRulePatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 // IngressRulePatchArrayInput is an input type that accepts IngressRulePatchArray and IngressRulePatchArrayOutput values.
 // You can construct a concrete instance of `IngressRulePatchArrayInput` via:
 //
@@ -2146,6 +2465,12 @@ func (i IngressRulePatchArray) ToIngressRulePatchArrayOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(IngressRulePatchArrayOutput)
 }
 
+func (i IngressRulePatchArray) ToOutput(ctx context.Context) pulumix.Output[[]IngressRulePatch] {
+	return pulumix.Output[[]IngressRulePatch]{
+		OutputState: i.ToIngressRulePatchArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // IngressRule represents the rules mapping the paths under a specified host to the related backend services. Incoming requests are first evaluated for a host match, then routed to the backend associated with the matching IngressRuleValue.
 type IngressRulePatchOutput struct{ *pulumi.OutputState }
 
@@ -2159,6 +2484,12 @@ func (o IngressRulePatchOutput) ToIngressRulePatchOutput() IngressRulePatchOutpu
 
 func (o IngressRulePatchOutput) ToIngressRulePatchOutputWithContext(ctx context.Context) IngressRulePatchOutput {
 	return o
+}
+
+func (o IngressRulePatchOutput) ToOutput(ctx context.Context) pulumix.Output[IngressRulePatch] {
+	return pulumix.Output[IngressRulePatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the "host" part of the URI as defined in the RFC: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to the
@@ -2189,6 +2520,12 @@ func (o IngressRulePatchArrayOutput) ToIngressRulePatchArrayOutput() IngressRule
 
 func (o IngressRulePatchArrayOutput) ToIngressRulePatchArrayOutputWithContext(ctx context.Context) IngressRulePatchArrayOutput {
 	return o
+}
+
+func (o IngressRulePatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]IngressRulePatch] {
+	return pulumix.Output[[]IngressRulePatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o IngressRulePatchArrayOutput) Index(i pulumi.IntInput) IngressRulePatchOutput {
@@ -2244,6 +2581,12 @@ func (i IngressSpecArgs) ToIngressSpecOutputWithContext(ctx context.Context) Ing
 	return pulumi.ToOutputWithContext(ctx, i).(IngressSpecOutput)
 }
 
+func (i IngressSpecArgs) ToOutput(ctx context.Context) pulumix.Output[IngressSpec] {
+	return pulumix.Output[IngressSpec]{
+		OutputState: i.ToIngressSpecOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i IngressSpecArgs) ToIngressSpecPtrOutput() IngressSpecPtrOutput {
 	return i.ToIngressSpecPtrOutputWithContext(context.Background())
 }
@@ -2285,6 +2628,12 @@ func (i *ingressSpecPtrType) ToIngressSpecPtrOutputWithContext(ctx context.Conte
 	return pulumi.ToOutputWithContext(ctx, i).(IngressSpecPtrOutput)
 }
 
+func (i *ingressSpecPtrType) ToOutput(ctx context.Context) pulumix.Output[*IngressSpec] {
+	return pulumix.Output[*IngressSpec]{
+		OutputState: i.ToIngressSpecPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // IngressSpec describes the Ingress the user wishes to exist.
 type IngressSpecOutput struct{ *pulumi.OutputState }
 
@@ -2308,6 +2657,12 @@ func (o IngressSpecOutput) ToIngressSpecPtrOutputWithContext(ctx context.Context
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v IngressSpec) *IngressSpec {
 		return &v
 	}).(IngressSpecPtrOutput)
+}
+
+func (o IngressSpecOutput) ToOutput(ctx context.Context) pulumix.Output[IngressSpec] {
+	return pulumix.Output[IngressSpec]{
+		OutputState: o.OutputState,
+	}
 }
 
 // A default backend capable of servicing requests that don't match any rule. At least one of 'backend' or 'rules' must be specified. This field is optional to allow the loadbalancer controller or defaulting logic to specify a global default.
@@ -2342,6 +2697,12 @@ func (o IngressSpecPtrOutput) ToIngressSpecPtrOutput() IngressSpecPtrOutput {
 
 func (o IngressSpecPtrOutput) ToIngressSpecPtrOutputWithContext(ctx context.Context) IngressSpecPtrOutput {
 	return o
+}
+
+func (o IngressSpecPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*IngressSpec] {
+	return pulumix.Output[*IngressSpec]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o IngressSpecPtrOutput) Elem() IngressSpecOutput {
@@ -2441,6 +2802,12 @@ func (i IngressSpecPatchArgs) ToIngressSpecPatchOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(IngressSpecPatchOutput)
 }
 
+func (i IngressSpecPatchArgs) ToOutput(ctx context.Context) pulumix.Output[IngressSpecPatch] {
+	return pulumix.Output[IngressSpecPatch]{
+		OutputState: i.ToIngressSpecPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i IngressSpecPatchArgs) ToIngressSpecPatchPtrOutput() IngressSpecPatchPtrOutput {
 	return i.ToIngressSpecPatchPtrOutputWithContext(context.Background())
 }
@@ -2482,6 +2849,12 @@ func (i *ingressSpecPatchPtrType) ToIngressSpecPatchPtrOutputWithContext(ctx con
 	return pulumi.ToOutputWithContext(ctx, i).(IngressSpecPatchPtrOutput)
 }
 
+func (i *ingressSpecPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*IngressSpecPatch] {
+	return pulumix.Output[*IngressSpecPatch]{
+		OutputState: i.ToIngressSpecPatchPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // IngressSpec describes the Ingress the user wishes to exist.
 type IngressSpecPatchOutput struct{ *pulumi.OutputState }
 
@@ -2505,6 +2878,12 @@ func (o IngressSpecPatchOutput) ToIngressSpecPatchPtrOutputWithContext(ctx conte
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v IngressSpecPatch) *IngressSpecPatch {
 		return &v
 	}).(IngressSpecPatchPtrOutput)
+}
+
+func (o IngressSpecPatchOutput) ToOutput(ctx context.Context) pulumix.Output[IngressSpecPatch] {
+	return pulumix.Output[IngressSpecPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // A default backend capable of servicing requests that don't match any rule. At least one of 'backend' or 'rules' must be specified. This field is optional to allow the loadbalancer controller or defaulting logic to specify a global default.
@@ -2539,6 +2918,12 @@ func (o IngressSpecPatchPtrOutput) ToIngressSpecPatchPtrOutput() IngressSpecPatc
 
 func (o IngressSpecPatchPtrOutput) ToIngressSpecPatchPtrOutputWithContext(ctx context.Context) IngressSpecPatchPtrOutput {
 	return o
+}
+
+func (o IngressSpecPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*IngressSpecPatch] {
+	return pulumix.Output[*IngressSpecPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o IngressSpecPatchPtrOutput) Elem() IngressSpecPatchOutput {
@@ -2626,6 +3011,12 @@ func (i IngressStatusArgs) ToIngressStatusOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(IngressStatusOutput)
 }
 
+func (i IngressStatusArgs) ToOutput(ctx context.Context) pulumix.Output[IngressStatus] {
+	return pulumix.Output[IngressStatus]{
+		OutputState: i.ToIngressStatusOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i IngressStatusArgs) ToIngressStatusPtrOutput() IngressStatusPtrOutput {
 	return i.ToIngressStatusPtrOutputWithContext(context.Background())
 }
@@ -2667,6 +3058,12 @@ func (i *ingressStatusPtrType) ToIngressStatusPtrOutputWithContext(ctx context.C
 	return pulumi.ToOutputWithContext(ctx, i).(IngressStatusPtrOutput)
 }
 
+func (i *ingressStatusPtrType) ToOutput(ctx context.Context) pulumix.Output[*IngressStatus] {
+	return pulumix.Output[*IngressStatus]{
+		OutputState: i.ToIngressStatusPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // IngressStatus describe the current state of the Ingress.
 type IngressStatusOutput struct{ *pulumi.OutputState }
 
@@ -2692,6 +3089,12 @@ func (o IngressStatusOutput) ToIngressStatusPtrOutputWithContext(ctx context.Con
 	}).(IngressStatusPtrOutput)
 }
 
+func (o IngressStatusOutput) ToOutput(ctx context.Context) pulumix.Output[IngressStatus] {
+	return pulumix.Output[IngressStatus]{
+		OutputState: o.OutputState,
+	}
+}
+
 // LoadBalancer contains the current status of the load-balancer.
 func (o IngressStatusOutput) LoadBalancer() corev1.LoadBalancerStatusPtrOutput {
 	return o.ApplyT(func(v IngressStatus) *corev1.LoadBalancerStatus { return v.LoadBalancer }).(corev1.LoadBalancerStatusPtrOutput)
@@ -2709,6 +3112,12 @@ func (o IngressStatusPtrOutput) ToIngressStatusPtrOutput() IngressStatusPtrOutpu
 
 func (o IngressStatusPtrOutput) ToIngressStatusPtrOutputWithContext(ctx context.Context) IngressStatusPtrOutput {
 	return o
+}
+
+func (o IngressStatusPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*IngressStatus] {
+	return pulumix.Output[*IngressStatus]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o IngressStatusPtrOutput) Elem() IngressStatusOutput {
@@ -2766,6 +3175,12 @@ func (i IngressStatusPatchArgs) ToIngressStatusPatchOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(IngressStatusPatchOutput)
 }
 
+func (i IngressStatusPatchArgs) ToOutput(ctx context.Context) pulumix.Output[IngressStatusPatch] {
+	return pulumix.Output[IngressStatusPatch]{
+		OutputState: i.ToIngressStatusPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i IngressStatusPatchArgs) ToIngressStatusPatchPtrOutput() IngressStatusPatchPtrOutput {
 	return i.ToIngressStatusPatchPtrOutputWithContext(context.Background())
 }
@@ -2807,6 +3222,12 @@ func (i *ingressStatusPatchPtrType) ToIngressStatusPatchPtrOutputWithContext(ctx
 	return pulumi.ToOutputWithContext(ctx, i).(IngressStatusPatchPtrOutput)
 }
 
+func (i *ingressStatusPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*IngressStatusPatch] {
+	return pulumix.Output[*IngressStatusPatch]{
+		OutputState: i.ToIngressStatusPatchPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // IngressStatus describe the current state of the Ingress.
 type IngressStatusPatchOutput struct{ *pulumi.OutputState }
 
@@ -2832,6 +3253,12 @@ func (o IngressStatusPatchOutput) ToIngressStatusPatchPtrOutputWithContext(ctx c
 	}).(IngressStatusPatchPtrOutput)
 }
 
+func (o IngressStatusPatchOutput) ToOutput(ctx context.Context) pulumix.Output[IngressStatusPatch] {
+	return pulumix.Output[IngressStatusPatch]{
+		OutputState: o.OutputState,
+	}
+}
+
 // LoadBalancer contains the current status of the load-balancer.
 func (o IngressStatusPatchOutput) LoadBalancer() corev1.LoadBalancerStatusPatchPtrOutput {
 	return o.ApplyT(func(v IngressStatusPatch) *corev1.LoadBalancerStatusPatch { return v.LoadBalancer }).(corev1.LoadBalancerStatusPatchPtrOutput)
@@ -2849,6 +3276,12 @@ func (o IngressStatusPatchPtrOutput) ToIngressStatusPatchPtrOutput() IngressStat
 
 func (o IngressStatusPatchPtrOutput) ToIngressStatusPatchPtrOutputWithContext(ctx context.Context) IngressStatusPatchPtrOutput {
 	return o
+}
+
+func (o IngressStatusPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*IngressStatusPatch] {
+	return pulumix.Output[*IngressStatusPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o IngressStatusPatchPtrOutput) Elem() IngressStatusPatchOutput {
@@ -2910,6 +3343,12 @@ func (i IngressTLSArgs) ToIngressTLSOutputWithContext(ctx context.Context) Ingre
 	return pulumi.ToOutputWithContext(ctx, i).(IngressTLSOutput)
 }
 
+func (i IngressTLSArgs) ToOutput(ctx context.Context) pulumix.Output[IngressTLS] {
+	return pulumix.Output[IngressTLS]{
+		OutputState: i.ToIngressTLSOutputWithContext(ctx).OutputState,
+	}
+}
+
 // IngressTLSArrayInput is an input type that accepts IngressTLSArray and IngressTLSArrayOutput values.
 // You can construct a concrete instance of `IngressTLSArrayInput` via:
 //
@@ -2935,6 +3374,12 @@ func (i IngressTLSArray) ToIngressTLSArrayOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(IngressTLSArrayOutput)
 }
 
+func (i IngressTLSArray) ToOutput(ctx context.Context) pulumix.Output[[]IngressTLS] {
+	return pulumix.Output[[]IngressTLS]{
+		OutputState: i.ToIngressTLSArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // IngressTLS describes the transport layer security associated with an Ingress.
 type IngressTLSOutput struct{ *pulumi.OutputState }
 
@@ -2948,6 +3393,12 @@ func (o IngressTLSOutput) ToIngressTLSOutput() IngressTLSOutput {
 
 func (o IngressTLSOutput) ToIngressTLSOutputWithContext(ctx context.Context) IngressTLSOutput {
 	return o
+}
+
+func (o IngressTLSOutput) ToOutput(ctx context.Context) pulumix.Output[IngressTLS] {
+	return pulumix.Output[IngressTLS]{
+		OutputState: o.OutputState,
+	}
 }
 
 // Hosts are a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
@@ -2972,6 +3423,12 @@ func (o IngressTLSArrayOutput) ToIngressTLSArrayOutput() IngressTLSArrayOutput {
 
 func (o IngressTLSArrayOutput) ToIngressTLSArrayOutputWithContext(ctx context.Context) IngressTLSArrayOutput {
 	return o
+}
+
+func (o IngressTLSArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]IngressTLS] {
+	return pulumix.Output[[]IngressTLS]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o IngressTLSArrayOutput) Index(i pulumi.IntInput) IngressTLSOutput {
@@ -3019,6 +3476,12 @@ func (i IngressTLSPatchArgs) ToIngressTLSPatchOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(IngressTLSPatchOutput)
 }
 
+func (i IngressTLSPatchArgs) ToOutput(ctx context.Context) pulumix.Output[IngressTLSPatch] {
+	return pulumix.Output[IngressTLSPatch]{
+		OutputState: i.ToIngressTLSPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 // IngressTLSPatchArrayInput is an input type that accepts IngressTLSPatchArray and IngressTLSPatchArrayOutput values.
 // You can construct a concrete instance of `IngressTLSPatchArrayInput` via:
 //
@@ -3044,6 +3507,12 @@ func (i IngressTLSPatchArray) ToIngressTLSPatchArrayOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(IngressTLSPatchArrayOutput)
 }
 
+func (i IngressTLSPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]IngressTLSPatch] {
+	return pulumix.Output[[]IngressTLSPatch]{
+		OutputState: i.ToIngressTLSPatchArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // IngressTLS describes the transport layer security associated with an Ingress.
 type IngressTLSPatchOutput struct{ *pulumi.OutputState }
 
@@ -3057,6 +3526,12 @@ func (o IngressTLSPatchOutput) ToIngressTLSPatchOutput() IngressTLSPatchOutput {
 
 func (o IngressTLSPatchOutput) ToIngressTLSPatchOutputWithContext(ctx context.Context) IngressTLSPatchOutput {
 	return o
+}
+
+func (o IngressTLSPatchOutput) ToOutput(ctx context.Context) pulumix.Output[IngressTLSPatch] {
+	return pulumix.Output[IngressTLSPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // Hosts are a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
@@ -3081,6 +3556,12 @@ func (o IngressTLSPatchArrayOutput) ToIngressTLSPatchArrayOutput() IngressTLSPat
 
 func (o IngressTLSPatchArrayOutput) ToIngressTLSPatchArrayOutputWithContext(ctx context.Context) IngressTLSPatchArrayOutput {
 	return o
+}
+
+func (o IngressTLSPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]IngressTLSPatch] {
+	return pulumix.Output[[]IngressTLSPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o IngressTLSPatchArrayOutput) Index(i pulumi.IntInput) IngressTLSPatchOutput {

@@ -10,6 +10,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -140,6 +141,12 @@ func (i *RuntimeClassPatch) ToRuntimeClassPatchOutputWithContext(ctx context.Con
 	return pulumi.ToOutputWithContext(ctx, i).(RuntimeClassPatchOutput)
 }
 
+func (i *RuntimeClassPatch) ToOutput(ctx context.Context) pulumix.Output[*RuntimeClassPatch] {
+	return pulumix.Output[*RuntimeClassPatch]{
+		OutputState: i.ToRuntimeClassPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 // RuntimeClassPatchArrayInput is an input type that accepts RuntimeClassPatchArray and RuntimeClassPatchArrayOutput values.
 // You can construct a concrete instance of `RuntimeClassPatchArrayInput` via:
 //
@@ -163,6 +170,12 @@ func (i RuntimeClassPatchArray) ToRuntimeClassPatchArrayOutput() RuntimeClassPat
 
 func (i RuntimeClassPatchArray) ToRuntimeClassPatchArrayOutputWithContext(ctx context.Context) RuntimeClassPatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(RuntimeClassPatchArrayOutput)
+}
+
+func (i RuntimeClassPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*RuntimeClassPatch] {
+	return pulumix.Output[[]*RuntimeClassPatch]{
+		OutputState: i.ToRuntimeClassPatchArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // RuntimeClassPatchMapInput is an input type that accepts RuntimeClassPatchMap and RuntimeClassPatchMapOutput values.
@@ -190,6 +203,12 @@ func (i RuntimeClassPatchMap) ToRuntimeClassPatchMapOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(RuntimeClassPatchMapOutput)
 }
 
+func (i RuntimeClassPatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*RuntimeClassPatch] {
+	return pulumix.Output[map[string]*RuntimeClassPatch]{
+		OutputState: i.ToRuntimeClassPatchMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type RuntimeClassPatchOutput struct{ *pulumi.OutputState }
 
 func (RuntimeClassPatchOutput) ElementType() reflect.Type {
@@ -202,6 +221,12 @@ func (o RuntimeClassPatchOutput) ToRuntimeClassPatchOutput() RuntimeClassPatchOu
 
 func (o RuntimeClassPatchOutput) ToRuntimeClassPatchOutputWithContext(ctx context.Context) RuntimeClassPatchOutput {
 	return o
+}
+
+func (o RuntimeClassPatchOutput) ToOutput(ctx context.Context) pulumix.Output[*RuntimeClassPatch] {
+	return pulumix.Output[*RuntimeClassPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -248,6 +273,12 @@ func (o RuntimeClassPatchArrayOutput) ToRuntimeClassPatchArrayOutputWithContext(
 	return o
 }
 
+func (o RuntimeClassPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*RuntimeClassPatch] {
+	return pulumix.Output[[]*RuntimeClassPatch]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o RuntimeClassPatchArrayOutput) Index(i pulumi.IntInput) RuntimeClassPatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *RuntimeClassPatch {
 		return vs[0].([]*RuntimeClassPatch)[vs[1].(int)]
@@ -266,6 +297,12 @@ func (o RuntimeClassPatchMapOutput) ToRuntimeClassPatchMapOutput() RuntimeClassP
 
 func (o RuntimeClassPatchMapOutput) ToRuntimeClassPatchMapOutputWithContext(ctx context.Context) RuntimeClassPatchMapOutput {
 	return o
+}
+
+func (o RuntimeClassPatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*RuntimeClassPatch] {
+	return pulumix.Output[map[string]*RuntimeClassPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o RuntimeClassPatchMapOutput) MapIndex(k pulumi.StringInput) RuntimeClassPatchOutput {

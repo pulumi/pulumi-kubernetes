@@ -10,6 +10,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -119,6 +120,12 @@ func (i *BindingPatch) ToBindingPatchOutputWithContext(ctx context.Context) Bind
 	return pulumi.ToOutputWithContext(ctx, i).(BindingPatchOutput)
 }
 
+func (i *BindingPatch) ToOutput(ctx context.Context) pulumix.Output[*BindingPatch] {
+	return pulumix.Output[*BindingPatch]{
+		OutputState: i.ToBindingPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 // BindingPatchArrayInput is an input type that accepts BindingPatchArray and BindingPatchArrayOutput values.
 // You can construct a concrete instance of `BindingPatchArrayInput` via:
 //
@@ -142,6 +149,12 @@ func (i BindingPatchArray) ToBindingPatchArrayOutput() BindingPatchArrayOutput {
 
 func (i BindingPatchArray) ToBindingPatchArrayOutputWithContext(ctx context.Context) BindingPatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(BindingPatchArrayOutput)
+}
+
+func (i BindingPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*BindingPatch] {
+	return pulumix.Output[[]*BindingPatch]{
+		OutputState: i.ToBindingPatchArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // BindingPatchMapInput is an input type that accepts BindingPatchMap and BindingPatchMapOutput values.
@@ -169,6 +182,12 @@ func (i BindingPatchMap) ToBindingPatchMapOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(BindingPatchMapOutput)
 }
 
+func (i BindingPatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*BindingPatch] {
+	return pulumix.Output[map[string]*BindingPatch]{
+		OutputState: i.ToBindingPatchMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type BindingPatchOutput struct{ *pulumi.OutputState }
 
 func (BindingPatchOutput) ElementType() reflect.Type {
@@ -181,6 +200,12 @@ func (o BindingPatchOutput) ToBindingPatchOutput() BindingPatchOutput {
 
 func (o BindingPatchOutput) ToBindingPatchOutputWithContext(ctx context.Context) BindingPatchOutput {
 	return o
+}
+
+func (o BindingPatchOutput) ToOutput(ctx context.Context) pulumix.Output[*BindingPatch] {
+	return pulumix.Output[*BindingPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -217,6 +242,12 @@ func (o BindingPatchArrayOutput) ToBindingPatchArrayOutputWithContext(ctx contex
 	return o
 }
 
+func (o BindingPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*BindingPatch] {
+	return pulumix.Output[[]*BindingPatch]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o BindingPatchArrayOutput) Index(i pulumi.IntInput) BindingPatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *BindingPatch {
 		return vs[0].([]*BindingPatch)[vs[1].(int)]
@@ -235,6 +266,12 @@ func (o BindingPatchMapOutput) ToBindingPatchMapOutput() BindingPatchMapOutput {
 
 func (o BindingPatchMapOutput) ToBindingPatchMapOutputWithContext(ctx context.Context) BindingPatchMapOutput {
 	return o
+}
+
+func (o BindingPatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*BindingPatch] {
+	return pulumix.Output[map[string]*BindingPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o BindingPatchMapOutput) MapIndex(k pulumi.StringInput) BindingPatchOutput {

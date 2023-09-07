@@ -10,6 +10,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -136,6 +137,12 @@ func (i *ControllerRevisionPatch) ToControllerRevisionPatchOutputWithContext(ctx
 	return pulumi.ToOutputWithContext(ctx, i).(ControllerRevisionPatchOutput)
 }
 
+func (i *ControllerRevisionPatch) ToOutput(ctx context.Context) pulumix.Output[*ControllerRevisionPatch] {
+	return pulumix.Output[*ControllerRevisionPatch]{
+		OutputState: i.ToControllerRevisionPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ControllerRevisionPatchArrayInput is an input type that accepts ControllerRevisionPatchArray and ControllerRevisionPatchArrayOutput values.
 // You can construct a concrete instance of `ControllerRevisionPatchArrayInput` via:
 //
@@ -159,6 +166,12 @@ func (i ControllerRevisionPatchArray) ToControllerRevisionPatchArrayOutput() Con
 
 func (i ControllerRevisionPatchArray) ToControllerRevisionPatchArrayOutputWithContext(ctx context.Context) ControllerRevisionPatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ControllerRevisionPatchArrayOutput)
+}
+
+func (i ControllerRevisionPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*ControllerRevisionPatch] {
+	return pulumix.Output[[]*ControllerRevisionPatch]{
+		OutputState: i.ToControllerRevisionPatchArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // ControllerRevisionPatchMapInput is an input type that accepts ControllerRevisionPatchMap and ControllerRevisionPatchMapOutput values.
@@ -186,6 +199,12 @@ func (i ControllerRevisionPatchMap) ToControllerRevisionPatchMapOutputWithContex
 	return pulumi.ToOutputWithContext(ctx, i).(ControllerRevisionPatchMapOutput)
 }
 
+func (i ControllerRevisionPatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*ControllerRevisionPatch] {
+	return pulumix.Output[map[string]*ControllerRevisionPatch]{
+		OutputState: i.ToControllerRevisionPatchMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type ControllerRevisionPatchOutput struct{ *pulumi.OutputState }
 
 func (ControllerRevisionPatchOutput) ElementType() reflect.Type {
@@ -198,6 +217,12 @@ func (o ControllerRevisionPatchOutput) ToControllerRevisionPatchOutput() Control
 
 func (o ControllerRevisionPatchOutput) ToControllerRevisionPatchOutputWithContext(ctx context.Context) ControllerRevisionPatchOutput {
 	return o
+}
+
+func (o ControllerRevisionPatchOutput) ToOutput(ctx context.Context) pulumix.Output[*ControllerRevisionPatch] {
+	return pulumix.Output[*ControllerRevisionPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -239,6 +264,12 @@ func (o ControllerRevisionPatchArrayOutput) ToControllerRevisionPatchArrayOutput
 	return o
 }
 
+func (o ControllerRevisionPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*ControllerRevisionPatch] {
+	return pulumix.Output[[]*ControllerRevisionPatch]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o ControllerRevisionPatchArrayOutput) Index(i pulumi.IntInput) ControllerRevisionPatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *ControllerRevisionPatch {
 		return vs[0].([]*ControllerRevisionPatch)[vs[1].(int)]
@@ -257,6 +288,12 @@ func (o ControllerRevisionPatchMapOutput) ToControllerRevisionPatchMapOutput() C
 
 func (o ControllerRevisionPatchMapOutput) ToControllerRevisionPatchMapOutputWithContext(ctx context.Context) ControllerRevisionPatchMapOutput {
 	return o
+}
+
+func (o ControllerRevisionPatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*ControllerRevisionPatch] {
+	return pulumix.Output[map[string]*ControllerRevisionPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ControllerRevisionPatchMapOutput) MapIndex(k pulumi.StringInput) ControllerRevisionPatchOutput {

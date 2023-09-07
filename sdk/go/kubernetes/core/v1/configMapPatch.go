@@ -10,6 +10,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -131,6 +132,12 @@ func (i *ConfigMapPatch) ToConfigMapPatchOutputWithContext(ctx context.Context) 
 	return pulumi.ToOutputWithContext(ctx, i).(ConfigMapPatchOutput)
 }
 
+func (i *ConfigMapPatch) ToOutput(ctx context.Context) pulumix.Output[*ConfigMapPatch] {
+	return pulumix.Output[*ConfigMapPatch]{
+		OutputState: i.ToConfigMapPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ConfigMapPatchArrayInput is an input type that accepts ConfigMapPatchArray and ConfigMapPatchArrayOutput values.
 // You can construct a concrete instance of `ConfigMapPatchArrayInput` via:
 //
@@ -154,6 +161,12 @@ func (i ConfigMapPatchArray) ToConfigMapPatchArrayOutput() ConfigMapPatchArrayOu
 
 func (i ConfigMapPatchArray) ToConfigMapPatchArrayOutputWithContext(ctx context.Context) ConfigMapPatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ConfigMapPatchArrayOutput)
+}
+
+func (i ConfigMapPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*ConfigMapPatch] {
+	return pulumix.Output[[]*ConfigMapPatch]{
+		OutputState: i.ToConfigMapPatchArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // ConfigMapPatchMapInput is an input type that accepts ConfigMapPatchMap and ConfigMapPatchMapOutput values.
@@ -181,6 +194,12 @@ func (i ConfigMapPatchMap) ToConfigMapPatchMapOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(ConfigMapPatchMapOutput)
 }
 
+func (i ConfigMapPatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*ConfigMapPatch] {
+	return pulumix.Output[map[string]*ConfigMapPatch]{
+		OutputState: i.ToConfigMapPatchMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type ConfigMapPatchOutput struct{ *pulumi.OutputState }
 
 func (ConfigMapPatchOutput) ElementType() reflect.Type {
@@ -193,6 +212,12 @@ func (o ConfigMapPatchOutput) ToConfigMapPatchOutput() ConfigMapPatchOutput {
 
 func (o ConfigMapPatchOutput) ToConfigMapPatchOutputWithContext(ctx context.Context) ConfigMapPatchOutput {
 	return o
+}
+
+func (o ConfigMapPatchOutput) ToOutput(ctx context.Context) pulumix.Output[*ConfigMapPatch] {
+	return pulumix.Output[*ConfigMapPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -239,6 +264,12 @@ func (o ConfigMapPatchArrayOutput) ToConfigMapPatchArrayOutputWithContext(ctx co
 	return o
 }
 
+func (o ConfigMapPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*ConfigMapPatch] {
+	return pulumix.Output[[]*ConfigMapPatch]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o ConfigMapPatchArrayOutput) Index(i pulumi.IntInput) ConfigMapPatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *ConfigMapPatch {
 		return vs[0].([]*ConfigMapPatch)[vs[1].(int)]
@@ -257,6 +288,12 @@ func (o ConfigMapPatchMapOutput) ToConfigMapPatchMapOutput() ConfigMapPatchMapOu
 
 func (o ConfigMapPatchMapOutput) ToConfigMapPatchMapOutputWithContext(ctx context.Context) ConfigMapPatchMapOutput {
 	return o
+}
+
+func (o ConfigMapPatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*ConfigMapPatch] {
+	return pulumix.Output[map[string]*ConfigMapPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ConfigMapPatchMapOutput) MapIndex(k pulumi.StringInput) ConfigMapPatchOutput {

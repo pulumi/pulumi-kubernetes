@@ -8,6 +8,7 @@ import (
 	"reflect"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 type ServiceSpecType string
@@ -79,6 +80,12 @@ func (o ServiceSpecTypeOutput) ToServiceSpecTypePtrOutputWithContext(ctx context
 	}).(ServiceSpecTypePtrOutput)
 }
 
+func (o ServiceSpecTypeOutput) ToOutput(ctx context.Context) pulumix.Output[ServiceSpecType] {
+	return pulumix.Output[ServiceSpecType]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o ServiceSpecTypeOutput) ToStringOutput() pulumi.StringOutput {
 	return o.ToStringOutputWithContext(context.Background())
 }
@@ -112,6 +119,12 @@ func (o ServiceSpecTypePtrOutput) ToServiceSpecTypePtrOutput() ServiceSpecTypePt
 
 func (o ServiceSpecTypePtrOutput) ToServiceSpecTypePtrOutputWithContext(ctx context.Context) ServiceSpecTypePtrOutput {
 	return o
+}
+
+func (o ServiceSpecTypePtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ServiceSpecType] {
+	return pulumix.Output[*ServiceSpecType]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ServiceSpecTypePtrOutput) Elem() ServiceSpecTypeOutput {
@@ -174,6 +187,12 @@ func (in *serviceSpecTypePtr) ToServiceSpecTypePtrOutput() ServiceSpecTypePtrOut
 
 func (in *serviceSpecTypePtr) ToServiceSpecTypePtrOutputWithContext(ctx context.Context) ServiceSpecTypePtrOutput {
 	return pulumi.ToOutputWithContext(ctx, in).(ServiceSpecTypePtrOutput)
+}
+
+func (in *serviceSpecTypePtr) ToOutput(ctx context.Context) pulumix.Output[*ServiceSpecType] {
+	return pulumix.Output[*ServiceSpecType]{
+		OutputState: in.ToServiceSpecTypePtrOutputWithContext(ctx).OutputState,
+	}
 }
 
 func init() {

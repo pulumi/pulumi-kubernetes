@@ -10,6 +10,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 var _ = internal.GetEnvOrDefault
@@ -65,6 +66,12 @@ func (i ExemptPriorityLevelConfigurationArgs) ToExemptPriorityLevelConfiguration
 	return pulumi.ToOutputWithContext(ctx, i).(ExemptPriorityLevelConfigurationOutput)
 }
 
+func (i ExemptPriorityLevelConfigurationArgs) ToOutput(ctx context.Context) pulumix.Output[ExemptPriorityLevelConfiguration] {
+	return pulumix.Output[ExemptPriorityLevelConfiguration]{
+		OutputState: i.ToExemptPriorityLevelConfigurationOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i ExemptPriorityLevelConfigurationArgs) ToExemptPriorityLevelConfigurationPtrOutput() ExemptPriorityLevelConfigurationPtrOutput {
 	return i.ToExemptPriorityLevelConfigurationPtrOutputWithContext(context.Background())
 }
@@ -106,6 +113,12 @@ func (i *exemptPriorityLevelConfigurationPtrType) ToExemptPriorityLevelConfigura
 	return pulumi.ToOutputWithContext(ctx, i).(ExemptPriorityLevelConfigurationPtrOutput)
 }
 
+func (i *exemptPriorityLevelConfigurationPtrType) ToOutput(ctx context.Context) pulumix.Output[*ExemptPriorityLevelConfiguration] {
+	return pulumix.Output[*ExemptPriorityLevelConfiguration]{
+		OutputState: i.ToExemptPriorityLevelConfigurationPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ExemptPriorityLevelConfiguration describes the configurable aspects of the handling of exempt requests. In the mandatory exempt configuration object the values in the fields here can be modified by authorized users, unlike the rest of the `spec`.
 type ExemptPriorityLevelConfigurationOutput struct{ *pulumi.OutputState }
 
@@ -129,6 +142,12 @@ func (o ExemptPriorityLevelConfigurationOutput) ToExemptPriorityLevelConfigurati
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v ExemptPriorityLevelConfiguration) *ExemptPriorityLevelConfiguration {
 		return &v
 	}).(ExemptPriorityLevelConfigurationPtrOutput)
+}
+
+func (o ExemptPriorityLevelConfigurationOutput) ToOutput(ctx context.Context) pulumix.Output[ExemptPriorityLevelConfiguration] {
+	return pulumix.Output[ExemptPriorityLevelConfiguration]{
+		OutputState: o.OutputState,
+	}
 }
 
 // `lendablePercent` prescribes the fraction of the level's NominalCL that can be borrowed by other priority levels.  This value of this field must be between 0 and 100, inclusive, and it defaults to 0. The number of seats that other levels can borrow from this level, known as this level's LendableConcurrencyLimit (LendableCL), is defined as follows.
@@ -159,6 +178,12 @@ func (o ExemptPriorityLevelConfigurationPtrOutput) ToExemptPriorityLevelConfigur
 
 func (o ExemptPriorityLevelConfigurationPtrOutput) ToExemptPriorityLevelConfigurationPtrOutputWithContext(ctx context.Context) ExemptPriorityLevelConfigurationPtrOutput {
 	return o
+}
+
+func (o ExemptPriorityLevelConfigurationPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ExemptPriorityLevelConfiguration] {
+	return pulumix.Output[*ExemptPriorityLevelConfiguration]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ExemptPriorityLevelConfigurationPtrOutput) Elem() ExemptPriorityLevelConfigurationOutput {
@@ -248,6 +273,12 @@ func (i ExemptPriorityLevelConfigurationPatchArgs) ToExemptPriorityLevelConfigur
 	return pulumi.ToOutputWithContext(ctx, i).(ExemptPriorityLevelConfigurationPatchOutput)
 }
 
+func (i ExemptPriorityLevelConfigurationPatchArgs) ToOutput(ctx context.Context) pulumix.Output[ExemptPriorityLevelConfigurationPatch] {
+	return pulumix.Output[ExemptPriorityLevelConfigurationPatch]{
+		OutputState: i.ToExemptPriorityLevelConfigurationPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i ExemptPriorityLevelConfigurationPatchArgs) ToExemptPriorityLevelConfigurationPatchPtrOutput() ExemptPriorityLevelConfigurationPatchPtrOutput {
 	return i.ToExemptPriorityLevelConfigurationPatchPtrOutputWithContext(context.Background())
 }
@@ -289,6 +320,12 @@ func (i *exemptPriorityLevelConfigurationPatchPtrType) ToExemptPriorityLevelConf
 	return pulumi.ToOutputWithContext(ctx, i).(ExemptPriorityLevelConfigurationPatchPtrOutput)
 }
 
+func (i *exemptPriorityLevelConfigurationPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*ExemptPriorityLevelConfigurationPatch] {
+	return pulumix.Output[*ExemptPriorityLevelConfigurationPatch]{
+		OutputState: i.ToExemptPriorityLevelConfigurationPatchPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ExemptPriorityLevelConfiguration describes the configurable aspects of the handling of exempt requests. In the mandatory exempt configuration object the values in the fields here can be modified by authorized users, unlike the rest of the `spec`.
 type ExemptPriorityLevelConfigurationPatchOutput struct{ *pulumi.OutputState }
 
@@ -312,6 +349,12 @@ func (o ExemptPriorityLevelConfigurationPatchOutput) ToExemptPriorityLevelConfig
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v ExemptPriorityLevelConfigurationPatch) *ExemptPriorityLevelConfigurationPatch {
 		return &v
 	}).(ExemptPriorityLevelConfigurationPatchPtrOutput)
+}
+
+func (o ExemptPriorityLevelConfigurationPatchOutput) ToOutput(ctx context.Context) pulumix.Output[ExemptPriorityLevelConfigurationPatch] {
+	return pulumix.Output[ExemptPriorityLevelConfigurationPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // `lendablePercent` prescribes the fraction of the level's NominalCL that can be borrowed by other priority levels.  This value of this field must be between 0 and 100, inclusive, and it defaults to 0. The number of seats that other levels can borrow from this level, known as this level's LendableConcurrencyLimit (LendableCL), is defined as follows.
@@ -342,6 +385,12 @@ func (o ExemptPriorityLevelConfigurationPatchPtrOutput) ToExemptPriorityLevelCon
 
 func (o ExemptPriorityLevelConfigurationPatchPtrOutput) ToExemptPriorityLevelConfigurationPatchPtrOutputWithContext(ctx context.Context) ExemptPriorityLevelConfigurationPatchPtrOutput {
 	return o
+}
+
+func (o ExemptPriorityLevelConfigurationPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ExemptPriorityLevelConfigurationPatch] {
+	return pulumix.Output[*ExemptPriorityLevelConfigurationPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ExemptPriorityLevelConfigurationPatchPtrOutput) Elem() ExemptPriorityLevelConfigurationPatchOutput {
@@ -415,6 +464,12 @@ func (i FlowDistinguisherMethodArgs) ToFlowDistinguisherMethodOutputWithContext(
 	return pulumi.ToOutputWithContext(ctx, i).(FlowDistinguisherMethodOutput)
 }
 
+func (i FlowDistinguisherMethodArgs) ToOutput(ctx context.Context) pulumix.Output[FlowDistinguisherMethod] {
+	return pulumix.Output[FlowDistinguisherMethod]{
+		OutputState: i.ToFlowDistinguisherMethodOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i FlowDistinguisherMethodArgs) ToFlowDistinguisherMethodPtrOutput() FlowDistinguisherMethodPtrOutput {
 	return i.ToFlowDistinguisherMethodPtrOutputWithContext(context.Background())
 }
@@ -456,6 +511,12 @@ func (i *flowDistinguisherMethodPtrType) ToFlowDistinguisherMethodPtrOutputWithC
 	return pulumi.ToOutputWithContext(ctx, i).(FlowDistinguisherMethodPtrOutput)
 }
 
+func (i *flowDistinguisherMethodPtrType) ToOutput(ctx context.Context) pulumix.Output[*FlowDistinguisherMethod] {
+	return pulumix.Output[*FlowDistinguisherMethod]{
+		OutputState: i.ToFlowDistinguisherMethodPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // FlowDistinguisherMethod specifies the method of a flow distinguisher.
 type FlowDistinguisherMethodOutput struct{ *pulumi.OutputState }
 
@@ -481,6 +542,12 @@ func (o FlowDistinguisherMethodOutput) ToFlowDistinguisherMethodPtrOutputWithCon
 	}).(FlowDistinguisherMethodPtrOutput)
 }
 
+func (o FlowDistinguisherMethodOutput) ToOutput(ctx context.Context) pulumix.Output[FlowDistinguisherMethod] {
+	return pulumix.Output[FlowDistinguisherMethod]{
+		OutputState: o.OutputState,
+	}
+}
+
 // `type` is the type of flow distinguisher method The supported types are "ByUser" and "ByNamespace". Required.
 func (o FlowDistinguisherMethodOutput) Type() pulumi.StringOutput {
 	return o.ApplyT(func(v FlowDistinguisherMethod) string { return v.Type }).(pulumi.StringOutput)
@@ -498,6 +565,12 @@ func (o FlowDistinguisherMethodPtrOutput) ToFlowDistinguisherMethodPtrOutput() F
 
 func (o FlowDistinguisherMethodPtrOutput) ToFlowDistinguisherMethodPtrOutputWithContext(ctx context.Context) FlowDistinguisherMethodPtrOutput {
 	return o
+}
+
+func (o FlowDistinguisherMethodPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*FlowDistinguisherMethod] {
+	return pulumix.Output[*FlowDistinguisherMethod]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o FlowDistinguisherMethodPtrOutput) Elem() FlowDistinguisherMethodOutput {
@@ -555,6 +628,12 @@ func (i FlowDistinguisherMethodPatchArgs) ToFlowDistinguisherMethodPatchOutputWi
 	return pulumi.ToOutputWithContext(ctx, i).(FlowDistinguisherMethodPatchOutput)
 }
 
+func (i FlowDistinguisherMethodPatchArgs) ToOutput(ctx context.Context) pulumix.Output[FlowDistinguisherMethodPatch] {
+	return pulumix.Output[FlowDistinguisherMethodPatch]{
+		OutputState: i.ToFlowDistinguisherMethodPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i FlowDistinguisherMethodPatchArgs) ToFlowDistinguisherMethodPatchPtrOutput() FlowDistinguisherMethodPatchPtrOutput {
 	return i.ToFlowDistinguisherMethodPatchPtrOutputWithContext(context.Background())
 }
@@ -596,6 +675,12 @@ func (i *flowDistinguisherMethodPatchPtrType) ToFlowDistinguisherMethodPatchPtrO
 	return pulumi.ToOutputWithContext(ctx, i).(FlowDistinguisherMethodPatchPtrOutput)
 }
 
+func (i *flowDistinguisherMethodPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*FlowDistinguisherMethodPatch] {
+	return pulumix.Output[*FlowDistinguisherMethodPatch]{
+		OutputState: i.ToFlowDistinguisherMethodPatchPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // FlowDistinguisherMethod specifies the method of a flow distinguisher.
 type FlowDistinguisherMethodPatchOutput struct{ *pulumi.OutputState }
 
@@ -621,6 +706,12 @@ func (o FlowDistinguisherMethodPatchOutput) ToFlowDistinguisherMethodPatchPtrOut
 	}).(FlowDistinguisherMethodPatchPtrOutput)
 }
 
+func (o FlowDistinguisherMethodPatchOutput) ToOutput(ctx context.Context) pulumix.Output[FlowDistinguisherMethodPatch] {
+	return pulumix.Output[FlowDistinguisherMethodPatch]{
+		OutputState: o.OutputState,
+	}
+}
+
 // `type` is the type of flow distinguisher method The supported types are "ByUser" and "ByNamespace". Required.
 func (o FlowDistinguisherMethodPatchOutput) Type() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v FlowDistinguisherMethodPatch) *string { return v.Type }).(pulumi.StringPtrOutput)
@@ -638,6 +729,12 @@ func (o FlowDistinguisherMethodPatchPtrOutput) ToFlowDistinguisherMethodPatchPtr
 
 func (o FlowDistinguisherMethodPatchPtrOutput) ToFlowDistinguisherMethodPatchPtrOutputWithContext(ctx context.Context) FlowDistinguisherMethodPatchPtrOutput {
 	return o
+}
+
+func (o FlowDistinguisherMethodPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*FlowDistinguisherMethodPatch] {
+	return pulumix.Output[*FlowDistinguisherMethodPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o FlowDistinguisherMethodPatchPtrOutput) Elem() FlowDistinguisherMethodPatchOutput {
@@ -711,6 +808,12 @@ func (i FlowSchemaTypeArgs) ToFlowSchemaTypeOutputWithContext(ctx context.Contex
 	return pulumi.ToOutputWithContext(ctx, i).(FlowSchemaTypeOutput)
 }
 
+func (i FlowSchemaTypeArgs) ToOutput(ctx context.Context) pulumix.Output[FlowSchemaType] {
+	return pulumix.Output[FlowSchemaType]{
+		OutputState: i.ToFlowSchemaTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // FlowSchemaTypeArrayInput is an input type that accepts FlowSchemaTypeArray and FlowSchemaTypeArrayOutput values.
 // You can construct a concrete instance of `FlowSchemaTypeArrayInput` via:
 //
@@ -736,6 +839,12 @@ func (i FlowSchemaTypeArray) ToFlowSchemaTypeArrayOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(FlowSchemaTypeArrayOutput)
 }
 
+func (i FlowSchemaTypeArray) ToOutput(ctx context.Context) pulumix.Output[[]FlowSchemaType] {
+	return pulumix.Output[[]FlowSchemaType]{
+		OutputState: i.ToFlowSchemaTypeArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // FlowSchema defines the schema of a group of flows. Note that a flow is made up of a set of inbound API requests with similar attributes and is identified by a pair of strings: the name of the FlowSchema and a "flow distinguisher".
 type FlowSchemaTypeOutput struct{ *pulumi.OutputState }
 
@@ -749,6 +858,12 @@ func (o FlowSchemaTypeOutput) ToFlowSchemaTypeOutput() FlowSchemaTypeOutput {
 
 func (o FlowSchemaTypeOutput) ToFlowSchemaTypeOutputWithContext(ctx context.Context) FlowSchemaTypeOutput {
 	return o
+}
+
+func (o FlowSchemaTypeOutput) ToOutput(ctx context.Context) pulumix.Output[FlowSchemaType] {
+	return pulumix.Output[FlowSchemaType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -788,6 +903,12 @@ func (o FlowSchemaTypeArrayOutput) ToFlowSchemaTypeArrayOutput() FlowSchemaTypeA
 
 func (o FlowSchemaTypeArrayOutput) ToFlowSchemaTypeArrayOutputWithContext(ctx context.Context) FlowSchemaTypeArrayOutput {
 	return o
+}
+
+func (o FlowSchemaTypeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]FlowSchemaType] {
+	return pulumix.Output[[]FlowSchemaType]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o FlowSchemaTypeArrayOutput) Index(i pulumi.IntInput) FlowSchemaTypeOutput {
@@ -847,6 +968,12 @@ func (i FlowSchemaConditionArgs) ToFlowSchemaConditionOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(FlowSchemaConditionOutput)
 }
 
+func (i FlowSchemaConditionArgs) ToOutput(ctx context.Context) pulumix.Output[FlowSchemaCondition] {
+	return pulumix.Output[FlowSchemaCondition]{
+		OutputState: i.ToFlowSchemaConditionOutputWithContext(ctx).OutputState,
+	}
+}
+
 // FlowSchemaConditionArrayInput is an input type that accepts FlowSchemaConditionArray and FlowSchemaConditionArrayOutput values.
 // You can construct a concrete instance of `FlowSchemaConditionArrayInput` via:
 //
@@ -872,6 +999,12 @@ func (i FlowSchemaConditionArray) ToFlowSchemaConditionArrayOutputWithContext(ct
 	return pulumi.ToOutputWithContext(ctx, i).(FlowSchemaConditionArrayOutput)
 }
 
+func (i FlowSchemaConditionArray) ToOutput(ctx context.Context) pulumix.Output[[]FlowSchemaCondition] {
+	return pulumix.Output[[]FlowSchemaCondition]{
+		OutputState: i.ToFlowSchemaConditionArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // FlowSchemaCondition describes conditions for a FlowSchema.
 type FlowSchemaConditionOutput struct{ *pulumi.OutputState }
 
@@ -885,6 +1018,12 @@ func (o FlowSchemaConditionOutput) ToFlowSchemaConditionOutput() FlowSchemaCondi
 
 func (o FlowSchemaConditionOutput) ToFlowSchemaConditionOutputWithContext(ctx context.Context) FlowSchemaConditionOutput {
 	return o
+}
+
+func (o FlowSchemaConditionOutput) ToOutput(ctx context.Context) pulumix.Output[FlowSchemaCondition] {
+	return pulumix.Output[FlowSchemaCondition]{
+		OutputState: o.OutputState,
+	}
 }
 
 // `lastTransitionTime` is the last time the condition transitioned from one status to another.
@@ -924,6 +1063,12 @@ func (o FlowSchemaConditionArrayOutput) ToFlowSchemaConditionArrayOutput() FlowS
 
 func (o FlowSchemaConditionArrayOutput) ToFlowSchemaConditionArrayOutputWithContext(ctx context.Context) FlowSchemaConditionArrayOutput {
 	return o
+}
+
+func (o FlowSchemaConditionArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]FlowSchemaCondition] {
+	return pulumix.Output[[]FlowSchemaCondition]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o FlowSchemaConditionArrayOutput) Index(i pulumi.IntInput) FlowSchemaConditionOutput {
@@ -983,6 +1128,12 @@ func (i FlowSchemaConditionPatchArgs) ToFlowSchemaConditionPatchOutputWithContex
 	return pulumi.ToOutputWithContext(ctx, i).(FlowSchemaConditionPatchOutput)
 }
 
+func (i FlowSchemaConditionPatchArgs) ToOutput(ctx context.Context) pulumix.Output[FlowSchemaConditionPatch] {
+	return pulumix.Output[FlowSchemaConditionPatch]{
+		OutputState: i.ToFlowSchemaConditionPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 // FlowSchemaConditionPatchArrayInput is an input type that accepts FlowSchemaConditionPatchArray and FlowSchemaConditionPatchArrayOutput values.
 // You can construct a concrete instance of `FlowSchemaConditionPatchArrayInput` via:
 //
@@ -1008,6 +1159,12 @@ func (i FlowSchemaConditionPatchArray) ToFlowSchemaConditionPatchArrayOutputWith
 	return pulumi.ToOutputWithContext(ctx, i).(FlowSchemaConditionPatchArrayOutput)
 }
 
+func (i FlowSchemaConditionPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]FlowSchemaConditionPatch] {
+	return pulumix.Output[[]FlowSchemaConditionPatch]{
+		OutputState: i.ToFlowSchemaConditionPatchArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // FlowSchemaCondition describes conditions for a FlowSchema.
 type FlowSchemaConditionPatchOutput struct{ *pulumi.OutputState }
 
@@ -1021,6 +1178,12 @@ func (o FlowSchemaConditionPatchOutput) ToFlowSchemaConditionPatchOutput() FlowS
 
 func (o FlowSchemaConditionPatchOutput) ToFlowSchemaConditionPatchOutputWithContext(ctx context.Context) FlowSchemaConditionPatchOutput {
 	return o
+}
+
+func (o FlowSchemaConditionPatchOutput) ToOutput(ctx context.Context) pulumix.Output[FlowSchemaConditionPatch] {
+	return pulumix.Output[FlowSchemaConditionPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // `lastTransitionTime` is the last time the condition transitioned from one status to another.
@@ -1060,6 +1223,12 @@ func (o FlowSchemaConditionPatchArrayOutput) ToFlowSchemaConditionPatchArrayOutp
 
 func (o FlowSchemaConditionPatchArrayOutput) ToFlowSchemaConditionPatchArrayOutputWithContext(ctx context.Context) FlowSchemaConditionPatchArrayOutput {
 	return o
+}
+
+func (o FlowSchemaConditionPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]FlowSchemaConditionPatch] {
+	return pulumix.Output[[]FlowSchemaConditionPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o FlowSchemaConditionPatchArrayOutput) Index(i pulumi.IntInput) FlowSchemaConditionPatchOutput {
@@ -1115,6 +1284,12 @@ func (i FlowSchemaListTypeArgs) ToFlowSchemaListTypeOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(FlowSchemaListTypeOutput)
 }
 
+func (i FlowSchemaListTypeArgs) ToOutput(ctx context.Context) pulumix.Output[FlowSchemaListType] {
+	return pulumix.Output[FlowSchemaListType]{
+		OutputState: i.ToFlowSchemaListTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // FlowSchemaList is a list of FlowSchema objects.
 type FlowSchemaListTypeOutput struct{ *pulumi.OutputState }
 
@@ -1128,6 +1303,12 @@ func (o FlowSchemaListTypeOutput) ToFlowSchemaListTypeOutput() FlowSchemaListTyp
 
 func (o FlowSchemaListTypeOutput) ToFlowSchemaListTypeOutputWithContext(ctx context.Context) FlowSchemaListTypeOutput {
 	return o
+}
+
+func (o FlowSchemaListTypeOutput) ToOutput(ctx context.Context) pulumix.Output[FlowSchemaListType] {
+	return pulumix.Output[FlowSchemaListType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -1201,6 +1382,12 @@ func (i FlowSchemaPatchTypeArgs) ToFlowSchemaPatchTypeOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(FlowSchemaPatchTypeOutput)
 }
 
+func (i FlowSchemaPatchTypeArgs) ToOutput(ctx context.Context) pulumix.Output[FlowSchemaPatchType] {
+	return pulumix.Output[FlowSchemaPatchType]{
+		OutputState: i.ToFlowSchemaPatchTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // FlowSchema defines the schema of a group of flows. Note that a flow is made up of a set of inbound API requests with similar attributes and is identified by a pair of strings: the name of the FlowSchema and a "flow distinguisher".
 type FlowSchemaPatchTypeOutput struct{ *pulumi.OutputState }
 
@@ -1214,6 +1401,12 @@ func (o FlowSchemaPatchTypeOutput) ToFlowSchemaPatchTypeOutput() FlowSchemaPatch
 
 func (o FlowSchemaPatchTypeOutput) ToFlowSchemaPatchTypeOutputWithContext(ctx context.Context) FlowSchemaPatchTypeOutput {
 	return o
+}
+
+func (o FlowSchemaPatchTypeOutput) ToOutput(ctx context.Context) pulumix.Output[FlowSchemaPatchType] {
+	return pulumix.Output[FlowSchemaPatchType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -1288,6 +1481,12 @@ func (i FlowSchemaSpecArgs) ToFlowSchemaSpecOutputWithContext(ctx context.Contex
 	return pulumi.ToOutputWithContext(ctx, i).(FlowSchemaSpecOutput)
 }
 
+func (i FlowSchemaSpecArgs) ToOutput(ctx context.Context) pulumix.Output[FlowSchemaSpec] {
+	return pulumix.Output[FlowSchemaSpec]{
+		OutputState: i.ToFlowSchemaSpecOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i FlowSchemaSpecArgs) ToFlowSchemaSpecPtrOutput() FlowSchemaSpecPtrOutput {
 	return i.ToFlowSchemaSpecPtrOutputWithContext(context.Background())
 }
@@ -1329,6 +1528,12 @@ func (i *flowSchemaSpecPtrType) ToFlowSchemaSpecPtrOutputWithContext(ctx context
 	return pulumi.ToOutputWithContext(ctx, i).(FlowSchemaSpecPtrOutput)
 }
 
+func (i *flowSchemaSpecPtrType) ToOutput(ctx context.Context) pulumix.Output[*FlowSchemaSpec] {
+	return pulumix.Output[*FlowSchemaSpec]{
+		OutputState: i.ToFlowSchemaSpecPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // FlowSchemaSpec describes how the FlowSchema's specification looks like.
 type FlowSchemaSpecOutput struct{ *pulumi.OutputState }
 
@@ -1352,6 +1557,12 @@ func (o FlowSchemaSpecOutput) ToFlowSchemaSpecPtrOutputWithContext(ctx context.C
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v FlowSchemaSpec) *FlowSchemaSpec {
 		return &v
 	}).(FlowSchemaSpecPtrOutput)
+}
+
+func (o FlowSchemaSpecOutput) ToOutput(ctx context.Context) pulumix.Output[FlowSchemaSpec] {
+	return pulumix.Output[FlowSchemaSpec]{
+		OutputState: o.OutputState,
+	}
 }
 
 // `distinguisherMethod` defines how to compute the flow distinguisher for requests that match this schema. `nil` specifies that the distinguisher is disabled and thus will always be the empty string.
@@ -1386,6 +1597,12 @@ func (o FlowSchemaSpecPtrOutput) ToFlowSchemaSpecPtrOutput() FlowSchemaSpecPtrOu
 
 func (o FlowSchemaSpecPtrOutput) ToFlowSchemaSpecPtrOutputWithContext(ctx context.Context) FlowSchemaSpecPtrOutput {
 	return o
+}
+
+func (o FlowSchemaSpecPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*FlowSchemaSpec] {
+	return pulumix.Output[*FlowSchemaSpec]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o FlowSchemaSpecPtrOutput) Elem() FlowSchemaSpecOutput {
@@ -1485,6 +1702,12 @@ func (i FlowSchemaSpecPatchArgs) ToFlowSchemaSpecPatchOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(FlowSchemaSpecPatchOutput)
 }
 
+func (i FlowSchemaSpecPatchArgs) ToOutput(ctx context.Context) pulumix.Output[FlowSchemaSpecPatch] {
+	return pulumix.Output[FlowSchemaSpecPatch]{
+		OutputState: i.ToFlowSchemaSpecPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i FlowSchemaSpecPatchArgs) ToFlowSchemaSpecPatchPtrOutput() FlowSchemaSpecPatchPtrOutput {
 	return i.ToFlowSchemaSpecPatchPtrOutputWithContext(context.Background())
 }
@@ -1526,6 +1749,12 @@ func (i *flowSchemaSpecPatchPtrType) ToFlowSchemaSpecPatchPtrOutputWithContext(c
 	return pulumi.ToOutputWithContext(ctx, i).(FlowSchemaSpecPatchPtrOutput)
 }
 
+func (i *flowSchemaSpecPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*FlowSchemaSpecPatch] {
+	return pulumix.Output[*FlowSchemaSpecPatch]{
+		OutputState: i.ToFlowSchemaSpecPatchPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // FlowSchemaSpec describes how the FlowSchema's specification looks like.
 type FlowSchemaSpecPatchOutput struct{ *pulumi.OutputState }
 
@@ -1549,6 +1778,12 @@ func (o FlowSchemaSpecPatchOutput) ToFlowSchemaSpecPatchPtrOutputWithContext(ctx
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v FlowSchemaSpecPatch) *FlowSchemaSpecPatch {
 		return &v
 	}).(FlowSchemaSpecPatchPtrOutput)
+}
+
+func (o FlowSchemaSpecPatchOutput) ToOutput(ctx context.Context) pulumix.Output[FlowSchemaSpecPatch] {
+	return pulumix.Output[FlowSchemaSpecPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // `distinguisherMethod` defines how to compute the flow distinguisher for requests that match this schema. `nil` specifies that the distinguisher is disabled and thus will always be the empty string.
@@ -1585,6 +1820,12 @@ func (o FlowSchemaSpecPatchPtrOutput) ToFlowSchemaSpecPatchPtrOutput() FlowSchem
 
 func (o FlowSchemaSpecPatchPtrOutput) ToFlowSchemaSpecPatchPtrOutputWithContext(ctx context.Context) FlowSchemaSpecPatchPtrOutput {
 	return o
+}
+
+func (o FlowSchemaSpecPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*FlowSchemaSpecPatch] {
+	return pulumix.Output[*FlowSchemaSpecPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o FlowSchemaSpecPatchPtrOutput) Elem() FlowSchemaSpecPatchOutput {
@@ -1672,6 +1913,12 @@ func (i FlowSchemaStatusArgs) ToFlowSchemaStatusOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(FlowSchemaStatusOutput)
 }
 
+func (i FlowSchemaStatusArgs) ToOutput(ctx context.Context) pulumix.Output[FlowSchemaStatus] {
+	return pulumix.Output[FlowSchemaStatus]{
+		OutputState: i.ToFlowSchemaStatusOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i FlowSchemaStatusArgs) ToFlowSchemaStatusPtrOutput() FlowSchemaStatusPtrOutput {
 	return i.ToFlowSchemaStatusPtrOutputWithContext(context.Background())
 }
@@ -1713,6 +1960,12 @@ func (i *flowSchemaStatusPtrType) ToFlowSchemaStatusPtrOutputWithContext(ctx con
 	return pulumi.ToOutputWithContext(ctx, i).(FlowSchemaStatusPtrOutput)
 }
 
+func (i *flowSchemaStatusPtrType) ToOutput(ctx context.Context) pulumix.Output[*FlowSchemaStatus] {
+	return pulumix.Output[*FlowSchemaStatus]{
+		OutputState: i.ToFlowSchemaStatusPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // FlowSchemaStatus represents the current state of a FlowSchema.
 type FlowSchemaStatusOutput struct{ *pulumi.OutputState }
 
@@ -1738,6 +1991,12 @@ func (o FlowSchemaStatusOutput) ToFlowSchemaStatusPtrOutputWithContext(ctx conte
 	}).(FlowSchemaStatusPtrOutput)
 }
 
+func (o FlowSchemaStatusOutput) ToOutput(ctx context.Context) pulumix.Output[FlowSchemaStatus] {
+	return pulumix.Output[FlowSchemaStatus]{
+		OutputState: o.OutputState,
+	}
+}
+
 // `conditions` is a list of the current states of FlowSchema.
 func (o FlowSchemaStatusOutput) Conditions() FlowSchemaConditionArrayOutput {
 	return o.ApplyT(func(v FlowSchemaStatus) []FlowSchemaCondition { return v.Conditions }).(FlowSchemaConditionArrayOutput)
@@ -1755,6 +2014,12 @@ func (o FlowSchemaStatusPtrOutput) ToFlowSchemaStatusPtrOutput() FlowSchemaStatu
 
 func (o FlowSchemaStatusPtrOutput) ToFlowSchemaStatusPtrOutputWithContext(ctx context.Context) FlowSchemaStatusPtrOutput {
 	return o
+}
+
+func (o FlowSchemaStatusPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*FlowSchemaStatus] {
+	return pulumix.Output[*FlowSchemaStatus]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o FlowSchemaStatusPtrOutput) Elem() FlowSchemaStatusOutput {
@@ -1812,6 +2077,12 @@ func (i FlowSchemaStatusPatchArgs) ToFlowSchemaStatusPatchOutputWithContext(ctx 
 	return pulumi.ToOutputWithContext(ctx, i).(FlowSchemaStatusPatchOutput)
 }
 
+func (i FlowSchemaStatusPatchArgs) ToOutput(ctx context.Context) pulumix.Output[FlowSchemaStatusPatch] {
+	return pulumix.Output[FlowSchemaStatusPatch]{
+		OutputState: i.ToFlowSchemaStatusPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i FlowSchemaStatusPatchArgs) ToFlowSchemaStatusPatchPtrOutput() FlowSchemaStatusPatchPtrOutput {
 	return i.ToFlowSchemaStatusPatchPtrOutputWithContext(context.Background())
 }
@@ -1853,6 +2124,12 @@ func (i *flowSchemaStatusPatchPtrType) ToFlowSchemaStatusPatchPtrOutputWithConte
 	return pulumi.ToOutputWithContext(ctx, i).(FlowSchemaStatusPatchPtrOutput)
 }
 
+func (i *flowSchemaStatusPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*FlowSchemaStatusPatch] {
+	return pulumix.Output[*FlowSchemaStatusPatch]{
+		OutputState: i.ToFlowSchemaStatusPatchPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // FlowSchemaStatus represents the current state of a FlowSchema.
 type FlowSchemaStatusPatchOutput struct{ *pulumi.OutputState }
 
@@ -1878,6 +2155,12 @@ func (o FlowSchemaStatusPatchOutput) ToFlowSchemaStatusPatchPtrOutputWithContext
 	}).(FlowSchemaStatusPatchPtrOutput)
 }
 
+func (o FlowSchemaStatusPatchOutput) ToOutput(ctx context.Context) pulumix.Output[FlowSchemaStatusPatch] {
+	return pulumix.Output[FlowSchemaStatusPatch]{
+		OutputState: o.OutputState,
+	}
+}
+
 // `conditions` is a list of the current states of FlowSchema.
 func (o FlowSchemaStatusPatchOutput) Conditions() FlowSchemaConditionPatchArrayOutput {
 	return o.ApplyT(func(v FlowSchemaStatusPatch) []FlowSchemaConditionPatch { return v.Conditions }).(FlowSchemaConditionPatchArrayOutput)
@@ -1895,6 +2178,12 @@ func (o FlowSchemaStatusPatchPtrOutput) ToFlowSchemaStatusPatchPtrOutput() FlowS
 
 func (o FlowSchemaStatusPatchPtrOutput) ToFlowSchemaStatusPatchPtrOutputWithContext(ctx context.Context) FlowSchemaStatusPatchPtrOutput {
 	return o
+}
+
+func (o FlowSchemaStatusPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*FlowSchemaStatusPatch] {
+	return pulumix.Output[*FlowSchemaStatusPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o FlowSchemaStatusPatchPtrOutput) Elem() FlowSchemaStatusPatchOutput {
@@ -1952,6 +2241,12 @@ func (i GroupSubjectArgs) ToGroupSubjectOutputWithContext(ctx context.Context) G
 	return pulumi.ToOutputWithContext(ctx, i).(GroupSubjectOutput)
 }
 
+func (i GroupSubjectArgs) ToOutput(ctx context.Context) pulumix.Output[GroupSubject] {
+	return pulumix.Output[GroupSubject]{
+		OutputState: i.ToGroupSubjectOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i GroupSubjectArgs) ToGroupSubjectPtrOutput() GroupSubjectPtrOutput {
 	return i.ToGroupSubjectPtrOutputWithContext(context.Background())
 }
@@ -1993,6 +2288,12 @@ func (i *groupSubjectPtrType) ToGroupSubjectPtrOutputWithContext(ctx context.Con
 	return pulumi.ToOutputWithContext(ctx, i).(GroupSubjectPtrOutput)
 }
 
+func (i *groupSubjectPtrType) ToOutput(ctx context.Context) pulumix.Output[*GroupSubject] {
+	return pulumix.Output[*GroupSubject]{
+		OutputState: i.ToGroupSubjectPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // GroupSubject holds detailed information for group-kind subject.
 type GroupSubjectOutput struct{ *pulumi.OutputState }
 
@@ -2018,6 +2319,12 @@ func (o GroupSubjectOutput) ToGroupSubjectPtrOutputWithContext(ctx context.Conte
 	}).(GroupSubjectPtrOutput)
 }
 
+func (o GroupSubjectOutput) ToOutput(ctx context.Context) pulumix.Output[GroupSubject] {
+	return pulumix.Output[GroupSubject]{
+		OutputState: o.OutputState,
+	}
+}
+
 // name is the user group that matches, or "*" to match all user groups. See https://github.com/kubernetes/apiserver/blob/master/pkg/authentication/user/user.go for some well-known group names. Required.
 func (o GroupSubjectOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v GroupSubject) string { return v.Name }).(pulumi.StringOutput)
@@ -2035,6 +2342,12 @@ func (o GroupSubjectPtrOutput) ToGroupSubjectPtrOutput() GroupSubjectPtrOutput {
 
 func (o GroupSubjectPtrOutput) ToGroupSubjectPtrOutputWithContext(ctx context.Context) GroupSubjectPtrOutput {
 	return o
+}
+
+func (o GroupSubjectPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*GroupSubject] {
+	return pulumix.Output[*GroupSubject]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o GroupSubjectPtrOutput) Elem() GroupSubjectOutput {
@@ -2092,6 +2405,12 @@ func (i GroupSubjectPatchArgs) ToGroupSubjectPatchOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(GroupSubjectPatchOutput)
 }
 
+func (i GroupSubjectPatchArgs) ToOutput(ctx context.Context) pulumix.Output[GroupSubjectPatch] {
+	return pulumix.Output[GroupSubjectPatch]{
+		OutputState: i.ToGroupSubjectPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i GroupSubjectPatchArgs) ToGroupSubjectPatchPtrOutput() GroupSubjectPatchPtrOutput {
 	return i.ToGroupSubjectPatchPtrOutputWithContext(context.Background())
 }
@@ -2133,6 +2452,12 @@ func (i *groupSubjectPatchPtrType) ToGroupSubjectPatchPtrOutputWithContext(ctx c
 	return pulumi.ToOutputWithContext(ctx, i).(GroupSubjectPatchPtrOutput)
 }
 
+func (i *groupSubjectPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*GroupSubjectPatch] {
+	return pulumix.Output[*GroupSubjectPatch]{
+		OutputState: i.ToGroupSubjectPatchPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // GroupSubject holds detailed information for group-kind subject.
 type GroupSubjectPatchOutput struct{ *pulumi.OutputState }
 
@@ -2158,6 +2483,12 @@ func (o GroupSubjectPatchOutput) ToGroupSubjectPatchPtrOutputWithContext(ctx con
 	}).(GroupSubjectPatchPtrOutput)
 }
 
+func (o GroupSubjectPatchOutput) ToOutput(ctx context.Context) pulumix.Output[GroupSubjectPatch] {
+	return pulumix.Output[GroupSubjectPatch]{
+		OutputState: o.OutputState,
+	}
+}
+
 // name is the user group that matches, or "*" to match all user groups. See https://github.com/kubernetes/apiserver/blob/master/pkg/authentication/user/user.go for some well-known group names. Required.
 func (o GroupSubjectPatchOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v GroupSubjectPatch) *string { return v.Name }).(pulumi.StringPtrOutput)
@@ -2175,6 +2506,12 @@ func (o GroupSubjectPatchPtrOutput) ToGroupSubjectPatchPtrOutput() GroupSubjectP
 
 func (o GroupSubjectPatchPtrOutput) ToGroupSubjectPatchPtrOutputWithContext(ctx context.Context) GroupSubjectPatchPtrOutput {
 	return o
+}
+
+func (o GroupSubjectPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*GroupSubjectPatch] {
+	return pulumix.Output[*GroupSubjectPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o GroupSubjectPatchPtrOutput) Elem() GroupSubjectPatchOutput {
@@ -2236,6 +2573,12 @@ func (i LimitResponseArgs) ToLimitResponseOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(LimitResponseOutput)
 }
 
+func (i LimitResponseArgs) ToOutput(ctx context.Context) pulumix.Output[LimitResponse] {
+	return pulumix.Output[LimitResponse]{
+		OutputState: i.ToLimitResponseOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i LimitResponseArgs) ToLimitResponsePtrOutput() LimitResponsePtrOutput {
 	return i.ToLimitResponsePtrOutputWithContext(context.Background())
 }
@@ -2277,6 +2620,12 @@ func (i *limitResponsePtrType) ToLimitResponsePtrOutputWithContext(ctx context.C
 	return pulumi.ToOutputWithContext(ctx, i).(LimitResponsePtrOutput)
 }
 
+func (i *limitResponsePtrType) ToOutput(ctx context.Context) pulumix.Output[*LimitResponse] {
+	return pulumix.Output[*LimitResponse]{
+		OutputState: i.ToLimitResponsePtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // LimitResponse defines how to handle requests that can not be executed right now.
 type LimitResponseOutput struct{ *pulumi.OutputState }
 
@@ -2302,6 +2651,12 @@ func (o LimitResponseOutput) ToLimitResponsePtrOutputWithContext(ctx context.Con
 	}).(LimitResponsePtrOutput)
 }
 
+func (o LimitResponseOutput) ToOutput(ctx context.Context) pulumix.Output[LimitResponse] {
+	return pulumix.Output[LimitResponse]{
+		OutputState: o.OutputState,
+	}
+}
+
 // `queuing` holds the configuration parameters for queuing. This field may be non-empty only if `type` is `"Queue"`.
 func (o LimitResponseOutput) Queuing() QueuingConfigurationPtrOutput {
 	return o.ApplyT(func(v LimitResponse) *QueuingConfiguration { return v.Queuing }).(QueuingConfigurationPtrOutput)
@@ -2324,6 +2679,12 @@ func (o LimitResponsePtrOutput) ToLimitResponsePtrOutput() LimitResponsePtrOutpu
 
 func (o LimitResponsePtrOutput) ToLimitResponsePtrOutputWithContext(ctx context.Context) LimitResponsePtrOutput {
 	return o
+}
+
+func (o LimitResponsePtrOutput) ToOutput(ctx context.Context) pulumix.Output[*LimitResponse] {
+	return pulumix.Output[*LimitResponse]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o LimitResponsePtrOutput) Elem() LimitResponseOutput {
@@ -2395,6 +2756,12 @@ func (i LimitResponsePatchArgs) ToLimitResponsePatchOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(LimitResponsePatchOutput)
 }
 
+func (i LimitResponsePatchArgs) ToOutput(ctx context.Context) pulumix.Output[LimitResponsePatch] {
+	return pulumix.Output[LimitResponsePatch]{
+		OutputState: i.ToLimitResponsePatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i LimitResponsePatchArgs) ToLimitResponsePatchPtrOutput() LimitResponsePatchPtrOutput {
 	return i.ToLimitResponsePatchPtrOutputWithContext(context.Background())
 }
@@ -2436,6 +2803,12 @@ func (i *limitResponsePatchPtrType) ToLimitResponsePatchPtrOutputWithContext(ctx
 	return pulumi.ToOutputWithContext(ctx, i).(LimitResponsePatchPtrOutput)
 }
 
+func (i *limitResponsePatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*LimitResponsePatch] {
+	return pulumix.Output[*LimitResponsePatch]{
+		OutputState: i.ToLimitResponsePatchPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // LimitResponse defines how to handle requests that can not be executed right now.
 type LimitResponsePatchOutput struct{ *pulumi.OutputState }
 
@@ -2461,6 +2834,12 @@ func (o LimitResponsePatchOutput) ToLimitResponsePatchPtrOutputWithContext(ctx c
 	}).(LimitResponsePatchPtrOutput)
 }
 
+func (o LimitResponsePatchOutput) ToOutput(ctx context.Context) pulumix.Output[LimitResponsePatch] {
+	return pulumix.Output[LimitResponsePatch]{
+		OutputState: o.OutputState,
+	}
+}
+
 // `queuing` holds the configuration parameters for queuing. This field may be non-empty only if `type` is `"Queue"`.
 func (o LimitResponsePatchOutput) Queuing() QueuingConfigurationPatchPtrOutput {
 	return o.ApplyT(func(v LimitResponsePatch) *QueuingConfigurationPatch { return v.Queuing }).(QueuingConfigurationPatchPtrOutput)
@@ -2483,6 +2862,12 @@ func (o LimitResponsePatchPtrOutput) ToLimitResponsePatchPtrOutput() LimitRespon
 
 func (o LimitResponsePatchPtrOutput) ToLimitResponsePatchPtrOutputWithContext(ctx context.Context) LimitResponsePatchPtrOutput {
 	return o
+}
+
+func (o LimitResponsePatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*LimitResponsePatch] {
+	return pulumix.Output[*LimitResponsePatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o LimitResponsePatchPtrOutput) Elem() LimitResponsePatchOutput {
@@ -2586,6 +2971,12 @@ func (i LimitedPriorityLevelConfigurationArgs) ToLimitedPriorityLevelConfigurati
 	return pulumi.ToOutputWithContext(ctx, i).(LimitedPriorityLevelConfigurationOutput)
 }
 
+func (i LimitedPriorityLevelConfigurationArgs) ToOutput(ctx context.Context) pulumix.Output[LimitedPriorityLevelConfiguration] {
+	return pulumix.Output[LimitedPriorityLevelConfiguration]{
+		OutputState: i.ToLimitedPriorityLevelConfigurationOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i LimitedPriorityLevelConfigurationArgs) ToLimitedPriorityLevelConfigurationPtrOutput() LimitedPriorityLevelConfigurationPtrOutput {
 	return i.ToLimitedPriorityLevelConfigurationPtrOutputWithContext(context.Background())
 }
@@ -2627,6 +3018,12 @@ func (i *limitedPriorityLevelConfigurationPtrType) ToLimitedPriorityLevelConfigu
 	return pulumi.ToOutputWithContext(ctx, i).(LimitedPriorityLevelConfigurationPtrOutput)
 }
 
+func (i *limitedPriorityLevelConfigurationPtrType) ToOutput(ctx context.Context) pulumix.Output[*LimitedPriorityLevelConfiguration] {
+	return pulumix.Output[*LimitedPriorityLevelConfiguration]{
+		OutputState: i.ToLimitedPriorityLevelConfigurationPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
 //   - How are requests for this priority level limited?
 //   - What should be done with requests that exceed the limit?
@@ -2652,6 +3049,12 @@ func (o LimitedPriorityLevelConfigurationOutput) ToLimitedPriorityLevelConfigura
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v LimitedPriorityLevelConfiguration) *LimitedPriorityLevelConfiguration {
 		return &v
 	}).(LimitedPriorityLevelConfigurationPtrOutput)
+}
+
+func (o LimitedPriorityLevelConfigurationOutput) ToOutput(ctx context.Context) pulumix.Output[LimitedPriorityLevelConfiguration] {
+	return pulumix.Output[LimitedPriorityLevelConfiguration]{
+		OutputState: o.OutputState,
+	}
 }
 
 // `borrowingLimitPercent`, if present, configures a limit on how many seats this priority level can borrow from other priority levels. The limit is known as this level's BorrowingConcurrencyLimit (BorrowingCL) and is a limit on the total number of seats that this level may borrow at any one time. This field holds the ratio of that limit to the level's nominal concurrency limit. When this field is non-nil, it must hold a non-negative integer and the limit is calculated as follows.
@@ -2696,6 +3099,12 @@ func (o LimitedPriorityLevelConfigurationPtrOutput) ToLimitedPriorityLevelConfig
 
 func (o LimitedPriorityLevelConfigurationPtrOutput) ToLimitedPriorityLevelConfigurationPtrOutputWithContext(ctx context.Context) LimitedPriorityLevelConfigurationPtrOutput {
 	return o
+}
+
+func (o LimitedPriorityLevelConfigurationPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*LimitedPriorityLevelConfiguration] {
+	return pulumix.Output[*LimitedPriorityLevelConfiguration]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o LimitedPriorityLevelConfigurationPtrOutput) Elem() LimitedPriorityLevelConfigurationOutput {
@@ -2829,6 +3238,12 @@ func (i LimitedPriorityLevelConfigurationPatchArgs) ToLimitedPriorityLevelConfig
 	return pulumi.ToOutputWithContext(ctx, i).(LimitedPriorityLevelConfigurationPatchOutput)
 }
 
+func (i LimitedPriorityLevelConfigurationPatchArgs) ToOutput(ctx context.Context) pulumix.Output[LimitedPriorityLevelConfigurationPatch] {
+	return pulumix.Output[LimitedPriorityLevelConfigurationPatch]{
+		OutputState: i.ToLimitedPriorityLevelConfigurationPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i LimitedPriorityLevelConfigurationPatchArgs) ToLimitedPriorityLevelConfigurationPatchPtrOutput() LimitedPriorityLevelConfigurationPatchPtrOutput {
 	return i.ToLimitedPriorityLevelConfigurationPatchPtrOutputWithContext(context.Background())
 }
@@ -2870,6 +3285,12 @@ func (i *limitedPriorityLevelConfigurationPatchPtrType) ToLimitedPriorityLevelCo
 	return pulumi.ToOutputWithContext(ctx, i).(LimitedPriorityLevelConfigurationPatchPtrOutput)
 }
 
+func (i *limitedPriorityLevelConfigurationPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*LimitedPriorityLevelConfigurationPatch] {
+	return pulumix.Output[*LimitedPriorityLevelConfigurationPatch]{
+		OutputState: i.ToLimitedPriorityLevelConfigurationPatchPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // LimitedPriorityLevelConfiguration specifies how to handle requests that are subject to limits. It addresses two issues:
 //   - How are requests for this priority level limited?
 //   - What should be done with requests that exceed the limit?
@@ -2895,6 +3316,12 @@ func (o LimitedPriorityLevelConfigurationPatchOutput) ToLimitedPriorityLevelConf
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v LimitedPriorityLevelConfigurationPatch) *LimitedPriorityLevelConfigurationPatch {
 		return &v
 	}).(LimitedPriorityLevelConfigurationPatchPtrOutput)
+}
+
+func (o LimitedPriorityLevelConfigurationPatchOutput) ToOutput(ctx context.Context) pulumix.Output[LimitedPriorityLevelConfigurationPatch] {
+	return pulumix.Output[LimitedPriorityLevelConfigurationPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // `borrowingLimitPercent`, if present, configures a limit on how many seats this priority level can borrow from other priority levels. The limit is known as this level's BorrowingConcurrencyLimit (BorrowingCL) and is a limit on the total number of seats that this level may borrow at any one time. This field holds the ratio of that limit to the level's nominal concurrency limit. When this field is non-nil, it must hold a non-negative integer and the limit is calculated as follows.
@@ -2939,6 +3366,12 @@ func (o LimitedPriorityLevelConfigurationPatchPtrOutput) ToLimitedPriorityLevelC
 
 func (o LimitedPriorityLevelConfigurationPatchPtrOutput) ToLimitedPriorityLevelConfigurationPatchPtrOutputWithContext(ctx context.Context) LimitedPriorityLevelConfigurationPatchPtrOutput {
 	return o
+}
+
+func (o LimitedPriorityLevelConfigurationPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*LimitedPriorityLevelConfigurationPatch] {
+	return pulumix.Output[*LimitedPriorityLevelConfigurationPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o LimitedPriorityLevelConfigurationPatchPtrOutput) Elem() LimitedPriorityLevelConfigurationPatchOutput {
@@ -3052,6 +3485,12 @@ func (i NonResourcePolicyRuleArgs) ToNonResourcePolicyRuleOutputWithContext(ctx 
 	return pulumi.ToOutputWithContext(ctx, i).(NonResourcePolicyRuleOutput)
 }
 
+func (i NonResourcePolicyRuleArgs) ToOutput(ctx context.Context) pulumix.Output[NonResourcePolicyRule] {
+	return pulumix.Output[NonResourcePolicyRule]{
+		OutputState: i.ToNonResourcePolicyRuleOutputWithContext(ctx).OutputState,
+	}
+}
+
 // NonResourcePolicyRuleArrayInput is an input type that accepts NonResourcePolicyRuleArray and NonResourcePolicyRuleArrayOutput values.
 // You can construct a concrete instance of `NonResourcePolicyRuleArrayInput` via:
 //
@@ -3077,6 +3516,12 @@ func (i NonResourcePolicyRuleArray) ToNonResourcePolicyRuleArrayOutputWithContex
 	return pulumi.ToOutputWithContext(ctx, i).(NonResourcePolicyRuleArrayOutput)
 }
 
+func (i NonResourcePolicyRuleArray) ToOutput(ctx context.Context) pulumix.Output[[]NonResourcePolicyRule] {
+	return pulumix.Output[[]NonResourcePolicyRule]{
+		OutputState: i.ToNonResourcePolicyRuleArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // NonResourcePolicyRule is a predicate that matches non-resource requests according to their verb and the target non-resource URL. A NonResourcePolicyRule matches a request if and only if both (a) at least one member of verbs matches the request and (b) at least one member of nonResourceURLs matches the request.
 type NonResourcePolicyRuleOutput struct{ *pulumi.OutputState }
 
@@ -3090,6 +3535,12 @@ func (o NonResourcePolicyRuleOutput) ToNonResourcePolicyRuleOutput() NonResource
 
 func (o NonResourcePolicyRuleOutput) ToNonResourcePolicyRuleOutputWithContext(ctx context.Context) NonResourcePolicyRuleOutput {
 	return o
+}
+
+func (o NonResourcePolicyRuleOutput) ToOutput(ctx context.Context) pulumix.Output[NonResourcePolicyRule] {
+	return pulumix.Output[NonResourcePolicyRule]{
+		OutputState: o.OutputState,
+	}
 }
 
 // `nonResourceURLs` is a set of url prefixes that a user should have access to and may not be empty. For example:
@@ -3120,6 +3571,12 @@ func (o NonResourcePolicyRuleArrayOutput) ToNonResourcePolicyRuleArrayOutput() N
 
 func (o NonResourcePolicyRuleArrayOutput) ToNonResourcePolicyRuleArrayOutputWithContext(ctx context.Context) NonResourcePolicyRuleArrayOutput {
 	return o
+}
+
+func (o NonResourcePolicyRuleArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]NonResourcePolicyRule] {
+	return pulumix.Output[[]NonResourcePolicyRule]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o NonResourcePolicyRuleArrayOutput) Index(i pulumi.IntInput) NonResourcePolicyRuleOutput {
@@ -3179,6 +3636,12 @@ func (i NonResourcePolicyRulePatchArgs) ToNonResourcePolicyRulePatchOutputWithCo
 	return pulumi.ToOutputWithContext(ctx, i).(NonResourcePolicyRulePatchOutput)
 }
 
+func (i NonResourcePolicyRulePatchArgs) ToOutput(ctx context.Context) pulumix.Output[NonResourcePolicyRulePatch] {
+	return pulumix.Output[NonResourcePolicyRulePatch]{
+		OutputState: i.ToNonResourcePolicyRulePatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 // NonResourcePolicyRulePatchArrayInput is an input type that accepts NonResourcePolicyRulePatchArray and NonResourcePolicyRulePatchArrayOutput values.
 // You can construct a concrete instance of `NonResourcePolicyRulePatchArrayInput` via:
 //
@@ -3204,6 +3667,12 @@ func (i NonResourcePolicyRulePatchArray) ToNonResourcePolicyRulePatchArrayOutput
 	return pulumi.ToOutputWithContext(ctx, i).(NonResourcePolicyRulePatchArrayOutput)
 }
 
+func (i NonResourcePolicyRulePatchArray) ToOutput(ctx context.Context) pulumix.Output[[]NonResourcePolicyRulePatch] {
+	return pulumix.Output[[]NonResourcePolicyRulePatch]{
+		OutputState: i.ToNonResourcePolicyRulePatchArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // NonResourcePolicyRule is a predicate that matches non-resource requests according to their verb and the target non-resource URL. A NonResourcePolicyRule matches a request if and only if both (a) at least one member of verbs matches the request and (b) at least one member of nonResourceURLs matches the request.
 type NonResourcePolicyRulePatchOutput struct{ *pulumi.OutputState }
 
@@ -3217,6 +3686,12 @@ func (o NonResourcePolicyRulePatchOutput) ToNonResourcePolicyRulePatchOutput() N
 
 func (o NonResourcePolicyRulePatchOutput) ToNonResourcePolicyRulePatchOutputWithContext(ctx context.Context) NonResourcePolicyRulePatchOutput {
 	return o
+}
+
+func (o NonResourcePolicyRulePatchOutput) ToOutput(ctx context.Context) pulumix.Output[NonResourcePolicyRulePatch] {
+	return pulumix.Output[NonResourcePolicyRulePatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // `nonResourceURLs` is a set of url prefixes that a user should have access to and may not be empty. For example:
@@ -3247,6 +3722,12 @@ func (o NonResourcePolicyRulePatchArrayOutput) ToNonResourcePolicyRulePatchArray
 
 func (o NonResourcePolicyRulePatchArrayOutput) ToNonResourcePolicyRulePatchArrayOutputWithContext(ctx context.Context) NonResourcePolicyRulePatchArrayOutput {
 	return o
+}
+
+func (o NonResourcePolicyRulePatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]NonResourcePolicyRulePatch] {
+	return pulumix.Output[[]NonResourcePolicyRulePatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o NonResourcePolicyRulePatchArrayOutput) Index(i pulumi.IntInput) NonResourcePolicyRulePatchOutput {
@@ -3298,6 +3779,12 @@ func (i PolicyRulesWithSubjectsArgs) ToPolicyRulesWithSubjectsOutputWithContext(
 	return pulumi.ToOutputWithContext(ctx, i).(PolicyRulesWithSubjectsOutput)
 }
 
+func (i PolicyRulesWithSubjectsArgs) ToOutput(ctx context.Context) pulumix.Output[PolicyRulesWithSubjects] {
+	return pulumix.Output[PolicyRulesWithSubjects]{
+		OutputState: i.ToPolicyRulesWithSubjectsOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PolicyRulesWithSubjectsArrayInput is an input type that accepts PolicyRulesWithSubjectsArray and PolicyRulesWithSubjectsArrayOutput values.
 // You can construct a concrete instance of `PolicyRulesWithSubjectsArrayInput` via:
 //
@@ -3323,6 +3810,12 @@ func (i PolicyRulesWithSubjectsArray) ToPolicyRulesWithSubjectsArrayOutputWithCo
 	return pulumi.ToOutputWithContext(ctx, i).(PolicyRulesWithSubjectsArrayOutput)
 }
 
+func (i PolicyRulesWithSubjectsArray) ToOutput(ctx context.Context) pulumix.Output[[]PolicyRulesWithSubjects] {
+	return pulumix.Output[[]PolicyRulesWithSubjects]{
+		OutputState: i.ToPolicyRulesWithSubjectsArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PolicyRulesWithSubjects prescribes a test that applies to a request to an apiserver. The test considers the subject making the request, the verb being requested, and the resource to be acted upon. This PolicyRulesWithSubjects matches a request if and only if both (a) at least one member of subjects matches the request and (b) at least one member of resourceRules or nonResourceRules matches the request.
 type PolicyRulesWithSubjectsOutput struct{ *pulumi.OutputState }
 
@@ -3336,6 +3829,12 @@ func (o PolicyRulesWithSubjectsOutput) ToPolicyRulesWithSubjectsOutput() PolicyR
 
 func (o PolicyRulesWithSubjectsOutput) ToPolicyRulesWithSubjectsOutputWithContext(ctx context.Context) PolicyRulesWithSubjectsOutput {
 	return o
+}
+
+func (o PolicyRulesWithSubjectsOutput) ToOutput(ctx context.Context) pulumix.Output[PolicyRulesWithSubjects] {
+	return pulumix.Output[PolicyRulesWithSubjects]{
+		OutputState: o.OutputState,
+	}
 }
 
 // `nonResourceRules` is a list of NonResourcePolicyRules that identify matching requests according to their verb and the target non-resource URL.
@@ -3365,6 +3864,12 @@ func (o PolicyRulesWithSubjectsArrayOutput) ToPolicyRulesWithSubjectsArrayOutput
 
 func (o PolicyRulesWithSubjectsArrayOutput) ToPolicyRulesWithSubjectsArrayOutputWithContext(ctx context.Context) PolicyRulesWithSubjectsArrayOutput {
 	return o
+}
+
+func (o PolicyRulesWithSubjectsArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]PolicyRulesWithSubjects] {
+	return pulumix.Output[[]PolicyRulesWithSubjects]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o PolicyRulesWithSubjectsArrayOutput) Index(i pulumi.IntInput) PolicyRulesWithSubjectsOutput {
@@ -3416,6 +3921,12 @@ func (i PolicyRulesWithSubjectsPatchArgs) ToPolicyRulesWithSubjectsPatchOutputWi
 	return pulumi.ToOutputWithContext(ctx, i).(PolicyRulesWithSubjectsPatchOutput)
 }
 
+func (i PolicyRulesWithSubjectsPatchArgs) ToOutput(ctx context.Context) pulumix.Output[PolicyRulesWithSubjectsPatch] {
+	return pulumix.Output[PolicyRulesWithSubjectsPatch]{
+		OutputState: i.ToPolicyRulesWithSubjectsPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PolicyRulesWithSubjectsPatchArrayInput is an input type that accepts PolicyRulesWithSubjectsPatchArray and PolicyRulesWithSubjectsPatchArrayOutput values.
 // You can construct a concrete instance of `PolicyRulesWithSubjectsPatchArrayInput` via:
 //
@@ -3441,6 +3952,12 @@ func (i PolicyRulesWithSubjectsPatchArray) ToPolicyRulesWithSubjectsPatchArrayOu
 	return pulumi.ToOutputWithContext(ctx, i).(PolicyRulesWithSubjectsPatchArrayOutput)
 }
 
+func (i PolicyRulesWithSubjectsPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]PolicyRulesWithSubjectsPatch] {
+	return pulumix.Output[[]PolicyRulesWithSubjectsPatch]{
+		OutputState: i.ToPolicyRulesWithSubjectsPatchArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PolicyRulesWithSubjects prescribes a test that applies to a request to an apiserver. The test considers the subject making the request, the verb being requested, and the resource to be acted upon. This PolicyRulesWithSubjects matches a request if and only if both (a) at least one member of subjects matches the request and (b) at least one member of resourceRules or nonResourceRules matches the request.
 type PolicyRulesWithSubjectsPatchOutput struct{ *pulumi.OutputState }
 
@@ -3454,6 +3971,12 @@ func (o PolicyRulesWithSubjectsPatchOutput) ToPolicyRulesWithSubjectsPatchOutput
 
 func (o PolicyRulesWithSubjectsPatchOutput) ToPolicyRulesWithSubjectsPatchOutputWithContext(ctx context.Context) PolicyRulesWithSubjectsPatchOutput {
 	return o
+}
+
+func (o PolicyRulesWithSubjectsPatchOutput) ToOutput(ctx context.Context) pulumix.Output[PolicyRulesWithSubjectsPatch] {
+	return pulumix.Output[PolicyRulesWithSubjectsPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // `nonResourceRules` is a list of NonResourcePolicyRules that identify matching requests according to their verb and the target non-resource URL.
@@ -3483,6 +4006,12 @@ func (o PolicyRulesWithSubjectsPatchArrayOutput) ToPolicyRulesWithSubjectsPatchA
 
 func (o PolicyRulesWithSubjectsPatchArrayOutput) ToPolicyRulesWithSubjectsPatchArrayOutputWithContext(ctx context.Context) PolicyRulesWithSubjectsPatchArrayOutput {
 	return o
+}
+
+func (o PolicyRulesWithSubjectsPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]PolicyRulesWithSubjectsPatch] {
+	return pulumix.Output[[]PolicyRulesWithSubjectsPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o PolicyRulesWithSubjectsPatchArrayOutput) Index(i pulumi.IntInput) PolicyRulesWithSubjectsPatchOutput {
@@ -3542,6 +4071,12 @@ func (i PriorityLevelConfigurationTypeArgs) ToPriorityLevelConfigurationTypeOutp
 	return pulumi.ToOutputWithContext(ctx, i).(PriorityLevelConfigurationTypeOutput)
 }
 
+func (i PriorityLevelConfigurationTypeArgs) ToOutput(ctx context.Context) pulumix.Output[PriorityLevelConfigurationType] {
+	return pulumix.Output[PriorityLevelConfigurationType]{
+		OutputState: i.ToPriorityLevelConfigurationTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PriorityLevelConfigurationTypeArrayInput is an input type that accepts PriorityLevelConfigurationTypeArray and PriorityLevelConfigurationTypeArrayOutput values.
 // You can construct a concrete instance of `PriorityLevelConfigurationTypeArrayInput` via:
 //
@@ -3567,6 +4102,12 @@ func (i PriorityLevelConfigurationTypeArray) ToPriorityLevelConfigurationTypeArr
 	return pulumi.ToOutputWithContext(ctx, i).(PriorityLevelConfigurationTypeArrayOutput)
 }
 
+func (i PriorityLevelConfigurationTypeArray) ToOutput(ctx context.Context) pulumix.Output[[]PriorityLevelConfigurationType] {
+	return pulumix.Output[[]PriorityLevelConfigurationType]{
+		OutputState: i.ToPriorityLevelConfigurationTypeArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PriorityLevelConfiguration represents the configuration of a priority level.
 type PriorityLevelConfigurationTypeOutput struct{ *pulumi.OutputState }
 
@@ -3580,6 +4121,12 @@ func (o PriorityLevelConfigurationTypeOutput) ToPriorityLevelConfigurationTypeOu
 
 func (o PriorityLevelConfigurationTypeOutput) ToPriorityLevelConfigurationTypeOutputWithContext(ctx context.Context) PriorityLevelConfigurationTypeOutput {
 	return o
+}
+
+func (o PriorityLevelConfigurationTypeOutput) ToOutput(ctx context.Context) pulumix.Output[PriorityLevelConfigurationType] {
+	return pulumix.Output[PriorityLevelConfigurationType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -3619,6 +4166,12 @@ func (o PriorityLevelConfigurationTypeArrayOutput) ToPriorityLevelConfigurationT
 
 func (o PriorityLevelConfigurationTypeArrayOutput) ToPriorityLevelConfigurationTypeArrayOutputWithContext(ctx context.Context) PriorityLevelConfigurationTypeArrayOutput {
 	return o
+}
+
+func (o PriorityLevelConfigurationTypeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]PriorityLevelConfigurationType] {
+	return pulumix.Output[[]PriorityLevelConfigurationType]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o PriorityLevelConfigurationTypeArrayOutput) Index(i pulumi.IntInput) PriorityLevelConfigurationTypeOutput {
@@ -3678,6 +4231,12 @@ func (i PriorityLevelConfigurationConditionArgs) ToPriorityLevelConfigurationCon
 	return pulumi.ToOutputWithContext(ctx, i).(PriorityLevelConfigurationConditionOutput)
 }
 
+func (i PriorityLevelConfigurationConditionArgs) ToOutput(ctx context.Context) pulumix.Output[PriorityLevelConfigurationCondition] {
+	return pulumix.Output[PriorityLevelConfigurationCondition]{
+		OutputState: i.ToPriorityLevelConfigurationConditionOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PriorityLevelConfigurationConditionArrayInput is an input type that accepts PriorityLevelConfigurationConditionArray and PriorityLevelConfigurationConditionArrayOutput values.
 // You can construct a concrete instance of `PriorityLevelConfigurationConditionArrayInput` via:
 //
@@ -3703,6 +4262,12 @@ func (i PriorityLevelConfigurationConditionArray) ToPriorityLevelConfigurationCo
 	return pulumi.ToOutputWithContext(ctx, i).(PriorityLevelConfigurationConditionArrayOutput)
 }
 
+func (i PriorityLevelConfigurationConditionArray) ToOutput(ctx context.Context) pulumix.Output[[]PriorityLevelConfigurationCondition] {
+	return pulumix.Output[[]PriorityLevelConfigurationCondition]{
+		OutputState: i.ToPriorityLevelConfigurationConditionArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PriorityLevelConfigurationCondition defines the condition of priority level.
 type PriorityLevelConfigurationConditionOutput struct{ *pulumi.OutputState }
 
@@ -3716,6 +4281,12 @@ func (o PriorityLevelConfigurationConditionOutput) ToPriorityLevelConfigurationC
 
 func (o PriorityLevelConfigurationConditionOutput) ToPriorityLevelConfigurationConditionOutputWithContext(ctx context.Context) PriorityLevelConfigurationConditionOutput {
 	return o
+}
+
+func (o PriorityLevelConfigurationConditionOutput) ToOutput(ctx context.Context) pulumix.Output[PriorityLevelConfigurationCondition] {
+	return pulumix.Output[PriorityLevelConfigurationCondition]{
+		OutputState: o.OutputState,
+	}
 }
 
 // `lastTransitionTime` is the last time the condition transitioned from one status to another.
@@ -3755,6 +4326,12 @@ func (o PriorityLevelConfigurationConditionArrayOutput) ToPriorityLevelConfigura
 
 func (o PriorityLevelConfigurationConditionArrayOutput) ToPriorityLevelConfigurationConditionArrayOutputWithContext(ctx context.Context) PriorityLevelConfigurationConditionArrayOutput {
 	return o
+}
+
+func (o PriorityLevelConfigurationConditionArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]PriorityLevelConfigurationCondition] {
+	return pulumix.Output[[]PriorityLevelConfigurationCondition]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o PriorityLevelConfigurationConditionArrayOutput) Index(i pulumi.IntInput) PriorityLevelConfigurationConditionOutput {
@@ -3814,6 +4391,12 @@ func (i PriorityLevelConfigurationConditionPatchArgs) ToPriorityLevelConfigurati
 	return pulumi.ToOutputWithContext(ctx, i).(PriorityLevelConfigurationConditionPatchOutput)
 }
 
+func (i PriorityLevelConfigurationConditionPatchArgs) ToOutput(ctx context.Context) pulumix.Output[PriorityLevelConfigurationConditionPatch] {
+	return pulumix.Output[PriorityLevelConfigurationConditionPatch]{
+		OutputState: i.ToPriorityLevelConfigurationConditionPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PriorityLevelConfigurationConditionPatchArrayInput is an input type that accepts PriorityLevelConfigurationConditionPatchArray and PriorityLevelConfigurationConditionPatchArrayOutput values.
 // You can construct a concrete instance of `PriorityLevelConfigurationConditionPatchArrayInput` via:
 //
@@ -3839,6 +4422,12 @@ func (i PriorityLevelConfigurationConditionPatchArray) ToPriorityLevelConfigurat
 	return pulumi.ToOutputWithContext(ctx, i).(PriorityLevelConfigurationConditionPatchArrayOutput)
 }
 
+func (i PriorityLevelConfigurationConditionPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]PriorityLevelConfigurationConditionPatch] {
+	return pulumix.Output[[]PriorityLevelConfigurationConditionPatch]{
+		OutputState: i.ToPriorityLevelConfigurationConditionPatchArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PriorityLevelConfigurationCondition defines the condition of priority level.
 type PriorityLevelConfigurationConditionPatchOutput struct{ *pulumi.OutputState }
 
@@ -3852,6 +4441,12 @@ func (o PriorityLevelConfigurationConditionPatchOutput) ToPriorityLevelConfigura
 
 func (o PriorityLevelConfigurationConditionPatchOutput) ToPriorityLevelConfigurationConditionPatchOutputWithContext(ctx context.Context) PriorityLevelConfigurationConditionPatchOutput {
 	return o
+}
+
+func (o PriorityLevelConfigurationConditionPatchOutput) ToOutput(ctx context.Context) pulumix.Output[PriorityLevelConfigurationConditionPatch] {
+	return pulumix.Output[PriorityLevelConfigurationConditionPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // `lastTransitionTime` is the last time the condition transitioned from one status to another.
@@ -3891,6 +4486,12 @@ func (o PriorityLevelConfigurationConditionPatchArrayOutput) ToPriorityLevelConf
 
 func (o PriorityLevelConfigurationConditionPatchArrayOutput) ToPriorityLevelConfigurationConditionPatchArrayOutputWithContext(ctx context.Context) PriorityLevelConfigurationConditionPatchArrayOutput {
 	return o
+}
+
+func (o PriorityLevelConfigurationConditionPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]PriorityLevelConfigurationConditionPatch] {
+	return pulumix.Output[[]PriorityLevelConfigurationConditionPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o PriorityLevelConfigurationConditionPatchArrayOutput) Index(i pulumi.IntInput) PriorityLevelConfigurationConditionPatchOutput {
@@ -3946,6 +4547,12 @@ func (i PriorityLevelConfigurationListTypeArgs) ToPriorityLevelConfigurationList
 	return pulumi.ToOutputWithContext(ctx, i).(PriorityLevelConfigurationListTypeOutput)
 }
 
+func (i PriorityLevelConfigurationListTypeArgs) ToOutput(ctx context.Context) pulumix.Output[PriorityLevelConfigurationListType] {
+	return pulumix.Output[PriorityLevelConfigurationListType]{
+		OutputState: i.ToPriorityLevelConfigurationListTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PriorityLevelConfigurationList is a list of PriorityLevelConfiguration objects.
 type PriorityLevelConfigurationListTypeOutput struct{ *pulumi.OutputState }
 
@@ -3959,6 +4566,12 @@ func (o PriorityLevelConfigurationListTypeOutput) ToPriorityLevelConfigurationLi
 
 func (o PriorityLevelConfigurationListTypeOutput) ToPriorityLevelConfigurationListTypeOutputWithContext(ctx context.Context) PriorityLevelConfigurationListTypeOutput {
 	return o
+}
+
+func (o PriorityLevelConfigurationListTypeOutput) ToOutput(ctx context.Context) pulumix.Output[PriorityLevelConfigurationListType] {
+	return pulumix.Output[PriorityLevelConfigurationListType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -4032,6 +4645,12 @@ func (i PriorityLevelConfigurationPatchTypeArgs) ToPriorityLevelConfigurationPat
 	return pulumi.ToOutputWithContext(ctx, i).(PriorityLevelConfigurationPatchTypeOutput)
 }
 
+func (i PriorityLevelConfigurationPatchTypeArgs) ToOutput(ctx context.Context) pulumix.Output[PriorityLevelConfigurationPatchType] {
+	return pulumix.Output[PriorityLevelConfigurationPatchType]{
+		OutputState: i.ToPriorityLevelConfigurationPatchTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PriorityLevelConfiguration represents the configuration of a priority level.
 type PriorityLevelConfigurationPatchTypeOutput struct{ *pulumi.OutputState }
 
@@ -4045,6 +4664,12 @@ func (o PriorityLevelConfigurationPatchTypeOutput) ToPriorityLevelConfigurationP
 
 func (o PriorityLevelConfigurationPatchTypeOutput) ToPriorityLevelConfigurationPatchTypeOutputWithContext(ctx context.Context) PriorityLevelConfigurationPatchTypeOutput {
 	return o
+}
+
+func (o PriorityLevelConfigurationPatchTypeOutput) ToOutput(ctx context.Context) pulumix.Output[PriorityLevelConfigurationPatchType] {
+	return pulumix.Output[PriorityLevelConfigurationPatchType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -4107,6 +4732,12 @@ func (i PriorityLevelConfigurationReferenceArgs) ToPriorityLevelConfigurationRef
 	return pulumi.ToOutputWithContext(ctx, i).(PriorityLevelConfigurationReferenceOutput)
 }
 
+func (i PriorityLevelConfigurationReferenceArgs) ToOutput(ctx context.Context) pulumix.Output[PriorityLevelConfigurationReference] {
+	return pulumix.Output[PriorityLevelConfigurationReference]{
+		OutputState: i.ToPriorityLevelConfigurationReferenceOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i PriorityLevelConfigurationReferenceArgs) ToPriorityLevelConfigurationReferencePtrOutput() PriorityLevelConfigurationReferencePtrOutput {
 	return i.ToPriorityLevelConfigurationReferencePtrOutputWithContext(context.Background())
 }
@@ -4148,6 +4779,12 @@ func (i *priorityLevelConfigurationReferencePtrType) ToPriorityLevelConfiguratio
 	return pulumi.ToOutputWithContext(ctx, i).(PriorityLevelConfigurationReferencePtrOutput)
 }
 
+func (i *priorityLevelConfigurationReferencePtrType) ToOutput(ctx context.Context) pulumix.Output[*PriorityLevelConfigurationReference] {
+	return pulumix.Output[*PriorityLevelConfigurationReference]{
+		OutputState: i.ToPriorityLevelConfigurationReferencePtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PriorityLevelConfigurationReference contains information that points to the "request-priority" being used.
 type PriorityLevelConfigurationReferenceOutput struct{ *pulumi.OutputState }
 
@@ -4173,6 +4810,12 @@ func (o PriorityLevelConfigurationReferenceOutput) ToPriorityLevelConfigurationR
 	}).(PriorityLevelConfigurationReferencePtrOutput)
 }
 
+func (o PriorityLevelConfigurationReferenceOutput) ToOutput(ctx context.Context) pulumix.Output[PriorityLevelConfigurationReference] {
+	return pulumix.Output[PriorityLevelConfigurationReference]{
+		OutputState: o.OutputState,
+	}
+}
+
 // `name` is the name of the priority level configuration being referenced Required.
 func (o PriorityLevelConfigurationReferenceOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v PriorityLevelConfigurationReference) string { return v.Name }).(pulumi.StringOutput)
@@ -4190,6 +4833,12 @@ func (o PriorityLevelConfigurationReferencePtrOutput) ToPriorityLevelConfigurati
 
 func (o PriorityLevelConfigurationReferencePtrOutput) ToPriorityLevelConfigurationReferencePtrOutputWithContext(ctx context.Context) PriorityLevelConfigurationReferencePtrOutput {
 	return o
+}
+
+func (o PriorityLevelConfigurationReferencePtrOutput) ToOutput(ctx context.Context) pulumix.Output[*PriorityLevelConfigurationReference] {
+	return pulumix.Output[*PriorityLevelConfigurationReference]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o PriorityLevelConfigurationReferencePtrOutput) Elem() PriorityLevelConfigurationReferenceOutput {
@@ -4247,6 +4896,12 @@ func (i PriorityLevelConfigurationReferencePatchArgs) ToPriorityLevelConfigurati
 	return pulumi.ToOutputWithContext(ctx, i).(PriorityLevelConfigurationReferencePatchOutput)
 }
 
+func (i PriorityLevelConfigurationReferencePatchArgs) ToOutput(ctx context.Context) pulumix.Output[PriorityLevelConfigurationReferencePatch] {
+	return pulumix.Output[PriorityLevelConfigurationReferencePatch]{
+		OutputState: i.ToPriorityLevelConfigurationReferencePatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i PriorityLevelConfigurationReferencePatchArgs) ToPriorityLevelConfigurationReferencePatchPtrOutput() PriorityLevelConfigurationReferencePatchPtrOutput {
 	return i.ToPriorityLevelConfigurationReferencePatchPtrOutputWithContext(context.Background())
 }
@@ -4288,6 +4943,12 @@ func (i *priorityLevelConfigurationReferencePatchPtrType) ToPriorityLevelConfigu
 	return pulumi.ToOutputWithContext(ctx, i).(PriorityLevelConfigurationReferencePatchPtrOutput)
 }
 
+func (i *priorityLevelConfigurationReferencePatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*PriorityLevelConfigurationReferencePatch] {
+	return pulumix.Output[*PriorityLevelConfigurationReferencePatch]{
+		OutputState: i.ToPriorityLevelConfigurationReferencePatchPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PriorityLevelConfigurationReference contains information that points to the "request-priority" being used.
 type PriorityLevelConfigurationReferencePatchOutput struct{ *pulumi.OutputState }
 
@@ -4313,6 +4974,12 @@ func (o PriorityLevelConfigurationReferencePatchOutput) ToPriorityLevelConfigura
 	}).(PriorityLevelConfigurationReferencePatchPtrOutput)
 }
 
+func (o PriorityLevelConfigurationReferencePatchOutput) ToOutput(ctx context.Context) pulumix.Output[PriorityLevelConfigurationReferencePatch] {
+	return pulumix.Output[PriorityLevelConfigurationReferencePatch]{
+		OutputState: o.OutputState,
+	}
+}
+
 // `name` is the name of the priority level configuration being referenced Required.
 func (o PriorityLevelConfigurationReferencePatchOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PriorityLevelConfigurationReferencePatch) *string { return v.Name }).(pulumi.StringPtrOutput)
@@ -4330,6 +4997,12 @@ func (o PriorityLevelConfigurationReferencePatchPtrOutput) ToPriorityLevelConfig
 
 func (o PriorityLevelConfigurationReferencePatchPtrOutput) ToPriorityLevelConfigurationReferencePatchPtrOutputWithContext(ctx context.Context) PriorityLevelConfigurationReferencePatchPtrOutput {
 	return o
+}
+
+func (o PriorityLevelConfigurationReferencePatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*PriorityLevelConfigurationReferencePatch] {
+	return pulumix.Output[*PriorityLevelConfigurationReferencePatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o PriorityLevelConfigurationReferencePatchPtrOutput) Elem() PriorityLevelConfigurationReferencePatchOutput {
@@ -4395,6 +5068,12 @@ func (i PriorityLevelConfigurationSpecArgs) ToPriorityLevelConfigurationSpecOutp
 	return pulumi.ToOutputWithContext(ctx, i).(PriorityLevelConfigurationSpecOutput)
 }
 
+func (i PriorityLevelConfigurationSpecArgs) ToOutput(ctx context.Context) pulumix.Output[PriorityLevelConfigurationSpec] {
+	return pulumix.Output[PriorityLevelConfigurationSpec]{
+		OutputState: i.ToPriorityLevelConfigurationSpecOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i PriorityLevelConfigurationSpecArgs) ToPriorityLevelConfigurationSpecPtrOutput() PriorityLevelConfigurationSpecPtrOutput {
 	return i.ToPriorityLevelConfigurationSpecPtrOutputWithContext(context.Background())
 }
@@ -4436,6 +5115,12 @@ func (i *priorityLevelConfigurationSpecPtrType) ToPriorityLevelConfigurationSpec
 	return pulumi.ToOutputWithContext(ctx, i).(PriorityLevelConfigurationSpecPtrOutput)
 }
 
+func (i *priorityLevelConfigurationSpecPtrType) ToOutput(ctx context.Context) pulumix.Output[*PriorityLevelConfigurationSpec] {
+	return pulumix.Output[*PriorityLevelConfigurationSpec]{
+		OutputState: i.ToPriorityLevelConfigurationSpecPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PriorityLevelConfigurationSpec specifies the configuration of a priority level.
 type PriorityLevelConfigurationSpecOutput struct{ *pulumi.OutputState }
 
@@ -4459,6 +5144,12 @@ func (o PriorityLevelConfigurationSpecOutput) ToPriorityLevelConfigurationSpecPt
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v PriorityLevelConfigurationSpec) *PriorityLevelConfigurationSpec {
 		return &v
 	}).(PriorityLevelConfigurationSpecPtrOutput)
+}
+
+func (o PriorityLevelConfigurationSpecOutput) ToOutput(ctx context.Context) pulumix.Output[PriorityLevelConfigurationSpec] {
+	return pulumix.Output[PriorityLevelConfigurationSpec]{
+		OutputState: o.OutputState,
+	}
 }
 
 // `exempt` specifies how requests are handled for an exempt priority level. This field MUST be empty if `type` is `"Limited"`. This field MAY be non-empty if `type` is `"Exempt"`. If empty and `type` is `"Exempt"` then the default values for `ExemptPriorityLevelConfiguration` apply.
@@ -4488,6 +5179,12 @@ func (o PriorityLevelConfigurationSpecPtrOutput) ToPriorityLevelConfigurationSpe
 
 func (o PriorityLevelConfigurationSpecPtrOutput) ToPriorityLevelConfigurationSpecPtrOutputWithContext(ctx context.Context) PriorityLevelConfigurationSpecPtrOutput {
 	return o
+}
+
+func (o PriorityLevelConfigurationSpecPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*PriorityLevelConfigurationSpec] {
+	return pulumix.Output[*PriorityLevelConfigurationSpec]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o PriorityLevelConfigurationSpecPtrOutput) Elem() PriorityLevelConfigurationSpecOutput {
@@ -4573,6 +5270,12 @@ func (i PriorityLevelConfigurationSpecPatchArgs) ToPriorityLevelConfigurationSpe
 	return pulumi.ToOutputWithContext(ctx, i).(PriorityLevelConfigurationSpecPatchOutput)
 }
 
+func (i PriorityLevelConfigurationSpecPatchArgs) ToOutput(ctx context.Context) pulumix.Output[PriorityLevelConfigurationSpecPatch] {
+	return pulumix.Output[PriorityLevelConfigurationSpecPatch]{
+		OutputState: i.ToPriorityLevelConfigurationSpecPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i PriorityLevelConfigurationSpecPatchArgs) ToPriorityLevelConfigurationSpecPatchPtrOutput() PriorityLevelConfigurationSpecPatchPtrOutput {
 	return i.ToPriorityLevelConfigurationSpecPatchPtrOutputWithContext(context.Background())
 }
@@ -4614,6 +5317,12 @@ func (i *priorityLevelConfigurationSpecPatchPtrType) ToPriorityLevelConfiguratio
 	return pulumi.ToOutputWithContext(ctx, i).(PriorityLevelConfigurationSpecPatchPtrOutput)
 }
 
+func (i *priorityLevelConfigurationSpecPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*PriorityLevelConfigurationSpecPatch] {
+	return pulumix.Output[*PriorityLevelConfigurationSpecPatch]{
+		OutputState: i.ToPriorityLevelConfigurationSpecPatchPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PriorityLevelConfigurationSpec specifies the configuration of a priority level.
 type PriorityLevelConfigurationSpecPatchOutput struct{ *pulumi.OutputState }
 
@@ -4637,6 +5346,12 @@ func (o PriorityLevelConfigurationSpecPatchOutput) ToPriorityLevelConfigurationS
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v PriorityLevelConfigurationSpecPatch) *PriorityLevelConfigurationSpecPatch {
 		return &v
 	}).(PriorityLevelConfigurationSpecPatchPtrOutput)
+}
+
+func (o PriorityLevelConfigurationSpecPatchOutput) ToOutput(ctx context.Context) pulumix.Output[PriorityLevelConfigurationSpecPatch] {
+	return pulumix.Output[PriorityLevelConfigurationSpecPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // `exempt` specifies how requests are handled for an exempt priority level. This field MUST be empty if `type` is `"Limited"`. This field MAY be non-empty if `type` is `"Exempt"`. If empty and `type` is `"Exempt"` then the default values for `ExemptPriorityLevelConfiguration` apply.
@@ -4666,6 +5381,12 @@ func (o PriorityLevelConfigurationSpecPatchPtrOutput) ToPriorityLevelConfigurati
 
 func (o PriorityLevelConfigurationSpecPatchPtrOutput) ToPriorityLevelConfigurationSpecPatchPtrOutputWithContext(ctx context.Context) PriorityLevelConfigurationSpecPatchPtrOutput {
 	return o
+}
+
+func (o PriorityLevelConfigurationSpecPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*PriorityLevelConfigurationSpecPatch] {
+	return pulumix.Output[*PriorityLevelConfigurationSpecPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o PriorityLevelConfigurationSpecPatchPtrOutput) Elem() PriorityLevelConfigurationSpecPatchOutput {
@@ -4743,6 +5464,12 @@ func (i PriorityLevelConfigurationStatusArgs) ToPriorityLevelConfigurationStatus
 	return pulumi.ToOutputWithContext(ctx, i).(PriorityLevelConfigurationStatusOutput)
 }
 
+func (i PriorityLevelConfigurationStatusArgs) ToOutput(ctx context.Context) pulumix.Output[PriorityLevelConfigurationStatus] {
+	return pulumix.Output[PriorityLevelConfigurationStatus]{
+		OutputState: i.ToPriorityLevelConfigurationStatusOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i PriorityLevelConfigurationStatusArgs) ToPriorityLevelConfigurationStatusPtrOutput() PriorityLevelConfigurationStatusPtrOutput {
 	return i.ToPriorityLevelConfigurationStatusPtrOutputWithContext(context.Background())
 }
@@ -4784,6 +5511,12 @@ func (i *priorityLevelConfigurationStatusPtrType) ToPriorityLevelConfigurationSt
 	return pulumi.ToOutputWithContext(ctx, i).(PriorityLevelConfigurationStatusPtrOutput)
 }
 
+func (i *priorityLevelConfigurationStatusPtrType) ToOutput(ctx context.Context) pulumix.Output[*PriorityLevelConfigurationStatus] {
+	return pulumix.Output[*PriorityLevelConfigurationStatus]{
+		OutputState: i.ToPriorityLevelConfigurationStatusPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PriorityLevelConfigurationStatus represents the current state of a "request-priority".
 type PriorityLevelConfigurationStatusOutput struct{ *pulumi.OutputState }
 
@@ -4809,6 +5542,12 @@ func (o PriorityLevelConfigurationStatusOutput) ToPriorityLevelConfigurationStat
 	}).(PriorityLevelConfigurationStatusPtrOutput)
 }
 
+func (o PriorityLevelConfigurationStatusOutput) ToOutput(ctx context.Context) pulumix.Output[PriorityLevelConfigurationStatus] {
+	return pulumix.Output[PriorityLevelConfigurationStatus]{
+		OutputState: o.OutputState,
+	}
+}
+
 // `conditions` is the current state of "request-priority".
 func (o PriorityLevelConfigurationStatusOutput) Conditions() PriorityLevelConfigurationConditionArrayOutput {
 	return o.ApplyT(func(v PriorityLevelConfigurationStatus) []PriorityLevelConfigurationCondition { return v.Conditions }).(PriorityLevelConfigurationConditionArrayOutput)
@@ -4826,6 +5565,12 @@ func (o PriorityLevelConfigurationStatusPtrOutput) ToPriorityLevelConfigurationS
 
 func (o PriorityLevelConfigurationStatusPtrOutput) ToPriorityLevelConfigurationStatusPtrOutputWithContext(ctx context.Context) PriorityLevelConfigurationStatusPtrOutput {
 	return o
+}
+
+func (o PriorityLevelConfigurationStatusPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*PriorityLevelConfigurationStatus] {
+	return pulumix.Output[*PriorityLevelConfigurationStatus]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o PriorityLevelConfigurationStatusPtrOutput) Elem() PriorityLevelConfigurationStatusOutput {
@@ -4883,6 +5628,12 @@ func (i PriorityLevelConfigurationStatusPatchArgs) ToPriorityLevelConfigurationS
 	return pulumi.ToOutputWithContext(ctx, i).(PriorityLevelConfigurationStatusPatchOutput)
 }
 
+func (i PriorityLevelConfigurationStatusPatchArgs) ToOutput(ctx context.Context) pulumix.Output[PriorityLevelConfigurationStatusPatch] {
+	return pulumix.Output[PriorityLevelConfigurationStatusPatch]{
+		OutputState: i.ToPriorityLevelConfigurationStatusPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i PriorityLevelConfigurationStatusPatchArgs) ToPriorityLevelConfigurationStatusPatchPtrOutput() PriorityLevelConfigurationStatusPatchPtrOutput {
 	return i.ToPriorityLevelConfigurationStatusPatchPtrOutputWithContext(context.Background())
 }
@@ -4924,6 +5675,12 @@ func (i *priorityLevelConfigurationStatusPatchPtrType) ToPriorityLevelConfigurat
 	return pulumi.ToOutputWithContext(ctx, i).(PriorityLevelConfigurationStatusPatchPtrOutput)
 }
 
+func (i *priorityLevelConfigurationStatusPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*PriorityLevelConfigurationStatusPatch] {
+	return pulumix.Output[*PriorityLevelConfigurationStatusPatch]{
+		OutputState: i.ToPriorityLevelConfigurationStatusPatchPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PriorityLevelConfigurationStatus represents the current state of a "request-priority".
 type PriorityLevelConfigurationStatusPatchOutput struct{ *pulumi.OutputState }
 
@@ -4949,6 +5706,12 @@ func (o PriorityLevelConfigurationStatusPatchOutput) ToPriorityLevelConfiguratio
 	}).(PriorityLevelConfigurationStatusPatchPtrOutput)
 }
 
+func (o PriorityLevelConfigurationStatusPatchOutput) ToOutput(ctx context.Context) pulumix.Output[PriorityLevelConfigurationStatusPatch] {
+	return pulumix.Output[PriorityLevelConfigurationStatusPatch]{
+		OutputState: o.OutputState,
+	}
+}
+
 // `conditions` is the current state of "request-priority".
 func (o PriorityLevelConfigurationStatusPatchOutput) Conditions() PriorityLevelConfigurationConditionPatchArrayOutput {
 	return o.ApplyT(func(v PriorityLevelConfigurationStatusPatch) []PriorityLevelConfigurationConditionPatch {
@@ -4968,6 +5731,12 @@ func (o PriorityLevelConfigurationStatusPatchPtrOutput) ToPriorityLevelConfigura
 
 func (o PriorityLevelConfigurationStatusPatchPtrOutput) ToPriorityLevelConfigurationStatusPatchPtrOutputWithContext(ctx context.Context) PriorityLevelConfigurationStatusPatchPtrOutput {
 	return o
+}
+
+func (o PriorityLevelConfigurationStatusPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*PriorityLevelConfigurationStatusPatch] {
+	return pulumix.Output[*PriorityLevelConfigurationStatusPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o PriorityLevelConfigurationStatusPatchPtrOutput) Elem() PriorityLevelConfigurationStatusPatchOutput {
@@ -5033,6 +5802,12 @@ func (i QueuingConfigurationArgs) ToQueuingConfigurationOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(QueuingConfigurationOutput)
 }
 
+func (i QueuingConfigurationArgs) ToOutput(ctx context.Context) pulumix.Output[QueuingConfiguration] {
+	return pulumix.Output[QueuingConfiguration]{
+		OutputState: i.ToQueuingConfigurationOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i QueuingConfigurationArgs) ToQueuingConfigurationPtrOutput() QueuingConfigurationPtrOutput {
 	return i.ToQueuingConfigurationPtrOutputWithContext(context.Background())
 }
@@ -5074,6 +5849,12 @@ func (i *queuingConfigurationPtrType) ToQueuingConfigurationPtrOutputWithContext
 	return pulumi.ToOutputWithContext(ctx, i).(QueuingConfigurationPtrOutput)
 }
 
+func (i *queuingConfigurationPtrType) ToOutput(ctx context.Context) pulumix.Output[*QueuingConfiguration] {
+	return pulumix.Output[*QueuingConfiguration]{
+		OutputState: i.ToQueuingConfigurationPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // QueuingConfiguration holds the configuration parameters for queuing
 type QueuingConfigurationOutput struct{ *pulumi.OutputState }
 
@@ -5097,6 +5878,12 @@ func (o QueuingConfigurationOutput) ToQueuingConfigurationPtrOutputWithContext(c
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v QueuingConfiguration) *QueuingConfiguration {
 		return &v
 	}).(QueuingConfigurationPtrOutput)
+}
+
+func (o QueuingConfigurationOutput) ToOutput(ctx context.Context) pulumix.Output[QueuingConfiguration] {
+	return pulumix.Output[QueuingConfiguration]{
+		OutputState: o.OutputState,
+	}
 }
 
 // `handSize` is a small positive number that configures the shuffle sharding of requests into queues.  When enqueuing a request at this priority level the request's flow identifier (a string pair) is hashed and the hash value is used to shuffle the list of queues and deal a hand of the size specified here.  The request is put into one of the shortest queues in that hand. `handSize` must be no larger than `queues`, and should be significantly smaller (so that a few heavy flows do not saturate most of the queues).  See the user-facing documentation for more extensive guidance on setting this field.  This field has a default value of 8.
@@ -5126,6 +5913,12 @@ func (o QueuingConfigurationPtrOutput) ToQueuingConfigurationPtrOutput() Queuing
 
 func (o QueuingConfigurationPtrOutput) ToQueuingConfigurationPtrOutputWithContext(ctx context.Context) QueuingConfigurationPtrOutput {
 	return o
+}
+
+func (o QueuingConfigurationPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*QueuingConfiguration] {
+	return pulumix.Output[*QueuingConfiguration]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o QueuingConfigurationPtrOutput) Elem() QueuingConfigurationOutput {
@@ -5211,6 +6004,12 @@ func (i QueuingConfigurationPatchArgs) ToQueuingConfigurationPatchOutputWithCont
 	return pulumi.ToOutputWithContext(ctx, i).(QueuingConfigurationPatchOutput)
 }
 
+func (i QueuingConfigurationPatchArgs) ToOutput(ctx context.Context) pulumix.Output[QueuingConfigurationPatch] {
+	return pulumix.Output[QueuingConfigurationPatch]{
+		OutputState: i.ToQueuingConfigurationPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i QueuingConfigurationPatchArgs) ToQueuingConfigurationPatchPtrOutput() QueuingConfigurationPatchPtrOutput {
 	return i.ToQueuingConfigurationPatchPtrOutputWithContext(context.Background())
 }
@@ -5252,6 +6051,12 @@ func (i *queuingConfigurationPatchPtrType) ToQueuingConfigurationPatchPtrOutputW
 	return pulumi.ToOutputWithContext(ctx, i).(QueuingConfigurationPatchPtrOutput)
 }
 
+func (i *queuingConfigurationPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*QueuingConfigurationPatch] {
+	return pulumix.Output[*QueuingConfigurationPatch]{
+		OutputState: i.ToQueuingConfigurationPatchPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // QueuingConfiguration holds the configuration parameters for queuing
 type QueuingConfigurationPatchOutput struct{ *pulumi.OutputState }
 
@@ -5275,6 +6080,12 @@ func (o QueuingConfigurationPatchOutput) ToQueuingConfigurationPatchPtrOutputWit
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v QueuingConfigurationPatch) *QueuingConfigurationPatch {
 		return &v
 	}).(QueuingConfigurationPatchPtrOutput)
+}
+
+func (o QueuingConfigurationPatchOutput) ToOutput(ctx context.Context) pulumix.Output[QueuingConfigurationPatch] {
+	return pulumix.Output[QueuingConfigurationPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // `handSize` is a small positive number that configures the shuffle sharding of requests into queues.  When enqueuing a request at this priority level the request's flow identifier (a string pair) is hashed and the hash value is used to shuffle the list of queues and deal a hand of the size specified here.  The request is put into one of the shortest queues in that hand. `handSize` must be no larger than `queues`, and should be significantly smaller (so that a few heavy flows do not saturate most of the queues).  See the user-facing documentation for more extensive guidance on setting this field.  This field has a default value of 8.
@@ -5304,6 +6115,12 @@ func (o QueuingConfigurationPatchPtrOutput) ToQueuingConfigurationPatchPtrOutput
 
 func (o QueuingConfigurationPatchPtrOutput) ToQueuingConfigurationPatchPtrOutputWithContext(ctx context.Context) QueuingConfigurationPatchPtrOutput {
 	return o
+}
+
+func (o QueuingConfigurationPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*QueuingConfigurationPatch] {
+	return pulumix.Output[*QueuingConfigurationPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o QueuingConfigurationPatchPtrOutput) Elem() QueuingConfigurationPatchOutput {
@@ -5397,6 +6214,12 @@ func (i ResourcePolicyRuleArgs) ToResourcePolicyRuleOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(ResourcePolicyRuleOutput)
 }
 
+func (i ResourcePolicyRuleArgs) ToOutput(ctx context.Context) pulumix.Output[ResourcePolicyRule] {
+	return pulumix.Output[ResourcePolicyRule]{
+		OutputState: i.ToResourcePolicyRuleOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ResourcePolicyRuleArrayInput is an input type that accepts ResourcePolicyRuleArray and ResourcePolicyRuleArrayOutput values.
 // You can construct a concrete instance of `ResourcePolicyRuleArrayInput` via:
 //
@@ -5422,6 +6245,12 @@ func (i ResourcePolicyRuleArray) ToResourcePolicyRuleArrayOutputWithContext(ctx 
 	return pulumi.ToOutputWithContext(ctx, i).(ResourcePolicyRuleArrayOutput)
 }
 
+func (i ResourcePolicyRuleArray) ToOutput(ctx context.Context) pulumix.Output[[]ResourcePolicyRule] {
+	return pulumix.Output[[]ResourcePolicyRule]{
+		OutputState: i.ToResourcePolicyRuleArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) either (d1) the request does not specify a namespace (i.e., `Namespace==""`) and clusterScope is true or (d2) the request specifies a namespace and least one member of namespaces matches the request's namespace.
 type ResourcePolicyRuleOutput struct{ *pulumi.OutputState }
 
@@ -5435,6 +6264,12 @@ func (o ResourcePolicyRuleOutput) ToResourcePolicyRuleOutput() ResourcePolicyRul
 
 func (o ResourcePolicyRuleOutput) ToResourcePolicyRuleOutputWithContext(ctx context.Context) ResourcePolicyRuleOutput {
 	return o
+}
+
+func (o ResourcePolicyRuleOutput) ToOutput(ctx context.Context) pulumix.Output[ResourcePolicyRule] {
+	return pulumix.Output[ResourcePolicyRule]{
+		OutputState: o.OutputState,
+	}
 }
 
 // `apiGroups` is a list of matching API groups and may not be empty. "*" matches all API groups and, if present, must be the only entry. Required.
@@ -5474,6 +6309,12 @@ func (o ResourcePolicyRuleArrayOutput) ToResourcePolicyRuleArrayOutput() Resourc
 
 func (o ResourcePolicyRuleArrayOutput) ToResourcePolicyRuleArrayOutputWithContext(ctx context.Context) ResourcePolicyRuleArrayOutput {
 	return o
+}
+
+func (o ResourcePolicyRuleArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]ResourcePolicyRule] {
+	return pulumix.Output[[]ResourcePolicyRule]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ResourcePolicyRuleArrayOutput) Index(i pulumi.IntInput) ResourcePolicyRuleOutput {
@@ -5533,6 +6374,12 @@ func (i ResourcePolicyRulePatchArgs) ToResourcePolicyRulePatchOutputWithContext(
 	return pulumi.ToOutputWithContext(ctx, i).(ResourcePolicyRulePatchOutput)
 }
 
+func (i ResourcePolicyRulePatchArgs) ToOutput(ctx context.Context) pulumix.Output[ResourcePolicyRulePatch] {
+	return pulumix.Output[ResourcePolicyRulePatch]{
+		OutputState: i.ToResourcePolicyRulePatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ResourcePolicyRulePatchArrayInput is an input type that accepts ResourcePolicyRulePatchArray and ResourcePolicyRulePatchArrayOutput values.
 // You can construct a concrete instance of `ResourcePolicyRulePatchArrayInput` via:
 //
@@ -5558,6 +6405,12 @@ func (i ResourcePolicyRulePatchArray) ToResourcePolicyRulePatchArrayOutputWithCo
 	return pulumi.ToOutputWithContext(ctx, i).(ResourcePolicyRulePatchArrayOutput)
 }
 
+func (i ResourcePolicyRulePatchArray) ToOutput(ctx context.Context) pulumix.Output[[]ResourcePolicyRulePatch] {
+	return pulumix.Output[[]ResourcePolicyRulePatch]{
+		OutputState: i.ToResourcePolicyRulePatchArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ResourcePolicyRule is a predicate that matches some resource requests, testing the request's verb and the target resource. A ResourcePolicyRule matches a resource request if and only if: (a) at least one member of verbs matches the request, (b) at least one member of apiGroups matches the request, (c) at least one member of resources matches the request, and (d) either (d1) the request does not specify a namespace (i.e., `Namespace==""`) and clusterScope is true or (d2) the request specifies a namespace and least one member of namespaces matches the request's namespace.
 type ResourcePolicyRulePatchOutput struct{ *pulumi.OutputState }
 
@@ -5571,6 +6424,12 @@ func (o ResourcePolicyRulePatchOutput) ToResourcePolicyRulePatchOutput() Resourc
 
 func (o ResourcePolicyRulePatchOutput) ToResourcePolicyRulePatchOutputWithContext(ctx context.Context) ResourcePolicyRulePatchOutput {
 	return o
+}
+
+func (o ResourcePolicyRulePatchOutput) ToOutput(ctx context.Context) pulumix.Output[ResourcePolicyRulePatch] {
+	return pulumix.Output[ResourcePolicyRulePatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // `apiGroups` is a list of matching API groups and may not be empty. "*" matches all API groups and, if present, must be the only entry. Required.
@@ -5610,6 +6469,12 @@ func (o ResourcePolicyRulePatchArrayOutput) ToResourcePolicyRulePatchArrayOutput
 
 func (o ResourcePolicyRulePatchArrayOutput) ToResourcePolicyRulePatchArrayOutputWithContext(ctx context.Context) ResourcePolicyRulePatchArrayOutput {
 	return o
+}
+
+func (o ResourcePolicyRulePatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]ResourcePolicyRulePatch] {
+	return pulumix.Output[[]ResourcePolicyRulePatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ResourcePolicyRulePatchArrayOutput) Index(i pulumi.IntInput) ResourcePolicyRulePatchOutput {
@@ -5657,6 +6522,12 @@ func (i ServiceAccountSubjectArgs) ToServiceAccountSubjectOutputWithContext(ctx 
 	return pulumi.ToOutputWithContext(ctx, i).(ServiceAccountSubjectOutput)
 }
 
+func (i ServiceAccountSubjectArgs) ToOutput(ctx context.Context) pulumix.Output[ServiceAccountSubject] {
+	return pulumix.Output[ServiceAccountSubject]{
+		OutputState: i.ToServiceAccountSubjectOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i ServiceAccountSubjectArgs) ToServiceAccountSubjectPtrOutput() ServiceAccountSubjectPtrOutput {
 	return i.ToServiceAccountSubjectPtrOutputWithContext(context.Background())
 }
@@ -5698,6 +6569,12 @@ func (i *serviceAccountSubjectPtrType) ToServiceAccountSubjectPtrOutputWithConte
 	return pulumi.ToOutputWithContext(ctx, i).(ServiceAccountSubjectPtrOutput)
 }
 
+func (i *serviceAccountSubjectPtrType) ToOutput(ctx context.Context) pulumix.Output[*ServiceAccountSubject] {
+	return pulumix.Output[*ServiceAccountSubject]{
+		OutputState: i.ToServiceAccountSubjectPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ServiceAccountSubject holds detailed information for service-account-kind subject.
 type ServiceAccountSubjectOutput struct{ *pulumi.OutputState }
 
@@ -5723,6 +6600,12 @@ func (o ServiceAccountSubjectOutput) ToServiceAccountSubjectPtrOutputWithContext
 	}).(ServiceAccountSubjectPtrOutput)
 }
 
+func (o ServiceAccountSubjectOutput) ToOutput(ctx context.Context) pulumix.Output[ServiceAccountSubject] {
+	return pulumix.Output[ServiceAccountSubject]{
+		OutputState: o.OutputState,
+	}
+}
+
 // `name` is the name of matching ServiceAccount objects, or "*" to match regardless of name. Required.
 func (o ServiceAccountSubjectOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v ServiceAccountSubject) string { return v.Name }).(pulumi.StringOutput)
@@ -5745,6 +6628,12 @@ func (o ServiceAccountSubjectPtrOutput) ToServiceAccountSubjectPtrOutput() Servi
 
 func (o ServiceAccountSubjectPtrOutput) ToServiceAccountSubjectPtrOutputWithContext(ctx context.Context) ServiceAccountSubjectPtrOutput {
 	return o
+}
+
+func (o ServiceAccountSubjectPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ServiceAccountSubject] {
+	return pulumix.Output[*ServiceAccountSubject]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ServiceAccountSubjectPtrOutput) Elem() ServiceAccountSubjectOutput {
@@ -5816,6 +6705,12 @@ func (i ServiceAccountSubjectPatchArgs) ToServiceAccountSubjectPatchOutputWithCo
 	return pulumi.ToOutputWithContext(ctx, i).(ServiceAccountSubjectPatchOutput)
 }
 
+func (i ServiceAccountSubjectPatchArgs) ToOutput(ctx context.Context) pulumix.Output[ServiceAccountSubjectPatch] {
+	return pulumix.Output[ServiceAccountSubjectPatch]{
+		OutputState: i.ToServiceAccountSubjectPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i ServiceAccountSubjectPatchArgs) ToServiceAccountSubjectPatchPtrOutput() ServiceAccountSubjectPatchPtrOutput {
 	return i.ToServiceAccountSubjectPatchPtrOutputWithContext(context.Background())
 }
@@ -5857,6 +6752,12 @@ func (i *serviceAccountSubjectPatchPtrType) ToServiceAccountSubjectPatchPtrOutpu
 	return pulumi.ToOutputWithContext(ctx, i).(ServiceAccountSubjectPatchPtrOutput)
 }
 
+func (i *serviceAccountSubjectPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*ServiceAccountSubjectPatch] {
+	return pulumix.Output[*ServiceAccountSubjectPatch]{
+		OutputState: i.ToServiceAccountSubjectPatchPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ServiceAccountSubject holds detailed information for service-account-kind subject.
 type ServiceAccountSubjectPatchOutput struct{ *pulumi.OutputState }
 
@@ -5882,6 +6783,12 @@ func (o ServiceAccountSubjectPatchOutput) ToServiceAccountSubjectPatchPtrOutputW
 	}).(ServiceAccountSubjectPatchPtrOutput)
 }
 
+func (o ServiceAccountSubjectPatchOutput) ToOutput(ctx context.Context) pulumix.Output[ServiceAccountSubjectPatch] {
+	return pulumix.Output[ServiceAccountSubjectPatch]{
+		OutputState: o.OutputState,
+	}
+}
+
 // `name` is the name of matching ServiceAccount objects, or "*" to match regardless of name. Required.
 func (o ServiceAccountSubjectPatchOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ServiceAccountSubjectPatch) *string { return v.Name }).(pulumi.StringPtrOutput)
@@ -5904,6 +6811,12 @@ func (o ServiceAccountSubjectPatchPtrOutput) ToServiceAccountSubjectPatchPtrOutp
 
 func (o ServiceAccountSubjectPatchPtrOutput) ToServiceAccountSubjectPatchPtrOutputWithContext(ctx context.Context) ServiceAccountSubjectPatchPtrOutput {
 	return o
+}
+
+func (o ServiceAccountSubjectPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ServiceAccountSubjectPatch] {
+	return pulumix.Output[*ServiceAccountSubjectPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ServiceAccountSubjectPatchPtrOutput) Elem() ServiceAccountSubjectPatchOutput {
@@ -5983,6 +6896,12 @@ func (i SubjectArgs) ToSubjectOutputWithContext(ctx context.Context) SubjectOutp
 	return pulumi.ToOutputWithContext(ctx, i).(SubjectOutput)
 }
 
+func (i SubjectArgs) ToOutput(ctx context.Context) pulumix.Output[Subject] {
+	return pulumix.Output[Subject]{
+		OutputState: i.ToSubjectOutputWithContext(ctx).OutputState,
+	}
+}
+
 // SubjectArrayInput is an input type that accepts SubjectArray and SubjectArrayOutput values.
 // You can construct a concrete instance of `SubjectArrayInput` via:
 //
@@ -6008,6 +6927,12 @@ func (i SubjectArray) ToSubjectArrayOutputWithContext(ctx context.Context) Subje
 	return pulumi.ToOutputWithContext(ctx, i).(SubjectArrayOutput)
 }
 
+func (i SubjectArray) ToOutput(ctx context.Context) pulumix.Output[[]Subject] {
+	return pulumix.Output[[]Subject]{
+		OutputState: i.ToSubjectArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.
 type SubjectOutput struct{ *pulumi.OutputState }
 
@@ -6021,6 +6946,12 @@ func (o SubjectOutput) ToSubjectOutput() SubjectOutput {
 
 func (o SubjectOutput) ToSubjectOutputWithContext(ctx context.Context) SubjectOutput {
 	return o
+}
+
+func (o SubjectOutput) ToOutput(ctx context.Context) pulumix.Output[Subject] {
+	return pulumix.Output[Subject]{
+		OutputState: o.OutputState,
+	}
 }
 
 // `group` matches based on user group name.
@@ -6055,6 +6986,12 @@ func (o SubjectArrayOutput) ToSubjectArrayOutput() SubjectArrayOutput {
 
 func (o SubjectArrayOutput) ToSubjectArrayOutputWithContext(ctx context.Context) SubjectArrayOutput {
 	return o
+}
+
+func (o SubjectArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]Subject] {
+	return pulumix.Output[[]Subject]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o SubjectArrayOutput) Index(i pulumi.IntInput) SubjectOutput {
@@ -6110,6 +7047,12 @@ func (i SubjectPatchArgs) ToSubjectPatchOutputWithContext(ctx context.Context) S
 	return pulumi.ToOutputWithContext(ctx, i).(SubjectPatchOutput)
 }
 
+func (i SubjectPatchArgs) ToOutput(ctx context.Context) pulumix.Output[SubjectPatch] {
+	return pulumix.Output[SubjectPatch]{
+		OutputState: i.ToSubjectPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 // SubjectPatchArrayInput is an input type that accepts SubjectPatchArray and SubjectPatchArrayOutput values.
 // You can construct a concrete instance of `SubjectPatchArrayInput` via:
 //
@@ -6135,6 +7078,12 @@ func (i SubjectPatchArray) ToSubjectPatchArrayOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(SubjectPatchArrayOutput)
 }
 
+func (i SubjectPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]SubjectPatch] {
+	return pulumix.Output[[]SubjectPatch]{
+		OutputState: i.ToSubjectPatchArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // Subject matches the originator of a request, as identified by the request authentication system. There are three ways of matching an originator; by user, group, or service account.
 type SubjectPatchOutput struct{ *pulumi.OutputState }
 
@@ -6148,6 +7097,12 @@ func (o SubjectPatchOutput) ToSubjectPatchOutput() SubjectPatchOutput {
 
 func (o SubjectPatchOutput) ToSubjectPatchOutputWithContext(ctx context.Context) SubjectPatchOutput {
 	return o
+}
+
+func (o SubjectPatchOutput) ToOutput(ctx context.Context) pulumix.Output[SubjectPatch] {
+	return pulumix.Output[SubjectPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // `group` matches based on user group name.
@@ -6182,6 +7137,12 @@ func (o SubjectPatchArrayOutput) ToSubjectPatchArrayOutput() SubjectPatchArrayOu
 
 func (o SubjectPatchArrayOutput) ToSubjectPatchArrayOutputWithContext(ctx context.Context) SubjectPatchArrayOutput {
 	return o
+}
+
+func (o SubjectPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]SubjectPatch] {
+	return pulumix.Output[[]SubjectPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o SubjectPatchArrayOutput) Index(i pulumi.IntInput) SubjectPatchOutput {
@@ -6225,6 +7186,12 @@ func (i UserSubjectArgs) ToUserSubjectOutputWithContext(ctx context.Context) Use
 	return pulumi.ToOutputWithContext(ctx, i).(UserSubjectOutput)
 }
 
+func (i UserSubjectArgs) ToOutput(ctx context.Context) pulumix.Output[UserSubject] {
+	return pulumix.Output[UserSubject]{
+		OutputState: i.ToUserSubjectOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i UserSubjectArgs) ToUserSubjectPtrOutput() UserSubjectPtrOutput {
 	return i.ToUserSubjectPtrOutputWithContext(context.Background())
 }
@@ -6266,6 +7233,12 @@ func (i *userSubjectPtrType) ToUserSubjectPtrOutputWithContext(ctx context.Conte
 	return pulumi.ToOutputWithContext(ctx, i).(UserSubjectPtrOutput)
 }
 
+func (i *userSubjectPtrType) ToOutput(ctx context.Context) pulumix.Output[*UserSubject] {
+	return pulumix.Output[*UserSubject]{
+		OutputState: i.ToUserSubjectPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // UserSubject holds detailed information for user-kind subject.
 type UserSubjectOutput struct{ *pulumi.OutputState }
 
@@ -6291,6 +7264,12 @@ func (o UserSubjectOutput) ToUserSubjectPtrOutputWithContext(ctx context.Context
 	}).(UserSubjectPtrOutput)
 }
 
+func (o UserSubjectOutput) ToOutput(ctx context.Context) pulumix.Output[UserSubject] {
+	return pulumix.Output[UserSubject]{
+		OutputState: o.OutputState,
+	}
+}
+
 // `name` is the username that matches, or "*" to match all usernames. Required.
 func (o UserSubjectOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v UserSubject) string { return v.Name }).(pulumi.StringOutput)
@@ -6308,6 +7287,12 @@ func (o UserSubjectPtrOutput) ToUserSubjectPtrOutput() UserSubjectPtrOutput {
 
 func (o UserSubjectPtrOutput) ToUserSubjectPtrOutputWithContext(ctx context.Context) UserSubjectPtrOutput {
 	return o
+}
+
+func (o UserSubjectPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*UserSubject] {
+	return pulumix.Output[*UserSubject]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o UserSubjectPtrOutput) Elem() UserSubjectOutput {
@@ -6365,6 +7350,12 @@ func (i UserSubjectPatchArgs) ToUserSubjectPatchOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(UserSubjectPatchOutput)
 }
 
+func (i UserSubjectPatchArgs) ToOutput(ctx context.Context) pulumix.Output[UserSubjectPatch] {
+	return pulumix.Output[UserSubjectPatch]{
+		OutputState: i.ToUserSubjectPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i UserSubjectPatchArgs) ToUserSubjectPatchPtrOutput() UserSubjectPatchPtrOutput {
 	return i.ToUserSubjectPatchPtrOutputWithContext(context.Background())
 }
@@ -6406,6 +7397,12 @@ func (i *userSubjectPatchPtrType) ToUserSubjectPatchPtrOutputWithContext(ctx con
 	return pulumi.ToOutputWithContext(ctx, i).(UserSubjectPatchPtrOutput)
 }
 
+func (i *userSubjectPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*UserSubjectPatch] {
+	return pulumix.Output[*UserSubjectPatch]{
+		OutputState: i.ToUserSubjectPatchPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // UserSubject holds detailed information for user-kind subject.
 type UserSubjectPatchOutput struct{ *pulumi.OutputState }
 
@@ -6431,6 +7428,12 @@ func (o UserSubjectPatchOutput) ToUserSubjectPatchPtrOutputWithContext(ctx conte
 	}).(UserSubjectPatchPtrOutput)
 }
 
+func (o UserSubjectPatchOutput) ToOutput(ctx context.Context) pulumix.Output[UserSubjectPatch] {
+	return pulumix.Output[UserSubjectPatch]{
+		OutputState: o.OutputState,
+	}
+}
+
 // `name` is the username that matches, or "*" to match all usernames. Required.
 func (o UserSubjectPatchOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v UserSubjectPatch) *string { return v.Name }).(pulumi.StringPtrOutput)
@@ -6448,6 +7451,12 @@ func (o UserSubjectPatchPtrOutput) ToUserSubjectPatchPtrOutput() UserSubjectPatc
 
 func (o UserSubjectPatchPtrOutput) ToUserSubjectPatchPtrOutputWithContext(ctx context.Context) UserSubjectPatchPtrOutput {
 	return o
+}
+
+func (o UserSubjectPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*UserSubjectPatch] {
+	return pulumix.Output[*UserSubjectPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o UserSubjectPatchPtrOutput) Elem() UserSubjectPatchOutput {

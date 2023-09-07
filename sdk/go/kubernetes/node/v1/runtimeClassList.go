@@ -11,6 +11,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // RuntimeClassList is a list of RuntimeClass objects.
@@ -117,6 +118,12 @@ func (i *RuntimeClassList) ToRuntimeClassListOutputWithContext(ctx context.Conte
 	return pulumi.ToOutputWithContext(ctx, i).(RuntimeClassListOutput)
 }
 
+func (i *RuntimeClassList) ToOutput(ctx context.Context) pulumix.Output[*RuntimeClassList] {
+	return pulumix.Output[*RuntimeClassList]{
+		OutputState: i.ToRuntimeClassListOutputWithContext(ctx).OutputState,
+	}
+}
+
 // RuntimeClassListArrayInput is an input type that accepts RuntimeClassListArray and RuntimeClassListArrayOutput values.
 // You can construct a concrete instance of `RuntimeClassListArrayInput` via:
 //
@@ -140,6 +147,12 @@ func (i RuntimeClassListArray) ToRuntimeClassListArrayOutput() RuntimeClassListA
 
 func (i RuntimeClassListArray) ToRuntimeClassListArrayOutputWithContext(ctx context.Context) RuntimeClassListArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(RuntimeClassListArrayOutput)
+}
+
+func (i RuntimeClassListArray) ToOutput(ctx context.Context) pulumix.Output[[]*RuntimeClassList] {
+	return pulumix.Output[[]*RuntimeClassList]{
+		OutputState: i.ToRuntimeClassListArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // RuntimeClassListMapInput is an input type that accepts RuntimeClassListMap and RuntimeClassListMapOutput values.
@@ -167,6 +180,12 @@ func (i RuntimeClassListMap) ToRuntimeClassListMapOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(RuntimeClassListMapOutput)
 }
 
+func (i RuntimeClassListMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*RuntimeClassList] {
+	return pulumix.Output[map[string]*RuntimeClassList]{
+		OutputState: i.ToRuntimeClassListMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type RuntimeClassListOutput struct{ *pulumi.OutputState }
 
 func (RuntimeClassListOutput) ElementType() reflect.Type {
@@ -179,6 +198,12 @@ func (o RuntimeClassListOutput) ToRuntimeClassListOutput() RuntimeClassListOutpu
 
 func (o RuntimeClassListOutput) ToRuntimeClassListOutputWithContext(ctx context.Context) RuntimeClassListOutput {
 	return o
+}
+
+func (o RuntimeClassListOutput) ToOutput(ctx context.Context) pulumix.Output[*RuntimeClassList] {
+	return pulumix.Output[*RuntimeClassList]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -215,6 +240,12 @@ func (o RuntimeClassListArrayOutput) ToRuntimeClassListArrayOutputWithContext(ct
 	return o
 }
 
+func (o RuntimeClassListArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*RuntimeClassList] {
+	return pulumix.Output[[]*RuntimeClassList]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o RuntimeClassListArrayOutput) Index(i pulumi.IntInput) RuntimeClassListOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *RuntimeClassList {
 		return vs[0].([]*RuntimeClassList)[vs[1].(int)]
@@ -233,6 +264,12 @@ func (o RuntimeClassListMapOutput) ToRuntimeClassListMapOutput() RuntimeClassLis
 
 func (o RuntimeClassListMapOutput) ToRuntimeClassListMapOutputWithContext(ctx context.Context) RuntimeClassListMapOutput {
 	return o
+}
+
+func (o RuntimeClassListMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*RuntimeClassList] {
+	return pulumix.Output[map[string]*RuntimeClassList]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o RuntimeClassListMapOutput) MapIndex(k pulumi.StringInput) RuntimeClassListOutput {

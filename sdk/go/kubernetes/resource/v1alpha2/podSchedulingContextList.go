@@ -11,6 +11,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // PodSchedulingContextList is a collection of Pod scheduling objects.
@@ -117,6 +118,12 @@ func (i *PodSchedulingContextList) ToPodSchedulingContextListOutputWithContext(c
 	return pulumi.ToOutputWithContext(ctx, i).(PodSchedulingContextListOutput)
 }
 
+func (i *PodSchedulingContextList) ToOutput(ctx context.Context) pulumix.Output[*PodSchedulingContextList] {
+	return pulumix.Output[*PodSchedulingContextList]{
+		OutputState: i.ToPodSchedulingContextListOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PodSchedulingContextListArrayInput is an input type that accepts PodSchedulingContextListArray and PodSchedulingContextListArrayOutput values.
 // You can construct a concrete instance of `PodSchedulingContextListArrayInput` via:
 //
@@ -140,6 +147,12 @@ func (i PodSchedulingContextListArray) ToPodSchedulingContextListArrayOutput() P
 
 func (i PodSchedulingContextListArray) ToPodSchedulingContextListArrayOutputWithContext(ctx context.Context) PodSchedulingContextListArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(PodSchedulingContextListArrayOutput)
+}
+
+func (i PodSchedulingContextListArray) ToOutput(ctx context.Context) pulumix.Output[[]*PodSchedulingContextList] {
+	return pulumix.Output[[]*PodSchedulingContextList]{
+		OutputState: i.ToPodSchedulingContextListArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // PodSchedulingContextListMapInput is an input type that accepts PodSchedulingContextListMap and PodSchedulingContextListMapOutput values.
@@ -167,6 +180,12 @@ func (i PodSchedulingContextListMap) ToPodSchedulingContextListMapOutputWithCont
 	return pulumi.ToOutputWithContext(ctx, i).(PodSchedulingContextListMapOutput)
 }
 
+func (i PodSchedulingContextListMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*PodSchedulingContextList] {
+	return pulumix.Output[map[string]*PodSchedulingContextList]{
+		OutputState: i.ToPodSchedulingContextListMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type PodSchedulingContextListOutput struct{ *pulumi.OutputState }
 
 func (PodSchedulingContextListOutput) ElementType() reflect.Type {
@@ -179,6 +198,12 @@ func (o PodSchedulingContextListOutput) ToPodSchedulingContextListOutput() PodSc
 
 func (o PodSchedulingContextListOutput) ToPodSchedulingContextListOutputWithContext(ctx context.Context) PodSchedulingContextListOutput {
 	return o
+}
+
+func (o PodSchedulingContextListOutput) ToOutput(ctx context.Context) pulumix.Output[*PodSchedulingContextList] {
+	return pulumix.Output[*PodSchedulingContextList]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -215,6 +240,12 @@ func (o PodSchedulingContextListArrayOutput) ToPodSchedulingContextListArrayOutp
 	return o
 }
 
+func (o PodSchedulingContextListArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*PodSchedulingContextList] {
+	return pulumix.Output[[]*PodSchedulingContextList]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o PodSchedulingContextListArrayOutput) Index(i pulumi.IntInput) PodSchedulingContextListOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *PodSchedulingContextList {
 		return vs[0].([]*PodSchedulingContextList)[vs[1].(int)]
@@ -233,6 +264,12 @@ func (o PodSchedulingContextListMapOutput) ToPodSchedulingContextListMapOutput()
 
 func (o PodSchedulingContextListMapOutput) ToPodSchedulingContextListMapOutputWithContext(ctx context.Context) PodSchedulingContextListMapOutput {
 	return o
+}
+
+func (o PodSchedulingContextListMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*PodSchedulingContextList] {
+	return pulumix.Output[map[string]*PodSchedulingContextList]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o PodSchedulingContextListMapOutput) MapIndex(k pulumi.StringInput) PodSchedulingContextListOutput {

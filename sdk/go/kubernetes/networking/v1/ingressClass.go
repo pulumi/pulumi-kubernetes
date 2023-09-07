@@ -10,6 +10,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // IngressClass represents the class of the Ingress, referenced by the Ingress Spec. The `ingressclass.kubernetes.io/is-default-class` annotation can be used to indicate that an IngressClass should be considered default. When a single IngressClass resource has this annotation set to true, new Ingress resources without a class specified will be assigned this default class.
@@ -119,6 +120,12 @@ func (i *IngressClass) ToIngressClassOutputWithContext(ctx context.Context) Ingr
 	return pulumi.ToOutputWithContext(ctx, i).(IngressClassOutput)
 }
 
+func (i *IngressClass) ToOutput(ctx context.Context) pulumix.Output[*IngressClass] {
+	return pulumix.Output[*IngressClass]{
+		OutputState: i.ToIngressClassOutputWithContext(ctx).OutputState,
+	}
+}
+
 // IngressClassArrayInput is an input type that accepts IngressClassArray and IngressClassArrayOutput values.
 // You can construct a concrete instance of `IngressClassArrayInput` via:
 //
@@ -142,6 +149,12 @@ func (i IngressClassArray) ToIngressClassArrayOutput() IngressClassArrayOutput {
 
 func (i IngressClassArray) ToIngressClassArrayOutputWithContext(ctx context.Context) IngressClassArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(IngressClassArrayOutput)
+}
+
+func (i IngressClassArray) ToOutput(ctx context.Context) pulumix.Output[[]*IngressClass] {
+	return pulumix.Output[[]*IngressClass]{
+		OutputState: i.ToIngressClassArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // IngressClassMapInput is an input type that accepts IngressClassMap and IngressClassMapOutput values.
@@ -169,6 +182,12 @@ func (i IngressClassMap) ToIngressClassMapOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(IngressClassMapOutput)
 }
 
+func (i IngressClassMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*IngressClass] {
+	return pulumix.Output[map[string]*IngressClass]{
+		OutputState: i.ToIngressClassMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type IngressClassOutput struct{ *pulumi.OutputState }
 
 func (IngressClassOutput) ElementType() reflect.Type {
@@ -181,6 +200,12 @@ func (o IngressClassOutput) ToIngressClassOutput() IngressClassOutput {
 
 func (o IngressClassOutput) ToIngressClassOutputWithContext(ctx context.Context) IngressClassOutput {
 	return o
+}
+
+func (o IngressClassOutput) ToOutput(ctx context.Context) pulumix.Output[*IngressClass] {
+	return pulumix.Output[*IngressClass]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -217,6 +242,12 @@ func (o IngressClassArrayOutput) ToIngressClassArrayOutputWithContext(ctx contex
 	return o
 }
 
+func (o IngressClassArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*IngressClass] {
+	return pulumix.Output[[]*IngressClass]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o IngressClassArrayOutput) Index(i pulumi.IntInput) IngressClassOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *IngressClass {
 		return vs[0].([]*IngressClass)[vs[1].(int)]
@@ -235,6 +266,12 @@ func (o IngressClassMapOutput) ToIngressClassMapOutput() IngressClassMapOutput {
 
 func (o IngressClassMapOutput) ToIngressClassMapOutputWithContext(ctx context.Context) IngressClassMapOutput {
 	return o
+}
+
+func (o IngressClassMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*IngressClass] {
+	return pulumix.Output[map[string]*IngressClass]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o IngressClassMapOutput) MapIndex(k pulumi.StringInput) IngressClassOutput {

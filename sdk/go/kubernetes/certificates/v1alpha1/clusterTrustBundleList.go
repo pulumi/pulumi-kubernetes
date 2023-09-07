@@ -11,6 +11,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // ClusterTrustBundleList is a collection of ClusterTrustBundle objects
@@ -117,6 +118,12 @@ func (i *ClusterTrustBundleList) ToClusterTrustBundleListOutputWithContext(ctx c
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterTrustBundleListOutput)
 }
 
+func (i *ClusterTrustBundleList) ToOutput(ctx context.Context) pulumix.Output[*ClusterTrustBundleList] {
+	return pulumix.Output[*ClusterTrustBundleList]{
+		OutputState: i.ToClusterTrustBundleListOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ClusterTrustBundleListArrayInput is an input type that accepts ClusterTrustBundleListArray and ClusterTrustBundleListArrayOutput values.
 // You can construct a concrete instance of `ClusterTrustBundleListArrayInput` via:
 //
@@ -140,6 +147,12 @@ func (i ClusterTrustBundleListArray) ToClusterTrustBundleListArrayOutput() Clust
 
 func (i ClusterTrustBundleListArray) ToClusterTrustBundleListArrayOutputWithContext(ctx context.Context) ClusterTrustBundleListArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterTrustBundleListArrayOutput)
+}
+
+func (i ClusterTrustBundleListArray) ToOutput(ctx context.Context) pulumix.Output[[]*ClusterTrustBundleList] {
+	return pulumix.Output[[]*ClusterTrustBundleList]{
+		OutputState: i.ToClusterTrustBundleListArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // ClusterTrustBundleListMapInput is an input type that accepts ClusterTrustBundleListMap and ClusterTrustBundleListMapOutput values.
@@ -167,6 +180,12 @@ func (i ClusterTrustBundleListMap) ToClusterTrustBundleListMapOutputWithContext(
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterTrustBundleListMapOutput)
 }
 
+func (i ClusterTrustBundleListMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*ClusterTrustBundleList] {
+	return pulumix.Output[map[string]*ClusterTrustBundleList]{
+		OutputState: i.ToClusterTrustBundleListMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type ClusterTrustBundleListOutput struct{ *pulumi.OutputState }
 
 func (ClusterTrustBundleListOutput) ElementType() reflect.Type {
@@ -179,6 +198,12 @@ func (o ClusterTrustBundleListOutput) ToClusterTrustBundleListOutput() ClusterTr
 
 func (o ClusterTrustBundleListOutput) ToClusterTrustBundleListOutputWithContext(ctx context.Context) ClusterTrustBundleListOutput {
 	return o
+}
+
+func (o ClusterTrustBundleListOutput) ToOutput(ctx context.Context) pulumix.Output[*ClusterTrustBundleList] {
+	return pulumix.Output[*ClusterTrustBundleList]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -215,6 +240,12 @@ func (o ClusterTrustBundleListArrayOutput) ToClusterTrustBundleListArrayOutputWi
 	return o
 }
 
+func (o ClusterTrustBundleListArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*ClusterTrustBundleList] {
+	return pulumix.Output[[]*ClusterTrustBundleList]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o ClusterTrustBundleListArrayOutput) Index(i pulumi.IntInput) ClusterTrustBundleListOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *ClusterTrustBundleList {
 		return vs[0].([]*ClusterTrustBundleList)[vs[1].(int)]
@@ -233,6 +264,12 @@ func (o ClusterTrustBundleListMapOutput) ToClusterTrustBundleListMapOutput() Clu
 
 func (o ClusterTrustBundleListMapOutput) ToClusterTrustBundleListMapOutputWithContext(ctx context.Context) ClusterTrustBundleListMapOutput {
 	return o
+}
+
+func (o ClusterTrustBundleListMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*ClusterTrustBundleList] {
+	return pulumix.Output[map[string]*ClusterTrustBundleList]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ClusterTrustBundleListMapOutput) MapIndex(k pulumi.StringInput) ClusterTrustBundleListOutput {

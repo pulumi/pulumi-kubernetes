@@ -10,6 +10,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -133,6 +134,12 @@ func (i *FlowSchemaPatch) ToFlowSchemaPatchOutputWithContext(ctx context.Context
 	return pulumi.ToOutputWithContext(ctx, i).(FlowSchemaPatchOutput)
 }
 
+func (i *FlowSchemaPatch) ToOutput(ctx context.Context) pulumix.Output[*FlowSchemaPatch] {
+	return pulumix.Output[*FlowSchemaPatch]{
+		OutputState: i.ToFlowSchemaPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 // FlowSchemaPatchArrayInput is an input type that accepts FlowSchemaPatchArray and FlowSchemaPatchArrayOutput values.
 // You can construct a concrete instance of `FlowSchemaPatchArrayInput` via:
 //
@@ -156,6 +163,12 @@ func (i FlowSchemaPatchArray) ToFlowSchemaPatchArrayOutput() FlowSchemaPatchArra
 
 func (i FlowSchemaPatchArray) ToFlowSchemaPatchArrayOutputWithContext(ctx context.Context) FlowSchemaPatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(FlowSchemaPatchArrayOutput)
+}
+
+func (i FlowSchemaPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*FlowSchemaPatch] {
+	return pulumix.Output[[]*FlowSchemaPatch]{
+		OutputState: i.ToFlowSchemaPatchArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // FlowSchemaPatchMapInput is an input type that accepts FlowSchemaPatchMap and FlowSchemaPatchMapOutput values.
@@ -183,6 +196,12 @@ func (i FlowSchemaPatchMap) ToFlowSchemaPatchMapOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(FlowSchemaPatchMapOutput)
 }
 
+func (i FlowSchemaPatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*FlowSchemaPatch] {
+	return pulumix.Output[map[string]*FlowSchemaPatch]{
+		OutputState: i.ToFlowSchemaPatchMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type FlowSchemaPatchOutput struct{ *pulumi.OutputState }
 
 func (FlowSchemaPatchOutput) ElementType() reflect.Type {
@@ -195,6 +214,12 @@ func (o FlowSchemaPatchOutput) ToFlowSchemaPatchOutput() FlowSchemaPatchOutput {
 
 func (o FlowSchemaPatchOutput) ToFlowSchemaPatchOutputWithContext(ctx context.Context) FlowSchemaPatchOutput {
 	return o
+}
+
+func (o FlowSchemaPatchOutput) ToOutput(ctx context.Context) pulumix.Output[*FlowSchemaPatch] {
+	return pulumix.Output[*FlowSchemaPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -236,6 +261,12 @@ func (o FlowSchemaPatchArrayOutput) ToFlowSchemaPatchArrayOutputWithContext(ctx 
 	return o
 }
 
+func (o FlowSchemaPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*FlowSchemaPatch] {
+	return pulumix.Output[[]*FlowSchemaPatch]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o FlowSchemaPatchArrayOutput) Index(i pulumi.IntInput) FlowSchemaPatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *FlowSchemaPatch {
 		return vs[0].([]*FlowSchemaPatch)[vs[1].(int)]
@@ -254,6 +285,12 @@ func (o FlowSchemaPatchMapOutput) ToFlowSchemaPatchMapOutput() FlowSchemaPatchMa
 
 func (o FlowSchemaPatchMapOutput) ToFlowSchemaPatchMapOutputWithContext(ctx context.Context) FlowSchemaPatchMapOutput {
 	return o
+}
+
+func (o FlowSchemaPatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*FlowSchemaPatch] {
+	return pulumix.Output[map[string]*FlowSchemaPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o FlowSchemaPatchMapOutput) MapIndex(k pulumi.StringInput) FlowSchemaPatchOutput {

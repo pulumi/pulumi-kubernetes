@@ -10,6 +10,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -133,6 +134,12 @@ func (i *PriorityLevelConfigurationPatch) ToPriorityLevelConfigurationPatchOutpu
 	return pulumi.ToOutputWithContext(ctx, i).(PriorityLevelConfigurationPatchOutput)
 }
 
+func (i *PriorityLevelConfigurationPatch) ToOutput(ctx context.Context) pulumix.Output[*PriorityLevelConfigurationPatch] {
+	return pulumix.Output[*PriorityLevelConfigurationPatch]{
+		OutputState: i.ToPriorityLevelConfigurationPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PriorityLevelConfigurationPatchArrayInput is an input type that accepts PriorityLevelConfigurationPatchArray and PriorityLevelConfigurationPatchArrayOutput values.
 // You can construct a concrete instance of `PriorityLevelConfigurationPatchArrayInput` via:
 //
@@ -156,6 +163,12 @@ func (i PriorityLevelConfigurationPatchArray) ToPriorityLevelConfigurationPatchA
 
 func (i PriorityLevelConfigurationPatchArray) ToPriorityLevelConfigurationPatchArrayOutputWithContext(ctx context.Context) PriorityLevelConfigurationPatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(PriorityLevelConfigurationPatchArrayOutput)
+}
+
+func (i PriorityLevelConfigurationPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*PriorityLevelConfigurationPatch] {
+	return pulumix.Output[[]*PriorityLevelConfigurationPatch]{
+		OutputState: i.ToPriorityLevelConfigurationPatchArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // PriorityLevelConfigurationPatchMapInput is an input type that accepts PriorityLevelConfigurationPatchMap and PriorityLevelConfigurationPatchMapOutput values.
@@ -183,6 +196,12 @@ func (i PriorityLevelConfigurationPatchMap) ToPriorityLevelConfigurationPatchMap
 	return pulumi.ToOutputWithContext(ctx, i).(PriorityLevelConfigurationPatchMapOutput)
 }
 
+func (i PriorityLevelConfigurationPatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*PriorityLevelConfigurationPatch] {
+	return pulumix.Output[map[string]*PriorityLevelConfigurationPatch]{
+		OutputState: i.ToPriorityLevelConfigurationPatchMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type PriorityLevelConfigurationPatchOutput struct{ *pulumi.OutputState }
 
 func (PriorityLevelConfigurationPatchOutput) ElementType() reflect.Type {
@@ -195,6 +214,12 @@ func (o PriorityLevelConfigurationPatchOutput) ToPriorityLevelConfigurationPatch
 
 func (o PriorityLevelConfigurationPatchOutput) ToPriorityLevelConfigurationPatchOutputWithContext(ctx context.Context) PriorityLevelConfigurationPatchOutput {
 	return o
+}
+
+func (o PriorityLevelConfigurationPatchOutput) ToOutput(ctx context.Context) pulumix.Output[*PriorityLevelConfigurationPatch] {
+	return pulumix.Output[*PriorityLevelConfigurationPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -238,6 +263,12 @@ func (o PriorityLevelConfigurationPatchArrayOutput) ToPriorityLevelConfiguration
 	return o
 }
 
+func (o PriorityLevelConfigurationPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*PriorityLevelConfigurationPatch] {
+	return pulumix.Output[[]*PriorityLevelConfigurationPatch]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o PriorityLevelConfigurationPatchArrayOutput) Index(i pulumi.IntInput) PriorityLevelConfigurationPatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *PriorityLevelConfigurationPatch {
 		return vs[0].([]*PriorityLevelConfigurationPatch)[vs[1].(int)]
@@ -256,6 +287,12 @@ func (o PriorityLevelConfigurationPatchMapOutput) ToPriorityLevelConfigurationPa
 
 func (o PriorityLevelConfigurationPatchMapOutput) ToPriorityLevelConfigurationPatchMapOutputWithContext(ctx context.Context) PriorityLevelConfigurationPatchMapOutput {
 	return o
+}
+
+func (o PriorityLevelConfigurationPatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*PriorityLevelConfigurationPatch] {
+	return pulumix.Output[map[string]*PriorityLevelConfigurationPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o PriorityLevelConfigurationPatchMapOutput) MapIndex(k pulumi.StringInput) PriorityLevelConfigurationPatchOutput {

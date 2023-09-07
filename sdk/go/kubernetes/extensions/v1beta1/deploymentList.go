@@ -11,6 +11,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // DeploymentList is a list of Deployments.
@@ -117,6 +118,12 @@ func (i *DeploymentList) ToDeploymentListOutputWithContext(ctx context.Context) 
 	return pulumi.ToOutputWithContext(ctx, i).(DeploymentListOutput)
 }
 
+func (i *DeploymentList) ToOutput(ctx context.Context) pulumix.Output[*DeploymentList] {
+	return pulumix.Output[*DeploymentList]{
+		OutputState: i.ToDeploymentListOutputWithContext(ctx).OutputState,
+	}
+}
+
 // DeploymentListArrayInput is an input type that accepts DeploymentListArray and DeploymentListArrayOutput values.
 // You can construct a concrete instance of `DeploymentListArrayInput` via:
 //
@@ -140,6 +147,12 @@ func (i DeploymentListArray) ToDeploymentListArrayOutput() DeploymentListArrayOu
 
 func (i DeploymentListArray) ToDeploymentListArrayOutputWithContext(ctx context.Context) DeploymentListArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(DeploymentListArrayOutput)
+}
+
+func (i DeploymentListArray) ToOutput(ctx context.Context) pulumix.Output[[]*DeploymentList] {
+	return pulumix.Output[[]*DeploymentList]{
+		OutputState: i.ToDeploymentListArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // DeploymentListMapInput is an input type that accepts DeploymentListMap and DeploymentListMapOutput values.
@@ -167,6 +180,12 @@ func (i DeploymentListMap) ToDeploymentListMapOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(DeploymentListMapOutput)
 }
 
+func (i DeploymentListMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*DeploymentList] {
+	return pulumix.Output[map[string]*DeploymentList]{
+		OutputState: i.ToDeploymentListMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type DeploymentListOutput struct{ *pulumi.OutputState }
 
 func (DeploymentListOutput) ElementType() reflect.Type {
@@ -179,6 +198,12 @@ func (o DeploymentListOutput) ToDeploymentListOutput() DeploymentListOutput {
 
 func (o DeploymentListOutput) ToDeploymentListOutputWithContext(ctx context.Context) DeploymentListOutput {
 	return o
+}
+
+func (o DeploymentListOutput) ToOutput(ctx context.Context) pulumix.Output[*DeploymentList] {
+	return pulumix.Output[*DeploymentList]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -215,6 +240,12 @@ func (o DeploymentListArrayOutput) ToDeploymentListArrayOutputWithContext(ctx co
 	return o
 }
 
+func (o DeploymentListArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*DeploymentList] {
+	return pulumix.Output[[]*DeploymentList]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o DeploymentListArrayOutput) Index(i pulumi.IntInput) DeploymentListOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *DeploymentList {
 		return vs[0].([]*DeploymentList)[vs[1].(int)]
@@ -233,6 +264,12 @@ func (o DeploymentListMapOutput) ToDeploymentListMapOutput() DeploymentListMapOu
 
 func (o DeploymentListMapOutput) ToDeploymentListMapOutputWithContext(ctx context.Context) DeploymentListMapOutput {
 	return o
+}
+
+func (o DeploymentListMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*DeploymentList] {
+	return pulumix.Output[map[string]*DeploymentList]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o DeploymentListMapOutput) MapIndex(k pulumi.StringInput) DeploymentListOutput {

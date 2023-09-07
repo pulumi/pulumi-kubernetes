@@ -10,6 +10,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -128,6 +129,12 @@ func (i *RolePatch) ToRolePatchOutputWithContext(ctx context.Context) RolePatchO
 	return pulumi.ToOutputWithContext(ctx, i).(RolePatchOutput)
 }
 
+func (i *RolePatch) ToOutput(ctx context.Context) pulumix.Output[*RolePatch] {
+	return pulumix.Output[*RolePatch]{
+		OutputState: i.ToRolePatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 // RolePatchArrayInput is an input type that accepts RolePatchArray and RolePatchArrayOutput values.
 // You can construct a concrete instance of `RolePatchArrayInput` via:
 //
@@ -151,6 +158,12 @@ func (i RolePatchArray) ToRolePatchArrayOutput() RolePatchArrayOutput {
 
 func (i RolePatchArray) ToRolePatchArrayOutputWithContext(ctx context.Context) RolePatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(RolePatchArrayOutput)
+}
+
+func (i RolePatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*RolePatch] {
+	return pulumix.Output[[]*RolePatch]{
+		OutputState: i.ToRolePatchArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // RolePatchMapInput is an input type that accepts RolePatchMap and RolePatchMapOutput values.
@@ -178,6 +191,12 @@ func (i RolePatchMap) ToRolePatchMapOutputWithContext(ctx context.Context) RoleP
 	return pulumi.ToOutputWithContext(ctx, i).(RolePatchMapOutput)
 }
 
+func (i RolePatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*RolePatch] {
+	return pulumix.Output[map[string]*RolePatch]{
+		OutputState: i.ToRolePatchMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type RolePatchOutput struct{ *pulumi.OutputState }
 
 func (RolePatchOutput) ElementType() reflect.Type {
@@ -190,6 +209,12 @@ func (o RolePatchOutput) ToRolePatchOutput() RolePatchOutput {
 
 func (o RolePatchOutput) ToRolePatchOutputWithContext(ctx context.Context) RolePatchOutput {
 	return o
+}
+
+func (o RolePatchOutput) ToOutput(ctx context.Context) pulumix.Output[*RolePatch] {
+	return pulumix.Output[*RolePatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -226,6 +251,12 @@ func (o RolePatchArrayOutput) ToRolePatchArrayOutputWithContext(ctx context.Cont
 	return o
 }
 
+func (o RolePatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*RolePatch] {
+	return pulumix.Output[[]*RolePatch]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o RolePatchArrayOutput) Index(i pulumi.IntInput) RolePatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *RolePatch {
 		return vs[0].([]*RolePatch)[vs[1].(int)]
@@ -244,6 +275,12 @@ func (o RolePatchMapOutput) ToRolePatchMapOutput() RolePatchMapOutput {
 
 func (o RolePatchMapOutput) ToRolePatchMapOutputWithContext(ctx context.Context) RolePatchMapOutput {
 	return o
+}
+
+func (o RolePatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*RolePatch] {
+	return pulumix.Output[map[string]*RolePatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o RolePatchMapOutput) MapIndex(k pulumi.StringInput) RolePatchOutput {

@@ -11,6 +11,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // NamespaceList is a list of Namespaces.
@@ -117,6 +118,12 @@ func (i *NamespaceList) ToNamespaceListOutputWithContext(ctx context.Context) Na
 	return pulumi.ToOutputWithContext(ctx, i).(NamespaceListOutput)
 }
 
+func (i *NamespaceList) ToOutput(ctx context.Context) pulumix.Output[*NamespaceList] {
+	return pulumix.Output[*NamespaceList]{
+		OutputState: i.ToNamespaceListOutputWithContext(ctx).OutputState,
+	}
+}
+
 // NamespaceListArrayInput is an input type that accepts NamespaceListArray and NamespaceListArrayOutput values.
 // You can construct a concrete instance of `NamespaceListArrayInput` via:
 //
@@ -140,6 +147,12 @@ func (i NamespaceListArray) ToNamespaceListArrayOutput() NamespaceListArrayOutpu
 
 func (i NamespaceListArray) ToNamespaceListArrayOutputWithContext(ctx context.Context) NamespaceListArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(NamespaceListArrayOutput)
+}
+
+func (i NamespaceListArray) ToOutput(ctx context.Context) pulumix.Output[[]*NamespaceList] {
+	return pulumix.Output[[]*NamespaceList]{
+		OutputState: i.ToNamespaceListArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // NamespaceListMapInput is an input type that accepts NamespaceListMap and NamespaceListMapOutput values.
@@ -167,6 +180,12 @@ func (i NamespaceListMap) ToNamespaceListMapOutputWithContext(ctx context.Contex
 	return pulumi.ToOutputWithContext(ctx, i).(NamespaceListMapOutput)
 }
 
+func (i NamespaceListMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*NamespaceList] {
+	return pulumix.Output[map[string]*NamespaceList]{
+		OutputState: i.ToNamespaceListMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type NamespaceListOutput struct{ *pulumi.OutputState }
 
 func (NamespaceListOutput) ElementType() reflect.Type {
@@ -179,6 +198,12 @@ func (o NamespaceListOutput) ToNamespaceListOutput() NamespaceListOutput {
 
 func (o NamespaceListOutput) ToNamespaceListOutputWithContext(ctx context.Context) NamespaceListOutput {
 	return o
+}
+
+func (o NamespaceListOutput) ToOutput(ctx context.Context) pulumix.Output[*NamespaceList] {
+	return pulumix.Output[*NamespaceList]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -215,6 +240,12 @@ func (o NamespaceListArrayOutput) ToNamespaceListArrayOutputWithContext(ctx cont
 	return o
 }
 
+func (o NamespaceListArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*NamespaceList] {
+	return pulumix.Output[[]*NamespaceList]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o NamespaceListArrayOutput) Index(i pulumi.IntInput) NamespaceListOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *NamespaceList {
 		return vs[0].([]*NamespaceList)[vs[1].(int)]
@@ -233,6 +264,12 @@ func (o NamespaceListMapOutput) ToNamespaceListMapOutput() NamespaceListMapOutpu
 
 func (o NamespaceListMapOutput) ToNamespaceListMapOutputWithContext(ctx context.Context) NamespaceListMapOutput {
 	return o
+}
+
+func (o NamespaceListMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*NamespaceList] {
+	return pulumix.Output[map[string]*NamespaceList]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o NamespaceListMapOutput) MapIndex(k pulumi.StringInput) NamespaceListOutput {

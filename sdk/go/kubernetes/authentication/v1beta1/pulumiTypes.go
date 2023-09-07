@@ -11,6 +11,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 var _ = internal.GetEnvOrDefault
@@ -62,6 +63,12 @@ func (i SelfSubjectReviewArgs) ToSelfSubjectReviewOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectReviewOutput)
 }
 
+func (i SelfSubjectReviewArgs) ToOutput(ctx context.Context) pulumix.Output[SelfSubjectReview] {
+	return pulumix.Output[SelfSubjectReview]{
+		OutputState: i.ToSelfSubjectReviewOutputWithContext(ctx).OutputState,
+	}
+}
+
 // SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.  If impersonation or request header authentication is used, any extra keys will have their case ignored and returned as lowercase.
 type SelfSubjectReviewOutput struct{ *pulumi.OutputState }
 
@@ -75,6 +82,12 @@ func (o SelfSubjectReviewOutput) ToSelfSubjectReviewOutput() SelfSubjectReviewOu
 
 func (o SelfSubjectReviewOutput) ToSelfSubjectReviewOutputWithContext(ctx context.Context) SelfSubjectReviewOutput {
 	return o
+}
+
+func (o SelfSubjectReviewOutput) ToOutput(ctx context.Context) pulumix.Output[SelfSubjectReview] {
+	return pulumix.Output[SelfSubjectReview]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -144,6 +157,12 @@ func (i SelfSubjectReviewPatchArgs) ToSelfSubjectReviewPatchOutputWithContext(ct
 	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectReviewPatchOutput)
 }
 
+func (i SelfSubjectReviewPatchArgs) ToOutput(ctx context.Context) pulumix.Output[SelfSubjectReviewPatch] {
+	return pulumix.Output[SelfSubjectReviewPatch]{
+		OutputState: i.ToSelfSubjectReviewPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 // SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.  If impersonation or request header authentication is used, any extra keys will have their case ignored and returned as lowercase.
 type SelfSubjectReviewPatchOutput struct{ *pulumi.OutputState }
 
@@ -157,6 +176,12 @@ func (o SelfSubjectReviewPatchOutput) ToSelfSubjectReviewPatchOutput() SelfSubje
 
 func (o SelfSubjectReviewPatchOutput) ToSelfSubjectReviewPatchOutputWithContext(ctx context.Context) SelfSubjectReviewPatchOutput {
 	return o
+}
+
+func (o SelfSubjectReviewPatchOutput) ToOutput(ctx context.Context) pulumix.Output[SelfSubjectReviewPatch] {
+	return pulumix.Output[SelfSubjectReviewPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -214,6 +239,12 @@ func (i SelfSubjectReviewStatusArgs) ToSelfSubjectReviewStatusOutputWithContext(
 	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectReviewStatusOutput)
 }
 
+func (i SelfSubjectReviewStatusArgs) ToOutput(ctx context.Context) pulumix.Output[SelfSubjectReviewStatus] {
+	return pulumix.Output[SelfSubjectReviewStatus]{
+		OutputState: i.ToSelfSubjectReviewStatusOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i SelfSubjectReviewStatusArgs) ToSelfSubjectReviewStatusPtrOutput() SelfSubjectReviewStatusPtrOutput {
 	return i.ToSelfSubjectReviewStatusPtrOutputWithContext(context.Background())
 }
@@ -255,6 +286,12 @@ func (i *selfSubjectReviewStatusPtrType) ToSelfSubjectReviewStatusPtrOutputWithC
 	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectReviewStatusPtrOutput)
 }
 
+func (i *selfSubjectReviewStatusPtrType) ToOutput(ctx context.Context) pulumix.Output[*SelfSubjectReviewStatus] {
+	return pulumix.Output[*SelfSubjectReviewStatus]{
+		OutputState: i.ToSelfSubjectReviewStatusPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // SelfSubjectReviewStatus is filled by the kube-apiserver and sent back to a user.
 type SelfSubjectReviewStatusOutput struct{ *pulumi.OutputState }
 
@@ -280,6 +317,12 @@ func (o SelfSubjectReviewStatusOutput) ToSelfSubjectReviewStatusPtrOutputWithCon
 	}).(SelfSubjectReviewStatusPtrOutput)
 }
 
+func (o SelfSubjectReviewStatusOutput) ToOutput(ctx context.Context) pulumix.Output[SelfSubjectReviewStatus] {
+	return pulumix.Output[SelfSubjectReviewStatus]{
+		OutputState: o.OutputState,
+	}
+}
+
 // User attributes of the user making this request.
 func (o SelfSubjectReviewStatusOutput) UserInfo() authenticationv1.UserInfoPtrOutput {
 	return o.ApplyT(func(v SelfSubjectReviewStatus) *authenticationv1.UserInfo { return v.UserInfo }).(authenticationv1.UserInfoPtrOutput)
@@ -297,6 +340,12 @@ func (o SelfSubjectReviewStatusPtrOutput) ToSelfSubjectReviewStatusPtrOutput() S
 
 func (o SelfSubjectReviewStatusPtrOutput) ToSelfSubjectReviewStatusPtrOutputWithContext(ctx context.Context) SelfSubjectReviewStatusPtrOutput {
 	return o
+}
+
+func (o SelfSubjectReviewStatusPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*SelfSubjectReviewStatus] {
+	return pulumix.Output[*SelfSubjectReviewStatus]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o SelfSubjectReviewStatusPtrOutput) Elem() SelfSubjectReviewStatusOutput {
@@ -354,6 +403,12 @@ func (i SelfSubjectReviewStatusPatchArgs) ToSelfSubjectReviewStatusPatchOutputWi
 	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectReviewStatusPatchOutput)
 }
 
+func (i SelfSubjectReviewStatusPatchArgs) ToOutput(ctx context.Context) pulumix.Output[SelfSubjectReviewStatusPatch] {
+	return pulumix.Output[SelfSubjectReviewStatusPatch]{
+		OutputState: i.ToSelfSubjectReviewStatusPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i SelfSubjectReviewStatusPatchArgs) ToSelfSubjectReviewStatusPatchPtrOutput() SelfSubjectReviewStatusPatchPtrOutput {
 	return i.ToSelfSubjectReviewStatusPatchPtrOutputWithContext(context.Background())
 }
@@ -395,6 +450,12 @@ func (i *selfSubjectReviewStatusPatchPtrType) ToSelfSubjectReviewStatusPatchPtrO
 	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectReviewStatusPatchPtrOutput)
 }
 
+func (i *selfSubjectReviewStatusPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*SelfSubjectReviewStatusPatch] {
+	return pulumix.Output[*SelfSubjectReviewStatusPatch]{
+		OutputState: i.ToSelfSubjectReviewStatusPatchPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // SelfSubjectReviewStatus is filled by the kube-apiserver and sent back to a user.
 type SelfSubjectReviewStatusPatchOutput struct{ *pulumi.OutputState }
 
@@ -420,6 +481,12 @@ func (o SelfSubjectReviewStatusPatchOutput) ToSelfSubjectReviewStatusPatchPtrOut
 	}).(SelfSubjectReviewStatusPatchPtrOutput)
 }
 
+func (o SelfSubjectReviewStatusPatchOutput) ToOutput(ctx context.Context) pulumix.Output[SelfSubjectReviewStatusPatch] {
+	return pulumix.Output[SelfSubjectReviewStatusPatch]{
+		OutputState: o.OutputState,
+	}
+}
+
 // User attributes of the user making this request.
 func (o SelfSubjectReviewStatusPatchOutput) UserInfo() authenticationv1.UserInfoPatchPtrOutput {
 	return o.ApplyT(func(v SelfSubjectReviewStatusPatch) *authenticationv1.UserInfoPatch { return v.UserInfo }).(authenticationv1.UserInfoPatchPtrOutput)
@@ -437,6 +504,12 @@ func (o SelfSubjectReviewStatusPatchPtrOutput) ToSelfSubjectReviewStatusPatchPtr
 
 func (o SelfSubjectReviewStatusPatchPtrOutput) ToSelfSubjectReviewStatusPatchPtrOutputWithContext(ctx context.Context) SelfSubjectReviewStatusPatchPtrOutput {
 	return o
+}
+
+func (o SelfSubjectReviewStatusPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*SelfSubjectReviewStatusPatch] {
+	return pulumix.Output[*SelfSubjectReviewStatusPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o SelfSubjectReviewStatusPatchPtrOutput) Elem() SelfSubjectReviewStatusPatchOutput {
@@ -508,6 +581,12 @@ func (i TokenReviewArgs) ToTokenReviewOutputWithContext(ctx context.Context) Tok
 	return pulumi.ToOutputWithContext(ctx, i).(TokenReviewOutput)
 }
 
+func (i TokenReviewArgs) ToOutput(ctx context.Context) pulumix.Output[TokenReview] {
+	return pulumix.Output[TokenReview]{
+		OutputState: i.ToTokenReviewOutputWithContext(ctx).OutputState,
+	}
+}
+
 // TokenReview attempts to authenticate a token to a known user. Note: TokenReview requests may be cached by the webhook token authenticator plugin in the kube-apiserver.
 type TokenReviewOutput struct{ *pulumi.OutputState }
 
@@ -521,6 +600,12 @@ func (o TokenReviewOutput) ToTokenReviewOutput() TokenReviewOutput {
 
 func (o TokenReviewOutput) ToTokenReviewOutputWithContext(ctx context.Context) TokenReviewOutput {
 	return o
+}
+
+func (o TokenReviewOutput) ToOutput(ctx context.Context) pulumix.Output[TokenReview] {
+	return pulumix.Output[TokenReview]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -596,6 +681,12 @@ func (i TokenReviewPatchArgs) ToTokenReviewPatchOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(TokenReviewPatchOutput)
 }
 
+func (i TokenReviewPatchArgs) ToOutput(ctx context.Context) pulumix.Output[TokenReviewPatch] {
+	return pulumix.Output[TokenReviewPatch]{
+		OutputState: i.ToTokenReviewPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 // TokenReview attempts to authenticate a token to a known user. Note: TokenReview requests may be cached by the webhook token authenticator plugin in the kube-apiserver.
 type TokenReviewPatchOutput struct{ *pulumi.OutputState }
 
@@ -609,6 +700,12 @@ func (o TokenReviewPatchOutput) ToTokenReviewPatchOutput() TokenReviewPatchOutpu
 
 func (o TokenReviewPatchOutput) ToTokenReviewPatchOutputWithContext(ctx context.Context) TokenReviewPatchOutput {
 	return o
+}
+
+func (o TokenReviewPatchOutput) ToOutput(ctx context.Context) pulumix.Output[TokenReviewPatch] {
+	return pulumix.Output[TokenReviewPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -674,6 +771,12 @@ func (i TokenReviewSpecArgs) ToTokenReviewSpecOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(TokenReviewSpecOutput)
 }
 
+func (i TokenReviewSpecArgs) ToOutput(ctx context.Context) pulumix.Output[TokenReviewSpec] {
+	return pulumix.Output[TokenReviewSpec]{
+		OutputState: i.ToTokenReviewSpecOutputWithContext(ctx).OutputState,
+	}
+}
+
 // TokenReviewSpec is a description of the token authentication request.
 type TokenReviewSpecOutput struct{ *pulumi.OutputState }
 
@@ -687,6 +790,12 @@ func (o TokenReviewSpecOutput) ToTokenReviewSpecOutput() TokenReviewSpecOutput {
 
 func (o TokenReviewSpecOutput) ToTokenReviewSpecOutputWithContext(ctx context.Context) TokenReviewSpecOutput {
 	return o
+}
+
+func (o TokenReviewSpecOutput) ToOutput(ctx context.Context) pulumix.Output[TokenReviewSpec] {
+	return pulumix.Output[TokenReviewSpec]{
+		OutputState: o.OutputState,
+	}
 }
 
 // Audiences is a list of the identifiers that the resource server presented with the token identifies as. Audience-aware token authenticators will verify that the token was intended for at least one of the audiences in this list. If no audiences are provided, the audience will default to the audience of the Kubernetes apiserver.
@@ -738,6 +847,12 @@ func (i TokenReviewSpecPatchArgs) ToTokenReviewSpecPatchOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(TokenReviewSpecPatchOutput)
 }
 
+func (i TokenReviewSpecPatchArgs) ToOutput(ctx context.Context) pulumix.Output[TokenReviewSpecPatch] {
+	return pulumix.Output[TokenReviewSpecPatch]{
+		OutputState: i.ToTokenReviewSpecPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i TokenReviewSpecPatchArgs) ToTokenReviewSpecPatchPtrOutput() TokenReviewSpecPatchPtrOutput {
 	return i.ToTokenReviewSpecPatchPtrOutputWithContext(context.Background())
 }
@@ -779,6 +894,12 @@ func (i *tokenReviewSpecPatchPtrType) ToTokenReviewSpecPatchPtrOutputWithContext
 	return pulumi.ToOutputWithContext(ctx, i).(TokenReviewSpecPatchPtrOutput)
 }
 
+func (i *tokenReviewSpecPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*TokenReviewSpecPatch] {
+	return pulumix.Output[*TokenReviewSpecPatch]{
+		OutputState: i.ToTokenReviewSpecPatchPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // TokenReviewSpec is a description of the token authentication request.
 type TokenReviewSpecPatchOutput struct{ *pulumi.OutputState }
 
@@ -804,6 +925,12 @@ func (o TokenReviewSpecPatchOutput) ToTokenReviewSpecPatchPtrOutputWithContext(c
 	}).(TokenReviewSpecPatchPtrOutput)
 }
 
+func (o TokenReviewSpecPatchOutput) ToOutput(ctx context.Context) pulumix.Output[TokenReviewSpecPatch] {
+	return pulumix.Output[TokenReviewSpecPatch]{
+		OutputState: o.OutputState,
+	}
+}
+
 // Audiences is a list of the identifiers that the resource server presented with the token identifies as. Audience-aware token authenticators will verify that the token was intended for at least one of the audiences in this list. If no audiences are provided, the audience will default to the audience of the Kubernetes apiserver.
 func (o TokenReviewSpecPatchOutput) Audiences() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v TokenReviewSpecPatch) []string { return v.Audiences }).(pulumi.StringArrayOutput)
@@ -826,6 +953,12 @@ func (o TokenReviewSpecPatchPtrOutput) ToTokenReviewSpecPatchPtrOutput() TokenRe
 
 func (o TokenReviewSpecPatchPtrOutput) ToTokenReviewSpecPatchPtrOutputWithContext(ctx context.Context) TokenReviewSpecPatchPtrOutput {
 	return o
+}
+
+func (o TokenReviewSpecPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*TokenReviewSpecPatch] {
+	return pulumix.Output[*TokenReviewSpecPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o TokenReviewSpecPatchPtrOutput) Elem() TokenReviewSpecPatchOutput {
@@ -905,6 +1038,12 @@ func (i TokenReviewStatusArgs) ToTokenReviewStatusOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(TokenReviewStatusOutput)
 }
 
+func (i TokenReviewStatusArgs) ToOutput(ctx context.Context) pulumix.Output[TokenReviewStatus] {
+	return pulumix.Output[TokenReviewStatus]{
+		OutputState: i.ToTokenReviewStatusOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i TokenReviewStatusArgs) ToTokenReviewStatusPtrOutput() TokenReviewStatusPtrOutput {
 	return i.ToTokenReviewStatusPtrOutputWithContext(context.Background())
 }
@@ -946,6 +1085,12 @@ func (i *tokenReviewStatusPtrType) ToTokenReviewStatusPtrOutputWithContext(ctx c
 	return pulumi.ToOutputWithContext(ctx, i).(TokenReviewStatusPtrOutput)
 }
 
+func (i *tokenReviewStatusPtrType) ToOutput(ctx context.Context) pulumix.Output[*TokenReviewStatus] {
+	return pulumix.Output[*TokenReviewStatus]{
+		OutputState: i.ToTokenReviewStatusPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // TokenReviewStatus is the result of the token authentication request.
 type TokenReviewStatusOutput struct{ *pulumi.OutputState }
 
@@ -969,6 +1114,12 @@ func (o TokenReviewStatusOutput) ToTokenReviewStatusPtrOutputWithContext(ctx con
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v TokenReviewStatus) *TokenReviewStatus {
 		return &v
 	}).(TokenReviewStatusPtrOutput)
+}
+
+func (o TokenReviewStatusOutput) ToOutput(ctx context.Context) pulumix.Output[TokenReviewStatus] {
+	return pulumix.Output[TokenReviewStatus]{
+		OutputState: o.OutputState,
+	}
 }
 
 // Audiences are audience identifiers chosen by the authenticator that are compatible with both the TokenReview and token. An identifier is any identifier in the intersection of the TokenReviewSpec audiences and the token's audiences. A client of the TokenReview API that sets the spec.audiences field should validate that a compatible audience identifier is returned in the status.audiences field to ensure that the TokenReview server is audience aware. If a TokenReview returns an empty status.audience field where status.authenticated is "true", the token is valid against the audience of the Kubernetes API server.
@@ -1003,6 +1154,12 @@ func (o TokenReviewStatusPtrOutput) ToTokenReviewStatusPtrOutput() TokenReviewSt
 
 func (o TokenReviewStatusPtrOutput) ToTokenReviewStatusPtrOutputWithContext(ctx context.Context) TokenReviewStatusPtrOutput {
 	return o
+}
+
+func (o TokenReviewStatusPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*TokenReviewStatus] {
+	return pulumix.Output[*TokenReviewStatus]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o TokenReviewStatusPtrOutput) Elem() TokenReviewStatusOutput {
@@ -1102,6 +1259,12 @@ func (i TokenReviewStatusPatchArgs) ToTokenReviewStatusPatchOutputWithContext(ct
 	return pulumi.ToOutputWithContext(ctx, i).(TokenReviewStatusPatchOutput)
 }
 
+func (i TokenReviewStatusPatchArgs) ToOutput(ctx context.Context) pulumix.Output[TokenReviewStatusPatch] {
+	return pulumix.Output[TokenReviewStatusPatch]{
+		OutputState: i.ToTokenReviewStatusPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i TokenReviewStatusPatchArgs) ToTokenReviewStatusPatchPtrOutput() TokenReviewStatusPatchPtrOutput {
 	return i.ToTokenReviewStatusPatchPtrOutputWithContext(context.Background())
 }
@@ -1143,6 +1306,12 @@ func (i *tokenReviewStatusPatchPtrType) ToTokenReviewStatusPatchPtrOutputWithCon
 	return pulumi.ToOutputWithContext(ctx, i).(TokenReviewStatusPatchPtrOutput)
 }
 
+func (i *tokenReviewStatusPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*TokenReviewStatusPatch] {
+	return pulumix.Output[*TokenReviewStatusPatch]{
+		OutputState: i.ToTokenReviewStatusPatchPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // TokenReviewStatus is the result of the token authentication request.
 type TokenReviewStatusPatchOutput struct{ *pulumi.OutputState }
 
@@ -1166,6 +1335,12 @@ func (o TokenReviewStatusPatchOutput) ToTokenReviewStatusPatchPtrOutputWithConte
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v TokenReviewStatusPatch) *TokenReviewStatusPatch {
 		return &v
 	}).(TokenReviewStatusPatchPtrOutput)
+}
+
+func (o TokenReviewStatusPatchOutput) ToOutput(ctx context.Context) pulumix.Output[TokenReviewStatusPatch] {
+	return pulumix.Output[TokenReviewStatusPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // Audiences are audience identifiers chosen by the authenticator that are compatible with both the TokenReview and token. An identifier is any identifier in the intersection of the TokenReviewSpec audiences and the token's audiences. A client of the TokenReview API that sets the spec.audiences field should validate that a compatible audience identifier is returned in the status.audiences field to ensure that the TokenReview server is audience aware. If a TokenReview returns an empty status.audience field where status.authenticated is "true", the token is valid against the audience of the Kubernetes API server.
@@ -1200,6 +1375,12 @@ func (o TokenReviewStatusPatchPtrOutput) ToTokenReviewStatusPatchPtrOutput() Tok
 
 func (o TokenReviewStatusPatchPtrOutput) ToTokenReviewStatusPatchPtrOutputWithContext(ctx context.Context) TokenReviewStatusPatchPtrOutput {
 	return o
+}
+
+func (o TokenReviewStatusPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*TokenReviewStatusPatch] {
+	return pulumix.Output[*TokenReviewStatusPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o TokenReviewStatusPatchPtrOutput) Elem() TokenReviewStatusPatchOutput {
@@ -1299,6 +1480,12 @@ func (i UserInfoArgs) ToUserInfoOutputWithContext(ctx context.Context) UserInfoO
 	return pulumi.ToOutputWithContext(ctx, i).(UserInfoOutput)
 }
 
+func (i UserInfoArgs) ToOutput(ctx context.Context) pulumix.Output[UserInfo] {
+	return pulumix.Output[UserInfo]{
+		OutputState: i.ToUserInfoOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i UserInfoArgs) ToUserInfoPtrOutput() UserInfoPtrOutput {
 	return i.ToUserInfoPtrOutputWithContext(context.Background())
 }
@@ -1340,6 +1527,12 @@ func (i *userInfoPtrType) ToUserInfoPtrOutputWithContext(ctx context.Context) Us
 	return pulumi.ToOutputWithContext(ctx, i).(UserInfoPtrOutput)
 }
 
+func (i *userInfoPtrType) ToOutput(ctx context.Context) pulumix.Output[*UserInfo] {
+	return pulumix.Output[*UserInfo]{
+		OutputState: i.ToUserInfoPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // UserInfo holds the information about the user needed to implement the user.Info interface.
 type UserInfoOutput struct{ *pulumi.OutputState }
 
@@ -1363,6 +1556,12 @@ func (o UserInfoOutput) ToUserInfoPtrOutputWithContext(ctx context.Context) User
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v UserInfo) *UserInfo {
 		return &v
 	}).(UserInfoPtrOutput)
+}
+
+func (o UserInfoOutput) ToOutput(ctx context.Context) pulumix.Output[UserInfo] {
+	return pulumix.Output[UserInfo]{
+		OutputState: o.OutputState,
+	}
 }
 
 // Any additional information provided by the authenticator.
@@ -1397,6 +1596,12 @@ func (o UserInfoPtrOutput) ToUserInfoPtrOutput() UserInfoPtrOutput {
 
 func (o UserInfoPtrOutput) ToUserInfoPtrOutputWithContext(ctx context.Context) UserInfoPtrOutput {
 	return o
+}
+
+func (o UserInfoPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*UserInfo] {
+	return pulumix.Output[*UserInfo]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o UserInfoPtrOutput) Elem() UserInfoOutput {
@@ -1496,6 +1701,12 @@ func (i UserInfoPatchArgs) ToUserInfoPatchOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(UserInfoPatchOutput)
 }
 
+func (i UserInfoPatchArgs) ToOutput(ctx context.Context) pulumix.Output[UserInfoPatch] {
+	return pulumix.Output[UserInfoPatch]{
+		OutputState: i.ToUserInfoPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i UserInfoPatchArgs) ToUserInfoPatchPtrOutput() UserInfoPatchPtrOutput {
 	return i.ToUserInfoPatchPtrOutputWithContext(context.Background())
 }
@@ -1537,6 +1748,12 @@ func (i *userInfoPatchPtrType) ToUserInfoPatchPtrOutputWithContext(ctx context.C
 	return pulumi.ToOutputWithContext(ctx, i).(UserInfoPatchPtrOutput)
 }
 
+func (i *userInfoPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*UserInfoPatch] {
+	return pulumix.Output[*UserInfoPatch]{
+		OutputState: i.ToUserInfoPatchPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // UserInfo holds the information about the user needed to implement the user.Info interface.
 type UserInfoPatchOutput struct{ *pulumi.OutputState }
 
@@ -1560,6 +1777,12 @@ func (o UserInfoPatchOutput) ToUserInfoPatchPtrOutputWithContext(ctx context.Con
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v UserInfoPatch) *UserInfoPatch {
 		return &v
 	}).(UserInfoPatchPtrOutput)
+}
+
+func (o UserInfoPatchOutput) ToOutput(ctx context.Context) pulumix.Output[UserInfoPatch] {
+	return pulumix.Output[UserInfoPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // Any additional information provided by the authenticator.
@@ -1594,6 +1817,12 @@ func (o UserInfoPatchPtrOutput) ToUserInfoPatchPtrOutput() UserInfoPatchPtrOutpu
 
 func (o UserInfoPatchPtrOutput) ToUserInfoPatchPtrOutputWithContext(ctx context.Context) UserInfoPatchPtrOutput {
 	return o
+}
+
+func (o UserInfoPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*UserInfoPatch] {
+	return pulumix.Output[*UserInfoPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o UserInfoPatchPtrOutput) Elem() UserInfoPatchOutput {

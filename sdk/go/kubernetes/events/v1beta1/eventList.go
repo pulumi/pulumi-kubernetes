@@ -11,6 +11,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // EventList is a list of Event objects.
@@ -117,6 +118,12 @@ func (i *EventList) ToEventListOutputWithContext(ctx context.Context) EventListO
 	return pulumi.ToOutputWithContext(ctx, i).(EventListOutput)
 }
 
+func (i *EventList) ToOutput(ctx context.Context) pulumix.Output[*EventList] {
+	return pulumix.Output[*EventList]{
+		OutputState: i.ToEventListOutputWithContext(ctx).OutputState,
+	}
+}
+
 // EventListArrayInput is an input type that accepts EventListArray and EventListArrayOutput values.
 // You can construct a concrete instance of `EventListArrayInput` via:
 //
@@ -140,6 +147,12 @@ func (i EventListArray) ToEventListArrayOutput() EventListArrayOutput {
 
 func (i EventListArray) ToEventListArrayOutputWithContext(ctx context.Context) EventListArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(EventListArrayOutput)
+}
+
+func (i EventListArray) ToOutput(ctx context.Context) pulumix.Output[[]*EventList] {
+	return pulumix.Output[[]*EventList]{
+		OutputState: i.ToEventListArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // EventListMapInput is an input type that accepts EventListMap and EventListMapOutput values.
@@ -167,6 +180,12 @@ func (i EventListMap) ToEventListMapOutputWithContext(ctx context.Context) Event
 	return pulumi.ToOutputWithContext(ctx, i).(EventListMapOutput)
 }
 
+func (i EventListMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*EventList] {
+	return pulumix.Output[map[string]*EventList]{
+		OutputState: i.ToEventListMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type EventListOutput struct{ *pulumi.OutputState }
 
 func (EventListOutput) ElementType() reflect.Type {
@@ -179,6 +198,12 @@ func (o EventListOutput) ToEventListOutput() EventListOutput {
 
 func (o EventListOutput) ToEventListOutputWithContext(ctx context.Context) EventListOutput {
 	return o
+}
+
+func (o EventListOutput) ToOutput(ctx context.Context) pulumix.Output[*EventList] {
+	return pulumix.Output[*EventList]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -215,6 +240,12 @@ func (o EventListArrayOutput) ToEventListArrayOutputWithContext(ctx context.Cont
 	return o
 }
 
+func (o EventListArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*EventList] {
+	return pulumix.Output[[]*EventList]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o EventListArrayOutput) Index(i pulumi.IntInput) EventListOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *EventList {
 		return vs[0].([]*EventList)[vs[1].(int)]
@@ -233,6 +264,12 @@ func (o EventListMapOutput) ToEventListMapOutput() EventListMapOutput {
 
 func (o EventListMapOutput) ToEventListMapOutputWithContext(ctx context.Context) EventListMapOutput {
 	return o
+}
+
+func (o EventListMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*EventList] {
+	return pulumix.Output[map[string]*EventList]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o EventListMapOutput) MapIndex(k pulumi.StringInput) EventListOutput {

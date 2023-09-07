@@ -10,6 +10,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 var _ = internal.GetEnvOrDefault
@@ -73,6 +74,12 @@ func (i MatchConditionArgs) ToMatchConditionOutputWithContext(ctx context.Contex
 	return pulumi.ToOutputWithContext(ctx, i).(MatchConditionOutput)
 }
 
+func (i MatchConditionArgs) ToOutput(ctx context.Context) pulumix.Output[MatchCondition] {
+	return pulumix.Output[MatchCondition]{
+		OutputState: i.ToMatchConditionOutputWithContext(ctx).OutputState,
+	}
+}
+
 // MatchConditionArrayInput is an input type that accepts MatchConditionArray and MatchConditionArrayOutput values.
 // You can construct a concrete instance of `MatchConditionArrayInput` via:
 //
@@ -98,6 +105,12 @@ func (i MatchConditionArray) ToMatchConditionArrayOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(MatchConditionArrayOutput)
 }
 
+func (i MatchConditionArray) ToOutput(ctx context.Context) pulumix.Output[[]MatchCondition] {
+	return pulumix.Output[[]MatchCondition]{
+		OutputState: i.ToMatchConditionArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // MatchCondition represents a condition which must by fulfilled for a request to be sent to a webhook.
 type MatchConditionOutput struct{ *pulumi.OutputState }
 
@@ -111,6 +124,12 @@ func (o MatchConditionOutput) ToMatchConditionOutput() MatchConditionOutput {
 
 func (o MatchConditionOutput) ToMatchConditionOutputWithContext(ctx context.Context) MatchConditionOutput {
 	return o
+}
+
+func (o MatchConditionOutput) ToOutput(ctx context.Context) pulumix.Output[MatchCondition] {
+	return pulumix.Output[MatchCondition]{
+		OutputState: o.OutputState,
+	}
 }
 
 // Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
@@ -149,6 +168,12 @@ func (o MatchConditionArrayOutput) ToMatchConditionArrayOutput() MatchConditionA
 
 func (o MatchConditionArrayOutput) ToMatchConditionArrayOutputWithContext(ctx context.Context) MatchConditionArrayOutput {
 	return o
+}
+
+func (o MatchConditionArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]MatchCondition] {
+	return pulumix.Output[[]MatchCondition]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o MatchConditionArrayOutput) Index(i pulumi.IntInput) MatchConditionOutput {
@@ -216,6 +241,12 @@ func (i MatchConditionPatchArgs) ToMatchConditionPatchOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(MatchConditionPatchOutput)
 }
 
+func (i MatchConditionPatchArgs) ToOutput(ctx context.Context) pulumix.Output[MatchConditionPatch] {
+	return pulumix.Output[MatchConditionPatch]{
+		OutputState: i.ToMatchConditionPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 // MatchConditionPatchArrayInput is an input type that accepts MatchConditionPatchArray and MatchConditionPatchArrayOutput values.
 // You can construct a concrete instance of `MatchConditionPatchArrayInput` via:
 //
@@ -241,6 +272,12 @@ func (i MatchConditionPatchArray) ToMatchConditionPatchArrayOutputWithContext(ct
 	return pulumi.ToOutputWithContext(ctx, i).(MatchConditionPatchArrayOutput)
 }
 
+func (i MatchConditionPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]MatchConditionPatch] {
+	return pulumix.Output[[]MatchConditionPatch]{
+		OutputState: i.ToMatchConditionPatchArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // MatchCondition represents a condition which must by fulfilled for a request to be sent to a webhook.
 type MatchConditionPatchOutput struct{ *pulumi.OutputState }
 
@@ -254,6 +291,12 @@ func (o MatchConditionPatchOutput) ToMatchConditionPatchOutput() MatchConditionP
 
 func (o MatchConditionPatchOutput) ToMatchConditionPatchOutputWithContext(ctx context.Context) MatchConditionPatchOutput {
 	return o
+}
+
+func (o MatchConditionPatchOutput) ToOutput(ctx context.Context) pulumix.Output[MatchConditionPatch] {
+	return pulumix.Output[MatchConditionPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
@@ -292,6 +335,12 @@ func (o MatchConditionPatchArrayOutput) ToMatchConditionPatchArrayOutput() Match
 
 func (o MatchConditionPatchArrayOutput) ToMatchConditionPatchArrayOutputWithContext(ctx context.Context) MatchConditionPatchArrayOutput {
 	return o
+}
+
+func (o MatchConditionPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]MatchConditionPatch] {
+	return pulumix.Output[[]MatchConditionPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o MatchConditionPatchArrayOutput) Index(i pulumi.IntInput) MatchConditionPatchOutput {
@@ -481,6 +530,12 @@ func (i MutatingWebhookArgs) ToMutatingWebhookOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(MutatingWebhookOutput)
 }
 
+func (i MutatingWebhookArgs) ToOutput(ctx context.Context) pulumix.Output[MutatingWebhook] {
+	return pulumix.Output[MutatingWebhook]{
+		OutputState: i.ToMutatingWebhookOutputWithContext(ctx).OutputState,
+	}
+}
+
 // MutatingWebhookArrayInput is an input type that accepts MutatingWebhookArray and MutatingWebhookArrayOutput values.
 // You can construct a concrete instance of `MutatingWebhookArrayInput` via:
 //
@@ -506,6 +561,12 @@ func (i MutatingWebhookArray) ToMutatingWebhookArrayOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(MutatingWebhookArrayOutput)
 }
 
+func (i MutatingWebhookArray) ToOutput(ctx context.Context) pulumix.Output[[]MutatingWebhook] {
+	return pulumix.Output[[]MutatingWebhook]{
+		OutputState: i.ToMutatingWebhookArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // MutatingWebhook describes an admission webhook and the resources and operations it applies to.
 type MutatingWebhookOutput struct{ *pulumi.OutputState }
 
@@ -519,6 +580,12 @@ func (o MutatingWebhookOutput) ToMutatingWebhookOutput() MutatingWebhookOutput {
 
 func (o MutatingWebhookOutput) ToMutatingWebhookOutputWithContext(ctx context.Context) MutatingWebhookOutput {
 	return o
+}
+
+func (o MutatingWebhookOutput) ToOutput(ctx context.Context) pulumix.Output[MutatingWebhook] {
+	return pulumix.Output[MutatingWebhook]{
+		OutputState: o.OutputState,
+	}
 }
 
 // AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy.
@@ -646,6 +713,12 @@ func (o MutatingWebhookArrayOutput) ToMutatingWebhookArrayOutputWithContext(ctx 
 	return o
 }
 
+func (o MutatingWebhookArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]MutatingWebhook] {
+	return pulumix.Output[[]MutatingWebhook]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o MutatingWebhookArrayOutput) Index(i pulumi.IntInput) MutatingWebhookOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) MutatingWebhook {
 		return vs[0].([]MutatingWebhook)[vs[1].(int)]
@@ -699,6 +772,12 @@ func (i MutatingWebhookConfigurationTypeArgs) ToMutatingWebhookConfigurationType
 	return pulumi.ToOutputWithContext(ctx, i).(MutatingWebhookConfigurationTypeOutput)
 }
 
+func (i MutatingWebhookConfigurationTypeArgs) ToOutput(ctx context.Context) pulumix.Output[MutatingWebhookConfigurationType] {
+	return pulumix.Output[MutatingWebhookConfigurationType]{
+		OutputState: i.ToMutatingWebhookConfigurationTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // MutatingWebhookConfigurationTypeArrayInput is an input type that accepts MutatingWebhookConfigurationTypeArray and MutatingWebhookConfigurationTypeArrayOutput values.
 // You can construct a concrete instance of `MutatingWebhookConfigurationTypeArrayInput` via:
 //
@@ -724,6 +803,12 @@ func (i MutatingWebhookConfigurationTypeArray) ToMutatingWebhookConfigurationTyp
 	return pulumi.ToOutputWithContext(ctx, i).(MutatingWebhookConfigurationTypeArrayOutput)
 }
 
+func (i MutatingWebhookConfigurationTypeArray) ToOutput(ctx context.Context) pulumix.Output[[]MutatingWebhookConfigurationType] {
+	return pulumix.Output[[]MutatingWebhookConfigurationType]{
+		OutputState: i.ToMutatingWebhookConfigurationTypeArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // MutatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and may change the object.
 type MutatingWebhookConfigurationTypeOutput struct{ *pulumi.OutputState }
 
@@ -737,6 +822,12 @@ func (o MutatingWebhookConfigurationTypeOutput) ToMutatingWebhookConfigurationTy
 
 func (o MutatingWebhookConfigurationTypeOutput) ToMutatingWebhookConfigurationTypeOutputWithContext(ctx context.Context) MutatingWebhookConfigurationTypeOutput {
 	return o
+}
+
+func (o MutatingWebhookConfigurationTypeOutput) ToOutput(ctx context.Context) pulumix.Output[MutatingWebhookConfigurationType] {
+	return pulumix.Output[MutatingWebhookConfigurationType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -771,6 +862,12 @@ func (o MutatingWebhookConfigurationTypeArrayOutput) ToMutatingWebhookConfigurat
 
 func (o MutatingWebhookConfigurationTypeArrayOutput) ToMutatingWebhookConfigurationTypeArrayOutputWithContext(ctx context.Context) MutatingWebhookConfigurationTypeArrayOutput {
 	return o
+}
+
+func (o MutatingWebhookConfigurationTypeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]MutatingWebhookConfigurationType] {
+	return pulumix.Output[[]MutatingWebhookConfigurationType]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o MutatingWebhookConfigurationTypeArrayOutput) Index(i pulumi.IntInput) MutatingWebhookConfigurationTypeOutput {
@@ -826,6 +923,12 @@ func (i MutatingWebhookConfigurationListTypeArgs) ToMutatingWebhookConfiguration
 	return pulumi.ToOutputWithContext(ctx, i).(MutatingWebhookConfigurationListTypeOutput)
 }
 
+func (i MutatingWebhookConfigurationListTypeArgs) ToOutput(ctx context.Context) pulumix.Output[MutatingWebhookConfigurationListType] {
+	return pulumix.Output[MutatingWebhookConfigurationListType]{
+		OutputState: i.ToMutatingWebhookConfigurationListTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // MutatingWebhookConfigurationList is a list of MutatingWebhookConfiguration.
 type MutatingWebhookConfigurationListTypeOutput struct{ *pulumi.OutputState }
 
@@ -839,6 +942,12 @@ func (o MutatingWebhookConfigurationListTypeOutput) ToMutatingWebhookConfigurati
 
 func (o MutatingWebhookConfigurationListTypeOutput) ToMutatingWebhookConfigurationListTypeOutputWithContext(ctx context.Context) MutatingWebhookConfigurationListTypeOutput {
 	return o
+}
+
+func (o MutatingWebhookConfigurationListTypeOutput) ToOutput(ctx context.Context) pulumix.Output[MutatingWebhookConfigurationListType] {
+	return pulumix.Output[MutatingWebhookConfigurationListType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -908,6 +1017,12 @@ func (i MutatingWebhookConfigurationPatchTypeArgs) ToMutatingWebhookConfiguratio
 	return pulumi.ToOutputWithContext(ctx, i).(MutatingWebhookConfigurationPatchTypeOutput)
 }
 
+func (i MutatingWebhookConfigurationPatchTypeArgs) ToOutput(ctx context.Context) pulumix.Output[MutatingWebhookConfigurationPatchType] {
+	return pulumix.Output[MutatingWebhookConfigurationPatchType]{
+		OutputState: i.ToMutatingWebhookConfigurationPatchTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // MutatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and may change the object.
 type MutatingWebhookConfigurationPatchTypeOutput struct{ *pulumi.OutputState }
 
@@ -921,6 +1036,12 @@ func (o MutatingWebhookConfigurationPatchTypeOutput) ToMutatingWebhookConfigurat
 
 func (o MutatingWebhookConfigurationPatchTypeOutput) ToMutatingWebhookConfigurationPatchTypeOutputWithContext(ctx context.Context) MutatingWebhookConfigurationPatchTypeOutput {
 	return o
+}
+
+func (o MutatingWebhookConfigurationPatchTypeOutput) ToOutput(ctx context.Context) pulumix.Output[MutatingWebhookConfigurationPatchType] {
+	return pulumix.Output[MutatingWebhookConfigurationPatchType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -1124,6 +1245,12 @@ func (i MutatingWebhookPatchArgs) ToMutatingWebhookPatchOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(MutatingWebhookPatchOutput)
 }
 
+func (i MutatingWebhookPatchArgs) ToOutput(ctx context.Context) pulumix.Output[MutatingWebhookPatch] {
+	return pulumix.Output[MutatingWebhookPatch]{
+		OutputState: i.ToMutatingWebhookPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 // MutatingWebhookPatchArrayInput is an input type that accepts MutatingWebhookPatchArray and MutatingWebhookPatchArrayOutput values.
 // You can construct a concrete instance of `MutatingWebhookPatchArrayInput` via:
 //
@@ -1149,6 +1276,12 @@ func (i MutatingWebhookPatchArray) ToMutatingWebhookPatchArrayOutputWithContext(
 	return pulumi.ToOutputWithContext(ctx, i).(MutatingWebhookPatchArrayOutput)
 }
 
+func (i MutatingWebhookPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]MutatingWebhookPatch] {
+	return pulumix.Output[[]MutatingWebhookPatch]{
+		OutputState: i.ToMutatingWebhookPatchArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // MutatingWebhook describes an admission webhook and the resources and operations it applies to.
 type MutatingWebhookPatchOutput struct{ *pulumi.OutputState }
 
@@ -1162,6 +1295,12 @@ func (o MutatingWebhookPatchOutput) ToMutatingWebhookPatchOutput() MutatingWebho
 
 func (o MutatingWebhookPatchOutput) ToMutatingWebhookPatchOutputWithContext(ctx context.Context) MutatingWebhookPatchOutput {
 	return o
+}
+
+func (o MutatingWebhookPatchOutput) ToOutput(ctx context.Context) pulumix.Output[MutatingWebhookPatch] {
+	return pulumix.Output[MutatingWebhookPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy.
@@ -1289,6 +1428,12 @@ func (o MutatingWebhookPatchArrayOutput) ToMutatingWebhookPatchArrayOutputWithCo
 	return o
 }
 
+func (o MutatingWebhookPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]MutatingWebhookPatch] {
+	return pulumix.Output[[]MutatingWebhookPatch]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o MutatingWebhookPatchArrayOutput) Index(i pulumi.IntInput) MutatingWebhookPatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) MutatingWebhookPatch {
 		return vs[0].([]MutatingWebhookPatch)[vs[1].(int)]
@@ -1358,6 +1503,12 @@ func (i RuleWithOperationsArgs) ToRuleWithOperationsOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(RuleWithOperationsOutput)
 }
 
+func (i RuleWithOperationsArgs) ToOutput(ctx context.Context) pulumix.Output[RuleWithOperations] {
+	return pulumix.Output[RuleWithOperations]{
+		OutputState: i.ToRuleWithOperationsOutputWithContext(ctx).OutputState,
+	}
+}
+
 // RuleWithOperationsArrayInput is an input type that accepts RuleWithOperationsArray and RuleWithOperationsArrayOutput values.
 // You can construct a concrete instance of `RuleWithOperationsArrayInput` via:
 //
@@ -1383,6 +1534,12 @@ func (i RuleWithOperationsArray) ToRuleWithOperationsArrayOutputWithContext(ctx 
 	return pulumi.ToOutputWithContext(ctx, i).(RuleWithOperationsArrayOutput)
 }
 
+func (i RuleWithOperationsArray) ToOutput(ctx context.Context) pulumix.Output[[]RuleWithOperations] {
+	return pulumix.Output[[]RuleWithOperations]{
+		OutputState: i.ToRuleWithOperationsArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // RuleWithOperations is a tuple of Operations and Resources. It is recommended to make sure that all the tuple expansions are valid.
 type RuleWithOperationsOutput struct{ *pulumi.OutputState }
 
@@ -1396,6 +1553,12 @@ func (o RuleWithOperationsOutput) ToRuleWithOperationsOutput() RuleWithOperation
 
 func (o RuleWithOperationsOutput) ToRuleWithOperationsOutputWithContext(ctx context.Context) RuleWithOperationsOutput {
 	return o
+}
+
+func (o RuleWithOperationsOutput) ToOutput(ctx context.Context) pulumix.Output[RuleWithOperations] {
+	return pulumix.Output[RuleWithOperations]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
@@ -1441,6 +1604,12 @@ func (o RuleWithOperationsArrayOutput) ToRuleWithOperationsArrayOutput() RuleWit
 
 func (o RuleWithOperationsArrayOutput) ToRuleWithOperationsArrayOutputWithContext(ctx context.Context) RuleWithOperationsArrayOutput {
 	return o
+}
+
+func (o RuleWithOperationsArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]RuleWithOperations] {
+	return pulumix.Output[[]RuleWithOperations]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o RuleWithOperationsArrayOutput) Index(i pulumi.IntInput) RuleWithOperationsOutput {
@@ -1512,6 +1681,12 @@ func (i RuleWithOperationsPatchArgs) ToRuleWithOperationsPatchOutputWithContext(
 	return pulumi.ToOutputWithContext(ctx, i).(RuleWithOperationsPatchOutput)
 }
 
+func (i RuleWithOperationsPatchArgs) ToOutput(ctx context.Context) pulumix.Output[RuleWithOperationsPatch] {
+	return pulumix.Output[RuleWithOperationsPatch]{
+		OutputState: i.ToRuleWithOperationsPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 // RuleWithOperationsPatchArrayInput is an input type that accepts RuleWithOperationsPatchArray and RuleWithOperationsPatchArrayOutput values.
 // You can construct a concrete instance of `RuleWithOperationsPatchArrayInput` via:
 //
@@ -1537,6 +1712,12 @@ func (i RuleWithOperationsPatchArray) ToRuleWithOperationsPatchArrayOutputWithCo
 	return pulumi.ToOutputWithContext(ctx, i).(RuleWithOperationsPatchArrayOutput)
 }
 
+func (i RuleWithOperationsPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]RuleWithOperationsPatch] {
+	return pulumix.Output[[]RuleWithOperationsPatch]{
+		OutputState: i.ToRuleWithOperationsPatchArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // RuleWithOperations is a tuple of Operations and Resources. It is recommended to make sure that all the tuple expansions are valid.
 type RuleWithOperationsPatchOutput struct{ *pulumi.OutputState }
 
@@ -1550,6 +1731,12 @@ func (o RuleWithOperationsPatchOutput) ToRuleWithOperationsPatchOutput() RuleWit
 
 func (o RuleWithOperationsPatchOutput) ToRuleWithOperationsPatchOutputWithContext(ctx context.Context) RuleWithOperationsPatchOutput {
 	return o
+}
+
+func (o RuleWithOperationsPatchOutput) ToOutput(ctx context.Context) pulumix.Output[RuleWithOperationsPatch] {
+	return pulumix.Output[RuleWithOperationsPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
@@ -1595,6 +1782,12 @@ func (o RuleWithOperationsPatchArrayOutput) ToRuleWithOperationsPatchArrayOutput
 
 func (o RuleWithOperationsPatchArrayOutput) ToRuleWithOperationsPatchArrayOutputWithContext(ctx context.Context) RuleWithOperationsPatchArrayOutput {
 	return o
+}
+
+func (o RuleWithOperationsPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]RuleWithOperationsPatch] {
+	return pulumix.Output[[]RuleWithOperationsPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o RuleWithOperationsPatchArrayOutput) Index(i pulumi.IntInput) RuleWithOperationsPatchOutput {
@@ -1650,6 +1843,12 @@ func (i ServiceReferenceArgs) ToServiceReferenceOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(ServiceReferenceOutput)
 }
 
+func (i ServiceReferenceArgs) ToOutput(ctx context.Context) pulumix.Output[ServiceReference] {
+	return pulumix.Output[ServiceReference]{
+		OutputState: i.ToServiceReferenceOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i ServiceReferenceArgs) ToServiceReferencePtrOutput() ServiceReferencePtrOutput {
 	return i.ToServiceReferencePtrOutputWithContext(context.Background())
 }
@@ -1691,6 +1890,12 @@ func (i *serviceReferencePtrType) ToServiceReferencePtrOutputWithContext(ctx con
 	return pulumi.ToOutputWithContext(ctx, i).(ServiceReferencePtrOutput)
 }
 
+func (i *serviceReferencePtrType) ToOutput(ctx context.Context) pulumix.Output[*ServiceReference] {
+	return pulumix.Output[*ServiceReference]{
+		OutputState: i.ToServiceReferencePtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ServiceReference holds a reference to Service.legacy.k8s.io
 type ServiceReferenceOutput struct{ *pulumi.OutputState }
 
@@ -1714,6 +1919,12 @@ func (o ServiceReferenceOutput) ToServiceReferencePtrOutputWithContext(ctx conte
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v ServiceReference) *ServiceReference {
 		return &v
 	}).(ServiceReferencePtrOutput)
+}
+
+func (o ServiceReferenceOutput) ToOutput(ctx context.Context) pulumix.Output[ServiceReference] {
+	return pulumix.Output[ServiceReference]{
+		OutputState: o.OutputState,
+	}
 }
 
 // `name` is the name of the service. Required
@@ -1748,6 +1959,12 @@ func (o ServiceReferencePtrOutput) ToServiceReferencePtrOutput() ServiceReferenc
 
 func (o ServiceReferencePtrOutput) ToServiceReferencePtrOutputWithContext(ctx context.Context) ServiceReferencePtrOutput {
 	return o
+}
+
+func (o ServiceReferencePtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ServiceReference] {
+	return pulumix.Output[*ServiceReference]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ServiceReferencePtrOutput) Elem() ServiceReferenceOutput {
@@ -1847,6 +2064,12 @@ func (i ServiceReferencePatchArgs) ToServiceReferencePatchOutputWithContext(ctx 
 	return pulumi.ToOutputWithContext(ctx, i).(ServiceReferencePatchOutput)
 }
 
+func (i ServiceReferencePatchArgs) ToOutput(ctx context.Context) pulumix.Output[ServiceReferencePatch] {
+	return pulumix.Output[ServiceReferencePatch]{
+		OutputState: i.ToServiceReferencePatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i ServiceReferencePatchArgs) ToServiceReferencePatchPtrOutput() ServiceReferencePatchPtrOutput {
 	return i.ToServiceReferencePatchPtrOutputWithContext(context.Background())
 }
@@ -1888,6 +2111,12 @@ func (i *serviceReferencePatchPtrType) ToServiceReferencePatchPtrOutputWithConte
 	return pulumi.ToOutputWithContext(ctx, i).(ServiceReferencePatchPtrOutput)
 }
 
+func (i *serviceReferencePatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*ServiceReferencePatch] {
+	return pulumix.Output[*ServiceReferencePatch]{
+		OutputState: i.ToServiceReferencePatchPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ServiceReference holds a reference to Service.legacy.k8s.io
 type ServiceReferencePatchOutput struct{ *pulumi.OutputState }
 
@@ -1911,6 +2140,12 @@ func (o ServiceReferencePatchOutput) ToServiceReferencePatchPtrOutputWithContext
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v ServiceReferencePatch) *ServiceReferencePatch {
 		return &v
 	}).(ServiceReferencePatchPtrOutput)
+}
+
+func (o ServiceReferencePatchOutput) ToOutput(ctx context.Context) pulumix.Output[ServiceReferencePatch] {
+	return pulumix.Output[ServiceReferencePatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // `name` is the name of the service. Required
@@ -1945,6 +2180,12 @@ func (o ServiceReferencePatchPtrOutput) ToServiceReferencePatchPtrOutput() Servi
 
 func (o ServiceReferencePatchPtrOutput) ToServiceReferencePatchPtrOutputWithContext(ctx context.Context) ServiceReferencePatchPtrOutput {
 	return o
+}
+
+func (o ServiceReferencePatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ServiceReferencePatch] {
+	return pulumix.Output[*ServiceReferencePatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ServiceReferencePatchPtrOutput) Elem() ServiceReferencePatchOutput {
@@ -2162,6 +2403,12 @@ func (i ValidatingWebhookArgs) ToValidatingWebhookOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingWebhookOutput)
 }
 
+func (i ValidatingWebhookArgs) ToOutput(ctx context.Context) pulumix.Output[ValidatingWebhook] {
+	return pulumix.Output[ValidatingWebhook]{
+		OutputState: i.ToValidatingWebhookOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ValidatingWebhookArrayInput is an input type that accepts ValidatingWebhookArray and ValidatingWebhookArrayOutput values.
 // You can construct a concrete instance of `ValidatingWebhookArrayInput` via:
 //
@@ -2187,6 +2434,12 @@ func (i ValidatingWebhookArray) ToValidatingWebhookArrayOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingWebhookArrayOutput)
 }
 
+func (i ValidatingWebhookArray) ToOutput(ctx context.Context) pulumix.Output[[]ValidatingWebhook] {
+	return pulumix.Output[[]ValidatingWebhook]{
+		OutputState: i.ToValidatingWebhookArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ValidatingWebhook describes an admission webhook and the resources and operations it applies to.
 type ValidatingWebhookOutput struct{ *pulumi.OutputState }
 
@@ -2200,6 +2453,12 @@ func (o ValidatingWebhookOutput) ToValidatingWebhookOutput() ValidatingWebhookOu
 
 func (o ValidatingWebhookOutput) ToValidatingWebhookOutputWithContext(ctx context.Context) ValidatingWebhookOutput {
 	return o
+}
+
+func (o ValidatingWebhookOutput) ToOutput(ctx context.Context) pulumix.Output[ValidatingWebhook] {
+	return pulumix.Output[ValidatingWebhook]{
+		OutputState: o.OutputState,
+	}
 }
 
 // AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy.
@@ -2316,6 +2575,12 @@ func (o ValidatingWebhookArrayOutput) ToValidatingWebhookArrayOutputWithContext(
 	return o
 }
 
+func (o ValidatingWebhookArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]ValidatingWebhook] {
+	return pulumix.Output[[]ValidatingWebhook]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o ValidatingWebhookArrayOutput) Index(i pulumi.IntInput) ValidatingWebhookOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ValidatingWebhook {
 		return vs[0].([]ValidatingWebhook)[vs[1].(int)]
@@ -2369,6 +2634,12 @@ func (i ValidatingWebhookConfigurationTypeArgs) ToValidatingWebhookConfiguration
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingWebhookConfigurationTypeOutput)
 }
 
+func (i ValidatingWebhookConfigurationTypeArgs) ToOutput(ctx context.Context) pulumix.Output[ValidatingWebhookConfigurationType] {
+	return pulumix.Output[ValidatingWebhookConfigurationType]{
+		OutputState: i.ToValidatingWebhookConfigurationTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ValidatingWebhookConfigurationTypeArrayInput is an input type that accepts ValidatingWebhookConfigurationTypeArray and ValidatingWebhookConfigurationTypeArrayOutput values.
 // You can construct a concrete instance of `ValidatingWebhookConfigurationTypeArrayInput` via:
 //
@@ -2394,6 +2665,12 @@ func (i ValidatingWebhookConfigurationTypeArray) ToValidatingWebhookConfiguratio
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingWebhookConfigurationTypeArrayOutput)
 }
 
+func (i ValidatingWebhookConfigurationTypeArray) ToOutput(ctx context.Context) pulumix.Output[[]ValidatingWebhookConfigurationType] {
+	return pulumix.Output[[]ValidatingWebhookConfigurationType]{
+		OutputState: i.ToValidatingWebhookConfigurationTypeArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ValidatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and object without changing it.
 type ValidatingWebhookConfigurationTypeOutput struct{ *pulumi.OutputState }
 
@@ -2407,6 +2684,12 @@ func (o ValidatingWebhookConfigurationTypeOutput) ToValidatingWebhookConfigurati
 
 func (o ValidatingWebhookConfigurationTypeOutput) ToValidatingWebhookConfigurationTypeOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationTypeOutput {
 	return o
+}
+
+func (o ValidatingWebhookConfigurationTypeOutput) ToOutput(ctx context.Context) pulumix.Output[ValidatingWebhookConfigurationType] {
+	return pulumix.Output[ValidatingWebhookConfigurationType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -2441,6 +2724,12 @@ func (o ValidatingWebhookConfigurationTypeArrayOutput) ToValidatingWebhookConfig
 
 func (o ValidatingWebhookConfigurationTypeArrayOutput) ToValidatingWebhookConfigurationTypeArrayOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationTypeArrayOutput {
 	return o
+}
+
+func (o ValidatingWebhookConfigurationTypeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]ValidatingWebhookConfigurationType] {
+	return pulumix.Output[[]ValidatingWebhookConfigurationType]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ValidatingWebhookConfigurationTypeArrayOutput) Index(i pulumi.IntInput) ValidatingWebhookConfigurationTypeOutput {
@@ -2496,6 +2785,12 @@ func (i ValidatingWebhookConfigurationListTypeArgs) ToValidatingWebhookConfigura
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingWebhookConfigurationListTypeOutput)
 }
 
+func (i ValidatingWebhookConfigurationListTypeArgs) ToOutput(ctx context.Context) pulumix.Output[ValidatingWebhookConfigurationListType] {
+	return pulumix.Output[ValidatingWebhookConfigurationListType]{
+		OutputState: i.ToValidatingWebhookConfigurationListTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ValidatingWebhookConfigurationList is a list of ValidatingWebhookConfiguration.
 type ValidatingWebhookConfigurationListTypeOutput struct{ *pulumi.OutputState }
 
@@ -2509,6 +2804,12 @@ func (o ValidatingWebhookConfigurationListTypeOutput) ToValidatingWebhookConfigu
 
 func (o ValidatingWebhookConfigurationListTypeOutput) ToValidatingWebhookConfigurationListTypeOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationListTypeOutput {
 	return o
+}
+
+func (o ValidatingWebhookConfigurationListTypeOutput) ToOutput(ctx context.Context) pulumix.Output[ValidatingWebhookConfigurationListType] {
+	return pulumix.Output[ValidatingWebhookConfigurationListType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -2578,6 +2879,12 @@ func (i ValidatingWebhookConfigurationPatchTypeArgs) ToValidatingWebhookConfigur
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingWebhookConfigurationPatchTypeOutput)
 }
 
+func (i ValidatingWebhookConfigurationPatchTypeArgs) ToOutput(ctx context.Context) pulumix.Output[ValidatingWebhookConfigurationPatchType] {
+	return pulumix.Output[ValidatingWebhookConfigurationPatchType]{
+		OutputState: i.ToValidatingWebhookConfigurationPatchTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ValidatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and object without changing it.
 type ValidatingWebhookConfigurationPatchTypeOutput struct{ *pulumi.OutputState }
 
@@ -2591,6 +2898,12 @@ func (o ValidatingWebhookConfigurationPatchTypeOutput) ToValidatingWebhookConfig
 
 func (o ValidatingWebhookConfigurationPatchTypeOutput) ToValidatingWebhookConfigurationPatchTypeOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationPatchTypeOutput {
 	return o
+}
+
+func (o ValidatingWebhookConfigurationPatchTypeOutput) ToOutput(ctx context.Context) pulumix.Output[ValidatingWebhookConfigurationPatchType] {
+	return pulumix.Output[ValidatingWebhookConfigurationPatchType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -2778,6 +3091,12 @@ func (i ValidatingWebhookPatchArgs) ToValidatingWebhookPatchOutputWithContext(ct
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingWebhookPatchOutput)
 }
 
+func (i ValidatingWebhookPatchArgs) ToOutput(ctx context.Context) pulumix.Output[ValidatingWebhookPatch] {
+	return pulumix.Output[ValidatingWebhookPatch]{
+		OutputState: i.ToValidatingWebhookPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ValidatingWebhookPatchArrayInput is an input type that accepts ValidatingWebhookPatchArray and ValidatingWebhookPatchArrayOutput values.
 // You can construct a concrete instance of `ValidatingWebhookPatchArrayInput` via:
 //
@@ -2803,6 +3122,12 @@ func (i ValidatingWebhookPatchArray) ToValidatingWebhookPatchArrayOutputWithCont
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingWebhookPatchArrayOutput)
 }
 
+func (i ValidatingWebhookPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]ValidatingWebhookPatch] {
+	return pulumix.Output[[]ValidatingWebhookPatch]{
+		OutputState: i.ToValidatingWebhookPatchArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ValidatingWebhook describes an admission webhook and the resources and operations it applies to.
 type ValidatingWebhookPatchOutput struct{ *pulumi.OutputState }
 
@@ -2816,6 +3141,12 @@ func (o ValidatingWebhookPatchOutput) ToValidatingWebhookPatchOutput() Validatin
 
 func (o ValidatingWebhookPatchOutput) ToValidatingWebhookPatchOutputWithContext(ctx context.Context) ValidatingWebhookPatchOutput {
 	return o
+}
+
+func (o ValidatingWebhookPatchOutput) ToOutput(ctx context.Context) pulumix.Output[ValidatingWebhookPatch] {
+	return pulumix.Output[ValidatingWebhookPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // AdmissionReviewVersions is an ordered list of preferred `AdmissionReview` versions the Webhook expects. API server will try to use first version in the list which it supports. If none of the versions specified in this list supported by API server, validation will fail for this object. If a persisted webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail and be subject to the failure policy.
@@ -2932,6 +3263,12 @@ func (o ValidatingWebhookPatchArrayOutput) ToValidatingWebhookPatchArrayOutputWi
 	return o
 }
 
+func (o ValidatingWebhookPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]ValidatingWebhookPatch] {
+	return pulumix.Output[[]ValidatingWebhookPatch]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o ValidatingWebhookPatchArrayOutput) Index(i pulumi.IntInput) ValidatingWebhookPatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) ValidatingWebhookPatch {
 		return vs[0].([]ValidatingWebhookPatch)[vs[1].(int)]
@@ -3005,6 +3342,12 @@ func (i WebhookClientConfigArgs) ToWebhookClientConfigOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(WebhookClientConfigOutput)
 }
 
+func (i WebhookClientConfigArgs) ToOutput(ctx context.Context) pulumix.Output[WebhookClientConfig] {
+	return pulumix.Output[WebhookClientConfig]{
+		OutputState: i.ToWebhookClientConfigOutputWithContext(ctx).OutputState,
+	}
+}
+
 // WebhookClientConfig contains the information to make a TLS connection with the webhook
 type WebhookClientConfigOutput struct{ *pulumi.OutputState }
 
@@ -3018,6 +3361,12 @@ func (o WebhookClientConfigOutput) ToWebhookClientConfigOutput() WebhookClientCo
 
 func (o WebhookClientConfigOutput) ToWebhookClientConfigOutputWithContext(ctx context.Context) WebhookClientConfigOutput {
 	return o
+}
+
+func (o WebhookClientConfigOutput) ToOutput(ctx context.Context) pulumix.Output[WebhookClientConfig] {
+	return pulumix.Output[WebhookClientConfig]{
+		OutputState: o.OutputState,
+	}
 }
 
 // `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
@@ -3114,6 +3463,12 @@ func (i WebhookClientConfigPatchArgs) ToWebhookClientConfigPatchOutputWithContex
 	return pulumi.ToOutputWithContext(ctx, i).(WebhookClientConfigPatchOutput)
 }
 
+func (i WebhookClientConfigPatchArgs) ToOutput(ctx context.Context) pulumix.Output[WebhookClientConfigPatch] {
+	return pulumix.Output[WebhookClientConfigPatch]{
+		OutputState: i.ToWebhookClientConfigPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i WebhookClientConfigPatchArgs) ToWebhookClientConfigPatchPtrOutput() WebhookClientConfigPatchPtrOutput {
 	return i.ToWebhookClientConfigPatchPtrOutputWithContext(context.Background())
 }
@@ -3155,6 +3510,12 @@ func (i *webhookClientConfigPatchPtrType) ToWebhookClientConfigPatchPtrOutputWit
 	return pulumi.ToOutputWithContext(ctx, i).(WebhookClientConfigPatchPtrOutput)
 }
 
+func (i *webhookClientConfigPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*WebhookClientConfigPatch] {
+	return pulumix.Output[*WebhookClientConfigPatch]{
+		OutputState: i.ToWebhookClientConfigPatchPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // WebhookClientConfig contains the information to make a TLS connection with the webhook
 type WebhookClientConfigPatchOutput struct{ *pulumi.OutputState }
 
@@ -3178,6 +3539,12 @@ func (o WebhookClientConfigPatchOutput) ToWebhookClientConfigPatchPtrOutputWithC
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v WebhookClientConfigPatch) *WebhookClientConfigPatch {
 		return &v
 	}).(WebhookClientConfigPatchPtrOutput)
+}
+
+func (o WebhookClientConfigPatchOutput) ToOutput(ctx context.Context) pulumix.Output[WebhookClientConfigPatch] {
+	return pulumix.Output[WebhookClientConfigPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // `caBundle` is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
@@ -3219,6 +3586,12 @@ func (o WebhookClientConfigPatchPtrOutput) ToWebhookClientConfigPatchPtrOutput()
 
 func (o WebhookClientConfigPatchPtrOutput) ToWebhookClientConfigPatchPtrOutputWithContext(ctx context.Context) WebhookClientConfigPatchPtrOutput {
 	return o
+}
+
+func (o WebhookClientConfigPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*WebhookClientConfigPatch] {
+	return pulumix.Output[*WebhookClientConfigPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o WebhookClientConfigPatchPtrOutput) Elem() WebhookClientConfigPatchOutput {

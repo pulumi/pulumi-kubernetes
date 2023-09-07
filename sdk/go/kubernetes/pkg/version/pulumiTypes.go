@@ -9,6 +9,7 @@ import (
 
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 var _ = internal.GetEnvOrDefault
@@ -62,6 +63,12 @@ func (i InfoArgs) ToInfoOutputWithContext(ctx context.Context) InfoOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(InfoOutput)
 }
 
+func (i InfoArgs) ToOutput(ctx context.Context) pulumix.Output[Info] {
+	return pulumix.Output[Info]{
+		OutputState: i.ToInfoOutputWithContext(ctx).OutputState,
+	}
+}
+
 // Info contains versioning information. how we'll want to distribute that information.
 type InfoOutput struct{ *pulumi.OutputState }
 
@@ -75,6 +82,12 @@ func (o InfoOutput) ToInfoOutput() InfoOutput {
 
 func (o InfoOutput) ToInfoOutputWithContext(ctx context.Context) InfoOutput {
 	return o
+}
+
+func (o InfoOutput) ToOutput(ctx context.Context) pulumix.Output[Info] {
+	return pulumix.Output[Info]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o InfoOutput) BuildDate() pulumi.StringOutput {
@@ -162,6 +175,12 @@ func (i InfoPatchArgs) ToInfoPatchOutputWithContext(ctx context.Context) InfoPat
 	return pulumi.ToOutputWithContext(ctx, i).(InfoPatchOutput)
 }
 
+func (i InfoPatchArgs) ToOutput(ctx context.Context) pulumix.Output[InfoPatch] {
+	return pulumix.Output[InfoPatch]{
+		OutputState: i.ToInfoPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 // Info contains versioning information. how we'll want to distribute that information.
 type InfoPatchOutput struct{ *pulumi.OutputState }
 
@@ -175,6 +194,12 @@ func (o InfoPatchOutput) ToInfoPatchOutput() InfoPatchOutput {
 
 func (o InfoPatchOutput) ToInfoPatchOutputWithContext(ctx context.Context) InfoPatchOutput {
 	return o
+}
+
+func (o InfoPatchOutput) ToOutput(ctx context.Context) pulumix.Output[InfoPatch] {
+	return pulumix.Output[InfoPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o InfoPatchOutput) BuildDate() pulumi.StringPtrOutput {

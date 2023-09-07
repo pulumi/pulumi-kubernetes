@@ -11,6 +11,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // ClusterCIDRList contains a list of ClusterCIDR.
@@ -117,6 +118,12 @@ func (i *ClusterCIDRList) ToClusterCIDRListOutputWithContext(ctx context.Context
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterCIDRListOutput)
 }
 
+func (i *ClusterCIDRList) ToOutput(ctx context.Context) pulumix.Output[*ClusterCIDRList] {
+	return pulumix.Output[*ClusterCIDRList]{
+		OutputState: i.ToClusterCIDRListOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ClusterCIDRListArrayInput is an input type that accepts ClusterCIDRListArray and ClusterCIDRListArrayOutput values.
 // You can construct a concrete instance of `ClusterCIDRListArrayInput` via:
 //
@@ -140,6 +147,12 @@ func (i ClusterCIDRListArray) ToClusterCIDRListArrayOutput() ClusterCIDRListArra
 
 func (i ClusterCIDRListArray) ToClusterCIDRListArrayOutputWithContext(ctx context.Context) ClusterCIDRListArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterCIDRListArrayOutput)
+}
+
+func (i ClusterCIDRListArray) ToOutput(ctx context.Context) pulumix.Output[[]*ClusterCIDRList] {
+	return pulumix.Output[[]*ClusterCIDRList]{
+		OutputState: i.ToClusterCIDRListArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // ClusterCIDRListMapInput is an input type that accepts ClusterCIDRListMap and ClusterCIDRListMapOutput values.
@@ -167,6 +180,12 @@ func (i ClusterCIDRListMap) ToClusterCIDRListMapOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterCIDRListMapOutput)
 }
 
+func (i ClusterCIDRListMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*ClusterCIDRList] {
+	return pulumix.Output[map[string]*ClusterCIDRList]{
+		OutputState: i.ToClusterCIDRListMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type ClusterCIDRListOutput struct{ *pulumi.OutputState }
 
 func (ClusterCIDRListOutput) ElementType() reflect.Type {
@@ -179,6 +198,12 @@ func (o ClusterCIDRListOutput) ToClusterCIDRListOutput() ClusterCIDRListOutput {
 
 func (o ClusterCIDRListOutput) ToClusterCIDRListOutputWithContext(ctx context.Context) ClusterCIDRListOutput {
 	return o
+}
+
+func (o ClusterCIDRListOutput) ToOutput(ctx context.Context) pulumix.Output[*ClusterCIDRList] {
+	return pulumix.Output[*ClusterCIDRList]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -215,6 +240,12 @@ func (o ClusterCIDRListArrayOutput) ToClusterCIDRListArrayOutputWithContext(ctx 
 	return o
 }
 
+func (o ClusterCIDRListArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*ClusterCIDRList] {
+	return pulumix.Output[[]*ClusterCIDRList]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o ClusterCIDRListArrayOutput) Index(i pulumi.IntInput) ClusterCIDRListOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *ClusterCIDRList {
 		return vs[0].([]*ClusterCIDRList)[vs[1].(int)]
@@ -233,6 +264,12 @@ func (o ClusterCIDRListMapOutput) ToClusterCIDRListMapOutput() ClusterCIDRListMa
 
 func (o ClusterCIDRListMapOutput) ToClusterCIDRListMapOutputWithContext(ctx context.Context) ClusterCIDRListMapOutput {
 	return o
+}
+
+func (o ClusterCIDRListMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*ClusterCIDRList] {
+	return pulumix.Output[map[string]*ClusterCIDRList]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ClusterCIDRListMapOutput) MapIndex(k pulumi.StringInput) ClusterCIDRListOutput {

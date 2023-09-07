@@ -11,6 +11,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // CSIDriver captures information about a Container Storage Interface (CSI) volume driver deployed on the cluster. CSI drivers do not need to create the CSIDriver object directly. Instead they may use the cluster-driver-registrar sidecar container. When deployed with a CSI driver it automatically creates a CSIDriver object representing the driver. Kubernetes attach detach controller uses this object to determine whether attach is required. Kubelet uses this object to determine whether pod information needs to be passed on mount. CSIDriver objects are non-namespaced.
@@ -123,6 +124,12 @@ func (i *CSIDriver) ToCSIDriverOutputWithContext(ctx context.Context) CSIDriverO
 	return pulumi.ToOutputWithContext(ctx, i).(CSIDriverOutput)
 }
 
+func (i *CSIDriver) ToOutput(ctx context.Context) pulumix.Output[*CSIDriver] {
+	return pulumix.Output[*CSIDriver]{
+		OutputState: i.ToCSIDriverOutputWithContext(ctx).OutputState,
+	}
+}
+
 // CSIDriverArrayInput is an input type that accepts CSIDriverArray and CSIDriverArrayOutput values.
 // You can construct a concrete instance of `CSIDriverArrayInput` via:
 //
@@ -146,6 +153,12 @@ func (i CSIDriverArray) ToCSIDriverArrayOutput() CSIDriverArrayOutput {
 
 func (i CSIDriverArray) ToCSIDriverArrayOutputWithContext(ctx context.Context) CSIDriverArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(CSIDriverArrayOutput)
+}
+
+func (i CSIDriverArray) ToOutput(ctx context.Context) pulumix.Output[[]*CSIDriver] {
+	return pulumix.Output[[]*CSIDriver]{
+		OutputState: i.ToCSIDriverArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // CSIDriverMapInput is an input type that accepts CSIDriverMap and CSIDriverMapOutput values.
@@ -173,6 +186,12 @@ func (i CSIDriverMap) ToCSIDriverMapOutputWithContext(ctx context.Context) CSIDr
 	return pulumi.ToOutputWithContext(ctx, i).(CSIDriverMapOutput)
 }
 
+func (i CSIDriverMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*CSIDriver] {
+	return pulumix.Output[map[string]*CSIDriver]{
+		OutputState: i.ToCSIDriverMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type CSIDriverOutput struct{ *pulumi.OutputState }
 
 func (CSIDriverOutput) ElementType() reflect.Type {
@@ -185,6 +204,12 @@ func (o CSIDriverOutput) ToCSIDriverOutput() CSIDriverOutput {
 
 func (o CSIDriverOutput) ToCSIDriverOutputWithContext(ctx context.Context) CSIDriverOutput {
 	return o
+}
+
+func (o CSIDriverOutput) ToOutput(ctx context.Context) pulumix.Output[*CSIDriver] {
+	return pulumix.Output[*CSIDriver]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -221,6 +246,12 @@ func (o CSIDriverArrayOutput) ToCSIDriverArrayOutputWithContext(ctx context.Cont
 	return o
 }
 
+func (o CSIDriverArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*CSIDriver] {
+	return pulumix.Output[[]*CSIDriver]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o CSIDriverArrayOutput) Index(i pulumi.IntInput) CSIDriverOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *CSIDriver {
 		return vs[0].([]*CSIDriver)[vs[1].(int)]
@@ -239,6 +270,12 @@ func (o CSIDriverMapOutput) ToCSIDriverMapOutput() CSIDriverMapOutput {
 
 func (o CSIDriverMapOutput) ToCSIDriverMapOutputWithContext(ctx context.Context) CSIDriverMapOutput {
 	return o
+}
+
+func (o CSIDriverMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*CSIDriver] {
+	return pulumix.Output[map[string]*CSIDriver]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o CSIDriverMapOutput) MapIndex(k pulumi.StringInput) CSIDriverOutput {

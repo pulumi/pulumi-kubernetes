@@ -10,6 +10,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 var _ = internal.GetEnvOrDefault
@@ -63,6 +64,12 @@ func (i CertificateSigningRequestTypeArgs) ToCertificateSigningRequestTypeOutput
 	return pulumi.ToOutputWithContext(ctx, i).(CertificateSigningRequestTypeOutput)
 }
 
+func (i CertificateSigningRequestTypeArgs) ToOutput(ctx context.Context) pulumix.Output[CertificateSigningRequestType] {
+	return pulumix.Output[CertificateSigningRequestType]{
+		OutputState: i.ToCertificateSigningRequestTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // CertificateSigningRequestTypeArrayInput is an input type that accepts CertificateSigningRequestTypeArray and CertificateSigningRequestTypeArrayOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestTypeArrayInput` via:
 //
@@ -88,6 +95,12 @@ func (i CertificateSigningRequestTypeArray) ToCertificateSigningRequestTypeArray
 	return pulumi.ToOutputWithContext(ctx, i).(CertificateSigningRequestTypeArrayOutput)
 }
 
+func (i CertificateSigningRequestTypeArray) ToOutput(ctx context.Context) pulumix.Output[[]CertificateSigningRequestType] {
+	return pulumix.Output[[]CertificateSigningRequestType]{
+		OutputState: i.ToCertificateSigningRequestTypeArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // Describes a certificate signing request
 type CertificateSigningRequestTypeOutput struct{ *pulumi.OutputState }
 
@@ -101,6 +114,12 @@ func (o CertificateSigningRequestTypeOutput) ToCertificateSigningRequestTypeOutp
 
 func (o CertificateSigningRequestTypeOutput) ToCertificateSigningRequestTypeOutputWithContext(ctx context.Context) CertificateSigningRequestTypeOutput {
 	return o
+}
+
+func (o CertificateSigningRequestTypeOutput) ToOutput(ctx context.Context) pulumix.Output[CertificateSigningRequestType] {
+	return pulumix.Output[CertificateSigningRequestType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -139,6 +158,12 @@ func (o CertificateSigningRequestTypeArrayOutput) ToCertificateSigningRequestTyp
 
 func (o CertificateSigningRequestTypeArrayOutput) ToCertificateSigningRequestTypeArrayOutputWithContext(ctx context.Context) CertificateSigningRequestTypeArrayOutput {
 	return o
+}
+
+func (o CertificateSigningRequestTypeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]CertificateSigningRequestType] {
+	return pulumix.Output[[]CertificateSigningRequestType]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o CertificateSigningRequestTypeArrayOutput) Index(i pulumi.IntInput) CertificateSigningRequestTypeOutput {
@@ -200,6 +225,12 @@ func (i CertificateSigningRequestConditionArgs) ToCertificateSigningRequestCondi
 	return pulumi.ToOutputWithContext(ctx, i).(CertificateSigningRequestConditionOutput)
 }
 
+func (i CertificateSigningRequestConditionArgs) ToOutput(ctx context.Context) pulumix.Output[CertificateSigningRequestCondition] {
+	return pulumix.Output[CertificateSigningRequestCondition]{
+		OutputState: i.ToCertificateSigningRequestConditionOutputWithContext(ctx).OutputState,
+	}
+}
+
 // CertificateSigningRequestConditionArrayInput is an input type that accepts CertificateSigningRequestConditionArray and CertificateSigningRequestConditionArrayOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestConditionArrayInput` via:
 //
@@ -225,6 +256,12 @@ func (i CertificateSigningRequestConditionArray) ToCertificateSigningRequestCond
 	return pulumi.ToOutputWithContext(ctx, i).(CertificateSigningRequestConditionArrayOutput)
 }
 
+func (i CertificateSigningRequestConditionArray) ToOutput(ctx context.Context) pulumix.Output[[]CertificateSigningRequestCondition] {
+	return pulumix.Output[[]CertificateSigningRequestCondition]{
+		OutputState: i.ToCertificateSigningRequestConditionArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 type CertificateSigningRequestConditionOutput struct{ *pulumi.OutputState }
 
 func (CertificateSigningRequestConditionOutput) ElementType() reflect.Type {
@@ -237,6 +274,12 @@ func (o CertificateSigningRequestConditionOutput) ToCertificateSigningRequestCon
 
 func (o CertificateSigningRequestConditionOutput) ToCertificateSigningRequestConditionOutputWithContext(ctx context.Context) CertificateSigningRequestConditionOutput {
 	return o
+}
+
+func (o CertificateSigningRequestConditionOutput) ToOutput(ctx context.Context) pulumix.Output[CertificateSigningRequestCondition] {
+	return pulumix.Output[CertificateSigningRequestCondition]{
+		OutputState: o.OutputState,
+	}
 }
 
 // lastTransitionTime is the time the condition last transitioned from one status to another. If unset, when a new condition type is added or an existing condition's status is changed, the server defaults this to the current time.
@@ -281,6 +324,12 @@ func (o CertificateSigningRequestConditionArrayOutput) ToCertificateSigningReque
 
 func (o CertificateSigningRequestConditionArrayOutput) ToCertificateSigningRequestConditionArrayOutputWithContext(ctx context.Context) CertificateSigningRequestConditionArrayOutput {
 	return o
+}
+
+func (o CertificateSigningRequestConditionArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]CertificateSigningRequestCondition] {
+	return pulumix.Output[[]CertificateSigningRequestCondition]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o CertificateSigningRequestConditionArrayOutput) Index(i pulumi.IntInput) CertificateSigningRequestConditionOutput {
@@ -342,6 +391,12 @@ func (i CertificateSigningRequestConditionPatchArgs) ToCertificateSigningRequest
 	return pulumi.ToOutputWithContext(ctx, i).(CertificateSigningRequestConditionPatchOutput)
 }
 
+func (i CertificateSigningRequestConditionPatchArgs) ToOutput(ctx context.Context) pulumix.Output[CertificateSigningRequestConditionPatch] {
+	return pulumix.Output[CertificateSigningRequestConditionPatch]{
+		OutputState: i.ToCertificateSigningRequestConditionPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 // CertificateSigningRequestConditionPatchArrayInput is an input type that accepts CertificateSigningRequestConditionPatchArray and CertificateSigningRequestConditionPatchArrayOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestConditionPatchArrayInput` via:
 //
@@ -367,6 +422,12 @@ func (i CertificateSigningRequestConditionPatchArray) ToCertificateSigningReques
 	return pulumi.ToOutputWithContext(ctx, i).(CertificateSigningRequestConditionPatchArrayOutput)
 }
 
+func (i CertificateSigningRequestConditionPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]CertificateSigningRequestConditionPatch] {
+	return pulumix.Output[[]CertificateSigningRequestConditionPatch]{
+		OutputState: i.ToCertificateSigningRequestConditionPatchArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 type CertificateSigningRequestConditionPatchOutput struct{ *pulumi.OutputState }
 
 func (CertificateSigningRequestConditionPatchOutput) ElementType() reflect.Type {
@@ -379,6 +440,12 @@ func (o CertificateSigningRequestConditionPatchOutput) ToCertificateSigningReque
 
 func (o CertificateSigningRequestConditionPatchOutput) ToCertificateSigningRequestConditionPatchOutputWithContext(ctx context.Context) CertificateSigningRequestConditionPatchOutput {
 	return o
+}
+
+func (o CertificateSigningRequestConditionPatchOutput) ToOutput(ctx context.Context) pulumix.Output[CertificateSigningRequestConditionPatch] {
+	return pulumix.Output[CertificateSigningRequestConditionPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // lastTransitionTime is the time the condition last transitioned from one status to another. If unset, when a new condition type is added or an existing condition's status is changed, the server defaults this to the current time.
@@ -423,6 +490,12 @@ func (o CertificateSigningRequestConditionPatchArrayOutput) ToCertificateSigning
 
 func (o CertificateSigningRequestConditionPatchArrayOutput) ToCertificateSigningRequestConditionPatchArrayOutputWithContext(ctx context.Context) CertificateSigningRequestConditionPatchArrayOutput {
 	return o
+}
+
+func (o CertificateSigningRequestConditionPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]CertificateSigningRequestConditionPatch] {
+	return pulumix.Output[[]CertificateSigningRequestConditionPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o CertificateSigningRequestConditionPatchArrayOutput) Index(i pulumi.IntInput) CertificateSigningRequestConditionPatchOutput {
@@ -472,6 +545,12 @@ func (i CertificateSigningRequestListTypeArgs) ToCertificateSigningRequestListTy
 	return pulumi.ToOutputWithContext(ctx, i).(CertificateSigningRequestListTypeOutput)
 }
 
+func (i CertificateSigningRequestListTypeArgs) ToOutput(ctx context.Context) pulumix.Output[CertificateSigningRequestListType] {
+	return pulumix.Output[CertificateSigningRequestListType]{
+		OutputState: i.ToCertificateSigningRequestListTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 type CertificateSigningRequestListTypeOutput struct{ *pulumi.OutputState }
 
 func (CertificateSigningRequestListTypeOutput) ElementType() reflect.Type {
@@ -484,6 +563,12 @@ func (o CertificateSigningRequestListTypeOutput) ToCertificateSigningRequestList
 
 func (o CertificateSigningRequestListTypeOutput) ToCertificateSigningRequestListTypeOutputWithContext(ctx context.Context) CertificateSigningRequestListTypeOutput {
 	return o
+}
+
+func (o CertificateSigningRequestListTypeOutput) ToOutput(ctx context.Context) pulumix.Output[CertificateSigningRequestListType] {
+	return pulumix.Output[CertificateSigningRequestListType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -553,6 +638,12 @@ func (i CertificateSigningRequestPatchTypeArgs) ToCertificateSigningRequestPatch
 	return pulumi.ToOutputWithContext(ctx, i).(CertificateSigningRequestPatchTypeOutput)
 }
 
+func (i CertificateSigningRequestPatchTypeArgs) ToOutput(ctx context.Context) pulumix.Output[CertificateSigningRequestPatchType] {
+	return pulumix.Output[CertificateSigningRequestPatchType]{
+		OutputState: i.ToCertificateSigningRequestPatchTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // Describes a certificate signing request
 type CertificateSigningRequestPatchTypeOutput struct{ *pulumi.OutputState }
 
@@ -566,6 +657,12 @@ func (o CertificateSigningRequestPatchTypeOutput) ToCertificateSigningRequestPat
 
 func (o CertificateSigningRequestPatchTypeOutput) ToCertificateSigningRequestPatchTypeOutputWithContext(ctx context.Context) CertificateSigningRequestPatchTypeOutput {
 	return o
+}
+
+func (o CertificateSigningRequestPatchTypeOutput) ToOutput(ctx context.Context) pulumix.Output[CertificateSigningRequestPatchType] {
+	return pulumix.Output[CertificateSigningRequestPatchType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -665,6 +762,12 @@ func (i CertificateSigningRequestSpecArgs) ToCertificateSigningRequestSpecOutput
 	return pulumi.ToOutputWithContext(ctx, i).(CertificateSigningRequestSpecOutput)
 }
 
+func (i CertificateSigningRequestSpecArgs) ToOutput(ctx context.Context) pulumix.Output[CertificateSigningRequestSpec] {
+	return pulumix.Output[CertificateSigningRequestSpec]{
+		OutputState: i.ToCertificateSigningRequestSpecOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i CertificateSigningRequestSpecArgs) ToCertificateSigningRequestSpecPtrOutput() CertificateSigningRequestSpecPtrOutput {
 	return i.ToCertificateSigningRequestSpecPtrOutputWithContext(context.Background())
 }
@@ -706,6 +809,12 @@ func (i *certificateSigningRequestSpecPtrType) ToCertificateSigningRequestSpecPt
 	return pulumi.ToOutputWithContext(ctx, i).(CertificateSigningRequestSpecPtrOutput)
 }
 
+func (i *certificateSigningRequestSpecPtrType) ToOutput(ctx context.Context) pulumix.Output[*CertificateSigningRequestSpec] {
+	return pulumix.Output[*CertificateSigningRequestSpec]{
+		OutputState: i.ToCertificateSigningRequestSpecPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // This information is immutable after the request is created. Only the Request and Usages fields can be set on creation, other fields are derived by Kubernetes and cannot be modified by users.
 type CertificateSigningRequestSpecOutput struct{ *pulumi.OutputState }
 
@@ -729,6 +838,12 @@ func (o CertificateSigningRequestSpecOutput) ToCertificateSigningRequestSpecPtrO
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v CertificateSigningRequestSpec) *CertificateSigningRequestSpec {
 		return &v
 	}).(CertificateSigningRequestSpecPtrOutput)
+}
+
+func (o CertificateSigningRequestSpecOutput) ToOutput(ctx context.Context) pulumix.Output[CertificateSigningRequestSpec] {
+	return pulumix.Output[CertificateSigningRequestSpec]{
+		OutputState: o.OutputState,
+	}
 }
 
 // Extra information about the requesting user. See user.Info interface for details.
@@ -786,6 +901,12 @@ func (o CertificateSigningRequestSpecPtrOutput) ToCertificateSigningRequestSpecP
 
 func (o CertificateSigningRequestSpecPtrOutput) ToCertificateSigningRequestSpecPtrOutputWithContext(ctx context.Context) CertificateSigningRequestSpecPtrOutput {
 	return o
+}
+
+func (o CertificateSigningRequestSpecPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*CertificateSigningRequestSpec] {
+	return pulumix.Output[*CertificateSigningRequestSpec]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o CertificateSigningRequestSpecPtrOutput) Elem() CertificateSigningRequestSpecOutput {
@@ -949,6 +1070,12 @@ func (i CertificateSigningRequestSpecPatchArgs) ToCertificateSigningRequestSpecP
 	return pulumi.ToOutputWithContext(ctx, i).(CertificateSigningRequestSpecPatchOutput)
 }
 
+func (i CertificateSigningRequestSpecPatchArgs) ToOutput(ctx context.Context) pulumix.Output[CertificateSigningRequestSpecPatch] {
+	return pulumix.Output[CertificateSigningRequestSpecPatch]{
+		OutputState: i.ToCertificateSigningRequestSpecPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i CertificateSigningRequestSpecPatchArgs) ToCertificateSigningRequestSpecPatchPtrOutput() CertificateSigningRequestSpecPatchPtrOutput {
 	return i.ToCertificateSigningRequestSpecPatchPtrOutputWithContext(context.Background())
 }
@@ -990,6 +1117,12 @@ func (i *certificateSigningRequestSpecPatchPtrType) ToCertificateSigningRequestS
 	return pulumi.ToOutputWithContext(ctx, i).(CertificateSigningRequestSpecPatchPtrOutput)
 }
 
+func (i *certificateSigningRequestSpecPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*CertificateSigningRequestSpecPatch] {
+	return pulumix.Output[*CertificateSigningRequestSpecPatch]{
+		OutputState: i.ToCertificateSigningRequestSpecPatchPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // This information is immutable after the request is created. Only the Request and Usages fields can be set on creation, other fields are derived by Kubernetes and cannot be modified by users.
 type CertificateSigningRequestSpecPatchOutput struct{ *pulumi.OutputState }
 
@@ -1013,6 +1146,12 @@ func (o CertificateSigningRequestSpecPatchOutput) ToCertificateSigningRequestSpe
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v CertificateSigningRequestSpecPatch) *CertificateSigningRequestSpecPatch {
 		return &v
 	}).(CertificateSigningRequestSpecPatchPtrOutput)
+}
+
+func (o CertificateSigningRequestSpecPatchOutput) ToOutput(ctx context.Context) pulumix.Output[CertificateSigningRequestSpecPatch] {
+	return pulumix.Output[CertificateSigningRequestSpecPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // Extra information about the requesting user. See user.Info interface for details.
@@ -1070,6 +1209,12 @@ func (o CertificateSigningRequestSpecPatchPtrOutput) ToCertificateSigningRequest
 
 func (o CertificateSigningRequestSpecPatchPtrOutput) ToCertificateSigningRequestSpecPatchPtrOutputWithContext(ctx context.Context) CertificateSigningRequestSpecPatchPtrOutput {
 	return o
+}
+
+func (o CertificateSigningRequestSpecPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*CertificateSigningRequestSpecPatch] {
+	return pulumix.Output[*CertificateSigningRequestSpecPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o CertificateSigningRequestSpecPatchPtrOutput) Elem() CertificateSigningRequestSpecPatchOutput {
@@ -1197,6 +1342,12 @@ func (i CertificateSigningRequestStatusArgs) ToCertificateSigningRequestStatusOu
 	return pulumi.ToOutputWithContext(ctx, i).(CertificateSigningRequestStatusOutput)
 }
 
+func (i CertificateSigningRequestStatusArgs) ToOutput(ctx context.Context) pulumix.Output[CertificateSigningRequestStatus] {
+	return pulumix.Output[CertificateSigningRequestStatus]{
+		OutputState: i.ToCertificateSigningRequestStatusOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i CertificateSigningRequestStatusArgs) ToCertificateSigningRequestStatusPtrOutput() CertificateSigningRequestStatusPtrOutput {
 	return i.ToCertificateSigningRequestStatusPtrOutputWithContext(context.Background())
 }
@@ -1238,6 +1389,12 @@ func (i *certificateSigningRequestStatusPtrType) ToCertificateSigningRequestStat
 	return pulumi.ToOutputWithContext(ctx, i).(CertificateSigningRequestStatusPtrOutput)
 }
 
+func (i *certificateSigningRequestStatusPtrType) ToOutput(ctx context.Context) pulumix.Output[*CertificateSigningRequestStatus] {
+	return pulumix.Output[*CertificateSigningRequestStatus]{
+		OutputState: i.ToCertificateSigningRequestStatusPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 type CertificateSigningRequestStatusOutput struct{ *pulumi.OutputState }
 
 func (CertificateSigningRequestStatusOutput) ElementType() reflect.Type {
@@ -1262,6 +1419,12 @@ func (o CertificateSigningRequestStatusOutput) ToCertificateSigningRequestStatus
 	}).(CertificateSigningRequestStatusPtrOutput)
 }
 
+func (o CertificateSigningRequestStatusOutput) ToOutput(ctx context.Context) pulumix.Output[CertificateSigningRequestStatus] {
+	return pulumix.Output[CertificateSigningRequestStatus]{
+		OutputState: o.OutputState,
+	}
+}
+
 // If request was approved, the controller will place the issued certificate here.
 func (o CertificateSigningRequestStatusOutput) Certificate() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v CertificateSigningRequestStatus) *string { return v.Certificate }).(pulumi.StringPtrOutput)
@@ -1284,6 +1447,12 @@ func (o CertificateSigningRequestStatusPtrOutput) ToCertificateSigningRequestSta
 
 func (o CertificateSigningRequestStatusPtrOutput) ToCertificateSigningRequestStatusPtrOutputWithContext(ctx context.Context) CertificateSigningRequestStatusPtrOutput {
 	return o
+}
+
+func (o CertificateSigningRequestStatusPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*CertificateSigningRequestStatus] {
+	return pulumix.Output[*CertificateSigningRequestStatus]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o CertificateSigningRequestStatusPtrOutput) Elem() CertificateSigningRequestStatusOutput {
@@ -1353,6 +1522,12 @@ func (i CertificateSigningRequestStatusPatchArgs) ToCertificateSigningRequestSta
 	return pulumi.ToOutputWithContext(ctx, i).(CertificateSigningRequestStatusPatchOutput)
 }
 
+func (i CertificateSigningRequestStatusPatchArgs) ToOutput(ctx context.Context) pulumix.Output[CertificateSigningRequestStatusPatch] {
+	return pulumix.Output[CertificateSigningRequestStatusPatch]{
+		OutputState: i.ToCertificateSigningRequestStatusPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i CertificateSigningRequestStatusPatchArgs) ToCertificateSigningRequestStatusPatchPtrOutput() CertificateSigningRequestStatusPatchPtrOutput {
 	return i.ToCertificateSigningRequestStatusPatchPtrOutputWithContext(context.Background())
 }
@@ -1394,6 +1569,12 @@ func (i *certificateSigningRequestStatusPatchPtrType) ToCertificateSigningReques
 	return pulumi.ToOutputWithContext(ctx, i).(CertificateSigningRequestStatusPatchPtrOutput)
 }
 
+func (i *certificateSigningRequestStatusPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*CertificateSigningRequestStatusPatch] {
+	return pulumix.Output[*CertificateSigningRequestStatusPatch]{
+		OutputState: i.ToCertificateSigningRequestStatusPatchPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 type CertificateSigningRequestStatusPatchOutput struct{ *pulumi.OutputState }
 
 func (CertificateSigningRequestStatusPatchOutput) ElementType() reflect.Type {
@@ -1416,6 +1597,12 @@ func (o CertificateSigningRequestStatusPatchOutput) ToCertificateSigningRequestS
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v CertificateSigningRequestStatusPatch) *CertificateSigningRequestStatusPatch {
 		return &v
 	}).(CertificateSigningRequestStatusPatchPtrOutput)
+}
+
+func (o CertificateSigningRequestStatusPatchOutput) ToOutput(ctx context.Context) pulumix.Output[CertificateSigningRequestStatusPatch] {
+	return pulumix.Output[CertificateSigningRequestStatusPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // If request was approved, the controller will place the issued certificate here.
@@ -1442,6 +1629,12 @@ func (o CertificateSigningRequestStatusPatchPtrOutput) ToCertificateSigningReque
 
 func (o CertificateSigningRequestStatusPatchPtrOutput) ToCertificateSigningRequestStatusPatchPtrOutputWithContext(ctx context.Context) CertificateSigningRequestStatusPatchPtrOutput {
 	return o
+}
+
+func (o CertificateSigningRequestStatusPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*CertificateSigningRequestStatusPatch] {
+	return pulumix.Output[*CertificateSigningRequestStatusPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o CertificateSigningRequestStatusPatchPtrOutput) Elem() CertificateSigningRequestStatusPatchOutput {

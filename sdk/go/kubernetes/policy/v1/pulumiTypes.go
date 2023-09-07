@@ -10,6 +10,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 var _ = internal.GetEnvOrDefault
@@ -61,6 +62,12 @@ func (i EvictionArgs) ToEvictionOutputWithContext(ctx context.Context) EvictionO
 	return pulumi.ToOutputWithContext(ctx, i).(EvictionOutput)
 }
 
+func (i EvictionArgs) ToOutput(ctx context.Context) pulumix.Output[Eviction] {
+	return pulumix.Output[Eviction]{
+		OutputState: i.ToEvictionOutputWithContext(ctx).OutputState,
+	}
+}
+
 // Eviction evicts a pod from its node subject to certain policies and safety constraints. This is a subresource of Pod.  A request to cause such an eviction is created by POSTing to .../pods/<pod name>/evictions.
 type EvictionOutput struct{ *pulumi.OutputState }
 
@@ -74,6 +81,12 @@ func (o EvictionOutput) ToEvictionOutput() EvictionOutput {
 
 func (o EvictionOutput) ToEvictionOutputWithContext(ctx context.Context) EvictionOutput {
 	return o
+}
+
+func (o EvictionOutput) ToOutput(ctx context.Context) pulumix.Output[Eviction] {
+	return pulumix.Output[Eviction]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -143,6 +156,12 @@ func (i EvictionPatchArgs) ToEvictionPatchOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(EvictionPatchOutput)
 }
 
+func (i EvictionPatchArgs) ToOutput(ctx context.Context) pulumix.Output[EvictionPatch] {
+	return pulumix.Output[EvictionPatch]{
+		OutputState: i.ToEvictionPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 // Eviction evicts a pod from its node subject to certain policies and safety constraints. This is a subresource of Pod.  A request to cause such an eviction is created by POSTing to .../pods/<pod name>/evictions.
 type EvictionPatchOutput struct{ *pulumi.OutputState }
 
@@ -156,6 +175,12 @@ func (o EvictionPatchOutput) ToEvictionPatchOutput() EvictionPatchOutput {
 
 func (o EvictionPatchOutput) ToEvictionPatchOutputWithContext(ctx context.Context) EvictionPatchOutput {
 	return o
+}
+
+func (o EvictionPatchOutput) ToOutput(ctx context.Context) pulumix.Output[EvictionPatch] {
+	return pulumix.Output[EvictionPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -229,6 +254,12 @@ func (i PodDisruptionBudgetTypeArgs) ToPodDisruptionBudgetTypeOutputWithContext(
 	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetTypeOutput)
 }
 
+func (i PodDisruptionBudgetTypeArgs) ToOutput(ctx context.Context) pulumix.Output[PodDisruptionBudgetType] {
+	return pulumix.Output[PodDisruptionBudgetType]{
+		OutputState: i.ToPodDisruptionBudgetTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PodDisruptionBudgetTypeArrayInput is an input type that accepts PodDisruptionBudgetTypeArray and PodDisruptionBudgetTypeArrayOutput values.
 // You can construct a concrete instance of `PodDisruptionBudgetTypeArrayInput` via:
 //
@@ -254,6 +285,12 @@ func (i PodDisruptionBudgetTypeArray) ToPodDisruptionBudgetTypeArrayOutputWithCo
 	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetTypeArrayOutput)
 }
 
+func (i PodDisruptionBudgetTypeArray) ToOutput(ctx context.Context) pulumix.Output[[]PodDisruptionBudgetType] {
+	return pulumix.Output[[]PodDisruptionBudgetType]{
+		OutputState: i.ToPodDisruptionBudgetTypeArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods
 type PodDisruptionBudgetTypeOutput struct{ *pulumi.OutputState }
 
@@ -267,6 +304,12 @@ func (o PodDisruptionBudgetTypeOutput) ToPodDisruptionBudgetTypeOutput() PodDisr
 
 func (o PodDisruptionBudgetTypeOutput) ToPodDisruptionBudgetTypeOutputWithContext(ctx context.Context) PodDisruptionBudgetTypeOutput {
 	return o
+}
+
+func (o PodDisruptionBudgetTypeOutput) ToOutput(ctx context.Context) pulumix.Output[PodDisruptionBudgetType] {
+	return pulumix.Output[PodDisruptionBudgetType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -306,6 +349,12 @@ func (o PodDisruptionBudgetTypeArrayOutput) ToPodDisruptionBudgetTypeArrayOutput
 
 func (o PodDisruptionBudgetTypeArrayOutput) ToPodDisruptionBudgetTypeArrayOutputWithContext(ctx context.Context) PodDisruptionBudgetTypeArrayOutput {
 	return o
+}
+
+func (o PodDisruptionBudgetTypeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]PodDisruptionBudgetType] {
+	return pulumix.Output[[]PodDisruptionBudgetType]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o PodDisruptionBudgetTypeArrayOutput) Index(i pulumi.IntInput) PodDisruptionBudgetTypeOutput {
@@ -361,6 +410,12 @@ func (i PodDisruptionBudgetListTypeArgs) ToPodDisruptionBudgetListTypeOutputWith
 	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetListTypeOutput)
 }
 
+func (i PodDisruptionBudgetListTypeArgs) ToOutput(ctx context.Context) pulumix.Output[PodDisruptionBudgetListType] {
+	return pulumix.Output[PodDisruptionBudgetListType]{
+		OutputState: i.ToPodDisruptionBudgetListTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PodDisruptionBudgetList is a collection of PodDisruptionBudgets.
 type PodDisruptionBudgetListTypeOutput struct{ *pulumi.OutputState }
 
@@ -374,6 +429,12 @@ func (o PodDisruptionBudgetListTypeOutput) ToPodDisruptionBudgetListTypeOutput()
 
 func (o PodDisruptionBudgetListTypeOutput) ToPodDisruptionBudgetListTypeOutputWithContext(ctx context.Context) PodDisruptionBudgetListTypeOutput {
 	return o
+}
+
+func (o PodDisruptionBudgetListTypeOutput) ToOutput(ctx context.Context) pulumix.Output[PodDisruptionBudgetListType] {
+	return pulumix.Output[PodDisruptionBudgetListType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -447,6 +508,12 @@ func (i PodDisruptionBudgetPatchTypeArgs) ToPodDisruptionBudgetPatchTypeOutputWi
 	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetPatchTypeOutput)
 }
 
+func (i PodDisruptionBudgetPatchTypeArgs) ToOutput(ctx context.Context) pulumix.Output[PodDisruptionBudgetPatchType] {
+	return pulumix.Output[PodDisruptionBudgetPatchType]{
+		OutputState: i.ToPodDisruptionBudgetPatchTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PodDisruptionBudget is an object to define the max disruption that can be caused to a collection of pods
 type PodDisruptionBudgetPatchTypeOutput struct{ *pulumi.OutputState }
 
@@ -460,6 +527,12 @@ func (o PodDisruptionBudgetPatchTypeOutput) ToPodDisruptionBudgetPatchTypeOutput
 
 func (o PodDisruptionBudgetPatchTypeOutput) ToPodDisruptionBudgetPatchTypeOutputWithContext(ctx context.Context) PodDisruptionBudgetPatchTypeOutput {
 	return o
+}
+
+func (o PodDisruptionBudgetPatchTypeOutput) ToOutput(ctx context.Context) pulumix.Output[PodDisruptionBudgetPatchType] {
+	return pulumix.Output[PodDisruptionBudgetPatchType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -554,6 +627,12 @@ func (i PodDisruptionBudgetSpecArgs) ToPodDisruptionBudgetSpecOutputWithContext(
 	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetSpecOutput)
 }
 
+func (i PodDisruptionBudgetSpecArgs) ToOutput(ctx context.Context) pulumix.Output[PodDisruptionBudgetSpec] {
+	return pulumix.Output[PodDisruptionBudgetSpec]{
+		OutputState: i.ToPodDisruptionBudgetSpecOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i PodDisruptionBudgetSpecArgs) ToPodDisruptionBudgetSpecPtrOutput() PodDisruptionBudgetSpecPtrOutput {
 	return i.ToPodDisruptionBudgetSpecPtrOutputWithContext(context.Background())
 }
@@ -595,6 +674,12 @@ func (i *podDisruptionBudgetSpecPtrType) ToPodDisruptionBudgetSpecPtrOutputWithC
 	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetSpecPtrOutput)
 }
 
+func (i *podDisruptionBudgetSpecPtrType) ToOutput(ctx context.Context) pulumix.Output[*PodDisruptionBudgetSpec] {
+	return pulumix.Output[*PodDisruptionBudgetSpec]{
+		OutputState: i.ToPodDisruptionBudgetSpecPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
 type PodDisruptionBudgetSpecOutput struct{ *pulumi.OutputState }
 
@@ -618,6 +703,12 @@ func (o PodDisruptionBudgetSpecOutput) ToPodDisruptionBudgetSpecPtrOutputWithCon
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodDisruptionBudgetSpec) *PodDisruptionBudgetSpec {
 		return &v
 	}).(PodDisruptionBudgetSpecPtrOutput)
+}
+
+func (o PodDisruptionBudgetSpecOutput) ToOutput(ctx context.Context) pulumix.Output[PodDisruptionBudgetSpec] {
+	return pulumix.Output[PodDisruptionBudgetSpec]{
+		OutputState: o.OutputState,
+	}
 }
 
 // An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
@@ -662,6 +753,12 @@ func (o PodDisruptionBudgetSpecPtrOutput) ToPodDisruptionBudgetSpecPtrOutput() P
 
 func (o PodDisruptionBudgetSpecPtrOutput) ToPodDisruptionBudgetSpecPtrOutputWithContext(ctx context.Context) PodDisruptionBudgetSpecPtrOutput {
 	return o
+}
+
+func (o PodDisruptionBudgetSpecPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*PodDisruptionBudgetSpec] {
+	return pulumix.Output[*PodDisruptionBudgetSpec]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o PodDisruptionBudgetSpecPtrOutput) Elem() PodDisruptionBudgetSpecOutput {
@@ -791,6 +888,12 @@ func (i PodDisruptionBudgetSpecPatchArgs) ToPodDisruptionBudgetSpecPatchOutputWi
 	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetSpecPatchOutput)
 }
 
+func (i PodDisruptionBudgetSpecPatchArgs) ToOutput(ctx context.Context) pulumix.Output[PodDisruptionBudgetSpecPatch] {
+	return pulumix.Output[PodDisruptionBudgetSpecPatch]{
+		OutputState: i.ToPodDisruptionBudgetSpecPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i PodDisruptionBudgetSpecPatchArgs) ToPodDisruptionBudgetSpecPatchPtrOutput() PodDisruptionBudgetSpecPatchPtrOutput {
 	return i.ToPodDisruptionBudgetSpecPatchPtrOutputWithContext(context.Background())
 }
@@ -832,6 +935,12 @@ func (i *podDisruptionBudgetSpecPatchPtrType) ToPodDisruptionBudgetSpecPatchPtrO
 	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetSpecPatchPtrOutput)
 }
 
+func (i *podDisruptionBudgetSpecPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*PodDisruptionBudgetSpecPatch] {
+	return pulumix.Output[*PodDisruptionBudgetSpecPatch]{
+		OutputState: i.ToPodDisruptionBudgetSpecPatchPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PodDisruptionBudgetSpec is a description of a PodDisruptionBudget.
 type PodDisruptionBudgetSpecPatchOutput struct{ *pulumi.OutputState }
 
@@ -855,6 +964,12 @@ func (o PodDisruptionBudgetSpecPatchOutput) ToPodDisruptionBudgetSpecPatchPtrOut
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodDisruptionBudgetSpecPatch) *PodDisruptionBudgetSpecPatch {
 		return &v
 	}).(PodDisruptionBudgetSpecPatchPtrOutput)
+}
+
+func (o PodDisruptionBudgetSpecPatchOutput) ToOutput(ctx context.Context) pulumix.Output[PodDisruptionBudgetSpecPatch] {
+	return pulumix.Output[PodDisruptionBudgetSpecPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // An eviction is allowed if at most "maxUnavailable" pods selected by "selector" are unavailable after the eviction, i.e. even in absence of the evicted pod. For example, one can prevent all voluntary evictions by specifying 0. This is a mutually exclusive setting with "minAvailable".
@@ -899,6 +1014,12 @@ func (o PodDisruptionBudgetSpecPatchPtrOutput) ToPodDisruptionBudgetSpecPatchPtr
 
 func (o PodDisruptionBudgetSpecPatchPtrOutput) ToPodDisruptionBudgetSpecPatchPtrOutputWithContext(ctx context.Context) PodDisruptionBudgetSpecPatchPtrOutput {
 	return o
+}
+
+func (o PodDisruptionBudgetSpecPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*PodDisruptionBudgetSpecPatch] {
+	return pulumix.Output[*PodDisruptionBudgetSpecPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o PodDisruptionBudgetSpecPatchPtrOutput) Elem() PodDisruptionBudgetSpecPatchOutput {
@@ -1036,6 +1157,12 @@ func (i PodDisruptionBudgetStatusArgs) ToPodDisruptionBudgetStatusOutputWithCont
 	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetStatusOutput)
 }
 
+func (i PodDisruptionBudgetStatusArgs) ToOutput(ctx context.Context) pulumix.Output[PodDisruptionBudgetStatus] {
+	return pulumix.Output[PodDisruptionBudgetStatus]{
+		OutputState: i.ToPodDisruptionBudgetStatusOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i PodDisruptionBudgetStatusArgs) ToPodDisruptionBudgetStatusPtrOutput() PodDisruptionBudgetStatusPtrOutput {
 	return i.ToPodDisruptionBudgetStatusPtrOutputWithContext(context.Background())
 }
@@ -1077,6 +1204,12 @@ func (i *podDisruptionBudgetStatusPtrType) ToPodDisruptionBudgetStatusPtrOutputW
 	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetStatusPtrOutput)
 }
 
+func (i *podDisruptionBudgetStatusPtrType) ToOutput(ctx context.Context) pulumix.Output[*PodDisruptionBudgetStatus] {
+	return pulumix.Output[*PodDisruptionBudgetStatus]{
+		OutputState: i.ToPodDisruptionBudgetStatusPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
 type PodDisruptionBudgetStatusOutput struct{ *pulumi.OutputState }
 
@@ -1100,6 +1233,12 @@ func (o PodDisruptionBudgetStatusOutput) ToPodDisruptionBudgetStatusPtrOutputWit
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodDisruptionBudgetStatus) *PodDisruptionBudgetStatus {
 		return &v
 	}).(PodDisruptionBudgetStatusPtrOutput)
+}
+
+func (o PodDisruptionBudgetStatusOutput) ToOutput(ctx context.Context) pulumix.Output[PodDisruptionBudgetStatus] {
+	return pulumix.Output[PodDisruptionBudgetStatus]{
+		OutputState: o.OutputState,
+	}
 }
 
 // Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn't able to compute
@@ -1158,6 +1297,12 @@ func (o PodDisruptionBudgetStatusPtrOutput) ToPodDisruptionBudgetStatusPtrOutput
 
 func (o PodDisruptionBudgetStatusPtrOutput) ToPodDisruptionBudgetStatusPtrOutputWithContext(ctx context.Context) PodDisruptionBudgetStatusPtrOutput {
 	return o
+}
+
+func (o PodDisruptionBudgetStatusPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*PodDisruptionBudgetStatus] {
+	return pulumix.Output[*PodDisruptionBudgetStatus]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o PodDisruptionBudgetStatusPtrOutput) Elem() PodDisruptionBudgetStatusOutput {
@@ -1324,6 +1469,12 @@ func (i PodDisruptionBudgetStatusPatchArgs) ToPodDisruptionBudgetStatusPatchOutp
 	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetStatusPatchOutput)
 }
 
+func (i PodDisruptionBudgetStatusPatchArgs) ToOutput(ctx context.Context) pulumix.Output[PodDisruptionBudgetStatusPatch] {
+	return pulumix.Output[PodDisruptionBudgetStatusPatch]{
+		OutputState: i.ToPodDisruptionBudgetStatusPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i PodDisruptionBudgetStatusPatchArgs) ToPodDisruptionBudgetStatusPatchPtrOutput() PodDisruptionBudgetStatusPatchPtrOutput {
 	return i.ToPodDisruptionBudgetStatusPatchPtrOutputWithContext(context.Background())
 }
@@ -1365,6 +1516,12 @@ func (i *podDisruptionBudgetStatusPatchPtrType) ToPodDisruptionBudgetStatusPatch
 	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetStatusPatchPtrOutput)
 }
 
+func (i *podDisruptionBudgetStatusPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*PodDisruptionBudgetStatusPatch] {
+	return pulumix.Output[*PodDisruptionBudgetStatusPatch]{
+		OutputState: i.ToPodDisruptionBudgetStatusPatchPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PodDisruptionBudgetStatus represents information about the status of a PodDisruptionBudget. Status may trail the actual state of a system.
 type PodDisruptionBudgetStatusPatchOutput struct{ *pulumi.OutputState }
 
@@ -1388,6 +1545,12 @@ func (o PodDisruptionBudgetStatusPatchOutput) ToPodDisruptionBudgetStatusPatchPt
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodDisruptionBudgetStatusPatch) *PodDisruptionBudgetStatusPatch {
 		return &v
 	}).(PodDisruptionBudgetStatusPatchPtrOutput)
+}
+
+func (o PodDisruptionBudgetStatusPatchOutput) ToOutput(ctx context.Context) pulumix.Output[PodDisruptionBudgetStatusPatch] {
+	return pulumix.Output[PodDisruptionBudgetStatusPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // Conditions contain conditions for PDB. The disruption controller sets the DisruptionAllowed condition. The following are known values for the reason field (additional reasons could be added in the future): - SyncFailed: The controller encountered an error and wasn't able to compute
@@ -1446,6 +1609,12 @@ func (o PodDisruptionBudgetStatusPatchPtrOutput) ToPodDisruptionBudgetStatusPatc
 
 func (o PodDisruptionBudgetStatusPatchPtrOutput) ToPodDisruptionBudgetStatusPatchPtrOutputWithContext(ctx context.Context) PodDisruptionBudgetStatusPatchPtrOutput {
 	return o
+}
+
+func (o PodDisruptionBudgetStatusPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*PodDisruptionBudgetStatusPatch] {
+	return pulumix.Output[*PodDisruptionBudgetStatusPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o PodDisruptionBudgetStatusPatchPtrOutput) Elem() PodDisruptionBudgetStatusPatchOutput {

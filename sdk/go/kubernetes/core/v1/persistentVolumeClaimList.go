@@ -11,6 +11,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // PersistentVolumeClaimList is a list of PersistentVolumeClaim items.
@@ -117,6 +118,12 @@ func (i *PersistentVolumeClaimList) ToPersistentVolumeClaimListOutputWithContext
 	return pulumi.ToOutputWithContext(ctx, i).(PersistentVolumeClaimListOutput)
 }
 
+func (i *PersistentVolumeClaimList) ToOutput(ctx context.Context) pulumix.Output[*PersistentVolumeClaimList] {
+	return pulumix.Output[*PersistentVolumeClaimList]{
+		OutputState: i.ToPersistentVolumeClaimListOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PersistentVolumeClaimListArrayInput is an input type that accepts PersistentVolumeClaimListArray and PersistentVolumeClaimListArrayOutput values.
 // You can construct a concrete instance of `PersistentVolumeClaimListArrayInput` via:
 //
@@ -140,6 +147,12 @@ func (i PersistentVolumeClaimListArray) ToPersistentVolumeClaimListArrayOutput()
 
 func (i PersistentVolumeClaimListArray) ToPersistentVolumeClaimListArrayOutputWithContext(ctx context.Context) PersistentVolumeClaimListArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(PersistentVolumeClaimListArrayOutput)
+}
+
+func (i PersistentVolumeClaimListArray) ToOutput(ctx context.Context) pulumix.Output[[]*PersistentVolumeClaimList] {
+	return pulumix.Output[[]*PersistentVolumeClaimList]{
+		OutputState: i.ToPersistentVolumeClaimListArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // PersistentVolumeClaimListMapInput is an input type that accepts PersistentVolumeClaimListMap and PersistentVolumeClaimListMapOutput values.
@@ -167,6 +180,12 @@ func (i PersistentVolumeClaimListMap) ToPersistentVolumeClaimListMapOutputWithCo
 	return pulumi.ToOutputWithContext(ctx, i).(PersistentVolumeClaimListMapOutput)
 }
 
+func (i PersistentVolumeClaimListMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*PersistentVolumeClaimList] {
+	return pulumix.Output[map[string]*PersistentVolumeClaimList]{
+		OutputState: i.ToPersistentVolumeClaimListMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type PersistentVolumeClaimListOutput struct{ *pulumi.OutputState }
 
 func (PersistentVolumeClaimListOutput) ElementType() reflect.Type {
@@ -179,6 +198,12 @@ func (o PersistentVolumeClaimListOutput) ToPersistentVolumeClaimListOutput() Per
 
 func (o PersistentVolumeClaimListOutput) ToPersistentVolumeClaimListOutputWithContext(ctx context.Context) PersistentVolumeClaimListOutput {
 	return o
+}
+
+func (o PersistentVolumeClaimListOutput) ToOutput(ctx context.Context) pulumix.Output[*PersistentVolumeClaimList] {
+	return pulumix.Output[*PersistentVolumeClaimList]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -215,6 +240,12 @@ func (o PersistentVolumeClaimListArrayOutput) ToPersistentVolumeClaimListArrayOu
 	return o
 }
 
+func (o PersistentVolumeClaimListArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*PersistentVolumeClaimList] {
+	return pulumix.Output[[]*PersistentVolumeClaimList]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o PersistentVolumeClaimListArrayOutput) Index(i pulumi.IntInput) PersistentVolumeClaimListOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *PersistentVolumeClaimList {
 		return vs[0].([]*PersistentVolumeClaimList)[vs[1].(int)]
@@ -233,6 +264,12 @@ func (o PersistentVolumeClaimListMapOutput) ToPersistentVolumeClaimListMapOutput
 
 func (o PersistentVolumeClaimListMapOutput) ToPersistentVolumeClaimListMapOutputWithContext(ctx context.Context) PersistentVolumeClaimListMapOutput {
 	return o
+}
+
+func (o PersistentVolumeClaimListMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*PersistentVolumeClaimList] {
+	return pulumix.Output[map[string]*PersistentVolumeClaimList]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o PersistentVolumeClaimListMapOutput) MapIndex(k pulumi.StringInput) PersistentVolumeClaimListOutput {

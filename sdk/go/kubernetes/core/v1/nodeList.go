@@ -11,6 +11,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // NodeList is the whole list of all Nodes which have been registered with master.
@@ -117,6 +118,12 @@ func (i *NodeList) ToNodeListOutputWithContext(ctx context.Context) NodeListOutp
 	return pulumi.ToOutputWithContext(ctx, i).(NodeListOutput)
 }
 
+func (i *NodeList) ToOutput(ctx context.Context) pulumix.Output[*NodeList] {
+	return pulumix.Output[*NodeList]{
+		OutputState: i.ToNodeListOutputWithContext(ctx).OutputState,
+	}
+}
+
 // NodeListArrayInput is an input type that accepts NodeListArray and NodeListArrayOutput values.
 // You can construct a concrete instance of `NodeListArrayInput` via:
 //
@@ -140,6 +147,12 @@ func (i NodeListArray) ToNodeListArrayOutput() NodeListArrayOutput {
 
 func (i NodeListArray) ToNodeListArrayOutputWithContext(ctx context.Context) NodeListArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(NodeListArrayOutput)
+}
+
+func (i NodeListArray) ToOutput(ctx context.Context) pulumix.Output[[]*NodeList] {
+	return pulumix.Output[[]*NodeList]{
+		OutputState: i.ToNodeListArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // NodeListMapInput is an input type that accepts NodeListMap and NodeListMapOutput values.
@@ -167,6 +180,12 @@ func (i NodeListMap) ToNodeListMapOutputWithContext(ctx context.Context) NodeLis
 	return pulumi.ToOutputWithContext(ctx, i).(NodeListMapOutput)
 }
 
+func (i NodeListMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*NodeList] {
+	return pulumix.Output[map[string]*NodeList]{
+		OutputState: i.ToNodeListMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type NodeListOutput struct{ *pulumi.OutputState }
 
 func (NodeListOutput) ElementType() reflect.Type {
@@ -179,6 +198,12 @@ func (o NodeListOutput) ToNodeListOutput() NodeListOutput {
 
 func (o NodeListOutput) ToNodeListOutputWithContext(ctx context.Context) NodeListOutput {
 	return o
+}
+
+func (o NodeListOutput) ToOutput(ctx context.Context) pulumix.Output[*NodeList] {
+	return pulumix.Output[*NodeList]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -215,6 +240,12 @@ func (o NodeListArrayOutput) ToNodeListArrayOutputWithContext(ctx context.Contex
 	return o
 }
 
+func (o NodeListArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*NodeList] {
+	return pulumix.Output[[]*NodeList]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o NodeListArrayOutput) Index(i pulumi.IntInput) NodeListOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *NodeList {
 		return vs[0].([]*NodeList)[vs[1].(int)]
@@ -233,6 +264,12 @@ func (o NodeListMapOutput) ToNodeListMapOutput() NodeListMapOutput {
 
 func (o NodeListMapOutput) ToNodeListMapOutputWithContext(ctx context.Context) NodeListMapOutput {
 	return o
+}
+
+func (o NodeListMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*NodeList] {
+	return pulumix.Output[map[string]*NodeList]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o NodeListMapOutput) MapIndex(k pulumi.StringInput) NodeListOutput {

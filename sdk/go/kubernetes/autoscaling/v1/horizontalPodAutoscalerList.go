@@ -11,6 +11,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // list of horizontal pod autoscaler objects.
@@ -117,6 +118,12 @@ func (i *HorizontalPodAutoscalerList) ToHorizontalPodAutoscalerListOutputWithCon
 	return pulumi.ToOutputWithContext(ctx, i).(HorizontalPodAutoscalerListOutput)
 }
 
+func (i *HorizontalPodAutoscalerList) ToOutput(ctx context.Context) pulumix.Output[*HorizontalPodAutoscalerList] {
+	return pulumix.Output[*HorizontalPodAutoscalerList]{
+		OutputState: i.ToHorizontalPodAutoscalerListOutputWithContext(ctx).OutputState,
+	}
+}
+
 // HorizontalPodAutoscalerListArrayInput is an input type that accepts HorizontalPodAutoscalerListArray and HorizontalPodAutoscalerListArrayOutput values.
 // You can construct a concrete instance of `HorizontalPodAutoscalerListArrayInput` via:
 //
@@ -140,6 +147,12 @@ func (i HorizontalPodAutoscalerListArray) ToHorizontalPodAutoscalerListArrayOutp
 
 func (i HorizontalPodAutoscalerListArray) ToHorizontalPodAutoscalerListArrayOutputWithContext(ctx context.Context) HorizontalPodAutoscalerListArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(HorizontalPodAutoscalerListArrayOutput)
+}
+
+func (i HorizontalPodAutoscalerListArray) ToOutput(ctx context.Context) pulumix.Output[[]*HorizontalPodAutoscalerList] {
+	return pulumix.Output[[]*HorizontalPodAutoscalerList]{
+		OutputState: i.ToHorizontalPodAutoscalerListArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // HorizontalPodAutoscalerListMapInput is an input type that accepts HorizontalPodAutoscalerListMap and HorizontalPodAutoscalerListMapOutput values.
@@ -167,6 +180,12 @@ func (i HorizontalPodAutoscalerListMap) ToHorizontalPodAutoscalerListMapOutputWi
 	return pulumi.ToOutputWithContext(ctx, i).(HorizontalPodAutoscalerListMapOutput)
 }
 
+func (i HorizontalPodAutoscalerListMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*HorizontalPodAutoscalerList] {
+	return pulumix.Output[map[string]*HorizontalPodAutoscalerList]{
+		OutputState: i.ToHorizontalPodAutoscalerListMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type HorizontalPodAutoscalerListOutput struct{ *pulumi.OutputState }
 
 func (HorizontalPodAutoscalerListOutput) ElementType() reflect.Type {
@@ -179,6 +198,12 @@ func (o HorizontalPodAutoscalerListOutput) ToHorizontalPodAutoscalerListOutput()
 
 func (o HorizontalPodAutoscalerListOutput) ToHorizontalPodAutoscalerListOutputWithContext(ctx context.Context) HorizontalPodAutoscalerListOutput {
 	return o
+}
+
+func (o HorizontalPodAutoscalerListOutput) ToOutput(ctx context.Context) pulumix.Output[*HorizontalPodAutoscalerList] {
+	return pulumix.Output[*HorizontalPodAutoscalerList]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -215,6 +240,12 @@ func (o HorizontalPodAutoscalerListArrayOutput) ToHorizontalPodAutoscalerListArr
 	return o
 }
 
+func (o HorizontalPodAutoscalerListArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*HorizontalPodAutoscalerList] {
+	return pulumix.Output[[]*HorizontalPodAutoscalerList]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o HorizontalPodAutoscalerListArrayOutput) Index(i pulumi.IntInput) HorizontalPodAutoscalerListOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *HorizontalPodAutoscalerList {
 		return vs[0].([]*HorizontalPodAutoscalerList)[vs[1].(int)]
@@ -233,6 +264,12 @@ func (o HorizontalPodAutoscalerListMapOutput) ToHorizontalPodAutoscalerListMapOu
 
 func (o HorizontalPodAutoscalerListMapOutput) ToHorizontalPodAutoscalerListMapOutputWithContext(ctx context.Context) HorizontalPodAutoscalerListMapOutput {
 	return o
+}
+
+func (o HorizontalPodAutoscalerListMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*HorizontalPodAutoscalerList] {
+	return pulumix.Output[map[string]*HorizontalPodAutoscalerList]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o HorizontalPodAutoscalerListMapOutput) MapIndex(k pulumi.StringInput) HorizontalPodAutoscalerListOutput {

@@ -9,6 +9,7 @@ import (
 
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 var _ = internal.GetEnvOrDefault
@@ -136,6 +137,12 @@ func (i HelmReleaseSettingsArgs) ToHelmReleaseSettingsOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(HelmReleaseSettingsOutput)
 }
 
+func (i HelmReleaseSettingsArgs) ToOutput(ctx context.Context) pulumix.Output[HelmReleaseSettings] {
+	return pulumix.Output[HelmReleaseSettings]{
+		OutputState: i.ToHelmReleaseSettingsOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i HelmReleaseSettingsArgs) ToHelmReleaseSettingsPtrOutput() HelmReleaseSettingsPtrOutput {
 	return i.ToHelmReleaseSettingsPtrOutputWithContext(context.Background())
 }
@@ -177,6 +184,12 @@ func (i *helmReleaseSettingsPtrType) ToHelmReleaseSettingsPtrOutputWithContext(c
 	return pulumi.ToOutputWithContext(ctx, i).(HelmReleaseSettingsPtrOutput)
 }
 
+func (i *helmReleaseSettingsPtrType) ToOutput(ctx context.Context) pulumix.Output[*HelmReleaseSettings] {
+	return pulumix.Output[*HelmReleaseSettings]{
+		OutputState: i.ToHelmReleaseSettingsPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // Options to configure the Helm Release resource.
 type HelmReleaseSettingsOutput struct{ *pulumi.OutputState }
 
@@ -200,6 +213,12 @@ func (o HelmReleaseSettingsOutput) ToHelmReleaseSettingsPtrOutputWithContext(ctx
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v HelmReleaseSettings) *HelmReleaseSettings {
 		return &v
 	}).(HelmReleaseSettingsPtrOutput)
+}
+
+func (o HelmReleaseSettingsOutput) ToOutput(ctx context.Context) pulumix.Output[HelmReleaseSettings] {
+	return pulumix.Output[HelmReleaseSettings]{
+		OutputState: o.OutputState,
+	}
 }
 
 // The backend storage driver for Helm. Values are: configmap, secret, memory, sql.
@@ -239,6 +258,12 @@ func (o HelmReleaseSettingsPtrOutput) ToHelmReleaseSettingsPtrOutput() HelmRelea
 
 func (o HelmReleaseSettingsPtrOutput) ToHelmReleaseSettingsPtrOutputWithContext(ctx context.Context) HelmReleaseSettingsPtrOutput {
 	return o
+}
+
+func (o HelmReleaseSettingsPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*HelmReleaseSettings] {
+	return pulumix.Output[*HelmReleaseSettings]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o HelmReleaseSettingsPtrOutput) Elem() HelmReleaseSettingsOutput {
@@ -394,6 +419,12 @@ func (i KubeClientSettingsArgs) ToKubeClientSettingsOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(KubeClientSettingsOutput)
 }
 
+func (i KubeClientSettingsArgs) ToOutput(ctx context.Context) pulumix.Output[KubeClientSettings] {
+	return pulumix.Output[KubeClientSettings]{
+		OutputState: i.ToKubeClientSettingsOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i KubeClientSettingsArgs) ToKubeClientSettingsPtrOutput() KubeClientSettingsPtrOutput {
 	return i.ToKubeClientSettingsPtrOutputWithContext(context.Background())
 }
@@ -435,6 +466,12 @@ func (i *kubeClientSettingsPtrType) ToKubeClientSettingsPtrOutputWithContext(ctx
 	return pulumi.ToOutputWithContext(ctx, i).(KubeClientSettingsPtrOutput)
 }
 
+func (i *kubeClientSettingsPtrType) ToOutput(ctx context.Context) pulumix.Output[*KubeClientSettings] {
+	return pulumix.Output[*KubeClientSettings]{
+		OutputState: i.ToKubeClientSettingsPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // Options for tuning the Kubernetes client used by a Provider.
 type KubeClientSettingsOutput struct{ *pulumi.OutputState }
 
@@ -458,6 +495,12 @@ func (o KubeClientSettingsOutput) ToKubeClientSettingsPtrOutputWithContext(ctx c
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v KubeClientSettings) *KubeClientSettings {
 		return &v
 	}).(KubeClientSettingsPtrOutput)
+}
+
+func (o KubeClientSettingsOutput) ToOutput(ctx context.Context) pulumix.Output[KubeClientSettings] {
+	return pulumix.Output[KubeClientSettings]{
+		OutputState: o.OutputState,
+	}
 }
 
 // Maximum burst for throttle. Default value is 10.
@@ -487,6 +530,12 @@ func (o KubeClientSettingsPtrOutput) ToKubeClientSettingsPtrOutput() KubeClientS
 
 func (o KubeClientSettingsPtrOutput) ToKubeClientSettingsPtrOutputWithContext(ctx context.Context) KubeClientSettingsPtrOutput {
 	return o
+}
+
+func (o KubeClientSettingsPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*KubeClientSettings] {
+	return pulumix.Output[*KubeClientSettings]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o KubeClientSettingsPtrOutput) Elem() KubeClientSettingsOutput {

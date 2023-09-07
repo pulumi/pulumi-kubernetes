@@ -11,6 +11,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // StatefulSetList is a collection of StatefulSets.
@@ -117,6 +118,12 @@ func (i *StatefulSetList) ToStatefulSetListOutputWithContext(ctx context.Context
 	return pulumi.ToOutputWithContext(ctx, i).(StatefulSetListOutput)
 }
 
+func (i *StatefulSetList) ToOutput(ctx context.Context) pulumix.Output[*StatefulSetList] {
+	return pulumix.Output[*StatefulSetList]{
+		OutputState: i.ToStatefulSetListOutputWithContext(ctx).OutputState,
+	}
+}
+
 // StatefulSetListArrayInput is an input type that accepts StatefulSetListArray and StatefulSetListArrayOutput values.
 // You can construct a concrete instance of `StatefulSetListArrayInput` via:
 //
@@ -140,6 +147,12 @@ func (i StatefulSetListArray) ToStatefulSetListArrayOutput() StatefulSetListArra
 
 func (i StatefulSetListArray) ToStatefulSetListArrayOutputWithContext(ctx context.Context) StatefulSetListArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(StatefulSetListArrayOutput)
+}
+
+func (i StatefulSetListArray) ToOutput(ctx context.Context) pulumix.Output[[]*StatefulSetList] {
+	return pulumix.Output[[]*StatefulSetList]{
+		OutputState: i.ToStatefulSetListArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // StatefulSetListMapInput is an input type that accepts StatefulSetListMap and StatefulSetListMapOutput values.
@@ -167,6 +180,12 @@ func (i StatefulSetListMap) ToStatefulSetListMapOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(StatefulSetListMapOutput)
 }
 
+func (i StatefulSetListMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*StatefulSetList] {
+	return pulumix.Output[map[string]*StatefulSetList]{
+		OutputState: i.ToStatefulSetListMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type StatefulSetListOutput struct{ *pulumi.OutputState }
 
 func (StatefulSetListOutput) ElementType() reflect.Type {
@@ -179,6 +198,12 @@ func (o StatefulSetListOutput) ToStatefulSetListOutput() StatefulSetListOutput {
 
 func (o StatefulSetListOutput) ToStatefulSetListOutputWithContext(ctx context.Context) StatefulSetListOutput {
 	return o
+}
+
+func (o StatefulSetListOutput) ToOutput(ctx context.Context) pulumix.Output[*StatefulSetList] {
+	return pulumix.Output[*StatefulSetList]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -215,6 +240,12 @@ func (o StatefulSetListArrayOutput) ToStatefulSetListArrayOutputWithContext(ctx 
 	return o
 }
 
+func (o StatefulSetListArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*StatefulSetList] {
+	return pulumix.Output[[]*StatefulSetList]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o StatefulSetListArrayOutput) Index(i pulumi.IntInput) StatefulSetListOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *StatefulSetList {
 		return vs[0].([]*StatefulSetList)[vs[1].(int)]
@@ -233,6 +264,12 @@ func (o StatefulSetListMapOutput) ToStatefulSetListMapOutput() StatefulSetListMa
 
 func (o StatefulSetListMapOutput) ToStatefulSetListMapOutputWithContext(ctx context.Context) StatefulSetListMapOutput {
 	return o
+}
+
+func (o StatefulSetListMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*StatefulSetList] {
+	return pulumix.Output[map[string]*StatefulSetList]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o StatefulSetListMapOutput) MapIndex(k pulumi.StringInput) StatefulSetListOutput {

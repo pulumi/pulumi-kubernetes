@@ -11,6 +11,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // ControllerRevision implements an immutable snapshot of state data. Clients are responsible for serializing and deserializing the objects that contain their internal state. Once a ControllerRevision has been successfully created, it can not be updated. The API Server will fail validation of all requests that attempt to mutate the Data field. ControllerRevisions may, however, be deleted. Note that, due to its use by both the DaemonSet and StatefulSet controllers for update and rollback, this object is beta. However, it may be subject to name and representation changes in future releases, and clients should not depend on its stability. It is primarily for internal use by controllers.
@@ -132,6 +133,12 @@ func (i *ControllerRevision) ToControllerRevisionOutputWithContext(ctx context.C
 	return pulumi.ToOutputWithContext(ctx, i).(ControllerRevisionOutput)
 }
 
+func (i *ControllerRevision) ToOutput(ctx context.Context) pulumix.Output[*ControllerRevision] {
+	return pulumix.Output[*ControllerRevision]{
+		OutputState: i.ToControllerRevisionOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ControllerRevisionArrayInput is an input type that accepts ControllerRevisionArray and ControllerRevisionArrayOutput values.
 // You can construct a concrete instance of `ControllerRevisionArrayInput` via:
 //
@@ -155,6 +162,12 @@ func (i ControllerRevisionArray) ToControllerRevisionArrayOutput() ControllerRev
 
 func (i ControllerRevisionArray) ToControllerRevisionArrayOutputWithContext(ctx context.Context) ControllerRevisionArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ControllerRevisionArrayOutput)
+}
+
+func (i ControllerRevisionArray) ToOutput(ctx context.Context) pulumix.Output[[]*ControllerRevision] {
+	return pulumix.Output[[]*ControllerRevision]{
+		OutputState: i.ToControllerRevisionArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // ControllerRevisionMapInput is an input type that accepts ControllerRevisionMap and ControllerRevisionMapOutput values.
@@ -182,6 +195,12 @@ func (i ControllerRevisionMap) ToControllerRevisionMapOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(ControllerRevisionMapOutput)
 }
 
+func (i ControllerRevisionMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*ControllerRevision] {
+	return pulumix.Output[map[string]*ControllerRevision]{
+		OutputState: i.ToControllerRevisionMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type ControllerRevisionOutput struct{ *pulumi.OutputState }
 
 func (ControllerRevisionOutput) ElementType() reflect.Type {
@@ -194,6 +213,12 @@ func (o ControllerRevisionOutput) ToControllerRevisionOutput() ControllerRevisio
 
 func (o ControllerRevisionOutput) ToControllerRevisionOutputWithContext(ctx context.Context) ControllerRevisionOutput {
 	return o
+}
+
+func (o ControllerRevisionOutput) ToOutput(ctx context.Context) pulumix.Output[*ControllerRevision] {
+	return pulumix.Output[*ControllerRevision]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -235,6 +260,12 @@ func (o ControllerRevisionArrayOutput) ToControllerRevisionArrayOutputWithContex
 	return o
 }
 
+func (o ControllerRevisionArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*ControllerRevision] {
+	return pulumix.Output[[]*ControllerRevision]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o ControllerRevisionArrayOutput) Index(i pulumi.IntInput) ControllerRevisionOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *ControllerRevision {
 		return vs[0].([]*ControllerRevision)[vs[1].(int)]
@@ -253,6 +284,12 @@ func (o ControllerRevisionMapOutput) ToControllerRevisionMapOutput() ControllerR
 
 func (o ControllerRevisionMapOutput) ToControllerRevisionMapOutputWithContext(ctx context.Context) ControllerRevisionMapOutput {
 	return o
+}
+
+func (o ControllerRevisionMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*ControllerRevision] {
+	return pulumix.Output[map[string]*ControllerRevision]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ControllerRevisionMapOutput) MapIndex(k pulumi.StringInput) ControllerRevisionOutput {

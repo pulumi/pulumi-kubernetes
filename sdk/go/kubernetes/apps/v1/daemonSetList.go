@@ -11,6 +11,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // DaemonSetList is a collection of daemon sets.
@@ -117,6 +118,12 @@ func (i *DaemonSetList) ToDaemonSetListOutputWithContext(ctx context.Context) Da
 	return pulumi.ToOutputWithContext(ctx, i).(DaemonSetListOutput)
 }
 
+func (i *DaemonSetList) ToOutput(ctx context.Context) pulumix.Output[*DaemonSetList] {
+	return pulumix.Output[*DaemonSetList]{
+		OutputState: i.ToDaemonSetListOutputWithContext(ctx).OutputState,
+	}
+}
+
 // DaemonSetListArrayInput is an input type that accepts DaemonSetListArray and DaemonSetListArrayOutput values.
 // You can construct a concrete instance of `DaemonSetListArrayInput` via:
 //
@@ -140,6 +147,12 @@ func (i DaemonSetListArray) ToDaemonSetListArrayOutput() DaemonSetListArrayOutpu
 
 func (i DaemonSetListArray) ToDaemonSetListArrayOutputWithContext(ctx context.Context) DaemonSetListArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(DaemonSetListArrayOutput)
+}
+
+func (i DaemonSetListArray) ToOutput(ctx context.Context) pulumix.Output[[]*DaemonSetList] {
+	return pulumix.Output[[]*DaemonSetList]{
+		OutputState: i.ToDaemonSetListArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // DaemonSetListMapInput is an input type that accepts DaemonSetListMap and DaemonSetListMapOutput values.
@@ -167,6 +180,12 @@ func (i DaemonSetListMap) ToDaemonSetListMapOutputWithContext(ctx context.Contex
 	return pulumi.ToOutputWithContext(ctx, i).(DaemonSetListMapOutput)
 }
 
+func (i DaemonSetListMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*DaemonSetList] {
+	return pulumix.Output[map[string]*DaemonSetList]{
+		OutputState: i.ToDaemonSetListMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type DaemonSetListOutput struct{ *pulumi.OutputState }
 
 func (DaemonSetListOutput) ElementType() reflect.Type {
@@ -179,6 +198,12 @@ func (o DaemonSetListOutput) ToDaemonSetListOutput() DaemonSetListOutput {
 
 func (o DaemonSetListOutput) ToDaemonSetListOutputWithContext(ctx context.Context) DaemonSetListOutput {
 	return o
+}
+
+func (o DaemonSetListOutput) ToOutput(ctx context.Context) pulumix.Output[*DaemonSetList] {
+	return pulumix.Output[*DaemonSetList]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -215,6 +240,12 @@ func (o DaemonSetListArrayOutput) ToDaemonSetListArrayOutputWithContext(ctx cont
 	return o
 }
 
+func (o DaemonSetListArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*DaemonSetList] {
+	return pulumix.Output[[]*DaemonSetList]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o DaemonSetListArrayOutput) Index(i pulumi.IntInput) DaemonSetListOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *DaemonSetList {
 		return vs[0].([]*DaemonSetList)[vs[1].(int)]
@@ -233,6 +264,12 @@ func (o DaemonSetListMapOutput) ToDaemonSetListMapOutput() DaemonSetListMapOutpu
 
 func (o DaemonSetListMapOutput) ToDaemonSetListMapOutputWithContext(ctx context.Context) DaemonSetListMapOutput {
 	return o
+}
+
+func (o DaemonSetListMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*DaemonSetList] {
+	return pulumix.Output[map[string]*DaemonSetList]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o DaemonSetListMapOutput) MapIndex(k pulumi.StringInput) DaemonSetListOutput {

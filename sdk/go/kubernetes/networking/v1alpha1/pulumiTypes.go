@@ -11,6 +11,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 var _ = internal.GetEnvOrDefault
@@ -62,6 +63,12 @@ func (i ClusterCIDRTypeArgs) ToClusterCIDRTypeOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterCIDRTypeOutput)
 }
 
+func (i ClusterCIDRTypeArgs) ToOutput(ctx context.Context) pulumix.Output[ClusterCIDRType] {
+	return pulumix.Output[ClusterCIDRType]{
+		OutputState: i.ToClusterCIDRTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ClusterCIDRTypeArrayInput is an input type that accepts ClusterCIDRTypeArray and ClusterCIDRTypeArrayOutput values.
 // You can construct a concrete instance of `ClusterCIDRTypeArrayInput` via:
 //
@@ -87,6 +94,12 @@ func (i ClusterCIDRTypeArray) ToClusterCIDRTypeArrayOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterCIDRTypeArrayOutput)
 }
 
+func (i ClusterCIDRTypeArray) ToOutput(ctx context.Context) pulumix.Output[[]ClusterCIDRType] {
+	return pulumix.Output[[]ClusterCIDRType]{
+		OutputState: i.ToClusterCIDRTypeArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ClusterCIDR represents a single configuration for per-Node Pod CIDR allocations when the MultiCIDRRangeAllocator is enabled (see the config for kube-controller-manager).  A cluster may have any number of ClusterCIDR resources, all of which will be considered when allocating a CIDR for a Node.  A ClusterCIDR is eligible to be used for a given Node when the node selector matches the node in question and has free CIDRs to allocate.  In case of multiple matching ClusterCIDR resources, the allocator will attempt to break ties using internal heuristics, but any ClusterCIDR whose node selector matches the Node may be used.
 type ClusterCIDRTypeOutput struct{ *pulumi.OutputState }
 
@@ -100,6 +113,12 @@ func (o ClusterCIDRTypeOutput) ToClusterCIDRTypeOutput() ClusterCIDRTypeOutput {
 
 func (o ClusterCIDRTypeOutput) ToClusterCIDRTypeOutputWithContext(ctx context.Context) ClusterCIDRTypeOutput {
 	return o
+}
+
+func (o ClusterCIDRTypeOutput) ToOutput(ctx context.Context) pulumix.Output[ClusterCIDRType] {
+	return pulumix.Output[ClusterCIDRType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -134,6 +153,12 @@ func (o ClusterCIDRTypeArrayOutput) ToClusterCIDRTypeArrayOutput() ClusterCIDRTy
 
 func (o ClusterCIDRTypeArrayOutput) ToClusterCIDRTypeArrayOutputWithContext(ctx context.Context) ClusterCIDRTypeArrayOutput {
 	return o
+}
+
+func (o ClusterCIDRTypeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]ClusterCIDRType] {
+	return pulumix.Output[[]ClusterCIDRType]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ClusterCIDRTypeArrayOutput) Index(i pulumi.IntInput) ClusterCIDRTypeOutput {
@@ -189,6 +214,12 @@ func (i ClusterCIDRListTypeArgs) ToClusterCIDRListTypeOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterCIDRListTypeOutput)
 }
 
+func (i ClusterCIDRListTypeArgs) ToOutput(ctx context.Context) pulumix.Output[ClusterCIDRListType] {
+	return pulumix.Output[ClusterCIDRListType]{
+		OutputState: i.ToClusterCIDRListTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ClusterCIDRList contains a list of ClusterCIDR.
 type ClusterCIDRListTypeOutput struct{ *pulumi.OutputState }
 
@@ -202,6 +233,12 @@ func (o ClusterCIDRListTypeOutput) ToClusterCIDRListTypeOutput() ClusterCIDRList
 
 func (o ClusterCIDRListTypeOutput) ToClusterCIDRListTypeOutputWithContext(ctx context.Context) ClusterCIDRListTypeOutput {
 	return o
+}
+
+func (o ClusterCIDRListTypeOutput) ToOutput(ctx context.Context) pulumix.Output[ClusterCIDRListType] {
+	return pulumix.Output[ClusterCIDRListType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -271,6 +308,12 @@ func (i ClusterCIDRPatchTypeArgs) ToClusterCIDRPatchTypeOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterCIDRPatchTypeOutput)
 }
 
+func (i ClusterCIDRPatchTypeArgs) ToOutput(ctx context.Context) pulumix.Output[ClusterCIDRPatchType] {
+	return pulumix.Output[ClusterCIDRPatchType]{
+		OutputState: i.ToClusterCIDRPatchTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ClusterCIDR represents a single configuration for per-Node Pod CIDR allocations when the MultiCIDRRangeAllocator is enabled (see the config for kube-controller-manager).  A cluster may have any number of ClusterCIDR resources, all of which will be considered when allocating a CIDR for a Node.  A ClusterCIDR is eligible to be used for a given Node when the node selector matches the node in question and has free CIDRs to allocate.  In case of multiple matching ClusterCIDR resources, the allocator will attempt to break ties using internal heuristics, but any ClusterCIDR whose node selector matches the Node may be used.
 type ClusterCIDRPatchTypeOutput struct{ *pulumi.OutputState }
 
@@ -284,6 +327,12 @@ func (o ClusterCIDRPatchTypeOutput) ToClusterCIDRPatchTypeOutput() ClusterCIDRPa
 
 func (o ClusterCIDRPatchTypeOutput) ToClusterCIDRPatchTypeOutputWithContext(ctx context.Context) ClusterCIDRPatchTypeOutput {
 	return o
+}
+
+func (o ClusterCIDRPatchTypeOutput) ToOutput(ctx context.Context) pulumix.Output[ClusterCIDRPatchType] {
+	return pulumix.Output[ClusterCIDRPatchType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -353,6 +402,12 @@ func (i ClusterCIDRSpecArgs) ToClusterCIDRSpecOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterCIDRSpecOutput)
 }
 
+func (i ClusterCIDRSpecArgs) ToOutput(ctx context.Context) pulumix.Output[ClusterCIDRSpec] {
+	return pulumix.Output[ClusterCIDRSpec]{
+		OutputState: i.ToClusterCIDRSpecOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i ClusterCIDRSpecArgs) ToClusterCIDRSpecPtrOutput() ClusterCIDRSpecPtrOutput {
 	return i.ToClusterCIDRSpecPtrOutputWithContext(context.Background())
 }
@@ -394,6 +449,12 @@ func (i *clusterCIDRSpecPtrType) ToClusterCIDRSpecPtrOutputWithContext(ctx conte
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterCIDRSpecPtrOutput)
 }
 
+func (i *clusterCIDRSpecPtrType) ToOutput(ctx context.Context) pulumix.Output[*ClusterCIDRSpec] {
+	return pulumix.Output[*ClusterCIDRSpec]{
+		OutputState: i.ToClusterCIDRSpecPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ClusterCIDRSpec defines the desired state of ClusterCIDR.
 type ClusterCIDRSpecOutput struct{ *pulumi.OutputState }
 
@@ -417,6 +478,12 @@ func (o ClusterCIDRSpecOutput) ToClusterCIDRSpecPtrOutputWithContext(ctx context
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterCIDRSpec) *ClusterCIDRSpec {
 		return &v
 	}).(ClusterCIDRSpecPtrOutput)
+}
+
+func (o ClusterCIDRSpecOutput) ToOutput(ctx context.Context) pulumix.Output[ClusterCIDRSpec] {
+	return pulumix.Output[ClusterCIDRSpec]{
+		OutputState: o.OutputState,
+	}
 }
 
 // ipv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of ipv4 and ipv6 must be specified. This field is immutable.
@@ -451,6 +518,12 @@ func (o ClusterCIDRSpecPtrOutput) ToClusterCIDRSpecPtrOutput() ClusterCIDRSpecPt
 
 func (o ClusterCIDRSpecPtrOutput) ToClusterCIDRSpecPtrOutputWithContext(ctx context.Context) ClusterCIDRSpecPtrOutput {
 	return o
+}
+
+func (o ClusterCIDRSpecPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ClusterCIDRSpec] {
+	return pulumix.Output[*ClusterCIDRSpec]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ClusterCIDRSpecPtrOutput) Elem() ClusterCIDRSpecOutput {
@@ -550,6 +623,12 @@ func (i ClusterCIDRSpecPatchArgs) ToClusterCIDRSpecPatchOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterCIDRSpecPatchOutput)
 }
 
+func (i ClusterCIDRSpecPatchArgs) ToOutput(ctx context.Context) pulumix.Output[ClusterCIDRSpecPatch] {
+	return pulumix.Output[ClusterCIDRSpecPatch]{
+		OutputState: i.ToClusterCIDRSpecPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i ClusterCIDRSpecPatchArgs) ToClusterCIDRSpecPatchPtrOutput() ClusterCIDRSpecPatchPtrOutput {
 	return i.ToClusterCIDRSpecPatchPtrOutputWithContext(context.Background())
 }
@@ -591,6 +670,12 @@ func (i *clusterCIDRSpecPatchPtrType) ToClusterCIDRSpecPatchPtrOutputWithContext
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterCIDRSpecPatchPtrOutput)
 }
 
+func (i *clusterCIDRSpecPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*ClusterCIDRSpecPatch] {
+	return pulumix.Output[*ClusterCIDRSpecPatch]{
+		OutputState: i.ToClusterCIDRSpecPatchPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ClusterCIDRSpec defines the desired state of ClusterCIDR.
 type ClusterCIDRSpecPatchOutput struct{ *pulumi.OutputState }
 
@@ -614,6 +699,12 @@ func (o ClusterCIDRSpecPatchOutput) ToClusterCIDRSpecPatchPtrOutputWithContext(c
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterCIDRSpecPatch) *ClusterCIDRSpecPatch {
 		return &v
 	}).(ClusterCIDRSpecPatchPtrOutput)
+}
+
+func (o ClusterCIDRSpecPatchOutput) ToOutput(ctx context.Context) pulumix.Output[ClusterCIDRSpecPatch] {
+	return pulumix.Output[ClusterCIDRSpecPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // ipv4 defines an IPv4 IP block in CIDR notation(e.g. "10.0.0.0/8"). At least one of ipv4 and ipv6 must be specified. This field is immutable.
@@ -648,6 +739,12 @@ func (o ClusterCIDRSpecPatchPtrOutput) ToClusterCIDRSpecPatchPtrOutput() Cluster
 
 func (o ClusterCIDRSpecPatchPtrOutput) ToClusterCIDRSpecPatchPtrOutputWithContext(ctx context.Context) ClusterCIDRSpecPatchPtrOutput {
 	return o
+}
+
+func (o ClusterCIDRSpecPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ClusterCIDRSpecPatch] {
+	return pulumix.Output[*ClusterCIDRSpecPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ClusterCIDRSpecPatchPtrOutput) Elem() ClusterCIDRSpecPatchOutput {
@@ -747,6 +844,12 @@ func (i IPAddressTypeArgs) ToIPAddressTypeOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(IPAddressTypeOutput)
 }
 
+func (i IPAddressTypeArgs) ToOutput(ctx context.Context) pulumix.Output[IPAddressType] {
+	return pulumix.Output[IPAddressType]{
+		OutputState: i.ToIPAddressTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // IPAddressTypeArrayInput is an input type that accepts IPAddressTypeArray and IPAddressTypeArrayOutput values.
 // You can construct a concrete instance of `IPAddressTypeArrayInput` via:
 //
@@ -772,6 +875,12 @@ func (i IPAddressTypeArray) ToIPAddressTypeArrayOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(IPAddressTypeArrayOutput)
 }
 
+func (i IPAddressTypeArray) ToOutput(ctx context.Context) pulumix.Output[[]IPAddressType] {
+	return pulumix.Output[[]IPAddressType]{
+		OutputState: i.ToIPAddressTypeArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // IPAddress represents a single IP of a single IP Family. The object is designed to be used by APIs that operate on IP addresses. The object is used by the Service core API for allocation of IP addresses. An IP address can be represented in different formats, to guarantee the uniqueness of the IP, the name of the object is the IP address in canonical format, four decimal digits separated by dots suppressing leading zeros for IPv4 and the representation defined by RFC 5952 for IPv6. Valid: 192.168.1.5 or 2001:db8::1 or 2001:db8:aaaa:bbbb:cccc:dddd:eeee:1 Invalid: 10.01.2.3 or 2001:db8:0:0:0::1
 type IPAddressTypeOutput struct{ *pulumi.OutputState }
 
@@ -785,6 +894,12 @@ func (o IPAddressTypeOutput) ToIPAddressTypeOutput() IPAddressTypeOutput {
 
 func (o IPAddressTypeOutput) ToIPAddressTypeOutputWithContext(ctx context.Context) IPAddressTypeOutput {
 	return o
+}
+
+func (o IPAddressTypeOutput) ToOutput(ctx context.Context) pulumix.Output[IPAddressType] {
+	return pulumix.Output[IPAddressType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -819,6 +934,12 @@ func (o IPAddressTypeArrayOutput) ToIPAddressTypeArrayOutput() IPAddressTypeArra
 
 func (o IPAddressTypeArrayOutput) ToIPAddressTypeArrayOutputWithContext(ctx context.Context) IPAddressTypeArrayOutput {
 	return o
+}
+
+func (o IPAddressTypeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]IPAddressType] {
+	return pulumix.Output[[]IPAddressType]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o IPAddressTypeArrayOutput) Index(i pulumi.IntInput) IPAddressTypeOutput {
@@ -874,6 +995,12 @@ func (i IPAddressListTypeArgs) ToIPAddressListTypeOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(IPAddressListTypeOutput)
 }
 
+func (i IPAddressListTypeArgs) ToOutput(ctx context.Context) pulumix.Output[IPAddressListType] {
+	return pulumix.Output[IPAddressListType]{
+		OutputState: i.ToIPAddressListTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // IPAddressList contains a list of IPAddress.
 type IPAddressListTypeOutput struct{ *pulumi.OutputState }
 
@@ -887,6 +1014,12 @@ func (o IPAddressListTypeOutput) ToIPAddressListTypeOutput() IPAddressListTypeOu
 
 func (o IPAddressListTypeOutput) ToIPAddressListTypeOutputWithContext(ctx context.Context) IPAddressListTypeOutput {
 	return o
+}
+
+func (o IPAddressListTypeOutput) ToOutput(ctx context.Context) pulumix.Output[IPAddressListType] {
+	return pulumix.Output[IPAddressListType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -956,6 +1089,12 @@ func (i IPAddressPatchTypeArgs) ToIPAddressPatchTypeOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(IPAddressPatchTypeOutput)
 }
 
+func (i IPAddressPatchTypeArgs) ToOutput(ctx context.Context) pulumix.Output[IPAddressPatchType] {
+	return pulumix.Output[IPAddressPatchType]{
+		OutputState: i.ToIPAddressPatchTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // IPAddress represents a single IP of a single IP Family. The object is designed to be used by APIs that operate on IP addresses. The object is used by the Service core API for allocation of IP addresses. An IP address can be represented in different formats, to guarantee the uniqueness of the IP, the name of the object is the IP address in canonical format, four decimal digits separated by dots suppressing leading zeros for IPv4 and the representation defined by RFC 5952 for IPv6. Valid: 192.168.1.5 or 2001:db8::1 or 2001:db8:aaaa:bbbb:cccc:dddd:eeee:1 Invalid: 10.01.2.3 or 2001:db8:0:0:0::1
 type IPAddressPatchTypeOutput struct{ *pulumi.OutputState }
 
@@ -969,6 +1108,12 @@ func (o IPAddressPatchTypeOutput) ToIPAddressPatchTypeOutput() IPAddressPatchTyp
 
 func (o IPAddressPatchTypeOutput) ToIPAddressPatchTypeOutputWithContext(ctx context.Context) IPAddressPatchTypeOutput {
 	return o
+}
+
+func (o IPAddressPatchTypeOutput) ToOutput(ctx context.Context) pulumix.Output[IPAddressPatchType] {
+	return pulumix.Output[IPAddressPatchType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -1026,6 +1171,12 @@ func (i IPAddressSpecArgs) ToIPAddressSpecOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(IPAddressSpecOutput)
 }
 
+func (i IPAddressSpecArgs) ToOutput(ctx context.Context) pulumix.Output[IPAddressSpec] {
+	return pulumix.Output[IPAddressSpec]{
+		OutputState: i.ToIPAddressSpecOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i IPAddressSpecArgs) ToIPAddressSpecPtrOutput() IPAddressSpecPtrOutput {
 	return i.ToIPAddressSpecPtrOutputWithContext(context.Background())
 }
@@ -1067,6 +1218,12 @@ func (i *ipaddressSpecPtrType) ToIPAddressSpecPtrOutputWithContext(ctx context.C
 	return pulumi.ToOutputWithContext(ctx, i).(IPAddressSpecPtrOutput)
 }
 
+func (i *ipaddressSpecPtrType) ToOutput(ctx context.Context) pulumix.Output[*IPAddressSpec] {
+	return pulumix.Output[*IPAddressSpec]{
+		OutputState: i.ToIPAddressSpecPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // IPAddressSpec describe the attributes in an IP Address.
 type IPAddressSpecOutput struct{ *pulumi.OutputState }
 
@@ -1092,6 +1249,12 @@ func (o IPAddressSpecOutput) ToIPAddressSpecPtrOutputWithContext(ctx context.Con
 	}).(IPAddressSpecPtrOutput)
 }
 
+func (o IPAddressSpecOutput) ToOutput(ctx context.Context) pulumix.Output[IPAddressSpec] {
+	return pulumix.Output[IPAddressSpec]{
+		OutputState: o.OutputState,
+	}
+}
+
 // ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
 func (o IPAddressSpecOutput) ParentRef() ParentReferencePtrOutput {
 	return o.ApplyT(func(v IPAddressSpec) *ParentReference { return v.ParentRef }).(ParentReferencePtrOutput)
@@ -1109,6 +1272,12 @@ func (o IPAddressSpecPtrOutput) ToIPAddressSpecPtrOutput() IPAddressSpecPtrOutpu
 
 func (o IPAddressSpecPtrOutput) ToIPAddressSpecPtrOutputWithContext(ctx context.Context) IPAddressSpecPtrOutput {
 	return o
+}
+
+func (o IPAddressSpecPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*IPAddressSpec] {
+	return pulumix.Output[*IPAddressSpec]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o IPAddressSpecPtrOutput) Elem() IPAddressSpecOutput {
@@ -1166,6 +1335,12 @@ func (i IPAddressSpecPatchArgs) ToIPAddressSpecPatchOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(IPAddressSpecPatchOutput)
 }
 
+func (i IPAddressSpecPatchArgs) ToOutput(ctx context.Context) pulumix.Output[IPAddressSpecPatch] {
+	return pulumix.Output[IPAddressSpecPatch]{
+		OutputState: i.ToIPAddressSpecPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i IPAddressSpecPatchArgs) ToIPAddressSpecPatchPtrOutput() IPAddressSpecPatchPtrOutput {
 	return i.ToIPAddressSpecPatchPtrOutputWithContext(context.Background())
 }
@@ -1207,6 +1382,12 @@ func (i *ipaddressSpecPatchPtrType) ToIPAddressSpecPatchPtrOutputWithContext(ctx
 	return pulumi.ToOutputWithContext(ctx, i).(IPAddressSpecPatchPtrOutput)
 }
 
+func (i *ipaddressSpecPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*IPAddressSpecPatch] {
+	return pulumix.Output[*IPAddressSpecPatch]{
+		OutputState: i.ToIPAddressSpecPatchPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // IPAddressSpec describe the attributes in an IP Address.
 type IPAddressSpecPatchOutput struct{ *pulumi.OutputState }
 
@@ -1232,6 +1413,12 @@ func (o IPAddressSpecPatchOutput) ToIPAddressSpecPatchPtrOutputWithContext(ctx c
 	}).(IPAddressSpecPatchPtrOutput)
 }
 
+func (o IPAddressSpecPatchOutput) ToOutput(ctx context.Context) pulumix.Output[IPAddressSpecPatch] {
+	return pulumix.Output[IPAddressSpecPatch]{
+		OutputState: o.OutputState,
+	}
+}
+
 // ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
 func (o IPAddressSpecPatchOutput) ParentRef() ParentReferencePatchPtrOutput {
 	return o.ApplyT(func(v IPAddressSpecPatch) *ParentReferencePatch { return v.ParentRef }).(ParentReferencePatchPtrOutput)
@@ -1249,6 +1436,12 @@ func (o IPAddressSpecPatchPtrOutput) ToIPAddressSpecPatchPtrOutput() IPAddressSp
 
 func (o IPAddressSpecPatchPtrOutput) ToIPAddressSpecPatchPtrOutputWithContext(ctx context.Context) IPAddressSpecPatchPtrOutput {
 	return o
+}
+
+func (o IPAddressSpecPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*IPAddressSpecPatch] {
+	return pulumix.Output[*IPAddressSpecPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o IPAddressSpecPatchPtrOutput) Elem() IPAddressSpecPatchOutput {
@@ -1322,6 +1515,12 @@ func (i ParentReferenceArgs) ToParentReferenceOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(ParentReferenceOutput)
 }
 
+func (i ParentReferenceArgs) ToOutput(ctx context.Context) pulumix.Output[ParentReference] {
+	return pulumix.Output[ParentReference]{
+		OutputState: i.ToParentReferenceOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i ParentReferenceArgs) ToParentReferencePtrOutput() ParentReferencePtrOutput {
 	return i.ToParentReferencePtrOutputWithContext(context.Background())
 }
@@ -1363,6 +1562,12 @@ func (i *parentReferencePtrType) ToParentReferencePtrOutputWithContext(ctx conte
 	return pulumi.ToOutputWithContext(ctx, i).(ParentReferencePtrOutput)
 }
 
+func (i *parentReferencePtrType) ToOutput(ctx context.Context) pulumix.Output[*ParentReference] {
+	return pulumix.Output[*ParentReference]{
+		OutputState: i.ToParentReferencePtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ParentReference describes a reference to a parent object.
 type ParentReferenceOutput struct{ *pulumi.OutputState }
 
@@ -1386,6 +1591,12 @@ func (o ParentReferenceOutput) ToParentReferencePtrOutputWithContext(ctx context
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v ParentReference) *ParentReference {
 		return &v
 	}).(ParentReferencePtrOutput)
+}
+
+func (o ParentReferenceOutput) ToOutput(ctx context.Context) pulumix.Output[ParentReference] {
+	return pulumix.Output[ParentReference]{
+		OutputState: o.OutputState,
+	}
 }
 
 // Group is the group of the object being referenced.
@@ -1425,6 +1636,12 @@ func (o ParentReferencePtrOutput) ToParentReferencePtrOutput() ParentReferencePt
 
 func (o ParentReferencePtrOutput) ToParentReferencePtrOutputWithContext(ctx context.Context) ParentReferencePtrOutput {
 	return o
+}
+
+func (o ParentReferencePtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ParentReference] {
+	return pulumix.Output[*ParentReference]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ParentReferencePtrOutput) Elem() ParentReferenceOutput {
@@ -1538,6 +1755,12 @@ func (i ParentReferencePatchArgs) ToParentReferencePatchOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(ParentReferencePatchOutput)
 }
 
+func (i ParentReferencePatchArgs) ToOutput(ctx context.Context) pulumix.Output[ParentReferencePatch] {
+	return pulumix.Output[ParentReferencePatch]{
+		OutputState: i.ToParentReferencePatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i ParentReferencePatchArgs) ToParentReferencePatchPtrOutput() ParentReferencePatchPtrOutput {
 	return i.ToParentReferencePatchPtrOutputWithContext(context.Background())
 }
@@ -1579,6 +1802,12 @@ func (i *parentReferencePatchPtrType) ToParentReferencePatchPtrOutputWithContext
 	return pulumi.ToOutputWithContext(ctx, i).(ParentReferencePatchPtrOutput)
 }
 
+func (i *parentReferencePatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*ParentReferencePatch] {
+	return pulumix.Output[*ParentReferencePatch]{
+		OutputState: i.ToParentReferencePatchPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ParentReference describes a reference to a parent object.
 type ParentReferencePatchOutput struct{ *pulumi.OutputState }
 
@@ -1602,6 +1831,12 @@ func (o ParentReferencePatchOutput) ToParentReferencePatchPtrOutputWithContext(c
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v ParentReferencePatch) *ParentReferencePatch {
 		return &v
 	}).(ParentReferencePatchPtrOutput)
+}
+
+func (o ParentReferencePatchOutput) ToOutput(ctx context.Context) pulumix.Output[ParentReferencePatch] {
+	return pulumix.Output[ParentReferencePatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // Group is the group of the object being referenced.
@@ -1641,6 +1876,12 @@ func (o ParentReferencePatchPtrOutput) ToParentReferencePatchPtrOutput() ParentR
 
 func (o ParentReferencePatchPtrOutput) ToParentReferencePatchPtrOutputWithContext(ctx context.Context) ParentReferencePatchPtrOutput {
 	return o
+}
+
+func (o ParentReferencePatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ParentReferencePatch] {
+	return pulumix.Output[*ParentReferencePatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ParentReferencePatchPtrOutput) Elem() ParentReferencePatchOutput {

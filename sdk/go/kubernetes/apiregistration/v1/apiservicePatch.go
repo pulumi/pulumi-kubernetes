@@ -10,6 +10,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -133,6 +134,12 @@ func (i *APIServicePatch) ToAPIServicePatchOutputWithContext(ctx context.Context
 	return pulumi.ToOutputWithContext(ctx, i).(APIServicePatchOutput)
 }
 
+func (i *APIServicePatch) ToOutput(ctx context.Context) pulumix.Output[*APIServicePatch] {
+	return pulumix.Output[*APIServicePatch]{
+		OutputState: i.ToAPIServicePatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 // APIServicePatchArrayInput is an input type that accepts APIServicePatchArray and APIServicePatchArrayOutput values.
 // You can construct a concrete instance of `APIServicePatchArrayInput` via:
 //
@@ -156,6 +163,12 @@ func (i APIServicePatchArray) ToAPIServicePatchArrayOutput() APIServicePatchArra
 
 func (i APIServicePatchArray) ToAPIServicePatchArrayOutputWithContext(ctx context.Context) APIServicePatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(APIServicePatchArrayOutput)
+}
+
+func (i APIServicePatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*APIServicePatch] {
+	return pulumix.Output[[]*APIServicePatch]{
+		OutputState: i.ToAPIServicePatchArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // APIServicePatchMapInput is an input type that accepts APIServicePatchMap and APIServicePatchMapOutput values.
@@ -183,6 +196,12 @@ func (i APIServicePatchMap) ToAPIServicePatchMapOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(APIServicePatchMapOutput)
 }
 
+func (i APIServicePatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*APIServicePatch] {
+	return pulumix.Output[map[string]*APIServicePatch]{
+		OutputState: i.ToAPIServicePatchMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type APIServicePatchOutput struct{ *pulumi.OutputState }
 
 func (APIServicePatchOutput) ElementType() reflect.Type {
@@ -195,6 +214,12 @@ func (o APIServicePatchOutput) ToAPIServicePatchOutput() APIServicePatchOutput {
 
 func (o APIServicePatchOutput) ToAPIServicePatchOutputWithContext(ctx context.Context) APIServicePatchOutput {
 	return o
+}
+
+func (o APIServicePatchOutput) ToOutput(ctx context.Context) pulumix.Output[*APIServicePatch] {
+	return pulumix.Output[*APIServicePatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -236,6 +261,12 @@ func (o APIServicePatchArrayOutput) ToAPIServicePatchArrayOutputWithContext(ctx 
 	return o
 }
 
+func (o APIServicePatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*APIServicePatch] {
+	return pulumix.Output[[]*APIServicePatch]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o APIServicePatchArrayOutput) Index(i pulumi.IntInput) APIServicePatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *APIServicePatch {
 		return vs[0].([]*APIServicePatch)[vs[1].(int)]
@@ -254,6 +285,12 @@ func (o APIServicePatchMapOutput) ToAPIServicePatchMapOutput() APIServicePatchMa
 
 func (o APIServicePatchMapOutput) ToAPIServicePatchMapOutputWithContext(ctx context.Context) APIServicePatchMapOutput {
 	return o
+}
+
+func (o APIServicePatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*APIServicePatch] {
+	return pulumix.Output[map[string]*APIServicePatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o APIServicePatchMapOutput) MapIndex(k pulumi.StringInput) APIServicePatchOutput {

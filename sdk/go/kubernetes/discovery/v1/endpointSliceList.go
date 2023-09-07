@@ -11,6 +11,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // EndpointSliceList represents a list of endpoint slices
@@ -117,6 +118,12 @@ func (i *EndpointSliceList) ToEndpointSliceListOutputWithContext(ctx context.Con
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointSliceListOutput)
 }
 
+func (i *EndpointSliceList) ToOutput(ctx context.Context) pulumix.Output[*EndpointSliceList] {
+	return pulumix.Output[*EndpointSliceList]{
+		OutputState: i.ToEndpointSliceListOutputWithContext(ctx).OutputState,
+	}
+}
+
 // EndpointSliceListArrayInput is an input type that accepts EndpointSliceListArray and EndpointSliceListArrayOutput values.
 // You can construct a concrete instance of `EndpointSliceListArrayInput` via:
 //
@@ -140,6 +147,12 @@ func (i EndpointSliceListArray) ToEndpointSliceListArrayOutput() EndpointSliceLi
 
 func (i EndpointSliceListArray) ToEndpointSliceListArrayOutputWithContext(ctx context.Context) EndpointSliceListArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointSliceListArrayOutput)
+}
+
+func (i EndpointSliceListArray) ToOutput(ctx context.Context) pulumix.Output[[]*EndpointSliceList] {
+	return pulumix.Output[[]*EndpointSliceList]{
+		OutputState: i.ToEndpointSliceListArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // EndpointSliceListMapInput is an input type that accepts EndpointSliceListMap and EndpointSliceListMapOutput values.
@@ -167,6 +180,12 @@ func (i EndpointSliceListMap) ToEndpointSliceListMapOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointSliceListMapOutput)
 }
 
+func (i EndpointSliceListMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*EndpointSliceList] {
+	return pulumix.Output[map[string]*EndpointSliceList]{
+		OutputState: i.ToEndpointSliceListMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type EndpointSliceListOutput struct{ *pulumi.OutputState }
 
 func (EndpointSliceListOutput) ElementType() reflect.Type {
@@ -179,6 +198,12 @@ func (o EndpointSliceListOutput) ToEndpointSliceListOutput() EndpointSliceListOu
 
 func (o EndpointSliceListOutput) ToEndpointSliceListOutputWithContext(ctx context.Context) EndpointSliceListOutput {
 	return o
+}
+
+func (o EndpointSliceListOutput) ToOutput(ctx context.Context) pulumix.Output[*EndpointSliceList] {
+	return pulumix.Output[*EndpointSliceList]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -215,6 +240,12 @@ func (o EndpointSliceListArrayOutput) ToEndpointSliceListArrayOutputWithContext(
 	return o
 }
 
+func (o EndpointSliceListArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*EndpointSliceList] {
+	return pulumix.Output[[]*EndpointSliceList]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o EndpointSliceListArrayOutput) Index(i pulumi.IntInput) EndpointSliceListOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *EndpointSliceList {
 		return vs[0].([]*EndpointSliceList)[vs[1].(int)]
@@ -233,6 +264,12 @@ func (o EndpointSliceListMapOutput) ToEndpointSliceListMapOutput() EndpointSlice
 
 func (o EndpointSliceListMapOutput) ToEndpointSliceListMapOutputWithContext(ctx context.Context) EndpointSliceListMapOutput {
 	return o
+}
+
+func (o EndpointSliceListMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*EndpointSliceList] {
+	return pulumix.Output[map[string]*EndpointSliceList]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o EndpointSliceListMapOutput) MapIndex(k pulumi.StringInput) EndpointSliceListOutput {
