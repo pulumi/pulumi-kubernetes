@@ -157,7 +157,7 @@ jobs:
       github.event.pull_request.head.repo.full_name == github.repository
   build_sdks:
     needs: prerequisites
-    runs-on: ubuntu-latest
+    runs-on: pulumi-ubuntu-8core
     strategy:
       fail-fast: true
       matrix:
