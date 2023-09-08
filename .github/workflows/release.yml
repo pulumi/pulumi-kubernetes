@@ -23,7 +23,7 @@ env:
   SIGNING_KEY_ID: ${{ secrets.JAVA_SIGNING_KEY_ID }}
   SIGNING_KEY: ${{ secrets.JAVA_SIGNING_KEY }}
   SIGNING_PASSWORD: ${{ secrets.JAVA_SIGNING_PASSWORD }}
-  GOVERSION: 1.20.x
+  GOVERSION: 1.21.x
   NODEVERSION: 16.x
   PYTHONVERSION: "3.7"
   DOTNETVERSION: |
@@ -117,6 +117,10 @@ jobs:
         path: ${{ github.workspace }}/bin/provider.tar.gz
     - name: Test Provider Library
       run: make test_provider
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v3
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
     - if: failure() && github.event_name == 'push'
       name: Notify Slack
       uses: 8398a7/action-slack@v3
@@ -479,8 +483,6 @@ jobs:
       run: ./ci-scripts/ci/publish-tfgen-package ${{ github.workspace }}
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        # See https://github.com/pulumi/scripts/pull/138/files
-        # Possible values: "all", "wheel".
         PYPI_PUBLISH_ARTIFACTS: all
     - if: failure() && github.event_name == 'push'
       name: Notify Slack
