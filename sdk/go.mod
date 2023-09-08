@@ -1,6 +1,6 @@
 module github.com/pulumi/pulumi-kubernetes/sdk/v4
 
-go 1.19
+go 1.21
 
 require (
 	github.com/blang/semver v3.5.1+incompatible

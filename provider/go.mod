@@ -1,6 +1,6 @@
 module github.com/pulumi/pulumi-kubernetes/provider/v4
 
-go 1.19
+go 1.21
 
 require (
 	github.com/ahmetb/go-linq v3.0.0+incompatible

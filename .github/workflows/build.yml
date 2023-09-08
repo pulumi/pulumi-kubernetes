@@ -31,7 +31,7 @@ env:
   SIGNING_KEY_ID: ${{ secrets.JAVA_SIGNING_KEY_ID }}
   SIGNING_KEY: ${{ secrets.JAVA_SIGNING_KEY }}
   SIGNING_PASSWORD: ${{ secrets.JAVA_SIGNING_PASSWORD }}
-  GOVERSION: 1.20.x
+  GOVERSION: 1.21.x
   NODEVERSION: 16.x
   PYTHONVERSION: "3.7"
   DOTNETVERSION: |
@@ -123,7 +123,6 @@ jobs:
       with:
         name: pulumi-${{ env.PROVIDER }}-provider.tar.gz
         path: ${{ github.workspace }}/bin/provider.tar.gz
-        retention-days: 30
     - name: Test Provider Library
       run: make test_provider
     - name: Upload coverage reports to Codecov
@@ -494,8 +493,6 @@ jobs:
       run: ./ci-scripts/ci/publish-tfgen-package ${{ github.workspace }}
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        # See https://github.com/pulumi/scripts/pull/138/files
-        # Possible values: "all", "wheel".
         PYPI_PUBLISH_ARTIFACTS: all
     - if: failure() && github.event_name == 'push'
       name: Notify Slack
@@ -616,7 +613,6 @@ jobs:
       with:
         name: config
         path: ~/.kube/config
-        retention-days: 30
   destroy-test-cluster:
     runs-on: ubuntu-latest
     name: teardown-test-cluster

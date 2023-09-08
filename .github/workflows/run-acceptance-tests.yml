@@ -30,7 +30,7 @@ env:
   SIGNING_KEY_ID: ${{ secrets.JAVA_SIGNING_KEY_ID }}
   SIGNING_KEY: ${{ secrets.JAVA_SIGNING_KEY }}
   SIGNING_PASSWORD: ${{ secrets.JAVA_SIGNING_PASSWORD }}
-  GOVERSION: 1.20.x
+  GOVERSION: 1.21.x
   NODEVERSION: 16.x
   PYTHONVERSION: "3.7"
   DOTNETVERSION: |
@@ -140,7 +140,6 @@ jobs:
       with:
         name: pulumi-${{ env.PROVIDER }}-provider.tar.gz
         path: ${{ github.workspace }}/bin/provider.tar.gz
-        retention-days: 30
     - name: Test Provider Library
       run: make test_provider
     - name: Upload coverage reports to Codecov
