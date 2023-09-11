@@ -217,7 +217,7 @@ jobs:
         fields: repo,commit,author,action
         status: ${{ job.status }}
   test:
-    runs-on: ubuntu-latest
+    runs-on: pulumi-ubuntu-8core
     needs:
     - build_sdks
     - build-test-cluster
