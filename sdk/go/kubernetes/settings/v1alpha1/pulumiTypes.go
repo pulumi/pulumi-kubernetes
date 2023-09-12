@@ -11,6 +11,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 var _ = internal.GetEnvOrDefault
@@ -58,6 +59,12 @@ func (i PodPresetTypeArgs) ToPodPresetTypeOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(PodPresetTypeOutput)
 }
 
+func (i PodPresetTypeArgs) ToOutput(ctx context.Context) pulumix.Output[PodPresetType] {
+	return pulumix.Output[PodPresetType]{
+		OutputState: i.ToPodPresetTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PodPresetTypeArrayInput is an input type that accepts PodPresetTypeArray and PodPresetTypeArrayOutput values.
 // You can construct a concrete instance of `PodPresetTypeArrayInput` via:
 //
@@ -83,6 +90,12 @@ func (i PodPresetTypeArray) ToPodPresetTypeArrayOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(PodPresetTypeArrayOutput)
 }
 
+func (i PodPresetTypeArray) ToOutput(ctx context.Context) pulumix.Output[[]PodPresetType] {
+	return pulumix.Output[[]PodPresetType]{
+		OutputState: i.ToPodPresetTypeArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PodPreset is a policy resource that defines additional runtime requirements for a Pod.
 type PodPresetTypeOutput struct{ *pulumi.OutputState }
 
@@ -96,6 +109,12 @@ func (o PodPresetTypeOutput) ToPodPresetTypeOutput() PodPresetTypeOutput {
 
 func (o PodPresetTypeOutput) ToPodPresetTypeOutputWithContext(ctx context.Context) PodPresetTypeOutput {
 	return o
+}
+
+func (o PodPresetTypeOutput) ToOutput(ctx context.Context) pulumix.Output[PodPresetType] {
+	return pulumix.Output[PodPresetType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -128,6 +147,12 @@ func (o PodPresetTypeArrayOutput) ToPodPresetTypeArrayOutput() PodPresetTypeArra
 
 func (o PodPresetTypeArrayOutput) ToPodPresetTypeArrayOutputWithContext(ctx context.Context) PodPresetTypeArrayOutput {
 	return o
+}
+
+func (o PodPresetTypeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]PodPresetType] {
+	return pulumix.Output[[]PodPresetType]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o PodPresetTypeArrayOutput) Index(i pulumi.IntInput) PodPresetTypeOutput {
@@ -183,6 +208,12 @@ func (i PodPresetListTypeArgs) ToPodPresetListTypeOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(PodPresetListTypeOutput)
 }
 
+func (i PodPresetListTypeArgs) ToOutput(ctx context.Context) pulumix.Output[PodPresetListType] {
+	return pulumix.Output[PodPresetListType]{
+		OutputState: i.ToPodPresetListTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PodPresetList is a list of PodPreset objects.
 type PodPresetListTypeOutput struct{ *pulumi.OutputState }
 
@@ -196,6 +227,12 @@ func (o PodPresetListTypeOutput) ToPodPresetListTypeOutput() PodPresetListTypeOu
 
 func (o PodPresetListTypeOutput) ToPodPresetListTypeOutputWithContext(ctx context.Context) PodPresetListTypeOutput {
 	return o
+}
+
+func (o PodPresetListTypeOutput) ToOutput(ctx context.Context) pulumix.Output[PodPresetListType] {
+	return pulumix.Output[PodPresetListType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -261,6 +298,12 @@ func (i PodPresetPatchTypeArgs) ToPodPresetPatchTypeOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(PodPresetPatchTypeOutput)
 }
 
+func (i PodPresetPatchTypeArgs) ToOutput(ctx context.Context) pulumix.Output[PodPresetPatchType] {
+	return pulumix.Output[PodPresetPatchType]{
+		OutputState: i.ToPodPresetPatchTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PodPreset is a policy resource that defines additional runtime requirements for a Pod.
 type PodPresetPatchTypeOutput struct{ *pulumi.OutputState }
 
@@ -274,6 +317,12 @@ func (o PodPresetPatchTypeOutput) ToPodPresetPatchTypeOutput() PodPresetPatchTyp
 
 func (o PodPresetPatchTypeOutput) ToPodPresetPatchTypeOutputWithContext(ctx context.Context) PodPresetPatchTypeOutput {
 	return o
+}
+
+func (o PodPresetPatchTypeOutput) ToOutput(ctx context.Context) pulumix.Output[PodPresetPatchType] {
+	return pulumix.Output[PodPresetPatchType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -345,6 +394,12 @@ func (i PodPresetSpecArgs) ToPodPresetSpecOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(PodPresetSpecOutput)
 }
 
+func (i PodPresetSpecArgs) ToOutput(ctx context.Context) pulumix.Output[PodPresetSpec] {
+	return pulumix.Output[PodPresetSpec]{
+		OutputState: i.ToPodPresetSpecOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i PodPresetSpecArgs) ToPodPresetSpecPtrOutput() PodPresetSpecPtrOutput {
 	return i.ToPodPresetSpecPtrOutputWithContext(context.Background())
 }
@@ -386,6 +441,12 @@ func (i *podPresetSpecPtrType) ToPodPresetSpecPtrOutputWithContext(ctx context.C
 	return pulumi.ToOutputWithContext(ctx, i).(PodPresetSpecPtrOutput)
 }
 
+func (i *podPresetSpecPtrType) ToOutput(ctx context.Context) pulumix.Output[*PodPresetSpec] {
+	return pulumix.Output[*PodPresetSpec]{
+		OutputState: i.ToPodPresetSpecPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PodPresetSpec is a description of a pod preset.
 type PodPresetSpecOutput struct{ *pulumi.OutputState }
 
@@ -409,6 +470,12 @@ func (o PodPresetSpecOutput) ToPodPresetSpecPtrOutputWithContext(ctx context.Con
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodPresetSpec) *PodPresetSpec {
 		return &v
 	}).(PodPresetSpecPtrOutput)
+}
+
+func (o PodPresetSpecOutput) ToOutput(ctx context.Context) pulumix.Output[PodPresetSpec] {
+	return pulumix.Output[PodPresetSpec]{
+		OutputState: o.OutputState,
+	}
 }
 
 // Env defines the collection of EnvVar to inject into containers.
@@ -448,6 +515,12 @@ func (o PodPresetSpecPtrOutput) ToPodPresetSpecPtrOutput() PodPresetSpecPtrOutpu
 
 func (o PodPresetSpecPtrOutput) ToPodPresetSpecPtrOutputWithContext(ctx context.Context) PodPresetSpecPtrOutput {
 	return o
+}
+
+func (o PodPresetSpecPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*PodPresetSpec] {
+	return pulumix.Output[*PodPresetSpec]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o PodPresetSpecPtrOutput) Elem() PodPresetSpecOutput {
@@ -561,6 +634,12 @@ func (i PodPresetSpecPatchArgs) ToPodPresetSpecPatchOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(PodPresetSpecPatchOutput)
 }
 
+func (i PodPresetSpecPatchArgs) ToOutput(ctx context.Context) pulumix.Output[PodPresetSpecPatch] {
+	return pulumix.Output[PodPresetSpecPatch]{
+		OutputState: i.ToPodPresetSpecPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i PodPresetSpecPatchArgs) ToPodPresetSpecPatchPtrOutput() PodPresetSpecPatchPtrOutput {
 	return i.ToPodPresetSpecPatchPtrOutputWithContext(context.Background())
 }
@@ -602,6 +681,12 @@ func (i *podPresetSpecPatchPtrType) ToPodPresetSpecPatchPtrOutputWithContext(ctx
 	return pulumi.ToOutputWithContext(ctx, i).(PodPresetSpecPatchPtrOutput)
 }
 
+func (i *podPresetSpecPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*PodPresetSpecPatch] {
+	return pulumix.Output[*PodPresetSpecPatch]{
+		OutputState: i.ToPodPresetSpecPatchPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PodPresetSpec is a description of a pod preset.
 type PodPresetSpecPatchOutput struct{ *pulumi.OutputState }
 
@@ -625,6 +710,12 @@ func (o PodPresetSpecPatchOutput) ToPodPresetSpecPatchPtrOutputWithContext(ctx c
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodPresetSpecPatch) *PodPresetSpecPatch {
 		return &v
 	}).(PodPresetSpecPatchPtrOutput)
+}
+
+func (o PodPresetSpecPatchOutput) ToOutput(ctx context.Context) pulumix.Output[PodPresetSpecPatch] {
+	return pulumix.Output[PodPresetSpecPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // Env defines the collection of EnvVar to inject into containers.
@@ -664,6 +755,12 @@ func (o PodPresetSpecPatchPtrOutput) ToPodPresetSpecPatchPtrOutput() PodPresetSp
 
 func (o PodPresetSpecPatchPtrOutput) ToPodPresetSpecPatchPtrOutputWithContext(ctx context.Context) PodPresetSpecPatchPtrOutput {
 	return o
+}
+
+func (o PodPresetSpecPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*PodPresetSpecPatch] {
+	return pulumix.Output[*PodPresetSpecPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o PodPresetSpecPatchPtrOutput) Elem() PodPresetSpecPatchOutput {

@@ -11,6 +11,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // PriorityLevelConfigurationList is a list of PriorityLevelConfiguration objects.
@@ -117,6 +118,12 @@ func (i *PriorityLevelConfigurationList) ToPriorityLevelConfigurationListOutputW
 	return pulumi.ToOutputWithContext(ctx, i).(PriorityLevelConfigurationListOutput)
 }
 
+func (i *PriorityLevelConfigurationList) ToOutput(ctx context.Context) pulumix.Output[*PriorityLevelConfigurationList] {
+	return pulumix.Output[*PriorityLevelConfigurationList]{
+		OutputState: i.ToPriorityLevelConfigurationListOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PriorityLevelConfigurationListArrayInput is an input type that accepts PriorityLevelConfigurationListArray and PriorityLevelConfigurationListArrayOutput values.
 // You can construct a concrete instance of `PriorityLevelConfigurationListArrayInput` via:
 //
@@ -140,6 +147,12 @@ func (i PriorityLevelConfigurationListArray) ToPriorityLevelConfigurationListArr
 
 func (i PriorityLevelConfigurationListArray) ToPriorityLevelConfigurationListArrayOutputWithContext(ctx context.Context) PriorityLevelConfigurationListArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(PriorityLevelConfigurationListArrayOutput)
+}
+
+func (i PriorityLevelConfigurationListArray) ToOutput(ctx context.Context) pulumix.Output[[]*PriorityLevelConfigurationList] {
+	return pulumix.Output[[]*PriorityLevelConfigurationList]{
+		OutputState: i.ToPriorityLevelConfigurationListArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // PriorityLevelConfigurationListMapInput is an input type that accepts PriorityLevelConfigurationListMap and PriorityLevelConfigurationListMapOutput values.
@@ -167,6 +180,12 @@ func (i PriorityLevelConfigurationListMap) ToPriorityLevelConfigurationListMapOu
 	return pulumi.ToOutputWithContext(ctx, i).(PriorityLevelConfigurationListMapOutput)
 }
 
+func (i PriorityLevelConfigurationListMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*PriorityLevelConfigurationList] {
+	return pulumix.Output[map[string]*PriorityLevelConfigurationList]{
+		OutputState: i.ToPriorityLevelConfigurationListMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type PriorityLevelConfigurationListOutput struct{ *pulumi.OutputState }
 
 func (PriorityLevelConfigurationListOutput) ElementType() reflect.Type {
@@ -179,6 +198,12 @@ func (o PriorityLevelConfigurationListOutput) ToPriorityLevelConfigurationListOu
 
 func (o PriorityLevelConfigurationListOutput) ToPriorityLevelConfigurationListOutputWithContext(ctx context.Context) PriorityLevelConfigurationListOutput {
 	return o
+}
+
+func (o PriorityLevelConfigurationListOutput) ToOutput(ctx context.Context) pulumix.Output[*PriorityLevelConfigurationList] {
+	return pulumix.Output[*PriorityLevelConfigurationList]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -215,6 +240,12 @@ func (o PriorityLevelConfigurationListArrayOutput) ToPriorityLevelConfigurationL
 	return o
 }
 
+func (o PriorityLevelConfigurationListArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*PriorityLevelConfigurationList] {
+	return pulumix.Output[[]*PriorityLevelConfigurationList]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o PriorityLevelConfigurationListArrayOutput) Index(i pulumi.IntInput) PriorityLevelConfigurationListOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *PriorityLevelConfigurationList {
 		return vs[0].([]*PriorityLevelConfigurationList)[vs[1].(int)]
@@ -233,6 +264,12 @@ func (o PriorityLevelConfigurationListMapOutput) ToPriorityLevelConfigurationLis
 
 func (o PriorityLevelConfigurationListMapOutput) ToPriorityLevelConfigurationListMapOutputWithContext(ctx context.Context) PriorityLevelConfigurationListMapOutput {
 	return o
+}
+
+func (o PriorityLevelConfigurationListMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*PriorityLevelConfigurationList] {
+	return pulumix.Output[map[string]*PriorityLevelConfigurationList]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o PriorityLevelConfigurationListMapOutput) MapIndex(k pulumi.StringInput) PriorityLevelConfigurationListOutput {

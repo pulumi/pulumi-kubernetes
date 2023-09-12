@@ -11,6 +11,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a pod. RuntimeClasses are (currently) manually defined by a user or cluster provisioner, and referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName reference before running the pod.  For more details, see https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md
@@ -138,6 +139,12 @@ func (i *RuntimeClass) ToRuntimeClassOutputWithContext(ctx context.Context) Runt
 	return pulumi.ToOutputWithContext(ctx, i).(RuntimeClassOutput)
 }
 
+func (i *RuntimeClass) ToOutput(ctx context.Context) pulumix.Output[*RuntimeClass] {
+	return pulumix.Output[*RuntimeClass]{
+		OutputState: i.ToRuntimeClassOutputWithContext(ctx).OutputState,
+	}
+}
+
 // RuntimeClassArrayInput is an input type that accepts RuntimeClassArray and RuntimeClassArrayOutput values.
 // You can construct a concrete instance of `RuntimeClassArrayInput` via:
 //
@@ -161,6 +168,12 @@ func (i RuntimeClassArray) ToRuntimeClassArrayOutput() RuntimeClassArrayOutput {
 
 func (i RuntimeClassArray) ToRuntimeClassArrayOutputWithContext(ctx context.Context) RuntimeClassArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(RuntimeClassArrayOutput)
+}
+
+func (i RuntimeClassArray) ToOutput(ctx context.Context) pulumix.Output[[]*RuntimeClass] {
+	return pulumix.Output[[]*RuntimeClass]{
+		OutputState: i.ToRuntimeClassArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // RuntimeClassMapInput is an input type that accepts RuntimeClassMap and RuntimeClassMapOutput values.
@@ -188,6 +201,12 @@ func (i RuntimeClassMap) ToRuntimeClassMapOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(RuntimeClassMapOutput)
 }
 
+func (i RuntimeClassMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*RuntimeClass] {
+	return pulumix.Output[map[string]*RuntimeClass]{
+		OutputState: i.ToRuntimeClassMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type RuntimeClassOutput struct{ *pulumi.OutputState }
 
 func (RuntimeClassOutput) ElementType() reflect.Type {
@@ -200,6 +219,12 @@ func (o RuntimeClassOutput) ToRuntimeClassOutput() RuntimeClassOutput {
 
 func (o RuntimeClassOutput) ToRuntimeClassOutputWithContext(ctx context.Context) RuntimeClassOutput {
 	return o
+}
+
+func (o RuntimeClassOutput) ToOutput(ctx context.Context) pulumix.Output[*RuntimeClass] {
+	return pulumix.Output[*RuntimeClass]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -246,6 +271,12 @@ func (o RuntimeClassArrayOutput) ToRuntimeClassArrayOutputWithContext(ctx contex
 	return o
 }
 
+func (o RuntimeClassArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*RuntimeClass] {
+	return pulumix.Output[[]*RuntimeClass]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o RuntimeClassArrayOutput) Index(i pulumi.IntInput) RuntimeClassOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *RuntimeClass {
 		return vs[0].([]*RuntimeClass)[vs[1].(int)]
@@ -264,6 +295,12 @@ func (o RuntimeClassMapOutput) ToRuntimeClassMapOutput() RuntimeClassMapOutput {
 
 func (o RuntimeClassMapOutput) ToRuntimeClassMapOutputWithContext(ctx context.Context) RuntimeClassMapOutput {
 	return o
+}
+
+func (o RuntimeClassMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*RuntimeClass] {
+	return pulumix.Output[map[string]*RuntimeClass]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o RuntimeClassMapOutput) MapIndex(k pulumi.StringInput) RuntimeClassOutput {

@@ -10,6 +10,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -125,6 +126,12 @@ func (i *LeasePatch) ToLeasePatchOutputWithContext(ctx context.Context) LeasePat
 	return pulumi.ToOutputWithContext(ctx, i).(LeasePatchOutput)
 }
 
+func (i *LeasePatch) ToOutput(ctx context.Context) pulumix.Output[*LeasePatch] {
+	return pulumix.Output[*LeasePatch]{
+		OutputState: i.ToLeasePatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 // LeasePatchArrayInput is an input type that accepts LeasePatchArray and LeasePatchArrayOutput values.
 // You can construct a concrete instance of `LeasePatchArrayInput` via:
 //
@@ -148,6 +155,12 @@ func (i LeasePatchArray) ToLeasePatchArrayOutput() LeasePatchArrayOutput {
 
 func (i LeasePatchArray) ToLeasePatchArrayOutputWithContext(ctx context.Context) LeasePatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(LeasePatchArrayOutput)
+}
+
+func (i LeasePatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*LeasePatch] {
+	return pulumix.Output[[]*LeasePatch]{
+		OutputState: i.ToLeasePatchArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // LeasePatchMapInput is an input type that accepts LeasePatchMap and LeasePatchMapOutput values.
@@ -175,6 +188,12 @@ func (i LeasePatchMap) ToLeasePatchMapOutputWithContext(ctx context.Context) Lea
 	return pulumi.ToOutputWithContext(ctx, i).(LeasePatchMapOutput)
 }
 
+func (i LeasePatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*LeasePatch] {
+	return pulumix.Output[map[string]*LeasePatch]{
+		OutputState: i.ToLeasePatchMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type LeasePatchOutput struct{ *pulumi.OutputState }
 
 func (LeasePatchOutput) ElementType() reflect.Type {
@@ -187,6 +206,12 @@ func (o LeasePatchOutput) ToLeasePatchOutput() LeasePatchOutput {
 
 func (o LeasePatchOutput) ToLeasePatchOutputWithContext(ctx context.Context) LeasePatchOutput {
 	return o
+}
+
+func (o LeasePatchOutput) ToOutput(ctx context.Context) pulumix.Output[*LeasePatch] {
+	return pulumix.Output[*LeasePatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -223,6 +248,12 @@ func (o LeasePatchArrayOutput) ToLeasePatchArrayOutputWithContext(ctx context.Co
 	return o
 }
 
+func (o LeasePatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*LeasePatch] {
+	return pulumix.Output[[]*LeasePatch]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o LeasePatchArrayOutput) Index(i pulumi.IntInput) LeasePatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *LeasePatch {
 		return vs[0].([]*LeasePatch)[vs[1].(int)]
@@ -241,6 +272,12 @@ func (o LeasePatchMapOutput) ToLeasePatchMapOutput() LeasePatchMapOutput {
 
 func (o LeasePatchMapOutput) ToLeasePatchMapOutputWithContext(ctx context.Context) LeasePatchMapOutput {
 	return o
+}
+
+func (o LeasePatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*LeasePatch] {
+	return pulumix.Output[map[string]*LeasePatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o LeasePatchMapOutput) MapIndex(k pulumi.StringInput) LeasePatchOutput {

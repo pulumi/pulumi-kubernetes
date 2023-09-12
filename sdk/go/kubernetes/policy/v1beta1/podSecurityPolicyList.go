@@ -11,6 +11,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // PodSecurityPolicyList is a list of PodSecurityPolicy objects.
@@ -117,6 +118,12 @@ func (i *PodSecurityPolicyList) ToPodSecurityPolicyListOutputWithContext(ctx con
 	return pulumi.ToOutputWithContext(ctx, i).(PodSecurityPolicyListOutput)
 }
 
+func (i *PodSecurityPolicyList) ToOutput(ctx context.Context) pulumix.Output[*PodSecurityPolicyList] {
+	return pulumix.Output[*PodSecurityPolicyList]{
+		OutputState: i.ToPodSecurityPolicyListOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PodSecurityPolicyListArrayInput is an input type that accepts PodSecurityPolicyListArray and PodSecurityPolicyListArrayOutput values.
 // You can construct a concrete instance of `PodSecurityPolicyListArrayInput` via:
 //
@@ -140,6 +147,12 @@ func (i PodSecurityPolicyListArray) ToPodSecurityPolicyListArrayOutput() PodSecu
 
 func (i PodSecurityPolicyListArray) ToPodSecurityPolicyListArrayOutputWithContext(ctx context.Context) PodSecurityPolicyListArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(PodSecurityPolicyListArrayOutput)
+}
+
+func (i PodSecurityPolicyListArray) ToOutput(ctx context.Context) pulumix.Output[[]*PodSecurityPolicyList] {
+	return pulumix.Output[[]*PodSecurityPolicyList]{
+		OutputState: i.ToPodSecurityPolicyListArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // PodSecurityPolicyListMapInput is an input type that accepts PodSecurityPolicyListMap and PodSecurityPolicyListMapOutput values.
@@ -167,6 +180,12 @@ func (i PodSecurityPolicyListMap) ToPodSecurityPolicyListMapOutputWithContext(ct
 	return pulumi.ToOutputWithContext(ctx, i).(PodSecurityPolicyListMapOutput)
 }
 
+func (i PodSecurityPolicyListMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*PodSecurityPolicyList] {
+	return pulumix.Output[map[string]*PodSecurityPolicyList]{
+		OutputState: i.ToPodSecurityPolicyListMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type PodSecurityPolicyListOutput struct{ *pulumi.OutputState }
 
 func (PodSecurityPolicyListOutput) ElementType() reflect.Type {
@@ -179,6 +198,12 @@ func (o PodSecurityPolicyListOutput) ToPodSecurityPolicyListOutput() PodSecurity
 
 func (o PodSecurityPolicyListOutput) ToPodSecurityPolicyListOutputWithContext(ctx context.Context) PodSecurityPolicyListOutput {
 	return o
+}
+
+func (o PodSecurityPolicyListOutput) ToOutput(ctx context.Context) pulumix.Output[*PodSecurityPolicyList] {
+	return pulumix.Output[*PodSecurityPolicyList]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -215,6 +240,12 @@ func (o PodSecurityPolicyListArrayOutput) ToPodSecurityPolicyListArrayOutputWith
 	return o
 }
 
+func (o PodSecurityPolicyListArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*PodSecurityPolicyList] {
+	return pulumix.Output[[]*PodSecurityPolicyList]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o PodSecurityPolicyListArrayOutput) Index(i pulumi.IntInput) PodSecurityPolicyListOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *PodSecurityPolicyList {
 		return vs[0].([]*PodSecurityPolicyList)[vs[1].(int)]
@@ -233,6 +264,12 @@ func (o PodSecurityPolicyListMapOutput) ToPodSecurityPolicyListMapOutput() PodSe
 
 func (o PodSecurityPolicyListMapOutput) ToPodSecurityPolicyListMapOutputWithContext(ctx context.Context) PodSecurityPolicyListMapOutput {
 	return o
+}
+
+func (o PodSecurityPolicyListMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*PodSecurityPolicyList] {
+	return pulumix.Output[map[string]*PodSecurityPolicyList]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o PodSecurityPolicyListMapOutput) MapIndex(k pulumi.StringInput) PodSecurityPolicyListOutput {

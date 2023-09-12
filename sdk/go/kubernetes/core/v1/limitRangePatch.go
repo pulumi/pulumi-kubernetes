@@ -10,6 +10,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -119,6 +120,12 @@ func (i *LimitRangePatch) ToLimitRangePatchOutputWithContext(ctx context.Context
 	return pulumi.ToOutputWithContext(ctx, i).(LimitRangePatchOutput)
 }
 
+func (i *LimitRangePatch) ToOutput(ctx context.Context) pulumix.Output[*LimitRangePatch] {
+	return pulumix.Output[*LimitRangePatch]{
+		OutputState: i.ToLimitRangePatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 // LimitRangePatchArrayInput is an input type that accepts LimitRangePatchArray and LimitRangePatchArrayOutput values.
 // You can construct a concrete instance of `LimitRangePatchArrayInput` via:
 //
@@ -142,6 +149,12 @@ func (i LimitRangePatchArray) ToLimitRangePatchArrayOutput() LimitRangePatchArra
 
 func (i LimitRangePatchArray) ToLimitRangePatchArrayOutputWithContext(ctx context.Context) LimitRangePatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(LimitRangePatchArrayOutput)
+}
+
+func (i LimitRangePatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*LimitRangePatch] {
+	return pulumix.Output[[]*LimitRangePatch]{
+		OutputState: i.ToLimitRangePatchArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // LimitRangePatchMapInput is an input type that accepts LimitRangePatchMap and LimitRangePatchMapOutput values.
@@ -169,6 +182,12 @@ func (i LimitRangePatchMap) ToLimitRangePatchMapOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(LimitRangePatchMapOutput)
 }
 
+func (i LimitRangePatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*LimitRangePatch] {
+	return pulumix.Output[map[string]*LimitRangePatch]{
+		OutputState: i.ToLimitRangePatchMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type LimitRangePatchOutput struct{ *pulumi.OutputState }
 
 func (LimitRangePatchOutput) ElementType() reflect.Type {
@@ -181,6 +200,12 @@ func (o LimitRangePatchOutput) ToLimitRangePatchOutput() LimitRangePatchOutput {
 
 func (o LimitRangePatchOutput) ToLimitRangePatchOutputWithContext(ctx context.Context) LimitRangePatchOutput {
 	return o
+}
+
+func (o LimitRangePatchOutput) ToOutput(ctx context.Context) pulumix.Output[*LimitRangePatch] {
+	return pulumix.Output[*LimitRangePatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -217,6 +242,12 @@ func (o LimitRangePatchArrayOutput) ToLimitRangePatchArrayOutputWithContext(ctx 
 	return o
 }
 
+func (o LimitRangePatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*LimitRangePatch] {
+	return pulumix.Output[[]*LimitRangePatch]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o LimitRangePatchArrayOutput) Index(i pulumi.IntInput) LimitRangePatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *LimitRangePatch {
 		return vs[0].([]*LimitRangePatch)[vs[1].(int)]
@@ -235,6 +266,12 @@ func (o LimitRangePatchMapOutput) ToLimitRangePatchMapOutput() LimitRangePatchMa
 
 func (o LimitRangePatchMapOutput) ToLimitRangePatchMapOutputWithContext(ctx context.Context) LimitRangePatchMapOutput {
 	return o
+}
+
+func (o LimitRangePatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*LimitRangePatch] {
+	return pulumix.Output[map[string]*LimitRangePatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o LimitRangePatchMapOutput) MapIndex(k pulumi.StringInput) LimitRangePatchOutput {

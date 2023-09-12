@@ -11,6 +11,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 var _ = internal.GetEnvOrDefault
@@ -112,6 +113,12 @@ func (i EventTypeArgs) ToEventTypeOutputWithContext(ctx context.Context) EventTy
 	return pulumi.ToOutputWithContext(ctx, i).(EventTypeOutput)
 }
 
+func (i EventTypeArgs) ToOutput(ctx context.Context) pulumix.Output[EventType] {
+	return pulumix.Output[EventType]{
+		OutputState: i.ToEventTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // EventTypeArrayInput is an input type that accepts EventTypeArray and EventTypeArrayOutput values.
 // You can construct a concrete instance of `EventTypeArrayInput` via:
 //
@@ -137,6 +144,12 @@ func (i EventTypeArray) ToEventTypeArrayOutputWithContext(ctx context.Context) E
 	return pulumi.ToOutputWithContext(ctx, i).(EventTypeArrayOutput)
 }
 
+func (i EventTypeArray) ToOutput(ctx context.Context) pulumix.Output[[]EventType] {
+	return pulumix.Output[[]EventType]{
+		OutputState: i.ToEventTypeArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.
 type EventTypeOutput struct{ *pulumi.OutputState }
 
@@ -150,6 +163,12 @@ func (o EventTypeOutput) ToEventTypeOutput() EventTypeOutput {
 
 func (o EventTypeOutput) ToEventTypeOutputWithContext(ctx context.Context) EventTypeOutput {
 	return o
+}
+
+func (o EventTypeOutput) ToOutput(ctx context.Context) pulumix.Output[EventType] {
+	return pulumix.Output[EventType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // What action was taken/failed regarding to the regarding object.
@@ -250,6 +269,12 @@ func (o EventTypeArrayOutput) ToEventTypeArrayOutputWithContext(ctx context.Cont
 	return o
 }
 
+func (o EventTypeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]EventType] {
+	return pulumix.Output[[]EventType]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o EventTypeArrayOutput) Index(i pulumi.IntInput) EventTypeOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) EventType {
 		return vs[0].([]EventType)[vs[1].(int)]
@@ -303,6 +328,12 @@ func (i EventListTypeArgs) ToEventListTypeOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(EventListTypeOutput)
 }
 
+func (i EventListTypeArgs) ToOutput(ctx context.Context) pulumix.Output[EventListType] {
+	return pulumix.Output[EventListType]{
+		OutputState: i.ToEventListTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // EventList is a list of Event objects.
 type EventListTypeOutput struct{ *pulumi.OutputState }
 
@@ -316,6 +347,12 @@ func (o EventListTypeOutput) ToEventListTypeOutput() EventListTypeOutput {
 
 func (o EventListTypeOutput) ToEventListTypeOutputWithContext(ctx context.Context) EventListTypeOutput {
 	return o
+}
+
+func (o EventListTypeOutput) ToOutput(ctx context.Context) pulumix.Output[EventListType] {
+	return pulumix.Output[EventListType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -435,6 +472,12 @@ func (i EventPatchTypeArgs) ToEventPatchTypeOutputWithContext(ctx context.Contex
 	return pulumi.ToOutputWithContext(ctx, i).(EventPatchTypeOutput)
 }
 
+func (i EventPatchTypeArgs) ToOutput(ctx context.Context) pulumix.Output[EventPatchType] {
+	return pulumix.Output[EventPatchType]{
+		OutputState: i.ToEventPatchTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // Event is a report of an event somewhere in the cluster. It generally denotes some state change in the system.
 type EventPatchTypeOutput struct{ *pulumi.OutputState }
 
@@ -448,6 +491,12 @@ func (o EventPatchTypeOutput) ToEventPatchTypeOutput() EventPatchTypeOutput {
 
 func (o EventPatchTypeOutput) ToEventPatchTypeOutputWithContext(ctx context.Context) EventPatchTypeOutput {
 	return o
+}
+
+func (o EventPatchTypeOutput) ToOutput(ctx context.Context) pulumix.Output[EventPatchType] {
+	return pulumix.Output[EventPatchType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // What action was taken/failed regarding to the regarding object.
@@ -577,6 +626,12 @@ func (i EventSeriesArgs) ToEventSeriesOutputWithContext(ctx context.Context) Eve
 	return pulumi.ToOutputWithContext(ctx, i).(EventSeriesOutput)
 }
 
+func (i EventSeriesArgs) ToOutput(ctx context.Context) pulumix.Output[EventSeries] {
+	return pulumix.Output[EventSeries]{
+		OutputState: i.ToEventSeriesOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i EventSeriesArgs) ToEventSeriesPtrOutput() EventSeriesPtrOutput {
 	return i.ToEventSeriesPtrOutputWithContext(context.Background())
 }
@@ -618,6 +673,12 @@ func (i *eventSeriesPtrType) ToEventSeriesPtrOutputWithContext(ctx context.Conte
 	return pulumi.ToOutputWithContext(ctx, i).(EventSeriesPtrOutput)
 }
 
+func (i *eventSeriesPtrType) ToOutput(ctx context.Context) pulumix.Output[*EventSeries] {
+	return pulumix.Output[*EventSeries]{
+		OutputState: i.ToEventSeriesPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
 type EventSeriesOutput struct{ *pulumi.OutputState }
 
@@ -641,6 +702,12 @@ func (o EventSeriesOutput) ToEventSeriesPtrOutputWithContext(ctx context.Context
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v EventSeries) *EventSeries {
 		return &v
 	}).(EventSeriesPtrOutput)
+}
+
+func (o EventSeriesOutput) ToOutput(ctx context.Context) pulumix.Output[EventSeries] {
+	return pulumix.Output[EventSeries]{
+		OutputState: o.OutputState,
+	}
 }
 
 // Number of occurrences in this series up to the last heartbeat time
@@ -670,6 +737,12 @@ func (o EventSeriesPtrOutput) ToEventSeriesPtrOutput() EventSeriesPtrOutput {
 
 func (o EventSeriesPtrOutput) ToEventSeriesPtrOutputWithContext(ctx context.Context) EventSeriesPtrOutput {
 	return o
+}
+
+func (o EventSeriesPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*EventSeries] {
+	return pulumix.Output[*EventSeries]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o EventSeriesPtrOutput) Elem() EventSeriesOutput {
@@ -755,6 +828,12 @@ func (i EventSeriesPatchArgs) ToEventSeriesPatchOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(EventSeriesPatchOutput)
 }
 
+func (i EventSeriesPatchArgs) ToOutput(ctx context.Context) pulumix.Output[EventSeriesPatch] {
+	return pulumix.Output[EventSeriesPatch]{
+		OutputState: i.ToEventSeriesPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i EventSeriesPatchArgs) ToEventSeriesPatchPtrOutput() EventSeriesPatchPtrOutput {
 	return i.ToEventSeriesPatchPtrOutputWithContext(context.Background())
 }
@@ -796,6 +875,12 @@ func (i *eventSeriesPatchPtrType) ToEventSeriesPatchPtrOutputWithContext(ctx con
 	return pulumi.ToOutputWithContext(ctx, i).(EventSeriesPatchPtrOutput)
 }
 
+func (i *eventSeriesPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*EventSeriesPatch] {
+	return pulumix.Output[*EventSeriesPatch]{
+		OutputState: i.ToEventSeriesPatchPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // EventSeries contain information on series of events, i.e. thing that was/is happening continuously for some time.
 type EventSeriesPatchOutput struct{ *pulumi.OutputState }
 
@@ -819,6 +904,12 @@ func (o EventSeriesPatchOutput) ToEventSeriesPatchPtrOutputWithContext(ctx conte
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v EventSeriesPatch) *EventSeriesPatch {
 		return &v
 	}).(EventSeriesPatchPtrOutput)
+}
+
+func (o EventSeriesPatchOutput) ToOutput(ctx context.Context) pulumix.Output[EventSeriesPatch] {
+	return pulumix.Output[EventSeriesPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // Number of occurrences in this series up to the last heartbeat time
@@ -848,6 +939,12 @@ func (o EventSeriesPatchPtrOutput) ToEventSeriesPatchPtrOutput() EventSeriesPatc
 
 func (o EventSeriesPatchPtrOutput) ToEventSeriesPatchPtrOutputWithContext(ctx context.Context) EventSeriesPatchPtrOutput {
 	return o
+}
+
+func (o EventSeriesPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*EventSeriesPatch] {
+	return pulumix.Output[*EventSeriesPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o EventSeriesPatchPtrOutput) Elem() EventSeriesPatchOutput {

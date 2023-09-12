@@ -10,6 +10,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -124,6 +125,12 @@ func (i *CustomResourceDefinitionPatch) ToCustomResourceDefinitionPatchOutputWit
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionPatchOutput)
 }
 
+func (i *CustomResourceDefinitionPatch) ToOutput(ctx context.Context) pulumix.Output[*CustomResourceDefinitionPatch] {
+	return pulumix.Output[*CustomResourceDefinitionPatch]{
+		OutputState: i.ToCustomResourceDefinitionPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 // CustomResourceDefinitionPatchArrayInput is an input type that accepts CustomResourceDefinitionPatchArray and CustomResourceDefinitionPatchArrayOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionPatchArrayInput` via:
 //
@@ -147,6 +154,12 @@ func (i CustomResourceDefinitionPatchArray) ToCustomResourceDefinitionPatchArray
 
 func (i CustomResourceDefinitionPatchArray) ToCustomResourceDefinitionPatchArrayOutputWithContext(ctx context.Context) CustomResourceDefinitionPatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionPatchArrayOutput)
+}
+
+func (i CustomResourceDefinitionPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*CustomResourceDefinitionPatch] {
+	return pulumix.Output[[]*CustomResourceDefinitionPatch]{
+		OutputState: i.ToCustomResourceDefinitionPatchArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // CustomResourceDefinitionPatchMapInput is an input type that accepts CustomResourceDefinitionPatchMap and CustomResourceDefinitionPatchMapOutput values.
@@ -174,6 +187,12 @@ func (i CustomResourceDefinitionPatchMap) ToCustomResourceDefinitionPatchMapOutp
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionPatchMapOutput)
 }
 
+func (i CustomResourceDefinitionPatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*CustomResourceDefinitionPatch] {
+	return pulumix.Output[map[string]*CustomResourceDefinitionPatch]{
+		OutputState: i.ToCustomResourceDefinitionPatchMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type CustomResourceDefinitionPatchOutput struct{ *pulumi.OutputState }
 
 func (CustomResourceDefinitionPatchOutput) ElementType() reflect.Type {
@@ -186,6 +205,12 @@ func (o CustomResourceDefinitionPatchOutput) ToCustomResourceDefinitionPatchOutp
 
 func (o CustomResourceDefinitionPatchOutput) ToCustomResourceDefinitionPatchOutputWithContext(ctx context.Context) CustomResourceDefinitionPatchOutput {
 	return o
+}
+
+func (o CustomResourceDefinitionPatchOutput) ToOutput(ctx context.Context) pulumix.Output[*CustomResourceDefinitionPatch] {
+	return pulumix.Output[*CustomResourceDefinitionPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -226,6 +251,12 @@ func (o CustomResourceDefinitionPatchArrayOutput) ToCustomResourceDefinitionPatc
 	return o
 }
 
+func (o CustomResourceDefinitionPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*CustomResourceDefinitionPatch] {
+	return pulumix.Output[[]*CustomResourceDefinitionPatch]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o CustomResourceDefinitionPatchArrayOutput) Index(i pulumi.IntInput) CustomResourceDefinitionPatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *CustomResourceDefinitionPatch {
 		return vs[0].([]*CustomResourceDefinitionPatch)[vs[1].(int)]
@@ -244,6 +275,12 @@ func (o CustomResourceDefinitionPatchMapOutput) ToCustomResourceDefinitionPatchM
 
 func (o CustomResourceDefinitionPatchMapOutput) ToCustomResourceDefinitionPatchMapOutputWithContext(ctx context.Context) CustomResourceDefinitionPatchMapOutput {
 	return o
+}
+
+func (o CustomResourceDefinitionPatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*CustomResourceDefinitionPatch] {
+	return pulumix.Output[map[string]*CustomResourceDefinitionPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o CustomResourceDefinitionPatchMapOutput) MapIndex(k pulumi.StringInput) CustomResourceDefinitionPatchOutput {

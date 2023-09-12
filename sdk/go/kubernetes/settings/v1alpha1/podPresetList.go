@@ -11,6 +11,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // PodPresetList is a list of PodPreset objects.
@@ -117,6 +118,12 @@ func (i *PodPresetList) ToPodPresetListOutputWithContext(ctx context.Context) Po
 	return pulumi.ToOutputWithContext(ctx, i).(PodPresetListOutput)
 }
 
+func (i *PodPresetList) ToOutput(ctx context.Context) pulumix.Output[*PodPresetList] {
+	return pulumix.Output[*PodPresetList]{
+		OutputState: i.ToPodPresetListOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PodPresetListArrayInput is an input type that accepts PodPresetListArray and PodPresetListArrayOutput values.
 // You can construct a concrete instance of `PodPresetListArrayInput` via:
 //
@@ -140,6 +147,12 @@ func (i PodPresetListArray) ToPodPresetListArrayOutput() PodPresetListArrayOutpu
 
 func (i PodPresetListArray) ToPodPresetListArrayOutputWithContext(ctx context.Context) PodPresetListArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(PodPresetListArrayOutput)
+}
+
+func (i PodPresetListArray) ToOutput(ctx context.Context) pulumix.Output[[]*PodPresetList] {
+	return pulumix.Output[[]*PodPresetList]{
+		OutputState: i.ToPodPresetListArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // PodPresetListMapInput is an input type that accepts PodPresetListMap and PodPresetListMapOutput values.
@@ -167,6 +180,12 @@ func (i PodPresetListMap) ToPodPresetListMapOutputWithContext(ctx context.Contex
 	return pulumi.ToOutputWithContext(ctx, i).(PodPresetListMapOutput)
 }
 
+func (i PodPresetListMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*PodPresetList] {
+	return pulumix.Output[map[string]*PodPresetList]{
+		OutputState: i.ToPodPresetListMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type PodPresetListOutput struct{ *pulumi.OutputState }
 
 func (PodPresetListOutput) ElementType() reflect.Type {
@@ -179,6 +198,12 @@ func (o PodPresetListOutput) ToPodPresetListOutput() PodPresetListOutput {
 
 func (o PodPresetListOutput) ToPodPresetListOutputWithContext(ctx context.Context) PodPresetListOutput {
 	return o
+}
+
+func (o PodPresetListOutput) ToOutput(ctx context.Context) pulumix.Output[*PodPresetList] {
+	return pulumix.Output[*PodPresetList]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -215,6 +240,12 @@ func (o PodPresetListArrayOutput) ToPodPresetListArrayOutputWithContext(ctx cont
 	return o
 }
 
+func (o PodPresetListArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*PodPresetList] {
+	return pulumix.Output[[]*PodPresetList]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o PodPresetListArrayOutput) Index(i pulumi.IntInput) PodPresetListOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *PodPresetList {
 		return vs[0].([]*PodPresetList)[vs[1].(int)]
@@ -233,6 +264,12 @@ func (o PodPresetListMapOutput) ToPodPresetListMapOutput() PodPresetListMapOutpu
 
 func (o PodPresetListMapOutput) ToPodPresetListMapOutputWithContext(ctx context.Context) PodPresetListMapOutput {
 	return o
+}
+
+func (o PodPresetListMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*PodPresetList] {
+	return pulumix.Output[map[string]*PodPresetList]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o PodPresetListMapOutput) MapIndex(k pulumi.StringInput) PodPresetListOutput {

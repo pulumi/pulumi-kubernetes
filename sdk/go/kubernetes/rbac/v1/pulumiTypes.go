@@ -10,6 +10,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 var _ = internal.GetEnvOrDefault
@@ -47,6 +48,12 @@ func (i AggregationRuleArgs) ToAggregationRuleOutput() AggregationRuleOutput {
 
 func (i AggregationRuleArgs) ToAggregationRuleOutputWithContext(ctx context.Context) AggregationRuleOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(AggregationRuleOutput)
+}
+
+func (i AggregationRuleArgs) ToOutput(ctx context.Context) pulumix.Output[AggregationRule] {
+	return pulumix.Output[AggregationRule]{
+		OutputState: i.ToAggregationRuleOutputWithContext(ctx).OutputState,
+	}
 }
 
 func (i AggregationRuleArgs) ToAggregationRulePtrOutput() AggregationRulePtrOutput {
@@ -90,6 +97,12 @@ func (i *aggregationRulePtrType) ToAggregationRulePtrOutputWithContext(ctx conte
 	return pulumi.ToOutputWithContext(ctx, i).(AggregationRulePtrOutput)
 }
 
+func (i *aggregationRulePtrType) ToOutput(ctx context.Context) pulumix.Output[*AggregationRule] {
+	return pulumix.Output[*AggregationRule]{
+		OutputState: i.ToAggregationRulePtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // AggregationRule describes how to locate ClusterRoles to aggregate into the ClusterRole
 type AggregationRuleOutput struct{ *pulumi.OutputState }
 
@@ -115,6 +128,12 @@ func (o AggregationRuleOutput) ToAggregationRulePtrOutputWithContext(ctx context
 	}).(AggregationRulePtrOutput)
 }
 
+func (o AggregationRuleOutput) ToOutput(ctx context.Context) pulumix.Output[AggregationRule] {
+	return pulumix.Output[AggregationRule]{
+		OutputState: o.OutputState,
+	}
+}
+
 // ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
 func (o AggregationRuleOutput) ClusterRoleSelectors() metav1.LabelSelectorArrayOutput {
 	return o.ApplyT(func(v AggregationRule) []metav1.LabelSelector { return v.ClusterRoleSelectors }).(metav1.LabelSelectorArrayOutput)
@@ -132,6 +151,12 @@ func (o AggregationRulePtrOutput) ToAggregationRulePtrOutput() AggregationRulePt
 
 func (o AggregationRulePtrOutput) ToAggregationRulePtrOutputWithContext(ctx context.Context) AggregationRulePtrOutput {
 	return o
+}
+
+func (o AggregationRulePtrOutput) ToOutput(ctx context.Context) pulumix.Output[*AggregationRule] {
+	return pulumix.Output[*AggregationRule]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o AggregationRulePtrOutput) Elem() AggregationRuleOutput {
@@ -189,6 +214,12 @@ func (i AggregationRulePatchArgs) ToAggregationRulePatchOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(AggregationRulePatchOutput)
 }
 
+func (i AggregationRulePatchArgs) ToOutput(ctx context.Context) pulumix.Output[AggregationRulePatch] {
+	return pulumix.Output[AggregationRulePatch]{
+		OutputState: i.ToAggregationRulePatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i AggregationRulePatchArgs) ToAggregationRulePatchPtrOutput() AggregationRulePatchPtrOutput {
 	return i.ToAggregationRulePatchPtrOutputWithContext(context.Background())
 }
@@ -230,6 +261,12 @@ func (i *aggregationRulePatchPtrType) ToAggregationRulePatchPtrOutputWithContext
 	return pulumi.ToOutputWithContext(ctx, i).(AggregationRulePatchPtrOutput)
 }
 
+func (i *aggregationRulePatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*AggregationRulePatch] {
+	return pulumix.Output[*AggregationRulePatch]{
+		OutputState: i.ToAggregationRulePatchPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // AggregationRule describes how to locate ClusterRoles to aggregate into the ClusterRole
 type AggregationRulePatchOutput struct{ *pulumi.OutputState }
 
@@ -255,6 +292,12 @@ func (o AggregationRulePatchOutput) ToAggregationRulePatchPtrOutputWithContext(c
 	}).(AggregationRulePatchPtrOutput)
 }
 
+func (o AggregationRulePatchOutput) ToOutput(ctx context.Context) pulumix.Output[AggregationRulePatch] {
+	return pulumix.Output[AggregationRulePatch]{
+		OutputState: o.OutputState,
+	}
+}
+
 // ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
 func (o AggregationRulePatchOutput) ClusterRoleSelectors() metav1.LabelSelectorPatchArrayOutput {
 	return o.ApplyT(func(v AggregationRulePatch) []metav1.LabelSelectorPatch { return v.ClusterRoleSelectors }).(metav1.LabelSelectorPatchArrayOutput)
@@ -272,6 +315,12 @@ func (o AggregationRulePatchPtrOutput) ToAggregationRulePatchPtrOutput() Aggrega
 
 func (o AggregationRulePatchPtrOutput) ToAggregationRulePatchPtrOutputWithContext(ctx context.Context) AggregationRulePatchPtrOutput {
 	return o
+}
+
+func (o AggregationRulePatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*AggregationRulePatch] {
+	return pulumix.Output[*AggregationRulePatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o AggregationRulePatchPtrOutput) Elem() AggregationRulePatchOutput {
@@ -345,6 +394,12 @@ func (i ClusterRoleTypeArgs) ToClusterRoleTypeOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterRoleTypeOutput)
 }
 
+func (i ClusterRoleTypeArgs) ToOutput(ctx context.Context) pulumix.Output[ClusterRoleType] {
+	return pulumix.Output[ClusterRoleType]{
+		OutputState: i.ToClusterRoleTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ClusterRoleTypeArrayInput is an input type that accepts ClusterRoleTypeArray and ClusterRoleTypeArrayOutput values.
 // You can construct a concrete instance of `ClusterRoleTypeArrayInput` via:
 //
@@ -370,6 +425,12 @@ func (i ClusterRoleTypeArray) ToClusterRoleTypeArrayOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterRoleTypeArrayOutput)
 }
 
+func (i ClusterRoleTypeArray) ToOutput(ctx context.Context) pulumix.Output[[]ClusterRoleType] {
+	return pulumix.Output[[]ClusterRoleType]{
+		OutputState: i.ToClusterRoleTypeArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding or ClusterRoleBinding.
 type ClusterRoleTypeOutput struct{ *pulumi.OutputState }
 
@@ -383,6 +444,12 @@ func (o ClusterRoleTypeOutput) ToClusterRoleTypeOutput() ClusterRoleTypeOutput {
 
 func (o ClusterRoleTypeOutput) ToClusterRoleTypeOutputWithContext(ctx context.Context) ClusterRoleTypeOutput {
 	return o
+}
+
+func (o ClusterRoleTypeOutput) ToOutput(ctx context.Context) pulumix.Output[ClusterRoleType] {
+	return pulumix.Output[ClusterRoleType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
@@ -422,6 +489,12 @@ func (o ClusterRoleTypeArrayOutput) ToClusterRoleTypeArrayOutput() ClusterRoleTy
 
 func (o ClusterRoleTypeArrayOutput) ToClusterRoleTypeArrayOutputWithContext(ctx context.Context) ClusterRoleTypeArrayOutput {
 	return o
+}
+
+func (o ClusterRoleTypeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]ClusterRoleType] {
+	return pulumix.Output[[]ClusterRoleType]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ClusterRoleTypeArrayOutput) Index(i pulumi.IntInput) ClusterRoleTypeOutput {
@@ -481,6 +554,12 @@ func (i ClusterRoleBindingTypeArgs) ToClusterRoleBindingTypeOutputWithContext(ct
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterRoleBindingTypeOutput)
 }
 
+func (i ClusterRoleBindingTypeArgs) ToOutput(ctx context.Context) pulumix.Output[ClusterRoleBindingType] {
+	return pulumix.Output[ClusterRoleBindingType]{
+		OutputState: i.ToClusterRoleBindingTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ClusterRoleBindingTypeArrayInput is an input type that accepts ClusterRoleBindingTypeArray and ClusterRoleBindingTypeArrayOutput values.
 // You can construct a concrete instance of `ClusterRoleBindingTypeArrayInput` via:
 //
@@ -506,6 +585,12 @@ func (i ClusterRoleBindingTypeArray) ToClusterRoleBindingTypeArrayOutputWithCont
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterRoleBindingTypeArrayOutput)
 }
 
+func (i ClusterRoleBindingTypeArray) ToOutput(ctx context.Context) pulumix.Output[[]ClusterRoleBindingType] {
+	return pulumix.Output[[]ClusterRoleBindingType]{
+		OutputState: i.ToClusterRoleBindingTypeArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a ClusterRole in the global namespace, and adds who information via Subject.
 type ClusterRoleBindingTypeOutput struct{ *pulumi.OutputState }
 
@@ -519,6 +604,12 @@ func (o ClusterRoleBindingTypeOutput) ToClusterRoleBindingTypeOutput() ClusterRo
 
 func (o ClusterRoleBindingTypeOutput) ToClusterRoleBindingTypeOutputWithContext(ctx context.Context) ClusterRoleBindingTypeOutput {
 	return o
+}
+
+func (o ClusterRoleBindingTypeOutput) ToOutput(ctx context.Context) pulumix.Output[ClusterRoleBindingType] {
+	return pulumix.Output[ClusterRoleBindingType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -558,6 +649,12 @@ func (o ClusterRoleBindingTypeArrayOutput) ToClusterRoleBindingTypeArrayOutput()
 
 func (o ClusterRoleBindingTypeArrayOutput) ToClusterRoleBindingTypeArrayOutputWithContext(ctx context.Context) ClusterRoleBindingTypeArrayOutput {
 	return o
+}
+
+func (o ClusterRoleBindingTypeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]ClusterRoleBindingType] {
+	return pulumix.Output[[]ClusterRoleBindingType]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ClusterRoleBindingTypeArrayOutput) Index(i pulumi.IntInput) ClusterRoleBindingTypeOutput {
@@ -613,6 +710,12 @@ func (i ClusterRoleBindingListTypeArgs) ToClusterRoleBindingListTypeOutputWithCo
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterRoleBindingListTypeOutput)
 }
 
+func (i ClusterRoleBindingListTypeArgs) ToOutput(ctx context.Context) pulumix.Output[ClusterRoleBindingListType] {
+	return pulumix.Output[ClusterRoleBindingListType]{
+		OutputState: i.ToClusterRoleBindingListTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ClusterRoleBindingList is a collection of ClusterRoleBindings
 type ClusterRoleBindingListTypeOutput struct{ *pulumi.OutputState }
 
@@ -626,6 +729,12 @@ func (o ClusterRoleBindingListTypeOutput) ToClusterRoleBindingListTypeOutput() C
 
 func (o ClusterRoleBindingListTypeOutput) ToClusterRoleBindingListTypeOutputWithContext(ctx context.Context) ClusterRoleBindingListTypeOutput {
 	return o
+}
+
+func (o ClusterRoleBindingListTypeOutput) ToOutput(ctx context.Context) pulumix.Output[ClusterRoleBindingListType] {
+	return pulumix.Output[ClusterRoleBindingListType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -699,6 +808,12 @@ func (i ClusterRoleBindingPatchTypeArgs) ToClusterRoleBindingPatchTypeOutputWith
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterRoleBindingPatchTypeOutput)
 }
 
+func (i ClusterRoleBindingPatchTypeArgs) ToOutput(ctx context.Context) pulumix.Output[ClusterRoleBindingPatchType] {
+	return pulumix.Output[ClusterRoleBindingPatchType]{
+		OutputState: i.ToClusterRoleBindingPatchTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a ClusterRole in the global namespace, and adds who information via Subject.
 type ClusterRoleBindingPatchTypeOutput struct{ *pulumi.OutputState }
 
@@ -712,6 +827,12 @@ func (o ClusterRoleBindingPatchTypeOutput) ToClusterRoleBindingPatchTypeOutput()
 
 func (o ClusterRoleBindingPatchTypeOutput) ToClusterRoleBindingPatchTypeOutputWithContext(ctx context.Context) ClusterRoleBindingPatchTypeOutput {
 	return o
+}
+
+func (o ClusterRoleBindingPatchTypeOutput) ToOutput(ctx context.Context) pulumix.Output[ClusterRoleBindingPatchType] {
+	return pulumix.Output[ClusterRoleBindingPatchType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -786,6 +907,12 @@ func (i ClusterRoleListTypeArgs) ToClusterRoleListTypeOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterRoleListTypeOutput)
 }
 
+func (i ClusterRoleListTypeArgs) ToOutput(ctx context.Context) pulumix.Output[ClusterRoleListType] {
+	return pulumix.Output[ClusterRoleListType]{
+		OutputState: i.ToClusterRoleListTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ClusterRoleList is a collection of ClusterRoles
 type ClusterRoleListTypeOutput struct{ *pulumi.OutputState }
 
@@ -799,6 +926,12 @@ func (o ClusterRoleListTypeOutput) ToClusterRoleListTypeOutput() ClusterRoleList
 
 func (o ClusterRoleListTypeOutput) ToClusterRoleListTypeOutputWithContext(ctx context.Context) ClusterRoleListTypeOutput {
 	return o
+}
+
+func (o ClusterRoleListTypeOutput) ToOutput(ctx context.Context) pulumix.Output[ClusterRoleListType] {
+	return pulumix.Output[ClusterRoleListType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -872,6 +1005,12 @@ func (i ClusterRolePatchTypeArgs) ToClusterRolePatchTypeOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterRolePatchTypeOutput)
 }
 
+func (i ClusterRolePatchTypeArgs) ToOutput(ctx context.Context) pulumix.Output[ClusterRolePatchType] {
+	return pulumix.Output[ClusterRolePatchType]{
+		OutputState: i.ToClusterRolePatchTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding or ClusterRoleBinding.
 type ClusterRolePatchTypeOutput struct{ *pulumi.OutputState }
 
@@ -885,6 +1024,12 @@ func (o ClusterRolePatchTypeOutput) ToClusterRolePatchTypeOutput() ClusterRolePa
 
 func (o ClusterRolePatchTypeOutput) ToClusterRolePatchTypeOutputWithContext(ctx context.Context) ClusterRolePatchTypeOutput {
 	return o
+}
+
+func (o ClusterRolePatchTypeOutput) ToOutput(ctx context.Context) pulumix.Output[ClusterRolePatchType] {
+	return pulumix.Output[ClusterRolePatchType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
@@ -963,6 +1108,12 @@ func (i PolicyRuleArgs) ToPolicyRuleOutputWithContext(ctx context.Context) Polic
 	return pulumi.ToOutputWithContext(ctx, i).(PolicyRuleOutput)
 }
 
+func (i PolicyRuleArgs) ToOutput(ctx context.Context) pulumix.Output[PolicyRule] {
+	return pulumix.Output[PolicyRule]{
+		OutputState: i.ToPolicyRuleOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PolicyRuleArrayInput is an input type that accepts PolicyRuleArray and PolicyRuleArrayOutput values.
 // You can construct a concrete instance of `PolicyRuleArrayInput` via:
 //
@@ -988,6 +1139,12 @@ func (i PolicyRuleArray) ToPolicyRuleArrayOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(PolicyRuleArrayOutput)
 }
 
+func (i PolicyRuleArray) ToOutput(ctx context.Context) pulumix.Output[[]PolicyRule] {
+	return pulumix.Output[[]PolicyRule]{
+		OutputState: i.ToPolicyRuleArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PolicyRule holds information that describes a policy rule, but does not contain information about who the rule applies to or which namespace the rule applies to.
 type PolicyRuleOutput struct{ *pulumi.OutputState }
 
@@ -1001,6 +1158,12 @@ func (o PolicyRuleOutput) ToPolicyRuleOutput() PolicyRuleOutput {
 
 func (o PolicyRuleOutput) ToPolicyRuleOutputWithContext(ctx context.Context) PolicyRuleOutput {
 	return o
+}
+
+func (o PolicyRuleOutput) ToOutput(ctx context.Context) pulumix.Output[PolicyRule] {
+	return pulumix.Output[PolicyRule]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. "" represents the core API group and "*" represents all API groups.
@@ -1040,6 +1203,12 @@ func (o PolicyRuleArrayOutput) ToPolicyRuleArrayOutput() PolicyRuleArrayOutput {
 
 func (o PolicyRuleArrayOutput) ToPolicyRuleArrayOutputWithContext(ctx context.Context) PolicyRuleArrayOutput {
 	return o
+}
+
+func (o PolicyRuleArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]PolicyRule] {
+	return pulumix.Output[[]PolicyRule]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o PolicyRuleArrayOutput) Index(i pulumi.IntInput) PolicyRuleOutput {
@@ -1099,6 +1268,12 @@ func (i PolicyRulePatchArgs) ToPolicyRulePatchOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(PolicyRulePatchOutput)
 }
 
+func (i PolicyRulePatchArgs) ToOutput(ctx context.Context) pulumix.Output[PolicyRulePatch] {
+	return pulumix.Output[PolicyRulePatch]{
+		OutputState: i.ToPolicyRulePatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PolicyRulePatchArrayInput is an input type that accepts PolicyRulePatchArray and PolicyRulePatchArrayOutput values.
 // You can construct a concrete instance of `PolicyRulePatchArrayInput` via:
 //
@@ -1124,6 +1299,12 @@ func (i PolicyRulePatchArray) ToPolicyRulePatchArrayOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(PolicyRulePatchArrayOutput)
 }
 
+func (i PolicyRulePatchArray) ToOutput(ctx context.Context) pulumix.Output[[]PolicyRulePatch] {
+	return pulumix.Output[[]PolicyRulePatch]{
+		OutputState: i.ToPolicyRulePatchArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PolicyRule holds information that describes a policy rule, but does not contain information about who the rule applies to or which namespace the rule applies to.
 type PolicyRulePatchOutput struct{ *pulumi.OutputState }
 
@@ -1137,6 +1318,12 @@ func (o PolicyRulePatchOutput) ToPolicyRulePatchOutput() PolicyRulePatchOutput {
 
 func (o PolicyRulePatchOutput) ToPolicyRulePatchOutputWithContext(ctx context.Context) PolicyRulePatchOutput {
 	return o
+}
+
+func (o PolicyRulePatchOutput) ToOutput(ctx context.Context) pulumix.Output[PolicyRulePatch] {
+	return pulumix.Output[PolicyRulePatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed. "" represents the core API group and "*" represents all API groups.
@@ -1176,6 +1363,12 @@ func (o PolicyRulePatchArrayOutput) ToPolicyRulePatchArrayOutput() PolicyRulePat
 
 func (o PolicyRulePatchArrayOutput) ToPolicyRulePatchArrayOutputWithContext(ctx context.Context) PolicyRulePatchArrayOutput {
 	return o
+}
+
+func (o PolicyRulePatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]PolicyRulePatch] {
+	return pulumix.Output[[]PolicyRulePatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o PolicyRulePatchArrayOutput) Index(i pulumi.IntInput) PolicyRulePatchOutput {
@@ -1231,6 +1424,12 @@ func (i RoleTypeArgs) ToRoleTypeOutputWithContext(ctx context.Context) RoleTypeO
 	return pulumi.ToOutputWithContext(ctx, i).(RoleTypeOutput)
 }
 
+func (i RoleTypeArgs) ToOutput(ctx context.Context) pulumix.Output[RoleType] {
+	return pulumix.Output[RoleType]{
+		OutputState: i.ToRoleTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // RoleTypeArrayInput is an input type that accepts RoleTypeArray and RoleTypeArrayOutput values.
 // You can construct a concrete instance of `RoleTypeArrayInput` via:
 //
@@ -1256,6 +1455,12 @@ func (i RoleTypeArray) ToRoleTypeArrayOutputWithContext(ctx context.Context) Rol
 	return pulumi.ToOutputWithContext(ctx, i).(RoleTypeArrayOutput)
 }
 
+func (i RoleTypeArray) ToOutput(ctx context.Context) pulumix.Output[[]RoleType] {
+	return pulumix.Output[[]RoleType]{
+		OutputState: i.ToRoleTypeArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding.
 type RoleTypeOutput struct{ *pulumi.OutputState }
 
@@ -1269,6 +1474,12 @@ func (o RoleTypeOutput) ToRoleTypeOutput() RoleTypeOutput {
 
 func (o RoleTypeOutput) ToRoleTypeOutputWithContext(ctx context.Context) RoleTypeOutput {
 	return o
+}
+
+func (o RoleTypeOutput) ToOutput(ctx context.Context) pulumix.Output[RoleType] {
+	return pulumix.Output[RoleType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -1303,6 +1514,12 @@ func (o RoleTypeArrayOutput) ToRoleTypeArrayOutput() RoleTypeArrayOutput {
 
 func (o RoleTypeArrayOutput) ToRoleTypeArrayOutputWithContext(ctx context.Context) RoleTypeArrayOutput {
 	return o
+}
+
+func (o RoleTypeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]RoleType] {
+	return pulumix.Output[[]RoleType]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o RoleTypeArrayOutput) Index(i pulumi.IntInput) RoleTypeOutput {
@@ -1362,6 +1579,12 @@ func (i RoleBindingTypeArgs) ToRoleBindingTypeOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(RoleBindingTypeOutput)
 }
 
+func (i RoleBindingTypeArgs) ToOutput(ctx context.Context) pulumix.Output[RoleBindingType] {
+	return pulumix.Output[RoleBindingType]{
+		OutputState: i.ToRoleBindingTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // RoleBindingTypeArrayInput is an input type that accepts RoleBindingTypeArray and RoleBindingTypeArrayOutput values.
 // You can construct a concrete instance of `RoleBindingTypeArrayInput` via:
 //
@@ -1387,6 +1610,12 @@ func (i RoleBindingTypeArray) ToRoleBindingTypeArrayOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(RoleBindingTypeArrayOutput)
 }
 
+func (i RoleBindingTypeArray) ToOutput(ctx context.Context) pulumix.Output[[]RoleBindingType] {
+	return pulumix.Output[[]RoleBindingType]{
+		OutputState: i.ToRoleBindingTypeArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // RoleBinding references a role, but does not contain it.  It can reference a Role in the same namespace or a ClusterRole in the global namespace. It adds who information via Subjects and namespace information by which namespace it exists in.  RoleBindings in a given namespace only have effect in that namespace.
 type RoleBindingTypeOutput struct{ *pulumi.OutputState }
 
@@ -1400,6 +1629,12 @@ func (o RoleBindingTypeOutput) ToRoleBindingTypeOutput() RoleBindingTypeOutput {
 
 func (o RoleBindingTypeOutput) ToRoleBindingTypeOutputWithContext(ctx context.Context) RoleBindingTypeOutput {
 	return o
+}
+
+func (o RoleBindingTypeOutput) ToOutput(ctx context.Context) pulumix.Output[RoleBindingType] {
+	return pulumix.Output[RoleBindingType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -1439,6 +1674,12 @@ func (o RoleBindingTypeArrayOutput) ToRoleBindingTypeArrayOutput() RoleBindingTy
 
 func (o RoleBindingTypeArrayOutput) ToRoleBindingTypeArrayOutputWithContext(ctx context.Context) RoleBindingTypeArrayOutput {
 	return o
+}
+
+func (o RoleBindingTypeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]RoleBindingType] {
+	return pulumix.Output[[]RoleBindingType]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o RoleBindingTypeArrayOutput) Index(i pulumi.IntInput) RoleBindingTypeOutput {
@@ -1494,6 +1735,12 @@ func (i RoleBindingListTypeArgs) ToRoleBindingListTypeOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(RoleBindingListTypeOutput)
 }
 
+func (i RoleBindingListTypeArgs) ToOutput(ctx context.Context) pulumix.Output[RoleBindingListType] {
+	return pulumix.Output[RoleBindingListType]{
+		OutputState: i.ToRoleBindingListTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // RoleBindingList is a collection of RoleBindings
 type RoleBindingListTypeOutput struct{ *pulumi.OutputState }
 
@@ -1507,6 +1754,12 @@ func (o RoleBindingListTypeOutput) ToRoleBindingListTypeOutput() RoleBindingList
 
 func (o RoleBindingListTypeOutput) ToRoleBindingListTypeOutputWithContext(ctx context.Context) RoleBindingListTypeOutput {
 	return o
+}
+
+func (o RoleBindingListTypeOutput) ToOutput(ctx context.Context) pulumix.Output[RoleBindingListType] {
+	return pulumix.Output[RoleBindingListType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -1580,6 +1833,12 @@ func (i RoleBindingPatchTypeArgs) ToRoleBindingPatchTypeOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(RoleBindingPatchTypeOutput)
 }
 
+func (i RoleBindingPatchTypeArgs) ToOutput(ctx context.Context) pulumix.Output[RoleBindingPatchType] {
+	return pulumix.Output[RoleBindingPatchType]{
+		OutputState: i.ToRoleBindingPatchTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // RoleBinding references a role, but does not contain it.  It can reference a Role in the same namespace or a ClusterRole in the global namespace. It adds who information via Subjects and namespace information by which namespace it exists in.  RoleBindings in a given namespace only have effect in that namespace.
 type RoleBindingPatchTypeOutput struct{ *pulumi.OutputState }
 
@@ -1593,6 +1852,12 @@ func (o RoleBindingPatchTypeOutput) ToRoleBindingPatchTypeOutput() RoleBindingPa
 
 func (o RoleBindingPatchTypeOutput) ToRoleBindingPatchTypeOutputWithContext(ctx context.Context) RoleBindingPatchTypeOutput {
 	return o
+}
+
+func (o RoleBindingPatchTypeOutput) ToOutput(ctx context.Context) pulumix.Output[RoleBindingPatchType] {
+	return pulumix.Output[RoleBindingPatchType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -1667,6 +1932,12 @@ func (i RoleListTypeArgs) ToRoleListTypeOutputWithContext(ctx context.Context) R
 	return pulumi.ToOutputWithContext(ctx, i).(RoleListTypeOutput)
 }
 
+func (i RoleListTypeArgs) ToOutput(ctx context.Context) pulumix.Output[RoleListType] {
+	return pulumix.Output[RoleListType]{
+		OutputState: i.ToRoleListTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // RoleList is a collection of Roles
 type RoleListTypeOutput struct{ *pulumi.OutputState }
 
@@ -1680,6 +1951,12 @@ func (o RoleListTypeOutput) ToRoleListTypeOutput() RoleListTypeOutput {
 
 func (o RoleListTypeOutput) ToRoleListTypeOutputWithContext(ctx context.Context) RoleListTypeOutput {
 	return o
+}
+
+func (o RoleListTypeOutput) ToOutput(ctx context.Context) pulumix.Output[RoleListType] {
+	return pulumix.Output[RoleListType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -1749,6 +2026,12 @@ func (i RolePatchTypeArgs) ToRolePatchTypeOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(RolePatchTypeOutput)
 }
 
+func (i RolePatchTypeArgs) ToOutput(ctx context.Context) pulumix.Output[RolePatchType] {
+	return pulumix.Output[RolePatchType]{
+		OutputState: i.ToRolePatchTypeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // Role is a namespaced, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding.
 type RolePatchTypeOutput struct{ *pulumi.OutputState }
 
@@ -1762,6 +2045,12 @@ func (o RolePatchTypeOutput) ToRolePatchTypeOutput() RolePatchTypeOutput {
 
 func (o RolePatchTypeOutput) ToRolePatchTypeOutputWithContext(ctx context.Context) RolePatchTypeOutput {
 	return o
+}
+
+func (o RolePatchTypeOutput) ToOutput(ctx context.Context) pulumix.Output[RolePatchType] {
+	return pulumix.Output[RolePatchType]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -1827,6 +2116,12 @@ func (i RoleRefArgs) ToRoleRefOutputWithContext(ctx context.Context) RoleRefOutp
 	return pulumi.ToOutputWithContext(ctx, i).(RoleRefOutput)
 }
 
+func (i RoleRefArgs) ToOutput(ctx context.Context) pulumix.Output[RoleRef] {
+	return pulumix.Output[RoleRef]{
+		OutputState: i.ToRoleRefOutputWithContext(ctx).OutputState,
+	}
+}
+
 // RoleRef contains information that points to the role being used
 type RoleRefOutput struct{ *pulumi.OutputState }
 
@@ -1840,6 +2135,12 @@ func (o RoleRefOutput) ToRoleRefOutput() RoleRefOutput {
 
 func (o RoleRefOutput) ToRoleRefOutputWithContext(ctx context.Context) RoleRefOutput {
 	return o
+}
+
+func (o RoleRefOutput) ToOutput(ctx context.Context) pulumix.Output[RoleRef] {
+	return pulumix.Output[RoleRef]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIGroup is the group for the resource being referenced
@@ -1900,6 +2201,12 @@ func (i RoleRefPatchArgs) ToRoleRefPatchOutputWithContext(ctx context.Context) R
 	return pulumi.ToOutputWithContext(ctx, i).(RoleRefPatchOutput)
 }
 
+func (i RoleRefPatchArgs) ToOutput(ctx context.Context) pulumix.Output[RoleRefPatch] {
+	return pulumix.Output[RoleRefPatch]{
+		OutputState: i.ToRoleRefPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 func (i RoleRefPatchArgs) ToRoleRefPatchPtrOutput() RoleRefPatchPtrOutput {
 	return i.ToRoleRefPatchPtrOutputWithContext(context.Background())
 }
@@ -1941,6 +2248,12 @@ func (i *roleRefPatchPtrType) ToRoleRefPatchPtrOutputWithContext(ctx context.Con
 	return pulumi.ToOutputWithContext(ctx, i).(RoleRefPatchPtrOutput)
 }
 
+func (i *roleRefPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*RoleRefPatch] {
+	return pulumix.Output[*RoleRefPatch]{
+		OutputState: i.ToRoleRefPatchPtrOutputWithContext(ctx).OutputState,
+	}
+}
+
 // RoleRef contains information that points to the role being used
 type RoleRefPatchOutput struct{ *pulumi.OutputState }
 
@@ -1964,6 +2277,12 @@ func (o RoleRefPatchOutput) ToRoleRefPatchPtrOutputWithContext(ctx context.Conte
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v RoleRefPatch) *RoleRefPatch {
 		return &v
 	}).(RoleRefPatchPtrOutput)
+}
+
+func (o RoleRefPatchOutput) ToOutput(ctx context.Context) pulumix.Output[RoleRefPatch] {
+	return pulumix.Output[RoleRefPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIGroup is the group for the resource being referenced
@@ -1993,6 +2312,12 @@ func (o RoleRefPatchPtrOutput) ToRoleRefPatchPtrOutput() RoleRefPatchPtrOutput {
 
 func (o RoleRefPatchPtrOutput) ToRoleRefPatchPtrOutputWithContext(ctx context.Context) RoleRefPatchPtrOutput {
 	return o
+}
+
+func (o RoleRefPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*RoleRefPatch] {
+	return pulumix.Output[*RoleRefPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o RoleRefPatchPtrOutput) Elem() RoleRefPatchOutput {
@@ -2082,6 +2407,12 @@ func (i SubjectArgs) ToSubjectOutputWithContext(ctx context.Context) SubjectOutp
 	return pulumi.ToOutputWithContext(ctx, i).(SubjectOutput)
 }
 
+func (i SubjectArgs) ToOutput(ctx context.Context) pulumix.Output[Subject] {
+	return pulumix.Output[Subject]{
+		OutputState: i.ToSubjectOutputWithContext(ctx).OutputState,
+	}
+}
+
 // SubjectArrayInput is an input type that accepts SubjectArray and SubjectArrayOutput values.
 // You can construct a concrete instance of `SubjectArrayInput` via:
 //
@@ -2107,6 +2438,12 @@ func (i SubjectArray) ToSubjectArrayOutputWithContext(ctx context.Context) Subje
 	return pulumi.ToOutputWithContext(ctx, i).(SubjectArrayOutput)
 }
 
+func (i SubjectArray) ToOutput(ctx context.Context) pulumix.Output[[]Subject] {
+	return pulumix.Output[[]Subject]{
+		OutputState: i.ToSubjectArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // Subject contains a reference to the object or user identities a role binding applies to.  This can either hold a direct API object reference, or a value for non-objects such as user and group names.
 type SubjectOutput struct{ *pulumi.OutputState }
 
@@ -2120,6 +2457,12 @@ func (o SubjectOutput) ToSubjectOutput() SubjectOutput {
 
 func (o SubjectOutput) ToSubjectOutputWithContext(ctx context.Context) SubjectOutput {
 	return o
+}
+
+func (o SubjectOutput) ToOutput(ctx context.Context) pulumix.Output[Subject] {
+	return pulumix.Output[Subject]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIGroup holds the API group of the referenced subject. Defaults to "" for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io" for User and Group subjects.
@@ -2154,6 +2497,12 @@ func (o SubjectArrayOutput) ToSubjectArrayOutput() SubjectArrayOutput {
 
 func (o SubjectArrayOutput) ToSubjectArrayOutputWithContext(ctx context.Context) SubjectArrayOutput {
 	return o
+}
+
+func (o SubjectArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]Subject] {
+	return pulumix.Output[[]Subject]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o SubjectArrayOutput) Index(i pulumi.IntInput) SubjectOutput {
@@ -2209,6 +2558,12 @@ func (i SubjectPatchArgs) ToSubjectPatchOutputWithContext(ctx context.Context) S
 	return pulumi.ToOutputWithContext(ctx, i).(SubjectPatchOutput)
 }
 
+func (i SubjectPatchArgs) ToOutput(ctx context.Context) pulumix.Output[SubjectPatch] {
+	return pulumix.Output[SubjectPatch]{
+		OutputState: i.ToSubjectPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 // SubjectPatchArrayInput is an input type that accepts SubjectPatchArray and SubjectPatchArrayOutput values.
 // You can construct a concrete instance of `SubjectPatchArrayInput` via:
 //
@@ -2234,6 +2589,12 @@ func (i SubjectPatchArray) ToSubjectPatchArrayOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(SubjectPatchArrayOutput)
 }
 
+func (i SubjectPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]SubjectPatch] {
+	return pulumix.Output[[]SubjectPatch]{
+		OutputState: i.ToSubjectPatchArrayOutputWithContext(ctx).OutputState,
+	}
+}
+
 // Subject contains a reference to the object or user identities a role binding applies to.  This can either hold a direct API object reference, or a value for non-objects such as user and group names.
 type SubjectPatchOutput struct{ *pulumi.OutputState }
 
@@ -2247,6 +2608,12 @@ func (o SubjectPatchOutput) ToSubjectPatchOutput() SubjectPatchOutput {
 
 func (o SubjectPatchOutput) ToSubjectPatchOutputWithContext(ctx context.Context) SubjectPatchOutput {
 	return o
+}
+
+func (o SubjectPatchOutput) ToOutput(ctx context.Context) pulumix.Output[SubjectPatch] {
+	return pulumix.Output[SubjectPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIGroup holds the API group of the referenced subject. Defaults to "" for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io" for User and Group subjects.
@@ -2281,6 +2648,12 @@ func (o SubjectPatchArrayOutput) ToSubjectPatchArrayOutput() SubjectPatchArrayOu
 
 func (o SubjectPatchArrayOutput) ToSubjectPatchArrayOutputWithContext(ctx context.Context) SubjectPatchArrayOutput {
 	return o
+}
+
+func (o SubjectPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]SubjectPatch] {
+	return pulumix.Output[[]SubjectPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o SubjectPatchArrayOutput) Index(i pulumi.IntInput) SubjectPatchOutput {

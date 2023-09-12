@@ -11,8 +11,7 @@
     "repository": "https://github.com/pulumi/pulumi-kubernetes",
     "license": "Apache-2.0",
     "scripts": {
-        "build": "tsc",
-        "install": "node scripts/install-pulumi-plugin.js resource kubernetes ${VERSION}"
+        "build": "tsc"
     },
     "dependencies": {
         "@pulumi/pulumi": "^3.25.0",

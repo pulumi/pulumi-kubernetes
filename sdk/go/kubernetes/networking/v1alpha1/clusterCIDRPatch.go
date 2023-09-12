@@ -10,6 +10,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -119,6 +120,12 @@ func (i *ClusterCIDRPatch) ToClusterCIDRPatchOutputWithContext(ctx context.Conte
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterCIDRPatchOutput)
 }
 
+func (i *ClusterCIDRPatch) ToOutput(ctx context.Context) pulumix.Output[*ClusterCIDRPatch] {
+	return pulumix.Output[*ClusterCIDRPatch]{
+		OutputState: i.ToClusterCIDRPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ClusterCIDRPatchArrayInput is an input type that accepts ClusterCIDRPatchArray and ClusterCIDRPatchArrayOutput values.
 // You can construct a concrete instance of `ClusterCIDRPatchArrayInput` via:
 //
@@ -142,6 +149,12 @@ func (i ClusterCIDRPatchArray) ToClusterCIDRPatchArrayOutput() ClusterCIDRPatchA
 
 func (i ClusterCIDRPatchArray) ToClusterCIDRPatchArrayOutputWithContext(ctx context.Context) ClusterCIDRPatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterCIDRPatchArrayOutput)
+}
+
+func (i ClusterCIDRPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*ClusterCIDRPatch] {
+	return pulumix.Output[[]*ClusterCIDRPatch]{
+		OutputState: i.ToClusterCIDRPatchArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // ClusterCIDRPatchMapInput is an input type that accepts ClusterCIDRPatchMap and ClusterCIDRPatchMapOutput values.
@@ -169,6 +182,12 @@ func (i ClusterCIDRPatchMap) ToClusterCIDRPatchMapOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterCIDRPatchMapOutput)
 }
 
+func (i ClusterCIDRPatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*ClusterCIDRPatch] {
+	return pulumix.Output[map[string]*ClusterCIDRPatch]{
+		OutputState: i.ToClusterCIDRPatchMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type ClusterCIDRPatchOutput struct{ *pulumi.OutputState }
 
 func (ClusterCIDRPatchOutput) ElementType() reflect.Type {
@@ -181,6 +200,12 @@ func (o ClusterCIDRPatchOutput) ToClusterCIDRPatchOutput() ClusterCIDRPatchOutpu
 
 func (o ClusterCIDRPatchOutput) ToClusterCIDRPatchOutputWithContext(ctx context.Context) ClusterCIDRPatchOutput {
 	return o
+}
+
+func (o ClusterCIDRPatchOutput) ToOutput(ctx context.Context) pulumix.Output[*ClusterCIDRPatch] {
+	return pulumix.Output[*ClusterCIDRPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -217,6 +242,12 @@ func (o ClusterCIDRPatchArrayOutput) ToClusterCIDRPatchArrayOutputWithContext(ct
 	return o
 }
 
+func (o ClusterCIDRPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*ClusterCIDRPatch] {
+	return pulumix.Output[[]*ClusterCIDRPatch]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o ClusterCIDRPatchArrayOutput) Index(i pulumi.IntInput) ClusterCIDRPatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *ClusterCIDRPatch {
 		return vs[0].([]*ClusterCIDRPatch)[vs[1].(int)]
@@ -235,6 +266,12 @@ func (o ClusterCIDRPatchMapOutput) ToClusterCIDRPatchMapOutput() ClusterCIDRPatc
 
 func (o ClusterCIDRPatchMapOutput) ToClusterCIDRPatchMapOutputWithContext(ctx context.Context) ClusterCIDRPatchMapOutput {
 	return o
+}
+
+func (o ClusterCIDRPatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*ClusterCIDRPatch] {
+	return pulumix.Output[map[string]*ClusterCIDRPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ClusterCIDRPatchMapOutput) MapIndex(k pulumi.StringInput) ClusterCIDRPatchOutput {

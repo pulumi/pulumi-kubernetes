@@ -11,6 +11,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // AuditSinkList is a list of AuditSink items.
@@ -114,6 +115,12 @@ func (i *AuditSinkList) ToAuditSinkListOutputWithContext(ctx context.Context) Au
 	return pulumi.ToOutputWithContext(ctx, i).(AuditSinkListOutput)
 }
 
+func (i *AuditSinkList) ToOutput(ctx context.Context) pulumix.Output[*AuditSinkList] {
+	return pulumix.Output[*AuditSinkList]{
+		OutputState: i.ToAuditSinkListOutputWithContext(ctx).OutputState,
+	}
+}
+
 // AuditSinkListArrayInput is an input type that accepts AuditSinkListArray and AuditSinkListArrayOutput values.
 // You can construct a concrete instance of `AuditSinkListArrayInput` via:
 //
@@ -137,6 +144,12 @@ func (i AuditSinkListArray) ToAuditSinkListArrayOutput() AuditSinkListArrayOutpu
 
 func (i AuditSinkListArray) ToAuditSinkListArrayOutputWithContext(ctx context.Context) AuditSinkListArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(AuditSinkListArrayOutput)
+}
+
+func (i AuditSinkListArray) ToOutput(ctx context.Context) pulumix.Output[[]*AuditSinkList] {
+	return pulumix.Output[[]*AuditSinkList]{
+		OutputState: i.ToAuditSinkListArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // AuditSinkListMapInput is an input type that accepts AuditSinkListMap and AuditSinkListMapOutput values.
@@ -164,6 +177,12 @@ func (i AuditSinkListMap) ToAuditSinkListMapOutputWithContext(ctx context.Contex
 	return pulumi.ToOutputWithContext(ctx, i).(AuditSinkListMapOutput)
 }
 
+func (i AuditSinkListMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*AuditSinkList] {
+	return pulumix.Output[map[string]*AuditSinkList]{
+		OutputState: i.ToAuditSinkListMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type AuditSinkListOutput struct{ *pulumi.OutputState }
 
 func (AuditSinkListOutput) ElementType() reflect.Type {
@@ -176,6 +195,12 @@ func (o AuditSinkListOutput) ToAuditSinkListOutput() AuditSinkListOutput {
 
 func (o AuditSinkListOutput) ToAuditSinkListOutputWithContext(ctx context.Context) AuditSinkListOutput {
 	return o
+}
+
+func (o AuditSinkListOutput) ToOutput(ctx context.Context) pulumix.Output[*AuditSinkList] {
+	return pulumix.Output[*AuditSinkList]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -211,6 +236,12 @@ func (o AuditSinkListArrayOutput) ToAuditSinkListArrayOutputWithContext(ctx cont
 	return o
 }
 
+func (o AuditSinkListArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*AuditSinkList] {
+	return pulumix.Output[[]*AuditSinkList]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o AuditSinkListArrayOutput) Index(i pulumi.IntInput) AuditSinkListOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *AuditSinkList {
 		return vs[0].([]*AuditSinkList)[vs[1].(int)]
@@ -229,6 +260,12 @@ func (o AuditSinkListMapOutput) ToAuditSinkListMapOutput() AuditSinkListMapOutpu
 
 func (o AuditSinkListMapOutput) ToAuditSinkListMapOutputWithContext(ctx context.Context) AuditSinkListMapOutput {
 	return o
+}
+
+func (o AuditSinkListMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*AuditSinkList] {
+	return pulumix.Output[map[string]*AuditSinkList]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o AuditSinkListMapOutput) MapIndex(k pulumi.StringInput) AuditSinkListOutput {

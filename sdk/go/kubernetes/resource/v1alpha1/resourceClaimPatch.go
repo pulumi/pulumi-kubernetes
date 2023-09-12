@@ -10,6 +10,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -129,6 +130,12 @@ func (i *ResourceClaimPatch) ToResourceClaimPatchOutputWithContext(ctx context.C
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimPatchOutput)
 }
 
+func (i *ResourceClaimPatch) ToOutput(ctx context.Context) pulumix.Output[*ResourceClaimPatch] {
+	return pulumix.Output[*ResourceClaimPatch]{
+		OutputState: i.ToResourceClaimPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ResourceClaimPatchArrayInput is an input type that accepts ResourceClaimPatchArray and ResourceClaimPatchArrayOutput values.
 // You can construct a concrete instance of `ResourceClaimPatchArrayInput` via:
 //
@@ -152,6 +159,12 @@ func (i ResourceClaimPatchArray) ToResourceClaimPatchArrayOutput() ResourceClaim
 
 func (i ResourceClaimPatchArray) ToResourceClaimPatchArrayOutputWithContext(ctx context.Context) ResourceClaimPatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimPatchArrayOutput)
+}
+
+func (i ResourceClaimPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*ResourceClaimPatch] {
+	return pulumix.Output[[]*ResourceClaimPatch]{
+		OutputState: i.ToResourceClaimPatchArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // ResourceClaimPatchMapInput is an input type that accepts ResourceClaimPatchMap and ResourceClaimPatchMapOutput values.
@@ -179,6 +192,12 @@ func (i ResourceClaimPatchMap) ToResourceClaimPatchMapOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimPatchMapOutput)
 }
 
+func (i ResourceClaimPatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*ResourceClaimPatch] {
+	return pulumix.Output[map[string]*ResourceClaimPatch]{
+		OutputState: i.ToResourceClaimPatchMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type ResourceClaimPatchOutput struct{ *pulumi.OutputState }
 
 func (ResourceClaimPatchOutput) ElementType() reflect.Type {
@@ -191,6 +210,12 @@ func (o ResourceClaimPatchOutput) ToResourceClaimPatchOutput() ResourceClaimPatc
 
 func (o ResourceClaimPatchOutput) ToResourceClaimPatchOutputWithContext(ctx context.Context) ResourceClaimPatchOutput {
 	return o
+}
+
+func (o ResourceClaimPatchOutput) ToOutput(ctx context.Context) pulumix.Output[*ResourceClaimPatch] {
+	return pulumix.Output[*ResourceClaimPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -232,6 +257,12 @@ func (o ResourceClaimPatchArrayOutput) ToResourceClaimPatchArrayOutputWithContex
 	return o
 }
 
+func (o ResourceClaimPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*ResourceClaimPatch] {
+	return pulumix.Output[[]*ResourceClaimPatch]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o ResourceClaimPatchArrayOutput) Index(i pulumi.IntInput) ResourceClaimPatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *ResourceClaimPatch {
 		return vs[0].([]*ResourceClaimPatch)[vs[1].(int)]
@@ -250,6 +281,12 @@ func (o ResourceClaimPatchMapOutput) ToResourceClaimPatchMapOutput() ResourceCla
 
 func (o ResourceClaimPatchMapOutput) ToResourceClaimPatchMapOutputWithContext(ctx context.Context) ResourceClaimPatchMapOutput {
 	return o
+}
+
+func (o ResourceClaimPatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*ResourceClaimPatch] {
+	return pulumix.Output[map[string]*ResourceClaimPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ResourceClaimPatchMapOutput) MapIndex(k pulumi.StringInput) ResourceClaimPatchOutput {

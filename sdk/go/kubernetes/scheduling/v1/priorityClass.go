@@ -11,6 +11,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // PriorityClass defines mapping from a priority class name to the priority integer value. The value can be any valid integer.
@@ -144,6 +145,12 @@ func (i *PriorityClass) ToPriorityClassOutputWithContext(ctx context.Context) Pr
 	return pulumi.ToOutputWithContext(ctx, i).(PriorityClassOutput)
 }
 
+func (i *PriorityClass) ToOutput(ctx context.Context) pulumix.Output[*PriorityClass] {
+	return pulumix.Output[*PriorityClass]{
+		OutputState: i.ToPriorityClassOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PriorityClassArrayInput is an input type that accepts PriorityClassArray and PriorityClassArrayOutput values.
 // You can construct a concrete instance of `PriorityClassArrayInput` via:
 //
@@ -167,6 +174,12 @@ func (i PriorityClassArray) ToPriorityClassArrayOutput() PriorityClassArrayOutpu
 
 func (i PriorityClassArray) ToPriorityClassArrayOutputWithContext(ctx context.Context) PriorityClassArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(PriorityClassArrayOutput)
+}
+
+func (i PriorityClassArray) ToOutput(ctx context.Context) pulumix.Output[[]*PriorityClass] {
+	return pulumix.Output[[]*PriorityClass]{
+		OutputState: i.ToPriorityClassArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // PriorityClassMapInput is an input type that accepts PriorityClassMap and PriorityClassMapOutput values.
@@ -194,6 +207,12 @@ func (i PriorityClassMap) ToPriorityClassMapOutputWithContext(ctx context.Contex
 	return pulumi.ToOutputWithContext(ctx, i).(PriorityClassMapOutput)
 }
 
+func (i PriorityClassMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*PriorityClass] {
+	return pulumix.Output[map[string]*PriorityClass]{
+		OutputState: i.ToPriorityClassMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type PriorityClassOutput struct{ *pulumi.OutputState }
 
 func (PriorityClassOutput) ElementType() reflect.Type {
@@ -206,6 +225,12 @@ func (o PriorityClassOutput) ToPriorityClassOutput() PriorityClassOutput {
 
 func (o PriorityClassOutput) ToPriorityClassOutputWithContext(ctx context.Context) PriorityClassOutput {
 	return o
+}
+
+func (o PriorityClassOutput) ToOutput(ctx context.Context) pulumix.Output[*PriorityClass] {
+	return pulumix.Output[*PriorityClass]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -257,6 +282,12 @@ func (o PriorityClassArrayOutput) ToPriorityClassArrayOutputWithContext(ctx cont
 	return o
 }
 
+func (o PriorityClassArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*PriorityClass] {
+	return pulumix.Output[[]*PriorityClass]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o PriorityClassArrayOutput) Index(i pulumi.IntInput) PriorityClassOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *PriorityClass {
 		return vs[0].([]*PriorityClass)[vs[1].(int)]
@@ -275,6 +306,12 @@ func (o PriorityClassMapOutput) ToPriorityClassMapOutput() PriorityClassMapOutpu
 
 func (o PriorityClassMapOutput) ToPriorityClassMapOutputWithContext(ctx context.Context) PriorityClassMapOutput {
 	return o
+}
+
+func (o PriorityClassMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*PriorityClass] {
+	return pulumix.Output[map[string]*PriorityClass]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o PriorityClassMapOutput) MapIndex(k pulumi.StringInput) PriorityClassOutput {

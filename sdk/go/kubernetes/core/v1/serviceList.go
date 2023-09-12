@@ -11,6 +11,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // ServiceList holds a list of services.
@@ -117,6 +118,12 @@ func (i *ServiceList) ToServiceListOutputWithContext(ctx context.Context) Servic
 	return pulumi.ToOutputWithContext(ctx, i).(ServiceListOutput)
 }
 
+func (i *ServiceList) ToOutput(ctx context.Context) pulumix.Output[*ServiceList] {
+	return pulumix.Output[*ServiceList]{
+		OutputState: i.ToServiceListOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ServiceListArrayInput is an input type that accepts ServiceListArray and ServiceListArrayOutput values.
 // You can construct a concrete instance of `ServiceListArrayInput` via:
 //
@@ -140,6 +147,12 @@ func (i ServiceListArray) ToServiceListArrayOutput() ServiceListArrayOutput {
 
 func (i ServiceListArray) ToServiceListArrayOutputWithContext(ctx context.Context) ServiceListArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ServiceListArrayOutput)
+}
+
+func (i ServiceListArray) ToOutput(ctx context.Context) pulumix.Output[[]*ServiceList] {
+	return pulumix.Output[[]*ServiceList]{
+		OutputState: i.ToServiceListArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // ServiceListMapInput is an input type that accepts ServiceListMap and ServiceListMapOutput values.
@@ -167,6 +180,12 @@ func (i ServiceListMap) ToServiceListMapOutputWithContext(ctx context.Context) S
 	return pulumi.ToOutputWithContext(ctx, i).(ServiceListMapOutput)
 }
 
+func (i ServiceListMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*ServiceList] {
+	return pulumix.Output[map[string]*ServiceList]{
+		OutputState: i.ToServiceListMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type ServiceListOutput struct{ *pulumi.OutputState }
 
 func (ServiceListOutput) ElementType() reflect.Type {
@@ -179,6 +198,12 @@ func (o ServiceListOutput) ToServiceListOutput() ServiceListOutput {
 
 func (o ServiceListOutput) ToServiceListOutputWithContext(ctx context.Context) ServiceListOutput {
 	return o
+}
+
+func (o ServiceListOutput) ToOutput(ctx context.Context) pulumix.Output[*ServiceList] {
+	return pulumix.Output[*ServiceList]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -215,6 +240,12 @@ func (o ServiceListArrayOutput) ToServiceListArrayOutputWithContext(ctx context.
 	return o
 }
 
+func (o ServiceListArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*ServiceList] {
+	return pulumix.Output[[]*ServiceList]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o ServiceListArrayOutput) Index(i pulumi.IntInput) ServiceListOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *ServiceList {
 		return vs[0].([]*ServiceList)[vs[1].(int)]
@@ -233,6 +264,12 @@ func (o ServiceListMapOutput) ToServiceListMapOutput() ServiceListMapOutput {
 
 func (o ServiceListMapOutput) ToServiceListMapOutputWithContext(ctx context.Context) ServiceListMapOutput {
 	return o
+}
+
+func (o ServiceListMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*ServiceList] {
+	return pulumix.Output[map[string]*ServiceList]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ServiceListMapOutput) MapIndex(k pulumi.StringInput) ServiceListOutput {

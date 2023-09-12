@@ -10,6 +10,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -113,6 +114,12 @@ func (i *PodPresetPatch) ToPodPresetPatchOutputWithContext(ctx context.Context) 
 	return pulumi.ToOutputWithContext(ctx, i).(PodPresetPatchOutput)
 }
 
+func (i *PodPresetPatch) ToOutput(ctx context.Context) pulumix.Output[*PodPresetPatch] {
+	return pulumix.Output[*PodPresetPatch]{
+		OutputState: i.ToPodPresetPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PodPresetPatchArrayInput is an input type that accepts PodPresetPatchArray and PodPresetPatchArrayOutput values.
 // You can construct a concrete instance of `PodPresetPatchArrayInput` via:
 //
@@ -136,6 +143,12 @@ func (i PodPresetPatchArray) ToPodPresetPatchArrayOutput() PodPresetPatchArrayOu
 
 func (i PodPresetPatchArray) ToPodPresetPatchArrayOutputWithContext(ctx context.Context) PodPresetPatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(PodPresetPatchArrayOutput)
+}
+
+func (i PodPresetPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*PodPresetPatch] {
+	return pulumix.Output[[]*PodPresetPatch]{
+		OutputState: i.ToPodPresetPatchArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // PodPresetPatchMapInput is an input type that accepts PodPresetPatchMap and PodPresetPatchMapOutput values.
@@ -163,6 +176,12 @@ func (i PodPresetPatchMap) ToPodPresetPatchMapOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(PodPresetPatchMapOutput)
 }
 
+func (i PodPresetPatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*PodPresetPatch] {
+	return pulumix.Output[map[string]*PodPresetPatch]{
+		OutputState: i.ToPodPresetPatchMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type PodPresetPatchOutput struct{ *pulumi.OutputState }
 
 func (PodPresetPatchOutput) ElementType() reflect.Type {
@@ -175,6 +194,12 @@ func (o PodPresetPatchOutput) ToPodPresetPatchOutput() PodPresetPatchOutput {
 
 func (o PodPresetPatchOutput) ToPodPresetPatchOutputWithContext(ctx context.Context) PodPresetPatchOutput {
 	return o
+}
+
+func (o PodPresetPatchOutput) ToOutput(ctx context.Context) pulumix.Output[*PodPresetPatch] {
+	return pulumix.Output[*PodPresetPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -209,6 +234,12 @@ func (o PodPresetPatchArrayOutput) ToPodPresetPatchArrayOutputWithContext(ctx co
 	return o
 }
 
+func (o PodPresetPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*PodPresetPatch] {
+	return pulumix.Output[[]*PodPresetPatch]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o PodPresetPatchArrayOutput) Index(i pulumi.IntInput) PodPresetPatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *PodPresetPatch {
 		return vs[0].([]*PodPresetPatch)[vs[1].(int)]
@@ -227,6 +258,12 @@ func (o PodPresetPatchMapOutput) ToPodPresetPatchMapOutput() PodPresetPatchMapOu
 
 func (o PodPresetPatchMapOutput) ToPodPresetPatchMapOutputWithContext(ctx context.Context) PodPresetPatchMapOutput {
 	return o
+}
+
+func (o PodPresetPatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*PodPresetPatch] {
+	return pulumix.Output[map[string]*PodPresetPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o PodPresetPatchMapOutput) MapIndex(k pulumi.StringInput) PodPresetPatchOutput {

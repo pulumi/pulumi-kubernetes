@@ -11,6 +11,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // ResourceClaimTemplate is used to produce ResourceClaim objects.
@@ -129,6 +130,12 @@ func (i *ResourceClaimTemplate) ToResourceClaimTemplateOutputWithContext(ctx con
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimTemplateOutput)
 }
 
+func (i *ResourceClaimTemplate) ToOutput(ctx context.Context) pulumix.Output[*ResourceClaimTemplate] {
+	return pulumix.Output[*ResourceClaimTemplate]{
+		OutputState: i.ToResourceClaimTemplateOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ResourceClaimTemplateArrayInput is an input type that accepts ResourceClaimTemplateArray and ResourceClaimTemplateArrayOutput values.
 // You can construct a concrete instance of `ResourceClaimTemplateArrayInput` via:
 //
@@ -152,6 +159,12 @@ func (i ResourceClaimTemplateArray) ToResourceClaimTemplateArrayOutput() Resourc
 
 func (i ResourceClaimTemplateArray) ToResourceClaimTemplateArrayOutputWithContext(ctx context.Context) ResourceClaimTemplateArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimTemplateArrayOutput)
+}
+
+func (i ResourceClaimTemplateArray) ToOutput(ctx context.Context) pulumix.Output[[]*ResourceClaimTemplate] {
+	return pulumix.Output[[]*ResourceClaimTemplate]{
+		OutputState: i.ToResourceClaimTemplateArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // ResourceClaimTemplateMapInput is an input type that accepts ResourceClaimTemplateMap and ResourceClaimTemplateMapOutput values.
@@ -179,6 +192,12 @@ func (i ResourceClaimTemplateMap) ToResourceClaimTemplateMapOutputWithContext(ct
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimTemplateMapOutput)
 }
 
+func (i ResourceClaimTemplateMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*ResourceClaimTemplate] {
+	return pulumix.Output[map[string]*ResourceClaimTemplate]{
+		OutputState: i.ToResourceClaimTemplateMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type ResourceClaimTemplateOutput struct{ *pulumi.OutputState }
 
 func (ResourceClaimTemplateOutput) ElementType() reflect.Type {
@@ -191,6 +210,12 @@ func (o ResourceClaimTemplateOutput) ToResourceClaimTemplateOutput() ResourceCla
 
 func (o ResourceClaimTemplateOutput) ToResourceClaimTemplateOutputWithContext(ctx context.Context) ResourceClaimTemplateOutput {
 	return o
+}
+
+func (o ResourceClaimTemplateOutput) ToOutput(ctx context.Context) pulumix.Output[*ResourceClaimTemplate] {
+	return pulumix.Output[*ResourceClaimTemplate]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -229,6 +254,12 @@ func (o ResourceClaimTemplateArrayOutput) ToResourceClaimTemplateArrayOutputWith
 	return o
 }
 
+func (o ResourceClaimTemplateArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*ResourceClaimTemplate] {
+	return pulumix.Output[[]*ResourceClaimTemplate]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o ResourceClaimTemplateArrayOutput) Index(i pulumi.IntInput) ResourceClaimTemplateOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *ResourceClaimTemplate {
 		return vs[0].([]*ResourceClaimTemplate)[vs[1].(int)]
@@ -247,6 +278,12 @@ func (o ResourceClaimTemplateMapOutput) ToResourceClaimTemplateMapOutput() Resou
 
 func (o ResourceClaimTemplateMapOutput) ToResourceClaimTemplateMapOutputWithContext(ctx context.Context) ResourceClaimTemplateMapOutput {
 	return o
+}
+
+func (o ResourceClaimTemplateMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*ResourceClaimTemplate] {
+	return pulumix.Output[map[string]*ResourceClaimTemplate]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ResourceClaimTemplateMapOutput) MapIndex(k pulumi.StringInput) ResourceClaimTemplateOutput {

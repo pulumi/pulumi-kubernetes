@@ -11,6 +11,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // JobList is a collection of jobs.
@@ -117,6 +118,12 @@ func (i *JobList) ToJobListOutputWithContext(ctx context.Context) JobListOutput 
 	return pulumi.ToOutputWithContext(ctx, i).(JobListOutput)
 }
 
+func (i *JobList) ToOutput(ctx context.Context) pulumix.Output[*JobList] {
+	return pulumix.Output[*JobList]{
+		OutputState: i.ToJobListOutputWithContext(ctx).OutputState,
+	}
+}
+
 // JobListArrayInput is an input type that accepts JobListArray and JobListArrayOutput values.
 // You can construct a concrete instance of `JobListArrayInput` via:
 //
@@ -140,6 +147,12 @@ func (i JobListArray) ToJobListArrayOutput() JobListArrayOutput {
 
 func (i JobListArray) ToJobListArrayOutputWithContext(ctx context.Context) JobListArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(JobListArrayOutput)
+}
+
+func (i JobListArray) ToOutput(ctx context.Context) pulumix.Output[[]*JobList] {
+	return pulumix.Output[[]*JobList]{
+		OutputState: i.ToJobListArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // JobListMapInput is an input type that accepts JobListMap and JobListMapOutput values.
@@ -167,6 +180,12 @@ func (i JobListMap) ToJobListMapOutputWithContext(ctx context.Context) JobListMa
 	return pulumi.ToOutputWithContext(ctx, i).(JobListMapOutput)
 }
 
+func (i JobListMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*JobList] {
+	return pulumix.Output[map[string]*JobList]{
+		OutputState: i.ToJobListMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type JobListOutput struct{ *pulumi.OutputState }
 
 func (JobListOutput) ElementType() reflect.Type {
@@ -179,6 +198,12 @@ func (o JobListOutput) ToJobListOutput() JobListOutput {
 
 func (o JobListOutput) ToJobListOutputWithContext(ctx context.Context) JobListOutput {
 	return o
+}
+
+func (o JobListOutput) ToOutput(ctx context.Context) pulumix.Output[*JobList] {
+	return pulumix.Output[*JobList]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -215,6 +240,12 @@ func (o JobListArrayOutput) ToJobListArrayOutputWithContext(ctx context.Context)
 	return o
 }
 
+func (o JobListArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*JobList] {
+	return pulumix.Output[[]*JobList]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o JobListArrayOutput) Index(i pulumi.IntInput) JobListOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *JobList {
 		return vs[0].([]*JobList)[vs[1].(int)]
@@ -233,6 +264,12 @@ func (o JobListMapOutput) ToJobListMapOutput() JobListMapOutput {
 
 func (o JobListMapOutput) ToJobListMapOutputWithContext(ctx context.Context) JobListMapOutput {
 	return o
+}
+
+func (o JobListMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*JobList] {
+	return pulumix.Output[map[string]*JobList]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o JobListMapOutput) MapIndex(k pulumi.StringInput) JobListOutput {

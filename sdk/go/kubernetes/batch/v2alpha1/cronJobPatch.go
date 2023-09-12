@@ -10,6 +10,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -130,6 +131,12 @@ func (i *CronJobPatch) ToCronJobPatchOutputWithContext(ctx context.Context) Cron
 	return pulumi.ToOutputWithContext(ctx, i).(CronJobPatchOutput)
 }
 
+func (i *CronJobPatch) ToOutput(ctx context.Context) pulumix.Output[*CronJobPatch] {
+	return pulumix.Output[*CronJobPatch]{
+		OutputState: i.ToCronJobPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 // CronJobPatchArrayInput is an input type that accepts CronJobPatchArray and CronJobPatchArrayOutput values.
 // You can construct a concrete instance of `CronJobPatchArrayInput` via:
 //
@@ -153,6 +160,12 @@ func (i CronJobPatchArray) ToCronJobPatchArrayOutput() CronJobPatchArrayOutput {
 
 func (i CronJobPatchArray) ToCronJobPatchArrayOutputWithContext(ctx context.Context) CronJobPatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(CronJobPatchArrayOutput)
+}
+
+func (i CronJobPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*CronJobPatch] {
+	return pulumix.Output[[]*CronJobPatch]{
+		OutputState: i.ToCronJobPatchArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // CronJobPatchMapInput is an input type that accepts CronJobPatchMap and CronJobPatchMapOutput values.
@@ -180,6 +193,12 @@ func (i CronJobPatchMap) ToCronJobPatchMapOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(CronJobPatchMapOutput)
 }
 
+func (i CronJobPatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*CronJobPatch] {
+	return pulumix.Output[map[string]*CronJobPatch]{
+		OutputState: i.ToCronJobPatchMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type CronJobPatchOutput struct{ *pulumi.OutputState }
 
 func (CronJobPatchOutput) ElementType() reflect.Type {
@@ -192,6 +211,12 @@ func (o CronJobPatchOutput) ToCronJobPatchOutput() CronJobPatchOutput {
 
 func (o CronJobPatchOutput) ToCronJobPatchOutputWithContext(ctx context.Context) CronJobPatchOutput {
 	return o
+}
+
+func (o CronJobPatchOutput) ToOutput(ctx context.Context) pulumix.Output[*CronJobPatch] {
+	return pulumix.Output[*CronJobPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -233,6 +258,12 @@ func (o CronJobPatchArrayOutput) ToCronJobPatchArrayOutputWithContext(ctx contex
 	return o
 }
 
+func (o CronJobPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*CronJobPatch] {
+	return pulumix.Output[[]*CronJobPatch]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o CronJobPatchArrayOutput) Index(i pulumi.IntInput) CronJobPatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *CronJobPatch {
 		return vs[0].([]*CronJobPatch)[vs[1].(int)]
@@ -251,6 +282,12 @@ func (o CronJobPatchMapOutput) ToCronJobPatchMapOutput() CronJobPatchMapOutput {
 
 func (o CronJobPatchMapOutput) ToCronJobPatchMapOutputWithContext(ctx context.Context) CronJobPatchMapOutput {
 	return o
+}
+
+func (o CronJobPatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*CronJobPatch] {
+	return pulumix.Output[map[string]*CronJobPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o CronJobPatchMapOutput) MapIndex(k pulumi.StringInput) CronJobPatchOutput {

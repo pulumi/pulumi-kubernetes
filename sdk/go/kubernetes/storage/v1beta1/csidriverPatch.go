@@ -10,6 +10,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -125,6 +126,12 @@ func (i *CSIDriverPatch) ToCSIDriverPatchOutputWithContext(ctx context.Context) 
 	return pulumi.ToOutputWithContext(ctx, i).(CSIDriverPatchOutput)
 }
 
+func (i *CSIDriverPatch) ToOutput(ctx context.Context) pulumix.Output[*CSIDriverPatch] {
+	return pulumix.Output[*CSIDriverPatch]{
+		OutputState: i.ToCSIDriverPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 // CSIDriverPatchArrayInput is an input type that accepts CSIDriverPatchArray and CSIDriverPatchArrayOutput values.
 // You can construct a concrete instance of `CSIDriverPatchArrayInput` via:
 //
@@ -148,6 +155,12 @@ func (i CSIDriverPatchArray) ToCSIDriverPatchArrayOutput() CSIDriverPatchArrayOu
 
 func (i CSIDriverPatchArray) ToCSIDriverPatchArrayOutputWithContext(ctx context.Context) CSIDriverPatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(CSIDriverPatchArrayOutput)
+}
+
+func (i CSIDriverPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*CSIDriverPatch] {
+	return pulumix.Output[[]*CSIDriverPatch]{
+		OutputState: i.ToCSIDriverPatchArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // CSIDriverPatchMapInput is an input type that accepts CSIDriverPatchMap and CSIDriverPatchMapOutput values.
@@ -175,6 +188,12 @@ func (i CSIDriverPatchMap) ToCSIDriverPatchMapOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(CSIDriverPatchMapOutput)
 }
 
+func (i CSIDriverPatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*CSIDriverPatch] {
+	return pulumix.Output[map[string]*CSIDriverPatch]{
+		OutputState: i.ToCSIDriverPatchMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type CSIDriverPatchOutput struct{ *pulumi.OutputState }
 
 func (CSIDriverPatchOutput) ElementType() reflect.Type {
@@ -187,6 +206,12 @@ func (o CSIDriverPatchOutput) ToCSIDriverPatchOutput() CSIDriverPatchOutput {
 
 func (o CSIDriverPatchOutput) ToCSIDriverPatchOutputWithContext(ctx context.Context) CSIDriverPatchOutput {
 	return o
+}
+
+func (o CSIDriverPatchOutput) ToOutput(ctx context.Context) pulumix.Output[*CSIDriverPatch] {
+	return pulumix.Output[*CSIDriverPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -223,6 +248,12 @@ func (o CSIDriverPatchArrayOutput) ToCSIDriverPatchArrayOutputWithContext(ctx co
 	return o
 }
 
+func (o CSIDriverPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*CSIDriverPatch] {
+	return pulumix.Output[[]*CSIDriverPatch]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o CSIDriverPatchArrayOutput) Index(i pulumi.IntInput) CSIDriverPatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *CSIDriverPatch {
 		return vs[0].([]*CSIDriverPatch)[vs[1].(int)]
@@ -241,6 +272,12 @@ func (o CSIDriverPatchMapOutput) ToCSIDriverPatchMapOutput() CSIDriverPatchMapOu
 
 func (o CSIDriverPatchMapOutput) ToCSIDriverPatchMapOutputWithContext(ctx context.Context) CSIDriverPatchMapOutput {
 	return o
+}
+
+func (o CSIDriverPatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*CSIDriverPatch] {
+	return pulumix.Output[map[string]*CSIDriverPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o CSIDriverPatchMapOutput) MapIndex(k pulumi.StringInput) CSIDriverPatchOutput {

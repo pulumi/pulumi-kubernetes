@@ -11,6 +11,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // ReplicaSetList is a collection of ReplicaSets.
@@ -117,6 +118,12 @@ func (i *ReplicaSetList) ToReplicaSetListOutputWithContext(ctx context.Context) 
 	return pulumi.ToOutputWithContext(ctx, i).(ReplicaSetListOutput)
 }
 
+func (i *ReplicaSetList) ToOutput(ctx context.Context) pulumix.Output[*ReplicaSetList] {
+	return pulumix.Output[*ReplicaSetList]{
+		OutputState: i.ToReplicaSetListOutputWithContext(ctx).OutputState,
+	}
+}
+
 // ReplicaSetListArrayInput is an input type that accepts ReplicaSetListArray and ReplicaSetListArrayOutput values.
 // You can construct a concrete instance of `ReplicaSetListArrayInput` via:
 //
@@ -140,6 +147,12 @@ func (i ReplicaSetListArray) ToReplicaSetListArrayOutput() ReplicaSetListArrayOu
 
 func (i ReplicaSetListArray) ToReplicaSetListArrayOutputWithContext(ctx context.Context) ReplicaSetListArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ReplicaSetListArrayOutput)
+}
+
+func (i ReplicaSetListArray) ToOutput(ctx context.Context) pulumix.Output[[]*ReplicaSetList] {
+	return pulumix.Output[[]*ReplicaSetList]{
+		OutputState: i.ToReplicaSetListArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // ReplicaSetListMapInput is an input type that accepts ReplicaSetListMap and ReplicaSetListMapOutput values.
@@ -167,6 +180,12 @@ func (i ReplicaSetListMap) ToReplicaSetListMapOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(ReplicaSetListMapOutput)
 }
 
+func (i ReplicaSetListMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*ReplicaSetList] {
+	return pulumix.Output[map[string]*ReplicaSetList]{
+		OutputState: i.ToReplicaSetListMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type ReplicaSetListOutput struct{ *pulumi.OutputState }
 
 func (ReplicaSetListOutput) ElementType() reflect.Type {
@@ -179,6 +198,12 @@ func (o ReplicaSetListOutput) ToReplicaSetListOutput() ReplicaSetListOutput {
 
 func (o ReplicaSetListOutput) ToReplicaSetListOutputWithContext(ctx context.Context) ReplicaSetListOutput {
 	return o
+}
+
+func (o ReplicaSetListOutput) ToOutput(ctx context.Context) pulumix.Output[*ReplicaSetList] {
+	return pulumix.Output[*ReplicaSetList]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -215,6 +240,12 @@ func (o ReplicaSetListArrayOutput) ToReplicaSetListArrayOutputWithContext(ctx co
 	return o
 }
 
+func (o ReplicaSetListArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*ReplicaSetList] {
+	return pulumix.Output[[]*ReplicaSetList]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o ReplicaSetListArrayOutput) Index(i pulumi.IntInput) ReplicaSetListOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *ReplicaSetList {
 		return vs[0].([]*ReplicaSetList)[vs[1].(int)]
@@ -233,6 +264,12 @@ func (o ReplicaSetListMapOutput) ToReplicaSetListMapOutput() ReplicaSetListMapOu
 
 func (o ReplicaSetListMapOutput) ToReplicaSetListMapOutputWithContext(ctx context.Context) ReplicaSetListMapOutput {
 	return o
+}
+
+func (o ReplicaSetListMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*ReplicaSetList] {
+	return pulumix.Output[map[string]*ReplicaSetList]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o ReplicaSetListMapOutput) MapIndex(k pulumi.StringInput) ReplicaSetListOutput {

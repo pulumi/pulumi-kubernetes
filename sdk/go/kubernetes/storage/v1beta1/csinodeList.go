@@ -11,6 +11,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // CSINodeList is a collection of CSINode objects.
@@ -117,6 +118,12 @@ func (i *CSINodeList) ToCSINodeListOutputWithContext(ctx context.Context) CSINod
 	return pulumi.ToOutputWithContext(ctx, i).(CSINodeListOutput)
 }
 
+func (i *CSINodeList) ToOutput(ctx context.Context) pulumix.Output[*CSINodeList] {
+	return pulumix.Output[*CSINodeList]{
+		OutputState: i.ToCSINodeListOutputWithContext(ctx).OutputState,
+	}
+}
+
 // CSINodeListArrayInput is an input type that accepts CSINodeListArray and CSINodeListArrayOutput values.
 // You can construct a concrete instance of `CSINodeListArrayInput` via:
 //
@@ -140,6 +147,12 @@ func (i CSINodeListArray) ToCSINodeListArrayOutput() CSINodeListArrayOutput {
 
 func (i CSINodeListArray) ToCSINodeListArrayOutputWithContext(ctx context.Context) CSINodeListArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(CSINodeListArrayOutput)
+}
+
+func (i CSINodeListArray) ToOutput(ctx context.Context) pulumix.Output[[]*CSINodeList] {
+	return pulumix.Output[[]*CSINodeList]{
+		OutputState: i.ToCSINodeListArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // CSINodeListMapInput is an input type that accepts CSINodeListMap and CSINodeListMapOutput values.
@@ -167,6 +180,12 @@ func (i CSINodeListMap) ToCSINodeListMapOutputWithContext(ctx context.Context) C
 	return pulumi.ToOutputWithContext(ctx, i).(CSINodeListMapOutput)
 }
 
+func (i CSINodeListMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*CSINodeList] {
+	return pulumix.Output[map[string]*CSINodeList]{
+		OutputState: i.ToCSINodeListMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type CSINodeListOutput struct{ *pulumi.OutputState }
 
 func (CSINodeListOutput) ElementType() reflect.Type {
@@ -179,6 +198,12 @@ func (o CSINodeListOutput) ToCSINodeListOutput() CSINodeListOutput {
 
 func (o CSINodeListOutput) ToCSINodeListOutputWithContext(ctx context.Context) CSINodeListOutput {
 	return o
+}
+
+func (o CSINodeListOutput) ToOutput(ctx context.Context) pulumix.Output[*CSINodeList] {
+	return pulumix.Output[*CSINodeList]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -215,6 +240,12 @@ func (o CSINodeListArrayOutput) ToCSINodeListArrayOutputWithContext(ctx context.
 	return o
 }
 
+func (o CSINodeListArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*CSINodeList] {
+	return pulumix.Output[[]*CSINodeList]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o CSINodeListArrayOutput) Index(i pulumi.IntInput) CSINodeListOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *CSINodeList {
 		return vs[0].([]*CSINodeList)[vs[1].(int)]
@@ -233,6 +264,12 @@ func (o CSINodeListMapOutput) ToCSINodeListMapOutput() CSINodeListMapOutput {
 
 func (o CSINodeListMapOutput) ToCSINodeListMapOutputWithContext(ctx context.Context) CSINodeListMapOutput {
 	return o
+}
+
+func (o CSINodeListMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*CSINodeList] {
+	return pulumix.Output[map[string]*CSINodeList]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o CSINodeListMapOutput) MapIndex(k pulumi.StringInput) CSINodeListOutput {

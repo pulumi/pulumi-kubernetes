@@ -11,6 +11,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // PodList is a list of Pods.
@@ -117,6 +118,12 @@ func (i *PodList) ToPodListOutputWithContext(ctx context.Context) PodListOutput 
 	return pulumi.ToOutputWithContext(ctx, i).(PodListOutput)
 }
 
+func (i *PodList) ToOutput(ctx context.Context) pulumix.Output[*PodList] {
+	return pulumix.Output[*PodList]{
+		OutputState: i.ToPodListOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PodListArrayInput is an input type that accepts PodListArray and PodListArrayOutput values.
 // You can construct a concrete instance of `PodListArrayInput` via:
 //
@@ -140,6 +147,12 @@ func (i PodListArray) ToPodListArrayOutput() PodListArrayOutput {
 
 func (i PodListArray) ToPodListArrayOutputWithContext(ctx context.Context) PodListArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(PodListArrayOutput)
+}
+
+func (i PodListArray) ToOutput(ctx context.Context) pulumix.Output[[]*PodList] {
+	return pulumix.Output[[]*PodList]{
+		OutputState: i.ToPodListArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // PodListMapInput is an input type that accepts PodListMap and PodListMapOutput values.
@@ -167,6 +180,12 @@ func (i PodListMap) ToPodListMapOutputWithContext(ctx context.Context) PodListMa
 	return pulumi.ToOutputWithContext(ctx, i).(PodListMapOutput)
 }
 
+func (i PodListMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*PodList] {
+	return pulumix.Output[map[string]*PodList]{
+		OutputState: i.ToPodListMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type PodListOutput struct{ *pulumi.OutputState }
 
 func (PodListOutput) ElementType() reflect.Type {
@@ -179,6 +198,12 @@ func (o PodListOutput) ToPodListOutput() PodListOutput {
 
 func (o PodListOutput) ToPodListOutputWithContext(ctx context.Context) PodListOutput {
 	return o
+}
+
+func (o PodListOutput) ToOutput(ctx context.Context) pulumix.Output[*PodList] {
+	return pulumix.Output[*PodList]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -215,6 +240,12 @@ func (o PodListArrayOutput) ToPodListArrayOutputWithContext(ctx context.Context)
 	return o
 }
 
+func (o PodListArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*PodList] {
+	return pulumix.Output[[]*PodList]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o PodListArrayOutput) Index(i pulumi.IntInput) PodListOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *PodList {
 		return vs[0].([]*PodList)[vs[1].(int)]
@@ -233,6 +264,12 @@ func (o PodListMapOutput) ToPodListMapOutput() PodListMapOutput {
 
 func (o PodListMapOutput) ToPodListMapOutputWithContext(ctx context.Context) PodListMapOutput {
 	return o
+}
+
+func (o PodListMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*PodList] {
+	return pulumix.Output[map[string]*PodList]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o PodListMapOutput) MapIndex(k pulumi.StringInput) PodListOutput {

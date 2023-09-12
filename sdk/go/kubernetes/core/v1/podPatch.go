@@ -10,6 +10,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -136,6 +137,12 @@ func (i *PodPatch) ToPodPatchOutputWithContext(ctx context.Context) PodPatchOutp
 	return pulumi.ToOutputWithContext(ctx, i).(PodPatchOutput)
 }
 
+func (i *PodPatch) ToOutput(ctx context.Context) pulumix.Output[*PodPatch] {
+	return pulumix.Output[*PodPatch]{
+		OutputState: i.ToPodPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PodPatchArrayInput is an input type that accepts PodPatchArray and PodPatchArrayOutput values.
 // You can construct a concrete instance of `PodPatchArrayInput` via:
 //
@@ -159,6 +166,12 @@ func (i PodPatchArray) ToPodPatchArrayOutput() PodPatchArrayOutput {
 
 func (i PodPatchArray) ToPodPatchArrayOutputWithContext(ctx context.Context) PodPatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(PodPatchArrayOutput)
+}
+
+func (i PodPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*PodPatch] {
+	return pulumix.Output[[]*PodPatch]{
+		OutputState: i.ToPodPatchArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // PodPatchMapInput is an input type that accepts PodPatchMap and PodPatchMapOutput values.
@@ -186,6 +199,12 @@ func (i PodPatchMap) ToPodPatchMapOutputWithContext(ctx context.Context) PodPatc
 	return pulumi.ToOutputWithContext(ctx, i).(PodPatchMapOutput)
 }
 
+func (i PodPatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*PodPatch] {
+	return pulumix.Output[map[string]*PodPatch]{
+		OutputState: i.ToPodPatchMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type PodPatchOutput struct{ *pulumi.OutputState }
 
 func (PodPatchOutput) ElementType() reflect.Type {
@@ -198,6 +217,12 @@ func (o PodPatchOutput) ToPodPatchOutput() PodPatchOutput {
 
 func (o PodPatchOutput) ToPodPatchOutputWithContext(ctx context.Context) PodPatchOutput {
 	return o
+}
+
+func (o PodPatchOutput) ToOutput(ctx context.Context) pulumix.Output[*PodPatch] {
+	return pulumix.Output[*PodPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -239,6 +264,12 @@ func (o PodPatchArrayOutput) ToPodPatchArrayOutputWithContext(ctx context.Contex
 	return o
 }
 
+func (o PodPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*PodPatch] {
+	return pulumix.Output[[]*PodPatch]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o PodPatchArrayOutput) Index(i pulumi.IntInput) PodPatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *PodPatch {
 		return vs[0].([]*PodPatch)[vs[1].(int)]
@@ -257,6 +288,12 @@ func (o PodPatchMapOutput) ToPodPatchMapOutput() PodPatchMapOutput {
 
 func (o PodPatchMapOutput) ToPodPatchMapOutputWithContext(ctx context.Context) PodPatchMapOutput {
 	return o
+}
+
+func (o PodPatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*PodPatch] {
+	return pulumix.Output[map[string]*PodPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o PodPatchMapOutput) MapIndex(k pulumi.StringInput) PodPatchOutput {

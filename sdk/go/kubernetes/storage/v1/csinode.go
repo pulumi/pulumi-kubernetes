@@ -11,6 +11,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // CSINode holds information about all CSI drivers installed on a node. CSI drivers do not need to create the CSINode object directly. As long as they use the node-driver-registrar sidecar container, the kubelet will automatically populate the CSINode object for the CSI driver as part of kubelet plugin registration. CSINode has the same name as a node. If the object is missing, it means either there are no CSI Drivers available on the node, or the Kubelet version is low enough that it doesn't create this object. CSINode has an OwnerReference that points to the corresponding node object.
@@ -123,6 +124,12 @@ func (i *CSINode) ToCSINodeOutputWithContext(ctx context.Context) CSINodeOutput 
 	return pulumi.ToOutputWithContext(ctx, i).(CSINodeOutput)
 }
 
+func (i *CSINode) ToOutput(ctx context.Context) pulumix.Output[*CSINode] {
+	return pulumix.Output[*CSINode]{
+		OutputState: i.ToCSINodeOutputWithContext(ctx).OutputState,
+	}
+}
+
 // CSINodeArrayInput is an input type that accepts CSINodeArray and CSINodeArrayOutput values.
 // You can construct a concrete instance of `CSINodeArrayInput` via:
 //
@@ -146,6 +153,12 @@ func (i CSINodeArray) ToCSINodeArrayOutput() CSINodeArrayOutput {
 
 func (i CSINodeArray) ToCSINodeArrayOutputWithContext(ctx context.Context) CSINodeArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(CSINodeArrayOutput)
+}
+
+func (i CSINodeArray) ToOutput(ctx context.Context) pulumix.Output[[]*CSINode] {
+	return pulumix.Output[[]*CSINode]{
+		OutputState: i.ToCSINodeArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // CSINodeMapInput is an input type that accepts CSINodeMap and CSINodeMapOutput values.
@@ -173,6 +186,12 @@ func (i CSINodeMap) ToCSINodeMapOutputWithContext(ctx context.Context) CSINodeMa
 	return pulumi.ToOutputWithContext(ctx, i).(CSINodeMapOutput)
 }
 
+func (i CSINodeMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*CSINode] {
+	return pulumix.Output[map[string]*CSINode]{
+		OutputState: i.ToCSINodeMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type CSINodeOutput struct{ *pulumi.OutputState }
 
 func (CSINodeOutput) ElementType() reflect.Type {
@@ -185,6 +204,12 @@ func (o CSINodeOutput) ToCSINodeOutput() CSINodeOutput {
 
 func (o CSINodeOutput) ToCSINodeOutputWithContext(ctx context.Context) CSINodeOutput {
 	return o
+}
+
+func (o CSINodeOutput) ToOutput(ctx context.Context) pulumix.Output[*CSINode] {
+	return pulumix.Output[*CSINode]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -221,6 +246,12 @@ func (o CSINodeArrayOutput) ToCSINodeArrayOutputWithContext(ctx context.Context)
 	return o
 }
 
+func (o CSINodeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*CSINode] {
+	return pulumix.Output[[]*CSINode]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o CSINodeArrayOutput) Index(i pulumi.IntInput) CSINodeOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *CSINode {
 		return vs[0].([]*CSINode)[vs[1].(int)]
@@ -239,6 +270,12 @@ func (o CSINodeMapOutput) ToCSINodeMapOutput() CSINodeMapOutput {
 
 func (o CSINodeMapOutput) ToCSINodeMapOutputWithContext(ctx context.Context) CSINodeMapOutput {
 	return o
+}
+
+func (o CSINodeMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*CSINode] {
+	return pulumix.Output[map[string]*CSINode]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o CSINodeMapOutput) MapIndex(k pulumi.StringInput) CSINodeOutput {

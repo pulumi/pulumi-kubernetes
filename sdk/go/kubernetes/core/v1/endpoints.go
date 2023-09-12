@@ -10,6 +10,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Endpoints is a collection of endpoints that implement the actual service. Example:
@@ -125,6 +126,12 @@ func (i *Endpoints) ToEndpointsOutputWithContext(ctx context.Context) EndpointsO
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointsOutput)
 }
 
+func (i *Endpoints) ToOutput(ctx context.Context) pulumix.Output[*Endpoints] {
+	return pulumix.Output[*Endpoints]{
+		OutputState: i.ToEndpointsOutputWithContext(ctx).OutputState,
+	}
+}
+
 // EndpointsArrayInput is an input type that accepts EndpointsArray and EndpointsArrayOutput values.
 // You can construct a concrete instance of `EndpointsArrayInput` via:
 //
@@ -148,6 +155,12 @@ func (i EndpointsArray) ToEndpointsArrayOutput() EndpointsArrayOutput {
 
 func (i EndpointsArray) ToEndpointsArrayOutputWithContext(ctx context.Context) EndpointsArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointsArrayOutput)
+}
+
+func (i EndpointsArray) ToOutput(ctx context.Context) pulumix.Output[[]*Endpoints] {
+	return pulumix.Output[[]*Endpoints]{
+		OutputState: i.ToEndpointsArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // EndpointsMapInput is an input type that accepts EndpointsMap and EndpointsMapOutput values.
@@ -175,6 +188,12 @@ func (i EndpointsMap) ToEndpointsMapOutputWithContext(ctx context.Context) Endpo
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointsMapOutput)
 }
 
+func (i EndpointsMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*Endpoints] {
+	return pulumix.Output[map[string]*Endpoints]{
+		OutputState: i.ToEndpointsMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type EndpointsOutput struct{ *pulumi.OutputState }
 
 func (EndpointsOutput) ElementType() reflect.Type {
@@ -187,6 +206,12 @@ func (o EndpointsOutput) ToEndpointsOutput() EndpointsOutput {
 
 func (o EndpointsOutput) ToEndpointsOutputWithContext(ctx context.Context) EndpointsOutput {
 	return o
+}
+
+func (o EndpointsOutput) ToOutput(ctx context.Context) pulumix.Output[*Endpoints] {
+	return pulumix.Output[*Endpoints]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -223,6 +248,12 @@ func (o EndpointsArrayOutput) ToEndpointsArrayOutputWithContext(ctx context.Cont
 	return o
 }
 
+func (o EndpointsArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*Endpoints] {
+	return pulumix.Output[[]*Endpoints]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o EndpointsArrayOutput) Index(i pulumi.IntInput) EndpointsOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *Endpoints {
 		return vs[0].([]*Endpoints)[vs[1].(int)]
@@ -241,6 +272,12 @@ func (o EndpointsMapOutput) ToEndpointsMapOutput() EndpointsMapOutput {
 
 func (o EndpointsMapOutput) ToEndpointsMapOutputWithContext(ctx context.Context) EndpointsMapOutput {
 	return o
+}
+
+func (o EndpointsMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*Endpoints] {
+	return pulumix.Output[map[string]*Endpoints]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o EndpointsMapOutput) MapIndex(k pulumi.StringInput) EndpointsOutput {

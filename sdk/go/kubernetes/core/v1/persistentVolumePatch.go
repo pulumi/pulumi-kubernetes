@@ -10,6 +10,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -121,6 +122,12 @@ func (i *PersistentVolumePatch) ToPersistentVolumePatchOutputWithContext(ctx con
 	return pulumi.ToOutputWithContext(ctx, i).(PersistentVolumePatchOutput)
 }
 
+func (i *PersistentVolumePatch) ToOutput(ctx context.Context) pulumix.Output[*PersistentVolumePatch] {
+	return pulumix.Output[*PersistentVolumePatch]{
+		OutputState: i.ToPersistentVolumePatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 // PersistentVolumePatchArrayInput is an input type that accepts PersistentVolumePatchArray and PersistentVolumePatchArrayOutput values.
 // You can construct a concrete instance of `PersistentVolumePatchArrayInput` via:
 //
@@ -144,6 +151,12 @@ func (i PersistentVolumePatchArray) ToPersistentVolumePatchArrayOutput() Persist
 
 func (i PersistentVolumePatchArray) ToPersistentVolumePatchArrayOutputWithContext(ctx context.Context) PersistentVolumePatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(PersistentVolumePatchArrayOutput)
+}
+
+func (i PersistentVolumePatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*PersistentVolumePatch] {
+	return pulumix.Output[[]*PersistentVolumePatch]{
+		OutputState: i.ToPersistentVolumePatchArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // PersistentVolumePatchMapInput is an input type that accepts PersistentVolumePatchMap and PersistentVolumePatchMapOutput values.
@@ -171,6 +184,12 @@ func (i PersistentVolumePatchMap) ToPersistentVolumePatchMapOutputWithContext(ct
 	return pulumi.ToOutputWithContext(ctx, i).(PersistentVolumePatchMapOutput)
 }
 
+func (i PersistentVolumePatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*PersistentVolumePatch] {
+	return pulumix.Output[map[string]*PersistentVolumePatch]{
+		OutputState: i.ToPersistentVolumePatchMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type PersistentVolumePatchOutput struct{ *pulumi.OutputState }
 
 func (PersistentVolumePatchOutput) ElementType() reflect.Type {
@@ -183,6 +202,12 @@ func (o PersistentVolumePatchOutput) ToPersistentVolumePatchOutput() PersistentV
 
 func (o PersistentVolumePatchOutput) ToPersistentVolumePatchOutputWithContext(ctx context.Context) PersistentVolumePatchOutput {
 	return o
+}
+
+func (o PersistentVolumePatchOutput) ToOutput(ctx context.Context) pulumix.Output[*PersistentVolumePatch] {
+	return pulumix.Output[*PersistentVolumePatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -224,6 +249,12 @@ func (o PersistentVolumePatchArrayOutput) ToPersistentVolumePatchArrayOutputWith
 	return o
 }
 
+func (o PersistentVolumePatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*PersistentVolumePatch] {
+	return pulumix.Output[[]*PersistentVolumePatch]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o PersistentVolumePatchArrayOutput) Index(i pulumi.IntInput) PersistentVolumePatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *PersistentVolumePatch {
 		return vs[0].([]*PersistentVolumePatch)[vs[1].(int)]
@@ -242,6 +273,12 @@ func (o PersistentVolumePatchMapOutput) ToPersistentVolumePatchMapOutput() Persi
 
 func (o PersistentVolumePatchMapOutput) ToPersistentVolumePatchMapOutputWithContext(ctx context.Context) PersistentVolumePatchMapOutput {
 	return o
+}
+
+func (o PersistentVolumePatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*PersistentVolumePatch] {
+	return pulumix.Output[map[string]*PersistentVolumePatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o PersistentVolumePatchMapOutput) MapIndex(k pulumi.StringInput) PersistentVolumePatchOutput {

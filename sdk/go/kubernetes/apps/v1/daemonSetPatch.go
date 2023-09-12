@@ -10,6 +10,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -130,6 +131,12 @@ func (i *DaemonSetPatch) ToDaemonSetPatchOutputWithContext(ctx context.Context) 
 	return pulumi.ToOutputWithContext(ctx, i).(DaemonSetPatchOutput)
 }
 
+func (i *DaemonSetPatch) ToOutput(ctx context.Context) pulumix.Output[*DaemonSetPatch] {
+	return pulumix.Output[*DaemonSetPatch]{
+		OutputState: i.ToDaemonSetPatchOutputWithContext(ctx).OutputState,
+	}
+}
+
 // DaemonSetPatchArrayInput is an input type that accepts DaemonSetPatchArray and DaemonSetPatchArrayOutput values.
 // You can construct a concrete instance of `DaemonSetPatchArrayInput` via:
 //
@@ -153,6 +160,12 @@ func (i DaemonSetPatchArray) ToDaemonSetPatchArrayOutput() DaemonSetPatchArrayOu
 
 func (i DaemonSetPatchArray) ToDaemonSetPatchArrayOutputWithContext(ctx context.Context) DaemonSetPatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(DaemonSetPatchArrayOutput)
+}
+
+func (i DaemonSetPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*DaemonSetPatch] {
+	return pulumix.Output[[]*DaemonSetPatch]{
+		OutputState: i.ToDaemonSetPatchArrayOutputWithContext(ctx).OutputState,
+	}
 }
 
 // DaemonSetPatchMapInput is an input type that accepts DaemonSetPatchMap and DaemonSetPatchMapOutput values.
@@ -180,6 +193,12 @@ func (i DaemonSetPatchMap) ToDaemonSetPatchMapOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(DaemonSetPatchMapOutput)
 }
 
+func (i DaemonSetPatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*DaemonSetPatch] {
+	return pulumix.Output[map[string]*DaemonSetPatch]{
+		OutputState: i.ToDaemonSetPatchMapOutputWithContext(ctx).OutputState,
+	}
+}
+
 type DaemonSetPatchOutput struct{ *pulumi.OutputState }
 
 func (DaemonSetPatchOutput) ElementType() reflect.Type {
@@ -192,6 +211,12 @@ func (o DaemonSetPatchOutput) ToDaemonSetPatchOutput() DaemonSetPatchOutput {
 
 func (o DaemonSetPatchOutput) ToDaemonSetPatchOutputWithContext(ctx context.Context) DaemonSetPatchOutput {
 	return o
+}
+
+func (o DaemonSetPatchOutput) ToOutput(ctx context.Context) pulumix.Output[*DaemonSetPatch] {
+	return pulumix.Output[*DaemonSetPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -233,6 +258,12 @@ func (o DaemonSetPatchArrayOutput) ToDaemonSetPatchArrayOutputWithContext(ctx co
 	return o
 }
 
+func (o DaemonSetPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*DaemonSetPatch] {
+	return pulumix.Output[[]*DaemonSetPatch]{
+		OutputState: o.OutputState,
+	}
+}
+
 func (o DaemonSetPatchArrayOutput) Index(i pulumi.IntInput) DaemonSetPatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *DaemonSetPatch {
 		return vs[0].([]*DaemonSetPatch)[vs[1].(int)]
@@ -251,6 +282,12 @@ func (o DaemonSetPatchMapOutput) ToDaemonSetPatchMapOutput() DaemonSetPatchMapOu
 
 func (o DaemonSetPatchMapOutput) ToDaemonSetPatchMapOutputWithContext(ctx context.Context) DaemonSetPatchMapOutput {
 	return o
+}
+
+func (o DaemonSetPatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*DaemonSetPatch] {
+	return pulumix.Output[map[string]*DaemonSetPatch]{
+		OutputState: o.OutputState,
+	}
 }
 
 func (o DaemonSetPatchMapOutput) MapIndex(k pulumi.StringInput) DaemonSetPatchOutput {
