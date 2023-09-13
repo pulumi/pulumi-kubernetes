@@ -53,7 +53,7 @@ k8sprovider_debug::
 	(cd provider && CGO_ENABLED=0 go build -o $(WORKING_DIR)/bin/${PROVIDER} -gcflags="all=-N -l" -ldflags "-X ${PROJECT}/${VERSION_PATH}=${VERSION}" $(PROJECT)/${PROVIDER_PATH}/cmd/$(PROVIDER))
 
 test_provider::
-	cd provider/pkg && go test -short -v -count=1 -coverprofile="coverage.txt" -timeout 2h -parallel ${TESTPARALLELISM} ./...
+	cd provider/pkg && go test -short -v -count=1 -coverprofile="coverage.txt" -coverpkg=./... -timeout 2h -parallel ${TESTPARALLELISM} ./...
 
 dotnet_sdk:: DOTNET_VERSION := $(shell pulumictl get version --language dotnet)
 dotnet_sdk::
