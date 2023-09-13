@@ -125,6 +125,7 @@ type kubeProvider struct {
 	defaultNamespace string
 
 	deleteUnreachable           bool
+	skipUpdateUnreachable       bool
 	enableConfigMapMutable      bool
 	enableSecrets               bool
 	suppressDeprecationWarnings bool
@@ -170,6 +171,7 @@ func makeKubeProvider(
 		enableSecrets:               false,
 		suppressDeprecationWarnings: false,
 		deleteUnreachable:           false,
+		skipUpdateUnreachable:       false,
 	}, nil
 }
 
@@ -468,6 +470,22 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	}
 	if deleteUnreachable() {
 		k.deleteUnreachable = true
+	}
+
+	skipUpdateUnreachable := func() bool {
+		// If the provider flag is set, use that value to determine behavior. This will override the ENV var.
+		if enabled, exists := vars["kubernetes:config:skipUpdateUnreachable"]; exists {
+			return enabled == trueStr
+		}
+		// If the provider flag is not set, fall back to the ENV var.
+		if enabled, exists := os.LookupEnv("PULUMI_K8S_SKIP_UPDATE_UNREACHABLE"); exists {
+			return enabled == trueStr
+		}
+		// Default to false.
+		return false
+	}
+	if skipUpdateUnreachable() {
+		k.skipUpdateUnreachable = true
 	}
 
 	enableServerSideApply := func() bool {
@@ -1262,6 +1280,16 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	//
 
 	urn := resource.URN(req.GetUrn())
+
+	if k.clusterUnreachable {
+		if k.skipUpdateUnreachable {
+			_ = k.host.Log(ctx, diag.Warning, urn, "Cluster is unreachable but skipUpdateUnreachable flag is set to true, skipping...")
+			return &pulumirpc.CheckResponse{
+				Inputs: req.GetOlds(),
+			}, nil
+		}
+	}
+
 	if isHelmRelease(urn) {
 		return k.helmReleaseProvider.Check(ctx, req)
 	}
@@ -1930,6 +1958,16 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 				"configured Kubernetes cluster is unreachable and the `deleteUnreachable` option is enabled. "+
 					"Deleting the unreachable resource from Pulumi state"))
 			return deleteResponse, nil
+		}
+		if k.skipUpdateUnreachable {
+			_ = k.host.Log(ctx, diag.Info, urn, fmt.Sprintf(
+				"configured Kubernetes cluster is unreachable and the `skipUnreachable` option is enabled. "+
+					"Returned data could not reflect the actual cluster configuration."))
+			return &pulumirpc.ReadResponse{
+				Id:         req.GetId(),
+				Properties: req.GetProperties(),
+				Inputs:     req.GetInputs(),
+			}, nil
 		}
 
 		return nil, fmt.Errorf("failed to read resource state due to unreachable cluster. If the cluster was " +

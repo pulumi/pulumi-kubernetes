@@ -20,6 +20,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"os"
 	"os/exec"
@@ -37,6 +38,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 	"github.com/stretchr/testify/assert"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+	"k8s.io/client-go/tools/clientcmd"
 )
 
 var baseOptions = &integration.ProgramTestOptions{
@@ -1668,4 +1670,135 @@ func TestClientSideDriftCorrectSSA(t *testing.T) {
 
 	assert.Contains(t, string(out), "foo: bar")    // ConfigMap should have been updated with data foo: bar.
 	assert.NotContains(t, string(out), "foo: baz") // ConfigMap should no longer have data foo: baz.
+}
+
+// TestSkipUpdateUnreachableFlag tests that we can complete a pulumi up with the skipUpdateUnreachable flag set,
+// while some clusters are unreachable. This is helpful when a Pulumi program is managing resources across multiple
+// clusters, and some of the clusters are unreachable.
+// See https://github.com/pulumi/pulumi-kubernetes/pull/2528 for more details.
+// Steps:
+//  1. Create a ConfigMap in 2 separate clusters. (We clone the same KUBECONFIG file to simulate 2 separate clusters.)
+//  2. Disable access to one of the clusters.
+//  3. Run `pulumi up` with the skip-update-unreachable flag set.
+//  4. Validate that the resource in the reachable cluster was updated, and the resource in the unreachable cluster was not.
+//  5. Re-enable access to the unreachable cluster and run `pulumi up` again.
+//  6. Validate that the resource in the unreachable cluster was updated.
+func TestSkipUpdateUnreachableFlag(t *testing.T) {
+	var ns0, ns1, cm0, cm1 string
+
+	test := baseOptions.With(integration.ProgramTestOptions{
+		Dir:                  filepath.Join("skip-update-unreachable", "step1"),
+		ExpectRefreshChanges: true,
+		// Enable destroy-on-cleanup so we can shell out to kubectl to make external changes to the resource and reuse the same stack.
+		DestroyOnCleanup: true,
+		Env:              []string{"PULUMI_K8S_SKIP_UPDATE_UNREACHABLE=true"},
+		OrderedConfig: []integration.ConfigValue{
+			{
+				Key:   "pulumi:disable-default-providers[0]",
+				Value: "kubernetes",
+				Path:  true,
+			},
+		},
+		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+			var ok bool
+			cm0, ok = stackInfo.Outputs["cmName0"].(string)
+			assert.True(t, ok)
+			cm1, ok = stackInfo.Outputs["cmName1"].(string)
+			assert.True(t, ok)
+			ns0, ok = stackInfo.Outputs["nsName0"].(string)
+			assert.True(t, ok)
+			ns1, ok = stackInfo.Outputs["nsName1"].(string)
+			assert.True(t, ok)
+		},
+	})
+
+	t.Log("Creating kubeconfig files to simulate 2 clusters")
+	kubeconfigs, err := simluateClusterKubeconfig(t, 2)
+	assert.NoError(t, err)
+
+	test = test.With(integration.ProgramTestOptions{
+		Env: []string{"KUBECONFIG_CLUSTER_0=" + kubeconfigs[0], "KUBECONFIG_CLUSTER_1=" + kubeconfigs[0]},
+	})
+
+	// Use manual lifecycle management since we need to run external commands in between pulumi up steps, while referencing
+	// the same stack.
+	t.Log("Creating ConfigMaps in 2 separate clusters")
+	pt := integration.ProgramTestManualLifeCycle(t, &test)
+	err = pt.TestLifeCycleInitAndDestroy()
+	assert.NoError(t, err)
+
+	t.Log("Validating ConfigMaps were created in 2 separate clusters with data foo: step1")
+	cm0Contents, err := tests.Kubectl("get configmap -o yaml -n", ns0, cm0)
+	assert.NoError(t, err)
+	assert.Contains(t, string(cm0Contents), "foo: step1") // ConfigMap should have been created with data foo: step1.
+	cm1Contents, err := tests.Kubectl("get configmap -o yaml -n", ns1, cm1)
+	assert.NoError(t, err)
+	assert.Contains(t, string(cm1Contents), "foo: step1")
+
+	t.Log("Disabling access to the second cluster by setting the KUBECONFIG to a fake filepath and re-running `pulumi up`")
+	test.Env = append(test.Env, "KUBECONFIG_CLUSTER_1=/fake/filepath")
+
+	t.Log("Updating the Pulumi program to use step2")
+	test.EditDirs = []integration.EditDir{
+		{
+			Dir:      filepath.Join("skip-update-unreachable", "step2"),
+			Additive: true,
+		},
+	}
+
+	// Run `pulumi up`.
+	err = pt.TestPreviewUpdateAndEdits()
+	assert.NoError(t, err)
+
+	t.Log("Validating ConfigMaps were updated in the reachable cluster, but not in the unreachable cluster")
+	cm0Contents, err = tests.Kubectl("get configmap -o yaml -n", ns0, cm0)
+	assert.NoError(t, err)
+	assert.Contains(t, string(cm0Contents), "foo: step2") // ConfigMap should have been updated with data foo: step2.
+	cm1Contents, err = tests.Kubectl("get configmap -o yaml -n", ns1, cm1)
+	assert.NoError(t, err)
+	assert.Contains(t, string(cm1Contents), "foo: step1") // ConfigMap should not have been updated.
+
+	t.Log("Re-enabling access to the second cluster by setting the KUBECONFIG to the original kubeconfig and re-running `pulumi up`")
+	test.Env = append(test.Env, "KUBECONFIG_CLUSTER_1="+kubeconfigs[1])
+
+	err = pt.TestPreviewUpdateAndEdits()
+	assert.NoError(t, err)
+
+	t.Log("Validating ConfigMaps were updated in the unreachable cluster")
+	cm1Contents, err = tests.Kubectl("get configmap -o yaml -n", ns1, cm1)
+	assert.NoError(t, err)
+	assert.Contains(t, string(cm1Contents), "foo: step2") // ConfigMap should have been updated with data foo: step2.
+}
+
+func simluateClusterKubeconfig(t *testing.T, numOfClusters int) ([]string, error) {
+	t.Helper()
+
+	// Load default kubeconfig as base.
+	config, err := clientcmd.NewDefaultClientConfigLoadingRules().Load()
+	if err != nil {
+		return nil, err
+	}
+
+	// Create tmp dir to store kubeconfig.
+	tmpDir, err := os.MkdirTemp("", "kubeconfig-preview")
+	if err != nil {
+		return nil, err
+	}
+
+	t.Cleanup(func() {
+		log.Println("Deleting kubeconfig tmp dir")
+		assert.NoError(t, os.RemoveAll(tmpDir))
+	})
+
+	// Write kubeconfig to tmp dir.
+	kubeconfigs := make([]string, numOfClusters)
+	for i := 0; i < numOfClusters; i++ {
+		kubeconfigs[i] = filepath.Join(tmpDir, fmt.Sprintf("kubeconfig-%d.txt", i))
+		err = clientcmd.WriteToFile(*config, kubeconfigs[i])
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	return kubeconfigs, err
 }

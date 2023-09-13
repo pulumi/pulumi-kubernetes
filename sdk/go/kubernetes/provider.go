@@ -50,6 +50,11 @@ func NewProvider(ctx *pulumi.Context,
 			args.Kubeconfig = pulumi.StringPtr(d.(string))
 		}
 	}
+	if args.SkipUpdateUnreachable == nil {
+		if d := internal.GetEnvOrDefault(nil, internal.ParseEnvBool, "PULUMI_K8S_SKIP_UPDATE_UNREACHABLE"); d != nil {
+			args.SkipUpdateUnreachable = pulumi.BoolPtr(d.(bool))
+		}
+	}
 	if args.SuppressDeprecationWarnings == nil {
 		if d := internal.GetEnvOrDefault(nil, internal.ParseEnvBool, "PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS"); d != nil {
 			args.SuppressDeprecationWarnings = pulumi.BoolPtr(d.(bool))
@@ -108,6 +113,8 @@ type providerArgs struct {
 	// and may result in an error if they are referenced by other resources. Also note that any secret values
 	// used in these resources will be rendered in plaintext to the resulting YAML.
 	RenderYamlToDirectory *string `pulumi:"renderYamlToDirectory"`
+	// If present and set to true, the provider will skip resources update associated with an unreachable Kubernetes cluster from Pulumi state
+	SkipUpdateUnreachable *bool `pulumi:"skipUpdateUnreachable"`
 	// If present and set to true, suppress apiVersion deprecation warnings from the CLI.
 	SuppressDeprecationWarnings *bool `pulumi:"suppressDeprecationWarnings"`
 	// If present and set to true, suppress unsupported Helm hook warnings from the CLI.
@@ -154,6 +161,8 @@ type ProviderArgs struct {
 	// and may result in an error if they are referenced by other resources. Also note that any secret values
 	// used in these resources will be rendered in plaintext to the resulting YAML.
 	RenderYamlToDirectory pulumi.StringPtrInput
+	// If present and set to true, the provider will skip resources update associated with an unreachable Kubernetes cluster from Pulumi state
+	SkipUpdateUnreachable pulumi.BoolPtrInput
 	// If present and set to true, suppress apiVersion deprecation warnings from the CLI.
 	SuppressDeprecationWarnings pulumi.BoolPtrInput
 	// If present and set to true, suppress unsupported Helm hook warnings from the CLI.

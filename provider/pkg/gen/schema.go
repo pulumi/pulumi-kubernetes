@@ -73,6 +73,10 @@ func PulumiSchema(swagger map[string]any) pschema.PackageSpec {
 					Description: "If present and set to true, the provider will delete resources associated with an unreachable Kubernetes cluster from Pulumi state",
 					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
 				},
+				"skipUpdateUnreachable": {
+					Description: "If present and set to true, the provider will skip resources update associated with an unreachable Kubernetes cluster from Pulumi state",
+					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
+				},
 				"enableServerSideApply": {
 					Description: "If present and set to false, disable Server-Side Apply mode.\nSee https://github.com/pulumi/pulumi-kubernetes/issues/2011 for additional details.",
 					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
@@ -139,6 +143,15 @@ func PulumiSchema(swagger map[string]any) pschema.PackageSpec {
 					DefaultInfo: &pschema.DefaultSpec{
 						Environment: []string{
 							"PULUMI_K8S_DELETE_UNREACHABLE",
+						},
+					},
+				},
+				"skipUpdateUnreachable": {
+					Description: "If present and set to true, the provider will skip resources update associated with an unreachable Kubernetes cluster from Pulumi state",
+					TypeSpec:    pschema.TypeSpec{Type: "boolean"},
+					DefaultInfo: &pschema.DefaultSpec{
+						Environment: []string{
+							"PULUMI_K8S_SKIP_UPDATE_UNREACHABLE",
 						},
 					},
 				},

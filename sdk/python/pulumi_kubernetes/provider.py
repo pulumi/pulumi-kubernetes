@@ -25,6 +25,7 @@ class ProviderArgs:
                  kubeconfig: Optional[pulumi.Input[str]] = None,
                  namespace: Optional[pulumi.Input[str]] = None,
                  render_yaml_to_directory: Optional[pulumi.Input[str]] = None,
+                 skip_update_unreachable: Optional[pulumi.Input[bool]] = None,
                  suppress_deprecation_warnings: Optional[pulumi.Input[bool]] = None,
                  suppress_helm_hook_warnings: Optional[pulumi.Input[bool]] = None):
         """
@@ -57,6 +58,7 @@ class ProviderArgs:
                since the resources are not created on a Kubernetes cluster. These Output values will remain undefined,
                and may result in an error if they are referenced by other resources. Also note that any secret values
                used in these resources will be rendered in plaintext to the resulting YAML.
+        :param pulumi.Input[bool] skip_update_unreachable: If present and set to true, the provider will skip resources update associated with an unreachable Kubernetes cluster from Pulumi state
         :param pulumi.Input[bool] suppress_deprecation_warnings: If present and set to true, suppress apiVersion deprecation warnings from the CLI.
         :param pulumi.Input[bool] suppress_helm_hook_warnings: If present and set to true, suppress unsupported Helm hook warnings from the CLI.
         """
@@ -88,6 +90,10 @@ class ProviderArgs:
             pulumi.set(__self__, "namespace", namespace)
         if render_yaml_to_directory is not None:
             pulumi.set(__self__, "render_yaml_to_directory", render_yaml_to_directory)
+        if skip_update_unreachable is None:
+            skip_update_unreachable = _utilities.get_env_bool('PULUMI_K8S_SKIP_UPDATE_UNREACHABLE')
+        if skip_update_unreachable is not None:
+            pulumi.set(__self__, "skip_update_unreachable", skip_update_unreachable)
         if suppress_deprecation_warnings is None:
             suppress_deprecation_warnings = _utilities.get_env_bool('PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS')
         if suppress_deprecation_warnings is not None:
@@ -236,6 +242,18 @@ class ProviderArgs:
         pulumi.set(self, "render_yaml_to_directory", value)
 
     @property
+    @pulumi.getter(name="skipUpdateUnreachable")
+    def skip_update_unreachable(self) -> Optional[pulumi.Input[bool]]:
+        """
+        If present and set to true, the provider will skip resources update associated with an unreachable Kubernetes cluster from Pulumi state
+        """
+        return pulumi.get(self, "skip_update_unreachable")
+
+    @skip_update_unreachable.setter
+    def skip_update_unreachable(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "skip_update_unreachable", value)
+
+    @property
     @pulumi.getter(name="suppressDeprecationWarnings")
     def suppress_deprecation_warnings(self) -> Optional[pulumi.Input[bool]]:
         """
@@ -275,6 +293,7 @@ class Provider(pulumi.ProviderResource):
                  kubeconfig: Optional[pulumi.Input[str]] = None,
                  namespace: Optional[pulumi.Input[str]] = None,
                  render_yaml_to_directory: Optional[pulumi.Input[str]] = None,
+                 skip_update_unreachable: Optional[pulumi.Input[bool]] = None,
                  suppress_deprecation_warnings: Optional[pulumi.Input[bool]] = None,
                  suppress_helm_hook_warnings: Optional[pulumi.Input[bool]] = None,
                  __props__=None):
@@ -311,6 +330,7 @@ class Provider(pulumi.ProviderResource):
                since the resources are not created on a Kubernetes cluster. These Output values will remain undefined,
                and may result in an error if they are referenced by other resources. Also note that any secret values
                used in these resources will be rendered in plaintext to the resulting YAML.
+        :param pulumi.Input[bool] skip_update_unreachable: If present and set to true, the provider will skip resources update associated with an unreachable Kubernetes cluster from Pulumi state
         :param pulumi.Input[bool] suppress_deprecation_warnings: If present and set to true, suppress apiVersion deprecation warnings from the CLI.
         :param pulumi.Input[bool] suppress_helm_hook_warnings: If present and set to true, suppress unsupported Helm hook warnings from the CLI.
         """
@@ -348,6 +368,7 @@ class Provider(pulumi.ProviderResource):
                  kubeconfig: Optional[pulumi.Input[str]] = None,
                  namespace: Optional[pulumi.Input[str]] = None,
                  render_yaml_to_directory: Optional[pulumi.Input[str]] = None,
+                 skip_update_unreachable: Optional[pulumi.Input[bool]] = None,
                  suppress_deprecation_warnings: Optional[pulumi.Input[bool]] = None,
                  suppress_helm_hook_warnings: Optional[pulumi.Input[bool]] = None,
                  __props__=None):
@@ -377,6 +398,9 @@ class Provider(pulumi.ProviderResource):
             __props__.__dict__["kubeconfig"] = kubeconfig
             __props__.__dict__["namespace"] = namespace
             __props__.__dict__["render_yaml_to_directory"] = render_yaml_to_directory
+            if skip_update_unreachable is None:
+                skip_update_unreachable = _utilities.get_env_bool('PULUMI_K8S_SKIP_UPDATE_UNREACHABLE')
+            __props__.__dict__["skip_update_unreachable"] = pulumi.Output.from_input(skip_update_unreachable).apply(pulumi.runtime.to_json) if skip_update_unreachable is not None else None
             if suppress_deprecation_warnings is None:
                 suppress_deprecation_warnings = _utilities.get_env_bool('PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS')
             __props__.__dict__["suppress_deprecation_warnings"] = pulumi.Output.from_input(suppress_deprecation_warnings).apply(pulumi.runtime.to_json) if suppress_deprecation_warnings is not None else None

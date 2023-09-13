@@ -47,6 +47,7 @@ export class Provider extends pulumi.ProviderResource {
             resourceInputs["kubeconfig"] = (args ? args.kubeconfig : undefined) ?? utilities.getEnv("KUBECONFIG");
             resourceInputs["namespace"] = args ? args.namespace : undefined;
             resourceInputs["renderYamlToDirectory"] = args ? args.renderYamlToDirectory : undefined;
+            resourceInputs["skipUpdateUnreachable"] = pulumi.output((args ? args.skipUpdateUnreachable : undefined) ?? utilities.getEnvBoolean("PULUMI_K8S_SKIP_UPDATE_UNREACHABLE")).apply(JSON.stringify);
             resourceInputs["suppressDeprecationWarnings"] = pulumi.output((args ? args.suppressDeprecationWarnings : undefined) ?? utilities.getEnvBoolean("PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS")).apply(JSON.stringify);
             resourceInputs["suppressHelmHookWarnings"] = pulumi.output((args ? args.suppressHelmHookWarnings : undefined) ?? utilities.getEnvBoolean("PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS")).apply(JSON.stringify);
         }
@@ -117,6 +118,10 @@ export interface ProviderArgs {
      * used in these resources will be rendered in plaintext to the resulting YAML.
      */
     renderYamlToDirectory?: pulumi.Input<string>;
+    /**
+     * If present and set to true, the provider will skip resources update associated with an unreachable Kubernetes cluster from Pulumi state
+     */
+    skipUpdateUnreachable?: pulumi.Input<boolean>;
     /**
      * If present and set to true, suppress apiVersion deprecation warnings from the CLI.
      */

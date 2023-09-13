@@ -125,6 +125,12 @@ namespace Pulumi.Kubernetes
         public Input<string>? RenderYamlToDirectory { get; set; }
 
         /// <summary>
+        /// If present and set to true, the provider will skip resources update associated with an unreachable Kubernetes cluster from Pulumi state
+        /// </summary>
+        [Input("skipUpdateUnreachable", json: true)]
+        public Input<bool>? SkipUpdateUnreachable { get; set; }
+
+        /// <summary>
         /// If present and set to true, suppress apiVersion deprecation warnings from the CLI.
         /// </summary>
         [Input("suppressDeprecationWarnings", json: true)]
@@ -142,6 +148,7 @@ namespace Pulumi.Kubernetes
             EnableConfigMapMutable = Utilities.GetEnvBoolean("PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE");
             EnableServerSideApply = Utilities.GetEnvBoolean("PULUMI_K8S_ENABLE_SERVER_SIDE_APPLY");
             KubeConfig = Utilities.GetEnv("KUBECONFIG");
+            SkipUpdateUnreachable = Utilities.GetEnvBoolean("PULUMI_K8S_SKIP_UPDATE_UNREACHABLE");
             SuppressDeprecationWarnings = Utilities.GetEnvBoolean("PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS");
             SuppressHelmHookWarnings = Utilities.GetEnvBoolean("PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS");
         }
