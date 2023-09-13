@@ -16,6 +16,8 @@ package provider
 
 import (
 	"context"
+	"crypto/sha256"
+	"encoding/hex"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -132,6 +134,8 @@ type Release struct {
 	// Manifest map[string]interface{} `json:"manifest,omitempty"`
 	// Names of resources created by the release grouped by "kind/version".
 	ResourceNames map[string][]string `json:"resourceNames,omitempty"`
+	// The checksum of the rendered template (to detect changes)
+	Checksum string `json:"checksum,omitempty"`
 	// Status of the deployed release.
 	Status *ReleaseStatus `json:"status,omitempty"`
 }
@@ -353,19 +357,23 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 			return nil, err
 		}
 
-		resourceNames, err := r.computeResourceNames(new, r.clientSet)
+		resourceInfo, err := r.computeResourceInfo(new, r.clientSet)
 		if err != nil && errors.Is(err, fs.ErrNotExist) {
 			// Likely because the chart is not readily available (e.g. import of chart where no repo info is stored).
 			// Declare bankruptcy in being able to determine the underlying resources and hope for the best
 			// further down the operations.
-			resourceNames = nil
+			resourceInfo = nil
 		} else if err != nil {
 			return nil, err
 		}
 
-		if len(new.ResourceNames) == 0 {
-			new.ResourceNames = resourceNames
+		if resourceInfo != nil {
+			new.Checksum = resourceInfo.checksum
+			if len(new.ResourceNames) == 0 {
+				new.ResourceNames = resourceInfo.resourceNames
+			}
 		}
+
 		logger.V(9).Infof("New: %+v", new)
 		news = resource.NewPropertyMap(new)
 	}
@@ -1089,8 +1097,14 @@ func (r *helmReleaseProvider) Delete(ctx context.Context, req *pulumirpc.DeleteR
 	return &pbempty.Empty{}, nil
 }
 
-func (r *helmReleaseProvider) computeResourceNames(rel *Release, clientSet *clients.DynamicClientSet) (map[string][]string, error) {
-	logger.V(9).Infof("Looking up resource names for release: %q: %#v", rel.Name, rel)
+type resourceInfo struct {
+	resourceNames map[string][]string
+	checksum      string
+}
+
+func (r *helmReleaseProvider) computeResourceInfo(rel *Release, clientSet *clients.DynamicClientSet) (*resourceInfo, error) {
+	logger.V(9).Infof("Computing resource info for release: %q: %#v", rel.Name, rel)
+	result := &resourceInfo{}
 	helmChartOpts := r.chartOptsFromRelease(rel)
 
 	logger.V(9).Infof("About to template: %+v", helmChartOpts)
@@ -1099,12 +1113,19 @@ func (r *helmReleaseProvider) computeResourceNames(rel *Release, clientSet *clie
 		return nil, err
 	}
 
+	// compute the resource names
 	_, resourceNames, err := convertYAMLManifestToJSON(templ)
 	if err != nil {
 		return nil, err
 	}
+	result.resourceNames = resourceNames
 
-	return resourceNames, nil
+	// compute the checksum of the rendered output, to be able to detect changes
+	h := sha256.New()
+	h.Write([]byte(templ))
+	result.checksum = hex.EncodeToString(h.Sum(nil))
+
+	return result, nil
 }
 
 func (r *helmReleaseProvider) chartOptsFromRelease(rel *Release) HelmChartOpts {
