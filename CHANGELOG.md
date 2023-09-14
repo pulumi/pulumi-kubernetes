@@ -7,6 +7,8 @@
 
 - Return mapping information for terraform conversions (https://github.com/pulumi/pulumi-kubernetes/pull/2457)
 
+- helm.v3.Release: Detect changes to local charts (https://github.com/pulumi/pulumi-kubernetes/pull/2568)
+
 ## 4.1.1 (August 23, 2023)
 
 - Revert the switch to pyproject.toml and wheel-based PyPI publishing as it impacts users that run pip with --no-binary
