@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 
+	appsv1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/apps/v1"
 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/core/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v3"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
@@ -24,6 +25,20 @@ func main() {
 		if err != nil {
 			return err
 		}
+
+		replicas := pulumi.All(rel.Status.Namespace(), rel.Status.Name()).
+			ApplyT(func(r any) (any, error) {
+				arr := r.([]any)
+				namespace := arr[0].(*string)
+				name := arr[1].(*string)
+				svc, err := appsv1.GetDeployment(ctx, "deployment", pulumi.ID(fmt.Sprintf("%s/%s-nginx", *namespace, *name)), nil)
+				if err != nil {
+					return "", nil
+				}
+				return svc.Spec.Replicas(), nil
+			})
+		ctx.Export("replicas", replicas)
+
 		svc := pulumi.All(rel.Status.Namespace(), rel.Status.Name()).
 			ApplyT(func(r any) (any, error) {
 				arr := r.([]any)

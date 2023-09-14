@@ -189,10 +189,31 @@ func TestGo(t *testing.T) {
 	})
 
 	t.Run("Helm Release Local", func(t *testing.T) {
+		validateReplicas := func(t *testing.T, stack integration.RuntimeValidationStackInfo, expected float64) {
+			actual, ok := stack.Outputs["replicas"].(float64)
+			if !ok {
+				t.Fatalf("expected a replicas output")
+			}
+			assert.Equal(t, expected, actual, "expected replicas to be %d", expected)
+		}
+
 		options := baseOptions.With(integration.ProgramTestOptions{
 			Dir:                  filepath.Join(cwd, "helm-release-local", "step1"),
 			Quick:                true,
 			ExpectRefreshChanges: true,
+			ExtraRuntimeValidation: func(t *testing.T, stack integration.RuntimeValidationStackInfo) {
+				validateReplicas(t, stack, 1)
+			},
+			EditDirs: []integration.EditDir{
+				{
+					Dir:      filepath.Join("helm-release-local", "step2"),
+					Additive: true,
+					ExtraRuntimeValidation: func(t *testing.T, stack integration.RuntimeValidationStackInfo) {
+						validateReplicas(t, stack, 2)
+					},
+					ExpectFailure: false,
+				},
+			},
 		})
 		integration.ProgramTest(t, &options)
 	})
