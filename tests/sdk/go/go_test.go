@@ -112,7 +112,7 @@ func TestGo(t *testing.T) {
 		integration.ProgramTest(t, &options)
 	})
 
-	t.Run("Helm Import", func(t *testing.T) {
+	t.Run("Helm Release Import", func(t *testing.T) {
 		baseDir := filepath.Join(cwd, "helm-release-import", "step1")
 		namespace := getRandomNamespace("importtest")
 		require.NoError(t, createRelease("mynginx", namespace, baseDir, true))
