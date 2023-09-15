@@ -941,7 +941,14 @@ func (r *helmReleaseProvider) Read(ctx context.Context, req *pulumirpc.ReadReque
 	oldInputs, _ := parseCheckpointRelease(oldState)
 	if oldInputs == nil {
 		// No old inputs suggests this is an import. Hydrate the imports from the current live object
-		logger.V(9).Infof("existingRelease: %#v", existingRelease)
+		resourceInfo, err := r.computeResourceInfo(existingRelease, r.clientSet)
+		if err != nil {
+			return nil, err
+		}
+		existingRelease.Checksum = resourceInfo.checksum
+		existingRelease.ResourceNames = resourceInfo.resourceNames
+		logger.V(9).Infof("%s Imported release: %#v", label, existingRelease)
+
 		oldInputs = r.serializeImportInputs(existingRelease)
 		r.setDefaults(oldInputs)
 	}
