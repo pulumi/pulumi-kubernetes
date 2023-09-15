@@ -683,6 +683,13 @@ func (r *helmReleaseProvider) Diff(ctx context.Context, req *pulumirpc.DiffReque
 	// Extract old inputs from the `__inputs` field of the old state.
 	oldInputs, _ := parseCheckpointRelease(olds)
 
+	// apply ignoreChanges
+	for _, ignore := range req.GetIgnoreChanges() {
+		if ignore == "checksum" {
+			news["checksum"] = oldInputs["checksum"]
+		}
+	}
+
 	// Calculate the diff between the old and new inputs
 	diff := oldInputs.Diff(news)
 	if diff == nil {
