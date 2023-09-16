@@ -209,6 +209,17 @@ func TestGo(t *testing.T) {
 					Dir:      filepath.Join("helm-release-local", "step2"),
 					Additive: true,
 					ExtraRuntimeValidation: func(t *testing.T, stack integration.RuntimeValidationStackInfo) {
+						// expect the change in values.yaml (replicaCount: 2) to be detected
+						validateReplicas(t, stack, 2)
+					},
+					ExpectFailure: false,
+				},
+				{
+					Dir:      filepath.Join("helm-release-local", "step3"),
+					Additive: true,
+					ExtraRuntimeValidation: func(t *testing.T, stack integration.RuntimeValidationStackInfo) {
+						// note the resource option: pulumi.IgnoreChanges([]string{"checksum"})
+						// expect the change in values.yaml (replicaCount: 3) to be ignored
 						validateReplicas(t, stack, 2)
 					},
 					ExpectFailure: false,
