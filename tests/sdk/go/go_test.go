@@ -112,7 +112,7 @@ func TestGo(t *testing.T) {
 		integration.ProgramTest(t, &options)
 	})
 
-	t.Run("Helm Import", func(t *testing.T) {
+	t.Run("Helm Release Import", func(t *testing.T) {
 		baseDir := filepath.Join(cwd, "helm-release-import", "step1")
 		namespace := getRandomNamespace("importtest")
 		require.NoError(t, createRelease("mynginx", namespace, baseDir, true))
@@ -189,10 +189,42 @@ func TestGo(t *testing.T) {
 	})
 
 	t.Run("Helm Release Local", func(t *testing.T) {
+		validateReplicas := func(t *testing.T, stack integration.RuntimeValidationStackInfo, expected float64) {
+			actual, ok := stack.Outputs["replicas"].(float64)
+			if !ok {
+				t.Fatalf("expected a replicas output")
+			}
+			assert.Equal(t, expected, actual, "expected replicas to be %d", expected)
+		}
+
 		options := baseOptions.With(integration.ProgramTestOptions{
 			Dir:                  filepath.Join(cwd, "helm-release-local", "step1"),
 			Quick:                true,
 			ExpectRefreshChanges: true,
+			ExtraRuntimeValidation: func(t *testing.T, stack integration.RuntimeValidationStackInfo) {
+				validateReplicas(t, stack, 1)
+			},
+			EditDirs: []integration.EditDir{
+				{
+					Dir:      filepath.Join("helm-release-local", "step2"),
+					Additive: true,
+					ExtraRuntimeValidation: func(t *testing.T, stack integration.RuntimeValidationStackInfo) {
+						// expect the change in values.yaml (replicaCount: 2) to be detected
+						validateReplicas(t, stack, 2)
+					},
+					ExpectFailure: false,
+				},
+				{
+					Dir:      filepath.Join("helm-release-local", "step3"),
+					Additive: true,
+					ExtraRuntimeValidation: func(t *testing.T, stack integration.RuntimeValidationStackInfo) {
+						// note the resource option: pulumi.IgnoreChanges([]string{"checksum"})
+						// expect the change in values.yaml (replicaCount: 3) to be ignored
+						validateReplicas(t, stack, 2)
+					},
+					ExpectFailure: false,
+				},
+			},
 		})
 		integration.ProgramTest(t, &options)
 	})
