@@ -537,7 +537,10 @@ func handleSSAIgnoreFields(c *UpdateConfig, liveOldObj *unstructured.Unstructure
 		// by the user in their Pulumi program.
 		lastVal, found, err := unstructured.NestedFieldCopy(liveOldObj.Object, pathComponents...)
 		if found && err == nil {
-			unstructured.SetNestedField(c.Inputs.Object, lastVal, pathComponents...)
+			err := unstructured.SetNestedField(c.Inputs.Object, lastVal, pathComponents...)
+			if err != nil {
+				return fmt.Errorf("unable to set field %q with last used value %q: %w", ignorePath, lastVal, err)
+			}
 		}
 	}
 
