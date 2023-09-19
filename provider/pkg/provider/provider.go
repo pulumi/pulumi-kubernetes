@@ -2319,10 +2319,11 @@ func (k *kubeProvider) Update(
 			Resources:         resources,
 			ServerSideApply:   k.serverSideApplyMode,
 		},
-		Previous: oldLivePruned,
-		Inputs:   newInputs,
-		Timeout:  req.Timeout,
-		Preview:  req.GetPreview(),
+		Previous:      oldLivePruned,
+		Inputs:        newInputs,
+		Timeout:       req.Timeout,
+		Preview:       req.GetPreview(),
+		IgnoreChanges: req.IgnoreChanges,
 	}
 	// Apply update.
 	initialized, awaitErr := await.Update(config)

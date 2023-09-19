@@ -15,10 +15,12 @@
 package await
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"fmt"
 	"os"
+	"strings"
 
 	fluxssa "github.com/fluxcd/pkg/ssa"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
@@ -43,6 +45,7 @@ import (
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/dynamic"
 	k8sopenapi "k8s.io/kubectl/pkg/util/openapi"
+	"sigs.k8s.io/structured-merge-diff/v4/fieldpath"
 	"sigs.k8s.io/yaml"
 )
 
@@ -92,6 +95,8 @@ type UpdateConfig struct {
 	Inputs   *unstructured.Unstructured
 	Timeout  float64
 	Preview  bool
+	// IgnoreChanges is a list of fields to ignore when diffing the old and new objects.
+	IgnoreChanges []string
 }
 
 type DeleteConfig struct {
@@ -459,11 +464,14 @@ func csaUpdate(c *UpdateConfig, liveOldObj *unstructured.Unstructured, client dy
 
 // ssaUpdate handles the logic for updating a resource using server-side apply.
 func ssaUpdate(c *UpdateConfig, liveOldObj *unstructured.Unstructured, client dynamic.ResourceInterface) (*unstructured.Unstructured, error) {
-	if !c.Preview {
-		err := fixCSAFieldManagers(c, liveOldObj, client)
-		if err != nil {
-			return nil, err
-		}
+	liveOldObj, err := fixCSAFieldManagers(c, liveOldObj, client)
+	if err != nil {
+		return nil, err
+	}
+
+	err = handleSSAIgnoreFields(c, liveOldObj)
+	if err != nil {
+		return nil, err
 	}
 
 	objYAML, err := yaml.Marshal(c.Inputs.Object)
@@ -491,9 +499,66 @@ func ssaUpdate(c *UpdateConfig, liveOldObj *unstructured.Unstructured, client dy
 	return currentOutputs, nil
 }
 
+// handleSSAIgnoreFields handles updating the inputs to either drop fields that are present on the cluster and not managed
+// by the current field manager, or to set the value of the field to the last known value applied to the cluster.
+func handleSSAIgnoreFields(c *UpdateConfig, liveOldObj *unstructured.Unstructured) error {
+	managedFields := liveOldObj.GetManagedFields()
+	managedFieldsSet := fieldpath.NewSet()
+
+	for _, f := range managedFields {
+		if f.Manager == c.FieldManager {
+			// We don't need to keep track of fields that we are currently managing.
+			continue
+		}
+		s := fieldpath.NewSet()
+		if err := s.FromJSON(bytes.NewReader(f.FieldsV1.Raw)); err != nil {
+			return fmt.Errorf("unable to parse managed fields from resource %q: %w", c.Inputs.GetName(), err)
+		}
+		managedFieldsSet = managedFieldsSet.Union(s)
+	}
+
+	for _, ignorePath := range c.IgnoreChanges {
+		pathComponents := strings.Split(ignorePath, ".")
+		pe, err := fieldpath.MakePath(makeInterfaceSlice(pathComponents)...)
+		if err != nil {
+			return fmt.Errorf("unable to normalize ignoreField path %q: %w", ignorePath, err)
+		}
+
+		// Drop the field from the inputs if it is present on the cluster and not managed by the current field manager. This ensures
+		// that we don't get any conflict errors, or mistakenly setting the current field manager as a shared manager of that field.
+		if managedFieldsSet.Has(pe) {
+			unstructured.RemoveNestedField(c.Inputs.Object, pathComponents...)
+			continue
+		}
+
+		// We didn't find another field manager that is managing this field, so we need to use the last known value applied to
+		// the cluster so we don't unset it.
+		// NOTE: If the field has been reverted to its default value, ignoreChanges will still not update this field to what is supplied
+		// by the user in their Pulumi program.
+		lastVal, found, err := unstructured.NestedFieldCopy(liveOldObj.Object, pathComponents...)
+		if found && err == nil {
+			unstructured.SetNestedField(c.Inputs.Object, lastVal, pathComponents...)
+		}
+	}
+
+	return nil
+}
+
+func makeInterfaceSlice(inputs []string) []interface{} {
+	s := make([]interface{}, len(inputs))
+	for i, v := range inputs {
+		s[i] = v
+	}
+	return s
+}
+
 // fixCSAFieldManagers patches the field managers for an existing resource that was managed using client-side apply.
 // The new server-side apply field manager takes ownership of all these fields to avoid conflicts.
-func fixCSAFieldManagers(c *UpdateConfig, live *unstructured.Unstructured, client dynamic.ResourceInterface) error {
+func fixCSAFieldManagers(c *UpdateConfig, live *unstructured.Unstructured, client dynamic.ResourceInterface) (*unstructured.Unstructured, error) {
+	if c.Preview {
+		return live, nil
+	}
+
 	if managedFields := live.GetManagedFields(); len(managedFields) > 0 {
 		patches, err := fluxssa.PatchReplaceFieldsManagers(live, []fluxssa.FieldManager{
 			{
@@ -531,18 +596,18 @@ func fixCSAFieldManagers(c *UpdateConfig, live *unstructured.Unstructured, clien
 			},
 		}, c.FieldManager)
 		if err != nil {
-			return err
+			return nil, err
 		}
 		patch, err := json.Marshal(patches)
 		if err != nil {
-			return err
+			return nil, err
 		}
 		_, err = client.Patch(c.Context, live.GetName(), types.JSONPatchType, patch, metav1.PatchOptions{})
 		if err != nil {
-			return err
+			return nil, err
 		}
 	}
-	return nil
+	return live, nil
 }
 
 // Deletion (as the usage, `await.Deletion`, implies) will block until one of the following is true:
