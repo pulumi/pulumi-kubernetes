@@ -1812,9 +1812,8 @@ func TestIgnoreChanges(t *testing.T) {
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:                  filepath.Join("ignore-changes", "step1"),
 		ExpectRefreshChanges: true,
-		SkipRefresh:          true,
-		// Enable destroy-on-cleanup so we can shell out to kubectl to make external changes to the resource and reuse the same stack.
-		DestroyOnCleanup: true,
+		// SkipRefresh MUST be true as the bug is not reproducible when the state is refreshed.
+		SkipRefresh: true,
 		OrderedConfig: []integration.ConfigValue{
 			{
 				Key:   "pulumi:disable-default-providers[0]",
@@ -1842,10 +1841,10 @@ func TestIgnoreChanges(t *testing.T) {
 			// Validate deployment replicas.
 			depReplicas, err := tests.Kubectl("get deployment -o=jsonpath='{.spec.replicas}' -n", depNS, depName)
 			assert.NoError(t, err)
-			assert.Equal(t, "'1'", string(depReplicas))
+			assert.Equal(t, "'2'", string(depReplicas))
 
 			// Patch deployment replicas to 3 using patch file in preparation for ignore changes to be tested in step2.
-			_, err = tests.Kubectl("patch deployment -n", depNS, depName, "--patch-file", filepath.Join("ignore-changes", "deployment-patch.yaml"))
+			_, err = tests.Kubectl("patch --field-manager replica/manager deployment -n", depNS, depName, "--patch-file", filepath.Join("ignore-changes", "deployment-patch.yaml"))
 			assert.NoError(t, err)
 			depReplicas, err = tests.Kubectl("get deployment -o=jsonpath='{.spec.replicas}' -n", depNS, depName)
 			assert.NoError(t, err)

@@ -27,7 +27,7 @@ const deployment = new k8s.apps.v1.Deployment(
     },
     spec: {
       selector: { matchLabels: { app: "test-ignore-changes" } },
-      replicas: 1,
+      replicas: 2,
       template: {
         metadata: {
           labels: { app: "test-ignore-changes" },
