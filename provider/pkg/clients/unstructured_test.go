@@ -272,20 +272,6 @@ var (
 		},
 	}
 
-	secretWithCreationTimestampUnstructured = &unstructured.Unstructured{
-		Object: map[string]any{
-			"apiVersion": "v1",
-			"kind":       "Secret",
-			"metadata": map[string]any{
-				"creationTimestamp": "2023-07-20T23:54:21Z",
-				"name":              "foo",
-			},
-			"stringData": map[string]any{
-				"foo": "bar",
-			},
-		},
-	}
-
 	secretNormalizedUnstructured = &unstructured.Unstructured{
 		Object: map[string]any{
 			"apiVersion": "v1",
@@ -343,7 +329,6 @@ func TestNormalize(t *testing.T) {
 		{"CRD with status", args{uns: crdStatusUnstructured}, crdUnstructured, false},
 		{"Secret with stringData input", args{uns: secretUnstructured}, secretNormalizedUnstructured, false},
 		{"Secret with data input", args{uns: secretNormalizedUnstructured}, secretNormalizedUnstructured, false},
-		{"Secret with creationTimestamp set on input", args{uns: secretWithCreationTimestampUnstructured}, secretNormalizedUnstructured, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

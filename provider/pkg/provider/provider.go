@@ -1335,7 +1335,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	oldInputs := propMapToUnstructured(olds)
 	newInputs := propMapToUnstructured(news)
 
-	newInputs, err = normalize(newInputs)
+	newInputs, err = normalizeInputs(newInputs)
 	if err != nil {
 		return nil, err
 	}
@@ -1561,11 +1561,11 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 
 	oldInputs, oldLive := parseCheckpointObject(oldState)
 
-	oldInputs, err = normalize(oldInputs)
+	oldInputs, err = normalizeInputs(oldInputs)
 	if err != nil {
 		return nil, err
 	}
-	newInputs, err = normalize(newInputs)
+	newInputs, err = normalizeInputs(newInputs)
 	if err != nil {
 		return nil, err
 	}
@@ -2006,7 +2006,7 @@ func (k *kubeProvider) Read(ctx context.Context, req *pulumirpc.ReadRequest) (*p
 	oldInputs := propMapToUnstructured(oldInputsPM)
 	_, oldLive := parseCheckpointObject(oldState)
 
-	oldInputs, err = normalize(oldInputs)
+	oldInputs, err = normalizeInputs(oldInputs)
 	if err != nil {
 		return nil, err
 	}
@@ -2238,7 +2238,7 @@ func (k *kubeProvider) Update(
 		return nil, pkgerrors.Wrapf(err, "update failed because malformed resource inputs")
 	}
 	newInputs := propMapToUnstructured(newResInputs)
-	newInputs, err = normalize(newInputs)
+	newInputs, err = normalizeInputs(newInputs)
 	if err != nil {
 		return nil, err
 	}
@@ -2264,7 +2264,7 @@ func (k *kubeProvider) Update(
 	// annotation during preview.
 	removeLastAppliedConfigurationAnnotation(oldLive, oldInputs)
 
-	oldInputs, err = normalize(oldInputs)
+	oldInputs, err = normalizeInputs(oldInputs)
 	if err != nil {
 		return nil, err
 	}
@@ -2744,10 +2744,10 @@ func shouldNormalize(uns *unstructured.Unstructured) bool {
 	return kinds.KnownGroupVersions.Has(uns.GetAPIVersion())
 }
 
-// normalize converts an Unstructured resource into a normalized form so that semantically equivalent representations
+// normalizeInputs converts an Unstructured resource into a normalized form so that semantically equivalent representations
 // are set to the same output shape. This is important to avoid generating diffs for inputs that will produce the same
 // result on the cluster.
-func normalize(uns *unstructured.Unstructured) (*unstructured.Unstructured, error) {
+func normalizeInputs(uns *unstructured.Unstructured) (*unstructured.Unstructured, error) {
 	if shouldNormalize(uns) {
 		normalized, err := clients.Normalize(uns)
 		if err != nil {
@@ -2755,6 +2755,16 @@ func normalize(uns *unstructured.Unstructured) (*unstructured.Unstructured, erro
 		}
 		uns = pruneLiveState(normalized, uns)
 	}
+
+	// Remove read-only fields
+	unstructured.RemoveNestedField(uns.Object, "metadata", "creationTimestamp")
+	unstructured.RemoveNestedField(uns.Object, "metadata", "deletionGracePeriodSeconds")
+	unstructured.RemoveNestedField(uns.Object, "metadata", "deletionTimestamp")
+	unstructured.RemoveNestedField(uns.Object, "metadata", "generation")
+	unstructured.RemoveNestedField(uns.Object, "metadata", "managedFields")
+	unstructured.RemoveNestedField(uns.Object, "metadata", "resourceVersion")
+	unstructured.RemoveNestedField(uns.Object, "metadata", "uid")
+
 	return uns, nil
 }
 
