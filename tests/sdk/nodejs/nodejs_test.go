@@ -1874,6 +1874,28 @@ func TestIgnoreChanges(t *testing.T) {
 					depReplicas, err := tests.Kubectl("get deployment -o=jsonpath='{.spec.replicas}' -n", depNS, depName)
 					assert.NoError(t, err)
 					assert.Equal(t, "'3'", string(depReplicas))
+
+					// Now use kubectl patch to update spec.replicas to 5 and see if we can correctly ignore changes to spec.replicas again when the field manager is
+					// "kubectl-patch" since we have logic to override certain field managers with manager name prefixes.
+					_, err = tests.Kubectl("patch deployment -n", depNS, depName, "--patch-file", filepath.Join("ignore-changes", "deployment-patch-2.yaml"))
+					assert.NoError(t, err)
+					depReplicas, err = tests.Kubectl("get deployment -o=jsonpath='{.spec.replicas}' -n", depNS, depName)
+					assert.NoError(t, err)
+					assert.Equal(t, "'4'", string(depReplicas))
+				},
+			},
+			{
+				Dir:      filepath.Join("ignore-changes", "step3"),
+				Additive: true,
+				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+					// Validate image was updated, but spec.replicas was not.
+					depImage, err := tests.Kubectl("get deployment -o=jsonpath='{.spec.template.spec.containers[0].image}' -n", depNS, depName)
+					assert.NoError(t, err)
+					assert.Equal(t, "'nginx:1.25'", string(depImage))
+
+					depReplicas, err := tests.Kubectl("get deployment -o=jsonpath='{.spec.replicas}' -n", depNS, depName)
+					assert.NoError(t, err)
+					assert.Equal(t, "'4'", string(depReplicas))
 				},
 			},
 		},
