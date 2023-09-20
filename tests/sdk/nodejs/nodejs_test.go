@@ -887,6 +887,28 @@ func TestQuery(t *testing.T) {
 	integration.ProgramTest(t, &test)
 }
 
+func TestReadonlyMetadata(t *testing.T) {
+
+	test := baseOptions.With(integration.ProgramTestOptions{
+		Dir:   filepath.Join("metadata", "step1"),
+		Quick: true,
+		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+			// assert that the resourceVersion (a read-only property) is available as an output
+			resourceVersion, ok := stackInfo.Outputs["resourceVersion"]
+			assert.Truef(t, ok, "missing expected output \"resourceVersion\"")
+			assert.NotEmptyf(t, resourceVersion, "resourceVersion is empty")
+		},
+		EditDirs: []integration.EditDir{
+			{
+				Dir:             filepath.Join("metadata", "step2"),
+				Additive:        true,
+				ExpectNoChanges: true,
+			},
+		},
+	})
+	integration.ProgramTest(t, &test)
+}
+
 func TestRenderYAML(t *testing.T) {
 	// Create a temporary directory to hold rendered YAML manifests.
 	dir, err := ioutil.TempDir("", "")
