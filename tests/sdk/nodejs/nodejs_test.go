@@ -887,21 +887,23 @@ func TestQuery(t *testing.T) {
 	integration.ProgramTest(t, &test)
 }
 
+// TestReadonlyMetadata tests the behavior of read-only metadata fields.
 func TestReadonlyMetadata(t *testing.T) {
 
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:   filepath.Join("metadata", "step1"),
 		Quick: true,
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
-			// assert that the resourceVersion (a read-only property) is available as an output
+			// Verify that the resourceVersion (a read-only property) is available as an output.
 			resourceVersion, ok := stackInfo.Outputs["resourceVersion"]
 			assert.Truef(t, ok, "missing expected output \"resourceVersion\"")
 			assert.NotEmptyf(t, resourceVersion, "resourceVersion is empty")
 		},
 		EditDirs: []integration.EditDir{
 			{
-				Dir:             filepath.Join("metadata", "step2"),
-				Additive:        true,
+				Dir:      filepath.Join("metadata", "step2"),
+				Additive: true,
+				// Verify that changes to some read-only values are ignored
 				ExpectNoChanges: true,
 			},
 		},

@@ -18,7 +18,7 @@ import * as k8s from "@pulumi/kubernetes";
 const appLabels = { app: "nginx" };
 const deployment = new k8s.apps.v1.Deployment("nginx", {
     metadata: {
-        // this program attempts to set some read-only properties
+        // step 2 has changed values that are expected to be ignored
         creationTimestamp: "invalid-step2",
         deletionTimestamp: "invalid-step2",
         resourceVersion: "invalid-step2",
