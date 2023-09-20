@@ -7,8 +7,8 @@
   installs based on the source distribution.
 - Return mapping information for terraform conversions (https://github.com/pulumi/pulumi-kubernetes/pull/2457)
 - feature: added skipUpdateUnreachable flag to proceed with the updates without failing (https://github.com/pulumi/pulumi-kubernetes/pull/2528)
-
 - helm.v3.Release: Detect changes to local charts (https://github.com/pulumi/pulumi-kubernetes/pull/2568)
+- Ignore read-only inputs in Kubernetes object metadata (https://github.com/pulumi/pulumi-kubernetes/pull/2571)
 
 ## 4.1.1 (August 23, 2023)
 
