@@ -361,82 +361,12 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 		return nil, err
 	}
 
-	var currentOutputs *unstructured.Unstructured
-	if clients.IsCRD(c.Inputs) {
-		// CRDs require special handling to update. Rather than computing a patch, replace the CRD with a PUT
-		// operation (equivalent to running `kubectl replace`). This is accomplished by getting the `resourceVersion`
-		// of the existing CRD, setting that as the `resourceVersion` in the request, and then running an update. This
-		// results in the immediate replacement of the CRD without deleting it, or any CustomResources that depend on
-		// it. The PUT operation is still validated by the api server, so a badly formed request will fail as usual.
-		c.Inputs.SetResourceVersion(liveOldObj.GetResourceVersion())
-		currentOutputs, err = client.Update(c.Context, c.Inputs, metav1.UpdateOptions{})
-		if err != nil {
-			return nil, err
-		}
-	} else {
-		if c.ServerSideApply {
-			if !c.Preview {
-				err = fixCSAFieldManagers(c, liveOldObj, client)
-				if err != nil {
-					return nil, err
-				}
-			}
-
-			objYAML, err := yaml.Marshal(c.Inputs.Object)
-			if err != nil {
-				return nil, err
-			}
-			force := patchForce(c.Inputs, liveOldObj, c.Preview)
-			options := metav1.PatchOptions{
-				FieldManager: c.FieldManager,
-				Force:        &force,
-			}
-			if c.Preview {
-				options.DryRun = []string{metav1.DryRunAll}
-			}
-
-			// Issue patch request.
-			// NOTE: We can use the same client because if the `kind` changes, this will cause
-			// a replace (i.e., destroy and create).
-			for {
-				currentOutputs, err = client.Patch(c.Context, c.Inputs.GetName(), types.ApplyPatchType, objYAML, options)
-				if err != nil {
-					if errors.IsConflict(err) {
-						err = fmt.Errorf("Server-Side Apply field conflict detected. see %s for troubleshooting help\n: %w",
-							ssaConflictDocLink, err)
-					}
-					return nil, err
-				}
-				break
-			}
-
-		} else {
-			// Create merge patch (prefer strategic merge patch, fall back to JSON merge patch).
-			patch, patchType, _, err := openapi.PatchForResourceUpdate(c.Resources, c.Previous, c.Inputs, liveOldObj)
-			if err != nil {
-				return nil, err
-			}
-
-			options := metav1.PatchOptions{
-				FieldManager: c.FieldManager,
-			}
-			if c.Preview {
-				options.DryRun = []string{metav1.DryRunAll}
-			}
-
-			// Issue patch request.
-			// NOTE: We can use the same client because if the `kind` changes, this will cause
-			// a replace (i.e., destroy and create).
-			currentOutputs, err = client.Patch(c.Context, c.Inputs.GetName(), patchType, patch, options)
-			if err != nil {
-				return nil, err
-			}
-		}
-	}
+	currentOutputs, err := updateResource(&c, liveOldObj, client)
 	if err != nil {
 		return nil, err
 	}
 	if c.Preview {
+		// We do not need to get the updated live object if we are in preview mode.
 		return currentOutputs, nil
 	}
 
@@ -489,9 +419,81 @@ func Update(c UpdateConfig) (*unstructured.Unstructured, error) {
 	return live, nil
 }
 
+func updateResource(c *UpdateConfig, liveOldObj *unstructured.Unstructured, client dynamic.ResourceInterface) (*unstructured.Unstructured, error) {
+	var currentOutputs *unstructured.Unstructured
+	var err error
+	switch {
+	case clients.IsCRD(c.Inputs):
+		// CRDs require special handling to update. Rather than computing a patch, replace the CRD with a PUT
+		// operation (equivalent to running `kubectl replace`). This is accomplished by getting the `resourceVersion`
+		// of the existing CRD, setting that as the `resourceVersion` in the request, and then running an update. This
+		// results in the immediate replacement of the CRD without deleting it, or any CustomResources that depend on
+		// it. The PUT operation is still validated by the api server, so a badly formed request will fail as usual.
+		c.Inputs.SetResourceVersion(liveOldObj.GetResourceVersion())
+		currentOutputs, err = client.Update(c.Context, c.Inputs, metav1.UpdateOptions{})
+	case c.ServerSideApply:
+		currentOutputs, err = ssaUpdate(c, liveOldObj, client)
+	default:
+		currentOutputs, err = csaUpdate(c, liveOldObj, client)
+	}
+	return currentOutputs, err
+}
+
+// csaUpdate handles the logic for updating a resource using client-side apply.
+func csaUpdate(c *UpdateConfig, liveOldObj *unstructured.Unstructured, client dynamic.ResourceInterface) (*unstructured.Unstructured, error) {
+	// Create merge patch (prefer strategic merge patch, fall back to JSON merge patch).
+	patch, patchType, _, err := openapi.PatchForResourceUpdate(c.Resources, c.Previous, c.Inputs, liveOldObj)
+	if err != nil {
+		return nil, err
+	}
+
+	options := metav1.PatchOptions{
+		FieldManager: c.FieldManager,
+	}
+	if c.Preview {
+		options.DryRun = []string{metav1.DryRunAll}
+	}
+
+	return client.Patch(c.Context, c.Inputs.GetName(), patchType, patch, options)
+}
+
+// ssaUpdate handles the logic for updating a resource using server-side apply.
+func ssaUpdate(c *UpdateConfig, liveOldObj *unstructured.Unstructured, client dynamic.ResourceInterface) (*unstructured.Unstructured, error) {
+	if !c.Preview {
+		err := fixCSAFieldManagers(c, liveOldObj, client)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	objYAML, err := yaml.Marshal(c.Inputs.Object)
+	if err != nil {
+		return nil, err
+	}
+	force := patchForce(c.Inputs, liveOldObj, c.Preview)
+	options := metav1.PatchOptions{
+		FieldManager: c.FieldManager,
+		Force:        &force,
+	}
+	if c.Preview {
+		options.DryRun = []string{metav1.DryRunAll}
+	}
+
+	currentOutputs, err := client.Patch(c.Context, c.Inputs.GetName(), types.ApplyPatchType, objYAML, options)
+	if err != nil {
+		if errors.IsConflict(err) {
+			err = fmt.Errorf("Server-Side Apply field conflict detected. See %s for troubleshooting help\n: %w",
+				ssaConflictDocLink, err)
+		}
+		return nil, err
+	}
+
+	return currentOutputs, nil
+}
+
 // fixCSAFieldManagers patches the field managers for an existing resource that was managed using client-side apply.
 // The new server-side apply field manager takes ownership of all these fields to avoid conflicts.
-func fixCSAFieldManagers(c UpdateConfig, live *unstructured.Unstructured, client dynamic.ResourceInterface) error {
+func fixCSAFieldManagers(c *UpdateConfig, live *unstructured.Unstructured, client dynamic.ResourceInterface) error {
 	if managedFields := live.GetManagedFields(); len(managedFields) > 0 {
 		patches, err := fluxssa.PatchReplaceFieldsManagers(live, []fluxssa.FieldManager{
 			{
@@ -535,7 +537,7 @@ func fixCSAFieldManagers(c UpdateConfig, live *unstructured.Unstructured, client
 		if err != nil {
 			return err
 		}
-		live, err = client.Patch(c.Context, live.GetName(), types.JSONPatchType, patch, metav1.PatchOptions{})
+		_, err = client.Patch(c.Context, live.GetName(), types.JSONPatchType, patch, metav1.PatchOptions{})
 		if err != nil {
 			return err
 		}
