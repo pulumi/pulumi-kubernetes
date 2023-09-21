@@ -1875,8 +1875,9 @@ func TestIgnoreChanges(t *testing.T) {
 					assert.NoError(t, err)
 					assert.Equal(t, "'3'", string(depReplicas))
 
-					// Now use kubectl patch to update spec.replicas to 5 and see if we can correctly ignore changes to spec.replicas again when the field manager is
-					// "kubectl-patch" since we have logic to override certain field managers with manager name prefixes.
+					// Now use kubectl patch to update spec.replicas to 4 and see if we can correctly ignore changes to spec.replicas again when the field manager is
+					// "kubectl-patch" since we have logic to override certain field managers with manager name prefixes. This is due to fluxssa.PatchReplaceFieldsManagers
+					// doing a prefix match on the field manager name instead of an exact match on the given field manager name.
 					_, err = tests.Kubectl("patch deployment -n", depNS, depName, "--patch-file", filepath.Join("ignore-changes", "deployment-patch-2.yaml"))
 					assert.NoError(t, err)
 					depReplicas, err = tests.Kubectl("get deployment -o=jsonpath='{.spec.replicas}' -n", depNS, depName)
