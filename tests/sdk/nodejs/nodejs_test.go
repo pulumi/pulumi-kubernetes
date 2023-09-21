@@ -887,6 +887,31 @@ func TestQuery(t *testing.T) {
 	integration.ProgramTest(t, &test)
 }
 
+// TestReadonlyMetadata tests the behavior of read-only metadata fields.
+func TestReadonlyMetadata(t *testing.T) {
+
+	test := baseOptions.With(integration.ProgramTestOptions{
+		Dir:   filepath.Join("metadata", "step1"),
+		Quick: true,
+		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+			// Verify that the resourceVersion (a read-only property) is available as an output.
+			resourceVersion, ok := stackInfo.Outputs["resourceVersion"]
+			assert.Truef(t, ok, "missing expected output \"resourceVersion\"")
+			assert.NotEmptyf(t, resourceVersion, "resourceVersion is empty")
+			assert.NotEqual(t, "invalid-step1", resourceVersion)
+		},
+		EditDirs: []integration.EditDir{
+			{
+				Dir:      filepath.Join("metadata", "step2"),
+				Additive: true,
+				// Verify that changes to some read-only values are ignored
+				ExpectNoChanges: true,
+			},
+		},
+	})
+	integration.ProgramTest(t, &test)
+}
+
 func TestRenderYAML(t *testing.T) {
 	// Create a temporary directory to hold rendered YAML manifests.
 	dir, err := ioutil.TempDir("", "")
