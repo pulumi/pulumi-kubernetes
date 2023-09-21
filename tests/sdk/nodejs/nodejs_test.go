@@ -898,6 +898,7 @@ func TestReadonlyMetadata(t *testing.T) {
 			resourceVersion, ok := stackInfo.Outputs["resourceVersion"]
 			assert.Truef(t, ok, "missing expected output \"resourceVersion\"")
 			assert.NotEmptyf(t, resourceVersion, "resourceVersion is empty")
+			assert.NotEqual(t, "invalid-step1", resourceVersion)
 		},
 		EditDirs: []integration.EditDir{
 			{

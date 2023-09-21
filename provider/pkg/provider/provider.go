@@ -2757,6 +2757,7 @@ func normalizeInputs(uns *unstructured.Unstructured) (*unstructured.Unstructured
 	}
 
 	// Remove read-only fields
+	// see: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#objectmeta-v1-meta
 	unstructured.RemoveNestedField(uns.Object, "metadata", "creationTimestamp")
 	unstructured.RemoveNestedField(uns.Object, "metadata", "deletionGracePeriodSeconds")
 	unstructured.RemoveNestedField(uns.Object, "metadata", "deletionTimestamp")
