@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from ... import core as _core
 from ... import meta as _meta
@@ -50,12 +50,25 @@ class AllocationResultArgs:
                Setting this field is optional. It has a maximum size of 32 entries. If null (or empty), it is assumed this allocation will be processed by a single kubelet plugin with no ResourceHandle data attached. The name of the kubelet plugin invoked will match the DriverName set in the ResourceClaimStatus this AllocationResult is embedded in.
         :param pulumi.Input[bool] shareable: Shareable determines whether the resource supports more than one consumer at a time.
         """
+        AllocationResultArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            available_on_nodes=available_on_nodes,
+            resource_handles=resource_handles,
+            shareable=shareable,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             available_on_nodes: Optional[pulumi.Input['_core.v1.NodeSelectorArgs']] = None,
+             resource_handles: Optional[pulumi.Input[Sequence[pulumi.Input['ResourceHandleArgs']]]] = None,
+             shareable: Optional[pulumi.Input[bool]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if available_on_nodes is not None:
-            pulumi.set(__self__, "available_on_nodes", available_on_nodes)
+            _setter("available_on_nodes", available_on_nodes)
         if resource_handles is not None:
-            pulumi.set(__self__, "resource_handles", resource_handles)
+            _setter("resource_handles", resource_handles)
         if shareable is not None:
-            pulumi.set(__self__, "shareable", shareable)
+            _setter("shareable", shareable)
 
     @property
     @pulumi.getter(name="availableOnNodes")
@@ -110,10 +123,21 @@ class PodSchedulingContextSpecPatchArgs:
                The size of this field is limited to 128. This is large enough for many clusters. Larger clusters may need more attempts to find a node that suits all pending resources. This may get increased in the future, but not reduced.
         :param pulumi.Input[str] selected_node: SelectedNode is the node for which allocation of ResourceClaims that are referenced by the Pod and that use "WaitForFirstConsumer" allocation is to be attempted.
         """
+        PodSchedulingContextSpecPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            potential_nodes=potential_nodes,
+            selected_node=selected_node,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             potential_nodes: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             selected_node: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if potential_nodes is not None:
-            pulumi.set(__self__, "potential_nodes", potential_nodes)
+            _setter("potential_nodes", potential_nodes)
         if selected_node is not None:
-            pulumi.set(__self__, "selected_node", selected_node)
+            _setter("selected_node", selected_node)
 
     @property
     @pulumi.getter(name="potentialNodes")
@@ -154,10 +178,21 @@ class PodSchedulingContextSpecArgs:
                The size of this field is limited to 128. This is large enough for many clusters. Larger clusters may need more attempts to find a node that suits all pending resources. This may get increased in the future, but not reduced.
         :param pulumi.Input[str] selected_node: SelectedNode is the node for which allocation of ResourceClaims that are referenced by the Pod and that use "WaitForFirstConsumer" allocation is to be attempted.
         """
+        PodSchedulingContextSpecArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            potential_nodes=potential_nodes,
+            selected_node=selected_node,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             potential_nodes: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             selected_node: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if potential_nodes is not None:
-            pulumi.set(__self__, "potential_nodes", potential_nodes)
+            _setter("potential_nodes", potential_nodes)
         if selected_node is not None:
-            pulumi.set(__self__, "selected_node", selected_node)
+            _setter("selected_node", selected_node)
 
     @property
     @pulumi.getter(name="potentialNodes")
@@ -194,8 +229,17 @@ class PodSchedulingContextStatusArgs:
         PodSchedulingContextStatus describes where resources for the Pod can be allocated.
         :param pulumi.Input[Sequence[pulumi.Input['ResourceClaimSchedulingStatusArgs']]] resource_claims: ResourceClaims describes resource availability for each pod.spec.resourceClaim entry where the corresponding ResourceClaim uses "WaitForFirstConsumer" allocation mode.
         """
+        PodSchedulingContextStatusArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            resource_claims=resource_claims,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             resource_claims: Optional[pulumi.Input[Sequence[pulumi.Input['ResourceClaimSchedulingStatusArgs']]]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if resource_claims is not None:
-            pulumi.set(__self__, "resource_claims", resource_claims)
+            _setter("resource_claims", resource_claims)
 
     @property
     @pulumi.getter(name="resourceClaims")
@@ -228,15 +272,32 @@ class PodSchedulingContextArgs:
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object metadata
         :param pulumi.Input['PodSchedulingContextStatusArgs'] status: Status describes where resources for the Pod can be allocated.
         """
-        pulumi.set(__self__, "spec", spec)
+        PodSchedulingContextArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            spec=spec,
+            api_version=api_version,
+            kind=kind,
+            metadata=metadata,
+            status=status,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             spec: pulumi.Input['PodSchedulingContextSpecArgs'],
+             api_version: Optional[pulumi.Input[str]] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+             status: Optional[pulumi.Input['PodSchedulingContextStatusArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("spec", spec)
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'resource.k8s.io/v1alpha2')
+            _setter("api_version", 'resource.k8s.io/v1alpha2')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'PodSchedulingContext')
+            _setter("kind", 'PodSchedulingContext')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
         if status is not None:
-            pulumi.set(__self__, "status", status)
+            _setter("status", status)
 
     @property
     @pulumi.getter
@@ -313,11 +374,26 @@ class ResourceClaimConsumerReferenceArgs:
         :param pulumi.Input[str] uid: UID identifies exactly one incarnation of the resource.
         :param pulumi.Input[str] api_group: APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
         """
-        pulumi.set(__self__, "name", name)
-        pulumi.set(__self__, "resource", resource)
-        pulumi.set(__self__, "uid", uid)
+        ResourceClaimConsumerReferenceArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            name=name,
+            resource=resource,
+            uid=uid,
+            api_group=api_group,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             name: pulumi.Input[str],
+             resource: pulumi.Input[str],
+             uid: pulumi.Input[str],
+             api_group: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("name", name)
+        _setter("resource", resource)
+        _setter("uid", uid)
         if api_group is not None:
-            pulumi.set(__self__, "api_group", api_group)
+            _setter("api_group", api_group)
 
     @property
     @pulumi.getter
@@ -380,12 +456,25 @@ class ResourceClaimParametersReferencePatchArgs:
         :param pulumi.Input[str] kind: Kind is the type of resource being referenced. This is the same value as in the parameter object's metadata, for example "ConfigMap".
         :param pulumi.Input[str] name: Name is the name of resource being referenced.
         """
+        ResourceClaimParametersReferencePatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            api_group=api_group,
+            kind=kind,
+            name=name,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             api_group: Optional[pulumi.Input[str]] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             name: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if api_group is not None:
-            pulumi.set(__self__, "api_group", api_group)
+            _setter("api_group", api_group)
         if kind is not None:
-            pulumi.set(__self__, "kind", kind)
+            _setter("kind", kind)
         if name is not None:
-            pulumi.set(__self__, "name", name)
+            _setter("name", name)
 
     @property
     @pulumi.getter(name="apiGroup")
@@ -436,10 +525,23 @@ class ResourceClaimParametersReferenceArgs:
         :param pulumi.Input[str] name: Name is the name of resource being referenced.
         :param pulumi.Input[str] api_group: APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
         """
-        pulumi.set(__self__, "kind", kind)
-        pulumi.set(__self__, "name", name)
+        ResourceClaimParametersReferenceArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            kind=kind,
+            name=name,
+            api_group=api_group,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             kind: pulumi.Input[str],
+             name: pulumi.Input[str],
+             api_group: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("kind", kind)
+        _setter("name", name)
         if api_group is not None:
-            pulumi.set(__self__, "api_group", api_group)
+            _setter("api_group", api_group)
 
     @property
     @pulumi.getter
@@ -490,10 +592,21 @@ class ResourceClaimSchedulingStatusArgs:
                
                The size of this field is limited to 128, the same as for PodSchedulingSpec.PotentialNodes. This may get increased in the future, but not reduced.
         """
+        ResourceClaimSchedulingStatusArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            name=name,
+            unsuitable_nodes=unsuitable_nodes,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             name: Optional[pulumi.Input[str]] = None,
+             unsuitable_nodes: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if name is not None:
-            pulumi.set(__self__, "name", name)
+            _setter("name", name)
         if unsuitable_nodes is not None:
-            pulumi.set(__self__, "unsuitable_nodes", unsuitable_nodes)
+            _setter("unsuitable_nodes", unsuitable_nodes)
 
     @property
     @pulumi.getter
@@ -536,12 +649,25 @@ class ResourceClaimSpecPatchArgs:
                The object must be in the same namespace as the ResourceClaim.
         :param pulumi.Input[str] resource_class_name: ResourceClassName references the driver and additional parameters via the name of a ResourceClass that was created as part of the driver deployment.
         """
+        ResourceClaimSpecPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            allocation_mode=allocation_mode,
+            parameters_ref=parameters_ref,
+            resource_class_name=resource_class_name,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             allocation_mode: Optional[pulumi.Input[str]] = None,
+             parameters_ref: Optional[pulumi.Input['ResourceClaimParametersReferencePatchArgs']] = None,
+             resource_class_name: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if allocation_mode is not None:
-            pulumi.set(__self__, "allocation_mode", allocation_mode)
+            _setter("allocation_mode", allocation_mode)
         if parameters_ref is not None:
-            pulumi.set(__self__, "parameters_ref", parameters_ref)
+            _setter("parameters_ref", parameters_ref)
         if resource_class_name is not None:
-            pulumi.set(__self__, "resource_class_name", resource_class_name)
+            _setter("resource_class_name", resource_class_name)
 
     @property
     @pulumi.getter(name="allocationMode")
@@ -596,11 +722,24 @@ class ResourceClaimSpecArgs:
                
                The object must be in the same namespace as the ResourceClaim.
         """
-        pulumi.set(__self__, "resource_class_name", resource_class_name)
+        ResourceClaimSpecArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            resource_class_name=resource_class_name,
+            allocation_mode=allocation_mode,
+            parameters_ref=parameters_ref,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             resource_class_name: pulumi.Input[str],
+             allocation_mode: Optional[pulumi.Input[str]] = None,
+             parameters_ref: Optional[pulumi.Input['ResourceClaimParametersReferenceArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("resource_class_name", resource_class_name)
         if allocation_mode is not None:
-            pulumi.set(__self__, "allocation_mode", allocation_mode)
+            _setter("allocation_mode", allocation_mode)
         if parameters_ref is not None:
-            pulumi.set(__self__, "parameters_ref", parameters_ref)
+            _setter("parameters_ref", parameters_ref)
 
     @property
     @pulumi.getter(name="resourceClassName")
@@ -661,14 +800,29 @@ class ResourceClaimStatusArgs:
                
                There can be at most 32 such reservations. This may get increased in the future, but not reduced.
         """
+        ResourceClaimStatusArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            allocation=allocation,
+            deallocation_requested=deallocation_requested,
+            driver_name=driver_name,
+            reserved_for=reserved_for,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             allocation: Optional[pulumi.Input['AllocationResultArgs']] = None,
+             deallocation_requested: Optional[pulumi.Input[bool]] = None,
+             driver_name: Optional[pulumi.Input[str]] = None,
+             reserved_for: Optional[pulumi.Input[Sequence[pulumi.Input['ResourceClaimConsumerReferenceArgs']]]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if allocation is not None:
-            pulumi.set(__self__, "allocation", allocation)
+            _setter("allocation", allocation)
         if deallocation_requested is not None:
-            pulumi.set(__self__, "deallocation_requested", deallocation_requested)
+            _setter("deallocation_requested", deallocation_requested)
         if driver_name is not None:
-            pulumi.set(__self__, "driver_name", driver_name)
+            _setter("driver_name", driver_name)
         if reserved_for is not None:
-            pulumi.set(__self__, "reserved_for", reserved_for)
+            _setter("reserved_for", reserved_for)
 
     @property
     @pulumi.getter
@@ -735,10 +889,21 @@ class ResourceClaimTemplateSpecPatchArgs:
         :param pulumi.Input['_meta.v1.ObjectMetaPatchArgs'] metadata: ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
         :param pulumi.Input['ResourceClaimSpecPatchArgs'] spec: Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
         """
+        ResourceClaimTemplateSpecPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            metadata=metadata,
+            spec=spec,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']] = None,
+             spec: Optional[pulumi.Input['ResourceClaimSpecPatchArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
         if spec is not None:
-            pulumi.set(__self__, "spec", spec)
+            _setter("spec", spec)
 
     @property
     @pulumi.getter
@@ -775,9 +940,20 @@ class ResourceClaimTemplateSpecArgs:
         :param pulumi.Input['ResourceClaimSpecArgs'] spec: Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
         """
-        pulumi.set(__self__, "spec", spec)
+        ResourceClaimTemplateSpecArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            spec=spec,
+            metadata=metadata,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             spec: pulumi.Input['ResourceClaimSpecArgs'],
+             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("spec", spec)
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
 
     @property
     @pulumi.getter
@@ -820,13 +996,28 @@ class ResourceClaimTemplateArgs:
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object metadata
         """
-        pulumi.set(__self__, "spec", spec)
+        ResourceClaimTemplateArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            spec=spec,
+            api_version=api_version,
+            kind=kind,
+            metadata=metadata,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             spec: pulumi.Input['ResourceClaimTemplateSpecArgs'],
+             api_version: Optional[pulumi.Input[str]] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("spec", spec)
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'resource.k8s.io/v1alpha2')
+            _setter("api_version", 'resource.k8s.io/v1alpha2')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'ResourceClaimTemplate')
+            _setter("kind", 'ResourceClaimTemplate')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
 
     @property
     @pulumi.getter
@@ -897,15 +1088,32 @@ class ResourceClaimArgs:
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object metadata
         :param pulumi.Input['ResourceClaimStatusArgs'] status: Status describes whether the resource is available and with which attributes.
         """
-        pulumi.set(__self__, "spec", spec)
+        ResourceClaimArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            spec=spec,
+            api_version=api_version,
+            kind=kind,
+            metadata=metadata,
+            status=status,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             spec: pulumi.Input['ResourceClaimSpecArgs'],
+             api_version: Optional[pulumi.Input[str]] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+             status: Optional[pulumi.Input['ResourceClaimStatusArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("spec", spec)
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'resource.k8s.io/v1alpha2')
+            _setter("api_version", 'resource.k8s.io/v1alpha2')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'ResourceClaim')
+            _setter("kind", 'ResourceClaim')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
         if status is not None:
-            pulumi.set(__self__, "status", status)
+            _setter("status", status)
 
     @property
     @pulumi.getter
@@ -982,14 +1190,29 @@ class ResourceClassParametersReferencePatchArgs:
         :param pulumi.Input[str] name: Name is the name of resource being referenced.
         :param pulumi.Input[str] namespace: Namespace that contains the referenced resource. Must be empty for cluster-scoped resources and non-empty for namespaced resources.
         """
+        ResourceClassParametersReferencePatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            api_group=api_group,
+            kind=kind,
+            name=name,
+            namespace=namespace,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             api_group: Optional[pulumi.Input[str]] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             name: Optional[pulumi.Input[str]] = None,
+             namespace: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if api_group is not None:
-            pulumi.set(__self__, "api_group", api_group)
+            _setter("api_group", api_group)
         if kind is not None:
-            pulumi.set(__self__, "kind", kind)
+            _setter("kind", kind)
         if name is not None:
-            pulumi.set(__self__, "name", name)
+            _setter("name", name)
         if namespace is not None:
-            pulumi.set(__self__, "namespace", namespace)
+            _setter("namespace", namespace)
 
     @property
     @pulumi.getter(name="apiGroup")
@@ -1054,12 +1277,27 @@ class ResourceClassParametersReferenceArgs:
         :param pulumi.Input[str] api_group: APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
         :param pulumi.Input[str] namespace: Namespace that contains the referenced resource. Must be empty for cluster-scoped resources and non-empty for namespaced resources.
         """
-        pulumi.set(__self__, "kind", kind)
-        pulumi.set(__self__, "name", name)
+        ResourceClassParametersReferenceArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            kind=kind,
+            name=name,
+            api_group=api_group,
+            namespace=namespace,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             kind: pulumi.Input[str],
+             name: pulumi.Input[str],
+             api_group: Optional[pulumi.Input[str]] = None,
+             namespace: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("kind", kind)
+        _setter("name", name)
         if api_group is not None:
-            pulumi.set(__self__, "api_group", api_group)
+            _setter("api_group", api_group)
         if namespace is not None:
-            pulumi.set(__self__, "namespace", namespace)
+            _setter("namespace", namespace)
 
     @property
     @pulumi.getter
@@ -1134,17 +1372,36 @@ class ResourceClassArgs:
                
                Setting this field is optional. If null, all nodes are candidates.
         """
-        pulumi.set(__self__, "driver_name", driver_name)
+        ResourceClassArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            driver_name=driver_name,
+            api_version=api_version,
+            kind=kind,
+            metadata=metadata,
+            parameters_ref=parameters_ref,
+            suitable_nodes=suitable_nodes,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             driver_name: pulumi.Input[str],
+             api_version: Optional[pulumi.Input[str]] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+             parameters_ref: Optional[pulumi.Input['ResourceClassParametersReferenceArgs']] = None,
+             suitable_nodes: Optional[pulumi.Input['_core.v1.NodeSelectorArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("driver_name", driver_name)
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'resource.k8s.io/v1alpha2')
+            _setter("api_version", 'resource.k8s.io/v1alpha2')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'ResourceClass')
+            _setter("kind", 'ResourceClass')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
         if parameters_ref is not None:
-            pulumi.set(__self__, "parameters_ref", parameters_ref)
+            _setter("parameters_ref", parameters_ref)
         if suitable_nodes is not None:
-            pulumi.set(__self__, "suitable_nodes", suitable_nodes)
+            _setter("suitable_nodes", suitable_nodes)
 
     @property
     @pulumi.getter(name="driverName")
@@ -1235,10 +1492,21 @@ class ResourceHandleArgs:
                The maximum size of this field is 16KiB. This may get increased in the future, but not reduced.
         :param pulumi.Input[str] driver_name: DriverName specifies the name of the resource driver whose kubelet plugin should be invoked to process this ResourceHandle's data once it lands on a node. This may differ from the DriverName set in ResourceClaimStatus this ResourceHandle is embedded in.
         """
+        ResourceHandleArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            data=data,
+            driver_name=driver_name,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             data: Optional[pulumi.Input[str]] = None,
+             driver_name: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if data is not None:
-            pulumi.set(__self__, "data", data)
+            _setter("data", data)
         if driver_name is not None:
-            pulumi.set(__self__, "driver_name", driver_name)
+            _setter("driver_name", driver_name)
 
     @property
     @pulumi.getter

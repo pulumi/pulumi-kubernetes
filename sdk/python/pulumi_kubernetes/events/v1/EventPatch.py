@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from . import outputs
 from ... import core as _core
@@ -55,40 +55,81 @@ class EventPatchArgs:
         :param pulumi.Input['EventSeriesPatchArgs'] series: series is data about the Event series this event represents or nil if it's a singleton Event.
         :param pulumi.Input[str] type: type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable. This field cannot be empty for new Events.
         """
+        EventPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            action=action,
+            api_version=api_version,
+            deprecated_count=deprecated_count,
+            deprecated_first_timestamp=deprecated_first_timestamp,
+            deprecated_last_timestamp=deprecated_last_timestamp,
+            deprecated_source=deprecated_source,
+            event_time=event_time,
+            kind=kind,
+            metadata=metadata,
+            note=note,
+            reason=reason,
+            regarding=regarding,
+            related=related,
+            reporting_controller=reporting_controller,
+            reporting_instance=reporting_instance,
+            series=series,
+            type=type,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             action: Optional[pulumi.Input[str]] = None,
+             api_version: Optional[pulumi.Input[str]] = None,
+             deprecated_count: Optional[pulumi.Input[int]] = None,
+             deprecated_first_timestamp: Optional[pulumi.Input[str]] = None,
+             deprecated_last_timestamp: Optional[pulumi.Input[str]] = None,
+             deprecated_source: Optional[pulumi.Input['_core.v1.EventSourcePatchArgs']] = None,
+             event_time: Optional[pulumi.Input[str]] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']] = None,
+             note: Optional[pulumi.Input[str]] = None,
+             reason: Optional[pulumi.Input[str]] = None,
+             regarding: Optional[pulumi.Input['_core.v1.ObjectReferencePatchArgs']] = None,
+             related: Optional[pulumi.Input['_core.v1.ObjectReferencePatchArgs']] = None,
+             reporting_controller: Optional[pulumi.Input[str]] = None,
+             reporting_instance: Optional[pulumi.Input[str]] = None,
+             series: Optional[pulumi.Input['EventSeriesPatchArgs']] = None,
+             type: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if action is not None:
-            pulumi.set(__self__, "action", action)
+            _setter("action", action)
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'events.k8s.io/v1')
+            _setter("api_version", 'events.k8s.io/v1')
         if deprecated_count is not None:
-            pulumi.set(__self__, "deprecated_count", deprecated_count)
+            _setter("deprecated_count", deprecated_count)
         if deprecated_first_timestamp is not None:
-            pulumi.set(__self__, "deprecated_first_timestamp", deprecated_first_timestamp)
+            _setter("deprecated_first_timestamp", deprecated_first_timestamp)
         if deprecated_last_timestamp is not None:
-            pulumi.set(__self__, "deprecated_last_timestamp", deprecated_last_timestamp)
+            _setter("deprecated_last_timestamp", deprecated_last_timestamp)
         if deprecated_source is not None:
-            pulumi.set(__self__, "deprecated_source", deprecated_source)
+            _setter("deprecated_source", deprecated_source)
         if event_time is not None:
-            pulumi.set(__self__, "event_time", event_time)
+            _setter("event_time", event_time)
         if kind is not None:
-            pulumi.set(__self__, "kind", 'Event')
+            _setter("kind", 'Event')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
         if note is not None:
-            pulumi.set(__self__, "note", note)
+            _setter("note", note)
         if reason is not None:
-            pulumi.set(__self__, "reason", reason)
+            _setter("reason", reason)
         if regarding is not None:
-            pulumi.set(__self__, "regarding", regarding)
+            _setter("regarding", regarding)
         if related is not None:
-            pulumi.set(__self__, "related", related)
+            _setter("related", related)
         if reporting_controller is not None:
-            pulumi.set(__self__, "reporting_controller", reporting_controller)
+            _setter("reporting_controller", reporting_controller)
         if reporting_instance is not None:
-            pulumi.set(__self__, "reporting_instance", reporting_instance)
+            _setter("reporting_instance", reporting_instance)
         if series is not None:
-            pulumi.set(__self__, "series", series)
+            _setter("series", series)
         if type is not None:
-            pulumi.set(__self__, "type", type)
+            _setter("type", type)
 
     @property
     @pulumi.getter
@@ -372,6 +413,10 @@ class EventPatch(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
+            kwargs = kwargs or {}
+            def _setter(key, value):
+                kwargs[key] = value
+            EventPatchArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
@@ -408,16 +453,41 @@ class EventPatch(pulumi.CustomResource):
             __props__.__dict__["deprecated_count"] = deprecated_count
             __props__.__dict__["deprecated_first_timestamp"] = deprecated_first_timestamp
             __props__.__dict__["deprecated_last_timestamp"] = deprecated_last_timestamp
+            if not isinstance(deprecated_source, _core.v1.EventSourcePatchArgs):
+                deprecated_source = deprecated_source or {}
+                def _setter(key, value):
+                    deprecated_source[key] = value
+                _core.v1.EventSourcePatchArgs._configure(_setter, **deprecated_source)
             __props__.__dict__["deprecated_source"] = deprecated_source
             __props__.__dict__["event_time"] = event_time
             __props__.__dict__["kind"] = 'Event'
+            if not isinstance(metadata, _meta.v1.ObjectMetaPatchArgs):
+                metadata = metadata or {}
+                def _setter(key, value):
+                    metadata[key] = value
+                _meta.v1.ObjectMetaPatchArgs._configure(_setter, **metadata)
             __props__.__dict__["metadata"] = metadata
             __props__.__dict__["note"] = note
             __props__.__dict__["reason"] = reason
+            if not isinstance(regarding, _core.v1.ObjectReferencePatchArgs):
+                regarding = regarding or {}
+                def _setter(key, value):
+                    regarding[key] = value
+                _core.v1.ObjectReferencePatchArgs._configure(_setter, **regarding)
             __props__.__dict__["regarding"] = regarding
+            if not isinstance(related, _core.v1.ObjectReferencePatchArgs):
+                related = related or {}
+                def _setter(key, value):
+                    related[key] = value
+                _core.v1.ObjectReferencePatchArgs._configure(_setter, **related)
             __props__.__dict__["related"] = related
             __props__.__dict__["reporting_controller"] = reporting_controller
             __props__.__dict__["reporting_instance"] = reporting_instance
+            if not isinstance(series, EventSeriesPatchArgs):
+                series = series or {}
+                def _setter(key, value):
+                    series[key] = value
+                EventSeriesPatchArgs._configure(_setter, **series)
             __props__.__dict__["series"] = series
             __props__.__dict__["type"] = type
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:core/v1:EventPatch"), pulumi.Alias(type_="kubernetes:events.k8s.io/v1beta1:EventPatch")])

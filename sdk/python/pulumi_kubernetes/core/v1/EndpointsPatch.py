@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from . import outputs
 from ... import meta as _meta
@@ -28,14 +28,29 @@ class EndpointsPatchArgs:
         :param pulumi.Input['_meta.v1.ObjectMetaPatchArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input[Sequence[pulumi.Input['EndpointSubsetPatchArgs']]] subsets: The set of all endpoints is the union of all subsets. Addresses are placed into subsets according to the IPs they share. A single address with multiple ports, some of which are ready and some of which are not (because they come from different containers) will result in the address being displayed in different subsets for the different ports. No address will appear in both Addresses and NotReadyAddresses in the same subset. Sets of addresses and ports that comprise a service.
         """
+        EndpointsPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            api_version=api_version,
+            kind=kind,
+            metadata=metadata,
+            subsets=subsets,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             api_version: Optional[pulumi.Input[str]] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']] = None,
+             subsets: Optional[pulumi.Input[Sequence[pulumi.Input['EndpointSubsetPatchArgs']]]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'v1')
+            _setter("api_version", 'v1')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'Endpoints')
+            _setter("kind", 'Endpoints')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
         if subsets is not None:
-            pulumi.set(__self__, "subsets", subsets)
+            _setter("subsets", subsets)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -161,6 +176,10 @@ class EndpointsPatch(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
+            kwargs = kwargs or {}
+            def _setter(key, value):
+                kwargs[key] = value
+            EndpointsPatchArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
@@ -181,6 +200,11 @@ class EndpointsPatch(pulumi.CustomResource):
 
             __props__.__dict__["api_version"] = 'v1'
             __props__.__dict__["kind"] = 'Endpoints'
+            if not isinstance(metadata, _meta.v1.ObjectMetaPatchArgs):
+                metadata = metadata or {}
+                def _setter(key, value):
+                    metadata[key] = value
+                _meta.v1.ObjectMetaPatchArgs._configure(_setter, **metadata)
             __props__.__dict__["metadata"] = metadata
             __props__.__dict__["subsets"] = subsets
         super(EndpointsPatch, __self__).__init__(

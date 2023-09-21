@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from ... import core as _core
 from ... import meta as _meta
@@ -27,10 +27,21 @@ class EventSeriesPatchArgs:
         :param pulumi.Input[int] count: count is the number of occurrences in this series up to the last heartbeat time.
         :param pulumi.Input[str] last_observed_time: lastObservedTime is the time when last Event from the series was seen before last heartbeat.
         """
+        EventSeriesPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            count=count,
+            last_observed_time=last_observed_time,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             count: Optional[pulumi.Input[int]] = None,
+             last_observed_time: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if count is not None:
-            pulumi.set(__self__, "count", count)
+            _setter("count", count)
         if last_observed_time is not None:
-            pulumi.set(__self__, "last_observed_time", last_observed_time)
+            _setter("last_observed_time", last_observed_time)
 
     @property
     @pulumi.getter
@@ -67,8 +78,19 @@ class EventSeriesArgs:
         :param pulumi.Input[int] count: count is the number of occurrences in this series up to the last heartbeat time.
         :param pulumi.Input[str] last_observed_time: lastObservedTime is the time when last Event from the series was seen before last heartbeat.
         """
-        pulumi.set(__self__, "count", count)
-        pulumi.set(__self__, "last_observed_time", last_observed_time)
+        EventSeriesArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            count=count,
+            last_observed_time=last_observed_time,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             count: pulumi.Input[int],
+             last_observed_time: pulumi.Input[str],
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("count", count)
+        _setter("last_observed_time", last_observed_time)
 
     @property
     @pulumi.getter
@@ -135,39 +157,80 @@ class EventArgs:
         :param pulumi.Input['EventSeriesArgs'] series: series is data about the Event series this event represents or nil if it's a singleton Event.
         :param pulumi.Input[str] type: type is the type of this event (Normal, Warning), new types could be added in the future. It is machine-readable. This field cannot be empty for new Events.
         """
-        pulumi.set(__self__, "event_time", event_time)
+        EventArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            event_time=event_time,
+            action=action,
+            api_version=api_version,
+            deprecated_count=deprecated_count,
+            deprecated_first_timestamp=deprecated_first_timestamp,
+            deprecated_last_timestamp=deprecated_last_timestamp,
+            deprecated_source=deprecated_source,
+            kind=kind,
+            metadata=metadata,
+            note=note,
+            reason=reason,
+            regarding=regarding,
+            related=related,
+            reporting_controller=reporting_controller,
+            reporting_instance=reporting_instance,
+            series=series,
+            type=type,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             event_time: pulumi.Input[str],
+             action: Optional[pulumi.Input[str]] = None,
+             api_version: Optional[pulumi.Input[str]] = None,
+             deprecated_count: Optional[pulumi.Input[int]] = None,
+             deprecated_first_timestamp: Optional[pulumi.Input[str]] = None,
+             deprecated_last_timestamp: Optional[pulumi.Input[str]] = None,
+             deprecated_source: Optional[pulumi.Input['_core.v1.EventSourceArgs']] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+             note: Optional[pulumi.Input[str]] = None,
+             reason: Optional[pulumi.Input[str]] = None,
+             regarding: Optional[pulumi.Input['_core.v1.ObjectReferenceArgs']] = None,
+             related: Optional[pulumi.Input['_core.v1.ObjectReferenceArgs']] = None,
+             reporting_controller: Optional[pulumi.Input[str]] = None,
+             reporting_instance: Optional[pulumi.Input[str]] = None,
+             series: Optional[pulumi.Input['EventSeriesArgs']] = None,
+             type: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("event_time", event_time)
         if action is not None:
-            pulumi.set(__self__, "action", action)
+            _setter("action", action)
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'events.k8s.io/v1')
+            _setter("api_version", 'events.k8s.io/v1')
         if deprecated_count is not None:
-            pulumi.set(__self__, "deprecated_count", deprecated_count)
+            _setter("deprecated_count", deprecated_count)
         if deprecated_first_timestamp is not None:
-            pulumi.set(__self__, "deprecated_first_timestamp", deprecated_first_timestamp)
+            _setter("deprecated_first_timestamp", deprecated_first_timestamp)
         if deprecated_last_timestamp is not None:
-            pulumi.set(__self__, "deprecated_last_timestamp", deprecated_last_timestamp)
+            _setter("deprecated_last_timestamp", deprecated_last_timestamp)
         if deprecated_source is not None:
-            pulumi.set(__self__, "deprecated_source", deprecated_source)
+            _setter("deprecated_source", deprecated_source)
         if kind is not None:
-            pulumi.set(__self__, "kind", 'Event')
+            _setter("kind", 'Event')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
         if note is not None:
-            pulumi.set(__self__, "note", note)
+            _setter("note", note)
         if reason is not None:
-            pulumi.set(__self__, "reason", reason)
+            _setter("reason", reason)
         if regarding is not None:
-            pulumi.set(__self__, "regarding", regarding)
+            _setter("regarding", regarding)
         if related is not None:
-            pulumi.set(__self__, "related", related)
+            _setter("related", related)
         if reporting_controller is not None:
-            pulumi.set(__self__, "reporting_controller", reporting_controller)
+            _setter("reporting_controller", reporting_controller)
         if reporting_instance is not None:
-            pulumi.set(__self__, "reporting_instance", reporting_instance)
+            _setter("reporting_instance", reporting_instance)
         if series is not None:
-            pulumi.set(__self__, "series", series)
+            _setter("series", series)
         if type is not None:
-            pulumi.set(__self__, "type", type)
+            _setter("type", type)
 
     @property
     @pulumi.getter(name="eventTime")

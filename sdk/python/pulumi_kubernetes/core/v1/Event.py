@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from . import outputs
 from ... import meta as _meta
@@ -54,38 +54,79 @@ class EventInitArgs:
         :param pulumi.Input['EventSourceArgs'] source: The component reporting this event. Should be a short machine understandable string.
         :param pulumi.Input[str] type: Type of this event (Normal, Warning), new types could be added in the future
         """
-        pulumi.set(__self__, "involved_object", involved_object)
-        pulumi.set(__self__, "metadata", metadata)
+        EventInitArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            involved_object=involved_object,
+            metadata=metadata,
+            action=action,
+            api_version=api_version,
+            count=count,
+            event_time=event_time,
+            first_timestamp=first_timestamp,
+            kind=kind,
+            last_timestamp=last_timestamp,
+            message=message,
+            reason=reason,
+            related=related,
+            reporting_component=reporting_component,
+            reporting_instance=reporting_instance,
+            series=series,
+            source=source,
+            type=type,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             involved_object: pulumi.Input['ObjectReferenceArgs'],
+             metadata: pulumi.Input['_meta.v1.ObjectMetaArgs'],
+             action: Optional[pulumi.Input[str]] = None,
+             api_version: Optional[pulumi.Input[str]] = None,
+             count: Optional[pulumi.Input[int]] = None,
+             event_time: Optional[pulumi.Input[str]] = None,
+             first_timestamp: Optional[pulumi.Input[str]] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             last_timestamp: Optional[pulumi.Input[str]] = None,
+             message: Optional[pulumi.Input[str]] = None,
+             reason: Optional[pulumi.Input[str]] = None,
+             related: Optional[pulumi.Input['ObjectReferenceArgs']] = None,
+             reporting_component: Optional[pulumi.Input[str]] = None,
+             reporting_instance: Optional[pulumi.Input[str]] = None,
+             series: Optional[pulumi.Input['EventSeriesArgs']] = None,
+             source: Optional[pulumi.Input['EventSourceArgs']] = None,
+             type: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("involved_object", involved_object)
+        _setter("metadata", metadata)
         if action is not None:
-            pulumi.set(__self__, "action", action)
+            _setter("action", action)
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'v1')
+            _setter("api_version", 'v1')
         if count is not None:
-            pulumi.set(__self__, "count", count)
+            _setter("count", count)
         if event_time is not None:
-            pulumi.set(__self__, "event_time", event_time)
+            _setter("event_time", event_time)
         if first_timestamp is not None:
-            pulumi.set(__self__, "first_timestamp", first_timestamp)
+            _setter("first_timestamp", first_timestamp)
         if kind is not None:
-            pulumi.set(__self__, "kind", 'Event')
+            _setter("kind", 'Event')
         if last_timestamp is not None:
-            pulumi.set(__self__, "last_timestamp", last_timestamp)
+            _setter("last_timestamp", last_timestamp)
         if message is not None:
-            pulumi.set(__self__, "message", message)
+            _setter("message", message)
         if reason is not None:
-            pulumi.set(__self__, "reason", reason)
+            _setter("reason", reason)
         if related is not None:
-            pulumi.set(__self__, "related", related)
+            _setter("related", related)
         if reporting_component is not None:
-            pulumi.set(__self__, "reporting_component", reporting_component)
+            _setter("reporting_component", reporting_component)
         if reporting_instance is not None:
-            pulumi.set(__self__, "reporting_instance", reporting_instance)
+            _setter("reporting_instance", reporting_instance)
         if series is not None:
-            pulumi.set(__self__, "series", series)
+            _setter("series", series)
         if source is not None:
-            pulumi.set(__self__, "source", source)
+            _setter("source", source)
         if type is not None:
-            pulumi.set(__self__, "type", type)
+            _setter("type", type)
 
     @property
     @pulumi.getter(name="involvedObject")
@@ -357,6 +398,10 @@ class Event(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
+            kwargs = kwargs or {}
+            def _setter(key, value):
+                kwargs[key] = value
+            EventInitArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
@@ -393,20 +438,45 @@ class Event(pulumi.CustomResource):
             __props__.__dict__["count"] = count
             __props__.__dict__["event_time"] = event_time
             __props__.__dict__["first_timestamp"] = first_timestamp
+            if not isinstance(involved_object, ObjectReferenceArgs):
+                involved_object = involved_object or {}
+                def _setter(key, value):
+                    involved_object[key] = value
+                ObjectReferenceArgs._configure(_setter, **involved_object)
             if involved_object is None and not opts.urn:
                 raise TypeError("Missing required property 'involved_object'")
             __props__.__dict__["involved_object"] = involved_object
             __props__.__dict__["kind"] = 'Event'
             __props__.__dict__["last_timestamp"] = last_timestamp
             __props__.__dict__["message"] = message
+            if not isinstance(metadata, _meta.v1.ObjectMetaArgs):
+                metadata = metadata or {}
+                def _setter(key, value):
+                    metadata[key] = value
+                _meta.v1.ObjectMetaArgs._configure(_setter, **metadata)
             if metadata is None and not opts.urn:
                 raise TypeError("Missing required property 'metadata'")
             __props__.__dict__["metadata"] = metadata
             __props__.__dict__["reason"] = reason
+            if not isinstance(related, ObjectReferenceArgs):
+                related = related or {}
+                def _setter(key, value):
+                    related[key] = value
+                ObjectReferenceArgs._configure(_setter, **related)
             __props__.__dict__["related"] = related
             __props__.__dict__["reporting_component"] = reporting_component
             __props__.__dict__["reporting_instance"] = reporting_instance
+            if not isinstance(series, EventSeriesArgs):
+                series = series or {}
+                def _setter(key, value):
+                    series[key] = value
+                EventSeriesArgs._configure(_setter, **series)
             __props__.__dict__["series"] = series
+            if not isinstance(source, EventSourceArgs):
+                source = source or {}
+                def _setter(key, value):
+                    source[key] = value
+                EventSourceArgs._configure(_setter, **source)
             __props__.__dict__["source"] = source
             __props__.__dict__["type"] = type
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:events.k8s.io/v1:Event"), pulumi.Alias(type_="kubernetes:events.k8s.io/v1beta1:Event")])

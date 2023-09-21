@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from . import outputs
 from ... import meta as _meta
@@ -28,14 +28,29 @@ class PodSchedulingPatchArgs:
         :param pulumi.Input['_meta.v1.ObjectMetaPatchArgs'] metadata: Standard object metadata
         :param pulumi.Input['PodSchedulingSpecPatchArgs'] spec: Spec describes where resources for the Pod are needed.
         """
+        PodSchedulingPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            api_version=api_version,
+            kind=kind,
+            metadata=metadata,
+            spec=spec,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             api_version: Optional[pulumi.Input[str]] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']] = None,
+             spec: Optional[pulumi.Input['PodSchedulingSpecPatchArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'resource.k8s.io/v1alpha1')
+            _setter("api_version", 'resource.k8s.io/v1alpha1')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'PodScheduling')
+            _setter("kind", 'PodScheduling')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
         if spec is not None:
-            pulumi.set(__self__, "spec", spec)
+            _setter("spec", spec)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -141,6 +156,10 @@ class PodSchedulingPatch(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
+            kwargs = kwargs or {}
+            def _setter(key, value):
+                kwargs[key] = value
+            PodSchedulingPatchArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
@@ -161,7 +180,17 @@ class PodSchedulingPatch(pulumi.CustomResource):
 
             __props__.__dict__["api_version"] = 'resource.k8s.io/v1alpha1'
             __props__.__dict__["kind"] = 'PodScheduling'
+            if not isinstance(metadata, _meta.v1.ObjectMetaPatchArgs):
+                metadata = metadata or {}
+                def _setter(key, value):
+                    metadata[key] = value
+                _meta.v1.ObjectMetaPatchArgs._configure(_setter, **metadata)
             __props__.__dict__["metadata"] = metadata
+            if not isinstance(spec, PodSchedulingSpecPatchArgs):
+                spec = spec or {}
+                def _setter(key, value):
+                    spec[key] = value
+                PodSchedulingSpecPatchArgs._configure(_setter, **spec)
             __props__.__dict__["spec"] = spec
             __props__.__dict__["status"] = None
         super(PodSchedulingPatch, __self__).__init__(

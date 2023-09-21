@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from ... import core as _core
 from ... import meta as _meta
@@ -100,22 +100,45 @@ class CSIDriverSpecPatchArgs:
                
                This field is beta. This field is immutable.
         """
+        CSIDriverSpecPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            attach_required=attach_required,
+            fs_group_policy=fs_group_policy,
+            pod_info_on_mount=pod_info_on_mount,
+            requires_republish=requires_republish,
+            se_linux_mount=se_linux_mount,
+            storage_capacity=storage_capacity,
+            token_requests=token_requests,
+            volume_lifecycle_modes=volume_lifecycle_modes,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             attach_required: Optional[pulumi.Input[bool]] = None,
+             fs_group_policy: Optional[pulumi.Input[str]] = None,
+             pod_info_on_mount: Optional[pulumi.Input[bool]] = None,
+             requires_republish: Optional[pulumi.Input[bool]] = None,
+             se_linux_mount: Optional[pulumi.Input[bool]] = None,
+             storage_capacity: Optional[pulumi.Input[bool]] = None,
+             token_requests: Optional[pulumi.Input[Sequence[pulumi.Input['TokenRequestPatchArgs']]]] = None,
+             volume_lifecycle_modes: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if attach_required is not None:
-            pulumi.set(__self__, "attach_required", attach_required)
+            _setter("attach_required", attach_required)
         if fs_group_policy is not None:
-            pulumi.set(__self__, "fs_group_policy", fs_group_policy)
+            _setter("fs_group_policy", fs_group_policy)
         if pod_info_on_mount is not None:
-            pulumi.set(__self__, "pod_info_on_mount", pod_info_on_mount)
+            _setter("pod_info_on_mount", pod_info_on_mount)
         if requires_republish is not None:
-            pulumi.set(__self__, "requires_republish", requires_republish)
+            _setter("requires_republish", requires_republish)
         if se_linux_mount is not None:
-            pulumi.set(__self__, "se_linux_mount", se_linux_mount)
+            _setter("se_linux_mount", se_linux_mount)
         if storage_capacity is not None:
-            pulumi.set(__self__, "storage_capacity", storage_capacity)
+            _setter("storage_capacity", storage_capacity)
         if token_requests is not None:
-            pulumi.set(__self__, "token_requests", token_requests)
+            _setter("token_requests", token_requests)
         if volume_lifecycle_modes is not None:
-            pulumi.set(__self__, "volume_lifecycle_modes", volume_lifecycle_modes)
+            _setter("volume_lifecycle_modes", volume_lifecycle_modes)
 
     @property
     @pulumi.getter(name="attachRequired")
@@ -322,22 +345,45 @@ class CSIDriverSpecArgs:
                
                This field is beta. This field is immutable.
         """
+        CSIDriverSpecArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            attach_required=attach_required,
+            fs_group_policy=fs_group_policy,
+            pod_info_on_mount=pod_info_on_mount,
+            requires_republish=requires_republish,
+            se_linux_mount=se_linux_mount,
+            storage_capacity=storage_capacity,
+            token_requests=token_requests,
+            volume_lifecycle_modes=volume_lifecycle_modes,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             attach_required: Optional[pulumi.Input[bool]] = None,
+             fs_group_policy: Optional[pulumi.Input[str]] = None,
+             pod_info_on_mount: Optional[pulumi.Input[bool]] = None,
+             requires_republish: Optional[pulumi.Input[bool]] = None,
+             se_linux_mount: Optional[pulumi.Input[bool]] = None,
+             storage_capacity: Optional[pulumi.Input[bool]] = None,
+             token_requests: Optional[pulumi.Input[Sequence[pulumi.Input['TokenRequestArgs']]]] = None,
+             volume_lifecycle_modes: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if attach_required is not None:
-            pulumi.set(__self__, "attach_required", attach_required)
+            _setter("attach_required", attach_required)
         if fs_group_policy is not None:
-            pulumi.set(__self__, "fs_group_policy", fs_group_policy)
+            _setter("fs_group_policy", fs_group_policy)
         if pod_info_on_mount is not None:
-            pulumi.set(__self__, "pod_info_on_mount", pod_info_on_mount)
+            _setter("pod_info_on_mount", pod_info_on_mount)
         if requires_republish is not None:
-            pulumi.set(__self__, "requires_republish", requires_republish)
+            _setter("requires_republish", requires_republish)
         if se_linux_mount is not None:
-            pulumi.set(__self__, "se_linux_mount", se_linux_mount)
+            _setter("se_linux_mount", se_linux_mount)
         if storage_capacity is not None:
-            pulumi.set(__self__, "storage_capacity", storage_capacity)
+            _setter("storage_capacity", storage_capacity)
         if token_requests is not None:
-            pulumi.set(__self__, "token_requests", token_requests)
+            _setter("token_requests", token_requests)
         if volume_lifecycle_modes is not None:
-            pulumi.set(__self__, "volume_lifecycle_modes", volume_lifecycle_modes)
+            _setter("volume_lifecycle_modes", volume_lifecycle_modes)
 
     @property
     @pulumi.getter(name="attachRequired")
@@ -493,13 +539,28 @@ class CSIDriverArgs:
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object metadata. metadata.Name indicates the name of the CSI driver that this object refers to; it MUST be the same name returned by the CSI GetPluginName() call for that driver. The driver name must be 63 characters or less, beginning and ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
-        pulumi.set(__self__, "spec", spec)
+        CSIDriverArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            spec=spec,
+            api_version=api_version,
+            kind=kind,
+            metadata=metadata,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             spec: pulumi.Input['CSIDriverSpecArgs'],
+             api_version: Optional[pulumi.Input[str]] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("spec", spec)
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'storage.k8s.io/v1')
+            _setter("api_version", 'storage.k8s.io/v1')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'CSIDriver')
+            _setter("kind", 'CSIDriver')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
 
     @property
     @pulumi.getter
@@ -564,14 +625,29 @@ class CSINodeDriverPatchArgs:
         :param pulumi.Input[str] node_id: nodeID of the node from the driver point of view. This field enables Kubernetes to communicate with storage systems that do not share the same nomenclature for nodes. For example, Kubernetes may refer to a given node as "node1", but the storage system may refer to the same node as "nodeA". When Kubernetes issues a command to the storage system to attach a volume to a specific node, it can use this field to refer to the node name using the ID that the storage system will understand, e.g. "nodeA" instead of "node1". This field is required.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] topology_keys: topologyKeys is the list of keys supported by the driver. When a driver is initialized on a cluster, it provides a set of topology keys that it understands (e.g. "company.com/zone", "company.com/region"). When a driver is initialized on a node, it provides the same topology keys along with values. Kubelet will expose these topology keys as labels on its own node object. When Kubernetes does topology aware provisioning, it can use this list to determine which labels it should retrieve from the node object and pass back to the driver. It is possible for different nodes to use different topology keys. This can be empty if driver does not support topology.
         """
+        CSINodeDriverPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            allocatable=allocatable,
+            name=name,
+            node_id=node_id,
+            topology_keys=topology_keys,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             allocatable: Optional[pulumi.Input['VolumeNodeResourcesPatchArgs']] = None,
+             name: Optional[pulumi.Input[str]] = None,
+             node_id: Optional[pulumi.Input[str]] = None,
+             topology_keys: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if allocatable is not None:
-            pulumi.set(__self__, "allocatable", allocatable)
+            _setter("allocatable", allocatable)
         if name is not None:
-            pulumi.set(__self__, "name", name)
+            _setter("name", name)
         if node_id is not None:
-            pulumi.set(__self__, "node_id", node_id)
+            _setter("node_id", node_id)
         if topology_keys is not None:
-            pulumi.set(__self__, "topology_keys", topology_keys)
+            _setter("topology_keys", topology_keys)
 
     @property
     @pulumi.getter
@@ -636,12 +712,27 @@ class CSINodeDriverArgs:
         :param pulumi.Input['VolumeNodeResourcesArgs'] allocatable: allocatable represents the volume resources of a node that are available for scheduling. This field is beta.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] topology_keys: topologyKeys is the list of keys supported by the driver. When a driver is initialized on a cluster, it provides a set of topology keys that it understands (e.g. "company.com/zone", "company.com/region"). When a driver is initialized on a node, it provides the same topology keys along with values. Kubelet will expose these topology keys as labels on its own node object. When Kubernetes does topology aware provisioning, it can use this list to determine which labels it should retrieve from the node object and pass back to the driver. It is possible for different nodes to use different topology keys. This can be empty if driver does not support topology.
         """
-        pulumi.set(__self__, "name", name)
-        pulumi.set(__self__, "node_id", node_id)
+        CSINodeDriverArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            name=name,
+            node_id=node_id,
+            allocatable=allocatable,
+            topology_keys=topology_keys,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             name: pulumi.Input[str],
+             node_id: pulumi.Input[str],
+             allocatable: Optional[pulumi.Input['VolumeNodeResourcesArgs']] = None,
+             topology_keys: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("name", name)
+        _setter("node_id", node_id)
         if allocatable is not None:
-            pulumi.set(__self__, "allocatable", allocatable)
+            _setter("allocatable", allocatable)
         if topology_keys is not None:
-            pulumi.set(__self__, "topology_keys", topology_keys)
+            _setter("topology_keys", topology_keys)
 
     @property
     @pulumi.getter
@@ -700,8 +791,17 @@ class CSINodeSpecPatchArgs:
         CSINodeSpec holds information about the specification of all CSI drivers installed on a node
         :param pulumi.Input[Sequence[pulumi.Input['CSINodeDriverPatchArgs']]] drivers: drivers is a list of information of all CSI Drivers existing on a node. If all drivers in the list are uninstalled, this can become empty.
         """
+        CSINodeSpecPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            drivers=drivers,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             drivers: Optional[pulumi.Input[Sequence[pulumi.Input['CSINodeDriverPatchArgs']]]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if drivers is not None:
-            pulumi.set(__self__, "drivers", drivers)
+            _setter("drivers", drivers)
 
     @property
     @pulumi.getter
@@ -724,7 +824,16 @@ class CSINodeSpecArgs:
         CSINodeSpec holds information about the specification of all CSI drivers installed on a node
         :param pulumi.Input[Sequence[pulumi.Input['CSINodeDriverArgs']]] drivers: drivers is a list of information of all CSI Drivers existing on a node. If all drivers in the list are uninstalled, this can become empty.
         """
-        pulumi.set(__self__, "drivers", drivers)
+        CSINodeSpecArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            drivers=drivers,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             drivers: pulumi.Input[Sequence[pulumi.Input['CSINodeDriverArgs']]],
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("drivers", drivers)
 
     @property
     @pulumi.getter
@@ -753,13 +862,28 @@ class CSINodeArgs:
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. metadata.name must be the Kubernetes node name.
         """
-        pulumi.set(__self__, "spec", spec)
+        CSINodeArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            spec=spec,
+            api_version=api_version,
+            kind=kind,
+            metadata=metadata,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             spec: pulumi.Input['CSINodeSpecArgs'],
+             api_version: Optional[pulumi.Input[str]] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("spec", spec)
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'storage.k8s.io/v1')
+            _setter("api_version", 'storage.k8s.io/v1')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'CSINode')
+            _setter("kind", 'CSINode')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
 
     @property
     @pulumi.getter
@@ -846,19 +970,40 @@ class CSIStorageCapacityArgs:
                More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input['_meta.v1.LabelSelectorArgs'] node_topology: nodeTopology defines which nodes have access to the storage for which capacity was reported. If not set, the storage is not accessible from any node in the cluster. If empty, the storage is accessible from all nodes. This field is immutable.
         """
-        pulumi.set(__self__, "storage_class_name", storage_class_name)
+        CSIStorageCapacityArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            storage_class_name=storage_class_name,
+            api_version=api_version,
+            capacity=capacity,
+            kind=kind,
+            maximum_volume_size=maximum_volume_size,
+            metadata=metadata,
+            node_topology=node_topology,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             storage_class_name: pulumi.Input[str],
+             api_version: Optional[pulumi.Input[str]] = None,
+             capacity: Optional[pulumi.Input[str]] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             maximum_volume_size: Optional[pulumi.Input[str]] = None,
+             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+             node_topology: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("storage_class_name", storage_class_name)
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'storage.k8s.io/v1')
+            _setter("api_version", 'storage.k8s.io/v1')
         if capacity is not None:
-            pulumi.set(__self__, "capacity", capacity)
+            _setter("capacity", capacity)
         if kind is not None:
-            pulumi.set(__self__, "kind", 'CSIStorageCapacity')
+            _setter("kind", 'CSIStorageCapacity')
         if maximum_volume_size is not None:
-            pulumi.set(__self__, "maximum_volume_size", maximum_volume_size)
+            _setter("maximum_volume_size", maximum_volume_size)
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
         if node_topology is not None:
-            pulumi.set(__self__, "node_topology", node_topology)
+            _setter("node_topology", node_topology)
 
     @property
     @pulumi.getter(name="storageClassName")
@@ -981,25 +1126,52 @@ class StorageClassArgs:
         :param pulumi.Input[str] reclaim_policy: reclaimPolicy controls the reclaimPolicy for dynamically provisioned PersistentVolumes of this storage class. Defaults to Delete.
         :param pulumi.Input[str] volume_binding_mode: volumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
         """
-        pulumi.set(__self__, "provisioner", provisioner)
+        StorageClassArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            provisioner=provisioner,
+            allow_volume_expansion=allow_volume_expansion,
+            allowed_topologies=allowed_topologies,
+            api_version=api_version,
+            kind=kind,
+            metadata=metadata,
+            mount_options=mount_options,
+            parameters=parameters,
+            reclaim_policy=reclaim_policy,
+            volume_binding_mode=volume_binding_mode,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             provisioner: pulumi.Input[str],
+             allow_volume_expansion: Optional[pulumi.Input[bool]] = None,
+             allowed_topologies: Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.TopologySelectorTermArgs']]]] = None,
+             api_version: Optional[pulumi.Input[str]] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+             mount_options: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             parameters: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
+             reclaim_policy: Optional[pulumi.Input[str]] = None,
+             volume_binding_mode: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("provisioner", provisioner)
         if allow_volume_expansion is not None:
-            pulumi.set(__self__, "allow_volume_expansion", allow_volume_expansion)
+            _setter("allow_volume_expansion", allow_volume_expansion)
         if allowed_topologies is not None:
-            pulumi.set(__self__, "allowed_topologies", allowed_topologies)
+            _setter("allowed_topologies", allowed_topologies)
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'storage.k8s.io/v1')
+            _setter("api_version", 'storage.k8s.io/v1')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'StorageClass')
+            _setter("kind", 'StorageClass')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
         if mount_options is not None:
-            pulumi.set(__self__, "mount_options", mount_options)
+            _setter("mount_options", mount_options)
         if parameters is not None:
-            pulumi.set(__self__, "parameters", parameters)
+            _setter("parameters", parameters)
         if reclaim_policy is not None:
-            pulumi.set(__self__, "reclaim_policy", reclaim_policy)
+            _setter("reclaim_policy", reclaim_policy)
         if volume_binding_mode is not None:
-            pulumi.set(__self__, "volume_binding_mode", volume_binding_mode)
+            _setter("volume_binding_mode", volume_binding_mode)
 
     @property
     @pulumi.getter
@@ -1132,10 +1304,21 @@ class TokenRequestPatchArgs:
         :param pulumi.Input[str] audience: audience is the intended audience of the token in "TokenRequestSpec". It will default to the audiences of kube apiserver.
         :param pulumi.Input[int] expiration_seconds: expirationSeconds is the duration of validity of the token in "TokenRequestSpec". It has the same default value of "ExpirationSeconds" in "TokenRequestSpec".
         """
+        TokenRequestPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            audience=audience,
+            expiration_seconds=expiration_seconds,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             audience: Optional[pulumi.Input[str]] = None,
+             expiration_seconds: Optional[pulumi.Input[int]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if audience is not None:
-            pulumi.set(__self__, "audience", audience)
+            _setter("audience", audience)
         if expiration_seconds is not None:
-            pulumi.set(__self__, "expiration_seconds", expiration_seconds)
+            _setter("expiration_seconds", expiration_seconds)
 
     @property
     @pulumi.getter
@@ -1172,9 +1355,20 @@ class TokenRequestArgs:
         :param pulumi.Input[str] audience: audience is the intended audience of the token in "TokenRequestSpec". It will default to the audiences of kube apiserver.
         :param pulumi.Input[int] expiration_seconds: expirationSeconds is the duration of validity of the token in "TokenRequestSpec". It has the same default value of "ExpirationSeconds" in "TokenRequestSpec".
         """
-        pulumi.set(__self__, "audience", audience)
+        TokenRequestArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            audience=audience,
+            expiration_seconds=expiration_seconds,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             audience: pulumi.Input[str],
+             expiration_seconds: Optional[pulumi.Input[int]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("audience", audience)
         if expiration_seconds is not None:
-            pulumi.set(__self__, "expiration_seconds", expiration_seconds)
+            _setter("expiration_seconds", expiration_seconds)
 
     @property
     @pulumi.getter
@@ -1211,10 +1405,21 @@ class VolumeAttachmentSourcePatchArgs:
         :param pulumi.Input['_core.v1.PersistentVolumeSpecPatchArgs'] inline_volume_spec: inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is beta-level and is only honored by servers that enabled the CSIMigration feature.
         :param pulumi.Input[str] persistent_volume_name: persistentVolumeName represents the name of the persistent volume to attach.
         """
+        VolumeAttachmentSourcePatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            inline_volume_spec=inline_volume_spec,
+            persistent_volume_name=persistent_volume_name,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             inline_volume_spec: Optional[pulumi.Input['_core.v1.PersistentVolumeSpecPatchArgs']] = None,
+             persistent_volume_name: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if inline_volume_spec is not None:
-            pulumi.set(__self__, "inline_volume_spec", inline_volume_spec)
+            _setter("inline_volume_spec", inline_volume_spec)
         if persistent_volume_name is not None:
-            pulumi.set(__self__, "persistent_volume_name", persistent_volume_name)
+            _setter("persistent_volume_name", persistent_volume_name)
 
     @property
     @pulumi.getter(name="inlineVolumeSpec")
@@ -1251,10 +1456,21 @@ class VolumeAttachmentSourceArgs:
         :param pulumi.Input['_core.v1.PersistentVolumeSpecArgs'] inline_volume_spec: inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is beta-level and is only honored by servers that enabled the CSIMigration feature.
         :param pulumi.Input[str] persistent_volume_name: persistentVolumeName represents the name of the persistent volume to attach.
         """
+        VolumeAttachmentSourceArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            inline_volume_spec=inline_volume_spec,
+            persistent_volume_name=persistent_volume_name,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             inline_volume_spec: Optional[pulumi.Input['_core.v1.PersistentVolumeSpecArgs']] = None,
+             persistent_volume_name: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if inline_volume_spec is not None:
-            pulumi.set(__self__, "inline_volume_spec", inline_volume_spec)
+            _setter("inline_volume_spec", inline_volume_spec)
         if persistent_volume_name is not None:
-            pulumi.set(__self__, "persistent_volume_name", persistent_volume_name)
+            _setter("persistent_volume_name", persistent_volume_name)
 
     @property
     @pulumi.getter(name="inlineVolumeSpec")
@@ -1293,12 +1509,25 @@ class VolumeAttachmentSpecPatchArgs:
         :param pulumi.Input[str] node_name: nodeName represents the node that the volume should be attached to.
         :param pulumi.Input['VolumeAttachmentSourcePatchArgs'] source: source represents the volume that should be attached.
         """
+        VolumeAttachmentSpecPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            attacher=attacher,
+            node_name=node_name,
+            source=source,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             attacher: Optional[pulumi.Input[str]] = None,
+             node_name: Optional[pulumi.Input[str]] = None,
+             source: Optional[pulumi.Input['VolumeAttachmentSourcePatchArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if attacher is not None:
-            pulumi.set(__self__, "attacher", attacher)
+            _setter("attacher", attacher)
         if node_name is not None:
-            pulumi.set(__self__, "node_name", node_name)
+            _setter("node_name", node_name)
         if source is not None:
-            pulumi.set(__self__, "source", source)
+            _setter("source", source)
 
     @property
     @pulumi.getter
@@ -1349,9 +1578,22 @@ class VolumeAttachmentSpecArgs:
         :param pulumi.Input[str] node_name: nodeName represents the node that the volume should be attached to.
         :param pulumi.Input['VolumeAttachmentSourceArgs'] source: source represents the volume that should be attached.
         """
-        pulumi.set(__self__, "attacher", attacher)
-        pulumi.set(__self__, "node_name", node_name)
-        pulumi.set(__self__, "source", source)
+        VolumeAttachmentSpecArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            attacher=attacher,
+            node_name=node_name,
+            source=source,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             attacher: pulumi.Input[str],
+             node_name: pulumi.Input[str],
+             source: pulumi.Input['VolumeAttachmentSourceArgs'],
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("attacher", attacher)
+        _setter("node_name", node_name)
+        _setter("source", source)
 
     @property
     @pulumi.getter
@@ -1404,13 +1646,28 @@ class VolumeAttachmentStatusArgs:
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] attachment_metadata: attachmentMetadata is populated with any information returned by the attach operation, upon successful attach, that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
         :param pulumi.Input['VolumeErrorArgs'] detach_error: detachError represents the last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
         """
-        pulumi.set(__self__, "attached", attached)
+        VolumeAttachmentStatusArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            attached=attached,
+            attach_error=attach_error,
+            attachment_metadata=attachment_metadata,
+            detach_error=detach_error,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             attached: pulumi.Input[bool],
+             attach_error: Optional[pulumi.Input['VolumeErrorArgs']] = None,
+             attachment_metadata: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
+             detach_error: Optional[pulumi.Input['VolumeErrorArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("attached", attached)
         if attach_error is not None:
-            pulumi.set(__self__, "attach_error", attach_error)
+            _setter("attach_error", attach_error)
         if attachment_metadata is not None:
-            pulumi.set(__self__, "attachment_metadata", attachment_metadata)
+            _setter("attachment_metadata", attachment_metadata)
         if detach_error is not None:
-            pulumi.set(__self__, "detach_error", detach_error)
+            _setter("detach_error", detach_error)
 
     @property
     @pulumi.getter
@@ -1479,15 +1736,32 @@ class VolumeAttachmentArgs:
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input['VolumeAttachmentStatusArgs'] status: status represents status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
         """
-        pulumi.set(__self__, "spec", spec)
+        VolumeAttachmentArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            spec=spec,
+            api_version=api_version,
+            kind=kind,
+            metadata=metadata,
+            status=status,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             spec: pulumi.Input['VolumeAttachmentSpecArgs'],
+             api_version: Optional[pulumi.Input[str]] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+             status: Optional[pulumi.Input['VolumeAttachmentStatusArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("spec", spec)
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'storage.k8s.io/v1')
+            _setter("api_version", 'storage.k8s.io/v1')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'VolumeAttachment')
+            _setter("kind", 'VolumeAttachment')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
         if status is not None:
-            pulumi.set(__self__, "status", status)
+            _setter("status", status)
 
     @property
     @pulumi.getter
@@ -1560,10 +1834,21 @@ class VolumeErrorArgs:
         :param pulumi.Input[str] message: message represents the error encountered during Attach or Detach operation. This string may be logged, so it should not contain sensitive information.
         :param pulumi.Input[str] time: time represents the time the error was encountered.
         """
+        VolumeErrorArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            message=message,
+            time=time,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             message: Optional[pulumi.Input[str]] = None,
+             time: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if message is not None:
-            pulumi.set(__self__, "message", message)
+            _setter("message", message)
         if time is not None:
-            pulumi.set(__self__, "time", time)
+            _setter("time", time)
 
     @property
     @pulumi.getter
@@ -1598,8 +1883,17 @@ class VolumeNodeResourcesPatchArgs:
         VolumeNodeResources is a set of resource limits for scheduling of volumes.
         :param pulumi.Input[int] count: count indicates the maximum number of unique volumes managed by the CSI driver that can be used on a node. A volume that is both attached and mounted on a node is considered to be used once, not twice. The same rule applies for a unique volume that is shared among multiple pods on the same node. If this field is not specified, then the supported number of volumes on this node is unbounded.
         """
+        VolumeNodeResourcesPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            count=count,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             count: Optional[pulumi.Input[int]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if count is not None:
-            pulumi.set(__self__, "count", count)
+            _setter("count", count)
 
     @property
     @pulumi.getter
@@ -1622,8 +1916,17 @@ class VolumeNodeResourcesArgs:
         VolumeNodeResources is a set of resource limits for scheduling of volumes.
         :param pulumi.Input[int] count: count indicates the maximum number of unique volumes managed by the CSI driver that can be used on a node. A volume that is both attached and mounted on a node is considered to be used once, not twice. The same rule applies for a unique volume that is shared among multiple pods on the same node. If this field is not specified, then the supported number of volumes on this node is unbounded.
         """
+        VolumeNodeResourcesArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            count=count,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             count: Optional[pulumi.Input[int]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if count is not None:
-            pulumi.set(__self__, "count", count)
+            _setter("count", count)
 
     @property
     @pulumi.getter

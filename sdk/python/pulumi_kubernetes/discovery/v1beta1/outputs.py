@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from . import outputs
 from ... import core as _core
@@ -68,17 +68,36 @@ class Endpoint(dict):
                * topology.kubernetes.io/region: the value indicates the region where the
                  endpoint is located. This should match the corresponding node label.
         """
-        pulumi.set(__self__, "addresses", addresses)
+        Endpoint._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            addresses=addresses,
+            conditions=conditions,
+            hostname=hostname,
+            node_name=node_name,
+            target_ref=target_ref,
+            topology=topology,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             addresses: Sequence[str],
+             conditions: Optional['outputs.EndpointConditions'] = None,
+             hostname: Optional[str] = None,
+             node_name: Optional[str] = None,
+             target_ref: Optional['_core.v1.outputs.ObjectReference'] = None,
+             topology: Optional[Mapping[str, str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("addresses", addresses)
         if conditions is not None:
-            pulumi.set(__self__, "conditions", conditions)
+            _setter("conditions", conditions)
         if hostname is not None:
-            pulumi.set(__self__, "hostname", hostname)
+            _setter("hostname", hostname)
         if node_name is not None:
-            pulumi.set(__self__, "node_name", node_name)
+            _setter("node_name", node_name)
         if target_ref is not None:
-            pulumi.set(__self__, "target_ref", target_ref)
+            _setter("target_ref", target_ref)
         if topology is not None:
-            pulumi.set(__self__, "topology", topology)
+            _setter("topology", topology)
 
     @property
     @pulumi.getter
@@ -150,12 +169,25 @@ class EndpointConditions(dict):
         :param bool serving: serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
         :param bool terminating: terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
         """
+        EndpointConditions._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            ready=ready,
+            serving=serving,
+            terminating=terminating,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             ready: Optional[bool] = None,
+             serving: Optional[bool] = None,
+             terminating: Optional[bool] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if ready is not None:
-            pulumi.set(__self__, "ready", ready)
+            _setter("ready", ready)
         if serving is not None:
-            pulumi.set(__self__, "serving", serving)
+            _setter("serving", serving)
         if terminating is not None:
-            pulumi.set(__self__, "terminating", terminating)
+            _setter("terminating", terminating)
 
     @property
     @pulumi.getter
@@ -197,12 +229,25 @@ class EndpointConditionsPatch(dict):
         :param bool serving: serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
         :param bool terminating: terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
         """
+        EndpointConditionsPatch._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            ready=ready,
+            serving=serving,
+            terminating=terminating,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             ready: Optional[bool] = None,
+             serving: Optional[bool] = None,
+             terminating: Optional[bool] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if ready is not None:
-            pulumi.set(__self__, "ready", ready)
+            _setter("ready", ready)
         if serving is not None:
-            pulumi.set(__self__, "serving", serving)
+            _setter("serving", serving)
         if terminating is not None:
-            pulumi.set(__self__, "terminating", terminating)
+            _setter("terminating", terminating)
 
     @property
     @pulumi.getter
@@ -275,18 +320,37 @@ class EndpointPatch(dict):
                * topology.kubernetes.io/region: the value indicates the region where the
                  endpoint is located. This should match the corresponding node label.
         """
+        EndpointPatch._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            addresses=addresses,
+            conditions=conditions,
+            hostname=hostname,
+            node_name=node_name,
+            target_ref=target_ref,
+            topology=topology,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             addresses: Optional[Sequence[str]] = None,
+             conditions: Optional['outputs.EndpointConditionsPatch'] = None,
+             hostname: Optional[str] = None,
+             node_name: Optional[str] = None,
+             target_ref: Optional['_core.v1.outputs.ObjectReferencePatch'] = None,
+             topology: Optional[Mapping[str, str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if addresses is not None:
-            pulumi.set(__self__, "addresses", addresses)
+            _setter("addresses", addresses)
         if conditions is not None:
-            pulumi.set(__self__, "conditions", conditions)
+            _setter("conditions", conditions)
         if hostname is not None:
-            pulumi.set(__self__, "hostname", hostname)
+            _setter("hostname", hostname)
         if node_name is not None:
-            pulumi.set(__self__, "node_name", node_name)
+            _setter("node_name", node_name)
         if target_ref is not None:
-            pulumi.set(__self__, "target_ref", target_ref)
+            _setter("target_ref", target_ref)
         if topology is not None:
-            pulumi.set(__self__, "topology", topology)
+            _setter("topology", topology)
 
     @property
     @pulumi.getter
@@ -377,14 +441,29 @@ class EndpointPort(dict):
         :param int port: The port number of the endpoint. If this is not specified, ports are not restricted and must be interpreted in the context of the specific consumer.
         :param str protocol: The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
         """
+        EndpointPort._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            app_protocol=app_protocol,
+            name=name,
+            port=port,
+            protocol=protocol,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             app_protocol: Optional[str] = None,
+             name: Optional[str] = None,
+             port: Optional[int] = None,
+             protocol: Optional[str] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if app_protocol is not None:
-            pulumi.set(__self__, "app_protocol", app_protocol)
+            _setter("app_protocol", app_protocol)
         if name is not None:
-            pulumi.set(__self__, "name", name)
+            _setter("name", name)
         if port is not None:
-            pulumi.set(__self__, "port", port)
+            _setter("port", port)
         if protocol is not None:
-            pulumi.set(__self__, "protocol", protocol)
+            _setter("protocol", protocol)
 
     @property
     @pulumi.getter(name="appProtocol")
@@ -453,14 +532,29 @@ class EndpointPortPatch(dict):
         :param int port: The port number of the endpoint. If this is not specified, ports are not restricted and must be interpreted in the context of the specific consumer.
         :param str protocol: The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
         """
+        EndpointPortPatch._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            app_protocol=app_protocol,
+            name=name,
+            port=port,
+            protocol=protocol,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             app_protocol: Optional[str] = None,
+             name: Optional[str] = None,
+             port: Optional[int] = None,
+             protocol: Optional[str] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if app_protocol is not None:
-            pulumi.set(__self__, "app_protocol", app_protocol)
+            _setter("app_protocol", app_protocol)
         if name is not None:
-            pulumi.set(__self__, "name", name)
+            _setter("name", name)
         if port is not None:
-            pulumi.set(__self__, "port", port)
+            _setter("port", port)
         if protocol is not None:
-            pulumi.set(__self__, "protocol", protocol)
+            _setter("protocol", protocol)
 
     @property
     @pulumi.getter(name="appProtocol")
@@ -535,16 +629,35 @@ class EndpointSlice(dict):
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata.
         :param Sequence['EndpointPortArgs'] ports: ports specifies the list of network ports exposed by each endpoint in this slice. Each port must have a unique name. When ports is empty, it indicates that there are no defined ports. When a port is defined with a nil port value, it indicates "all ports". Each slice may include a maximum of 100 ports.
         """
-        pulumi.set(__self__, "address_type", address_type)
-        pulumi.set(__self__, "endpoints", endpoints)
+        EndpointSlice._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            address_type=address_type,
+            endpoints=endpoints,
+            api_version=api_version,
+            kind=kind,
+            metadata=metadata,
+            ports=ports,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             address_type: str,
+             endpoints: Sequence['outputs.Endpoint'],
+             api_version: Optional[str] = None,
+             kind: Optional[str] = None,
+             metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
+             ports: Optional[Sequence['outputs.EndpointPort']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("address_type", address_type)
+        _setter("endpoints", endpoints)
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'discovery.k8s.io/v1beta1')
+            _setter("api_version", 'discovery.k8s.io/v1beta1')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'EndpointSlice')
+            _setter("kind", 'EndpointSlice')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
         if ports is not None:
-            pulumi.set(__self__, "ports", ports)
+            _setter("ports", ports)
 
     @property
     @pulumi.getter(name="addressType")

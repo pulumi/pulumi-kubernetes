@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from . import outputs
 from ... import meta as _meta
@@ -30,16 +30,33 @@ class ClusterRolePatchArgs:
         :param pulumi.Input['_meta.v1.ObjectMetaPatchArgs'] metadata: Standard object's metadata.
         :param pulumi.Input[Sequence[pulumi.Input['PolicyRulePatchArgs']]] rules: Rules holds all the PolicyRules for this ClusterRole
         """
+        ClusterRolePatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            aggregation_rule=aggregation_rule,
+            api_version=api_version,
+            kind=kind,
+            metadata=metadata,
+            rules=rules,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             aggregation_rule: Optional[pulumi.Input['AggregationRulePatchArgs']] = None,
+             api_version: Optional[pulumi.Input[str]] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']] = None,
+             rules: Optional[pulumi.Input[Sequence[pulumi.Input['PolicyRulePatchArgs']]]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if aggregation_rule is not None:
-            pulumi.set(__self__, "aggregation_rule", aggregation_rule)
+            _setter("aggregation_rule", aggregation_rule)
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'rbac.authorization.k8s.io/v1')
+            _setter("api_version", 'rbac.authorization.k8s.io/v1')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'ClusterRole')
+            _setter("kind", 'ClusterRole')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
         if rules is not None:
-            pulumi.set(__self__, "rules", rules)
+            _setter("rules", rules)
 
     @property
     @pulumi.getter(name="aggregationRule")
@@ -155,6 +172,10 @@ class ClusterRolePatch(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
+            kwargs = kwargs or {}
+            def _setter(key, value):
+                kwargs[key] = value
+            ClusterRolePatchArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
@@ -174,9 +195,19 @@ class ClusterRolePatch(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = ClusterRolePatchArgs.__new__(ClusterRolePatchArgs)
 
+            if not isinstance(aggregation_rule, AggregationRulePatchArgs):
+                aggregation_rule = aggregation_rule or {}
+                def _setter(key, value):
+                    aggregation_rule[key] = value
+                AggregationRulePatchArgs._configure(_setter, **aggregation_rule)
             __props__.__dict__["aggregation_rule"] = aggregation_rule
             __props__.__dict__["api_version"] = 'rbac.authorization.k8s.io/v1'
             __props__.__dict__["kind"] = 'ClusterRole'
+            if not isinstance(metadata, _meta.v1.ObjectMetaPatchArgs):
+                metadata = metadata or {}
+                def _setter(key, value):
+                    metadata[key] = value
+                _meta.v1.ObjectMetaPatchArgs._configure(_setter, **metadata)
             __props__.__dict__["metadata"] = metadata
             __props__.__dict__["rules"] = rules
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRolePatch"), pulumi.Alias(type_="kubernetes:rbac.authorization.k8s.io/v1beta1:ClusterRolePatch")])

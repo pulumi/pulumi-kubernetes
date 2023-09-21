@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from . import outputs
 from ... import meta as _meta
@@ -27,13 +27,28 @@ class CustomResourceDefinitionListArgs:
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
-        pulumi.set(__self__, "items", items)
+        CustomResourceDefinitionListArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            items=items,
+            api_version=api_version,
+            kind=kind,
+            metadata=metadata,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             items: pulumi.Input[Sequence[pulumi.Input['CustomResourceDefinitionArgs']]],
+             api_version: Optional[pulumi.Input[str]] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             metadata: Optional[pulumi.Input['_meta.v1.ListMetaArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("items", items)
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'apiextensions.k8s.io/v1beta1')
+            _setter("api_version", 'apiextensions.k8s.io/v1beta1')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'CustomResourceDefinitionList')
+            _setter("kind", 'CustomResourceDefinitionList')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
 
     @property
     @pulumi.getter
@@ -119,6 +134,10 @@ class CustomResourceDefinitionList(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
+            kwargs = kwargs or {}
+            def _setter(key, value):
+                kwargs[key] = value
+            CustomResourceDefinitionListArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
@@ -142,6 +161,11 @@ class CustomResourceDefinitionList(pulumi.CustomResource):
                 raise TypeError("Missing required property 'items'")
             __props__.__dict__["items"] = items
             __props__.__dict__["kind"] = 'CustomResourceDefinitionList'
+            if not isinstance(metadata, _meta.v1.ListMetaArgs):
+                metadata = metadata or {}
+                def _setter(key, value):
+                    metadata[key] = value
+                _meta.v1.ListMetaArgs._configure(_setter, **metadata)
             __props__.__dict__["metadata"] = metadata
         super(CustomResourceDefinitionList, __self__).__init__(
             'kubernetes:apiextensions.k8s.io/v1beta1:CustomResourceDefinitionList',
