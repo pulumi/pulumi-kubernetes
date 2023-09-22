@@ -1,5 +1,7 @@
 ## Unreleased
 
+- Fix normalizing fields with empty objects/slices (https://github.com/pulumi/pulumi-kubernetes/pull/2576)
+
 ## 4.3.0 (September 25, 2023)
 
 - helm.v3.Release: Detect changes to local charts (https://github.com/pulumi/pulumi-kubernetes/pull/2568)
