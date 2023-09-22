@@ -19,6 +19,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"strings"
 
 	fluxssa "github.com/fluxcd/pkg/ssa"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
@@ -43,6 +44,7 @@ import (
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/dynamic"
 	k8sopenapi "k8s.io/kubectl/pkg/util/openapi"
+	"sigs.k8s.io/structured-merge-diff/v4/fieldpath"
 	"sigs.k8s.io/yaml"
 )
 
@@ -92,6 +94,8 @@ type UpdateConfig struct {
 	Inputs   *unstructured.Unstructured
 	Timeout  float64
 	Preview  bool
+	// IgnoreChanges is a list of fields to ignore when diffing the old and new objects.
+	IgnoreChanges []string
 }
 
 type DeleteConfig struct {
@@ -441,6 +445,10 @@ func updateResource(c *UpdateConfig, liveOldObj *unstructured.Unstructured, clie
 
 // csaUpdate handles the logic for updating a resource using client-side apply.
 func csaUpdate(c *UpdateConfig, liveOldObj *unstructured.Unstructured, client dynamic.ResourceInterface) (*unstructured.Unstructured, error) {
+	// Handle ignoreChanges for CSA to use the last known value applied to the cluster, rather than what's in state which may be outdated.
+	// We ignore errors here as it occurs when there is an issue traversing the field path. If this occurs, then use the last value in state
+	// optimistically rather than failing the update.
+	_ = handleCSAIgnoreFields(c, liveOldObj)
 	// Create merge patch (prefer strategic merge patch, fall back to JSON merge patch).
 	patch, patchType, _, err := openapi.PatchForResourceUpdate(c.Resources, c.Previous, c.Inputs, liveOldObj)
 	if err != nil {
@@ -459,11 +467,14 @@ func csaUpdate(c *UpdateConfig, liveOldObj *unstructured.Unstructured, client dy
 
 // ssaUpdate handles the logic for updating a resource using server-side apply.
 func ssaUpdate(c *UpdateConfig, liveOldObj *unstructured.Unstructured, client dynamic.ResourceInterface) (*unstructured.Unstructured, error) {
-	if !c.Preview {
-		err := fixCSAFieldManagers(c, liveOldObj, client)
-		if err != nil {
-			return nil, err
-		}
+	liveOldObj, err := fixCSAFieldManagers(c, liveOldObj, client)
+	if err != nil {
+		return nil, err
+	}
+
+	err = handleSSAIgnoreFields(c, liveOldObj)
+	if err != nil {
+		return nil, err
 	}
 
 	objYAML, err := yaml.Marshal(c.Inputs.Object)
@@ -491,58 +502,177 @@ func ssaUpdate(c *UpdateConfig, liveOldObj *unstructured.Unstructured, client dy
 	return currentOutputs, nil
 }
 
-// fixCSAFieldManagers patches the field managers for an existing resource that was managed using client-side apply.
-// The new server-side apply field manager takes ownership of all these fields to avoid conflicts.
-func fixCSAFieldManagers(c *UpdateConfig, live *unstructured.Unstructured, client dynamic.ResourceInterface) error {
-	if managedFields := live.GetManagedFields(); len(managedFields) > 0 {
-		patches, err := fluxssa.PatchReplaceFieldsManagers(live, []fluxssa.FieldManager{
-			{
-				// take ownership of changes made with 'kubectl apply --server-side --force-conflicts'
-				Name:          "kubectl",
-				OperationType: metav1.ManagedFieldsOperationApply,
-			},
-			{
-				// take ownership of changes made with 'kubectl apply'
-				Name:          "kubectl",
-				OperationType: metav1.ManagedFieldsOperationUpdate,
-			},
-			{
-				// take ownership of changes made with 'kubectl apply'
-				Name:          "before-first-apply",
-				OperationType: metav1.ManagedFieldsOperationUpdate,
-			},
-			// The following are possible field manager values for resources that were created using this provider under
-			// CSA mode. Note the "Update" operation type, which Kubernetes treats as a separate field manager even if
-			// the name is identical. See https://github.com/kubernetes/kubernetes/issues/99003
-			{
-				// take ownership of changes made with pulumi-kubernetes CSA
-				Name:          "pulumi-kubernetes",
-				OperationType: metav1.ManagedFieldsOperationUpdate,
-			},
-			{
-				// take ownership of changes made with pulumi-kubernetes CSA
-				Name:          "pulumi-kubernetes.exe",
-				OperationType: metav1.ManagedFieldsOperationUpdate,
-			},
-			{
-				// take ownership of changes made with pulumi-kubernetes CSA
-				Name:          "pulumi-resource-kubernetes",
-				OperationType: metav1.ManagedFieldsOperationUpdate,
-			},
-		}, c.FieldManager)
+// handleCSAIgnoreFields handles updating the inputs to use the last known value applied to the cluster. If the value is not present,
+// then we use what is declared in state as per the specs of Pulumi's ignoreChanges.
+func handleCSAIgnoreFields(c *UpdateConfig, liveOldObj *unstructured.Unstructured) error {
+	for _, ignorePath := range c.IgnoreChanges {
+		ipParsed, err := resource.ParsePropertyPath(ignorePath)
 		if err != nil {
-			return err
+			// NB: This shouldn't really happen since we already validated the ignoreChanges paths in the parent Diff function.
+			return fmt.Errorf("unable to parse ignoreField path %q: %w", ignorePath, err)
 		}
-		patch, err := json.Marshal(patches)
-		if err != nil {
-			return err
+
+		pathComponents := strings.Split(ipParsed.String(), ".")
+
+		lastLiveVal, found, err := unstructured.NestedFieldCopy(liveOldObj.Object, pathComponents...)
+		if found && err == nil {
+			// We only care if the field is found, as not found indicates that the field does not exist in the live state so we don't have to worry about changing the inputs to match
+			// the live state.
+			err := unstructured.SetNestedField(c.Inputs.Object, lastLiveVal, pathComponents...)
+			if err != nil {
+				return fmt.Errorf("unable to set field %q with last used value %q: %w", ignorePath, lastLiveVal, err)
+			}
 		}
-		_, err = client.Patch(c.Context, live.GetName(), types.JSONPatchType, patch, metav1.PatchOptions{})
 		if err != nil {
-			return err
+			// A type error occurred when attempting to get the nested field from the live object.
+			return fmt.Errorf("unable to parse field to ignore %q from live object: %w", ignorePath, err)
 		}
 	}
+
 	return nil
+}
+
+// handleSSAIgnoreFields handles updating the inputs to either drop fields that are present on the cluster and not managed
+// by the current field manager, or to set the value of the field to the last known value applied to the cluster.
+func handleSSAIgnoreFields(c *UpdateConfig, liveOldObj *unstructured.Unstructured) error {
+	managedFields := liveOldObj.GetManagedFields()
+	// Keep track of fields that are managed by the current field manager, and fields that are managed by other field managers.
+	theirFields, ourFields := new(fieldpath.Set), new(fieldpath.Set)
+	fieldpath.MakePathOrDie()
+
+	for _, f := range managedFields {
+		s, err := fluxssa.FieldsToSet(*f.FieldsV1)
+		if err != nil {
+			return fmt.Errorf("unable to parse managed fields from resource %q into fieldpath.Set: %w", c.Inputs.GetName(), err)
+		}
+
+		switch f.Manager {
+		case c.FieldManager:
+			ourFields = ourFields.Union(&s)
+		default:
+			theirFields = theirFields.Union(&s)
+		}
+	}
+
+	for _, ignorePath := range c.IgnoreChanges {
+		ipParsed, err := resource.ParsePropertyPath(ignorePath)
+		if err != nil {
+			// NB: This shouldn't really happen since we already validated the ignoreChanges paths in the parent Diff function.
+			return fmt.Errorf("unable to parse ignoreField path %q: %w", ignorePath, err)
+		}
+
+		// TODO: Enhance support for ignoreField path to support nested arrays.
+		pathComponents := strings.Split(ipParsed.String(), ".")
+		pe, err := fieldpath.MakePath(makeInterfaceSlice(pathComponents)...)
+		if err != nil {
+			return fmt.Errorf("unable to normalize ignoreField path %q: %w", ignorePath, err)
+		}
+
+		// Drop the field from the inputs if it is present on the cluster and managed by another manager, and is not shared with current manager. This ensures
+		// that we don't get any conflict errors, or mistakenly setting the current field manager as a shared manager of that field.
+		if theirFields.Has(pe) && !ourFields.Has(pe) {
+			unstructured.RemoveNestedField(c.Inputs.Object, pathComponents...)
+			continue
+		}
+
+		// We didn't find another field manager that is managing this field, so we need to use the last known value applied to
+		// the cluster so we don't unset it or change it to a different value that is not the last known value. This case handles 2 posibilities:
+		//
+		// 1. The field is managed by the current field manager, or is a shared manager, in this case the field needs to be in the request sent to
+		// the server, otherwise it will be unset.
+		// 2. The field is set/exists on the cluster, but for some reason is not listed in the managed fields, in this case we need to set the field to the last
+		// known value applied to the cluster, otherwise it will be unset. This would cause the current field manager to take ownership of the field, but this edge
+		// case probably shouldn't be hit in practice.
+		//
+		// NOTE: If the field has been reverted to its default value, ignoreChanges will still not update this field to what is supplied
+		// by the user in their Pulumi program.
+		lastLiveVal, found, err := unstructured.NestedFieldCopy(liveOldObj.Object, pathComponents...)
+		if found && err == nil {
+			// We only care if the field is found, as not found indicates that the field does not exist in the live state so we don't have to worry about changing the inputs to match
+			// the live state. If this occurs, then Pulumi will set the field back to the declared value as ignoreChanges will use the declared value if one is not found in state as per
+			// the intent of ignoreChanges.
+			err := unstructured.SetNestedField(c.Inputs.Object, lastLiveVal, pathComponents...)
+			if err != nil {
+				return fmt.Errorf("unable to set field %q with last used value %q: %w", ignorePath, lastLiveVal, err)
+			}
+		}
+		if err != nil {
+			// A type error occurred when attempting to get the nested field from the live object.
+			return fmt.Errorf("unable to parse field to ignore %q from live object: %w", ignorePath, err)
+		}
+	}
+
+	return nil
+}
+
+// makeInterfaceSlice converts a slice of any type to a slice of explicit interface{}. This
+// enables slice unpacking to variadic functions that take interface{}.
+func makeInterfaceSlice[T any](inputs []T) []interface{} {
+	s := make([]interface{}, len(inputs))
+	for i, v := range inputs {
+		s[i] = v
+	}
+	return s
+}
+
+// fixCSAFieldManagers patches the field managers for an existing resource that was managed using client-side apply.
+// The new server-side apply field manager takes ownership of all these fields to avoid conflicts.
+func fixCSAFieldManagers(c *UpdateConfig, liveOldObj *unstructured.Unstructured, client dynamic.ResourceInterface) (*unstructured.Unstructured, error) {
+	managedFields := liveOldObj.GetManagedFields()
+	if c.Preview || len(managedFields) == 0 {
+		return liveOldObj, nil
+	}
+
+	patches, err := fluxssa.PatchReplaceFieldsManagers(liveOldObj, []fluxssa.FieldManager{
+		{
+			// take ownership of changes made with 'kubectl apply --server-side --force-conflicts'
+			Name:          "kubectl",
+			OperationType: metav1.ManagedFieldsOperationApply,
+		},
+		{
+			// take ownership of changes made with 'kubectl apply'
+			Name:          "kubectl",
+			OperationType: metav1.ManagedFieldsOperationUpdate,
+		},
+		{
+			// take ownership of changes made with 'kubectl apply'
+			Name:          "before-first-apply",
+			OperationType: metav1.ManagedFieldsOperationUpdate,
+		},
+		// The following are possible field manager values for resources that were created using this provider under
+		// CSA mode. Note the "Update" operation type, which Kubernetes treats as a separate field manager even if
+		// the name is identical. See https://github.com/kubernetes/kubernetes/issues/99003
+		{
+			// take ownership of changes made with pulumi-kubernetes CSA
+			Name:          "pulumi-kubernetes",
+			OperationType: metav1.ManagedFieldsOperationUpdate,
+		},
+		{
+			// take ownership of changes made with pulumi-kubernetes CSA
+			Name:          "pulumi-kubernetes.exe",
+			OperationType: metav1.ManagedFieldsOperationUpdate,
+		},
+		{
+			// take ownership of changes made with pulumi-kubernetes CSA
+			Name:          "pulumi-resource-kubernetes",
+			OperationType: metav1.ManagedFieldsOperationUpdate,
+		},
+	}, c.FieldManager)
+	if err != nil {
+		return nil, err
+	}
+
+	patch, err := json.Marshal(patches)
+	if err != nil {
+		return nil, err
+	}
+
+	live, err := client.Patch(c.Context, liveOldObj.GetName(), types.JSONPatchType, patch, metav1.PatchOptions{})
+	if err != nil {
+		return nil, err
+	}
+
+	return live, nil
 }
 
 // Deletion (as the usage, `await.Deletion`, implies) will block until one of the following is true:

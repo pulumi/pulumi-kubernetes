@@ -1,5 +1,7 @@
 ## Unreleased
 
+- Handle fields specified in ignoreChanges gracefully without needing a refresh when drift has occurred (https://github.com/pulumi/pulumi-kubernetes/pull/2566)
+
 ## 4.2.0 (September 14, 2023)
 - Reintroduce switching builds to pyproject.toml; when publishing the package to PyPI both
   source-based and wheel distributions are now published. For most users the installs will now favor

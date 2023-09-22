@@ -1827,3 +1827,122 @@ func simluateClusterKubeconfig(t *testing.T, numOfClusters int) ([]string, error
 
 	return kubeconfigs, err
 }
+
+// TestIgnoreChanges tests that we can successfully ignore changes to a resource without SSA conflicts,
+// and that we use the right field value when ignoring changes obtained from the live cluster.
+// SkipRefresh *must* be true to properly test that conflict is handled when the state is not refreshed
+// and drift has occurred.
+// https://github.com/pulumi/pulumi-kubernetes/issues/2542
+func TestIgnoreChanges(t *testing.T) {
+	testCases := []struct{ name, folderName string }{
+		{name: "Server Side Apply Mode", folderName: "ignore-changes-ssa"},
+		{name: "Client Side Apply Mode", folderName: "ignore-changes-csa"},
+	}
+
+	for _, tc := range testCases {
+		// NB: the Pulumi Program test runs in parallel, so we need to shadow the tc var.
+		tc := tc
+		t.Run(tc.name, func(t *testing.T) {
+			ignoreChageTest(t, tc.folderName)
+		})
+	}
+}
+
+func ignoreChageTest(t *testing.T, testFolderName string) {
+	var depName, depNS string
+
+	test := baseOptions.With(integration.ProgramTestOptions{
+		Dir:                  filepath.Join(testFolderName, "step1"),
+		ExpectRefreshChanges: true,
+		// SkipRefresh MUST be true as the bug is not reproducible when the state is refreshed.
+		SkipRefresh: true,
+		OrderedConfig: []integration.ConfigValue{
+			{
+				Key:   "pulumi:disable-default-providers[0]",
+				Value: "kubernetes",
+				Path:  true,
+			},
+		},
+		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+			var ok bool
+			depName, ok = stackInfo.Outputs["deploymentName"].(string)
+			assert.True(t, ok)
+			depNS, ok = stackInfo.Outputs["deploymentNamespace"].(string)
+			assert.True(t, ok)
+
+			// Validate we applied the deployment with the correct name and namespace and spec.
+			dep, err := tests.Kubectl("get deployment -o yaml -n", depNS, depName)
+			assert.NoError(t, err)
+			assert.NotContains(t, string(dep), "Error from server (NotFound)")
+
+			// Validate image of deployment.
+			depImage, err := tests.Kubectl("get deployment -o=jsonpath='{.spec.template.spec.containers[0].image}' -n", depNS, depName)
+			assert.NoError(t, err)
+			assert.Equal(t, "'nginx:1.25.2'", string(depImage))
+
+			// Validate deployment replicas.
+			depReplicas, err := tests.Kubectl("get deployment -o=jsonpath='{.spec.replicas}' -n", depNS, depName)
+			assert.NoError(t, err)
+			assert.Equal(t, "'2'", string(depReplicas))
+
+			// Patch deployment replicas to 3 using patch file in preparation for ignore changes to be tested in step2.
+			_, err = tests.Kubectl("patch --field-manager replica/manager deployment -n", depNS, depName, "--patch-file", filepath.Join(testFolderName, "deployment-patch.yaml"))
+			assert.NoError(t, err)
+			depReplicas, err = tests.Kubectl("get deployment -o=jsonpath='{.spec.replicas}' -n", depNS, depName)
+			assert.NoError(t, err)
+			assert.Equal(t, "'3'", string(depReplicas))
+		},
+		EditDirs: []integration.EditDir{
+			{
+				// Repeat step1 again where no changes are made to the deployment since we ignore changes to spec.replicas.
+				Dir:      filepath.Join(testFolderName, "step1"),
+				Additive: true,
+				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+					// Validate replicas was not updated back to 1.
+					depReplicas, err := tests.Kubectl("get deployment -o=jsonpath='{.spec.replicas}' -n", depNS, depName)
+					assert.NoError(t, err)
+					assert.Equal(t, "'3'", string(depReplicas))
+				},
+			},
+			{
+				Dir:      filepath.Join(testFolderName, "step2"),
+				Additive: true,
+				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+					// Validate image was updated, but spec.replicas was not.
+					depImage, err := tests.Kubectl("get deployment -o=jsonpath='{.spec.template.spec.containers[0].image}' -n", depNS, depName)
+					assert.NoError(t, err)
+					assert.Equal(t, "'nginx:1.25.1'", string(depImage))
+
+					depReplicas, err := tests.Kubectl("get deployment -o=jsonpath='{.spec.replicas}' -n", depNS, depName)
+					assert.NoError(t, err)
+					assert.Equal(t, "'3'", string(depReplicas))
+
+					// Now use kubectl patch to update spec.replicas to 4 and see if we can correctly ignore changes to spec.replicas again when the field manager is
+					// "kubectl-patch" since we have logic to override certain field managers with manager name prefixes. This is due to fluxssa.PatchReplaceFieldsManagers
+					// doing a prefix match on the field manager name instead of an exact match on the given field manager name.
+					_, err = tests.Kubectl("patch deployment -n", depNS, depName, "--patch-file", filepath.Join(testFolderName, "deployment-patch-2.yaml"))
+					assert.NoError(t, err)
+					depReplicas, err = tests.Kubectl("get deployment -o=jsonpath='{.spec.replicas}' -n", depNS, depName)
+					assert.NoError(t, err)
+					assert.Equal(t, "'4'", string(depReplicas))
+				},
+			},
+			{
+				Dir:      filepath.Join(testFolderName, "step3"),
+				Additive: true,
+				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+					// Validate image was updated, but spec.replicas was not.
+					depImage, err := tests.Kubectl("get deployment -o=jsonpath='{.spec.template.spec.containers[0].image}' -n", depNS, depName)
+					assert.NoError(t, err)
+					assert.Equal(t, "'nginx:1.25'", string(depImage))
+
+					depReplicas, err := tests.Kubectl("get deployment -o=jsonpath='{.spec.replicas}' -n", depNS, depName)
+					assert.NoError(t, err)
+					assert.Equal(t, "'4'", string(depReplicas))
+				},
+			},
+		},
+	})
+
+	integration.ProgramTest(t, &test)
+}
