@@ -14,15 +14,6 @@
 
 import * as k8s from "@pulumi/kubernetes";
 
-// This test creates a Provider with `enableServerSideApply` enabled. The following scenarios are tested:
-// 1. Patch a Namespace resource with fully-specified configuration.
-// 2. Patch a CustomResource.
-// 3. Upsert a Deployment resource that already exists.
-// 4. Patch the Deployment with a partially-specified configuration.
-// 5. Replace a statically-named ConfigMap resource by changing the data on a subsequent update.
-// 6. Ignore changes specified in the ignoreChanges resource option.
-// 7. Statically-named Namespace can be changed to an auto-named Namespace.
-
 // Create provider with SSA enabled.
 const provider = new k8s.Provider("k8s", { enableServerSideApply: true });
 
