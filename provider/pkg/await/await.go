@@ -445,6 +445,10 @@ func updateResource(c *UpdateConfig, liveOldObj *unstructured.Unstructured, clie
 
 // csaUpdate handles the logic for updating a resource using client-side apply.
 func csaUpdate(c *UpdateConfig, liveOldObj *unstructured.Unstructured, client dynamic.ResourceInterface) (*unstructured.Unstructured, error) {
+	// Handle ignoreChanges for CSA to use the last known value applied to the cluster, rather than what's in state which may be outdated.
+	// We ignore errors here as it occurs when there is an issue traversing the field path. If this occurs, then use the last value in state
+	// optimistically rather than failing the update.
+	_ = handleCSAIgnoreFields(c, liveOldObj)
 	// Create merge patch (prefer strategic merge patch, fall back to JSON merge patch).
 	patch, patchType, _, err := openapi.PatchForResourceUpdate(c.Resources, c.Previous, c.Inputs, liveOldObj)
 	if err != nil {
@@ -498,13 +502,43 @@ func ssaUpdate(c *UpdateConfig, liveOldObj *unstructured.Unstructured, client dy
 	return currentOutputs, nil
 }
 
+// handleCSAIgnoreFields handles updating the inputs to use the last known value applied to the cluster. If the value is not present,
+// then we use what is declared in state as per the specs of Pulumi's ignoreChanges.
+func handleCSAIgnoreFields(c *UpdateConfig, liveOldObj *unstructured.Unstructured) error {
+	for _, ignorePath := range c.IgnoreChanges {
+		ipParsed, err := resource.ParsePropertyPath(ignorePath)
+		if err != nil {
+			// NB: This shouldn't really happen since we already validated the ignoreChanges paths in the parent Diff function.
+			return fmt.Errorf("unable to parse ignoreField path %q: %w", ignorePath, err)
+		}
+
+		pathComponents := strings.Split(ipParsed.String(), ".")
+
+		lastLiveVal, found, err := unstructured.NestedFieldCopy(liveOldObj.Object, pathComponents...)
+		if found && err == nil {
+			// We only care if the field is found, as not found indicates that the field does not exist in the live state so we don't have to worry about changing the inputs to match
+			// the live state.
+			err := unstructured.SetNestedField(c.Inputs.Object, lastLiveVal, pathComponents...)
+			if err != nil {
+				return fmt.Errorf("unable to set field %q with last used value %q: %w", ignorePath, lastLiveVal, err)
+			}
+		}
+		if err != nil {
+			// A type error occurred when attempting to get the nested field from the live object.
+			return fmt.Errorf("unable to parse field to ignore %q from live object: %w", ignorePath, err)
+		}
+	}
+
+	return nil
+}
+
 // handleSSAIgnoreFields handles updating the inputs to either drop fields that are present on the cluster and not managed
 // by the current field manager, or to set the value of the field to the last known value applied to the cluster.
 func handleSSAIgnoreFields(c *UpdateConfig, liveOldObj *unstructured.Unstructured) error {
 	managedFields := liveOldObj.GetManagedFields()
 	// Keep track of fields that are managed by the current field manager, and fields that are managed by other field managers.
-	managedFieldsSet := fieldpath.NewSet()
-	currManagerFieldsSet := fieldpath.NewSet()
+	theirFields, ourFields := new(fieldpath.Set), new(fieldpath.Set)
+	fieldpath.MakePathOrDie()
 
 	for _, f := range managedFields {
 		s, err := fluxssa.FieldsToSet(*f.FieldsV1)
@@ -514,9 +548,9 @@ func handleSSAIgnoreFields(c *UpdateConfig, liveOldObj *unstructured.Unstructure
 
 		switch f.Manager {
 		case c.FieldManager:
-			currManagerFieldsSet = currManagerFieldsSet.Union(&s)
+			ourFields = ourFields.Union(&s)
 		default:
-			managedFieldsSet = managedFieldsSet.Union(&s)
+			theirFields = theirFields.Union(&s)
 		}
 	}
 
@@ -527,6 +561,7 @@ func handleSSAIgnoreFields(c *UpdateConfig, liveOldObj *unstructured.Unstructure
 			return fmt.Errorf("unable to parse ignoreField path %q: %w", ignorePath, err)
 		}
 
+		// TODO: Enhance support for ignoreField path to support nested arrays.
 		pathComponents := strings.Split(ipParsed.String(), ".")
 		pe, err := fieldpath.MakePath(makeInterfaceSlice(pathComponents)...)
 		if err != nil {
@@ -535,7 +570,7 @@ func handleSSAIgnoreFields(c *UpdateConfig, liveOldObj *unstructured.Unstructure
 
 		// Drop the field from the inputs if it is present on the cluster and managed by another manager, and is not shared with current manager. This ensures
 		// that we don't get any conflict errors, or mistakenly setting the current field manager as a shared manager of that field.
-		if managedFieldsSet.Has(pe) && !currManagerFieldsSet.Has(pe) {
+		if theirFields.Has(pe) && !ourFields.Has(pe) {
 			unstructured.RemoveNestedField(c.Inputs.Object, pathComponents...)
 			continue
 		}
@@ -551,18 +586,19 @@ func handleSSAIgnoreFields(c *UpdateConfig, liveOldObj *unstructured.Unstructure
 		//
 		// NOTE: If the field has been reverted to its default value, ignoreChanges will still not update this field to what is supplied
 		// by the user in their Pulumi program.
-		lastVal, found, err := unstructured.NestedFieldCopy(liveOldObj.Object, pathComponents...)
+		lastLiveVal, found, err := unstructured.NestedFieldCopy(liveOldObj.Object, pathComponents...)
 		if found && err == nil {
 			// We only care if the field is found, as not found indicates that the field does not exist in the live state so we don't have to worry about changing the inputs to match
-			// the live state. If this occurs, then Pulumi will set the field back to the declared value. Or should we also ensure that the field is never touch again by Pulumi?
-			err := unstructured.SetNestedField(c.Inputs.Object, lastVal, pathComponents...)
+			// the live state. If this occurs, then Pulumi will set the field back to the declared value as ignoreChanges will use the declared value if one is not found in state as per
+			// the intent of ignoreChanges.
+			err := unstructured.SetNestedField(c.Inputs.Object, lastLiveVal, pathComponents...)
 			if err != nil {
-				return fmt.Errorf("unable to set field %q with last used value %q: %w", ignorePath, lastVal, err)
+				return fmt.Errorf("unable to set field %q with last used value %q: %w", ignorePath, lastLiveVal, err)
 			}
 		}
 		if err != nil {
 			// A type error occurred when attempting to get the nested field from the live object.
-			return fmt.Errorf("unable to get field %q from live object: %w", ignorePath, err)
+			return fmt.Errorf("unable to parse field to ignore %q from live object: %w", ignorePath, err)
 		}
 	}
 
