@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 4.3.0 (September 25, 2023)
+
 - helm.v3.Release: Detect changes to local charts (https://github.com/pulumi/pulumi-kubernetes/pull/2568)
 - Ignore read-only inputs in Kubernetes object metadata (https://github.com/pulumi/pulumi-kubernetes/pull/2571)
 - Handle fields specified in ignoreChanges gracefully without needing a refresh when drift has occurred (https://github.com/pulumi/pulumi-kubernetes/pull/2566)
