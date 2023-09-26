@@ -1105,6 +1105,7 @@ func (r *helmReleaseProvider) Delete(ctx context.Context, req *pulumirpc.DeleteR
 		}
 		uninstall.Timeout = time.Duration(timeout) * time.Second
 	}
+	// TODO: once https://github.com/helm/helm/pull/12109 is merged, use uninstall.RunWithContext
 	res, err := uninstall.Run(name)
 	if err != nil {
 		return nil, err
