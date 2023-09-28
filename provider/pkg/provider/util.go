@@ -139,6 +139,11 @@ func getActiveClusterFromConfig(config *clientapi.Config, overrides resource.Pro
 // pruneMap builds a pruned map by recursively copying elements from the source map that have a matching key in the
 // target map. This is useful as a preprocessing step for live resource state before comparing it to program inputs.
 func pruneMap(source, target map[string]any) map[string]any {
+	// If either map is nil, return nil.
+	if target == nil || source == nil {
+		return nil
+	}
+
 	result := make(map[string]any)
 
 	for key, value := range source {
@@ -171,6 +176,11 @@ func pruneMap(source, target map[string]any) map[string]any {
 // pruneSlice builds a pruned slice by copying elements from the source slice that have a matching element in the
 // target slice.
 func pruneSlice(source, target []any) []any {
+	// If either slice is nil, return nil.
+	if target == nil || source == nil {
+		return nil
+	}
+
 	result := make([]any, 0, len(target))
 
 	// If either slice is empty, return an empty slice.
@@ -200,12 +210,12 @@ func pruneSlice(source, target []any) []any {
 		switch valueT.Kind() {
 		case reflect.Map:
 			nestedResult := pruneMap(value.(map[string]any), targetValue.(map[string]any))
-			if len(nestedResult) > 0 {
+			if nestedResult != nil {
 				result = append(result, nestedResult)
 			}
 		case reflect.Slice:
 			nestedResult := pruneSlice(value.([]any), targetValue.([]any))
-			if len(nestedResult) > 0 {
+			if nestedResult != nil {
 				result = append(result, nestedResult)
 			}
 		default:

@@ -45,6 +45,16 @@ export class GkeCluster extends pulumi.ComponentResource {
             },
             project: config.gcpProject,
             location: config.gcpLocation,
+            // Enable network policy addon to test network policy resources.
+            addonsConfig: {
+              networkPolicyConfig: {
+                disabled: false,
+              },
+            },
+            networkPolicy: {
+              enabled: true,
+              provider: "CALICO",
+            },
         }, {parent: this});
         this.cluster = k8sCluster;
 

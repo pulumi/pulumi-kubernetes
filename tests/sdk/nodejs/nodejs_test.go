@@ -1946,3 +1946,65 @@ func ignoreChageTest(t *testing.T, testFolderName string) {
 
 	integration.ProgramTest(t, &test)
 }
+
+// TestEmptyItemNormalization tests that we correctly handle empty items when normalizing resources. We should
+// not remove a list that contains an empty struct, as this is different from an empty list.
+// See https://github.com/pulumi/pulumi-kubernetes/issues/2538 for more details.
+// This test requires a cluster with NetworkPolicy support to ensure the NetworkPolicy resource is created
+// and has a controller backing it. We create 2 pods to test egress between them, rather than hitting
+// a live URL, to avoid flakiness.
+func TestEmptyItemNormalization(t *testing.T) {
+	tests.SkipIfShort(t)
+
+	validateProgram := func(networkingEnabled bool) func(*testing.T, integration.RuntimeValidationStackInfo) {
+		return func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+			ns, ok := stackInfo.Outputs["podANamespace"].(string)
+			assert.True(t, ok)
+			podA, ok := stackInfo.Outputs["podAName"].(string)
+			assert.True(t, ok)
+			nginxIP, ok := stackInfo.Outputs["nginxIP"].(string)
+			assert.True(t, ok)
+			np, ok := stackInfo.Outputs["networkPolicyName"].(string)
+			assert.True(t, ok)
+
+			// Sanity check with kubectl to verify that the NetworkPolicy was created with the wanted label.
+			out, err := tests.Kubectl("get networkpolicies.networking.k8s.io", np, "-n", ns)
+			assert.NoError(t, err)
+			assert.NotContains(t, string(out), "Error from server (NotFound)")
+
+			// Exec into pod and verify egress to/ ingress from podB based on step.
+			// Step 1: Egress/Ingress should be blocked.
+			// Step 2: Egress/Ingress should be allowed.
+			out, err = tests.Kubectl("exec -i -n", ns, podA, "-- wget -qO- --timeout=5 ", nginxIP)
+			if networkingEnabled {
+				assert.NoError(t, err)
+				assert.Contains(t, string(out), "Welcome to nginx!")
+			} else {
+				assert.Error(t, err)
+				assert.Contains(t, string(out), "wget: download timed out")
+			}
+		}
+	}
+
+	test := baseOptions.With(integration.ProgramTestOptions{
+		Dir:                  filepath.Join("network-policy", "step1"),
+		ExpectRefreshChanges: true,
+		OrderedConfig: []integration.ConfigValue{
+			{
+				Key:   "pulumi:disable-default-providers[0]",
+				Value: "kubernetes",
+				Path:  true,
+			},
+		},
+		EditDirs: []integration.EditDir{
+			{
+				Dir:                    filepath.Join("network-policy", "step2"),
+				Additive:               true,
+				ExtraRuntimeValidation: validateProgram(true),
+			},
+		},
+		ExtraRuntimeValidation: validateProgram(false),
+	})
+
+	integration.ProgramTest(t, &test)
+}
