@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from . import outputs
 from ... import core as _core
@@ -33,16 +33,35 @@ class EndpointSliceInitArgs:
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata.
         :param pulumi.Input[Sequence[pulumi.Input['EndpointPortArgs']]] ports: ports specifies the list of network ports exposed by each endpoint in this slice. Each port must have a unique name. When ports is empty, it indicates that there are no defined ports. When a port is defined with a nil port value, it indicates "all ports". Each slice may include a maximum of 100 ports.
         """
-        pulumi.set(__self__, "address_type", address_type)
-        pulumi.set(__self__, "endpoints", endpoints)
+        EndpointSliceInitArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            address_type=address_type,
+            endpoints=endpoints,
+            api_version=api_version,
+            kind=kind,
+            metadata=metadata,
+            ports=ports,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             address_type: pulumi.Input[str],
+             endpoints: pulumi.Input[Sequence[pulumi.Input['EndpointArgs']]],
+             api_version: Optional[pulumi.Input[str]] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+             ports: Optional[pulumi.Input[Sequence[pulumi.Input['EndpointPortArgs']]]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("address_type", address_type)
+        _setter("endpoints", endpoints)
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'discovery.k8s.io/v1')
+            _setter("api_version", 'discovery.k8s.io/v1')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'EndpointSlice')
+            _setter("kind", 'EndpointSlice')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
         if ports is not None:
-            pulumi.set(__self__, "ports", ports)
+            _setter("ports", ports)
 
     @property
     @pulumi.getter(name="addressType")
@@ -160,6 +179,10 @@ class EndpointSlice(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
+            kwargs = kwargs or {}
+            def _setter(key, value):
+                kwargs[key] = value
+            EndpointSliceInitArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
@@ -188,6 +211,11 @@ class EndpointSlice(pulumi.CustomResource):
                 raise TypeError("Missing required property 'endpoints'")
             __props__.__dict__["endpoints"] = endpoints
             __props__.__dict__["kind"] = 'EndpointSlice'
+            if metadata is not None and not isinstance(metadata, _meta.v1.ObjectMetaArgs):
+                metadata = metadata or {}
+                def _setter(key, value):
+                    metadata[key] = value
+                _meta.v1.ObjectMetaArgs._configure(_setter, **metadata)
             __props__.__dict__["metadata"] = metadata
             __props__.__dict__["ports"] = ports
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:discovery.k8s.io/v1beta1:EndpointSlice")])

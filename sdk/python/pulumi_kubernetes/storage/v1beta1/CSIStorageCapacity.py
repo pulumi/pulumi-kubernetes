@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from ... import meta as _meta
 
@@ -40,19 +40,40 @@ class CSIStorageCapacityInitArgs:
                More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input['_meta.v1.LabelSelectorArgs'] node_topology: NodeTopology defines which nodes have access to the storage for which capacity was reported. If not set, the storage is not accessible from any node in the cluster. If empty, the storage is accessible from all nodes. This field is immutable.
         """
-        pulumi.set(__self__, "storage_class_name", storage_class_name)
+        CSIStorageCapacityInitArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            storage_class_name=storage_class_name,
+            api_version=api_version,
+            capacity=capacity,
+            kind=kind,
+            maximum_volume_size=maximum_volume_size,
+            metadata=metadata,
+            node_topology=node_topology,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             storage_class_name: pulumi.Input[str],
+             api_version: Optional[pulumi.Input[str]] = None,
+             capacity: Optional[pulumi.Input[str]] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             maximum_volume_size: Optional[pulumi.Input[str]] = None,
+             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+             node_topology: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("storage_class_name", storage_class_name)
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'storage.k8s.io/v1beta1')
+            _setter("api_version", 'storage.k8s.io/v1beta1')
         if capacity is not None:
-            pulumi.set(__self__, "capacity", capacity)
+            _setter("capacity", capacity)
         if kind is not None:
-            pulumi.set(__self__, "kind", 'CSIStorageCapacity')
+            _setter("kind", 'CSIStorageCapacity')
         if maximum_volume_size is not None:
-            pulumi.set(__self__, "maximum_volume_size", maximum_volume_size)
+            _setter("maximum_volume_size", maximum_volume_size)
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
         if node_topology is not None:
-            pulumi.set(__self__, "node_topology", node_topology)
+            _setter("node_topology", node_topology)
 
     @property
     @pulumi.getter(name="storageClassName")
@@ -216,6 +237,10 @@ class CSIStorageCapacity(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
+            kwargs = kwargs or {}
+            def _setter(key, value):
+                kwargs[key] = value
+            CSIStorageCapacityInitArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
@@ -241,7 +266,17 @@ class CSIStorageCapacity(pulumi.CustomResource):
             __props__.__dict__["capacity"] = capacity
             __props__.__dict__["kind"] = 'CSIStorageCapacity'
             __props__.__dict__["maximum_volume_size"] = maximum_volume_size
+            if metadata is not None and not isinstance(metadata, _meta.v1.ObjectMetaArgs):
+                metadata = metadata or {}
+                def _setter(key, value):
+                    metadata[key] = value
+                _meta.v1.ObjectMetaArgs._configure(_setter, **metadata)
             __props__.__dict__["metadata"] = metadata
+            if node_topology is not None and not isinstance(node_topology, _meta.v1.LabelSelectorArgs):
+                node_topology = node_topology or {}
+                def _setter(key, value):
+                    node_topology[key] = value
+                _meta.v1.LabelSelectorArgs._configure(_setter, **node_topology)
             __props__.__dict__["node_topology"] = node_topology
             if storage_class_name is None and not opts.urn:
                 raise TypeError("Missing required property 'storage_class_name'")

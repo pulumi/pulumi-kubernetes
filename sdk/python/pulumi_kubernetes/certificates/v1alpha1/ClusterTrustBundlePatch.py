@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from . import outputs
 from ... import meta as _meta
@@ -28,14 +28,29 @@ class ClusterTrustBundlePatchArgs:
         :param pulumi.Input['_meta.v1.ObjectMetaPatchArgs'] metadata: metadata contains the object metadata.
         :param pulumi.Input['ClusterTrustBundleSpecPatchArgs'] spec: spec contains the signer (if any) and trust anchors.
         """
+        ClusterTrustBundlePatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            api_version=api_version,
+            kind=kind,
+            metadata=metadata,
+            spec=spec,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             api_version: Optional[pulumi.Input[str]] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']] = None,
+             spec: Optional[pulumi.Input['ClusterTrustBundleSpecPatchArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'certificates.k8s.io/v1alpha1')
+            _setter("api_version", 'certificates.k8s.io/v1alpha1')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'ClusterTrustBundle')
+            _setter("kind", 'ClusterTrustBundle')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
         if spec is not None:
-            pulumi.set(__self__, "spec", spec)
+            _setter("spec", spec)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -145,6 +160,10 @@ class ClusterTrustBundlePatch(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
+            kwargs = kwargs or {}
+            def _setter(key, value):
+                kwargs[key] = value
+            ClusterTrustBundlePatchArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
@@ -165,7 +184,17 @@ class ClusterTrustBundlePatch(pulumi.CustomResource):
 
             __props__.__dict__["api_version"] = 'certificates.k8s.io/v1alpha1'
             __props__.__dict__["kind"] = 'ClusterTrustBundle'
+            if metadata is not None and not isinstance(metadata, _meta.v1.ObjectMetaPatchArgs):
+                metadata = metadata or {}
+                def _setter(key, value):
+                    metadata[key] = value
+                _meta.v1.ObjectMetaPatchArgs._configure(_setter, **metadata)
             __props__.__dict__["metadata"] = metadata
+            if spec is not None and not isinstance(spec, ClusterTrustBundleSpecPatchArgs):
+                spec = spec or {}
+                def _setter(key, value):
+                    spec[key] = value
+                ClusterTrustBundleSpecPatchArgs._configure(_setter, **spec)
             __props__.__dict__["spec"] = spec
         super(ClusterTrustBundlePatch, __self__).__init__(
             'kubernetes:certificates.k8s.io/v1alpha1:ClusterTrustBundlePatch',
