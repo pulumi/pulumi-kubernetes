@@ -1035,6 +1035,39 @@ func TestPruneMap(t *testing.T) {
 			},
 			want: target,
 		},
+		{
+			name:        "empty nil map",
+			description: "nil map should result in nil result",
+			args: args{
+				source: nil,
+				target: nil,
+			},
+			want: nil,
+		},
+		{
+			name:        "empty nil source map",
+			description: "nil source map should result in nil result",
+			args: args{
+				source: nil,
+				target: map[string]any{
+					"a": "a",
+					"b": "b",
+				},
+			},
+			want: nil,
+		},
+		{
+			name:        "empty nil target map",
+			description: "nil target map should result in nil result",
+			args: args{
+				source: map[string]any{
+					"a": "a",
+					"b": "b",
+				},
+				target: nil,
+			},
+			want: nil,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -1073,6 +1106,24 @@ func TestPruneSlice(t *testing.T) {
 				target: []any{"a", "b"},
 			},
 			want: []any{},
+		},
+		{
+			name:        "nil target",
+			description: "nil target slice should result in nil result",
+			args: args{
+				source: []any{"a", "b"},
+				target: nil,
+			},
+			want: nil,
+		},
+		{
+			name:        "nil source",
+			description: "nil source slice should result in nil result",
+			args: args{
+				source: nil,
+				target: []any{"a", "b"},
+			},
+			want: nil,
 		},
 		{
 			name:        "matching number of elements with different values",
@@ -1223,6 +1274,111 @@ func TestPruneSlice(t *testing.T) {
 				},
 				nil,
 			},
+		},
+		{
+			name:        "map slice with empty non-nil value",
+			description: "a slice of map values that include an empty non-nil value",
+			args: args{
+				source: []any{
+					map[string]any{
+						"a": "a",
+						"b": "b",
+					},
+					map[string]any{},
+				},
+				target: []any{
+					map[string]any{
+						"a": "a",
+						"b": "b",
+					},
+					map[string]any{},
+				},
+			},
+			want: []any{
+				map[string]any{
+					"a": "a",
+					"b": "b",
+				},
+				map[string]any{},
+			},
+		},
+		{
+			name:        "map slice with empty non-nil value in target",
+			description: "a slice of map values that include an empty non-nil value only in target",
+			args: args{
+				source: []any{
+					map[string]any{
+						"a": "a",
+						"b": "b",
+					},
+					map[string]any{
+						"a": "a",
+						"b": "b",
+					},
+				},
+				target: []any{
+					map[string]any{
+						"a": "a",
+						"b": "b",
+					},
+					map[string]any{},
+				},
+			},
+			want: []any{
+				map[string]any{
+					"a": "a",
+					"b": "b",
+				},
+				map[string]any{},
+			},
+		},
+		{
+			name:        "map slice with empty non-nil value in source",
+			description: "a slice of map values that include an empty non-nil value only in source",
+			args: args{
+				source: []any{
+					map[string]any{
+						"a": "a",
+						"b": "b",
+					},
+					map[string]any{},
+				},
+				target: []any{
+					map[string]any{
+						"a": "a",
+						"b": "b",
+					},
+					map[string]any{
+						"a": "a",
+						"b": "b",
+					},
+				},
+			},
+			want: []any{
+				map[string]any{
+					"a": "a",
+					"b": "b",
+				},
+				map[string]any{},
+			},
+		},
+		{
+			name:        "nil slice",
+			description: "nil slice should return nil",
+			args: args{
+				source: nil,
+				target: nil,
+			},
+			want: nil,
+		},
+		{
+			name:        "non-nil empty slice",
+			description: "non-nil empty slice should return empty slice",
+			args: args{
+				source: []any{},
+				target: []any{},
+			},
+			want: []any{},
 		},
 	}
 	for _, tt := range tests {
