@@ -68,11 +68,12 @@ func ToUnstructured(object metav1.Object) (*unstructured.Unstructured, error) {
 func Normalize(uns *unstructured.Unstructured) (*unstructured.Unstructured, error) {
 	var result *unstructured.Unstructured
 
-	if IsCRD(uns) {
+	switch {
+	case IsCRD(uns):
 		result = normalizeCRD(uns)
-	} else if IsSecret(uns) {
+	case IsSecret(uns):
 		result = normalizeSecret(uns)
-	} else {
+	default:
 		obj, err := FromUnstructured(uns)
 		// Return the input resource rather than an error if this operation fails.
 		if err != nil {
