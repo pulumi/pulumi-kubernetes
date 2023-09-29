@@ -178,6 +178,7 @@ type ReleaseStatus struct {
 
 type helmReleaseProvider struct {
 	host                     *provider.HostClient
+	canceler                 *cancellationContext
 	helmDriver               string
 	apiConfig                *api.Config
 	defaultOverrides         *clientcmd.ConfigOverrides
@@ -193,6 +194,7 @@ type helmReleaseProvider struct {
 
 func newHelmReleaseProvider(
 	host *provider.HostClient,
+	canceler *cancellationContext,
 	apiConfig *api.Config,
 	defaultOverrides *clientcmd.ConfigOverrides,
 	restConfig *rest.Config,
@@ -216,6 +218,7 @@ func newHelmReleaseProvider(
 
 	return &helmReleaseProvider{
 		host:                     host,
+		canceler:                 canceler,
 		apiConfig:                apiConfig,
 		defaultOverrides:         defaultOverrides,
 		restConfig:               restConfig,
@@ -505,7 +508,7 @@ func (r *helmReleaseProvider) helmCreate(ctx context.Context, urn resource.URN, 
 	}
 
 	logger.V(9).Infof("install helm chart")
-	rel, err := client.Run(c, values)
+	rel, err := client.RunWithContext(r.canceler.context, c, values)
 	if err != nil && rel == nil {
 		return err
 	}
@@ -618,7 +621,7 @@ func (r *helmReleaseProvider) helmUpdate(newRelease, oldRelease *Release) error 
 		client.PostRenderer = pr
 	}
 
-	rel, err := client.Run(newRelease.Name, chart, values)
+	rel, err := client.RunWithContext(r.canceler.context, newRelease.Name, chart, values)
 	if err != nil && rel == nil {
 		return err
 	}
@@ -1102,6 +1105,7 @@ func (r *helmReleaseProvider) Delete(ctx context.Context, req *pulumirpc.DeleteR
 		}
 		uninstall.Timeout = time.Duration(timeout) * time.Second
 	}
+	// TODO: once https://github.com/helm/helm/pull/12109 is merged, use uninstall.RunWithContext
 	res, err := uninstall.Run(name)
 	if err != nil {
 		return nil, err

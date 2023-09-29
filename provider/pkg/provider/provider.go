@@ -798,6 +798,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 
 	k.helmReleaseProvider, err = newHelmReleaseProvider(
 		k.host,
+		k.canceler,
 		apiConfig,
 		overrides,
 		k.config,
@@ -2464,7 +2465,7 @@ func (k *kubeProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest)
 
 	config := await.DeleteConfig{
 		ProviderConfig: await.ProviderConfig{
-			Context:           k.canceler.context, // TODO: should this just be ctx from the args?
+			Context:           k.canceler.context,
 			Host:              k.host,
 			URN:               urn,
 			InitialAPIVersion: initialAPIVersion,
