@@ -40,3 +40,4 @@ blobs:
   folder: releases/plugins/
   ids:
   - archive
+project_name: pulumi-kubernetes
