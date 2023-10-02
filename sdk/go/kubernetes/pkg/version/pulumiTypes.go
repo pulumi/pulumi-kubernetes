@@ -7,12 +7,12 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
+	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
-var _ = internal.GetEnvOrDefault
+var _ = utilities.GetEnvOrDefault
 
 // Info contains versioning information. how we'll want to distribute that information.
 type Info struct {

@@ -7,12 +7,12 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
+	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
-var _ = internal.GetEnvOrDefault
+var _ = utilities.GetEnvOrDefault
 
 // APIGroup contains the name, the supported versions, and the preferred version of a group.
 type APIGroup struct {

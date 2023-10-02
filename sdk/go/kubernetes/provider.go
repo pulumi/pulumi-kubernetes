@@ -7,7 +7,7 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
+	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
@@ -25,17 +25,17 @@ func NewProvider(ctx *pulumi.Context,
 	}
 
 	if args.DeleteUnreachable == nil {
-		if d := internal.GetEnvOrDefault(nil, internal.ParseEnvBool, "PULUMI_K8S_DELETE_UNREACHABLE"); d != nil {
+		if d := utilities.GetEnvOrDefault(nil, utilities.ParseEnvBool, "PULUMI_K8S_DELETE_UNREACHABLE"); d != nil {
 			args.DeleteUnreachable = pulumi.BoolPtr(d.(bool))
 		}
 	}
 	if args.EnableConfigMapMutable == nil {
-		if d := internal.GetEnvOrDefault(nil, internal.ParseEnvBool, "PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE"); d != nil {
+		if d := utilities.GetEnvOrDefault(nil, utilities.ParseEnvBool, "PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE"); d != nil {
 			args.EnableConfigMapMutable = pulumi.BoolPtr(d.(bool))
 		}
 	}
 	if args.EnableServerSideApply == nil {
-		if d := internal.GetEnvOrDefault(nil, internal.ParseEnvBool, "PULUMI_K8S_ENABLE_SERVER_SIDE_APPLY"); d != nil {
+		if d := utilities.GetEnvOrDefault(nil, utilities.ParseEnvBool, "PULUMI_K8S_ENABLE_SERVER_SIDE_APPLY"); d != nil {
 			args.EnableServerSideApply = pulumi.BoolPtr(d.(bool))
 		}
 	}
@@ -46,26 +46,26 @@ func NewProvider(ctx *pulumi.Context,
 		args.KubeClientSettings = args.KubeClientSettings.ToKubeClientSettingsPtrOutput().ApplyT(func(v *KubeClientSettings) *KubeClientSettings { return v.Defaults() }).(KubeClientSettingsPtrOutput)
 	}
 	if args.Kubeconfig == nil {
-		if d := internal.GetEnvOrDefault(nil, nil, "KUBECONFIG"); d != nil {
+		if d := utilities.GetEnvOrDefault(nil, nil, "KUBECONFIG"); d != nil {
 			args.Kubeconfig = pulumi.StringPtr(d.(string))
 		}
 	}
 	if args.SkipUpdateUnreachable == nil {
-		if d := internal.GetEnvOrDefault(nil, internal.ParseEnvBool, "PULUMI_K8S_SKIP_UPDATE_UNREACHABLE"); d != nil {
+		if d := utilities.GetEnvOrDefault(nil, utilities.ParseEnvBool, "PULUMI_K8S_SKIP_UPDATE_UNREACHABLE"); d != nil {
 			args.SkipUpdateUnreachable = pulumi.BoolPtr(d.(bool))
 		}
 	}
 	if args.SuppressDeprecationWarnings == nil {
-		if d := internal.GetEnvOrDefault(nil, internal.ParseEnvBool, "PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS"); d != nil {
+		if d := utilities.GetEnvOrDefault(nil, utilities.ParseEnvBool, "PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS"); d != nil {
 			args.SuppressDeprecationWarnings = pulumi.BoolPtr(d.(bool))
 		}
 	}
 	if args.SuppressHelmHookWarnings == nil {
-		if d := internal.GetEnvOrDefault(nil, internal.ParseEnvBool, "PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS"); d != nil {
+		if d := utilities.GetEnvOrDefault(nil, utilities.ParseEnvBool, "PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS"); d != nil {
 			args.SuppressHelmHookWarnings = pulumi.BoolPtr(d.(bool))
 		}
 	}
-	opts = internal.PkgResourceDefaultOpts(opts)
+	opts = utilities.PkgResourceDefaultOpts(opts)
 	var resource Provider
 	err := ctx.RegisterResource("pulumi:providers:kubernetes", name, args, &resource, opts...)
 	if err != nil {
