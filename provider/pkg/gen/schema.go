@@ -481,6 +481,7 @@ additional information about using Server-Side Apply to manage Kubernetes resour
 		"packageImportAliases":           pkgImportAliases,
 		"generateResourceContainerTypes": true,
 		"generateExtraInputTypes":        true,
+		"internalModuleName":             "utilities",
 	})
 	pkg.Language["nodejs"] = rawMessage(map[string]any{
 		"compatibility": kubernetes20,
