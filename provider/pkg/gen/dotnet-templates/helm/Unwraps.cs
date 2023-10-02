@@ -28,6 +28,7 @@ namespace Pulumi.Kubernetes.Helm
         public bool? SkipCRDRendering { get; set; }
         public bool? SkipAwait { get; set; }
         public string? Namespace { get; set; }
+        public string? KubeVersion { get; set; }
         public ImmutableDictionary<string, object> Values { get; set; } = null!;
         public List<TransformationAction> Transformations { get; set; } = null!;
         public string? ResourcePrefix { get; set; }
@@ -70,7 +71,7 @@ namespace Pulumi.Kubernetes.Helm
         public static Output<Union<ChartArgsUnwrap, LocalChartArgsUnwrap>> Unwrap(this Union<ChartArgs, LocalChartArgs> options)
         {
             return options.Match(
-                v => Output.Tuple(v.ApiVersions, v.Namespace.ToNullable(), v.Values, v.Repo.ToNullable(), v.Chart, v.Version.ToNullable(), v.FetchOptions.Unwrap(), new InputList<bool?> { v.IncludeTestHookResources.ToNullable(), v.SkipCRDRendering.ToNullable(), v.SkipAwait.ToNullable() }).Apply(vs =>
+                v => Output.Tuple(v.ApiVersions, v.Namespace.ToNullable(), v.Values, v.Repo.ToNullable(), v.Chart, v.Version.ToNullable(), v.FetchOptions.Unwrap(), new InputList<bool?> { v.IncludeTestHookResources.ToNullable(), v.SkipCRDRendering.ToNullable(), v.SkipAwait.ToNullable(), v.KubeVersion.ToNullable() }).Apply(vs =>
                     Union<ChartArgsUnwrap, LocalChartArgsUnwrap>.FromT0(
                         new ChartArgsUnwrap
                         {
@@ -85,9 +86,10 @@ namespace Pulumi.Kubernetes.Helm
                             FetchOptions = vs.Item7,
                             IncludeTestHookResources = vs.Item8[0],
                             SkipCRDRendering = vs.Item8[1],
-                            SkipAwait = vs.Item8[2]
+                            SkipAwait = vs.Item8[2],
+                            KubeVersion = vs.Item[3],
                         })),
-                v => Output.Tuple(v.ApiVersions, v.IncludeTestHookResources.ToNullable(), v.SkipCRDRendering.ToNullable(), v.SkipAwait.ToNullable(), v.Namespace.ToNullable(), v.Values).Apply(vs =>
+                v => Output.Tuple(v.ApiVersions, v.IncludeTestHookResources.ToNullable(), v.SkipCRDRendering.ToNullable(), v.SkipAwait.ToNullable(), v.Namespace.ToNullable(), v.Values, v.KubeVersion.ToNullable()).Apply(vs =>
                     Union<ChartArgsUnwrap, LocalChartArgsUnwrap>.FromT1(
                         new LocalChartArgsUnwrap
                         {
@@ -97,6 +99,7 @@ namespace Pulumi.Kubernetes.Helm
                             SkipAwait = vs.Item4,
                             Namespace = vs.Item5,
                             Values = vs.Item6,
+                            KubeVersion = vs.Item7,
                             Transformations = v.Transformations,
                             ResourcePrefix = v.ResourcePrefix,
                             Path = v.Path
