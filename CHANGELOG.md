@@ -2,6 +2,7 @@
 
 - Fix normalizing fields with empty objects/slices (https://github.com/pulumi/pulumi-kubernetes/pull/2576)
 - helm.v3.Release: Improved cancellation support (https://github.com/pulumi/pulumi-kubernetes/pull/2579)
+- helm.v3.ChartOpts: Add KubeVersion field that can be passed to avoid asking the kubernetes API server for the version.
 
 ## 4.3.0 (September 25, 2023)
 
