@@ -30,7 +30,7 @@ import (
 	"sync"
 	"syscall"
 
-	openapi_v2 "github.com/google/gnostic/openapiv2"
+	openapi_v2 "github.com/google/gnostic-models/openapiv2"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging" // Added in place of upstream HandleError
 	errorsutil "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
