@@ -244,11 +244,11 @@ func (c *chart) template(clientSet *clients.DynamicClientSet) (string, error) {
 	installAction.Version = c.opts.Version
 
 	if c.opts.KubeVersion != "" {
-		if kubeVersion, err := chartutil.ParseKubeVersion(c.opts.KubeVersion); err != nil {
+		var kubeVersion *chartutil.KubeVersion
+		if kubeVersion, err = chartutil.ParseKubeVersion(c.opts.KubeVersion); err != nil {
 			return "", fmt.Errorf("could not get parse kube_version %q from chart options: %w", c.opts.KubeVersion, err)
-		} else {
-			installAction.KubeVersion = kubeVersion
 		}
+		installAction.KubeVersion = kubeVersion
 	}
 
 	// Preserve backward compatibility so APIVersions can be explicitly passed
