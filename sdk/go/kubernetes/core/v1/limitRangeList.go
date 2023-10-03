@@ -8,8 +8,8 @@ import (
 	"reflect"
 
 	"errors"
-	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
+	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
@@ -40,7 +40,7 @@ func NewLimitRangeList(ctx *pulumi.Context,
 	}
 	args.ApiVersion = pulumi.StringPtr("v1")
 	args.Kind = pulumi.StringPtr("LimitRangeList")
-	opts = internal.PkgResourceDefaultOpts(opts)
+	opts = utilities.PkgResourceDefaultOpts(opts)
 	var resource LimitRangeList
 	err := ctx.RegisterResource("kubernetes:core/v1:LimitRangeList", name, args, &resource, opts...)
 	if err != nil {

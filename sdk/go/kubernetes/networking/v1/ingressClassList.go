@@ -8,8 +8,8 @@ import (
 	"reflect"
 
 	"errors"
-	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
+	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
@@ -40,7 +40,7 @@ func NewIngressClassList(ctx *pulumi.Context,
 	}
 	args.ApiVersion = pulumi.StringPtr("networking.k8s.io/v1")
 	args.Kind = pulumi.StringPtr("IngressClassList")
-	opts = internal.PkgResourceDefaultOpts(opts)
+	opts = utilities.PkgResourceDefaultOpts(opts)
 	var resource IngressClassList
 	err := ctx.RegisterResource("kubernetes:networking.k8s.io/v1:IngressClassList", name, args, &resource, opts...)
 	if err != nil {

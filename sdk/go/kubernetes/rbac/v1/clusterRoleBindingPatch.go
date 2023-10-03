@@ -7,8 +7,8 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
+	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
@@ -53,7 +53,7 @@ func NewClusterRoleBindingPatch(ctx *pulumi.Context,
 		},
 	})
 	opts = append(opts, aliases)
-	opts = internal.PkgResourceDefaultOpts(opts)
+	opts = utilities.PkgResourceDefaultOpts(opts)
 	var resource ClusterRoleBindingPatch
 	err := ctx.RegisterResource("kubernetes:rbac.authorization.k8s.io/v1:ClusterRoleBindingPatch", name, args, &resource, opts...)
 	if err != nil {
