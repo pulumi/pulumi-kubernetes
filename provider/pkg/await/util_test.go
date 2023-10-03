@@ -14,7 +14,6 @@ func mockAwaitConfig(inputs *unstructured.Unstructured) createAwaitConfig {
 	return createAwaitConfig{
 		ctx: context.Background(),
 		//TODO: complete this mock if needed
-		currentInputs:  inputs,
 		currentOutputs: inputs,
 		logger:         logging.NewLogger(context.Background(), nil, ""),
 	}

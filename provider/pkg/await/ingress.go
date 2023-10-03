@@ -116,7 +116,7 @@ func (iia *ingressInitAwaiter) Await() error {
 	defer close(stopper)
 
 	informerFactory := informers.NewInformerFactory(iia.config.clientSet,
-		informers.WithNamespaceOrDefault(iia.config.currentInputs.GetNamespace()))
+		informers.WithNamespaceOrDefault(iia.config.currentOutputs.GetNamespace()))
 	informerFactory.Start(stopper)
 
 	ingressEvents := make(chan watch.Event)
@@ -144,7 +144,7 @@ func (iia *ingressInitAwaiter) Await() error {
 	}
 	go serviceInformer.Informer().Run(stopper)
 
-	timeout := metadata.TimeoutDuration(iia.config.timeout, iia.config.currentInputs, DefaultIngressTimeoutMins*60)
+	timeout := metadata.TimeoutDuration(iia.config.timeout, iia.config.currentOutputs, DefaultIngressTimeoutMins*60)
 	return iia.await(ingressEvents, serviceEvents, endpointsEvents, make(chan struct{}), time.After(60*time.Second), time.After(timeout))
 }
 
@@ -155,7 +155,7 @@ func (iia *ingressInitAwaiter) Read() error {
 	}
 
 	// Get live versions of Ingress.
-	ingress, err := ingressClient.Get(iia.config.ctx, iia.config.currentInputs.GetName(), metav1.GetOptions{})
+	ingress, err := ingressClient.Get(iia.config.ctx, iia.config.currentOutputs.GetName(), metav1.GetOptions{})
 	if err != nil {
 		// IMPORTANT: Do not wrap this error! If this is a 404, the provider need to know so that it
 		// can mark the deployment as having been deleted.
@@ -288,7 +288,7 @@ func (iia *ingressInitAwaiter) processServiceEvent(event watch.Event) {
 }
 
 func (iia *ingressInitAwaiter) processIngressEvent(event watch.Event) {
-	inputIngressName := iia.config.currentInputs.GetName()
+	inputIngressName := iia.config.currentOutputs.GetName()
 
 	ingress, isUnstructured := event.Object.(*unstructured.Unstructured)
 	if !isUnstructured {
@@ -509,25 +509,25 @@ func (iia *ingressInitAwaiter) makeClients() (
 	ingressClient, endpointsClient, servicesClient dynamic.ResourceInterface, err error,
 ) {
 	ingressClient, err = clients.ResourceClient(
-		kinds.Ingress, iia.config.currentInputs.GetNamespace(), iia.config.clientSet)
+		kinds.Ingress, iia.config.currentOutputs.GetNamespace(), iia.config.clientSet)
 	if err != nil {
 		return nil, nil, nil, errors.Wrapf(err,
 			"Could not make client to watch Ingress %q",
-			iia.config.currentInputs.GetName())
+			iia.config.currentOutputs.GetName())
 	}
 	endpointsClient, err = clients.ResourceClient(
-		kinds.Endpoints, iia.config.currentInputs.GetNamespace(), iia.config.clientSet)
+		kinds.Endpoints, iia.config.currentOutputs.GetNamespace(), iia.config.clientSet)
 	if err != nil {
 		return nil, nil, nil, errors.Wrapf(err,
 			"Could not make client to watch Endpoints associated with Ingress %q",
-			iia.config.currentInputs.GetName())
+			iia.config.currentOutputs.GetName())
 	}
 	servicesClient, err = clients.ResourceClient(
-		kinds.Service, iia.config.currentInputs.GetNamespace(), iia.config.clientSet)
+		kinds.Service, iia.config.currentOutputs.GetNamespace(), iia.config.clientSet)
 	if err != nil {
 		return nil, nil, nil, errors.Wrapf(err,
 			"Could not make client to watch Services associated with Ingress %q",
-			iia.config.currentInputs.GetName())
+			iia.config.currentOutputs.GetName())
 	}
 
 	return

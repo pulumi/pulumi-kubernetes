@@ -1358,9 +1358,8 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 	// needs to be `DeleteBeforeReplace`'d. If the resource is marked `DeleteBeforeReplace`, then
 	// `Create` will allocate it a new name later.
 	if len(oldInputs.Object) > 0 {
-		// NOTE: If old inputs exist, they have a name, either provided by the user or filled in with a
+		// NOTE: If old inputs exist, they MAY have a name, either provided by the user or filled in with a
 		// previous run of `Check`.
-		contract.Assertf(oldInputs.GetName() != "", "expected object name to be nonempty: %v", oldInputs)
 		metadata.AdoptOldAutonameIfUnnamed(newInputs, oldInputs)
 
 		// If the resource has existing state, we only set the "managed-by: pulumi" label if it is already present. This
@@ -1692,7 +1691,7 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 		switch newInputs.GetKind() {
 		case "Job":
 			// Fetch current Job status and check point-in-time readiness. Errors are ignored.
-			if live, err := k.readLiveObject(newInputs); err == nil {
+			if live, err := k.readLiveObject(oldLive); err == nil {
 				jobChecker := checkjob.NewJobChecker()
 				job, err := clients.FromUnstructured(live)
 				if err == nil {
@@ -1714,12 +1713,12 @@ func (k *kubeProvider) Diff(ctx context.Context, req *pulumirpc.DiffRequest) (*p
 		len(replaces) > 0 &&
 			// 2. Object is NOT autonamed (i.e., user manually named it, and therefore we can't
 			// auto-generate the name).
-			!metadata.IsAutonamed(newInputs) &&
+			!(metadata.IsAutonamed(newInputs) || newInputs.GetGenerateName() != "") &&
 			// 3. The new, user-specified name is the same as the old name.
-			newInputs.GetName() == oldLivePruned.GetName() &&
+			newInputs.GetName() == oldLive.GetName() &&
 			// 4. The resource is being deployed to the same namespace (i.e., we aren't creating the
 			// object in a new namespace and then deleting the old one).
-			newInputs.GetNamespace() == oldLivePruned.GetNamespace()
+			newInputs.GetNamespace() == oldLive.GetNamespace()
 
 	return &pulumirpc.DiffResponse{
 		Changes:             hasChanges,
@@ -1880,6 +1879,7 @@ func (k *kubeProvider) Create(
 		partialErr, isPartialErr := awaitErr.(await.PartialError)
 		if !isPartialErr {
 			// Object creation failed.
+
 			return nil, pkgerrors.Wrapf(
 				awaitErr,
 				"resource %s was not successfully created by the Kubernetes API server ", fqObjName(newInputs))
@@ -2327,7 +2327,8 @@ func (k *kubeProvider) Update(
 			Resources:         resources,
 			ServerSideApply:   k.serverSideApplyMode,
 		},
-		Previous:      oldLivePruned,
+		OldInputs:     oldLivePruned,
+		OldOutputs:    oldLive,
 		Inputs:        newInputs,
 		Timeout:       req.Timeout,
 		Preview:       req.GetPreview(),
@@ -2352,12 +2353,12 @@ func (k *kubeProvider) Update(
 		}
 
 		var getErr error
-		initialized, getErr = k.readLiveObject(newInputs)
+		initialized, getErr = k.readLiveObject(oldLive)
 		if getErr != nil {
 			// Object update/creation failed.
 			return nil, pkgerrors.Wrapf(
 				awaitErr, "update of resource %s failed because the Kubernetes API server "+
-					"reported that it failed to fully initialize or become live", fqObjName(newInputs))
+					"reported that it failed to fully initialize or become live", fqObjName(oldLive))
 		}
 		// If we get here, resource successfully registered with the API server, but failed to
 		// initialize.
@@ -2382,7 +2383,7 @@ func (k *kubeProvider) Update(
 			fqObjName(initialized),
 			pkgerrors.Wrapf(
 				awaitErr, "the Kubernetes API server reported that %q failed to fully initialize "+
-					"or become live", fqObjName(newInputs)),
+					"or become live", fqObjName(initialized)),
 			inputsAndComputed,
 			nil)
 	}
@@ -2390,12 +2391,12 @@ func (k *kubeProvider) Update(
 	if k.serverSideApplyMode {
 		// For non-preview updates, drop the old fieldManager if the value changes.
 		if !req.GetPreview() && fieldManagerOld != fieldManager {
-			client, err := k.clientSet.ResourceClientForObject(newInputs)
+			client, err := k.clientSet.ResourceClientForObject(initialized)
 			if err != nil {
 				return nil, err
 			}
 
-			err = ssa.Relinquish(k.canceler.context, client, newInputs, fieldManagerOld)
+			err = ssa.Relinquish(k.canceler.context, client, initialized, fieldManagerOld)
 			if err != nil {
 				return nil, err
 			}
@@ -2482,7 +2483,7 @@ func (k *kubeProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest)
 			Resources:         resources,
 			ServerSideApply:   k.serverSideApplyMode,
 		},
-		Inputs:  current,
+		Outputs: current,
 		Name:    name,
 		Timeout: req.Timeout,
 	}

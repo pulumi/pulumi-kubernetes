@@ -102,7 +102,7 @@ func (jia *jobInitAwaiter) Await() error {
 	defer close(stopper)
 
 	informerFactory := informers.NewInformerFactory(jia.config.clientSet,
-		informers.WithNamespaceOrDefault(jia.config.currentInputs.GetNamespace()))
+		informers.WithNamespaceOrDefault(jia.config.currentOutputs.GetNamespace()))
 	informerFactory.Start(stopper)
 
 	jobEvents := make(chan watch.Event)
@@ -123,7 +123,7 @@ func (jia *jobInitAwaiter) Await() error {
 	podAggregator.Start(podEvents)
 	defer podAggregator.Stop()
 
-	timeout := metadata.TimeoutDuration(jia.config.timeout, jia.config.currentInputs, DefaultJobTimeoutMins*60)
+	timeout := metadata.TimeoutDuration(jia.config.timeout, jia.config.currentOutputs, DefaultJobTimeoutMins*60)
 	for {
 		if jia.ready {
 			return nil
@@ -156,18 +156,18 @@ func (jia *jobInitAwaiter) Read() error {
 	stopper := make(chan struct{})
 	defer close(stopper)
 
-	namespace := jia.config.currentInputs.GetNamespace()
+	namespace := jia.config.currentOutputs.GetNamespace()
 	informerFactory := dynamicinformer.NewFilteredDynamicSharedInformerFactory(jia.config.clientSet.GenericClient, 60*time.Second, namespace, nil)
 	informerFactory.Start(stopper)
 
-	jobClient, err := clients.ResourceClient(kinds.Job, jia.config.currentInputs.GetNamespace(), jia.config.clientSet)
+	jobClient, err := clients.ResourceClient(kinds.Job, jia.config.currentOutputs.GetNamespace(), jia.config.clientSet)
 	if err != nil {
 		return errors.Wrapf(err,
 			"Could not make client to get Job %q",
-			jia.config.currentInputs.GetName())
+			jia.config.currentOutputs.GetName())
 	}
 	// Get live version of Job.
-	job, err := jobClient.Get(jia.config.ctx, jia.config.currentInputs.GetName(), metav1.GetOptions{})
+	job, err := jobClient.Get(jia.config.ctx, jia.config.currentOutputs.GetName(), metav1.GetOptions{})
 	if err != nil {
 		// IMPORTANT: Do not wrap this error! If this is a 404, the provider need to know so that it
 		// can mark the Pod as having been deleted.
@@ -212,7 +212,7 @@ func (jia *jobInitAwaiter) processJobEvent(event watch.Event) error {
 	}
 
 	// Do nothing if this is not the job we're waiting for.
-	if job.GetName() != jia.config.currentInputs.GetName() {
+	if job.GetName() != jia.config.currentOutputs.GetName() {
 		return nil
 	}
 
