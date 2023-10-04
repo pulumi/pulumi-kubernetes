@@ -113,6 +113,7 @@ func PulumiSchema(swagger map[string]any) pschema.PackageSpec {
 			ObjectTypeSpec: pschema.ObjectTypeSpec{
 				Description: "The provider type for the kubernetes package.",
 				Type:        "object",
+				Properties:  map[string]pschema.PropertySpec{},
 			},
 			InputProperties: map[string]pschema.PropertySpec{
 				"kubeconfig": {
@@ -216,6 +217,13 @@ func PulumiSchema(swagger map[string]any) pschema.PackageSpec {
 		Language:  map[string]pschema.RawMessage{},
 	}
 
+	for name, inputProp := range pkg.Provider.InputProperties {
+		// p := pschema.PropertySpec{
+		// 	TypeSpec:    inputProp.TypeSpec,
+		// 	Description: inputProp.Description,
+		// }
+		pkg.Provider.Properties[name] = inputProp
+	}
 	goImportPath := "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes"
 
 	csharpNamespaces := map[string]string{
