@@ -776,20 +776,20 @@ func TestProvider(t *testing.T) {
 		Quick: true,
 		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 			assert.NotNil(t, stackInfo.Deployment)
-			assert.Equal(t, 10, len(stackInfo.Deployment.Resources))
+			assert.Equal(t, 11, len(stackInfo.Deployment.Resources))
 
 			tests.SortResourcesByURN(stackInfo)
 
-			stackRes := stackInfo.Deployment.Resources[9]
+			stackRes := stackInfo.Deployment.Resources[10]
 			assert.Equal(t, resource.RootStackType, stackRes.URN.Type())
 
-			k8sPathProvider := stackInfo.Deployment.Resources[8]
+			k8sPathProvider := stackInfo.Deployment.Resources[9]
 			assert.True(t, providers.IsProviderType(k8sPathProvider.URN.Type()))
 
-			k8sContentsProvider := stackInfo.Deployment.Resources[7]
+			k8sContentsProvider := stackInfo.Deployment.Resources[8]
 			assert.True(t, providers.IsProviderType(k8sContentsProvider.URN.Type()))
 
-			defaultProvider := stackInfo.Deployment.Resources[6]
+			defaultProvider := stackInfo.Deployment.Resources[7]
 			assert.True(t, providers.IsProviderType(defaultProvider.URN.Type()))
 
 			// Assert the provider default Namespace (ns1) was created
@@ -809,23 +809,91 @@ func TestProvider(t *testing.T) {
 			assert.NotEqual(t, nsName.(string), providerNsName.(string))
 
 			// Assert the first Pod was created in the provider default namespace.
-			pod1 := stackInfo.Deployment.Resources[4]
+			pod1 := stackInfo.Deployment.Resources[5]
 			assert.Equal(t, "nginx1", string(pod1.URN.Name()))
 			podNamespace1, _ := openapi.Pluck(pod1.Outputs, "metadata", "namespace")
 			assert.Equal(t, providerNsName.(string), podNamespace1.(string))
 
 			// Assert the second Pod was created in the provider default namespace.
-			pod2 := stackInfo.Deployment.Resources[5]
+			pod2 := stackInfo.Deployment.Resources[6]
 			assert.Equal(t, "nginx2", string(pod2.URN.Name()))
 			podNamespace2, _ := openapi.Pluck(pod2.Outputs, "metadata", "namespace")
 			assert.Equal(t, providerNsName.(string), podNamespace2.(string))
 
 			// Assert the Pod was created in the specified namespace rather than the provider default namespace.
-			namespacedPod := stackInfo.Deployment.Resources[3]
-			assert.Equal(t, "namespaced-nginx", string(namespacedPod.URN.Name()))
-			namespacedPodNamespace, _ := openapi.Pluck(namespacedPod.Outputs, "metadata", "namespace")
-			assert.NotEqual(t, providerNsName.(string), namespacedPodNamespace.(string))
-			assert.Equal(t, ns2Name.(string), namespacedPodNamespace.(string))
+			namespacedPod1 := stackInfo.Deployment.Resources[3]
+			assert.Equal(t, "namespaced-nginx1", string(namespacedPod1.URN.Name()))
+			namespacedPod1Namespace, _ := openapi.Pluck(namespacedPod1.Outputs, "metadata", "namespace")
+			assert.NotEqual(t, providerNsName.(string), namespacedPod1Namespace.(string))
+			assert.Equal(t, ns2Name.(string), namespacedPod1Namespace.(string))
+
+			// Assert the Pod was created in the provider output namespace.
+			namespacedPod2 := stackInfo.Deployment.Resources[4]
+			assert.Equal(t, "namespaced-nginx2", string(namespacedPod2.URN.Name()))
+			namespacedPod2Namespace, _ := openapi.Pluck(namespacedPod2.Outputs, "metadata", "namespace")
+			assert.Equal(t, providerNsName.(string), namespacedPod2Namespace.(string))
+		},
+	})
+	integration.ProgramTest(t, &test)
+}
+
+func TestProviderOutputs(t *testing.T) {
+	test := baseOptions.With(integration.ProgramTestOptions{
+		Dir:   filepath.Join("provider-outputs", "step1"),
+		Quick: true,
+		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+			ns1Name := stackInfo.Outputs["ns1Name"]
+			assert.NotEmpty(t, ns1Name)
+
+			// k8s1: current context
+			assert.Equal(t, "default1a", stackInfo.Outputs["k8s1Namespace"])
+			assert.Equal(t, "context1a", stackInfo.Outputs["k8s1Context"])
+			assert.NotEmpty(t, stackInfo.Outputs["k8s1Config"])
+			assert.Equal(t, "cluster1", stackInfo.Outputs["k8s1Cluster"])
+
+			// k8s2: current context w/ overridden namespace
+			assert.Equal(t, ns1Name, stackInfo.Outputs["k8s2Namespace"])
+			assert.Equal(t, "context1a", stackInfo.Outputs["k8s2Context"])
+			assert.NotEmpty(t, stackInfo.Outputs["k8s2Config"])
+			assert.Equal(t, "cluster1", stackInfo.Outputs["k8s2Cluster"])
+
+			// k8s3: overridden context
+			assert.Equal(t, "default2", stackInfo.Outputs["k8s3Namespace"])
+			assert.Equal(t, "context2", stackInfo.Outputs["k8s3Context"])
+			assert.NotEmpty(t, stackInfo.Outputs["k8s3Config"])
+			assert.Equal(t, "cluster2", stackInfo.Outputs["k8s3Cluster"])
+
+			// k8s4: overridden cluster
+			assert.Equal(t, "default1a", stackInfo.Outputs["k8s4Namespace"])
+			assert.Equal(t, "context1a", stackInfo.Outputs["k8s4Context"])
+			assert.NotEmpty(t, stackInfo.Outputs["k8s4Config"])
+			assert.Equal(t, "cluster2", stackInfo.Outputs["k8s4Cluster"])
+		},
+		EditDirs: []integration.EditDir{
+			{
+				Dir:      filepath.Join("provider-outputs", "step2"),
+				Additive: true,
+				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+					// Verify that a change in the current kube context (context1a->context1b) produces various diffs.
+					tests.AssertEvents(t, stackInfo,
+						tests.ResOutputsEvent{Op: apitype.OpUpdate, Type: "pulumi:providers:kubernetes", Name: "k8s1", Diffs: []string{"context", "kubeconfig", "namespace"}},
+						tests.ResOutputsEvent{Op: apitype.OpUpdate, Type: "pulumi:providers:kubernetes", Name: "k8s2", Diffs: []string{"context", "kubeconfig"}},
+						tests.ResOutputsEvent{Op: apitype.OpUpdate, Type: "pulumi:providers:kubernetes", Name: "k8s3", Diffs: []string{"kubeconfig"}},
+						tests.ResOutputsEvent{Op: apitype.OpUpdate, Type: "pulumi:providers:kubernetes", Name: "k8s4", Diffs: []string{"context", "kubeconfig", "namespace"}})
+				},
+			},
+			{
+				Dir:      filepath.Join("provider-outputs", "step3"),
+				Additive: true,
+				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+					// Verify that a change in the current kube context (context1b->context2) produces various diffs.
+					tests.AssertEvents(t, stackInfo,
+						tests.ResOutputsEvent{Op: apitype.OpReplace, Type: "pulumi:providers:kubernetes", Name: "k8s1", Keys: []string{"cluster", "context", "kubeconfig", "namespace"}, Diffs: []string{"cluster", "context", "kubeconfig", "namespace"}},
+						tests.ResOutputsEvent{Op: apitype.OpReplace, Type: "pulumi:providers:kubernetes", Name: "k8s2", Keys: []string{"cluster", "context", "kubeconfig"}, Diffs: []string{"cluster", "context", "kubeconfig"}},
+						tests.ResOutputsEvent{Op: apitype.OpUpdate, Type: "pulumi:providers:kubernetes", Name: "k8s3", Diffs: []string{"kubeconfig"}},
+						tests.ResOutputsEvent{Op: apitype.OpUpdate, Type: "pulumi:providers:kubernetes", Name: "k8s4", Diffs: []string{"context", "kubeconfig", "namespace"}})
+				},
+			},
 		},
 	})
 	integration.ProgramTest(t, &test)
