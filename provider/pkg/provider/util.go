@@ -5,6 +5,9 @@ package provider
 import (
 	"encoding/json"
 	"fmt"
+	"os"
+	"os/user"
+	"path/filepath"
 	"reflect"
 	"strings"
 
@@ -78,6 +81,62 @@ func fqName(namespace, name string) string {
 // --------------------------------------------------------------------------
 // Kubeconfig helpers.
 // --------------------------------------------------------------------------
+
+func loadKubeconfig(pathOrContents string, overrides *clientcmd.ConfigOverrides) (clientcmd.ClientConfig, *clientapi.Config, error) {
+	homeDir := func() string {
+		// Ignore errors. The filepath will be checked later, so we can handle failures there.
+		usr, _ := user.Current()
+		return usr.HomeDir
+	}
+
+	// Note: the Python SDK was setting the kubeconfig value to "" by default, so explicitly check for empty string.
+	if pathOrContents != "" {
+		var contents string
+
+		// Handle the '~' character if it is set in the config string. Normally, this would be expanded by the shell
+		// into the user's home directory, but we have to do that manually if it is set in a config value.
+		if pathOrContents == "~" {
+			// In case of "~", which won't be caught by the "else if"
+			pathOrContents = homeDir()
+		} else if strings.HasPrefix(pathOrContents, "~/") {
+			pathOrContents = filepath.Join(homeDir(), pathOrContents[2:])
+		}
+
+		// If the variable is a valid filepath, load the file and parse the contents as a k8s config.
+		_, err := os.Stat(pathOrContents)
+		if err == nil {
+			b, err := os.ReadFile(pathOrContents)
+			if err != nil {
+				return nil, nil, err
+			} else {
+				contents = string(b)
+			}
+		} else { // Assume the contents are a k8s config.
+			contents = pathOrContents
+		}
+
+		// Load the contents of the k8s config.
+		apiConfig, err := clientcmd.Load([]byte(contents))
+		if err != nil {
+			return nil, nil, err
+		}
+		kubeconfig := clientcmd.NewDefaultClientConfig(*apiConfig, overrides)
+		return kubeconfig, apiConfig, nil
+	} else {
+		// Use client-go to resolve the final configuration values for the client. Typically, these
+		// values would reside in the $KUBECONFIG file, but can also be altered in several
+		// places, including in env variables, client-go default values, and (if we allowed it) CLI
+		// flags.
+		loadingRules := clientcmd.NewDefaultClientConfigLoadingRules()
+		loadingRules.DefaultClientConfig = &clientcmd.DefaultClientConfig
+		kubeconfig := clientcmd.NewNonInteractiveDeferredLoadingClientConfig(loadingRules, overrides)
+		apiConfig, err := kubeconfig.RawConfig()
+		if err != nil {
+			return nil, nil, err
+		}
+		return kubeconfig, &apiConfig, nil
+	}
+}
 
 // parseKubeconfigPropertyValue takes a PropertyValue that possibly contains a raw kubeconfig
 // (YAML or JSON) string or map and attempts to unmarshal it into a Config struct. If the property value

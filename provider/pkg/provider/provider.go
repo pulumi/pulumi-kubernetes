@@ -22,7 +22,6 @@ import (
 	"net/http"
 	"net/url"
 	"os"
-	"os/user"
 	"path/filepath"
 	"reflect"
 	"regexp"
@@ -52,6 +51,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource/plugin"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/cmdutil"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/rpcutil/rpcerror"
@@ -333,7 +333,96 @@ func (k *kubeProvider) CheckConfig(ctx context.Context, req *pulumirpc.CheckRequ
 		}
 	}
 
-	return &pulumirpc.CheckResponse{Inputs: req.GetNews()}, nil
+	// Normalize the inputs (e.g. apply defaults).
+	// Note that the inputs are reflected as provider outputs as per:
+	// https://github.com/pulumi/pulumi-kubernetes/issues/2486
+	normalizeInputs := func() []*pulumirpc.CheckFailure {
+		var failures []*pulumirpc.CheckFailure
+
+		overrides := &clientcmd.ConfigOverrides{}
+		if v, ok := news["cluster"]; ok && v.HasValue() && v.IsString() {
+			overrides.Context.Cluster = v.StringValue()
+		}
+		if v, ok := news["namespace"]; ok && v.HasValue() && v.IsString() {
+			overrides.Context.Namespace = v.StringValue()
+		}
+		if v, ok := news["context"]; ok && v.HasValue() && v.IsString() {
+			overrides.CurrentContext = v.StringValue()
+		}
+		pathOrContents := ""
+		if v, ok := news["kubeconfig"]; ok && v.HasValue() && v.IsString() {
+			pathOrContents = v.StringValue()
+		}
+		kubeconfig, apiConfig, err := loadKubeconfig(pathOrContents, overrides)
+		if err != nil {
+			failures = append(failures, &pulumirpc.CheckFailure{
+				Property: "kubeconfig",
+				Reason:   err.Error(),
+			})
+			return failures
+		}
+
+		configurationNamespace, _, err := kubeconfig.Namespace()
+		if err != nil {
+			failures = append(failures, &pulumirpc.CheckFailure{
+				Property: "kubeconfig",
+				Reason:   err.Error(),
+			})
+			return failures
+		}
+		news["namespace"] = resource.NewStringProperty(configurationNamespace)
+
+		var configurationContext string
+		if overrides.CurrentContext != "" {
+			configurationContext = overrides.CurrentContext
+		} else {
+			configurationContext = apiConfig.CurrentContext
+		}
+		news["context"] = resource.NewStringProperty(configurationContext)
+
+		var configurationCluster string
+		if overrides.Context.Cluster != "" {
+			configurationCluster = overrides.Context.Cluster
+		} else {
+			configContext := apiConfig.Contexts[configurationContext]
+			configurationCluster = configContext.Cluster
+		}
+		news["cluster"] = resource.NewStringProperty(configurationCluster)
+
+		if v, ok := os.LookupEnv("PULUMI_K8S_NORMALIZE_KUBECONFIG"); ok && cmdutil.IsTruthy(v) {
+			configurationKubeconfig, err := clientcmd.Write(*apiConfig)
+			if err != nil {
+				failures = append(failures, &pulumirpc.CheckFailure{
+					Property: "kubeconfig",
+					Reason:   err.Error(),
+				})
+				return failures
+			}
+			news["kubeconfig"] = resource.NewStringProperty(string(configurationKubeconfig))
+		}
+
+		return failures
+	}
+	failures := normalizeInputs()
+	if len(failures) > 0 {
+		if !providers.IsDefaultProvider(urn) {
+			return &pulumirpc.CheckResponse{Inputs: req.GetNews(), Failures: failures}, nil
+		}
+
+		// Rather than erroring out on an invalid k8s config, leave the original values in-place.
+		logger.V(9).Infof("%s: unable to normalize inputs: %v", label, failures)
+	}
+
+	checked, err := plugin.MarshalProperties(
+		news,
+		plugin.MarshalOptions{
+			Label: fmt.Sprintf("%s.checked", label), KeepUnknowns: true, SkipNulls: true,
+		})
+	if err != nil {
+		return nil, err
+	}
+
+	return &pulumirpc.CheckResponse{Inputs: checked}, nil
 }
 
 // DiffConfig diffs the configuration for this provider.
@@ -638,64 +727,17 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	// Rather than erroring out on an invalid k8s config, mark the cluster as unreachable and conditionally bail out on
 	// operations that require a valid cluster. This will allow us to perform invoke operations using the default
 	// provider.
-	unreachableCluster := func(err error) {
+	kubeconfig, apiConfig, err := loadKubeconfig(vars["kubernetes:config:kubeconfig"], overrides)
+	if err != nil {
 		k.clusterUnreachable = true
-		k.clusterUnreachableReason = fmt.Sprintf(
-			"failed to parse kubeconfig data in `kubernetes:config:kubeconfig`- %v", err)
-	}
-
-	var kubeconfig clientcmd.ClientConfig
-	var apiConfig *clientapi.Config
-	homeDir := func() string {
-		// Ignore errors. The filepath will be checked later, so we can handle failures there.
-		usr, _ := user.Current()
-		return usr.HomeDir
-	}
-	// Note: the Python SDK was setting the kubeconfig value to "" by default, so explicitly check for empty string.
-	if pathOrContents, ok := vars["kubernetes:config:kubeconfig"]; ok && pathOrContents != "" {
-		var contents string
-
-		// Handle the '~' character if it is set in the config string. Normally, this would be expanded by the shell
-		// into the user's home directory, but we have to do that manually if it is set in a config value.
-		if pathOrContents == "~" {
-			// In case of "~", which won't be caught by the "else if"
-			pathOrContents = homeDir()
-		} else if strings.HasPrefix(pathOrContents, "~/") {
-			pathOrContents = filepath.Join(homeDir(), pathOrContents[2:])
-		}
-
-		// If the variable is a valid filepath, load the file and parse the contents as a k8s config.
-		_, err := os.Stat(pathOrContents)
-		if err == nil {
-			b, err := os.ReadFile(pathOrContents)
-			if err != nil {
-				unreachableCluster(err)
-			} else {
-				contents = string(b)
-			}
-		} else { // Assume the contents are a k8s config.
-			contents = pathOrContents
-		}
-
-		// Load the contents of the k8s config.
-		apiConfig, err = clientcmd.Load([]byte(contents))
-		if err != nil {
-			unreachableCluster(err)
+		if vars["kubernetes:config:kubeconfig"] != "" {
+			k.clusterUnreachableReason = fmt.Sprintf(
+				"failed to parse kubeconfig data in `kubernetes:config:kubeconfig`: %v", err)
 		} else {
-			kubeconfig = clientcmd.NewDefaultClientConfig(*apiConfig, overrides)
-			configurationNamespace, _, err := kubeconfig.Namespace()
-			if err == nil {
-				k.defaultNamespace = configurationNamespace
-			}
+			k.clusterUnreachableReason = fmt.Sprintf(
+				"failed to parse kubeconfig data in local environment: %v", err)
 		}
 	} else {
-		// Use client-go to resolve the final configuration values for the client. Typically, these
-		// values would reside in the $KUBECONFIG file, but can also be altered in several
-		// places, including in env variables, client-go default values, and (if we allowed it) CLI
-		// flags.
-		loadingRules := clientcmd.NewDefaultClientConfigLoadingRules()
-		loadingRules.DefaultClientConfig = &clientcmd.DefaultClientConfig
-		kubeconfig = clientcmd.NewInteractiveDeferredLoadingClientConfig(loadingRules, overrides, os.Stdin)
 		configurationNamespace, _, err := kubeconfig.Namespace()
 		if err == nil {
 			k.defaultNamespace = configurationNamespace
@@ -793,8 +835,6 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 				"unable to load schema information from the API server: %v", err)
 		}
 	}
-
-	var err error
 
 	k.helmReleaseProvider, err = newHelmReleaseProvider(
 		k.host,
