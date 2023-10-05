@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from ... import core as _core
 from ... import meta as _meta
@@ -36,14 +36,29 @@ class ClusterCIDRSpecPatchArgs:
         :param pulumi.Input['_core.v1.NodeSelectorPatchArgs'] node_selector: nodeSelector defines which nodes the config is applicable to. An empty or nil nodeSelector selects all nodes. This field is immutable.
         :param pulumi.Input[int] per_node_host_bits: perNodeHostBits defines the number of host bits to be configured per node. A subnet mask determines how much of the address is used for network bits and host bits. For example an IPv4 address of 192.168.0.0/24, splits the address into 24 bits for the network portion and 8 bits for the host portion. To allocate 256 IPs, set this field to 8 (a /24 mask for IPv4 or a /120 for IPv6). Minimum value is 4 (16 IPs). This field is immutable.
         """
+        ClusterCIDRSpecPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            ipv4=ipv4,
+            ipv6=ipv6,
+            node_selector=node_selector,
+            per_node_host_bits=per_node_host_bits,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             ipv4: Optional[pulumi.Input[str]] = None,
+             ipv6: Optional[pulumi.Input[str]] = None,
+             node_selector: Optional[pulumi.Input['_core.v1.NodeSelectorPatchArgs']] = None,
+             per_node_host_bits: Optional[pulumi.Input[int]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if ipv4 is not None:
-            pulumi.set(__self__, "ipv4", ipv4)
+            _setter("ipv4", ipv4)
         if ipv6 is not None:
-            pulumi.set(__self__, "ipv6", ipv6)
+            _setter("ipv6", ipv6)
         if node_selector is not None:
-            pulumi.set(__self__, "node_selector", node_selector)
+            _setter("node_selector", node_selector)
         if per_node_host_bits is not None:
-            pulumi.set(__self__, "per_node_host_bits", per_node_host_bits)
+            _setter("per_node_host_bits", per_node_host_bits)
 
     @property
     @pulumi.getter
@@ -108,13 +123,28 @@ class ClusterCIDRSpecArgs:
         :param pulumi.Input[str] ipv6: ipv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of ipv4 and ipv6 must be specified. This field is immutable.
         :param pulumi.Input['_core.v1.NodeSelectorArgs'] node_selector: nodeSelector defines which nodes the config is applicable to. An empty or nil nodeSelector selects all nodes. This field is immutable.
         """
-        pulumi.set(__self__, "per_node_host_bits", per_node_host_bits)
+        ClusterCIDRSpecArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            per_node_host_bits=per_node_host_bits,
+            ipv4=ipv4,
+            ipv6=ipv6,
+            node_selector=node_selector,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             per_node_host_bits: pulumi.Input[int],
+             ipv4: Optional[pulumi.Input[str]] = None,
+             ipv6: Optional[pulumi.Input[str]] = None,
+             node_selector: Optional[pulumi.Input['_core.v1.NodeSelectorArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("per_node_host_bits", per_node_host_bits)
         if ipv4 is not None:
-            pulumi.set(__self__, "ipv4", ipv4)
+            _setter("ipv4", ipv4)
         if ipv6 is not None:
-            pulumi.set(__self__, "ipv6", ipv6)
+            _setter("ipv6", ipv6)
         if node_selector is not None:
-            pulumi.set(__self__, "node_selector", node_selector)
+            _setter("node_selector", node_selector)
 
     @property
     @pulumi.getter(name="perNodeHostBits")
@@ -179,14 +209,29 @@ class ClusterCIDRArgs:
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input['ClusterCIDRSpecArgs'] spec: spec is the desired state of the ClusterCIDR. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
+        ClusterCIDRArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            api_version=api_version,
+            kind=kind,
+            metadata=metadata,
+            spec=spec,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             api_version: Optional[pulumi.Input[str]] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+             spec: Optional[pulumi.Input['ClusterCIDRSpecArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'networking.k8s.io/v1alpha1')
+            _setter("api_version", 'networking.k8s.io/v1alpha1')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'ClusterCIDR')
+            _setter("kind", 'ClusterCIDR')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
         if spec is not None:
-            pulumi.set(__self__, "spec", spec)
+            _setter("spec", spec)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -245,8 +290,17 @@ class IPAddressSpecPatchArgs:
         IPAddressSpec describe the attributes in an IP Address.
         :param pulumi.Input['ParentReferencePatchArgs'] parent_ref: ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
         """
+        IPAddressSpecPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            parent_ref=parent_ref,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             parent_ref: Optional[pulumi.Input['ParentReferencePatchArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if parent_ref is not None:
-            pulumi.set(__self__, "parent_ref", parent_ref)
+            _setter("parent_ref", parent_ref)
 
     @property
     @pulumi.getter(name="parentRef")
@@ -269,8 +323,17 @@ class IPAddressSpecArgs:
         IPAddressSpec describe the attributes in an IP Address.
         :param pulumi.Input['ParentReferenceArgs'] parent_ref: ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
         """
+        IPAddressSpecArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            parent_ref=parent_ref,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             parent_ref: Optional[pulumi.Input['ParentReferenceArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if parent_ref is not None:
-            pulumi.set(__self__, "parent_ref", parent_ref)
+            _setter("parent_ref", parent_ref)
 
     @property
     @pulumi.getter(name="parentRef")
@@ -299,14 +362,29 @@ class IPAddressArgs:
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input['IPAddressSpecArgs'] spec: spec is the desired state of the IPAddress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
+        IPAddressArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            api_version=api_version,
+            kind=kind,
+            metadata=metadata,
+            spec=spec,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             api_version: Optional[pulumi.Input[str]] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+             spec: Optional[pulumi.Input['IPAddressSpecArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'networking.k8s.io/v1alpha1')
+            _setter("api_version", 'networking.k8s.io/v1alpha1')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'IPAddress')
+            _setter("kind", 'IPAddress')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
         if spec is not None:
-            pulumi.set(__self__, "spec", spec)
+            _setter("spec", spec)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -373,16 +451,33 @@ class ParentReferencePatchArgs:
         :param pulumi.Input[str] resource: Resource is the resource of the object being referenced.
         :param pulumi.Input[str] uid: UID is the uid of the object being referenced.
         """
+        ParentReferencePatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            group=group,
+            name=name,
+            namespace=namespace,
+            resource=resource,
+            uid=uid,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             group: Optional[pulumi.Input[str]] = None,
+             name: Optional[pulumi.Input[str]] = None,
+             namespace: Optional[pulumi.Input[str]] = None,
+             resource: Optional[pulumi.Input[str]] = None,
+             uid: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if group is not None:
-            pulumi.set(__self__, "group", group)
+            _setter("group", group)
         if name is not None:
-            pulumi.set(__self__, "name", name)
+            _setter("name", name)
         if namespace is not None:
-            pulumi.set(__self__, "namespace", namespace)
+            _setter("namespace", namespace)
         if resource is not None:
-            pulumi.set(__self__, "resource", resource)
+            _setter("resource", resource)
         if uid is not None:
-            pulumi.set(__self__, "uid", uid)
+            _setter("uid", uid)
 
     @property
     @pulumi.getter
@@ -461,16 +556,33 @@ class ParentReferenceArgs:
         :param pulumi.Input[str] resource: Resource is the resource of the object being referenced.
         :param pulumi.Input[str] uid: UID is the uid of the object being referenced.
         """
+        ParentReferenceArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            group=group,
+            name=name,
+            namespace=namespace,
+            resource=resource,
+            uid=uid,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             group: Optional[pulumi.Input[str]] = None,
+             name: Optional[pulumi.Input[str]] = None,
+             namespace: Optional[pulumi.Input[str]] = None,
+             resource: Optional[pulumi.Input[str]] = None,
+             uid: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if group is not None:
-            pulumi.set(__self__, "group", group)
+            _setter("group", group)
         if name is not None:
-            pulumi.set(__self__, "name", name)
+            _setter("name", name)
         if namespace is not None:
-            pulumi.set(__self__, "namespace", namespace)
+            _setter("namespace", namespace)
         if resource is not None:
-            pulumi.set(__self__, "resource", resource)
+            _setter("resource", resource)
         if uid is not None:
-            pulumi.set(__self__, "uid", uid)
+            _setter("uid", uid)
 
     @property
     @pulumi.getter

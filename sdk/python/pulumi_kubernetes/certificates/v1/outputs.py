@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from . import outputs
 from ... import meta as _meta
@@ -68,15 +68,32 @@ class CertificateSigningRequest(dict):
         :param str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param 'CertificateSigningRequestStatusArgs' status: status contains information about whether the request is approved or denied, and the certificate issued by the signer, or the failure condition indicating signer failure.
         """
-        pulumi.set(__self__, "spec", spec)
+        CertificateSigningRequest._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            spec=spec,
+            api_version=api_version,
+            kind=kind,
+            metadata=metadata,
+            status=status,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             spec: 'outputs.CertificateSigningRequestSpec',
+             api_version: Optional[str] = None,
+             kind: Optional[str] = None,
+             metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
+             status: Optional['outputs.CertificateSigningRequestStatus'] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("spec", spec)
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'certificates.k8s.io/v1')
+            _setter("api_version", 'certificates.k8s.io/v1')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'CertificateSigningRequest')
+            _setter("kind", 'CertificateSigningRequest')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
         if status is not None:
-            pulumi.set(__self__, "status", status)
+            _setter("status", status)
 
     @property
     @pulumi.getter
@@ -166,16 +183,35 @@ class CertificateSigningRequestCondition(dict):
         :param str message: message contains a human readable message with details about the request state
         :param str reason: reason indicates a brief reason for the request state
         """
-        pulumi.set(__self__, "status", status)
-        pulumi.set(__self__, "type", type)
+        CertificateSigningRequestCondition._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            status=status,
+            type=type,
+            last_transition_time=last_transition_time,
+            last_update_time=last_update_time,
+            message=message,
+            reason=reason,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             status: str,
+             type: str,
+             last_transition_time: Optional[str] = None,
+             last_update_time: Optional[str] = None,
+             message: Optional[str] = None,
+             reason: Optional[str] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("status", status)
+        _setter("type", type)
         if last_transition_time is not None:
-            pulumi.set(__self__, "last_transition_time", last_transition_time)
+            _setter("last_transition_time", last_transition_time)
         if last_update_time is not None:
-            pulumi.set(__self__, "last_update_time", last_update_time)
+            _setter("last_update_time", last_update_time)
         if message is not None:
-            pulumi.set(__self__, "message", message)
+            _setter("message", message)
         if reason is not None:
-            pulumi.set(__self__, "reason", reason)
+            _setter("reason", reason)
 
     @property
     @pulumi.getter
@@ -286,18 +322,37 @@ class CertificateSigningRequestConditionPatch(dict):
                
                Only one condition of a given type is allowed.
         """
+        CertificateSigningRequestConditionPatch._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            last_transition_time=last_transition_time,
+            last_update_time=last_update_time,
+            message=message,
+            reason=reason,
+            status=status,
+            type=type,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             last_transition_time: Optional[str] = None,
+             last_update_time: Optional[str] = None,
+             message: Optional[str] = None,
+             reason: Optional[str] = None,
+             status: Optional[str] = None,
+             type: Optional[str] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if last_transition_time is not None:
-            pulumi.set(__self__, "last_transition_time", last_transition_time)
+            _setter("last_transition_time", last_transition_time)
         if last_update_time is not None:
-            pulumi.set(__self__, "last_update_time", last_update_time)
+            _setter("last_update_time", last_update_time)
         if message is not None:
-            pulumi.set(__self__, "message", message)
+            _setter("message", message)
         if reason is not None:
-            pulumi.set(__self__, "reason", reason)
+            _setter("reason", reason)
         if status is not None:
-            pulumi.set(__self__, "status", status)
+            _setter("status", status)
         if type is not None:
-            pulumi.set(__self__, "type", type)
+            _setter("type", type)
 
     @property
     @pulumi.getter(name="lastTransitionTime")
@@ -446,20 +501,43 @@ class CertificateSigningRequestSpec(dict):
                 "timestamping", "ocsp signing", "microsoft sgc", "netscape sgc"
         :param str username: username contains the name of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
         """
-        pulumi.set(__self__, "request", request)
-        pulumi.set(__self__, "signer_name", signer_name)
+        CertificateSigningRequestSpec._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            request=request,
+            signer_name=signer_name,
+            expiration_seconds=expiration_seconds,
+            extra=extra,
+            groups=groups,
+            uid=uid,
+            usages=usages,
+            username=username,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             request: str,
+             signer_name: str,
+             expiration_seconds: Optional[int] = None,
+             extra: Optional[Mapping[str, Sequence[str]]] = None,
+             groups: Optional[Sequence[str]] = None,
+             uid: Optional[str] = None,
+             usages: Optional[Sequence[str]] = None,
+             username: Optional[str] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("request", request)
+        _setter("signer_name", signer_name)
         if expiration_seconds is not None:
-            pulumi.set(__self__, "expiration_seconds", expiration_seconds)
+            _setter("expiration_seconds", expiration_seconds)
         if extra is not None:
-            pulumi.set(__self__, "extra", extra)
+            _setter("extra", extra)
         if groups is not None:
-            pulumi.set(__self__, "groups", groups)
+            _setter("groups", groups)
         if uid is not None:
-            pulumi.set(__self__, "uid", uid)
+            _setter("uid", uid)
         if usages is not None:
-            pulumi.set(__self__, "usages", usages)
+            _setter("usages", usages)
         if username is not None:
-            pulumi.set(__self__, "username", username)
+            _setter("username", username)
 
     @property
     @pulumi.getter
@@ -658,22 +736,45 @@ class CertificateSigningRequestSpecPatch(dict):
                 "timestamping", "ocsp signing", "microsoft sgc", "netscape sgc"
         :param str username: username contains the name of the user that created the CertificateSigningRequest. Populated by the API server on creation and immutable.
         """
+        CertificateSigningRequestSpecPatch._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            expiration_seconds=expiration_seconds,
+            extra=extra,
+            groups=groups,
+            request=request,
+            signer_name=signer_name,
+            uid=uid,
+            usages=usages,
+            username=username,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             expiration_seconds: Optional[int] = None,
+             extra: Optional[Mapping[str, Sequence[str]]] = None,
+             groups: Optional[Sequence[str]] = None,
+             request: Optional[str] = None,
+             signer_name: Optional[str] = None,
+             uid: Optional[str] = None,
+             usages: Optional[Sequence[str]] = None,
+             username: Optional[str] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if expiration_seconds is not None:
-            pulumi.set(__self__, "expiration_seconds", expiration_seconds)
+            _setter("expiration_seconds", expiration_seconds)
         if extra is not None:
-            pulumi.set(__self__, "extra", extra)
+            _setter("extra", extra)
         if groups is not None:
-            pulumi.set(__self__, "groups", groups)
+            _setter("groups", groups)
         if request is not None:
-            pulumi.set(__self__, "request", request)
+            _setter("request", request)
         if signer_name is not None:
-            pulumi.set(__self__, "signer_name", signer_name)
+            _setter("signer_name", signer_name)
         if uid is not None:
-            pulumi.set(__self__, "uid", uid)
+            _setter("uid", uid)
         if usages is not None:
-            pulumi.set(__self__, "usages", usages)
+            _setter("usages", usages)
         if username is not None:
-            pulumi.set(__self__, "username", username)
+            _setter("username", username)
 
     @property
     @pulumi.getter(name="expirationSeconds")
@@ -818,10 +919,21 @@ class CertificateSigningRequestStatus(dict):
                    )
         :param Sequence['CertificateSigningRequestConditionArgs'] conditions: conditions applied to the request. Known conditions are "Approved", "Denied", and "Failed".
         """
+        CertificateSigningRequestStatus._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            certificate=certificate,
+            conditions=conditions,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             certificate: Optional[str] = None,
+             conditions: Optional[Sequence['outputs.CertificateSigningRequestCondition']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if certificate is not None:
-            pulumi.set(__self__, "certificate", certificate)
+            _setter("certificate", certificate)
         if conditions is not None:
-            pulumi.set(__self__, "conditions", conditions)
+            _setter("conditions", conditions)
 
     @property
     @pulumi.getter
@@ -895,10 +1007,21 @@ class CertificateSigningRequestStatusPatch(dict):
                    )
         :param Sequence['CertificateSigningRequestConditionPatchArgs'] conditions: conditions applied to the request. Known conditions are "Approved", "Denied", and "Failed".
         """
+        CertificateSigningRequestStatusPatch._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            certificate=certificate,
+            conditions=conditions,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             certificate: Optional[str] = None,
+             conditions: Optional[Sequence['outputs.CertificateSigningRequestConditionPatch']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if certificate is not None:
-            pulumi.set(__self__, "certificate", certificate)
+            _setter("certificate", certificate)
         if conditions is not None:
-            pulumi.set(__self__, "conditions", conditions)
+            _setter("conditions", conditions)
 
     @property
     @pulumi.getter

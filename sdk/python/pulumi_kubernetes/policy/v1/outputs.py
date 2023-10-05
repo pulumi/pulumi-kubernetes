@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from . import outputs
 from ... import meta as _meta
@@ -55,16 +55,33 @@ class PodDisruptionBudget(dict):
         :param 'PodDisruptionBudgetSpecArgs' spec: Specification of the desired behavior of the PodDisruptionBudget.
         :param 'PodDisruptionBudgetStatusArgs' status: Most recently observed status of the PodDisruptionBudget.
         """
+        PodDisruptionBudget._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            api_version=api_version,
+            kind=kind,
+            metadata=metadata,
+            spec=spec,
+            status=status,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             api_version: Optional[str] = None,
+             kind: Optional[str] = None,
+             metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
+             spec: Optional['outputs.PodDisruptionBudgetSpec'] = None,
+             status: Optional['outputs.PodDisruptionBudgetStatus'] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'policy/v1')
+            _setter("api_version", 'policy/v1')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'PodDisruptionBudget')
+            _setter("kind", 'PodDisruptionBudget')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
         if spec is not None:
-            pulumi.set(__self__, "spec", spec)
+            _setter("spec", spec)
         if status is not None:
-            pulumi.set(__self__, "status", status)
+            _setter("status", status)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -155,14 +172,29 @@ class PodDisruptionBudgetSpec(dict):
                
                This field is beta-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (enabled by default).
         """
+        PodDisruptionBudgetSpec._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            max_unavailable=max_unavailable,
+            min_available=min_available,
+            selector=selector,
+            unhealthy_pod_eviction_policy=unhealthy_pod_eviction_policy,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             max_unavailable: Optional[Any] = None,
+             min_available: Optional[Any] = None,
+             selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
+             unhealthy_pod_eviction_policy: Optional[str] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if max_unavailable is not None:
-            pulumi.set(__self__, "max_unavailable", max_unavailable)
+            _setter("max_unavailable", max_unavailable)
         if min_available is not None:
-            pulumi.set(__self__, "min_available", min_available)
+            _setter("min_available", min_available)
         if selector is not None:
-            pulumi.set(__self__, "selector", selector)
+            _setter("selector", selector)
         if unhealthy_pod_eviction_policy is not None:
-            pulumi.set(__self__, "unhealthy_pod_eviction_policy", unhealthy_pod_eviction_policy)
+            _setter("unhealthy_pod_eviction_policy", unhealthy_pod_eviction_policy)
 
     @property
     @pulumi.getter(name="maxUnavailable")
@@ -255,14 +287,29 @@ class PodDisruptionBudgetSpecPatch(dict):
                
                This field is beta-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (enabled by default).
         """
+        PodDisruptionBudgetSpecPatch._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            max_unavailable=max_unavailable,
+            min_available=min_available,
+            selector=selector,
+            unhealthy_pod_eviction_policy=unhealthy_pod_eviction_policy,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             max_unavailable: Optional[Any] = None,
+             min_available: Optional[Any] = None,
+             selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None,
+             unhealthy_pod_eviction_policy: Optional[str] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if max_unavailable is not None:
-            pulumi.set(__self__, "max_unavailable", max_unavailable)
+            _setter("max_unavailable", max_unavailable)
         if min_available is not None:
-            pulumi.set(__self__, "min_available", min_available)
+            _setter("min_available", min_available)
         if selector is not None:
-            pulumi.set(__self__, "selector", selector)
+            _setter("selector", selector)
         if unhealthy_pod_eviction_policy is not None:
-            pulumi.set(__self__, "unhealthy_pod_eviction_policy", unhealthy_pod_eviction_policy)
+            _setter("unhealthy_pod_eviction_policy", unhealthy_pod_eviction_policy)
 
     @property
     @pulumi.getter(name="maxUnavailable")
@@ -365,16 +412,37 @@ class PodDisruptionBudgetStatus(dict):
         :param Mapping[str, str] disrupted_pods: DisruptedPods contains information about pods whose eviction was processed by the API server eviction subresource handler but has not yet been observed by the PodDisruptionBudget controller. A pod will be in this map from the time when the API server processed the eviction request to the time when the pod is seen by PDB controller as having been marked for deletion (or after a timeout). The key in the map is the name of the pod and the value is the time when the API server processed the eviction request. If the deletion didn't occur and a pod is still there it will be removed from the list automatically by PodDisruptionBudget controller after some time. If everything goes smooth this map should be empty for the most of the time. Large number of entries in the map may indicate problems with pod deletions.
         :param int observed_generation: Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
         """
-        pulumi.set(__self__, "current_healthy", current_healthy)
-        pulumi.set(__self__, "desired_healthy", desired_healthy)
-        pulumi.set(__self__, "disruptions_allowed", disruptions_allowed)
-        pulumi.set(__self__, "expected_pods", expected_pods)
+        PodDisruptionBudgetStatus._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            current_healthy=current_healthy,
+            desired_healthy=desired_healthy,
+            disruptions_allowed=disruptions_allowed,
+            expected_pods=expected_pods,
+            conditions=conditions,
+            disrupted_pods=disrupted_pods,
+            observed_generation=observed_generation,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             current_healthy: int,
+             desired_healthy: int,
+             disruptions_allowed: int,
+             expected_pods: int,
+             conditions: Optional[Sequence['_meta.v1.outputs.Condition']] = None,
+             disrupted_pods: Optional[Mapping[str, str]] = None,
+             observed_generation: Optional[int] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("current_healthy", current_healthy)
+        _setter("desired_healthy", desired_healthy)
+        _setter("disruptions_allowed", disruptions_allowed)
+        _setter("expected_pods", expected_pods)
         if conditions is not None:
-            pulumi.set(__self__, "conditions", conditions)
+            _setter("conditions", conditions)
         if disrupted_pods is not None:
-            pulumi.set(__self__, "disrupted_pods", disrupted_pods)
+            _setter("disrupted_pods", disrupted_pods)
         if observed_generation is not None:
-            pulumi.set(__self__, "observed_generation", observed_generation)
+            _setter("observed_generation", observed_generation)
 
     @property
     @pulumi.getter(name="currentHealthy")
@@ -499,20 +567,41 @@ class PodDisruptionBudgetStatusPatch(dict):
         :param int expected_pods: total number of pods counted by this disruption budget
         :param int observed_generation: Most recent generation observed when updating this PDB status. DisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
         """
+        PodDisruptionBudgetStatusPatch._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            conditions=conditions,
+            current_healthy=current_healthy,
+            desired_healthy=desired_healthy,
+            disrupted_pods=disrupted_pods,
+            disruptions_allowed=disruptions_allowed,
+            expected_pods=expected_pods,
+            observed_generation=observed_generation,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             conditions: Optional[Sequence['_meta.v1.outputs.ConditionPatch']] = None,
+             current_healthy: Optional[int] = None,
+             desired_healthy: Optional[int] = None,
+             disrupted_pods: Optional[Mapping[str, str]] = None,
+             disruptions_allowed: Optional[int] = None,
+             expected_pods: Optional[int] = None,
+             observed_generation: Optional[int] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if conditions is not None:
-            pulumi.set(__self__, "conditions", conditions)
+            _setter("conditions", conditions)
         if current_healthy is not None:
-            pulumi.set(__self__, "current_healthy", current_healthy)
+            _setter("current_healthy", current_healthy)
         if desired_healthy is not None:
-            pulumi.set(__self__, "desired_healthy", desired_healthy)
+            _setter("desired_healthy", desired_healthy)
         if disrupted_pods is not None:
-            pulumi.set(__self__, "disrupted_pods", disrupted_pods)
+            _setter("disrupted_pods", disrupted_pods)
         if disruptions_allowed is not None:
-            pulumi.set(__self__, "disruptions_allowed", disruptions_allowed)
+            _setter("disruptions_allowed", disruptions_allowed)
         if expected_pods is not None:
-            pulumi.set(__self__, "expected_pods", expected_pods)
+            _setter("expected_pods", expected_pods)
         if observed_generation is not None:
-            pulumi.set(__self__, "observed_generation", observed_generation)
+            _setter("observed_generation", observed_generation)
 
     @property
     @pulumi.getter

@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from . import outputs
 from ... import core as _core
@@ -50,14 +50,29 @@ class PodPreset(dict):
         :param str api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
+        PodPreset._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            api_version=api_version,
+            kind=kind,
+            metadata=metadata,
+            spec=spec,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             api_version: Optional[str] = None,
+             kind: Optional[str] = None,
+             metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
+             spec: Optional['outputs.PodPresetSpec'] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'settings.k8s.io/v1alpha1')
+            _setter("api_version", 'settings.k8s.io/v1alpha1')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'PodPreset')
+            _setter("kind", 'PodPreset')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
         if spec is not None:
-            pulumi.set(__self__, "spec", spec)
+            _setter("spec", spec)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -124,16 +139,33 @@ class PodPresetSpec(dict):
         :param Sequence['_core.v1.VolumeMountArgs'] volume_mounts: VolumeMounts defines the collection of VolumeMount to inject into containers.
         :param Sequence['_core.v1.VolumeArgs'] volumes: Volumes defines the collection of Volume to inject into the pod.
         """
+        PodPresetSpec._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            env=env,
+            env_from=env_from,
+            selector=selector,
+            volume_mounts=volume_mounts,
+            volumes=volumes,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             env: Optional[Sequence['_core.v1.outputs.EnvVar']] = None,
+             env_from: Optional[Sequence['_core.v1.outputs.EnvFromSource']] = None,
+             selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
+             volume_mounts: Optional[Sequence['_core.v1.outputs.VolumeMount']] = None,
+             volumes: Optional[Sequence['_core.v1.outputs.Volume']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if env is not None:
-            pulumi.set(__self__, "env", env)
+            _setter("env", env)
         if env_from is not None:
-            pulumi.set(__self__, "env_from", env_from)
+            _setter("env_from", env_from)
         if selector is not None:
-            pulumi.set(__self__, "selector", selector)
+            _setter("selector", selector)
         if volume_mounts is not None:
-            pulumi.set(__self__, "volume_mounts", volume_mounts)
+            _setter("volume_mounts", volume_mounts)
         if volumes is not None:
-            pulumi.set(__self__, "volumes", volumes)
+            _setter("volumes", volumes)
 
     @property
     @pulumi.getter
@@ -214,16 +246,33 @@ class PodPresetSpecPatch(dict):
         :param Sequence['_core.v1.VolumeMountPatchArgs'] volume_mounts: VolumeMounts defines the collection of VolumeMount to inject into containers.
         :param Sequence['_core.v1.VolumePatchArgs'] volumes: Volumes defines the collection of Volume to inject into the pod.
         """
+        PodPresetSpecPatch._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            env=env,
+            env_from=env_from,
+            selector=selector,
+            volume_mounts=volume_mounts,
+            volumes=volumes,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             env: Optional[Sequence['_core.v1.outputs.EnvVarPatch']] = None,
+             env_from: Optional[Sequence['_core.v1.outputs.EnvFromSourcePatch']] = None,
+             selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None,
+             volume_mounts: Optional[Sequence['_core.v1.outputs.VolumeMountPatch']] = None,
+             volumes: Optional[Sequence['_core.v1.outputs.VolumePatch']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if env is not None:
-            pulumi.set(__self__, "env", env)
+            _setter("env", env)
         if env_from is not None:
-            pulumi.set(__self__, "env_from", env_from)
+            _setter("env_from", env_from)
         if selector is not None:
-            pulumi.set(__self__, "selector", selector)
+            _setter("selector", selector)
         if volume_mounts is not None:
-            pulumi.set(__self__, "volume_mounts", volume_mounts)
+            _setter("volume_mounts", volume_mounts)
         if volumes is not None:
-            pulumi.set(__self__, "volumes", volumes)
+            _setter("volumes", volumes)
 
     @property
     @pulumi.getter

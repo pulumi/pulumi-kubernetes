@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from . import outputs
 from ... import meta as _meta
@@ -30,16 +30,33 @@ class RoleBindingPatchArgs:
         :param pulumi.Input['RoleRefPatchArgs'] role_ref: RoleRef can reference a Role in the current namespace or a ClusterRole in the global namespace. If the RoleRef cannot be resolved, the Authorizer must return an error. This field is immutable.
         :param pulumi.Input[Sequence[pulumi.Input['SubjectPatchArgs']]] subjects: Subjects holds references to the objects the role applies to.
         """
+        RoleBindingPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            api_version=api_version,
+            kind=kind,
+            metadata=metadata,
+            role_ref=role_ref,
+            subjects=subjects,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             api_version: Optional[pulumi.Input[str]] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']] = None,
+             role_ref: Optional[pulumi.Input['RoleRefPatchArgs']] = None,
+             subjects: Optional[pulumi.Input[Sequence[pulumi.Input['SubjectPatchArgs']]]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'rbac.authorization.k8s.io/v1')
+            _setter("api_version", 'rbac.authorization.k8s.io/v1')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'RoleBinding')
+            _setter("kind", 'RoleBinding')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
         if role_ref is not None:
-            pulumi.set(__self__, "role_ref", role_ref)
+            _setter("role_ref", role_ref)
         if subjects is not None:
-            pulumi.set(__self__, "subjects", subjects)
+            _setter("subjects", subjects)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -155,6 +172,10 @@ class RoleBindingPatch(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
+            kwargs = kwargs or {}
+            def _setter(key, value):
+                kwargs[key] = value
+            RoleBindingPatchArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
@@ -176,7 +197,17 @@ class RoleBindingPatch(pulumi.CustomResource):
 
             __props__.__dict__["api_version"] = 'rbac.authorization.k8s.io/v1'
             __props__.__dict__["kind"] = 'RoleBinding'
+            if metadata is not None and not isinstance(metadata, _meta.v1.ObjectMetaPatchArgs):
+                metadata = metadata or {}
+                def _setter(key, value):
+                    metadata[key] = value
+                _meta.v1.ObjectMetaPatchArgs._configure(_setter, **metadata)
             __props__.__dict__["metadata"] = metadata
+            if role_ref is not None and not isinstance(role_ref, RoleRefPatchArgs):
+                role_ref = role_ref or {}
+                def _setter(key, value):
+                    role_ref[key] = value
+                RoleRefPatchArgs._configure(_setter, **role_ref)
             __props__.__dict__["role_ref"] = role_ref
             __props__.__dict__["subjects"] = subjects
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:rbac.authorization.k8s.io/v1alpha1:RoleBindingPatch"), pulumi.Alias(type_="kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBindingPatch")])

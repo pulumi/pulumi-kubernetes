@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from ... import core as _core
 from ... import meta as _meta
@@ -58,22 +58,45 @@ class CronJobSpecPatchArgs:
         :param pulumi.Input[bool] suspend: This flag tells the controller to suspend subsequent executions, it does not apply to already started executions.  Defaults to false.
         :param pulumi.Input[str] time_zone: The time zone name for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will default to the time zone of the kube-controller-manager process. The set of valid time zone names and the time zone offset is loaded from the system-wide time zone database by the API server during CronJob validation and the controller manager during execution. If no system-wide time zone database can be found a bundled version of the database is used instead. If the time zone name becomes invalid during the lifetime of a CronJob or due to a change in host configuration, the controller will stop creating new new Jobs and will create a system event with the reason UnknownTimeZone. More information can be found in https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#time-zones
         """
+        CronJobSpecPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            concurrency_policy=concurrency_policy,
+            failed_jobs_history_limit=failed_jobs_history_limit,
+            job_template=job_template,
+            schedule=schedule,
+            starting_deadline_seconds=starting_deadline_seconds,
+            successful_jobs_history_limit=successful_jobs_history_limit,
+            suspend=suspend,
+            time_zone=time_zone,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             concurrency_policy: Optional[pulumi.Input[str]] = None,
+             failed_jobs_history_limit: Optional[pulumi.Input[int]] = None,
+             job_template: Optional[pulumi.Input['JobTemplateSpecPatchArgs']] = None,
+             schedule: Optional[pulumi.Input[str]] = None,
+             starting_deadline_seconds: Optional[pulumi.Input[int]] = None,
+             successful_jobs_history_limit: Optional[pulumi.Input[int]] = None,
+             suspend: Optional[pulumi.Input[bool]] = None,
+             time_zone: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if concurrency_policy is not None:
-            pulumi.set(__self__, "concurrency_policy", concurrency_policy)
+            _setter("concurrency_policy", concurrency_policy)
         if failed_jobs_history_limit is not None:
-            pulumi.set(__self__, "failed_jobs_history_limit", failed_jobs_history_limit)
+            _setter("failed_jobs_history_limit", failed_jobs_history_limit)
         if job_template is not None:
-            pulumi.set(__self__, "job_template", job_template)
+            _setter("job_template", job_template)
         if schedule is not None:
-            pulumi.set(__self__, "schedule", schedule)
+            _setter("schedule", schedule)
         if starting_deadline_seconds is not None:
-            pulumi.set(__self__, "starting_deadline_seconds", starting_deadline_seconds)
+            _setter("starting_deadline_seconds", starting_deadline_seconds)
         if successful_jobs_history_limit is not None:
-            pulumi.set(__self__, "successful_jobs_history_limit", successful_jobs_history_limit)
+            _setter("successful_jobs_history_limit", successful_jobs_history_limit)
         if suspend is not None:
-            pulumi.set(__self__, "suspend", suspend)
+            _setter("suspend", suspend)
         if time_zone is not None:
-            pulumi.set(__self__, "time_zone", time_zone)
+            _setter("time_zone", time_zone)
 
     @property
     @pulumi.getter(name="concurrencyPolicy")
@@ -198,20 +221,43 @@ class CronJobSpecArgs:
         :param pulumi.Input[bool] suspend: This flag tells the controller to suspend subsequent executions, it does not apply to already started executions.  Defaults to false.
         :param pulumi.Input[str] time_zone: The time zone name for the given schedule, see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones. If not specified, this will default to the time zone of the kube-controller-manager process. The set of valid time zone names and the time zone offset is loaded from the system-wide time zone database by the API server during CronJob validation and the controller manager during execution. If no system-wide time zone database can be found a bundled version of the database is used instead. If the time zone name becomes invalid during the lifetime of a CronJob or due to a change in host configuration, the controller will stop creating new new Jobs and will create a system event with the reason UnknownTimeZone. More information can be found in https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#time-zones
         """
-        pulumi.set(__self__, "job_template", job_template)
-        pulumi.set(__self__, "schedule", schedule)
+        CronJobSpecArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            job_template=job_template,
+            schedule=schedule,
+            concurrency_policy=concurrency_policy,
+            failed_jobs_history_limit=failed_jobs_history_limit,
+            starting_deadline_seconds=starting_deadline_seconds,
+            successful_jobs_history_limit=successful_jobs_history_limit,
+            suspend=suspend,
+            time_zone=time_zone,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             job_template: pulumi.Input['JobTemplateSpecArgs'],
+             schedule: pulumi.Input[str],
+             concurrency_policy: Optional[pulumi.Input[str]] = None,
+             failed_jobs_history_limit: Optional[pulumi.Input[int]] = None,
+             starting_deadline_seconds: Optional[pulumi.Input[int]] = None,
+             successful_jobs_history_limit: Optional[pulumi.Input[int]] = None,
+             suspend: Optional[pulumi.Input[bool]] = None,
+             time_zone: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("job_template", job_template)
+        _setter("schedule", schedule)
         if concurrency_policy is not None:
-            pulumi.set(__self__, "concurrency_policy", concurrency_policy)
+            _setter("concurrency_policy", concurrency_policy)
         if failed_jobs_history_limit is not None:
-            pulumi.set(__self__, "failed_jobs_history_limit", failed_jobs_history_limit)
+            _setter("failed_jobs_history_limit", failed_jobs_history_limit)
         if starting_deadline_seconds is not None:
-            pulumi.set(__self__, "starting_deadline_seconds", starting_deadline_seconds)
+            _setter("starting_deadline_seconds", starting_deadline_seconds)
         if successful_jobs_history_limit is not None:
-            pulumi.set(__self__, "successful_jobs_history_limit", successful_jobs_history_limit)
+            _setter("successful_jobs_history_limit", successful_jobs_history_limit)
         if suspend is not None:
-            pulumi.set(__self__, "suspend", suspend)
+            _setter("suspend", suspend)
         if time_zone is not None:
-            pulumi.set(__self__, "time_zone", time_zone)
+            _setter("time_zone", time_zone)
 
     @property
     @pulumi.getter(name="jobTemplate")
@@ -324,12 +370,25 @@ class CronJobStatusArgs:
         :param pulumi.Input[str] last_schedule_time: Information when was the last time the job was successfully scheduled.
         :param pulumi.Input[str] last_successful_time: Information when was the last time the job successfully completed.
         """
+        CronJobStatusArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            active=active,
+            last_schedule_time=last_schedule_time,
+            last_successful_time=last_successful_time,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             active: Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.ObjectReferenceArgs']]]] = None,
+             last_schedule_time: Optional[pulumi.Input[str]] = None,
+             last_successful_time: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if active is not None:
-            pulumi.set(__self__, "active", active)
+            _setter("active", active)
         if last_schedule_time is not None:
-            pulumi.set(__self__, "last_schedule_time", last_schedule_time)
+            _setter("last_schedule_time", last_schedule_time)
         if last_successful_time is not None:
-            pulumi.set(__self__, "last_successful_time", last_successful_time)
+            _setter("last_successful_time", last_successful_time)
 
     @property
     @pulumi.getter
@@ -384,16 +443,33 @@ class CronJobArgs:
         :param pulumi.Input['CronJobSpecArgs'] spec: Specification of the desired behavior of a cron job, including the schedule. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         :param pulumi.Input['CronJobStatusArgs'] status: Current status of a cron job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
+        CronJobArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            api_version=api_version,
+            kind=kind,
+            metadata=metadata,
+            spec=spec,
+            status=status,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             api_version: Optional[pulumi.Input[str]] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+             spec: Optional[pulumi.Input['CronJobSpecArgs']] = None,
+             status: Optional[pulumi.Input['CronJobStatusArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'batch/v1')
+            _setter("api_version", 'batch/v1')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'CronJob')
+            _setter("kind", 'CronJob')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
         if spec is not None:
-            pulumi.set(__self__, "spec", spec)
+            _setter("spec", spec)
         if status is not None:
-            pulumi.set(__self__, "status", status)
+            _setter("status", status)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -474,16 +550,35 @@ class JobConditionArgs:
         :param pulumi.Input[str] message: Human readable message indicating details about last transition.
         :param pulumi.Input[str] reason: (brief) reason for the condition's last transition.
         """
-        pulumi.set(__self__, "status", status)
-        pulumi.set(__self__, "type", type)
+        JobConditionArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            status=status,
+            type=type,
+            last_probe_time=last_probe_time,
+            last_transition_time=last_transition_time,
+            message=message,
+            reason=reason,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             status: pulumi.Input[str],
+             type: pulumi.Input[str],
+             last_probe_time: Optional[pulumi.Input[str]] = None,
+             last_transition_time: Optional[pulumi.Input[str]] = None,
+             message: Optional[pulumi.Input[str]] = None,
+             reason: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("status", status)
+        _setter("type", type)
         if last_probe_time is not None:
-            pulumi.set(__self__, "last_probe_time", last_probe_time)
+            _setter("last_probe_time", last_probe_time)
         if last_transition_time is not None:
-            pulumi.set(__self__, "last_transition_time", last_transition_time)
+            _setter("last_transition_time", last_transition_time)
         if message is not None:
-            pulumi.set(__self__, "message", message)
+            _setter("message", message)
         if reason is not None:
-            pulumi.set(__self__, "reason", reason)
+            _setter("reason", reason)
 
     @property
     @pulumi.getter
@@ -605,34 +700,69 @@ class JobSpecPatchArgs:
         :param pulumi.Input['_core.v1.PodTemplateSpecPatchArgs'] template: Describes the pod that will be created when executing a job. The only allowed template.spec.restartPolicy values are "Never" or "OnFailure". More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
         :param pulumi.Input[int] ttl_seconds_after_finished: ttlSecondsAfterFinished limits the lifetime of a Job that has finished execution (either Complete or Failed). If this field is set, ttlSecondsAfterFinished after the Job finishes, it is eligible to be automatically deleted. When the Job is being deleted, its lifecycle guarantees (e.g. finalizers) will be honored. If this field is unset, the Job won't be automatically deleted. If this field is set to zero, the Job becomes eligible to be deleted immediately after it finishes.
         """
+        JobSpecPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            active_deadline_seconds=active_deadline_seconds,
+            backoff_limit=backoff_limit,
+            backoff_limit_per_index=backoff_limit_per_index,
+            completion_mode=completion_mode,
+            completions=completions,
+            manual_selector=manual_selector,
+            max_failed_indexes=max_failed_indexes,
+            parallelism=parallelism,
+            pod_failure_policy=pod_failure_policy,
+            pod_replacement_policy=pod_replacement_policy,
+            selector=selector,
+            suspend=suspend,
+            template=template,
+            ttl_seconds_after_finished=ttl_seconds_after_finished,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             active_deadline_seconds: Optional[pulumi.Input[int]] = None,
+             backoff_limit: Optional[pulumi.Input[int]] = None,
+             backoff_limit_per_index: Optional[pulumi.Input[int]] = None,
+             completion_mode: Optional[pulumi.Input[str]] = None,
+             completions: Optional[pulumi.Input[int]] = None,
+             manual_selector: Optional[pulumi.Input[bool]] = None,
+             max_failed_indexes: Optional[pulumi.Input[int]] = None,
+             parallelism: Optional[pulumi.Input[int]] = None,
+             pod_failure_policy: Optional[pulumi.Input['PodFailurePolicyPatchArgs']] = None,
+             pod_replacement_policy: Optional[pulumi.Input[str]] = None,
+             selector: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']] = None,
+             suspend: Optional[pulumi.Input[bool]] = None,
+             template: Optional[pulumi.Input['_core.v1.PodTemplateSpecPatchArgs']] = None,
+             ttl_seconds_after_finished: Optional[pulumi.Input[int]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if active_deadline_seconds is not None:
-            pulumi.set(__self__, "active_deadline_seconds", active_deadline_seconds)
+            _setter("active_deadline_seconds", active_deadline_seconds)
         if backoff_limit is not None:
-            pulumi.set(__self__, "backoff_limit", backoff_limit)
+            _setter("backoff_limit", backoff_limit)
         if backoff_limit_per_index is not None:
-            pulumi.set(__self__, "backoff_limit_per_index", backoff_limit_per_index)
+            _setter("backoff_limit_per_index", backoff_limit_per_index)
         if completion_mode is not None:
-            pulumi.set(__self__, "completion_mode", completion_mode)
+            _setter("completion_mode", completion_mode)
         if completions is not None:
-            pulumi.set(__self__, "completions", completions)
+            _setter("completions", completions)
         if manual_selector is not None:
-            pulumi.set(__self__, "manual_selector", manual_selector)
+            _setter("manual_selector", manual_selector)
         if max_failed_indexes is not None:
-            pulumi.set(__self__, "max_failed_indexes", max_failed_indexes)
+            _setter("max_failed_indexes", max_failed_indexes)
         if parallelism is not None:
-            pulumi.set(__self__, "parallelism", parallelism)
+            _setter("parallelism", parallelism)
         if pod_failure_policy is not None:
-            pulumi.set(__self__, "pod_failure_policy", pod_failure_policy)
+            _setter("pod_failure_policy", pod_failure_policy)
         if pod_replacement_policy is not None:
-            pulumi.set(__self__, "pod_replacement_policy", pod_replacement_policy)
+            _setter("pod_replacement_policy", pod_replacement_policy)
         if selector is not None:
-            pulumi.set(__self__, "selector", selector)
+            _setter("selector", selector)
         if suspend is not None:
-            pulumi.set(__self__, "suspend", suspend)
+            _setter("suspend", suspend)
         if template is not None:
-            pulumi.set(__self__, "template", template)
+            _setter("template", template)
         if ttl_seconds_after_finished is not None:
-            pulumi.set(__self__, "ttl_seconds_after_finished", ttl_seconds_after_finished)
+            _setter("ttl_seconds_after_finished", ttl_seconds_after_finished)
 
     @property
     @pulumi.getter(name="activeDeadlineSeconds")
@@ -863,33 +993,68 @@ class JobSpecArgs:
         :param pulumi.Input[bool] suspend: suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
         :param pulumi.Input[int] ttl_seconds_after_finished: ttlSecondsAfterFinished limits the lifetime of a Job that has finished execution (either Complete or Failed). If this field is set, ttlSecondsAfterFinished after the Job finishes, it is eligible to be automatically deleted. When the Job is being deleted, its lifecycle guarantees (e.g. finalizers) will be honored. If this field is unset, the Job won't be automatically deleted. If this field is set to zero, the Job becomes eligible to be deleted immediately after it finishes.
         """
-        pulumi.set(__self__, "template", template)
+        JobSpecArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            template=template,
+            active_deadline_seconds=active_deadline_seconds,
+            backoff_limit=backoff_limit,
+            backoff_limit_per_index=backoff_limit_per_index,
+            completion_mode=completion_mode,
+            completions=completions,
+            manual_selector=manual_selector,
+            max_failed_indexes=max_failed_indexes,
+            parallelism=parallelism,
+            pod_failure_policy=pod_failure_policy,
+            pod_replacement_policy=pod_replacement_policy,
+            selector=selector,
+            suspend=suspend,
+            ttl_seconds_after_finished=ttl_seconds_after_finished,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             template: pulumi.Input['_core.v1.PodTemplateSpecArgs'],
+             active_deadline_seconds: Optional[pulumi.Input[int]] = None,
+             backoff_limit: Optional[pulumi.Input[int]] = None,
+             backoff_limit_per_index: Optional[pulumi.Input[int]] = None,
+             completion_mode: Optional[pulumi.Input[str]] = None,
+             completions: Optional[pulumi.Input[int]] = None,
+             manual_selector: Optional[pulumi.Input[bool]] = None,
+             max_failed_indexes: Optional[pulumi.Input[int]] = None,
+             parallelism: Optional[pulumi.Input[int]] = None,
+             pod_failure_policy: Optional[pulumi.Input['PodFailurePolicyArgs']] = None,
+             pod_replacement_policy: Optional[pulumi.Input[str]] = None,
+             selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
+             suspend: Optional[pulumi.Input[bool]] = None,
+             ttl_seconds_after_finished: Optional[pulumi.Input[int]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("template", template)
         if active_deadline_seconds is not None:
-            pulumi.set(__self__, "active_deadline_seconds", active_deadline_seconds)
+            _setter("active_deadline_seconds", active_deadline_seconds)
         if backoff_limit is not None:
-            pulumi.set(__self__, "backoff_limit", backoff_limit)
+            _setter("backoff_limit", backoff_limit)
         if backoff_limit_per_index is not None:
-            pulumi.set(__self__, "backoff_limit_per_index", backoff_limit_per_index)
+            _setter("backoff_limit_per_index", backoff_limit_per_index)
         if completion_mode is not None:
-            pulumi.set(__self__, "completion_mode", completion_mode)
+            _setter("completion_mode", completion_mode)
         if completions is not None:
-            pulumi.set(__self__, "completions", completions)
+            _setter("completions", completions)
         if manual_selector is not None:
-            pulumi.set(__self__, "manual_selector", manual_selector)
+            _setter("manual_selector", manual_selector)
         if max_failed_indexes is not None:
-            pulumi.set(__self__, "max_failed_indexes", max_failed_indexes)
+            _setter("max_failed_indexes", max_failed_indexes)
         if parallelism is not None:
-            pulumi.set(__self__, "parallelism", parallelism)
+            _setter("parallelism", parallelism)
         if pod_failure_policy is not None:
-            pulumi.set(__self__, "pod_failure_policy", pod_failure_policy)
+            _setter("pod_failure_policy", pod_failure_policy)
         if pod_replacement_policy is not None:
-            pulumi.set(__self__, "pod_replacement_policy", pod_replacement_policy)
+            _setter("pod_replacement_policy", pod_replacement_policy)
         if selector is not None:
-            pulumi.set(__self__, "selector", selector)
+            _setter("selector", selector)
         if suspend is not None:
-            pulumi.set(__self__, "suspend", suspend)
+            _setter("suspend", suspend)
         if ttl_seconds_after_finished is not None:
-            pulumi.set(__self__, "ttl_seconds_after_finished", ttl_seconds_after_finished)
+            _setter("ttl_seconds_after_finished", ttl_seconds_after_finished)
 
     @property
     @pulumi.getter
@@ -1112,28 +1277,57 @@ class JobStatusArgs:
                
                Old jobs might not be tracked using this field, in which case the field remains null.
         """
+        JobStatusArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            active=active,
+            completed_indexes=completed_indexes,
+            completion_time=completion_time,
+            conditions=conditions,
+            failed=failed,
+            failed_indexes=failed_indexes,
+            ready=ready,
+            start_time=start_time,
+            succeeded=succeeded,
+            terminating=terminating,
+            uncounted_terminated_pods=uncounted_terminated_pods,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             active: Optional[pulumi.Input[int]] = None,
+             completed_indexes: Optional[pulumi.Input[str]] = None,
+             completion_time: Optional[pulumi.Input[str]] = None,
+             conditions: Optional[pulumi.Input[Sequence[pulumi.Input['JobConditionArgs']]]] = None,
+             failed: Optional[pulumi.Input[int]] = None,
+             failed_indexes: Optional[pulumi.Input[str]] = None,
+             ready: Optional[pulumi.Input[int]] = None,
+             start_time: Optional[pulumi.Input[str]] = None,
+             succeeded: Optional[pulumi.Input[int]] = None,
+             terminating: Optional[pulumi.Input[int]] = None,
+             uncounted_terminated_pods: Optional[pulumi.Input['UncountedTerminatedPodsArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if active is not None:
-            pulumi.set(__self__, "active", active)
+            _setter("active", active)
         if completed_indexes is not None:
-            pulumi.set(__self__, "completed_indexes", completed_indexes)
+            _setter("completed_indexes", completed_indexes)
         if completion_time is not None:
-            pulumi.set(__self__, "completion_time", completion_time)
+            _setter("completion_time", completion_time)
         if conditions is not None:
-            pulumi.set(__self__, "conditions", conditions)
+            _setter("conditions", conditions)
         if failed is not None:
-            pulumi.set(__self__, "failed", failed)
+            _setter("failed", failed)
         if failed_indexes is not None:
-            pulumi.set(__self__, "failed_indexes", failed_indexes)
+            _setter("failed_indexes", failed_indexes)
         if ready is not None:
-            pulumi.set(__self__, "ready", ready)
+            _setter("ready", ready)
         if start_time is not None:
-            pulumi.set(__self__, "start_time", start_time)
+            _setter("start_time", start_time)
         if succeeded is not None:
-            pulumi.set(__self__, "succeeded", succeeded)
+            _setter("succeeded", succeeded)
         if terminating is not None:
-            pulumi.set(__self__, "terminating", terminating)
+            _setter("terminating", terminating)
         if uncounted_terminated_pods is not None:
-            pulumi.set(__self__, "uncounted_terminated_pods", uncounted_terminated_pods)
+            _setter("uncounted_terminated_pods", uncounted_terminated_pods)
 
     @property
     @pulumi.getter
@@ -1289,10 +1483,21 @@ class JobTemplateSpecPatchArgs:
         :param pulumi.Input['_meta.v1.ObjectMetaPatchArgs'] metadata: Standard object's metadata of the jobs created from this template. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input['JobSpecPatchArgs'] spec: Specification of the desired behavior of the job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
+        JobTemplateSpecPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            metadata=metadata,
+            spec=spec,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']] = None,
+             spec: Optional[pulumi.Input['JobSpecPatchArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
         if spec is not None:
-            pulumi.set(__self__, "spec", spec)
+            _setter("spec", spec)
 
     @property
     @pulumi.getter
@@ -1329,10 +1534,21 @@ class JobTemplateSpecArgs:
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata of the jobs created from this template. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input['JobSpecArgs'] spec: Specification of the desired behavior of the job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
+        JobTemplateSpecArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            metadata=metadata,
+            spec=spec,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+             spec: Optional[pulumi.Input['JobSpecArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
         if spec is not None:
-            pulumi.set(__self__, "spec", spec)
+            _setter("spec", spec)
 
     @property
     @pulumi.getter
@@ -1395,16 +1611,33 @@ class JobArgs:
         :param pulumi.Input['JobSpecArgs'] spec: Specification of the desired behavior of a job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         :param pulumi.Input['JobStatusArgs'] status: Current status of a job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
+        JobArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            api_version=api_version,
+            kind=kind,
+            metadata=metadata,
+            spec=spec,
+            status=status,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             api_version: Optional[pulumi.Input[str]] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+             spec: Optional[pulumi.Input['JobSpecArgs']] = None,
+             status: Optional[pulumi.Input['JobStatusArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'batch/v1')
+            _setter("api_version", 'batch/v1')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'Job')
+            _setter("kind", 'Job')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
         if spec is not None:
-            pulumi.set(__self__, "spec", spec)
+            _setter("spec", spec)
         if status is not None:
-            pulumi.set(__self__, "status", status)
+            _setter("status", status)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -1487,12 +1720,25 @@ class PodFailurePolicyOnExitCodesRequirementPatchArgs:
                Additional values are considered to be added in the future. Clients should react to an unknown operator by assuming the requirement is not satisfied.
         :param pulumi.Input[Sequence[pulumi.Input[int]]] values: Specifies the set of values. Each returned container exit code (might be multiple in case of multiple containers) is checked against this set of values with respect to the operator. The list of values must be ordered and must not contain duplicates. Value '0' cannot be used for the In operator. At least one element is required. At most 255 elements are allowed.
         """
+        PodFailurePolicyOnExitCodesRequirementPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            container_name=container_name,
+            operator=operator,
+            values=values,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             container_name: Optional[pulumi.Input[str]] = None,
+             operator: Optional[pulumi.Input[str]] = None,
+             values: Optional[pulumi.Input[Sequence[pulumi.Input[int]]]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if container_name is not None:
-            pulumi.set(__self__, "container_name", container_name)
+            _setter("container_name", container_name)
         if operator is not None:
-            pulumi.set(__self__, "operator", operator)
+            _setter("operator", operator)
         if values is not None:
-            pulumi.set(__self__, "values", values)
+            _setter("values", values)
 
     @property
     @pulumi.getter(name="containerName")
@@ -1559,10 +1805,23 @@ class PodFailurePolicyOnExitCodesRequirementArgs:
         :param pulumi.Input[Sequence[pulumi.Input[int]]] values: Specifies the set of values. Each returned container exit code (might be multiple in case of multiple containers) is checked against this set of values with respect to the operator. The list of values must be ordered and must not contain duplicates. Value '0' cannot be used for the In operator. At least one element is required. At most 255 elements are allowed.
         :param pulumi.Input[str] container_name: Restricts the check for exit codes to the container with the specified name. When null, the rule applies to all containers. When specified, it should match one the container or initContainer names in the pod template.
         """
-        pulumi.set(__self__, "operator", operator)
-        pulumi.set(__self__, "values", values)
+        PodFailurePolicyOnExitCodesRequirementArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            operator=operator,
+            values=values,
+            container_name=container_name,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             operator: pulumi.Input[str],
+             values: pulumi.Input[Sequence[pulumi.Input[int]]],
+             container_name: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("operator", operator)
+        _setter("values", values)
         if container_name is not None:
-            pulumi.set(__self__, "container_name", container_name)
+            _setter("container_name", container_name)
 
     @property
     @pulumi.getter
@@ -1619,10 +1878,21 @@ class PodFailurePolicyOnPodConditionsPatternPatchArgs:
         :param pulumi.Input[str] status: Specifies the required Pod condition status. To match a pod condition it is required that the specified status equals the pod condition status. Defaults to True.
         :param pulumi.Input[str] type: Specifies the required Pod condition type. To match a pod condition it is required that specified type equals the pod condition type.
         """
+        PodFailurePolicyOnPodConditionsPatternPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            status=status,
+            type=type,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             status: Optional[pulumi.Input[str]] = None,
+             type: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if status is not None:
-            pulumi.set(__self__, "status", status)
+            _setter("status", status)
         if type is not None:
-            pulumi.set(__self__, "type", type)
+            _setter("type", type)
 
     @property
     @pulumi.getter
@@ -1659,8 +1929,19 @@ class PodFailurePolicyOnPodConditionsPatternArgs:
         :param pulumi.Input[str] status: Specifies the required Pod condition status. To match a pod condition it is required that the specified status equals the pod condition status. Defaults to True.
         :param pulumi.Input[str] type: Specifies the required Pod condition type. To match a pod condition it is required that specified type equals the pod condition type.
         """
-        pulumi.set(__self__, "status", status)
-        pulumi.set(__self__, "type", type)
+        PodFailurePolicyOnPodConditionsPatternArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            status=status,
+            type=type,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             status: pulumi.Input[str],
+             type: pulumi.Input[str],
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("status", status)
+        _setter("type", type)
 
     @property
     @pulumi.getter
@@ -1695,8 +1976,17 @@ class PodFailurePolicyPatchArgs:
         PodFailurePolicy describes how failed pods influence the backoffLimit.
         :param pulumi.Input[Sequence[pulumi.Input['PodFailurePolicyRulePatchArgs']]] rules: A list of pod failure policy rules. The rules are evaluated in order. Once a rule matches a Pod failure, the remaining of the rules are ignored. When no rule matches the Pod failure, the default handling applies - the counter of pod failures is incremented and it is checked against the backoffLimit. At most 20 elements are allowed.
         """
+        PodFailurePolicyPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            rules=rules,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             rules: Optional[pulumi.Input[Sequence[pulumi.Input['PodFailurePolicyRulePatchArgs']]]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if rules is not None:
-            pulumi.set(__self__, "rules", rules)
+            _setter("rules", rules)
 
     @property
     @pulumi.getter
@@ -1735,12 +2025,25 @@ class PodFailurePolicyRulePatchArgs:
         :param pulumi.Input['PodFailurePolicyOnExitCodesRequirementPatchArgs'] on_exit_codes: Represents the requirement on the container exit codes.
         :param pulumi.Input[Sequence[pulumi.Input['PodFailurePolicyOnPodConditionsPatternPatchArgs']]] on_pod_conditions: Represents the requirement on the pod conditions. The requirement is represented as a list of pod condition patterns. The requirement is satisfied if at least one pattern matches an actual pod condition. At most 20 elements are allowed.
         """
+        PodFailurePolicyRulePatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            action=action,
+            on_exit_codes=on_exit_codes,
+            on_pod_conditions=on_pod_conditions,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             action: Optional[pulumi.Input[str]] = None,
+             on_exit_codes: Optional[pulumi.Input['PodFailurePolicyOnExitCodesRequirementPatchArgs']] = None,
+             on_pod_conditions: Optional[pulumi.Input[Sequence[pulumi.Input['PodFailurePolicyOnPodConditionsPatternPatchArgs']]]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if action is not None:
-            pulumi.set(__self__, "action", action)
+            _setter("action", action)
         if on_exit_codes is not None:
-            pulumi.set(__self__, "on_exit_codes", on_exit_codes)
+            _setter("on_exit_codes", on_exit_codes)
         if on_pod_conditions is not None:
-            pulumi.set(__self__, "on_pod_conditions", on_pod_conditions)
+            _setter("on_pod_conditions", on_pod_conditions)
 
     @property
     @pulumi.getter
@@ -1815,10 +2118,23 @@ class PodFailurePolicyRuleArgs:
         :param pulumi.Input[Sequence[pulumi.Input['PodFailurePolicyOnPodConditionsPatternArgs']]] on_pod_conditions: Represents the requirement on the pod conditions. The requirement is represented as a list of pod condition patterns. The requirement is satisfied if at least one pattern matches an actual pod condition. At most 20 elements are allowed.
         :param pulumi.Input['PodFailurePolicyOnExitCodesRequirementArgs'] on_exit_codes: Represents the requirement on the container exit codes.
         """
-        pulumi.set(__self__, "action", action)
-        pulumi.set(__self__, "on_pod_conditions", on_pod_conditions)
+        PodFailurePolicyRuleArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            action=action,
+            on_pod_conditions=on_pod_conditions,
+            on_exit_codes=on_exit_codes,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             action: pulumi.Input[str],
+             on_pod_conditions: pulumi.Input[Sequence[pulumi.Input['PodFailurePolicyOnPodConditionsPatternArgs']]],
+             on_exit_codes: Optional[pulumi.Input['PodFailurePolicyOnExitCodesRequirementArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("action", action)
+        _setter("on_pod_conditions", on_pod_conditions)
         if on_exit_codes is not None:
-            pulumi.set(__self__, "on_exit_codes", on_exit_codes)
+            _setter("on_exit_codes", on_exit_codes)
 
     @property
     @pulumi.getter
@@ -1877,7 +2193,16 @@ class PodFailurePolicyArgs:
         PodFailurePolicy describes how failed pods influence the backoffLimit.
         :param pulumi.Input[Sequence[pulumi.Input['PodFailurePolicyRuleArgs']]] rules: A list of pod failure policy rules. The rules are evaluated in order. Once a rule matches a Pod failure, the remaining of the rules are ignored. When no rule matches the Pod failure, the default handling applies - the counter of pod failures is incremented and it is checked against the backoffLimit. At most 20 elements are allowed.
         """
-        pulumi.set(__self__, "rules", rules)
+        PodFailurePolicyArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            rules=rules,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             rules: pulumi.Input[Sequence[pulumi.Input['PodFailurePolicyRuleArgs']]],
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("rules", rules)
 
     @property
     @pulumi.getter
@@ -1902,10 +2227,21 @@ class UncountedTerminatedPodsArgs:
         :param pulumi.Input[Sequence[pulumi.Input[str]]] failed: failed holds UIDs of failed Pods.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] succeeded: succeeded holds UIDs of succeeded Pods.
         """
+        UncountedTerminatedPodsArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            failed=failed,
+            succeeded=succeeded,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             failed: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             succeeded: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if failed is not None:
-            pulumi.set(__self__, "failed", failed)
+            _setter("failed", failed)
         if succeeded is not None:
-            pulumi.set(__self__, "succeeded", succeeded)
+            _setter("succeeded", succeeded)
 
     @property
     @pulumi.getter

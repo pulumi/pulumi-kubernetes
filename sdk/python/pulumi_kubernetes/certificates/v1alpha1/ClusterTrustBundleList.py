@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from . import outputs
 from ... import meta as _meta
@@ -28,13 +28,28 @@ class ClusterTrustBundleListArgs:
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ListMetaArgs'] metadata: metadata contains the list metadata.
         """
-        pulumi.set(__self__, "items", items)
+        ClusterTrustBundleListArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            items=items,
+            api_version=api_version,
+            kind=kind,
+            metadata=metadata,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             items: pulumi.Input[Sequence[pulumi.Input['ClusterTrustBundleArgs']]],
+             api_version: Optional[pulumi.Input[str]] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             metadata: Optional[pulumi.Input['_meta.v1.ListMetaArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("items", items)
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'certificates.k8s.io/v1alpha1')
+            _setter("api_version", 'certificates.k8s.io/v1alpha1')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'ClusterTrustBundleList')
+            _setter("kind", 'ClusterTrustBundleList')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
 
     @property
     @pulumi.getter
@@ -124,6 +139,10 @@ class ClusterTrustBundleList(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
+            kwargs = kwargs or {}
+            def _setter(key, value):
+                kwargs[key] = value
+            ClusterTrustBundleListArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
@@ -147,6 +166,11 @@ class ClusterTrustBundleList(pulumi.CustomResource):
                 raise TypeError("Missing required property 'items'")
             __props__.__dict__["items"] = items
             __props__.__dict__["kind"] = 'ClusterTrustBundleList'
+            if metadata is not None and not isinstance(metadata, _meta.v1.ListMetaArgs):
+                metadata = metadata or {}
+                def _setter(key, value):
+                    metadata[key] = value
+                _meta.v1.ListMetaArgs._configure(_setter, **metadata)
             __props__.__dict__["metadata"] = metadata
         super(ClusterTrustBundleList, __self__).__init__(
             'kubernetes:certificates.k8s.io/v1alpha1:ClusterTrustBundleList',

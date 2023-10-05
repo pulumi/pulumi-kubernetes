@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 
 __all__ = [
@@ -50,19 +50,40 @@ class ReleaseStatus(dict):
         :param int revision: Version is an int32 which represents the version of the release.
         :param str version: A SemVer 2 conformant version string of the chart.
         """
-        pulumi.set(__self__, "status", status)
+        ReleaseStatus._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            status=status,
+            app_version=app_version,
+            chart=chart,
+            name=name,
+            namespace=namespace,
+            revision=revision,
+            version=version,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             status: str,
+             app_version: Optional[str] = None,
+             chart: Optional[str] = None,
+             name: Optional[str] = None,
+             namespace: Optional[str] = None,
+             revision: Optional[int] = None,
+             version: Optional[str] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("status", status)
         if app_version is not None:
-            pulumi.set(__self__, "app_version", app_version)
+            _setter("app_version", app_version)
         if chart is not None:
-            pulumi.set(__self__, "chart", chart)
+            _setter("chart", chart)
         if name is not None:
-            pulumi.set(__self__, "name", name)
+            _setter("name", name)
         if namespace is not None:
-            pulumi.set(__self__, "namespace", namespace)
+            _setter("namespace", namespace)
         if revision is not None:
-            pulumi.set(__self__, "revision", revision)
+            _setter("revision", revision)
         if version is not None:
-            pulumi.set(__self__, "version", version)
+            _setter("version", version)
 
     @property
     @pulumi.getter
@@ -163,18 +184,37 @@ class RepositoryOpts(dict):
         :param str repo: Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
         :param str username: Username for HTTP basic authentication
         """
+        RepositoryOpts._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            ca_file=ca_file,
+            cert_file=cert_file,
+            key_file=key_file,
+            password=password,
+            repo=repo,
+            username=username,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             ca_file: Optional[str] = None,
+             cert_file: Optional[str] = None,
+             key_file: Optional[str] = None,
+             password: Optional[str] = None,
+             repo: Optional[str] = None,
+             username: Optional[str] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if ca_file is not None:
-            pulumi.set(__self__, "ca_file", ca_file)
+            _setter("ca_file", ca_file)
         if cert_file is not None:
-            pulumi.set(__self__, "cert_file", cert_file)
+            _setter("cert_file", cert_file)
         if key_file is not None:
-            pulumi.set(__self__, "key_file", key_file)
+            _setter("key_file", key_file)
         if password is not None:
-            pulumi.set(__self__, "password", password)
+            _setter("password", password)
         if repo is not None:
-            pulumi.set(__self__, "repo", repo)
+            _setter("repo", repo)
         if username is not None:
-            pulumi.set(__self__, "username", username)
+            _setter("username", username)
 
     @property
     @pulumi.getter(name="caFile")
