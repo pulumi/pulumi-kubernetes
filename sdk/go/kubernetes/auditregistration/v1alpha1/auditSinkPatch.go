@@ -7,8 +7,8 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
+	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
@@ -41,7 +41,7 @@ func NewAuditSinkPatch(ctx *pulumi.Context,
 
 	args.ApiVersion = pulumi.StringPtr("auditregistration.k8s.io/v1alpha1")
 	args.Kind = pulumi.StringPtr("AuditSink")
-	opts = internal.PkgResourceDefaultOpts(opts)
+	opts = utilities.PkgResourceDefaultOpts(opts)
 	var resource AuditSinkPatch
 	err := ctx.RegisterResource("kubernetes:auditregistration.k8s.io/v1alpha1:AuditSinkPatch", name, args, &resource, opts...)
 	if err != nil {

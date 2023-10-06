@@ -8,8 +8,8 @@ import (
 	"reflect"
 
 	"errors"
-	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/internal"
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
+	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
@@ -55,7 +55,7 @@ func NewPriorityClass(ctx *pulumi.Context,
 		},
 	})
 	opts = append(opts, aliases)
-	opts = internal.PkgResourceDefaultOpts(opts)
+	opts = utilities.PkgResourceDefaultOpts(opts)
 	var resource PriorityClass
 	err := ctx.RegisterResource("kubernetes:scheduling.k8s.io/v1beta1:PriorityClass", name, args, &resource, opts...)
 	if err != nil {
