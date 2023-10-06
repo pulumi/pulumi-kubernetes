@@ -104,13 +104,12 @@ func loadKubeconfig(pathOrContents string, overrides *clientcmd.ConfigOverrides)
 
 		// If the variable is a valid filepath, load the file and parse the contents as a k8s config.
 		_, err := os.Stat(pathOrContents)
-		if err == nil {
+		if err == nil || filepath.IsAbs(pathOrContents) || strings.HasPrefix(pathOrContents, ".") {
 			b, err := os.ReadFile(pathOrContents)
 			if err != nil {
 				return nil, nil, err
-			} else {
-				contents = string(b)
 			}
+			contents = string(b)
 		} else { // Assume the contents are a k8s config.
 			contents = pathOrContents
 		}
@@ -122,20 +121,20 @@ func loadKubeconfig(pathOrContents string, overrides *clientcmd.ConfigOverrides)
 		}
 		kubeconfig := clientcmd.NewDefaultClientConfig(*apiConfig, overrides)
 		return kubeconfig, apiConfig, nil
-	} else {
-		// Use client-go to resolve the final configuration values for the client. Typically, these
-		// values would reside in the $KUBECONFIG file, but can also be altered in several
-		// places, including in env variables, client-go default values, and (if we allowed it) CLI
-		// flags.
-		loadingRules := clientcmd.NewDefaultClientConfigLoadingRules()
-		loadingRules.DefaultClientConfig = &clientcmd.DefaultClientConfig
-		kubeconfig := clientcmd.NewNonInteractiveDeferredLoadingClientConfig(loadingRules, overrides)
-		apiConfig, err := kubeconfig.RawConfig()
-		if err != nil {
-			return nil, nil, err
-		}
-		return kubeconfig, &apiConfig, nil
 	}
+	
+	// Use client-go to resolve the final configuration values for the client. Typically, these
+	// values would reside in the $KUBECONFIG file, but can also be altered in several
+	// places, including in env variables, client-go default values, and (if we allowed it) CLI
+	// flags.
+	loadingRules := clientcmd.NewDefaultClientConfigLoadingRules()
+	loadingRules.DefaultClientConfig = &clientcmd.DefaultClientConfig
+	kubeconfig := clientcmd.NewNonInteractiveDeferredLoadingClientConfig(loadingRules, overrides)
+	apiConfig, err := kubeconfig.RawConfig()
+	if err != nil {
+		return nil, nil, err
+	}
+	return kubeconfig, &apiConfig, nil
 }
 
 // parseKubeconfigPropertyValue takes a PropertyValue that possibly contains a raw kubeconfig
