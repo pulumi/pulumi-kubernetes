@@ -104,7 +104,7 @@ func loadKubeconfig(pathOrContents string, overrides *clientcmd.ConfigOverrides)
 
 		// If the variable is a valid filepath, load the file and parse the contents as a k8s config.
 		_, err := os.Stat(pathOrContents)
-		if err == nil {
+		if err == nil || filepath.IsAbs(pathOrContents) || strings.HasPrefix(pathOrContents, ".") {
 			b, err := os.ReadFile(pathOrContents)
 			if err != nil {
 				return nil, nil, err
