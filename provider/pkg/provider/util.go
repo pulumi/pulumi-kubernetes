@@ -129,7 +129,7 @@ func loadKubeconfig(pathOrContents string, overrides *clientcmd.ConfigOverrides)
 	// flags.
 	loadingRules := clientcmd.NewDefaultClientConfigLoadingRules()
 	loadingRules.DefaultClientConfig = &clientcmd.DefaultClientConfig
-	kubeconfig := clientcmd.NewInteractiveDeferredLoadingClientConfig(loadingRules, overrides, os.Stdin)
+	kubeconfig := clientcmd.NewNonInteractiveDeferredLoadingClientConfig(loadingRules, overrides)
 	apiConfig, err := kubeconfig.RawConfig()
 	if err != nil {
 		return nil, nil, err
