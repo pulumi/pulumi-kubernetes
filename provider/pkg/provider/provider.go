@@ -405,6 +405,10 @@ func (k *kubeProvider) CheckConfig(ctx context.Context, req *pulumirpc.CheckRequ
 	}
 	failures := normalizeInputs()
 	if len(failures) > 0 {
+		if !providers.IsDefaultProvider(urn) {
+			return &pulumirpc.CheckResponse{Inputs: req.GetNews(), Failures: failures}, nil
+		}
+
 		// Rather than erroring out on an invalid k8s config, leave the original values in-place.
 		logger.V(9).Infof("%s: unable to normalize inputs: %v", label, failures)
 	}
