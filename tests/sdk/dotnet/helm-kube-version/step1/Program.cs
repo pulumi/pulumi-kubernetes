@@ -23,7 +23,7 @@ class HelmStack : Stack
       
         new Chart("kube-version", new LocalChartArgs
         {
-            KubeVersion = "1.24.2",
+            KubeVersion = "1.24.1",
             Namespace = namespaceName,
             Path = "helm-kube-version"
         }, new ComponentResourceOptions
