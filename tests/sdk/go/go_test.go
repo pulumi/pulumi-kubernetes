@@ -284,6 +284,15 @@ func TestGo(t *testing.T) {
 		integration.ProgramTest(t, &options)
 	})
 
+	t.Run("Helm Kube Version", func(t *testing.T) {
+		options := baseOptions.With(integration.ProgramTestOptions{
+			Dir:                  filepath.Join(cwd, "helm-kube-version", "step1"),
+			Quick:                true,
+			ExpectRefreshChanges: true,
+		})
+		integration.ProgramTest(t, &options)
+	})
+
 	t.Run("Helm Skip CRD Rendering", func(t *testing.T) {
 		options := baseOptions.With(integration.ProgramTestOptions{
 			Dir:         filepath.Join("helm-skip-crd-rendering", "step1"),
