@@ -220,6 +220,22 @@ func TestAccHelmApiVersions(t *testing.T) {
 	integration.ProgramTest(t, &test)
 }
 
+func TestAccHelmKubeVersion(t *testing.T) {
+	tests.SkipIfShort(t)
+	test := getBaseOptions(t).
+		With(integration.ProgramTestOptions{
+			Dir:         filepath.Join(getCwd(t), "helm-kube-version", "step1"),
+			SkipRefresh: true,
+			ExtraRuntimeValidation: func(
+				t *testing.T, stackInfo integration.RuntimeValidationStackInfo,
+			) {
+				assert.NotNil(t, stackInfo.Deployment)
+			},
+		})
+
+	integration.ProgramTest(t, &test)
+}
+
 func TestAccHelmAllowCRDRendering(t *testing.T) {
 	test := getBaseOptions(t).
 		With(integration.ProgramTestOptions{

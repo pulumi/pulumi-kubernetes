@@ -1,0 +1,3 @@
+name: helm-local
+description: A program that tests Helm chart creation from a local directory
+runtime: python

@@ -1,0 +1,3 @@
+name: helm-kube-version
+runtime: nodejs
+description: Deploys a simple Helm chart with KubeVersion requirement

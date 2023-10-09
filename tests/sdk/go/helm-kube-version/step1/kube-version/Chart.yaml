@@ -2,3 +2,4 @@ deprecated: true
 description: Chart to test KubeVersion
 name: kubeversion-test
 version: 0.0.1
+kubernetesVersion: ">1.24.0"

@@ -429,6 +429,18 @@ func TestHelmApiVersions(t *testing.T) {
 	integration.ProgramTest(t, &options)
 }
 
+func TestHelmKubeVersion(t *testing.T) {
+	cwd, err := os.Getwd()
+	if !assert.NoError(t, err) {
+		t.FailNow()
+	}
+	options := baseOptions.With(integration.ProgramTestOptions{
+		Dir:                  filepath.Join(cwd, "helm-kube-version", "step1"),
+		ExpectRefreshChanges: true,
+	})
+	integration.ProgramTest(t, &options)
+}
+
 func TestHelmAllowCRDRendering(t *testing.T) {
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:         filepath.Join("helm-skip-crd-rendering", "step1"),
