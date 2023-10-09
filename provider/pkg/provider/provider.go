@@ -242,13 +242,21 @@ func (k *kubeProvider) CheckConfig(ctx context.Context, req *pulumirpc.CheckRequ
 	label := fmt.Sprintf("%s.CheckConfig(%s)", k.label(), urn)
 	logger.V(9).Infof("%s executing", label)
 
+	olds, err := plugin.UnmarshalProperties(req.GetOlds(), plugin.MarshalOptions{
+		Label:        fmt.Sprintf("%s.olds", label),
+		KeepUnknowns: true,
+		SkipNulls:    true,
+	})
+	if err != nil {
+		return nil, pkgerrors.Wrapf(err, "CheckConfig failed because of malformed resource inputs (olds)")
+	}
 	news, err := plugin.UnmarshalProperties(req.GetNews(), plugin.MarshalOptions{
 		Label:        fmt.Sprintf("%s.news", label),
 		KeepUnknowns: true,
 		SkipNulls:    true,
 	})
 	if err != nil {
-		return nil, pkgerrors.Wrapf(err, "CheckConfig failed because of malformed resource inputs")
+		return nil, pkgerrors.Wrapf(err, "CheckConfig failed because of malformed resource inputs (news)")
 	}
 
 	truthyValue := func(argName resource.PropertyKey, props resource.PropertyMap) bool {
@@ -336,9 +344,7 @@ func (k *kubeProvider) CheckConfig(ctx context.Context, req *pulumirpc.CheckRequ
 	// Normalize the inputs (e.g. apply defaults).
 	// Note that the inputs are reflected as provider outputs as per:
 	// https://github.com/pulumi/pulumi-kubernetes/issues/2486
-	normalizeInputs := func() []*pulumirpc.CheckFailure {
-		var failures []*pulumirpc.CheckFailure
-
+	normalizeInputs := func() error {
 		overrides := &clientcmd.ConfigOverrides{}
 		if v, ok := news["cluster"]; ok && v.HasValue() && v.IsString() {
 			overrides.Context.Cluster = v.StringValue()
@@ -355,20 +361,12 @@ func (k *kubeProvider) CheckConfig(ctx context.Context, req *pulumirpc.CheckRequ
 		}
 		kubeconfig, apiConfig, err := loadKubeconfig(pathOrContents, overrides)
 		if err != nil {
-			failures = append(failures, &pulumirpc.CheckFailure{
-				Property: "kubeconfig",
-				Reason:   err.Error(),
-			})
-			return failures
+			return err
 		}
 
 		configurationNamespace, _, err := kubeconfig.Namespace()
 		if err != nil {
-			failures = append(failures, &pulumirpc.CheckFailure{
-				Property: "kubeconfig",
-				Reason:   err.Error(),
-			})
-			return failures
+			return err
 		}
 		news["namespace"] = resource.NewStringProperty(configurationNamespace)
 
@@ -392,25 +390,38 @@ func (k *kubeProvider) CheckConfig(ctx context.Context, req *pulumirpc.CheckRequ
 		if v, ok := os.LookupEnv("PULUMI_K8S_NORMALIZE_KUBECONFIG"); ok && cmdutil.IsTruthy(v) {
 			configurationKubeconfig, err := clientcmd.Write(*apiConfig)
 			if err != nil {
-				failures = append(failures, &pulumirpc.CheckFailure{
-					Property: "kubeconfig",
-					Reason:   err.Error(),
-				})
-				return failures
+				return err
 			}
 			news["kubeconfig"] = resource.NewStringProperty(string(configurationKubeconfig))
 		}
-
-		return failures
+		return nil
 	}
-	failures := normalizeInputs()
-	if len(failures) > 0 {
-		if !providers.IsDefaultProvider(urn) {
-			return &pulumirpc.CheckResponse{Inputs: req.GetNews(), Failures: failures}, nil
-		}
+	err = normalizeInputs()
+	if err != nil {
+		logger.V(9).Infof("%s: unable to normalize inputs: %v", label, err)
 
-		// Rather than erroring out on an invalid k8s config, leave the original values in-place.
-		logger.V(9).Infof("%s: unable to normalize inputs: %v", label, failures)
+		// if !providers.IsDefaultProvider(urn) {
+		// 	failures := []*pulumirpc.CheckFailure{
+		// 		{
+		// 			Property: "kubeconfig",
+		// 			Reason:   err.Error(),
+		// 		},
+		// 	}
+		// 	return &pulumirpc.CheckResponse{Inputs: req.GetNews(), Failures: failures}, nil
+		// }
+
+		// Rather than erroring out on an invalid k8s config, leave the existing values in place to minimize diffs.
+		// The error will be seen again in Configure, which will result in clusterUnreachable being set.
+		if _, ok := news["namespace"]; !ok {
+			news["namespace"] = olds["namespace"]
+		}
+		if _, ok := news["context"]; !ok {
+			news["context"] = olds["context"]
+		}
+		if _, ok := news["cluster"]; !ok {
+			news["cluster"] = olds["cluster"]
+		}
+		_ = k.host.Log(ctx, diag.Warning, urn, fmt.Sprintf("the provider has a configuration problem: %v", err))
 	}
 
 	checked, err := plugin.MarshalProperties(
