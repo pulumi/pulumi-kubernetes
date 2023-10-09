@@ -400,16 +400,6 @@ func (k *kubeProvider) CheckConfig(ctx context.Context, req *pulumirpc.CheckRequ
 	if err != nil {
 		logger.V(9).Infof("%s: unable to normalize inputs: %v", label, err)
 
-		// if !providers.IsDefaultProvider(urn) {
-		// 	failures := []*pulumirpc.CheckFailure{
-		// 		{
-		// 			Property: "kubeconfig",
-		// 			Reason:   err.Error(),
-		// 		},
-		// 	}
-		// 	return &pulumirpc.CheckResponse{Inputs: req.GetNews(), Failures: failures}, nil
-		// }
-
 		// Rather than erroring out on an invalid k8s config, leave the existing values in place to minimize diffs.
 		// The error will be seen again in Configure, which will result in clusterUnreachable being set.
 		if _, ok := news["namespace"]; !ok {
@@ -738,8 +728,7 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	// Rather than erroring out on an invalid k8s config, mark the cluster as unreachable and conditionally bail out on
 	// operations that require a valid cluster. This will allow us to perform invoke operations using the default
 	// provider.
-	kubeconfig, apiConfig, err := loadKubeconfig(vars["kubernetes:config:kubeconfig"], overrides)
-	if err != nil {
+	clusterUnreachable := func(err error) {
 		k.clusterUnreachable = true
 		if vars["kubernetes:config:kubeconfig"] != "" {
 			k.clusterUnreachableReason = fmt.Sprintf(
@@ -748,9 +737,15 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 			k.clusterUnreachableReason = fmt.Sprintf(
 				"failed to parse kubeconfig data in local environment: %v", err)
 		}
+	}
+	kubeconfig, apiConfig, err := loadKubeconfig(vars["kubernetes:config:kubeconfig"], overrides)
+	if err != nil {
+		clusterUnreachable(err)
 	} else {
 		configurationNamespace, _, err := kubeconfig.Namespace()
-		if err == nil {
+		if err != nil {
+			clusterUnreachable(err)
+		} else {
 			k.defaultNamespace = configurationNamespace
 		}
 	}
