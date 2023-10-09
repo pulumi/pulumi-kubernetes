@@ -411,7 +411,7 @@ func (k *kubeProvider) CheckConfig(ctx context.Context, req *pulumirpc.CheckRequ
 		if _, ok := news["cluster"]; !ok {
 			news["cluster"] = olds["cluster"]
 		}
-		_ = k.host.Log(ctx, diag.Warning, urn, fmt.Sprintf("the provider has a configuration problem: %v", err))
+		_ = k.host.Log(ctx, diag.Warning, urn, fmt.Sprintf("the Kubernetes provider has a configuration problem: %v", err))
 	}
 
 	checked, err := plugin.MarshalProperties(
@@ -535,13 +535,17 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	//
 	if defaultNamespace := vars["kubernetes:config:namespace"]; defaultNamespace != "" {
 		k.defaultNamespace = defaultNamespace
+	} else {
+		// CheckConfig applies a good default unless there's a configuration problem
+		// and there's no old value available. At minimum, ensure there's a default namespace.
+		k.defaultNamespace = "default"
 	}
 
 	// Compute config overrides.
 	overrides := &clientcmd.ConfigOverrides{
 		Context: clientapi.Context{
 			Cluster:   vars["kubernetes:config:cluster"],
-			Namespace: k.defaultNamespace,
+			Namespace: vars["kubernetes:config:namespace"],
 		},
 		CurrentContext: vars["kubernetes:config:context"],
 	}
@@ -741,13 +745,6 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	kubeconfig, apiConfig, err := loadKubeconfig(vars["kubernetes:config:kubeconfig"], overrides)
 	if err != nil {
 		clusterUnreachable(err)
-	} else {
-		configurationNamespace, _, err := kubeconfig.Namespace()
-		if err != nil {
-			clusterUnreachable(err)
-		} else {
-			k.defaultNamespace = configurationNamespace
-		}
 	}
 
 	var kubeClientSettings KubeClientSettings
@@ -1449,7 +1446,7 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 
 	// If a default namespace is set on the provider for this resource, check if the resource has Namespaced
 	// or Global scope. For namespaced resources, set the namespace to the default value if unset.
-	if k.defaultNamespace != "" && len(newInputs.GetNamespace()) == 0 {
+	if len(newInputs.GetNamespace()) == 0 {
 		namespacedKind, err := clients.IsNamespacedKind(gvk, k.clientSet)
 		if err != nil {
 			if clients.IsNoNamespaceInfoErr(err) {
