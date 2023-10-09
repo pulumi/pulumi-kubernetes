@@ -218,10 +218,6 @@ func PulumiSchema(swagger map[string]any) pschema.PackageSpec {
 	}
 
 	for name, inputProp := range pkg.Provider.InputProperties {
-		// p := pschema.PropertySpec{
-		// 	TypeSpec:    inputProp.TypeSpec,
-		// 	Description: inputProp.Description,
-		// }
 		pkg.Provider.Properties[name] = inputProp
 	}
 	goImportPath := "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes"
