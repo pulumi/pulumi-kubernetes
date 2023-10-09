@@ -14,7 +14,7 @@ func main() {
 		}
 
 		_, err = helm.NewChart(ctx, "kube-version", helm.ChartArgs{
-			KubeVersion: pulumi.String("1.25.0"),
+			KubeVersion: pulumi.String("1.24.1"),
 			Namespace:   namespace.Metadata.Name().Elem(),
 			Path:        pulumi.String("kube-version"),
 		})
