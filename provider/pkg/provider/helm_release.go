@@ -593,15 +593,15 @@ func (r *helmReleaseProvider) helmUpdate(newRelease, oldRelease *Release) error 
 		}
 	}
 
-	if newRelease.Lint {
-		if err := resourceReleaseValidate(cpo, newRelease, r.settings); err != nil {
-			return err
-		}
-	}
-
 	values, err := getValues(newRelease)
 	if err != nil {
 		return fmt.Errorf("error getting values for a diff: %w", err)
+	}
+
+	if newRelease.Lint {
+		if err := lintChart(path, values); err != nil {
+			return err
+		}
 	}
 
 	client.Devel = newRelease.Devel
@@ -804,26 +804,7 @@ func (r *helmReleaseProvider) Diff(ctx context.Context, req *pulumirpc.DiffReque
 	}, nil
 }
 
-func resourceReleaseValidate(cpo *action.ChartPathOptions, release *Release, settings *cli.EnvSettings) error {
-	name, err := chartPathOptionsFromRelease(cpo, release)
-	if err != nil {
-		return fmt.Errorf("malformed values: \n\t%s", err)
-	}
-
-	values, err := getValues(release)
-	if err != nil {
-		return err
-	}
-
-	return lintChart(settings, name, cpo, values)
-}
-
-func lintChart(settings *cli.EnvSettings, name string, cpo *action.ChartPathOptions, values map[string]any) (err error) {
-	path, err := cpo.LocateChart(name, settings)
-	if err != nil {
-		return err
-	}
-
+func lintChart(path string, values map[string]any) (err error) {
 	l := action.NewLint()
 	result := l.Run([]string{path}, values)
 
@@ -1486,11 +1467,9 @@ func localChart(name string, verify bool, keyring string) (string, bool, error) 
 	return absPath, true, nil
 }
 
-// locateChart is a copy of cpo.LocateChart with a fix to actually honor the registry client
-// configured with a registry config. As currently written, LocateChart will only ever honor
-// the registry config in $HELM_HOME/registry/config.json or the platform specific docker
-// default credential store.
-// TODO open issue on Helm for this.
+// locateChart is a copy of cpo.LocateChart with specialized behavior around the resolution of
+// local charts. Helm prefers a local chart over a remote chart with the same name, even if the local chart
+// directory is not well-formed. Pulumi adds additional checks of the local chart directory.
 func locateChart(cpo *action.ChartPathOptions, registryClient *registry.Client, name string,
 	settings *cli.EnvSettings) (string, error) {
 	name = strings.TrimSpace(name)
