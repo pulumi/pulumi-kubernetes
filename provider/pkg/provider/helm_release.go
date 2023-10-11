@@ -324,6 +324,7 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 	urn := resource.URN(req.GetUrn())
 	label := fmt.Sprintf("Provider[%s].Check(%s)", r.name, urn)
 
+	failures := []*pulumirpc.CheckFailure{}
 	// Obtain old resource inputs. This is the old version of the resource(s) supplied by the user as
 	// an update.
 	oldResInputs := req.GetOlds()
@@ -366,6 +367,12 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 			// Declare bankruptcy in being able to determine the underlying resources and hope for the best
 			// further down the operations.
 			resourceInfo = nil
+
+			// Produce a warning about the insufficiency of the inputs.
+			failures = append(failures, &pulumirpc.CheckFailure{
+				Property: "chart",
+				Reason:   "unable to load the chart; check the chart name and repository configuration.",
+			})
 		} else if err != nil {
 			return nil, err
 		}
@@ -404,7 +411,7 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 	}
 
 	// Return new, possibly-autonamed inputs.
-	return &pulumirpc.CheckResponse{Inputs: autonamedInputs}, nil
+	return &pulumirpc.CheckResponse{Inputs: autonamedInputs, Failures: failures}, nil
 }
 
 func (r *helmReleaseProvider) setDefaults(target resource.PropertyMap) {
