@@ -490,7 +490,11 @@ func (r *helmReleaseProvider) helmCreate(ctx context.Context, urn resource.URN, 
 	client.WaitForJobs = !newRelease.SkipAwait && newRelease.WaitForJobs
 	client.Devel = newRelease.Devel
 	client.DependencyUpdate = newRelease.DependencyUpdate
-	client.Timeout = time.Duration(newRelease.Timeout) * time.Second
+	timeout := newRelease.Timeout
+	if timeout == 0 {
+		timeout = defaultTimeoutSeconds
+	}
+	client.Timeout = time.Duration(timeout) * time.Second
 	client.Namespace = newRelease.Namespace
 	client.ReleaseName = newRelease.Name
 	client.GenerateName = false
@@ -602,7 +606,11 @@ func (r *helmReleaseProvider) helmUpdate(newRelease, oldRelease *Release) error 
 
 	client.Devel = newRelease.Devel
 	client.Namespace = newRelease.Namespace
-	client.Timeout = time.Duration(newRelease.Timeout) * time.Second
+	timeout := newRelease.Timeout
+	if timeout == 0 {
+		timeout = defaultTimeoutSeconds
+	}
+	client.Timeout = time.Duration(timeout) * time.Second
 	client.Wait = !newRelease.SkipAwait
 	client.DisableHooks = newRelease.DisableCRDHooks
 	client.Atomic = newRelease.Atomic
