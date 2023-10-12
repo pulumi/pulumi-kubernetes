@@ -21,6 +21,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io/fs"
 	"net/url"
 	"os"
 	"path/filepath"
@@ -48,6 +49,7 @@ import (
 	"helm.sh/helm/v3/pkg/cli"
 	"helm.sh/helm/v3/pkg/downloader"
 	"helm.sh/helm/v3/pkg/getter"
+	"helm.sh/helm/v3/pkg/helmpath"
 	"helm.sh/helm/v3/pkg/postrender"
 	"helm.sh/helm/v3/pkg/registry"
 	"helm.sh/helm/v3/pkg/release"
@@ -1036,6 +1038,7 @@ func (r *helmReleaseProvider) Read(ctx context.Context, req *pulumirpc.ReadReque
 	if oldInputs == nil {
 		// No old inputs suggests this is an import. Hydrate the state from the current live object.
 		// A subsequent Check operation will apply the computed inputs.
+		importRelease(r.settings, existingRelease, liveObj)
 		logger.V(9).Infof("%s Imported release: %#v", label, existingRelease)
 
 		oldInputs = r.serializeImportInputs(existingRelease)
@@ -1311,6 +1314,20 @@ func getRelease(cfg *action.Configuration, name string) (*release.Release, error
 	return res, nil
 }
 
+func importRelease(settings *cli.EnvSettings, release *Release, r *release.Release) {
+	release.Name = r.Name
+	release.Namespace = r.Namespace
+
+	// Search for the chart in the locally-configured repositories.
+	if repo, chart, found := searchChart(settings, r.Chart.Metadata.Name, r.Chart.Metadata.Version); found {
+		// use a local repository reference, rather than reconstructing all the repository opts
+		release.Chart = fmt.Sprintf("%s/%s", repo.Name, chart.Name)
+	} else {
+		// fallback to using a local chart reference
+		release.Chart = r.Chart.Metadata.Name
+	}
+}
+
 func isChartInstallable(ch *helmchart.Chart) error {
 	switch ch.Metadata.Type {
 	case "", "application":
@@ -1420,6 +1437,37 @@ func mapToInterface(in any) any {
 		return out
 	}
 	return in
+}
+
+// searchChart implements a best-effort search for a chart in the locally-configured repositories.
+func searchChart(settings *cli.EnvSettings, name, version string) (*repo.Entry, *repo.ChartVersion, bool) {
+	repoFile := settings.RepositoryConfig
+	repoCacheDir := settings.RepositoryCache
+
+	// Load the repositories.yaml
+	rf, err := repo.LoadFile(repoFile)
+	if errors.Is(err, fs.ErrNotExist) || len(rf.Repositories) == 0 {
+		logger.V(9).Infof("no repositories configured")
+		return nil, nil, false
+	}
+
+	// Scan the repositories for a chart
+	for _, re := range rf.Repositories {
+		n := re.Name
+		f := filepath.Join(repoCacheDir, helmpath.CacheIndexFile(n))
+		ind, err := repo.LoadIndexFile(f)
+		if err != nil {
+			logger.V(9).Infof("Repo %q is corrupt or missing. Try 'helm repo update'.", n)
+			continue
+		}
+		chartVersion, err := ind.Get(name, version)
+		if err != nil {
+			logger.V(9).Infof("No such chart: %+v", err)
+			continue
+		}
+		return re, chartVersion, true
+	}
+	return nil, nil, false
 }
 
 func getChart(cpo *action.ChartPathOptions, registryClient *registry.Client, settings *cli.EnvSettings,
