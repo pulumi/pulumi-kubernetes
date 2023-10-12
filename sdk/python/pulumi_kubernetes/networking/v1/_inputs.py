@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from ... import core as _core
 from ... import meta as _meta
@@ -76,12 +76,25 @@ class HTTPIngressPathPatchArgs:
                  or treat it identically to Prefix or Exact path types.
                Implementations are required to support all path types.
         """
+        HTTPIngressPathPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            backend=backend,
+            path=path,
+            path_type=path_type,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             backend: Optional[pulumi.Input['IngressBackendPatchArgs']] = None,
+             path: Optional[pulumi.Input[str]] = None,
+             path_type: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if backend is not None:
-            pulumi.set(__self__, "backend", backend)
+            _setter("backend", backend)
         if path is not None:
-            pulumi.set(__self__, "path", path)
+            _setter("path", path)
         if path_type is not None:
-            pulumi.set(__self__, "path_type", path_type)
+            _setter("path_type", path_type)
 
     @property
     @pulumi.getter
@@ -152,10 +165,23 @@ class HTTPIngressPathArgs:
                Implementations are required to support all path types.
         :param pulumi.Input[str] path: path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/' and must be present when using PathType with value "Exact" or "Prefix".
         """
-        pulumi.set(__self__, "backend", backend)
-        pulumi.set(__self__, "path_type", path_type)
+        HTTPIngressPathArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            backend=backend,
+            path_type=path_type,
+            path=path,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             backend: pulumi.Input['IngressBackendArgs'],
+             path_type: pulumi.Input[str],
+             path: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("backend", backend)
+        _setter("path_type", path_type)
         if path is not None:
-            pulumi.set(__self__, "path", path)
+            _setter("path", path)
 
     @property
     @pulumi.getter
@@ -212,8 +238,17 @@ class HTTPIngressRuleValuePatchArgs:
         HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example: http://<host>/<path>?<searchpart> -> backend where where parts of the url correspond to RFC 3986, this resource will be used to match against everything after the last '/' and before the first '?' or '#'.
         :param pulumi.Input[Sequence[pulumi.Input['HTTPIngressPathPatchArgs']]] paths: paths is a collection of paths that map requests to backends.
         """
+        HTTPIngressRuleValuePatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            paths=paths,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             paths: Optional[pulumi.Input[Sequence[pulumi.Input['HTTPIngressPathPatchArgs']]]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if paths is not None:
-            pulumi.set(__self__, "paths", paths)
+            _setter("paths", paths)
 
     @property
     @pulumi.getter
@@ -236,7 +271,16 @@ class HTTPIngressRuleValueArgs:
         HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example: http://<host>/<path>?<searchpart> -> backend where where parts of the url correspond to RFC 3986, this resource will be used to match against everything after the last '/' and before the first '?' or '#'.
         :param pulumi.Input[Sequence[pulumi.Input['HTTPIngressPathArgs']]] paths: paths is a collection of paths that map requests to backends.
         """
-        pulumi.set(__self__, "paths", paths)
+        HTTPIngressRuleValueArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            paths=paths,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             paths: pulumi.Input[Sequence[pulumi.Input['HTTPIngressPathArgs']]],
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("paths", paths)
 
     @property
     @pulumi.getter
@@ -261,10 +305,21 @@ class IPBlockPatchArgs:
         :param pulumi.Input[str] cidr: cidr is a string representing the IPBlock Valid examples are "192.168.1.0/24" or "2001:db8::/64"
         :param pulumi.Input[Sequence[pulumi.Input[str]]] except_: except is a slice of CIDRs that should not be included within an IPBlock Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the cidr range
         """
+        IPBlockPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            cidr=cidr,
+            except_=except_,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             cidr: Optional[pulumi.Input[str]] = None,
+             except_: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if cidr is not None:
-            pulumi.set(__self__, "cidr", cidr)
+            _setter("cidr", cidr)
         if except_ is not None:
-            pulumi.set(__self__, "except_", except_)
+            _setter("except_", except_)
 
     @property
     @pulumi.getter
@@ -301,9 +356,20 @@ class IPBlockArgs:
         :param pulumi.Input[str] cidr: cidr is a string representing the IPBlock Valid examples are "192.168.1.0/24" or "2001:db8::/64"
         :param pulumi.Input[Sequence[pulumi.Input[str]]] except_: except is a slice of CIDRs that should not be included within an IPBlock Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the cidr range
         """
-        pulumi.set(__self__, "cidr", cidr)
+        IPBlockArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            cidr=cidr,
+            except_=except_,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             cidr: pulumi.Input[str],
+             except_: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("cidr", cidr)
         if except_ is not None:
-            pulumi.set(__self__, "except_", except_)
+            _setter("except_", except_)
 
     @property
     @pulumi.getter
@@ -340,10 +406,21 @@ class IngressBackendPatchArgs:
         :param pulumi.Input['_core.v1.TypedLocalObjectReferencePatchArgs'] resource: resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with "Service".
         :param pulumi.Input['IngressServiceBackendPatchArgs'] service: service references a service as a backend. This is a mutually exclusive setting with "Resource".
         """
+        IngressBackendPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            resource=resource,
+            service=service,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             resource: Optional[pulumi.Input['_core.v1.TypedLocalObjectReferencePatchArgs']] = None,
+             service: Optional[pulumi.Input['IngressServiceBackendPatchArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if resource is not None:
-            pulumi.set(__self__, "resource", resource)
+            _setter("resource", resource)
         if service is not None:
-            pulumi.set(__self__, "service", service)
+            _setter("service", service)
 
     @property
     @pulumi.getter
@@ -380,10 +457,21 @@ class IngressBackendArgs:
         :param pulumi.Input['_core.v1.TypedLocalObjectReferenceArgs'] resource: resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, a service.Name and service.Port must not be specified. This is a mutually exclusive setting with "Service".
         :param pulumi.Input['IngressServiceBackendArgs'] service: service references a service as a backend. This is a mutually exclusive setting with "Resource".
         """
+        IngressBackendArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            resource=resource,
+            service=service,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             resource: Optional[pulumi.Input['_core.v1.TypedLocalObjectReferenceArgs']] = None,
+             service: Optional[pulumi.Input['IngressServiceBackendArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if resource is not None:
-            pulumi.set(__self__, "resource", resource)
+            _setter("resource", resource)
         if service is not None:
-            pulumi.set(__self__, "service", service)
+            _setter("service", service)
 
     @property
     @pulumi.getter
@@ -426,16 +514,33 @@ class IngressClassParametersReferencePatchArgs:
         :param pulumi.Input[str] namespace: namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
         :param pulumi.Input[str] scope: scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace".
         """
+        IngressClassParametersReferencePatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            api_group=api_group,
+            kind=kind,
+            name=name,
+            namespace=namespace,
+            scope=scope,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             api_group: Optional[pulumi.Input[str]] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             name: Optional[pulumi.Input[str]] = None,
+             namespace: Optional[pulumi.Input[str]] = None,
+             scope: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if api_group is not None:
-            pulumi.set(__self__, "api_group", api_group)
+            _setter("api_group", api_group)
         if kind is not None:
-            pulumi.set(__self__, "kind", kind)
+            _setter("kind", kind)
         if name is not None:
-            pulumi.set(__self__, "name", name)
+            _setter("name", name)
         if namespace is not None:
-            pulumi.set(__self__, "namespace", namespace)
+            _setter("namespace", namespace)
         if scope is not None:
-            pulumi.set(__self__, "scope", scope)
+            _setter("scope", scope)
 
     @property
     @pulumi.getter(name="apiGroup")
@@ -514,14 +619,31 @@ class IngressClassParametersReferenceArgs:
         :param pulumi.Input[str] namespace: namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
         :param pulumi.Input[str] scope: scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace".
         """
-        pulumi.set(__self__, "kind", kind)
-        pulumi.set(__self__, "name", name)
+        IngressClassParametersReferenceArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            kind=kind,
+            name=name,
+            api_group=api_group,
+            namespace=namespace,
+            scope=scope,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             kind: pulumi.Input[str],
+             name: pulumi.Input[str],
+             api_group: Optional[pulumi.Input[str]] = None,
+             namespace: Optional[pulumi.Input[str]] = None,
+             scope: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("kind", kind)
+        _setter("name", name)
         if api_group is not None:
-            pulumi.set(__self__, "api_group", api_group)
+            _setter("api_group", api_group)
         if namespace is not None:
-            pulumi.set(__self__, "namespace", namespace)
+            _setter("namespace", namespace)
         if scope is not None:
-            pulumi.set(__self__, "scope", scope)
+            _setter("scope", scope)
 
     @property
     @pulumi.getter
@@ -594,10 +716,21 @@ class IngressClassSpecPatchArgs:
         :param pulumi.Input[str] controller: controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
         :param pulumi.Input['IngressClassParametersReferencePatchArgs'] parameters: parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
         """
+        IngressClassSpecPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            controller=controller,
+            parameters=parameters,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             controller: Optional[pulumi.Input[str]] = None,
+             parameters: Optional[pulumi.Input['IngressClassParametersReferencePatchArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if controller is not None:
-            pulumi.set(__self__, "controller", controller)
+            _setter("controller", controller)
         if parameters is not None:
-            pulumi.set(__self__, "parameters", parameters)
+            _setter("parameters", parameters)
 
     @property
     @pulumi.getter
@@ -634,10 +767,21 @@ class IngressClassSpecArgs:
         :param pulumi.Input[str] controller: controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
         :param pulumi.Input['IngressClassParametersReferenceArgs'] parameters: parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
         """
+        IngressClassSpecArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            controller=controller,
+            parameters=parameters,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             controller: Optional[pulumi.Input[str]] = None,
+             parameters: Optional[pulumi.Input['IngressClassParametersReferenceArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if controller is not None:
-            pulumi.set(__self__, "controller", controller)
+            _setter("controller", controller)
         if parameters is not None:
-            pulumi.set(__self__, "parameters", parameters)
+            _setter("parameters", parameters)
 
     @property
     @pulumi.getter
@@ -678,14 +822,29 @@ class IngressClassArgs:
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input['IngressClassSpecArgs'] spec: spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
+        IngressClassArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            api_version=api_version,
+            kind=kind,
+            metadata=metadata,
+            spec=spec,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             api_version: Optional[pulumi.Input[str]] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+             spec: Optional[pulumi.Input['IngressClassSpecArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'networking.k8s.io/v1')
+            _setter("api_version", 'networking.k8s.io/v1')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'IngressClass')
+            _setter("kind", 'IngressClass')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
         if spec is not None:
-            pulumi.set(__self__, "spec", spec)
+            _setter("spec", spec)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -748,12 +907,25 @@ class IngressLoadBalancerIngressArgs:
         :param pulumi.Input[str] ip: ip is set for load-balancer ingress points that are IP based.
         :param pulumi.Input[Sequence[pulumi.Input['IngressPortStatusArgs']]] ports: ports provides information about the ports exposed by this LoadBalancer.
         """
+        IngressLoadBalancerIngressArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            hostname=hostname,
+            ip=ip,
+            ports=ports,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             hostname: Optional[pulumi.Input[str]] = None,
+             ip: Optional[pulumi.Input[str]] = None,
+             ports: Optional[pulumi.Input[Sequence[pulumi.Input['IngressPortStatusArgs']]]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if hostname is not None:
-            pulumi.set(__self__, "hostname", hostname)
+            _setter("hostname", hostname)
         if ip is not None:
-            pulumi.set(__self__, "ip", ip)
+            _setter("ip", ip)
         if ports is not None:
-            pulumi.set(__self__, "ports", ports)
+            _setter("ports", ports)
 
     @property
     @pulumi.getter
@@ -800,8 +972,17 @@ class IngressLoadBalancerStatusArgs:
         IngressLoadBalancerStatus represents the status of a load-balancer.
         :param pulumi.Input[Sequence[pulumi.Input['IngressLoadBalancerIngressArgs']]] ingress: ingress is a list containing ingress points for the load-balancer.
         """
+        IngressLoadBalancerStatusArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            ingress=ingress,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             ingress: Optional[pulumi.Input[Sequence[pulumi.Input['IngressLoadBalancerIngressArgs']]]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if ingress is not None:
-            pulumi.set(__self__, "ingress", ingress)
+            _setter("ingress", ingress)
 
     @property
     @pulumi.getter
@@ -831,10 +1012,23 @@ class IngressPortStatusArgs:
                - cloud provider specific error values must have names that comply with the
                  format foo.example.com/CamelCase.
         """
-        pulumi.set(__self__, "port", port)
-        pulumi.set(__self__, "protocol", protocol)
+        IngressPortStatusArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            port=port,
+            protocol=protocol,
+            error=error,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             port: pulumi.Input[int],
+             protocol: pulumi.Input[str],
+             error: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("port", port)
+        _setter("protocol", protocol)
         if error is not None:
-            pulumi.set(__self__, "error", error)
+            _setter("error", error)
 
     @property
     @pulumi.getter
@@ -892,10 +1086,21 @@ class IngressRulePatchArgs:
                
                host can be "precise" which is a domain name without the terminating dot of a network host (e.g. "foo.bar.com") or "wildcard", which is a domain name prefixed with a single wildcard label (e.g. "*.foo.com"). The wildcard character '*' must appear by itself as the first DNS label and matches only a single label. You cannot have a wildcard label by itself (e.g. Host == "*"). Requests will be matched against the Host field in the following way: 1. If host is precise, the request matches this rule if the http host header is equal to Host. 2. If host is a wildcard, then the request matches this rule if the http host header is to equal to the suffix (removing the first label) of the wildcard rule.
         """
+        IngressRulePatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            host=host,
+            http=http,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             host: Optional[pulumi.Input[str]] = None,
+             http: Optional[pulumi.Input['HTTPIngressRuleValuePatchArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if host is not None:
-            pulumi.set(__self__, "host", host)
+            _setter("host", host)
         if http is not None:
-            pulumi.set(__self__, "http", http)
+            _setter("http", http)
 
     @property
     @pulumi.getter
@@ -942,10 +1147,21 @@ class IngressRuleArgs:
                
                host can be "precise" which is a domain name without the terminating dot of a network host (e.g. "foo.bar.com") or "wildcard", which is a domain name prefixed with a single wildcard label (e.g. "*.foo.com"). The wildcard character '*' must appear by itself as the first DNS label and matches only a single label. You cannot have a wildcard label by itself (e.g. Host == "*"). Requests will be matched against the Host field in the following way: 1. If host is precise, the request matches this rule if the http host header is equal to Host. 2. If host is a wildcard, then the request matches this rule if the http host header is to equal to the suffix (removing the first label) of the wildcard rule.
         """
+        IngressRuleArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            host=host,
+            http=http,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             host: Optional[pulumi.Input[str]] = None,
+             http: Optional[pulumi.Input['HTTPIngressRuleValueArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if host is not None:
-            pulumi.set(__self__, "host", host)
+            _setter("host", host)
         if http is not None:
-            pulumi.set(__self__, "http", http)
+            _setter("http", http)
 
     @property
     @pulumi.getter
@@ -986,10 +1202,21 @@ class IngressServiceBackendPatchArgs:
         :param pulumi.Input[str] name: name is the referenced service. The service must exist in the same namespace as the Ingress object.
         :param pulumi.Input['ServiceBackendPortPatchArgs'] port: port of the referenced service. A port name or port number is required for a IngressServiceBackend.
         """
+        IngressServiceBackendPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            name=name,
+            port=port,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             name: Optional[pulumi.Input[str]] = None,
+             port: Optional[pulumi.Input['ServiceBackendPortPatchArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if name is not None:
-            pulumi.set(__self__, "name", name)
+            _setter("name", name)
         if port is not None:
-            pulumi.set(__self__, "port", port)
+            _setter("port", port)
 
     @property
     @pulumi.getter
@@ -1026,9 +1253,20 @@ class IngressServiceBackendArgs:
         :param pulumi.Input[str] name: name is the referenced service. The service must exist in the same namespace as the Ingress object.
         :param pulumi.Input['ServiceBackendPortArgs'] port: port of the referenced service. A port name or port number is required for a IngressServiceBackend.
         """
-        pulumi.set(__self__, "name", name)
+        IngressServiceBackendArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            name=name,
+            port=port,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             name: pulumi.Input[str],
+             port: Optional[pulumi.Input['ServiceBackendPortArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("name", name)
         if port is not None:
-            pulumi.set(__self__, "port", port)
+            _setter("port", port)
 
     @property
     @pulumi.getter
@@ -1069,14 +1307,29 @@ class IngressSpecPatchArgs:
         :param pulumi.Input[Sequence[pulumi.Input['IngressRulePatchArgs']]] rules: rules is a list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
         :param pulumi.Input[Sequence[pulumi.Input['IngressTLSPatchArgs']]] tls: tls represents the TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
         """
+        IngressSpecPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            default_backend=default_backend,
+            ingress_class_name=ingress_class_name,
+            rules=rules,
+            tls=tls,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             default_backend: Optional[pulumi.Input['IngressBackendPatchArgs']] = None,
+             ingress_class_name: Optional[pulumi.Input[str]] = None,
+             rules: Optional[pulumi.Input[Sequence[pulumi.Input['IngressRulePatchArgs']]]] = None,
+             tls: Optional[pulumi.Input[Sequence[pulumi.Input['IngressTLSPatchArgs']]]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if default_backend is not None:
-            pulumi.set(__self__, "default_backend", default_backend)
+            _setter("default_backend", default_backend)
         if ingress_class_name is not None:
-            pulumi.set(__self__, "ingress_class_name", ingress_class_name)
+            _setter("ingress_class_name", ingress_class_name)
         if rules is not None:
-            pulumi.set(__self__, "rules", rules)
+            _setter("rules", rules)
         if tls is not None:
-            pulumi.set(__self__, "tls", tls)
+            _setter("tls", tls)
 
     @property
     @pulumi.getter(name="defaultBackend")
@@ -1141,14 +1394,29 @@ class IngressSpecArgs:
         :param pulumi.Input[Sequence[pulumi.Input['IngressRuleArgs']]] rules: rules is a list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
         :param pulumi.Input[Sequence[pulumi.Input['IngressTLSArgs']]] tls: tls represents the TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
         """
+        IngressSpecArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            default_backend=default_backend,
+            ingress_class_name=ingress_class_name,
+            rules=rules,
+            tls=tls,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             default_backend: Optional[pulumi.Input['IngressBackendArgs']] = None,
+             ingress_class_name: Optional[pulumi.Input[str]] = None,
+             rules: Optional[pulumi.Input[Sequence[pulumi.Input['IngressRuleArgs']]]] = None,
+             tls: Optional[pulumi.Input[Sequence[pulumi.Input['IngressTLSArgs']]]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if default_backend is not None:
-            pulumi.set(__self__, "default_backend", default_backend)
+            _setter("default_backend", default_backend)
         if ingress_class_name is not None:
-            pulumi.set(__self__, "ingress_class_name", ingress_class_name)
+            _setter("ingress_class_name", ingress_class_name)
         if rules is not None:
-            pulumi.set(__self__, "rules", rules)
+            _setter("rules", rules)
         if tls is not None:
-            pulumi.set(__self__, "tls", tls)
+            _setter("tls", tls)
 
     @property
     @pulumi.getter(name="defaultBackend")
@@ -1207,8 +1475,17 @@ class IngressStatusArgs:
         IngressStatus describe the current state of the Ingress.
         :param pulumi.Input['IngressLoadBalancerStatusArgs'] load_balancer: loadBalancer contains the current status of the load-balancer.
         """
+        IngressStatusArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            load_balancer=load_balancer,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             load_balancer: Optional[pulumi.Input['IngressLoadBalancerStatusArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if load_balancer is not None:
-            pulumi.set(__self__, "load_balancer", load_balancer)
+            _setter("load_balancer", load_balancer)
 
     @property
     @pulumi.getter(name="loadBalancer")
@@ -1233,10 +1510,21 @@ class IngressTLSPatchArgs:
         :param pulumi.Input[Sequence[pulumi.Input[str]]] hosts: hosts is a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
         :param pulumi.Input[str] secret_name: secretName is the name of the secret used to terminate TLS traffic on port 443. Field is left optional to allow TLS routing based on SNI hostname alone. If the SNI host in a listener conflicts with the "Host" header field used by an IngressRule, the SNI host is used for termination and value of the "Host" header is used for routing.
         """
+        IngressTLSPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            hosts=hosts,
+            secret_name=secret_name,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             hosts: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             secret_name: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if hosts is not None:
-            pulumi.set(__self__, "hosts", hosts)
+            _setter("hosts", hosts)
         if secret_name is not None:
-            pulumi.set(__self__, "secret_name", secret_name)
+            _setter("secret_name", secret_name)
 
     @property
     @pulumi.getter
@@ -1273,10 +1561,21 @@ class IngressTLSArgs:
         :param pulumi.Input[Sequence[pulumi.Input[str]]] hosts: hosts is a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
         :param pulumi.Input[str] secret_name: secretName is the name of the secret used to terminate TLS traffic on port 443. Field is left optional to allow TLS routing based on SNI hostname alone. If the SNI host in a listener conflicts with the "Host" header field used by an IngressRule, the SNI host is used for termination and value of the "Host" header is used for routing.
         """
+        IngressTLSArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            hosts=hosts,
+            secret_name=secret_name,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             hosts: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             secret_name: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if hosts is not None:
-            pulumi.set(__self__, "hosts", hosts)
+            _setter("hosts", hosts)
         if secret_name is not None:
-            pulumi.set(__self__, "secret_name", secret_name)
+            _setter("secret_name", secret_name)
 
     @property
     @pulumi.getter
@@ -1333,16 +1632,33 @@ class IngressArgs:
         :param pulumi.Input['IngressSpecArgs'] spec: spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         :param pulumi.Input['IngressStatusArgs'] status: status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
+        IngressArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            api_version=api_version,
+            kind=kind,
+            metadata=metadata,
+            spec=spec,
+            status=status,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             api_version: Optional[pulumi.Input[str]] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+             spec: Optional[pulumi.Input['IngressSpecArgs']] = None,
+             status: Optional[pulumi.Input['IngressStatusArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'networking.k8s.io/v1')
+            _setter("api_version", 'networking.k8s.io/v1')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'Ingress')
+            _setter("kind", 'Ingress')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
         if spec is not None:
-            pulumi.set(__self__, "spec", spec)
+            _setter("spec", spec)
         if status is not None:
-            pulumi.set(__self__, "status", status)
+            _setter("status", status)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -1415,10 +1731,21 @@ class NetworkPolicyEgressRulePatchArgs:
         :param pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPortPatchArgs']]] ports: ports is a list of destination ports for outgoing traffic. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
         :param pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPeerPatchArgs']]] to: to is a list of destinations for outgoing traffic of pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all destinations (traffic not restricted by destination). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the to list.
         """
+        NetworkPolicyEgressRulePatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            ports=ports,
+            to=to,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             ports: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPortPatchArgs']]]] = None,
+             to: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPeerPatchArgs']]]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if ports is not None:
-            pulumi.set(__self__, "ports", ports)
+            _setter("ports", ports)
         if to is not None:
-            pulumi.set(__self__, "to", to)
+            _setter("to", to)
 
     @property
     @pulumi.getter
@@ -1455,10 +1782,21 @@ class NetworkPolicyEgressRuleArgs:
         :param pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPortArgs']]] ports: ports is a list of destination ports for outgoing traffic. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
         :param pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPeerArgs']]] to: to is a list of destinations for outgoing traffic of pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all destinations (traffic not restricted by destination). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the to list.
         """
+        NetworkPolicyEgressRuleArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            ports=ports,
+            to=to,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             ports: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPortArgs']]]] = None,
+             to: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPeerArgs']]]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if ports is not None:
-            pulumi.set(__self__, "ports", ports)
+            _setter("ports", ports)
         if to is not None:
-            pulumi.set(__self__, "to", to)
+            _setter("to", to)
 
     @property
     @pulumi.getter
@@ -1495,10 +1833,21 @@ class NetworkPolicyIngressRulePatchArgs:
         :param pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPeerPatchArgs']]] from_: from is a list of sources which should be able to access the pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all sources (traffic not restricted by source). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the from list.
         :param pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPortPatchArgs']]] ports: ports is a list of ports which should be made accessible on the pods selected for this rule. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
         """
+        NetworkPolicyIngressRulePatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            from_=from_,
+            ports=ports,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             from_: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPeerPatchArgs']]]] = None,
+             ports: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPortPatchArgs']]]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if from_ is not None:
-            pulumi.set(__self__, "from_", from_)
+            _setter("from_", from_)
         if ports is not None:
-            pulumi.set(__self__, "ports", ports)
+            _setter("ports", ports)
 
     @property
     @pulumi.getter(name="from")
@@ -1535,10 +1884,21 @@ class NetworkPolicyIngressRuleArgs:
         :param pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPeerArgs']]] from_: from is a list of sources which should be able to access the pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all sources (traffic not restricted by source). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the from list.
         :param pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPortArgs']]] ports: ports is a list of ports which should be made accessible on the pods selected for this rule. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
         """
+        NetworkPolicyIngressRuleArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            from_=from_,
+            ports=ports,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             from_: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPeerArgs']]]] = None,
+             ports: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPortArgs']]]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if from_ is not None:
-            pulumi.set(__self__, "from_", from_)
+            _setter("from_", from_)
         if ports is not None:
-            pulumi.set(__self__, "ports", ports)
+            _setter("ports", ports)
 
     @property
     @pulumi.getter(name="from")
@@ -1581,12 +1941,25 @@ class NetworkPolicyPeerPatchArgs:
                
                If namespaceSelector is also set, then the NetworkPolicyPeer as a whole selects the pods matching podSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects the pods matching podSelector in the policy's own namespace.
         """
+        NetworkPolicyPeerPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            ip_block=ip_block,
+            namespace_selector=namespace_selector,
+            pod_selector=pod_selector,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             ip_block: Optional[pulumi.Input['IPBlockPatchArgs']] = None,
+             namespace_selector: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']] = None,
+             pod_selector: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if ip_block is not None:
-            pulumi.set(__self__, "ip_block", ip_block)
+            _setter("ip_block", ip_block)
         if namespace_selector is not None:
-            pulumi.set(__self__, "namespace_selector", namespace_selector)
+            _setter("namespace_selector", namespace_selector)
         if pod_selector is not None:
-            pulumi.set(__self__, "pod_selector", pod_selector)
+            _setter("pod_selector", pod_selector)
 
     @property
     @pulumi.getter(name="ipBlock")
@@ -1645,12 +2018,25 @@ class NetworkPolicyPeerArgs:
                
                If namespaceSelector is also set, then the NetworkPolicyPeer as a whole selects the pods matching podSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects the pods matching podSelector in the policy's own namespace.
         """
+        NetworkPolicyPeerArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            ip_block=ip_block,
+            namespace_selector=namespace_selector,
+            pod_selector=pod_selector,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             ip_block: Optional[pulumi.Input['IPBlockArgs']] = None,
+             namespace_selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
+             pod_selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if ip_block is not None:
-            pulumi.set(__self__, "ip_block", ip_block)
+            _setter("ip_block", ip_block)
         if namespace_selector is not None:
-            pulumi.set(__self__, "namespace_selector", namespace_selector)
+            _setter("namespace_selector", namespace_selector)
         if pod_selector is not None:
-            pulumi.set(__self__, "pod_selector", pod_selector)
+            _setter("pod_selector", pod_selector)
 
     @property
     @pulumi.getter(name="ipBlock")
@@ -1705,12 +2091,25 @@ class NetworkPolicyPortPatchArgs:
         :param pulumi.Input[Union[int, str]] port: port represents the port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
         :param pulumi.Input[str] protocol: protocol represents the protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field defaults to TCP.
         """
+        NetworkPolicyPortPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            end_port=end_port,
+            port=port,
+            protocol=protocol,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             end_port: Optional[pulumi.Input[int]] = None,
+             port: Optional[pulumi.Input[Union[int, str]]] = None,
+             protocol: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if end_port is not None:
-            pulumi.set(__self__, "end_port", end_port)
+            _setter("end_port", end_port)
         if port is not None:
-            pulumi.set(__self__, "port", port)
+            _setter("port", port)
         if protocol is not None:
-            pulumi.set(__self__, "protocol", protocol)
+            _setter("protocol", protocol)
 
     @property
     @pulumi.getter(name="endPort")
@@ -1761,12 +2160,25 @@ class NetworkPolicyPortArgs:
         :param pulumi.Input[Union[int, str]] port: port represents the port on the given protocol. This can either be a numerical or named port on a pod. If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
         :param pulumi.Input[str] protocol: protocol represents the protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field defaults to TCP.
         """
+        NetworkPolicyPortArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            end_port=end_port,
+            port=port,
+            protocol=protocol,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             end_port: Optional[pulumi.Input[int]] = None,
+             port: Optional[pulumi.Input[Union[int, str]]] = None,
+             protocol: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if end_port is not None:
-            pulumi.set(__self__, "end_port", end_port)
+            _setter("end_port", end_port)
         if port is not None:
-            pulumi.set(__self__, "port", port)
+            _setter("port", port)
         if protocol is not None:
-            pulumi.set(__self__, "protocol", protocol)
+            _setter("protocol", protocol)
 
     @property
     @pulumi.getter(name="endPort")
@@ -1819,14 +2231,29 @@ class NetworkPolicySpecPatchArgs:
         :param pulumi.Input['_meta.v1.LabelSelectorPatchArgs'] pod_selector: podSelector selects the pods to which this NetworkPolicy object applies. The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] policy_types: policyTypes is a list of rule types that the NetworkPolicy relates to. Valid options are ["Ingress"], ["Egress"], or ["Ingress", "Egress"]. If this field is not specified, it will default based on the existence of ingress or egress rules; policies that contain an egress section are assumed to affect egress, and all policies (whether or not they contain an ingress section) are assumed to affect ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
         """
+        NetworkPolicySpecPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            egress=egress,
+            ingress=ingress,
+            pod_selector=pod_selector,
+            policy_types=policy_types,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             egress: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyEgressRulePatchArgs']]]] = None,
+             ingress: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyIngressRulePatchArgs']]]] = None,
+             pod_selector: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']] = None,
+             policy_types: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if egress is not None:
-            pulumi.set(__self__, "egress", egress)
+            _setter("egress", egress)
         if ingress is not None:
-            pulumi.set(__self__, "ingress", ingress)
+            _setter("ingress", ingress)
         if pod_selector is not None:
-            pulumi.set(__self__, "pod_selector", pod_selector)
+            _setter("pod_selector", pod_selector)
         if policy_types is not None:
-            pulumi.set(__self__, "policy_types", policy_types)
+            _setter("policy_types", policy_types)
 
     @property
     @pulumi.getter
@@ -1891,13 +2318,28 @@ class NetworkPolicySpecArgs:
         :param pulumi.Input[Sequence[pulumi.Input['NetworkPolicyIngressRuleArgs']]] ingress: ingress is a list of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod (and cluster policy otherwise allows the traffic), OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default)
         :param pulumi.Input[Sequence[pulumi.Input[str]]] policy_types: policyTypes is a list of rule types that the NetworkPolicy relates to. Valid options are ["Ingress"], ["Egress"], or ["Ingress", "Egress"]. If this field is not specified, it will default based on the existence of ingress or egress rules; policies that contain an egress section are assumed to affect egress, and all policies (whether or not they contain an ingress section) are assumed to affect ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
         """
-        pulumi.set(__self__, "pod_selector", pod_selector)
+        NetworkPolicySpecArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            pod_selector=pod_selector,
+            egress=egress,
+            ingress=ingress,
+            policy_types=policy_types,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             pod_selector: pulumi.Input['_meta.v1.LabelSelectorArgs'],
+             egress: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyEgressRuleArgs']]]] = None,
+             ingress: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyIngressRuleArgs']]]] = None,
+             policy_types: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("pod_selector", pod_selector)
         if egress is not None:
-            pulumi.set(__self__, "egress", egress)
+            _setter("egress", egress)
         if ingress is not None:
-            pulumi.set(__self__, "ingress", ingress)
+            _setter("ingress", ingress)
         if policy_types is not None:
-            pulumi.set(__self__, "policy_types", policy_types)
+            _setter("policy_types", policy_types)
 
     @property
     @pulumi.getter(name="podSelector")
@@ -1956,8 +2398,17 @@ class NetworkPolicyStatusArgs:
         NetworkPolicyStatus describe the current state of the NetworkPolicy.
         :param pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]] conditions: Conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
         """
+        NetworkPolicyStatusArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            conditions=conditions,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             conditions: Optional[pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if conditions is not None:
-            pulumi.set(__self__, "conditions", conditions)
+            _setter("conditions", conditions)
 
     @property
     @pulumi.getter
@@ -1988,16 +2439,33 @@ class NetworkPolicyArgs:
         :param pulumi.Input['NetworkPolicySpecArgs'] spec: spec represents the specification of the desired behavior for this NetworkPolicy.
         :param pulumi.Input['NetworkPolicyStatusArgs'] status: Status is the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
+        NetworkPolicyArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            api_version=api_version,
+            kind=kind,
+            metadata=metadata,
+            spec=spec,
+            status=status,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             api_version: Optional[pulumi.Input[str]] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+             spec: Optional[pulumi.Input['NetworkPolicySpecArgs']] = None,
+             status: Optional[pulumi.Input['NetworkPolicyStatusArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'networking.k8s.io/v1')
+            _setter("api_version", 'networking.k8s.io/v1')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'NetworkPolicy')
+            _setter("kind", 'NetworkPolicy')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
         if spec is not None:
-            pulumi.set(__self__, "spec", spec)
+            _setter("spec", spec)
         if status is not None:
-            pulumi.set(__self__, "status", status)
+            _setter("status", status)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -2070,10 +2538,21 @@ class ServiceBackendPortPatchArgs:
         :param pulumi.Input[str] name: name is the name of the port on the Service. This is a mutually exclusive setting with "Number".
         :param pulumi.Input[int] number: number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with "Name".
         """
+        ServiceBackendPortPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            name=name,
+            number=number,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             name: Optional[pulumi.Input[str]] = None,
+             number: Optional[pulumi.Input[int]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if name is not None:
-            pulumi.set(__self__, "name", name)
+            _setter("name", name)
         if number is not None:
-            pulumi.set(__self__, "number", number)
+            _setter("number", number)
 
     @property
     @pulumi.getter
@@ -2110,10 +2589,21 @@ class ServiceBackendPortArgs:
         :param pulumi.Input[str] name: name is the name of the port on the Service. This is a mutually exclusive setting with "Number".
         :param pulumi.Input[int] number: number is the numerical port number (e.g. 80) on the Service. This is a mutually exclusive setting with "Name".
         """
+        ServiceBackendPortArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            name=name,
+            number=number,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             name: Optional[pulumi.Input[str]] = None,
+             number: Optional[pulumi.Input[int]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if name is not None:
-            pulumi.set(__self__, "name", name)
+            _setter("name", name)
         if number is not None:
-            pulumi.set(__self__, "number", number)
+            _setter("number", number)
 
     @property
     @pulumi.getter

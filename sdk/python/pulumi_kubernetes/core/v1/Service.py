@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from . import outputs
 from ... import meta as _meta
@@ -29,14 +29,29 @@ class ServiceInitArgs:
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input['ServiceSpecArgs'] spec: Spec defines the behavior of a service. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
+        ServiceInitArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            api_version=api_version,
+            kind=kind,
+            metadata=metadata,
+            spec=spec,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             api_version: Optional[pulumi.Input[str]] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+             spec: Optional[pulumi.Input['ServiceSpecArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'v1')
+            _setter("api_version", 'v1')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'Service')
+            _setter("kind", 'Service')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
         if spec is not None:
-            pulumi.set(__self__, "spec", spec)
+            _setter("spec", spec)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -252,6 +267,10 @@ class Service(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
+            kwargs = kwargs or {}
+            def _setter(key, value):
+                kwargs[key] = value
+            ServiceInitArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
@@ -272,7 +291,17 @@ class Service(pulumi.CustomResource):
 
             __props__.__dict__["api_version"] = 'v1'
             __props__.__dict__["kind"] = 'Service'
+            if metadata is not None and not isinstance(metadata, _meta.v1.ObjectMetaArgs):
+                metadata = metadata or {}
+                def _setter(key, value):
+                    metadata[key] = value
+                _meta.v1.ObjectMetaArgs._configure(_setter, **metadata)
             __props__.__dict__["metadata"] = metadata
+            if spec is not None and not isinstance(spec, ServiceSpecArgs):
+                spec = spec or {}
+                def _setter(key, value):
+                    spec[key] = value
+                ServiceSpecArgs._configure(_setter, **spec)
             __props__.__dict__["spec"] = spec
             __props__.__dict__["status"] = None
         super(Service, __self__).__init__(

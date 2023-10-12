@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from . import outputs
 from ... import core as _core
@@ -28,14 +28,29 @@ class StatefulSetInitArgs:
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['StatefulSetSpecArgs'] spec: Spec defines the desired identities of pods in this set.
         """
+        StatefulSetInitArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            api_version=api_version,
+            kind=kind,
+            metadata=metadata,
+            spec=spec,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             api_version: Optional[pulumi.Input[str]] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+             spec: Optional[pulumi.Input['StatefulSetSpecArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'apps/v1beta1')
+            _setter("api_version", 'apps/v1beta1')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'StatefulSet')
+            _setter("kind", 'StatefulSet')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
         if spec is not None:
-            pulumi.set(__self__, "spec", spec)
+            _setter("spec", spec)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -153,6 +168,10 @@ class StatefulSet(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
+            kwargs = kwargs or {}
+            def _setter(key, value):
+                kwargs[key] = value
+            StatefulSetInitArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
@@ -173,7 +192,17 @@ class StatefulSet(pulumi.CustomResource):
 
             __props__.__dict__["api_version"] = 'apps/v1beta1'
             __props__.__dict__["kind"] = 'StatefulSet'
+            if metadata is not None and not isinstance(metadata, _meta.v1.ObjectMetaArgs):
+                metadata = metadata or {}
+                def _setter(key, value):
+                    metadata[key] = value
+                _meta.v1.ObjectMetaArgs._configure(_setter, **metadata)
             __props__.__dict__["metadata"] = metadata
+            if spec is not None and not isinstance(spec, StatefulSetSpecArgs):
+                spec = spec or {}
+                def _setter(key, value):
+                    spec[key] = value
+                StatefulSetSpecArgs._configure(_setter, **spec)
             __props__.__dict__["spec"] = spec
             __props__.__dict__["status"] = None
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:apps/v1:StatefulSet"), pulumi.Alias(type_="kubernetes:apps/v1beta2:StatefulSet")])

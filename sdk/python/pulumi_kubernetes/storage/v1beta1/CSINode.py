@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from . import outputs
 from ... import meta as _meta
@@ -28,13 +28,28 @@ class CSINodeInitArgs:
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: metadata.name must be the Kubernetes node name.
         """
-        pulumi.set(__self__, "spec", spec)
+        CSINodeInitArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            spec=spec,
+            api_version=api_version,
+            kind=kind,
+            metadata=metadata,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             spec: pulumi.Input['CSINodeSpecArgs'],
+             api_version: Optional[pulumi.Input[str]] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("spec", spec)
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'storage.k8s.io/v1beta1')
+            _setter("api_version", 'storage.k8s.io/v1beta1')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'CSINode')
+            _setter("kind", 'CSINode')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
 
     @property
     @pulumi.getter
@@ -124,6 +139,10 @@ class CSINode(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
+            kwargs = kwargs or {}
+            def _setter(key, value):
+                kwargs[key] = value
+            CSINodeInitArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
@@ -144,7 +163,17 @@ class CSINode(pulumi.CustomResource):
 
             __props__.__dict__["api_version"] = 'storage.k8s.io/v1beta1'
             __props__.__dict__["kind"] = 'CSINode'
+            if metadata is not None and not isinstance(metadata, _meta.v1.ObjectMetaArgs):
+                metadata = metadata or {}
+                def _setter(key, value):
+                    metadata[key] = value
+                _meta.v1.ObjectMetaArgs._configure(_setter, **metadata)
             __props__.__dict__["metadata"] = metadata
+            if spec is not None and not isinstance(spec, CSINodeSpecArgs):
+                spec = spec or {}
+                def _setter(key, value):
+                    spec[key] = value
+                CSINodeSpecArgs._configure(_setter, **spec)
             if spec is None and not opts.urn:
                 raise TypeError("Missing required property 'spec'")
             __props__.__dict__["spec"] = spec

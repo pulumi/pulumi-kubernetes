@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from ... import meta as _meta
 
@@ -30,18 +30,37 @@ class ConfigMapPatchArgs:
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaPatchArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
+        ConfigMapPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            api_version=api_version,
+            binary_data=binary_data,
+            data=data,
+            immutable=immutable,
+            kind=kind,
+            metadata=metadata,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             api_version: Optional[pulumi.Input[str]] = None,
+             binary_data: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
+             data: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
+             immutable: Optional[pulumi.Input[bool]] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'v1')
+            _setter("api_version", 'v1')
         if binary_data is not None:
-            pulumi.set(__self__, "binary_data", binary_data)
+            _setter("binary_data", binary_data)
         if data is not None:
-            pulumi.set(__self__, "data", data)
+            _setter("data", data)
         if immutable is not None:
-            pulumi.set(__self__, "immutable", immutable)
+            _setter("immutable", immutable)
         if kind is not None:
-            pulumi.set(__self__, "kind", 'ConfigMap')
+            _setter("kind", 'ConfigMap')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -171,6 +190,10 @@ class ConfigMapPatch(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
+            kwargs = kwargs or {}
+            def _setter(key, value):
+                kwargs[key] = value
+            ConfigMapPatchArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
@@ -196,6 +219,11 @@ class ConfigMapPatch(pulumi.CustomResource):
             __props__.__dict__["data"] = data
             __props__.__dict__["immutable"] = immutable
             __props__.__dict__["kind"] = 'ConfigMap'
+            if metadata is not None and not isinstance(metadata, _meta.v1.ObjectMetaPatchArgs):
+                metadata = metadata or {}
+                def _setter(key, value):
+                    metadata[key] = value
+                _meta.v1.ObjectMetaPatchArgs._configure(_setter, **metadata)
             __props__.__dict__["metadata"] = metadata
         super(ConfigMapPatch, __self__).__init__(
             'kubernetes:core/v1:ConfigMapPatch',

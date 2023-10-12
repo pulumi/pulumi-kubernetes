@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from ... import meta as _meta
 
@@ -34,19 +34,40 @@ class PriorityClassArgs:
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input[str] preemption_policy: PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is alpha-level and is only honored by servers that enable the NonPreemptingPriority feature.
         """
-        pulumi.set(__self__, "value", value)
+        PriorityClassArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            value=value,
+            api_version=api_version,
+            description=description,
+            global_default=global_default,
+            kind=kind,
+            metadata=metadata,
+            preemption_policy=preemption_policy,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             value: pulumi.Input[int],
+             api_version: Optional[pulumi.Input[str]] = None,
+             description: Optional[pulumi.Input[str]] = None,
+             global_default: Optional[pulumi.Input[bool]] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+             preemption_policy: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None):
+        _setter("value", value)
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'scheduling.k8s.io/v1alpha1')
+            _setter("api_version", 'scheduling.k8s.io/v1alpha1')
         if description is not None:
-            pulumi.set(__self__, "description", description)
+            _setter("description", description)
         if global_default is not None:
-            pulumi.set(__self__, "global_default", global_default)
+            _setter("global_default", global_default)
         if kind is not None:
-            pulumi.set(__self__, "kind", 'PriorityClass')
+            _setter("kind", 'PriorityClass')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
         if preemption_policy is not None:
-            pulumi.set(__self__, "preemption_policy", preemption_policy)
+            _setter("preemption_policy", preemption_policy)
 
     @property
     @pulumi.getter
