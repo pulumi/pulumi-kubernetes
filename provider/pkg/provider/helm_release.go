@@ -21,7 +21,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io/fs"
 	"net/url"
 	"os"
 	"path/filepath"
@@ -30,7 +29,6 @@ import (
 	"time"
 
 	jsonpatch "github.com/evanphx/json-patch"
-	"github.com/golang/protobuf/ptypes/empty"
 	pbempty "github.com/golang/protobuf/ptypes/empty"
 	"github.com/imdario/mergo"
 	"github.com/mitchellh/mapstructure"
@@ -361,27 +359,37 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 			return nil, err
 		}
 
-		resourceInfo, err := r.computeResourceInfo(new, r.clientSet)
-		if err != nil && errors.Is(err, fs.ErrNotExist) {
-			// Likely because the chart is not readily available (e.g. import of chart where no repo info is stored).
-			// Declare bankruptcy in being able to determine the underlying resources and hope for the best
-			// further down the operations.
-			resourceInfo = nil
+		normalizeInputs := func() error {
+			manifest, err := r.helmTemplate(ctx, urn, new)
+			if err != nil {
+				return err
+			}
 
+			// compute the checksum of the rendered output, to be able to detect changes
+			h := sha256.New()
+			_, err = h.Write([]byte(manifest))
+			if err != nil {
+				return err
+			}
+			new.Checksum = hex.EncodeToString(h.Sum(nil))
+
+			// compute resource names
+			_, resources, err := convertYAMLManifestToJSON(manifest)
+			if err != nil {
+				return err
+			}
+			new.ResourceNames = resources
+
+			return nil
+		}
+		err = normalizeInputs()
+		if err != nil {
+			// Likely because the chart is not readily available (e.g. import of chart where no repo info is stored).
 			// Produce a warning about the insufficiency of the inputs.
 			failures = append(failures, &pulumirpc.CheckFailure{
 				Property: "chart",
-				Reason:   "unable to load the chart; check the chart name and repository configuration.",
+				Reason:   fmt.Sprintf("%v; check the chart name and repository configuration.", err),
 			})
-		} else if err != nil {
-			return nil, err
-		}
-
-		if resourceInfo != nil {
-			new.Checksum = resourceInfo.checksum
-			if len(new.ResourceNames) == 0 {
-				new.ResourceNames = resourceInfo.resourceNames
-			}
 		}
 
 		logger.V(9).Infof("New: %+v", new)
@@ -437,6 +445,86 @@ func (r *helmReleaseProvider) setDefaults(target resource.PropertyMap) {
 			target["keyring"] = resource.NewStringProperty(os.ExpandEnv("$HOME/.gnupg/pubring.gpg"))
 		}
 	}
+}
+
+func (r *helmReleaseProvider) helmTemplate(ctx context.Context, urn resource.URN, newRelease *Release) (string, error) {
+	conf, err := r.getActionConfig(newRelease.Namespace)
+	if err != nil {
+		return "", err
+	}
+	client := action.NewInstall(conf)
+	c, path, err := getChart(&client.ChartPathOptions, conf.RegistryClient, r.settings, newRelease)
+	if err != nil {
+		logger.V(9).Infof("getChart failed: %+v", err)
+		logger.V(9).Infof("Settings: %#v", r.settings)
+		return "", err
+	}
+
+	logger.V(9).Infof("Checking chart dependencies for chart: %q with path: %q", newRelease.Chart, path)
+	// check and update the chart's dependencies if needed
+	updated, err := checkChartDependencies(
+		c,
+		path,
+		newRelease.Keyring,
+		r.settings,
+		conf.RegistryClient,
+		newRelease.DependencyUpdate)
+	if err != nil {
+		return "", err
+	} else if updated {
+		// load the chart again if its dependencies have been updated
+		c, err = loader.Load(path)
+		if err != nil {
+			return "", err
+		}
+	}
+
+	logger.V(9).Infof("Fetching values for release: %q", newRelease.Name)
+	values, err := getValues(newRelease)
+	if err != nil {
+		return "", err
+	}
+
+	logger.V(9).Infof("Values: %+v", values)
+
+	err = isChartInstallable(c)
+	if err != nil {
+		return "", err
+	}
+
+	client.DryRun = true
+	client.ClientOnly = true
+	client.Devel = newRelease.Devel
+	client.DependencyUpdate = newRelease.DependencyUpdate
+	client.Namespace = newRelease.Namespace
+	client.ReleaseName = newRelease.Name
+	client.GenerateName = false
+	client.NameTemplate = ""
+	client.OutputDir = ""
+	client.SubNotes = newRelease.RenderSubchartNotes
+	client.DisableOpenAPIValidation = true
+	client.Replace = true
+	client.APIVersions = nil
+	client.IncludeCRDs = !newRelease.SkipCrds
+
+	if cmd := newRelease.Postrender; cmd != "" {
+		pr, err := postrender.NewExec(cmd)
+
+		if err != nil {
+			return "", err
+		}
+
+		client.PostRenderer = pr
+	}
+
+	logger.V(9).Infof("template helm chart")
+	rel, err := client.RunWithContext(r.canceler.context, c, values)
+	if err != nil {
+		return "", err
+	}
+
+	manifest := getManifest(rel, !newRelease.DisableWebhooks, true)
+	return manifest, err
 }
 
 func (r *helmReleaseProvider) helmCreate(ctx context.Context, urn resource.URN, newRelease *Release) error {
@@ -1062,7 +1150,7 @@ func (r *helmReleaseProvider) Update(ctx context.Context, req *pulumirpc.UpdateR
 	return &pulumirpc.UpdateResponse{Properties: inputsAndComputed}, nil
 }
 
-func (r *helmReleaseProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest) (*empty.Empty, error) {
+func (r *helmReleaseProvider) Delete(ctx context.Context, req *pulumirpc.DeleteRequest) (*pbempty.Empty, error) {
 	urn := resource.URN(req.GetUrn())
 	label := fmt.Sprintf("Provider[%s].Delete(%s)", r.name, urn)
 
@@ -1106,76 +1194,6 @@ func (r *helmReleaseProvider) Delete(ctx context.Context, req *pulumirpc.DeleteR
 		_ = r.host.Log(context.Background(), diag.Warning, urn, fmt.Sprintf("Helm uninstall returned information: %q", res.Info))
 	}
 	return &pbempty.Empty{}, nil
-}
-
-type resourceInfo struct {
-	resourceNames map[string][]string
-	checksum      string
-}
-
-func (r *helmReleaseProvider) computeResourceInfo(rel *Release, clientSet *clients.DynamicClientSet) (*resourceInfo, error) {
-	logger.V(9).Infof("Computing resource info for release: %q: %#v", rel.Name, rel)
-	result := &resourceInfo{}
-	helmChartOpts := r.chartOptsFromRelease(rel)
-
-	logger.V(9).Infof("About to template: %+v", helmChartOpts)
-	templ, err := helmTemplate(helmChartOpts, clientSet)
-	if err != nil {
-		return nil, err
-	}
-
-	// compute the resource names
-	_, resourceNames, err := convertYAMLManifestToJSON(templ)
-	if err != nil {
-		return nil, err
-	}
-	result.resourceNames = resourceNames
-
-	// compute the checksum of the rendered output, to be able to detect changes
-	h := sha256.New()
-	_, err = h.Write([]byte(templ))
-	if err != nil {
-		return nil, err
-	}
-	result.checksum = hex.EncodeToString(h.Sum(nil))
-
-	return result, nil
-}
-
-func (r *helmReleaseProvider) chartOptsFromRelease(rel *Release) HelmChartOpts {
-	helmHome := os.Getenv("HELM_HOME")
-
-	helmChartOpts := HelmChartOpts{
-		APIVersions:              nil,
-		SkipCRDRendering:         rel.SkipCrds,
-		Namespace:                rel.Namespace,
-		ReleaseName:              rel.Name,
-		Values:                   rel.Values,
-		Version:                  rel.Version,
-		HelmChartDebug:           r.settings.Debug,
-		IncludeTestHookResources: true,
-		HelmRegistryConfig:       r.settings.RegistryConfig,
-	}
-	if rel.RepositoryOpts != nil {
-		helmChartOpts.Chart = rel.Chart
-		helmChartOpts.HelmFetchOpts = HelmFetchOpts{
-			CAFile:   rel.RepositoryOpts.CAFile,
-			CertFile: rel.RepositoryOpts.CertFile,
-			Devel:    rel.Devel,
-			Home:     helmHome,
-			KeyFile:  rel.RepositoryOpts.KeyFile,
-			Keyring:  rel.Keyring,
-			Password: rel.RepositoryOpts.Password,
-			Repo:     rel.RepositoryOpts.Repo,
-			Username: rel.RepositoryOpts.Username,
-			Version:  rel.Version,
-		}
-	} else if registry.IsOCI(rel.Chart) {
-		helmChartOpts.Chart = rel.Chart
-	} else {
-		helmChartOpts.Path = rel.Chart
-	}
-	return helmChartOpts
 }
 
 func checkpointRelease(inputs resource.PropertyMap, outputs *Release, label string) resource.PropertyMap {
