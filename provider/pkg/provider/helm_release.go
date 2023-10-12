@@ -1007,12 +1007,11 @@ func (r *helmReleaseProvider) Read(ctx context.Context, req *pulumirpc.ReadReque
 	var namespace, name string
 	if len(oldState.Mappable()) == 0 {
 		namespace, name = parseFqName(req.GetId())
+		logger.V(9).Infof("%s Starting import for %s/%s", label, namespace, name)
 	} else {
 		name = existingRelease.Name
 		namespace = existingRelease.Namespace
 	}
-
-	logger.V(9).Infof("%s Starting import for %s/%s", label, namespace, name)
 
 	actionConfig, err := r.getActionConfig(namespace)
 	if err != nil {
@@ -1314,18 +1313,26 @@ func getRelease(cfg *action.Configuration, name string) (*release.Release, error
 	return res, nil
 }
 
-func importRelease(settings *cli.EnvSettings, release *Release, r *release.Release) {
+func importRelease(settings *cli.EnvSettings, release *Release, r *release.Release) error {
 	release.Name = r.Name
 	release.Namespace = r.Namespace
 
-	// Search for the chart in the locally-configured repositories.
-	if repo, chart, found := searchChart(settings, r.Chart.Metadata.Name, r.Chart.Metadata.Version); found {
+	// Attempt to resolve the chart's origin in either a local or remote repository.
+	_, found, err := localChart(r.Chart.Metadata.Name, false, "")
+	if err != nil {
+		return err
+	}
+	if found {
+		release.Chart = r.Chart.Metadata.Name
+	} else if repo, chart, found := searchChart(settings, r.Chart.Metadata.Name, r.Chart.Metadata.Version); found {
 		// use a local repository reference, rather than reconstructing all the repository opts
 		release.Chart = fmt.Sprintf("%s/%s", repo.Name, chart.Name)
 	} else {
 		// fallback to using a local chart reference
 		release.Chart = r.Chart.Metadata.Name
 	}
+
+	return nil
 }
 
 func isChartInstallable(ch *helmchart.Chart) error {
@@ -1462,7 +1469,7 @@ func searchChart(settings *cli.EnvSettings, name, version string) (*repo.Entry, 
 		}
 		chartVersion, err := ind.Get(name, version)
 		if err != nil {
-			logger.V(9).Infof("No such chart: %+v", err)
+			logger.V(9).Infof("No such chart: %v", err)
 			continue
 		}
 		return re, chartVersion, true
