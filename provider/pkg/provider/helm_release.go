@@ -361,33 +361,8 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 			return nil, err
 		}
 
-		normalizeInputs := func() error {
-			manifest, err := r.helmTemplate(ctx, urn, new)
-			if err != nil {
-				return err
-			}
-
-			// compute the checksum of the rendered output, to be able to detect changes
-			h := sha256.New()
-			_, err = h.Write([]byte(manifest))
-			if err != nil {
-				return err
-			}
-			new.Checksum = hex.EncodeToString(h.Sum(nil))
-
-			// compute resource names
-			_, resources, err := convertYAMLManifestToJSON(manifest)
-			if err != nil {
-				return err
-			}
-			new.ResourceNames = resources
-
-			return nil
-		}
-		err = normalizeInputs()
+		err = r.setComputedInputs(ctx, urn, new)
 		if err != nil {
-			// Likely because the chart is not readily available (e.g. import of chart where no repo info is stored).
-			// Produce a warning about the insufficiency of the inputs.
 			failures = append(failures, &pulumirpc.CheckFailure{
 				Property: "chart",
 				Reason:   fmt.Sprintf("%v; check the chart name and repository configuration.", err),
@@ -447,6 +422,33 @@ func (r *helmReleaseProvider) setDefaults(target resource.PropertyMap) {
 			target["keyring"] = resource.NewStringProperty(os.ExpandEnv("$HOME/.gnupg/pubring.gpg"))
 		}
 	}
+}
+
+// setComputedInputs augments resource inputs with computed inputs.
+func (r *helmReleaseProvider) setComputedInputs(ctx context.Context, urn resource.URN, new *Release) error {
+
+	// generate the template output
+	manifest, err := r.helmTemplate(ctx, urn, new)
+	if err != nil {
+		return err
+	}
+
+	// compute the checksum of the rendered output, to be able to detect changes
+	h := sha256.New()
+	_, err = h.Write([]byte(manifest))
+	if err != nil {
+		return err
+	}
+	new.Checksum = hex.EncodeToString(h.Sum(nil))
+
+	// compute resource names
+	_, resources, err := convertYAMLManifestToJSON(manifest)
+	if err != nil {
+		return err
+	}
+	new.ResourceNames = resources
+
+	return nil
 }
 
 func (r *helmReleaseProvider) helmTemplate(ctx context.Context, urn resource.URN, newRelease *Release) (string, error) {
@@ -1037,7 +1039,7 @@ func (r *helmReleaseProvider) Read(ctx context.Context, req *pulumirpc.ReadReque
 	if oldInputs == nil {
 		// No old inputs suggests this is an import. Hydrate the state from the current live object.
 		// A subsequent Check operation will apply the computed inputs.
-		importRelease(r.settings, existingRelease, liveObj)
+		r.importRelease(ctx, urn, existingRelease, liveObj)
 		logger.V(9).Infof("%s Imported release: %#v", label, existingRelease)
 
 		oldInputs = r.serializeImportInputs(existingRelease)
@@ -1313,23 +1315,31 @@ func getRelease(cfg *action.Configuration, name string) (*release.Release, error
 	return res, nil
 }
 
-func importRelease(settings *cli.EnvSettings, release *Release, r *release.Release) error {
-	release.Name = r.Name
-	release.Namespace = r.Namespace
+func (r *helmReleaseProvider) importRelease(ctx context.Context, urn resource.URN, release *Release, hr *release.Release) error {
+
+	// note: setReleaseAttributes pre-populates some of the inputs
 
 	// Attempt to resolve the chart's origin in either a local or remote repository.
-	_, found, err := localChart(r.Chart.Metadata.Name, false, "")
+	// Note that the local chart is not verified.
+	_, found, err := localChart(hr.Chart.Metadata.Name, false, "")
 	if err != nil {
 		return err
 	}
 	if found {
-		release.Chart = r.Chart.Metadata.Name
-	} else if repo, chart, found := searchChart(settings, r.Chart.Metadata.Name, r.Chart.Metadata.Version); found {
+		release.Chart = hr.Chart.Metadata.Name
+	} else if repo, chart, found := searchChart(r.settings, hr.Chart.Metadata.Name, hr.Chart.Metadata.Version); found {
 		// use a local repository reference, rather than reconstructing all the repository opts
 		release.Chart = fmt.Sprintf("%s/%s", repo.Name, chart.Name)
 	} else {
 		// fallback to using a local chart reference
-		release.Chart = r.Chart.Metadata.Name
+		release.Chart = hr.Chart.Metadata.Name
+	}
+
+	err = r.setComputedInputs(ctx, urn, release)
+	if err != nil {
+		// Likely because the chart is not readily available (e.g. import of chart where no repo info is stored).
+		// Eat the error to allow import to succeed, assuming that Check will report the failure later.
+		contract.IgnoreError(err)
 	}
 
 	return nil
