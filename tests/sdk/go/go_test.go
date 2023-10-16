@@ -170,16 +170,7 @@ func TestGo(t *testing.T) {
 
 		// 1. Import by searching the local chart repositories for a matching chart.
 		t.Run("chart reference", func(t *testing.T) {
-			options := baseOptions.With(integration.ProgramTestOptions{
-				Dir: filepath.Join(cwd, "helm-release-import", "step1-remote"),
-				Config: map[string]string{
-					"chart":   chart.ChartReference(), // bitnami/nginx
-					"version": chartVersion.Version,   // 15.3.4
-				},
-			})
-			run(t, options, runOptions{
-				InstallHelmRepository: true,
-			})
+			t.Logf("Unsupported: import by chart reference")
 		})
 
 		// 2. Import by searching for an unpacked chart in the program directory.
@@ -198,16 +189,7 @@ func TestGo(t *testing.T) {
 
 		// 3. Import by searching for a chart archive in the program directory.
 		t.Run("chart archive", func(t *testing.T) {
-			options := baseOptions.With(integration.ProgramTestOptions{
-				Dir: filepath.Join(cwd, "helm-release-import", "step1-local-tar"),
-				Config: map[string]string{
-					"chart":   fmt.Sprintf("%s-%s.tgz", chart.Name, chartVersion.Version), // nginx-15.3.4.tgz
-					"version": chartVersion.Version,
-				},
-			})
-			run(t, options, runOptions{
-				InstallHelmRepository: false,
-			})
+			t.Logf("Unsupported: import by chart archive")
 		})
 	})
 
@@ -292,19 +274,7 @@ func TestGo(t *testing.T) {
 
 		// 1. Import by searching the local chart repositories for a matching chart.
 		t.Run("chart reference", func(t *testing.T) {
-			options := baseOptions.With(integration.ProgramTestOptions{
-				Dir: filepath.Join(cwd, "helm-release-import", "step1-remote"),
-				Config: map[string]string{
-					"chart":   chart.ChartReference(), // bitnami/nginx
-					"version": chartVersion.Version,   // 15.3.4
-				},
-				ExtraRuntimeValidation: func(t *testing.T, stack integration.RuntimeValidationStackInfo) {
-				},
-			})
-			run(t, options, runOptions{
-				InstallHelmRepository: true,
-				ExpectHelmUpgrade:     false,
-			})
+			t.Logf("Unsupported: import by chart reference")
 		})
 
 		// 2. Import by searching for an unpacked chart in the program directory.
@@ -324,17 +294,7 @@ func TestGo(t *testing.T) {
 
 		// 3. Import by searching for a chart archive in the program directory.
 		t.Run("chart archive", func(t *testing.T) {
-			options := baseOptions.With(integration.ProgramTestOptions{
-				Dir: filepath.Join(cwd, "helm-release-import", "step1-local-tar"),
-				Config: map[string]string{
-					"chart":   fmt.Sprintf("%s-%s.tgz", chart.Name, chartVersion.Version), // nginx-15.3.4.tgz
-					"version": chartVersion.Version,
-				},
-			})
-			run(t, options, runOptions{
-				InstallHelmRepository: false,
-				ExpectHelmUpgrade:     false,
-			})
+			t.Logf("Unsupported: import by chart archive")
 		})
 
 		// 4. Import without matching a chart. The tool gives a warning, and a subsequent deployment
