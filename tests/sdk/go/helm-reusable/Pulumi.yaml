@@ -1,3 +1,0 @@
-name: helm-reusable
-runtime: go
-description: A parameterized Helm Release for test purposes.
