@@ -19,14 +19,14 @@ func main() {
 		chart := conf.Require("chart")
 		version := conf.Require("version")
 		var repoOpts *helm.RepositoryOptsArgs
-		if repo, err := conf.Try("repo"); err != nil && repo != "" {
+		if repo, err := conf.Try("repo"); err == nil && repo != "" {
 			repoOpts = &helm.RepositoryOptsArgs{
 				Repo: pulumi.StringPtr(repo),
 			}
 		}
 		values := map[string]interface{}{}
 		conf.RequireObject("values", &values)
-		if id, err := conf.Try("import-id"); err != nil && id != "" {
+		if id, err := conf.Try("import-id"); err == nil && id != "" {
 			opts = append(opts, pulumi.Import(pulumi.ID(id)))
 		}
 		rel, err := helm.NewRelease(ctx, "test", &helm.ReleaseArgs{

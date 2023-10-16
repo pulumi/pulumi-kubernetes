@@ -118,26 +118,33 @@ func TestGo(t *testing.T) {
 		chart := bitnamiNginxChart
 		chartVersion := bitnamiNginxChart.Versions[0]
 
-		// create a Helm environment with a chart repository
-		he, cleanup, err := createHelmEnvironment(t, chart.HelmRepo)
-		require.NoError(t, err, "failed to create Helm environment")
-		defer func() {
-			contract.IgnoreError(cleanup())
-		}()
+		// Run a program test for each of the various ways to import a Helm chart.
+		type runOptions struct {
+			InstallHelmRepository bool
+		}
+		run := func(t *testing.T, options integration.ProgramTestOptions, opts runOptions) {
+			// create a Helm environment with a chart repository
+			var repos []repo.Entry
+			if opts.InstallHelmRepository {
+				repos = append(repos, chart.HelmRepo)
+			}
+			he, cleanup, err := createHelmEnvironment(t, repos...)
+			require.NoError(t, err, "failed to create Helm environment")
+			t.Cleanup(func() {
+				contract.IgnoreError(cleanup())
+			})
 
-		// Run a program test for each of the various ways to install a Helm chart.
-		run := func(t *testing.T, options integration.ProgramTestOptions) {
 			// pre-install the Helm chart to be imported
 			namespace := getRandomNamespace("importtest")
 			chartPath := filepath.Join(cwd, chart.TestPath)
 			require.NoError(t, createRelease("mynginx", namespace, chartPath, true))
-			defer func() {
+			t.Cleanup(func() {
 				contract.IgnoreError(deleteRelease("mynginx", namespace))
-			}()
+			})
 
 			// Import a Helm release using the `import` option on the `helm.Release` resource.
 			// The program inputs MUST exactly match the provider-generated inputs,
-			// or Pulumi will report: "error: inputs to import do not match the existing resource"
+			// or Pulumi will report: "error: inputs to import do not match the existing resource".
 			hValues, _ := json.Marshal(chartVersion.Values)
 			successCriteria := func(t *testing.T, stack integration.RuntimeValidationStackInfo) {
 				assert.NotEmpty(t, stack.Outputs["svc_ip"])
@@ -161,7 +168,7 @@ func TestGo(t *testing.T) {
 			integration.ProgramTest(t, &options)
 		}
 
-		// 1. By chart reference: helm install mymaria example/mariadb
+		// 1. Import by searching the local chart repositories for a matching chart.
 		t.Run("chart reference", func(t *testing.T) {
 			options := baseOptions.With(integration.ProgramTestOptions{
 				Dir: filepath.Join(cwd, "helm-release-import", "step1-remote"),
@@ -170,10 +177,12 @@ func TestGo(t *testing.T) {
 					"version": chartVersion.Version,   // 15.3.4
 				},
 			})
-			run(t, options)
+			run(t, options, runOptions{
+				InstallHelmRepository: true,
+			})
 		})
 
-		// 2. By path to an unpacked chart directory: helm install mynginx ./nginx
+		// 2. Import by searching for an unpacked chart in the program directory.
 		t.Run("chart directory", func(t *testing.T) {
 			options := baseOptions.With(integration.ProgramTestOptions{
 				Dir: filepath.Join(cwd, "helm-release-import", "step1-local-directory"),
@@ -182,12 +191,14 @@ func TestGo(t *testing.T) {
 					"version": chartVersion.Version,
 				},
 			})
-			run(t, options)
+			run(t, options, runOptions{
+				InstallHelmRepository: false,
+			})
 		})
 
-		// 3. By path to a packaged chart: helm install mynginx ./nginx-1.2.3.tgz
+		// 3. Import by searching for a chart archive in the program directory.
 		t.Run("chart archive", func(t *testing.T) {
-			t.Log("unsupported: Helm import by tar")
+			t.Log("unsupported: Helm import by chart archive")
 			// options := baseOptions.With(integration.ProgramTestOptions{
 			// 	Dir: filepath.Join(cwd, "helm-release-import", "step1-local-tar"),
 			// 	Config: map[string]string{
@@ -196,48 +207,9 @@ func TestGo(t *testing.T) {
 			// 	},
 			// 	ExpectFailure: true,
 			// })
-			// run(options)
-		})
-
-		// 4. By absolute URL: helm install mynginx https://example.com/charts/nginx-1.2.3.tgz
-		t.Run("absolute url", func(t *testing.T) {
-			t.Log("unsupported: Helm import by absolute url")
-			// options := baseOptions.With(integration.ProgramTestOptions{
-			// 	Dir: filepath.Join(cwd, "helm-release-import", "step1-local-tar"),
-			// 	Config: map[string]string{
-			// 		"chart":   chart.LocalArchive, // nginx-15.3.4.tgz
-			// 		"version": chartVersion.Version,
-			// 	},
-			// 	ExpectFailure: true,
+			// run(options, runOptions{
+			// 	InstallHelmRepository: false,
 			// })
-			// run(t, options)
-		})
-
-		// 5. By chart reference and repo url: helm install --repo https://example.com/charts/ mynginx nginx
-		t.Run("chart reference and repo url", func(t *testing.T) {
-			t.Log("unsupported: Helm import by chart reference and repo url")
-			// options := baseOptions.With(integration.ProgramTestOptions{
-			// 	Dir: filepath.Join(cwd, "helm-release-import", "step1-remote"),
-			// 	Config: map[string]string{
-			// 		"chart":   chart.ChartReference.Name,     // nginx
-			// 		"repo":    chart.ChartReference.Repo.URL, // https://charts.bitnami.com/bitnami
-			// 		"version": chartVersion.Version,          // 15.3.4
-			// 	},
-			// })
-			// run(t, options)
-		})
-
-		// 6. By OCI registries: helm install mynginx --version 1.2.3 oci://example.com/charts/nginx
-		t.Run("oci chart", func(t *testing.T) {
-			t.Log("unsupported: Helm import by OCI registries")
-			// options := baseOptions.With(integration.ProgramTestOptions{
-			// 	Dir: filepath.Join(cwd, "helm-release-import", "step1-remote"),
-			// 	Config: map[string]string{
-			// 		"chart":   chart.OciUrl,         // oci://registry-1.docker.io/bitnamicharts/nginx
-			// 		"version": chartVersion.Version, // 15.3.4
-			// 	},
-			// })
-			// run(t, options)
 		})
 	})
 
@@ -246,42 +218,40 @@ func TestGo(t *testing.T) {
 		chart := bitnamiNginxChart
 		chartVersion := bitnamiNginxChart.Versions[0]
 
-		// Run a program test for each of the various ways to install a Helm chart.
+		// Run a program test for each of the various ways to import a Helm chart.
 		type runOptions struct {
-			SkipHelmRepositoryInstall bool
-			ExpectHelmUpgrade         bool
+			InstallHelmRepository bool
+			ExpectHelmUpgrade     bool
 		}
 		run := func(t *testing.T, baseOptions integration.ProgramTestOptions, opts runOptions) {
 			// create a Helm environment with a chart repository
 			var repos []repo.Entry
-			if !opts.SkipHelmRepositoryInstall {
+			if opts.InstallHelmRepository {
 				repos = append(repos, chart.HelmRepo)
 			}
 			he, cleanup, err := createHelmEnvironment(t, repos...)
 			require.NoError(t, err, "failed to create Helm environment")
-			defer func() {
+			t.Cleanup(func() {
 				contract.IgnoreError(cleanup())
-			}()
+			})
 
 			// pre-install the Helm chart to be imported
 			namespace := getRandomNamespace("importtest")
 			chartPath := filepath.Join(cwd, chart.TestPath)
 			require.NoError(t, createRelease("mynginx", namespace, chartPath, true))
-			defer func() {
+			t.Cleanup(func() {
 				contract.IgnoreError(deleteRelease("mynginx", namespace))
-			}()
+			})
 
 			// Import a Helm release using the `pulumi import` tool.
-			// The program inputs MAY exactly match the provider-generated inputs,
-			// or Pulumi will report: "error: inputs to import do not match the existing resource"
+			// The provider infers the chart reference from the existing release,
+			// by searching the local environment for a matching chart.
+			// The program inputs may or may not match the provider-generated inputs;
+			// if not, import succeeds with a warning and a subsequent deployment may cause a Helm upgrade.
 			hValues, _ := json.Marshal(chartVersion.Values)
 			successCriteria := func(t *testing.T, stack integration.RuntimeValidationStackInfo) {
 				assert.NotEmpty(t, stack.Outputs["svc_ip"])
 				assert.NotEmpty(t, stack.Outputs["resourceNames"])
-				// if baseOptions.ExtraRuntimeValidation != nil {
-				// 	baseOptions.ExtraRuntimeValidation(t, stack)
-				// }
-				// TODO assert that the resource had no diffs.
 			}
 			options := baseOptions.With(integration.ProgramTestOptions{
 				Config: map[string]string{
@@ -312,10 +282,9 @@ func TestGo(t *testing.T) {
 			// Run an update to verify that the Helm release was imported.
 			require.NoError(t, pt.TestPreviewUpdateAndEdits(), "update")
 
-			// TODO: assert that the release wasn't upgraded by the import operation.
+			// assert that the release wasn't upgraded by the import operation.
 			release, err := getRelease("mynginx", namespace)
 			require.NoError(t, err, "getRelease")
-
 			if !opts.ExpectHelmUpgrade {
 				assert.Equal(t, 1, release.Version, "release version")
 			} else {
@@ -323,7 +292,7 @@ func TestGo(t *testing.T) {
 			}
 		}
 
-		// 1. By chart reference: helm install mymaria example/mariadb
+		// 1. Import by searching the local chart repositories for a matching chart.
 		t.Run("chart reference", func(t *testing.T) {
 			options := baseOptions.With(integration.ProgramTestOptions{
 				Dir: filepath.Join(cwd, "helm-release-import", "step1-remote"),
@@ -335,11 +304,12 @@ func TestGo(t *testing.T) {
 				},
 			})
 			run(t, options, runOptions{
-				ExpectHelmUpgrade: false,
+				InstallHelmRepository: true,
+				ExpectHelmUpgrade:     false,
 			})
 		})
 
-		// 2. By path to an unpacked chart directory: helm install mynginx ./nginx
+		// 2. Import by searching for an unpacked chart in the program directory.
 		t.Run("chart directory", func(t *testing.T) {
 			options := baseOptions.With(integration.ProgramTestOptions{
 				Dir: filepath.Join(cwd, "helm-release-import", "step1-local-directory"),
@@ -349,11 +319,12 @@ func TestGo(t *testing.T) {
 				},
 			})
 			run(t, options, runOptions{
-				ExpectHelmUpgrade: false,
+				InstallHelmRepository: false,
+				ExpectHelmUpgrade:     false,
 			})
 		})
 
-		// 3. By path to a packaged chart: helm install mynginx ./nginx-1.2.3.tgz
+		// 3. Import by searching for a chart archive in the program directory.
 		t.Run("chart archive", func(t *testing.T) {
 			t.Log("unsupported: Helm import by chart archive")
 			// options := baseOptions.With(integration.ProgramTestOptions{
@@ -367,48 +338,21 @@ func TestGo(t *testing.T) {
 			// run(t, options)
 		})
 
-		// 4. By absolute URL: helm install mynginx https://example.com/charts/nginx-1.2.3.tgz
-		t.Run("absolute url", func(t *testing.T) {
-			// t.Log("unsupported: Helm import by absolute url")
+		// 4. Import without matching a chart. The tool gives a warning, and a subsequent deployment
+		// will cause a Helm upgrade to "correct" the inputs.
+		t.Run("manual", func(t *testing.T) {
 			options := baseOptions.With(integration.ProgramTestOptions{
 				Dir: filepath.Join(cwd, "helm-release-import", "step1-remote"),
 				Config: map[string]string{
-					"chart":   chart.ChartUrl, // https://example.com/charts/nginx-1.2.3.tgz
-					"version": chartVersion.Version,
+					"chart":   chart.Name,           // nginx
+					"repo":    chart.HelmRepo.URL,   // https://charts.bitnami.com/bitnami
+					"version": chartVersion.Version, // 15.3.4
 				},
-				ExpectFailure: true,
 			})
 			run(t, options, runOptions{
-				SkipHelmRepositoryInstall: true,
-				ExpectHelmUpgrade:         true,
+				InstallHelmRepository: false,
+				ExpectHelmUpgrade:     true,
 			})
-		})
-
-		// 5. By chart reference and repo url: helm install --repo https://example.com/charts/ mynginx nginx
-		t.Run("chart reference and repo url", func(t *testing.T) {
-			t.Log("unsupported: Helm import by chart reference and repo url")
-			// options := baseOptions.With(integration.ProgramTestOptions{
-			// 	Dir: filepath.Join(cwd, "helm-release-import", "step1-remote"),
-			// 	Config: map[string]string{
-			// 		"chart":   chart.ChartReference.Name,     // nginx
-			// 		"repo":    chart.ChartReference.Repo.URL, // https://charts.bitnami.com/bitnami
-			// 		"version": chartVersion.Version,          // 15.3.4
-			// 	},
-			// })
-			// run(t, options)
-		})
-
-		// 6. By OCI registries: helm install mynginx --version 1.2.3 oci://example.com/charts/nginx
-		t.Run("oci chart", func(t *testing.T) {
-			t.Log("unsupported: Helm import by OCI registries")
-			// options := baseOptions.With(integration.ProgramTestOptions{
-			// 	Dir: filepath.Join(cwd, "helm-release-import", "step1-remote"),
-			// 	Config: map[string]string{
-			// 		"chart":   chart.OciUrl,         // oci://registry-1.docker.io/bitnamicharts/nginx
-			// 		"version": chartVersion.Version, // 15.3.4
-			// 	},
-			// })
-			// run(t, options)
 		})
 	})
 
