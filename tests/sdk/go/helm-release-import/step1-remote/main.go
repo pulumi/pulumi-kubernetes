@@ -36,7 +36,6 @@ func main() {
 			Version:        pulumi.String(version),
 			RepositoryOpts: repoOpts,
 			Values:         pulumi.ToMap(values),
-			// Values:         pulumi.Map{"service": pulumi.StringMap{"type": pulumi.String("ClusterIP")}},
 			// Timeouts are not recorded in the release by Helm either.
 			Timeout: pulumi.Int(0),
 		}, opts...)
