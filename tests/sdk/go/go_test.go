@@ -615,7 +615,7 @@ func TestGo(t *testing.T) {
 				var count int
 				for _, res := range stack.Deployment.Resources {
 					// Validate that the deployment has the expected number of containers. We use kubectl to verify this,
-					// as there haxve been issues in the past with Pulumi outputs not accurately reflecting the state of the
+					// as there have been issues in the past with Pulumi outputs not accurately reflecting the state of the
 					// cluster.
 					if !strings.Contains(string(res.URN), "v1:Deployment::deployment") {
 						continue

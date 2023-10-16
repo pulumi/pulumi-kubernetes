@@ -1039,7 +1039,10 @@ func (r *helmReleaseProvider) Read(ctx context.Context, req *pulumirpc.ReadReque
 	if oldInputs == nil {
 		// No old inputs suggests this is an import. Hydrate the state from the current live object.
 		// A subsequent Check operation will apply the computed inputs.
-		r.importRelease(ctx, urn, existingRelease, liveObj)
+		err = r.importRelease(ctx, urn, existingRelease, liveObj)
+		if err != nil {
+			return nil, err
+		}
 		logger.V(9).Infof("%s Imported release: %#v", label, existingRelease)
 
 		oldInputs = r.serializeImportInputs(existingRelease)

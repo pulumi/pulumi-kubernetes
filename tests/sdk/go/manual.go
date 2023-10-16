@@ -50,15 +50,15 @@ type helmChart struct {
 	// The Helm Repository to use for this chart
 	HelmRepo repo.Entry
 	// an HTTPS URL to the Helm chart archive
-	ChartUrl string
+	ChartURL string
 	// an OCI URL to the helm chart
-	OciUrl string
+	OciURL string
 	// versions of this chart for test purposes
 	Versions []helmChartVersion
 }
 
-func (hcr helmChart) ChartReference() string {
-	return fmt.Sprintf("%s/%s", hcr.HelmRepo.Name, hcr.Name)
+func (hc helmChart) ChartReference() string {
+	return fmt.Sprintf("%s/%s", hc.HelmRepo.Name, hc.Name)
 }
 
 type helmChartVersion struct {
@@ -72,8 +72,8 @@ var (
 		Name:        "nginx",
 		TestPath:    "../../testdata/helm/nginx",
 		TestArchive: "../../testdata/helm/nginx-15.3.4.tgz",
-		ChartUrl:    "https://charts.bitnami.com/bitnami/nginx-15.3.4.tgz",
-		OciUrl:      "oci://registry-1.docker.io/bitnamicharts/nginx",
+		ChartURL:    "https://charts.bitnami.com/bitnami/nginx-15.3.4.tgz",
+		OciURL:      "oci://registry-1.docker.io/bitnamicharts/nginx",
 		HelmRepo: repo.Entry{
 			Name: "bitnami",
 			URL:  "https://charts.bitnami.com/bitnami",
@@ -305,6 +305,7 @@ func createHelmEnvironment(t *testing.T, re ...repo.Entry) (he *helmEnvironment,
 	// Generate repositories.yaml as they do in `helm repo add`
 	rf := repo.NewFile()
 	for _, c := range re {
+		c := c
 		r, err := repo.NewChartRepository(&c, getter.All(settings))
 		if err != nil {
 			return nil, nil, errors.Wrapf(err, "failed to add chart repository %q", c.Name)
@@ -327,5 +328,5 @@ func createHelmEnvironment(t *testing.T, re ...repo.Entry) (he *helmEnvironment,
 		t.Logf("Cleaning up Helm environment (%s)", tmpdir)
 		return os.RemoveAll(tmpdir)
 	}
-	return
+	return he, cleanup, nil
 }

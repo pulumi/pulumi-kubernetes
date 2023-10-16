@@ -55,7 +55,8 @@ func TestPreview(t *testing.T) {
 	}
 	t.Cleanup(func() {
 		log.Println("Deleting service-account and rbac")
-		tests.Kubectl("delete -f preview-auth/service-account.yaml")
+		_, err = tests.Kubectl("delete -f preview-auth/service-account.yaml")
+		assert.NoError(t, err)
 	})
 
 	// Create kubeconfig for service account.
