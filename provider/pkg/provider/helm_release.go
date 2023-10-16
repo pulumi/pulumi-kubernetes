@@ -1321,13 +1321,9 @@ func (r *helmReleaseProvider) importRelease(ctx context.Context, urn resource.UR
 
 	// Attempt to resolve the chart's origin in either a local or remote repository.
 	// Note that the local chart is not verified.
-	_, found, err := localChart(hr.Chart.Metadata.Name, false, "")
-	if err != nil {
-		return err
-	}
-	if found {
-		release.Chart = hr.Chart.Metadata.Name
-	} else if repo, chart, found := searchChart(r.settings, hr.Chart.Metadata.Name, hr.Chart.Metadata.Version); found {
+	if name, _, found := searchProgramDirectory(hr.Chart.Metadata.Name, hr.Chart.Metadata.Version); found {
+		release.Chart = *name
+	} else if repo, chart, found := searchHelmRepositories(r.settings, hr.Chart.Metadata.Name, hr.Chart.Metadata.Version); found {
 		// use a local repository reference, rather than reconstructing all the repository opts
 		release.Chart = fmt.Sprintf("%s/%s", repo.Name, chart.Name)
 	} else {
@@ -1335,7 +1331,7 @@ func (r *helmReleaseProvider) importRelease(ctx context.Context, urn resource.UR
 		release.Chart = hr.Chart.Metadata.Name
 	}
 
-	err = r.setComputedInputs(ctx, urn, release)
+	err := r.setComputedInputs(ctx, urn, release)
 	if err != nil {
 		// Likely because the chart is not readily available (e.g. import of chart where no repo info is stored).
 		// Eat the error to allow import to succeed, assuming that Check will report the failure later.
@@ -1456,8 +1452,25 @@ func mapToInterface(in any) any {
 	return in
 }
 
-// searchChart implements a best-effort search for a chart in the locally-configured repositories.
-func searchChart(settings *cli.EnvSettings, name, version string) (*repo.Entry, *repo.ChartVersion, bool) {
+// searchProgramDirectory implements a best-effort search for a chart in the program directory.
+func searchProgramDirectory(name, version string) (*string, *helmchart.Metadata, bool) {
+	file := fmt.Sprintf("%s.tgz", name)
+	if c, err := loader.LoadFile(file); err == nil {
+		return &file, c.Metadata, true
+	}
+	file = fmt.Sprintf("%s-%s.tgz", name, version)
+	if c, err := loader.LoadFile(file); err == nil {
+		return &file, c.Metadata, true
+	}
+	dir := name
+	if c, err := loader.LoadDir(dir); err == nil {
+		return &dir, c.Metadata, true
+	}
+	return nil, nil, false
+}
+
+// searchHelmRepositories implements a best-effort search for a chart in the locally-configured repositories.
+func searchHelmRepositories(settings *cli.EnvSettings, name, version string) (*repo.Entry, *repo.ChartVersion, bool) {
 	repoFile := settings.RepositoryConfig
 	repoCacheDir := settings.RepositoryCache
 
