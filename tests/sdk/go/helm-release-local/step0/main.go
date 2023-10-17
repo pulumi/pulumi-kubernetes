@@ -17,7 +17,7 @@ func main() {
 		}
 
 		rel, err := helm.NewRelease(ctx, "test", &helm.ReleaseArgs{
-			Chart:     pulumi.String("nginx"), // <--- changed from remote to local chart
+			Chart:     pulumi.String("https://charts.bitnami.com/bitnami/nginx-15.3.4.tgz"),
 			Namespace: ns.Metadata.Name(),
 			Values:    pulumi.Map{"service": pulumi.StringMap{"type": pulumi.String("ClusterIP")}},
 			Timeout:   pulumi.Int(300),

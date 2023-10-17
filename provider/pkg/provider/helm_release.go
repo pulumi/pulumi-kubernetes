@@ -798,6 +798,14 @@ func (r *helmReleaseProvider) Diff(ctx context.Context, req *pulumirpc.DiffReque
 		}
 	}
 
+	// optimization: suppress update when the old/new checksums match
+	if oldChecksum, ok := oldInputs["checksum"]; ok {
+		if newChecksum, ok := news["checksum"]; ok && newChecksum.DeepEquals(oldChecksum) {
+			logger.V(9).Infof("Matching checksum found for %q", req.GetUrn())
+			return &pulumirpc.DiffResponse{Changes: pulumirpc.DiffResponse_DIFF_NONE}, nil
+		}
+	}
+
 	// Calculate the diff between the old and new inputs
 	diff := oldInputs.Diff(news)
 	if diff == nil {

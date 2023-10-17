@@ -364,9 +364,6 @@ func TestGo(t *testing.T) {
 				contract.IgnoreError(cleanup())
 			})
 
-			// Import a Helm release using the `import` option on the `helm.Release` resource.
-			// The program inputs MUST exactly match the provider-generated inputs,
-			// or Pulumi will report: "error: inputs to import do not match the existing resource".
 			hValues, _ := json.Marshal(chartVersion.Values)
 			successCriteria := func(t *testing.T, stack integration.RuntimeValidationStackInfo) {
 				assert.NotEmpty(t, stack.Outputs["svc_ip"])
@@ -475,7 +472,7 @@ func TestGo(t *testing.T) {
 		})
 	})
 
-	t.Run("Helm Release (Content Detection)", func(t *testing.T) {
+	t.Run("Helm Release (Change Detection)", func(t *testing.T) {
 		validateReplicas := func(t *testing.T, stack integration.RuntimeValidationStackInfo, expected float64) {
 			actual, ok := stack.Outputs["replicas"].(float64)
 			if !ok {
@@ -484,14 +481,22 @@ func TestGo(t *testing.T) {
 			assert.Equal(t, expected, actual, "expected replicas to be %d", expected)
 		}
 
+		// Deploy a Helm chart using a remote chart reference, then switch to a local chart directory,
+		// then change the local content, and then change it again while ignoring changes.
 		options := baseOptions.With(integration.ProgramTestOptions{
-			Dir:                  filepath.Join(cwd, "helm-release-local", "step1"),
+			Dir:                  filepath.Join(cwd, "helm-release-local", "step0"),
 			Quick:                true,
 			ExpectRefreshChanges: true,
 			ExtraRuntimeValidation: func(t *testing.T, stack integration.RuntimeValidationStackInfo) {
 				validateReplicas(t, stack, 1)
 			},
 			EditDirs: []integration.EditDir{
+				{
+					Dir:      filepath.Join("helm-release-local", "step1"),
+					Additive: true,
+					// expect that the change from remote to local chart has no effect (due to matching checksum)
+					ExpectNoChanges: true,
+				},
 				{
 					Dir:      filepath.Join("helm-release-local", "step2"),
 					Additive: true,
