@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from ... import meta as _meta
 
@@ -28,15 +28,36 @@ class ControllerRevisionInitArgs:
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
-        pulumi.set(__self__, "revision", revision)
+        ControllerRevisionInitArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            revision=revision,
+            api_version=api_version,
+            data=data,
+            kind=kind,
+            metadata=metadata,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             revision: pulumi.Input[int],
+             api_version: Optional[pulumi.Input[str]] = None,
+             data: Optional[Any] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'apiVersion' in kwargs:
+            api_version = kwargs['apiVersion']
+
+        _setter("revision", revision)
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'apps/v1')
+            _setter("api_version", 'apps/v1')
         if data is not None:
-            pulumi.set(__self__, "data", data)
+            _setter("data", data)
         if kind is not None:
-            pulumi.set(__self__, "kind", 'ControllerRevision')
+            _setter("kind", 'ControllerRevision')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
 
     @property
     @pulumi.getter
@@ -140,6 +161,10 @@ class ControllerRevision(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
+            kwargs = kwargs or {}
+            def _setter(key, value):
+                kwargs[key] = value
+            ControllerRevisionInitArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
@@ -162,6 +187,11 @@ class ControllerRevision(pulumi.CustomResource):
             __props__.__dict__["api_version"] = 'apps/v1'
             __props__.__dict__["data"] = data
             __props__.__dict__["kind"] = 'ControllerRevision'
+            if metadata is not None and not isinstance(metadata, _meta.v1.ObjectMetaArgs):
+                metadata = metadata or {}
+                def _setter(key, value):
+                    metadata[key] = value
+                _meta.v1.ObjectMetaArgs._configure(_setter, **metadata)
             __props__.__dict__["metadata"] = metadata
             if revision is None and not opts.urn:
                 raise TypeError("Missing required property 'revision'")

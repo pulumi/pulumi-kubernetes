@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from ... import meta as _meta
 
@@ -32,16 +32,45 @@ class LeaseSpecPatchArgs:
         :param pulumi.Input[int] lease_transitions: leaseTransitions is the number of transitions of a lease between holders.
         :param pulumi.Input[str] renew_time: renewTime is a time when the current holder of a lease has last updated the lease.
         """
+        LeaseSpecPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            acquire_time=acquire_time,
+            holder_identity=holder_identity,
+            lease_duration_seconds=lease_duration_seconds,
+            lease_transitions=lease_transitions,
+            renew_time=renew_time,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             acquire_time: Optional[pulumi.Input[str]] = None,
+             holder_identity: Optional[pulumi.Input[str]] = None,
+             lease_duration_seconds: Optional[pulumi.Input[int]] = None,
+             lease_transitions: Optional[pulumi.Input[int]] = None,
+             renew_time: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'acquireTime' in kwargs:
+            acquire_time = kwargs['acquireTime']
+        if 'holderIdentity' in kwargs:
+            holder_identity = kwargs['holderIdentity']
+        if 'leaseDurationSeconds' in kwargs:
+            lease_duration_seconds = kwargs['leaseDurationSeconds']
+        if 'leaseTransitions' in kwargs:
+            lease_transitions = kwargs['leaseTransitions']
+        if 'renewTime' in kwargs:
+            renew_time = kwargs['renewTime']
+
         if acquire_time is not None:
-            pulumi.set(__self__, "acquire_time", acquire_time)
+            _setter("acquire_time", acquire_time)
         if holder_identity is not None:
-            pulumi.set(__self__, "holder_identity", holder_identity)
+            _setter("holder_identity", holder_identity)
         if lease_duration_seconds is not None:
-            pulumi.set(__self__, "lease_duration_seconds", lease_duration_seconds)
+            _setter("lease_duration_seconds", lease_duration_seconds)
         if lease_transitions is not None:
-            pulumi.set(__self__, "lease_transitions", lease_transitions)
+            _setter("lease_transitions", lease_transitions)
         if renew_time is not None:
-            pulumi.set(__self__, "renew_time", renew_time)
+            _setter("renew_time", renew_time)
 
     @property
     @pulumi.getter(name="acquireTime")
@@ -120,16 +149,45 @@ class LeaseSpecArgs:
         :param pulumi.Input[int] lease_transitions: leaseTransitions is the number of transitions of a lease between holders.
         :param pulumi.Input[str] renew_time: renewTime is a time when the current holder of a lease has last updated the lease.
         """
+        LeaseSpecArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            acquire_time=acquire_time,
+            holder_identity=holder_identity,
+            lease_duration_seconds=lease_duration_seconds,
+            lease_transitions=lease_transitions,
+            renew_time=renew_time,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             acquire_time: Optional[pulumi.Input[str]] = None,
+             holder_identity: Optional[pulumi.Input[str]] = None,
+             lease_duration_seconds: Optional[pulumi.Input[int]] = None,
+             lease_transitions: Optional[pulumi.Input[int]] = None,
+             renew_time: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'acquireTime' in kwargs:
+            acquire_time = kwargs['acquireTime']
+        if 'holderIdentity' in kwargs:
+            holder_identity = kwargs['holderIdentity']
+        if 'leaseDurationSeconds' in kwargs:
+            lease_duration_seconds = kwargs['leaseDurationSeconds']
+        if 'leaseTransitions' in kwargs:
+            lease_transitions = kwargs['leaseTransitions']
+        if 'renewTime' in kwargs:
+            renew_time = kwargs['renewTime']
+
         if acquire_time is not None:
-            pulumi.set(__self__, "acquire_time", acquire_time)
+            _setter("acquire_time", acquire_time)
         if holder_identity is not None:
-            pulumi.set(__self__, "holder_identity", holder_identity)
+            _setter("holder_identity", holder_identity)
         if lease_duration_seconds is not None:
-            pulumi.set(__self__, "lease_duration_seconds", lease_duration_seconds)
+            _setter("lease_duration_seconds", lease_duration_seconds)
         if lease_transitions is not None:
-            pulumi.set(__self__, "lease_transitions", lease_transitions)
+            _setter("lease_transitions", lease_transitions)
         if renew_time is not None:
-            pulumi.set(__self__, "renew_time", renew_time)
+            _setter("renew_time", renew_time)
 
     @property
     @pulumi.getter(name="acquireTime")
@@ -206,14 +264,33 @@ class LeaseArgs:
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input['LeaseSpecArgs'] spec: Specification of the Lease. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
+        LeaseArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            api_version=api_version,
+            kind=kind,
+            metadata=metadata,
+            spec=spec,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             api_version: Optional[pulumi.Input[str]] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+             spec: Optional[pulumi.Input['LeaseSpecArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'apiVersion' in kwargs:
+            api_version = kwargs['apiVersion']
+
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'coordination.k8s.io/v1beta1')
+            _setter("api_version", 'coordination.k8s.io/v1beta1')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'Lease')
+            _setter("kind", 'Lease')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
         if spec is not None:
-            pulumi.set(__self__, "spec", spec)
+            _setter("spec", spec)
 
     @property
     @pulumi.getter(name="apiVersion")

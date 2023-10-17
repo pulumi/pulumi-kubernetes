@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from . import outputs
 from ... import core as _core
@@ -48,8 +48,21 @@ class Overhead(dict):
         Overhead structure represents the resource overhead associated with running a pod.
         :param Mapping[str, str] pod_fixed: PodFixed represents the fixed resource overhead associated with running a pod.
         """
+        Overhead._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            pod_fixed=pod_fixed,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             pod_fixed: Optional[Mapping[str, str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'podFixed' in kwargs:
+            pod_fixed = kwargs['podFixed']
+
         if pod_fixed is not None:
-            pulumi.set(__self__, "pod_fixed", pod_fixed)
+            _setter("pod_fixed", pod_fixed)
 
     @property
     @pulumi.getter(name="podFixed")
@@ -88,8 +101,21 @@ class OverheadPatch(dict):
         Overhead structure represents the resource overhead associated with running a pod.
         :param Mapping[str, str] pod_fixed: PodFixed represents the fixed resource overhead associated with running a pod.
         """
+        OverheadPatch._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            pod_fixed=pod_fixed,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             pod_fixed: Optional[Mapping[str, str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'podFixed' in kwargs:
+            pod_fixed = kwargs['podFixed']
+
         if pod_fixed is not None:
-            pulumi.set(__self__, "pod_fixed", pod_fixed)
+            _setter("pod_fixed", pod_fixed)
 
     @property
     @pulumi.getter(name="podFixed")
@@ -138,17 +164,40 @@ class RuntimeClass(dict):
         :param 'OverheadArgs' overhead: Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the PodOverhead feature.
         :param 'SchedulingArgs' scheduling: Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
         """
-        pulumi.set(__self__, "handler", handler)
+        RuntimeClass._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            handler=handler,
+            api_version=api_version,
+            kind=kind,
+            metadata=metadata,
+            overhead=overhead,
+            scheduling=scheduling,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             handler: str,
+             api_version: Optional[str] = None,
+             kind: Optional[str] = None,
+             metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
+             overhead: Optional['outputs.Overhead'] = None,
+             scheduling: Optional['outputs.Scheduling'] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'apiVersion' in kwargs:
+            api_version = kwargs['apiVersion']
+
+        _setter("handler", handler)
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'node.k8s.io/v1beta1')
+            _setter("api_version", 'node.k8s.io/v1beta1')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'RuntimeClass')
+            _setter("kind", 'RuntimeClass')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
         if overhead is not None:
-            pulumi.set(__self__, "overhead", overhead)
+            _setter("overhead", overhead)
         if scheduling is not None:
-            pulumi.set(__self__, "scheduling", scheduling)
+            _setter("scheduling", scheduling)
 
     @property
     @pulumi.getter
@@ -229,10 +278,25 @@ class Scheduling(dict):
         :param Mapping[str, str] node_selector: nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.
         :param Sequence['_core.v1.TolerationArgs'] tolerations: tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.
         """
+        Scheduling._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            node_selector=node_selector,
+            tolerations=tolerations,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             node_selector: Optional[Mapping[str, str]] = None,
+             tolerations: Optional[Sequence['_core.v1.outputs.Toleration']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'nodeSelector' in kwargs:
+            node_selector = kwargs['nodeSelector']
+
         if node_selector is not None:
-            pulumi.set(__self__, "node_selector", node_selector)
+            _setter("node_selector", node_selector)
         if tolerations is not None:
-            pulumi.set(__self__, "tolerations", tolerations)
+            _setter("tolerations", tolerations)
 
     @property
     @pulumi.getter(name="nodeSelector")
@@ -281,10 +345,25 @@ class SchedulingPatch(dict):
         :param Mapping[str, str] node_selector: nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.
         :param Sequence['_core.v1.TolerationPatchArgs'] tolerations: tolerations are appended (excluding duplicates) to pods running with this RuntimeClass during admission, effectively unioning the set of nodes tolerated by the pod and the RuntimeClass.
         """
+        SchedulingPatch._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            node_selector=node_selector,
+            tolerations=tolerations,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             node_selector: Optional[Mapping[str, str]] = None,
+             tolerations: Optional[Sequence['_core.v1.outputs.TolerationPatch']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'nodeSelector' in kwargs:
+            node_selector = kwargs['nodeSelector']
+
         if node_selector is not None:
-            pulumi.set(__self__, "node_selector", node_selector)
+            _setter("node_selector", node_selector)
         if tolerations is not None:
-            pulumi.set(__self__, "tolerations", tolerations)
+            _setter("tolerations", tolerations)
 
     @property
     @pulumi.getter(name="nodeSelector")
