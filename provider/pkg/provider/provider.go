@@ -51,7 +51,6 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/diag"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource/plugin"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/util/cmdutil"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/rpcutil/rpcerror"
@@ -393,13 +392,6 @@ func (k *kubeProvider) CheckConfig(ctx context.Context, req *pulumirpc.CheckRequ
 		}
 		news["cluster"] = resource.NewStringProperty(configurationCluster)
 
-		if v, ok := os.LookupEnv("PULUMI_K8S_NORMALIZE_KUBECONFIG"); ok && cmdutil.IsTruthy(v) {
-			configurationKubeconfig, err := clientcmd.Write(*apiConfig)
-			if err != nil {
-				return err
-			}
-			news["kubeconfig"] = resource.NewStringProperty(string(configurationKubeconfig))
-		}
 		return nil
 	}
 	err = normalizeInputs()
@@ -1450,8 +1442,8 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		}
 	}
 
-	// If a default namespace is set on the provider for this resource, check if the resource has Namespaced
-	// or Global scope. For namespaced resources, set the namespace to the default value if unset.
+	// Check if the resource has Namespaced or Global scope. For namespaced resources,
+	// set the namespace to the default value if unset.
 	if len(newInputs.GetNamespace()) == 0 {
 		namespacedKind, err := clients.IsNamespacedKind(gvk, k.clientSet)
 		if err != nil {
