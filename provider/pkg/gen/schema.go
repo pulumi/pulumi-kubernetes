@@ -218,6 +218,11 @@ func PulumiSchema(swagger map[string]any) pschema.PackageSpec {
 	}
 
 	for name, inputProp := range pkg.Provider.InputProperties {
+		// FIXME: provider outputs are limited to strings due to:
+		// https://github.com/pulumi/pulumi/issues/13435
+		if inputProp.TypeSpec.Type != "string" {
+			continue
+		}
 		pkg.Provider.Properties[name] = inputProp
 	}
 	goImportPath := "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes"
