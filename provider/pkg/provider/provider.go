@@ -364,6 +364,12 @@ func (k *kubeProvider) CheckConfig(ctx context.Context, req *pulumirpc.CheckRequ
 			return err
 		}
 
+		// double-check that the kubeconfig is semantically valid w.r.t. context and cluster configuration.
+		_, err = kubeconfig.ClientConfig()
+		if err != nil {
+			return err
+		}
+
 		configurationNamespace, _, err := kubeconfig.Namespace()
 		if err != nil {
 			return err
@@ -411,7 +417,7 @@ func (k *kubeProvider) CheckConfig(ctx context.Context, req *pulumirpc.CheckRequ
 		if _, ok := news["cluster"]; !ok {
 			news["cluster"] = olds["cluster"]
 		}
-		_ = k.host.Log(ctx, diag.Warning, urn, fmt.Sprintf("the Kubernetes provider has a configuration problem: %v", err))
+		_ = k.host.Log(ctx, diag.Warning, urn, err.Error())
 	}
 
 	checked, err := plugin.MarshalProperties(
