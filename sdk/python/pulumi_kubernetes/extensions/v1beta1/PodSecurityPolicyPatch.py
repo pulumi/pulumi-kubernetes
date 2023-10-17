@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from . import outputs
 from ... import core as _core
@@ -29,14 +29,33 @@ class PodSecurityPolicyPatchArgs:
         :param pulumi.Input['_meta.v1.ObjectMetaPatchArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input['PodSecurityPolicySpecPatchArgs'] spec: spec defines the policy enforced.
         """
+        PodSecurityPolicyPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            api_version=api_version,
+            kind=kind,
+            metadata=metadata,
+            spec=spec,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             api_version: Optional[pulumi.Input[str]] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']] = None,
+             spec: Optional[pulumi.Input['PodSecurityPolicySpecPatchArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'apiVersion' in kwargs:
+            api_version = kwargs['apiVersion']
+
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'extensions/v1beta1')
+            _setter("api_version", 'extensions/v1beta1')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'PodSecurityPolicy')
+            _setter("kind", 'PodSecurityPolicy')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
         if spec is not None:
-            pulumi.set(__self__, "spec", spec)
+            _setter("spec", spec)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -138,6 +157,10 @@ class PodSecurityPolicyPatch(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
+            kwargs = kwargs or {}
+            def _setter(key, value):
+                kwargs[key] = value
+            PodSecurityPolicyPatchArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
@@ -158,7 +181,17 @@ class PodSecurityPolicyPatch(pulumi.CustomResource):
 
             __props__.__dict__["api_version"] = 'extensions/v1beta1'
             __props__.__dict__["kind"] = 'PodSecurityPolicy'
+            if metadata is not None and not isinstance(metadata, _meta.v1.ObjectMetaPatchArgs):
+                metadata = metadata or {}
+                def _setter(key, value):
+                    metadata[key] = value
+                _meta.v1.ObjectMetaPatchArgs._configure(_setter, **metadata)
             __props__.__dict__["metadata"] = metadata
+            if spec is not None and not isinstance(spec, PodSecurityPolicySpecPatchArgs):
+                spec = spec or {}
+                def _setter(key, value):
+                    spec[key] = value
+                PodSecurityPolicySpecPatchArgs._configure(_setter, **spec)
             __props__.__dict__["spec"] = spec
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:policy/v1beta1:PodSecurityPolicyPatch")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)

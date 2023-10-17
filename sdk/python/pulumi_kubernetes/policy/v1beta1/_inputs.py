@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from ... import core as _core
 from ... import meta as _meta
@@ -51,8 +51,19 @@ class AllowedCSIDriverPatchArgs:
         AllowedCSIDriver represents a single inline CSI Driver that is allowed to be used.
         :param pulumi.Input[str] name: Name is the registered name of the CSI driver
         """
+        AllowedCSIDriverPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            name=name,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             name: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+
         if name is not None:
-            pulumi.set(__self__, "name", name)
+            _setter("name", name)
 
     @property
     @pulumi.getter
@@ -75,7 +86,18 @@ class AllowedCSIDriverArgs:
         AllowedCSIDriver represents a single inline CSI Driver that is allowed to be used.
         :param pulumi.Input[str] name: Name is the registered name of the CSI driver
         """
-        pulumi.set(__self__, "name", name)
+        AllowedCSIDriverArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            name=name,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             name: pulumi.Input[str],
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+
+        _setter("name", name)
 
     @property
     @pulumi.getter
@@ -98,8 +120,19 @@ class AllowedFlexVolumePatchArgs:
         AllowedFlexVolume represents a single Flexvolume that is allowed to be used.
         :param pulumi.Input[str] driver: driver is the name of the Flexvolume driver.
         """
+        AllowedFlexVolumePatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            driver=driver,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             driver: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+
         if driver is not None:
-            pulumi.set(__self__, "driver", driver)
+            _setter("driver", driver)
 
     @property
     @pulumi.getter
@@ -122,7 +155,18 @@ class AllowedFlexVolumeArgs:
         AllowedFlexVolume represents a single Flexvolume that is allowed to be used.
         :param pulumi.Input[str] driver: driver is the name of the Flexvolume driver.
         """
-        pulumi.set(__self__, "driver", driver)
+        AllowedFlexVolumeArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            driver=driver,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             driver: pulumi.Input[str],
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+
+        _setter("driver", driver)
 
     @property
     @pulumi.getter
@@ -149,10 +193,27 @@ class AllowedHostPathPatchArgs:
                Examples: `/foo` would allow `/foo`, `/foo/` and `/foo/bar` `/foo` would not allow `/food` or `/etc/foo`
         :param pulumi.Input[bool] read_only: when set to true, will allow host volumes matching the pathPrefix only if all volume mounts are readOnly.
         """
+        AllowedHostPathPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            path_prefix=path_prefix,
+            read_only=read_only,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             path_prefix: Optional[pulumi.Input[str]] = None,
+             read_only: Optional[pulumi.Input[bool]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'pathPrefix' in kwargs:
+            path_prefix = kwargs['pathPrefix']
+        if 'readOnly' in kwargs:
+            read_only = kwargs['readOnly']
+
         if path_prefix is not None:
-            pulumi.set(__self__, "path_prefix", path_prefix)
+            _setter("path_prefix", path_prefix)
         if read_only is not None:
-            pulumi.set(__self__, "read_only", read_only)
+            _setter("read_only", read_only)
 
     @property
     @pulumi.getter(name="pathPrefix")
@@ -193,10 +254,27 @@ class AllowedHostPathArgs:
                Examples: `/foo` would allow `/foo`, `/foo/` and `/foo/bar` `/foo` would not allow `/food` or `/etc/foo`
         :param pulumi.Input[bool] read_only: when set to true, will allow host volumes matching the pathPrefix only if all volume mounts are readOnly.
         """
+        AllowedHostPathArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            path_prefix=path_prefix,
+            read_only=read_only,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             path_prefix: Optional[pulumi.Input[str]] = None,
+             read_only: Optional[pulumi.Input[bool]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'pathPrefix' in kwargs:
+            path_prefix = kwargs['pathPrefix']
+        if 'readOnly' in kwargs:
+            read_only = kwargs['readOnly']
+
         if path_prefix is not None:
-            pulumi.set(__self__, "path_prefix", path_prefix)
+            _setter("path_prefix", path_prefix)
         if read_only is not None:
-            pulumi.set(__self__, "read_only", read_only)
+            _setter("read_only", read_only)
 
     @property
     @pulumi.getter(name="pathPrefix")
@@ -235,10 +313,23 @@ class FSGroupStrategyOptionsPatchArgs:
         :param pulumi.Input[Sequence[pulumi.Input['IDRangePatchArgs']]] ranges: ranges are the allowed ranges of fs groups.  If you would like to force a single fs group then supply a single range with the same start and end. Required for MustRunAs.
         :param pulumi.Input[str] rule: rule is the strategy that will dictate what FSGroup is used in the SecurityContext.
         """
+        FSGroupStrategyOptionsPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            ranges=ranges,
+            rule=rule,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             ranges: Optional[pulumi.Input[Sequence[pulumi.Input['IDRangePatchArgs']]]] = None,
+             rule: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+
         if ranges is not None:
-            pulumi.set(__self__, "ranges", ranges)
+            _setter("ranges", ranges)
         if rule is not None:
-            pulumi.set(__self__, "rule", rule)
+            _setter("rule", rule)
 
     @property
     @pulumi.getter
@@ -275,10 +366,23 @@ class FSGroupStrategyOptionsArgs:
         :param pulumi.Input[Sequence[pulumi.Input['IDRangeArgs']]] ranges: ranges are the allowed ranges of fs groups.  If you would like to force a single fs group then supply a single range with the same start and end. Required for MustRunAs.
         :param pulumi.Input[str] rule: rule is the strategy that will dictate what FSGroup is used in the SecurityContext.
         """
+        FSGroupStrategyOptionsArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            ranges=ranges,
+            rule=rule,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             ranges: Optional[pulumi.Input[Sequence[pulumi.Input['IDRangeArgs']]]] = None,
+             rule: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+
         if ranges is not None:
-            pulumi.set(__self__, "ranges", ranges)
+            _setter("ranges", ranges)
         if rule is not None:
-            pulumi.set(__self__, "rule", rule)
+            _setter("rule", rule)
 
     @property
     @pulumi.getter
@@ -315,10 +419,23 @@ class HostPortRangePatchArgs:
         :param pulumi.Input[int] max: max is the end of the range, inclusive.
         :param pulumi.Input[int] min: min is the start of the range, inclusive.
         """
+        HostPortRangePatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            max=max,
+            min=min,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             max: Optional[pulumi.Input[int]] = None,
+             min: Optional[pulumi.Input[int]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+
         if max is not None:
-            pulumi.set(__self__, "max", max)
+            _setter("max", max)
         if min is not None:
-            pulumi.set(__self__, "min", min)
+            _setter("min", min)
 
     @property
     @pulumi.getter
@@ -355,8 +472,21 @@ class HostPortRangeArgs:
         :param pulumi.Input[int] max: max is the end of the range, inclusive.
         :param pulumi.Input[int] min: min is the start of the range, inclusive.
         """
-        pulumi.set(__self__, "max", max)
-        pulumi.set(__self__, "min", min)
+        HostPortRangeArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            max=max,
+            min=min,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             max: pulumi.Input[int],
+             min: pulumi.Input[int],
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+
+        _setter("max", max)
+        _setter("min", min)
 
     @property
     @pulumi.getter
@@ -393,10 +523,23 @@ class IDRangePatchArgs:
         :param pulumi.Input[int] max: max is the end of the range, inclusive.
         :param pulumi.Input[int] min: min is the start of the range, inclusive.
         """
+        IDRangePatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            max=max,
+            min=min,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             max: Optional[pulumi.Input[int]] = None,
+             min: Optional[pulumi.Input[int]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+
         if max is not None:
-            pulumi.set(__self__, "max", max)
+            _setter("max", max)
         if min is not None:
-            pulumi.set(__self__, "min", min)
+            _setter("min", min)
 
     @property
     @pulumi.getter
@@ -433,8 +576,21 @@ class IDRangeArgs:
         :param pulumi.Input[int] max: max is the end of the range, inclusive.
         :param pulumi.Input[int] min: min is the start of the range, inclusive.
         """
-        pulumi.set(__self__, "max", max)
-        pulumi.set(__self__, "min", min)
+        IDRangeArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            max=max,
+            min=min,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             max: pulumi.Input[int],
+             min: pulumi.Input[int],
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+
+        _setter("max", max)
+        _setter("min", min)
 
     @property
     @pulumi.getter
@@ -473,12 +629,31 @@ class PodDisruptionBudgetSpecPatchArgs:
         :param pulumi.Input[Union[int, str]] min_available: An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
         :param pulumi.Input['_meta.v1.LabelSelectorPatchArgs'] selector: Label query over pods whose evictions are managed by the disruption budget.
         """
+        PodDisruptionBudgetSpecPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            max_unavailable=max_unavailable,
+            min_available=min_available,
+            selector=selector,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             max_unavailable: Optional[pulumi.Input[Union[int, str]]] = None,
+             min_available: Optional[pulumi.Input[Union[int, str]]] = None,
+             selector: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'maxUnavailable' in kwargs:
+            max_unavailable = kwargs['maxUnavailable']
+        if 'minAvailable' in kwargs:
+            min_available = kwargs['minAvailable']
+
         if max_unavailable is not None:
-            pulumi.set(__self__, "max_unavailable", max_unavailable)
+            _setter("max_unavailable", max_unavailable)
         if min_available is not None:
-            pulumi.set(__self__, "min_available", min_available)
+            _setter("min_available", min_available)
         if selector is not None:
-            pulumi.set(__self__, "selector", selector)
+            _setter("selector", selector)
 
     @property
     @pulumi.getter(name="maxUnavailable")
@@ -529,12 +704,31 @@ class PodDisruptionBudgetSpecArgs:
         :param pulumi.Input[Union[int, str]] min_available: An eviction is allowed if at least "minAvailable" pods selected by "selector" will still be available after the eviction, i.e. even in the absence of the evicted pod.  So for example you can prevent all voluntary evictions by specifying "100%".
         :param pulumi.Input['_meta.v1.LabelSelectorArgs'] selector: Label query over pods whose evictions are managed by the disruption budget.
         """
+        PodDisruptionBudgetSpecArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            max_unavailable=max_unavailable,
+            min_available=min_available,
+            selector=selector,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             max_unavailable: Optional[pulumi.Input[Union[int, str]]] = None,
+             min_available: Optional[pulumi.Input[Union[int, str]]] = None,
+             selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'maxUnavailable' in kwargs:
+            max_unavailable = kwargs['maxUnavailable']
+        if 'minAvailable' in kwargs:
+            min_available = kwargs['minAvailable']
+
         if max_unavailable is not None:
-            pulumi.set(__self__, "max_unavailable", max_unavailable)
+            _setter("max_unavailable", max_unavailable)
         if min_available is not None:
-            pulumi.set(__self__, "min_available", min_available)
+            _setter("min_available", min_available)
         if selector is not None:
-            pulumi.set(__self__, "selector", selector)
+            _setter("selector", selector)
 
     @property
     @pulumi.getter(name="maxUnavailable")
@@ -591,14 +785,47 @@ class PodDisruptionBudgetStatusArgs:
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] disrupted_pods: DisruptedPods contains information about pods whose eviction was processed by the API server eviction subresource handler but has not yet been observed by the PodDisruptionBudget controller. A pod will be in this map from the time when the API server processed the eviction request to the time when the pod is seen by PDB controller as having been marked for deletion (or after a timeout). The key in the map is the name of the pod and the value is the time when the API server processed the eviction request. If the deletion didn't occur and a pod is still there it will be removed from the list automatically by PodDisruptionBudget controller after some time. If everything goes smooth this map should be empty for the most of the time. Large number of entries in the map may indicate problems with pod deletions.
         :param pulumi.Input[int] observed_generation: Most recent generation observed when updating this PDB status. PodDisruptionsAllowed and other status information is valid only if observedGeneration equals to PDB's object generation.
         """
-        pulumi.set(__self__, "current_healthy", current_healthy)
-        pulumi.set(__self__, "desired_healthy", desired_healthy)
-        pulumi.set(__self__, "disruptions_allowed", disruptions_allowed)
-        pulumi.set(__self__, "expected_pods", expected_pods)
+        PodDisruptionBudgetStatusArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            current_healthy=current_healthy,
+            desired_healthy=desired_healthy,
+            disruptions_allowed=disruptions_allowed,
+            expected_pods=expected_pods,
+            disrupted_pods=disrupted_pods,
+            observed_generation=observed_generation,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             current_healthy: pulumi.Input[int],
+             desired_healthy: pulumi.Input[int],
+             disruptions_allowed: pulumi.Input[int],
+             expected_pods: pulumi.Input[int],
+             disrupted_pods: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
+             observed_generation: Optional[pulumi.Input[int]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'currentHealthy' in kwargs:
+            current_healthy = kwargs['currentHealthy']
+        if 'desiredHealthy' in kwargs:
+            desired_healthy = kwargs['desiredHealthy']
+        if 'disruptionsAllowed' in kwargs:
+            disruptions_allowed = kwargs['disruptionsAllowed']
+        if 'expectedPods' in kwargs:
+            expected_pods = kwargs['expectedPods']
+        if 'disruptedPods' in kwargs:
+            disrupted_pods = kwargs['disruptedPods']
+        if 'observedGeneration' in kwargs:
+            observed_generation = kwargs['observedGeneration']
+
+        _setter("current_healthy", current_healthy)
+        _setter("desired_healthy", desired_healthy)
+        _setter("disruptions_allowed", disruptions_allowed)
+        _setter("expected_pods", expected_pods)
         if disrupted_pods is not None:
-            pulumi.set(__self__, "disrupted_pods", disrupted_pods)
+            _setter("disrupted_pods", disrupted_pods)
         if observed_generation is not None:
-            pulumi.set(__self__, "observed_generation", observed_generation)
+            _setter("observed_generation", observed_generation)
 
     @property
     @pulumi.getter(name="currentHealthy")
@@ -688,16 +915,37 @@ class PodDisruptionBudgetArgs:
         :param pulumi.Input['PodDisruptionBudgetSpecArgs'] spec: Specification of the desired behavior of the PodDisruptionBudget.
         :param pulumi.Input['PodDisruptionBudgetStatusArgs'] status: Most recently observed status of the PodDisruptionBudget.
         """
+        PodDisruptionBudgetArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            api_version=api_version,
+            kind=kind,
+            metadata=metadata,
+            spec=spec,
+            status=status,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             api_version: Optional[pulumi.Input[str]] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+             spec: Optional[pulumi.Input['PodDisruptionBudgetSpecArgs']] = None,
+             status: Optional[pulumi.Input['PodDisruptionBudgetStatusArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'apiVersion' in kwargs:
+            api_version = kwargs['apiVersion']
+
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'policy/v1beta1')
+            _setter("api_version", 'policy/v1beta1')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'PodDisruptionBudget')
+            _setter("kind", 'PodDisruptionBudget')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
         if spec is not None:
-            pulumi.set(__self__, "spec", spec)
+            _setter("spec", spec)
         if status is not None:
-            pulumi.set(__self__, "status", status)
+            _setter("status", status)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -815,54 +1063,155 @@ class PodSecurityPolicySpecPatchArgs:
         :param pulumi.Input['SupplementalGroupsStrategyOptionsPatchArgs'] supplemental_groups: supplementalGroups is the strategy that will dictate what supplemental groups are used by the SecurityContext.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] volumes: volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
         """
+        PodSecurityPolicySpecPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            allow_privilege_escalation=allow_privilege_escalation,
+            allowed_csi_drivers=allowed_csi_drivers,
+            allowed_capabilities=allowed_capabilities,
+            allowed_flex_volumes=allowed_flex_volumes,
+            allowed_host_paths=allowed_host_paths,
+            allowed_proc_mount_types=allowed_proc_mount_types,
+            allowed_unsafe_sysctls=allowed_unsafe_sysctls,
+            default_add_capabilities=default_add_capabilities,
+            default_allow_privilege_escalation=default_allow_privilege_escalation,
+            forbidden_sysctls=forbidden_sysctls,
+            fs_group=fs_group,
+            host_ipc=host_ipc,
+            host_network=host_network,
+            host_pid=host_pid,
+            host_ports=host_ports,
+            privileged=privileged,
+            read_only_root_filesystem=read_only_root_filesystem,
+            required_drop_capabilities=required_drop_capabilities,
+            run_as_group=run_as_group,
+            run_as_user=run_as_user,
+            runtime_class=runtime_class,
+            se_linux=se_linux,
+            supplemental_groups=supplemental_groups,
+            volumes=volumes,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             allow_privilege_escalation: Optional[pulumi.Input[bool]] = None,
+             allowed_csi_drivers: Optional[pulumi.Input[Sequence[pulumi.Input['AllowedCSIDriverPatchArgs']]]] = None,
+             allowed_capabilities: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             allowed_flex_volumes: Optional[pulumi.Input[Sequence[pulumi.Input['AllowedFlexVolumePatchArgs']]]] = None,
+             allowed_host_paths: Optional[pulumi.Input[Sequence[pulumi.Input['AllowedHostPathPatchArgs']]]] = None,
+             allowed_proc_mount_types: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             allowed_unsafe_sysctls: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             default_add_capabilities: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             default_allow_privilege_escalation: Optional[pulumi.Input[bool]] = None,
+             forbidden_sysctls: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             fs_group: Optional[pulumi.Input['FSGroupStrategyOptionsPatchArgs']] = None,
+             host_ipc: Optional[pulumi.Input[bool]] = None,
+             host_network: Optional[pulumi.Input[bool]] = None,
+             host_pid: Optional[pulumi.Input[bool]] = None,
+             host_ports: Optional[pulumi.Input[Sequence[pulumi.Input['HostPortRangePatchArgs']]]] = None,
+             privileged: Optional[pulumi.Input[bool]] = None,
+             read_only_root_filesystem: Optional[pulumi.Input[bool]] = None,
+             required_drop_capabilities: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             run_as_group: Optional[pulumi.Input['RunAsGroupStrategyOptionsPatchArgs']] = None,
+             run_as_user: Optional[pulumi.Input['RunAsUserStrategyOptionsPatchArgs']] = None,
+             runtime_class: Optional[pulumi.Input['RuntimeClassStrategyOptionsPatchArgs']] = None,
+             se_linux: Optional[pulumi.Input['SELinuxStrategyOptionsPatchArgs']] = None,
+             supplemental_groups: Optional[pulumi.Input['SupplementalGroupsStrategyOptionsPatchArgs']] = None,
+             volumes: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'allowPrivilegeEscalation' in kwargs:
+            allow_privilege_escalation = kwargs['allowPrivilegeEscalation']
+        if 'allowedCSIDrivers' in kwargs:
+            allowed_csi_drivers = kwargs['allowedCSIDrivers']
+        if 'allowedCapabilities' in kwargs:
+            allowed_capabilities = kwargs['allowedCapabilities']
+        if 'allowedFlexVolumes' in kwargs:
+            allowed_flex_volumes = kwargs['allowedFlexVolumes']
+        if 'allowedHostPaths' in kwargs:
+            allowed_host_paths = kwargs['allowedHostPaths']
+        if 'allowedProcMountTypes' in kwargs:
+            allowed_proc_mount_types = kwargs['allowedProcMountTypes']
+        if 'allowedUnsafeSysctls' in kwargs:
+            allowed_unsafe_sysctls = kwargs['allowedUnsafeSysctls']
+        if 'defaultAddCapabilities' in kwargs:
+            default_add_capabilities = kwargs['defaultAddCapabilities']
+        if 'defaultAllowPrivilegeEscalation' in kwargs:
+            default_allow_privilege_escalation = kwargs['defaultAllowPrivilegeEscalation']
+        if 'forbiddenSysctls' in kwargs:
+            forbidden_sysctls = kwargs['forbiddenSysctls']
+        if 'fsGroup' in kwargs:
+            fs_group = kwargs['fsGroup']
+        if 'hostIPC' in kwargs:
+            host_ipc = kwargs['hostIPC']
+        if 'hostNetwork' in kwargs:
+            host_network = kwargs['hostNetwork']
+        if 'hostPID' in kwargs:
+            host_pid = kwargs['hostPID']
+        if 'hostPorts' in kwargs:
+            host_ports = kwargs['hostPorts']
+        if 'readOnlyRootFilesystem' in kwargs:
+            read_only_root_filesystem = kwargs['readOnlyRootFilesystem']
+        if 'requiredDropCapabilities' in kwargs:
+            required_drop_capabilities = kwargs['requiredDropCapabilities']
+        if 'runAsGroup' in kwargs:
+            run_as_group = kwargs['runAsGroup']
+        if 'runAsUser' in kwargs:
+            run_as_user = kwargs['runAsUser']
+        if 'runtimeClass' in kwargs:
+            runtime_class = kwargs['runtimeClass']
+        if 'seLinux' in kwargs:
+            se_linux = kwargs['seLinux']
+        if 'supplementalGroups' in kwargs:
+            supplemental_groups = kwargs['supplementalGroups']
+
         if allow_privilege_escalation is not None:
-            pulumi.set(__self__, "allow_privilege_escalation", allow_privilege_escalation)
+            _setter("allow_privilege_escalation", allow_privilege_escalation)
         if allowed_csi_drivers is not None:
-            pulumi.set(__self__, "allowed_csi_drivers", allowed_csi_drivers)
+            _setter("allowed_csi_drivers", allowed_csi_drivers)
         if allowed_capabilities is not None:
-            pulumi.set(__self__, "allowed_capabilities", allowed_capabilities)
+            _setter("allowed_capabilities", allowed_capabilities)
         if allowed_flex_volumes is not None:
-            pulumi.set(__self__, "allowed_flex_volumes", allowed_flex_volumes)
+            _setter("allowed_flex_volumes", allowed_flex_volumes)
         if allowed_host_paths is not None:
-            pulumi.set(__self__, "allowed_host_paths", allowed_host_paths)
+            _setter("allowed_host_paths", allowed_host_paths)
         if allowed_proc_mount_types is not None:
-            pulumi.set(__self__, "allowed_proc_mount_types", allowed_proc_mount_types)
+            _setter("allowed_proc_mount_types", allowed_proc_mount_types)
         if allowed_unsafe_sysctls is not None:
-            pulumi.set(__self__, "allowed_unsafe_sysctls", allowed_unsafe_sysctls)
+            _setter("allowed_unsafe_sysctls", allowed_unsafe_sysctls)
         if default_add_capabilities is not None:
-            pulumi.set(__self__, "default_add_capabilities", default_add_capabilities)
+            _setter("default_add_capabilities", default_add_capabilities)
         if default_allow_privilege_escalation is not None:
-            pulumi.set(__self__, "default_allow_privilege_escalation", default_allow_privilege_escalation)
+            _setter("default_allow_privilege_escalation", default_allow_privilege_escalation)
         if forbidden_sysctls is not None:
-            pulumi.set(__self__, "forbidden_sysctls", forbidden_sysctls)
+            _setter("forbidden_sysctls", forbidden_sysctls)
         if fs_group is not None:
-            pulumi.set(__self__, "fs_group", fs_group)
+            _setter("fs_group", fs_group)
         if host_ipc is not None:
-            pulumi.set(__self__, "host_ipc", host_ipc)
+            _setter("host_ipc", host_ipc)
         if host_network is not None:
-            pulumi.set(__self__, "host_network", host_network)
+            _setter("host_network", host_network)
         if host_pid is not None:
-            pulumi.set(__self__, "host_pid", host_pid)
+            _setter("host_pid", host_pid)
         if host_ports is not None:
-            pulumi.set(__self__, "host_ports", host_ports)
+            _setter("host_ports", host_ports)
         if privileged is not None:
-            pulumi.set(__self__, "privileged", privileged)
+            _setter("privileged", privileged)
         if read_only_root_filesystem is not None:
-            pulumi.set(__self__, "read_only_root_filesystem", read_only_root_filesystem)
+            _setter("read_only_root_filesystem", read_only_root_filesystem)
         if required_drop_capabilities is not None:
-            pulumi.set(__self__, "required_drop_capabilities", required_drop_capabilities)
+            _setter("required_drop_capabilities", required_drop_capabilities)
         if run_as_group is not None:
-            pulumi.set(__self__, "run_as_group", run_as_group)
+            _setter("run_as_group", run_as_group)
         if run_as_user is not None:
-            pulumi.set(__self__, "run_as_user", run_as_user)
+            _setter("run_as_user", run_as_user)
         if runtime_class is not None:
-            pulumi.set(__self__, "runtime_class", runtime_class)
+            _setter("runtime_class", runtime_class)
         if se_linux is not None:
-            pulumi.set(__self__, "se_linux", se_linux)
+            _setter("se_linux", se_linux)
         if supplemental_groups is not None:
-            pulumi.set(__self__, "supplemental_groups", supplemental_groups)
+            _setter("supplemental_groups", supplemental_groups)
         if volumes is not None:
-            pulumi.set(__self__, "volumes", volumes)
+            _setter("volumes", volumes)
 
     @property
     @pulumi.getter(name="allowPrivilegeEscalation")
@@ -1215,50 +1564,151 @@ class PodSecurityPolicySpecArgs:
         :param pulumi.Input['RuntimeClassStrategyOptionsArgs'] runtime_class: runtimeClass is the strategy that will dictate the allowable RuntimeClasses for a pod. If this field is omitted, the pod's runtimeClassName field is unrestricted. Enforcement of this field depends on the RuntimeClass feature gate being enabled.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] volumes: volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
         """
-        pulumi.set(__self__, "fs_group", fs_group)
-        pulumi.set(__self__, "run_as_user", run_as_user)
-        pulumi.set(__self__, "se_linux", se_linux)
-        pulumi.set(__self__, "supplemental_groups", supplemental_groups)
+        PodSecurityPolicySpecArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            fs_group=fs_group,
+            run_as_user=run_as_user,
+            se_linux=se_linux,
+            supplemental_groups=supplemental_groups,
+            allow_privilege_escalation=allow_privilege_escalation,
+            allowed_csi_drivers=allowed_csi_drivers,
+            allowed_capabilities=allowed_capabilities,
+            allowed_flex_volumes=allowed_flex_volumes,
+            allowed_host_paths=allowed_host_paths,
+            allowed_proc_mount_types=allowed_proc_mount_types,
+            allowed_unsafe_sysctls=allowed_unsafe_sysctls,
+            default_add_capabilities=default_add_capabilities,
+            default_allow_privilege_escalation=default_allow_privilege_escalation,
+            forbidden_sysctls=forbidden_sysctls,
+            host_ipc=host_ipc,
+            host_network=host_network,
+            host_pid=host_pid,
+            host_ports=host_ports,
+            privileged=privileged,
+            read_only_root_filesystem=read_only_root_filesystem,
+            required_drop_capabilities=required_drop_capabilities,
+            run_as_group=run_as_group,
+            runtime_class=runtime_class,
+            volumes=volumes,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             fs_group: pulumi.Input['FSGroupStrategyOptionsArgs'],
+             run_as_user: pulumi.Input['RunAsUserStrategyOptionsArgs'],
+             se_linux: pulumi.Input['SELinuxStrategyOptionsArgs'],
+             supplemental_groups: pulumi.Input['SupplementalGroupsStrategyOptionsArgs'],
+             allow_privilege_escalation: Optional[pulumi.Input[bool]] = None,
+             allowed_csi_drivers: Optional[pulumi.Input[Sequence[pulumi.Input['AllowedCSIDriverArgs']]]] = None,
+             allowed_capabilities: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             allowed_flex_volumes: Optional[pulumi.Input[Sequence[pulumi.Input['AllowedFlexVolumeArgs']]]] = None,
+             allowed_host_paths: Optional[pulumi.Input[Sequence[pulumi.Input['AllowedHostPathArgs']]]] = None,
+             allowed_proc_mount_types: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             allowed_unsafe_sysctls: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             default_add_capabilities: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             default_allow_privilege_escalation: Optional[pulumi.Input[bool]] = None,
+             forbidden_sysctls: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             host_ipc: Optional[pulumi.Input[bool]] = None,
+             host_network: Optional[pulumi.Input[bool]] = None,
+             host_pid: Optional[pulumi.Input[bool]] = None,
+             host_ports: Optional[pulumi.Input[Sequence[pulumi.Input['HostPortRangeArgs']]]] = None,
+             privileged: Optional[pulumi.Input[bool]] = None,
+             read_only_root_filesystem: Optional[pulumi.Input[bool]] = None,
+             required_drop_capabilities: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             run_as_group: Optional[pulumi.Input['RunAsGroupStrategyOptionsArgs']] = None,
+             runtime_class: Optional[pulumi.Input['RuntimeClassStrategyOptionsArgs']] = None,
+             volumes: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'fsGroup' in kwargs:
+            fs_group = kwargs['fsGroup']
+        if 'runAsUser' in kwargs:
+            run_as_user = kwargs['runAsUser']
+        if 'seLinux' in kwargs:
+            se_linux = kwargs['seLinux']
+        if 'supplementalGroups' in kwargs:
+            supplemental_groups = kwargs['supplementalGroups']
+        if 'allowPrivilegeEscalation' in kwargs:
+            allow_privilege_escalation = kwargs['allowPrivilegeEscalation']
+        if 'allowedCSIDrivers' in kwargs:
+            allowed_csi_drivers = kwargs['allowedCSIDrivers']
+        if 'allowedCapabilities' in kwargs:
+            allowed_capabilities = kwargs['allowedCapabilities']
+        if 'allowedFlexVolumes' in kwargs:
+            allowed_flex_volumes = kwargs['allowedFlexVolumes']
+        if 'allowedHostPaths' in kwargs:
+            allowed_host_paths = kwargs['allowedHostPaths']
+        if 'allowedProcMountTypes' in kwargs:
+            allowed_proc_mount_types = kwargs['allowedProcMountTypes']
+        if 'allowedUnsafeSysctls' in kwargs:
+            allowed_unsafe_sysctls = kwargs['allowedUnsafeSysctls']
+        if 'defaultAddCapabilities' in kwargs:
+            default_add_capabilities = kwargs['defaultAddCapabilities']
+        if 'defaultAllowPrivilegeEscalation' in kwargs:
+            default_allow_privilege_escalation = kwargs['defaultAllowPrivilegeEscalation']
+        if 'forbiddenSysctls' in kwargs:
+            forbidden_sysctls = kwargs['forbiddenSysctls']
+        if 'hostIPC' in kwargs:
+            host_ipc = kwargs['hostIPC']
+        if 'hostNetwork' in kwargs:
+            host_network = kwargs['hostNetwork']
+        if 'hostPID' in kwargs:
+            host_pid = kwargs['hostPID']
+        if 'hostPorts' in kwargs:
+            host_ports = kwargs['hostPorts']
+        if 'readOnlyRootFilesystem' in kwargs:
+            read_only_root_filesystem = kwargs['readOnlyRootFilesystem']
+        if 'requiredDropCapabilities' in kwargs:
+            required_drop_capabilities = kwargs['requiredDropCapabilities']
+        if 'runAsGroup' in kwargs:
+            run_as_group = kwargs['runAsGroup']
+        if 'runtimeClass' in kwargs:
+            runtime_class = kwargs['runtimeClass']
+
+        _setter("fs_group", fs_group)
+        _setter("run_as_user", run_as_user)
+        _setter("se_linux", se_linux)
+        _setter("supplemental_groups", supplemental_groups)
         if allow_privilege_escalation is not None:
-            pulumi.set(__self__, "allow_privilege_escalation", allow_privilege_escalation)
+            _setter("allow_privilege_escalation", allow_privilege_escalation)
         if allowed_csi_drivers is not None:
-            pulumi.set(__self__, "allowed_csi_drivers", allowed_csi_drivers)
+            _setter("allowed_csi_drivers", allowed_csi_drivers)
         if allowed_capabilities is not None:
-            pulumi.set(__self__, "allowed_capabilities", allowed_capabilities)
+            _setter("allowed_capabilities", allowed_capabilities)
         if allowed_flex_volumes is not None:
-            pulumi.set(__self__, "allowed_flex_volumes", allowed_flex_volumes)
+            _setter("allowed_flex_volumes", allowed_flex_volumes)
         if allowed_host_paths is not None:
-            pulumi.set(__self__, "allowed_host_paths", allowed_host_paths)
+            _setter("allowed_host_paths", allowed_host_paths)
         if allowed_proc_mount_types is not None:
-            pulumi.set(__self__, "allowed_proc_mount_types", allowed_proc_mount_types)
+            _setter("allowed_proc_mount_types", allowed_proc_mount_types)
         if allowed_unsafe_sysctls is not None:
-            pulumi.set(__self__, "allowed_unsafe_sysctls", allowed_unsafe_sysctls)
+            _setter("allowed_unsafe_sysctls", allowed_unsafe_sysctls)
         if default_add_capabilities is not None:
-            pulumi.set(__self__, "default_add_capabilities", default_add_capabilities)
+            _setter("default_add_capabilities", default_add_capabilities)
         if default_allow_privilege_escalation is not None:
-            pulumi.set(__self__, "default_allow_privilege_escalation", default_allow_privilege_escalation)
+            _setter("default_allow_privilege_escalation", default_allow_privilege_escalation)
         if forbidden_sysctls is not None:
-            pulumi.set(__self__, "forbidden_sysctls", forbidden_sysctls)
+            _setter("forbidden_sysctls", forbidden_sysctls)
         if host_ipc is not None:
-            pulumi.set(__self__, "host_ipc", host_ipc)
+            _setter("host_ipc", host_ipc)
         if host_network is not None:
-            pulumi.set(__self__, "host_network", host_network)
+            _setter("host_network", host_network)
         if host_pid is not None:
-            pulumi.set(__self__, "host_pid", host_pid)
+            _setter("host_pid", host_pid)
         if host_ports is not None:
-            pulumi.set(__self__, "host_ports", host_ports)
+            _setter("host_ports", host_ports)
         if privileged is not None:
-            pulumi.set(__self__, "privileged", privileged)
+            _setter("privileged", privileged)
         if read_only_root_filesystem is not None:
-            pulumi.set(__self__, "read_only_root_filesystem", read_only_root_filesystem)
+            _setter("read_only_root_filesystem", read_only_root_filesystem)
         if required_drop_capabilities is not None:
-            pulumi.set(__self__, "required_drop_capabilities", required_drop_capabilities)
+            _setter("required_drop_capabilities", required_drop_capabilities)
         if run_as_group is not None:
-            pulumi.set(__self__, "run_as_group", run_as_group)
+            _setter("run_as_group", run_as_group)
         if runtime_class is not None:
-            pulumi.set(__self__, "runtime_class", runtime_class)
+            _setter("runtime_class", runtime_class)
         if volumes is not None:
-            pulumi.set(__self__, "volumes", volumes)
+            _setter("volumes", volumes)
 
     @property
     @pulumi.getter(name="fsGroup")
@@ -1567,14 +2017,33 @@ class PodSecurityPolicyArgs:
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input['PodSecurityPolicySpecArgs'] spec: spec defines the policy enforced.
         """
+        PodSecurityPolicyArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            api_version=api_version,
+            kind=kind,
+            metadata=metadata,
+            spec=spec,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             api_version: Optional[pulumi.Input[str]] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+             spec: Optional[pulumi.Input['PodSecurityPolicySpecArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'apiVersion' in kwargs:
+            api_version = kwargs['apiVersion']
+
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'policy/v1beta1')
+            _setter("api_version", 'policy/v1beta1')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'PodSecurityPolicy')
+            _setter("kind", 'PodSecurityPolicy')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
         if spec is not None:
-            pulumi.set(__self__, "spec", spec)
+            _setter("spec", spec)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -1635,10 +2104,23 @@ class RunAsGroupStrategyOptionsPatchArgs:
         :param pulumi.Input[Sequence[pulumi.Input['IDRangePatchArgs']]] ranges: ranges are the allowed ranges of gids that may be used. If you would like to force a single gid then supply a single range with the same start and end. Required for MustRunAs.
         :param pulumi.Input[str] rule: rule is the strategy that will dictate the allowable RunAsGroup values that may be set.
         """
+        RunAsGroupStrategyOptionsPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            ranges=ranges,
+            rule=rule,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             ranges: Optional[pulumi.Input[Sequence[pulumi.Input['IDRangePatchArgs']]]] = None,
+             rule: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+
         if ranges is not None:
-            pulumi.set(__self__, "ranges", ranges)
+            _setter("ranges", ranges)
         if rule is not None:
-            pulumi.set(__self__, "rule", rule)
+            _setter("rule", rule)
 
     @property
     @pulumi.getter
@@ -1675,9 +2157,22 @@ class RunAsGroupStrategyOptionsArgs:
         :param pulumi.Input[str] rule: rule is the strategy that will dictate the allowable RunAsGroup values that may be set.
         :param pulumi.Input[Sequence[pulumi.Input['IDRangeArgs']]] ranges: ranges are the allowed ranges of gids that may be used. If you would like to force a single gid then supply a single range with the same start and end. Required for MustRunAs.
         """
-        pulumi.set(__self__, "rule", rule)
+        RunAsGroupStrategyOptionsArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            rule=rule,
+            ranges=ranges,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             rule: pulumi.Input[str],
+             ranges: Optional[pulumi.Input[Sequence[pulumi.Input['IDRangeArgs']]]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+
+        _setter("rule", rule)
         if ranges is not None:
-            pulumi.set(__self__, "ranges", ranges)
+            _setter("ranges", ranges)
 
     @property
     @pulumi.getter
@@ -1714,10 +2209,23 @@ class RunAsUserStrategyOptionsPatchArgs:
         :param pulumi.Input[Sequence[pulumi.Input['IDRangePatchArgs']]] ranges: ranges are the allowed ranges of uids that may be used. If you would like to force a single uid then supply a single range with the same start and end. Required for MustRunAs.
         :param pulumi.Input[str] rule: rule is the strategy that will dictate the allowable RunAsUser values that may be set.
         """
+        RunAsUserStrategyOptionsPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            ranges=ranges,
+            rule=rule,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             ranges: Optional[pulumi.Input[Sequence[pulumi.Input['IDRangePatchArgs']]]] = None,
+             rule: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+
         if ranges is not None:
-            pulumi.set(__self__, "ranges", ranges)
+            _setter("ranges", ranges)
         if rule is not None:
-            pulumi.set(__self__, "rule", rule)
+            _setter("rule", rule)
 
     @property
     @pulumi.getter
@@ -1754,9 +2262,22 @@ class RunAsUserStrategyOptionsArgs:
         :param pulumi.Input[str] rule: rule is the strategy that will dictate the allowable RunAsUser values that may be set.
         :param pulumi.Input[Sequence[pulumi.Input['IDRangeArgs']]] ranges: ranges are the allowed ranges of uids that may be used. If you would like to force a single uid then supply a single range with the same start and end. Required for MustRunAs.
         """
-        pulumi.set(__self__, "rule", rule)
+        RunAsUserStrategyOptionsArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            rule=rule,
+            ranges=ranges,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             rule: pulumi.Input[str],
+             ranges: Optional[pulumi.Input[Sequence[pulumi.Input['IDRangeArgs']]]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+
+        _setter("rule", rule)
         if ranges is not None:
-            pulumi.set(__self__, "ranges", ranges)
+            _setter("ranges", ranges)
 
     @property
     @pulumi.getter
@@ -1793,10 +2314,27 @@ class RuntimeClassStrategyOptionsPatchArgs:
         :param pulumi.Input[Sequence[pulumi.Input[str]]] allowed_runtime_class_names: allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
         :param pulumi.Input[str] default_runtime_class_name: defaultRuntimeClassName is the default RuntimeClassName to set on the pod. The default MUST be allowed by the allowedRuntimeClassNames list. A value of nil does not mutate the Pod.
         """
+        RuntimeClassStrategyOptionsPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            allowed_runtime_class_names=allowed_runtime_class_names,
+            default_runtime_class_name=default_runtime_class_name,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             allowed_runtime_class_names: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             default_runtime_class_name: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'allowedRuntimeClassNames' in kwargs:
+            allowed_runtime_class_names = kwargs['allowedRuntimeClassNames']
+        if 'defaultRuntimeClassName' in kwargs:
+            default_runtime_class_name = kwargs['defaultRuntimeClassName']
+
         if allowed_runtime_class_names is not None:
-            pulumi.set(__self__, "allowed_runtime_class_names", allowed_runtime_class_names)
+            _setter("allowed_runtime_class_names", allowed_runtime_class_names)
         if default_runtime_class_name is not None:
-            pulumi.set(__self__, "default_runtime_class_name", default_runtime_class_name)
+            _setter("default_runtime_class_name", default_runtime_class_name)
 
     @property
     @pulumi.getter(name="allowedRuntimeClassNames")
@@ -1833,9 +2371,26 @@ class RuntimeClassStrategyOptionsArgs:
         :param pulumi.Input[Sequence[pulumi.Input[str]]] allowed_runtime_class_names: allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
         :param pulumi.Input[str] default_runtime_class_name: defaultRuntimeClassName is the default RuntimeClassName to set on the pod. The default MUST be allowed by the allowedRuntimeClassNames list. A value of nil does not mutate the Pod.
         """
-        pulumi.set(__self__, "allowed_runtime_class_names", allowed_runtime_class_names)
+        RuntimeClassStrategyOptionsArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            allowed_runtime_class_names=allowed_runtime_class_names,
+            default_runtime_class_name=default_runtime_class_name,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             allowed_runtime_class_names: pulumi.Input[Sequence[pulumi.Input[str]]],
+             default_runtime_class_name: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'allowedRuntimeClassNames' in kwargs:
+            allowed_runtime_class_names = kwargs['allowedRuntimeClassNames']
+        if 'defaultRuntimeClassName' in kwargs:
+            default_runtime_class_name = kwargs['defaultRuntimeClassName']
+
+        _setter("allowed_runtime_class_names", allowed_runtime_class_names)
         if default_runtime_class_name is not None:
-            pulumi.set(__self__, "default_runtime_class_name", default_runtime_class_name)
+            _setter("default_runtime_class_name", default_runtime_class_name)
 
     @property
     @pulumi.getter(name="allowedRuntimeClassNames")
@@ -1872,10 +2427,25 @@ class SELinuxStrategyOptionsPatchArgs:
         :param pulumi.Input[str] rule: rule is the strategy that will dictate the allowable labels that may be set.
         :param pulumi.Input['_core.v1.SELinuxOptionsPatchArgs'] se_linux_options: seLinuxOptions required to run as; required for MustRunAs More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
         """
+        SELinuxStrategyOptionsPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            rule=rule,
+            se_linux_options=se_linux_options,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             rule: Optional[pulumi.Input[str]] = None,
+             se_linux_options: Optional[pulumi.Input['_core.v1.SELinuxOptionsPatchArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'seLinuxOptions' in kwargs:
+            se_linux_options = kwargs['seLinuxOptions']
+
         if rule is not None:
-            pulumi.set(__self__, "rule", rule)
+            _setter("rule", rule)
         if se_linux_options is not None:
-            pulumi.set(__self__, "se_linux_options", se_linux_options)
+            _setter("se_linux_options", se_linux_options)
 
     @property
     @pulumi.getter
@@ -1912,9 +2482,24 @@ class SELinuxStrategyOptionsArgs:
         :param pulumi.Input[str] rule: rule is the strategy that will dictate the allowable labels that may be set.
         :param pulumi.Input['_core.v1.SELinuxOptionsArgs'] se_linux_options: seLinuxOptions required to run as; required for MustRunAs More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
         """
-        pulumi.set(__self__, "rule", rule)
+        SELinuxStrategyOptionsArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            rule=rule,
+            se_linux_options=se_linux_options,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             rule: pulumi.Input[str],
+             se_linux_options: Optional[pulumi.Input['_core.v1.SELinuxOptionsArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'seLinuxOptions' in kwargs:
+            se_linux_options = kwargs['seLinuxOptions']
+
+        _setter("rule", rule)
         if se_linux_options is not None:
-            pulumi.set(__self__, "se_linux_options", se_linux_options)
+            _setter("se_linux_options", se_linux_options)
 
     @property
     @pulumi.getter
@@ -1951,10 +2536,23 @@ class SupplementalGroupsStrategyOptionsPatchArgs:
         :param pulumi.Input[Sequence[pulumi.Input['IDRangePatchArgs']]] ranges: ranges are the allowed ranges of supplemental groups.  If you would like to force a single supplemental group then supply a single range with the same start and end. Required for MustRunAs.
         :param pulumi.Input[str] rule: rule is the strategy that will dictate what supplemental groups is used in the SecurityContext.
         """
+        SupplementalGroupsStrategyOptionsPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            ranges=ranges,
+            rule=rule,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             ranges: Optional[pulumi.Input[Sequence[pulumi.Input['IDRangePatchArgs']]]] = None,
+             rule: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+
         if ranges is not None:
-            pulumi.set(__self__, "ranges", ranges)
+            _setter("ranges", ranges)
         if rule is not None:
-            pulumi.set(__self__, "rule", rule)
+            _setter("rule", rule)
 
     @property
     @pulumi.getter
@@ -1991,10 +2589,23 @@ class SupplementalGroupsStrategyOptionsArgs:
         :param pulumi.Input[Sequence[pulumi.Input['IDRangeArgs']]] ranges: ranges are the allowed ranges of supplemental groups.  If you would like to force a single supplemental group then supply a single range with the same start and end. Required for MustRunAs.
         :param pulumi.Input[str] rule: rule is the strategy that will dictate what supplemental groups is used in the SecurityContext.
         """
+        SupplementalGroupsStrategyOptionsArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            ranges=ranges,
+            rule=rule,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             ranges: Optional[pulumi.Input[Sequence[pulumi.Input['IDRangeArgs']]]] = None,
+             rule: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+
         if ranges is not None:
-            pulumi.set(__self__, "ranges", ranges)
+            _setter("ranges", ranges)
         if rule is not None:
-            pulumi.set(__self__, "rule", rule)
+            _setter("rule", rule)
 
     @property
     @pulumi.getter
