@@ -54,7 +54,7 @@ import (
 
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
-		_, err := helm.NewRelease(ctx, "nginx-ingress", helm.ReleaseArgs{
+		_, err := helm.NewRelease(ctx, "nginx-ingress", &helm.ReleaseArgs{
 			Chart: pulumi.String("./nginx-ingress"),
 		})
 		if err != nil {
@@ -126,7 +126,7 @@ import (
 
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
-		_, err := helm.NewRelease(ctx, "nginx-ingress", helm.ReleaseArgs{
+		_, err := helm.NewRelease(ctx, "nginx-ingress", &helm.ReleaseArgs{
 			Chart:   pulumi.String("nginx-ingress"),
 			Version: pulumi.String("1.24.4"),
 			RepositoryOpts: helm.RepositoryOptsArgs{
@@ -229,7 +229,7 @@ import (
 
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
-		_, err := helm.NewRelease(ctx, "nginx-ingress", helm.ReleaseArgs{
+		_, err := helm.NewRelease(ctx, "nginx-ingress", &helm.ReleaseArgs{
 			Chart:   pulumi.String("nginx-ingress"),
 			Version: pulumi.String("1.24.4"),
 			RepositoryOpts: helm.RepositoryOptsArgs{
@@ -315,7 +315,7 @@ import (
 
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
-		_, err := helm.NewRelease(ctx, "nginx-ingress", helm.ReleaseArgs{
+		_, err := helm.NewRelease(ctx, "nginx-ingress", &helm.ReleaseArgs{
 			Chart:     pulumi.String("nginx-ingress"),
 			Version:   pulumi.String("1.24.4"),
 			Namespace: pulumi.String("test-namespace"),
@@ -564,13 +564,15 @@ import (
 
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
-		_, err := helm.NewRelease(ctx, "redis", helm.ReleaseArgs{
+		_, err := helm.NewRelease(ctx, "redis", &helm.ReleaseArgs{
 			Chart:   pulumi.String("redis"),
 			RepositoryOpts: helm.RepositoryOptsArgs{
 				Repo: pulumi.String("https://charts.helm.sh/stable"),
 			},
-			ValueYamlFiles: pulumi.NewFileAsset("./metrics.yml"),
-			Value: pulumi.Map{
+			ValueYamlFiles: pulumi.AssetOrArchiveArray{
+				pulumi.NewFileAsset("./metrics.yml"),
+			},
+			Values: pulumi.Map{
 				"cluster": pulumi.Map{
 					"enabled": pulumi.Bool(true),
 				},

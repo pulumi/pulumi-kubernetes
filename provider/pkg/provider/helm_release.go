@@ -250,18 +250,9 @@ func (r *helmReleaseProvider) getActionConfig(namespace string) (*action.Configu
 	// explicitly set the namespace (e.g. through namespace: {{ .Release.Namespace }}).
 	overrides.Context.Namespace = namespace
 
-	var clientConfig clientcmd.ClientConfig
-	if r.apiConfig != nil {
-		clientConfig = clientcmd.NewDefaultClientConfig(*r.apiConfig, &overrides)
-	} else {
-		// Use client-go to resolve the final configuration values for the client. Typically these
-		// values would reside in the $KUBECONFIG file, but can also be altered in several
-		// places, including in env variables, client-go default values, and (if we allowed it) CLI
-		// flags.
-		loadingRules := clientcmd.NewDefaultClientConfigLoadingRules()
-		loadingRules.DefaultClientConfig = &clientcmd.DefaultClientConfig
-		clientConfig = clientcmd.NewNonInteractiveDeferredLoadingClientConfig(loadingRules, &overrides)
-	}
+	contract.Assertf(r.apiConfig != nil, "expected non-nil apiConfig")
+	contract.Assertf(r.restConfig != nil, "expected non-nil restConfig")
+	clientConfig := clientcmd.NewDefaultClientConfig(*r.apiConfig, &overrides)
 	kc := NewKubeConfig(r.restConfig, clientConfig)
 
 	if err := conf.Init(kc, namespace, r.helmDriver, debug); err != nil {

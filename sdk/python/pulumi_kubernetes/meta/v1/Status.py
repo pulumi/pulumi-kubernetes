@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from . import outputs
 from ._inputs import *
@@ -33,20 +33,45 @@ class StatusArgs:
         :param pulumi.Input['ListMetaArgs'] metadata: Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input[str] reason: A machine-readable description of why this operation is in the "Failure" status. If this value is empty there is no information available. A Reason clarifies an HTTP status code but does not override it.
         """
+        StatusArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            api_version=api_version,
+            code=code,
+            details=details,
+            kind=kind,
+            message=message,
+            metadata=metadata,
+            reason=reason,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             api_version: Optional[pulumi.Input[str]] = None,
+             code: Optional[pulumi.Input[int]] = None,
+             details: Optional[pulumi.Input['StatusDetailsArgs']] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             message: Optional[pulumi.Input[str]] = None,
+             metadata: Optional[pulumi.Input['ListMetaArgs']] = None,
+             reason: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'apiVersion' in kwargs:
+            api_version = kwargs['apiVersion']
+
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'v1')
+            _setter("api_version", 'v1')
         if code is not None:
-            pulumi.set(__self__, "code", code)
+            _setter("code", code)
         if details is not None:
-            pulumi.set(__self__, "details", details)
+            _setter("details", details)
         if kind is not None:
-            pulumi.set(__self__, "kind", 'Status')
+            _setter("kind", 'Status')
         if message is not None:
-            pulumi.set(__self__, "message", message)
+            _setter("message", message)
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
         if reason is not None:
-            pulumi.set(__self__, "reason", reason)
+            _setter("reason", reason)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -178,6 +203,10 @@ class Status(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
+            kwargs = kwargs or {}
+            def _setter(key, value):
+                kwargs[key] = value
+            StatusArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
@@ -201,9 +230,19 @@ class Status(pulumi.CustomResource):
 
             __props__.__dict__["api_version"] = 'v1'
             __props__.__dict__["code"] = code
+            if details is not None and not isinstance(details, StatusDetailsArgs):
+                details = details or {}
+                def _setter(key, value):
+                    details[key] = value
+                StatusDetailsArgs._configure(_setter, **details)
             __props__.__dict__["details"] = details
             __props__.__dict__["kind"] = 'Status'
             __props__.__dict__["message"] = message
+            if metadata is not None and not isinstance(metadata, ListMetaArgs):
+                metadata = metadata or {}
+                def _setter(key, value):
+                    metadata[key] = value
+                ListMetaArgs._configure(_setter, **metadata)
             __props__.__dict__["metadata"] = metadata
             __props__.__dict__["reason"] = reason
             __props__.__dict__["status"] = None

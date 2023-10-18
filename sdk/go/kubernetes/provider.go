@@ -15,6 +15,29 @@ import (
 // The provider type for the kubernetes package.
 type Provider struct {
 	pulumi.ProviderResourceState
+
+	// If present, the name of the kubeconfig cluster to use.
+	Cluster pulumi.StringPtrOutput `pulumi:"cluster"`
+	// If present, the name of the kubeconfig context to use.
+	Context pulumi.StringPtrOutput `pulumi:"context"`
+	// The contents of a kubeconfig file or the path to a kubeconfig file.
+	Kubeconfig pulumi.StringPtrOutput `pulumi:"kubeconfig"`
+	// If present, the default namespace to use. This flag is ignored for cluster-scoped resources.
+	//
+	// A namespace can be specified in multiple places, and the precedence is as follows:
+	// 1. `.metadata.namespace` set on the resource.
+	// 2. This `namespace` parameter.
+	// 3. `namespace` set for the active context in the kubeconfig.
+	Namespace pulumi.StringPtrOutput `pulumi:"namespace"`
+	// BETA FEATURE - If present, render resource manifests to this directory. In this mode, resources will not
+	// be created on a Kubernetes cluster, but the rendered manifests will be kept in sync with changes
+	// to the Pulumi program. This feature is in developer preview, and is disabled by default.
+	//
+	// Note that some computed Outputs such as status fields will not be populated
+	// since the resources are not created on a Kubernetes cluster. These Output values will remain undefined,
+	// and may result in an error if they are referenced by other resources. Also note that any secret values
+	// used in these resources will be rendered in plaintext to the resulting YAML.
+	RenderYamlToDirectory pulumi.StringPtrOutput `pulumi:"renderYamlToDirectory"`
 }
 
 // NewProvider registers a new resource with the given unique name, arguments, and options.
@@ -216,6 +239,43 @@ func (o ProviderOutput) ToOutput(ctx context.Context) pulumix.Output[*Provider] 
 	return pulumix.Output[*Provider]{
 		OutputState: o.OutputState,
 	}
+}
+
+// If present, the name of the kubeconfig cluster to use.
+func (o ProviderOutput) Cluster() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.Cluster }).(pulumi.StringPtrOutput)
+}
+
+// If present, the name of the kubeconfig context to use.
+func (o ProviderOutput) Context() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.Context }).(pulumi.StringPtrOutput)
+}
+
+// The contents of a kubeconfig file or the path to a kubeconfig file.
+func (o ProviderOutput) Kubeconfig() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.Kubeconfig }).(pulumi.StringPtrOutput)
+}
+
+// If present, the default namespace to use. This flag is ignored for cluster-scoped resources.
+//
+// A namespace can be specified in multiple places, and the precedence is as follows:
+// 1. `.metadata.namespace` set on the resource.
+// 2. This `namespace` parameter.
+// 3. `namespace` set for the active context in the kubeconfig.
+func (o ProviderOutput) Namespace() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.Namespace }).(pulumi.StringPtrOutput)
+}
+
+// BETA FEATURE - If present, render resource manifests to this directory. In this mode, resources will not
+// be created on a Kubernetes cluster, but the rendered manifests will be kept in sync with changes
+// to the Pulumi program. This feature is in developer preview, and is disabled by default.
+//
+// Note that some computed Outputs such as status fields will not be populated
+// since the resources are not created on a Kubernetes cluster. These Output values will remain undefined,
+// and may result in an error if they are referenced by other resources. Also note that any secret values
+// used in these resources will be rendered in plaintext to the resulting YAML.
+func (o ProviderOutput) RenderYamlToDirectory() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Provider) pulumi.StringPtrOutput { return v.RenderYamlToDirectory }).(pulumi.StringPtrOutput)
 }
 
 func init() {
