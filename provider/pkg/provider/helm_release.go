@@ -580,11 +580,7 @@ func (r *helmReleaseProvider) helmCreate(ctx context.Context, urn resource.URN, 
 	client.WaitForJobs = !newRelease.SkipAwait && newRelease.WaitForJobs
 	client.Devel = newRelease.Devel
 	client.DependencyUpdate = newRelease.DependencyUpdate
-	timeout := newRelease.Timeout
-	if timeout == 0 {
-		timeout = defaultTimeoutSeconds
-	}
-	client.Timeout = time.Duration(timeout) * time.Second
+	client.Timeout = getTimeoutOrDefault(newRelease.Timeout)
 	client.Namespace = newRelease.Namespace
 	client.ReleaseName = newRelease.Name
 	client.GenerateName = false
@@ -696,11 +692,7 @@ func (r *helmReleaseProvider) helmUpdate(newRelease, oldRelease *Release) error 
 
 	client.Devel = newRelease.Devel
 	client.Namespace = newRelease.Namespace
-	timeout := newRelease.Timeout
-	if timeout == 0 {
-		timeout = defaultTimeoutSeconds
-	}
-	client.Timeout = time.Duration(timeout) * time.Second
+	client.Timeout = getTimeoutOrDefault(newRelease.Timeout)
 	client.Wait = !newRelease.SkipAwait
 	client.DisableHooks = newRelease.DisableCRDHooks
 	client.Atomic = newRelease.Atomic
@@ -1183,11 +1175,7 @@ func (r *helmReleaseProvider) Delete(ctx context.Context, req *pulumirpc.DeleteR
 	uninstall := action.NewUninstall(actionConfig)
 	if release.Atomic || !release.SkipAwait { // If the release was atomic or skipAwait was not set, block on deletion
 		uninstall.Wait = true
-		timeout := release.Timeout
-		if timeout == 0 {
-			timeout = defaultTimeoutSeconds
-		}
-		uninstall.Timeout = time.Duration(timeout) * time.Second
+		uninstall.Timeout = getTimeoutOrDefault(release.Timeout)
 	}
 	// TODO: once https://github.com/helm/helm/pull/12109 is merged, use uninstall.RunWithContext
 	res, err := uninstall.Run(name)
@@ -1688,4 +1676,11 @@ func resolveChartName(repository, name string) (string, string, error) {
 
 func isHelmRelease(urn resource.URN) bool {
 	return urn.Type() == "kubernetes:helm.sh/v3:Release"
+}
+
+func getTimeoutOrDefault(timeout int) time.Duration {
+	if timeout == 0 {
+		timeout = defaultTimeoutSeconds
+	}
+	return time.Duration(timeout) * time.Second
 }
