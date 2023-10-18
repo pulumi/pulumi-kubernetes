@@ -3,6 +3,7 @@
 - helm.v3.ChartOpts: Add KubeVersion field that can be passed to avoid asking the kubernetes API server for the version (https://github.com/pulumi/pulumi-kubernetes/pull/2593)
 - Fix for Helm Import regression (https://github.com/pulumi/pulumi-kubernetes/pull/2605)
 - Improved search functionality for Helm Import (https://github.com/pulumi/pulumi-kubernetes/pull/2610)
+- Fix SSA dry-run previews when a Pulumi program uses Apply on the status subresource (https://github.com/pulumi/pulumi-kubernetes/pull/2615)
 
 ## 4.4.0 (October 12, 2023)
 
