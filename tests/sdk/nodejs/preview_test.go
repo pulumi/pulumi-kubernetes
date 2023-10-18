@@ -143,3 +143,47 @@ func createSAKubeconfig(t *testing.T, saName string) (string, error) {
 
 	return kubeconfigPath, err
 }
+
+// TestPreviewWithApply tests the `pulumi preview` CUJ where the user Pulumi program contains an Apply call on status subresoruces.
+// This is to ensure we don't fail preview, since status fields are only populated after the resource is created on cluster.
+func TestPreviewWithApply(t *testing.T) {
+	test := baseOptions.With(integration.ProgramTestOptions{
+		Dir:                  "preview-apply",
+		ExpectRefreshChanges: false,
+		// Enable destroy-on-cleanup so we can shell out to kubectl to make external changes to the resource and reuse the same stack.
+		DestroyOnCleanup: true,
+		Quick:            true,
+		OrderedConfig: []integration.ConfigValue{
+			{
+				Key:   "pulumi:disable-default-providers[0]",
+				Value: "kubernetes",
+				Path:  true,
+			},
+		},
+	})
+
+	// Initialize and the test project.
+	pt := integration.ProgramTestManualLifeCycle(t, &test)
+	err := pt.TestLifeCyclePrepare()
+	if err != nil {
+		t.Fatalf("unable to create temp dir: %s", err)
+	}
+	t.Cleanup(pt.TestCleanUp)
+
+	err = pt.TestLifeCycleInitialize()
+	if err != nil {
+		t.Fatalf("unable to init test project: %s", err)
+	}
+	t.Cleanup(func() {
+		destroyErr := pt.TestLifeCycleDestroy()
+		assert.NoError(t, destroyErr)
+	})
+
+	// Run a preview and assert no error.
+	err = pt.RunPulumiCommand("preview", "--non-interactive", "--diff", "--refresh", "--show-config")
+	assert.NoError(t, err)
+
+	// Run pulumi up and assert no error creating the resources.
+	err = pt.TestPreviewUpdateAndEdits()
+	assert.NoError(t, err)
+}
