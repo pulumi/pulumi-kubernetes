@@ -361,6 +361,7 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 
 		err = r.setComputedInputs(ctx, urn, new)
 		if err != nil {
+			// setComputedInputs fails when the chart cannot be rendered, and we report it as a problem with the `chart` input.
 			failures = append(failures, &pulumirpc.CheckFailure{
 				Property: "chart",
 				Reason:   fmt.Sprintf("%v; check the chart name and repository configuration.", err),
