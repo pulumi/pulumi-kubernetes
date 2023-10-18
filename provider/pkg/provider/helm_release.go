@@ -1305,7 +1305,7 @@ func (r *helmReleaseProvider) importRelease(ctx context.Context, urn resource.UR
 	// Attempt to resolve the chart's origin in either a local or remote repository.
 	// Note that the local chart is not verified.
 	if name, _, found := searchProgramDirectory(hr.Chart.Metadata.Name, hr.Chart.Metadata.Version); found {
-		release.Chart = *name
+		release.Chart = name
 	} else if repo, chart, found := searchHelmRepositories(r.settings, hr.Chart.Metadata.Name, hr.Chart.Metadata.Version); found {
 		// use a local repository reference, rather than reconstructing all the repository opts
 		release.Chart = fmt.Sprintf("%s/%s", repo.Name, chart.Name)
@@ -1436,20 +1436,27 @@ func mapToInterface(in any) any {
 }
 
 // searchProgramDirectory implements a best-effort search for a chart in the program directory.
-func searchProgramDirectory(name, version string) (*string, *helmchart.Metadata, bool) {
-	file := fmt.Sprintf("%s.tgz", name)
-	if c, err := loader.LoadFile(file); err == nil {
-		return &file, c.Metadata, true
+// It searches for a chart archive and for an unpacked chart directory, with and without a version suffix.
+// The search order is: "<name>-<version>/", "<name>-<version>.tgz", "<name>/", "<name>.tgz".
+func searchProgramDirectory(name, version string) (string, *helmchart.Metadata, bool) {
+	var file, dir string
+	dir = fmt.Sprintf("%s-%s", name, version)
+	if c, err := loader.LoadDir(dir); err == nil {
+		return dir, c.Metadata, true
 	}
 	file = fmt.Sprintf("%s-%s.tgz", name, version)
 	if c, err := loader.LoadFile(file); err == nil {
-		return &file, c.Metadata, true
+		return file, c.Metadata, true
 	}
-	dir := name
+	dir = name
 	if c, err := loader.LoadDir(dir); err == nil {
-		return &dir, c.Metadata, true
+		return dir, c.Metadata, true
 	}
-	return nil, nil, false
+	file = fmt.Sprintf("%s.tgz", name)
+	if c, err := loader.LoadFile(file); err == nil {
+		return file, c.Metadata, true
+	}
+	return "", nil, false
 }
 
 // searchHelmRepositories implements a best-effort search for a chart in the locally-configured repositories.
