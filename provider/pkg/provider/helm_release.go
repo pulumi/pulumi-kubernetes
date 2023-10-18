@@ -322,7 +322,7 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 	urn := resource.URN(req.GetUrn())
 	label := fmt.Sprintf("Provider[%s].Check(%s)", r.name, urn)
 
-	failures := []*pulumirpc.CheckFailure{}
+	var failures []*pulumirpc.CheckFailure
 	// Obtain old resource inputs. This is the old version of the resource(s) supplied by the user as
 	// an update.
 	oldResInputs := req.GetOlds()
@@ -457,7 +457,7 @@ func (r *helmReleaseProvider) helmTemplate(ctx context.Context, urn resource.URN
 	client := action.NewInstall(conf)
 	c, path, err := getChart(&client.ChartPathOptions, conf.RegistryClient, r.settings, newRelease)
 	if err != nil {
-		logger.V(9).Infof("getChart failed: %+v", err)
+		logger.V(9).Infof("getChart failed: %v", err)
 		logger.V(9).Infof("Settings: %#v", r.settings)
 		return "", err
 	}
@@ -526,7 +526,7 @@ func (r *helmReleaseProvider) helmTemplate(ctx context.Context, urn resource.URN
 	}
 
 	manifest := getManifest(rel, !newRelease.DisableWebhooks, true)
-	return manifest, err
+	return manifest, nil
 }
 
 func (r *helmReleaseProvider) helmCreate(ctx context.Context, urn resource.URN, newRelease *Release) error {
