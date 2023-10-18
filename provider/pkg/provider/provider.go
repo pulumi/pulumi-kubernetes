@@ -31,7 +31,6 @@ import (
 	"time"
 
 	jsonpatch "github.com/evanphx/json-patch"
-	"github.com/golang/protobuf/ptypes/empty"
 	pbempty "github.com/golang/protobuf/ptypes/empty"
 	structpb "github.com/golang/protobuf/ptypes/struct"
 	pkgerrors "github.com/pkg/errors"
@@ -1276,13 +1275,13 @@ func (k *kubeProvider) StreamInvoke(
 }
 
 // Attach sends the engine address to an already running plugin.
-func (k *kubeProvider) Attach(_ context.Context, req *pulumirpc.PluginAttach) (*empty.Empty, error) {
+func (k *kubeProvider) Attach(_ context.Context, req *pulumirpc.PluginAttach) (*pbempty.Empty, error) {
 	host, err := provider.NewHostClient(req.GetAddress())
 	if err != nil {
 		return nil, err
 	}
 	k.host = host
-	return &empty.Empty{}, nil
+	return &pbempty.Empty{}, nil
 }
 
 // Check validates that the given property bag is valid for a resource of the given type and returns
