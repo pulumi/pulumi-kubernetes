@@ -363,12 +363,6 @@ func (k *kubeProvider) CheckConfig(ctx context.Context, req *pulumirpc.CheckRequ
 			return err
 		}
 
-		// double-check that the kubeconfig is semantically valid w.r.t. context and cluster configuration.
-		_, err = kubeconfig.ClientConfig()
-		if err != nil {
-			return err
-		}
-
 		configurationNamespace, _, err := kubeconfig.Namespace()
 		if err != nil {
 			return err
@@ -459,15 +453,6 @@ func (k *kubeProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffReques
 
 	var diffs, replaces []string
 
-	oldConfig, err := parseKubeconfigPropertyValue(olds["kubeconfig"])
-	if err != nil {
-		return nil, err
-	}
-	newConfig, err := parseKubeconfigPropertyValue(news["kubeconfig"])
-	if err != nil {
-		return nil, err
-	}
-
 	// Check for differences in provider overrides.
 	diff := olds.Diff(news)
 	for _, k := range diff.ChangedKeys() {
@@ -478,26 +463,23 @@ func (k *kubeProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffReques
 		case "renderYamlToDirectory":
 			// If the render directory changes, all the manifests will be replaced.
 			replaces = append(replaces, "renderYamlToDirectory")
+		case "cluster":
+
+			// In general, it's not possible to tell from a kubeconfig if the k8s cluster it points to has
+			// changed. k8s clusters do not have a well defined identity, so the best we can do is check
+			// if the configuration itself has changed.
+			//
+			// Given this limitation, we try to strike a reasonable balance by planning a replacement iff
+			// the active cluster in the kubeconfig changes. This could still plan an erroneous replacement,
+			// but should work for the majority of cases.
+			//
+			// The alternative of ignoring changes to the kubeconfig is untenable; if the k8s cluster has
+			// changed, any dependent resources must be recreated, and ignoring changes prevents that from
+			// happening.
+			replaces = append(replaces, "cluster")
 		}
 	}
 
-	// In general, it's not possible to tell from a kubeconfig if the k8s cluster it points to has
-	// changed. k8s clusters do not have a well defined identity, so the best we can do is check
-	// if the settings for the active cluster have changed. This is not a foolproof method; a trivial
-	// counterexample is changing the load balancer or DNS entry pointing to the same cluster.
-	//
-	// Given this limitation, we try to strike a reasonable balance by planning a replacement iff
-	// the active cluster in the kubeconfig changes. This could still plan an erroneous replacement,
-	// but should work for the majority of cases.
-	//
-	// The alternative of ignoring changes to the kubeconfig is untenable; if the k8s cluster has
-	// changed, any dependent resources must be recreated, and ignoring changes prevents that from
-	// happening.
-	oldActiveCluster := getActiveClusterFromConfig(oldConfig, olds)
-	activeCluster := getActiveClusterFromConfig(newConfig, news)
-	if !reflect.DeepEqual(oldActiveCluster, activeCluster) {
-		replaces = diffs
-	}
 	logger.V(7).Infof("%s: diffs %v / replaces %v", label, diffs, replaces)
 
 	if len(diffs) > 0 || len(replaces) > 0 {

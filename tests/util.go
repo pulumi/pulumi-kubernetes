@@ -1,6 +1,8 @@
 package tests
 
 import (
+	"encoding/json"
+	"fmt"
 	"os/exec"
 	"reflect"
 	"sort"
@@ -11,6 +13,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/apitype"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -52,8 +55,13 @@ Expected:
 				continue Expected
 			}
 		}
-		assert.Fail(t, "Expected an engine event", m)
+		assert.Fail(t, fmt.Sprintf("Expected an engine event: %+v", m))
 		success = false
+	}
+	if tt, ok := t.(*testing.T); ok && !success {
+		json, err := json.MarshalIndent(stackInfo.Events, "", "  ")
+		contract.AssertNoErrorf(err, "unexpected JSON error: %v", err)
+		tt.Logf("Actual engine events:\n%s\n", json)
 	}
 	return success
 }

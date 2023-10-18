@@ -875,15 +875,16 @@ func TestProviderOutputs(t *testing.T) {
 				Additive: true,
 				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 					// Verify that a change in the current kube context (context1a->context1b) produces various diffs.
+					// Note that context1b uses the same cluster as context1a, so we expect no replacements.
 					assert.Equal(t, "context1b", stackInfo.Outputs["k8s1Context"])
 					assert.Equal(t, "context1b", stackInfo.Outputs["k8s2Context"])
 					assert.Equal(t, "context2", stackInfo.Outputs["k8s3Context"])
 					assert.Equal(t, "context1b", stackInfo.Outputs["k8s4Context"])
 					tests.AssertEvents(t, stackInfo,
-						tests.ResOutputsEvent{Op: apitype.OpUpdate, Type: "pulumi:providers:kubernetes", Name: "k8s1", Diffs: []string{"context", "kubeconfig", "namespace"}},
-						tests.ResOutputsEvent{Op: apitype.OpUpdate, Type: "pulumi:providers:kubernetes", Name: "k8s2", Diffs: []string{"context", "kubeconfig"}},
-						tests.ResOutputsEvent{Op: apitype.OpUpdate, Type: "pulumi:providers:kubernetes", Name: "k8s3", Diffs: []string{"kubeconfig"}},
-						tests.ResOutputsEvent{Op: apitype.OpUpdate, Type: "pulumi:providers:kubernetes", Name: "k8s4", Diffs: []string{"context", "kubeconfig", "namespace"}})
+						tests.ResOutputsEvent{Op: apitype.OpUpdate, Type: "pulumi:providers:kubernetes", Name: "k8s1", Diffs: []string{"context", "namespace"}},
+						tests.ResOutputsEvent{Op: apitype.OpUpdate, Type: "pulumi:providers:kubernetes", Name: "k8s2", Diffs: []string{"context"}},
+						tests.ResOutputsEvent{Op: apitype.OpSame, Type: "pulumi:providers:kubernetes", Name: "k8s3"},
+						tests.ResOutputsEvent{Op: apitype.OpUpdate, Type: "pulumi:providers:kubernetes", Name: "k8s4", Diffs: []string{"context", "namespace"}})
 				},
 			},
 			{
@@ -891,15 +892,16 @@ func TestProviderOutputs(t *testing.T) {
 				Additive: true,
 				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
 					// Verify that a change in the current kube context (context1b->context2) produces various diffs.
+					// Since context2 uses cluster2, expect a few replacements.
 					assert.Equal(t, "context2", stackInfo.Outputs["k8s1Context"])
 					assert.Equal(t, "context2", stackInfo.Outputs["k8s2Context"])
 					assert.Equal(t, "context2", stackInfo.Outputs["k8s3Context"])
 					assert.Equal(t, "context2", stackInfo.Outputs["k8s4Context"])
 					tests.AssertEvents(t, stackInfo,
-						tests.ResOutputsEvent{Op: apitype.OpReplace, Type: "pulumi:providers:kubernetes", Name: "k8s1", Keys: []string{"cluster", "context", "kubeconfig", "namespace"}, Diffs: []string{"cluster", "context", "kubeconfig", "namespace"}},
-						tests.ResOutputsEvent{Op: apitype.OpReplace, Type: "pulumi:providers:kubernetes", Name: "k8s2", Keys: []string{"cluster", "context", "kubeconfig"}, Diffs: []string{"cluster", "context", "kubeconfig"}},
-						tests.ResOutputsEvent{Op: apitype.OpUpdate, Type: "pulumi:providers:kubernetes", Name: "k8s3", Diffs: []string{"kubeconfig"}},
-						tests.ResOutputsEvent{Op: apitype.OpUpdate, Type: "pulumi:providers:kubernetes", Name: "k8s4", Diffs: []string{"context", "kubeconfig", "namespace"}})
+						tests.ResOutputsEvent{Op: apitype.OpReplace, Type: "pulumi:providers:kubernetes", Name: "k8s1", Keys: []string{"cluster"}, Diffs: []string{"cluster", "context", "namespace"}},
+						tests.ResOutputsEvent{Op: apitype.OpReplace, Type: "pulumi:providers:kubernetes", Name: "k8s2", Keys: []string{"cluster"}, Diffs: []string{"cluster", "context"}},
+						tests.ResOutputsEvent{Op: apitype.OpSame, Type: "pulumi:providers:kubernetes", Name: "k8s3"},
+						tests.ResOutputsEvent{Op: apitype.OpUpdate, Type: "pulumi:providers:kubernetes", Name: "k8s4", Diffs: []string{"context", "namespace"}})
 				},
 			},
 			{
@@ -912,10 +914,10 @@ func TestProviderOutputs(t *testing.T) {
 					assert.Equal(t, "context2", stackInfo.Outputs["k8s3Context"])
 					assert.Equal(t, "context2", stackInfo.Outputs["k8s4Context"])
 					tests.AssertEvents(t, stackInfo,
-						tests.ResOutputsEvent{Op: apitype.OpUpdate, Type: "pulumi:providers:kubernetes", Name: "k8s1", Diffs: []string{"kubeconfig"}},
-						tests.ResOutputsEvent{Op: apitype.OpUpdate, Type: "pulumi:providers:kubernetes", Name: "k8s2", Diffs: []string{"kubeconfig"}},
-						tests.ResOutputsEvent{Op: apitype.OpUpdate, Type: "pulumi:providers:kubernetes", Name: "k8s3", Diffs: []string{"kubeconfig"}},
-						tests.ResOutputsEvent{Op: apitype.OpUpdate, Type: "pulumi:providers:kubernetes", Name: "k8s4", Diffs: []string{"kubeconfig"}})
+						tests.ResOutputsEvent{Op: apitype.OpSame, Type: "pulumi:providers:kubernetes", Name: "k8s1"},
+						tests.ResOutputsEvent{Op: apitype.OpSame, Type: "pulumi:providers:kubernetes", Name: "k8s2"},
+						tests.ResOutputsEvent{Op: apitype.OpSame, Type: "pulumi:providers:kubernetes", Name: "k8s3"},
+						tests.ResOutputsEvent{Op: apitype.OpSame, Type: "pulumi:providers:kubernetes", Name: "k8s4"})
 				},
 			},
 		},

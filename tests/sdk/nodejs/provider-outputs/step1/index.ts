@@ -21,24 +21,24 @@ const ns1 = new k8s.core.v1.Namespace("ns1");
 
 // Create a new provider using the current context.
 const k8s1 = new k8s.Provider("k8s1", {
-    kubeconfig: fs.readFileSync("kubeconfig").toString(),
+    kubeconfig: "./kubeconfig",
 });
 
 // Create a new provider using an overridden namespace.
 const k8s2 = new k8s.Provider("k8s2", {
-    kubeconfig: fs.readFileSync("kubeconfig").toString(),
+    kubeconfig: "./kubeconfig",
     namespace: ns1.metadata.name,
 });
 
 // Create a new provider using an overridden context.
 const k8s3 = new k8s.Provider("k8s3", {
-    kubeconfig: fs.readFileSync("kubeconfig").toString(),
+    kubeconfig: "./kubeconfig",
     context: "context2"
 });
 
 // Create a new provider using an overridden cluster.
 const k8s4 = new k8s.Provider("k8s4", {
-    kubeconfig: fs.readFileSync("kubeconfig").toString(),
+    kubeconfig: "./kubeconfig",
     cluster: "cluster2"
 });
 

@@ -120,6 +120,12 @@ func loadKubeconfig(pathOrContents string, overrides *clientcmd.ConfigOverrides)
 			return nil, nil, err
 		}
 		kubeconfig := clientcmd.NewDefaultClientConfig(*apiConfig, overrides)
+
+		// double-check that the kubeconfig is semantically valid w.r.t. context and cluster configuration.
+		_, err = kubeconfig.ClientConfig()
+		if err != nil {
+			return nil, nil, err
+		}
 		return kubeconfig, apiConfig, nil
 	}
 
@@ -131,6 +137,11 @@ func loadKubeconfig(pathOrContents string, overrides *clientcmd.ConfigOverrides)
 	loadingRules.DefaultClientConfig = &clientcmd.DefaultClientConfig
 	kubeconfig := clientcmd.NewNonInteractiveDeferredLoadingClientConfig(loadingRules, overrides)
 	apiConfig, err := kubeconfig.RawConfig()
+	if err != nil {
+		return nil, nil, err
+	}
+	// double-check that the kubeconfig is semantically valid w.r.t. context and cluster configuration.
+	_, err = kubeconfig.ClientConfig()
 	if err != nil {
 		return nil, nil, err
 	}
@@ -164,34 +175,6 @@ func parseKubeconfigPropertyValue(kubeconfig resource.PropertyValue) (*clientapi
 	}
 
 	return config, nil
-}
-
-// getActiveClusterFromConfig gets the current cluster from a kubeconfig, accounting for provider overrides.
-func getActiveClusterFromConfig(config *clientapi.Config, overrides resource.PropertyMap) *clientapi.Cluster {
-	if config == nil || len(config.Clusters) == 0 {
-		return &clientapi.Cluster{}
-	}
-
-	currentContext := config.CurrentContext
-	if val := overrides["context"]; !val.IsNull() {
-		currentContext = val.StringValue()
-	}
-
-	activeContext := config.Contexts[currentContext]
-	if activeContext == nil {
-		return &clientapi.Cluster{}
-	}
-	activeClusterName := activeContext.Cluster
-
-	activeCluster := config.Clusters[activeClusterName]
-	if val := overrides["cluster"]; !val.IsNull() {
-		activeCluster = config.Clusters[val.StringValue()]
-	}
-	if activeCluster == nil {
-		return &clientapi.Cluster{}
-	}
-
-	return activeCluster
 }
 
 // pruneMap builds a pruned map by recursively copying elements from the source map that have a matching key in the
