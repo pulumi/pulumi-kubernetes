@@ -3,7 +3,6 @@
 package provider
 
 import (
-	"encoding/json"
 	"fmt"
 	"os"
 	"os/user"
@@ -146,35 +145,6 @@ func loadKubeconfig(pathOrContents string, overrides *clientcmd.ConfigOverrides)
 		return nil, nil, err
 	}
 	return kubeconfig, &apiConfig, nil
-}
-
-// parseKubeconfigPropertyValue takes a PropertyValue that possibly contains a raw kubeconfig
-// (YAML or JSON) string or map and attempts to unmarshal it into a Config struct. If the property value
-// is empty, an empty Config is returned.
-func parseKubeconfigPropertyValue(kubeconfig resource.PropertyValue) (*clientapi.Config, error) {
-	if kubeconfig.IsNull() {
-		return &clientapi.Config{}, nil
-	}
-
-	var cfg []byte
-	if kubeconfig.IsString() {
-		cfg = []byte(kubeconfig.StringValue())
-	} else if kubeconfig.IsObject() {
-		raw := kubeconfig.ObjectValue().Mappable()
-		jsonBytes, err := json.Marshal(raw)
-		if err != nil {
-			return nil, fmt.Errorf("failed to unmarshal kubeconfig: %v", err)
-		}
-		cfg = jsonBytes
-	} else {
-		return nil, fmt.Errorf("unexpected kubeconfig format, type: %v", kubeconfig.TypeString())
-	}
-	config, err := clientcmd.Load(cfg)
-	if err != nil {
-		return nil, fmt.Errorf("failed to parse kubeconfig: %v", err)
-	}
-
-	return config, nil
 }
 
 // pruneMap builds a pruned map by recursively copying elements from the source map that have a matching key in the
