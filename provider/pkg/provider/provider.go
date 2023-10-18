@@ -22,7 +22,6 @@ import (
 	"net/http"
 	"net/url"
 	"os"
-	"os/user"
 	"path/filepath"
 	"reflect"
 	"regexp"
@@ -32,7 +31,6 @@ import (
 	"time"
 
 	jsonpatch "github.com/evanphx/json-patch"
-	"github.com/golang/protobuf/ptypes/empty"
 	pbempty "github.com/golang/protobuf/ptypes/empty"
 	structpb "github.com/golang/protobuf/ptypes/struct"
 	pkgerrors "github.com/pkg/errors"
@@ -242,13 +240,21 @@ func (k *kubeProvider) CheckConfig(ctx context.Context, req *pulumirpc.CheckRequ
 	label := fmt.Sprintf("%s.CheckConfig(%s)", k.label(), urn)
 	logger.V(9).Infof("%s executing", label)
 
+	olds, err := plugin.UnmarshalProperties(req.GetOlds(), plugin.MarshalOptions{
+		Label:        fmt.Sprintf("%s.olds", label),
+		KeepUnknowns: true,
+		SkipNulls:    true,
+	})
+	if err != nil {
+		return nil, pkgerrors.Wrapf(err, "CheckConfig failed because of malformed resource inputs (olds)")
+	}
 	news, err := plugin.UnmarshalProperties(req.GetNews(), plugin.MarshalOptions{
 		Label:        fmt.Sprintf("%s.news", label),
 		KeepUnknowns: true,
 		SkipNulls:    true,
 	})
 	if err != nil {
-		return nil, pkgerrors.Wrapf(err, "CheckConfig failed because of malformed resource inputs")
+		return nil, pkgerrors.Wrapf(err, "CheckConfig failed because of malformed resource inputs (news)")
 	}
 
 	truthyValue := func(argName resource.PropertyKey, props resource.PropertyMap) bool {
@@ -333,7 +339,82 @@ func (k *kubeProvider) CheckConfig(ctx context.Context, req *pulumirpc.CheckRequ
 		}
 	}
 
-	return &pulumirpc.CheckResponse{Inputs: req.GetNews()}, nil
+	// Normalize the inputs (e.g. apply defaults).
+	// Note that the inputs are reflected as provider outputs as per:
+	// https://github.com/pulumi/pulumi-kubernetes/issues/2486
+	normalizeInputs := func() error {
+		overrides := &clientcmd.ConfigOverrides{}
+		if v, ok := news["cluster"]; ok && v.HasValue() && v.IsString() {
+			overrides.Context.Cluster = v.StringValue()
+		}
+		if v, ok := news["namespace"]; ok && v.HasValue() && v.IsString() {
+			overrides.Context.Namespace = v.StringValue()
+		}
+		if v, ok := news["context"]; ok && v.HasValue() && v.IsString() {
+			overrides.CurrentContext = v.StringValue()
+		}
+		pathOrContents := ""
+		if v, ok := news["kubeconfig"]; ok && v.HasValue() && v.IsString() {
+			pathOrContents = v.StringValue()
+		}
+		kubeconfig, apiConfig, err := loadKubeconfig(pathOrContents, overrides)
+		if err != nil {
+			return err
+		}
+
+		configurationNamespace, _, err := kubeconfig.Namespace()
+		if err != nil {
+			return err
+		}
+		news["namespace"] = resource.NewStringProperty(configurationNamespace)
+
+		var configurationContext string
+		if overrides.CurrentContext != "" {
+			configurationContext = overrides.CurrentContext
+		} else {
+			configurationContext = apiConfig.CurrentContext
+		}
+		news["context"] = resource.NewStringProperty(configurationContext)
+
+		var configurationCluster string
+		if overrides.Context.Cluster != "" {
+			configurationCluster = overrides.Context.Cluster
+		} else {
+			configContext := apiConfig.Contexts[configurationContext]
+			configurationCluster = configContext.Cluster
+		}
+		news["cluster"] = resource.NewStringProperty(configurationCluster)
+
+		return nil
+	}
+	err = normalizeInputs()
+	if err != nil {
+		logger.V(9).Infof("%s: unable to normalize inputs: %v", label, err)
+
+		// Rather than erroring out on an invalid k8s config, leave the existing values in place to minimize diffs.
+		// The error will be seen again in Configure, which will result in clusterUnreachable being set.
+		if _, ok := news["namespace"]; !ok {
+			news["namespace"] = olds["namespace"]
+		}
+		if _, ok := news["context"]; !ok {
+			news["context"] = olds["context"]
+		}
+		if _, ok := news["cluster"]; !ok {
+			news["cluster"] = olds["cluster"]
+		}
+		_ = k.host.Log(ctx, diag.Warning, urn, err.Error())
+	}
+
+	checked, err := plugin.MarshalProperties(
+		news,
+		plugin.MarshalOptions{
+			Label: fmt.Sprintf("%s.checked", label), KeepUnknowns: true, SkipNulls: true,
+		})
+	if err != nil {
+		return nil, err
+	}
+
+	return &pulumirpc.CheckResponse{Inputs: checked}, nil
 }
 
 // DiffConfig diffs the configuration for this provider.
@@ -371,15 +452,6 @@ func (k *kubeProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffReques
 
 	var diffs, replaces []string
 
-	oldConfig, err := parseKubeconfigPropertyValue(olds["kubeconfig"])
-	if err != nil {
-		return nil, err
-	}
-	newConfig, err := parseKubeconfigPropertyValue(news["kubeconfig"])
-	if err != nil {
-		return nil, err
-	}
-
 	// Check for differences in provider overrides.
 	diff := olds.Diff(news)
 	for _, k := range diff.ChangedKeys() {
@@ -390,26 +462,23 @@ func (k *kubeProvider) DiffConfig(ctx context.Context, req *pulumirpc.DiffReques
 		case "renderYamlToDirectory":
 			// If the render directory changes, all the manifests will be replaced.
 			replaces = append(replaces, "renderYamlToDirectory")
+		case "cluster":
+
+			// In general, it's not possible to tell from a kubeconfig if the k8s cluster it points to has
+			// changed. k8s clusters do not have a well defined identity, so the best we can do is check
+			// if the configuration itself has changed.
+			//
+			// Given this limitation, we try to strike a reasonable balance by planning a replacement iff
+			// the active cluster in the kubeconfig changes. This could still plan an erroneous replacement,
+			// but should work for the majority of cases.
+			//
+			// The alternative of ignoring changes to the kubeconfig is untenable; if the k8s cluster has
+			// changed, any dependent resources must be recreated, and ignoring changes prevents that from
+			// happening.
+			replaces = append(replaces, "cluster")
 		}
 	}
 
-	// In general, it's not possible to tell from a kubeconfig if the k8s cluster it points to has
-	// changed. k8s clusters do not have a well defined identity, so the best we can do is check
-	// if the settings for the active cluster have changed. This is not a foolproof method; a trivial
-	// counterexample is changing the load balancer or DNS entry pointing to the same cluster.
-	//
-	// Given this limitation, we try to strike a reasonable balance by planning a replacement iff
-	// the active cluster in the kubeconfig changes. This could still plan an erroneous replacement,
-	// but should work for the majority of cases.
-	//
-	// The alternative of ignoring changes to the kubeconfig is untenable; if the k8s cluster has
-	// changed, any dependent resources must be recreated, and ignoring changes prevents that from
-	// happening.
-	oldActiveCluster := getActiveClusterFromConfig(oldConfig, olds)
-	activeCluster := getActiveClusterFromConfig(newConfig, news)
-	if !reflect.DeepEqual(oldActiveCluster, activeCluster) {
-		replaces = diffs
-	}
 	logger.V(7).Infof("%s: diffs %v / replaces %v", label, diffs, replaces)
 
 	if len(diffs) > 0 || len(replaces) > 0 {
@@ -445,13 +514,17 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	//
 	if defaultNamespace := vars["kubernetes:config:namespace"]; defaultNamespace != "" {
 		k.defaultNamespace = defaultNamespace
+	} else {
+		// CheckConfig applies a good default unless there's a configuration problem
+		// and there's no old value available. At minimum, ensure there's a default namespace.
+		k.defaultNamespace = "default"
 	}
 
 	// Compute config overrides.
 	overrides := &clientcmd.ConfigOverrides{
 		Context: clientapi.Context{
 			Cluster:   vars["kubernetes:config:cluster"],
-			Namespace: k.defaultNamespace,
+			Namespace: vars["kubernetes:config:namespace"],
 		},
 		CurrentContext: vars["kubernetes:config:context"],
 	}
@@ -638,68 +711,19 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 	// Rather than erroring out on an invalid k8s config, mark the cluster as unreachable and conditionally bail out on
 	// operations that require a valid cluster. This will allow us to perform invoke operations using the default
 	// provider.
-	unreachableCluster := func(err error) {
+	clusterUnreachable := func(err error) {
 		k.clusterUnreachable = true
-		k.clusterUnreachableReason = fmt.Sprintf(
-			"failed to parse kubeconfig data in `kubernetes:config:kubeconfig`- %v", err)
-	}
-
-	var kubeconfig clientcmd.ClientConfig
-	var apiConfig *clientapi.Config
-	homeDir := func() string {
-		// Ignore errors. The filepath will be checked later, so we can handle failures there.
-		usr, _ := user.Current()
-		return usr.HomeDir
-	}
-	// Note: the Python SDK was setting the kubeconfig value to "" by default, so explicitly check for empty string.
-	if pathOrContents, ok := vars["kubernetes:config:kubeconfig"]; ok && pathOrContents != "" {
-		var contents string
-
-		// Handle the '~' character if it is set in the config string. Normally, this would be expanded by the shell
-		// into the user's home directory, but we have to do that manually if it is set in a config value.
-		if pathOrContents == "~" {
-			// In case of "~", which won't be caught by the "else if"
-			pathOrContents = homeDir()
-		} else if strings.HasPrefix(pathOrContents, "~/") {
-			pathOrContents = filepath.Join(homeDir(), pathOrContents[2:])
-		}
-
-		// If the variable is a valid filepath, load the file and parse the contents as a k8s config.
-		_, err := os.Stat(pathOrContents)
-		if err == nil {
-			b, err := os.ReadFile(pathOrContents)
-			if err != nil {
-				unreachableCluster(err)
-			} else {
-				contents = string(b)
-			}
-		} else { // Assume the contents are a k8s config.
-			contents = pathOrContents
-		}
-
-		// Load the contents of the k8s config.
-		apiConfig, err = clientcmd.Load([]byte(contents))
-		if err != nil {
-			unreachableCluster(err)
+		if vars["kubernetes:config:kubeconfig"] != "" {
+			k.clusterUnreachableReason = fmt.Sprintf(
+				"failed to parse kubeconfig data in `kubernetes:config:kubeconfig`: %v", err)
 		} else {
-			kubeconfig = clientcmd.NewDefaultClientConfig(*apiConfig, overrides)
-			configurationNamespace, _, err := kubeconfig.Namespace()
-			if err == nil {
-				k.defaultNamespace = configurationNamespace
-			}
+			k.clusterUnreachableReason = fmt.Sprintf(
+				"failed to parse kubeconfig data in local environment: %v", err)
 		}
-	} else {
-		// Use client-go to resolve the final configuration values for the client. Typically, these
-		// values would reside in the $KUBECONFIG file, but can also be altered in several
-		// places, including in env variables, client-go default values, and (if we allowed it) CLI
-		// flags.
-		loadingRules := clientcmd.NewDefaultClientConfigLoadingRules()
-		loadingRules.DefaultClientConfig = &clientcmd.DefaultClientConfig
-		kubeconfig = clientcmd.NewInteractiveDeferredLoadingClientConfig(loadingRules, overrides, os.Stdin)
-		configurationNamespace, _, err := kubeconfig.Namespace()
-		if err == nil {
-			k.defaultNamespace = configurationNamespace
-		}
+	}
+	kubeconfig, apiConfig, err := loadKubeconfig(vars["kubernetes:config:kubeconfig"], overrides)
+	if err != nil {
+		clusterUnreachable(err)
 	}
 
 	var kubeClientSettings KubeClientSettings
@@ -793,8 +817,6 @@ func (k *kubeProvider) Configure(_ context.Context, req *pulumirpc.ConfigureRequ
 				"unable to load schema information from the API server: %v", err)
 		}
 	}
-
-	var err error
 
 	k.helmReleaseProvider, err = newHelmReleaseProvider(
 		k.host,
@@ -1253,13 +1275,13 @@ func (k *kubeProvider) StreamInvoke(
 }
 
 // Attach sends the engine address to an already running plugin.
-func (k *kubeProvider) Attach(_ context.Context, req *pulumirpc.PluginAttach) (*empty.Empty, error) {
+func (k *kubeProvider) Attach(_ context.Context, req *pulumirpc.PluginAttach) (*pbempty.Empty, error) {
 	host, err := provider.NewHostClient(req.GetAddress())
 	if err != nil {
 		return nil, err
 	}
 	k.host = host
-	return &empty.Empty{}, nil
+	return &pbempty.Empty{}, nil
 }
 
 // Check validates that the given property bag is valid for a resource of the given type and returns
@@ -1401,9 +1423,9 @@ func (k *kubeProvider) Check(ctx context.Context, req *pulumirpc.CheckRequest) (
 		}
 	}
 
-	// If a default namespace is set on the provider for this resource, check if the resource has Namespaced
-	// or Global scope. For namespaced resources, set the namespace to the default value if unset.
-	if k.defaultNamespace != "" && len(newInputs.GetNamespace()) == 0 {
+	// Check if the resource has Namespaced or Global scope. For namespaced resources,
+	// set the namespace to the default value if unset.
+	if len(newInputs.GetNamespace()) == 0 {
 		namespacedKind, err := clients.IsNamespacedKind(gvk, k.clientSet)
 		if err != nil {
 			if clients.IsNoNamespaceInfoErr(err) {
