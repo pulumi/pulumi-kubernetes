@@ -231,13 +231,16 @@ users:
     client-key-data: LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFcEFJQkFBS0NBUUVBd2k0ZXNOWHNsNHpRcVN0dlhVU0FzKzhjTVBsVGxMbDIxN3huQ0N3S29TRTcwOEdOCm8wWG1TMEZ2cWNtYUZrQmxYNXcybGNpNVgwQkdmVmdhQjZTUDEzcUZJc1V2MzJYanUwMHNxZVpXU3FTN0lxU3gKekVKTjd1TTc4RTQ4MFJ5MGNRc3U2SFZUQktsR3F5UDhpMjFBdGYwM1lZTzJSR0MxSkpRUEpubWwyUnRKY245UApEeGtydVNrQVp5MUhwc3ZmTEkxbnUydEtMMDJNTWpCNk1oNnloQlZpd1RYL2paMHRldTNUemUvRXVQZytmSVpaCldEWHczZVJwcTEyZ0FIT2FzY1FTSjFLNFhSOWo1T21oWFhzSndkVUFWTS9YbmxBUTFVSVFaZEpySWRuVXlHc0sKWW9KUXBEYmJoVjRTeHhkdm1SZFFTdDhsYjJXZzVaTnZkNEk4cVFJREFRQUJBb0lCQVFDeitSY05BMW1EcFVvSQpZVytZWEZPRmNnc0pBUzJNWE5GZlp3bC9zNEl1a2FUbndTOUxzdytkbElxd0xXQ1pXeG9hSWFrZDdxcVJNL3VoClZUVGEvSlV0UEN1RmJJblFYcGxTRWxkaEtWRzFZVFRwQ1FpWnJxS1kxUmZLeEZqdDM5TUdLejFReXQwbEp0ZU8KNjQyNGxJd3pvUHZoYjdoUmEraTRmRm9HYVIxa09KN1dGcFNwM2pUa0pZckFpQWViL2IxUlZ5Rk9sNm9IcEozcQo3dmxoaHZibklJcXdrMHp4VU1ya1ArTDR2azhLdjhEcVZZMTg1M1B5UWJ3cm1EUnBkNWYvTmRwZ0lrMWNjUURZCk1OUUxPd3NaRThsdTJZMW9PcTVpRmhZZEFmM2o2Ykt2Vi92WFAxdXhtdlZSMEZ6eWU0L2JuaXBUcWdNYUI1ZnQKQWJ5MVJsL2hBb0dCQU5vRnBLVExmTGYvQUFqNGw4TmlvdjJ2OXhVWmlrQVhNL0NPREpDVzVEU2hZakNZV0tDNApYNm8vdlJ6bHF3NWNaMDEvKzBYZ2lRa0tBQUdacXlzRnRsYjgveDdkYThnVWVDRVhGcDUzNlRiZXdHaXJlSlRoCkNCSnhlQ0x1cjdLVmp6RnpHdFZlTzY4VzRHRjg0ZmlQaUk0ZVJETlExN0pYVVR2cGtZTGNCQ2RsQW9HQkFPUUIKU05hdS9GYVdHVG5DbkVKa2pqRm9JdWFGbnVLaHphd1FIUHVFSFV6TFMzT1Fqem54MVRmMGU5aWxkRHBoekJ0SQpoNUgrbzFvUmhNYlN5Z2g1SGQ5aE1nekM3cjcrNmdPU2hMOEdnNjJwNU13YzhSVUhnZWhOWmkxSEJaeUh0VGFFCmg3LzA2YjBOV3lyMDRVcGNSZXJIME44TWdSWXI2emZ4K25MblpGWDFBb0dBSE1kLzYwejlJcUNqbFl1VEpQU0IKUlhHVDhSSVZBTTdQU1dMRzM5TTdQb05MSGRVT1pmRFFsLzJmN2crWEcrY3dyN2RFS1A0eHVLSzhTM25JY1g1bwppbVVOSERyb1Bsb05YWGpad0lOZG9xT1d6SHBPQ1lFRytzQkZ0bjdCYkpaM2QzU1ZSek1RTjlXU091d3NQQTVlClhUdzdqbmFPY25rNlBPbGhEdUFTSUUwQ2dZRUFuNGpHam5DaDMzUG04cU5ZOHB1cFlxaWF3dkY3MnRlY01XaVUKM3VmeUdHbW13WlhFb2FhMHFoSkhGYSt2UTZwcVJpelpyeTJjM3NpalB2citvaThjMTlBS1ZTT1FLZFB6cWN3NwpWZTRZOU1xTGJNWlRhWU4zUWpQbDZvaG5STDh2N0pXTzVxRlhheENOV2VFK1FlbU9nbGlOcllQeVRyRXNSRmpzCkJMb2pXb0VDZ1lCaWMrWjJvSzNTTmpzL3J5ZFU1Lzg3T3NVbExHamxKbDI1NE0xaGl3RmVsd3pUWjNXWjFuZlkKcS80Mm5GR3VRQUQ3RFFwSTBCSnFWVTJCQlZySmlSeFhROVlXUStCb3Q5VU4yRVJQQmhFeityU0Y0MnhybnZobApsZTU2NHVmK3VBdCt2K2ZjZUtYVnVDRDN1ZGdxL2d5ejNCaHN5VkJxZkFoNy9oNndOTmhIb3c9PQotLS0tLUVORCBSU0EgUFJJVkFURSBLRVktLS0tLQo=
 `
 
-	validKubeconfigFile, _ := os.CreateTemp("", "kubeconfig-")
-	validKubeconfigFile.WriteString(validKubeconfig)
-	validKubeconfigFile.Close()
-	t.Cleanup(func() {
-		validKubeconfigFile.Close()
-		os.Remove(validKubeconfigFile.Name())
-	})
+	makeTempFile := func(content string) string {
+		file, _ := os.CreateTemp("", "kubeconfig-")
+		defer file.Close()
+		t.Cleanup(func() {
+			os.Remove(file.Name())
+		})
+		_, _ = file.WriteString(validKubeconfig)
+		return file.Name()
+	}
+	validKubeconfigFile := makeTempFile(validKubeconfig)
 
 	type args struct {
 		pathOrContents string
@@ -260,7 +263,7 @@ users:
 				overrides:      &clientcmd.ConfigOverrides{},
 			},
 			envs: []env{
-				{name: "KUBECONFIG", value: validKubeconfigFile.Name()},
+				{name: "KUBECONFIG", value: validKubeconfigFile},
 			},
 		},
 		{
@@ -271,14 +274,14 @@ users:
 			},
 		},
 		{
-			name: "valid_file",
+			name: "valid_path",
 			args: args{
-				pathOrContents: validKubeconfigFile.Name(),
+				pathOrContents: validKubeconfigFile,
 				overrides:      &clientcmd.ConfigOverrides{},
 			},
 		},
 		{
-			name: "invalid_file",
+			name: "invalid_path",
 			args: args{
 				pathOrContents: "./invalid",
 				overrides:      &clientcmd.ConfigOverrides{},
@@ -308,7 +311,7 @@ users:
 			expectedError: `cluster "foo" does not exist`,
 		},
 		{
-			name: "invalid_kubeconfig",
+			name: "invalid_content",
 			args: args{
 				pathOrContents: invalidKubeconfig,
 				overrides:      &clientcmd.ConfigOverrides{},
