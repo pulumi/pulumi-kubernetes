@@ -15,70 +15,78 @@
 import * as k8s from "@pulumi/kubernetes";
 
 // Create provider with SSA enabled.
-var k8sProvider = new k8s.Provider("k8s", { enableServerSideApply: true });
+const provider = new k8s.Provider("k8s", { enableServerSideApply: false });
+
+const ns = new k8s.core.v1.Namespace("test-preview-apply", undefined, {
+  provider,
+});
 
 const dep = new k8s.apps.v1.Deployment(
-    "nginx-dep",
-    {
+  "nginx-dep",
+  {
+    metadata: {
+      namespace: ns.metadata.name,
+      labels: {
+        app: "nginx",
+      },
+    },
+    spec: {
+      replicas: 1,
+      selector: {
+        matchLabels: {
+          app: "nginx",
+        },
+      },
+      template: {
         metadata: {
-            labels: {
-                app: "nginx",
-            },
+          labels: {
+            app: "nginx",
+          },
         },
         spec: {
-            replicas: 1,
-            selector: {
-                matchLabels: {
-                    app: "nginx",
+          containers: [
+            {
+              name: "nginx",
+              image: "nginx:latest",
+              ports: [
+                {
+                  containerPort: 80,
                 },
+              ],
             },
-            template: {
-                metadata: {
-                    labels: {
-                        app: "nginx",
-                    },
-                },
-                spec: {
-                    containers: [
-                        {
-                            name: "nginx",
-                            image: "nginx:latest",
-                            ports: [
-                                {
-                                    containerPort: 80,
-                                },
-                            ],
-                        },
-                    ],
-                },
-            },
+          ],
         },
+      },
     },
-    { provider: k8sProvider }
+  },
+  { provider }
 );
 
 const svc = new k8s.core.v1.Service(
-    "nginx-svc",
-    {
-        metadata: {
-            labels: {
-                app: "nginx",
-            },
-        },
-        spec: {
-            type: "LoadBalancer",
-            ports: [
-                {
-                    port: 80,
-                    targetPort: 80,
-                }
-            ],
-            selector: {
-                app: "nginx",
-            },
-        },
+  "nginx-svc",
+  {
+    metadata: {
+      namespace: ns.metadata.name,
+      labels: {
+        app: "nginx",
+      },
     },
-    { provider: k8sProvider }
+    spec: {
+      type: "LoadBalancer",
+      ports: [
+        {
+          port: 80,
+          targetPort: 80,
+        },
+      ],
+      selector: {
+        app: "nginx",
+      },
+    },
+  },
+  { provider }
 );
 
-const ip = svc.status.apply((s) => s.loadBalancer.ingress[0].ip);
+export const ip = svc.status.apply((s) => s.loadBalancer.ingress[0].ip);
+export const nsName = ns.metadata.name;
+export const svcName = svc.metadata.name;

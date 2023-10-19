@@ -25,6 +25,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/tests/v4"
 	"github.com/pulumi/pulumi/pkg/v3/testing/integration"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"k8s.io/client-go/tools/clientcmd"
 	clientcmdapi "k8s.io/client-go/tools/clientcmd/api"
 )
@@ -147,12 +148,22 @@ func createSAKubeconfig(t *testing.T, saName string) (string, error) {
 // TestPreviewWithApply tests the `pulumi preview` CUJ where the user Pulumi program contains an Apply call on status subresoruces.
 // This is to ensure we don't fail preview, since status fields are only populated after the resource is created on cluster.
 func TestPreviewWithApply(t *testing.T) {
+	var externalIP, nsName, svcName string
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:                  "preview-apply",
 		ExpectRefreshChanges: false,
 		// Enable destroy-on-cleanup so we can shell out to kubectl to make external changes to the resource and reuse the same stack.
 		DestroyOnCleanup: true,
 		Quick:            true,
+		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+			var ok bool
+			externalIP, ok = stackInfo.Outputs["ip"].(string)
+			require.True(t, ok)
+			nsName, ok = stackInfo.Outputs["nsName"].(string)
+			require.True(t, ok)
+			svcName, ok = stackInfo.Outputs["svcName"].(string)
+			require.True(t, ok)
+		},
 		OrderedConfig: []integration.ConfigValue{
 			{
 				Key:   "pulumi:disable-default-providers[0]",
@@ -182,8 +193,14 @@ func TestPreviewWithApply(t *testing.T) {
 	// Run a preview and assert no error.
 	err = pt.RunPulumiCommand("preview", "--non-interactive", "--diff", "--refresh", "--show-config")
 	assert.NoError(t, err)
+	assert.Equal(t, "", externalIP)
 
 	// Run pulumi up and assert no error creating the resources.
 	err = pt.TestPreviewUpdateAndEdits()
-	assert.NoError(t, err)
+	require.NoError(t, err)
+
+	// Ensure that the ip output is the same as the external ip of the service via kubectl.
+	out, err := tests.Kubectl("get service", svcName, "-n", nsName, "-o jsonpath={.status.loadBalancer.ingress[0].ip}")
+	require.NoError(t, err)
+	assert.Equal(t, externalIP, string(out))
 }
