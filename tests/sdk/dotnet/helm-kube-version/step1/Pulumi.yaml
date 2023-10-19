@@ -1,0 +1,3 @@
+name: dotnet-helm-kubeversions
+description: Deploys a simple Helm chart that manually specifies the helm --kube-version argument to work.
+runtime: dotnet

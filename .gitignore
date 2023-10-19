@@ -17,6 +17,7 @@ yarn.lock
 ci-scripts
 /nuget/
 **/.DS_Store
+dist
 
 sdk/java/build
 sdk/java/.gradle

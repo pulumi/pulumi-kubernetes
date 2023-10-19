@@ -177,6 +177,25 @@ func TestDotnet_HelmApiVersions(t *testing.T) {
 	integration.ProgramTest(t, &test)
 }
 
+func TestDotnet_HelmKubeVersion(t *testing.T) {
+	test := baseOptions.With(integration.ProgramTestOptions{
+		Dir:                  filepath.Join("helm-kube-version", "step1"),
+		Quick:                true,
+		ExpectRefreshChanges: true,
+		OrderedConfig: []integration.ConfigValue{
+			{
+				Key:   "pulumi:disable-default-providers[0]",
+				Value: "kubernetes",
+				Path:  true,
+			},
+		},
+		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+			assert.NotNil(t, stackInfo.Deployment)
+		},
+	})
+	integration.ProgramTest(t, &test)
+}
+
 func TestDotnet_HelmAllowCRDRendering(t *testing.T) {
 	test := baseOptions.With(integration.ProgramTestOptions{
 		Dir:                  filepath.Join("helm-skip-crd-rendering", "step1"),

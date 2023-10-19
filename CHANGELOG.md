@@ -1,5 +1,7 @@
 ## Unreleased
 
+- helm.v3.ChartOpts: Add KubeVersion field that can be passed to avoid asking the kubernetes API server for the version (https://github.com/pulumi/pulumi-kubernetes/pull/2593)
+
 ## 4.4.0 (October 12, 2023)
 
 - Fix normalizing fields with empty objects/slices (https://github.com/pulumi/pulumi-kubernetes/pull/2576)

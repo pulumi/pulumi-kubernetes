@@ -71,6 +71,7 @@ type HelmChartOpts struct {
 	Version                  string         `json:"version,omitempty"`
 	HelmChartDebug           bool           `json:"helm_chart_debug,omitempty"`
 	HelmRegistryConfig       string         `json:"helm_registry_config,omitempty"`
+	KubeVersion              string         `json:"kube_version,omitempty"`
 }
 
 // helmTemplate performs Helm fetch/pull + template operations and returns the resulting YAML manifest based on the
@@ -242,39 +243,49 @@ func (c *chart) template(clientSet *clients.DynamicClientSet) (string, error) {
 	installAction.ReleaseName = c.opts.ReleaseName
 	installAction.Version = c.opts.Version
 
-	// Preserve backward compatibility
+	if c.opts.KubeVersion != "" {
+		var kubeVersion *chartutil.KubeVersion
+		if kubeVersion, err = chartutil.ParseKubeVersion(c.opts.KubeVersion); err != nil {
+			return "", fmt.Errorf("could not get parse kube_version %q from chart options: %w", c.opts.KubeVersion, err)
+		}
+		installAction.KubeVersion = kubeVersion
+	}
+
+	// Preserve backward compatibility so APIVersions can be explicitly passed
 	if len(c.opts.APIVersions) > 0 {
 		installAction.APIVersions = c.opts.APIVersions
-	} else if clientSet != nil {
+	}
+
+	if clientSet != nil {
+		dc := clientSet.DiscoveryClientCached
+		dc.Invalidate()
 		// The following code to discover Kubernetes version and API versions comes
 		//  from the Helm project:
 		// https://github.com/helm/helm/blob/d7b4c38c42cb0b77f1bcebf9bb4ae7695a10da0b/pkg/action/action.go#L239
-
-		dc := clientSet.DiscoveryClientCached
-
-		dc.Invalidate()
-		kubeVersion, err := dc.ServerVersion()
-		if err != nil {
-			return "", fmt.Errorf("could not get server version from Kubernetes: %w", err)
+		if installAction.KubeVersion == nil {
+			kubeVersion, err := dc.ServerVersion()
+			if err != nil {
+				return "", fmt.Errorf("could not get server version from Kubernetes: %w", err)
+			}
+			installAction.KubeVersion = &chartutil.KubeVersion{
+				Version: kubeVersion.GitVersion,
+				Major:   kubeVersion.Major,
+				Minor:   kubeVersion.Minor,
+			}
 		}
 		// Client-Go emits an error when an API service is registered but unimplemented.
 		// Since the discovery client continues building the API object, it is correctly
 		// populated with all valid APIs.
 		// See https://github.com/kubernetes/kubernetes/issues/72051#issuecomment-521157642
-		apiVersions, err := action.GetVersionSet(dc)
-		if err != nil {
-			if !discovery.IsGroupDiscoveryFailedError(err) {
-				return "", fmt.Errorf("could not get apiVersions from Kubernetes: %w", err)
+		if installAction.APIVersions == nil {
+			apiVersions, err := action.GetVersionSet(dc)
+			if err != nil {
+				if !discovery.IsGroupDiscoveryFailedError(err) {
+					return "", fmt.Errorf("could not get apiVersions from Kubernetes: %w", err)
+				}
 			}
+			installAction.APIVersions = apiVersions
 		}
-
-		installAction.KubeVersion = &chartutil.KubeVersion{
-			Version: kubeVersion.GitVersion,
-			Major:   kubeVersion.Major,
-			Minor:   kubeVersion.Minor,
-		}
-
-		installAction.APIVersions = apiVersions
 	}
 
 	chartName, err := func() (string, error) {

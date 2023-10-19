@@ -209,6 +209,10 @@ export class Chart extends yaml.CollectionComponentResource {
                                 obj["skip_crd_rendering"] = value;
                                 break;
                             }
+                            case "kubeVersion": {
+                                obj["kube_version"] = value;
+                                break;
+                            }
                             case "releaseName": {
                                 obj["release_name"] = value;
                                 break;
@@ -277,6 +281,12 @@ interface BaseChartOpts {
      * The optional namespace to install chart resources into.
      */
     namespace?: pulumi.Input<string>;
+    /**
+     * By default, the kubernetes version is derived from your k8s context, this allows it to be overridden. 
+     * Warning: This option should not be used unless you have a good reason to not use the auto-discovered 
+     * version as it is much more bug-prone.     
+     */
+    kubeVersion?: pulumi.Input<string>;
     /**
      * Overrides for chart values.
      */

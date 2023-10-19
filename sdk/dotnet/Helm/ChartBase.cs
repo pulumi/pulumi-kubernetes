@@ -426,6 +426,13 @@ namespace Pulumi.Kubernetes.Helm
         /// </summary>
         public Input<string>? Namespace { get; set; }
 
+        /// <summary>
+        /// By default, the kubernetes version is derived from your k8s context, this allows it to be overridden. 
+        /// Warning: This option should not be used unless you have a good reason to not use the auto-discovered 
+        /// version as it is much more bug-prone.
+        /// </summary>
+        public Input<string>? KubeVersion { get; set; }
+
         private InputMap<object>? _values;
 
         /// <summary>
