@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from . import outputs
 from ... import core as _core
@@ -64,15 +64,36 @@ class VolumeAttachment(dict):
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param 'VolumeAttachmentStatusArgs' status: Status of the VolumeAttachment request. Populated by the entity completing the attach or detach operation, i.e. the external-attacher.
         """
-        pulumi.set(__self__, "spec", spec)
+        VolumeAttachment._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            spec=spec,
+            api_version=api_version,
+            kind=kind,
+            metadata=metadata,
+            status=status,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             spec: 'outputs.VolumeAttachmentSpec',
+             api_version: Optional[str] = None,
+             kind: Optional[str] = None,
+             metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
+             status: Optional['outputs.VolumeAttachmentStatus'] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'apiVersion' in kwargs:
+            api_version = kwargs['apiVersion']
+
+        _setter("spec", spec)
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'storage.k8s.io/v1alpha1')
+            _setter("api_version", 'storage.k8s.io/v1alpha1')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'VolumeAttachment')
+            _setter("kind", 'VolumeAttachment')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
         if status is not None:
-            pulumi.set(__self__, "status", status)
+            _setter("status", status)
 
     @property
     @pulumi.getter
@@ -147,10 +168,27 @@ class VolumeAttachmentSource(dict):
         :param '_core.v1.PersistentVolumeSpecArgs' inline_volume_spec: inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is alpha-level and is only honored by servers that enabled the CSIMigration feature.
         :param str persistent_volume_name: Name of the persistent volume to attach.
         """
+        VolumeAttachmentSource._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            inline_volume_spec=inline_volume_spec,
+            persistent_volume_name=persistent_volume_name,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             inline_volume_spec: Optional['_core.v1.outputs.PersistentVolumeSpec'] = None,
+             persistent_volume_name: Optional[str] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'inlineVolumeSpec' in kwargs:
+            inline_volume_spec = kwargs['inlineVolumeSpec']
+        if 'persistentVolumeName' in kwargs:
+            persistent_volume_name = kwargs['persistentVolumeName']
+
         if inline_volume_spec is not None:
-            pulumi.set(__self__, "inline_volume_spec", inline_volume_spec)
+            _setter("inline_volume_spec", inline_volume_spec)
         if persistent_volume_name is not None:
-            pulumi.set(__self__, "persistent_volume_name", persistent_volume_name)
+            _setter("persistent_volume_name", persistent_volume_name)
 
     @property
     @pulumi.getter(name="inlineVolumeSpec")
@@ -201,10 +239,27 @@ class VolumeAttachmentSourcePatch(dict):
         :param '_core.v1.PersistentVolumeSpecPatchArgs' inline_volume_spec: inlineVolumeSpec contains all the information necessary to attach a persistent volume defined by a pod's inline VolumeSource. This field is populated only for the CSIMigration feature. It contains translated fields from a pod's inline VolumeSource to a PersistentVolumeSpec. This field is alpha-level and is only honored by servers that enabled the CSIMigration feature.
         :param str persistent_volume_name: Name of the persistent volume to attach.
         """
+        VolumeAttachmentSourcePatch._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            inline_volume_spec=inline_volume_spec,
+            persistent_volume_name=persistent_volume_name,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             inline_volume_spec: Optional['_core.v1.outputs.PersistentVolumeSpecPatch'] = None,
+             persistent_volume_name: Optional[str] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'inlineVolumeSpec' in kwargs:
+            inline_volume_spec = kwargs['inlineVolumeSpec']
+        if 'persistentVolumeName' in kwargs:
+            persistent_volume_name = kwargs['persistentVolumeName']
+
         if inline_volume_spec is not None:
-            pulumi.set(__self__, "inline_volume_spec", inline_volume_spec)
+            _setter("inline_volume_spec", inline_volume_spec)
         if persistent_volume_name is not None:
-            pulumi.set(__self__, "persistent_volume_name", persistent_volume_name)
+            _setter("persistent_volume_name", persistent_volume_name)
 
     @property
     @pulumi.getter(name="inlineVolumeSpec")
@@ -255,9 +310,26 @@ class VolumeAttachmentSpec(dict):
         :param str node_name: The node that the volume should be attached to.
         :param 'VolumeAttachmentSourceArgs' source: Source represents the volume that should be attached.
         """
-        pulumi.set(__self__, "attacher", attacher)
-        pulumi.set(__self__, "node_name", node_name)
-        pulumi.set(__self__, "source", source)
+        VolumeAttachmentSpec._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            attacher=attacher,
+            node_name=node_name,
+            source=source,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             attacher: str,
+             node_name: str,
+             source: 'outputs.VolumeAttachmentSource',
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'nodeName' in kwargs:
+            node_name = kwargs['nodeName']
+
+        _setter("attacher", attacher)
+        _setter("node_name", node_name)
+        _setter("source", source)
 
     @property
     @pulumi.getter
@@ -316,12 +388,29 @@ class VolumeAttachmentSpecPatch(dict):
         :param str node_name: The node that the volume should be attached to.
         :param 'VolumeAttachmentSourcePatchArgs' source: Source represents the volume that should be attached.
         """
+        VolumeAttachmentSpecPatch._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            attacher=attacher,
+            node_name=node_name,
+            source=source,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             attacher: Optional[str] = None,
+             node_name: Optional[str] = None,
+             source: Optional['outputs.VolumeAttachmentSourcePatch'] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'nodeName' in kwargs:
+            node_name = kwargs['nodeName']
+
         if attacher is not None:
-            pulumi.set(__self__, "attacher", attacher)
+            _setter("attacher", attacher)
         if node_name is not None:
-            pulumi.set(__self__, "node_name", node_name)
+            _setter("node_name", node_name)
         if source is not None:
-            pulumi.set(__self__, "source", source)
+            _setter("source", source)
 
     @property
     @pulumi.getter
@@ -386,13 +475,36 @@ class VolumeAttachmentStatus(dict):
         :param Mapping[str, str] attachment_metadata: Upon successful attach, this field is populated with any information returned by the attach operation that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
         :param 'VolumeErrorArgs' detach_error: The last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
         """
-        pulumi.set(__self__, "attached", attached)
+        VolumeAttachmentStatus._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            attached=attached,
+            attach_error=attach_error,
+            attachment_metadata=attachment_metadata,
+            detach_error=detach_error,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             attached: bool,
+             attach_error: Optional['outputs.VolumeError'] = None,
+             attachment_metadata: Optional[Mapping[str, str]] = None,
+             detach_error: Optional['outputs.VolumeError'] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'attachError' in kwargs:
+            attach_error = kwargs['attachError']
+        if 'attachmentMetadata' in kwargs:
+            attachment_metadata = kwargs['attachmentMetadata']
+        if 'detachError' in kwargs:
+            detach_error = kwargs['detachError']
+
+        _setter("attached", attached)
         if attach_error is not None:
-            pulumi.set(__self__, "attach_error", attach_error)
+            _setter("attach_error", attach_error)
         if attachment_metadata is not None:
-            pulumi.set(__self__, "attachment_metadata", attachment_metadata)
+            _setter("attachment_metadata", attachment_metadata)
         if detach_error is not None:
-            pulumi.set(__self__, "detach_error", detach_error)
+            _setter("detach_error", detach_error)
 
     @property
     @pulumi.getter
@@ -465,14 +577,37 @@ class VolumeAttachmentStatusPatch(dict):
         :param Mapping[str, str] attachment_metadata: Upon successful attach, this field is populated with any information returned by the attach operation that must be passed into subsequent WaitForAttach or Mount calls. This field must only be set by the entity completing the attach operation, i.e. the external-attacher.
         :param 'VolumeErrorPatchArgs' detach_error: The last error encountered during detach operation, if any. This field must only be set by the entity completing the detach operation, i.e. the external-attacher.
         """
+        VolumeAttachmentStatusPatch._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            attach_error=attach_error,
+            attached=attached,
+            attachment_metadata=attachment_metadata,
+            detach_error=detach_error,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             attach_error: Optional['outputs.VolumeErrorPatch'] = None,
+             attached: Optional[bool] = None,
+             attachment_metadata: Optional[Mapping[str, str]] = None,
+             detach_error: Optional['outputs.VolumeErrorPatch'] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'attachError' in kwargs:
+            attach_error = kwargs['attachError']
+        if 'attachmentMetadata' in kwargs:
+            attachment_metadata = kwargs['attachmentMetadata']
+        if 'detachError' in kwargs:
+            detach_error = kwargs['detachError']
+
         if attach_error is not None:
-            pulumi.set(__self__, "attach_error", attach_error)
+            _setter("attach_error", attach_error)
         if attached is not None:
-            pulumi.set(__self__, "attached", attached)
+            _setter("attached", attached)
         if attachment_metadata is not None:
-            pulumi.set(__self__, "attachment_metadata", attachment_metadata)
+            _setter("attachment_metadata", attachment_metadata)
         if detach_error is not None:
-            pulumi.set(__self__, "detach_error", detach_error)
+            _setter("detach_error", detach_error)
 
     @property
     @pulumi.getter(name="attachError")
@@ -520,10 +655,23 @@ class VolumeError(dict):
         :param str message: String detailing the error encountered during Attach or Detach operation. This string maybe logged, so it should not contain sensitive information.
         :param str time: Time the error was encountered.
         """
+        VolumeError._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            message=message,
+            time=time,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             message: Optional[str] = None,
+             time: Optional[str] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+
         if message is not None:
-            pulumi.set(__self__, "message", message)
+            _setter("message", message)
         if time is not None:
-            pulumi.set(__self__, "time", time)
+            _setter("time", time)
 
     @property
     @pulumi.getter
@@ -555,10 +703,23 @@ class VolumeErrorPatch(dict):
         :param str message: String detailing the error encountered during Attach or Detach operation. This string maybe logged, so it should not contain sensitive information.
         :param str time: Time the error was encountered.
         """
+        VolumeErrorPatch._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            message=message,
+            time=time,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             message: Optional[str] = None,
+             time: Optional[str] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+
         if message is not None:
-            pulumi.set(__self__, "message", message)
+            _setter("message", message)
         if time is not None:
-            pulumi.set(__self__, "time", time)
+            _setter("time", time)
 
     @property
     @pulumi.getter

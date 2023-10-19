@@ -127,6 +127,10 @@ type ChartArgs struct {
 	SkipCRDRendering pulumi.BoolInput
 	// The optional namespace to install chart resources into.
 	Namespace pulumi.StringInput
+	// By default, the kubernetes version is derived from your k8s context, this allows it to be overridden.
+	// Warning: This option should not be used unless you have a good reason to not use the auto-discovered
+	// version as it is much more bug-prone.
+	KubeVersion pulumi.StringInput
 	// Overrides for chart values.
 	Values pulumi.MapInput
 	// Transformations is an optional list of transformations to apply to Kubernetes resource definitions
@@ -167,6 +171,7 @@ type chartArgs struct {
 	Repo                     string                 `json:"repo,omitempty" pulumi:"repo"`
 	Chart                    string                 `json:"chart,omitempty" pulumi:"chart"`
 	Version                  string                 `json:"version,omitempty" pulumi:"version"`
+	KubeVersion              string                 `json:"kube_version,omitempty" pulumi:"kubeVersion"`
 	FetchArgs                fetchArgs              `json:"fetch_opts,omitempty" pulumi:"fetchArgs"`
 	Path                     string                 `json:"path,omitempty" pulumi:"path"`
 }

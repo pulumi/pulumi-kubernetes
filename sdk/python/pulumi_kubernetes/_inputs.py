@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 
 __all__ = [
@@ -30,26 +30,53 @@ class HelmReleaseSettingsArgs:
         :param pulumi.Input[str] repository_cache: The path to the file containing cached repository indexes.
         :param pulumi.Input[str] repository_config_path: The path to the file containing repository names and URLs.
         """
+        HelmReleaseSettingsArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            driver=driver,
+            plugins_path=plugins_path,
+            registry_config_path=registry_config_path,
+            repository_cache=repository_cache,
+            repository_config_path=repository_config_path,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             driver: Optional[pulumi.Input[str]] = None,
+             plugins_path: Optional[pulumi.Input[str]] = None,
+             registry_config_path: Optional[pulumi.Input[str]] = None,
+             repository_cache: Optional[pulumi.Input[str]] = None,
+             repository_config_path: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'pluginsPath' in kwargs:
+            plugins_path = kwargs['pluginsPath']
+        if 'registryConfigPath' in kwargs:
+            registry_config_path = kwargs['registryConfigPath']
+        if 'repositoryCache' in kwargs:
+            repository_cache = kwargs['repositoryCache']
+        if 'repositoryConfigPath' in kwargs:
+            repository_config_path = kwargs['repositoryConfigPath']
+
         if driver is None:
             driver = _utilities.get_env('PULUMI_K8S_HELM_DRIVER')
         if driver is not None:
-            pulumi.set(__self__, "driver", driver)
+            _setter("driver", driver)
         if plugins_path is None:
             plugins_path = _utilities.get_env('PULUMI_K8S_HELM_PLUGINS_PATH')
         if plugins_path is not None:
-            pulumi.set(__self__, "plugins_path", plugins_path)
+            _setter("plugins_path", plugins_path)
         if registry_config_path is None:
             registry_config_path = _utilities.get_env('PULUMI_K8S_HELM_REGISTRY_CONFIG_PATH')
         if registry_config_path is not None:
-            pulumi.set(__self__, "registry_config_path", registry_config_path)
+            _setter("registry_config_path", registry_config_path)
         if repository_cache is None:
             repository_cache = _utilities.get_env('PULUMI_K8S_HELM_REPOSITORY_CACHE')
         if repository_cache is not None:
-            pulumi.set(__self__, "repository_cache", repository_cache)
+            _setter("repository_cache", repository_cache)
         if repository_config_path is None:
             repository_config_path = _utilities.get_env('PULUMI_K8S_HELM_REPOSITORY_CONFIG_PATH')
         if repository_config_path is not None:
-            pulumi.set(__self__, "repository_config_path", repository_config_path)
+            _setter("repository_config_path", repository_config_path)
 
     @property
     @pulumi.getter
@@ -124,18 +151,33 @@ class KubeClientSettingsArgs:
         :param pulumi.Input[float] qps: Maximum queries per second (QPS) to the API server from this client. Default value is 5.
         :param pulumi.Input[int] timeout: Maximum time in seconds to wait before cancelling a HTTP request to the Kubernetes server. Default value is 32.
         """
+        KubeClientSettingsArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            burst=burst,
+            qps=qps,
+            timeout=timeout,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             burst: Optional[pulumi.Input[int]] = None,
+             qps: Optional[pulumi.Input[float]] = None,
+             timeout: Optional[pulumi.Input[int]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+
         if burst is None:
             burst = _utilities.get_env_int('PULUMI_K8S_CLIENT_BURST')
         if burst is not None:
-            pulumi.set(__self__, "burst", burst)
+            _setter("burst", burst)
         if qps is None:
             qps = _utilities.get_env_float('PULUMI_K8S_CLIENT_QPS')
         if qps is not None:
-            pulumi.set(__self__, "qps", qps)
+            _setter("qps", qps)
         if timeout is None:
             timeout = _utilities.get_env_int('PULUMI_K8S_CLIENT_TIMEOUT')
         if timeout is not None:
-            pulumi.set(__self__, "timeout", timeout)
+            _setter("timeout", timeout)
 
     @property
     @pulumi.getter

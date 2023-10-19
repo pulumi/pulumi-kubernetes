@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from . import outputs
 from ... import meta as _meta
@@ -82,8 +82,23 @@ class AuditAnnotation(dict):
                
                Required.
         """
-        pulumi.set(__self__, "key", key)
-        pulumi.set(__self__, "value_expression", value_expression)
+        AuditAnnotation._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            key=key,
+            value_expression=value_expression,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             key: str,
+             value_expression: str,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'valueExpression' in kwargs:
+            value_expression = kwargs['valueExpression']
+
+        _setter("key", key)
+        _setter("value_expression", value_expression)
 
     @property
     @pulumi.getter
@@ -152,10 +167,25 @@ class AuditAnnotationPatch(dict):
                
                Required.
         """
+        AuditAnnotationPatch._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            key=key,
+            value_expression=value_expression,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             key: Optional[str] = None,
+             value_expression: Optional[str] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'valueExpression' in kwargs:
+            value_expression = kwargs['valueExpression']
+
         if key is not None:
-            pulumi.set(__self__, "key", key)
+            _setter("key", key)
         if value_expression is not None:
-            pulumi.set(__self__, "value_expression", value_expression)
+            _setter("value_expression", value_expression)
 
     @property
     @pulumi.getter
@@ -214,8 +244,23 @@ class ExpressionWarning(dict):
         :param str field_ref: The path to the field that refers the expression. For example, the reference to the expression of the first item of validations is "spec.validations[0].expression"
         :param str warning: The content of type checking information in a human-readable form. Each line of the warning contains the type that the expression is checked against, followed by the type check error from the compiler.
         """
-        pulumi.set(__self__, "field_ref", field_ref)
-        pulumi.set(__self__, "warning", warning)
+        ExpressionWarning._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            field_ref=field_ref,
+            warning=warning,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             field_ref: str,
+             warning: str,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'fieldRef' in kwargs:
+            field_ref = kwargs['fieldRef']
+
+        _setter("field_ref", field_ref)
+        _setter("warning", warning)
 
     @property
     @pulumi.getter(name="fieldRef")
@@ -264,10 +309,25 @@ class ExpressionWarningPatch(dict):
         :param str field_ref: The path to the field that refers the expression. For example, the reference to the expression of the first item of validations is "spec.validations[0].expression"
         :param str warning: The content of type checking information in a human-readable form. Each line of the warning contains the type that the expression is checked against, followed by the type check error from the compiler.
         """
+        ExpressionWarningPatch._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            field_ref=field_ref,
+            warning=warning,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             field_ref: Optional[str] = None,
+             warning: Optional[str] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'fieldRef' in kwargs:
+            field_ref = kwargs['fieldRef']
+
         if field_ref is not None:
-            pulumi.set(__self__, "field_ref", field_ref)
+            _setter("field_ref", field_ref)
         if warning is not None:
-            pulumi.set(__self__, "warning", warning)
+            _setter("warning", warning)
 
     @property
     @pulumi.getter(name="fieldRef")
@@ -305,8 +365,21 @@ class MatchCondition(dict):
                
                Required.
         """
-        pulumi.set(__self__, "expression", expression)
-        pulumi.set(__self__, "name", name)
+        MatchCondition._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            expression=expression,
+            name=name,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             expression: str,
+             name: str,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+
+        _setter("expression", expression)
+        _setter("name", name)
 
     @property
     @pulumi.getter
@@ -354,10 +427,23 @@ class MatchConditionPatch(dict):
                
                Required.
         """
+        MatchConditionPatch._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            expression=expression,
+            name=name,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             expression: Optional[str] = None,
+             name: Optional[str] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+
         if expression is not None:
-            pulumi.set(__self__, "expression", expression)
+            _setter("expression", expression)
         if name is not None:
-            pulumi.set(__self__, "name", name)
+            _setter("name", name)
 
     @property
     @pulumi.getter
@@ -466,16 +552,45 @@ class MatchResources(dict):
         :param '_meta.v1.LabelSelectorArgs' object_selector: ObjectSelector decides whether to run the validation based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the cel validation, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
         :param Sequence['NamedRuleWithOperationsArgs'] resource_rules: ResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy matches. The policy cares about an operation if it matches _any_ Rule.
         """
+        MatchResources._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            exclude_resource_rules=exclude_resource_rules,
+            match_policy=match_policy,
+            namespace_selector=namespace_selector,
+            object_selector=object_selector,
+            resource_rules=resource_rules,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             exclude_resource_rules: Optional[Sequence['outputs.NamedRuleWithOperations']] = None,
+             match_policy: Optional[str] = None,
+             namespace_selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
+             object_selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
+             resource_rules: Optional[Sequence['outputs.NamedRuleWithOperations']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'excludeResourceRules' in kwargs:
+            exclude_resource_rules = kwargs['excludeResourceRules']
+        if 'matchPolicy' in kwargs:
+            match_policy = kwargs['matchPolicy']
+        if 'namespaceSelector' in kwargs:
+            namespace_selector = kwargs['namespaceSelector']
+        if 'objectSelector' in kwargs:
+            object_selector = kwargs['objectSelector']
+        if 'resourceRules' in kwargs:
+            resource_rules = kwargs['resourceRules']
+
         if exclude_resource_rules is not None:
-            pulumi.set(__self__, "exclude_resource_rules", exclude_resource_rules)
+            _setter("exclude_resource_rules", exclude_resource_rules)
         if match_policy is not None:
-            pulumi.set(__self__, "match_policy", match_policy)
+            _setter("match_policy", match_policy)
         if namespace_selector is not None:
-            pulumi.set(__self__, "namespace_selector", namespace_selector)
+            _setter("namespace_selector", namespace_selector)
         if object_selector is not None:
-            pulumi.set(__self__, "object_selector", object_selector)
+            _setter("object_selector", object_selector)
         if resource_rules is not None:
-            pulumi.set(__self__, "resource_rules", resource_rules)
+            _setter("resource_rules", resource_rules)
 
     @property
     @pulumi.getter(name="excludeResourceRules")
@@ -634,16 +749,45 @@ class MatchResourcesPatch(dict):
         :param '_meta.v1.LabelSelectorPatchArgs' object_selector: ObjectSelector decides whether to run the validation based on if the object has matching labels. objectSelector is evaluated against both the oldObject and newObject that would be sent to the cel validation, and is considered to match if either object matches the selector. A null object (oldObject in the case of create, or newObject in the case of delete) or an object that cannot have labels (like a DeploymentRollback or a PodProxyOptions object) is not considered to match. Use the object selector only if the webhook is opt-in, because end users may skip the admission webhook by setting the labels. Default to the empty LabelSelector, which matches everything.
         :param Sequence['NamedRuleWithOperationsPatchArgs'] resource_rules: ResourceRules describes what operations on what resources/subresources the ValidatingAdmissionPolicy matches. The policy cares about an operation if it matches _any_ Rule.
         """
+        MatchResourcesPatch._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            exclude_resource_rules=exclude_resource_rules,
+            match_policy=match_policy,
+            namespace_selector=namespace_selector,
+            object_selector=object_selector,
+            resource_rules=resource_rules,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             exclude_resource_rules: Optional[Sequence['outputs.NamedRuleWithOperationsPatch']] = None,
+             match_policy: Optional[str] = None,
+             namespace_selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None,
+             object_selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None,
+             resource_rules: Optional[Sequence['outputs.NamedRuleWithOperationsPatch']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'excludeResourceRules' in kwargs:
+            exclude_resource_rules = kwargs['excludeResourceRules']
+        if 'matchPolicy' in kwargs:
+            match_policy = kwargs['matchPolicy']
+        if 'namespaceSelector' in kwargs:
+            namespace_selector = kwargs['namespaceSelector']
+        if 'objectSelector' in kwargs:
+            object_selector = kwargs['objectSelector']
+        if 'resourceRules' in kwargs:
+            resource_rules = kwargs['resourceRules']
+
         if exclude_resource_rules is not None:
-            pulumi.set(__self__, "exclude_resource_rules", exclude_resource_rules)
+            _setter("exclude_resource_rules", exclude_resource_rules)
         if match_policy is not None:
-            pulumi.set(__self__, "match_policy", match_policy)
+            _setter("match_policy", match_policy)
         if namespace_selector is not None:
-            pulumi.set(__self__, "namespace_selector", namespace_selector)
+            _setter("namespace_selector", namespace_selector)
         if object_selector is not None:
-            pulumi.set(__self__, "object_selector", object_selector)
+            _setter("object_selector", object_selector)
         if resource_rules is not None:
-            pulumi.set(__self__, "resource_rules", resource_rules)
+            _setter("resource_rules", resource_rules)
 
     @property
     @pulumi.getter(name="excludeResourceRules")
@@ -770,18 +914,45 @@ class NamedRuleWithOperations(dict):
                Depending on the enclosing object, subresources might not be allowed. Required.
         :param str scope: scope specifies the scope of this rule. Valid values are "Cluster", "Namespaced", and "*" "Cluster" means that only cluster-scoped resources will match this rule. Namespace API objects are cluster-scoped. "Namespaced" means that only namespaced resources will match this rule. "*" means that there are no scope restrictions. Subresources match the scope of their parent resource. Default is "*".
         """
+        NamedRuleWithOperations._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            api_groups=api_groups,
+            api_versions=api_versions,
+            operations=operations,
+            resource_names=resource_names,
+            resources=resources,
+            scope=scope,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             api_groups: Optional[Sequence[str]] = None,
+             api_versions: Optional[Sequence[str]] = None,
+             operations: Optional[Sequence[str]] = None,
+             resource_names: Optional[Sequence[str]] = None,
+             resources: Optional[Sequence[str]] = None,
+             scope: Optional[str] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'apiGroups' in kwargs:
+            api_groups = kwargs['apiGroups']
+        if 'apiVersions' in kwargs:
+            api_versions = kwargs['apiVersions']
+        if 'resourceNames' in kwargs:
+            resource_names = kwargs['resourceNames']
+
         if api_groups is not None:
-            pulumi.set(__self__, "api_groups", api_groups)
+            _setter("api_groups", api_groups)
         if api_versions is not None:
-            pulumi.set(__self__, "api_versions", api_versions)
+            _setter("api_versions", api_versions)
         if operations is not None:
-            pulumi.set(__self__, "operations", operations)
+            _setter("operations", operations)
         if resource_names is not None:
-            pulumi.set(__self__, "resource_names", resource_names)
+            _setter("resource_names", resource_names)
         if resources is not None:
-            pulumi.set(__self__, "resources", resources)
+            _setter("resources", resources)
         if scope is not None:
-            pulumi.set(__self__, "scope", scope)
+            _setter("scope", scope)
 
     @property
     @pulumi.getter(name="apiGroups")
@@ -886,18 +1057,45 @@ class NamedRuleWithOperationsPatch(dict):
                Depending on the enclosing object, subresources might not be allowed. Required.
         :param str scope: scope specifies the scope of this rule. Valid values are "Cluster", "Namespaced", and "*" "Cluster" means that only cluster-scoped resources will match this rule. Namespace API objects are cluster-scoped. "Namespaced" means that only namespaced resources will match this rule. "*" means that there are no scope restrictions. Subresources match the scope of their parent resource. Default is "*".
         """
+        NamedRuleWithOperationsPatch._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            api_groups=api_groups,
+            api_versions=api_versions,
+            operations=operations,
+            resource_names=resource_names,
+            resources=resources,
+            scope=scope,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             api_groups: Optional[Sequence[str]] = None,
+             api_versions: Optional[Sequence[str]] = None,
+             operations: Optional[Sequence[str]] = None,
+             resource_names: Optional[Sequence[str]] = None,
+             resources: Optional[Sequence[str]] = None,
+             scope: Optional[str] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'apiGroups' in kwargs:
+            api_groups = kwargs['apiGroups']
+        if 'apiVersions' in kwargs:
+            api_versions = kwargs['apiVersions']
+        if 'resourceNames' in kwargs:
+            resource_names = kwargs['resourceNames']
+
         if api_groups is not None:
-            pulumi.set(__self__, "api_groups", api_groups)
+            _setter("api_groups", api_groups)
         if api_versions is not None:
-            pulumi.set(__self__, "api_versions", api_versions)
+            _setter("api_versions", api_versions)
         if operations is not None:
-            pulumi.set(__self__, "operations", operations)
+            _setter("operations", operations)
         if resource_names is not None:
-            pulumi.set(__self__, "resource_names", resource_names)
+            _setter("resource_names", resource_names)
         if resources is not None:
-            pulumi.set(__self__, "resources", resources)
+            _setter("resources", resources)
         if scope is not None:
-            pulumi.set(__self__, "scope", scope)
+            _setter("scope", scope)
 
     @property
     @pulumi.getter(name="apiGroups")
@@ -984,10 +1182,25 @@ class ParamKind(dict):
         :param str api_version: APIVersion is the API group version the resources belong to. In format of "group/version". Required.
         :param str kind: Kind is the API kind the resources belong to. Required.
         """
+        ParamKind._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            api_version=api_version,
+            kind=kind,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             api_version: Optional[str] = None,
+             kind: Optional[str] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'apiVersion' in kwargs:
+            api_version = kwargs['apiVersion']
+
         if api_version is not None:
-            pulumi.set(__self__, "api_version", api_version)
+            _setter("api_version", api_version)
         if kind is not None:
-            pulumi.set(__self__, "kind", kind)
+            _setter("kind", kind)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -1036,10 +1249,25 @@ class ParamKindPatch(dict):
         :param str api_version: APIVersion is the API group version the resources belong to. In format of "group/version". Required.
         :param str kind: Kind is the API kind the resources belong to. Required.
         """
+        ParamKindPatch._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            api_version=api_version,
+            kind=kind,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             api_version: Optional[str] = None,
+             kind: Optional[str] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'apiVersion' in kwargs:
+            api_version = kwargs['apiVersion']
+
         if api_version is not None:
-            pulumi.set(__self__, "api_version", api_version)
+            _setter("api_version", api_version)
         if kind is not None:
-            pulumi.set(__self__, "kind", kind)
+            _setter("kind", kind)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -1106,14 +1334,33 @@ class ParamRef(dict):
                
                One of `name` or `selector` must be set, but `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
         """
+        ParamRef._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            name=name,
+            namespace=namespace,
+            parameter_not_found_action=parameter_not_found_action,
+            selector=selector,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             name: Optional[str] = None,
+             namespace: Optional[str] = None,
+             parameter_not_found_action: Optional[str] = None,
+             selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'parameterNotFoundAction' in kwargs:
+            parameter_not_found_action = kwargs['parameterNotFoundAction']
+
         if name is not None:
-            pulumi.set(__self__, "name", name)
+            _setter("name", name)
         if namespace is not None:
-            pulumi.set(__self__, "namespace", namespace)
+            _setter("namespace", namespace)
         if parameter_not_found_action is not None:
-            pulumi.set(__self__, "parameter_not_found_action", parameter_not_found_action)
+            _setter("parameter_not_found_action", parameter_not_found_action)
         if selector is not None:
-            pulumi.set(__self__, "selector", selector)
+            _setter("selector", selector)
 
     @property
     @pulumi.getter
@@ -1210,14 +1457,33 @@ class ParamRefPatch(dict):
                
                One of `name` or `selector` must be set, but `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
         """
+        ParamRefPatch._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            name=name,
+            namespace=namespace,
+            parameter_not_found_action=parameter_not_found_action,
+            selector=selector,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             name: Optional[str] = None,
+             namespace: Optional[str] = None,
+             parameter_not_found_action: Optional[str] = None,
+             selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'parameterNotFoundAction' in kwargs:
+            parameter_not_found_action = kwargs['parameterNotFoundAction']
+
         if name is not None:
-            pulumi.set(__self__, "name", name)
+            _setter("name", name)
         if namespace is not None:
-            pulumi.set(__self__, "namespace", namespace)
+            _setter("namespace", namespace)
         if parameter_not_found_action is not None:
-            pulumi.set(__self__, "parameter_not_found_action", parameter_not_found_action)
+            _setter("parameter_not_found_action", parameter_not_found_action)
         if selector is not None:
-            pulumi.set(__self__, "selector", selector)
+            _setter("selector", selector)
 
     @property
     @pulumi.getter
@@ -1294,8 +1560,21 @@ class TypeChecking(dict):
         TypeChecking contains results of type checking the expressions in the ValidatingAdmissionPolicy
         :param Sequence['ExpressionWarningArgs'] expression_warnings: The type checking warnings for each expression.
         """
+        TypeChecking._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            expression_warnings=expression_warnings,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             expression_warnings: Optional[Sequence['outputs.ExpressionWarning']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'expressionWarnings' in kwargs:
+            expression_warnings = kwargs['expressionWarnings']
+
         if expression_warnings is not None:
-            pulumi.set(__self__, "expression_warnings", expression_warnings)
+            _setter("expression_warnings", expression_warnings)
 
     @property
     @pulumi.getter(name="expressionWarnings")
@@ -1334,8 +1613,21 @@ class TypeCheckingPatch(dict):
         TypeChecking contains results of type checking the expressions in the ValidatingAdmissionPolicy
         :param Sequence['ExpressionWarningPatchArgs'] expression_warnings: The type checking warnings for each expression.
         """
+        TypeCheckingPatch._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            expression_warnings=expression_warnings,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             expression_warnings: Optional[Sequence['outputs.ExpressionWarningPatch']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'expressionWarnings' in kwargs:
+            expression_warnings = kwargs['expressionWarnings']
+
         if expression_warnings is not None:
-            pulumi.set(__self__, "expression_warnings", expression_warnings)
+            _setter("expression_warnings", expression_warnings)
 
     @property
     @pulumi.getter(name="expressionWarnings")
@@ -1382,16 +1674,37 @@ class ValidatingAdmissionPolicy(dict):
         :param 'ValidatingAdmissionPolicySpecArgs' spec: Specification of the desired behavior of the ValidatingAdmissionPolicy.
         :param 'ValidatingAdmissionPolicyStatusArgs' status: The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
         """
+        ValidatingAdmissionPolicy._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            api_version=api_version,
+            kind=kind,
+            metadata=metadata,
+            spec=spec,
+            status=status,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             api_version: Optional[str] = None,
+             kind: Optional[str] = None,
+             metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
+             spec: Optional['outputs.ValidatingAdmissionPolicySpec'] = None,
+             status: Optional['outputs.ValidatingAdmissionPolicyStatus'] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'apiVersion' in kwargs:
+            api_version = kwargs['apiVersion']
+
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'admissionregistration.k8s.io/v1alpha1')
+            _setter("api_version", 'admissionregistration.k8s.io/v1alpha1')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'ValidatingAdmissionPolicy')
+            _setter("kind", 'ValidatingAdmissionPolicy')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
         if spec is not None:
-            pulumi.set(__self__, "spec", spec)
+            _setter("spec", spec)
         if status is not None:
-            pulumi.set(__self__, "status", status)
+            _setter("status", status)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -1476,14 +1789,33 @@ class ValidatingAdmissionPolicyBinding(dict):
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
         :param 'ValidatingAdmissionPolicyBindingSpecArgs' spec: Specification of the desired behavior of the ValidatingAdmissionPolicyBinding.
         """
+        ValidatingAdmissionPolicyBinding._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            api_version=api_version,
+            kind=kind,
+            metadata=metadata,
+            spec=spec,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             api_version: Optional[str] = None,
+             kind: Optional[str] = None,
+             metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
+             spec: Optional['outputs.ValidatingAdmissionPolicyBindingSpec'] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'apiVersion' in kwargs:
+            api_version = kwargs['apiVersion']
+
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'admissionregistration.k8s.io/v1alpha1')
+            _setter("api_version", 'admissionregistration.k8s.io/v1alpha1')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'ValidatingAdmissionPolicyBinding')
+            _setter("kind", 'ValidatingAdmissionPolicyBinding')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
         if spec is not None:
-            pulumi.set(__self__, "spec", spec)
+            _setter("spec", spec)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -1576,14 +1908,39 @@ class ValidatingAdmissionPolicyBindingSpec(dict):
                
                Required.
         """
+        ValidatingAdmissionPolicyBindingSpec._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            match_resources=match_resources,
+            param_ref=param_ref,
+            policy_name=policy_name,
+            validation_actions=validation_actions,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             match_resources: Optional['outputs.MatchResources'] = None,
+             param_ref: Optional['outputs.ParamRef'] = None,
+             policy_name: Optional[str] = None,
+             validation_actions: Optional[Sequence[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'matchResources' in kwargs:
+            match_resources = kwargs['matchResources']
+        if 'paramRef' in kwargs:
+            param_ref = kwargs['paramRef']
+        if 'policyName' in kwargs:
+            policy_name = kwargs['policyName']
+        if 'validationActions' in kwargs:
+            validation_actions = kwargs['validationActions']
+
         if match_resources is not None:
-            pulumi.set(__self__, "match_resources", match_resources)
+            _setter("match_resources", match_resources)
         if param_ref is not None:
-            pulumi.set(__self__, "param_ref", param_ref)
+            _setter("param_ref", param_ref)
         if policy_name is not None:
-            pulumi.set(__self__, "policy_name", policy_name)
+            _setter("policy_name", policy_name)
         if validation_actions is not None:
-            pulumi.set(__self__, "validation_actions", validation_actions)
+            _setter("validation_actions", validation_actions)
 
     @property
     @pulumi.getter(name="matchResources")
@@ -1694,14 +2051,39 @@ class ValidatingAdmissionPolicyBindingSpecPatch(dict):
                
                Required.
         """
+        ValidatingAdmissionPolicyBindingSpecPatch._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            match_resources=match_resources,
+            param_ref=param_ref,
+            policy_name=policy_name,
+            validation_actions=validation_actions,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             match_resources: Optional['outputs.MatchResourcesPatch'] = None,
+             param_ref: Optional['outputs.ParamRefPatch'] = None,
+             policy_name: Optional[str] = None,
+             validation_actions: Optional[Sequence[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'matchResources' in kwargs:
+            match_resources = kwargs['matchResources']
+        if 'paramRef' in kwargs:
+            param_ref = kwargs['paramRef']
+        if 'policyName' in kwargs:
+            policy_name = kwargs['policyName']
+        if 'validationActions' in kwargs:
+            validation_actions = kwargs['validationActions']
+
         if match_resources is not None:
-            pulumi.set(__self__, "match_resources", match_resources)
+            _setter("match_resources", match_resources)
         if param_ref is not None:
-            pulumi.set(__self__, "param_ref", param_ref)
+            _setter("param_ref", param_ref)
         if policy_name is not None:
-            pulumi.set(__self__, "policy_name", policy_name)
+            _setter("policy_name", policy_name)
         if validation_actions is not None:
-            pulumi.set(__self__, "validation_actions", validation_actions)
+            _setter("validation_actions", validation_actions)
 
     @property
     @pulumi.getter(name="matchResources")
@@ -1821,19 +2203,52 @@ class ValidatingAdmissionPolicySpec(dict):
                
                The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, Variables must be sorted by the order of first appearance and acyclic.
         """
-        pulumi.set(__self__, "validations", validations)
+        ValidatingAdmissionPolicySpec._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            validations=validations,
+            audit_annotations=audit_annotations,
+            failure_policy=failure_policy,
+            match_conditions=match_conditions,
+            match_constraints=match_constraints,
+            param_kind=param_kind,
+            variables=variables,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             validations: Sequence['outputs.Validation'],
+             audit_annotations: Optional[Sequence['outputs.AuditAnnotation']] = None,
+             failure_policy: Optional[str] = None,
+             match_conditions: Optional[Sequence['outputs.MatchCondition']] = None,
+             match_constraints: Optional['outputs.MatchResources'] = None,
+             param_kind: Optional['outputs.ParamKind'] = None,
+             variables: Optional[Sequence['outputs.Variable']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'auditAnnotations' in kwargs:
+            audit_annotations = kwargs['auditAnnotations']
+        if 'failurePolicy' in kwargs:
+            failure_policy = kwargs['failurePolicy']
+        if 'matchConditions' in kwargs:
+            match_conditions = kwargs['matchConditions']
+        if 'matchConstraints' in kwargs:
+            match_constraints = kwargs['matchConstraints']
+        if 'paramKind' in kwargs:
+            param_kind = kwargs['paramKind']
+
+        _setter("validations", validations)
         if audit_annotations is not None:
-            pulumi.set(__self__, "audit_annotations", audit_annotations)
+            _setter("audit_annotations", audit_annotations)
         if failure_policy is not None:
-            pulumi.set(__self__, "failure_policy", failure_policy)
+            _setter("failure_policy", failure_policy)
         if match_conditions is not None:
-            pulumi.set(__self__, "match_conditions", match_conditions)
+            _setter("match_conditions", match_conditions)
         if match_constraints is not None:
-            pulumi.set(__self__, "match_constraints", match_constraints)
+            _setter("match_constraints", match_constraints)
         if param_kind is not None:
-            pulumi.set(__self__, "param_kind", param_kind)
+            _setter("param_kind", param_kind)
         if variables is not None:
-            pulumi.set(__self__, "variables", variables)
+            _setter("variables", variables)
 
     @property
     @pulumi.getter
@@ -1978,20 +2393,53 @@ class ValidatingAdmissionPolicySpecPatch(dict):
                
                The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, Variables must be sorted by the order of first appearance and acyclic.
         """
+        ValidatingAdmissionPolicySpecPatch._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            audit_annotations=audit_annotations,
+            failure_policy=failure_policy,
+            match_conditions=match_conditions,
+            match_constraints=match_constraints,
+            param_kind=param_kind,
+            validations=validations,
+            variables=variables,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             audit_annotations: Optional[Sequence['outputs.AuditAnnotationPatch']] = None,
+             failure_policy: Optional[str] = None,
+             match_conditions: Optional[Sequence['outputs.MatchConditionPatch']] = None,
+             match_constraints: Optional['outputs.MatchResourcesPatch'] = None,
+             param_kind: Optional['outputs.ParamKindPatch'] = None,
+             validations: Optional[Sequence['outputs.ValidationPatch']] = None,
+             variables: Optional[Sequence['outputs.VariablePatch']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'auditAnnotations' in kwargs:
+            audit_annotations = kwargs['auditAnnotations']
+        if 'failurePolicy' in kwargs:
+            failure_policy = kwargs['failurePolicy']
+        if 'matchConditions' in kwargs:
+            match_conditions = kwargs['matchConditions']
+        if 'matchConstraints' in kwargs:
+            match_constraints = kwargs['matchConstraints']
+        if 'paramKind' in kwargs:
+            param_kind = kwargs['paramKind']
+
         if audit_annotations is not None:
-            pulumi.set(__self__, "audit_annotations", audit_annotations)
+            _setter("audit_annotations", audit_annotations)
         if failure_policy is not None:
-            pulumi.set(__self__, "failure_policy", failure_policy)
+            _setter("failure_policy", failure_policy)
         if match_conditions is not None:
-            pulumi.set(__self__, "match_conditions", match_conditions)
+            _setter("match_conditions", match_conditions)
         if match_constraints is not None:
-            pulumi.set(__self__, "match_constraints", match_constraints)
+            _setter("match_constraints", match_constraints)
         if param_kind is not None:
-            pulumi.set(__self__, "param_kind", param_kind)
+            _setter("param_kind", param_kind)
         if validations is not None:
-            pulumi.set(__self__, "validations", validations)
+            _setter("validations", validations)
         if variables is not None:
-            pulumi.set(__self__, "variables", variables)
+            _setter("variables", variables)
 
     @property
     @pulumi.getter(name="auditAnnotations")
@@ -2103,12 +2551,31 @@ class ValidatingAdmissionPolicyStatus(dict):
         :param int observed_generation: The generation observed by the controller.
         :param 'TypeCheckingArgs' type_checking: The results of type checking for each expression. Presence of this field indicates the completion of the type checking.
         """
+        ValidatingAdmissionPolicyStatus._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            conditions=conditions,
+            observed_generation=observed_generation,
+            type_checking=type_checking,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             conditions: Optional[Sequence['_meta.v1.outputs.Condition']] = None,
+             observed_generation: Optional[int] = None,
+             type_checking: Optional['outputs.TypeChecking'] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'observedGeneration' in kwargs:
+            observed_generation = kwargs['observedGeneration']
+        if 'typeChecking' in kwargs:
+            type_checking = kwargs['typeChecking']
+
         if conditions is not None:
-            pulumi.set(__self__, "conditions", conditions)
+            _setter("conditions", conditions)
         if observed_generation is not None:
-            pulumi.set(__self__, "observed_generation", observed_generation)
+            _setter("observed_generation", observed_generation)
         if type_checking is not None:
-            pulumi.set(__self__, "type_checking", type_checking)
+            _setter("type_checking", type_checking)
 
     @property
     @pulumi.getter
@@ -2169,12 +2636,31 @@ class ValidatingAdmissionPolicyStatusPatch(dict):
         :param int observed_generation: The generation observed by the controller.
         :param 'TypeCheckingPatchArgs' type_checking: The results of type checking for each expression. Presence of this field indicates the completion of the type checking.
         """
+        ValidatingAdmissionPolicyStatusPatch._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            conditions=conditions,
+            observed_generation=observed_generation,
+            type_checking=type_checking,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             conditions: Optional[Sequence['_meta.v1.outputs.ConditionPatch']] = None,
+             observed_generation: Optional[int] = None,
+             type_checking: Optional['outputs.TypeCheckingPatch'] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'observedGeneration' in kwargs:
+            observed_generation = kwargs['observedGeneration']
+        if 'typeChecking' in kwargs:
+            type_checking = kwargs['typeChecking']
+
         if conditions is not None:
-            pulumi.set(__self__, "conditions", conditions)
+            _setter("conditions", conditions)
         if observed_generation is not None:
-            pulumi.set(__self__, "observed_generation", observed_generation)
+            _setter("observed_generation", observed_generation)
         if type_checking is not None:
-            pulumi.set(__self__, "type_checking", type_checking)
+            _setter("type_checking", type_checking)
 
     @property
     @pulumi.getter
@@ -2260,13 +2746,32 @@ class Validation(dict):
         :param str message_expression: messageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a validation, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the `expression` except for 'authorizer' and 'authorizer.requestResource'. Example: "object.x must be less than max ("+string(params.max)+")"
         :param str reason: Reason represents a machine-readable description of why this validation failed. If this is the first validation in the list to fail, this reason, as well as the corresponding HTTP response code, are used in the HTTP response to the client. The currently supported reasons are: "Unauthorized", "Forbidden", "Invalid", "RequestEntityTooLarge". If not set, StatusReasonInvalid is used in the response to the client.
         """
-        pulumi.set(__self__, "expression", expression)
+        Validation._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            expression=expression,
+            message=message,
+            message_expression=message_expression,
+            reason=reason,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             expression: str,
+             message: Optional[str] = None,
+             message_expression: Optional[str] = None,
+             reason: Optional[str] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'messageExpression' in kwargs:
+            message_expression = kwargs['messageExpression']
+
+        _setter("expression", expression)
         if message is not None:
-            pulumi.set(__self__, "message", message)
+            _setter("message", message)
         if message_expression is not None:
-            pulumi.set(__self__, "message_expression", message_expression)
+            _setter("message_expression", message_expression)
         if reason is not None:
-            pulumi.set(__self__, "reason", reason)
+            _setter("reason", reason)
 
     @property
     @pulumi.getter
@@ -2385,14 +2890,33 @@ class ValidationPatch(dict):
         :param str message_expression: messageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a validation, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the `expression` except for 'authorizer' and 'authorizer.requestResource'. Example: "object.x must be less than max ("+string(params.max)+")"
         :param str reason: Reason represents a machine-readable description of why this validation failed. If this is the first validation in the list to fail, this reason, as well as the corresponding HTTP response code, are used in the HTTP response to the client. The currently supported reasons are: "Unauthorized", "Forbidden", "Invalid", "RequestEntityTooLarge". If not set, StatusReasonInvalid is used in the response to the client.
         """
+        ValidationPatch._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            expression=expression,
+            message=message,
+            message_expression=message_expression,
+            reason=reason,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             expression: Optional[str] = None,
+             message: Optional[str] = None,
+             message_expression: Optional[str] = None,
+             reason: Optional[str] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'messageExpression' in kwargs:
+            message_expression = kwargs['messageExpression']
+
         if expression is not None:
-            pulumi.set(__self__, "expression", expression)
+            _setter("expression", expression)
         if message is not None:
-            pulumi.set(__self__, "message", message)
+            _setter("message", message)
         if message_expression is not None:
-            pulumi.set(__self__, "message_expression", message_expression)
+            _setter("message_expression", message_expression)
         if reason is not None:
-            pulumi.set(__self__, "reason", reason)
+            _setter("reason", reason)
 
     @property
     @pulumi.getter
@@ -2465,8 +2989,21 @@ class Variable(dict):
         :param str expression: Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
         :param str name: Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
         """
-        pulumi.set(__self__, "expression", expression)
-        pulumi.set(__self__, "name", name)
+        Variable._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            expression=expression,
+            name=name,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             expression: str,
+             name: str,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+
+        _setter("expression", expression)
+        _setter("name", name)
 
     @property
     @pulumi.getter
@@ -2498,10 +3035,23 @@ class VariablePatch(dict):
         :param str expression: Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
         :param str name: Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
         """
+        VariablePatch._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            expression=expression,
+            name=name,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             expression: Optional[str] = None,
+             name: Optional[str] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+
         if expression is not None:
-            pulumi.set(__self__, "expression", expression)
+            _setter("expression", expression)
         if name is not None:
-            pulumi.set(__self__, "name", name)
+            _setter("name", name)
 
     @property
     @pulumi.getter

@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from . import outputs
 from ... import meta as _meta
@@ -60,14 +60,33 @@ class AuditSink(dict):
         :param str kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param 'AuditSinkSpecArgs' spec: Spec defines the audit configuration spec
         """
+        AuditSink._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            api_version=api_version,
+            kind=kind,
+            metadata=metadata,
+            spec=spec,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             api_version: Optional[str] = None,
+             kind: Optional[str] = None,
+             metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
+             spec: Optional['outputs.AuditSinkSpec'] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'apiVersion' in kwargs:
+            api_version = kwargs['apiVersion']
+
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'auditregistration.k8s.io/v1alpha1')
+            _setter("api_version", 'auditregistration.k8s.io/v1alpha1')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'AuditSink')
+            _setter("kind", 'AuditSink')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
         if spec is not None:
-            pulumi.set(__self__, "spec", spec)
+            _setter("spec", spec)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -112,8 +131,21 @@ class AuditSinkSpec(dict):
         :param 'PolicyArgs' policy: Policy defines the policy for selecting which events should be sent to the webhook required
         :param 'WebhookArgs' webhook: Webhook to send events required
         """
-        pulumi.set(__self__, "policy", policy)
-        pulumi.set(__self__, "webhook", webhook)
+        AuditSinkSpec._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            policy=policy,
+            webhook=webhook,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             policy: 'outputs.Policy',
+             webhook: 'outputs.Webhook',
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+
+        _setter("policy", policy)
+        _setter("webhook", webhook)
 
     @property
     @pulumi.getter
@@ -145,10 +177,23 @@ class AuditSinkSpecPatch(dict):
         :param 'PolicyPatchArgs' policy: Policy defines the policy for selecting which events should be sent to the webhook required
         :param 'WebhookPatchArgs' webhook: Webhook to send events required
         """
+        AuditSinkSpecPatch._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            policy=policy,
+            webhook=webhook,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             policy: Optional['outputs.PolicyPatch'] = None,
+             webhook: Optional['outputs.WebhookPatch'] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+
         if policy is not None:
-            pulumi.set(__self__, "policy", policy)
+            _setter("policy", policy)
         if webhook is not None:
-            pulumi.set(__self__, "webhook", webhook)
+            _setter("webhook", webhook)
 
     @property
     @pulumi.getter
@@ -180,9 +225,22 @@ class Policy(dict):
         :param str level: The Level that all requests are recorded at. available options: None, Metadata, Request, RequestResponse required
         :param Sequence[str] stages: Stages is a list of stages for which events are created.
         """
-        pulumi.set(__self__, "level", level)
+        Policy._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            level=level,
+            stages=stages,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             level: str,
+             stages: Optional[Sequence[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+
+        _setter("level", level)
         if stages is not None:
-            pulumi.set(__self__, "stages", stages)
+            _setter("stages", stages)
 
     @property
     @pulumi.getter
@@ -214,10 +272,23 @@ class PolicyPatch(dict):
         :param str level: The Level that all requests are recorded at. available options: None, Metadata, Request, RequestResponse required
         :param Sequence[str] stages: Stages is a list of stages for which events are created.
         """
+        PolicyPatch._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            level=level,
+            stages=stages,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             level: Optional[str] = None,
+             stages: Optional[Sequence[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+
         if level is not None:
-            pulumi.set(__self__, "level", level)
+            _setter("level", level)
         if stages is not None:
-            pulumi.set(__self__, "stages", stages)
+            _setter("stages", stages)
 
     @property
     @pulumi.getter
@@ -253,12 +324,29 @@ class ServiceReference(dict):
         :param str path: `path` is an optional URL path which will be sent in any request to this service.
         :param int port: If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
         """
-        pulumi.set(__self__, "name", name)
-        pulumi.set(__self__, "namespace", namespace)
+        ServiceReference._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            name=name,
+            namespace=namespace,
+            path=path,
+            port=port,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             name: str,
+             namespace: str,
+             path: Optional[str] = None,
+             port: Optional[int] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+
+        _setter("name", name)
+        _setter("namespace", namespace)
         if path is not None:
-            pulumi.set(__self__, "path", path)
+            _setter("path", path)
         if port is not None:
-            pulumi.set(__self__, "port", port)
+            _setter("port", port)
 
     @property
     @pulumi.getter
@@ -310,14 +398,31 @@ class ServiceReferencePatch(dict):
         :param str path: `path` is an optional URL path which will be sent in any request to this service.
         :param int port: If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
         """
+        ServiceReferencePatch._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            name=name,
+            namespace=namespace,
+            path=path,
+            port=port,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             name: Optional[str] = None,
+             namespace: Optional[str] = None,
+             path: Optional[str] = None,
+             port: Optional[int] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+
         if name is not None:
-            pulumi.set(__self__, "name", name)
+            _setter("name", name)
         if namespace is not None:
-            pulumi.set(__self__, "namespace", namespace)
+            _setter("namespace", namespace)
         if path is not None:
-            pulumi.set(__self__, "path", path)
+            _setter("path", path)
         if port is not None:
-            pulumi.set(__self__, "port", port)
+            _setter("port", port)
 
     @property
     @pulumi.getter
@@ -382,9 +487,24 @@ class Webhook(dict):
         :param 'WebhookClientConfigArgs' client_config: ClientConfig holds the connection parameters for the webhook required
         :param 'WebhookThrottleConfigArgs' throttle: Throttle holds the options for throttling the webhook
         """
-        pulumi.set(__self__, "client_config", client_config)
+        Webhook._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            client_config=client_config,
+            throttle=throttle,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             client_config: 'outputs.WebhookClientConfig',
+             throttle: Optional['outputs.WebhookThrottleConfig'] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'clientConfig' in kwargs:
+            client_config = kwargs['clientConfig']
+
+        _setter("client_config", client_config)
         if throttle is not None:
-            pulumi.set(__self__, "throttle", throttle)
+            _setter("throttle", throttle)
 
     @property
     @pulumi.getter(name="clientConfig")
@@ -447,12 +567,29 @@ class WebhookClientConfig(dict):
                
                Attempting to use a user or basic auth e.g. "user:password@" is not allowed. Fragments ("#...") and query parameters ("?...") are not allowed, either.
         """
+        WebhookClientConfig._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            ca_bundle=ca_bundle,
+            service=service,
+            url=url,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             ca_bundle: Optional[str] = None,
+             service: Optional['outputs.ServiceReference'] = None,
+             url: Optional[str] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'caBundle' in kwargs:
+            ca_bundle = kwargs['caBundle']
+
         if ca_bundle is not None:
-            pulumi.set(__self__, "ca_bundle", ca_bundle)
+            _setter("ca_bundle", ca_bundle)
         if service is not None:
-            pulumi.set(__self__, "service", service)
+            _setter("service", service)
         if url is not None:
-            pulumi.set(__self__, "url", url)
+            _setter("url", url)
 
     @property
     @pulumi.getter(name="caBundle")
@@ -535,12 +672,29 @@ class WebhookClientConfigPatch(dict):
                
                Attempting to use a user or basic auth e.g. "user:password@" is not allowed. Fragments ("#...") and query parameters ("?...") are not allowed, either.
         """
+        WebhookClientConfigPatch._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            ca_bundle=ca_bundle,
+            service=service,
+            url=url,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             ca_bundle: Optional[str] = None,
+             service: Optional['outputs.ServiceReferencePatch'] = None,
+             url: Optional[str] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'caBundle' in kwargs:
+            ca_bundle = kwargs['caBundle']
+
         if ca_bundle is not None:
-            pulumi.set(__self__, "ca_bundle", ca_bundle)
+            _setter("ca_bundle", ca_bundle)
         if service is not None:
-            pulumi.set(__self__, "service", service)
+            _setter("service", service)
         if url is not None:
-            pulumi.set(__self__, "url", url)
+            _setter("url", url)
 
     @property
     @pulumi.getter(name="caBundle")
@@ -609,10 +763,25 @@ class WebhookPatch(dict):
         :param 'WebhookClientConfigPatchArgs' client_config: ClientConfig holds the connection parameters for the webhook required
         :param 'WebhookThrottleConfigPatchArgs' throttle: Throttle holds the options for throttling the webhook
         """
+        WebhookPatch._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            client_config=client_config,
+            throttle=throttle,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             client_config: Optional['outputs.WebhookClientConfigPatch'] = None,
+             throttle: Optional['outputs.WebhookThrottleConfigPatch'] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'clientConfig' in kwargs:
+            client_config = kwargs['clientConfig']
+
         if client_config is not None:
-            pulumi.set(__self__, "client_config", client_config)
+            _setter("client_config", client_config)
         if throttle is not None:
-            pulumi.set(__self__, "throttle", throttle)
+            _setter("throttle", throttle)
 
     @property
     @pulumi.getter(name="clientConfig")
@@ -644,10 +813,23 @@ class WebhookThrottleConfig(dict):
         :param int burst: ThrottleBurst is the maximum number of events sent at the same moment default 15 QPS
         :param int qps: ThrottleQPS maximum number of batches per second default 10 QPS
         """
+        WebhookThrottleConfig._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            burst=burst,
+            qps=qps,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             burst: Optional[int] = None,
+             qps: Optional[int] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+
         if burst is not None:
-            pulumi.set(__self__, "burst", burst)
+            _setter("burst", burst)
         if qps is not None:
-            pulumi.set(__self__, "qps", qps)
+            _setter("qps", qps)
 
     @property
     @pulumi.getter
@@ -679,10 +861,23 @@ class WebhookThrottleConfigPatch(dict):
         :param int burst: ThrottleBurst is the maximum number of events sent at the same moment default 15 QPS
         :param int qps: ThrottleQPS maximum number of batches per second default 10 QPS
         """
+        WebhookThrottleConfigPatch._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            burst=burst,
+            qps=qps,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             burst: Optional[int] = None,
+             qps: Optional[int] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+
         if burst is not None:
-            pulumi.set(__self__, "burst", burst)
+            _setter("burst", burst)
         if qps is not None:
-            pulumi.set(__self__, "qps", qps)
+            _setter("qps", qps)
 
     @property
     @pulumi.getter

@@ -415,6 +415,12 @@ class BaseChartOpts:
     Warning: This option should not be used if you have resources depending on Outputs from the Chart.
     """
 
+    kube_version: Optional[pulumi.Input[str]]
+    """
+    By default, the kubernetes version is derived from your k8s context, this allows it to be overridden.
+    Warning: This option should not be used unless you have a good reason to not use the auto-discovered version as it is much more bug-prone.
+    """
+
     def __init__(self,
                  namespace: Optional[pulumi.Input[str]] = None,
                  values: Optional[pulumi.Inputs] = None,
@@ -423,7 +429,8 @@ class BaseChartOpts:
                  api_versions: Optional[Sequence[pulumi.Input[str]]] = None,
                  include_test_hook_resources: Optional[pulumi.Input[bool]] = None,
                  skip_crd_rendering: Optional[pulumi.Input[bool]] = None,
-                 skip_await: Optional[pulumi.Input[bool]] = None):
+                 skip_await: Optional[pulumi.Input[bool]] = None,
+                 kube_version: Optional[pulumi.Input[str]] = None):
         """
         :param Optional[pulumi.Input[str]] namespace: Optional namespace to install chart resources into.
         :param Optional[pulumi.Inputs] values: Optional overrides for chart values.
@@ -442,6 +449,9 @@ class BaseChartOpts:
         :param Optional[pulumi.Input[bool]] skip_await: Skip await logic for all resources in this Chart. Resources
                will be marked ready as soon as they are created. Warning: This option should not be used if you have
                resources depending on Outputs from the Chart.
+        :param Optional[pulumi.Input[str]] kube_version: By default, the kubernetes version is derived from your k8s 
+               context, this allows it to be overridden. Warning: This option should not be used unless you have a 
+               good reason to not use the auto-discovered version as it is much more bug-prone.
         """
         self.namespace = namespace
         self.include_test_hook_resources = include_test_hook_resources
@@ -451,6 +461,7 @@ class BaseChartOpts:
         self.transformations = transformations
         self.resource_prefix = resource_prefix
         self.api_versions = api_versions
+        self.kube_version = kube_version
 
     def to_json(self):
         return pulumi.Output.from_input(self.__dict__).apply(
@@ -497,7 +508,8 @@ class ChartOpts(BaseChartOpts):
                  api_versions: Optional[Sequence[pulumi.Input[str]]] = None,
                  include_test_hook_resources: Optional[pulumi.Input[bool]] = None,
                  skip_crd_rendering: Optional[pulumi.Input[bool]] = None,
-                 skip_await: Optional[pulumi.Input[bool]] = None):
+                 skip_await: Optional[pulumi.Input[bool]] = None,
+                 kube_version: Optional[pulumi.Input[str]] = None):
         """
         :param pulumi.Input[str] chart: The name of the chart to deploy.  If `repo` is provided, this chart name
                will be prefixed by the repo name.
@@ -526,9 +538,12 @@ class ChartOpts(BaseChartOpts):
         :param Optional[pulumi.Input[bool]] skip_await: Skip await logic for all resources in this Chart. Resources
                will be marked ready as soon as they are created. Warning: This option should not be used if you have
                resources depending on Outputs from the Chart.
+        :param Optional[pulumi.Input[str]] kube_version: By default, the kubernetes version is derived from your k8s 
+               context, this allows it to be overridden. Warning: This option should not be used unless you have a 
+               good reason to not use the auto-discovered version as it is much more bug-prone.
         """
         super(ChartOpts, self).__init__(namespace, values, transformations, resource_prefix, api_versions,
-                                        include_test_hook_resources, skip_crd_rendering, skip_await)
+                                        include_test_hook_resources, skip_crd_rendering, skip_await, kube_version)
         self.chart = chart
         self.repo = repo
         self.version = version
@@ -554,7 +569,9 @@ class LocalChartOpts(BaseChartOpts):
                  api_versions: Optional[Sequence[pulumi.Input[str]]] = None,
                  include_test_hook_resources: Optional[pulumi.Input[bool]] = None,
                  skip_crd_rendering: Optional[pulumi.Input[bool]] = None,
-                 skip_await: Optional[pulumi.Input[bool]] = None):
+                 skip_await: Optional[pulumi.Input[bool]] = None,
+                 kube_version: Optional[pulumi.Input[str]] = None):
+
         """
         :param pulumi.Input[str] path: The path to the chart directory which contains the
                `Chart.yaml` file.
@@ -575,10 +592,13 @@ class LocalChartOpts(BaseChartOpts):
         :param Optional[pulumi.Input[bool]] skip_await: Skip await logic for all resources in this Chart. Resources
                will be marked ready as soon as they are created. Warning: This option should not be used if you have
                resources depending on Outputs from the Chart.
+        :param Optional[pulumi.Input[str]] kube_version: By default, the kubernetes version is derived from your k8s 
+               context, this allows it to be overridden. Warning: This option should not be used unless you have a 
+               good reason to not use the auto-discovered version as it is much more bug-prone.
         """
 
         super(LocalChartOpts, self).__init__(namespace, values, transformations, resource_prefix, api_versions,
-                                             include_test_hook_resources, skip_crd_rendering, skip_await)
+                                             include_test_hook_resources, skip_crd_rendering, skip_await, kube_version)
         self.path = path
 
 

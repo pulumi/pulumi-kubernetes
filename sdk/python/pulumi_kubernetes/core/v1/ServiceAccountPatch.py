@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from . import outputs
 from ... import meta as _meta
@@ -32,18 +32,45 @@ class ServiceAccountPatchArgs:
         :param pulumi.Input['_meta.v1.ObjectMetaPatchArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input[Sequence[pulumi.Input['ObjectReferencePatchArgs']]] secrets: Secrets is a list of the secrets in the same namespace that pods running using this ServiceAccount are allowed to use. Pods are only limited to this list if this service account has a "kubernetes.io/enforce-mountable-secrets" annotation set to "true". This field should not be used to find auto-generated service account token secrets for use outside of pods. Instead, tokens can be requested directly using the TokenRequest API, or service account token secrets can be manually created. More info: https://kubernetes.io/docs/concepts/configuration/secret
         """
+        ServiceAccountPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            api_version=api_version,
+            automount_service_account_token=automount_service_account_token,
+            image_pull_secrets=image_pull_secrets,
+            kind=kind,
+            metadata=metadata,
+            secrets=secrets,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             api_version: Optional[pulumi.Input[str]] = None,
+             automount_service_account_token: Optional[pulumi.Input[bool]] = None,
+             image_pull_secrets: Optional[pulumi.Input[Sequence[pulumi.Input['LocalObjectReferencePatchArgs']]]] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']] = None,
+             secrets: Optional[pulumi.Input[Sequence[pulumi.Input['ObjectReferencePatchArgs']]]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'apiVersion' in kwargs:
+            api_version = kwargs['apiVersion']
+        if 'automountServiceAccountToken' in kwargs:
+            automount_service_account_token = kwargs['automountServiceAccountToken']
+        if 'imagePullSecrets' in kwargs:
+            image_pull_secrets = kwargs['imagePullSecrets']
+
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'v1')
+            _setter("api_version", 'v1')
         if automount_service_account_token is not None:
-            pulumi.set(__self__, "automount_service_account_token", automount_service_account_token)
+            _setter("automount_service_account_token", automount_service_account_token)
         if image_pull_secrets is not None:
-            pulumi.set(__self__, "image_pull_secrets", image_pull_secrets)
+            _setter("image_pull_secrets", image_pull_secrets)
         if kind is not None:
-            pulumi.set(__self__, "kind", 'ServiceAccount')
+            _setter("kind", 'ServiceAccount')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
         if secrets is not None:
-            pulumi.set(__self__, "secrets", secrets)
+            _setter("secrets", secrets)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -173,6 +200,10 @@ class ServiceAccountPatch(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
+            kwargs = kwargs or {}
+            def _setter(key, value):
+                kwargs[key] = value
+            ServiceAccountPatchArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
@@ -197,6 +228,11 @@ class ServiceAccountPatch(pulumi.CustomResource):
             __props__.__dict__["automount_service_account_token"] = automount_service_account_token
             __props__.__dict__["image_pull_secrets"] = image_pull_secrets
             __props__.__dict__["kind"] = 'ServiceAccount'
+            if metadata is not None and not isinstance(metadata, _meta.v1.ObjectMetaPatchArgs):
+                metadata = metadata or {}
+                def _setter(key, value):
+                    metadata[key] = value
+                _meta.v1.ObjectMetaPatchArgs._configure(_setter, **metadata)
             __props__.__dict__["metadata"] = metadata
             __props__.__dict__["secrets"] = secrets
         super(ServiceAccountPatch, __self__).__init__(

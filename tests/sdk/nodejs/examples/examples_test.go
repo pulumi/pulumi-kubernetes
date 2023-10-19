@@ -220,6 +220,22 @@ func TestAccHelmApiVersions(t *testing.T) {
 	integration.ProgramTest(t, &test)
 }
 
+func TestAccHelmKubeVersion(t *testing.T) {
+	tests.SkipIfShort(t)
+	test := getBaseOptions(t).
+		With(integration.ProgramTestOptions{
+			Dir:         filepath.Join(getCwd(t), "helm-kube-version", "step1"),
+			SkipRefresh: true,
+			ExtraRuntimeValidation: func(
+				t *testing.T, stackInfo integration.RuntimeValidationStackInfo,
+			) {
+				assert.NotNil(t, stackInfo.Deployment)
+			},
+		})
+
+	integration.ProgramTest(t, &test)
+}
+
 func TestAccHelmAllowCRDRendering(t *testing.T) {
 	test := getBaseOptions(t).
 		With(integration.ProgramTestOptions{
@@ -467,6 +483,25 @@ func TestHelmReleaseNamespace(t *testing.T) {
 							"kubectl did not find the expected resource")
 					},
 				},
+			},
+		})
+
+	integration.ProgramTest(t, &test)
+}
+
+// TestHelmReleaseProviderNamespace tests how Helm Release inherits provider namespace.
+func TestHelmReleaseProviderNamespace(t *testing.T) {
+	tests.SkipIfShort(t)
+	test := getBaseOptions(t).
+		With(integration.ProgramTestOptions{
+			Dir:         filepath.Join(getCwd(t), "helm-release-provider-namespace"),
+			SkipRefresh: true,
+			Verbose:     true,
+			Quick:       true,
+			ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+				assert.NotNil(t, stackInfo.Outputs["providerNamespace"])
+				assert.NotNil(t, stackInfo.Outputs["alertManagerNamespace"])
+				assert.Equal(t, stackInfo.Outputs["providerNamespace"], stackInfo.Outputs["alertManagerNamespace"])
 			},
 		})
 

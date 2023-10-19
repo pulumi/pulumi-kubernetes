@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 from ._inputs import *
 
@@ -62,46 +62,99 @@ class ProviderArgs:
         :param pulumi.Input[bool] suppress_deprecation_warnings: If present and set to true, suppress apiVersion deprecation warnings from the CLI.
         :param pulumi.Input[bool] suppress_helm_hook_warnings: If present and set to true, suppress unsupported Helm hook warnings from the CLI.
         """
+        ProviderArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            cluster=cluster,
+            context=context,
+            delete_unreachable=delete_unreachable,
+            enable_config_map_mutable=enable_config_map_mutable,
+            enable_server_side_apply=enable_server_side_apply,
+            helm_release_settings=helm_release_settings,
+            kube_client_settings=kube_client_settings,
+            kubeconfig=kubeconfig,
+            namespace=namespace,
+            render_yaml_to_directory=render_yaml_to_directory,
+            skip_update_unreachable=skip_update_unreachable,
+            suppress_deprecation_warnings=suppress_deprecation_warnings,
+            suppress_helm_hook_warnings=suppress_helm_hook_warnings,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             cluster: Optional[pulumi.Input[str]] = None,
+             context: Optional[pulumi.Input[str]] = None,
+             delete_unreachable: Optional[pulumi.Input[bool]] = None,
+             enable_config_map_mutable: Optional[pulumi.Input[bool]] = None,
+             enable_server_side_apply: Optional[pulumi.Input[bool]] = None,
+             helm_release_settings: Optional[pulumi.Input['HelmReleaseSettingsArgs']] = None,
+             kube_client_settings: Optional[pulumi.Input['KubeClientSettingsArgs']] = None,
+             kubeconfig: Optional[pulumi.Input[str]] = None,
+             namespace: Optional[pulumi.Input[str]] = None,
+             render_yaml_to_directory: Optional[pulumi.Input[str]] = None,
+             skip_update_unreachable: Optional[pulumi.Input[bool]] = None,
+             suppress_deprecation_warnings: Optional[pulumi.Input[bool]] = None,
+             suppress_helm_hook_warnings: Optional[pulumi.Input[bool]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'deleteUnreachable' in kwargs:
+            delete_unreachable = kwargs['deleteUnreachable']
+        if 'enableConfigMapMutable' in kwargs:
+            enable_config_map_mutable = kwargs['enableConfigMapMutable']
+        if 'enableServerSideApply' in kwargs:
+            enable_server_side_apply = kwargs['enableServerSideApply']
+        if 'helmReleaseSettings' in kwargs:
+            helm_release_settings = kwargs['helmReleaseSettings']
+        if 'kubeClientSettings' in kwargs:
+            kube_client_settings = kwargs['kubeClientSettings']
+        if 'renderYamlToDirectory' in kwargs:
+            render_yaml_to_directory = kwargs['renderYamlToDirectory']
+        if 'skipUpdateUnreachable' in kwargs:
+            skip_update_unreachable = kwargs['skipUpdateUnreachable']
+        if 'suppressDeprecationWarnings' in kwargs:
+            suppress_deprecation_warnings = kwargs['suppressDeprecationWarnings']
+        if 'suppressHelmHookWarnings' in kwargs:
+            suppress_helm_hook_warnings = kwargs['suppressHelmHookWarnings']
+
         if cluster is not None:
-            pulumi.set(__self__, "cluster", cluster)
+            _setter("cluster", cluster)
         if context is not None:
-            pulumi.set(__self__, "context", context)
+            _setter("context", context)
         if delete_unreachable is None:
             delete_unreachable = _utilities.get_env_bool('PULUMI_K8S_DELETE_UNREACHABLE')
         if delete_unreachable is not None:
-            pulumi.set(__self__, "delete_unreachable", delete_unreachable)
+            _setter("delete_unreachable", delete_unreachable)
         if enable_config_map_mutable is None:
             enable_config_map_mutable = _utilities.get_env_bool('PULUMI_K8S_ENABLE_CONFIGMAP_MUTABLE')
         if enable_config_map_mutable is not None:
-            pulumi.set(__self__, "enable_config_map_mutable", enable_config_map_mutable)
+            _setter("enable_config_map_mutable", enable_config_map_mutable)
         if enable_server_side_apply is None:
             enable_server_side_apply = _utilities.get_env_bool('PULUMI_K8S_ENABLE_SERVER_SIDE_APPLY')
         if enable_server_side_apply is not None:
-            pulumi.set(__self__, "enable_server_side_apply", enable_server_side_apply)
+            _setter("enable_server_side_apply", enable_server_side_apply)
         if helm_release_settings is not None:
-            pulumi.set(__self__, "helm_release_settings", helm_release_settings)
+            _setter("helm_release_settings", helm_release_settings)
         if kube_client_settings is not None:
-            pulumi.set(__self__, "kube_client_settings", kube_client_settings)
+            _setter("kube_client_settings", kube_client_settings)
         if kubeconfig is None:
             kubeconfig = _utilities.get_env('KUBECONFIG')
         if kubeconfig is not None:
-            pulumi.set(__self__, "kubeconfig", kubeconfig)
+            _setter("kubeconfig", kubeconfig)
         if namespace is not None:
-            pulumi.set(__self__, "namespace", namespace)
+            _setter("namespace", namespace)
         if render_yaml_to_directory is not None:
-            pulumi.set(__self__, "render_yaml_to_directory", render_yaml_to_directory)
+            _setter("render_yaml_to_directory", render_yaml_to_directory)
         if skip_update_unreachable is None:
             skip_update_unreachable = _utilities.get_env_bool('PULUMI_K8S_SKIP_UPDATE_UNREACHABLE')
         if skip_update_unreachable is not None:
-            pulumi.set(__self__, "skip_update_unreachable", skip_update_unreachable)
+            _setter("skip_update_unreachable", skip_update_unreachable)
         if suppress_deprecation_warnings is None:
             suppress_deprecation_warnings = _utilities.get_env_bool('PULUMI_K8S_SUPPRESS_DEPRECATION_WARNINGS')
         if suppress_deprecation_warnings is not None:
-            pulumi.set(__self__, "suppress_deprecation_warnings", suppress_deprecation_warnings)
+            _setter("suppress_deprecation_warnings", suppress_deprecation_warnings)
         if suppress_helm_hook_warnings is None:
             suppress_helm_hook_warnings = _utilities.get_env_bool('PULUMI_K8S_SUPPRESS_HELM_HOOK_WARNINGS')
         if suppress_helm_hook_warnings is not None:
-            pulumi.set(__self__, "suppress_helm_hook_warnings", suppress_helm_hook_warnings)
+            _setter("suppress_helm_hook_warnings", suppress_helm_hook_warnings)
 
     @property
     @pulumi.getter
@@ -353,6 +406,10 @@ class Provider(pulumi.ProviderResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
+            kwargs = kwargs or {}
+            def _setter(key, value):
+                kwargs[key] = value
+            ProviderArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
@@ -391,7 +448,17 @@ class Provider(pulumi.ProviderResource):
             if enable_server_side_apply is None:
                 enable_server_side_apply = _utilities.get_env_bool('PULUMI_K8S_ENABLE_SERVER_SIDE_APPLY')
             __props__.__dict__["enable_server_side_apply"] = pulumi.Output.from_input(enable_server_side_apply).apply(pulumi.runtime.to_json) if enable_server_side_apply is not None else None
+            if helm_release_settings is not None and not isinstance(helm_release_settings, HelmReleaseSettingsArgs):
+                helm_release_settings = helm_release_settings or {}
+                def _setter(key, value):
+                    helm_release_settings[key] = value
+                HelmReleaseSettingsArgs._configure(_setter, **helm_release_settings)
             __props__.__dict__["helm_release_settings"] = pulumi.Output.from_input(helm_release_settings).apply(pulumi.runtime.to_json) if helm_release_settings is not None else None
+            if kube_client_settings is not None and not isinstance(kube_client_settings, KubeClientSettingsArgs):
+                kube_client_settings = kube_client_settings or {}
+                def _setter(key, value):
+                    kube_client_settings[key] = value
+                KubeClientSettingsArgs._configure(_setter, **kube_client_settings)
             __props__.__dict__["kube_client_settings"] = pulumi.Output.from_input(kube_client_settings).apply(pulumi.runtime.to_json) if kube_client_settings is not None else None
             if kubeconfig is None:
                 kubeconfig = _utilities.get_env('KUBECONFIG')
@@ -412,4 +479,56 @@ class Provider(pulumi.ProviderResource):
             resource_name,
             __props__,
             opts)
+
+    @property
+    @pulumi.getter
+    def cluster(self) -> pulumi.Output[Optional[str]]:
+        """
+        If present, the name of the kubeconfig cluster to use.
+        """
+        return pulumi.get(self, "cluster")
+
+    @property
+    @pulumi.getter
+    def context(self) -> pulumi.Output[Optional[str]]:
+        """
+        If present, the name of the kubeconfig context to use.
+        """
+        return pulumi.get(self, "context")
+
+    @property
+    @pulumi.getter
+    def kubeconfig(self) -> pulumi.Output[Optional[str]]:
+        """
+        The contents of a kubeconfig file or the path to a kubeconfig file.
+        """
+        return pulumi.get(self, "kubeconfig")
+
+    @property
+    @pulumi.getter
+    def namespace(self) -> pulumi.Output[Optional[str]]:
+        """
+        If present, the default namespace to use. This flag is ignored for cluster-scoped resources.
+
+        A namespace can be specified in multiple places, and the precedence is as follows:
+        1. `.metadata.namespace` set on the resource.
+        2. This `namespace` parameter.
+        3. `namespace` set for the active context in the kubeconfig.
+        """
+        return pulumi.get(self, "namespace")
+
+    @property
+    @pulumi.getter(name="renderYamlToDirectory")
+    def render_yaml_to_directory(self) -> pulumi.Output[Optional[str]]:
+        """
+        BETA FEATURE - If present, render resource manifests to this directory. In this mode, resources will not
+        be created on a Kubernetes cluster, but the rendered manifests will be kept in sync with changes
+        to the Pulumi program. This feature is in developer preview, and is disabled by default.
+
+        Note that some computed Outputs such as status fields will not be populated
+        since the resources are not created on a Kubernetes cluster. These Output values will remain undefined,
+        and may result in an error if they are referenced by other resources. Also note that any secret values
+        used in these resources will be rendered in plaintext to the resulting YAML.
+        """
+        return pulumi.get(self, "render_yaml_to_directory")
 

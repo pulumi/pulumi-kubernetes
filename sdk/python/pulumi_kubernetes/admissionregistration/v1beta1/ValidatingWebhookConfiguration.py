@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from . import outputs
 from ... import meta as _meta
@@ -28,14 +28,33 @@ class ValidatingWebhookConfigurationInitArgs:
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
         :param pulumi.Input[Sequence[pulumi.Input['ValidatingWebhookArgs']]] webhooks: Webhooks is a list of webhooks and the affected resources and operations.
         """
+        ValidatingWebhookConfigurationInitArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            api_version=api_version,
+            kind=kind,
+            metadata=metadata,
+            webhooks=webhooks,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             api_version: Optional[pulumi.Input[str]] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+             webhooks: Optional[pulumi.Input[Sequence[pulumi.Input['ValidatingWebhookArgs']]]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'apiVersion' in kwargs:
+            api_version = kwargs['apiVersion']
+
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'admissionregistration.k8s.io/v1beta1')
+            _setter("api_version", 'admissionregistration.k8s.io/v1beta1')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'ValidatingWebhookConfiguration')
+            _setter("kind", 'ValidatingWebhookConfiguration')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
         if webhooks is not None:
-            pulumi.set(__self__, "webhooks", webhooks)
+            _setter("webhooks", webhooks)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -125,6 +144,10 @@ class ValidatingWebhookConfiguration(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
+            kwargs = kwargs or {}
+            def _setter(key, value):
+                kwargs[key] = value
+            ValidatingWebhookConfigurationInitArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
@@ -145,6 +168,11 @@ class ValidatingWebhookConfiguration(pulumi.CustomResource):
 
             __props__.__dict__["api_version"] = 'admissionregistration.k8s.io/v1beta1'
             __props__.__dict__["kind"] = 'ValidatingWebhookConfiguration'
+            if metadata is not None and not isinstance(metadata, _meta.v1.ObjectMetaArgs):
+                metadata = metadata or {}
+                def _setter(key, value):
+                    metadata[key] = value
+                _meta.v1.ObjectMetaArgs._configure(_setter, **metadata)
             __props__.__dict__["metadata"] = metadata
             __props__.__dict__["webhooks"] = webhooks
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfiguration")])

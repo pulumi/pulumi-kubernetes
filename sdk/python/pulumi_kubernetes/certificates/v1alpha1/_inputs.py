@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from ... import meta as _meta
 
@@ -38,10 +38,27 @@ class ClusterTrustBundleSpecPatchArgs:
                
                Users of ClusterTrustBundles, including Kubelet, are free to reorder and deduplicate certificate blocks in this file according to their own logic, as well as to drop PEM block headers and inter-block data.
         """
+        ClusterTrustBundleSpecPatchArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            signer_name=signer_name,
+            trust_bundle=trust_bundle,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             signer_name: Optional[pulumi.Input[str]] = None,
+             trust_bundle: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'signerName' in kwargs:
+            signer_name = kwargs['signerName']
+        if 'trustBundle' in kwargs:
+            trust_bundle = kwargs['trustBundle']
+
         if signer_name is not None:
-            pulumi.set(__self__, "signer_name", signer_name)
+            _setter("signer_name", signer_name)
         if trust_bundle is not None:
-            pulumi.set(__self__, "trust_bundle", trust_bundle)
+            _setter("trust_bundle", trust_bundle)
 
     @property
     @pulumi.getter(name="signerName")
@@ -102,9 +119,26 @@ class ClusterTrustBundleSpecArgs:
                
                List/watch requests for ClusterTrustBundles can filter on this field using a `spec.signerName=NAME` field selector.
         """
-        pulumi.set(__self__, "trust_bundle", trust_bundle)
+        ClusterTrustBundleSpecArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            trust_bundle=trust_bundle,
+            signer_name=signer_name,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             trust_bundle: pulumi.Input[str],
+             signer_name: Optional[pulumi.Input[str]] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'trustBundle' in kwargs:
+            trust_bundle = kwargs['trustBundle']
+        if 'signerName' in kwargs:
+            signer_name = kwargs['signerName']
+
+        _setter("trust_bundle", trust_bundle)
         if signer_name is not None:
-            pulumi.set(__self__, "signer_name", signer_name)
+            _setter("signer_name", signer_name)
 
     @property
     @pulumi.getter(name="trustBundle")
@@ -161,13 +195,32 @@ class ClusterTrustBundleArgs:
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: metadata contains the object metadata.
         """
-        pulumi.set(__self__, "spec", spec)
+        ClusterTrustBundleArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            spec=spec,
+            api_version=api_version,
+            kind=kind,
+            metadata=metadata,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             spec: pulumi.Input['ClusterTrustBundleSpecArgs'],
+             api_version: Optional[pulumi.Input[str]] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'apiVersion' in kwargs:
+            api_version = kwargs['apiVersion']
+
+        _setter("spec", spec)
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'certificates.k8s.io/v1alpha1')
+            _setter("api_version", 'certificates.k8s.io/v1alpha1')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'ClusterTrustBundle')
+            _setter("kind", 'ClusterTrustBundle')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
 
     @property
     @pulumi.getter

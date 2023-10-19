@@ -1,0 +1,6 @@
+apiVersion: v2
+deprecated: true
+description: Chart to test helm --kube-version
+name: kubeversion-test
+version: 0.0.1
+kubernetesVersion: ">1.24.0, <1.24.2"

@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from . import outputs
 from ... import core as _core
@@ -33,17 +33,40 @@ class RuntimeClassInitArgs:
         :param pulumi.Input['OverheadArgs'] overhead: Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. For more details, see https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This field is alpha-level as of Kubernetes v1.15, and is only honored by servers that enable the PodOverhead feature.
         :param pulumi.Input['SchedulingArgs'] scheduling: Scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
         """
-        pulumi.set(__self__, "handler", handler)
+        RuntimeClassInitArgs._configure(
+            lambda key, value: pulumi.set(__self__, key, value),
+            handler=handler,
+            api_version=api_version,
+            kind=kind,
+            metadata=metadata,
+            overhead=overhead,
+            scheduling=scheduling,
+        )
+    @staticmethod
+    def _configure(
+             _setter: Callable[[Any, Any], None],
+             handler: pulumi.Input[str],
+             api_version: Optional[pulumi.Input[str]] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
+             overhead: Optional[pulumi.Input['OverheadArgs']] = None,
+             scheduling: Optional[pulumi.Input['SchedulingArgs']] = None,
+             opts: Optional[pulumi.ResourceOptions]=None,
+             **kwargs):
+        if 'apiVersion' in kwargs:
+            api_version = kwargs['apiVersion']
+
+        _setter("handler", handler)
         if api_version is not None:
-            pulumi.set(__self__, "api_version", 'node.k8s.io/v1beta1')
+            _setter("api_version", 'node.k8s.io/v1beta1')
         if kind is not None:
-            pulumi.set(__self__, "kind", 'RuntimeClass')
+            _setter("kind", 'RuntimeClass')
         if metadata is not None:
-            pulumi.set(__self__, "metadata", metadata)
+            _setter("metadata", metadata)
         if overhead is not None:
-            pulumi.set(__self__, "overhead", overhead)
+            _setter("overhead", overhead)
         if scheduling is not None:
-            pulumi.set(__self__, "scheduling", scheduling)
+            _setter("scheduling", scheduling)
 
     @property
     @pulumi.getter
@@ -161,6 +184,10 @@ class RuntimeClass(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
+            kwargs = kwargs or {}
+            def _setter(key, value):
+                kwargs[key] = value
+            RuntimeClassInitArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
@@ -186,8 +213,23 @@ class RuntimeClass(pulumi.CustomResource):
                 raise TypeError("Missing required property 'handler'")
             __props__.__dict__["handler"] = handler
             __props__.__dict__["kind"] = 'RuntimeClass'
+            if metadata is not None and not isinstance(metadata, _meta.v1.ObjectMetaArgs):
+                metadata = metadata or {}
+                def _setter(key, value):
+                    metadata[key] = value
+                _meta.v1.ObjectMetaArgs._configure(_setter, **metadata)
             __props__.__dict__["metadata"] = metadata
+            if overhead is not None and not isinstance(overhead, OverheadArgs):
+                overhead = overhead or {}
+                def _setter(key, value):
+                    overhead[key] = value
+                OverheadArgs._configure(_setter, **overhead)
             __props__.__dict__["overhead"] = overhead
+            if scheduling is not None and not isinstance(scheduling, SchedulingArgs):
+                scheduling = scheduling or {}
+                def _setter(key, value):
+                    scheduling[key] = value
+                SchedulingArgs._configure(_setter, **scheduling)
             __props__.__dict__["scheduling"] = scheduling
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:node.k8s.io/v1:RuntimeClass"), pulumi.Alias(type_="kubernetes:node.k8s.io/v1alpha1:RuntimeClass")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)
