@@ -364,9 +364,6 @@ func TestGo(t *testing.T) {
 				contract.IgnoreError(cleanup())
 			})
 
-			// Import a Helm release using the `import` option on the `helm.Release` resource.
-			// The program inputs MUST exactly match the provider-generated inputs,
-			// or Pulumi will report: "error: inputs to import do not match the existing resource".
 			hValues, _ := json.Marshal(chartVersion.Values)
 			successCriteria := func(t *testing.T, stack integration.RuntimeValidationStackInfo) {
 				assert.NotEmpty(t, stack.Outputs["svc_ip"])
