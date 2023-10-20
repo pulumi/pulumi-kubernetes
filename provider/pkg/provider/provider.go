@@ -1911,6 +1911,13 @@ func (k *kubeProvider) Create(
 		initialized = partialErr.Object()
 	}
 
+	// We need to delete the empty status field returned from the API server if we are in
+	// preview mode. Having the status field set will cause a panic during preview if the Pulumi
+	// program attempts to read the status field.
+	if req.GetPreview() {
+		unstructured.RemoveNestedField(initialized.Object, "status")
+	}
+
 	obj := checkpointObject(newInputs, initialized, newResInputs, initialAPIVersion, fieldManager)
 	inputsAndComputed, err := plugin.MarshalProperties(
 		obj, plugin.MarshalOptions{
