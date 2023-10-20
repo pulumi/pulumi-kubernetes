@@ -1,3 +1,0 @@
-name: go_helm_release_import
-description: Test import support for Kubernetes Helm Release resource.
-runtime: go

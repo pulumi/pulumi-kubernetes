@@ -1,0 +1,27 @@
+name: go_helm_release_import
+description: Test import support for Kubernetes Helm Release resource.
+runtime: go
+config:
+  name:
+    type: string
+    description: the release name
+  namespace:
+    type: string
+    description: the release namespace
+  chart:
+    type: string
+    description: the chart specification
+  version:
+    type: string
+    description: the chart version
+  repo:
+    type: string
+    description: the chart repository URL
+    default: ""
+  values:
+    type: string
+    description: the chart values
+  import-id:
+    type: string
+    description: an existing Helm release to import
+    default: ""

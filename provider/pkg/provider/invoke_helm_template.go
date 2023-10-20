@@ -31,6 +31,7 @@ import (
 	"helm.sh/helm/v3/pkg/chartutil"
 	"helm.sh/helm/v3/pkg/cli"
 	"helm.sh/helm/v3/pkg/registry"
+	"helm.sh/helm/v3/pkg/release"
 	"helm.sh/helm/v3/pkg/storage"
 	"helm.sh/helm/v3/pkg/storage/driver"
 	"k8s.io/client-go/discovery"
@@ -325,11 +326,19 @@ func (c *chart) template(clientSet *clients.DynamicClientSet) (string, error) {
 	if err != nil {
 		return "", pkgerrors.Wrap(err, "failed to create chart from template")
 	}
+	return getManifest(rel, true, c.opts.IncludeTestHookResources), nil
+}
+
+func getManifest(rel *release.Release, includeHookResources, includeTestHookResources bool) string {
 	manifests := strings.Builder{}
 	manifests.WriteString(rel.Manifest)
+	if !includeHookResources {
+		return manifests.String()
+	}
+
 	for _, hook := range rel.Hooks {
 		switch {
-		case !c.opts.IncludeTestHookResources && testHookAnnotation.MatchString(hook.Manifest):
+		case !includeTestHookResources && testHookAnnotation.MatchString(hook.Manifest):
 			logger.V(9).Infof("Skipping Helm resource with test hook: %s", hook.Name)
 			// Skip test hook.
 		default:
@@ -338,5 +347,5 @@ func (c *chart) template(clientSet *clients.DynamicClientSet) (string, error) {
 		}
 	}
 
-	return manifests.String(), nil
+	return manifests.String()
 }

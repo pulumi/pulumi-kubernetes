@@ -30,6 +30,7 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"helm.sh/helm/v3/pkg/repo"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
@@ -112,31 +113,213 @@ func TestGo(t *testing.T) {
 		integration.ProgramTest(t, &options)
 	})
 
-	t.Run("Helm Release Import", func(t *testing.T) {
-		baseDir := filepath.Join(cwd, "helm-release-import", "step1")
-		namespace := getRandomNamespace("importtest")
-		require.NoError(t, createRelease("mynginx", namespace, baseDir, true))
-		defer func() {
-			contract.IgnoreError(deleteRelease("mynginx", namespace))
-		}()
-		options := baseOptions.With(integration.ProgramTestOptions{
-			Dir: baseDir,
-			Config: map[string]string{
-				"namespace": namespace,
-			},
-			ExpectRefreshChanges: true,
-			ExtraRuntimeValidation: func(t *testing.T, stack integration.RuntimeValidationStackInfo) {
+	t.Run("Helm Release Import (Option)", func(t *testing.T) {
+
+		chart := bitnamiNginxChart
+		chartVersion := bitnamiNginxChart.Versions[0]
+
+		// Run a program test for each of the various ways to import a Helm chart.
+		type runOptions struct {
+			InstallHelmRepository bool
+		}
+		run := func(t *testing.T, options integration.ProgramTestOptions, opts runOptions) {
+			// create a Helm environment with a chart repository
+			var repos []repo.Entry
+			if opts.InstallHelmRepository {
+				repos = append(repos, chart.HelmRepo)
+			}
+			he, cleanup, err := createHelmEnvironment(t, repos...)
+			require.NoError(t, err, "failed to create Helm environment")
+			t.Cleanup(func() {
+				contract.IgnoreError(cleanup())
+			})
+
+			// pre-install the Helm chart to be imported
+			namespace := getRandomNamespace("importtest")
+			chartPath := filepath.Join(cwd, chart.TestPath)
+			require.NoError(t, createRelease("mynginx", namespace, chartPath, true))
+			t.Cleanup(func() {
+				contract.IgnoreError(deleteRelease("mynginx", namespace))
+			})
+
+			// Import a Helm release using the `import` option on the `helm.Release` resource.
+			// The program inputs MUST exactly match the provider-generated inputs,
+			// or Pulumi will report: "error: inputs to import do not match the existing resource".
+			hValues, _ := json.Marshal(chartVersion.Values)
+			successCriteria := func(t *testing.T, stack integration.RuntimeValidationStackInfo) {
 				assert.NotEmpty(t, stack.Outputs["svc_ip"])
-			},
-			NoParallel: true,
+				assert.NotEmpty(t, stack.Outputs["resourceNames"])
+			}
+			options = options.With(integration.ProgramTestOptions{
+				Config: map[string]string{
+					"namespace": namespace,
+					"name":      "mynginx",
+					"values":    string(hValues),
+					"import-id": fmt.Sprintf("%s/%s", namespace, "mynginx"),
+				},
+				Env:                    he.EnvVars(),
+				Quick:                  true,
+				ExpectRefreshChanges:   true,
+				ExtraRuntimeValidation: successCriteria,
+				NoParallel:             true,
+				DestroyOnCleanup:       true,
+			})
+
+			integration.ProgramTest(t, &options)
+		}
+
+		// 1. Import by searching the local chart repositories for a matching chart.
+		t.Run("chart reference", func(t *testing.T) {
+			t.Logf("Unsupported: import by chart reference")
 		})
-		integration.ProgramTest(t, &options)
+
+		// 2. Import by searching for an unpacked chart in the program directory.
+		t.Run("chart directory", func(t *testing.T) {
+			options := baseOptions.With(integration.ProgramTestOptions{
+				Dir: filepath.Join(cwd, "helm-release-import", "step1-local-directory"),
+				Config: map[string]string{
+					"chart":   chart.Name, // nginx
+					"version": chartVersion.Version,
+				},
+			})
+			run(t, options, runOptions{
+				InstallHelmRepository: false,
+			})
+		})
+
+		// 3. Import by searching for a chart archive in the program directory.
+		t.Run("chart archive", func(t *testing.T) {
+			t.Logf("Unsupported: import by chart archive")
+		})
+	})
+
+	t.Run("Helm Release Import (Tool)", func(t *testing.T) {
+
+		chart := bitnamiNginxChart
+		chartVersion := bitnamiNginxChart.Versions[0]
+
+		// Run a program test for each of the various ways to import a Helm chart.
+		type runOptions struct {
+			InstallHelmRepository bool
+			ExpectHelmUpgrade     bool
+		}
+		run := func(t *testing.T, baseOptions integration.ProgramTestOptions, opts runOptions) {
+			// create a Helm environment with a chart repository
+			var repos []repo.Entry
+			if opts.InstallHelmRepository {
+				repos = append(repos, chart.HelmRepo)
+			}
+			he, cleanup, err := createHelmEnvironment(t, repos...)
+			require.NoError(t, err, "failed to create Helm environment")
+			t.Cleanup(func() {
+				contract.IgnoreError(cleanup())
+			})
+
+			// pre-install the Helm chart to be imported
+			namespace := getRandomNamespace("importtest")
+			chartPath := filepath.Join(cwd, chart.TestPath)
+			require.NoError(t, createRelease("mynginx", namespace, chartPath, true))
+			t.Cleanup(func() {
+				contract.IgnoreError(deleteRelease("mynginx", namespace))
+			})
+
+			// Import a Helm release using the `pulumi import` tool.
+			// The provider infers the chart reference from the existing release,
+			// by searching the local environment for a matching chart.
+			// The program inputs may or may not match the provider-generated inputs;
+			// if not, import succeeds with a warning and a subsequent deployment may cause a Helm upgrade.
+			hValues, _ := json.Marshal(chartVersion.Values)
+			successCriteria := func(t *testing.T, stack integration.RuntimeValidationStackInfo) {
+				assert.NotEmpty(t, stack.Outputs["svc_ip"])
+				assert.NotEmpty(t, stack.Outputs["resourceNames"])
+			}
+			options := baseOptions.With(integration.ProgramTestOptions{
+				Config: map[string]string{
+					"namespace": namespace,
+					"name":      "mynginx",
+					"values":    string(hValues),
+				},
+				Env:                    he.EnvVars(),
+				Quick:                  true,
+				ExpectRefreshChanges:   true,
+				ExtraRuntimeValidation: successCriteria,
+				NoParallel:             true,
+				DestroyOnCleanup:       true,
+			})
+			pt := integration.ProgramTestManualLifeCycle(t, &options)
+
+			require.NoError(t, pt.TestLifeCyclePrepare(), "prepare")
+			t.Cleanup(pt.TestCleanUp)
+
+			require.NoError(t, pt.TestLifeCycleInitialize(), "initialize")
+
+			// Import the Helm release: `pulumi import [type] [name] [id] [flags]`
+			id := fmt.Sprintf("%s/%s", namespace, "mynginx")
+			require.NoError(t,
+				pt.RunPulumiCommand("import", "--yes", "kubernetes:helm.sh/v3:Release", "test", id),
+				"import failed")
+
+			// Run an update to verify that the Helm release was imported.
+			require.NoError(t, pt.TestPreviewUpdateAndEdits(), "update")
+
+			// assert that the release wasn't upgraded by the import operation.
+			release, err := getRelease("mynginx", namespace)
+			require.NoError(t, err, "getRelease")
+			if !opts.ExpectHelmUpgrade {
+				assert.Equal(t, 1, release.Version, "release version")
+			} else {
+				assert.Equal(t, 2, release.Version, "release version")
+			}
+		}
+
+		// 1. Import by searching the local chart repositories for a matching chart.
+		t.Run("chart reference", func(t *testing.T) {
+			t.Logf("Unsupported: import by chart reference")
+		})
+
+		// 2. Import by searching for an unpacked chart in the program directory.
+		t.Run("chart directory", func(t *testing.T) {
+			options := baseOptions.With(integration.ProgramTestOptions{
+				Dir: filepath.Join(cwd, "helm-release-import", "step1-local-directory"),
+				Config: map[string]string{
+					"chart":   chart.Name, // nginx
+					"version": chartVersion.Version,
+				},
+			})
+			run(t, options, runOptions{
+				InstallHelmRepository: false,
+				ExpectHelmUpgrade:     false,
+			})
+		})
+
+		// 3. Import by searching for a chart archive in the program directory.
+		t.Run("chart archive", func(t *testing.T) {
+			t.Logf("Unsupported: import by chart archive")
+		})
+
+		// 4. Import without matching a chart. The tool gives a warning, and a subsequent deployment
+		// will cause a Helm upgrade to "correct" the inputs.
+		t.Run("manual", func(t *testing.T) {
+			options := baseOptions.With(integration.ProgramTestOptions{
+				Dir: filepath.Join(cwd, "helm-release-import", "step1-remote"),
+				Config: map[string]string{
+					"chart":   chart.Name,           // nginx
+					"repo":    chart.HelmRepo.URL,   // https://charts.bitnami.com/bitnami
+					"version": chartVersion.Version, // 15.3.4
+				},
+			})
+			run(t, options, runOptions{
+				InstallHelmRepository: false,
+				ExpectHelmUpgrade:     true,
+			})
+		})
 	})
 
 	t.Run("Import Deployment Created by Helm", func(t *testing.T) {
 		baseDir := filepath.Join(cwd, "helm-import-deployment", "step1")
 		namespace := getRandomNamespace("importdepl")
-		require.NoError(t, createRelease("mynginx", namespace, baseDir, true))
+		chartPath := filepath.Join(baseDir, "./nginx")
+		require.NoError(t, createRelease("mynginx", namespace, chartPath, true))
 		defer func() {
 			contract.IgnoreError(deleteRelease("mynginx", namespace))
 		}()
