@@ -66,15 +66,18 @@ func ToUnstructured(object metav1.Object) (*unstructured.Unstructured, error) {
 // This process normalizes semantically-equivalent resources into an identical output, which is important for diffing.
 // If the scheme is not defined, then return the original resource.
 func Normalize(uns *unstructured.Unstructured) (*unstructured.Unstructured, error) {
-	var result *unstructured.Unstructured
+	// As normalization could occur directly on an unstructured object, or via marshaling to a typed object and back,
+	// we need a deepcopied object to avoid mutating the input when directly working on an unstructured object to avoid
+	// returning a partially-modified version of the resource if normalization fails partway through the process.
+	result := uns.DeepCopy()
 
 	switch {
-	case IsCRD(uns):
-		result = normalizeCRD(uns)
+	case IsCRD(result):
+		result = normalizeCRD(result)
 	case IsSecret(uns):
-		result = normalizeSecret(uns)
+		result = normalizeSecret(result)
 	default:
-		obj, err := FromUnstructured(uns)
+		obj, err := FromUnstructured(result)
 		// Return the input resource rather than an error if this operation fails.
 		if err != nil {
 			return uns, nil

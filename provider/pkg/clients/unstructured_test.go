@@ -131,15 +131,15 @@ var (
 				"names": map[string]any{
 					"kind":   "FooBar",
 					"plural": "foobars",
-					"shortNames": []string{
+					"shortNames": []any{
 						"fb",
 					},
 					"singular": "foobar",
 				},
 				"preserveUnknownFields": false,
 				"scope":                 "Namespaced",
-				"versions": []map[string]any{
-					{
+				"versions": []any{
+					map[string]any{
 						"name": "v1",
 						"schema": map[string]any{
 							"openAPIV3Schema": map[string]any{
@@ -176,14 +176,14 @@ var (
 				"names": map[string]any{
 					"kind":   "FooBar",
 					"plural": "foobars",
-					"shortNames": []string{
+					"shortNames": []any{
 						"fb",
 					},
 					"singular": "foobar",
 				},
 				"scope": "Namespaced",
-				"versions": []map[string]any{
-					{
+				"versions": []any{
+					map[string]any{
 						"name": "v1",
 						"schema": map[string]any{
 							"openAPIV3Schema": map[string]any{
@@ -228,14 +228,14 @@ var (
 				"names": map[string]any{
 					"kind":   "FooBar",
 					"plural": "foobars",
-					"shortNames": []string{
+					"shortNames": []any{
 						"fb",
 					},
 					"singular": "foobar",
 				},
 				"scope": "Namespaced",
-				"versions": []map[string]any{
-					{
+				"versions": []any{
+					map[string]any{
 						"name": "v1",
 						"schema": map[string]any{
 							"openAPIV3Schema": map[string]any{
