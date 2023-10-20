@@ -540,3 +540,22 @@ func TestServerSideApply(t *testing.T) {
 	})
 	integration.ProgramTest(t, &options)
 }
+
+func TestConfigFile(t *testing.T) {
+	cwd, err := os.Getwd()
+	if !assert.NoError(t, err) {
+		t.FailNow()
+	}
+	options := baseOptions.With(integration.ProgramTestOptions{
+		Dir:                  filepath.Join(cwd, "config-file"),
+		ExpectRefreshChanges: true,
+		OrderedConfig: []integration.ConfigValue{
+			{
+				Key:   "pulumi:disable-default-providers[0]",
+				Value: "kubernetes",
+				Path:  true,
+			},
+		},
+	})
+	integration.ProgramTest(t, &options)
+}
