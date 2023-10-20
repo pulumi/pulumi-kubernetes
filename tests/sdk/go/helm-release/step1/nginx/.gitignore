@@ -1,0 +1,1 @@
+# this folder exists to verify that Pulumi ignores chart directories that lack a Chart.yaml

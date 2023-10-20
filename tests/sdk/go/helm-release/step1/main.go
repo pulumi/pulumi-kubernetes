@@ -6,22 +6,39 @@ import (
 	corev1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/core/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/helm/v3"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/config"
 )
 
 func main() {
 	pulumi.Run(func(ctx *pulumi.Context) error {
+		var opts []pulumi.ResourceOption
+
+		conf := config.New(ctx, "")
+		chart := conf.Require("chart")
+		version := conf.Require("version")
+		var repoOpts *helm.RepositoryOptsArgs
+		if repo, err := conf.Try("repo"); err == nil && repo != "" {
+			repoOpts = &helm.RepositoryOptsArgs{
+				Repo: pulumi.StringPtr(repo),
+			}
+		}
+		values := map[string]interface{}{}
+		conf.RequireObject("values", &values)
+
 		rel, err := helm.NewRelease(ctx, "test", &helm.ReleaseArgs{
-			Chart:   pulumi.String("nginx"),
-			Version: pulumi.String("6.0.4"),
-			RepositoryOpts: helm.RepositoryOptsArgs{
-				Repo: pulumi.String("https://raw.githubusercontent.com/bitnami/charts/eb5f9a9513d987b519f0ecd732e7031241c50328/bitnami"),
-			},
-			Values:  pulumi.Map{"service": pulumi.StringMap{"type": pulumi.String("ClusterIP")}},
-			Timeout: pulumi.Int(300),
-		})
+			Chart:          pulumi.String(chart),
+			Version:        pulumi.String(version),
+			RepositoryOpts: repoOpts,
+			Values:         pulumi.ToMap(values),
+			Timeout:        pulumi.Int(300),
+		}, opts...)
 		if err != nil {
 			return err
 		}
+
+		// export the resourceNames for validation purposes
+		ctx.Export("resourceNames", rel.ResourceNames)
+
 		svc := pulumi.All(rel.Status.Namespace(), rel.Status.Name()).
 			ApplyT(func(r any) (any, error) {
 				arr := r.([]any)

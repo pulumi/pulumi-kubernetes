@@ -385,33 +385,134 @@ func TestGo(t *testing.T) {
 	})
 
 	t.Run("Helm Release", func(t *testing.T) {
-		options := baseOptions.With(integration.ProgramTestOptions{
-			Dir:                  filepath.Join(cwd, "helm-release", "step1"),
-			Quick:                true,
-			ExpectRefreshChanges: true,
+		chart := bitnamiNginxChart
+		chartVersion := bitnamiNginxChart.Versions[0]
+
+		// Run a program test for each of the various ways to install a Helm chart.
+		type runOptions struct {
+			InstallHelmRepository bool
+		}
+		run := func(t *testing.T, options integration.ProgramTestOptions, opts runOptions) {
+			// create a Helm environment with a chart repository
+			var repos []repo.Entry
+			if opts.InstallHelmRepository {
+				repos = append(repos, chart.HelmRepo)
+			}
+			he, cleanup, err := createHelmEnvironment(t, repos...)
+			require.NoError(t, err, "failed to create Helm environment")
+			t.Cleanup(func() {
+				contract.IgnoreError(cleanup())
+			})
+
+			hValues, _ := json.Marshal(chartVersion.Values)
+			successCriteria := func(t *testing.T, stack integration.RuntimeValidationStackInfo) {
+				assert.NotEmpty(t, stack.Outputs["svc_ip"])
+				assert.NotEmpty(t, stack.Outputs["resourceNames"])
+			}
+			options = options.With(integration.ProgramTestOptions{
+				Config: map[string]string{
+					"values": string(hValues),
+				},
+				Env:                    he.EnvVars(),
+				Quick:                  true,
+				ExpectRefreshChanges:   true,
+				ExtraRuntimeValidation: successCriteria,
+				NoParallel:             true,
+				DestroyOnCleanup:       true,
+			})
+
+			integration.ProgramTest(t, &options)
+		}
+
+		// There's "six ways" to reference a Helm chart, and we test each of them here.
+
+		// 1. By chart reference: helm install mymaria example/mariadb
+		t.Run("chart reference", func(t *testing.T) {
+			options := baseOptions.With(integration.ProgramTestOptions{
+				Dir: filepath.Join(cwd, "helm-release", "step1"),
+				Config: map[string]string{
+					"chart":   chart.ChartReference(), // bitnami/nginx
+					"version": chartVersion.Version,   // 15.3.4
+				},
+			})
+			run(t, options, runOptions{
+				InstallHelmRepository: true,
+			})
 		})
-		integration.ProgramTest(t, &options)
+
+		// 2. By path to an unpacked chart directory: helm install mynginx ./nginx
+		t.Run("chart directory", func(t *testing.T) {
+			options := baseOptions.With(integration.ProgramTestOptions{
+				Dir: filepath.Join(cwd, "helm-release", "step1"),
+				Config: map[string]string{
+					"chart":   filepath.Join(cwd, chart.TestPath), // "/workspace/tests/testdata/helm/nginx"
+					"version": chartVersion.Version,
+				},
+			})
+			run(t, options, runOptions{
+				InstallHelmRepository: false,
+			})
+		})
+
+		// 3. By path to a packaged chart: helm install mynginx ./nginx-1.2.3.tgz
+		t.Run("chart archive", func(t *testing.T) {
+			options := baseOptions.With(integration.ProgramTestOptions{
+				Dir: filepath.Join(cwd, "helm-release", "step1"),
+				Config: map[string]string{
+					"chart":   filepath.Join(cwd, chart.TestArchive), // /workspace/tests/testdata/nginx-15.3.4.tgz
+					"version": chartVersion.Version,
+				},
+			})
+			run(t, options, runOptions{
+				InstallHelmRepository: false,
+			})
+		})
+
+		// 4. By absolute URL: helm install mynginx https://example.com/charts/nginx-1.2.3.tgz
+		t.Run("absolute URL", func(t *testing.T) {
+			options := baseOptions.With(integration.ProgramTestOptions{
+				Dir: filepath.Join(cwd, "helm-release", "step1"),
+				Config: map[string]string{
+					"chart":   chart.ChartURL, // https://charts.bitnami.com/bitnami/nginx-15.3.4.tgz
+					"version": chartVersion.Version,
+				},
+			})
+			run(t, options, runOptions{
+				InstallHelmRepository: false,
+			})
+		})
+
+		// 5. By chart reference and repo url: helm install --repo https://example.com/charts/ mynginx nginx
+		t.Run("chart reference and repo url", func(t *testing.T) {
+			options := baseOptions.With(integration.ProgramTestOptions{
+				Dir: filepath.Join(cwd, "helm-release", "step1"),
+				Config: map[string]string{
+					"chart":   chart.Name,           // nginx
+					"repo":    chart.HelmRepo.URL,   // https://charts.bitnami.com/bitnami
+					"version": chartVersion.Version, // 15.3.4
+				},
+			})
+			run(t, options, runOptions{
+				InstallHelmRepository: false,
+			})
+		})
+
+		// 6. By OCI registries: helm install mynginx --version 1.2.3 oci://example.com/charts/nginx
+		t.Run("oci chart", func(t *testing.T) {
+			options := baseOptions.With(integration.ProgramTestOptions{
+				Dir: filepath.Join(cwd, "helm-release", "step1"),
+				Config: map[string]string{
+					"chart":   chart.OciURL,         // oci://registry-1.docker.io/bitnamicharts/nginx
+					"version": chartVersion.Version, // 15.3.4
+				},
+			})
+			run(t, options, runOptions{
+				InstallHelmRepository: false,
+			})
+		})
 	})
 
-	t.Run("Helm Release With Empty Local Folder", func(t *testing.T) {
-		options := baseOptions.With(integration.ProgramTestOptions{
-			Dir:                  filepath.Join(cwd, "helm-release", "step1"),
-			Quick:                true,
-			ExpectRefreshChanges: true,
-			PrePulumiCommand: func(verb string) (func(err error) error, error) {
-				// Create an empty folder to test that the Helm provider doesn't fail when the folder is empty, and we should
-				// be fetching from remote.
-				emptyDir := filepath.Join(cwd, "helm-release", "step1", "nginx")
-				if err := os.MkdirAll(emptyDir, 0700); err != nil {
-					return nil, err
-				}
-				return nil, nil
-			},
-		})
-		integration.ProgramTest(t, &options)
-	})
-
-	t.Run("Helm Release Local", func(t *testing.T) {
+	t.Run("Helm Release (Content Detection)", func(t *testing.T) {
 		validateReplicas := func(t *testing.T, stack integration.RuntimeValidationStackInfo, expected float64) {
 			actual, ok := stack.Outputs["replicas"].(float64)
 			if !ok {
@@ -452,16 +553,7 @@ func TestGo(t *testing.T) {
 		integration.ProgramTest(t, &options)
 	})
 
-	t.Run("Helm Release Local Compressed", func(t *testing.T) {
-		options := baseOptions.With(integration.ProgramTestOptions{
-			Dir:                  filepath.Join(cwd, "helm-release-local-tar", "step1"),
-			Quick:                true,
-			ExpectRefreshChanges: true,
-		})
-		integration.ProgramTest(t, &options)
-	})
-
-	t.Run("Helm Release Partial Error", func(t *testing.T) {
+	t.Run("Helm Release (Partial Error)", func(t *testing.T) {
 		// Validate that we only see a single release in the namespace - success or failure.
 		validation := func(t *testing.T, stack integration.RuntimeValidationStackInfo) {
 			var namespace string
