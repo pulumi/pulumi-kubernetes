@@ -21,6 +21,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io/fs"
 	"net/url"
 	"os"
 	"path/filepath"
@@ -48,6 +49,7 @@ import (
 	"helm.sh/helm/v3/pkg/cli"
 	"helm.sh/helm/v3/pkg/downloader"
 	"helm.sh/helm/v3/pkg/getter"
+	"helm.sh/helm/v3/pkg/helmpath"
 	"helm.sh/helm/v3/pkg/postrender"
 	"helm.sh/helm/v3/pkg/registry"
 	"helm.sh/helm/v3/pkg/release"
@@ -1300,6 +1302,18 @@ func (r *helmReleaseProvider) importRelease(ctx context.Context, urn resource.UR
 
 	// note: setReleaseAttributes pre-populates some of the inputs
 
+	// Attempt to resolve the chart's origin in either a local or remote repository.
+	// Note that the local chart is not verified.
+	if name, _, found := searchProgramDirectory(hr.Chart.Metadata.Name, hr.Chart.Metadata.Version); found {
+		release.Chart = name
+	} else if repo, chart, found := searchHelmRepositories(r.settings, hr.Chart.Metadata.Name, hr.Chart.Metadata.Version); found {
+		// use a local repository reference, rather than reconstructing all the repository opts
+		release.Chart = fmt.Sprintf("%s/%s", repo.Name, chart.Name)
+	} else {
+		// fallback to using a local chart reference
+		release.Chart = hr.Chart.Metadata.Name
+	}
+
 	err := r.setComputedInputs(ctx, urn, release)
 	if err != nil {
 		// Likely because the chart is not readily available (e.g. import of chart where no repo info is stored).
@@ -1419,6 +1433,61 @@ func mapToInterface(in any) any {
 		return out
 	}
 	return in
+}
+
+// searchProgramDirectory implements a best-effort search for a chart in the program directory.
+// It searches for a chart archive and for an unpacked chart directory, with and without a version suffix.
+// The search order is: "<name>-<version>/", "<name>-<version>.tgz", "<name>/", "<name>.tgz".
+func searchProgramDirectory(name, version string) (string, *helmchart.Metadata, bool) {
+	var file, dir string
+	dir = fmt.Sprintf("%s-%s", name, version)
+	if c, err := loader.LoadDir(dir); err == nil {
+		return dir, c.Metadata, true
+	}
+	file = fmt.Sprintf("%s-%s.tgz", name, version)
+	if c, err := loader.LoadFile(file); err == nil {
+		return file, c.Metadata, true
+	}
+	dir = name
+	if c, err := loader.LoadDir(dir); err == nil {
+		return dir, c.Metadata, true
+	}
+	file = fmt.Sprintf("%s.tgz", name)
+	if c, err := loader.LoadFile(file); err == nil {
+		return file, c.Metadata, true
+	}
+	return "", nil, false
+}
+
+// searchHelmRepositories implements a best-effort search for a chart in the locally-configured repositories.
+func searchHelmRepositories(settings *cli.EnvSettings, name, version string) (*repo.Entry, *repo.ChartVersion, bool) {
+	repoFile := settings.RepositoryConfig
+	repoCacheDir := settings.RepositoryCache
+
+	// Load the repositories.yaml
+	rf, err := repo.LoadFile(repoFile)
+	if errors.Is(err, fs.ErrNotExist) || len(rf.Repositories) == 0 {
+		logger.V(9).Infof("no repositories configured")
+		return nil, nil, false
+	}
+
+	// Scan the repositories for a chart
+	for _, re := range rf.Repositories {
+		n := re.Name
+		f := filepath.Join(repoCacheDir, helmpath.CacheIndexFile(n))
+		ind, err := repo.LoadIndexFile(f)
+		if err != nil {
+			logger.V(9).Infof("Repo %q is corrupt or missing. Try 'helm repo update'.", n)
+			continue
+		}
+		chartVersion, err := ind.Get(name, version)
+		if err != nil {
+			logger.V(9).Infof("No such chart: %v", err)
+			continue
+		}
+		return re, chartVersion, true
+	}
+	return nil, nil, false
 }
 
 func getChart(cpo *action.ChartPathOptions, registryClient *registry.Client, settings *cli.EnvSettings,
