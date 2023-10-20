@@ -2784,7 +2784,7 @@ func normalizeInputs(uns *unstructured.Unstructured) (*unstructured.Unstructured
 		if err != nil {
 			return nil, err
 		}
-		uns = pruneLiveState(normalized, uns)
+		uns = normalized
 	}
 
 	// Remove read-only fields
