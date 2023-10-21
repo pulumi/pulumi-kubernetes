@@ -190,9 +190,10 @@ class ConfigGroup(pulumi.ComponentResource):
         for text in yaml:
             # Rather than using the default provider for the following invoke call, use the version specified
             # in package.json.
-            invoke_opts = pulumi.InvokeOptions(version=_utilities.get_version(),
-                                               provider=opts.provider if opts.provider else None)
-
+            invoke_opts = pulumi.InvokeOptions(version=_utilities.get_version() if not opts.version else opts.version,
+                parent=opts.parent if opts.parent else None,
+                provider=opts.provider if opts.provider else None)
+                
             __ret__ = invoke_yaml_decode(text, invoke_opts)
             resources = _parse_yaml_document(__ret__, opts, transformations, resource_prefix)
             # Add any new YAML resources to the ConfigGroup's resources
@@ -341,9 +342,10 @@ class ConfigFile(pulumi.ComponentResource):
             transformations.append(_skip_await)
 
         # Rather than using the default provider for the following invoke call, use the version specified
-        # in package.json.
-        invoke_opts = pulumi.InvokeOptions(version=_utilities.get_version(),
-                                           provider=opts.provider if opts.provider else None)
+        # in package.json.       
+        invoke_opts = pulumi.InvokeOptions(version=_utilities.get_version() if not opts.version else opts.version,
+            parent=opts.parent if opts.parent else None,
+            provider=opts.provider if opts.provider else None)
 
         __ret__ = invoke_yaml_decode(text, invoke_opts)
 

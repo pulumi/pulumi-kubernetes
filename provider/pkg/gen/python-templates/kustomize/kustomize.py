@@ -111,9 +111,10 @@ class Directory(pulumi.ComponentResource):
 
         # Rather than using the default provider for the following invoke call, use the version specified
         # in package.json.
-        invoke_opts = pulumi.InvokeOptions(version=_utilities.get_version(),
-                                           provider=opts.provider if opts.provider else None)
-
+        invoke_opts = pulumi.InvokeOptions(version=_utilities.get_version() if not opts.version else opts.version,
+            parent=opts.parent if opts.parent else None,
+            provider=opts.provider if opts.provider else None)
+        
         __ret__ = pulumi.runtime.invoke(
             'kubernetes:kustomize:directory', {'directory': directory}, invoke_opts)
 
