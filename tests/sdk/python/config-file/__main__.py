@@ -15,16 +15,11 @@
 import pulumi as p
 import pulumi_kubernetes as k8s
 
-k8s_provider = k8s.Provider("gke")
-default_opts = p.ResourceOptions(
-  providers=[
-    k8s_provider,
-  ],
-)
+provider = k8s.Provider("myk8s", enable_server_side_apply=True)
 
 # use cert-manager as an example
 k8s.yaml.ConfigFile(
   "cert-manager",
   file="https://github.com/cert-manager/cert-manager/releases/download/v1.9.1/cert-manager.yaml",
-  opts=default_opts,
+  opts=p.ResourceOptions(provider=provider),
 )
