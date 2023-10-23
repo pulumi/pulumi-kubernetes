@@ -96,23 +96,23 @@ class ProviderArgs:
              suppress_helm_hook_warnings: Optional[pulumi.Input[bool]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'deleteUnreachable' in kwargs:
+        if delete_unreachable is None and 'deleteUnreachable' in kwargs:
             delete_unreachable = kwargs['deleteUnreachable']
-        if 'enableConfigMapMutable' in kwargs:
+        if enable_config_map_mutable is None and 'enableConfigMapMutable' in kwargs:
             enable_config_map_mutable = kwargs['enableConfigMapMutable']
-        if 'enableServerSideApply' in kwargs:
+        if enable_server_side_apply is None and 'enableServerSideApply' in kwargs:
             enable_server_side_apply = kwargs['enableServerSideApply']
-        if 'helmReleaseSettings' in kwargs:
+        if helm_release_settings is None and 'helmReleaseSettings' in kwargs:
             helm_release_settings = kwargs['helmReleaseSettings']
-        if 'kubeClientSettings' in kwargs:
+        if kube_client_settings is None and 'kubeClientSettings' in kwargs:
             kube_client_settings = kwargs['kubeClientSettings']
-        if 'renderYamlToDirectory' in kwargs:
+        if render_yaml_to_directory is None and 'renderYamlToDirectory' in kwargs:
             render_yaml_to_directory = kwargs['renderYamlToDirectory']
-        if 'skipUpdateUnreachable' in kwargs:
+        if skip_update_unreachable is None and 'skipUpdateUnreachable' in kwargs:
             skip_update_unreachable = kwargs['skipUpdateUnreachable']
-        if 'suppressDeprecationWarnings' in kwargs:
+        if suppress_deprecation_warnings is None and 'suppressDeprecationWarnings' in kwargs:
             suppress_deprecation_warnings = kwargs['suppressDeprecationWarnings']
-        if 'suppressHelmHookWarnings' in kwargs:
+        if suppress_helm_hook_warnings is None and 'suppressHelmHookWarnings' in kwargs:
             suppress_helm_hook_warnings = kwargs['suppressHelmHookWarnings']
 
         if cluster is not None:

@@ -129,7 +129,7 @@ class ReleaseArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             chart: pulumi.Input[str],
+             chart: Optional[pulumi.Input[str]] = None,
              allow_null_values: Optional[pulumi.Input[bool]] = None,
              atomic: Optional[pulumi.Input[bool]] = None,
              cleanup_on_fail: Optional[pulumi.Input[bool]] = None,
@@ -166,43 +166,45 @@ class ReleaseArgs:
              wait_for_jobs: Optional[pulumi.Input[bool]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'allowNullValues' in kwargs:
+        if chart is None:
+            raise TypeError("Missing 'chart' argument")
+        if allow_null_values is None and 'allowNullValues' in kwargs:
             allow_null_values = kwargs['allowNullValues']
-        if 'cleanupOnFail' in kwargs:
+        if cleanup_on_fail is None and 'cleanupOnFail' in kwargs:
             cleanup_on_fail = kwargs['cleanupOnFail']
-        if 'createNamespace' in kwargs:
+        if create_namespace is None and 'createNamespace' in kwargs:
             create_namespace = kwargs['createNamespace']
-        if 'dependencyUpdate' in kwargs:
+        if dependency_update is None and 'dependencyUpdate' in kwargs:
             dependency_update = kwargs['dependencyUpdate']
-        if 'disableCRDHooks' in kwargs:
+        if disable_crd_hooks is None and 'disableCRDHooks' in kwargs:
             disable_crd_hooks = kwargs['disableCRDHooks']
-        if 'disableOpenapiValidation' in kwargs:
+        if disable_openapi_validation is None and 'disableOpenapiValidation' in kwargs:
             disable_openapi_validation = kwargs['disableOpenapiValidation']
-        if 'disableWebhooks' in kwargs:
+        if disable_webhooks is None and 'disableWebhooks' in kwargs:
             disable_webhooks = kwargs['disableWebhooks']
-        if 'forceUpdate' in kwargs:
+        if force_update is None and 'forceUpdate' in kwargs:
             force_update = kwargs['forceUpdate']
-        if 'maxHistory' in kwargs:
+        if max_history is None and 'maxHistory' in kwargs:
             max_history = kwargs['maxHistory']
-        if 'recreatePods' in kwargs:
+        if recreate_pods is None and 'recreatePods' in kwargs:
             recreate_pods = kwargs['recreatePods']
-        if 'renderSubchartNotes' in kwargs:
+        if render_subchart_notes is None and 'renderSubchartNotes' in kwargs:
             render_subchart_notes = kwargs['renderSubchartNotes']
-        if 'repositoryOpts' in kwargs:
+        if repository_opts is None and 'repositoryOpts' in kwargs:
             repository_opts = kwargs['repositoryOpts']
-        if 'resetValues' in kwargs:
+        if reset_values is None and 'resetValues' in kwargs:
             reset_values = kwargs['resetValues']
-        if 'resourceNames' in kwargs:
+        if resource_names is None and 'resourceNames' in kwargs:
             resource_names = kwargs['resourceNames']
-        if 'reuseValues' in kwargs:
+        if reuse_values is None and 'reuseValues' in kwargs:
             reuse_values = kwargs['reuseValues']
-        if 'skipAwait' in kwargs:
+        if skip_await is None and 'skipAwait' in kwargs:
             skip_await = kwargs['skipAwait']
-        if 'skipCrds' in kwargs:
+        if skip_crds is None and 'skipCrds' in kwargs:
             skip_crds = kwargs['skipCrds']
-        if 'valueYamlFiles' in kwargs:
+        if value_yaml_files is None and 'valueYamlFiles' in kwargs:
             value_yaml_files = kwargs['valueYamlFiles']
-        if 'waitForJobs' in kwargs:
+        if wait_for_jobs is None and 'waitForJobs' in kwargs:
             wait_for_jobs = kwargs['waitForJobs']
 
         _setter("chart", chart)

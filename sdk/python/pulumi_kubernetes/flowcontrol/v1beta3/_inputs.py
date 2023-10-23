@@ -77,9 +77,9 @@ class ExemptPriorityLevelConfigurationPatchArgs:
              nominal_concurrency_shares: Optional[pulumi.Input[int]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'lendablePercent' in kwargs:
+        if lendable_percent is None and 'lendablePercent' in kwargs:
             lendable_percent = kwargs['lendablePercent']
-        if 'nominalConcurrencyShares' in kwargs:
+        if nominal_concurrency_shares is None and 'nominalConcurrencyShares' in kwargs:
             nominal_concurrency_shares = kwargs['nominalConcurrencyShares']
 
         if lendable_percent is not None:
@@ -146,9 +146,9 @@ class ExemptPriorityLevelConfigurationArgs:
              nominal_concurrency_shares: Optional[pulumi.Input[int]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'lendablePercent' in kwargs:
+        if lendable_percent is None and 'lendablePercent' in kwargs:
             lendable_percent = kwargs['lendablePercent']
-        if 'nominalConcurrencyShares' in kwargs:
+        if nominal_concurrency_shares is None and 'nominalConcurrencyShares' in kwargs:
             nominal_concurrency_shares = kwargs['nominalConcurrencyShares']
 
         if lendable_percent is not None:
@@ -237,9 +237,11 @@ class FlowDistinguisherMethodArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             type: pulumi.Input[str],
+             type: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if type is None:
+            raise TypeError("Missing 'type' argument")
 
         _setter("type", type)
 
@@ -290,7 +292,7 @@ class FlowSchemaConditionArgs:
              type: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'lastTransitionTime' in kwargs:
+        if last_transition_time is None and 'lastTransitionTime' in kwargs:
             last_transition_time = kwargs['lastTransitionTime']
 
         if last_transition_time is not None:
@@ -395,11 +397,11 @@ class FlowSchemaSpecPatchArgs:
              rules: Optional[pulumi.Input[Sequence[pulumi.Input['PolicyRulesWithSubjectsPatchArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'distinguisherMethod' in kwargs:
+        if distinguisher_method is None and 'distinguisherMethod' in kwargs:
             distinguisher_method = kwargs['distinguisherMethod']
-        if 'matchingPrecedence' in kwargs:
+        if matching_precedence is None and 'matchingPrecedence' in kwargs:
             matching_precedence = kwargs['matchingPrecedence']
-        if 'priorityLevelConfiguration' in kwargs:
+        if priority_level_configuration is None and 'priorityLevelConfiguration' in kwargs:
             priority_level_configuration = kwargs['priorityLevelConfiguration']
 
         if distinguisher_method is not None:
@@ -484,17 +486,19 @@ class FlowSchemaSpecArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             priority_level_configuration: pulumi.Input['PriorityLevelConfigurationReferenceArgs'],
+             priority_level_configuration: Optional[pulumi.Input['PriorityLevelConfigurationReferenceArgs']] = None,
              distinguisher_method: Optional[pulumi.Input['FlowDistinguisherMethodArgs']] = None,
              matching_precedence: Optional[pulumi.Input[int]] = None,
              rules: Optional[pulumi.Input[Sequence[pulumi.Input['PolicyRulesWithSubjectsArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'priorityLevelConfiguration' in kwargs:
+        if priority_level_configuration is None and 'priorityLevelConfiguration' in kwargs:
             priority_level_configuration = kwargs['priorityLevelConfiguration']
-        if 'distinguisherMethod' in kwargs:
+        if priority_level_configuration is None:
+            raise TypeError("Missing 'priority_level_configuration' argument")
+        if distinguisher_method is None and 'distinguisherMethod' in kwargs:
             distinguisher_method = kwargs['distinguisherMethod']
-        if 'matchingPrecedence' in kwargs:
+        if matching_precedence is None and 'matchingPrecedence' in kwargs:
             matching_precedence = kwargs['matchingPrecedence']
 
         _setter("priority_level_configuration", priority_level_configuration)
@@ -623,7 +627,7 @@ class FlowSchemaArgs:
              status: Optional[pulumi.Input['FlowSchemaStatusArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -748,9 +752,11 @@ class GroupSubjectArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             name: pulumi.Input[str],
+             name: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if name is None:
+            raise TypeError("Missing 'name' argument")
 
         _setter("name", name)
 
@@ -838,10 +844,12 @@ class LimitResponseArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             type: pulumi.Input[str],
+             type: Optional[pulumi.Input[str]] = None,
              queuing: Optional[pulumi.Input['QueuingConfigurationArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if type is None:
+            raise TypeError("Missing 'type' argument")
 
         _setter("type", type)
         if queuing is not None:
@@ -914,13 +922,13 @@ class LimitedPriorityLevelConfigurationPatchArgs:
              nominal_concurrency_shares: Optional[pulumi.Input[int]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'borrowingLimitPercent' in kwargs:
+        if borrowing_limit_percent is None and 'borrowingLimitPercent' in kwargs:
             borrowing_limit_percent = kwargs['borrowingLimitPercent']
-        if 'lendablePercent' in kwargs:
+        if lendable_percent is None and 'lendablePercent' in kwargs:
             lendable_percent = kwargs['lendablePercent']
-        if 'limitResponse' in kwargs:
+        if limit_response is None and 'limitResponse' in kwargs:
             limit_response = kwargs['limitResponse']
-        if 'nominalConcurrencyShares' in kwargs:
+        if nominal_concurrency_shares is None and 'nominalConcurrencyShares' in kwargs:
             nominal_concurrency_shares = kwargs['nominalConcurrencyShares']
 
         if borrowing_limit_percent is not None:
@@ -1033,13 +1041,13 @@ class LimitedPriorityLevelConfigurationArgs:
              nominal_concurrency_shares: Optional[pulumi.Input[int]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'borrowingLimitPercent' in kwargs:
+        if borrowing_limit_percent is None and 'borrowingLimitPercent' in kwargs:
             borrowing_limit_percent = kwargs['borrowingLimitPercent']
-        if 'lendablePercent' in kwargs:
+        if lendable_percent is None and 'lendablePercent' in kwargs:
             lendable_percent = kwargs['lendablePercent']
-        if 'limitResponse' in kwargs:
+        if limit_response is None and 'limitResponse' in kwargs:
             limit_response = kwargs['limitResponse']
-        if 'nominalConcurrencyShares' in kwargs:
+        if nominal_concurrency_shares is None and 'nominalConcurrencyShares' in kwargs:
             nominal_concurrency_shares = kwargs['nominalConcurrencyShares']
 
         if borrowing_limit_percent is not None:
@@ -1138,7 +1146,7 @@ class NonResourcePolicyRulePatchArgs:
              verbs: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'nonResourceURLs' in kwargs:
+        if non_resource_urls is None and 'nonResourceURLs' in kwargs:
             non_resource_urls = kwargs['nonResourceURLs']
 
         if non_resource_urls is not None:
@@ -1201,12 +1209,16 @@ class NonResourcePolicyRuleArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             non_resource_urls: pulumi.Input[Sequence[pulumi.Input[str]]],
-             verbs: pulumi.Input[Sequence[pulumi.Input[str]]],
+             non_resource_urls: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             verbs: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'nonResourceURLs' in kwargs:
+        if non_resource_urls is None and 'nonResourceURLs' in kwargs:
             non_resource_urls = kwargs['nonResourceURLs']
+        if non_resource_urls is None:
+            raise TypeError("Missing 'non_resource_urls' argument")
+        if verbs is None:
+            raise TypeError("Missing 'verbs' argument")
 
         _setter("non_resource_urls", non_resource_urls)
         _setter("verbs", verbs)
@@ -1268,9 +1280,9 @@ class PolicyRulesWithSubjectsPatchArgs:
              subjects: Optional[pulumi.Input[Sequence[pulumi.Input['SubjectPatchArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'nonResourceRules' in kwargs:
+        if non_resource_rules is None and 'nonResourceRules' in kwargs:
             non_resource_rules = kwargs['nonResourceRules']
-        if 'resourceRules' in kwargs:
+        if resource_rules is None and 'resourceRules' in kwargs:
             resource_rules = kwargs['resourceRules']
 
         if non_resource_rules is not None:
@@ -1338,14 +1350,16 @@ class PolicyRulesWithSubjectsArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             subjects: pulumi.Input[Sequence[pulumi.Input['SubjectArgs']]],
+             subjects: Optional[pulumi.Input[Sequence[pulumi.Input['SubjectArgs']]]] = None,
              non_resource_rules: Optional[pulumi.Input[Sequence[pulumi.Input['NonResourcePolicyRuleArgs']]]] = None,
              resource_rules: Optional[pulumi.Input[Sequence[pulumi.Input['ResourcePolicyRuleArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'nonResourceRules' in kwargs:
+        if subjects is None:
+            raise TypeError("Missing 'subjects' argument")
+        if non_resource_rules is None and 'nonResourceRules' in kwargs:
             non_resource_rules = kwargs['nonResourceRules']
-        if 'resourceRules' in kwargs:
+        if resource_rules is None and 'resourceRules' in kwargs:
             resource_rules = kwargs['resourceRules']
 
         _setter("subjects", subjects)
@@ -1425,7 +1439,7 @@ class PriorityLevelConfigurationConditionArgs:
              type: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'lastTransitionTime' in kwargs:
+        if last_transition_time is None and 'lastTransitionTime' in kwargs:
             last_transition_time = kwargs['lastTransitionTime']
 
         if last_transition_time is not None:
@@ -1550,9 +1564,11 @@ class PriorityLevelConfigurationReferenceArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             name: pulumi.Input[str],
+             name: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if name is None:
+            raise TypeError("Missing 'name' argument")
 
         _setter("name", name)
 
@@ -1661,11 +1677,13 @@ class PriorityLevelConfigurationSpecArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             type: pulumi.Input[str],
+             type: Optional[pulumi.Input[str]] = None,
              exempt: Optional[pulumi.Input['ExemptPriorityLevelConfigurationArgs']] = None,
              limited: Optional[pulumi.Input['LimitedPriorityLevelConfigurationArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if type is None:
+            raise TypeError("Missing 'type' argument")
 
         _setter("type", type)
         if exempt is not None:
@@ -1779,7 +1797,7 @@ class PriorityLevelConfigurationArgs:
              status: Optional[pulumi.Input['PriorityLevelConfigurationStatusArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -1880,9 +1898,9 @@ class QueuingConfigurationPatchArgs:
              queues: Optional[pulumi.Input[int]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'handSize' in kwargs:
+        if hand_size is None and 'handSize' in kwargs:
             hand_size = kwargs['handSize']
-        if 'queueLengthLimit' in kwargs:
+        if queue_length_limit is None and 'queueLengthLimit' in kwargs:
             queue_length_limit = kwargs['queueLengthLimit']
 
         if hand_size is not None:
@@ -1955,9 +1973,9 @@ class QueuingConfigurationArgs:
              queues: Optional[pulumi.Input[int]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'handSize' in kwargs:
+        if hand_size is None and 'handSize' in kwargs:
             hand_size = kwargs['handSize']
-        if 'queueLengthLimit' in kwargs:
+        if queue_length_limit is None and 'queueLengthLimit' in kwargs:
             queue_length_limit = kwargs['queueLengthLimit']
 
         if hand_size is not None:
@@ -2038,9 +2056,9 @@ class ResourcePolicyRulePatchArgs:
              verbs: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiGroups' in kwargs:
+        if api_groups is None and 'apiGroups' in kwargs:
             api_groups = kwargs['apiGroups']
-        if 'clusterScope' in kwargs:
+        if cluster_scope is None and 'clusterScope' in kwargs:
             cluster_scope = kwargs['clusterScope']
 
         if api_groups is not None:
@@ -2142,16 +2160,22 @@ class ResourcePolicyRuleArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             api_groups: pulumi.Input[Sequence[pulumi.Input[str]]],
-             resources: pulumi.Input[Sequence[pulumi.Input[str]]],
-             verbs: pulumi.Input[Sequence[pulumi.Input[str]]],
+             api_groups: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             resources: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+             verbs: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              cluster_scope: Optional[pulumi.Input[bool]] = None,
              namespaces: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiGroups' in kwargs:
+        if api_groups is None and 'apiGroups' in kwargs:
             api_groups = kwargs['apiGroups']
-        if 'clusterScope' in kwargs:
+        if api_groups is None:
+            raise TypeError("Missing 'api_groups' argument")
+        if resources is None:
+            raise TypeError("Missing 'resources' argument")
+        if verbs is None:
+            raise TypeError("Missing 'verbs' argument")
+        if cluster_scope is None and 'clusterScope' in kwargs:
             cluster_scope = kwargs['clusterScope']
 
         _setter("api_groups", api_groups)
@@ -2294,10 +2318,14 @@ class ServiceAccountSubjectArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             name: pulumi.Input[str],
-             namespace: pulumi.Input[str],
+             name: Optional[pulumi.Input[str]] = None,
+             namespace: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if name is None:
+            raise TypeError("Missing 'name' argument")
+        if namespace is None:
+            raise TypeError("Missing 'namespace' argument")
 
         _setter("name", name)
         _setter("namespace", namespace)
@@ -2357,7 +2385,7 @@ class SubjectPatchArgs:
              user: Optional[pulumi.Input['UserSubjectPatchArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'serviceAccount' in kwargs:
+        if service_account is None and 'serviceAccount' in kwargs:
             service_account = kwargs['serviceAccount']
 
         if group is not None:
@@ -2442,13 +2470,15 @@ class SubjectArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             kind: pulumi.Input[str],
+             kind: Optional[pulumi.Input[str]] = None,
              group: Optional[pulumi.Input['GroupSubjectArgs']] = None,
              service_account: Optional[pulumi.Input['ServiceAccountSubjectArgs']] = None,
              user: Optional[pulumi.Input['UserSubjectArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'serviceAccount' in kwargs:
+        if kind is None:
+            raise TypeError("Missing 'kind' argument")
+        if service_account is None and 'serviceAccount' in kwargs:
             service_account = kwargs['serviceAccount']
 
         _setter("kind", kind)
@@ -2558,9 +2588,11 @@ class UserSubjectArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             name: pulumi.Input[str],
+             name: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if name is None:
+            raise TypeError("Missing 'name' argument")
 
         _setter("name", name)
 

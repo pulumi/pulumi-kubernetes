@@ -67,7 +67,7 @@ class Lease(dict):
              spec: Optional['outputs.LeaseSpec'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -174,15 +174,15 @@ class LeaseSpec(dict):
              renew_time: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'acquireTime' in kwargs:
+        if acquire_time is None and 'acquireTime' in kwargs:
             acquire_time = kwargs['acquireTime']
-        if 'holderIdentity' in kwargs:
+        if holder_identity is None and 'holderIdentity' in kwargs:
             holder_identity = kwargs['holderIdentity']
-        if 'leaseDurationSeconds' in kwargs:
+        if lease_duration_seconds is None and 'leaseDurationSeconds' in kwargs:
             lease_duration_seconds = kwargs['leaseDurationSeconds']
-        if 'leaseTransitions' in kwargs:
+        if lease_transitions is None and 'leaseTransitions' in kwargs:
             lease_transitions = kwargs['leaseTransitions']
-        if 'renewTime' in kwargs:
+        if renew_time is None and 'renewTime' in kwargs:
             renew_time = kwargs['renewTime']
 
         if acquire_time is not None:
@@ -299,15 +299,15 @@ class LeaseSpecPatch(dict):
              renew_time: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'acquireTime' in kwargs:
+        if acquire_time is None and 'acquireTime' in kwargs:
             acquire_time = kwargs['acquireTime']
-        if 'holderIdentity' in kwargs:
+        if holder_identity is None and 'holderIdentity' in kwargs:
             holder_identity = kwargs['holderIdentity']
-        if 'leaseDurationSeconds' in kwargs:
+        if lease_duration_seconds is None and 'leaseDurationSeconds' in kwargs:
             lease_duration_seconds = kwargs['leaseDurationSeconds']
-        if 'leaseTransitions' in kwargs:
+        if lease_transitions is None and 'leaseTransitions' in kwargs:
             lease_transitions = kwargs['leaseTransitions']
-        if 'renewTime' in kwargs:
+        if renew_time is None and 'renewTime' in kwargs:
             renew_time = kwargs['renewTime']
 
         if acquire_time is not None:

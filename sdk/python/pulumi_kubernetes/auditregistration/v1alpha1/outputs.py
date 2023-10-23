@@ -76,7 +76,7 @@ class AuditSink(dict):
              spec: Optional['outputs.AuditSinkSpec'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -139,10 +139,14 @@ class AuditSinkSpec(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             policy: 'outputs.Policy',
-             webhook: 'outputs.Webhook',
+             policy: Optional['outputs.Policy'] = None,
+             webhook: Optional['outputs.Webhook'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if policy is None:
+            raise TypeError("Missing 'policy' argument")
+        if webhook is None:
+            raise TypeError("Missing 'webhook' argument")
 
         _setter("policy", policy)
         _setter("webhook", webhook)
@@ -233,10 +237,12 @@ class Policy(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             level: str,
+             level: Optional[str] = None,
              stages: Optional[Sequence[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if level is None:
+            raise TypeError("Missing 'level' argument")
 
         _setter("level", level)
         if stages is not None:
@@ -334,12 +340,16 @@ class ServiceReference(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             name: str,
-             namespace: str,
+             name: Optional[str] = None,
+             namespace: Optional[str] = None,
              path: Optional[str] = None,
              port: Optional[int] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if name is None:
+            raise TypeError("Missing 'name' argument")
+        if namespace is None:
+            raise TypeError("Missing 'namespace' argument")
 
         _setter("name", name)
         _setter("namespace", namespace)
@@ -495,12 +505,14 @@ class Webhook(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             client_config: 'outputs.WebhookClientConfig',
+             client_config: Optional['outputs.WebhookClientConfig'] = None,
              throttle: Optional['outputs.WebhookThrottleConfig'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'clientConfig' in kwargs:
+        if client_config is None and 'clientConfig' in kwargs:
             client_config = kwargs['clientConfig']
+        if client_config is None:
+            raise TypeError("Missing 'client_config' argument")
 
         _setter("client_config", client_config)
         if throttle is not None:
@@ -581,7 +593,7 @@ class WebhookClientConfig(dict):
              url: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'caBundle' in kwargs:
+        if ca_bundle is None and 'caBundle' in kwargs:
             ca_bundle = kwargs['caBundle']
 
         if ca_bundle is not None:
@@ -686,7 +698,7 @@ class WebhookClientConfigPatch(dict):
              url: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'caBundle' in kwargs:
+        if ca_bundle is None and 'caBundle' in kwargs:
             ca_bundle = kwargs['caBundle']
 
         if ca_bundle is not None:
@@ -775,7 +787,7 @@ class WebhookPatch(dict):
              throttle: Optional['outputs.WebhookThrottleConfigPatch'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'clientConfig' in kwargs:
+        if client_config is None and 'clientConfig' in kwargs:
             client_config = kwargs['clientConfig']
 
         if client_config is not None:

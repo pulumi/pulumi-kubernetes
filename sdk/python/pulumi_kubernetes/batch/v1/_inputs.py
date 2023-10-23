@@ -82,17 +82,17 @@ class CronJobSpecPatchArgs:
              time_zone: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'concurrencyPolicy' in kwargs:
+        if concurrency_policy is None and 'concurrencyPolicy' in kwargs:
             concurrency_policy = kwargs['concurrencyPolicy']
-        if 'failedJobsHistoryLimit' in kwargs:
+        if failed_jobs_history_limit is None and 'failedJobsHistoryLimit' in kwargs:
             failed_jobs_history_limit = kwargs['failedJobsHistoryLimit']
-        if 'jobTemplate' in kwargs:
+        if job_template is None and 'jobTemplate' in kwargs:
             job_template = kwargs['jobTemplate']
-        if 'startingDeadlineSeconds' in kwargs:
+        if starting_deadline_seconds is None and 'startingDeadlineSeconds' in kwargs:
             starting_deadline_seconds = kwargs['startingDeadlineSeconds']
-        if 'successfulJobsHistoryLimit' in kwargs:
+        if successful_jobs_history_limit is None and 'successfulJobsHistoryLimit' in kwargs:
             successful_jobs_history_limit = kwargs['successfulJobsHistoryLimit']
-        if 'timeZone' in kwargs:
+        if time_zone is None and 'timeZone' in kwargs:
             time_zone = kwargs['timeZone']
 
         if concurrency_policy is not None:
@@ -249,8 +249,8 @@ class CronJobSpecArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             job_template: pulumi.Input['JobTemplateSpecArgs'],
-             schedule: pulumi.Input[str],
+             job_template: Optional[pulumi.Input['JobTemplateSpecArgs']] = None,
+             schedule: Optional[pulumi.Input[str]] = None,
              concurrency_policy: Optional[pulumi.Input[str]] = None,
              failed_jobs_history_limit: Optional[pulumi.Input[int]] = None,
              starting_deadline_seconds: Optional[pulumi.Input[int]] = None,
@@ -259,17 +259,21 @@ class CronJobSpecArgs:
              time_zone: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'jobTemplate' in kwargs:
+        if job_template is None and 'jobTemplate' in kwargs:
             job_template = kwargs['jobTemplate']
-        if 'concurrencyPolicy' in kwargs:
+        if job_template is None:
+            raise TypeError("Missing 'job_template' argument")
+        if schedule is None:
+            raise TypeError("Missing 'schedule' argument")
+        if concurrency_policy is None and 'concurrencyPolicy' in kwargs:
             concurrency_policy = kwargs['concurrencyPolicy']
-        if 'failedJobsHistoryLimit' in kwargs:
+        if failed_jobs_history_limit is None and 'failedJobsHistoryLimit' in kwargs:
             failed_jobs_history_limit = kwargs['failedJobsHistoryLimit']
-        if 'startingDeadlineSeconds' in kwargs:
+        if starting_deadline_seconds is None and 'startingDeadlineSeconds' in kwargs:
             starting_deadline_seconds = kwargs['startingDeadlineSeconds']
-        if 'successfulJobsHistoryLimit' in kwargs:
+        if successful_jobs_history_limit is None and 'successfulJobsHistoryLimit' in kwargs:
             successful_jobs_history_limit = kwargs['successfulJobsHistoryLimit']
-        if 'timeZone' in kwargs:
+        if time_zone is None and 'timeZone' in kwargs:
             time_zone = kwargs['timeZone']
 
         _setter("job_template", job_template)
@@ -412,9 +416,9 @@ class CronJobStatusArgs:
              last_successful_time: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'lastScheduleTime' in kwargs:
+        if last_schedule_time is None and 'lastScheduleTime' in kwargs:
             last_schedule_time = kwargs['lastScheduleTime']
-        if 'lastSuccessfulTime' in kwargs:
+        if last_successful_time is None and 'lastSuccessfulTime' in kwargs:
             last_successful_time = kwargs['lastSuccessfulTime']
 
         if active is not None:
@@ -495,7 +499,7 @@ class CronJobArgs:
              status: Optional[pulumi.Input['CronJobStatusArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -600,17 +604,21 @@ class JobConditionArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             status: pulumi.Input[str],
-             type: pulumi.Input[str],
+             status: Optional[pulumi.Input[str]] = None,
+             type: Optional[pulumi.Input[str]] = None,
              last_probe_time: Optional[pulumi.Input[str]] = None,
              last_transition_time: Optional[pulumi.Input[str]] = None,
              message: Optional[pulumi.Input[str]] = None,
              reason: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'lastProbeTime' in kwargs:
+        if status is None:
+            raise TypeError("Missing 'status' argument")
+        if type is None:
+            raise TypeError("Missing 'type' argument")
+        if last_probe_time is None and 'lastProbeTime' in kwargs:
             last_probe_time = kwargs['lastProbeTime']
-        if 'lastTransitionTime' in kwargs:
+        if last_transition_time is None and 'lastTransitionTime' in kwargs:
             last_transition_time = kwargs['lastTransitionTime']
 
         _setter("status", status)
@@ -780,23 +788,23 @@ class JobSpecPatchArgs:
              ttl_seconds_after_finished: Optional[pulumi.Input[int]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'activeDeadlineSeconds' in kwargs:
+        if active_deadline_seconds is None and 'activeDeadlineSeconds' in kwargs:
             active_deadline_seconds = kwargs['activeDeadlineSeconds']
-        if 'backoffLimit' in kwargs:
+        if backoff_limit is None and 'backoffLimit' in kwargs:
             backoff_limit = kwargs['backoffLimit']
-        if 'backoffLimitPerIndex' in kwargs:
+        if backoff_limit_per_index is None and 'backoffLimitPerIndex' in kwargs:
             backoff_limit_per_index = kwargs['backoffLimitPerIndex']
-        if 'completionMode' in kwargs:
+        if completion_mode is None and 'completionMode' in kwargs:
             completion_mode = kwargs['completionMode']
-        if 'manualSelector' in kwargs:
+        if manual_selector is None and 'manualSelector' in kwargs:
             manual_selector = kwargs['manualSelector']
-        if 'maxFailedIndexes' in kwargs:
+        if max_failed_indexes is None and 'maxFailedIndexes' in kwargs:
             max_failed_indexes = kwargs['maxFailedIndexes']
-        if 'podFailurePolicy' in kwargs:
+        if pod_failure_policy is None and 'podFailurePolicy' in kwargs:
             pod_failure_policy = kwargs['podFailurePolicy']
-        if 'podReplacementPolicy' in kwargs:
+        if pod_replacement_policy is None and 'podReplacementPolicy' in kwargs:
             pod_replacement_policy = kwargs['podReplacementPolicy']
-        if 'ttlSecondsAfterFinished' in kwargs:
+        if ttl_seconds_after_finished is None and 'ttlSecondsAfterFinished' in kwargs:
             ttl_seconds_after_finished = kwargs['ttlSecondsAfterFinished']
 
         if active_deadline_seconds is not None:
@@ -1077,7 +1085,7 @@ class JobSpecArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             template: pulumi.Input['_core.v1.PodTemplateSpecArgs'],
+             template: Optional[pulumi.Input['_core.v1.PodTemplateSpecArgs']] = None,
              active_deadline_seconds: Optional[pulumi.Input[int]] = None,
              backoff_limit: Optional[pulumi.Input[int]] = None,
              backoff_limit_per_index: Optional[pulumi.Input[int]] = None,
@@ -1093,23 +1101,25 @@ class JobSpecArgs:
              ttl_seconds_after_finished: Optional[pulumi.Input[int]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'activeDeadlineSeconds' in kwargs:
+        if template is None:
+            raise TypeError("Missing 'template' argument")
+        if active_deadline_seconds is None and 'activeDeadlineSeconds' in kwargs:
             active_deadline_seconds = kwargs['activeDeadlineSeconds']
-        if 'backoffLimit' in kwargs:
+        if backoff_limit is None and 'backoffLimit' in kwargs:
             backoff_limit = kwargs['backoffLimit']
-        if 'backoffLimitPerIndex' in kwargs:
+        if backoff_limit_per_index is None and 'backoffLimitPerIndex' in kwargs:
             backoff_limit_per_index = kwargs['backoffLimitPerIndex']
-        if 'completionMode' in kwargs:
+        if completion_mode is None and 'completionMode' in kwargs:
             completion_mode = kwargs['completionMode']
-        if 'manualSelector' in kwargs:
+        if manual_selector is None and 'manualSelector' in kwargs:
             manual_selector = kwargs['manualSelector']
-        if 'maxFailedIndexes' in kwargs:
+        if max_failed_indexes is None and 'maxFailedIndexes' in kwargs:
             max_failed_indexes = kwargs['maxFailedIndexes']
-        if 'podFailurePolicy' in kwargs:
+        if pod_failure_policy is None and 'podFailurePolicy' in kwargs:
             pod_failure_policy = kwargs['podFailurePolicy']
-        if 'podReplacementPolicy' in kwargs:
+        if pod_replacement_policy is None and 'podReplacementPolicy' in kwargs:
             pod_replacement_policy = kwargs['podReplacementPolicy']
-        if 'ttlSecondsAfterFinished' in kwargs:
+        if ttl_seconds_after_finished is None and 'ttlSecondsAfterFinished' in kwargs:
             ttl_seconds_after_finished = kwargs['ttlSecondsAfterFinished']
 
         _setter("template", template)
@@ -1391,15 +1401,15 @@ class JobStatusArgs:
              uncounted_terminated_pods: Optional[pulumi.Input['UncountedTerminatedPodsArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'completedIndexes' in kwargs:
+        if completed_indexes is None and 'completedIndexes' in kwargs:
             completed_indexes = kwargs['completedIndexes']
-        if 'completionTime' in kwargs:
+        if completion_time is None and 'completionTime' in kwargs:
             completion_time = kwargs['completionTime']
-        if 'failedIndexes' in kwargs:
+        if failed_indexes is None and 'failedIndexes' in kwargs:
             failed_indexes = kwargs['failedIndexes']
-        if 'startTime' in kwargs:
+        if start_time is None and 'startTime' in kwargs:
             start_time = kwargs['startTime']
-        if 'uncountedTerminatedPods' in kwargs:
+        if uncounted_terminated_pods is None and 'uncountedTerminatedPods' in kwargs:
             uncounted_terminated_pods = kwargs['uncountedTerminatedPods']
 
         if active is not None:
@@ -1729,7 +1739,7 @@ class JobArgs:
              status: Optional[pulumi.Input['JobStatusArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -1838,7 +1848,7 @@ class PodFailurePolicyOnExitCodesRequirementPatchArgs:
              values: Optional[pulumi.Input[Sequence[pulumi.Input[int]]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'containerName' in kwargs:
+        if container_name is None and 'containerName' in kwargs:
             container_name = kwargs['containerName']
 
         if container_name is not None:
@@ -1922,12 +1932,16 @@ class PodFailurePolicyOnExitCodesRequirementArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             operator: pulumi.Input[str],
-             values: pulumi.Input[Sequence[pulumi.Input[int]]],
+             operator: Optional[pulumi.Input[str]] = None,
+             values: Optional[pulumi.Input[Sequence[pulumi.Input[int]]]] = None,
              container_name: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'containerName' in kwargs:
+        if operator is None:
+            raise TypeError("Missing 'operator' argument")
+        if values is None:
+            raise TypeError("Missing 'values' argument")
+        if container_name is None and 'containerName' in kwargs:
             container_name = kwargs['containerName']
 
         _setter("operator", operator)
@@ -2051,10 +2065,14 @@ class PodFailurePolicyOnPodConditionsPatternArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             status: pulumi.Input[str],
-             type: pulumi.Input[str],
+             status: Optional[pulumi.Input[str]] = None,
+             type: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if status is None:
+            raise TypeError("Missing 'status' argument")
+        if type is None:
+            raise TypeError("Missing 'type' argument")
 
         _setter("status", status)
         _setter("type", type)
@@ -2157,9 +2175,9 @@ class PodFailurePolicyRulePatchArgs:
              on_pod_conditions: Optional[pulumi.Input[Sequence[pulumi.Input['PodFailurePolicyOnPodConditionsPatternPatchArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'onExitCodes' in kwargs:
+        if on_exit_codes is None and 'onExitCodes' in kwargs:
             on_exit_codes = kwargs['onExitCodes']
-        if 'onPodConditions' in kwargs:
+        if on_pod_conditions is None and 'onPodConditions' in kwargs:
             on_pod_conditions = kwargs['onPodConditions']
 
         if action is not None:
@@ -2251,14 +2269,18 @@ class PodFailurePolicyRuleArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             action: pulumi.Input[str],
-             on_pod_conditions: pulumi.Input[Sequence[pulumi.Input['PodFailurePolicyOnPodConditionsPatternArgs']]],
+             action: Optional[pulumi.Input[str]] = None,
+             on_pod_conditions: Optional[pulumi.Input[Sequence[pulumi.Input['PodFailurePolicyOnPodConditionsPatternArgs']]]] = None,
              on_exit_codes: Optional[pulumi.Input['PodFailurePolicyOnExitCodesRequirementArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'onPodConditions' in kwargs:
+        if action is None:
+            raise TypeError("Missing 'action' argument")
+        if on_pod_conditions is None and 'onPodConditions' in kwargs:
             on_pod_conditions = kwargs['onPodConditions']
-        if 'onExitCodes' in kwargs:
+        if on_pod_conditions is None:
+            raise TypeError("Missing 'on_pod_conditions' argument")
+        if on_exit_codes is None and 'onExitCodes' in kwargs:
             on_exit_codes = kwargs['onExitCodes']
 
         _setter("action", action)
@@ -2330,9 +2352,11 @@ class PodFailurePolicyArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             rules: pulumi.Input[Sequence[pulumi.Input['PodFailurePolicyRuleArgs']]],
+             rules: Optional[pulumi.Input[Sequence[pulumi.Input['PodFailurePolicyRuleArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if rules is None:
+            raise TypeError("Missing 'rules' argument")
 
         _setter("rules", rules)
 

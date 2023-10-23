@@ -361,11 +361,11 @@ class AWSElasticBlockStoreVolumeSourcePatchArgs:
              volume_id: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'fsType' in kwargs:
+        if fs_type is None and 'fsType' in kwargs:
             fs_type = kwargs['fsType']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
-        if 'volumeID' in kwargs:
+        if volume_id is None and 'volumeID' in kwargs:
             volume_id = kwargs['volumeID']
 
         if fs_type is not None:
@@ -452,17 +452,19 @@ class AWSElasticBlockStoreVolumeSourceArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             volume_id: pulumi.Input[str],
+             volume_id: Optional[pulumi.Input[str]] = None,
              fs_type: Optional[pulumi.Input[str]] = None,
              partition: Optional[pulumi.Input[int]] = None,
              read_only: Optional[pulumi.Input[bool]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'volumeID' in kwargs:
+        if volume_id is None and 'volumeID' in kwargs:
             volume_id = kwargs['volumeID']
-        if 'fsType' in kwargs:
+        if volume_id is None:
+            raise TypeError("Missing 'volume_id' argument")
+        if fs_type is None and 'fsType' in kwargs:
             fs_type = kwargs['fsType']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
 
         _setter("volume_id", volume_id)
@@ -548,11 +550,11 @@ class AffinityPatchArgs:
              pod_anti_affinity: Optional[pulumi.Input['PodAntiAffinityPatchArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'nodeAffinity' in kwargs:
+        if node_affinity is None and 'nodeAffinity' in kwargs:
             node_affinity = kwargs['nodeAffinity']
-        if 'podAffinity' in kwargs:
+        if pod_affinity is None and 'podAffinity' in kwargs:
             pod_affinity = kwargs['podAffinity']
-        if 'podAntiAffinity' in kwargs:
+        if pod_anti_affinity is None and 'podAntiAffinity' in kwargs:
             pod_anti_affinity = kwargs['podAntiAffinity']
 
         if node_affinity is not None:
@@ -625,11 +627,11 @@ class AffinityArgs:
              pod_anti_affinity: Optional[pulumi.Input['PodAntiAffinityArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'nodeAffinity' in kwargs:
+        if node_affinity is None and 'nodeAffinity' in kwargs:
             node_affinity = kwargs['nodeAffinity']
-        if 'podAffinity' in kwargs:
+        if pod_affinity is None and 'podAffinity' in kwargs:
             pod_affinity = kwargs['podAffinity']
-        if 'podAntiAffinity' in kwargs:
+        if pod_anti_affinity is None and 'podAntiAffinity' in kwargs:
             pod_anti_affinity = kwargs['podAntiAffinity']
 
         if node_affinity is not None:
@@ -694,12 +696,16 @@ class AttachedVolumeArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             device_path: pulumi.Input[str],
-             name: pulumi.Input[str],
+             device_path: Optional[pulumi.Input[str]] = None,
+             name: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'devicePath' in kwargs:
+        if device_path is None and 'devicePath' in kwargs:
             device_path = kwargs['devicePath']
+        if device_path is None:
+            raise TypeError("Missing 'device_path' argument")
+        if name is None:
+            raise TypeError("Missing 'name' argument")
 
         _setter("device_path", device_path)
         _setter("name", name)
@@ -767,15 +773,15 @@ class AzureDiskVolumeSourcePatchArgs:
              read_only: Optional[pulumi.Input[bool]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'cachingMode' in kwargs:
+        if caching_mode is None and 'cachingMode' in kwargs:
             caching_mode = kwargs['cachingMode']
-        if 'diskName' in kwargs:
+        if disk_name is None and 'diskName' in kwargs:
             disk_name = kwargs['diskName']
-        if 'diskURI' in kwargs:
+        if disk_uri is None and 'diskURI' in kwargs:
             disk_uri = kwargs['diskURI']
-        if 'fsType' in kwargs:
+        if fs_type is None and 'fsType' in kwargs:
             fs_type = kwargs['fsType']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
 
         if caching_mode is not None:
@@ -894,23 +900,27 @@ class AzureDiskVolumeSourceArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             disk_name: pulumi.Input[str],
-             disk_uri: pulumi.Input[str],
+             disk_name: Optional[pulumi.Input[str]] = None,
+             disk_uri: Optional[pulumi.Input[str]] = None,
              caching_mode: Optional[pulumi.Input[str]] = None,
              fs_type: Optional[pulumi.Input[str]] = None,
              kind: Optional[pulumi.Input[str]] = None,
              read_only: Optional[pulumi.Input[bool]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'diskName' in kwargs:
+        if disk_name is None and 'diskName' in kwargs:
             disk_name = kwargs['diskName']
-        if 'diskURI' in kwargs:
+        if disk_name is None:
+            raise TypeError("Missing 'disk_name' argument")
+        if disk_uri is None and 'diskURI' in kwargs:
             disk_uri = kwargs['diskURI']
-        if 'cachingMode' in kwargs:
+        if disk_uri is None:
+            raise TypeError("Missing 'disk_uri' argument")
+        if caching_mode is None and 'cachingMode' in kwargs:
             caching_mode = kwargs['cachingMode']
-        if 'fsType' in kwargs:
+        if fs_type is None and 'fsType' in kwargs:
             fs_type = kwargs['fsType']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
 
         _setter("disk_name", disk_name)
@@ -1027,13 +1037,13 @@ class AzureFilePersistentVolumeSourcePatchArgs:
              share_name: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
-        if 'secretName' in kwargs:
+        if secret_name is None and 'secretName' in kwargs:
             secret_name = kwargs['secretName']
-        if 'secretNamespace' in kwargs:
+        if secret_namespace is None and 'secretNamespace' in kwargs:
             secret_namespace = kwargs['secretNamespace']
-        if 'shareName' in kwargs:
+        if share_name is None and 'shareName' in kwargs:
             share_name = kwargs['shareName']
 
         if read_only is not None:
@@ -1118,19 +1128,23 @@ class AzureFilePersistentVolumeSourceArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             secret_name: pulumi.Input[str],
-             share_name: pulumi.Input[str],
+             secret_name: Optional[pulumi.Input[str]] = None,
+             share_name: Optional[pulumi.Input[str]] = None,
              read_only: Optional[pulumi.Input[bool]] = None,
              secret_namespace: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'secretName' in kwargs:
+        if secret_name is None and 'secretName' in kwargs:
             secret_name = kwargs['secretName']
-        if 'shareName' in kwargs:
+        if secret_name is None:
+            raise TypeError("Missing 'secret_name' argument")
+        if share_name is None and 'shareName' in kwargs:
             share_name = kwargs['shareName']
-        if 'readOnly' in kwargs:
+        if share_name is None:
+            raise TypeError("Missing 'share_name' argument")
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
-        if 'secretNamespace' in kwargs:
+        if secret_namespace is None and 'secretNamespace' in kwargs:
             secret_namespace = kwargs['secretNamespace']
 
         _setter("secret_name", secret_name)
@@ -1215,11 +1229,11 @@ class AzureFileVolumeSourcePatchArgs:
              share_name: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
-        if 'secretName' in kwargs:
+        if secret_name is None and 'secretName' in kwargs:
             secret_name = kwargs['secretName']
-        if 'shareName' in kwargs:
+        if share_name is None and 'shareName' in kwargs:
             share_name = kwargs['shareName']
 
         if read_only is not None:
@@ -1287,16 +1301,20 @@ class AzureFileVolumeSourceArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             secret_name: pulumi.Input[str],
-             share_name: pulumi.Input[str],
+             secret_name: Optional[pulumi.Input[str]] = None,
+             share_name: Optional[pulumi.Input[str]] = None,
              read_only: Optional[pulumi.Input[bool]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'secretName' in kwargs:
+        if secret_name is None and 'secretName' in kwargs:
             secret_name = kwargs['secretName']
-        if 'shareName' in kwargs:
+        if secret_name is None:
+            raise TypeError("Missing 'secret_name' argument")
+        if share_name is None and 'shareName' in kwargs:
             share_name = kwargs['shareName']
-        if 'readOnly' in kwargs:
+        if share_name is None:
+            raise TypeError("Missing 'share_name' argument")
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
 
         _setter("secret_name", secret_name)
@@ -1395,23 +1413,23 @@ class CSIPersistentVolumeSourcePatchArgs:
              volume_handle: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'controllerExpandSecretRef' in kwargs:
+        if controller_expand_secret_ref is None and 'controllerExpandSecretRef' in kwargs:
             controller_expand_secret_ref = kwargs['controllerExpandSecretRef']
-        if 'controllerPublishSecretRef' in kwargs:
+        if controller_publish_secret_ref is None and 'controllerPublishSecretRef' in kwargs:
             controller_publish_secret_ref = kwargs['controllerPublishSecretRef']
-        if 'fsType' in kwargs:
+        if fs_type is None and 'fsType' in kwargs:
             fs_type = kwargs['fsType']
-        if 'nodeExpandSecretRef' in kwargs:
+        if node_expand_secret_ref is None and 'nodeExpandSecretRef' in kwargs:
             node_expand_secret_ref = kwargs['nodeExpandSecretRef']
-        if 'nodePublishSecretRef' in kwargs:
+        if node_publish_secret_ref is None and 'nodePublishSecretRef' in kwargs:
             node_publish_secret_ref = kwargs['nodePublishSecretRef']
-        if 'nodeStageSecretRef' in kwargs:
+        if node_stage_secret_ref is None and 'nodeStageSecretRef' in kwargs:
             node_stage_secret_ref = kwargs['nodeStageSecretRef']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
-        if 'volumeAttributes' in kwargs:
+        if volume_attributes is None and 'volumeAttributes' in kwargs:
             volume_attributes = kwargs['volumeAttributes']
-        if 'volumeHandle' in kwargs:
+        if volume_handle is None and 'volumeHandle' in kwargs:
             volume_handle = kwargs['volumeHandle']
 
         if controller_expand_secret_ref is not None:
@@ -1598,8 +1616,8 @@ class CSIPersistentVolumeSourceArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             driver: pulumi.Input[str],
-             volume_handle: pulumi.Input[str],
+             driver: Optional[pulumi.Input[str]] = None,
+             volume_handle: Optional[pulumi.Input[str]] = None,
              controller_expand_secret_ref: Optional[pulumi.Input['SecretReferenceArgs']] = None,
              controller_publish_secret_ref: Optional[pulumi.Input['SecretReferenceArgs']] = None,
              fs_type: Optional[pulumi.Input[str]] = None,
@@ -1610,23 +1628,27 @@ class CSIPersistentVolumeSourceArgs:
              volume_attributes: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'volumeHandle' in kwargs:
+        if driver is None:
+            raise TypeError("Missing 'driver' argument")
+        if volume_handle is None and 'volumeHandle' in kwargs:
             volume_handle = kwargs['volumeHandle']
-        if 'controllerExpandSecretRef' in kwargs:
+        if volume_handle is None:
+            raise TypeError("Missing 'volume_handle' argument")
+        if controller_expand_secret_ref is None and 'controllerExpandSecretRef' in kwargs:
             controller_expand_secret_ref = kwargs['controllerExpandSecretRef']
-        if 'controllerPublishSecretRef' in kwargs:
+        if controller_publish_secret_ref is None and 'controllerPublishSecretRef' in kwargs:
             controller_publish_secret_ref = kwargs['controllerPublishSecretRef']
-        if 'fsType' in kwargs:
+        if fs_type is None and 'fsType' in kwargs:
             fs_type = kwargs['fsType']
-        if 'nodeExpandSecretRef' in kwargs:
+        if node_expand_secret_ref is None and 'nodeExpandSecretRef' in kwargs:
             node_expand_secret_ref = kwargs['nodeExpandSecretRef']
-        if 'nodePublishSecretRef' in kwargs:
+        if node_publish_secret_ref is None and 'nodePublishSecretRef' in kwargs:
             node_publish_secret_ref = kwargs['nodePublishSecretRef']
-        if 'nodeStageSecretRef' in kwargs:
+        if node_stage_secret_ref is None and 'nodeStageSecretRef' in kwargs:
             node_stage_secret_ref = kwargs['nodeStageSecretRef']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
-        if 'volumeAttributes' in kwargs:
+        if volume_attributes is None and 'volumeAttributes' in kwargs:
             volume_attributes = kwargs['volumeAttributes']
 
         _setter("driver", driver)
@@ -1803,13 +1825,13 @@ class CSIVolumeSourcePatchArgs:
              volume_attributes: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'fsType' in kwargs:
+        if fs_type is None and 'fsType' in kwargs:
             fs_type = kwargs['fsType']
-        if 'nodePublishSecretRef' in kwargs:
+        if node_publish_secret_ref is None and 'nodePublishSecretRef' in kwargs:
             node_publish_secret_ref = kwargs['nodePublishSecretRef']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
-        if 'volumeAttributes' in kwargs:
+        if volume_attributes is None and 'volumeAttributes' in kwargs:
             volume_attributes = kwargs['volumeAttributes']
 
         if driver is not None:
@@ -1911,20 +1933,22 @@ class CSIVolumeSourceArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             driver: pulumi.Input[str],
+             driver: Optional[pulumi.Input[str]] = None,
              fs_type: Optional[pulumi.Input[str]] = None,
              node_publish_secret_ref: Optional[pulumi.Input['LocalObjectReferenceArgs']] = None,
              read_only: Optional[pulumi.Input[bool]] = None,
              volume_attributes: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'fsType' in kwargs:
+        if driver is None:
+            raise TypeError("Missing 'driver' argument")
+        if fs_type is None and 'fsType' in kwargs:
             fs_type = kwargs['fsType']
-        if 'nodePublishSecretRef' in kwargs:
+        if node_publish_secret_ref is None and 'nodePublishSecretRef' in kwargs:
             node_publish_secret_ref = kwargs['nodePublishSecretRef']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
-        if 'volumeAttributes' in kwargs:
+        if volume_attributes is None and 'volumeAttributes' in kwargs:
             volume_attributes = kwargs['volumeAttributes']
 
         _setter("driver", driver)
@@ -2142,11 +2166,11 @@ class CephFSPersistentVolumeSourcePatchArgs:
              user: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
-        if 'secretFile' in kwargs:
+        if secret_file is None and 'secretFile' in kwargs:
             secret_file = kwargs['secretFile']
-        if 'secretRef' in kwargs:
+        if secret_ref is None and 'secretRef' in kwargs:
             secret_ref = kwargs['secretRef']
 
         if monitors is not None:
@@ -2265,7 +2289,7 @@ class CephFSPersistentVolumeSourceArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             monitors: pulumi.Input[Sequence[pulumi.Input[str]]],
+             monitors: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              path: Optional[pulumi.Input[str]] = None,
              read_only: Optional[pulumi.Input[bool]] = None,
              secret_file: Optional[pulumi.Input[str]] = None,
@@ -2273,11 +2297,13 @@ class CephFSPersistentVolumeSourceArgs:
              user: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'readOnly' in kwargs:
+        if monitors is None:
+            raise TypeError("Missing 'monitors' argument")
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
-        if 'secretFile' in kwargs:
+        if secret_file is None and 'secretFile' in kwargs:
             secret_file = kwargs['secretFile']
-        if 'secretRef' in kwargs:
+        if secret_ref is None and 'secretRef' in kwargs:
             secret_ref = kwargs['secretRef']
 
         _setter("monitors", monitors)
@@ -2403,11 +2429,11 @@ class CephFSVolumeSourcePatchArgs:
              user: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
-        if 'secretFile' in kwargs:
+        if secret_file is None and 'secretFile' in kwargs:
             secret_file = kwargs['secretFile']
-        if 'secretRef' in kwargs:
+        if secret_ref is None and 'secretRef' in kwargs:
             secret_ref = kwargs['secretRef']
 
         if monitors is not None:
@@ -2526,7 +2552,7 @@ class CephFSVolumeSourceArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             monitors: pulumi.Input[Sequence[pulumi.Input[str]]],
+             monitors: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              path: Optional[pulumi.Input[str]] = None,
              read_only: Optional[pulumi.Input[bool]] = None,
              secret_file: Optional[pulumi.Input[str]] = None,
@@ -2534,11 +2560,13 @@ class CephFSVolumeSourceArgs:
              user: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'readOnly' in kwargs:
+        if monitors is None:
+            raise TypeError("Missing 'monitors' argument")
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
-        if 'secretFile' in kwargs:
+        if secret_file is None and 'secretFile' in kwargs:
             secret_file = kwargs['secretFile']
-        if 'secretRef' in kwargs:
+        if secret_ref is None and 'secretRef' in kwargs:
             secret_ref = kwargs['secretRef']
 
         _setter("monitors", monitors)
@@ -2656,13 +2684,13 @@ class CinderPersistentVolumeSourcePatchArgs:
              volume_id: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'fsType' in kwargs:
+        if fs_type is None and 'fsType' in kwargs:
             fs_type = kwargs['fsType']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
-        if 'secretRef' in kwargs:
+        if secret_ref is None and 'secretRef' in kwargs:
             secret_ref = kwargs['secretRef']
-        if 'volumeID' in kwargs:
+        if volume_id is None and 'volumeID' in kwargs:
             volume_id = kwargs['volumeID']
 
         if fs_type is not None:
@@ -2747,19 +2775,21 @@ class CinderPersistentVolumeSourceArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             volume_id: pulumi.Input[str],
+             volume_id: Optional[pulumi.Input[str]] = None,
              fs_type: Optional[pulumi.Input[str]] = None,
              read_only: Optional[pulumi.Input[bool]] = None,
              secret_ref: Optional[pulumi.Input['SecretReferenceArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'volumeID' in kwargs:
+        if volume_id is None and 'volumeID' in kwargs:
             volume_id = kwargs['volumeID']
-        if 'fsType' in kwargs:
+        if volume_id is None:
+            raise TypeError("Missing 'volume_id' argument")
+        if fs_type is None and 'fsType' in kwargs:
             fs_type = kwargs['fsType']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
-        if 'secretRef' in kwargs:
+        if secret_ref is None and 'secretRef' in kwargs:
             secret_ref = kwargs['secretRef']
 
         _setter("volume_id", volume_id)
@@ -2849,13 +2879,13 @@ class CinderVolumeSourcePatchArgs:
              volume_id: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'fsType' in kwargs:
+        if fs_type is None and 'fsType' in kwargs:
             fs_type = kwargs['fsType']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
-        if 'secretRef' in kwargs:
+        if secret_ref is None and 'secretRef' in kwargs:
             secret_ref = kwargs['secretRef']
-        if 'volumeID' in kwargs:
+        if volume_id is None and 'volumeID' in kwargs:
             volume_id = kwargs['volumeID']
 
         if fs_type is not None:
@@ -2940,19 +2970,21 @@ class CinderVolumeSourceArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             volume_id: pulumi.Input[str],
+             volume_id: Optional[pulumi.Input[str]] = None,
              fs_type: Optional[pulumi.Input[str]] = None,
              read_only: Optional[pulumi.Input[bool]] = None,
              secret_ref: Optional[pulumi.Input['LocalObjectReferenceArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'volumeID' in kwargs:
+        if volume_id is None and 'volumeID' in kwargs:
             volume_id = kwargs['volumeID']
-        if 'fsType' in kwargs:
+        if volume_id is None:
+            raise TypeError("Missing 'volume_id' argument")
+        if fs_type is None and 'fsType' in kwargs:
             fs_type = kwargs['fsType']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
-        if 'secretRef' in kwargs:
+        if secret_ref is None and 'secretRef' in kwargs:
             secret_ref = kwargs['secretRef']
 
         _setter("volume_id", volume_id)
@@ -3040,9 +3072,9 @@ class ClaimSourcePatchArgs:
              resource_claim_template_name: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'resourceClaimName' in kwargs:
+        if resource_claim_name is None and 'resourceClaimName' in kwargs:
             resource_claim_name = kwargs['resourceClaimName']
-        if 'resourceClaimTemplateName' in kwargs:
+        if resource_claim_template_name is None and 'resourceClaimTemplateName' in kwargs:
             resource_claim_template_name = kwargs['resourceClaimTemplateName']
 
         if resource_claim_name is not None:
@@ -3107,9 +3139,9 @@ class ClaimSourceArgs:
              resource_claim_template_name: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'resourceClaimName' in kwargs:
+        if resource_claim_name is None and 'resourceClaimName' in kwargs:
             resource_claim_name = kwargs['resourceClaimName']
-        if 'resourceClaimTemplateName' in kwargs:
+        if resource_claim_template_name is None and 'resourceClaimTemplateName' in kwargs:
             resource_claim_template_name = kwargs['resourceClaimTemplateName']
 
         if resource_claim_name is not None:
@@ -3164,7 +3196,7 @@ class ClientIPConfigPatchArgs:
              timeout_seconds: Optional[pulumi.Input[int]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'timeoutSeconds' in kwargs:
+        if timeout_seconds is None and 'timeoutSeconds' in kwargs:
             timeout_seconds = kwargs['timeoutSeconds']
 
         if timeout_seconds is not None:
@@ -3201,7 +3233,7 @@ class ClientIPConfigArgs:
              timeout_seconds: Optional[pulumi.Input[int]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'timeoutSeconds' in kwargs:
+        if timeout_seconds is None and 'timeoutSeconds' in kwargs:
             timeout_seconds = kwargs['timeoutSeconds']
 
         if timeout_seconds is not None:
@@ -3422,11 +3454,13 @@ class ConfigMapKeySelectorArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             key: pulumi.Input[str],
+             key: Optional[pulumi.Input[str]] = None,
              name: Optional[pulumi.Input[str]] = None,
              optional: Optional[pulumi.Input[bool]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if key is None:
+            raise TypeError("Missing 'key' argument")
 
         _setter("key", key)
         if name is not None:
@@ -3505,9 +3539,9 @@ class ConfigMapNodeConfigSourcePatchArgs:
              uid: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'kubeletConfigKey' in kwargs:
+        if kubelet_config_key is None and 'kubeletConfigKey' in kwargs:
             kubelet_config_key = kwargs['kubeletConfigKey']
-        if 'resourceVersion' in kwargs:
+        if resource_version is None and 'resourceVersion' in kwargs:
             resource_version = kwargs['resourceVersion']
 
         if kubelet_config_key is not None:
@@ -3609,16 +3643,22 @@ class ConfigMapNodeConfigSourceArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             kubelet_config_key: pulumi.Input[str],
-             name: pulumi.Input[str],
-             namespace: pulumi.Input[str],
+             kubelet_config_key: Optional[pulumi.Input[str]] = None,
+             name: Optional[pulumi.Input[str]] = None,
+             namespace: Optional[pulumi.Input[str]] = None,
              resource_version: Optional[pulumi.Input[str]] = None,
              uid: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'kubeletConfigKey' in kwargs:
+        if kubelet_config_key is None and 'kubeletConfigKey' in kwargs:
             kubelet_config_key = kwargs['kubeletConfigKey']
-        if 'resourceVersion' in kwargs:
+        if kubelet_config_key is None:
+            raise TypeError("Missing 'kubelet_config_key' argument")
+        if name is None:
+            raise TypeError("Missing 'name' argument")
+        if namespace is None:
+            raise TypeError("Missing 'namespace' argument")
+        if resource_version is None and 'resourceVersion' in kwargs:
             resource_version = kwargs['resourceVersion']
 
         _setter("kubelet_config_key", kubelet_config_key)
@@ -3868,7 +3908,7 @@ class ConfigMapVolumeSourcePatchArgs:
              optional: Optional[pulumi.Input[bool]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'defaultMode' in kwargs:
+        if default_mode is None and 'defaultMode' in kwargs:
             default_mode = kwargs['defaultMode']
 
         if default_mode is not None:
@@ -3961,7 +4001,7 @@ class ConfigMapVolumeSourceArgs:
              optional: Optional[pulumi.Input[bool]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'defaultMode' in kwargs:
+        if default_mode is None and 'defaultMode' in kwargs:
             default_mode = kwargs['defaultMode']
 
         if default_mode is not None:
@@ -4060,9 +4100,9 @@ class ConfigMapArgs:
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
-        if 'binaryData' in kwargs:
+        if binary_data is None and 'binaryData' in kwargs:
             binary_data = kwargs['binaryData']
 
         if api_version is not None:
@@ -4169,11 +4209,13 @@ class ContainerImageArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             names: pulumi.Input[Sequence[pulumi.Input[str]]],
+             names: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              size_bytes: Optional[pulumi.Input[int]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'sizeBytes' in kwargs:
+        if names is None:
+            raise TypeError("Missing 'names' argument")
+        if size_bytes is None and 'sizeBytes' in kwargs:
             size_bytes = kwargs['sizeBytes']
 
         _setter("names", names)
@@ -4315,33 +4357,33 @@ class ContainerPatchArgs:
              working_dir: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'envFrom' in kwargs:
+        if env_from is None and 'envFrom' in kwargs:
             env_from = kwargs['envFrom']
-        if 'imagePullPolicy' in kwargs:
+        if image_pull_policy is None and 'imagePullPolicy' in kwargs:
             image_pull_policy = kwargs['imagePullPolicy']
-        if 'livenessProbe' in kwargs:
+        if liveness_probe is None and 'livenessProbe' in kwargs:
             liveness_probe = kwargs['livenessProbe']
-        if 'readinessProbe' in kwargs:
+        if readiness_probe is None and 'readinessProbe' in kwargs:
             readiness_probe = kwargs['readinessProbe']
-        if 'resizePolicy' in kwargs:
+        if resize_policy is None and 'resizePolicy' in kwargs:
             resize_policy = kwargs['resizePolicy']
-        if 'restartPolicy' in kwargs:
+        if restart_policy is None and 'restartPolicy' in kwargs:
             restart_policy = kwargs['restartPolicy']
-        if 'securityContext' in kwargs:
+        if security_context is None and 'securityContext' in kwargs:
             security_context = kwargs['securityContext']
-        if 'startupProbe' in kwargs:
+        if startup_probe is None and 'startupProbe' in kwargs:
             startup_probe = kwargs['startupProbe']
-        if 'stdinOnce' in kwargs:
+        if stdin_once is None and 'stdinOnce' in kwargs:
             stdin_once = kwargs['stdinOnce']
-        if 'terminationMessagePath' in kwargs:
+        if termination_message_path is None and 'terminationMessagePath' in kwargs:
             termination_message_path = kwargs['terminationMessagePath']
-        if 'terminationMessagePolicy' in kwargs:
+        if termination_message_policy is None and 'terminationMessagePolicy' in kwargs:
             termination_message_policy = kwargs['terminationMessagePolicy']
-        if 'volumeDevices' in kwargs:
+        if volume_devices is None and 'volumeDevices' in kwargs:
             volume_devices = kwargs['volumeDevices']
-        if 'volumeMounts' in kwargs:
+        if volume_mounts is None and 'volumeMounts' in kwargs:
             volume_mounts = kwargs['volumeMounts']
-        if 'workingDir' in kwargs:
+        if working_dir is None and 'workingDir' in kwargs:
             working_dir = kwargs['workingDir']
 
         if args is not None:
@@ -4716,11 +4758,11 @@ class ContainerPortPatchArgs:
              protocol: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'containerPort' in kwargs:
+        if container_port is None and 'containerPort' in kwargs:
             container_port = kwargs['containerPort']
-        if 'hostIP' in kwargs:
+        if host_ip is None and 'hostIP' in kwargs:
             host_ip = kwargs['hostIP']
-        if 'hostPort' in kwargs:
+        if host_port is None and 'hostPort' in kwargs:
             host_port = kwargs['hostPort']
 
         if container_port is not None:
@@ -4822,18 +4864,20 @@ class ContainerPortArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             container_port: pulumi.Input[int],
+             container_port: Optional[pulumi.Input[int]] = None,
              host_ip: Optional[pulumi.Input[str]] = None,
              host_port: Optional[pulumi.Input[int]] = None,
              name: Optional[pulumi.Input[str]] = None,
              protocol: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'containerPort' in kwargs:
+        if container_port is None and 'containerPort' in kwargs:
             container_port = kwargs['containerPort']
-        if 'hostIP' in kwargs:
+        if container_port is None:
+            raise TypeError("Missing 'container_port' argument")
+        if host_ip is None and 'hostIP' in kwargs:
             host_ip = kwargs['hostIP']
-        if 'hostPort' in kwargs:
+        if host_port is None and 'hostPort' in kwargs:
             host_port = kwargs['hostPort']
 
         _setter("container_port", container_port)
@@ -4929,9 +4973,9 @@ class ContainerResizePolicyPatchArgs:
              restart_policy: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'resourceName' in kwargs:
+        if resource_name is None and 'resourceName' in kwargs:
             resource_name = kwargs['resourceName']
-        if 'restartPolicy' in kwargs:
+        if restart_policy is None and 'restartPolicy' in kwargs:
             restart_policy = kwargs['restartPolicy']
 
         if resource_name is not None:
@@ -4982,14 +5026,18 @@ class ContainerResizePolicyArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             resource_name: pulumi.Input[str],
-             restart_policy: pulumi.Input[str],
+             resource_name: Optional[pulumi.Input[str]] = None,
+             restart_policy: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'resourceName' in kwargs:
+        if resource_name is None and 'resourceName' in kwargs:
             resource_name = kwargs['resourceName']
-        if 'restartPolicy' in kwargs:
+        if resource_name is None:
+            raise TypeError("Missing 'resource_name' argument")
+        if restart_policy is None and 'restartPolicy' in kwargs:
             restart_policy = kwargs['restartPolicy']
+        if restart_policy is None:
+            raise TypeError("Missing 'restart_policy' argument")
 
         _setter("resource_name", resource_name)
         _setter("restart_policy", restart_policy)
@@ -5037,7 +5085,7 @@ class ContainerStateRunningArgs:
              started_at: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'startedAt' in kwargs:
+        if started_at is None and 'startedAt' in kwargs:
             started_at = kwargs['startedAt']
 
         if started_at is not None:
@@ -5089,7 +5137,7 @@ class ContainerStateTerminatedArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             exit_code: pulumi.Input[int],
+             exit_code: Optional[pulumi.Input[int]] = None,
              container_id: Optional[pulumi.Input[str]] = None,
              finished_at: Optional[pulumi.Input[str]] = None,
              message: Optional[pulumi.Input[str]] = None,
@@ -5098,13 +5146,15 @@ class ContainerStateTerminatedArgs:
              started_at: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'exitCode' in kwargs:
+        if exit_code is None and 'exitCode' in kwargs:
             exit_code = kwargs['exitCode']
-        if 'containerID' in kwargs:
+        if exit_code is None:
+            raise TypeError("Missing 'exit_code' argument")
+        if container_id is None and 'containerID' in kwargs:
             container_id = kwargs['containerID']
-        if 'finishedAt' in kwargs:
+        if finished_at is None and 'finishedAt' in kwargs:
             finished_at = kwargs['finishedAt']
-        if 'startedAt' in kwargs:
+        if started_at is None and 'startedAt' in kwargs:
             started_at = kwargs['startedAt']
 
         _setter("exit_code", exit_code)
@@ -5377,11 +5427,11 @@ class ContainerStatusArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             image: pulumi.Input[str],
-             image_id: pulumi.Input[str],
-             name: pulumi.Input[str],
-             ready: pulumi.Input[bool],
-             restart_count: pulumi.Input[int],
+             image: Optional[pulumi.Input[str]] = None,
+             image_id: Optional[pulumi.Input[str]] = None,
+             name: Optional[pulumi.Input[str]] = None,
+             ready: Optional[pulumi.Input[bool]] = None,
+             restart_count: Optional[pulumi.Input[int]] = None,
              allocated_resources: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
              container_id: Optional[pulumi.Input[str]] = None,
              last_state: Optional[pulumi.Input['ContainerStateArgs']] = None,
@@ -5390,15 +5440,25 @@ class ContainerStatusArgs:
              state: Optional[pulumi.Input['ContainerStateArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'imageID' in kwargs:
+        if image is None:
+            raise TypeError("Missing 'image' argument")
+        if image_id is None and 'imageID' in kwargs:
             image_id = kwargs['imageID']
-        if 'restartCount' in kwargs:
+        if image_id is None:
+            raise TypeError("Missing 'image_id' argument")
+        if name is None:
+            raise TypeError("Missing 'name' argument")
+        if ready is None:
+            raise TypeError("Missing 'ready' argument")
+        if restart_count is None and 'restartCount' in kwargs:
             restart_count = kwargs['restartCount']
-        if 'allocatedResources' in kwargs:
+        if restart_count is None:
+            raise TypeError("Missing 'restart_count' argument")
+        if allocated_resources is None and 'allocatedResources' in kwargs:
             allocated_resources = kwargs['allocatedResources']
-        if 'containerID' in kwargs:
+        if container_id is None and 'containerID' in kwargs:
             container_id = kwargs['containerID']
-        if 'lastState' in kwargs:
+        if last_state is None and 'lastState' in kwargs:
             last_state = kwargs['lastState']
 
         _setter("image", image)
@@ -5638,7 +5698,7 @@ class ContainerArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             name: pulumi.Input[str],
+             name: Optional[pulumi.Input[str]] = None,
              args: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              command: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              env: Optional[pulumi.Input[Sequence[pulumi.Input['EnvVarArgs']]]] = None,
@@ -5664,33 +5724,35 @@ class ContainerArgs:
              working_dir: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'envFrom' in kwargs:
+        if name is None:
+            raise TypeError("Missing 'name' argument")
+        if env_from is None and 'envFrom' in kwargs:
             env_from = kwargs['envFrom']
-        if 'imagePullPolicy' in kwargs:
+        if image_pull_policy is None and 'imagePullPolicy' in kwargs:
             image_pull_policy = kwargs['imagePullPolicy']
-        if 'livenessProbe' in kwargs:
+        if liveness_probe is None and 'livenessProbe' in kwargs:
             liveness_probe = kwargs['livenessProbe']
-        if 'readinessProbe' in kwargs:
+        if readiness_probe is None and 'readinessProbe' in kwargs:
             readiness_probe = kwargs['readinessProbe']
-        if 'resizePolicy' in kwargs:
+        if resize_policy is None and 'resizePolicy' in kwargs:
             resize_policy = kwargs['resizePolicy']
-        if 'restartPolicy' in kwargs:
+        if restart_policy is None and 'restartPolicy' in kwargs:
             restart_policy = kwargs['restartPolicy']
-        if 'securityContext' in kwargs:
+        if security_context is None and 'securityContext' in kwargs:
             security_context = kwargs['securityContext']
-        if 'startupProbe' in kwargs:
+        if startup_probe is None and 'startupProbe' in kwargs:
             startup_probe = kwargs['startupProbe']
-        if 'stdinOnce' in kwargs:
+        if stdin_once is None and 'stdinOnce' in kwargs:
             stdin_once = kwargs['stdinOnce']
-        if 'terminationMessagePath' in kwargs:
+        if termination_message_path is None and 'terminationMessagePath' in kwargs:
             termination_message_path = kwargs['terminationMessagePath']
-        if 'terminationMessagePolicy' in kwargs:
+        if termination_message_policy is None and 'terminationMessagePolicy' in kwargs:
             termination_message_policy = kwargs['terminationMessagePolicy']
-        if 'volumeDevices' in kwargs:
+        if volume_devices is None and 'volumeDevices' in kwargs:
             volume_devices = kwargs['volumeDevices']
-        if 'volumeMounts' in kwargs:
+        if volume_mounts is None and 'volumeMounts' in kwargs:
             volume_mounts = kwargs['volumeMounts']
-        if 'workingDir' in kwargs:
+        if working_dir is None and 'workingDir' in kwargs:
             working_dir = kwargs['workingDir']
 
         _setter("name", name)
@@ -6045,11 +6107,13 @@ class DaemonEndpointArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             port: pulumi.Input[int],
+             port: Optional[pulumi.Input[int]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'Port' in kwargs:
+        if port is None and 'Port' in kwargs:
             port = kwargs['Port']
+        if port is None:
+            raise TypeError("Missing 'port' argument")
 
         _setter("port", port)
 
@@ -6166,9 +6230,9 @@ class DownwardAPIVolumeFilePatchArgs:
              resource_field_ref: Optional[pulumi.Input['ResourceFieldSelectorPatchArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'fieldRef' in kwargs:
+        if field_ref is None and 'fieldRef' in kwargs:
             field_ref = kwargs['fieldRef']
-        if 'resourceFieldRef' in kwargs:
+        if resource_field_ref is None and 'resourceFieldRef' in kwargs:
             resource_field_ref = kwargs['resourceFieldRef']
 
         if field_ref is not None:
@@ -6253,15 +6317,17 @@ class DownwardAPIVolumeFileArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             path: pulumi.Input[str],
+             path: Optional[pulumi.Input[str]] = None,
              field_ref: Optional[pulumi.Input['ObjectFieldSelectorArgs']] = None,
              mode: Optional[pulumi.Input[int]] = None,
              resource_field_ref: Optional[pulumi.Input['ResourceFieldSelectorArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'fieldRef' in kwargs:
+        if path is None:
+            raise TypeError("Missing 'path' argument")
+        if field_ref is None and 'fieldRef' in kwargs:
             field_ref = kwargs['fieldRef']
-        if 'resourceFieldRef' in kwargs:
+        if resource_field_ref is None and 'resourceFieldRef' in kwargs:
             resource_field_ref = kwargs['resourceFieldRef']
 
         _setter("path", path)
@@ -6343,7 +6409,7 @@ class DownwardAPIVolumeSourcePatchArgs:
              items: Optional[pulumi.Input[Sequence[pulumi.Input['DownwardAPIVolumeFilePatchArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'defaultMode' in kwargs:
+        if default_mode is None and 'defaultMode' in kwargs:
             default_mode = kwargs['defaultMode']
 
         if default_mode is not None:
@@ -6398,7 +6464,7 @@ class DownwardAPIVolumeSourceArgs:
              items: Optional[pulumi.Input[Sequence[pulumi.Input['DownwardAPIVolumeFileArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'defaultMode' in kwargs:
+        if default_mode is None and 'defaultMode' in kwargs:
             default_mode = kwargs['defaultMode']
 
         if default_mode is not None:
@@ -6453,7 +6519,7 @@ class EmptyDirVolumeSourcePatchArgs:
              size_limit: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'sizeLimit' in kwargs:
+        if size_limit is None and 'sizeLimit' in kwargs:
             size_limit = kwargs['sizeLimit']
 
         if medium is not None:
@@ -6508,7 +6574,7 @@ class EmptyDirVolumeSourceArgs:
              size_limit: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'sizeLimit' in kwargs:
+        if size_limit is None and 'sizeLimit' in kwargs:
             size_limit = kwargs['sizeLimit']
 
         if medium is not None:
@@ -6571,9 +6637,9 @@ class EndpointAddressPatchArgs:
              target_ref: Optional[pulumi.Input['ObjectReferencePatchArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'nodeName' in kwargs:
+        if node_name is None and 'nodeName' in kwargs:
             node_name = kwargs['nodeName']
-        if 'targetRef' in kwargs:
+        if target_ref is None and 'targetRef' in kwargs:
             target_ref = kwargs['targetRef']
 
         if hostname is not None:
@@ -6658,15 +6724,17 @@ class EndpointAddressArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             ip: pulumi.Input[str],
+             ip: Optional[pulumi.Input[str]] = None,
              hostname: Optional[pulumi.Input[str]] = None,
              node_name: Optional[pulumi.Input[str]] = None,
              target_ref: Optional[pulumi.Input['ObjectReferenceArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'nodeName' in kwargs:
+        if ip is None:
+            raise TypeError("Missing 'ip' argument")
+        if node_name is None and 'nodeName' in kwargs:
             node_name = kwargs['nodeName']
-        if 'targetRef' in kwargs:
+        if target_ref is None and 'targetRef' in kwargs:
             target_ref = kwargs['targetRef']
 
         _setter("ip", ip)
@@ -6765,7 +6833,7 @@ class EndpointPortPatchArgs:
              protocol: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'appProtocol' in kwargs:
+        if app_protocol is None and 'appProtocol' in kwargs:
             app_protocol = kwargs['appProtocol']
 
         if app_protocol is not None:
@@ -6868,13 +6936,15 @@ class EndpointPortArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             port: pulumi.Input[int],
+             port: Optional[pulumi.Input[int]] = None,
              app_protocol: Optional[pulumi.Input[str]] = None,
              name: Optional[pulumi.Input[str]] = None,
              protocol: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'appProtocol' in kwargs:
+        if port is None:
+            raise TypeError("Missing 'port' argument")
+        if app_protocol is None and 'appProtocol' in kwargs:
             app_protocol = kwargs['appProtocol']
 
         _setter("port", port)
@@ -6979,7 +7049,7 @@ class EndpointSubsetPatchArgs:
              ports: Optional[pulumi.Input[Sequence[pulumi.Input['EndpointPortPatchArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'notReadyAddresses' in kwargs:
+        if not_ready_addresses is None and 'notReadyAddresses' in kwargs:
             not_ready_addresses = kwargs['notReadyAddresses']
 
         if addresses is not None:
@@ -7062,7 +7132,7 @@ class EndpointSubsetArgs:
              ports: Optional[pulumi.Input[Sequence[pulumi.Input['EndpointPortArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'notReadyAddresses' in kwargs:
+        if not_ready_addresses is None and 'notReadyAddresses' in kwargs:
             not_ready_addresses = kwargs['notReadyAddresses']
 
         if addresses is not None:
@@ -7151,7 +7221,7 @@ class EndpointsArgs:
              subsets: Optional[pulumi.Input[Sequence[pulumi.Input['EndpointSubsetArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -7238,9 +7308,9 @@ class EnvFromSourcePatchArgs:
              secret_ref: Optional[pulumi.Input['SecretEnvSourcePatchArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'configMapRef' in kwargs:
+        if config_map_ref is None and 'configMapRef' in kwargs:
             config_map_ref = kwargs['configMapRef']
-        if 'secretRef' in kwargs:
+        if secret_ref is None and 'secretRef' in kwargs:
             secret_ref = kwargs['secretRef']
 
         if config_map_ref is not None:
@@ -7313,9 +7383,9 @@ class EnvFromSourceArgs:
              secret_ref: Optional[pulumi.Input['SecretEnvSourceArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'configMapRef' in kwargs:
+        if config_map_ref is None and 'configMapRef' in kwargs:
             config_map_ref = kwargs['configMapRef']
-        if 'secretRef' in kwargs:
+        if secret_ref is None and 'secretRef' in kwargs:
             secret_ref = kwargs['secretRef']
 
         if config_map_ref is not None:
@@ -7388,7 +7458,7 @@ class EnvVarPatchArgs:
              value_from: Optional[pulumi.Input['EnvVarSourcePatchArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'valueFrom' in kwargs:
+        if value_from is None and 'valueFrom' in kwargs:
             value_from = kwargs['valueFrom']
 
         if name is not None:
@@ -7465,13 +7535,13 @@ class EnvVarSourcePatchArgs:
              secret_key_ref: Optional[pulumi.Input['SecretKeySelectorPatchArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'configMapKeyRef' in kwargs:
+        if config_map_key_ref is None and 'configMapKeyRef' in kwargs:
             config_map_key_ref = kwargs['configMapKeyRef']
-        if 'fieldRef' in kwargs:
+        if field_ref is None and 'fieldRef' in kwargs:
             field_ref = kwargs['fieldRef']
-        if 'resourceFieldRef' in kwargs:
+        if resource_field_ref is None and 'resourceFieldRef' in kwargs:
             resource_field_ref = kwargs['resourceFieldRef']
-        if 'secretKeyRef' in kwargs:
+        if secret_key_ref is None and 'secretKeyRef' in kwargs:
             secret_key_ref = kwargs['secretKeyRef']
 
         if config_map_key_ref is not None:
@@ -7562,13 +7632,13 @@ class EnvVarSourceArgs:
              secret_key_ref: Optional[pulumi.Input['SecretKeySelectorArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'configMapKeyRef' in kwargs:
+        if config_map_key_ref is None and 'configMapKeyRef' in kwargs:
             config_map_key_ref = kwargs['configMapKeyRef']
-        if 'fieldRef' in kwargs:
+        if field_ref is None and 'fieldRef' in kwargs:
             field_ref = kwargs['fieldRef']
-        if 'resourceFieldRef' in kwargs:
+        if resource_field_ref is None and 'resourceFieldRef' in kwargs:
             resource_field_ref = kwargs['resourceFieldRef']
-        if 'secretKeyRef' in kwargs:
+        if secret_key_ref is None and 'secretKeyRef' in kwargs:
             secret_key_ref = kwargs['secretKeyRef']
 
         if config_map_key_ref is not None:
@@ -7650,12 +7720,14 @@ class EnvVarArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             name: pulumi.Input[str],
+             name: Optional[pulumi.Input[str]] = None,
              value: Optional[pulumi.Input[str]] = None,
              value_from: Optional[pulumi.Input['EnvVarSourceArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'valueFrom' in kwargs:
+        if name is None:
+            raise TypeError("Missing 'name' argument")
+        if value_from is None and 'valueFrom' in kwargs:
             value_from = kwargs['valueFrom']
 
         _setter("name", name)
@@ -7819,35 +7891,35 @@ class EphemeralContainerPatchArgs:
              working_dir: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'envFrom' in kwargs:
+        if env_from is None and 'envFrom' in kwargs:
             env_from = kwargs['envFrom']
-        if 'imagePullPolicy' in kwargs:
+        if image_pull_policy is None and 'imagePullPolicy' in kwargs:
             image_pull_policy = kwargs['imagePullPolicy']
-        if 'livenessProbe' in kwargs:
+        if liveness_probe is None and 'livenessProbe' in kwargs:
             liveness_probe = kwargs['livenessProbe']
-        if 'readinessProbe' in kwargs:
+        if readiness_probe is None and 'readinessProbe' in kwargs:
             readiness_probe = kwargs['readinessProbe']
-        if 'resizePolicy' in kwargs:
+        if resize_policy is None and 'resizePolicy' in kwargs:
             resize_policy = kwargs['resizePolicy']
-        if 'restartPolicy' in kwargs:
+        if restart_policy is None and 'restartPolicy' in kwargs:
             restart_policy = kwargs['restartPolicy']
-        if 'securityContext' in kwargs:
+        if security_context is None and 'securityContext' in kwargs:
             security_context = kwargs['securityContext']
-        if 'startupProbe' in kwargs:
+        if startup_probe is None and 'startupProbe' in kwargs:
             startup_probe = kwargs['startupProbe']
-        if 'stdinOnce' in kwargs:
+        if stdin_once is None and 'stdinOnce' in kwargs:
             stdin_once = kwargs['stdinOnce']
-        if 'targetContainerName' in kwargs:
+        if target_container_name is None and 'targetContainerName' in kwargs:
             target_container_name = kwargs['targetContainerName']
-        if 'terminationMessagePath' in kwargs:
+        if termination_message_path is None and 'terminationMessagePath' in kwargs:
             termination_message_path = kwargs['terminationMessagePath']
-        if 'terminationMessagePolicy' in kwargs:
+        if termination_message_policy is None and 'terminationMessagePolicy' in kwargs:
             termination_message_policy = kwargs['terminationMessagePolicy']
-        if 'volumeDevices' in kwargs:
+        if volume_devices is None and 'volumeDevices' in kwargs:
             volume_devices = kwargs['volumeDevices']
-        if 'volumeMounts' in kwargs:
+        if volume_mounts is None and 'volumeMounts' in kwargs:
             volume_mounts = kwargs['volumeMounts']
-        if 'workingDir' in kwargs:
+        if working_dir is None and 'workingDir' in kwargs:
             working_dir = kwargs['workingDir']
 
         if args is not None:
@@ -8295,7 +8367,7 @@ class EphemeralContainerArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             name: pulumi.Input[str],
+             name: Optional[pulumi.Input[str]] = None,
              args: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              command: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              env: Optional[pulumi.Input[Sequence[pulumi.Input['EnvVarArgs']]]] = None,
@@ -8322,35 +8394,37 @@ class EphemeralContainerArgs:
              working_dir: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'envFrom' in kwargs:
+        if name is None:
+            raise TypeError("Missing 'name' argument")
+        if env_from is None and 'envFrom' in kwargs:
             env_from = kwargs['envFrom']
-        if 'imagePullPolicy' in kwargs:
+        if image_pull_policy is None and 'imagePullPolicy' in kwargs:
             image_pull_policy = kwargs['imagePullPolicy']
-        if 'livenessProbe' in kwargs:
+        if liveness_probe is None and 'livenessProbe' in kwargs:
             liveness_probe = kwargs['livenessProbe']
-        if 'readinessProbe' in kwargs:
+        if readiness_probe is None and 'readinessProbe' in kwargs:
             readiness_probe = kwargs['readinessProbe']
-        if 'resizePolicy' in kwargs:
+        if resize_policy is None and 'resizePolicy' in kwargs:
             resize_policy = kwargs['resizePolicy']
-        if 'restartPolicy' in kwargs:
+        if restart_policy is None and 'restartPolicy' in kwargs:
             restart_policy = kwargs['restartPolicy']
-        if 'securityContext' in kwargs:
+        if security_context is None and 'securityContext' in kwargs:
             security_context = kwargs['securityContext']
-        if 'startupProbe' in kwargs:
+        if startup_probe is None and 'startupProbe' in kwargs:
             startup_probe = kwargs['startupProbe']
-        if 'stdinOnce' in kwargs:
+        if stdin_once is None and 'stdinOnce' in kwargs:
             stdin_once = kwargs['stdinOnce']
-        if 'targetContainerName' in kwargs:
+        if target_container_name is None and 'targetContainerName' in kwargs:
             target_container_name = kwargs['targetContainerName']
-        if 'terminationMessagePath' in kwargs:
+        if termination_message_path is None and 'terminationMessagePath' in kwargs:
             termination_message_path = kwargs['terminationMessagePath']
-        if 'terminationMessagePolicy' in kwargs:
+        if termination_message_policy is None and 'terminationMessagePolicy' in kwargs:
             termination_message_policy = kwargs['terminationMessagePolicy']
-        if 'volumeDevices' in kwargs:
+        if volume_devices is None and 'volumeDevices' in kwargs:
             volume_devices = kwargs['volumeDevices']
-        if 'volumeMounts' in kwargs:
+        if volume_mounts is None and 'volumeMounts' in kwargs:
             volume_mounts = kwargs['volumeMounts']
-        if 'workingDir' in kwargs:
+        if working_dir is None and 'workingDir' in kwargs:
             working_dir = kwargs['workingDir']
 
         _setter("name", name)
@@ -8734,9 +8808,9 @@ class EphemeralVolumeSourcePatchArgs:
              volume_claim_template: Optional[pulumi.Input['PersistentVolumeClaimTemplatePatchArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
-        if 'volumeClaimTemplate' in kwargs:
+        if volume_claim_template is None and 'volumeClaimTemplate' in kwargs:
             volume_claim_template = kwargs['volumeClaimTemplate']
 
         if read_only is not None:
@@ -8803,9 +8877,9 @@ class EphemeralVolumeSourceArgs:
              volume_claim_template: Optional[pulumi.Input['PersistentVolumeClaimTemplateArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
-        if 'volumeClaimTemplate' in kwargs:
+        if volume_claim_template is None and 'volumeClaimTemplate' in kwargs:
             volume_claim_template = kwargs['volumeClaimTemplate']
 
         if read_only is not None:
@@ -8870,7 +8944,7 @@ class EventSeriesPatchArgs:
              state: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'lastObservedTime' in kwargs:
+        if last_observed_time is None and 'lastObservedTime' in kwargs:
             last_observed_time = kwargs['lastObservedTime']
 
         if count is not None:
@@ -8943,7 +9017,7 @@ class EventSeriesArgs:
              state: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'lastObservedTime' in kwargs:
+        if last_observed_time is None and 'lastObservedTime' in kwargs:
             last_observed_time = kwargs['lastObservedTime']
 
         if count is not None:
@@ -9159,8 +9233,8 @@ class EventArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             involved_object: pulumi.Input['ObjectReferenceArgs'],
-             metadata: pulumi.Input['_meta.v1.ObjectMetaArgs'],
+             involved_object: Optional[pulumi.Input['ObjectReferenceArgs']] = None,
+             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              action: Optional[pulumi.Input[str]] = None,
              api_version: Optional[pulumi.Input[str]] = None,
              count: Optional[pulumi.Input[int]] = None,
@@ -9178,19 +9252,23 @@ class EventArgs:
              type: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'involvedObject' in kwargs:
+        if involved_object is None and 'involvedObject' in kwargs:
             involved_object = kwargs['involvedObject']
-        if 'apiVersion' in kwargs:
+        if involved_object is None:
+            raise TypeError("Missing 'involved_object' argument")
+        if metadata is None:
+            raise TypeError("Missing 'metadata' argument")
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
-        if 'eventTime' in kwargs:
+        if event_time is None and 'eventTime' in kwargs:
             event_time = kwargs['eventTime']
-        if 'firstTimestamp' in kwargs:
+        if first_timestamp is None and 'firstTimestamp' in kwargs:
             first_timestamp = kwargs['firstTimestamp']
-        if 'lastTimestamp' in kwargs:
+        if last_timestamp is None and 'lastTimestamp' in kwargs:
             last_timestamp = kwargs['lastTimestamp']
-        if 'reportingComponent' in kwargs:
+        if reporting_component is None and 'reportingComponent' in kwargs:
             reporting_component = kwargs['reportingComponent']
-        if 'reportingInstance' in kwargs:
+        if reporting_instance is None and 'reportingInstance' in kwargs:
             reporting_instance = kwargs['reportingInstance']
 
         _setter("involved_object", involved_object)
@@ -9535,11 +9613,11 @@ class FCVolumeSourcePatchArgs:
              wwids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'fsType' in kwargs:
+        if fs_type is None and 'fsType' in kwargs:
             fs_type = kwargs['fsType']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
-        if 'targetWWNs' in kwargs:
+        if target_wwns is None and 'targetWWNs' in kwargs:
             target_wwns = kwargs['targetWWNs']
 
         if fs_type is not None:
@@ -9648,11 +9726,11 @@ class FCVolumeSourceArgs:
              wwids: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'fsType' in kwargs:
+        if fs_type is None and 'fsType' in kwargs:
             fs_type = kwargs['fsType']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
-        if 'targetWWNs' in kwargs:
+        if target_wwns is None and 'targetWWNs' in kwargs:
             target_wwns = kwargs['targetWWNs']
 
         if fs_type is not None:
@@ -9761,11 +9839,11 @@ class FlexPersistentVolumeSourcePatchArgs:
              secret_ref: Optional[pulumi.Input['SecretReferencePatchArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'fsType' in kwargs:
+        if fs_type is None and 'fsType' in kwargs:
             fs_type = kwargs['fsType']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
-        if 'secretRef' in kwargs:
+        if secret_ref is None and 'secretRef' in kwargs:
             secret_ref = kwargs['secretRef']
 
         if driver is not None:
@@ -9867,18 +9945,20 @@ class FlexPersistentVolumeSourceArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             driver: pulumi.Input[str],
+             driver: Optional[pulumi.Input[str]] = None,
              fs_type: Optional[pulumi.Input[str]] = None,
              options: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
              read_only: Optional[pulumi.Input[bool]] = None,
              secret_ref: Optional[pulumi.Input['SecretReferenceArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'fsType' in kwargs:
+        if driver is None:
+            raise TypeError("Missing 'driver' argument")
+        if fs_type is None and 'fsType' in kwargs:
             fs_type = kwargs['fsType']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
-        if 'secretRef' in kwargs:
+        if secret_ref is None and 'secretRef' in kwargs:
             secret_ref = kwargs['secretRef']
 
         _setter("driver", driver)
@@ -9986,11 +10066,11 @@ class FlexVolumeSourcePatchArgs:
              secret_ref: Optional[pulumi.Input['LocalObjectReferencePatchArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'fsType' in kwargs:
+        if fs_type is None and 'fsType' in kwargs:
             fs_type = kwargs['fsType']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
-        if 'secretRef' in kwargs:
+        if secret_ref is None and 'secretRef' in kwargs:
             secret_ref = kwargs['secretRef']
 
         if driver is not None:
@@ -10092,18 +10172,20 @@ class FlexVolumeSourceArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             driver: pulumi.Input[str],
+             driver: Optional[pulumi.Input[str]] = None,
              fs_type: Optional[pulumi.Input[str]] = None,
              options: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
              read_only: Optional[pulumi.Input[bool]] = None,
              secret_ref: Optional[pulumi.Input['LocalObjectReferenceArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'fsType' in kwargs:
+        if driver is None:
+            raise TypeError("Missing 'driver' argument")
+        if fs_type is None and 'fsType' in kwargs:
             fs_type = kwargs['fsType']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
-        if 'secretRef' in kwargs:
+        if secret_ref is None and 'secretRef' in kwargs:
             secret_ref = kwargs['secretRef']
 
         _setter("driver", driver)
@@ -10199,9 +10281,9 @@ class FlockerVolumeSourcePatchArgs:
              dataset_uuid: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'datasetName' in kwargs:
+        if dataset_name is None and 'datasetName' in kwargs:
             dataset_name = kwargs['datasetName']
-        if 'datasetUUID' in kwargs:
+        if dataset_uuid is None and 'datasetUUID' in kwargs:
             dataset_uuid = kwargs['datasetUUID']
 
         if dataset_name is not None:
@@ -10256,9 +10338,9 @@ class FlockerVolumeSourceArgs:
              dataset_uuid: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'datasetName' in kwargs:
+        if dataset_name is None and 'datasetName' in kwargs:
             dataset_name = kwargs['datasetName']
-        if 'datasetUUID' in kwargs:
+        if dataset_uuid is None and 'datasetUUID' in kwargs:
             dataset_uuid = kwargs['datasetUUID']
 
         if dataset_name is not None:
@@ -10323,11 +10405,11 @@ class GCEPersistentDiskVolumeSourcePatchArgs:
              read_only: Optional[pulumi.Input[bool]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'fsType' in kwargs:
+        if fs_type is None and 'fsType' in kwargs:
             fs_type = kwargs['fsType']
-        if 'pdName' in kwargs:
+        if pd_name is None and 'pdName' in kwargs:
             pd_name = kwargs['pdName']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
 
         if fs_type is not None:
@@ -10414,17 +10496,19 @@ class GCEPersistentDiskVolumeSourceArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             pd_name: pulumi.Input[str],
+             pd_name: Optional[pulumi.Input[str]] = None,
              fs_type: Optional[pulumi.Input[str]] = None,
              partition: Optional[pulumi.Input[int]] = None,
              read_only: Optional[pulumi.Input[bool]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'pdName' in kwargs:
+        if pd_name is None and 'pdName' in kwargs:
             pd_name = kwargs['pdName']
-        if 'fsType' in kwargs:
+        if pd_name is None:
+            raise TypeError("Missing 'pd_name' argument")
+        if fs_type is None and 'fsType' in kwargs:
             fs_type = kwargs['fsType']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
 
         _setter("pd_name", pd_name)
@@ -10559,10 +10643,12 @@ class GRPCActionArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             port: pulumi.Input[int],
+             port: Optional[pulumi.Input[int]] = None,
              service: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if port is None:
+            raise TypeError("Missing 'port' argument")
 
         _setter("port", port)
         if service is not None:
@@ -10691,11 +10777,13 @@ class GitRepoVolumeSourceArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             repository: pulumi.Input[str],
+             repository: Optional[pulumi.Input[str]] = None,
              directory: Optional[pulumi.Input[str]] = None,
              revision: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if repository is None:
+            raise TypeError("Missing 'repository' argument")
 
         _setter("repository", repository)
         if directory is not None:
@@ -10770,9 +10858,9 @@ class GlusterfsPersistentVolumeSourcePatchArgs:
              read_only: Optional[pulumi.Input[bool]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'endpointsNamespace' in kwargs:
+        if endpoints_namespace is None and 'endpointsNamespace' in kwargs:
             endpoints_namespace = kwargs['endpointsNamespace']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
 
         if endpoints is not None:
@@ -10857,15 +10945,19 @@ class GlusterfsPersistentVolumeSourceArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             endpoints: pulumi.Input[str],
-             path: pulumi.Input[str],
+             endpoints: Optional[pulumi.Input[str]] = None,
+             path: Optional[pulumi.Input[str]] = None,
              endpoints_namespace: Optional[pulumi.Input[str]] = None,
              read_only: Optional[pulumi.Input[bool]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'endpointsNamespace' in kwargs:
+        if endpoints is None:
+            raise TypeError("Missing 'endpoints' argument")
+        if path is None:
+            raise TypeError("Missing 'path' argument")
+        if endpoints_namespace is None and 'endpointsNamespace' in kwargs:
             endpoints_namespace = kwargs['endpointsNamespace']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
 
         _setter("endpoints", endpoints)
@@ -10950,7 +11042,7 @@ class GlusterfsVolumeSourcePatchArgs:
              read_only: Optional[pulumi.Input[bool]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
 
         if endpoints is not None:
@@ -11018,12 +11110,16 @@ class GlusterfsVolumeSourceArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             endpoints: pulumi.Input[str],
-             path: pulumi.Input[str],
+             endpoints: Optional[pulumi.Input[str]] = None,
+             path: Optional[pulumi.Input[str]] = None,
              read_only: Optional[pulumi.Input[bool]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'readOnly' in kwargs:
+        if endpoints is None:
+            raise TypeError("Missing 'endpoints' argument")
+        if path is None:
+            raise TypeError("Missing 'path' argument")
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
 
         _setter("endpoints", endpoints)
@@ -11102,7 +11198,7 @@ class HTTPGetActionPatchArgs:
              scheme: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'httpHeaders' in kwargs:
+        if http_headers is None and 'httpHeaders' in kwargs:
             http_headers = kwargs['httpHeaders']
 
         if host is not None:
@@ -11204,14 +11300,16 @@ class HTTPGetActionArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             port: pulumi.Input[Union[int, str]],
+             port: Optional[pulumi.Input[Union[int, str]]] = None,
              host: Optional[pulumi.Input[str]] = None,
              http_headers: Optional[pulumi.Input[Sequence[pulumi.Input['HTTPHeaderArgs']]]] = None,
              path: Optional[pulumi.Input[str]] = None,
              scheme: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'httpHeaders' in kwargs:
+        if port is None:
+            raise TypeError("Missing 'port' argument")
+        if http_headers is None and 'httpHeaders' in kwargs:
             http_headers = kwargs['httpHeaders']
 
         _setter("port", port)
@@ -11356,10 +11454,14 @@ class HTTPHeaderArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             name: pulumi.Input[str],
-             value: pulumi.Input[str],
+             name: Optional[pulumi.Input[str]] = None,
+             value: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if name is None:
+            raise TypeError("Missing 'name' argument")
+        if value is None:
+            raise TypeError("Missing 'value' argument")
 
         _setter("name", name)
         _setter("value", value)
@@ -11601,10 +11703,12 @@ class HostPathVolumeSourceArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             path: pulumi.Input[str],
+             path: Optional[pulumi.Input[str]] = None,
              type: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if path is None:
+            raise TypeError("Missing 'path' argument")
 
         _setter("path", path)
         if type is not None:
@@ -11693,21 +11797,21 @@ class ISCSIPersistentVolumeSourcePatchArgs:
              target_portal: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'chapAuthDiscovery' in kwargs:
+        if chap_auth_discovery is None and 'chapAuthDiscovery' in kwargs:
             chap_auth_discovery = kwargs['chapAuthDiscovery']
-        if 'chapAuthSession' in kwargs:
+        if chap_auth_session is None and 'chapAuthSession' in kwargs:
             chap_auth_session = kwargs['chapAuthSession']
-        if 'fsType' in kwargs:
+        if fs_type is None and 'fsType' in kwargs:
             fs_type = kwargs['fsType']
-        if 'initiatorName' in kwargs:
+        if initiator_name is None and 'initiatorName' in kwargs:
             initiator_name = kwargs['initiatorName']
-        if 'iscsiInterface' in kwargs:
+        if iscsi_interface is None and 'iscsiInterface' in kwargs:
             iscsi_interface = kwargs['iscsiInterface']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
-        if 'secretRef' in kwargs:
+        if secret_ref is None and 'secretRef' in kwargs:
             secret_ref = kwargs['secretRef']
-        if 'targetPortal' in kwargs:
+        if target_portal is None and 'targetPortal' in kwargs:
             target_portal = kwargs['targetPortal']
 
         if chap_auth_discovery is not None:
@@ -11911,9 +12015,9 @@ class ISCSIPersistentVolumeSourceArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             iqn: pulumi.Input[str],
-             lun: pulumi.Input[int],
-             target_portal: pulumi.Input[str],
+             iqn: Optional[pulumi.Input[str]] = None,
+             lun: Optional[pulumi.Input[int]] = None,
+             target_portal: Optional[pulumi.Input[str]] = None,
              chap_auth_discovery: Optional[pulumi.Input[bool]] = None,
              chap_auth_session: Optional[pulumi.Input[bool]] = None,
              fs_type: Optional[pulumi.Input[str]] = None,
@@ -11924,21 +12028,27 @@ class ISCSIPersistentVolumeSourceArgs:
              secret_ref: Optional[pulumi.Input['SecretReferenceArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'targetPortal' in kwargs:
+        if iqn is None:
+            raise TypeError("Missing 'iqn' argument")
+        if lun is None:
+            raise TypeError("Missing 'lun' argument")
+        if target_portal is None and 'targetPortal' in kwargs:
             target_portal = kwargs['targetPortal']
-        if 'chapAuthDiscovery' in kwargs:
+        if target_portal is None:
+            raise TypeError("Missing 'target_portal' argument")
+        if chap_auth_discovery is None and 'chapAuthDiscovery' in kwargs:
             chap_auth_discovery = kwargs['chapAuthDiscovery']
-        if 'chapAuthSession' in kwargs:
+        if chap_auth_session is None and 'chapAuthSession' in kwargs:
             chap_auth_session = kwargs['chapAuthSession']
-        if 'fsType' in kwargs:
+        if fs_type is None and 'fsType' in kwargs:
             fs_type = kwargs['fsType']
-        if 'initiatorName' in kwargs:
+        if initiator_name is None and 'initiatorName' in kwargs:
             initiator_name = kwargs['initiatorName']
-        if 'iscsiInterface' in kwargs:
+        if iscsi_interface is None and 'iscsiInterface' in kwargs:
             iscsi_interface = kwargs['iscsiInterface']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
-        if 'secretRef' in kwargs:
+        if secret_ref is None and 'secretRef' in kwargs:
             secret_ref = kwargs['secretRef']
 
         _setter("iqn", iqn)
@@ -12152,21 +12262,21 @@ class ISCSIVolumeSourcePatchArgs:
              target_portal: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'chapAuthDiscovery' in kwargs:
+        if chap_auth_discovery is None and 'chapAuthDiscovery' in kwargs:
             chap_auth_discovery = kwargs['chapAuthDiscovery']
-        if 'chapAuthSession' in kwargs:
+        if chap_auth_session is None and 'chapAuthSession' in kwargs:
             chap_auth_session = kwargs['chapAuthSession']
-        if 'fsType' in kwargs:
+        if fs_type is None and 'fsType' in kwargs:
             fs_type = kwargs['fsType']
-        if 'initiatorName' in kwargs:
+        if initiator_name is None and 'initiatorName' in kwargs:
             initiator_name = kwargs['initiatorName']
-        if 'iscsiInterface' in kwargs:
+        if iscsi_interface is None and 'iscsiInterface' in kwargs:
             iscsi_interface = kwargs['iscsiInterface']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
-        if 'secretRef' in kwargs:
+        if secret_ref is None and 'secretRef' in kwargs:
             secret_ref = kwargs['secretRef']
-        if 'targetPortal' in kwargs:
+        if target_portal is None and 'targetPortal' in kwargs:
             target_portal = kwargs['targetPortal']
 
         if chap_auth_discovery is not None:
@@ -12370,9 +12480,9 @@ class ISCSIVolumeSourceArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             iqn: pulumi.Input[str],
-             lun: pulumi.Input[int],
-             target_portal: pulumi.Input[str],
+             iqn: Optional[pulumi.Input[str]] = None,
+             lun: Optional[pulumi.Input[int]] = None,
+             target_portal: Optional[pulumi.Input[str]] = None,
              chap_auth_discovery: Optional[pulumi.Input[bool]] = None,
              chap_auth_session: Optional[pulumi.Input[bool]] = None,
              fs_type: Optional[pulumi.Input[str]] = None,
@@ -12383,21 +12493,27 @@ class ISCSIVolumeSourceArgs:
              secret_ref: Optional[pulumi.Input['LocalObjectReferenceArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'targetPortal' in kwargs:
+        if iqn is None:
+            raise TypeError("Missing 'iqn' argument")
+        if lun is None:
+            raise TypeError("Missing 'lun' argument")
+        if target_portal is None and 'targetPortal' in kwargs:
             target_portal = kwargs['targetPortal']
-        if 'chapAuthDiscovery' in kwargs:
+        if target_portal is None:
+            raise TypeError("Missing 'target_portal' argument")
+        if chap_auth_discovery is None and 'chapAuthDiscovery' in kwargs:
             chap_auth_discovery = kwargs['chapAuthDiscovery']
-        if 'chapAuthSession' in kwargs:
+        if chap_auth_session is None and 'chapAuthSession' in kwargs:
             chap_auth_session = kwargs['chapAuthSession']
-        if 'fsType' in kwargs:
+        if fs_type is None and 'fsType' in kwargs:
             fs_type = kwargs['fsType']
-        if 'initiatorName' in kwargs:
+        if initiator_name is None and 'initiatorName' in kwargs:
             initiator_name = kwargs['initiatorName']
-        if 'iscsiInterface' in kwargs:
+        if iscsi_interface is None and 'iscsiInterface' in kwargs:
             iscsi_interface = kwargs['iscsiInterface']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
-        if 'secretRef' in kwargs:
+        if secret_ref is None and 'secretRef' in kwargs:
             secret_ref = kwargs['secretRef']
 
         _setter("iqn", iqn)
@@ -12645,11 +12761,15 @@ class KeyToPathArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             key: pulumi.Input[str],
-             path: pulumi.Input[str],
+             key: Optional[pulumi.Input[str]] = None,
+             path: Optional[pulumi.Input[str]] = None,
              mode: Optional[pulumi.Input[int]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if key is None:
+            raise TypeError("Missing 'key' argument")
+        if path is None:
+            raise TypeError("Missing 'path' argument")
 
         _setter("key", key)
         _setter("path", path)
@@ -12719,11 +12839,11 @@ class LifecycleHandlerPatchArgs:
              tcp_socket: Optional[pulumi.Input['TCPSocketActionPatchArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'exec' in kwargs:
+        if exec_ is None and 'exec' in kwargs:
             exec_ = kwargs['exec']
-        if 'httpGet' in kwargs:
+        if http_get is None and 'httpGet' in kwargs:
             http_get = kwargs['httpGet']
-        if 'tcpSocket' in kwargs:
+        if tcp_socket is None and 'tcpSocket' in kwargs:
             tcp_socket = kwargs['tcpSocket']
 
         if exec_ is not None:
@@ -12796,11 +12916,11 @@ class LifecycleHandlerArgs:
              tcp_socket: Optional[pulumi.Input['TCPSocketActionArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'exec' in kwargs:
+        if exec_ is None and 'exec' in kwargs:
             exec_ = kwargs['exec']
-        if 'httpGet' in kwargs:
+        if http_get is None and 'httpGet' in kwargs:
             http_get = kwargs['httpGet']
-        if 'tcpSocket' in kwargs:
+        if tcp_socket is None and 'tcpSocket' in kwargs:
             tcp_socket = kwargs['tcpSocket']
 
         if exec_ is not None:
@@ -12869,9 +12989,9 @@ class LifecyclePatchArgs:
              pre_stop: Optional[pulumi.Input['LifecycleHandlerPatchArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'postStart' in kwargs:
+        if post_start is None and 'postStart' in kwargs:
             post_start = kwargs['postStart']
-        if 'preStop' in kwargs:
+        if pre_stop is None and 'preStop' in kwargs:
             pre_stop = kwargs['preStop']
 
         if post_start is not None:
@@ -12926,9 +13046,9 @@ class LifecycleArgs:
              pre_stop: Optional[pulumi.Input['LifecycleHandlerArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'postStart' in kwargs:
+        if post_start is None and 'postStart' in kwargs:
             post_start = kwargs['postStart']
-        if 'preStop' in kwargs:
+        if pre_stop is None and 'preStop' in kwargs:
             pre_stop = kwargs['preStop']
 
         if post_start is not None:
@@ -12999,9 +13119,9 @@ class LimitRangeItemPatchArgs:
              type: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'defaultRequest' in kwargs:
+        if default_request is None and 'defaultRequest' in kwargs:
             default_request = kwargs['defaultRequest']
-        if 'maxLimitRequestRatio' in kwargs:
+        if max_limit_request_ratio is None and 'maxLimitRequestRatio' in kwargs:
             max_limit_request_ratio = kwargs['maxLimitRequestRatio']
 
         if default is not None:
@@ -13120,7 +13240,7 @@ class LimitRangeItemArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             type: pulumi.Input[str],
+             type: Optional[pulumi.Input[str]] = None,
              default: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
              default_request: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
              max: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
@@ -13128,9 +13248,11 @@ class LimitRangeItemArgs:
              min: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'defaultRequest' in kwargs:
+        if type is None:
+            raise TypeError("Missing 'type' argument")
+        if default_request is None and 'defaultRequest' in kwargs:
             default_request = kwargs['defaultRequest']
-        if 'maxLimitRequestRatio' in kwargs:
+        if max_limit_request_ratio is None and 'maxLimitRequestRatio' in kwargs:
             max_limit_request_ratio = kwargs['maxLimitRequestRatio']
 
         _setter("type", type)
@@ -13268,9 +13390,11 @@ class LimitRangeSpecArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             limits: pulumi.Input[Sequence[pulumi.Input['LimitRangeItemArgs']]],
+             limits: Optional[pulumi.Input[Sequence[pulumi.Input['LimitRangeItemArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if limits is None:
+            raise TypeError("Missing 'limits' argument")
 
         _setter("limits", limits)
 
@@ -13317,7 +13441,7 @@ class LimitRangeArgs:
              spec: Optional[pulumi.Input['LimitRangeSpecArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -13576,7 +13700,7 @@ class LocalVolumeSourcePatchArgs:
              path: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'fsType' in kwargs:
+        if fs_type is None and 'fsType' in kwargs:
             fs_type = kwargs['fsType']
 
         if fs_type is not None:
@@ -13627,11 +13751,13 @@ class LocalVolumeSourceArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             path: pulumi.Input[str],
+             path: Optional[pulumi.Input[str]] = None,
              fs_type: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'fsType' in kwargs:
+        if path is None:
+            raise TypeError("Missing 'path' argument")
+        if fs_type is None and 'fsType' in kwargs:
             fs_type = kwargs['fsType']
 
         _setter("path", path)
@@ -13689,7 +13815,7 @@ class NFSVolumeSourcePatchArgs:
              server: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
 
         if path is not None:
@@ -13757,12 +13883,16 @@ class NFSVolumeSourceArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             path: pulumi.Input[str],
-             server: pulumi.Input[str],
+             path: Optional[pulumi.Input[str]] = None,
+             server: Optional[pulumi.Input[str]] = None,
              read_only: Optional[pulumi.Input[bool]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'readOnly' in kwargs:
+        if path is None:
+            raise TypeError("Missing 'path' argument")
+        if server is None:
+            raise TypeError("Missing 'server' argument")
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
 
         _setter("path", path)
@@ -13831,14 +13961,18 @@ class NamespaceConditionArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             status: pulumi.Input[str],
-             type: pulumi.Input[str],
+             status: Optional[pulumi.Input[str]] = None,
+             type: Optional[pulumi.Input[str]] = None,
              last_transition_time: Optional[pulumi.Input[str]] = None,
              message: Optional[pulumi.Input[str]] = None,
              reason: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'lastTransitionTime' in kwargs:
+        if status is None:
+            raise TypeError("Missing 'status' argument")
+        if type is None:
+            raise TypeError("Missing 'type' argument")
+        if last_transition_time is None and 'lastTransitionTime' in kwargs:
             last_transition_time = kwargs['lastTransitionTime']
 
         _setter("status", status)
@@ -14059,7 +14193,7 @@ class NamespaceArgs:
              status: Optional[pulumi.Input['NamespaceStatusArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -14152,10 +14286,14 @@ class NodeAddressArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             address: pulumi.Input[str],
-             type: pulumi.Input[str],
+             address: Optional[pulumi.Input[str]] = None,
+             type: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if address is None:
+            raise TypeError("Missing 'address' argument")
+        if type is None:
+            raise TypeError("Missing 'type' argument")
 
         _setter("address", address)
         _setter("type", type)
@@ -14207,9 +14345,9 @@ class NodeAffinityPatchArgs:
              required_during_scheduling_ignored_during_execution: Optional[pulumi.Input['NodeSelectorPatchArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'preferredDuringSchedulingIgnoredDuringExecution' in kwargs:
+        if preferred_during_scheduling_ignored_during_execution is None and 'preferredDuringSchedulingIgnoredDuringExecution' in kwargs:
             preferred_during_scheduling_ignored_during_execution = kwargs['preferredDuringSchedulingIgnoredDuringExecution']
-        if 'requiredDuringSchedulingIgnoredDuringExecution' in kwargs:
+        if required_during_scheduling_ignored_during_execution is None and 'requiredDuringSchedulingIgnoredDuringExecution' in kwargs:
             required_during_scheduling_ignored_during_execution = kwargs['requiredDuringSchedulingIgnoredDuringExecution']
 
         if preferred_during_scheduling_ignored_during_execution is not None:
@@ -14264,9 +14402,9 @@ class NodeAffinityArgs:
              required_during_scheduling_ignored_during_execution: Optional[pulumi.Input['NodeSelectorArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'preferredDuringSchedulingIgnoredDuringExecution' in kwargs:
+        if preferred_during_scheduling_ignored_during_execution is None and 'preferredDuringSchedulingIgnoredDuringExecution' in kwargs:
             preferred_during_scheduling_ignored_during_execution = kwargs['preferredDuringSchedulingIgnoredDuringExecution']
-        if 'requiredDuringSchedulingIgnoredDuringExecution' in kwargs:
+        if required_during_scheduling_ignored_during_execution is None and 'requiredDuringSchedulingIgnoredDuringExecution' in kwargs:
             required_during_scheduling_ignored_during_execution = kwargs['requiredDuringSchedulingIgnoredDuringExecution']
 
         if preferred_during_scheduling_ignored_during_execution is not None:
@@ -14329,17 +14467,21 @@ class NodeConditionArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             status: pulumi.Input[str],
-             type: pulumi.Input[str],
+             status: Optional[pulumi.Input[str]] = None,
+             type: Optional[pulumi.Input[str]] = None,
              last_heartbeat_time: Optional[pulumi.Input[str]] = None,
              last_transition_time: Optional[pulumi.Input[str]] = None,
              message: Optional[pulumi.Input[str]] = None,
              reason: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'lastHeartbeatTime' in kwargs:
+        if status is None:
+            raise TypeError("Missing 'status' argument")
+        if type is None:
+            raise TypeError("Missing 'type' argument")
+        if last_heartbeat_time is None and 'lastHeartbeatTime' in kwargs:
             last_heartbeat_time = kwargs['lastHeartbeatTime']
-        if 'lastTransitionTime' in kwargs:
+        if last_transition_time is None and 'lastTransitionTime' in kwargs:
             last_transition_time = kwargs['lastTransitionTime']
 
         _setter("status", status)
@@ -14444,7 +14586,7 @@ class NodeConfigSourcePatchArgs:
              config_map: Optional[pulumi.Input['ConfigMapNodeConfigSourcePatchArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'configMap' in kwargs:
+        if config_map is None and 'configMap' in kwargs:
             config_map = kwargs['configMap']
 
         if config_map is not None:
@@ -14481,7 +14623,7 @@ class NodeConfigSourceArgs:
              config_map: Optional[pulumi.Input['ConfigMapNodeConfigSourceArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'configMap' in kwargs:
+        if config_map is None and 'configMap' in kwargs:
             config_map = kwargs['configMap']
 
         if config_map is not None:
@@ -14530,7 +14672,7 @@ class NodeConfigStatusArgs:
              last_known_good: Optional[pulumi.Input['NodeConfigSourceArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'lastKnownGood' in kwargs:
+        if last_known_good is None and 'lastKnownGood' in kwargs:
             last_known_good = kwargs['lastKnownGood']
 
         if active is not None:
@@ -14609,7 +14751,7 @@ class NodeDaemonEndpointsArgs:
              kubelet_endpoint: Optional[pulumi.Input['DaemonEndpointArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'kubeletEndpoint' in kwargs:
+        if kubelet_endpoint is None and 'kubeletEndpoint' in kwargs:
             kubelet_endpoint = kwargs['kubeletEndpoint']
 
         if kubelet_endpoint is not None:
@@ -14646,7 +14788,7 @@ class NodeSelectorPatchArgs:
              node_selector_terms: Optional[pulumi.Input[Sequence[pulumi.Input['NodeSelectorTermPatchArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'nodeSelectorTerms' in kwargs:
+        if node_selector_terms is None and 'nodeSelectorTerms' in kwargs:
             node_selector_terms = kwargs['nodeSelectorTerms']
 
         if node_selector_terms is not None:
@@ -14757,11 +14899,15 @@ class NodeSelectorRequirementArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             key: pulumi.Input[str],
-             operator: pulumi.Input[str],
+             key: Optional[pulumi.Input[str]] = None,
+             operator: Optional[pulumi.Input[str]] = None,
              values: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if key is None:
+            raise TypeError("Missing 'key' argument")
+        if operator is None:
+            raise TypeError("Missing 'operator' argument")
 
         _setter("key", key)
         _setter("operator", operator)
@@ -14827,9 +14973,9 @@ class NodeSelectorTermPatchArgs:
              match_fields: Optional[pulumi.Input[Sequence[pulumi.Input['NodeSelectorRequirementPatchArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'matchExpressions' in kwargs:
+        if match_expressions is None and 'matchExpressions' in kwargs:
             match_expressions = kwargs['matchExpressions']
-        if 'matchFields' in kwargs:
+        if match_fields is None and 'matchFields' in kwargs:
             match_fields = kwargs['matchFields']
 
         if match_expressions is not None:
@@ -14884,9 +15030,9 @@ class NodeSelectorTermArgs:
              match_fields: Optional[pulumi.Input[Sequence[pulumi.Input['NodeSelectorRequirementArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'matchExpressions' in kwargs:
+        if match_expressions is None and 'matchExpressions' in kwargs:
             match_expressions = kwargs['matchExpressions']
-        if 'matchFields' in kwargs:
+        if match_fields is None and 'matchFields' in kwargs:
             match_fields = kwargs['matchFields']
 
         if match_expressions is not None:
@@ -14934,11 +15080,13 @@ class NodeSelectorArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             node_selector_terms: pulumi.Input[Sequence[pulumi.Input['NodeSelectorTermArgs']]],
+             node_selector_terms: Optional[pulumi.Input[Sequence[pulumi.Input['NodeSelectorTermArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'nodeSelectorTerms' in kwargs:
+        if node_selector_terms is None and 'nodeSelectorTerms' in kwargs:
             node_selector_terms = kwargs['nodeSelectorTerms']
+        if node_selector_terms is None:
+            raise TypeError("Missing 'node_selector_terms' argument")
 
         _setter("node_selector_terms", node_selector_terms)
 
@@ -14997,15 +15145,15 @@ class NodeSpecPatchArgs:
              unschedulable: Optional[pulumi.Input[bool]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'configSource' in kwargs:
+        if config_source is None and 'configSource' in kwargs:
             config_source = kwargs['configSource']
-        if 'externalID' in kwargs:
+        if external_id is None and 'externalID' in kwargs:
             external_id = kwargs['externalID']
-        if 'podCIDR' in kwargs:
+        if pod_cidr is None and 'podCIDR' in kwargs:
             pod_cidr = kwargs['podCIDR']
-        if 'podCIDRs' in kwargs:
+        if pod_cidrs is None and 'podCIDRs' in kwargs:
             pod_cidrs = kwargs['podCIDRs']
-        if 'providerID' in kwargs:
+        if provider_id is None and 'providerID' in kwargs:
             provider_id = kwargs['providerID']
 
         if config_source is not None:
@@ -15150,15 +15298,15 @@ class NodeSpecArgs:
              unschedulable: Optional[pulumi.Input[bool]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'configSource' in kwargs:
+        if config_source is None and 'configSource' in kwargs:
             config_source = kwargs['configSource']
-        if 'externalID' in kwargs:
+        if external_id is None and 'externalID' in kwargs:
             external_id = kwargs['externalID']
-        if 'podCIDR' in kwargs:
+        if pod_cidr is None and 'podCIDR' in kwargs:
             pod_cidr = kwargs['podCIDR']
-        if 'podCIDRs' in kwargs:
+        if pod_cidrs is None and 'podCIDRs' in kwargs:
             pod_cidrs = kwargs['podCIDRs']
-        if 'providerID' in kwargs:
+        if provider_id is None and 'providerID' in kwargs:
             provider_id = kwargs['providerID']
 
         if config_source is not None:
@@ -15319,13 +15467,13 @@ class NodeStatusArgs:
              volumes_in_use: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'daemonEndpoints' in kwargs:
+        if daemon_endpoints is None and 'daemonEndpoints' in kwargs:
             daemon_endpoints = kwargs['daemonEndpoints']
-        if 'nodeInfo' in kwargs:
+        if node_info is None and 'nodeInfo' in kwargs:
             node_info = kwargs['nodeInfo']
-        if 'volumesAttached' in kwargs:
+        if volumes_attached is None and 'volumesAttached' in kwargs:
             volumes_attached = kwargs['volumesAttached']
-        if 'volumesInUse' in kwargs:
+        if volumes_in_use is None and 'volumesInUse' in kwargs:
             volumes_in_use = kwargs['volumesInUse']
 
         if addresses is not None:
@@ -15526,36 +15674,56 @@ class NodeSystemInfoArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             architecture: pulumi.Input[str],
-             boot_id: pulumi.Input[str],
-             container_runtime_version: pulumi.Input[str],
-             kernel_version: pulumi.Input[str],
-             kube_proxy_version: pulumi.Input[str],
-             kubelet_version: pulumi.Input[str],
-             machine_id: pulumi.Input[str],
-             operating_system: pulumi.Input[str],
-             os_image: pulumi.Input[str],
-             system_uuid: pulumi.Input[str],
+             architecture: Optional[pulumi.Input[str]] = None,
+             boot_id: Optional[pulumi.Input[str]] = None,
+             container_runtime_version: Optional[pulumi.Input[str]] = None,
+             kernel_version: Optional[pulumi.Input[str]] = None,
+             kube_proxy_version: Optional[pulumi.Input[str]] = None,
+             kubelet_version: Optional[pulumi.Input[str]] = None,
+             machine_id: Optional[pulumi.Input[str]] = None,
+             operating_system: Optional[pulumi.Input[str]] = None,
+             os_image: Optional[pulumi.Input[str]] = None,
+             system_uuid: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'bootID' in kwargs:
+        if architecture is None:
+            raise TypeError("Missing 'architecture' argument")
+        if boot_id is None and 'bootID' in kwargs:
             boot_id = kwargs['bootID']
-        if 'containerRuntimeVersion' in kwargs:
+        if boot_id is None:
+            raise TypeError("Missing 'boot_id' argument")
+        if container_runtime_version is None and 'containerRuntimeVersion' in kwargs:
             container_runtime_version = kwargs['containerRuntimeVersion']
-        if 'kernelVersion' in kwargs:
+        if container_runtime_version is None:
+            raise TypeError("Missing 'container_runtime_version' argument")
+        if kernel_version is None and 'kernelVersion' in kwargs:
             kernel_version = kwargs['kernelVersion']
-        if 'kubeProxyVersion' in kwargs:
+        if kernel_version is None:
+            raise TypeError("Missing 'kernel_version' argument")
+        if kube_proxy_version is None and 'kubeProxyVersion' in kwargs:
             kube_proxy_version = kwargs['kubeProxyVersion']
-        if 'kubeletVersion' in kwargs:
+        if kube_proxy_version is None:
+            raise TypeError("Missing 'kube_proxy_version' argument")
+        if kubelet_version is None and 'kubeletVersion' in kwargs:
             kubelet_version = kwargs['kubeletVersion']
-        if 'machineID' in kwargs:
+        if kubelet_version is None:
+            raise TypeError("Missing 'kubelet_version' argument")
+        if machine_id is None and 'machineID' in kwargs:
             machine_id = kwargs['machineID']
-        if 'operatingSystem' in kwargs:
+        if machine_id is None:
+            raise TypeError("Missing 'machine_id' argument")
+        if operating_system is None and 'operatingSystem' in kwargs:
             operating_system = kwargs['operatingSystem']
-        if 'osImage' in kwargs:
+        if operating_system is None:
+            raise TypeError("Missing 'operating_system' argument")
+        if os_image is None and 'osImage' in kwargs:
             os_image = kwargs['osImage']
-        if 'systemUUID' in kwargs:
+        if os_image is None:
+            raise TypeError("Missing 'os_image' argument")
+        if system_uuid is None and 'systemUUID' in kwargs:
             system_uuid = kwargs['systemUUID']
+        if system_uuid is None:
+            raise TypeError("Missing 'system_uuid' argument")
 
         _setter("architecture", architecture)
         _setter("boot_id", boot_id)
@@ -15723,7 +15891,7 @@ class NodeArgs:
              status: Optional[pulumi.Input['NodeStatusArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -15820,9 +15988,9 @@ class ObjectFieldSelectorPatchArgs:
              field_path: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
-        if 'fieldPath' in kwargs:
+        if field_path is None and 'fieldPath' in kwargs:
             field_path = kwargs['fieldPath']
 
         if api_version is not None:
@@ -15873,13 +16041,15 @@ class ObjectFieldSelectorArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             field_path: pulumi.Input[str],
+             field_path: Optional[pulumi.Input[str]] = None,
              api_version: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'fieldPath' in kwargs:
+        if field_path is None and 'fieldPath' in kwargs:
             field_path = kwargs['fieldPath']
-        if 'apiVersion' in kwargs:
+        if field_path is None:
+            raise TypeError("Missing 'field_path' argument")
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         _setter("field_path", field_path)
@@ -15953,11 +16123,11 @@ class ObjectReferencePatchArgs:
              uid: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
-        if 'fieldPath' in kwargs:
+        if field_path is None and 'fieldPath' in kwargs:
             field_path = kwargs['fieldPath']
-        if 'resourceVersion' in kwargs:
+        if resource_version is None and 'resourceVersion' in kwargs:
             resource_version = kwargs['resourceVersion']
 
         if api_version is not None:
@@ -16102,11 +16272,11 @@ class ObjectReferenceArgs:
              uid: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
-        if 'fieldPath' in kwargs:
+        if field_path is None and 'fieldPath' in kwargs:
             field_path = kwargs['fieldPath']
-        if 'resourceVersion' in kwargs:
+        if resource_version is None and 'resourceVersion' in kwargs:
             resource_version = kwargs['resourceVersion']
 
         if api_version is not None:
@@ -16245,9 +16415,9 @@ class PersistentVolumeClaimConditionPatchArgs:
              type: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'lastProbeTime' in kwargs:
+        if last_probe_time is None and 'lastProbeTime' in kwargs:
             last_probe_time = kwargs['lastProbeTime']
-        if 'lastTransitionTime' in kwargs:
+        if last_transition_time is None and 'lastTransitionTime' in kwargs:
             last_transition_time = kwargs['lastTransitionTime']
 
         if last_probe_time is not None:
@@ -16358,17 +16528,21 @@ class PersistentVolumeClaimConditionArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             status: pulumi.Input[str],
-             type: pulumi.Input[str],
+             status: Optional[pulumi.Input[str]] = None,
+             type: Optional[pulumi.Input[str]] = None,
              last_probe_time: Optional[pulumi.Input[str]] = None,
              last_transition_time: Optional[pulumi.Input[str]] = None,
              message: Optional[pulumi.Input[str]] = None,
              reason: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'lastProbeTime' in kwargs:
+        if status is None:
+            raise TypeError("Missing 'status' argument")
+        if type is None:
+            raise TypeError("Missing 'type' argument")
+        if last_probe_time is None and 'lastProbeTime' in kwargs:
             last_probe_time = kwargs['lastProbeTime']
-        if 'lastTransitionTime' in kwargs:
+        if last_transition_time is None and 'lastTransitionTime' in kwargs:
             last_transition_time = kwargs['lastTransitionTime']
 
         _setter("status", status)
@@ -16483,7 +16657,7 @@ class PersistentVolumeClaimPatchArgs:
              status: Optional[pulumi.Input['PersistentVolumeClaimStatusPatchArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -16611,17 +16785,17 @@ class PersistentVolumeClaimSpecPatchArgs:
              volume_name: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'accessModes' in kwargs:
+        if access_modes is None and 'accessModes' in kwargs:
             access_modes = kwargs['accessModes']
-        if 'dataSource' in kwargs:
+        if data_source is None and 'dataSource' in kwargs:
             data_source = kwargs['dataSource']
-        if 'dataSourceRef' in kwargs:
+        if data_source_ref is None and 'dataSourceRef' in kwargs:
             data_source_ref = kwargs['dataSourceRef']
-        if 'storageClassName' in kwargs:
+        if storage_class_name is None and 'storageClassName' in kwargs:
             storage_class_name = kwargs['storageClassName']
-        if 'volumeMode' in kwargs:
+        if volume_mode is None and 'volumeMode' in kwargs:
             volume_mode = kwargs['volumeMode']
-        if 'volumeName' in kwargs:
+        if volume_name is None and 'volumeName' in kwargs:
             volume_name = kwargs['volumeName']
 
         if access_modes is not None:
@@ -16798,17 +16972,17 @@ class PersistentVolumeClaimSpecArgs:
              volume_name: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'accessModes' in kwargs:
+        if access_modes is None and 'accessModes' in kwargs:
             access_modes = kwargs['accessModes']
-        if 'dataSource' in kwargs:
+        if data_source is None and 'dataSource' in kwargs:
             data_source = kwargs['dataSource']
-        if 'dataSourceRef' in kwargs:
+        if data_source_ref is None and 'dataSourceRef' in kwargs:
             data_source_ref = kwargs['dataSourceRef']
-        if 'storageClassName' in kwargs:
+        if storage_class_name is None and 'storageClassName' in kwargs:
             storage_class_name = kwargs['storageClassName']
-        if 'volumeMode' in kwargs:
+        if volume_mode is None and 'volumeMode' in kwargs:
             volume_mode = kwargs['volumeMode']
-        if 'volumeName' in kwargs:
+        if volume_name is None and 'volumeName' in kwargs:
             volume_name = kwargs['volumeName']
 
         if access_modes is not None:
@@ -17013,13 +17187,13 @@ class PersistentVolumeClaimStatusPatchArgs:
              resize_status: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'accessModes' in kwargs:
+        if access_modes is None and 'accessModes' in kwargs:
             access_modes = kwargs['accessModes']
-        if 'allocatedResourceStatuses' in kwargs:
+        if allocated_resource_statuses is None and 'allocatedResourceStatuses' in kwargs:
             allocated_resource_statuses = kwargs['allocatedResourceStatuses']
-        if 'allocatedResources' in kwargs:
+        if allocated_resources is None and 'allocatedResources' in kwargs:
             allocated_resources = kwargs['allocatedResources']
-        if 'resizeStatus' in kwargs:
+        if resize_status is None and 'resizeStatus' in kwargs:
             resize_status = kwargs['resizeStatus']
 
         if access_modes is not None:
@@ -17242,13 +17416,13 @@ class PersistentVolumeClaimStatusArgs:
              resize_status: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'accessModes' in kwargs:
+        if access_modes is None and 'accessModes' in kwargs:
             access_modes = kwargs['accessModes']
-        if 'allocatedResourceStatuses' in kwargs:
+        if allocated_resource_statuses is None and 'allocatedResourceStatuses' in kwargs:
             allocated_resource_statuses = kwargs['allocatedResourceStatuses']
-        if 'allocatedResources' in kwargs:
+        if allocated_resources is None and 'allocatedResources' in kwargs:
             allocated_resources = kwargs['allocatedResources']
-        if 'resizeStatus' in kwargs:
+        if resize_status is None and 'resizeStatus' in kwargs:
             resize_status = kwargs['resizeStatus']
 
         if access_modes is not None:
@@ -17461,10 +17635,12 @@ class PersistentVolumeClaimTemplateArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             spec: pulumi.Input['PersistentVolumeClaimSpecArgs'],
+             spec: Optional[pulumi.Input['PersistentVolumeClaimSpecArgs']] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if spec is None:
+            raise TypeError("Missing 'spec' argument")
 
         _setter("spec", spec)
         if metadata is not None:
@@ -17517,9 +17693,9 @@ class PersistentVolumeClaimVolumeSourcePatchArgs:
              read_only: Optional[pulumi.Input[bool]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'claimName' in kwargs:
+        if claim_name is None and 'claimName' in kwargs:
             claim_name = kwargs['claimName']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
 
         if claim_name is not None:
@@ -17570,13 +17746,15 @@ class PersistentVolumeClaimVolumeSourceArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             claim_name: pulumi.Input[str],
+             claim_name: Optional[pulumi.Input[str]] = None,
              read_only: Optional[pulumi.Input[bool]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'claimName' in kwargs:
+        if claim_name is None and 'claimName' in kwargs:
             claim_name = kwargs['claimName']
-        if 'readOnly' in kwargs:
+        if claim_name is None:
+            raise TypeError("Missing 'claim_name' argument")
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
 
         _setter("claim_name", claim_name)
@@ -17642,7 +17820,7 @@ class PersistentVolumeClaimArgs:
              status: Optional[pulumi.Input['PersistentVolumeClaimStatusArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -17851,39 +18029,39 @@ class PersistentVolumeSpecPatchArgs:
              vsphere_volume: Optional[pulumi.Input['VsphereVirtualDiskVolumeSourcePatchArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'accessModes' in kwargs:
+        if access_modes is None and 'accessModes' in kwargs:
             access_modes = kwargs['accessModes']
-        if 'awsElasticBlockStore' in kwargs:
+        if aws_elastic_block_store is None and 'awsElasticBlockStore' in kwargs:
             aws_elastic_block_store = kwargs['awsElasticBlockStore']
-        if 'azureDisk' in kwargs:
+        if azure_disk is None and 'azureDisk' in kwargs:
             azure_disk = kwargs['azureDisk']
-        if 'azureFile' in kwargs:
+        if azure_file is None and 'azureFile' in kwargs:
             azure_file = kwargs['azureFile']
-        if 'claimRef' in kwargs:
+        if claim_ref is None and 'claimRef' in kwargs:
             claim_ref = kwargs['claimRef']
-        if 'flexVolume' in kwargs:
+        if flex_volume is None and 'flexVolume' in kwargs:
             flex_volume = kwargs['flexVolume']
-        if 'gcePersistentDisk' in kwargs:
+        if gce_persistent_disk is None and 'gcePersistentDisk' in kwargs:
             gce_persistent_disk = kwargs['gcePersistentDisk']
-        if 'hostPath' in kwargs:
+        if host_path is None and 'hostPath' in kwargs:
             host_path = kwargs['hostPath']
-        if 'mountOptions' in kwargs:
+        if mount_options is None and 'mountOptions' in kwargs:
             mount_options = kwargs['mountOptions']
-        if 'nodeAffinity' in kwargs:
+        if node_affinity is None and 'nodeAffinity' in kwargs:
             node_affinity = kwargs['nodeAffinity']
-        if 'persistentVolumeReclaimPolicy' in kwargs:
+        if persistent_volume_reclaim_policy is None and 'persistentVolumeReclaimPolicy' in kwargs:
             persistent_volume_reclaim_policy = kwargs['persistentVolumeReclaimPolicy']
-        if 'photonPersistentDisk' in kwargs:
+        if photon_persistent_disk is None and 'photonPersistentDisk' in kwargs:
             photon_persistent_disk = kwargs['photonPersistentDisk']
-        if 'portworxVolume' in kwargs:
+        if portworx_volume is None and 'portworxVolume' in kwargs:
             portworx_volume = kwargs['portworxVolume']
-        if 'scaleIO' in kwargs:
+        if scale_io is None and 'scaleIO' in kwargs:
             scale_io = kwargs['scaleIO']
-        if 'storageClassName' in kwargs:
+        if storage_class_name is None and 'storageClassName' in kwargs:
             storage_class_name = kwargs['storageClassName']
-        if 'volumeMode' in kwargs:
+        if volume_mode is None and 'volumeMode' in kwargs:
             volume_mode = kwargs['volumeMode']
-        if 'vsphereVolume' in kwargs:
+        if vsphere_volume is None and 'vsphereVolume' in kwargs:
             vsphere_volume = kwargs['vsphereVolume']
 
         if access_modes is not None:
@@ -18442,39 +18620,39 @@ class PersistentVolumeSpecArgs:
              vsphere_volume: Optional[pulumi.Input['VsphereVirtualDiskVolumeSourceArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'accessModes' in kwargs:
+        if access_modes is None and 'accessModes' in kwargs:
             access_modes = kwargs['accessModes']
-        if 'awsElasticBlockStore' in kwargs:
+        if aws_elastic_block_store is None and 'awsElasticBlockStore' in kwargs:
             aws_elastic_block_store = kwargs['awsElasticBlockStore']
-        if 'azureDisk' in kwargs:
+        if azure_disk is None and 'azureDisk' in kwargs:
             azure_disk = kwargs['azureDisk']
-        if 'azureFile' in kwargs:
+        if azure_file is None and 'azureFile' in kwargs:
             azure_file = kwargs['azureFile']
-        if 'claimRef' in kwargs:
+        if claim_ref is None and 'claimRef' in kwargs:
             claim_ref = kwargs['claimRef']
-        if 'flexVolume' in kwargs:
+        if flex_volume is None and 'flexVolume' in kwargs:
             flex_volume = kwargs['flexVolume']
-        if 'gcePersistentDisk' in kwargs:
+        if gce_persistent_disk is None and 'gcePersistentDisk' in kwargs:
             gce_persistent_disk = kwargs['gcePersistentDisk']
-        if 'hostPath' in kwargs:
+        if host_path is None and 'hostPath' in kwargs:
             host_path = kwargs['hostPath']
-        if 'mountOptions' in kwargs:
+        if mount_options is None and 'mountOptions' in kwargs:
             mount_options = kwargs['mountOptions']
-        if 'nodeAffinity' in kwargs:
+        if node_affinity is None and 'nodeAffinity' in kwargs:
             node_affinity = kwargs['nodeAffinity']
-        if 'persistentVolumeReclaimPolicy' in kwargs:
+        if persistent_volume_reclaim_policy is None and 'persistentVolumeReclaimPolicy' in kwargs:
             persistent_volume_reclaim_policy = kwargs['persistentVolumeReclaimPolicy']
-        if 'photonPersistentDisk' in kwargs:
+        if photon_persistent_disk is None and 'photonPersistentDisk' in kwargs:
             photon_persistent_disk = kwargs['photonPersistentDisk']
-        if 'portworxVolume' in kwargs:
+        if portworx_volume is None and 'portworxVolume' in kwargs:
             portworx_volume = kwargs['portworxVolume']
-        if 'scaleIO' in kwargs:
+        if scale_io is None and 'scaleIO' in kwargs:
             scale_io = kwargs['scaleIO']
-        if 'storageClassName' in kwargs:
+        if storage_class_name is None and 'storageClassName' in kwargs:
             storage_class_name = kwargs['storageClassName']
-        if 'volumeMode' in kwargs:
+        if volume_mode is None and 'volumeMode' in kwargs:
             volume_mode = kwargs['volumeMode']
-        if 'vsphereVolume' in kwargs:
+        if vsphere_volume is None and 'vsphereVolume' in kwargs:
             vsphere_volume = kwargs['vsphereVolume']
 
         if access_modes is not None:
@@ -18929,7 +19107,7 @@ class PersistentVolumeStatusArgs:
              reason: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'lastPhaseTransitionTime' in kwargs:
+        if last_phase_transition_time is None and 'lastPhaseTransitionTime' in kwargs:
             last_phase_transition_time = kwargs['lastPhaseTransitionTime']
 
         if last_phase_transition_time is not None:
@@ -19024,7 +19202,7 @@ class PersistentVolumeArgs:
              status: Optional[pulumi.Input['PersistentVolumeStatusArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -19121,9 +19299,9 @@ class PhotonPersistentDiskVolumeSourcePatchArgs:
              pd_id: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'fsType' in kwargs:
+        if fs_type is None and 'fsType' in kwargs:
             fs_type = kwargs['fsType']
-        if 'pdID' in kwargs:
+        if pd_id is None and 'pdID' in kwargs:
             pd_id = kwargs['pdID']
 
         if fs_type is not None:
@@ -19174,13 +19352,15 @@ class PhotonPersistentDiskVolumeSourceArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             pd_id: pulumi.Input[str],
+             pd_id: Optional[pulumi.Input[str]] = None,
              fs_type: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'pdID' in kwargs:
+        if pd_id is None and 'pdID' in kwargs:
             pd_id = kwargs['pdID']
-        if 'fsType' in kwargs:
+        if pd_id is None:
+            raise TypeError("Missing 'pd_id' argument")
+        if fs_type is None and 'fsType' in kwargs:
             fs_type = kwargs['fsType']
 
         _setter("pd_id", pd_id)
@@ -19234,9 +19414,9 @@ class PodAffinityPatchArgs:
              required_during_scheduling_ignored_during_execution: Optional[pulumi.Input[Sequence[pulumi.Input['PodAffinityTermPatchArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'preferredDuringSchedulingIgnoredDuringExecution' in kwargs:
+        if preferred_during_scheduling_ignored_during_execution is None and 'preferredDuringSchedulingIgnoredDuringExecution' in kwargs:
             preferred_during_scheduling_ignored_during_execution = kwargs['preferredDuringSchedulingIgnoredDuringExecution']
-        if 'requiredDuringSchedulingIgnoredDuringExecution' in kwargs:
+        if required_during_scheduling_ignored_during_execution is None and 'requiredDuringSchedulingIgnoredDuringExecution' in kwargs:
             required_during_scheduling_ignored_during_execution = kwargs['requiredDuringSchedulingIgnoredDuringExecution']
 
         if preferred_during_scheduling_ignored_during_execution is not None:
@@ -19299,11 +19479,11 @@ class PodAffinityTermPatchArgs:
              topology_key: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'labelSelector' in kwargs:
+        if label_selector is None and 'labelSelector' in kwargs:
             label_selector = kwargs['labelSelector']
-        if 'namespaceSelector' in kwargs:
+        if namespace_selector is None and 'namespaceSelector' in kwargs:
             namespace_selector = kwargs['namespaceSelector']
-        if 'topologyKey' in kwargs:
+        if topology_key is None and 'topologyKey' in kwargs:
             topology_key = kwargs['topologyKey']
 
         if label_selector is not None:
@@ -19388,17 +19568,19 @@ class PodAffinityTermArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             topology_key: pulumi.Input[str],
+             topology_key: Optional[pulumi.Input[str]] = None,
              label_selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
              namespace_selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
              namespaces: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'topologyKey' in kwargs:
+        if topology_key is None and 'topologyKey' in kwargs:
             topology_key = kwargs['topologyKey']
-        if 'labelSelector' in kwargs:
+        if topology_key is None:
+            raise TypeError("Missing 'topology_key' argument")
+        if label_selector is None and 'labelSelector' in kwargs:
             label_selector = kwargs['labelSelector']
-        if 'namespaceSelector' in kwargs:
+        if namespace_selector is None and 'namespaceSelector' in kwargs:
             namespace_selector = kwargs['namespaceSelector']
 
         _setter("topology_key", topology_key)
@@ -19480,9 +19662,9 @@ class PodAffinityArgs:
              required_during_scheduling_ignored_during_execution: Optional[pulumi.Input[Sequence[pulumi.Input['PodAffinityTermArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'preferredDuringSchedulingIgnoredDuringExecution' in kwargs:
+        if preferred_during_scheduling_ignored_during_execution is None and 'preferredDuringSchedulingIgnoredDuringExecution' in kwargs:
             preferred_during_scheduling_ignored_during_execution = kwargs['preferredDuringSchedulingIgnoredDuringExecution']
-        if 'requiredDuringSchedulingIgnoredDuringExecution' in kwargs:
+        if required_during_scheduling_ignored_during_execution is None and 'requiredDuringSchedulingIgnoredDuringExecution' in kwargs:
             required_during_scheduling_ignored_during_execution = kwargs['requiredDuringSchedulingIgnoredDuringExecution']
 
         if preferred_during_scheduling_ignored_during_execution is not None:
@@ -19537,9 +19719,9 @@ class PodAntiAffinityPatchArgs:
              required_during_scheduling_ignored_during_execution: Optional[pulumi.Input[Sequence[pulumi.Input['PodAffinityTermPatchArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'preferredDuringSchedulingIgnoredDuringExecution' in kwargs:
+        if preferred_during_scheduling_ignored_during_execution is None and 'preferredDuringSchedulingIgnoredDuringExecution' in kwargs:
             preferred_during_scheduling_ignored_during_execution = kwargs['preferredDuringSchedulingIgnoredDuringExecution']
-        if 'requiredDuringSchedulingIgnoredDuringExecution' in kwargs:
+        if required_during_scheduling_ignored_during_execution is None and 'requiredDuringSchedulingIgnoredDuringExecution' in kwargs:
             required_during_scheduling_ignored_during_execution = kwargs['requiredDuringSchedulingIgnoredDuringExecution']
 
         if preferred_during_scheduling_ignored_during_execution is not None:
@@ -19594,9 +19776,9 @@ class PodAntiAffinityArgs:
              required_during_scheduling_ignored_during_execution: Optional[pulumi.Input[Sequence[pulumi.Input['PodAffinityTermArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'preferredDuringSchedulingIgnoredDuringExecution' in kwargs:
+        if preferred_during_scheduling_ignored_during_execution is None and 'preferredDuringSchedulingIgnoredDuringExecution' in kwargs:
             preferred_during_scheduling_ignored_during_execution = kwargs['preferredDuringSchedulingIgnoredDuringExecution']
-        if 'requiredDuringSchedulingIgnoredDuringExecution' in kwargs:
+        if required_during_scheduling_ignored_during_execution is None and 'requiredDuringSchedulingIgnoredDuringExecution' in kwargs:
             required_during_scheduling_ignored_during_execution = kwargs['requiredDuringSchedulingIgnoredDuringExecution']
 
         if preferred_during_scheduling_ignored_during_execution is not None:
@@ -19659,17 +19841,21 @@ class PodConditionArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             status: pulumi.Input[str],
-             type: pulumi.Input[str],
+             status: Optional[pulumi.Input[str]] = None,
+             type: Optional[pulumi.Input[str]] = None,
              last_probe_time: Optional[pulumi.Input[str]] = None,
              last_transition_time: Optional[pulumi.Input[str]] = None,
              message: Optional[pulumi.Input[str]] = None,
              reason: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'lastProbeTime' in kwargs:
+        if status is None:
+            raise TypeError("Missing 'status' argument")
+        if type is None:
+            raise TypeError("Missing 'type' argument")
+        if last_probe_time is None and 'lastProbeTime' in kwargs:
             last_probe_time = kwargs['lastProbeTime']
-        if 'lastTransitionTime' in kwargs:
+        if last_transition_time is None and 'lastTransitionTime' in kwargs:
             last_transition_time = kwargs['lastTransitionTime']
 
         _setter("status", status)
@@ -20081,9 +20267,11 @@ class PodOSArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             name: pulumi.Input[str],
+             name: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if name is None:
+            raise TypeError("Missing 'name' argument")
 
         _setter("name", name)
 
@@ -20118,7 +20306,7 @@ class PodReadinessGatePatchArgs:
              condition_type: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'conditionType' in kwargs:
+        if condition_type is None and 'conditionType' in kwargs:
             condition_type = kwargs['conditionType']
 
         if condition_type is not None:
@@ -20152,11 +20340,13 @@ class PodReadinessGateArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             condition_type: pulumi.Input[str],
+             condition_type: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'conditionType' in kwargs:
+        if condition_type is None and 'conditionType' in kwargs:
             condition_type = kwargs['conditionType']
+        if condition_type is None:
+            raise TypeError("Missing 'condition_type' argument")
 
         _setter("condition_type", condition_type)
 
@@ -20244,11 +20434,13 @@ class PodResourceClaimStatusArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             name: pulumi.Input[str],
+             name: Optional[pulumi.Input[str]] = None,
              resource_claim_name: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'resourceClaimName' in kwargs:
+        if name is None:
+            raise TypeError("Missing 'name' argument")
+        if resource_claim_name is None and 'resourceClaimName' in kwargs:
             resource_claim_name = kwargs['resourceClaimName']
 
         _setter("name", name)
@@ -20298,10 +20490,12 @@ class PodResourceClaimArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             name: pulumi.Input[str],
+             name: Optional[pulumi.Input[str]] = None,
              source: Optional[pulumi.Input['ClaimSourceArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if name is None:
+            raise TypeError("Missing 'name' argument")
 
         _setter("name", name)
         if source is not None:
@@ -20382,9 +20576,11 @@ class PodSchedulingGateArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             name: pulumi.Input[str],
+             name: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if name is None:
+            raise TypeError("Missing 'name' argument")
 
         _setter("name", name)
 
@@ -20459,23 +20655,23 @@ class PodSecurityContextPatchArgs:
              windows_options: Optional[pulumi.Input['WindowsSecurityContextOptionsPatchArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'fsGroup' in kwargs:
+        if fs_group is None and 'fsGroup' in kwargs:
             fs_group = kwargs['fsGroup']
-        if 'fsGroupChangePolicy' in kwargs:
+        if fs_group_change_policy is None and 'fsGroupChangePolicy' in kwargs:
             fs_group_change_policy = kwargs['fsGroupChangePolicy']
-        if 'runAsGroup' in kwargs:
+        if run_as_group is None and 'runAsGroup' in kwargs:
             run_as_group = kwargs['runAsGroup']
-        if 'runAsNonRoot' in kwargs:
+        if run_as_non_root is None and 'runAsNonRoot' in kwargs:
             run_as_non_root = kwargs['runAsNonRoot']
-        if 'runAsUser' in kwargs:
+        if run_as_user is None and 'runAsUser' in kwargs:
             run_as_user = kwargs['runAsUser']
-        if 'seLinuxOptions' in kwargs:
+        if se_linux_options is None and 'seLinuxOptions' in kwargs:
             se_linux_options = kwargs['seLinuxOptions']
-        if 'seccompProfile' in kwargs:
+        if seccomp_profile is None and 'seccompProfile' in kwargs:
             seccomp_profile = kwargs['seccompProfile']
-        if 'supplementalGroups' in kwargs:
+        if supplemental_groups is None and 'supplementalGroups' in kwargs:
             supplemental_groups = kwargs['supplementalGroups']
-        if 'windowsOptions' in kwargs:
+        if windows_options is None and 'windowsOptions' in kwargs:
             windows_options = kwargs['windowsOptions']
 
         if fs_group is not None:
@@ -20682,23 +20878,23 @@ class PodSecurityContextArgs:
              windows_options: Optional[pulumi.Input['WindowsSecurityContextOptionsArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'fsGroup' in kwargs:
+        if fs_group is None and 'fsGroup' in kwargs:
             fs_group = kwargs['fsGroup']
-        if 'fsGroupChangePolicy' in kwargs:
+        if fs_group_change_policy is None and 'fsGroupChangePolicy' in kwargs:
             fs_group_change_policy = kwargs['fsGroupChangePolicy']
-        if 'runAsGroup' in kwargs:
+        if run_as_group is None and 'runAsGroup' in kwargs:
             run_as_group = kwargs['runAsGroup']
-        if 'runAsNonRoot' in kwargs:
+        if run_as_non_root is None and 'runAsNonRoot' in kwargs:
             run_as_non_root = kwargs['runAsNonRoot']
-        if 'runAsUser' in kwargs:
+        if run_as_user is None and 'runAsUser' in kwargs:
             run_as_user = kwargs['runAsUser']
-        if 'seLinuxOptions' in kwargs:
+        if se_linux_options is None and 'seLinuxOptions' in kwargs:
             se_linux_options = kwargs['seLinuxOptions']
-        if 'seccompProfile' in kwargs:
+        if seccomp_profile is None and 'seccompProfile' in kwargs:
             seccomp_profile = kwargs['seccompProfile']
-        if 'supplementalGroups' in kwargs:
+        if supplemental_groups is None and 'supplementalGroups' in kwargs:
             supplemental_groups = kwargs['supplementalGroups']
-        if 'windowsOptions' in kwargs:
+        if windows_options is None and 'windowsOptions' in kwargs:
             windows_options = kwargs['windowsOptions']
 
         if fs_group is not None:
@@ -21029,65 +21225,65 @@ class PodSpecPatchArgs:
              volumes: Optional[pulumi.Input[Sequence[pulumi.Input['VolumePatchArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'activeDeadlineSeconds' in kwargs:
+        if active_deadline_seconds is None and 'activeDeadlineSeconds' in kwargs:
             active_deadline_seconds = kwargs['activeDeadlineSeconds']
-        if 'automountServiceAccountToken' in kwargs:
+        if automount_service_account_token is None and 'automountServiceAccountToken' in kwargs:
             automount_service_account_token = kwargs['automountServiceAccountToken']
-        if 'dnsConfig' in kwargs:
+        if dns_config is None and 'dnsConfig' in kwargs:
             dns_config = kwargs['dnsConfig']
-        if 'dnsPolicy' in kwargs:
+        if dns_policy is None and 'dnsPolicy' in kwargs:
             dns_policy = kwargs['dnsPolicy']
-        if 'enableServiceLinks' in kwargs:
+        if enable_service_links is None and 'enableServiceLinks' in kwargs:
             enable_service_links = kwargs['enableServiceLinks']
-        if 'ephemeralContainers' in kwargs:
+        if ephemeral_containers is None and 'ephemeralContainers' in kwargs:
             ephemeral_containers = kwargs['ephemeralContainers']
-        if 'hostAliases' in kwargs:
+        if host_aliases is None and 'hostAliases' in kwargs:
             host_aliases = kwargs['hostAliases']
-        if 'hostIPC' in kwargs:
+        if host_ipc is None and 'hostIPC' in kwargs:
             host_ipc = kwargs['hostIPC']
-        if 'hostNetwork' in kwargs:
+        if host_network is None and 'hostNetwork' in kwargs:
             host_network = kwargs['hostNetwork']
-        if 'hostPID' in kwargs:
+        if host_pid is None and 'hostPID' in kwargs:
             host_pid = kwargs['hostPID']
-        if 'hostUsers' in kwargs:
+        if host_users is None and 'hostUsers' in kwargs:
             host_users = kwargs['hostUsers']
-        if 'imagePullSecrets' in kwargs:
+        if image_pull_secrets is None and 'imagePullSecrets' in kwargs:
             image_pull_secrets = kwargs['imagePullSecrets']
-        if 'initContainers' in kwargs:
+        if init_containers is None and 'initContainers' in kwargs:
             init_containers = kwargs['initContainers']
-        if 'nodeName' in kwargs:
+        if node_name is None and 'nodeName' in kwargs:
             node_name = kwargs['nodeName']
-        if 'nodeSelector' in kwargs:
+        if node_selector is None and 'nodeSelector' in kwargs:
             node_selector = kwargs['nodeSelector']
-        if 'preemptionPolicy' in kwargs:
+        if preemption_policy is None and 'preemptionPolicy' in kwargs:
             preemption_policy = kwargs['preemptionPolicy']
-        if 'priorityClassName' in kwargs:
+        if priority_class_name is None and 'priorityClassName' in kwargs:
             priority_class_name = kwargs['priorityClassName']
-        if 'readinessGates' in kwargs:
+        if readiness_gates is None and 'readinessGates' in kwargs:
             readiness_gates = kwargs['readinessGates']
-        if 'resourceClaims' in kwargs:
+        if resource_claims is None and 'resourceClaims' in kwargs:
             resource_claims = kwargs['resourceClaims']
-        if 'restartPolicy' in kwargs:
+        if restart_policy is None and 'restartPolicy' in kwargs:
             restart_policy = kwargs['restartPolicy']
-        if 'runtimeClassName' in kwargs:
+        if runtime_class_name is None and 'runtimeClassName' in kwargs:
             runtime_class_name = kwargs['runtimeClassName']
-        if 'schedulerName' in kwargs:
+        if scheduler_name is None and 'schedulerName' in kwargs:
             scheduler_name = kwargs['schedulerName']
-        if 'schedulingGates' in kwargs:
+        if scheduling_gates is None and 'schedulingGates' in kwargs:
             scheduling_gates = kwargs['schedulingGates']
-        if 'securityContext' in kwargs:
+        if security_context is None and 'securityContext' in kwargs:
             security_context = kwargs['securityContext']
-        if 'serviceAccount' in kwargs:
+        if service_account is None and 'serviceAccount' in kwargs:
             service_account = kwargs['serviceAccount']
-        if 'serviceAccountName' in kwargs:
+        if service_account_name is None and 'serviceAccountName' in kwargs:
             service_account_name = kwargs['serviceAccountName']
-        if 'setHostnameAsFQDN' in kwargs:
+        if set_hostname_as_fqdn is None and 'setHostnameAsFQDN' in kwargs:
             set_hostname_as_fqdn = kwargs['setHostnameAsFQDN']
-        if 'shareProcessNamespace' in kwargs:
+        if share_process_namespace is None and 'shareProcessNamespace' in kwargs:
             share_process_namespace = kwargs['shareProcessNamespace']
-        if 'terminationGracePeriodSeconds' in kwargs:
+        if termination_grace_period_seconds is None and 'terminationGracePeriodSeconds' in kwargs:
             termination_grace_period_seconds = kwargs['terminationGracePeriodSeconds']
-        if 'topologySpreadConstraints' in kwargs:
+        if topology_spread_constraints is None and 'topologySpreadConstraints' in kwargs:
             topology_spread_constraints = kwargs['topologySpreadConstraints']
 
         if active_deadline_seconds is not None:
@@ -21791,7 +21987,7 @@ class PodSpecArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             containers: pulumi.Input[Sequence[pulumi.Input['ContainerArgs']]],
+             containers: Optional[pulumi.Input[Sequence[pulumi.Input['ContainerArgs']]]] = None,
              active_deadline_seconds: Optional[pulumi.Input[int]] = None,
              affinity: Optional[pulumi.Input['AffinityArgs']] = None,
              automount_service_account_token: Optional[pulumi.Input[bool]] = None,
@@ -21832,65 +22028,67 @@ class PodSpecArgs:
              volumes: Optional[pulumi.Input[Sequence[pulumi.Input['VolumeArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'activeDeadlineSeconds' in kwargs:
+        if containers is None:
+            raise TypeError("Missing 'containers' argument")
+        if active_deadline_seconds is None and 'activeDeadlineSeconds' in kwargs:
             active_deadline_seconds = kwargs['activeDeadlineSeconds']
-        if 'automountServiceAccountToken' in kwargs:
+        if automount_service_account_token is None and 'automountServiceAccountToken' in kwargs:
             automount_service_account_token = kwargs['automountServiceAccountToken']
-        if 'dnsConfig' in kwargs:
+        if dns_config is None and 'dnsConfig' in kwargs:
             dns_config = kwargs['dnsConfig']
-        if 'dnsPolicy' in kwargs:
+        if dns_policy is None and 'dnsPolicy' in kwargs:
             dns_policy = kwargs['dnsPolicy']
-        if 'enableServiceLinks' in kwargs:
+        if enable_service_links is None and 'enableServiceLinks' in kwargs:
             enable_service_links = kwargs['enableServiceLinks']
-        if 'ephemeralContainers' in kwargs:
+        if ephemeral_containers is None and 'ephemeralContainers' in kwargs:
             ephemeral_containers = kwargs['ephemeralContainers']
-        if 'hostAliases' in kwargs:
+        if host_aliases is None and 'hostAliases' in kwargs:
             host_aliases = kwargs['hostAliases']
-        if 'hostIPC' in kwargs:
+        if host_ipc is None and 'hostIPC' in kwargs:
             host_ipc = kwargs['hostIPC']
-        if 'hostNetwork' in kwargs:
+        if host_network is None and 'hostNetwork' in kwargs:
             host_network = kwargs['hostNetwork']
-        if 'hostPID' in kwargs:
+        if host_pid is None and 'hostPID' in kwargs:
             host_pid = kwargs['hostPID']
-        if 'hostUsers' in kwargs:
+        if host_users is None and 'hostUsers' in kwargs:
             host_users = kwargs['hostUsers']
-        if 'imagePullSecrets' in kwargs:
+        if image_pull_secrets is None and 'imagePullSecrets' in kwargs:
             image_pull_secrets = kwargs['imagePullSecrets']
-        if 'initContainers' in kwargs:
+        if init_containers is None and 'initContainers' in kwargs:
             init_containers = kwargs['initContainers']
-        if 'nodeName' in kwargs:
+        if node_name is None and 'nodeName' in kwargs:
             node_name = kwargs['nodeName']
-        if 'nodeSelector' in kwargs:
+        if node_selector is None and 'nodeSelector' in kwargs:
             node_selector = kwargs['nodeSelector']
-        if 'preemptionPolicy' in kwargs:
+        if preemption_policy is None and 'preemptionPolicy' in kwargs:
             preemption_policy = kwargs['preemptionPolicy']
-        if 'priorityClassName' in kwargs:
+        if priority_class_name is None and 'priorityClassName' in kwargs:
             priority_class_name = kwargs['priorityClassName']
-        if 'readinessGates' in kwargs:
+        if readiness_gates is None and 'readinessGates' in kwargs:
             readiness_gates = kwargs['readinessGates']
-        if 'resourceClaims' in kwargs:
+        if resource_claims is None and 'resourceClaims' in kwargs:
             resource_claims = kwargs['resourceClaims']
-        if 'restartPolicy' in kwargs:
+        if restart_policy is None and 'restartPolicy' in kwargs:
             restart_policy = kwargs['restartPolicy']
-        if 'runtimeClassName' in kwargs:
+        if runtime_class_name is None and 'runtimeClassName' in kwargs:
             runtime_class_name = kwargs['runtimeClassName']
-        if 'schedulerName' in kwargs:
+        if scheduler_name is None and 'schedulerName' in kwargs:
             scheduler_name = kwargs['schedulerName']
-        if 'schedulingGates' in kwargs:
+        if scheduling_gates is None and 'schedulingGates' in kwargs:
             scheduling_gates = kwargs['schedulingGates']
-        if 'securityContext' in kwargs:
+        if security_context is None and 'securityContext' in kwargs:
             security_context = kwargs['securityContext']
-        if 'serviceAccount' in kwargs:
+        if service_account is None and 'serviceAccount' in kwargs:
             service_account = kwargs['serviceAccount']
-        if 'serviceAccountName' in kwargs:
+        if service_account_name is None and 'serviceAccountName' in kwargs:
             service_account_name = kwargs['serviceAccountName']
-        if 'setHostnameAsFQDN' in kwargs:
+        if set_hostname_as_fqdn is None and 'setHostnameAsFQDN' in kwargs:
             set_hostname_as_fqdn = kwargs['setHostnameAsFQDN']
-        if 'shareProcessNamespace' in kwargs:
+        if share_process_namespace is None and 'shareProcessNamespace' in kwargs:
             share_process_namespace = kwargs['shareProcessNamespace']
-        if 'terminationGracePeriodSeconds' in kwargs:
+        if termination_grace_period_seconds is None and 'terminationGracePeriodSeconds' in kwargs:
             termination_grace_period_seconds = kwargs['terminationGracePeriodSeconds']
-        if 'topologySpreadConstraints' in kwargs:
+        if topology_spread_constraints is None and 'topologySpreadConstraints' in kwargs:
             topology_spread_constraints = kwargs['topologySpreadConstraints']
 
         _setter("containers", containers)
@@ -22534,27 +22732,27 @@ class PodStatusArgs:
              start_time: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'containerStatuses' in kwargs:
+        if container_statuses is None and 'containerStatuses' in kwargs:
             container_statuses = kwargs['containerStatuses']
-        if 'ephemeralContainerStatuses' in kwargs:
+        if ephemeral_container_statuses is None and 'ephemeralContainerStatuses' in kwargs:
             ephemeral_container_statuses = kwargs['ephemeralContainerStatuses']
-        if 'hostIP' in kwargs:
+        if host_ip is None and 'hostIP' in kwargs:
             host_ip = kwargs['hostIP']
-        if 'hostIPs' in kwargs:
+        if host_ips is None and 'hostIPs' in kwargs:
             host_ips = kwargs['hostIPs']
-        if 'initContainerStatuses' in kwargs:
+        if init_container_statuses is None and 'initContainerStatuses' in kwargs:
             init_container_statuses = kwargs['initContainerStatuses']
-        if 'nominatedNodeName' in kwargs:
+        if nominated_node_name is None and 'nominatedNodeName' in kwargs:
             nominated_node_name = kwargs['nominatedNodeName']
-        if 'podIP' in kwargs:
+        if pod_ip is None and 'podIP' in kwargs:
             pod_ip = kwargs['podIP']
-        if 'podIPs' in kwargs:
+        if pod_ips is None and 'podIPs' in kwargs:
             pod_ips = kwargs['podIPs']
-        if 'qosClass' in kwargs:
+        if qos_class is None and 'qosClass' in kwargs:
             qos_class = kwargs['qosClass']
-        if 'resourceClaimStatuses' in kwargs:
+        if resource_claim_statuses is None and 'resourceClaimStatuses' in kwargs:
             resource_claim_statuses = kwargs['resourceClaimStatuses']
-        if 'startTime' in kwargs:
+        if start_time is None and 'startTime' in kwargs:
             start_time = kwargs['startTime']
 
         if conditions is not None:
@@ -22923,7 +23121,7 @@ class PodTemplateArgs:
              template: Optional[pulumi.Input['PodTemplateSpecArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -23033,7 +23231,7 @@ class PodArgs:
              status: Optional[pulumi.Input['PodStatusArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -23131,11 +23329,15 @@ class PortStatusArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             port: pulumi.Input[int],
-             protocol: pulumi.Input[str],
+             port: Optional[pulumi.Input[int]] = None,
+             protocol: Optional[pulumi.Input[str]] = None,
              error: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if port is None:
+            raise TypeError("Missing 'port' argument")
+        if protocol is None:
+            raise TypeError("Missing 'protocol' argument")
 
         _setter("port", port)
         _setter("protocol", protocol)
@@ -23208,11 +23410,11 @@ class PortworxVolumeSourcePatchArgs:
              volume_id: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'fsType' in kwargs:
+        if fs_type is None and 'fsType' in kwargs:
             fs_type = kwargs['fsType']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
-        if 'volumeID' in kwargs:
+        if volume_id is None and 'volumeID' in kwargs:
             volume_id = kwargs['volumeID']
 
         if fs_type is not None:
@@ -23280,16 +23482,18 @@ class PortworxVolumeSourceArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             volume_id: pulumi.Input[str],
+             volume_id: Optional[pulumi.Input[str]] = None,
              fs_type: Optional[pulumi.Input[str]] = None,
              read_only: Optional[pulumi.Input[bool]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'volumeID' in kwargs:
+        if volume_id is None and 'volumeID' in kwargs:
             volume_id = kwargs['volumeID']
-        if 'fsType' in kwargs:
+        if volume_id is None:
+            raise TypeError("Missing 'volume_id' argument")
+        if fs_type is None and 'fsType' in kwargs:
             fs_type = kwargs['fsType']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
 
         _setter("volume_id", volume_id)
@@ -23406,10 +23610,14 @@ class PreferredSchedulingTermArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             preference: pulumi.Input['NodeSelectorTermArgs'],
-             weight: pulumi.Input[int],
+             preference: Optional[pulumi.Input['NodeSelectorTermArgs']] = None,
+             weight: Optional[pulumi.Input[int]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if preference is None:
+            raise TypeError("Missing 'preference' argument")
+        if weight is None:
+            raise TypeError("Missing 'weight' argument")
 
         _setter("preference", preference)
         _setter("weight", weight)
@@ -23493,23 +23701,23 @@ class ProbePatchArgs:
              timeout_seconds: Optional[pulumi.Input[int]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'exec' in kwargs:
+        if exec_ is None and 'exec' in kwargs:
             exec_ = kwargs['exec']
-        if 'failureThreshold' in kwargs:
+        if failure_threshold is None and 'failureThreshold' in kwargs:
             failure_threshold = kwargs['failureThreshold']
-        if 'httpGet' in kwargs:
+        if http_get is None and 'httpGet' in kwargs:
             http_get = kwargs['httpGet']
-        if 'initialDelaySeconds' in kwargs:
+        if initial_delay_seconds is None and 'initialDelaySeconds' in kwargs:
             initial_delay_seconds = kwargs['initialDelaySeconds']
-        if 'periodSeconds' in kwargs:
+        if period_seconds is None and 'periodSeconds' in kwargs:
             period_seconds = kwargs['periodSeconds']
-        if 'successThreshold' in kwargs:
+        if success_threshold is None and 'successThreshold' in kwargs:
             success_threshold = kwargs['successThreshold']
-        if 'tcpSocket' in kwargs:
+        if tcp_socket is None and 'tcpSocket' in kwargs:
             tcp_socket = kwargs['tcpSocket']
-        if 'terminationGracePeriodSeconds' in kwargs:
+        if termination_grace_period_seconds is None and 'terminationGracePeriodSeconds' in kwargs:
             termination_grace_period_seconds = kwargs['terminationGracePeriodSeconds']
-        if 'timeoutSeconds' in kwargs:
+        if timeout_seconds is None and 'timeoutSeconds' in kwargs:
             timeout_seconds = kwargs['timeoutSeconds']
 
         if exec_ is not None:
@@ -23708,23 +23916,23 @@ class ProbeArgs:
              timeout_seconds: Optional[pulumi.Input[int]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'exec' in kwargs:
+        if exec_ is None and 'exec' in kwargs:
             exec_ = kwargs['exec']
-        if 'failureThreshold' in kwargs:
+        if failure_threshold is None and 'failureThreshold' in kwargs:
             failure_threshold = kwargs['failureThreshold']
-        if 'httpGet' in kwargs:
+        if http_get is None and 'httpGet' in kwargs:
             http_get = kwargs['httpGet']
-        if 'initialDelaySeconds' in kwargs:
+        if initial_delay_seconds is None and 'initialDelaySeconds' in kwargs:
             initial_delay_seconds = kwargs['initialDelaySeconds']
-        if 'periodSeconds' in kwargs:
+        if period_seconds is None and 'periodSeconds' in kwargs:
             period_seconds = kwargs['periodSeconds']
-        if 'successThreshold' in kwargs:
+        if success_threshold is None and 'successThreshold' in kwargs:
             success_threshold = kwargs['successThreshold']
-        if 'tcpSocket' in kwargs:
+        if tcp_socket is None and 'tcpSocket' in kwargs:
             tcp_socket = kwargs['tcpSocket']
-        if 'terminationGracePeriodSeconds' in kwargs:
+        if termination_grace_period_seconds is None and 'terminationGracePeriodSeconds' in kwargs:
             termination_grace_period_seconds = kwargs['terminationGracePeriodSeconds']
-        if 'timeoutSeconds' in kwargs:
+        if timeout_seconds is None and 'timeoutSeconds' in kwargs:
             timeout_seconds = kwargs['timeoutSeconds']
 
         if exec_ is not None:
@@ -23891,7 +24099,7 @@ class ProjectedVolumeSourcePatchArgs:
              sources: Optional[pulumi.Input[Sequence[pulumi.Input['VolumeProjectionPatchArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'defaultMode' in kwargs:
+        if default_mode is None and 'defaultMode' in kwargs:
             default_mode = kwargs['defaultMode']
 
         if default_mode is not None:
@@ -23942,11 +24150,13 @@ class ProjectedVolumeSourceArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             sources: pulumi.Input[Sequence[pulumi.Input['VolumeProjectionArgs']]],
+             sources: Optional[pulumi.Input[Sequence[pulumi.Input['VolumeProjectionArgs']]]] = None,
              default_mode: Optional[pulumi.Input[int]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'defaultMode' in kwargs:
+        if sources is None:
+            raise TypeError("Missing 'sources' argument")
+        if default_mode is None and 'defaultMode' in kwargs:
             default_mode = kwargs['defaultMode']
 
         _setter("sources", sources)
@@ -24016,7 +24226,7 @@ class QuobyteVolumeSourcePatchArgs:
              volume: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
 
         if group is not None:
@@ -24135,15 +24345,19 @@ class QuobyteVolumeSourceArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             registry: pulumi.Input[str],
-             volume: pulumi.Input[str],
+             registry: Optional[pulumi.Input[str]] = None,
+             volume: Optional[pulumi.Input[str]] = None,
              group: Optional[pulumi.Input[str]] = None,
              read_only: Optional[pulumi.Input[bool]] = None,
              tenant: Optional[pulumi.Input[str]] = None,
              user: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'readOnly' in kwargs:
+        if registry is None:
+            raise TypeError("Missing 'registry' argument")
+        if volume is None:
+            raise TypeError("Missing 'volume' argument")
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
 
         _setter("registry", registry)
@@ -24276,11 +24490,11 @@ class RBDPersistentVolumeSourcePatchArgs:
              user: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'fsType' in kwargs:
+        if fs_type is None and 'fsType' in kwargs:
             fs_type = kwargs['fsType']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
-        if 'secretRef' in kwargs:
+        if secret_ref is None and 'secretRef' in kwargs:
             secret_ref = kwargs['secretRef']
 
         if fs_type is not None:
@@ -24433,8 +24647,8 @@ class RBDPersistentVolumeSourceArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             image: pulumi.Input[str],
-             monitors: pulumi.Input[Sequence[pulumi.Input[str]]],
+             image: Optional[pulumi.Input[str]] = None,
+             monitors: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              fs_type: Optional[pulumi.Input[str]] = None,
              keyring: Optional[pulumi.Input[str]] = None,
              pool: Optional[pulumi.Input[str]] = None,
@@ -24443,11 +24657,15 @@ class RBDPersistentVolumeSourceArgs:
              user: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'fsType' in kwargs:
+        if image is None:
+            raise TypeError("Missing 'image' argument")
+        if monitors is None:
+            raise TypeError("Missing 'monitors' argument")
+        if fs_type is None and 'fsType' in kwargs:
             fs_type = kwargs['fsType']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
-        if 'secretRef' in kwargs:
+        if secret_ref is None and 'secretRef' in kwargs:
             secret_ref = kwargs['secretRef']
 
         _setter("image", image)
@@ -24608,11 +24826,11 @@ class RBDVolumeSourcePatchArgs:
              user: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'fsType' in kwargs:
+        if fs_type is None and 'fsType' in kwargs:
             fs_type = kwargs['fsType']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
-        if 'secretRef' in kwargs:
+        if secret_ref is None and 'secretRef' in kwargs:
             secret_ref = kwargs['secretRef']
 
         if fs_type is not None:
@@ -24765,8 +24983,8 @@ class RBDVolumeSourceArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             image: pulumi.Input[str],
-             monitors: pulumi.Input[Sequence[pulumi.Input[str]]],
+             image: Optional[pulumi.Input[str]] = None,
+             monitors: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              fs_type: Optional[pulumi.Input[str]] = None,
              keyring: Optional[pulumi.Input[str]] = None,
              pool: Optional[pulumi.Input[str]] = None,
@@ -24775,11 +24993,15 @@ class RBDVolumeSourceArgs:
              user: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'fsType' in kwargs:
+        if image is None:
+            raise TypeError("Missing 'image' argument")
+        if monitors is None:
+            raise TypeError("Missing 'monitors' argument")
+        if fs_type is None and 'fsType' in kwargs:
             fs_type = kwargs['fsType']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
-        if 'secretRef' in kwargs:
+        if secret_ref is None and 'secretRef' in kwargs:
             secret_ref = kwargs['secretRef']
 
         _setter("image", image)
@@ -24921,14 +25143,18 @@ class ReplicationControllerConditionArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             status: pulumi.Input[str],
-             type: pulumi.Input[str],
+             status: Optional[pulumi.Input[str]] = None,
+             type: Optional[pulumi.Input[str]] = None,
              last_transition_time: Optional[pulumi.Input[str]] = None,
              message: Optional[pulumi.Input[str]] = None,
              reason: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'lastTransitionTime' in kwargs:
+        if status is None:
+            raise TypeError("Missing 'status' argument")
+        if type is None:
+            raise TypeError("Missing 'type' argument")
+        if last_transition_time is None and 'lastTransitionTime' in kwargs:
             last_transition_time = kwargs['lastTransitionTime']
 
         _setter("status", status)
@@ -25031,7 +25257,7 @@ class ReplicationControllerSpecPatchArgs:
              template: Optional[pulumi.Input['PodTemplateSpecPatchArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'minReadySeconds' in kwargs:
+        if min_ready_seconds is None and 'minReadySeconds' in kwargs:
             min_ready_seconds = kwargs['minReadySeconds']
 
         if min_ready_seconds is not None:
@@ -25122,7 +25348,7 @@ class ReplicationControllerSpecArgs:
              template: Optional[pulumi.Input['PodTemplateSpecArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'minReadySeconds' in kwargs:
+        if min_ready_seconds is None and 'minReadySeconds' in kwargs:
             min_ready_seconds = kwargs['minReadySeconds']
 
         if min_ready_seconds is not None:
@@ -25213,7 +25439,7 @@ class ReplicationControllerStatusArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             replicas: pulumi.Input[int],
+             replicas: Optional[pulumi.Input[int]] = None,
              available_replicas: Optional[pulumi.Input[int]] = None,
              conditions: Optional[pulumi.Input[Sequence[pulumi.Input['ReplicationControllerConditionArgs']]]] = None,
              fully_labeled_replicas: Optional[pulumi.Input[int]] = None,
@@ -25221,13 +25447,15 @@ class ReplicationControllerStatusArgs:
              ready_replicas: Optional[pulumi.Input[int]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'availableReplicas' in kwargs:
+        if replicas is None:
+            raise TypeError("Missing 'replicas' argument")
+        if available_replicas is None and 'availableReplicas' in kwargs:
             available_replicas = kwargs['availableReplicas']
-        if 'fullyLabeledReplicas' in kwargs:
+        if fully_labeled_replicas is None and 'fullyLabeledReplicas' in kwargs:
             fully_labeled_replicas = kwargs['fullyLabeledReplicas']
-        if 'observedGeneration' in kwargs:
+        if observed_generation is None and 'observedGeneration' in kwargs:
             observed_generation = kwargs['observedGeneration']
-        if 'readyReplicas' in kwargs:
+        if ready_replicas is None and 'readyReplicas' in kwargs:
             ready_replicas = kwargs['readyReplicas']
 
         _setter("replicas", replicas)
@@ -25349,7 +25577,7 @@ class ReplicationControllerArgs:
              status: Optional[pulumi.Input['ReplicationControllerStatusArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -25474,9 +25702,11 @@ class ResourceClaimArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             name: pulumi.Input[str],
+             name: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if name is None:
+            raise TypeError("Missing 'name' argument")
 
         _setter("name", name)
 
@@ -25519,7 +25749,7 @@ class ResourceFieldSelectorPatchArgs:
              resource: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'containerName' in kwargs:
+        if container_name is None and 'containerName' in kwargs:
             container_name = kwargs['containerName']
 
         if container_name is not None:
@@ -25587,12 +25817,14 @@ class ResourceFieldSelectorArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             resource: pulumi.Input[str],
+             resource: Optional[pulumi.Input[str]] = None,
              container_name: Optional[pulumi.Input[str]] = None,
              divisor: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'containerName' in kwargs:
+        if resource is None:
+            raise TypeError("Missing 'resource' argument")
+        if container_name is None and 'containerName' in kwargs:
             container_name = kwargs['containerName']
 
         _setter("resource", resource)
@@ -25664,7 +25896,7 @@ class ResourceQuotaSpecPatchArgs:
              scopes: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'scopeSelector' in kwargs:
+        if scope_selector is None and 'scopeSelector' in kwargs:
             scope_selector = kwargs['scopeSelector']
 
         if hard is not None:
@@ -25737,7 +25969,7 @@ class ResourceQuotaSpecArgs:
              scopes: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'scopeSelector' in kwargs:
+        if scope_selector is None and 'scopeSelector' in kwargs:
             scope_selector = kwargs['scopeSelector']
 
         if hard is not None:
@@ -25871,7 +26103,7 @@ class ResourceQuotaArgs:
              status: Optional[pulumi.Input['ResourceQuotaStatusArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -26336,21 +26568,21 @@ class ScaleIOPersistentVolumeSourcePatchArgs:
              volume_name: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'fsType' in kwargs:
+        if fs_type is None and 'fsType' in kwargs:
             fs_type = kwargs['fsType']
-        if 'protectionDomain' in kwargs:
+        if protection_domain is None and 'protectionDomain' in kwargs:
             protection_domain = kwargs['protectionDomain']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
-        if 'secretRef' in kwargs:
+        if secret_ref is None and 'secretRef' in kwargs:
             secret_ref = kwargs['secretRef']
-        if 'sslEnabled' in kwargs:
+        if ssl_enabled is None and 'sslEnabled' in kwargs:
             ssl_enabled = kwargs['sslEnabled']
-        if 'storageMode' in kwargs:
+        if storage_mode is None and 'storageMode' in kwargs:
             storage_mode = kwargs['storageMode']
-        if 'storagePool' in kwargs:
+        if storage_pool is None and 'storagePool' in kwargs:
             storage_pool = kwargs['storagePool']
-        if 'volumeName' in kwargs:
+        if volume_name is None and 'volumeName' in kwargs:
             volume_name = kwargs['volumeName']
 
         if fs_type is not None:
@@ -26537,9 +26769,9 @@ class ScaleIOPersistentVolumeSourceArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             gateway: pulumi.Input[str],
-             secret_ref: pulumi.Input['SecretReferenceArgs'],
-             system: pulumi.Input[str],
+             gateway: Optional[pulumi.Input[str]] = None,
+             secret_ref: Optional[pulumi.Input['SecretReferenceArgs']] = None,
+             system: Optional[pulumi.Input[str]] = None,
              fs_type: Optional[pulumi.Input[str]] = None,
              protection_domain: Optional[pulumi.Input[str]] = None,
              read_only: Optional[pulumi.Input[bool]] = None,
@@ -26549,21 +26781,27 @@ class ScaleIOPersistentVolumeSourceArgs:
              volume_name: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'secretRef' in kwargs:
+        if gateway is None:
+            raise TypeError("Missing 'gateway' argument")
+        if secret_ref is None and 'secretRef' in kwargs:
             secret_ref = kwargs['secretRef']
-        if 'fsType' in kwargs:
+        if secret_ref is None:
+            raise TypeError("Missing 'secret_ref' argument")
+        if system is None:
+            raise TypeError("Missing 'system' argument")
+        if fs_type is None and 'fsType' in kwargs:
             fs_type = kwargs['fsType']
-        if 'protectionDomain' in kwargs:
+        if protection_domain is None and 'protectionDomain' in kwargs:
             protection_domain = kwargs['protectionDomain']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
-        if 'sslEnabled' in kwargs:
+        if ssl_enabled is None and 'sslEnabled' in kwargs:
             ssl_enabled = kwargs['sslEnabled']
-        if 'storageMode' in kwargs:
+        if storage_mode is None and 'storageMode' in kwargs:
             storage_mode = kwargs['storageMode']
-        if 'storagePool' in kwargs:
+        if storage_pool is None and 'storagePool' in kwargs:
             storage_pool = kwargs['storagePool']
-        if 'volumeName' in kwargs:
+        if volume_name is None and 'volumeName' in kwargs:
             volume_name = kwargs['volumeName']
 
         _setter("gateway", gateway)
@@ -26759,21 +26997,21 @@ class ScaleIOVolumeSourcePatchArgs:
              volume_name: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'fsType' in kwargs:
+        if fs_type is None and 'fsType' in kwargs:
             fs_type = kwargs['fsType']
-        if 'protectionDomain' in kwargs:
+        if protection_domain is None and 'protectionDomain' in kwargs:
             protection_domain = kwargs['protectionDomain']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
-        if 'secretRef' in kwargs:
+        if secret_ref is None and 'secretRef' in kwargs:
             secret_ref = kwargs['secretRef']
-        if 'sslEnabled' in kwargs:
+        if ssl_enabled is None and 'sslEnabled' in kwargs:
             ssl_enabled = kwargs['sslEnabled']
-        if 'storageMode' in kwargs:
+        if storage_mode is None and 'storageMode' in kwargs:
             storage_mode = kwargs['storageMode']
-        if 'storagePool' in kwargs:
+        if storage_pool is None and 'storagePool' in kwargs:
             storage_pool = kwargs['storagePool']
-        if 'volumeName' in kwargs:
+        if volume_name is None and 'volumeName' in kwargs:
             volume_name = kwargs['volumeName']
 
         if fs_type is not None:
@@ -26960,9 +27198,9 @@ class ScaleIOVolumeSourceArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             gateway: pulumi.Input[str],
-             secret_ref: pulumi.Input['LocalObjectReferenceArgs'],
-             system: pulumi.Input[str],
+             gateway: Optional[pulumi.Input[str]] = None,
+             secret_ref: Optional[pulumi.Input['LocalObjectReferenceArgs']] = None,
+             system: Optional[pulumi.Input[str]] = None,
              fs_type: Optional[pulumi.Input[str]] = None,
              protection_domain: Optional[pulumi.Input[str]] = None,
              read_only: Optional[pulumi.Input[bool]] = None,
@@ -26972,21 +27210,27 @@ class ScaleIOVolumeSourceArgs:
              volume_name: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'secretRef' in kwargs:
+        if gateway is None:
+            raise TypeError("Missing 'gateway' argument")
+        if secret_ref is None and 'secretRef' in kwargs:
             secret_ref = kwargs['secretRef']
-        if 'fsType' in kwargs:
+        if secret_ref is None:
+            raise TypeError("Missing 'secret_ref' argument")
+        if system is None:
+            raise TypeError("Missing 'system' argument")
+        if fs_type is None and 'fsType' in kwargs:
             fs_type = kwargs['fsType']
-        if 'protectionDomain' in kwargs:
+        if protection_domain is None and 'protectionDomain' in kwargs:
             protection_domain = kwargs['protectionDomain']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
-        if 'sslEnabled' in kwargs:
+        if ssl_enabled is None and 'sslEnabled' in kwargs:
             ssl_enabled = kwargs['sslEnabled']
-        if 'storageMode' in kwargs:
+        if storage_mode is None and 'storageMode' in kwargs:
             storage_mode = kwargs['storageMode']
-        if 'storagePool' in kwargs:
+        if storage_pool is None and 'storagePool' in kwargs:
             storage_pool = kwargs['storagePool']
-        if 'volumeName' in kwargs:
+        if volume_name is None and 'volumeName' in kwargs:
             volume_name = kwargs['volumeName']
 
         _setter("gateway", gateway)
@@ -27146,7 +27390,7 @@ class ScopeSelectorPatchArgs:
              match_expressions: Optional[pulumi.Input[Sequence[pulumi.Input['ScopedResourceSelectorRequirementPatchArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'matchExpressions' in kwargs:
+        if match_expressions is None and 'matchExpressions' in kwargs:
             match_expressions = kwargs['matchExpressions']
 
         if match_expressions is not None:
@@ -27183,7 +27427,7 @@ class ScopeSelectorArgs:
              match_expressions: Optional[pulumi.Input[Sequence[pulumi.Input['ScopedResourceSelectorRequirementArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'matchExpressions' in kwargs:
+        if match_expressions is None and 'matchExpressions' in kwargs:
             match_expressions = kwargs['matchExpressions']
 
         if match_expressions is not None:
@@ -27228,7 +27472,7 @@ class ScopedResourceSelectorRequirementPatchArgs:
              values: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'scopeName' in kwargs:
+        if scope_name is None and 'scopeName' in kwargs:
             scope_name = kwargs['scopeName']
 
         if operator is not None:
@@ -27296,13 +27540,17 @@ class ScopedResourceSelectorRequirementArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             operator: pulumi.Input[str],
-             scope_name: pulumi.Input[str],
+             operator: Optional[pulumi.Input[str]] = None,
+             scope_name: Optional[pulumi.Input[str]] = None,
              values: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'scopeName' in kwargs:
+        if operator is None:
+            raise TypeError("Missing 'operator' argument")
+        if scope_name is None and 'scopeName' in kwargs:
             scope_name = kwargs['scopeName']
+        if scope_name is None:
+            raise TypeError("Missing 'scope_name' argument")
 
         _setter("operator", operator)
         _setter("scope_name", scope_name)
@@ -27370,7 +27618,7 @@ class SeccompProfilePatchArgs:
              type: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'localhostProfile' in kwargs:
+        if localhost_profile is None and 'localhostProfile' in kwargs:
             localhost_profile = kwargs['localhostProfile']
 
         if localhost_profile is not None:
@@ -27425,11 +27673,13 @@ class SeccompProfileArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             type: pulumi.Input[str],
+             type: Optional[pulumi.Input[str]] = None,
              localhost_profile: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'localhostProfile' in kwargs:
+        if type is None:
+            raise TypeError("Missing 'type' argument")
+        if localhost_profile is None and 'localhostProfile' in kwargs:
             localhost_profile = kwargs['localhostProfile']
 
         _setter("type", type)
@@ -27665,11 +27915,13 @@ class SecretKeySelectorArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             key: pulumi.Input[str],
+             key: Optional[pulumi.Input[str]] = None,
              name: Optional[pulumi.Input[str]] = None,
              optional: Optional[pulumi.Input[bool]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if key is None:
+            raise TypeError("Missing 'key' argument")
 
         _setter("key", key)
         if name is not None:
@@ -27998,9 +28250,9 @@ class SecretVolumeSourcePatchArgs:
              secret_name: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'defaultMode' in kwargs:
+        if default_mode is None and 'defaultMode' in kwargs:
             default_mode = kwargs['defaultMode']
-        if 'secretName' in kwargs:
+        if secret_name is None and 'secretName' in kwargs:
             secret_name = kwargs['secretName']
 
         if default_mode is not None:
@@ -28093,9 +28345,9 @@ class SecretVolumeSourceArgs:
              secret_name: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'defaultMode' in kwargs:
+        if default_mode is None and 'defaultMode' in kwargs:
             default_mode = kwargs['defaultMode']
-        if 'secretName' in kwargs:
+        if secret_name is None and 'secretName' in kwargs:
             secret_name = kwargs['secretName']
 
         if default_mode is not None:
@@ -28208,9 +28460,9 @@ class SecretArgs:
              type: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
-        if 'stringData' in kwargs:
+        if string_data is None and 'stringData' in kwargs:
             string_data = kwargs['stringData']
 
         if api_version is not None:
@@ -28371,23 +28623,23 @@ class SecurityContextPatchArgs:
              windows_options: Optional[pulumi.Input['WindowsSecurityContextOptionsPatchArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'allowPrivilegeEscalation' in kwargs:
+        if allow_privilege_escalation is None and 'allowPrivilegeEscalation' in kwargs:
             allow_privilege_escalation = kwargs['allowPrivilegeEscalation']
-        if 'procMount' in kwargs:
+        if proc_mount is None and 'procMount' in kwargs:
             proc_mount = kwargs['procMount']
-        if 'readOnlyRootFilesystem' in kwargs:
+        if read_only_root_filesystem is None and 'readOnlyRootFilesystem' in kwargs:
             read_only_root_filesystem = kwargs['readOnlyRootFilesystem']
-        if 'runAsGroup' in kwargs:
+        if run_as_group is None and 'runAsGroup' in kwargs:
             run_as_group = kwargs['runAsGroup']
-        if 'runAsNonRoot' in kwargs:
+        if run_as_non_root is None and 'runAsNonRoot' in kwargs:
             run_as_non_root = kwargs['runAsNonRoot']
-        if 'runAsUser' in kwargs:
+        if run_as_user is None and 'runAsUser' in kwargs:
             run_as_user = kwargs['runAsUser']
-        if 'seLinuxOptions' in kwargs:
+        if se_linux_options is None and 'seLinuxOptions' in kwargs:
             se_linux_options = kwargs['seLinuxOptions']
-        if 'seccompProfile' in kwargs:
+        if seccomp_profile is None and 'seccompProfile' in kwargs:
             seccomp_profile = kwargs['seccompProfile']
-        if 'windowsOptions' in kwargs:
+        if windows_options is None and 'windowsOptions' in kwargs:
             windows_options = kwargs['windowsOptions']
 
         if allow_privilege_escalation is not None:
@@ -28604,23 +28856,23 @@ class SecurityContextArgs:
              windows_options: Optional[pulumi.Input['WindowsSecurityContextOptionsArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'allowPrivilegeEscalation' in kwargs:
+        if allow_privilege_escalation is None and 'allowPrivilegeEscalation' in kwargs:
             allow_privilege_escalation = kwargs['allowPrivilegeEscalation']
-        if 'procMount' in kwargs:
+        if proc_mount is None and 'procMount' in kwargs:
             proc_mount = kwargs['procMount']
-        if 'readOnlyRootFilesystem' in kwargs:
+        if read_only_root_filesystem is None and 'readOnlyRootFilesystem' in kwargs:
             read_only_root_filesystem = kwargs['readOnlyRootFilesystem']
-        if 'runAsGroup' in kwargs:
+        if run_as_group is None and 'runAsGroup' in kwargs:
             run_as_group = kwargs['runAsGroup']
-        if 'runAsNonRoot' in kwargs:
+        if run_as_non_root is None and 'runAsNonRoot' in kwargs:
             run_as_non_root = kwargs['runAsNonRoot']
-        if 'runAsUser' in kwargs:
+        if run_as_user is None and 'runAsUser' in kwargs:
             run_as_user = kwargs['runAsUser']
-        if 'seLinuxOptions' in kwargs:
+        if se_linux_options is None and 'seLinuxOptions' in kwargs:
             se_linux_options = kwargs['seLinuxOptions']
-        if 'seccompProfile' in kwargs:
+        if seccomp_profile is None and 'seccompProfile' in kwargs:
             seccomp_profile = kwargs['seccompProfile']
-        if 'windowsOptions' in kwargs:
+        if windows_options is None and 'windowsOptions' in kwargs:
             windows_options = kwargs['windowsOptions']
 
         if allow_privilege_escalation is not None:
@@ -28805,7 +29057,7 @@ class ServiceAccountTokenProjectionPatchArgs:
              path: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'expirationSeconds' in kwargs:
+        if expiration_seconds is None and 'expirationSeconds' in kwargs:
             expiration_seconds = kwargs['expirationSeconds']
 
         if audience is not None:
@@ -28873,12 +29125,14 @@ class ServiceAccountTokenProjectionArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             path: pulumi.Input[str],
+             path: Optional[pulumi.Input[str]] = None,
              audience: Optional[pulumi.Input[str]] = None,
              expiration_seconds: Optional[pulumi.Input[int]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'expirationSeconds' in kwargs:
+        if path is None:
+            raise TypeError("Missing 'path' argument")
+        if expiration_seconds is None and 'expirationSeconds' in kwargs:
             expiration_seconds = kwargs['expirationSeconds']
 
         _setter("path", path)
@@ -28962,11 +29216,11 @@ class ServiceAccountArgs:
              secrets: Optional[pulumi.Input[Sequence[pulumi.Input['ObjectReferenceArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
-        if 'automountServiceAccountToken' in kwargs:
+        if automount_service_account_token is None and 'automountServiceAccountToken' in kwargs:
             automount_service_account_token = kwargs['automountServiceAccountToken']
-        if 'imagePullSecrets' in kwargs:
+        if image_pull_secrets is None and 'imagePullSecrets' in kwargs:
             image_pull_secrets = kwargs['imagePullSecrets']
 
         if api_version is not None:
@@ -29102,11 +29356,11 @@ class ServicePortPatchArgs:
              target_port: Optional[pulumi.Input[Union[int, str]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'appProtocol' in kwargs:
+        if app_protocol is None and 'appProtocol' in kwargs:
             app_protocol = kwargs['appProtocol']
-        if 'nodePort' in kwargs:
+        if node_port is None and 'nodePort' in kwargs:
             node_port = kwargs['nodePort']
-        if 'targetPort' in kwargs:
+        if target_port is None and 'targetPort' in kwargs:
             target_port = kwargs['targetPort']
 
         if app_protocol is not None:
@@ -29243,7 +29497,7 @@ class ServicePortArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             port: pulumi.Input[int],
+             port: Optional[pulumi.Input[int]] = None,
              app_protocol: Optional[pulumi.Input[str]] = None,
              name: Optional[pulumi.Input[str]] = None,
              node_port: Optional[pulumi.Input[int]] = None,
@@ -29251,11 +29505,13 @@ class ServicePortArgs:
              target_port: Optional[pulumi.Input[Union[int, str]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'appProtocol' in kwargs:
+        if port is None:
+            raise TypeError("Missing 'port' argument")
+        if app_protocol is None and 'appProtocol' in kwargs:
             app_protocol = kwargs['appProtocol']
-        if 'nodePort' in kwargs:
+        if node_port is None and 'nodePort' in kwargs:
             node_port = kwargs['nodePort']
-        if 'targetPort' in kwargs:
+        if target_port is None and 'targetPort' in kwargs:
             target_port = kwargs['targetPort']
 
         _setter("port", port)
@@ -29454,41 +29710,41 @@ class ServiceSpecPatchArgs:
              type: Optional[pulumi.Input[Union[str, 'ServiceSpecType']]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'allocateLoadBalancerNodePorts' in kwargs:
+        if allocate_load_balancer_node_ports is None and 'allocateLoadBalancerNodePorts' in kwargs:
             allocate_load_balancer_node_ports = kwargs['allocateLoadBalancerNodePorts']
-        if 'clusterIP' in kwargs:
+        if cluster_ip is None and 'clusterIP' in kwargs:
             cluster_ip = kwargs['clusterIP']
-        if 'clusterIPs' in kwargs:
+        if cluster_ips is None and 'clusterIPs' in kwargs:
             cluster_ips = kwargs['clusterIPs']
-        if 'externalIPs' in kwargs:
+        if external_ips is None and 'externalIPs' in kwargs:
             external_ips = kwargs['externalIPs']
-        if 'externalName' in kwargs:
+        if external_name is None and 'externalName' in kwargs:
             external_name = kwargs['externalName']
-        if 'externalTrafficPolicy' in kwargs:
+        if external_traffic_policy is None and 'externalTrafficPolicy' in kwargs:
             external_traffic_policy = kwargs['externalTrafficPolicy']
-        if 'healthCheckNodePort' in kwargs:
+        if health_check_node_port is None and 'healthCheckNodePort' in kwargs:
             health_check_node_port = kwargs['healthCheckNodePort']
-        if 'internalTrafficPolicy' in kwargs:
+        if internal_traffic_policy is None and 'internalTrafficPolicy' in kwargs:
             internal_traffic_policy = kwargs['internalTrafficPolicy']
-        if 'ipFamilies' in kwargs:
+        if ip_families is None and 'ipFamilies' in kwargs:
             ip_families = kwargs['ipFamilies']
-        if 'ipFamily' in kwargs:
+        if ip_family is None and 'ipFamily' in kwargs:
             ip_family = kwargs['ipFamily']
-        if 'ipFamilyPolicy' in kwargs:
+        if ip_family_policy is None and 'ipFamilyPolicy' in kwargs:
             ip_family_policy = kwargs['ipFamilyPolicy']
-        if 'loadBalancerClass' in kwargs:
+        if load_balancer_class is None and 'loadBalancerClass' in kwargs:
             load_balancer_class = kwargs['loadBalancerClass']
-        if 'loadBalancerIP' in kwargs:
+        if load_balancer_ip is None and 'loadBalancerIP' in kwargs:
             load_balancer_ip = kwargs['loadBalancerIP']
-        if 'loadBalancerSourceRanges' in kwargs:
+        if load_balancer_source_ranges is None and 'loadBalancerSourceRanges' in kwargs:
             load_balancer_source_ranges = kwargs['loadBalancerSourceRanges']
-        if 'publishNotReadyAddresses' in kwargs:
+        if publish_not_ready_addresses is None and 'publishNotReadyAddresses' in kwargs:
             publish_not_ready_addresses = kwargs['publishNotReadyAddresses']
-        if 'sessionAffinity' in kwargs:
+        if session_affinity is None and 'sessionAffinity' in kwargs:
             session_affinity = kwargs['sessionAffinity']
-        if 'sessionAffinityConfig' in kwargs:
+        if session_affinity_config is None and 'sessionAffinityConfig' in kwargs:
             session_affinity_config = kwargs['sessionAffinityConfig']
-        if 'topologyKeys' in kwargs:
+        if topology_keys is None and 'topologyKeys' in kwargs:
             topology_keys = kwargs['topologyKeys']
 
         if allocate_load_balancer_node_ports is not None:
@@ -29893,41 +30149,41 @@ class ServiceSpecArgs:
              type: Optional[pulumi.Input[Union[str, 'ServiceSpecType']]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'allocateLoadBalancerNodePorts' in kwargs:
+        if allocate_load_balancer_node_ports is None and 'allocateLoadBalancerNodePorts' in kwargs:
             allocate_load_balancer_node_ports = kwargs['allocateLoadBalancerNodePorts']
-        if 'clusterIP' in kwargs:
+        if cluster_ip is None and 'clusterIP' in kwargs:
             cluster_ip = kwargs['clusterIP']
-        if 'clusterIPs' in kwargs:
+        if cluster_ips is None and 'clusterIPs' in kwargs:
             cluster_ips = kwargs['clusterIPs']
-        if 'externalIPs' in kwargs:
+        if external_ips is None and 'externalIPs' in kwargs:
             external_ips = kwargs['externalIPs']
-        if 'externalName' in kwargs:
+        if external_name is None and 'externalName' in kwargs:
             external_name = kwargs['externalName']
-        if 'externalTrafficPolicy' in kwargs:
+        if external_traffic_policy is None and 'externalTrafficPolicy' in kwargs:
             external_traffic_policy = kwargs['externalTrafficPolicy']
-        if 'healthCheckNodePort' in kwargs:
+        if health_check_node_port is None and 'healthCheckNodePort' in kwargs:
             health_check_node_port = kwargs['healthCheckNodePort']
-        if 'internalTrafficPolicy' in kwargs:
+        if internal_traffic_policy is None and 'internalTrafficPolicy' in kwargs:
             internal_traffic_policy = kwargs['internalTrafficPolicy']
-        if 'ipFamilies' in kwargs:
+        if ip_families is None and 'ipFamilies' in kwargs:
             ip_families = kwargs['ipFamilies']
-        if 'ipFamily' in kwargs:
+        if ip_family is None and 'ipFamily' in kwargs:
             ip_family = kwargs['ipFamily']
-        if 'ipFamilyPolicy' in kwargs:
+        if ip_family_policy is None and 'ipFamilyPolicy' in kwargs:
             ip_family_policy = kwargs['ipFamilyPolicy']
-        if 'loadBalancerClass' in kwargs:
+        if load_balancer_class is None and 'loadBalancerClass' in kwargs:
             load_balancer_class = kwargs['loadBalancerClass']
-        if 'loadBalancerIP' in kwargs:
+        if load_balancer_ip is None and 'loadBalancerIP' in kwargs:
             load_balancer_ip = kwargs['loadBalancerIP']
-        if 'loadBalancerSourceRanges' in kwargs:
+        if load_balancer_source_ranges is None and 'loadBalancerSourceRanges' in kwargs:
             load_balancer_source_ranges = kwargs['loadBalancerSourceRanges']
-        if 'publishNotReadyAddresses' in kwargs:
+        if publish_not_ready_addresses is None and 'publishNotReadyAddresses' in kwargs:
             publish_not_ready_addresses = kwargs['publishNotReadyAddresses']
-        if 'sessionAffinity' in kwargs:
+        if session_affinity is None and 'sessionAffinity' in kwargs:
             session_affinity = kwargs['sessionAffinity']
-        if 'sessionAffinityConfig' in kwargs:
+        if session_affinity_config is None and 'sessionAffinityConfig' in kwargs:
             session_affinity_config = kwargs['sessionAffinityConfig']
-        if 'topologyKeys' in kwargs:
+        if topology_keys is None and 'topologyKeys' in kwargs:
             topology_keys = kwargs['topologyKeys']
 
         if allocate_load_balancer_node_ports is not None:
@@ -30252,7 +30508,7 @@ class ServiceStatusArgs:
              load_balancer: Optional[pulumi.Input['LoadBalancerStatusArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'loadBalancer' in kwargs:
+        if load_balancer is None and 'loadBalancer' in kwargs:
             load_balancer = kwargs['loadBalancer']
 
         if conditions is not None:
@@ -30344,7 +30600,7 @@ class ServiceArgs:
              status: Optional[pulumi.Input['ServiceStatusArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -30437,7 +30693,7 @@ class SessionAffinityConfigPatchArgs:
              client_ip: Optional[pulumi.Input['ClientIPConfigPatchArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'clientIP' in kwargs:
+        if client_ip is None and 'clientIP' in kwargs:
             client_ip = kwargs['clientIP']
 
         if client_ip is not None:
@@ -30474,7 +30730,7 @@ class SessionAffinityConfigArgs:
              client_ip: Optional[pulumi.Input['ClientIPConfigArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'clientIP' in kwargs:
+        if client_ip is None and 'clientIP' in kwargs:
             client_ip = kwargs['clientIP']
 
         if client_ip is not None:
@@ -30527,15 +30783,15 @@ class StorageOSPersistentVolumeSourcePatchArgs:
              volume_namespace: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'fsType' in kwargs:
+        if fs_type is None and 'fsType' in kwargs:
             fs_type = kwargs['fsType']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
-        if 'secretRef' in kwargs:
+        if secret_ref is None and 'secretRef' in kwargs:
             secret_ref = kwargs['secretRef']
-        if 'volumeName' in kwargs:
+        if volume_name is None and 'volumeName' in kwargs:
             volume_name = kwargs['volumeName']
-        if 'volumeNamespace' in kwargs:
+        if volume_namespace is None and 'volumeNamespace' in kwargs:
             volume_namespace = kwargs['volumeNamespace']
 
         if fs_type is not None:
@@ -30644,15 +30900,15 @@ class StorageOSPersistentVolumeSourceArgs:
              volume_namespace: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'fsType' in kwargs:
+        if fs_type is None and 'fsType' in kwargs:
             fs_type = kwargs['fsType']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
-        if 'secretRef' in kwargs:
+        if secret_ref is None and 'secretRef' in kwargs:
             secret_ref = kwargs['secretRef']
-        if 'volumeName' in kwargs:
+        if volume_name is None and 'volumeName' in kwargs:
             volume_name = kwargs['volumeName']
-        if 'volumeNamespace' in kwargs:
+        if volume_namespace is None and 'volumeNamespace' in kwargs:
             volume_namespace = kwargs['volumeNamespace']
 
         if fs_type is not None:
@@ -30761,15 +31017,15 @@ class StorageOSVolumeSourcePatchArgs:
              volume_namespace: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'fsType' in kwargs:
+        if fs_type is None and 'fsType' in kwargs:
             fs_type = kwargs['fsType']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
-        if 'secretRef' in kwargs:
+        if secret_ref is None and 'secretRef' in kwargs:
             secret_ref = kwargs['secretRef']
-        if 'volumeName' in kwargs:
+        if volume_name is None and 'volumeName' in kwargs:
             volume_name = kwargs['volumeName']
-        if 'volumeNamespace' in kwargs:
+        if volume_namespace is None and 'volumeNamespace' in kwargs:
             volume_namespace = kwargs['volumeNamespace']
 
         if fs_type is not None:
@@ -30878,15 +31134,15 @@ class StorageOSVolumeSourceArgs:
              volume_namespace: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'fsType' in kwargs:
+        if fs_type is None and 'fsType' in kwargs:
             fs_type = kwargs['fsType']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
-        if 'secretRef' in kwargs:
+        if secret_ref is None and 'secretRef' in kwargs:
             secret_ref = kwargs['secretRef']
-        if 'volumeName' in kwargs:
+        if volume_name is None and 'volumeName' in kwargs:
             volume_name = kwargs['volumeName']
-        if 'volumeNamespace' in kwargs:
+        if volume_namespace is None and 'volumeNamespace' in kwargs:
             volume_namespace = kwargs['volumeNamespace']
 
         if fs_type is not None:
@@ -31032,10 +31288,14 @@ class SysctlArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             name: pulumi.Input[str],
-             value: pulumi.Input[str],
+             name: Optional[pulumi.Input[str]] = None,
+             value: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if name is None:
+            raise TypeError("Missing 'name' argument")
+        if value is None:
+            raise TypeError("Missing 'value' argument")
 
         _setter("name", name)
         _setter("value", value)
@@ -31136,10 +31396,12 @@ class TCPSocketActionArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             port: pulumi.Input[Union[int, str]],
+             port: Optional[pulumi.Input[Union[int, str]]] = None,
              host: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if port is None:
+            raise TypeError("Missing 'port' argument")
 
         _setter("port", port)
         if host is not None:
@@ -31200,7 +31462,7 @@ class TaintPatchArgs:
              value: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'timeAdded' in kwargs:
+        if time_added is None and 'timeAdded' in kwargs:
             time_added = kwargs['timeAdded']
 
         if effect is not None:
@@ -31285,13 +31547,17 @@ class TaintArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             effect: pulumi.Input[str],
-             key: pulumi.Input[str],
+             effect: Optional[pulumi.Input[str]] = None,
+             key: Optional[pulumi.Input[str]] = None,
              time_added: Optional[pulumi.Input[str]] = None,
              value: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'timeAdded' in kwargs:
+        if effect is None:
+            raise TypeError("Missing 'effect' argument")
+        if key is None:
+            raise TypeError("Missing 'key' argument")
+        if time_added is None and 'timeAdded' in kwargs:
             time_added = kwargs['timeAdded']
 
         _setter("effect", effect)
@@ -31384,7 +31650,7 @@ class TolerationPatchArgs:
              value: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'tolerationSeconds' in kwargs:
+        if toleration_seconds is None and 'tolerationSeconds' in kwargs:
             toleration_seconds = kwargs['tolerationSeconds']
 
         if effect is not None:
@@ -31493,7 +31759,7 @@ class TolerationArgs:
              value: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'tolerationSeconds' in kwargs:
+        if toleration_seconds is None and 'tolerationSeconds' in kwargs:
             toleration_seconds = kwargs['tolerationSeconds']
 
         if effect is not None:
@@ -31639,10 +31905,14 @@ class TopologySelectorLabelRequirementArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             key: pulumi.Input[str],
-             values: pulumi.Input[Sequence[pulumi.Input[str]]],
+             key: Optional[pulumi.Input[str]] = None,
+             values: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if key is None:
+            raise TypeError("Missing 'key' argument")
+        if values is None:
+            raise TypeError("Missing 'values' argument")
 
         _setter("key", key)
         _setter("values", values)
@@ -31690,7 +31960,7 @@ class TopologySelectorTermPatchArgs:
              match_label_expressions: Optional[pulumi.Input[Sequence[pulumi.Input['TopologySelectorLabelRequirementPatchArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'matchLabelExpressions' in kwargs:
+        if match_label_expressions is None and 'matchLabelExpressions' in kwargs:
             match_label_expressions = kwargs['matchLabelExpressions']
 
         if match_label_expressions is not None:
@@ -31727,7 +31997,7 @@ class TopologySelectorTermArgs:
              match_label_expressions: Optional[pulumi.Input[Sequence[pulumi.Input['TopologySelectorLabelRequirementArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'matchLabelExpressions' in kwargs:
+        if match_label_expressions is None and 'matchLabelExpressions' in kwargs:
             match_label_expressions = kwargs['matchLabelExpressions']
 
         if match_label_expressions is not None:
@@ -31805,21 +32075,21 @@ class TopologySpreadConstraintPatchArgs:
              when_unsatisfiable: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'labelSelector' in kwargs:
+        if label_selector is None and 'labelSelector' in kwargs:
             label_selector = kwargs['labelSelector']
-        if 'matchLabelKeys' in kwargs:
+        if match_label_keys is None and 'matchLabelKeys' in kwargs:
             match_label_keys = kwargs['matchLabelKeys']
-        if 'maxSkew' in kwargs:
+        if max_skew is None and 'maxSkew' in kwargs:
             max_skew = kwargs['maxSkew']
-        if 'minDomains' in kwargs:
+        if min_domains is None and 'minDomains' in kwargs:
             min_domains = kwargs['minDomains']
-        if 'nodeAffinityPolicy' in kwargs:
+        if node_affinity_policy is None and 'nodeAffinityPolicy' in kwargs:
             node_affinity_policy = kwargs['nodeAffinityPolicy']
-        if 'nodeTaintsPolicy' in kwargs:
+        if node_taints_policy is None and 'nodeTaintsPolicy' in kwargs:
             node_taints_policy = kwargs['nodeTaintsPolicy']
-        if 'topologyKey' in kwargs:
+        if topology_key is None and 'topologyKey' in kwargs:
             topology_key = kwargs['topologyKey']
-        if 'whenUnsatisfiable' in kwargs:
+        if when_unsatisfiable is None and 'whenUnsatisfiable' in kwargs:
             when_unsatisfiable = kwargs['whenUnsatisfiable']
 
         if label_selector is not None:
@@ -31998,9 +32268,9 @@ class TopologySpreadConstraintArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             max_skew: pulumi.Input[int],
-             topology_key: pulumi.Input[str],
-             when_unsatisfiable: pulumi.Input[str],
+             max_skew: Optional[pulumi.Input[int]] = None,
+             topology_key: Optional[pulumi.Input[str]] = None,
+             when_unsatisfiable: Optional[pulumi.Input[str]] = None,
              label_selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
              match_label_keys: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              min_domains: Optional[pulumi.Input[int]] = None,
@@ -32008,21 +32278,27 @@ class TopologySpreadConstraintArgs:
              node_taints_policy: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'maxSkew' in kwargs:
+        if max_skew is None and 'maxSkew' in kwargs:
             max_skew = kwargs['maxSkew']
-        if 'topologyKey' in kwargs:
+        if max_skew is None:
+            raise TypeError("Missing 'max_skew' argument")
+        if topology_key is None and 'topologyKey' in kwargs:
             topology_key = kwargs['topologyKey']
-        if 'whenUnsatisfiable' in kwargs:
+        if topology_key is None:
+            raise TypeError("Missing 'topology_key' argument")
+        if when_unsatisfiable is None and 'whenUnsatisfiable' in kwargs:
             when_unsatisfiable = kwargs['whenUnsatisfiable']
-        if 'labelSelector' in kwargs:
+        if when_unsatisfiable is None:
+            raise TypeError("Missing 'when_unsatisfiable' argument")
+        if label_selector is None and 'labelSelector' in kwargs:
             label_selector = kwargs['labelSelector']
-        if 'matchLabelKeys' in kwargs:
+        if match_label_keys is None and 'matchLabelKeys' in kwargs:
             match_label_keys = kwargs['matchLabelKeys']
-        if 'minDomains' in kwargs:
+        if min_domains is None and 'minDomains' in kwargs:
             min_domains = kwargs['minDomains']
-        if 'nodeAffinityPolicy' in kwargs:
+        if node_affinity_policy is None and 'nodeAffinityPolicy' in kwargs:
             node_affinity_policy = kwargs['nodeAffinityPolicy']
-        if 'nodeTaintsPolicy' in kwargs:
+        if node_taints_policy is None and 'nodeTaintsPolicy' in kwargs:
             node_taints_policy = kwargs['nodeTaintsPolicy']
 
         _setter("max_skew", max_skew)
@@ -32175,7 +32451,7 @@ class TypedLocalObjectReferencePatchArgs:
              name: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiGroup' in kwargs:
+        if api_group is None and 'apiGroup' in kwargs:
             api_group = kwargs['apiGroup']
 
         if api_group is not None:
@@ -32243,12 +32519,16 @@ class TypedLocalObjectReferenceArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             kind: pulumi.Input[str],
-             name: pulumi.Input[str],
+             kind: Optional[pulumi.Input[str]] = None,
+             name: Optional[pulumi.Input[str]] = None,
              api_group: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiGroup' in kwargs:
+        if kind is None:
+            raise TypeError("Missing 'kind' argument")
+        if name is None:
+            raise TypeError("Missing 'name' argument")
+        if api_group is None and 'apiGroup' in kwargs:
             api_group = kwargs['apiGroup']
 
         _setter("kind", kind)
@@ -32322,7 +32602,7 @@ class TypedObjectReferencePatchArgs:
              namespace: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiGroup' in kwargs:
+        if api_group is None and 'apiGroup' in kwargs:
             api_group = kwargs['apiGroup']
 
         if api_group is not None:
@@ -32406,13 +32686,17 @@ class TypedObjectReferenceArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             kind: pulumi.Input[str],
-             name: pulumi.Input[str],
+             kind: Optional[pulumi.Input[str]] = None,
+             name: Optional[pulumi.Input[str]] = None,
              api_group: Optional[pulumi.Input[str]] = None,
              namespace: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiGroup' in kwargs:
+        if kind is None:
+            raise TypeError("Missing 'kind' argument")
+        if name is None:
+            raise TypeError("Missing 'name' argument")
+        if api_group is None and 'apiGroup' in kwargs:
             api_group = kwargs['apiGroup']
 
         _setter("kind", kind)
@@ -32493,7 +32777,7 @@ class VolumeDevicePatchArgs:
              name: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'devicePath' in kwargs:
+        if device_path is None and 'devicePath' in kwargs:
             device_path = kwargs['devicePath']
 
         if device_path is not None:
@@ -32544,12 +32828,16 @@ class VolumeDeviceArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             device_path: pulumi.Input[str],
-             name: pulumi.Input[str],
+             device_path: Optional[pulumi.Input[str]] = None,
+             name: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'devicePath' in kwargs:
+        if device_path is None and 'devicePath' in kwargs:
             device_path = kwargs['devicePath']
+        if device_path is None:
+            raise TypeError("Missing 'device_path' argument")
+        if name is None:
+            raise TypeError("Missing 'name' argument")
 
         _setter("device_path", device_path)
         _setter("name", name)
@@ -32617,15 +32905,15 @@ class VolumeMountPatchArgs:
              sub_path_expr: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'mountPath' in kwargs:
+        if mount_path is None and 'mountPath' in kwargs:
             mount_path = kwargs['mountPath']
-        if 'mountPropagation' in kwargs:
+        if mount_propagation is None and 'mountPropagation' in kwargs:
             mount_propagation = kwargs['mountPropagation']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
-        if 'subPath' in kwargs:
+        if sub_path is None and 'subPath' in kwargs:
             sub_path = kwargs['subPath']
-        if 'subPathExpr' in kwargs:
+        if sub_path_expr is None and 'subPathExpr' in kwargs:
             sub_path_expr = kwargs['subPathExpr']
 
         if mount_path is not None:
@@ -32744,23 +33032,27 @@ class VolumeMountArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             mount_path: pulumi.Input[str],
-             name: pulumi.Input[str],
+             mount_path: Optional[pulumi.Input[str]] = None,
+             name: Optional[pulumi.Input[str]] = None,
              mount_propagation: Optional[pulumi.Input[str]] = None,
              read_only: Optional[pulumi.Input[bool]] = None,
              sub_path: Optional[pulumi.Input[str]] = None,
              sub_path_expr: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'mountPath' in kwargs:
+        if mount_path is None and 'mountPath' in kwargs:
             mount_path = kwargs['mountPath']
-        if 'mountPropagation' in kwargs:
+        if mount_path is None:
+            raise TypeError("Missing 'mount_path' argument")
+        if name is None:
+            raise TypeError("Missing 'name' argument")
+        if mount_propagation is None and 'mountPropagation' in kwargs:
             mount_propagation = kwargs['mountPropagation']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
-        if 'subPath' in kwargs:
+        if sub_path is None and 'subPath' in kwargs:
             sub_path = kwargs['subPath']
-        if 'subPathExpr' in kwargs:
+        if sub_path_expr is None and 'subPathExpr' in kwargs:
             sub_path_expr = kwargs['subPathExpr']
 
         _setter("mount_path", mount_path)
@@ -33064,35 +33356,35 @@ class VolumePatchArgs:
              vsphere_volume: Optional[pulumi.Input['VsphereVirtualDiskVolumeSourcePatchArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'awsElasticBlockStore' in kwargs:
+        if aws_elastic_block_store is None and 'awsElasticBlockStore' in kwargs:
             aws_elastic_block_store = kwargs['awsElasticBlockStore']
-        if 'azureDisk' in kwargs:
+        if azure_disk is None and 'azureDisk' in kwargs:
             azure_disk = kwargs['azureDisk']
-        if 'azureFile' in kwargs:
+        if azure_file is None and 'azureFile' in kwargs:
             azure_file = kwargs['azureFile']
-        if 'configMap' in kwargs:
+        if config_map is None and 'configMap' in kwargs:
             config_map = kwargs['configMap']
-        if 'downwardAPI' in kwargs:
+        if downward_api is None and 'downwardAPI' in kwargs:
             downward_api = kwargs['downwardAPI']
-        if 'emptyDir' in kwargs:
+        if empty_dir is None and 'emptyDir' in kwargs:
             empty_dir = kwargs['emptyDir']
-        if 'flexVolume' in kwargs:
+        if flex_volume is None and 'flexVolume' in kwargs:
             flex_volume = kwargs['flexVolume']
-        if 'gcePersistentDisk' in kwargs:
+        if gce_persistent_disk is None and 'gcePersistentDisk' in kwargs:
             gce_persistent_disk = kwargs['gcePersistentDisk']
-        if 'gitRepo' in kwargs:
+        if git_repo is None and 'gitRepo' in kwargs:
             git_repo = kwargs['gitRepo']
-        if 'hostPath' in kwargs:
+        if host_path is None and 'hostPath' in kwargs:
             host_path = kwargs['hostPath']
-        if 'persistentVolumeClaim' in kwargs:
+        if persistent_volume_claim is None and 'persistentVolumeClaim' in kwargs:
             persistent_volume_claim = kwargs['persistentVolumeClaim']
-        if 'photonPersistentDisk' in kwargs:
+        if photon_persistent_disk is None and 'photonPersistentDisk' in kwargs:
             photon_persistent_disk = kwargs['photonPersistentDisk']
-        if 'portworxVolume' in kwargs:
+        if portworx_volume is None and 'portworxVolume' in kwargs:
             portworx_volume = kwargs['portworxVolume']
-        if 'scaleIO' in kwargs:
+        if scale_io is None and 'scaleIO' in kwargs:
             scale_io = kwargs['scaleIO']
-        if 'vsphereVolume' in kwargs:
+        if vsphere_volume is None and 'vsphereVolume' in kwargs:
             vsphere_volume = kwargs['vsphereVolume']
 
         if aws_elastic_block_store is not None:
@@ -33560,11 +33852,11 @@ class VolumeProjectionPatchArgs:
              service_account_token: Optional[pulumi.Input['ServiceAccountTokenProjectionPatchArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'configMap' in kwargs:
+        if config_map is None and 'configMap' in kwargs:
             config_map = kwargs['configMap']
-        if 'downwardAPI' in kwargs:
+        if downward_api is None and 'downwardAPI' in kwargs:
             downward_api = kwargs['downwardAPI']
-        if 'serviceAccountToken' in kwargs:
+        if service_account_token is None and 'serviceAccountToken' in kwargs:
             service_account_token = kwargs['serviceAccountToken']
 
         if config_map is not None:
@@ -33655,11 +33947,11 @@ class VolumeProjectionArgs:
              service_account_token: Optional[pulumi.Input['ServiceAccountTokenProjectionArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'configMap' in kwargs:
+        if config_map is None and 'configMap' in kwargs:
             config_map = kwargs['configMap']
-        if 'downwardAPI' in kwargs:
+        if downward_api is None and 'downwardAPI' in kwargs:
             downward_api = kwargs['downwardAPI']
-        if 'serviceAccountToken' in kwargs:
+        if service_account_token is None and 'serviceAccountToken' in kwargs:
             service_account_token = kwargs['serviceAccountToken']
 
         if config_map is not None:
@@ -33835,7 +34127,7 @@ class VolumeArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             name: pulumi.Input[str],
+             name: Optional[pulumi.Input[str]] = None,
              aws_elastic_block_store: Optional[pulumi.Input['AWSElasticBlockStoreVolumeSourceArgs']] = None,
              azure_disk: Optional[pulumi.Input['AzureDiskVolumeSourceArgs']] = None,
              azure_file: Optional[pulumi.Input['AzureFileVolumeSourceArgs']] = None,
@@ -33867,35 +34159,37 @@ class VolumeArgs:
              vsphere_volume: Optional[pulumi.Input['VsphereVirtualDiskVolumeSourceArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'awsElasticBlockStore' in kwargs:
+        if name is None:
+            raise TypeError("Missing 'name' argument")
+        if aws_elastic_block_store is None and 'awsElasticBlockStore' in kwargs:
             aws_elastic_block_store = kwargs['awsElasticBlockStore']
-        if 'azureDisk' in kwargs:
+        if azure_disk is None and 'azureDisk' in kwargs:
             azure_disk = kwargs['azureDisk']
-        if 'azureFile' in kwargs:
+        if azure_file is None and 'azureFile' in kwargs:
             azure_file = kwargs['azureFile']
-        if 'configMap' in kwargs:
+        if config_map is None and 'configMap' in kwargs:
             config_map = kwargs['configMap']
-        if 'downwardAPI' in kwargs:
+        if downward_api is None and 'downwardAPI' in kwargs:
             downward_api = kwargs['downwardAPI']
-        if 'emptyDir' in kwargs:
+        if empty_dir is None and 'emptyDir' in kwargs:
             empty_dir = kwargs['emptyDir']
-        if 'flexVolume' in kwargs:
+        if flex_volume is None and 'flexVolume' in kwargs:
             flex_volume = kwargs['flexVolume']
-        if 'gcePersistentDisk' in kwargs:
+        if gce_persistent_disk is None and 'gcePersistentDisk' in kwargs:
             gce_persistent_disk = kwargs['gcePersistentDisk']
-        if 'gitRepo' in kwargs:
+        if git_repo is None and 'gitRepo' in kwargs:
             git_repo = kwargs['gitRepo']
-        if 'hostPath' in kwargs:
+        if host_path is None and 'hostPath' in kwargs:
             host_path = kwargs['hostPath']
-        if 'persistentVolumeClaim' in kwargs:
+        if persistent_volume_claim is None and 'persistentVolumeClaim' in kwargs:
             persistent_volume_claim = kwargs['persistentVolumeClaim']
-        if 'photonPersistentDisk' in kwargs:
+        if photon_persistent_disk is None and 'photonPersistentDisk' in kwargs:
             photon_persistent_disk = kwargs['photonPersistentDisk']
-        if 'portworxVolume' in kwargs:
+        if portworx_volume is None and 'portworxVolume' in kwargs:
             portworx_volume = kwargs['portworxVolume']
-        if 'scaleIO' in kwargs:
+        if scale_io is None and 'scaleIO' in kwargs:
             scale_io = kwargs['scaleIO']
-        if 'vsphereVolume' in kwargs:
+        if vsphere_volume is None and 'vsphereVolume' in kwargs:
             vsphere_volume = kwargs['vsphereVolume']
 
         _setter("name", name)
@@ -34362,13 +34656,13 @@ class VsphereVirtualDiskVolumeSourcePatchArgs:
              volume_path: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'fsType' in kwargs:
+        if fs_type is None and 'fsType' in kwargs:
             fs_type = kwargs['fsType']
-        if 'storagePolicyID' in kwargs:
+        if storage_policy_id is None and 'storagePolicyID' in kwargs:
             storage_policy_id = kwargs['storagePolicyID']
-        if 'storagePolicyName' in kwargs:
+        if storage_policy_name is None and 'storagePolicyName' in kwargs:
             storage_policy_name = kwargs['storagePolicyName']
-        if 'volumePath' in kwargs:
+        if volume_path is None and 'volumePath' in kwargs:
             volume_path = kwargs['volumePath']
 
         if fs_type is not None:
@@ -34453,19 +34747,21 @@ class VsphereVirtualDiskVolumeSourceArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             volume_path: pulumi.Input[str],
+             volume_path: Optional[pulumi.Input[str]] = None,
              fs_type: Optional[pulumi.Input[str]] = None,
              storage_policy_id: Optional[pulumi.Input[str]] = None,
              storage_policy_name: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'volumePath' in kwargs:
+        if volume_path is None and 'volumePath' in kwargs:
             volume_path = kwargs['volumePath']
-        if 'fsType' in kwargs:
+        if volume_path is None:
+            raise TypeError("Missing 'volume_path' argument")
+        if fs_type is None and 'fsType' in kwargs:
             fs_type = kwargs['fsType']
-        if 'storagePolicyID' in kwargs:
+        if storage_policy_id is None and 'storagePolicyID' in kwargs:
             storage_policy_id = kwargs['storagePolicyID']
-        if 'storagePolicyName' in kwargs:
+        if storage_policy_name is None and 'storagePolicyName' in kwargs:
             storage_policy_name = kwargs['storagePolicyName']
 
         _setter("volume_path", volume_path)
@@ -34547,7 +34843,7 @@ class WeightedPodAffinityTermPatchArgs:
              weight: Optional[pulumi.Input[int]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'podAffinityTerm' in kwargs:
+        if pod_affinity_term is None and 'podAffinityTerm' in kwargs:
             pod_affinity_term = kwargs['podAffinityTerm']
 
         if pod_affinity_term is not None:
@@ -34598,12 +34894,16 @@ class WeightedPodAffinityTermArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             pod_affinity_term: pulumi.Input['PodAffinityTermArgs'],
-             weight: pulumi.Input[int],
+             pod_affinity_term: Optional[pulumi.Input['PodAffinityTermArgs']] = None,
+             weight: Optional[pulumi.Input[int]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'podAffinityTerm' in kwargs:
+        if pod_affinity_term is None and 'podAffinityTerm' in kwargs:
             pod_affinity_term = kwargs['podAffinityTerm']
+        if pod_affinity_term is None:
+            raise TypeError("Missing 'pod_affinity_term' argument")
+        if weight is None:
+            raise TypeError("Missing 'weight' argument")
 
         _setter("pod_affinity_term", pod_affinity_term)
         _setter("weight", weight)
@@ -34663,13 +34963,13 @@ class WindowsSecurityContextOptionsPatchArgs:
              run_as_user_name: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'gmsaCredentialSpec' in kwargs:
+        if gmsa_credential_spec is None and 'gmsaCredentialSpec' in kwargs:
             gmsa_credential_spec = kwargs['gmsaCredentialSpec']
-        if 'gmsaCredentialSpecName' in kwargs:
+        if gmsa_credential_spec_name is None and 'gmsaCredentialSpecName' in kwargs:
             gmsa_credential_spec_name = kwargs['gmsaCredentialSpecName']
-        if 'hostProcess' in kwargs:
+        if host_process is None and 'hostProcess' in kwargs:
             host_process = kwargs['hostProcess']
-        if 'runAsUserName' in kwargs:
+        if run_as_user_name is None and 'runAsUserName' in kwargs:
             run_as_user_name = kwargs['runAsUserName']
 
         if gmsa_credential_spec is not None:
@@ -34760,13 +35060,13 @@ class WindowsSecurityContextOptionsArgs:
              run_as_user_name: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'gmsaCredentialSpec' in kwargs:
+        if gmsa_credential_spec is None and 'gmsaCredentialSpec' in kwargs:
             gmsa_credential_spec = kwargs['gmsaCredentialSpec']
-        if 'gmsaCredentialSpecName' in kwargs:
+        if gmsa_credential_spec_name is None and 'gmsaCredentialSpecName' in kwargs:
             gmsa_credential_spec_name = kwargs['gmsaCredentialSpecName']
-        if 'hostProcess' in kwargs:
+        if host_process is None and 'hostProcess' in kwargs:
             host_process = kwargs['hostProcess']
-        if 'runAsUserName' in kwargs:
+        if run_as_user_name is None and 'runAsUserName' in kwargs:
             run_as_user_name = kwargs['runAsUserName']
 
         if gmsa_credential_spec is not None:

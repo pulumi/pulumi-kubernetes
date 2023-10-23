@@ -115,7 +115,7 @@ class Event(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             event_time: str,
+             event_time: Optional[str] = None,
              action: Optional[str] = None,
              api_version: Optional[str] = None,
              deprecated_count: Optional[int] = None,
@@ -134,21 +134,23 @@ class Event(dict):
              type: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'eventTime' in kwargs:
+        if event_time is None and 'eventTime' in kwargs:
             event_time = kwargs['eventTime']
-        if 'apiVersion' in kwargs:
+        if event_time is None:
+            raise TypeError("Missing 'event_time' argument")
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
-        if 'deprecatedCount' in kwargs:
+        if deprecated_count is None and 'deprecatedCount' in kwargs:
             deprecated_count = kwargs['deprecatedCount']
-        if 'deprecatedFirstTimestamp' in kwargs:
+        if deprecated_first_timestamp is None and 'deprecatedFirstTimestamp' in kwargs:
             deprecated_first_timestamp = kwargs['deprecatedFirstTimestamp']
-        if 'deprecatedLastTimestamp' in kwargs:
+        if deprecated_last_timestamp is None and 'deprecatedLastTimestamp' in kwargs:
             deprecated_last_timestamp = kwargs['deprecatedLastTimestamp']
-        if 'deprecatedSource' in kwargs:
+        if deprecated_source is None and 'deprecatedSource' in kwargs:
             deprecated_source = kwargs['deprecatedSource']
-        if 'reportingController' in kwargs:
+        if reporting_controller is None and 'reportingController' in kwargs:
             reporting_controller = kwargs['reportingController']
-        if 'reportingInstance' in kwargs:
+        if reporting_instance is None and 'reportingInstance' in kwargs:
             reporting_instance = kwargs['reportingInstance']
 
         _setter("event_time", event_time)
@@ -360,12 +362,16 @@ class EventSeries(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             count: int,
-             last_observed_time: str,
+             count: Optional[int] = None,
+             last_observed_time: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'lastObservedTime' in kwargs:
+        if count is None:
+            raise TypeError("Missing 'count' argument")
+        if last_observed_time is None and 'lastObservedTime' in kwargs:
             last_observed_time = kwargs['lastObservedTime']
+        if last_observed_time is None:
+            raise TypeError("Missing 'last_observed_time' argument")
 
         _setter("count", count)
         _setter("last_observed_time", last_observed_time)
@@ -429,7 +435,7 @@ class EventSeriesPatch(dict):
              last_observed_time: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'lastObservedTime' in kwargs:
+        if last_observed_time is None and 'lastObservedTime' in kwargs:
             last_observed_time = kwargs['lastObservedTime']
 
         if count is not None:

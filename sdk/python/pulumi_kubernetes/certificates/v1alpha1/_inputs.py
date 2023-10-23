@@ -50,9 +50,9 @@ class ClusterTrustBundleSpecPatchArgs:
              trust_bundle: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'signerName' in kwargs:
+        if signer_name is None and 'signerName' in kwargs:
             signer_name = kwargs['signerName']
-        if 'trustBundle' in kwargs:
+        if trust_bundle is None and 'trustBundle' in kwargs:
             trust_bundle = kwargs['trustBundle']
 
         if signer_name is not None:
@@ -127,13 +127,15 @@ class ClusterTrustBundleSpecArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             trust_bundle: pulumi.Input[str],
+             trust_bundle: Optional[pulumi.Input[str]] = None,
              signer_name: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'trustBundle' in kwargs:
+        if trust_bundle is None and 'trustBundle' in kwargs:
             trust_bundle = kwargs['trustBundle']
-        if 'signerName' in kwargs:
+        if trust_bundle is None:
+            raise TypeError("Missing 'trust_bundle' argument")
+        if signer_name is None and 'signerName' in kwargs:
             signer_name = kwargs['signerName']
 
         _setter("trust_bundle", trust_bundle)
@@ -205,13 +207,15 @@ class ClusterTrustBundleArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             spec: pulumi.Input['ClusterTrustBundleSpecArgs'],
+             spec: Optional[pulumi.Input['ClusterTrustBundleSpecArgs']] = None,
              api_version: Optional[pulumi.Input[str]] = None,
              kind: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if spec is None:
+            raise TypeError("Missing 'spec' argument")
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         _setter("spec", spec)

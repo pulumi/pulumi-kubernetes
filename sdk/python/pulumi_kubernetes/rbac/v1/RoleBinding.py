@@ -41,16 +41,18 @@ class RoleBindingInitArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             role_ref: pulumi.Input['RoleRefArgs'],
+             role_ref: Optional[pulumi.Input['RoleRefArgs']] = None,
              api_version: Optional[pulumi.Input[str]] = None,
              kind: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              subjects: Optional[pulumi.Input[Sequence[pulumi.Input['SubjectArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'roleRef' in kwargs:
+        if role_ref is None and 'roleRef' in kwargs:
             role_ref = kwargs['roleRef']
-        if 'apiVersion' in kwargs:
+        if role_ref is None:
+            raise TypeError("Missing 'role_ref' argument")
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         _setter("role_ref", role_ref)

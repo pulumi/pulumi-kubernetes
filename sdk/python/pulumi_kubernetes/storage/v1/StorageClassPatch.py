@@ -67,17 +67,17 @@ class StorageClassPatchArgs:
              volume_binding_mode: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'allowVolumeExpansion' in kwargs:
+        if allow_volume_expansion is None and 'allowVolumeExpansion' in kwargs:
             allow_volume_expansion = kwargs['allowVolumeExpansion']
-        if 'allowedTopologies' in kwargs:
+        if allowed_topologies is None and 'allowedTopologies' in kwargs:
             allowed_topologies = kwargs['allowedTopologies']
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
-        if 'mountOptions' in kwargs:
+        if mount_options is None and 'mountOptions' in kwargs:
             mount_options = kwargs['mountOptions']
-        if 'reclaimPolicy' in kwargs:
+        if reclaim_policy is None and 'reclaimPolicy' in kwargs:
             reclaim_policy = kwargs['reclaimPolicy']
-        if 'volumeBindingMode' in kwargs:
+        if volume_binding_mode is None and 'volumeBindingMode' in kwargs:
             volume_binding_mode = kwargs['volumeBindingMode']
 
         if allow_volume_expansion is not None:

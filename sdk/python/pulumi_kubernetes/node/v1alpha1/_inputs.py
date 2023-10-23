@@ -39,7 +39,7 @@ class OverheadPatchArgs:
              pod_fixed: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'podFixed' in kwargs:
+        if pod_fixed is None and 'podFixed' in kwargs:
             pod_fixed = kwargs['podFixed']
 
         if pod_fixed is not None:
@@ -76,7 +76,7 @@ class OverheadArgs:
              pod_fixed: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'podFixed' in kwargs:
+        if pod_fixed is None and 'podFixed' in kwargs:
             pod_fixed = kwargs['podFixed']
 
         if pod_fixed is not None:
@@ -121,7 +121,7 @@ class RuntimeClassSpecPatchArgs:
              scheduling: Optional[pulumi.Input['SchedulingPatchArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'runtimeHandler' in kwargs:
+        if runtime_handler is None and 'runtimeHandler' in kwargs:
             runtime_handler = kwargs['runtimeHandler']
 
         if overhead is not None:
@@ -189,13 +189,15 @@ class RuntimeClassSpecArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             runtime_handler: pulumi.Input[str],
+             runtime_handler: Optional[pulumi.Input[str]] = None,
              overhead: Optional[pulumi.Input['OverheadArgs']] = None,
              scheduling: Optional[pulumi.Input['SchedulingArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'runtimeHandler' in kwargs:
+        if runtime_handler is None and 'runtimeHandler' in kwargs:
             runtime_handler = kwargs['runtimeHandler']
+        if runtime_handler is None:
+            raise TypeError("Missing 'runtime_handler' argument")
 
         _setter("runtime_handler", runtime_handler)
         if overhead is not None:
@@ -264,13 +266,15 @@ class RuntimeClassArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             spec: pulumi.Input['RuntimeClassSpecArgs'],
+             spec: Optional[pulumi.Input['RuntimeClassSpecArgs']] = None,
              api_version: Optional[pulumi.Input[str]] = None,
              kind: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if spec is None:
+            raise TypeError("Missing 'spec' argument")
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         _setter("spec", spec)
@@ -352,7 +356,7 @@ class SchedulingPatchArgs:
              tolerations: Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.TolerationPatchArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'nodeSelector' in kwargs:
+        if node_selector is None and 'nodeSelector' in kwargs:
             node_selector = kwargs['nodeSelector']
 
         if node_selector is not None:
@@ -407,7 +411,7 @@ class SchedulingArgs:
              tolerations: Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.TolerationArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'nodeSelector' in kwargs:
+        if node_selector is None and 'nodeSelector' in kwargs:
             node_selector = kwargs['nodeSelector']
 
         if node_selector is not None:

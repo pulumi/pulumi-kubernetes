@@ -74,7 +74,7 @@ class CertificateSigningRequest(dict):
              status: Optional['outputs.CertificateSigningRequestStatus'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -174,7 +174,7 @@ class CertificateSigningRequestCondition(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             type: str,
+             type: Optional[str] = None,
              last_transition_time: Optional[str] = None,
              last_update_time: Optional[str] = None,
              message: Optional[str] = None,
@@ -182,9 +182,11 @@ class CertificateSigningRequestCondition(dict):
              status: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'lastTransitionTime' in kwargs:
+        if type is None:
+            raise TypeError("Missing 'type' argument")
+        if last_transition_time is None and 'lastTransitionTime' in kwargs:
             last_transition_time = kwargs['lastTransitionTime']
-        if 'lastUpdateTime' in kwargs:
+        if last_update_time is None and 'lastUpdateTime' in kwargs:
             last_update_time = kwargs['lastUpdateTime']
 
         _setter("type", type)
@@ -304,9 +306,9 @@ class CertificateSigningRequestConditionPatch(dict):
              type: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'lastTransitionTime' in kwargs:
+        if last_transition_time is None and 'lastTransitionTime' in kwargs:
             last_transition_time = kwargs['lastTransitionTime']
-        if 'lastUpdateTime' in kwargs:
+        if last_update_time is None and 'lastUpdateTime' in kwargs:
             last_update_time = kwargs['lastUpdateTime']
 
         if last_transition_time is not None:
@@ -431,7 +433,7 @@ class CertificateSigningRequestSpec(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             request: str,
+             request: Optional[str] = None,
              extra: Optional[Mapping[str, Sequence[str]]] = None,
              groups: Optional[Sequence[str]] = None,
              signer_name: Optional[str] = None,
@@ -440,7 +442,9 @@ class CertificateSigningRequestSpec(dict):
              username: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'signerName' in kwargs:
+        if request is None:
+            raise TypeError("Missing 'request' argument")
+        if signer_name is None and 'signerName' in kwargs:
             signer_name = kwargs['signerName']
 
         _setter("request", request)
@@ -590,7 +594,7 @@ class CertificateSigningRequestSpecPatch(dict):
              username: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'signerName' in kwargs:
+        if signer_name is None and 'signerName' in kwargs:
             signer_name = kwargs['signerName']
 
         if extra is not None:

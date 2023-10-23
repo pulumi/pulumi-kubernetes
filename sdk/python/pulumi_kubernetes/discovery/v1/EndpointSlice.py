@@ -45,17 +45,21 @@ class EndpointSliceInitArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             address_type: pulumi.Input[str],
-             endpoints: pulumi.Input[Sequence[pulumi.Input['EndpointArgs']]],
+             address_type: Optional[pulumi.Input[str]] = None,
+             endpoints: Optional[pulumi.Input[Sequence[pulumi.Input['EndpointArgs']]]] = None,
              api_version: Optional[pulumi.Input[str]] = None,
              kind: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              ports: Optional[pulumi.Input[Sequence[pulumi.Input['EndpointPortArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'addressType' in kwargs:
+        if address_type is None and 'addressType' in kwargs:
             address_type = kwargs['addressType']
-        if 'apiVersion' in kwargs:
+        if address_type is None:
+            raise TypeError("Missing 'address_type' argument")
+        if endpoints is None:
+            raise TypeError("Missing 'endpoints' argument")
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         _setter("address_type", address_type)

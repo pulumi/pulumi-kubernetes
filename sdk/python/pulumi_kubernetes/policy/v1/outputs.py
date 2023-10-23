@@ -73,7 +73,7 @@ class PodDisruptionBudget(dict):
              status: Optional['outputs.PodDisruptionBudgetStatus'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -192,11 +192,11 @@ class PodDisruptionBudgetSpec(dict):
              unhealthy_pod_eviction_policy: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'maxUnavailable' in kwargs:
+        if max_unavailable is None and 'maxUnavailable' in kwargs:
             max_unavailable = kwargs['maxUnavailable']
-        if 'minAvailable' in kwargs:
+        if min_available is None and 'minAvailable' in kwargs:
             min_available = kwargs['minAvailable']
-        if 'unhealthyPodEvictionPolicy' in kwargs:
+        if unhealthy_pod_eviction_policy is None and 'unhealthyPodEvictionPolicy' in kwargs:
             unhealthy_pod_eviction_policy = kwargs['unhealthyPodEvictionPolicy']
 
         if max_unavailable is not None:
@@ -315,11 +315,11 @@ class PodDisruptionBudgetSpecPatch(dict):
              unhealthy_pod_eviction_policy: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'maxUnavailable' in kwargs:
+        if max_unavailable is None and 'maxUnavailable' in kwargs:
             max_unavailable = kwargs['maxUnavailable']
-        if 'minAvailable' in kwargs:
+        if min_available is None and 'minAvailable' in kwargs:
             min_available = kwargs['minAvailable']
-        if 'unhealthyPodEvictionPolicy' in kwargs:
+        if unhealthy_pod_eviction_policy is None and 'unhealthyPodEvictionPolicy' in kwargs:
             unhealthy_pod_eviction_policy = kwargs['unhealthyPodEvictionPolicy']
 
         if max_unavailable is not None:
@@ -445,26 +445,34 @@ class PodDisruptionBudgetStatus(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             current_healthy: int,
-             desired_healthy: int,
-             disruptions_allowed: int,
-             expected_pods: int,
+             current_healthy: Optional[int] = None,
+             desired_healthy: Optional[int] = None,
+             disruptions_allowed: Optional[int] = None,
+             expected_pods: Optional[int] = None,
              conditions: Optional[Sequence['_meta.v1.outputs.Condition']] = None,
              disrupted_pods: Optional[Mapping[str, str]] = None,
              observed_generation: Optional[int] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'currentHealthy' in kwargs:
+        if current_healthy is None and 'currentHealthy' in kwargs:
             current_healthy = kwargs['currentHealthy']
-        if 'desiredHealthy' in kwargs:
+        if current_healthy is None:
+            raise TypeError("Missing 'current_healthy' argument")
+        if desired_healthy is None and 'desiredHealthy' in kwargs:
             desired_healthy = kwargs['desiredHealthy']
-        if 'disruptionsAllowed' in kwargs:
+        if desired_healthy is None:
+            raise TypeError("Missing 'desired_healthy' argument")
+        if disruptions_allowed is None and 'disruptionsAllowed' in kwargs:
             disruptions_allowed = kwargs['disruptionsAllowed']
-        if 'expectedPods' in kwargs:
+        if disruptions_allowed is None:
+            raise TypeError("Missing 'disruptions_allowed' argument")
+        if expected_pods is None and 'expectedPods' in kwargs:
             expected_pods = kwargs['expectedPods']
-        if 'disruptedPods' in kwargs:
+        if expected_pods is None:
+            raise TypeError("Missing 'expected_pods' argument")
+        if disrupted_pods is None and 'disruptedPods' in kwargs:
             disrupted_pods = kwargs['disruptedPods']
-        if 'observedGeneration' in kwargs:
+        if observed_generation is None and 'observedGeneration' in kwargs:
             observed_generation = kwargs['observedGeneration']
 
         _setter("current_healthy", current_healthy)
@@ -623,17 +631,17 @@ class PodDisruptionBudgetStatusPatch(dict):
              observed_generation: Optional[int] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'currentHealthy' in kwargs:
+        if current_healthy is None and 'currentHealthy' in kwargs:
             current_healthy = kwargs['currentHealthy']
-        if 'desiredHealthy' in kwargs:
+        if desired_healthy is None and 'desiredHealthy' in kwargs:
             desired_healthy = kwargs['desiredHealthy']
-        if 'disruptedPods' in kwargs:
+        if disrupted_pods is None and 'disruptedPods' in kwargs:
             disrupted_pods = kwargs['disruptedPods']
-        if 'disruptionsAllowed' in kwargs:
+        if disruptions_allowed is None and 'disruptionsAllowed' in kwargs:
             disruptions_allowed = kwargs['disruptionsAllowed']
-        if 'expectedPods' in kwargs:
+        if expected_pods is None and 'expectedPods' in kwargs:
             expected_pods = kwargs['expectedPods']
-        if 'observedGeneration' in kwargs:
+        if observed_generation is None and 'observedGeneration' in kwargs:
             observed_generation = kwargs['observedGeneration']
 
         if conditions is not None:

@@ -59,10 +59,14 @@ class MatchCondition(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             expression: str,
-             name: str,
+             expression: Optional[str] = None,
+             name: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if expression is None:
+            raise TypeError("Missing 'expression' argument")
+        if name is None:
+            raise TypeError("Missing 'name' argument")
 
         _setter("expression", expression)
         _setter("name", name)
@@ -299,10 +303,10 @@ class MutatingWebhook(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             admission_review_versions: Sequence[str],
-             client_config: 'outputs.WebhookClientConfig',
-             name: str,
-             side_effects: str,
+             admission_review_versions: Optional[Sequence[str]] = None,
+             client_config: Optional['outputs.WebhookClientConfig'] = None,
+             name: Optional[str] = None,
+             side_effects: Optional[str] = None,
              failure_policy: Optional[str] = None,
              match_conditions: Optional[Sequence['outputs.MatchCondition']] = None,
              match_policy: Optional[str] = None,
@@ -313,25 +317,33 @@ class MutatingWebhook(dict):
              timeout_seconds: Optional[int] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'admissionReviewVersions' in kwargs:
+        if admission_review_versions is None and 'admissionReviewVersions' in kwargs:
             admission_review_versions = kwargs['admissionReviewVersions']
-        if 'clientConfig' in kwargs:
+        if admission_review_versions is None:
+            raise TypeError("Missing 'admission_review_versions' argument")
+        if client_config is None and 'clientConfig' in kwargs:
             client_config = kwargs['clientConfig']
-        if 'sideEffects' in kwargs:
+        if client_config is None:
+            raise TypeError("Missing 'client_config' argument")
+        if name is None:
+            raise TypeError("Missing 'name' argument")
+        if side_effects is None and 'sideEffects' in kwargs:
             side_effects = kwargs['sideEffects']
-        if 'failurePolicy' in kwargs:
+        if side_effects is None:
+            raise TypeError("Missing 'side_effects' argument")
+        if failure_policy is None and 'failurePolicy' in kwargs:
             failure_policy = kwargs['failurePolicy']
-        if 'matchConditions' in kwargs:
+        if match_conditions is None and 'matchConditions' in kwargs:
             match_conditions = kwargs['matchConditions']
-        if 'matchPolicy' in kwargs:
+        if match_policy is None and 'matchPolicy' in kwargs:
             match_policy = kwargs['matchPolicy']
-        if 'namespaceSelector' in kwargs:
+        if namespace_selector is None and 'namespaceSelector' in kwargs:
             namespace_selector = kwargs['namespaceSelector']
-        if 'objectSelector' in kwargs:
+        if object_selector is None and 'objectSelector' in kwargs:
             object_selector = kwargs['objectSelector']
-        if 'reinvocationPolicy' in kwargs:
+        if reinvocation_policy is None and 'reinvocationPolicy' in kwargs:
             reinvocation_policy = kwargs['reinvocationPolicy']
-        if 'timeoutSeconds' in kwargs:
+        if timeout_seconds is None and 'timeoutSeconds' in kwargs:
             timeout_seconds = kwargs['timeoutSeconds']
 
         _setter("admission_review_versions", admission_review_versions)
@@ -553,7 +565,7 @@ class MutatingWebhookConfiguration(dict):
              webhooks: Optional[Sequence['outputs.MutatingWebhook']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -749,25 +761,25 @@ class MutatingWebhookPatch(dict):
              timeout_seconds: Optional[int] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'admissionReviewVersions' in kwargs:
+        if admission_review_versions is None and 'admissionReviewVersions' in kwargs:
             admission_review_versions = kwargs['admissionReviewVersions']
-        if 'clientConfig' in kwargs:
+        if client_config is None and 'clientConfig' in kwargs:
             client_config = kwargs['clientConfig']
-        if 'failurePolicy' in kwargs:
+        if failure_policy is None and 'failurePolicy' in kwargs:
             failure_policy = kwargs['failurePolicy']
-        if 'matchConditions' in kwargs:
+        if match_conditions is None and 'matchConditions' in kwargs:
             match_conditions = kwargs['matchConditions']
-        if 'matchPolicy' in kwargs:
+        if match_policy is None and 'matchPolicy' in kwargs:
             match_policy = kwargs['matchPolicy']
-        if 'namespaceSelector' in kwargs:
+        if namespace_selector is None and 'namespaceSelector' in kwargs:
             namespace_selector = kwargs['namespaceSelector']
-        if 'objectSelector' in kwargs:
+        if object_selector is None and 'objectSelector' in kwargs:
             object_selector = kwargs['objectSelector']
-        if 'reinvocationPolicy' in kwargs:
+        if reinvocation_policy is None and 'reinvocationPolicy' in kwargs:
             reinvocation_policy = kwargs['reinvocationPolicy']
-        if 'sideEffects' in kwargs:
+        if side_effects is None and 'sideEffects' in kwargs:
             side_effects = kwargs['sideEffects']
-        if 'timeoutSeconds' in kwargs:
+        if timeout_seconds is None and 'timeoutSeconds' in kwargs:
             timeout_seconds = kwargs['timeoutSeconds']
 
         if admission_review_versions is not None:
@@ -1005,9 +1017,9 @@ class RuleWithOperations(dict):
              scope: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiGroups' in kwargs:
+        if api_groups is None and 'apiGroups' in kwargs:
             api_groups = kwargs['apiGroups']
-        if 'apiVersions' in kwargs:
+        if api_versions is None and 'apiVersions' in kwargs:
             api_versions = kwargs['apiVersions']
 
         if api_groups is not None:
@@ -1130,9 +1142,9 @@ class RuleWithOperationsPatch(dict):
              scope: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiGroups' in kwargs:
+        if api_groups is None and 'apiGroups' in kwargs:
             api_groups = kwargs['apiGroups']
-        if 'apiVersions' in kwargs:
+        if api_versions is None and 'apiVersions' in kwargs:
             api_versions = kwargs['apiVersions']
 
         if api_groups is not None:
@@ -1220,12 +1232,16 @@ class ServiceReference(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             name: str,
-             namespace: str,
+             name: Optional[str] = None,
+             namespace: Optional[str] = None,
              path: Optional[str] = None,
              port: Optional[int] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if name is None:
+            raise TypeError("Missing 'name' argument")
+        if namespace is None:
+            raise TypeError("Missing 'namespace' argument")
 
         _setter("name", name)
         _setter("namespace", namespace)
@@ -1469,10 +1485,10 @@ class ValidatingWebhook(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             admission_review_versions: Sequence[str],
-             client_config: 'outputs.WebhookClientConfig',
-             name: str,
-             side_effects: str,
+             admission_review_versions: Optional[Sequence[str]] = None,
+             client_config: Optional['outputs.WebhookClientConfig'] = None,
+             name: Optional[str] = None,
+             side_effects: Optional[str] = None,
              failure_policy: Optional[str] = None,
              match_conditions: Optional[Sequence['outputs.MatchCondition']] = None,
              match_policy: Optional[str] = None,
@@ -1482,23 +1498,31 @@ class ValidatingWebhook(dict):
              timeout_seconds: Optional[int] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'admissionReviewVersions' in kwargs:
+        if admission_review_versions is None and 'admissionReviewVersions' in kwargs:
             admission_review_versions = kwargs['admissionReviewVersions']
-        if 'clientConfig' in kwargs:
+        if admission_review_versions is None:
+            raise TypeError("Missing 'admission_review_versions' argument")
+        if client_config is None and 'clientConfig' in kwargs:
             client_config = kwargs['clientConfig']
-        if 'sideEffects' in kwargs:
+        if client_config is None:
+            raise TypeError("Missing 'client_config' argument")
+        if name is None:
+            raise TypeError("Missing 'name' argument")
+        if side_effects is None and 'sideEffects' in kwargs:
             side_effects = kwargs['sideEffects']
-        if 'failurePolicy' in kwargs:
+        if side_effects is None:
+            raise TypeError("Missing 'side_effects' argument")
+        if failure_policy is None and 'failurePolicy' in kwargs:
             failure_policy = kwargs['failurePolicy']
-        if 'matchConditions' in kwargs:
+        if match_conditions is None and 'matchConditions' in kwargs:
             match_conditions = kwargs['matchConditions']
-        if 'matchPolicy' in kwargs:
+        if match_policy is None and 'matchPolicy' in kwargs:
             match_policy = kwargs['matchPolicy']
-        if 'namespaceSelector' in kwargs:
+        if namespace_selector is None and 'namespaceSelector' in kwargs:
             namespace_selector = kwargs['namespaceSelector']
-        if 'objectSelector' in kwargs:
+        if object_selector is None and 'objectSelector' in kwargs:
             object_selector = kwargs['objectSelector']
-        if 'timeoutSeconds' in kwargs:
+        if timeout_seconds is None and 'timeoutSeconds' in kwargs:
             timeout_seconds = kwargs['timeoutSeconds']
 
         _setter("admission_review_versions", admission_review_versions)
@@ -1704,7 +1728,7 @@ class ValidatingWebhookConfiguration(dict):
              webhooks: Optional[Sequence['outputs.ValidatingWebhook']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -1888,23 +1912,23 @@ class ValidatingWebhookPatch(dict):
              timeout_seconds: Optional[int] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'admissionReviewVersions' in kwargs:
+        if admission_review_versions is None and 'admissionReviewVersions' in kwargs:
             admission_review_versions = kwargs['admissionReviewVersions']
-        if 'clientConfig' in kwargs:
+        if client_config is None and 'clientConfig' in kwargs:
             client_config = kwargs['clientConfig']
-        if 'failurePolicy' in kwargs:
+        if failure_policy is None and 'failurePolicy' in kwargs:
             failure_policy = kwargs['failurePolicy']
-        if 'matchConditions' in kwargs:
+        if match_conditions is None and 'matchConditions' in kwargs:
             match_conditions = kwargs['matchConditions']
-        if 'matchPolicy' in kwargs:
+        if match_policy is None and 'matchPolicy' in kwargs:
             match_policy = kwargs['matchPolicy']
-        if 'namespaceSelector' in kwargs:
+        if namespace_selector is None and 'namespaceSelector' in kwargs:
             namespace_selector = kwargs['namespaceSelector']
-        if 'objectSelector' in kwargs:
+        if object_selector is None and 'objectSelector' in kwargs:
             object_selector = kwargs['objectSelector']
-        if 'sideEffects' in kwargs:
+        if side_effects is None and 'sideEffects' in kwargs:
             side_effects = kwargs['sideEffects']
-        if 'timeoutSeconds' in kwargs:
+        if timeout_seconds is None and 'timeoutSeconds' in kwargs:
             timeout_seconds = kwargs['timeoutSeconds']
 
         if admission_review_versions is not None:
@@ -2122,7 +2146,7 @@ class WebhookClientConfig(dict):
              url: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'caBundle' in kwargs:
+        if ca_bundle is None and 'caBundle' in kwargs:
             ca_bundle = kwargs['caBundle']
 
         if ca_bundle is not None:
@@ -2227,7 +2251,7 @@ class WebhookClientConfigPatch(dict):
              url: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'caBundle' in kwargs:
+        if ca_bundle is None and 'caBundle' in kwargs:
             ca_bundle = kwargs['caBundle']
 
         if ca_bundle is not None:

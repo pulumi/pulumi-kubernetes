@@ -48,9 +48,9 @@ class ClusterRolePatchArgs:
              rules: Optional[pulumi.Input[Sequence[pulumi.Input['PolicyRulePatchArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'aggregationRule' in kwargs:
+        if aggregation_rule is None and 'aggregationRule' in kwargs:
             aggregation_rule = kwargs['aggregationRule']
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if aggregation_rule is not None:

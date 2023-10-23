@@ -96,19 +96,19 @@ class EventPatchArgs:
              type: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
-        if 'eventTime' in kwargs:
+        if event_time is None and 'eventTime' in kwargs:
             event_time = kwargs['eventTime']
-        if 'firstTimestamp' in kwargs:
+        if first_timestamp is None and 'firstTimestamp' in kwargs:
             first_timestamp = kwargs['firstTimestamp']
-        if 'involvedObject' in kwargs:
+        if involved_object is None and 'involvedObject' in kwargs:
             involved_object = kwargs['involvedObject']
-        if 'lastTimestamp' in kwargs:
+        if last_timestamp is None and 'lastTimestamp' in kwargs:
             last_timestamp = kwargs['lastTimestamp']
-        if 'reportingComponent' in kwargs:
+        if reporting_component is None and 'reportingComponent' in kwargs:
             reporting_component = kwargs['reportingComponent']
-        if 'reportingInstance' in kwargs:
+        if reporting_instance is None and 'reportingInstance' in kwargs:
             reporting_instance = kwargs['reportingInstance']
 
         if action is not None:

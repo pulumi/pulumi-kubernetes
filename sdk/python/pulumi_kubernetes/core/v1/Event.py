@@ -77,8 +77,8 @@ class EventInitArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             involved_object: pulumi.Input['ObjectReferenceArgs'],
-             metadata: pulumi.Input['_meta.v1.ObjectMetaArgs'],
+             involved_object: Optional[pulumi.Input['ObjectReferenceArgs']] = None,
+             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              action: Optional[pulumi.Input[str]] = None,
              api_version: Optional[pulumi.Input[str]] = None,
              count: Optional[pulumi.Input[int]] = None,
@@ -96,19 +96,23 @@ class EventInitArgs:
              type: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'involvedObject' in kwargs:
+        if involved_object is None and 'involvedObject' in kwargs:
             involved_object = kwargs['involvedObject']
-        if 'apiVersion' in kwargs:
+        if involved_object is None:
+            raise TypeError("Missing 'involved_object' argument")
+        if metadata is None:
+            raise TypeError("Missing 'metadata' argument")
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
-        if 'eventTime' in kwargs:
+        if event_time is None and 'eventTime' in kwargs:
             event_time = kwargs['eventTime']
-        if 'firstTimestamp' in kwargs:
+        if first_timestamp is None and 'firstTimestamp' in kwargs:
             first_timestamp = kwargs['firstTimestamp']
-        if 'lastTimestamp' in kwargs:
+        if last_timestamp is None and 'lastTimestamp' in kwargs:
             last_timestamp = kwargs['lastTimestamp']
-        if 'reportingComponent' in kwargs:
+        if reporting_component is None and 'reportingComponent' in kwargs:
             reporting_component = kwargs['reportingComponent']
-        if 'reportingInstance' in kwargs:
+        if reporting_instance is None and 'reportingInstance' in kwargs:
             reporting_instance = kwargs['reportingInstance']
 
         _setter("involved_object", involved_object)

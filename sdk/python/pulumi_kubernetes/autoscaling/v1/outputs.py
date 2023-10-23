@@ -62,12 +62,16 @@ class CrossVersionObjectReference(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             kind: str,
-             name: str,
+             kind: Optional[str] = None,
+             name: Optional[str] = None,
              api_version: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if kind is None:
+            raise TypeError("Missing 'kind' argument")
+        if name is None:
+            raise TypeError("Missing 'name' argument")
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         _setter("kind", kind)
@@ -146,7 +150,7 @@ class CrossVersionObjectReferencePatch(dict):
              name: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -235,7 +239,7 @@ class HorizontalPodAutoscaler(dict):
              status: Optional['outputs.HorizontalPodAutoscalerStatus'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -340,19 +344,23 @@ class HorizontalPodAutoscalerSpec(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             max_replicas: int,
-             scale_target_ref: 'outputs.CrossVersionObjectReference',
+             max_replicas: Optional[int] = None,
+             scale_target_ref: Optional['outputs.CrossVersionObjectReference'] = None,
              min_replicas: Optional[int] = None,
              target_cpu_utilization_percentage: Optional[int] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'maxReplicas' in kwargs:
+        if max_replicas is None and 'maxReplicas' in kwargs:
             max_replicas = kwargs['maxReplicas']
-        if 'scaleTargetRef' in kwargs:
+        if max_replicas is None:
+            raise TypeError("Missing 'max_replicas' argument")
+        if scale_target_ref is None and 'scaleTargetRef' in kwargs:
             scale_target_ref = kwargs['scaleTargetRef']
-        if 'minReplicas' in kwargs:
+        if scale_target_ref is None:
+            raise TypeError("Missing 'scale_target_ref' argument")
+        if min_replicas is None and 'minReplicas' in kwargs:
             min_replicas = kwargs['minReplicas']
-        if 'targetCPUUtilizationPercentage' in kwargs:
+        if target_cpu_utilization_percentage is None and 'targetCPUUtilizationPercentage' in kwargs:
             target_cpu_utilization_percentage = kwargs['targetCPUUtilizationPercentage']
 
         _setter("max_replicas", max_replicas)
@@ -451,13 +459,13 @@ class HorizontalPodAutoscalerSpecPatch(dict):
              target_cpu_utilization_percentage: Optional[int] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'maxReplicas' in kwargs:
+        if max_replicas is None and 'maxReplicas' in kwargs:
             max_replicas = kwargs['maxReplicas']
-        if 'minReplicas' in kwargs:
+        if min_replicas is None and 'minReplicas' in kwargs:
             min_replicas = kwargs['minReplicas']
-        if 'scaleTargetRef' in kwargs:
+        if scale_target_ref is None and 'scaleTargetRef' in kwargs:
             scale_target_ref = kwargs['scaleTargetRef']
-        if 'targetCPUUtilizationPercentage' in kwargs:
+        if target_cpu_utilization_percentage is None and 'targetCPUUtilizationPercentage' in kwargs:
             target_cpu_utilization_percentage = kwargs['targetCPUUtilizationPercentage']
 
         if max_replicas is not None:
@@ -557,22 +565,26 @@ class HorizontalPodAutoscalerStatus(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             current_replicas: int,
-             desired_replicas: int,
+             current_replicas: Optional[int] = None,
+             desired_replicas: Optional[int] = None,
              current_cpu_utilization_percentage: Optional[int] = None,
              last_scale_time: Optional[str] = None,
              observed_generation: Optional[int] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'currentReplicas' in kwargs:
+        if current_replicas is None and 'currentReplicas' in kwargs:
             current_replicas = kwargs['currentReplicas']
-        if 'desiredReplicas' in kwargs:
+        if current_replicas is None:
+            raise TypeError("Missing 'current_replicas' argument")
+        if desired_replicas is None and 'desiredReplicas' in kwargs:
             desired_replicas = kwargs['desiredReplicas']
-        if 'currentCPUUtilizationPercentage' in kwargs:
+        if desired_replicas is None:
+            raise TypeError("Missing 'desired_replicas' argument")
+        if current_cpu_utilization_percentage is None and 'currentCPUUtilizationPercentage' in kwargs:
             current_cpu_utilization_percentage = kwargs['currentCPUUtilizationPercentage']
-        if 'lastScaleTime' in kwargs:
+        if last_scale_time is None and 'lastScaleTime' in kwargs:
             last_scale_time = kwargs['lastScaleTime']
-        if 'observedGeneration' in kwargs:
+        if observed_generation is None and 'observedGeneration' in kwargs:
             observed_generation = kwargs['observedGeneration']
 
         _setter("current_replicas", current_replicas)
@@ -687,15 +699,15 @@ class HorizontalPodAutoscalerStatusPatch(dict):
              observed_generation: Optional[int] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'currentCPUUtilizationPercentage' in kwargs:
+        if current_cpu_utilization_percentage is None and 'currentCPUUtilizationPercentage' in kwargs:
             current_cpu_utilization_percentage = kwargs['currentCPUUtilizationPercentage']
-        if 'currentReplicas' in kwargs:
+        if current_replicas is None and 'currentReplicas' in kwargs:
             current_replicas = kwargs['currentReplicas']
-        if 'desiredReplicas' in kwargs:
+        if desired_replicas is None and 'desiredReplicas' in kwargs:
             desired_replicas = kwargs['desiredReplicas']
-        if 'lastScaleTime' in kwargs:
+        if last_scale_time is None and 'lastScaleTime' in kwargs:
             last_scale_time = kwargs['lastScaleTime']
-        if 'observedGeneration' in kwargs:
+        if observed_generation is None and 'observedGeneration' in kwargs:
             observed_generation = kwargs['observedGeneration']
 
         if current_cpu_utilization_percentage is not None:

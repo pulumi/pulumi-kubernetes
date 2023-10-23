@@ -69,13 +69,15 @@ class ClusterTrustBundle(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             spec: 'outputs.ClusterTrustBundleSpec',
+             spec: Optional['outputs.ClusterTrustBundleSpec'] = None,
              api_version: Optional[str] = None,
              kind: Optional[str] = None,
              metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if spec is None:
+            raise TypeError("Missing 'spec' argument")
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         _setter("spec", spec)
@@ -171,13 +173,15 @@ class ClusterTrustBundleSpec(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             trust_bundle: str,
+             trust_bundle: Optional[str] = None,
              signer_name: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'trustBundle' in kwargs:
+        if trust_bundle is None and 'trustBundle' in kwargs:
             trust_bundle = kwargs['trustBundle']
-        if 'signerName' in kwargs:
+        if trust_bundle is None:
+            raise TypeError("Missing 'trust_bundle' argument")
+        if signer_name is None and 'signerName' in kwargs:
             signer_name = kwargs['signerName']
 
         _setter("trust_bundle", trust_bundle)
@@ -269,9 +273,9 @@ class ClusterTrustBundleSpecPatch(dict):
              trust_bundle: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'signerName' in kwargs:
+        if signer_name is None and 'signerName' in kwargs:
             signer_name = kwargs['signerName']
-        if 'trustBundle' in kwargs:
+        if trust_bundle is None and 'trustBundle' in kwargs:
             trust_bundle = kwargs['trustBundle']
 
         if signer_name is not None:

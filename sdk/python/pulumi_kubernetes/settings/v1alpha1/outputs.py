@@ -66,7 +66,7 @@ class PodPreset(dict):
              spec: Optional['outputs.PodPresetSpec'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -161,9 +161,9 @@ class PodPresetSpec(dict):
              volumes: Optional[Sequence['_core.v1.outputs.Volume']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'envFrom' in kwargs:
+        if env_from is None and 'envFrom' in kwargs:
             env_from = kwargs['envFrom']
-        if 'volumeMounts' in kwargs:
+        if volume_mounts is None and 'volumeMounts' in kwargs:
             volume_mounts = kwargs['volumeMounts']
 
         if env is not None:
@@ -274,9 +274,9 @@ class PodPresetSpecPatch(dict):
              volumes: Optional[Sequence['_core.v1.outputs.VolumePatch']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'envFrom' in kwargs:
+        if env_from is None and 'envFrom' in kwargs:
             env_from = kwargs['envFrom']
-        if 'volumeMounts' in kwargs:
+        if volume_mounts is None and 'volumeMounts' in kwargs:
             volume_mounts = kwargs['volumeMounts']
 
         if env is not None:

@@ -38,13 +38,15 @@ class PodSchedulingContextInitArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             spec: pulumi.Input['PodSchedulingContextSpecArgs'],
+             spec: Optional[pulumi.Input['PodSchedulingContextSpecArgs']] = None,
              api_version: Optional[pulumi.Input[str]] = None,
              kind: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if spec is None:
+            raise TypeError("Missing 'spec' argument")
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         _setter("spec", spec)

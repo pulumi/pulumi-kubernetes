@@ -49,7 +49,7 @@ class ResourceClassInitArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             driver_name: pulumi.Input[str],
+             driver_name: Optional[pulumi.Input[str]] = None,
              api_version: Optional[pulumi.Input[str]] = None,
              kind: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
@@ -57,13 +57,15 @@ class ResourceClassInitArgs:
              suitable_nodes: Optional[pulumi.Input['_core.v1.NodeSelectorArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'driverName' in kwargs:
+        if driver_name is None and 'driverName' in kwargs:
             driver_name = kwargs['driverName']
-        if 'apiVersion' in kwargs:
+        if driver_name is None:
+            raise TypeError("Missing 'driver_name' argument")
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
-        if 'parametersRef' in kwargs:
+        if parameters_ref is None and 'parametersRef' in kwargs:
             parameters_ref = kwargs['parametersRef']
-        if 'suitableNodes' in kwargs:
+        if suitable_nodes is None and 'suitableNodes' in kwargs:
             suitable_nodes = kwargs['suitableNodes']
 
         _setter("driver_name", driver_name)

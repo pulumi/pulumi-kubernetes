@@ -63,15 +63,15 @@ class CronJobSpecPatchArgs:
              suspend: Optional[pulumi.Input[bool]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'concurrencyPolicy' in kwargs:
+        if concurrency_policy is None and 'concurrencyPolicy' in kwargs:
             concurrency_policy = kwargs['concurrencyPolicy']
-        if 'failedJobsHistoryLimit' in kwargs:
+        if failed_jobs_history_limit is None and 'failedJobsHistoryLimit' in kwargs:
             failed_jobs_history_limit = kwargs['failedJobsHistoryLimit']
-        if 'jobTemplate' in kwargs:
+        if job_template is None and 'jobTemplate' in kwargs:
             job_template = kwargs['jobTemplate']
-        if 'startingDeadlineSeconds' in kwargs:
+        if starting_deadline_seconds is None and 'startingDeadlineSeconds' in kwargs:
             starting_deadline_seconds = kwargs['startingDeadlineSeconds']
-        if 'successfulJobsHistoryLimit' in kwargs:
+        if successful_jobs_history_limit is None and 'successfulJobsHistoryLimit' in kwargs:
             successful_jobs_history_limit = kwargs['successfulJobsHistoryLimit']
 
         if concurrency_policy is not None:
@@ -207,8 +207,8 @@ class CronJobSpecArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             job_template: pulumi.Input['JobTemplateSpecArgs'],
-             schedule: pulumi.Input[str],
+             job_template: Optional[pulumi.Input['JobTemplateSpecArgs']] = None,
+             schedule: Optional[pulumi.Input[str]] = None,
              concurrency_policy: Optional[pulumi.Input[str]] = None,
              failed_jobs_history_limit: Optional[pulumi.Input[int]] = None,
              starting_deadline_seconds: Optional[pulumi.Input[int]] = None,
@@ -216,15 +216,19 @@ class CronJobSpecArgs:
              suspend: Optional[pulumi.Input[bool]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'jobTemplate' in kwargs:
+        if job_template is None and 'jobTemplate' in kwargs:
             job_template = kwargs['jobTemplate']
-        if 'concurrencyPolicy' in kwargs:
+        if job_template is None:
+            raise TypeError("Missing 'job_template' argument")
+        if schedule is None:
+            raise TypeError("Missing 'schedule' argument")
+        if concurrency_policy is None and 'concurrencyPolicy' in kwargs:
             concurrency_policy = kwargs['concurrencyPolicy']
-        if 'failedJobsHistoryLimit' in kwargs:
+        if failed_jobs_history_limit is None and 'failedJobsHistoryLimit' in kwargs:
             failed_jobs_history_limit = kwargs['failedJobsHistoryLimit']
-        if 'startingDeadlineSeconds' in kwargs:
+        if starting_deadline_seconds is None and 'startingDeadlineSeconds' in kwargs:
             starting_deadline_seconds = kwargs['startingDeadlineSeconds']
-        if 'successfulJobsHistoryLimit' in kwargs:
+        if successful_jobs_history_limit is None and 'successfulJobsHistoryLimit' in kwargs:
             successful_jobs_history_limit = kwargs['successfulJobsHistoryLimit']
 
         _setter("job_template", job_template)
@@ -347,7 +351,7 @@ class CronJobStatusArgs:
              last_schedule_time: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'lastScheduleTime' in kwargs:
+        if last_schedule_time is None and 'lastScheduleTime' in kwargs:
             last_schedule_time = kwargs['lastScheduleTime']
 
         if active is not None:
@@ -414,7 +418,7 @@ class CronJobArgs:
              status: Optional[pulumi.Input['CronJobStatusArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:

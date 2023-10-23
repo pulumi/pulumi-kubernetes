@@ -57,13 +57,13 @@ class ResourceClassPatchArgs:
              suitable_nodes: Optional[pulumi.Input['_core.v1.NodeSelectorPatchArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
-        if 'driverName' in kwargs:
+        if driver_name is None and 'driverName' in kwargs:
             driver_name = kwargs['driverName']
-        if 'parametersRef' in kwargs:
+        if parameters_ref is None and 'parametersRef' in kwargs:
             parameters_ref = kwargs['parametersRef']
-        if 'suitableNodes' in kwargs:
+        if suitable_nodes is None and 'suitableNodes' in kwargs:
             suitable_nodes = kwargs['suitableNodes']
 
         if api_version is not None:

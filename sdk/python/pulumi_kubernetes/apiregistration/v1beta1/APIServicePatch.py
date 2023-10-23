@@ -43,7 +43,7 @@ class APIServicePatchArgs:
              spec: Optional[pulumi.Input['APIServiceSpecPatchArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:

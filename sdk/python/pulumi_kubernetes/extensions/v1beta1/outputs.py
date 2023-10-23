@@ -117,9 +117,11 @@ class AllowedCSIDriver(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             name: str,
+             name: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if name is None:
+            raise TypeError("Missing 'name' argument")
 
         _setter("name", name)
 
@@ -184,9 +186,11 @@ class AllowedFlexVolume(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             driver: str,
+             driver: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if driver is None:
+            raise TypeError("Missing 'driver' argument")
 
         _setter("driver", driver)
 
@@ -279,9 +283,9 @@ class AllowedHostPath(dict):
              read_only: Optional[bool] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'pathPrefix' in kwargs:
+        if path_prefix is None and 'pathPrefix' in kwargs:
             path_prefix = kwargs['pathPrefix']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
 
         if path_prefix is not None:
@@ -354,9 +358,9 @@ class AllowedHostPathPatch(dict):
              read_only: Optional[bool] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'pathPrefix' in kwargs:
+        if path_prefix is None and 'pathPrefix' in kwargs:
             path_prefix = kwargs['pathPrefix']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
 
         if path_prefix is not None:
@@ -437,7 +441,7 @@ class DaemonSet(dict):
              status: Optional['outputs.DaemonSetStatus'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -539,14 +543,18 @@ class DaemonSetCondition(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             status: str,
-             type: str,
+             status: Optional[str] = None,
+             type: Optional[str] = None,
              last_transition_time: Optional[str] = None,
              message: Optional[str] = None,
              reason: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'lastTransitionTime' in kwargs:
+        if status is None:
+            raise TypeError("Missing 'status' argument")
+        if type is None:
+            raise TypeError("Missing 'type' argument")
+        if last_transition_time is None and 'lastTransitionTime' in kwargs:
             last_transition_time = kwargs['lastTransitionTime']
 
         _setter("status", status)
@@ -653,7 +661,7 @@ class DaemonSetConditionPatch(dict):
              type: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'lastTransitionTime' in kwargs:
+        if last_transition_time is None and 'lastTransitionTime' in kwargs:
             last_transition_time = kwargs['lastTransitionTime']
 
         if last_transition_time is not None:
@@ -764,7 +772,7 @@ class DaemonSetSpec(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             template: '_core.v1.outputs.PodTemplateSpec',
+             template: Optional['_core.v1.outputs.PodTemplateSpec'] = None,
              min_ready_seconds: Optional[int] = None,
              revision_history_limit: Optional[int] = None,
              selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
@@ -772,13 +780,15 @@ class DaemonSetSpec(dict):
              update_strategy: Optional['outputs.DaemonSetUpdateStrategy'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'minReadySeconds' in kwargs:
+        if template is None:
+            raise TypeError("Missing 'template' argument")
+        if min_ready_seconds is None and 'minReadySeconds' in kwargs:
             min_ready_seconds = kwargs['minReadySeconds']
-        if 'revisionHistoryLimit' in kwargs:
+        if revision_history_limit is None and 'revisionHistoryLimit' in kwargs:
             revision_history_limit = kwargs['revisionHistoryLimit']
-        if 'templateGeneration' in kwargs:
+        if template_generation is None and 'templateGeneration' in kwargs:
             template_generation = kwargs['templateGeneration']
-        if 'updateStrategy' in kwargs:
+        if update_strategy is None and 'updateStrategy' in kwargs:
             update_strategy = kwargs['updateStrategy']
 
         _setter("template", template)
@@ -906,13 +916,13 @@ class DaemonSetSpecPatch(dict):
              update_strategy: Optional['outputs.DaemonSetUpdateStrategyPatch'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'minReadySeconds' in kwargs:
+        if min_ready_seconds is None and 'minReadySeconds' in kwargs:
             min_ready_seconds = kwargs['minReadySeconds']
-        if 'revisionHistoryLimit' in kwargs:
+        if revision_history_limit is None and 'revisionHistoryLimit' in kwargs:
             revision_history_limit = kwargs['revisionHistoryLimit']
-        if 'templateGeneration' in kwargs:
+        if template_generation is None and 'templateGeneration' in kwargs:
             template_generation = kwargs['templateGeneration']
-        if 'updateStrategy' in kwargs:
+        if update_strategy is None and 'updateStrategy' in kwargs:
             update_strategy = kwargs['updateStrategy']
 
         if min_ready_seconds is not None:
@@ -1055,10 +1065,10 @@ class DaemonSetStatus(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             current_number_scheduled: int,
-             desired_number_scheduled: int,
-             number_misscheduled: int,
-             number_ready: int,
+             current_number_scheduled: Optional[int] = None,
+             desired_number_scheduled: Optional[int] = None,
+             number_misscheduled: Optional[int] = None,
+             number_ready: Optional[int] = None,
              collision_count: Optional[int] = None,
              conditions: Optional[Sequence['outputs.DaemonSetCondition']] = None,
              number_available: Optional[int] = None,
@@ -1067,23 +1077,31 @@ class DaemonSetStatus(dict):
              updated_number_scheduled: Optional[int] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'currentNumberScheduled' in kwargs:
+        if current_number_scheduled is None and 'currentNumberScheduled' in kwargs:
             current_number_scheduled = kwargs['currentNumberScheduled']
-        if 'desiredNumberScheduled' in kwargs:
+        if current_number_scheduled is None:
+            raise TypeError("Missing 'current_number_scheduled' argument")
+        if desired_number_scheduled is None and 'desiredNumberScheduled' in kwargs:
             desired_number_scheduled = kwargs['desiredNumberScheduled']
-        if 'numberMisscheduled' in kwargs:
+        if desired_number_scheduled is None:
+            raise TypeError("Missing 'desired_number_scheduled' argument")
+        if number_misscheduled is None and 'numberMisscheduled' in kwargs:
             number_misscheduled = kwargs['numberMisscheduled']
-        if 'numberReady' in kwargs:
+        if number_misscheduled is None:
+            raise TypeError("Missing 'number_misscheduled' argument")
+        if number_ready is None and 'numberReady' in kwargs:
             number_ready = kwargs['numberReady']
-        if 'collisionCount' in kwargs:
+        if number_ready is None:
+            raise TypeError("Missing 'number_ready' argument")
+        if collision_count is None and 'collisionCount' in kwargs:
             collision_count = kwargs['collisionCount']
-        if 'numberAvailable' in kwargs:
+        if number_available is None and 'numberAvailable' in kwargs:
             number_available = kwargs['numberAvailable']
-        if 'numberUnavailable' in kwargs:
+        if number_unavailable is None and 'numberUnavailable' in kwargs:
             number_unavailable = kwargs['numberUnavailable']
-        if 'observedGeneration' in kwargs:
+        if observed_generation is None and 'observedGeneration' in kwargs:
             observed_generation = kwargs['observedGeneration']
-        if 'updatedNumberScheduled' in kwargs:
+        if updated_number_scheduled is None and 'updatedNumberScheduled' in kwargs:
             updated_number_scheduled = kwargs['updatedNumberScheduled']
 
         _setter("current_number_scheduled", current_number_scheduled)
@@ -1274,23 +1292,23 @@ class DaemonSetStatusPatch(dict):
              updated_number_scheduled: Optional[int] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'collisionCount' in kwargs:
+        if collision_count is None and 'collisionCount' in kwargs:
             collision_count = kwargs['collisionCount']
-        if 'currentNumberScheduled' in kwargs:
+        if current_number_scheduled is None and 'currentNumberScheduled' in kwargs:
             current_number_scheduled = kwargs['currentNumberScheduled']
-        if 'desiredNumberScheduled' in kwargs:
+        if desired_number_scheduled is None and 'desiredNumberScheduled' in kwargs:
             desired_number_scheduled = kwargs['desiredNumberScheduled']
-        if 'numberAvailable' in kwargs:
+        if number_available is None and 'numberAvailable' in kwargs:
             number_available = kwargs['numberAvailable']
-        if 'numberMisscheduled' in kwargs:
+        if number_misscheduled is None and 'numberMisscheduled' in kwargs:
             number_misscheduled = kwargs['numberMisscheduled']
-        if 'numberReady' in kwargs:
+        if number_ready is None and 'numberReady' in kwargs:
             number_ready = kwargs['numberReady']
-        if 'numberUnavailable' in kwargs:
+        if number_unavailable is None and 'numberUnavailable' in kwargs:
             number_unavailable = kwargs['numberUnavailable']
-        if 'observedGeneration' in kwargs:
+        if observed_generation is None and 'observedGeneration' in kwargs:
             observed_generation = kwargs['observedGeneration']
-        if 'updatedNumberScheduled' in kwargs:
+        if updated_number_scheduled is None and 'updatedNumberScheduled' in kwargs:
             updated_number_scheduled = kwargs['updatedNumberScheduled']
 
         if collision_count is not None:
@@ -1433,7 +1451,7 @@ class DaemonSetUpdateStrategy(dict):
              type: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'rollingUpdate' in kwargs:
+        if rolling_update is None and 'rollingUpdate' in kwargs:
             rolling_update = kwargs['rollingUpdate']
 
         if rolling_update is not None:
@@ -1496,7 +1514,7 @@ class DaemonSetUpdateStrategyPatch(dict):
              type: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'rollingUpdate' in kwargs:
+        if rolling_update is None and 'rollingUpdate' in kwargs:
             rolling_update = kwargs['rollingUpdate']
 
         if rolling_update is not None:
@@ -1619,7 +1637,7 @@ class Deployment(dict):
              status: Optional['outputs.DeploymentStatus'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -1726,17 +1744,21 @@ class DeploymentCondition(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             status: str,
-             type: str,
+             status: Optional[str] = None,
+             type: Optional[str] = None,
              last_transition_time: Optional[str] = None,
              last_update_time: Optional[str] = None,
              message: Optional[str] = None,
              reason: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'lastTransitionTime' in kwargs:
+        if status is None:
+            raise TypeError("Missing 'status' argument")
+        if type is None:
+            raise TypeError("Missing 'type' argument")
+        if last_transition_time is None and 'lastTransitionTime' in kwargs:
             last_transition_time = kwargs['lastTransitionTime']
-        if 'lastUpdateTime' in kwargs:
+        if last_update_time is None and 'lastUpdateTime' in kwargs:
             last_update_time = kwargs['lastUpdateTime']
 
         _setter("status", status)
@@ -1859,9 +1881,9 @@ class DeploymentConditionPatch(dict):
              type: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'lastTransitionTime' in kwargs:
+        if last_transition_time is None and 'lastTransitionTime' in kwargs:
             last_transition_time = kwargs['lastTransitionTime']
-        if 'lastUpdateTime' in kwargs:
+        if last_update_time is None and 'lastUpdateTime' in kwargs:
             last_update_time = kwargs['lastUpdateTime']
 
         if last_transition_time is not None:
@@ -1991,7 +2013,7 @@ class DeploymentSpec(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             template: '_core.v1.outputs.PodTemplateSpec',
+             template: Optional['_core.v1.outputs.PodTemplateSpec'] = None,
              min_ready_seconds: Optional[int] = None,
              paused: Optional[bool] = None,
              progress_deadline_seconds: Optional[int] = None,
@@ -2002,13 +2024,15 @@ class DeploymentSpec(dict):
              strategy: Optional['outputs.DeploymentStrategy'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'minReadySeconds' in kwargs:
+        if template is None:
+            raise TypeError("Missing 'template' argument")
+        if min_ready_seconds is None and 'minReadySeconds' in kwargs:
             min_ready_seconds = kwargs['minReadySeconds']
-        if 'progressDeadlineSeconds' in kwargs:
+        if progress_deadline_seconds is None and 'progressDeadlineSeconds' in kwargs:
             progress_deadline_seconds = kwargs['progressDeadlineSeconds']
-        if 'revisionHistoryLimit' in kwargs:
+        if revision_history_limit is None and 'revisionHistoryLimit' in kwargs:
             revision_history_limit = kwargs['revisionHistoryLimit']
-        if 'rollbackTo' in kwargs:
+        if rollback_to is None and 'rollbackTo' in kwargs:
             rollback_to = kwargs['rollbackTo']
 
         _setter("template", template)
@@ -2178,13 +2202,13 @@ class DeploymentSpecPatch(dict):
              template: Optional['_core.v1.outputs.PodTemplateSpecPatch'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'minReadySeconds' in kwargs:
+        if min_ready_seconds is None and 'minReadySeconds' in kwargs:
             min_ready_seconds = kwargs['minReadySeconds']
-        if 'progressDeadlineSeconds' in kwargs:
+        if progress_deadline_seconds is None and 'progressDeadlineSeconds' in kwargs:
             progress_deadline_seconds = kwargs['progressDeadlineSeconds']
-        if 'revisionHistoryLimit' in kwargs:
+        if revision_history_limit is None and 'revisionHistoryLimit' in kwargs:
             revision_history_limit = kwargs['revisionHistoryLimit']
-        if 'rollbackTo' in kwargs:
+        if rollback_to is None and 'rollbackTo' in kwargs:
             rollback_to = kwargs['rollbackTo']
 
         if min_ready_seconds is not None:
@@ -2355,17 +2379,17 @@ class DeploymentStatus(dict):
              updated_replicas: Optional[int] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'availableReplicas' in kwargs:
+        if available_replicas is None and 'availableReplicas' in kwargs:
             available_replicas = kwargs['availableReplicas']
-        if 'collisionCount' in kwargs:
+        if collision_count is None and 'collisionCount' in kwargs:
             collision_count = kwargs['collisionCount']
-        if 'observedGeneration' in kwargs:
+        if observed_generation is None and 'observedGeneration' in kwargs:
             observed_generation = kwargs['observedGeneration']
-        if 'readyReplicas' in kwargs:
+        if ready_replicas is None and 'readyReplicas' in kwargs:
             ready_replicas = kwargs['readyReplicas']
-        if 'unavailableReplicas' in kwargs:
+        if unavailable_replicas is None and 'unavailableReplicas' in kwargs:
             unavailable_replicas = kwargs['unavailableReplicas']
-        if 'updatedReplicas' in kwargs:
+        if updated_replicas is None and 'updatedReplicas' in kwargs:
             updated_replicas = kwargs['updatedReplicas']
 
         if available_replicas is not None:
@@ -2526,17 +2550,17 @@ class DeploymentStatusPatch(dict):
              updated_replicas: Optional[int] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'availableReplicas' in kwargs:
+        if available_replicas is None and 'availableReplicas' in kwargs:
             available_replicas = kwargs['availableReplicas']
-        if 'collisionCount' in kwargs:
+        if collision_count is None and 'collisionCount' in kwargs:
             collision_count = kwargs['collisionCount']
-        if 'observedGeneration' in kwargs:
+        if observed_generation is None and 'observedGeneration' in kwargs:
             observed_generation = kwargs['observedGeneration']
-        if 'readyReplicas' in kwargs:
+        if ready_replicas is None and 'readyReplicas' in kwargs:
             ready_replicas = kwargs['readyReplicas']
-        if 'unavailableReplicas' in kwargs:
+        if unavailable_replicas is None and 'unavailableReplicas' in kwargs:
             unavailable_replicas = kwargs['unavailableReplicas']
-        if 'updatedReplicas' in kwargs:
+        if updated_replicas is None and 'updatedReplicas' in kwargs:
             updated_replicas = kwargs['updatedReplicas']
 
         if available_replicas is not None:
@@ -2663,7 +2687,7 @@ class DeploymentStrategy(dict):
              type: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'rollingUpdate' in kwargs:
+        if rolling_update is None and 'rollingUpdate' in kwargs:
             rolling_update = kwargs['rollingUpdate']
 
         if rolling_update is not None:
@@ -2730,7 +2754,7 @@ class DeploymentStrategyPatch(dict):
              type: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'rollingUpdate' in kwargs:
+        if rolling_update is None and 'rollingUpdate' in kwargs:
             rolling_update = kwargs['rollingUpdate']
 
         if rolling_update is not None:
@@ -2902,12 +2926,14 @@ class HTTPIngressPath(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             backend: 'outputs.IngressBackend',
+             backend: Optional['outputs.IngressBackend'] = None,
              path: Optional[str] = None,
              path_type: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'pathType' in kwargs:
+        if backend is None:
+            raise TypeError("Missing 'backend' argument")
+        if path_type is None and 'pathType' in kwargs:
             path_type = kwargs['pathType']
 
         _setter("backend", backend)
@@ -3007,7 +3033,7 @@ class HTTPIngressPathPatch(dict):
              path_type: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'pathType' in kwargs:
+        if path_type is None and 'pathType' in kwargs:
             path_type = kwargs['pathType']
 
         if backend is not None:
@@ -3070,9 +3096,11 @@ class HTTPIngressRuleValue(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             paths: Sequence['outputs.HTTPIngressPath'],
+             paths: Optional[Sequence['outputs.HTTPIngressPath']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if paths is None:
+            raise TypeError("Missing 'paths' argument")
 
         _setter("paths", paths)
 
@@ -3140,10 +3168,14 @@ class HostPortRange(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             max: int,
-             min: int,
+             max: Optional[int] = None,
+             min: Optional[int] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if max is None:
+            raise TypeError("Missing 'max' argument")
+        if min is None:
+            raise TypeError("Missing 'min' argument")
 
         _setter("max", max)
         _setter("min", min)
@@ -3234,10 +3266,14 @@ class IDRange(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             max: int,
-             min: int,
+             max: Optional[int] = None,
+             min: Optional[int] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if max is None:
+            raise TypeError("Missing 'max' argument")
+        if min is None:
+            raise TypeError("Missing 'min' argument")
 
         _setter("max", max)
         _setter("min", min)
@@ -3345,11 +3381,13 @@ class IPBlock(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             cidr: str,
+             cidr: Optional[str] = None,
              except_: Optional[Sequence[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'except' in kwargs:
+        if cidr is None:
+            raise TypeError("Missing 'cidr' argument")
+        if except_ is None and 'except' in kwargs:
             except_ = kwargs['except']
 
         _setter("cidr", cidr)
@@ -3415,7 +3453,7 @@ class IPBlockPatch(dict):
              except_: Optional[Sequence[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'except' in kwargs:
+        if except_ is None and 'except' in kwargs:
             except_ = kwargs['except']
 
         if cidr is not None:
@@ -3522,7 +3560,7 @@ class Ingress(dict):
              status: Optional['outputs.IngressStatus'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -3620,15 +3658,19 @@ class IngressBackend(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             service_name: str,
-             service_port: Any,
+             service_name: Optional[str] = None,
+             service_port: Optional[Any] = None,
              resource: Optional['_core.v1.outputs.TypedLocalObjectReference'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'serviceName' in kwargs:
+        if service_name is None and 'serviceName' in kwargs:
             service_name = kwargs['serviceName']
-        if 'servicePort' in kwargs:
+        if service_name is None:
+            raise TypeError("Missing 'service_name' argument")
+        if service_port is None and 'servicePort' in kwargs:
             service_port = kwargs['servicePort']
+        if service_port is None:
+            raise TypeError("Missing 'service_port' argument")
 
         _setter("service_name", service_name)
         _setter("service_port", service_port)
@@ -3708,9 +3750,9 @@ class IngressBackendPatch(dict):
              service_port: Optional[Any] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'serviceName' in kwargs:
+        if service_name is None and 'serviceName' in kwargs:
             service_name = kwargs['serviceName']
-        if 'servicePort' in kwargs:
+        if service_port is None and 'servicePort' in kwargs:
             service_port = kwargs['servicePort']
 
         if resource is not None:
@@ -3903,7 +3945,7 @@ class IngressSpec(dict):
              tls: Optional[Sequence['outputs.IngressTLS']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'ingressClassName' in kwargs:
+        if ingress_class_name is None and 'ingressClassName' in kwargs:
             ingress_class_name = kwargs['ingressClassName']
 
         if backend is not None:
@@ -3998,7 +4040,7 @@ class IngressSpecPatch(dict):
              tls: Optional[Sequence['outputs.IngressTLSPatch']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'ingressClassName' in kwargs:
+        if ingress_class_name is None and 'ingressClassName' in kwargs:
             ingress_class_name = kwargs['ingressClassName']
 
         if backend is not None:
@@ -4081,7 +4123,7 @@ class IngressStatus(dict):
              load_balancer: Optional['_core.v1.outputs.LoadBalancerStatus'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'loadBalancer' in kwargs:
+        if load_balancer is None and 'loadBalancer' in kwargs:
             load_balancer = kwargs['loadBalancer']
 
         if load_balancer is not None:
@@ -4134,7 +4176,7 @@ class IngressStatusPatch(dict):
              load_balancer: Optional['_core.v1.outputs.LoadBalancerStatusPatch'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'loadBalancer' in kwargs:
+        if load_balancer is None and 'loadBalancer' in kwargs:
             load_balancer = kwargs['loadBalancer']
 
         if load_balancer is not None:
@@ -4191,7 +4233,7 @@ class IngressTLS(dict):
              secret_name: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'secretName' in kwargs:
+        if secret_name is None and 'secretName' in kwargs:
             secret_name = kwargs['secretName']
 
         if hosts is not None:
@@ -4258,7 +4300,7 @@ class IngressTLSPatch(dict):
              secret_name: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'secretName' in kwargs:
+        if secret_name is None and 'secretName' in kwargs:
             secret_name = kwargs['secretName']
 
         if hosts is not None:
@@ -4333,7 +4375,7 @@ class NetworkPolicy(dict):
              spec: Optional['outputs.NetworkPolicySpec'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -4516,7 +4558,7 @@ class NetworkPolicyIngressRule(dict):
              ports: Optional[Sequence['outputs.NetworkPolicyPort']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'from' in kwargs:
+        if from_ is None and 'from' in kwargs:
             from_ = kwargs['from']
 
         if from_ is not None:
@@ -4583,7 +4625,7 @@ class NetworkPolicyIngressRulePatch(dict):
              ports: Optional[Sequence['outputs.NetworkPolicyPortPatch']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'from' in kwargs:
+        if from_ is None and 'from' in kwargs:
             from_ = kwargs['from']
 
         if from_ is not None:
@@ -4662,11 +4704,11 @@ class NetworkPolicyPeer(dict):
              pod_selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'ipBlock' in kwargs:
+        if ip_block is None and 'ipBlock' in kwargs:
             ip_block = kwargs['ipBlock']
-        if 'namespaceSelector' in kwargs:
+        if namespace_selector is None and 'namespaceSelector' in kwargs:
             namespace_selector = kwargs['namespaceSelector']
-        if 'podSelector' in kwargs:
+        if pod_selector is None and 'podSelector' in kwargs:
             pod_selector = kwargs['podSelector']
 
         if ip_block is not None:
@@ -4759,11 +4801,11 @@ class NetworkPolicyPeerPatch(dict):
              pod_selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'ipBlock' in kwargs:
+        if ip_block is None and 'ipBlock' in kwargs:
             ip_block = kwargs['ipBlock']
-        if 'namespaceSelector' in kwargs:
+        if namespace_selector is None and 'namespaceSelector' in kwargs:
             namespace_selector = kwargs['namespaceSelector']
-        if 'podSelector' in kwargs:
+        if pod_selector is None and 'podSelector' in kwargs:
             pod_selector = kwargs['podSelector']
 
         if ip_block is not None:
@@ -4944,15 +4986,17 @@ class NetworkPolicySpec(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             pod_selector: '_meta.v1.outputs.LabelSelector',
+             pod_selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
              egress: Optional[Sequence['outputs.NetworkPolicyEgressRule']] = None,
              ingress: Optional[Sequence['outputs.NetworkPolicyIngressRule']] = None,
              policy_types: Optional[Sequence[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'podSelector' in kwargs:
+        if pod_selector is None and 'podSelector' in kwargs:
             pod_selector = kwargs['podSelector']
-        if 'policyTypes' in kwargs:
+        if pod_selector is None:
+            raise TypeError("Missing 'pod_selector' argument")
+        if policy_types is None and 'policyTypes' in kwargs:
             policy_types = kwargs['policyTypes']
 
         _setter("pod_selector", pod_selector)
@@ -5048,9 +5092,9 @@ class NetworkPolicySpecPatch(dict):
              policy_types: Optional[Sequence[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'podSelector' in kwargs:
+        if pod_selector is None and 'podSelector' in kwargs:
             pod_selector = kwargs['podSelector']
-        if 'policyTypes' in kwargs:
+        if policy_types is None and 'policyTypes' in kwargs:
             policy_types = kwargs['policyTypes']
 
         if egress is not None:
@@ -5145,7 +5189,7 @@ class PodSecurityPolicy(dict):
              spec: Optional['outputs.PodSecurityPolicySpec'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -5340,10 +5384,10 @@ class PodSecurityPolicySpec(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             fs_group: 'outputs.FSGroupStrategyOptions',
-             run_as_user: 'outputs.RunAsUserStrategyOptions',
-             se_linux: 'outputs.SELinuxStrategyOptions',
-             supplemental_groups: 'outputs.SupplementalGroupsStrategyOptions',
+             fs_group: Optional['outputs.FSGroupStrategyOptions'] = None,
+             run_as_user: Optional['outputs.RunAsUserStrategyOptions'] = None,
+             se_linux: Optional['outputs.SELinuxStrategyOptions'] = None,
+             supplemental_groups: Optional['outputs.SupplementalGroupsStrategyOptions'] = None,
              allow_privilege_escalation: Optional[bool] = None,
              allowed_csi_drivers: Optional[Sequence['outputs.AllowedCSIDriver']] = None,
              allowed_capabilities: Optional[Sequence[str]] = None,
@@ -5366,49 +5410,57 @@ class PodSecurityPolicySpec(dict):
              volumes: Optional[Sequence[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'fsGroup' in kwargs:
+        if fs_group is None and 'fsGroup' in kwargs:
             fs_group = kwargs['fsGroup']
-        if 'runAsUser' in kwargs:
+        if fs_group is None:
+            raise TypeError("Missing 'fs_group' argument")
+        if run_as_user is None and 'runAsUser' in kwargs:
             run_as_user = kwargs['runAsUser']
-        if 'seLinux' in kwargs:
+        if run_as_user is None:
+            raise TypeError("Missing 'run_as_user' argument")
+        if se_linux is None and 'seLinux' in kwargs:
             se_linux = kwargs['seLinux']
-        if 'supplementalGroups' in kwargs:
+        if se_linux is None:
+            raise TypeError("Missing 'se_linux' argument")
+        if supplemental_groups is None and 'supplementalGroups' in kwargs:
             supplemental_groups = kwargs['supplementalGroups']
-        if 'allowPrivilegeEscalation' in kwargs:
+        if supplemental_groups is None:
+            raise TypeError("Missing 'supplemental_groups' argument")
+        if allow_privilege_escalation is None and 'allowPrivilegeEscalation' in kwargs:
             allow_privilege_escalation = kwargs['allowPrivilegeEscalation']
-        if 'allowedCSIDrivers' in kwargs:
+        if allowed_csi_drivers is None and 'allowedCSIDrivers' in kwargs:
             allowed_csi_drivers = kwargs['allowedCSIDrivers']
-        if 'allowedCapabilities' in kwargs:
+        if allowed_capabilities is None and 'allowedCapabilities' in kwargs:
             allowed_capabilities = kwargs['allowedCapabilities']
-        if 'allowedFlexVolumes' in kwargs:
+        if allowed_flex_volumes is None and 'allowedFlexVolumes' in kwargs:
             allowed_flex_volumes = kwargs['allowedFlexVolumes']
-        if 'allowedHostPaths' in kwargs:
+        if allowed_host_paths is None and 'allowedHostPaths' in kwargs:
             allowed_host_paths = kwargs['allowedHostPaths']
-        if 'allowedProcMountTypes' in kwargs:
+        if allowed_proc_mount_types is None and 'allowedProcMountTypes' in kwargs:
             allowed_proc_mount_types = kwargs['allowedProcMountTypes']
-        if 'allowedUnsafeSysctls' in kwargs:
+        if allowed_unsafe_sysctls is None and 'allowedUnsafeSysctls' in kwargs:
             allowed_unsafe_sysctls = kwargs['allowedUnsafeSysctls']
-        if 'defaultAddCapabilities' in kwargs:
+        if default_add_capabilities is None and 'defaultAddCapabilities' in kwargs:
             default_add_capabilities = kwargs['defaultAddCapabilities']
-        if 'defaultAllowPrivilegeEscalation' in kwargs:
+        if default_allow_privilege_escalation is None and 'defaultAllowPrivilegeEscalation' in kwargs:
             default_allow_privilege_escalation = kwargs['defaultAllowPrivilegeEscalation']
-        if 'forbiddenSysctls' in kwargs:
+        if forbidden_sysctls is None and 'forbiddenSysctls' in kwargs:
             forbidden_sysctls = kwargs['forbiddenSysctls']
-        if 'hostIPC' in kwargs:
+        if host_ipc is None and 'hostIPC' in kwargs:
             host_ipc = kwargs['hostIPC']
-        if 'hostNetwork' in kwargs:
+        if host_network is None and 'hostNetwork' in kwargs:
             host_network = kwargs['hostNetwork']
-        if 'hostPID' in kwargs:
+        if host_pid is None and 'hostPID' in kwargs:
             host_pid = kwargs['hostPID']
-        if 'hostPorts' in kwargs:
+        if host_ports is None and 'hostPorts' in kwargs:
             host_ports = kwargs['hostPorts']
-        if 'readOnlyRootFilesystem' in kwargs:
+        if read_only_root_filesystem is None and 'readOnlyRootFilesystem' in kwargs:
             read_only_root_filesystem = kwargs['readOnlyRootFilesystem']
-        if 'requiredDropCapabilities' in kwargs:
+        if required_drop_capabilities is None and 'requiredDropCapabilities' in kwargs:
             required_drop_capabilities = kwargs['requiredDropCapabilities']
-        if 'runAsGroup' in kwargs:
+        if run_as_group is None and 'runAsGroup' in kwargs:
             run_as_group = kwargs['runAsGroup']
-        if 'runtimeClass' in kwargs:
+        if runtime_class is None and 'runtimeClass' in kwargs:
             runtime_class = kwargs['runtimeClass']
 
         _setter("fs_group", fs_group)
@@ -5829,49 +5881,49 @@ class PodSecurityPolicySpecPatch(dict):
              volumes: Optional[Sequence[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'allowPrivilegeEscalation' in kwargs:
+        if allow_privilege_escalation is None and 'allowPrivilegeEscalation' in kwargs:
             allow_privilege_escalation = kwargs['allowPrivilegeEscalation']
-        if 'allowedCSIDrivers' in kwargs:
+        if allowed_csi_drivers is None and 'allowedCSIDrivers' in kwargs:
             allowed_csi_drivers = kwargs['allowedCSIDrivers']
-        if 'allowedCapabilities' in kwargs:
+        if allowed_capabilities is None and 'allowedCapabilities' in kwargs:
             allowed_capabilities = kwargs['allowedCapabilities']
-        if 'allowedFlexVolumes' in kwargs:
+        if allowed_flex_volumes is None and 'allowedFlexVolumes' in kwargs:
             allowed_flex_volumes = kwargs['allowedFlexVolumes']
-        if 'allowedHostPaths' in kwargs:
+        if allowed_host_paths is None and 'allowedHostPaths' in kwargs:
             allowed_host_paths = kwargs['allowedHostPaths']
-        if 'allowedProcMountTypes' in kwargs:
+        if allowed_proc_mount_types is None and 'allowedProcMountTypes' in kwargs:
             allowed_proc_mount_types = kwargs['allowedProcMountTypes']
-        if 'allowedUnsafeSysctls' in kwargs:
+        if allowed_unsafe_sysctls is None and 'allowedUnsafeSysctls' in kwargs:
             allowed_unsafe_sysctls = kwargs['allowedUnsafeSysctls']
-        if 'defaultAddCapabilities' in kwargs:
+        if default_add_capabilities is None and 'defaultAddCapabilities' in kwargs:
             default_add_capabilities = kwargs['defaultAddCapabilities']
-        if 'defaultAllowPrivilegeEscalation' in kwargs:
+        if default_allow_privilege_escalation is None and 'defaultAllowPrivilegeEscalation' in kwargs:
             default_allow_privilege_escalation = kwargs['defaultAllowPrivilegeEscalation']
-        if 'forbiddenSysctls' in kwargs:
+        if forbidden_sysctls is None and 'forbiddenSysctls' in kwargs:
             forbidden_sysctls = kwargs['forbiddenSysctls']
-        if 'fsGroup' in kwargs:
+        if fs_group is None and 'fsGroup' in kwargs:
             fs_group = kwargs['fsGroup']
-        if 'hostIPC' in kwargs:
+        if host_ipc is None and 'hostIPC' in kwargs:
             host_ipc = kwargs['hostIPC']
-        if 'hostNetwork' in kwargs:
+        if host_network is None and 'hostNetwork' in kwargs:
             host_network = kwargs['hostNetwork']
-        if 'hostPID' in kwargs:
+        if host_pid is None and 'hostPID' in kwargs:
             host_pid = kwargs['hostPID']
-        if 'hostPorts' in kwargs:
+        if host_ports is None and 'hostPorts' in kwargs:
             host_ports = kwargs['hostPorts']
-        if 'readOnlyRootFilesystem' in kwargs:
+        if read_only_root_filesystem is None and 'readOnlyRootFilesystem' in kwargs:
             read_only_root_filesystem = kwargs['readOnlyRootFilesystem']
-        if 'requiredDropCapabilities' in kwargs:
+        if required_drop_capabilities is None and 'requiredDropCapabilities' in kwargs:
             required_drop_capabilities = kwargs['requiredDropCapabilities']
-        if 'runAsGroup' in kwargs:
+        if run_as_group is None and 'runAsGroup' in kwargs:
             run_as_group = kwargs['runAsGroup']
-        if 'runAsUser' in kwargs:
+        if run_as_user is None and 'runAsUser' in kwargs:
             run_as_user = kwargs['runAsUser']
-        if 'runtimeClass' in kwargs:
+        if runtime_class is None and 'runtimeClass' in kwargs:
             runtime_class = kwargs['runtimeClass']
-        if 'seLinux' in kwargs:
+        if se_linux is None and 'seLinux' in kwargs:
             se_linux = kwargs['seLinux']
-        if 'supplementalGroups' in kwargs:
+        if supplemental_groups is None and 'supplementalGroups' in kwargs:
             supplemental_groups = kwargs['supplementalGroups']
 
         if allow_privilege_escalation is not None:
@@ -6174,7 +6226,7 @@ class ReplicaSet(dict):
              status: Optional['outputs.ReplicaSetStatus'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -6276,14 +6328,18 @@ class ReplicaSetCondition(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             status: str,
-             type: str,
+             status: Optional[str] = None,
+             type: Optional[str] = None,
              last_transition_time: Optional[str] = None,
              message: Optional[str] = None,
              reason: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'lastTransitionTime' in kwargs:
+        if status is None:
+            raise TypeError("Missing 'status' argument")
+        if type is None:
+            raise TypeError("Missing 'type' argument")
+        if last_transition_time is None and 'lastTransitionTime' in kwargs:
             last_transition_time = kwargs['lastTransitionTime']
 
         _setter("status", status)
@@ -6390,7 +6446,7 @@ class ReplicaSetConditionPatch(dict):
              type: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'lastTransitionTime' in kwargs:
+        if last_transition_time is None and 'lastTransitionTime' in kwargs:
             last_transition_time = kwargs['lastTransitionTime']
 
         if last_transition_time is not None:
@@ -6495,7 +6551,7 @@ class ReplicaSetSpec(dict):
              template: Optional['_core.v1.outputs.PodTemplateSpec'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'minReadySeconds' in kwargs:
+        if min_ready_seconds is None and 'minReadySeconds' in kwargs:
             min_ready_seconds = kwargs['minReadySeconds']
 
         if min_ready_seconds is not None:
@@ -6590,7 +6646,7 @@ class ReplicaSetSpecPatch(dict):
              template: Optional['_core.v1.outputs.PodTemplateSpecPatch'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'minReadySeconds' in kwargs:
+        if min_ready_seconds is None and 'minReadySeconds' in kwargs:
             min_ready_seconds = kwargs['minReadySeconds']
 
         if min_ready_seconds is not None:
@@ -6691,7 +6747,7 @@ class ReplicaSetStatus(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             replicas: int,
+             replicas: Optional[int] = None,
              available_replicas: Optional[int] = None,
              conditions: Optional[Sequence['outputs.ReplicaSetCondition']] = None,
              fully_labeled_replicas: Optional[int] = None,
@@ -6699,13 +6755,15 @@ class ReplicaSetStatus(dict):
              ready_replicas: Optional[int] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'availableReplicas' in kwargs:
+        if replicas is None:
+            raise TypeError("Missing 'replicas' argument")
+        if available_replicas is None and 'availableReplicas' in kwargs:
             available_replicas = kwargs['availableReplicas']
-        if 'fullyLabeledReplicas' in kwargs:
+        if fully_labeled_replicas is None and 'fullyLabeledReplicas' in kwargs:
             fully_labeled_replicas = kwargs['fullyLabeledReplicas']
-        if 'observedGeneration' in kwargs:
+        if observed_generation is None and 'observedGeneration' in kwargs:
             observed_generation = kwargs['observedGeneration']
-        if 'readyReplicas' in kwargs:
+        if ready_replicas is None and 'readyReplicas' in kwargs:
             ready_replicas = kwargs['readyReplicas']
 
         _setter("replicas", replicas)
@@ -6833,13 +6891,13 @@ class ReplicaSetStatusPatch(dict):
              replicas: Optional[int] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'availableReplicas' in kwargs:
+        if available_replicas is None and 'availableReplicas' in kwargs:
             available_replicas = kwargs['availableReplicas']
-        if 'fullyLabeledReplicas' in kwargs:
+        if fully_labeled_replicas is None and 'fullyLabeledReplicas' in kwargs:
             fully_labeled_replicas = kwargs['fullyLabeledReplicas']
-        if 'observedGeneration' in kwargs:
+        if observed_generation is None and 'observedGeneration' in kwargs:
             observed_generation = kwargs['observedGeneration']
-        if 'readyReplicas' in kwargs:
+        if ready_replicas is None and 'readyReplicas' in kwargs:
             ready_replicas = kwargs['readyReplicas']
 
         if available_replicas is not None:
@@ -7010,7 +7068,7 @@ class RollingUpdateDaemonSet(dict):
              max_unavailable: Optional[Any] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'maxUnavailable' in kwargs:
+        if max_unavailable is None and 'maxUnavailable' in kwargs:
             max_unavailable = kwargs['maxUnavailable']
 
         if max_unavailable is not None:
@@ -7063,7 +7121,7 @@ class RollingUpdateDaemonSetPatch(dict):
              max_unavailable: Optional[Any] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'maxUnavailable' in kwargs:
+        if max_unavailable is None and 'maxUnavailable' in kwargs:
             max_unavailable = kwargs['maxUnavailable']
 
         if max_unavailable is not None:
@@ -7122,9 +7180,9 @@ class RollingUpdateDeployment(dict):
              max_unavailable: Optional[Any] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'maxSurge' in kwargs:
+        if max_surge is None and 'maxSurge' in kwargs:
             max_surge = kwargs['maxSurge']
-        if 'maxUnavailable' in kwargs:
+        if max_unavailable is None and 'maxUnavailable' in kwargs:
             max_unavailable = kwargs['maxUnavailable']
 
         if max_surge is not None:
@@ -7193,9 +7251,9 @@ class RollingUpdateDeploymentPatch(dict):
              max_unavailable: Optional[Any] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'maxSurge' in kwargs:
+        if max_surge is None and 'maxSurge' in kwargs:
             max_surge = kwargs['maxSurge']
-        if 'maxUnavailable' in kwargs:
+        if max_unavailable is None and 'maxUnavailable' in kwargs:
             max_unavailable = kwargs['maxUnavailable']
 
         if max_surge is not None:
@@ -7241,10 +7299,12 @@ class RunAsGroupStrategyOptions(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             rule: str,
+             rule: Optional[str] = None,
              ranges: Optional[Sequence['outputs.IDRange']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if rule is None:
+            raise TypeError("Missing 'rule' argument")
 
         _setter("rule", rule)
         if ranges is not None:
@@ -7336,10 +7396,12 @@ class RunAsUserStrategyOptions(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             rule: str,
+             rule: Optional[str] = None,
              ranges: Optional[Sequence['outputs.IDRange']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if rule is None:
+            raise TypeError("Missing 'rule' argument")
 
         _setter("rule", rule)
         if ranges is not None:
@@ -7450,13 +7512,15 @@ class RuntimeClassStrategyOptions(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             allowed_runtime_class_names: Sequence[str],
+             allowed_runtime_class_names: Optional[Sequence[str]] = None,
              default_runtime_class_name: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'allowedRuntimeClassNames' in kwargs:
+        if allowed_runtime_class_names is None and 'allowedRuntimeClassNames' in kwargs:
             allowed_runtime_class_names = kwargs['allowedRuntimeClassNames']
-        if 'defaultRuntimeClassName' in kwargs:
+        if allowed_runtime_class_names is None:
+            raise TypeError("Missing 'allowed_runtime_class_names' argument")
+        if default_runtime_class_name is None and 'defaultRuntimeClassName' in kwargs:
             default_runtime_class_name = kwargs['defaultRuntimeClassName']
 
         _setter("allowed_runtime_class_names", allowed_runtime_class_names)
@@ -7524,9 +7588,9 @@ class RuntimeClassStrategyOptionsPatch(dict):
              default_runtime_class_name: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'allowedRuntimeClassNames' in kwargs:
+        if allowed_runtime_class_names is None and 'allowedRuntimeClassNames' in kwargs:
             allowed_runtime_class_names = kwargs['allowedRuntimeClassNames']
-        if 'defaultRuntimeClassName' in kwargs:
+        if default_runtime_class_name is None and 'defaultRuntimeClassName' in kwargs:
             default_runtime_class_name = kwargs['defaultRuntimeClassName']
 
         if allowed_runtime_class_names is not None:
@@ -7589,11 +7653,13 @@ class SELinuxStrategyOptions(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             rule: str,
+             rule: Optional[str] = None,
              se_linux_options: Optional['_core.v1.outputs.SELinuxOptions'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'seLinuxOptions' in kwargs:
+        if rule is None:
+            raise TypeError("Missing 'rule' argument")
+        if se_linux_options is None and 'seLinuxOptions' in kwargs:
             se_linux_options = kwargs['seLinuxOptions']
 
         _setter("rule", rule)
@@ -7659,7 +7725,7 @@ class SELinuxStrategyOptionsPatch(dict):
              se_linux_options: Optional['_core.v1.outputs.SELinuxOptionsPatch'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'seLinuxOptions' in kwargs:
+        if se_linux_options is None and 'seLinuxOptions' in kwargs:
             se_linux_options = kwargs['seLinuxOptions']
 
         if rule is not None:

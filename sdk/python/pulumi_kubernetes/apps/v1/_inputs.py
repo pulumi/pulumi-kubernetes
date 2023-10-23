@@ -78,14 +78,16 @@ class ControllerRevisionArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             revision: pulumi.Input[int],
+             revision: Optional[pulumi.Input[int]] = None,
              api_version: Optional[pulumi.Input[str]] = None,
              data: Optional[Any] = None,
              kind: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if revision is None:
+            raise TypeError("Missing 'revision' argument")
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         _setter("revision", revision)
@@ -186,14 +188,18 @@ class DaemonSetConditionArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             status: pulumi.Input[str],
-             type: pulumi.Input[str],
+             status: Optional[pulumi.Input[str]] = None,
+             type: Optional[pulumi.Input[str]] = None,
              last_transition_time: Optional[pulumi.Input[str]] = None,
              message: Optional[pulumi.Input[str]] = None,
              reason: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'lastTransitionTime' in kwargs:
+        if status is None:
+            raise TypeError("Missing 'status' argument")
+        if type is None:
+            raise TypeError("Missing 'type' argument")
+        if last_transition_time is None and 'lastTransitionTime' in kwargs:
             last_transition_time = kwargs['lastTransitionTime']
 
         _setter("status", status)
@@ -300,11 +306,11 @@ class DaemonSetSpecPatchArgs:
              update_strategy: Optional[pulumi.Input['DaemonSetUpdateStrategyPatchArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'minReadySeconds' in kwargs:
+        if min_ready_seconds is None and 'minReadySeconds' in kwargs:
             min_ready_seconds = kwargs['minReadySeconds']
-        if 'revisionHistoryLimit' in kwargs:
+        if revision_history_limit is None and 'revisionHistoryLimit' in kwargs:
             revision_history_limit = kwargs['revisionHistoryLimit']
-        if 'updateStrategy' in kwargs:
+        if update_strategy is None and 'updateStrategy' in kwargs:
             update_strategy = kwargs['updateStrategy']
 
         if min_ready_seconds is not None:
@@ -406,18 +412,22 @@ class DaemonSetSpecArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             selector: pulumi.Input['_meta.v1.LabelSelectorArgs'],
-             template: pulumi.Input['_core.v1.PodTemplateSpecArgs'],
+             selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
+             template: Optional[pulumi.Input['_core.v1.PodTemplateSpecArgs']] = None,
              min_ready_seconds: Optional[pulumi.Input[int]] = None,
              revision_history_limit: Optional[pulumi.Input[int]] = None,
              update_strategy: Optional[pulumi.Input['DaemonSetUpdateStrategyArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'minReadySeconds' in kwargs:
+        if selector is None:
+            raise TypeError("Missing 'selector' argument")
+        if template is None:
+            raise TypeError("Missing 'template' argument")
+        if min_ready_seconds is None and 'minReadySeconds' in kwargs:
             min_ready_seconds = kwargs['minReadySeconds']
-        if 'revisionHistoryLimit' in kwargs:
+        if revision_history_limit is None and 'revisionHistoryLimit' in kwargs:
             revision_history_limit = kwargs['revisionHistoryLimit']
-        if 'updateStrategy' in kwargs:
+        if update_strategy is None and 'updateStrategy' in kwargs:
             update_strategy = kwargs['updateStrategy']
 
         _setter("selector", selector)
@@ -532,10 +542,10 @@ class DaemonSetStatusArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             current_number_scheduled: pulumi.Input[int],
-             desired_number_scheduled: pulumi.Input[int],
-             number_misscheduled: pulumi.Input[int],
-             number_ready: pulumi.Input[int],
+             current_number_scheduled: Optional[pulumi.Input[int]] = None,
+             desired_number_scheduled: Optional[pulumi.Input[int]] = None,
+             number_misscheduled: Optional[pulumi.Input[int]] = None,
+             number_ready: Optional[pulumi.Input[int]] = None,
              collision_count: Optional[pulumi.Input[int]] = None,
              conditions: Optional[pulumi.Input[Sequence[pulumi.Input['DaemonSetConditionArgs']]]] = None,
              number_available: Optional[pulumi.Input[int]] = None,
@@ -544,23 +554,31 @@ class DaemonSetStatusArgs:
              updated_number_scheduled: Optional[pulumi.Input[int]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'currentNumberScheduled' in kwargs:
+        if current_number_scheduled is None and 'currentNumberScheduled' in kwargs:
             current_number_scheduled = kwargs['currentNumberScheduled']
-        if 'desiredNumberScheduled' in kwargs:
+        if current_number_scheduled is None:
+            raise TypeError("Missing 'current_number_scheduled' argument")
+        if desired_number_scheduled is None and 'desiredNumberScheduled' in kwargs:
             desired_number_scheduled = kwargs['desiredNumberScheduled']
-        if 'numberMisscheduled' in kwargs:
+        if desired_number_scheduled is None:
+            raise TypeError("Missing 'desired_number_scheduled' argument")
+        if number_misscheduled is None and 'numberMisscheduled' in kwargs:
             number_misscheduled = kwargs['numberMisscheduled']
-        if 'numberReady' in kwargs:
+        if number_misscheduled is None:
+            raise TypeError("Missing 'number_misscheduled' argument")
+        if number_ready is None and 'numberReady' in kwargs:
             number_ready = kwargs['numberReady']
-        if 'collisionCount' in kwargs:
+        if number_ready is None:
+            raise TypeError("Missing 'number_ready' argument")
+        if collision_count is None and 'collisionCount' in kwargs:
             collision_count = kwargs['collisionCount']
-        if 'numberAvailable' in kwargs:
+        if number_available is None and 'numberAvailable' in kwargs:
             number_available = kwargs['numberAvailable']
-        if 'numberUnavailable' in kwargs:
+        if number_unavailable is None and 'numberUnavailable' in kwargs:
             number_unavailable = kwargs['numberUnavailable']
-        if 'observedGeneration' in kwargs:
+        if observed_generation is None and 'observedGeneration' in kwargs:
             observed_generation = kwargs['observedGeneration']
-        if 'updatedNumberScheduled' in kwargs:
+        if updated_number_scheduled is None and 'updatedNumberScheduled' in kwargs:
             updated_number_scheduled = kwargs['updatedNumberScheduled']
 
         _setter("current_number_scheduled", current_number_scheduled)
@@ -723,7 +741,7 @@ class DaemonSetUpdateStrategyPatchArgs:
              type: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'rollingUpdate' in kwargs:
+        if rolling_update is None and 'rollingUpdate' in kwargs:
             rolling_update = kwargs['rollingUpdate']
 
         if rolling_update is not None:
@@ -778,7 +796,7 @@ class DaemonSetUpdateStrategyArgs:
              type: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'rollingUpdate' in kwargs:
+        if rolling_update is None and 'rollingUpdate' in kwargs:
             rolling_update = kwargs['rollingUpdate']
 
         if rolling_update is not None:
@@ -845,7 +863,7 @@ class DaemonSetArgs:
              status: Optional[pulumi.Input['DaemonSetStatusArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -950,17 +968,21 @@ class DeploymentConditionArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             status: pulumi.Input[str],
-             type: pulumi.Input[str],
+             status: Optional[pulumi.Input[str]] = None,
+             type: Optional[pulumi.Input[str]] = None,
              last_transition_time: Optional[pulumi.Input[str]] = None,
              last_update_time: Optional[pulumi.Input[str]] = None,
              message: Optional[pulumi.Input[str]] = None,
              reason: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'lastTransitionTime' in kwargs:
+        if status is None:
+            raise TypeError("Missing 'status' argument")
+        if type is None:
+            raise TypeError("Missing 'type' argument")
+        if last_transition_time is None and 'lastTransitionTime' in kwargs:
             last_transition_time = kwargs['lastTransitionTime']
-        if 'lastUpdateTime' in kwargs:
+        if last_update_time is None and 'lastUpdateTime' in kwargs:
             last_update_time = kwargs['lastUpdateTime']
 
         _setter("status", status)
@@ -1093,11 +1115,11 @@ class DeploymentSpecPatchArgs:
              template: Optional[pulumi.Input['_core.v1.PodTemplateSpecPatchArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'minReadySeconds' in kwargs:
+        if min_ready_seconds is None and 'minReadySeconds' in kwargs:
             min_ready_seconds = kwargs['minReadySeconds']
-        if 'progressDeadlineSeconds' in kwargs:
+        if progress_deadline_seconds is None and 'progressDeadlineSeconds' in kwargs:
             progress_deadline_seconds = kwargs['progressDeadlineSeconds']
-        if 'revisionHistoryLimit' in kwargs:
+        if revision_history_limit is None and 'revisionHistoryLimit' in kwargs:
             revision_history_limit = kwargs['revisionHistoryLimit']
 
         if min_ready_seconds is not None:
@@ -1250,8 +1272,8 @@ class DeploymentSpecArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             selector: pulumi.Input['_meta.v1.LabelSelectorArgs'],
-             template: pulumi.Input['_core.v1.PodTemplateSpecArgs'],
+             selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
+             template: Optional[pulumi.Input['_core.v1.PodTemplateSpecArgs']] = None,
              min_ready_seconds: Optional[pulumi.Input[int]] = None,
              paused: Optional[pulumi.Input[bool]] = None,
              progress_deadline_seconds: Optional[pulumi.Input[int]] = None,
@@ -1260,11 +1282,15 @@ class DeploymentSpecArgs:
              strategy: Optional[pulumi.Input['DeploymentStrategyArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'minReadySeconds' in kwargs:
+        if selector is None:
+            raise TypeError("Missing 'selector' argument")
+        if template is None:
+            raise TypeError("Missing 'template' argument")
+        if min_ready_seconds is None and 'minReadySeconds' in kwargs:
             min_ready_seconds = kwargs['minReadySeconds']
-        if 'progressDeadlineSeconds' in kwargs:
+        if progress_deadline_seconds is None and 'progressDeadlineSeconds' in kwargs:
             progress_deadline_seconds = kwargs['progressDeadlineSeconds']
-        if 'revisionHistoryLimit' in kwargs:
+        if revision_history_limit is None and 'revisionHistoryLimit' in kwargs:
             revision_history_limit = kwargs['revisionHistoryLimit']
 
         _setter("selector", selector)
@@ -1425,17 +1451,17 @@ class DeploymentStatusArgs:
              updated_replicas: Optional[pulumi.Input[int]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'availableReplicas' in kwargs:
+        if available_replicas is None and 'availableReplicas' in kwargs:
             available_replicas = kwargs['availableReplicas']
-        if 'collisionCount' in kwargs:
+        if collision_count is None and 'collisionCount' in kwargs:
             collision_count = kwargs['collisionCount']
-        if 'observedGeneration' in kwargs:
+        if observed_generation is None and 'observedGeneration' in kwargs:
             observed_generation = kwargs['observedGeneration']
-        if 'readyReplicas' in kwargs:
+        if ready_replicas is None and 'readyReplicas' in kwargs:
             ready_replicas = kwargs['readyReplicas']
-        if 'unavailableReplicas' in kwargs:
+        if unavailable_replicas is None and 'unavailableReplicas' in kwargs:
             unavailable_replicas = kwargs['unavailableReplicas']
-        if 'updatedReplicas' in kwargs:
+        if updated_replicas is None and 'updatedReplicas' in kwargs:
             updated_replicas = kwargs['updatedReplicas']
 
         if available_replicas is not None:
@@ -1574,7 +1600,7 @@ class DeploymentStrategyPatchArgs:
              type: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'rollingUpdate' in kwargs:
+        if rolling_update is None and 'rollingUpdate' in kwargs:
             rolling_update = kwargs['rollingUpdate']
 
         if rolling_update is not None:
@@ -1629,7 +1655,7 @@ class DeploymentStrategyArgs:
              type: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'rollingUpdate' in kwargs:
+        if rolling_update is None and 'rollingUpdate' in kwargs:
             rolling_update = kwargs['rollingUpdate']
 
         if rolling_update is not None:
@@ -1718,7 +1744,7 @@ class DeploymentArgs:
              status: Optional[pulumi.Input['DeploymentStatusArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -1820,14 +1846,18 @@ class ReplicaSetConditionArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             status: pulumi.Input[str],
-             type: pulumi.Input[str],
+             status: Optional[pulumi.Input[str]] = None,
+             type: Optional[pulumi.Input[str]] = None,
              last_transition_time: Optional[pulumi.Input[str]] = None,
              message: Optional[pulumi.Input[str]] = None,
              reason: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'lastTransitionTime' in kwargs:
+        if status is None:
+            raise TypeError("Missing 'status' argument")
+        if type is None:
+            raise TypeError("Missing 'type' argument")
+        if last_transition_time is None and 'lastTransitionTime' in kwargs:
             last_transition_time = kwargs['lastTransitionTime']
 
         _setter("status", status)
@@ -1930,7 +1960,7 @@ class ReplicaSetSpecPatchArgs:
              template: Optional[pulumi.Input['_core.v1.PodTemplateSpecPatchArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'minReadySeconds' in kwargs:
+        if min_ready_seconds is None and 'minReadySeconds' in kwargs:
             min_ready_seconds = kwargs['minReadySeconds']
 
         if min_ready_seconds is not None:
@@ -2015,13 +2045,15 @@ class ReplicaSetSpecArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             selector: pulumi.Input['_meta.v1.LabelSelectorArgs'],
+             selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
              min_ready_seconds: Optional[pulumi.Input[int]] = None,
              replicas: Optional[pulumi.Input[int]] = None,
              template: Optional[pulumi.Input['_core.v1.PodTemplateSpecArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'minReadySeconds' in kwargs:
+        if selector is None:
+            raise TypeError("Missing 'selector' argument")
+        if min_ready_seconds is None and 'minReadySeconds' in kwargs:
             min_ready_seconds = kwargs['minReadySeconds']
 
         _setter("selector", selector)
@@ -2111,7 +2143,7 @@ class ReplicaSetStatusArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             replicas: pulumi.Input[int],
+             replicas: Optional[pulumi.Input[int]] = None,
              available_replicas: Optional[pulumi.Input[int]] = None,
              conditions: Optional[pulumi.Input[Sequence[pulumi.Input['ReplicaSetConditionArgs']]]] = None,
              fully_labeled_replicas: Optional[pulumi.Input[int]] = None,
@@ -2119,13 +2151,15 @@ class ReplicaSetStatusArgs:
              ready_replicas: Optional[pulumi.Input[int]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'availableReplicas' in kwargs:
+        if replicas is None:
+            raise TypeError("Missing 'replicas' argument")
+        if available_replicas is None and 'availableReplicas' in kwargs:
             available_replicas = kwargs['availableReplicas']
-        if 'fullyLabeledReplicas' in kwargs:
+        if fully_labeled_replicas is None and 'fullyLabeledReplicas' in kwargs:
             fully_labeled_replicas = kwargs['fullyLabeledReplicas']
-        if 'observedGeneration' in kwargs:
+        if observed_generation is None and 'observedGeneration' in kwargs:
             observed_generation = kwargs['observedGeneration']
-        if 'readyReplicas' in kwargs:
+        if ready_replicas is None and 'readyReplicas' in kwargs:
             ready_replicas = kwargs['readyReplicas']
 
         _setter("replicas", replicas)
@@ -2247,7 +2281,7 @@ class ReplicaSetArgs:
              status: Optional[pulumi.Input['ReplicaSetStatusArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -2344,9 +2378,9 @@ class RollingUpdateDaemonSetPatchArgs:
              max_unavailable: Optional[pulumi.Input[Union[int, str]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'maxSurge' in kwargs:
+        if max_surge is None and 'maxSurge' in kwargs:
             max_surge = kwargs['maxSurge']
-        if 'maxUnavailable' in kwargs:
+        if max_unavailable is None and 'maxUnavailable' in kwargs:
             max_unavailable = kwargs['maxUnavailable']
 
         if max_surge is not None:
@@ -2401,9 +2435,9 @@ class RollingUpdateDaemonSetArgs:
              max_unavailable: Optional[pulumi.Input[Union[int, str]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'maxSurge' in kwargs:
+        if max_surge is None and 'maxSurge' in kwargs:
             max_surge = kwargs['maxSurge']
-        if 'maxUnavailable' in kwargs:
+        if max_unavailable is None and 'maxUnavailable' in kwargs:
             max_unavailable = kwargs['maxUnavailable']
 
         if max_surge is not None:
@@ -2458,9 +2492,9 @@ class RollingUpdateDeploymentPatchArgs:
              max_unavailable: Optional[pulumi.Input[Union[int, str]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'maxSurge' in kwargs:
+        if max_surge is None and 'maxSurge' in kwargs:
             max_surge = kwargs['maxSurge']
-        if 'maxUnavailable' in kwargs:
+        if max_unavailable is None and 'maxUnavailable' in kwargs:
             max_unavailable = kwargs['maxUnavailable']
 
         if max_surge is not None:
@@ -2515,9 +2549,9 @@ class RollingUpdateDeploymentArgs:
              max_unavailable: Optional[pulumi.Input[Union[int, str]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'maxSurge' in kwargs:
+        if max_surge is None and 'maxSurge' in kwargs:
             max_surge = kwargs['maxSurge']
-        if 'maxUnavailable' in kwargs:
+        if max_unavailable is None and 'maxUnavailable' in kwargs:
             max_unavailable = kwargs['maxUnavailable']
 
         if max_surge is not None:
@@ -2572,7 +2606,7 @@ class RollingUpdateStatefulSetStrategyPatchArgs:
              partition: Optional[pulumi.Input[int]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'maxUnavailable' in kwargs:
+        if max_unavailable is None and 'maxUnavailable' in kwargs:
             max_unavailable = kwargs['maxUnavailable']
 
         if max_unavailable is not None:
@@ -2627,7 +2661,7 @@ class RollingUpdateStatefulSetStrategyArgs:
              partition: Optional[pulumi.Input[int]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'maxUnavailable' in kwargs:
+        if max_unavailable is None and 'maxUnavailable' in kwargs:
             max_unavailable = kwargs['maxUnavailable']
 
         if max_unavailable is not None:
@@ -2687,14 +2721,18 @@ class StatefulSetConditionArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             status: pulumi.Input[str],
-             type: pulumi.Input[str],
+             status: Optional[pulumi.Input[str]] = None,
+             type: Optional[pulumi.Input[str]] = None,
              last_transition_time: Optional[pulumi.Input[str]] = None,
              message: Optional[pulumi.Input[str]] = None,
              reason: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'lastTransitionTime' in kwargs:
+        if status is None:
+            raise TypeError("Missing 'status' argument")
+        if type is None:
+            raise TypeError("Missing 'type' argument")
+        if last_transition_time is None and 'lastTransitionTime' in kwargs:
             last_transition_time = kwargs['lastTransitionTime']
 
         _setter("status", status)
@@ -2871,9 +2909,9 @@ class StatefulSetPersistentVolumeClaimRetentionPolicyPatchArgs:
              when_scaled: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'whenDeleted' in kwargs:
+        if when_deleted is None and 'whenDeleted' in kwargs:
             when_deleted = kwargs['whenDeleted']
-        if 'whenScaled' in kwargs:
+        if when_scaled is None and 'whenScaled' in kwargs:
             when_scaled = kwargs['whenScaled']
 
         if when_deleted is not None:
@@ -2928,9 +2966,9 @@ class StatefulSetPersistentVolumeClaimRetentionPolicyArgs:
              when_scaled: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'whenDeleted' in kwargs:
+        if when_deleted is None and 'whenDeleted' in kwargs:
             when_deleted = kwargs['whenDeleted']
-        if 'whenScaled' in kwargs:
+        if when_scaled is None and 'whenScaled' in kwargs:
             when_scaled = kwargs['whenScaled']
 
         if when_deleted is not None:
@@ -3021,19 +3059,19 @@ class StatefulSetSpecPatchArgs:
              volume_claim_templates: Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.PersistentVolumeClaimPatchArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'minReadySeconds' in kwargs:
+        if min_ready_seconds is None and 'minReadySeconds' in kwargs:
             min_ready_seconds = kwargs['minReadySeconds']
-        if 'persistentVolumeClaimRetentionPolicy' in kwargs:
+        if persistent_volume_claim_retention_policy is None and 'persistentVolumeClaimRetentionPolicy' in kwargs:
             persistent_volume_claim_retention_policy = kwargs['persistentVolumeClaimRetentionPolicy']
-        if 'podManagementPolicy' in kwargs:
+        if pod_management_policy is None and 'podManagementPolicy' in kwargs:
             pod_management_policy = kwargs['podManagementPolicy']
-        if 'revisionHistoryLimit' in kwargs:
+        if revision_history_limit is None and 'revisionHistoryLimit' in kwargs:
             revision_history_limit = kwargs['revisionHistoryLimit']
-        if 'serviceName' in kwargs:
+        if service_name is None and 'serviceName' in kwargs:
             service_name = kwargs['serviceName']
-        if 'updateStrategy' in kwargs:
+        if update_strategy is None and 'updateStrategy' in kwargs:
             update_strategy = kwargs['updateStrategy']
-        if 'volumeClaimTemplates' in kwargs:
+        if volume_claim_templates is None and 'volumeClaimTemplates' in kwargs:
             volume_claim_templates = kwargs['volumeClaimTemplates']
 
         if min_ready_seconds is not None:
@@ -3237,9 +3275,9 @@ class StatefulSetSpecArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             selector: pulumi.Input['_meta.v1.LabelSelectorArgs'],
-             service_name: pulumi.Input[str],
-             template: pulumi.Input['_core.v1.PodTemplateSpecArgs'],
+             selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
+             service_name: Optional[pulumi.Input[str]] = None,
+             template: Optional[pulumi.Input['_core.v1.PodTemplateSpecArgs']] = None,
              min_ready_seconds: Optional[pulumi.Input[int]] = None,
              ordinals: Optional[pulumi.Input['StatefulSetOrdinalsArgs']] = None,
              persistent_volume_claim_retention_policy: Optional[pulumi.Input['StatefulSetPersistentVolumeClaimRetentionPolicyArgs']] = None,
@@ -3250,19 +3288,25 @@ class StatefulSetSpecArgs:
              volume_claim_templates: Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.PersistentVolumeClaimArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'serviceName' in kwargs:
+        if selector is None:
+            raise TypeError("Missing 'selector' argument")
+        if service_name is None and 'serviceName' in kwargs:
             service_name = kwargs['serviceName']
-        if 'minReadySeconds' in kwargs:
+        if service_name is None:
+            raise TypeError("Missing 'service_name' argument")
+        if template is None:
+            raise TypeError("Missing 'template' argument")
+        if min_ready_seconds is None and 'minReadySeconds' in kwargs:
             min_ready_seconds = kwargs['minReadySeconds']
-        if 'persistentVolumeClaimRetentionPolicy' in kwargs:
+        if persistent_volume_claim_retention_policy is None and 'persistentVolumeClaimRetentionPolicy' in kwargs:
             persistent_volume_claim_retention_policy = kwargs['persistentVolumeClaimRetentionPolicy']
-        if 'podManagementPolicy' in kwargs:
+        if pod_management_policy is None and 'podManagementPolicy' in kwargs:
             pod_management_policy = kwargs['podManagementPolicy']
-        if 'revisionHistoryLimit' in kwargs:
+        if revision_history_limit is None and 'revisionHistoryLimit' in kwargs:
             revision_history_limit = kwargs['revisionHistoryLimit']
-        if 'updateStrategy' in kwargs:
+        if update_strategy is None and 'updateStrategy' in kwargs:
             update_strategy = kwargs['updateStrategy']
-        if 'volumeClaimTemplates' in kwargs:
+        if volume_claim_templates is None and 'volumeClaimTemplates' in kwargs:
             volume_claim_templates = kwargs['volumeClaimTemplates']
 
         _setter("selector", selector)
@@ -3460,7 +3504,7 @@ class StatefulSetStatusArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             replicas: pulumi.Input[int],
+             replicas: Optional[pulumi.Input[int]] = None,
              available_replicas: Optional[pulumi.Input[int]] = None,
              collision_count: Optional[pulumi.Input[int]] = None,
              conditions: Optional[pulumi.Input[Sequence[pulumi.Input['StatefulSetConditionArgs']]]] = None,
@@ -3472,21 +3516,23 @@ class StatefulSetStatusArgs:
              updated_replicas: Optional[pulumi.Input[int]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'availableReplicas' in kwargs:
+        if replicas is None:
+            raise TypeError("Missing 'replicas' argument")
+        if available_replicas is None and 'availableReplicas' in kwargs:
             available_replicas = kwargs['availableReplicas']
-        if 'collisionCount' in kwargs:
+        if collision_count is None and 'collisionCount' in kwargs:
             collision_count = kwargs['collisionCount']
-        if 'currentReplicas' in kwargs:
+        if current_replicas is None and 'currentReplicas' in kwargs:
             current_replicas = kwargs['currentReplicas']
-        if 'currentRevision' in kwargs:
+        if current_revision is None and 'currentRevision' in kwargs:
             current_revision = kwargs['currentRevision']
-        if 'observedGeneration' in kwargs:
+        if observed_generation is None and 'observedGeneration' in kwargs:
             observed_generation = kwargs['observedGeneration']
-        if 'readyReplicas' in kwargs:
+        if ready_replicas is None and 'readyReplicas' in kwargs:
             ready_replicas = kwargs['readyReplicas']
-        if 'updateRevision' in kwargs:
+        if update_revision is None and 'updateRevision' in kwargs:
             update_revision = kwargs['updateRevision']
-        if 'updatedReplicas' in kwargs:
+        if updated_replicas is None and 'updatedReplicas' in kwargs:
             updated_replicas = kwargs['updatedReplicas']
 
         _setter("replicas", replicas)
@@ -3652,7 +3698,7 @@ class StatefulSetUpdateStrategyPatchArgs:
              type: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'rollingUpdate' in kwargs:
+        if rolling_update is None and 'rollingUpdate' in kwargs:
             rolling_update = kwargs['rollingUpdate']
 
         if rolling_update is not None:
@@ -3707,7 +3753,7 @@ class StatefulSetUpdateStrategyArgs:
              type: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'rollingUpdate' in kwargs:
+        if rolling_update is None and 'rollingUpdate' in kwargs:
             rolling_update = kwargs['rollingUpdate']
 
         if rolling_update is not None:
@@ -3791,7 +3837,7 @@ class StatefulSetArgs:
              status: Optional[pulumi.Input['StatefulSetStatusArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:

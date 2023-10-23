@@ -52,11 +52,11 @@ class ServiceAccountInitArgs:
              secrets: Optional[pulumi.Input[Sequence[pulumi.Input['ObjectReferenceArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
-        if 'automountServiceAccountToken' in kwargs:
+        if automount_service_account_token is None and 'automountServiceAccountToken' in kwargs:
             automount_service_account_token = kwargs['automountServiceAccountToken']
-        if 'imagePullSecrets' in kwargs:
+        if image_pull_secrets is None and 'imagePullSecrets' in kwargs:
             image_pull_secrets = kwargs['imagePullSecrets']
 
         if api_version is not None:

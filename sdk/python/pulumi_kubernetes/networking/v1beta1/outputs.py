@@ -84,12 +84,14 @@ class HTTPIngressPath(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             backend: 'outputs.IngressBackend',
+             backend: Optional['outputs.IngressBackend'] = None,
              path: Optional[str] = None,
              path_type: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'pathType' in kwargs:
+        if backend is None:
+            raise TypeError("Missing 'backend' argument")
+        if path_type is None and 'pathType' in kwargs:
             path_type = kwargs['pathType']
 
         _setter("backend", backend)
@@ -189,7 +191,7 @@ class HTTPIngressPathPatch(dict):
              path_type: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'pathType' in kwargs:
+        if path_type is None and 'pathType' in kwargs:
             path_type = kwargs['pathType']
 
         if backend is not None:
@@ -252,9 +254,11 @@ class HTTPIngressRuleValue(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             paths: Sequence['outputs.HTTPIngressPath'],
+             paths: Optional[Sequence['outputs.HTTPIngressPath']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if paths is None:
+            raise TypeError("Missing 'paths' argument")
 
         _setter("paths", paths)
 
@@ -383,7 +387,7 @@ class Ingress(dict):
              status: Optional['outputs.IngressStatus'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -481,15 +485,19 @@ class IngressBackend(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             service_name: str,
-             service_port: Any,
+             service_name: Optional[str] = None,
+             service_port: Optional[Any] = None,
              resource: Optional['_core.v1.outputs.TypedLocalObjectReference'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'serviceName' in kwargs:
+        if service_name is None and 'serviceName' in kwargs:
             service_name = kwargs['serviceName']
-        if 'servicePort' in kwargs:
+        if service_name is None:
+            raise TypeError("Missing 'service_name' argument")
+        if service_port is None and 'servicePort' in kwargs:
             service_port = kwargs['servicePort']
+        if service_port is None:
+            raise TypeError("Missing 'service_port' argument")
 
         _setter("service_name", service_name)
         _setter("service_port", service_port)
@@ -569,9 +577,9 @@ class IngressBackendPatch(dict):
              service_port: Optional[Any] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'serviceName' in kwargs:
+        if service_name is None and 'serviceName' in kwargs:
             service_name = kwargs['serviceName']
-        if 'servicePort' in kwargs:
+        if service_port is None and 'servicePort' in kwargs:
             service_port = kwargs['servicePort']
 
         if resource is not None:
@@ -656,7 +664,7 @@ class IngressClass(dict):
              spec: Optional['outputs.IngressClassSpec'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -955,7 +963,7 @@ class IngressSpec(dict):
              tls: Optional[Sequence['outputs.IngressTLS']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'ingressClassName' in kwargs:
+        if ingress_class_name is None and 'ingressClassName' in kwargs:
             ingress_class_name = kwargs['ingressClassName']
 
         if backend is not None:
@@ -1050,7 +1058,7 @@ class IngressSpecPatch(dict):
              tls: Optional[Sequence['outputs.IngressTLSPatch']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'ingressClassName' in kwargs:
+        if ingress_class_name is None and 'ingressClassName' in kwargs:
             ingress_class_name = kwargs['ingressClassName']
 
         if backend is not None:
@@ -1133,7 +1141,7 @@ class IngressStatus(dict):
              load_balancer: Optional['_core.v1.outputs.LoadBalancerStatus'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'loadBalancer' in kwargs:
+        if load_balancer is None and 'loadBalancer' in kwargs:
             load_balancer = kwargs['loadBalancer']
 
         if load_balancer is not None:
@@ -1186,7 +1194,7 @@ class IngressStatusPatch(dict):
              load_balancer: Optional['_core.v1.outputs.LoadBalancerStatusPatch'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'loadBalancer' in kwargs:
+        if load_balancer is None and 'loadBalancer' in kwargs:
             load_balancer = kwargs['loadBalancer']
 
         if load_balancer is not None:
@@ -1243,7 +1251,7 @@ class IngressTLS(dict):
              secret_name: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'secretName' in kwargs:
+        if secret_name is None and 'secretName' in kwargs:
             secret_name = kwargs['secretName']
 
         if hosts is not None:
@@ -1310,7 +1318,7 @@ class IngressTLSPatch(dict):
              secret_name: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'secretName' in kwargs:
+        if secret_name is None and 'secretName' in kwargs:
             secret_name = kwargs['secretName']
 
         if hosts is not None:

@@ -43,7 +43,7 @@ class AggregationRulePatchArgs:
              cluster_role_selectors: Optional[pulumi.Input[Sequence[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'clusterRoleSelectors' in kwargs:
+        if cluster_role_selectors is None and 'clusterRoleSelectors' in kwargs:
             cluster_role_selectors = kwargs['clusterRoleSelectors']
 
         if cluster_role_selectors is not None:
@@ -80,7 +80,7 @@ class AggregationRuleArgs:
              cluster_role_selectors: Optional[pulumi.Input[Sequence[pulumi.Input['_meta.v1.LabelSelectorArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'clusterRoleSelectors' in kwargs:
+        if cluster_role_selectors is None and 'clusterRoleSelectors' in kwargs:
             cluster_role_selectors = kwargs['clusterRoleSelectors']
 
         if cluster_role_selectors is not None:
@@ -126,16 +126,18 @@ class ClusterRoleBindingArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             role_ref: pulumi.Input['RoleRefArgs'],
+             role_ref: Optional[pulumi.Input['RoleRefArgs']] = None,
              api_version: Optional[pulumi.Input[str]] = None,
              kind: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              subjects: Optional[pulumi.Input[Sequence[pulumi.Input['SubjectArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'roleRef' in kwargs:
+        if role_ref is None and 'roleRef' in kwargs:
             role_ref = kwargs['roleRef']
-        if 'apiVersion' in kwargs:
+        if role_ref is None:
+            raise TypeError("Missing 'role_ref' argument")
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         _setter("role_ref", role_ref)
@@ -243,9 +245,9 @@ class ClusterRoleArgs:
              rules: Optional[pulumi.Input[Sequence[pulumi.Input['PolicyRuleArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'aggregationRule' in kwargs:
+        if aggregation_rule is None and 'aggregationRule' in kwargs:
             aggregation_rule = kwargs['aggregationRule']
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if aggregation_rule is not None:
@@ -354,11 +356,11 @@ class PolicyRulePatchArgs:
              verbs: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiGroups' in kwargs:
+        if api_groups is None and 'apiGroups' in kwargs:
             api_groups = kwargs['apiGroups']
-        if 'nonResourceURLs' in kwargs:
+        if non_resource_urls is None and 'nonResourceURLs' in kwargs:
             non_resource_urls = kwargs['nonResourceURLs']
-        if 'resourceNames' in kwargs:
+        if resource_names is None and 'resourceNames' in kwargs:
             resource_names = kwargs['resourceNames']
 
         if api_groups is not None:
@@ -460,18 +462,20 @@ class PolicyRuleArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             verbs: pulumi.Input[Sequence[pulumi.Input[str]]],
+             verbs: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              api_groups: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              non_resource_urls: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              resource_names: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              resources: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiGroups' in kwargs:
+        if verbs is None:
+            raise TypeError("Missing 'verbs' argument")
+        if api_groups is None and 'apiGroups' in kwargs:
             api_groups = kwargs['apiGroups']
-        if 'nonResourceURLs' in kwargs:
+        if non_resource_urls is None and 'nonResourceURLs' in kwargs:
             non_resource_urls = kwargs['nonResourceURLs']
-        if 'resourceNames' in kwargs:
+        if resource_names is None and 'resourceNames' in kwargs:
             resource_names = kwargs['resourceNames']
 
         _setter("verbs", verbs)
@@ -572,16 +576,18 @@ class RoleBindingArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             role_ref: pulumi.Input['RoleRefArgs'],
+             role_ref: Optional[pulumi.Input['RoleRefArgs']] = None,
              api_version: Optional[pulumi.Input[str]] = None,
              kind: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              subjects: Optional[pulumi.Input[Sequence[pulumi.Input['SubjectArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'roleRef' in kwargs:
+        if role_ref is None and 'roleRef' in kwargs:
             role_ref = kwargs['roleRef']
-        if 'apiVersion' in kwargs:
+        if role_ref is None:
+            raise TypeError("Missing 'role_ref' argument")
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         _setter("role_ref", role_ref)
@@ -681,7 +687,7 @@ class RoleRefPatchArgs:
              name: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiGroup' in kwargs:
+        if api_group is None and 'apiGroup' in kwargs:
             api_group = kwargs['apiGroup']
 
         if api_group is not None:
@@ -749,13 +755,19 @@ class RoleRefArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             api_group: pulumi.Input[str],
-             kind: pulumi.Input[str],
-             name: pulumi.Input[str],
+             api_group: Optional[pulumi.Input[str]] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             name: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiGroup' in kwargs:
+        if api_group is None and 'apiGroup' in kwargs:
             api_group = kwargs['apiGroup']
+        if api_group is None:
+            raise TypeError("Missing 'api_group' argument")
+        if kind is None:
+            raise TypeError("Missing 'kind' argument")
+        if name is None:
+            raise TypeError("Missing 'name' argument")
 
         _setter("api_group", api_group)
         _setter("kind", kind)
@@ -828,7 +840,7 @@ class RoleArgs:
              rules: Optional[pulumi.Input[Sequence[pulumi.Input['PolicyRuleArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -919,7 +931,7 @@ class SubjectPatchArgs:
              namespace: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -1004,13 +1016,17 @@ class SubjectArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             kind: pulumi.Input[str],
-             name: pulumi.Input[str],
+             kind: Optional[pulumi.Input[str]] = None,
+             name: Optional[pulumi.Input[str]] = None,
              api_version: Optional[pulumi.Input[str]] = None,
              namespace: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if kind is None:
+            raise TypeError("Missing 'kind' argument")
+        if name is None:
+            raise TypeError("Missing 'name' argument")
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         _setter("kind", kind)

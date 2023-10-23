@@ -96,21 +96,21 @@ class EventPatchArgs:
              type: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
-        if 'deprecatedCount' in kwargs:
+        if deprecated_count is None and 'deprecatedCount' in kwargs:
             deprecated_count = kwargs['deprecatedCount']
-        if 'deprecatedFirstTimestamp' in kwargs:
+        if deprecated_first_timestamp is None and 'deprecatedFirstTimestamp' in kwargs:
             deprecated_first_timestamp = kwargs['deprecatedFirstTimestamp']
-        if 'deprecatedLastTimestamp' in kwargs:
+        if deprecated_last_timestamp is None and 'deprecatedLastTimestamp' in kwargs:
             deprecated_last_timestamp = kwargs['deprecatedLastTimestamp']
-        if 'deprecatedSource' in kwargs:
+        if deprecated_source is None and 'deprecatedSource' in kwargs:
             deprecated_source = kwargs['deprecatedSource']
-        if 'eventTime' in kwargs:
+        if event_time is None and 'eventTime' in kwargs:
             event_time = kwargs['eventTime']
-        if 'reportingController' in kwargs:
+        if reporting_controller is None and 'reportingController' in kwargs:
             reporting_controller = kwargs['reportingController']
-        if 'reportingInstance' in kwargs:
+        if reporting_instance is None and 'reportingInstance' in kwargs:
             reporting_instance = kwargs['reportingInstance']
 
         if action is not None:

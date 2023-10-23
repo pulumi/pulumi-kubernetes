@@ -47,7 +47,7 @@ class PriorityClassArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             value: pulumi.Input[int],
+             value: Optional[pulumi.Input[int]] = None,
              api_version: Optional[pulumi.Input[str]] = None,
              description: Optional[pulumi.Input[str]] = None,
              global_default: Optional[pulumi.Input[bool]] = None,
@@ -56,11 +56,13 @@ class PriorityClassArgs:
              preemption_policy: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if value is None:
+            raise TypeError("Missing 'value' argument")
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
-        if 'globalDefault' in kwargs:
+        if global_default is None and 'globalDefault' in kwargs:
             global_default = kwargs['globalDefault']
-        if 'preemptionPolicy' in kwargs:
+        if preemption_policy is None and 'preemptionPolicy' in kwargs:
             preemption_policy = kwargs['preemptionPolicy']
 
         _setter("value", value)

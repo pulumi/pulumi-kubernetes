@@ -48,13 +48,13 @@ class HelmReleaseSettingsArgs:
              repository_config_path: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'pluginsPath' in kwargs:
+        if plugins_path is None and 'pluginsPath' in kwargs:
             plugins_path = kwargs['pluginsPath']
-        if 'registryConfigPath' in kwargs:
+        if registry_config_path is None and 'registryConfigPath' in kwargs:
             registry_config_path = kwargs['registryConfigPath']
-        if 'repositoryCache' in kwargs:
+        if repository_cache is None and 'repositoryCache' in kwargs:
             repository_cache = kwargs['repositoryCache']
-        if 'repositoryConfigPath' in kwargs:
+        if repository_config_path is None and 'repositoryConfigPath' in kwargs:
             repository_config_path = kwargs['repositoryConfigPath']
 
         if driver is None:

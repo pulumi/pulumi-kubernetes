@@ -58,17 +58,21 @@ class CertificateSigningRequestConditionArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             status: pulumi.Input[str],
-             type: pulumi.Input[str],
+             status: Optional[pulumi.Input[str]] = None,
+             type: Optional[pulumi.Input[str]] = None,
              last_transition_time: Optional[pulumi.Input[str]] = None,
              last_update_time: Optional[pulumi.Input[str]] = None,
              message: Optional[pulumi.Input[str]] = None,
              reason: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'lastTransitionTime' in kwargs:
+        if status is None:
+            raise TypeError("Missing 'status' argument")
+        if type is None:
+            raise TypeError("Missing 'type' argument")
+        if last_transition_time is None and 'lastTransitionTime' in kwargs:
             last_transition_time = kwargs['lastTransitionTime']
-        if 'lastUpdateTime' in kwargs:
+        if last_update_time is None and 'lastUpdateTime' in kwargs:
             last_update_time = kwargs['lastUpdateTime']
 
         _setter("status", status)
@@ -255,9 +259,9 @@ class CertificateSigningRequestSpecPatchArgs:
              username: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'expirationSeconds' in kwargs:
+        if expiration_seconds is None and 'expirationSeconds' in kwargs:
             expiration_seconds = kwargs['expirationSeconds']
-        if 'signerName' in kwargs:
+        if signer_name is None and 'signerName' in kwargs:
             signer_name = kwargs['signerName']
 
         if expiration_seconds is not None:
@@ -498,8 +502,8 @@ class CertificateSigningRequestSpecArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             request: pulumi.Input[str],
-             signer_name: pulumi.Input[str],
+             request: Optional[pulumi.Input[str]] = None,
+             signer_name: Optional[pulumi.Input[str]] = None,
              expiration_seconds: Optional[pulumi.Input[int]] = None,
              extra: Optional[pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[str]]]]]] = None,
              groups: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
@@ -508,9 +512,13 @@ class CertificateSigningRequestSpecArgs:
              username: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'signerName' in kwargs:
+        if request is None:
+            raise TypeError("Missing 'request' argument")
+        if signer_name is None and 'signerName' in kwargs:
             signer_name = kwargs['signerName']
-        if 'expirationSeconds' in kwargs:
+        if signer_name is None:
+            raise TypeError("Missing 'signer_name' argument")
+        if expiration_seconds is None and 'expirationSeconds' in kwargs:
             expiration_seconds = kwargs['expirationSeconds']
 
         _setter("request", request)
@@ -796,14 +804,16 @@ class CertificateSigningRequestArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             spec: pulumi.Input['CertificateSigningRequestSpecArgs'],
+             spec: Optional[pulumi.Input['CertificateSigningRequestSpecArgs']] = None,
              api_version: Optional[pulumi.Input[str]] = None,
              kind: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              status: Optional[pulumi.Input['CertificateSigningRequestStatusArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if spec is None:
+            raise TypeError("Missing 'spec' argument")
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         _setter("spec", spec)
