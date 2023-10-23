@@ -1,5 +1,7 @@
 ## Unreleased
 
+## 4.5.0 (October 23, 2023)
+
 - helm.v3.ChartOpts: Add KubeVersion field that can be passed to avoid asking the kubernetes API server for the version (https://github.com/pulumi/pulumi-kubernetes/pull/2593)
 - Fix for Helm Import regression (https://github.com/pulumi/pulumi-kubernetes/pull/2605)
 - Improved search functionality for Helm Import (https://github.com/pulumi/pulumi-kubernetes/pull/2610)
