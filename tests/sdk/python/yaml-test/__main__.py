@@ -63,6 +63,15 @@ cf_url2 = ConfigFile(
     resource_prefix="dup",
     opts=ResourceOptions(provider=provider),
 )
+
+# Test provider variations
+cf_provider = ConfigFile(
+    "yaml-test",
+    "manifest.yaml",
+    transformations=[set_namespace(ns)],
+    opts=ResourceOptions(providers=[provider]),
+)
+
 cg = ConfigGroup(
     "deployment",
     files=["ns*.yaml"],
@@ -73,4 +82,17 @@ metadata:
   name: cg3
     """],
     opts=ResourceOptions(provider=provider)
+)
+
+## Test provider variations
+cg = ConfigGroup(
+    "deployment",
+    files=["ns*.yaml"],
+    yaml=["""
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cg3
+    """],
+    opts=ResourceOptions(providers=[provider])
 )
