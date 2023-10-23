@@ -54,11 +54,11 @@ class PriorityClassPatchArgs:
              value: Optional[pulumi.Input[int]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
-        if 'globalDefault' in kwargs:
+        if global_default is None and 'globalDefault' in kwargs:
             global_default = kwargs['globalDefault']
-        if 'preemptionPolicy' in kwargs:
+        if preemption_policy is None and 'preemptionPolicy' in kwargs:
             preemption_policy = kwargs['preemptionPolicy']
 
         if api_version is not None:

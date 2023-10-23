@@ -51,11 +51,11 @@ class RepositoryOptsArgs:
              username: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'caFile' in kwargs:
+        if ca_file is None and 'caFile' in kwargs:
             ca_file = kwargs['caFile']
-        if 'certFile' in kwargs:
+        if cert_file is None and 'certFile' in kwargs:
             cert_file = kwargs['certFile']
-        if 'keyFile' in kwargs:
+        if key_file is None and 'keyFile' in kwargs:
             key_file = kwargs['keyFile']
 
         if ca_file is not None:

@@ -47,14 +47,18 @@ class APIServiceConditionArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             status: pulumi.Input[str],
-             type: pulumi.Input[str],
+             status: Optional[pulumi.Input[str]] = None,
+             type: Optional[pulumi.Input[str]] = None,
              last_transition_time: Optional[pulumi.Input[str]] = None,
              message: Optional[pulumi.Input[str]] = None,
              reason: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'lastTransitionTime' in kwargs:
+        if status is None:
+            raise TypeError("Missing 'status' argument")
+        if type is None:
+            raise TypeError("Missing 'type' argument")
+        if last_transition_time is None and 'lastTransitionTime' in kwargs:
             last_transition_time = kwargs['lastTransitionTime']
 
         _setter("status", status)
@@ -169,13 +173,13 @@ class APIServiceSpecPatchArgs:
              version_priority: Optional[pulumi.Input[int]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'caBundle' in kwargs:
+        if ca_bundle is None and 'caBundle' in kwargs:
             ca_bundle = kwargs['caBundle']
-        if 'groupPriorityMinimum' in kwargs:
+        if group_priority_minimum is None and 'groupPriorityMinimum' in kwargs:
             group_priority_minimum = kwargs['groupPriorityMinimum']
-        if 'insecureSkipTLSVerify' in kwargs:
+        if insecure_skip_tls_verify is None and 'insecureSkipTLSVerify' in kwargs:
             insecure_skip_tls_verify = kwargs['insecureSkipTLSVerify']
-        if 'versionPriority' in kwargs:
+        if version_priority is None and 'versionPriority' in kwargs:
             version_priority = kwargs['versionPriority']
 
         if ca_bundle is not None:
@@ -311,22 +315,28 @@ class APIServiceSpecArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             group_priority_minimum: pulumi.Input[int],
-             service: pulumi.Input['ServiceReferenceArgs'],
-             version_priority: pulumi.Input[int],
+             group_priority_minimum: Optional[pulumi.Input[int]] = None,
+             service: Optional[pulumi.Input['ServiceReferenceArgs']] = None,
+             version_priority: Optional[pulumi.Input[int]] = None,
              ca_bundle: Optional[pulumi.Input[str]] = None,
              group: Optional[pulumi.Input[str]] = None,
              insecure_skip_tls_verify: Optional[pulumi.Input[bool]] = None,
              version: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'groupPriorityMinimum' in kwargs:
+        if group_priority_minimum is None and 'groupPriorityMinimum' in kwargs:
             group_priority_minimum = kwargs['groupPriorityMinimum']
-        if 'versionPriority' in kwargs:
+        if group_priority_minimum is None:
+            raise TypeError("Missing 'group_priority_minimum' argument")
+        if service is None:
+            raise TypeError("Missing 'service' argument")
+        if version_priority is None and 'versionPriority' in kwargs:
             version_priority = kwargs['versionPriority']
-        if 'caBundle' in kwargs:
+        if version_priority is None:
+            raise TypeError("Missing 'version_priority' argument")
+        if ca_bundle is None and 'caBundle' in kwargs:
             ca_bundle = kwargs['caBundle']
-        if 'insecureSkipTLSVerify' in kwargs:
+        if insecure_skip_tls_verify is None and 'insecureSkipTLSVerify' in kwargs:
             insecure_skip_tls_verify = kwargs['insecureSkipTLSVerify']
 
         _setter("group_priority_minimum", group_priority_minimum)
@@ -494,7 +504,7 @@ class APIServiceArgs:
              status: Optional[pulumi.Input['APIServiceStatusArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:

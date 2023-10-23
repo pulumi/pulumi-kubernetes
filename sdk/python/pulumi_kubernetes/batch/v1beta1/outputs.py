@@ -77,7 +77,7 @@ class CronJob(dict):
              status: Optional['outputs.CronJobStatus'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -193,8 +193,8 @@ class CronJobSpec(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             job_template: 'outputs.JobTemplateSpec',
-             schedule: str,
+             job_template: Optional['outputs.JobTemplateSpec'] = None,
+             schedule: Optional[str] = None,
              concurrency_policy: Optional[str] = None,
              failed_jobs_history_limit: Optional[int] = None,
              starting_deadline_seconds: Optional[int] = None,
@@ -202,15 +202,19 @@ class CronJobSpec(dict):
              suspend: Optional[bool] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'jobTemplate' in kwargs:
+        if job_template is None and 'jobTemplate' in kwargs:
             job_template = kwargs['jobTemplate']
-        if 'concurrencyPolicy' in kwargs:
+        if job_template is None:
+            raise TypeError("Missing 'job_template' argument")
+        if schedule is None:
+            raise TypeError("Missing 'schedule' argument")
+        if concurrency_policy is None and 'concurrencyPolicy' in kwargs:
             concurrency_policy = kwargs['concurrencyPolicy']
-        if 'failedJobsHistoryLimit' in kwargs:
+        if failed_jobs_history_limit is None and 'failedJobsHistoryLimit' in kwargs:
             failed_jobs_history_limit = kwargs['failedJobsHistoryLimit']
-        if 'startingDeadlineSeconds' in kwargs:
+        if starting_deadline_seconds is None and 'startingDeadlineSeconds' in kwargs:
             starting_deadline_seconds = kwargs['startingDeadlineSeconds']
-        if 'successfulJobsHistoryLimit' in kwargs:
+        if successful_jobs_history_limit is None and 'successfulJobsHistoryLimit' in kwargs:
             successful_jobs_history_limit = kwargs['successfulJobsHistoryLimit']
 
         _setter("job_template", job_template)
@@ -353,15 +357,15 @@ class CronJobSpecPatch(dict):
              suspend: Optional[bool] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'concurrencyPolicy' in kwargs:
+        if concurrency_policy is None and 'concurrencyPolicy' in kwargs:
             concurrency_policy = kwargs['concurrencyPolicy']
-        if 'failedJobsHistoryLimit' in kwargs:
+        if failed_jobs_history_limit is None and 'failedJobsHistoryLimit' in kwargs:
             failed_jobs_history_limit = kwargs['failedJobsHistoryLimit']
-        if 'jobTemplate' in kwargs:
+        if job_template is None and 'jobTemplate' in kwargs:
             job_template = kwargs['jobTemplate']
-        if 'startingDeadlineSeconds' in kwargs:
+        if starting_deadline_seconds is None and 'startingDeadlineSeconds' in kwargs:
             starting_deadline_seconds = kwargs['startingDeadlineSeconds']
-        if 'successfulJobsHistoryLimit' in kwargs:
+        if successful_jobs_history_limit is None and 'successfulJobsHistoryLimit' in kwargs:
             successful_jobs_history_limit = kwargs['successfulJobsHistoryLimit']
 
         if concurrency_policy is not None:
@@ -478,7 +482,7 @@ class CronJobStatus(dict):
              last_schedule_time: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'lastScheduleTime' in kwargs:
+        if last_schedule_time is None and 'lastScheduleTime' in kwargs:
             last_schedule_time = kwargs['lastScheduleTime']
 
         if active is not None:
@@ -545,7 +549,7 @@ class CronJobStatusPatch(dict):
              last_schedule_time: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'lastScheduleTime' in kwargs:
+        if last_schedule_time is None and 'lastScheduleTime' in kwargs:
             last_schedule_time = kwargs['lastScheduleTime']
 
         if active is not None:

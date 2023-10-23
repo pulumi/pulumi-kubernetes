@@ -51,9 +51,9 @@ class PodPresetSpecPatchArgs:
              volumes: Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.VolumePatchArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'envFrom' in kwargs:
+        if env_from is None and 'envFrom' in kwargs:
             env_from = kwargs['envFrom']
-        if 'volumeMounts' in kwargs:
+        if volume_mounts is None and 'volumeMounts' in kwargs:
             volume_mounts = kwargs['volumeMounts']
 
         if env is not None:
@@ -162,9 +162,9 @@ class PodPresetSpecArgs:
              volumes: Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.VolumeArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'envFrom' in kwargs:
+        if env_from is None and 'envFrom' in kwargs:
             env_from = kwargs['envFrom']
-        if 'volumeMounts' in kwargs:
+        if volume_mounts is None and 'volumeMounts' in kwargs:
             volume_mounts = kwargs['volumeMounts']
 
         if env is not None:
@@ -267,7 +267,7 @@ class PodPresetArgs:
              spec: Optional[pulumi.Input['PodPresetSpecArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:

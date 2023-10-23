@@ -79,14 +79,16 @@ class CertificateSigningRequest(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             spec: 'outputs.CertificateSigningRequestSpec',
+             spec: Optional['outputs.CertificateSigningRequestSpec'] = None,
              api_version: Optional[str] = None,
              kind: Optional[str] = None,
              metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
              status: Optional['outputs.CertificateSigningRequestStatus'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if spec is None:
+            raise TypeError("Missing 'spec' argument")
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         _setter("spec", spec)
@@ -199,17 +201,21 @@ class CertificateSigningRequestCondition(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             status: str,
-             type: str,
+             status: Optional[str] = None,
+             type: Optional[str] = None,
              last_transition_time: Optional[str] = None,
              last_update_time: Optional[str] = None,
              message: Optional[str] = None,
              reason: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'lastTransitionTime' in kwargs:
+        if status is None:
+            raise TypeError("Missing 'status' argument")
+        if type is None:
+            raise TypeError("Missing 'type' argument")
+        if last_transition_time is None and 'lastTransitionTime' in kwargs:
             last_transition_time = kwargs['lastTransitionTime']
-        if 'lastUpdateTime' in kwargs:
+        if last_update_time is None and 'lastUpdateTime' in kwargs:
             last_update_time = kwargs['lastUpdateTime']
 
         _setter("status", status)
@@ -352,9 +358,9 @@ class CertificateSigningRequestConditionPatch(dict):
              type: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'lastTransitionTime' in kwargs:
+        if last_transition_time is None and 'lastTransitionTime' in kwargs:
             last_transition_time = kwargs['lastTransitionTime']
-        if 'lastUpdateTime' in kwargs:
+        if last_update_time is None and 'lastUpdateTime' in kwargs:
             last_update_time = kwargs['lastUpdateTime']
 
         if last_transition_time is not None:
@@ -531,8 +537,8 @@ class CertificateSigningRequestSpec(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             request: str,
-             signer_name: str,
+             request: Optional[str] = None,
+             signer_name: Optional[str] = None,
              expiration_seconds: Optional[int] = None,
              extra: Optional[Mapping[str, Sequence[str]]] = None,
              groups: Optional[Sequence[str]] = None,
@@ -541,9 +547,13 @@ class CertificateSigningRequestSpec(dict):
              username: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'signerName' in kwargs:
+        if request is None:
+            raise TypeError("Missing 'request' argument")
+        if signer_name is None and 'signerName' in kwargs:
             signer_name = kwargs['signerName']
-        if 'expirationSeconds' in kwargs:
+        if signer_name is None:
+            raise TypeError("Missing 'signer_name' argument")
+        if expiration_seconds is None and 'expirationSeconds' in kwargs:
             expiration_seconds = kwargs['expirationSeconds']
 
         _setter("request", request)
@@ -782,9 +792,9 @@ class CertificateSigningRequestSpecPatch(dict):
              username: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'expirationSeconds' in kwargs:
+        if expiration_seconds is None and 'expirationSeconds' in kwargs:
             expiration_seconds = kwargs['expirationSeconds']
-        if 'signerName' in kwargs:
+        if signer_name is None and 'signerName' in kwargs:
             signer_name = kwargs['signerName']
 
         if expiration_seconds is not None:

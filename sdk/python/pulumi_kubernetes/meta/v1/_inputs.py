@@ -59,17 +59,27 @@ class ConditionArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             last_transition_time: pulumi.Input[str],
-             message: pulumi.Input[str],
-             reason: pulumi.Input[str],
-             status: pulumi.Input[str],
-             type: pulumi.Input[str],
+             last_transition_time: Optional[pulumi.Input[str]] = None,
+             message: Optional[pulumi.Input[str]] = None,
+             reason: Optional[pulumi.Input[str]] = None,
+             status: Optional[pulumi.Input[str]] = None,
+             type: Optional[pulumi.Input[str]] = None,
              observed_generation: Optional[pulumi.Input[int]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'lastTransitionTime' in kwargs:
+        if last_transition_time is None and 'lastTransitionTime' in kwargs:
             last_transition_time = kwargs['lastTransitionTime']
-        if 'observedGeneration' in kwargs:
+        if last_transition_time is None:
+            raise TypeError("Missing 'last_transition_time' argument")
+        if message is None:
+            raise TypeError("Missing 'message' argument")
+        if reason is None:
+            raise TypeError("Missing 'reason' argument")
+        if status is None:
+            raise TypeError("Missing 'status' argument")
+        if type is None:
+            raise TypeError("Missing 'type' argument")
+        if observed_generation is None and 'observedGeneration' in kwargs:
             observed_generation = kwargs['observedGeneration']
 
         _setter("last_transition_time", last_transition_time)
@@ -175,9 +185,9 @@ class LabelSelectorPatchArgs:
              match_labels: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'matchExpressions' in kwargs:
+        if match_expressions is None and 'matchExpressions' in kwargs:
             match_expressions = kwargs['matchExpressions']
-        if 'matchLabels' in kwargs:
+        if match_labels is None and 'matchLabels' in kwargs:
             match_labels = kwargs['matchLabels']
 
         if match_expressions is not None:
@@ -302,11 +312,15 @@ class LabelSelectorRequirementArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             key: pulumi.Input[str],
-             operator: pulumi.Input[str],
+             key: Optional[pulumi.Input[str]] = None,
+             operator: Optional[pulumi.Input[str]] = None,
              values: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if key is None:
+            raise TypeError("Missing 'key' argument")
+        if operator is None:
+            raise TypeError("Missing 'operator' argument")
 
         _setter("key", key)
         _setter("operator", operator)
@@ -372,9 +386,9 @@ class LabelSelectorArgs:
              match_labels: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'matchExpressions' in kwargs:
+        if match_expressions is None and 'matchExpressions' in kwargs:
             match_expressions = kwargs['matchExpressions']
-        if 'matchLabels' in kwargs:
+        if match_labels is None and 'matchLabels' in kwargs:
             match_labels = kwargs['matchLabels']
 
         if match_expressions is not None:
@@ -437,13 +451,13 @@ class ListMetaPatchArgs:
              self_link: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'continue' in kwargs:
+        if continue_ is None and 'continue' in kwargs:
             continue_ = kwargs['continue']
-        if 'remainingItemCount' in kwargs:
+        if remaining_item_count is None and 'remainingItemCount' in kwargs:
             remaining_item_count = kwargs['remainingItemCount']
-        if 'resourceVersion' in kwargs:
+        if resource_version is None and 'resourceVersion' in kwargs:
             resource_version = kwargs['resourceVersion']
-        if 'selfLink' in kwargs:
+        if self_link is None and 'selfLink' in kwargs:
             self_link = kwargs['selfLink']
 
         if continue_ is not None:
@@ -534,13 +548,13 @@ class ListMetaArgs:
              self_link: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'continue' in kwargs:
+        if continue_ is None and 'continue' in kwargs:
             continue_ = kwargs['continue']
-        if 'remainingItemCount' in kwargs:
+        if remaining_item_count is None and 'remainingItemCount' in kwargs:
             remaining_item_count = kwargs['remainingItemCount']
-        if 'resourceVersion' in kwargs:
+        if resource_version is None and 'resourceVersion' in kwargs:
             resource_version = kwargs['resourceVersion']
-        if 'selfLink' in kwargs:
+        if self_link is None and 'selfLink' in kwargs:
             self_link = kwargs['selfLink']
 
         if continue_ is not None:
@@ -643,11 +657,11 @@ class ManagedFieldsEntryPatchArgs:
              time: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
-        if 'fieldsType' in kwargs:
+        if fields_type is None and 'fieldsType' in kwargs:
             fields_type = kwargs['fieldsType']
-        if 'fieldsV1' in kwargs:
+        if fields_v1 is None and 'fieldsV1' in kwargs:
             fields_v1 = kwargs['fieldsV1']
 
         if api_version is not None:
@@ -792,11 +806,11 @@ class ManagedFieldsEntryArgs:
              time: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
-        if 'fieldsType' in kwargs:
+        if fields_type is None and 'fieldsType' in kwargs:
             fields_type = kwargs['fieldsType']
-        if 'fieldsV1' in kwargs:
+        if fields_v1 is None and 'fieldsV1' in kwargs:
             fields_v1 = kwargs['fieldsV1']
 
         if api_version is not None:
@@ -991,23 +1005,23 @@ class ObjectMetaPatchArgs:
              uid: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'clusterName' in kwargs:
+        if cluster_name is None and 'clusterName' in kwargs:
             cluster_name = kwargs['clusterName']
-        if 'creationTimestamp' in kwargs:
+        if creation_timestamp is None and 'creationTimestamp' in kwargs:
             creation_timestamp = kwargs['creationTimestamp']
-        if 'deletionGracePeriodSeconds' in kwargs:
+        if deletion_grace_period_seconds is None and 'deletionGracePeriodSeconds' in kwargs:
             deletion_grace_period_seconds = kwargs['deletionGracePeriodSeconds']
-        if 'deletionTimestamp' in kwargs:
+        if deletion_timestamp is None and 'deletionTimestamp' in kwargs:
             deletion_timestamp = kwargs['deletionTimestamp']
-        if 'generateName' in kwargs:
+        if generate_name is None and 'generateName' in kwargs:
             generate_name = kwargs['generateName']
-        if 'managedFields' in kwargs:
+        if managed_fields is None and 'managedFields' in kwargs:
             managed_fields = kwargs['managedFields']
-        if 'ownerReferences' in kwargs:
+        if owner_references is None and 'ownerReferences' in kwargs:
             owner_references = kwargs['ownerReferences']
-        if 'resourceVersion' in kwargs:
+        if resource_version is None and 'resourceVersion' in kwargs:
             resource_version = kwargs['resourceVersion']
-        if 'selfLink' in kwargs:
+        if self_link is None and 'selfLink' in kwargs:
             self_link = kwargs['selfLink']
 
         if annotations is not None:
@@ -1342,23 +1356,23 @@ class ObjectMetaArgs:
              uid: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'clusterName' in kwargs:
+        if cluster_name is None and 'clusterName' in kwargs:
             cluster_name = kwargs['clusterName']
-        if 'creationTimestamp' in kwargs:
+        if creation_timestamp is None and 'creationTimestamp' in kwargs:
             creation_timestamp = kwargs['creationTimestamp']
-        if 'deletionGracePeriodSeconds' in kwargs:
+        if deletion_grace_period_seconds is None and 'deletionGracePeriodSeconds' in kwargs:
             deletion_grace_period_seconds = kwargs['deletionGracePeriodSeconds']
-        if 'deletionTimestamp' in kwargs:
+        if deletion_timestamp is None and 'deletionTimestamp' in kwargs:
             deletion_timestamp = kwargs['deletionTimestamp']
-        if 'generateName' in kwargs:
+        if generate_name is None and 'generateName' in kwargs:
             generate_name = kwargs['generateName']
-        if 'managedFields' in kwargs:
+        if managed_fields is None and 'managedFields' in kwargs:
             managed_fields = kwargs['managedFields']
-        if 'ownerReferences' in kwargs:
+        if owner_references is None and 'ownerReferences' in kwargs:
             owner_references = kwargs['ownerReferences']
-        if 'resourceVersion' in kwargs:
+        if resource_version is None and 'resourceVersion' in kwargs:
             resource_version = kwargs['resourceVersion']
-        if 'selfLink' in kwargs:
+        if self_link is None and 'selfLink' in kwargs:
             self_link = kwargs['selfLink']
 
         if annotations is not None:
@@ -1639,9 +1653,9 @@ class OwnerReferencePatchArgs:
              uid: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
-        if 'blockOwnerDeletion' in kwargs:
+        if block_owner_deletion is None and 'blockOwnerDeletion' in kwargs:
             block_owner_deletion = kwargs['blockOwnerDeletion']
 
         if api_version is not None:
@@ -1760,17 +1774,25 @@ class OwnerReferenceArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             api_version: pulumi.Input[str],
-             kind: pulumi.Input[str],
-             name: pulumi.Input[str],
-             uid: pulumi.Input[str],
+             api_version: Optional[pulumi.Input[str]] = None,
+             kind: Optional[pulumi.Input[str]] = None,
+             name: Optional[pulumi.Input[str]] = None,
+             uid: Optional[pulumi.Input[str]] = None,
              block_owner_deletion: Optional[pulumi.Input[bool]] = None,
              controller: Optional[pulumi.Input[bool]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
-        if 'blockOwnerDeletion' in kwargs:
+        if api_version is None:
+            raise TypeError("Missing 'api_version' argument")
+        if kind is None:
+            raise TypeError("Missing 'kind' argument")
+        if name is None:
+            raise TypeError("Missing 'name' argument")
+        if uid is None:
+            raise TypeError("Missing 'uid' argument")
+        if block_owner_deletion is None and 'blockOwnerDeletion' in kwargs:
             block_owner_deletion = kwargs['blockOwnerDeletion']
 
         _setter("api_version", api_version)
@@ -2051,7 +2073,7 @@ class StatusDetailsPatchArgs:
              uid: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'retryAfterSeconds' in kwargs:
+        if retry_after_seconds is None and 'retryAfterSeconds' in kwargs:
             retry_after_seconds = kwargs['retryAfterSeconds']
 
         if causes is not None:
@@ -2178,7 +2200,7 @@ class StatusDetailsArgs:
              uid: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'retryAfterSeconds' in kwargs:
+        if retry_after_seconds is None and 'retryAfterSeconds' in kwargs:
             retry_after_seconds = kwargs['retryAfterSeconds']
 
         if causes is not None:

@@ -71,7 +71,7 @@ class PriorityClass(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             value: int,
+             value: Optional[int] = None,
              api_version: Optional[str] = None,
              description: Optional[str] = None,
              global_default: Optional[bool] = None,
@@ -80,11 +80,13 @@ class PriorityClass(dict):
              preemption_policy: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if value is None:
+            raise TypeError("Missing 'value' argument")
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
-        if 'globalDefault' in kwargs:
+        if global_default is None and 'globalDefault' in kwargs:
             global_default = kwargs['globalDefault']
-        if 'preemptionPolicy' in kwargs:
+        if preemption_policy is None and 'preemptionPolicy' in kwargs:
             preemption_policy = kwargs['preemptionPolicy']
 
         _setter("value", value)

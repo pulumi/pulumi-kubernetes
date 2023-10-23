@@ -50,9 +50,9 @@ class ConfigMapInitArgs:
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
-        if 'binaryData' in kwargs:
+        if binary_data is None and 'binaryData' in kwargs:
             binary_data = kwargs['binaryData']
 
         if api_version is not None:

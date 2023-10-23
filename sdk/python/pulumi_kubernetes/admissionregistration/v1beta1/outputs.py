@@ -102,12 +102,16 @@ class AuditAnnotation(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             key: str,
-             value_expression: str,
+             key: Optional[str] = None,
+             value_expression: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'valueExpression' in kwargs:
+        if key is None:
+            raise TypeError("Missing 'key' argument")
+        if value_expression is None and 'valueExpression' in kwargs:
             value_expression = kwargs['valueExpression']
+        if value_expression is None:
+            raise TypeError("Missing 'value_expression' argument")
 
         _setter("key", key)
         _setter("value_expression", value_expression)
@@ -191,7 +195,7 @@ class AuditAnnotationPatch(dict):
              value_expression: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'valueExpression' in kwargs:
+        if value_expression is None and 'valueExpression' in kwargs:
             value_expression = kwargs['valueExpression']
 
         if key is not None:
@@ -264,12 +268,16 @@ class ExpressionWarning(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             field_ref: str,
-             warning: str,
+             field_ref: Optional[str] = None,
+             warning: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'fieldRef' in kwargs:
+        if field_ref is None and 'fieldRef' in kwargs:
             field_ref = kwargs['fieldRef']
+        if field_ref is None:
+            raise TypeError("Missing 'field_ref' argument")
+        if warning is None:
+            raise TypeError("Missing 'warning' argument")
 
         _setter("field_ref", field_ref)
         _setter("warning", warning)
@@ -333,7 +341,7 @@ class ExpressionWarningPatch(dict):
              warning: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'fieldRef' in kwargs:
+        if field_ref is None and 'fieldRef' in kwargs:
             field_ref = kwargs['fieldRef']
 
         if field_ref is not None:
@@ -389,10 +397,14 @@ class MatchCondition(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             expression: str,
-             name: str,
+             expression: Optional[str] = None,
+             name: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if expression is None:
+            raise TypeError("Missing 'expression' argument")
+        if name is None:
+            raise TypeError("Missing 'name' argument")
 
         _setter("expression", expression)
         _setter("name", name)
@@ -590,15 +602,15 @@ class MatchResources(dict):
              resource_rules: Optional[Sequence['outputs.NamedRuleWithOperations']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'excludeResourceRules' in kwargs:
+        if exclude_resource_rules is None and 'excludeResourceRules' in kwargs:
             exclude_resource_rules = kwargs['excludeResourceRules']
-        if 'matchPolicy' in kwargs:
+        if match_policy is None and 'matchPolicy' in kwargs:
             match_policy = kwargs['matchPolicy']
-        if 'namespaceSelector' in kwargs:
+        if namespace_selector is None and 'namespaceSelector' in kwargs:
             namespace_selector = kwargs['namespaceSelector']
-        if 'objectSelector' in kwargs:
+        if object_selector is None and 'objectSelector' in kwargs:
             object_selector = kwargs['objectSelector']
-        if 'resourceRules' in kwargs:
+        if resource_rules is None and 'resourceRules' in kwargs:
             resource_rules = kwargs['resourceRules']
 
         if exclude_resource_rules is not None:
@@ -787,15 +799,15 @@ class MatchResourcesPatch(dict):
              resource_rules: Optional[Sequence['outputs.NamedRuleWithOperationsPatch']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'excludeResourceRules' in kwargs:
+        if exclude_resource_rules is None and 'excludeResourceRules' in kwargs:
             exclude_resource_rules = kwargs['excludeResourceRules']
-        if 'matchPolicy' in kwargs:
+        if match_policy is None and 'matchPolicy' in kwargs:
             match_policy = kwargs['matchPolicy']
-        if 'namespaceSelector' in kwargs:
+        if namespace_selector is None and 'namespaceSelector' in kwargs:
             namespace_selector = kwargs['namespaceSelector']
-        if 'objectSelector' in kwargs:
+        if object_selector is None and 'objectSelector' in kwargs:
             object_selector = kwargs['objectSelector']
-        if 'resourceRules' in kwargs:
+        if resource_rules is None and 'resourceRules' in kwargs:
             resource_rules = kwargs['resourceRules']
 
         if exclude_resource_rules is not None:
@@ -1009,8 +1021,8 @@ class MutatingWebhook(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             client_config: 'outputs.WebhookClientConfig',
-             name: str,
+             client_config: Optional['outputs.WebhookClientConfig'] = None,
+             name: Optional[str] = None,
              admission_review_versions: Optional[Sequence[str]] = None,
              failure_policy: Optional[str] = None,
              match_policy: Optional[str] = None,
@@ -1022,23 +1034,27 @@ class MutatingWebhook(dict):
              timeout_seconds: Optional[int] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'clientConfig' in kwargs:
+        if client_config is None and 'clientConfig' in kwargs:
             client_config = kwargs['clientConfig']
-        if 'admissionReviewVersions' in kwargs:
+        if client_config is None:
+            raise TypeError("Missing 'client_config' argument")
+        if name is None:
+            raise TypeError("Missing 'name' argument")
+        if admission_review_versions is None and 'admissionReviewVersions' in kwargs:
             admission_review_versions = kwargs['admissionReviewVersions']
-        if 'failurePolicy' in kwargs:
+        if failure_policy is None and 'failurePolicy' in kwargs:
             failure_policy = kwargs['failurePolicy']
-        if 'matchPolicy' in kwargs:
+        if match_policy is None and 'matchPolicy' in kwargs:
             match_policy = kwargs['matchPolicy']
-        if 'namespaceSelector' in kwargs:
+        if namespace_selector is None and 'namespaceSelector' in kwargs:
             namespace_selector = kwargs['namespaceSelector']
-        if 'objectSelector' in kwargs:
+        if object_selector is None and 'objectSelector' in kwargs:
             object_selector = kwargs['objectSelector']
-        if 'reinvocationPolicy' in kwargs:
+        if reinvocation_policy is None and 'reinvocationPolicy' in kwargs:
             reinvocation_policy = kwargs['reinvocationPolicy']
-        if 'sideEffects' in kwargs:
+        if side_effects is None and 'sideEffects' in kwargs:
             side_effects = kwargs['sideEffects']
-        if 'timeoutSeconds' in kwargs:
+        if timeout_seconds is None and 'timeoutSeconds' in kwargs:
             timeout_seconds = kwargs['timeoutSeconds']
 
         _setter("client_config", client_config)
@@ -1243,7 +1259,7 @@ class MutatingWebhookConfiguration(dict):
              webhooks: Optional[Sequence['outputs.MutatingWebhook']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -1424,23 +1440,23 @@ class MutatingWebhookPatch(dict):
              timeout_seconds: Optional[int] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'admissionReviewVersions' in kwargs:
+        if admission_review_versions is None and 'admissionReviewVersions' in kwargs:
             admission_review_versions = kwargs['admissionReviewVersions']
-        if 'clientConfig' in kwargs:
+        if client_config is None and 'clientConfig' in kwargs:
             client_config = kwargs['clientConfig']
-        if 'failurePolicy' in kwargs:
+        if failure_policy is None and 'failurePolicy' in kwargs:
             failure_policy = kwargs['failurePolicy']
-        if 'matchPolicy' in kwargs:
+        if match_policy is None and 'matchPolicy' in kwargs:
             match_policy = kwargs['matchPolicy']
-        if 'namespaceSelector' in kwargs:
+        if namespace_selector is None and 'namespaceSelector' in kwargs:
             namespace_selector = kwargs['namespaceSelector']
-        if 'objectSelector' in kwargs:
+        if object_selector is None and 'objectSelector' in kwargs:
             object_selector = kwargs['objectSelector']
-        if 'reinvocationPolicy' in kwargs:
+        if reinvocation_policy is None and 'reinvocationPolicy' in kwargs:
             reinvocation_policy = kwargs['reinvocationPolicy']
-        if 'sideEffects' in kwargs:
+        if side_effects is None and 'sideEffects' in kwargs:
             side_effects = kwargs['sideEffects']
-        if 'timeoutSeconds' in kwargs:
+        if timeout_seconds is None and 'timeoutSeconds' in kwargs:
             timeout_seconds = kwargs['timeoutSeconds']
 
         if admission_review_versions is not None:
@@ -1665,11 +1681,11 @@ class NamedRuleWithOperations(dict):
              scope: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiGroups' in kwargs:
+        if api_groups is None and 'apiGroups' in kwargs:
             api_groups = kwargs['apiGroups']
-        if 'apiVersions' in kwargs:
+        if api_versions is None and 'apiVersions' in kwargs:
             api_versions = kwargs['apiVersions']
-        if 'resourceNames' in kwargs:
+        if resource_names is None and 'resourceNames' in kwargs:
             resource_names = kwargs['resourceNames']
 
         if api_groups is not None:
@@ -1808,11 +1824,11 @@ class NamedRuleWithOperationsPatch(dict):
              scope: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiGroups' in kwargs:
+        if api_groups is None and 'apiGroups' in kwargs:
             api_groups = kwargs['apiGroups']
-        if 'apiVersions' in kwargs:
+        if api_versions is None and 'apiVersions' in kwargs:
             api_versions = kwargs['apiVersions']
-        if 'resourceNames' in kwargs:
+        if resource_names is None and 'resourceNames' in kwargs:
             resource_names = kwargs['resourceNames']
 
         if api_groups is not None:
@@ -1925,7 +1941,7 @@ class ParamKind(dict):
              kind: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -1992,7 +2008,7 @@ class ParamKindPatch(dict):
              kind: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -2085,7 +2101,7 @@ class ParamRef(dict):
              selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'parameterNotFoundAction' in kwargs:
+        if parameter_not_found_action is None and 'parameterNotFoundAction' in kwargs:
             parameter_not_found_action = kwargs['parameterNotFoundAction']
 
         if name is not None:
@@ -2216,7 +2232,7 @@ class ParamRefPatch(dict):
              selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'parameterNotFoundAction' in kwargs:
+        if parameter_not_found_action is None and 'parameterNotFoundAction' in kwargs:
             parameter_not_found_action = kwargs['parameterNotFoundAction']
 
         if name is not None:
@@ -2341,9 +2357,9 @@ class RuleWithOperations(dict):
              scope: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiGroups' in kwargs:
+        if api_groups is None and 'apiGroups' in kwargs:
             api_groups = kwargs['apiGroups']
-        if 'apiVersions' in kwargs:
+        if api_versions is None and 'apiVersions' in kwargs:
             api_versions = kwargs['apiVersions']
 
         if api_groups is not None:
@@ -2466,9 +2482,9 @@ class RuleWithOperationsPatch(dict):
              scope: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiGroups' in kwargs:
+        if api_groups is None and 'apiGroups' in kwargs:
             api_groups = kwargs['apiGroups']
-        if 'apiVersions' in kwargs:
+        if api_versions is None and 'apiVersions' in kwargs:
             api_versions = kwargs['apiVersions']
 
         if api_groups is not None:
@@ -2556,12 +2572,16 @@ class ServiceReference(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             name: str,
-             namespace: str,
+             name: Optional[str] = None,
+             namespace: Optional[str] = None,
              path: Optional[str] = None,
              port: Optional[int] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if name is None:
+            raise TypeError("Missing 'name' argument")
+        if namespace is None:
+            raise TypeError("Missing 'namespace' argument")
 
         _setter("name", name)
         _setter("namespace", namespace)
@@ -2717,7 +2737,7 @@ class TypeChecking(dict):
              expression_warnings: Optional[Sequence['outputs.ExpressionWarning']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'expressionWarnings' in kwargs:
+        if expression_warnings is None and 'expressionWarnings' in kwargs:
             expression_warnings = kwargs['expressionWarnings']
 
         if expression_warnings is not None:
@@ -2770,7 +2790,7 @@ class TypeCheckingPatch(dict):
              expression_warnings: Optional[Sequence['outputs.ExpressionWarningPatch']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'expressionWarnings' in kwargs:
+        if expression_warnings is None and 'expressionWarnings' in kwargs:
             expression_warnings = kwargs['expressionWarnings']
 
         if expression_warnings is not None:
@@ -2839,7 +2859,7 @@ class ValidatingAdmissionPolicy(dict):
              status: Optional['outputs.ValidatingAdmissionPolicyStatus'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -2952,7 +2972,7 @@ class ValidatingAdmissionPolicyBinding(dict):
              spec: Optional['outputs.ValidatingAdmissionPolicyBindingSpec'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -3071,13 +3091,13 @@ class ValidatingAdmissionPolicyBindingSpec(dict):
              validation_actions: Optional[Sequence[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'matchResources' in kwargs:
+        if match_resources is None and 'matchResources' in kwargs:
             match_resources = kwargs['matchResources']
-        if 'paramRef' in kwargs:
+        if param_ref is None and 'paramRef' in kwargs:
             param_ref = kwargs['paramRef']
-        if 'policyName' in kwargs:
+        if policy_name is None and 'policyName' in kwargs:
             policy_name = kwargs['policyName']
-        if 'validationActions' in kwargs:
+        if validation_actions is None and 'validationActions' in kwargs:
             validation_actions = kwargs['validationActions']
 
         if match_resources is not None:
@@ -3214,13 +3234,13 @@ class ValidatingAdmissionPolicyBindingSpecPatch(dict):
              validation_actions: Optional[Sequence[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'matchResources' in kwargs:
+        if match_resources is None and 'matchResources' in kwargs:
             match_resources = kwargs['matchResources']
-        if 'paramRef' in kwargs:
+        if param_ref is None and 'paramRef' in kwargs:
             param_ref = kwargs['paramRef']
-        if 'policyName' in kwargs:
+        if policy_name is None and 'policyName' in kwargs:
             policy_name = kwargs['policyName']
-        if 'validationActions' in kwargs:
+        if validation_actions is None and 'validationActions' in kwargs:
             validation_actions = kwargs['validationActions']
 
         if match_resources is not None:
@@ -3372,15 +3392,15 @@ class ValidatingAdmissionPolicySpec(dict):
              variables: Optional[Sequence['outputs.Variable']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'auditAnnotations' in kwargs:
+        if audit_annotations is None and 'auditAnnotations' in kwargs:
             audit_annotations = kwargs['auditAnnotations']
-        if 'failurePolicy' in kwargs:
+        if failure_policy is None and 'failurePolicy' in kwargs:
             failure_policy = kwargs['failurePolicy']
-        if 'matchConditions' in kwargs:
+        if match_conditions is None and 'matchConditions' in kwargs:
             match_conditions = kwargs['matchConditions']
-        if 'matchConstraints' in kwargs:
+        if match_constraints is None and 'matchConstraints' in kwargs:
             match_constraints = kwargs['matchConstraints']
-        if 'paramKind' in kwargs:
+        if param_kind is None and 'paramKind' in kwargs:
             param_kind = kwargs['paramKind']
 
         if audit_annotations is not None:
@@ -3563,15 +3583,15 @@ class ValidatingAdmissionPolicySpecPatch(dict):
              variables: Optional[Sequence['outputs.VariablePatch']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'auditAnnotations' in kwargs:
+        if audit_annotations is None and 'auditAnnotations' in kwargs:
             audit_annotations = kwargs['auditAnnotations']
-        if 'failurePolicy' in kwargs:
+        if failure_policy is None and 'failurePolicy' in kwargs:
             failure_policy = kwargs['failurePolicy']
-        if 'matchConditions' in kwargs:
+        if match_conditions is None and 'matchConditions' in kwargs:
             match_conditions = kwargs['matchConditions']
-        if 'matchConstraints' in kwargs:
+        if match_constraints is None and 'matchConstraints' in kwargs:
             match_constraints = kwargs['matchConstraints']
-        if 'paramKind' in kwargs:
+        if param_kind is None and 'paramKind' in kwargs:
             param_kind = kwargs['paramKind']
 
         if audit_annotations is not None:
@@ -3713,9 +3733,9 @@ class ValidatingAdmissionPolicyStatus(dict):
              type_checking: Optional['outputs.TypeChecking'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'observedGeneration' in kwargs:
+        if observed_generation is None and 'observedGeneration' in kwargs:
             observed_generation = kwargs['observedGeneration']
-        if 'typeChecking' in kwargs:
+        if type_checking is None and 'typeChecking' in kwargs:
             type_checking = kwargs['typeChecking']
 
         if conditions is not None:
@@ -3798,9 +3818,9 @@ class ValidatingAdmissionPolicyStatusPatch(dict):
              type_checking: Optional['outputs.TypeCheckingPatch'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'observedGeneration' in kwargs:
+        if observed_generation is None and 'observedGeneration' in kwargs:
             observed_generation = kwargs['observedGeneration']
-        if 'typeChecking' in kwargs:
+        if type_checking is None and 'typeChecking' in kwargs:
             type_checking = kwargs['typeChecking']
 
         if conditions is not None:
@@ -3947,8 +3967,8 @@ class ValidatingWebhook(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             client_config: 'outputs.WebhookClientConfig',
-             name: str,
+             client_config: Optional['outputs.WebhookClientConfig'] = None,
+             name: Optional[str] = None,
              admission_review_versions: Optional[Sequence[str]] = None,
              failure_policy: Optional[str] = None,
              match_policy: Optional[str] = None,
@@ -3959,21 +3979,25 @@ class ValidatingWebhook(dict):
              timeout_seconds: Optional[int] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'clientConfig' in kwargs:
+        if client_config is None and 'clientConfig' in kwargs:
             client_config = kwargs['clientConfig']
-        if 'admissionReviewVersions' in kwargs:
+        if client_config is None:
+            raise TypeError("Missing 'client_config' argument")
+        if name is None:
+            raise TypeError("Missing 'name' argument")
+        if admission_review_versions is None and 'admissionReviewVersions' in kwargs:
             admission_review_versions = kwargs['admissionReviewVersions']
-        if 'failurePolicy' in kwargs:
+        if failure_policy is None and 'failurePolicy' in kwargs:
             failure_policy = kwargs['failurePolicy']
-        if 'matchPolicy' in kwargs:
+        if match_policy is None and 'matchPolicy' in kwargs:
             match_policy = kwargs['matchPolicy']
-        if 'namespaceSelector' in kwargs:
+        if namespace_selector is None and 'namespaceSelector' in kwargs:
             namespace_selector = kwargs['namespaceSelector']
-        if 'objectSelector' in kwargs:
+        if object_selector is None and 'objectSelector' in kwargs:
             object_selector = kwargs['objectSelector']
-        if 'sideEffects' in kwargs:
+        if side_effects is None and 'sideEffects' in kwargs:
             side_effects = kwargs['sideEffects']
-        if 'timeoutSeconds' in kwargs:
+        if timeout_seconds is None and 'timeoutSeconds' in kwargs:
             timeout_seconds = kwargs['timeoutSeconds']
 
         _setter("client_config", client_config)
@@ -4162,7 +4186,7 @@ class ValidatingWebhookConfiguration(dict):
              webhooks: Optional[Sequence['outputs.ValidatingWebhook']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -4331,21 +4355,21 @@ class ValidatingWebhookPatch(dict):
              timeout_seconds: Optional[int] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'admissionReviewVersions' in kwargs:
+        if admission_review_versions is None and 'admissionReviewVersions' in kwargs:
             admission_review_versions = kwargs['admissionReviewVersions']
-        if 'clientConfig' in kwargs:
+        if client_config is None and 'clientConfig' in kwargs:
             client_config = kwargs['clientConfig']
-        if 'failurePolicy' in kwargs:
+        if failure_policy is None and 'failurePolicy' in kwargs:
             failure_policy = kwargs['failurePolicy']
-        if 'matchPolicy' in kwargs:
+        if match_policy is None and 'matchPolicy' in kwargs:
             match_policy = kwargs['matchPolicy']
-        if 'namespaceSelector' in kwargs:
+        if namespace_selector is None and 'namespaceSelector' in kwargs:
             namespace_selector = kwargs['namespaceSelector']
-        if 'objectSelector' in kwargs:
+        if object_selector is None and 'objectSelector' in kwargs:
             object_selector = kwargs['objectSelector']
-        if 'sideEffects' in kwargs:
+        if side_effects is None and 'sideEffects' in kwargs:
             side_effects = kwargs['sideEffects']
-        if 'timeoutSeconds' in kwargs:
+        if timeout_seconds is None and 'timeoutSeconds' in kwargs:
             timeout_seconds = kwargs['timeoutSeconds']
 
         if admission_review_versions is not None:
@@ -4555,13 +4579,15 @@ class Validation(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             expression: str,
+             expression: Optional[str] = None,
              message: Optional[str] = None,
              message_expression: Optional[str] = None,
              reason: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'messageExpression' in kwargs:
+        if expression is None:
+            raise TypeError("Missing 'expression' argument")
+        if message_expression is None and 'messageExpression' in kwargs:
             message_expression = kwargs['messageExpression']
 
         _setter("expression", expression)
@@ -4705,7 +4731,7 @@ class ValidationPatch(dict):
              reason: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'messageExpression' in kwargs:
+        if message_expression is None and 'messageExpression' in kwargs:
             message_expression = kwargs['messageExpression']
 
         if expression is not None:
@@ -4796,10 +4822,14 @@ class Variable(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             expression: str,
-             name: str,
+             expression: Optional[str] = None,
+             name: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if expression is None:
+            raise TypeError("Missing 'expression' argument")
+        if name is None:
+            raise TypeError("Missing 'name' argument")
 
         _setter("expression", expression)
         _setter("name", name)
@@ -4927,7 +4957,7 @@ class WebhookClientConfig(dict):
              url: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'caBundle' in kwargs:
+        if ca_bundle is None and 'caBundle' in kwargs:
             ca_bundle = kwargs['caBundle']
 
         if ca_bundle is not None:
@@ -5032,7 +5062,7 @@ class WebhookClientConfigPatch(dict):
              url: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'caBundle' in kwargs:
+        if ca_bundle is None and 'caBundle' in kwargs:
             ca_bundle = kwargs['caBundle']
 
         if ca_bundle is not None:

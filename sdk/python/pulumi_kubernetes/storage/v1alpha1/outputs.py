@@ -75,14 +75,16 @@ class VolumeAttachment(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             spec: 'outputs.VolumeAttachmentSpec',
+             spec: Optional['outputs.VolumeAttachmentSpec'] = None,
              api_version: Optional[str] = None,
              kind: Optional[str] = None,
              metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
              status: Optional['outputs.VolumeAttachmentStatus'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if spec is None:
+            raise TypeError("Missing 'spec' argument")
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         _setter("spec", spec)
@@ -180,9 +182,9 @@ class VolumeAttachmentSource(dict):
              persistent_volume_name: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'inlineVolumeSpec' in kwargs:
+        if inline_volume_spec is None and 'inlineVolumeSpec' in kwargs:
             inline_volume_spec = kwargs['inlineVolumeSpec']
-        if 'persistentVolumeName' in kwargs:
+        if persistent_volume_name is None and 'persistentVolumeName' in kwargs:
             persistent_volume_name = kwargs['persistentVolumeName']
 
         if inline_volume_spec is not None:
@@ -251,9 +253,9 @@ class VolumeAttachmentSourcePatch(dict):
              persistent_volume_name: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'inlineVolumeSpec' in kwargs:
+        if inline_volume_spec is None and 'inlineVolumeSpec' in kwargs:
             inline_volume_spec = kwargs['inlineVolumeSpec']
-        if 'persistentVolumeName' in kwargs:
+        if persistent_volume_name is None and 'persistentVolumeName' in kwargs:
             persistent_volume_name = kwargs['persistentVolumeName']
 
         if inline_volume_spec is not None:
@@ -319,13 +321,19 @@ class VolumeAttachmentSpec(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             attacher: str,
-             node_name: str,
-             source: 'outputs.VolumeAttachmentSource',
+             attacher: Optional[str] = None,
+             node_name: Optional[str] = None,
+             source: Optional['outputs.VolumeAttachmentSource'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'nodeName' in kwargs:
+        if attacher is None:
+            raise TypeError("Missing 'attacher' argument")
+        if node_name is None and 'nodeName' in kwargs:
             node_name = kwargs['nodeName']
+        if node_name is None:
+            raise TypeError("Missing 'node_name' argument")
+        if source is None:
+            raise TypeError("Missing 'source' argument")
 
         _setter("attacher", attacher)
         _setter("node_name", node_name)
@@ -402,7 +410,7 @@ class VolumeAttachmentSpecPatch(dict):
              source: Optional['outputs.VolumeAttachmentSourcePatch'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'nodeName' in kwargs:
+        if node_name is None and 'nodeName' in kwargs:
             node_name = kwargs['nodeName']
 
         if attacher is not None:
@@ -485,17 +493,19 @@ class VolumeAttachmentStatus(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             attached: bool,
+             attached: Optional[bool] = None,
              attach_error: Optional['outputs.VolumeError'] = None,
              attachment_metadata: Optional[Mapping[str, str]] = None,
              detach_error: Optional['outputs.VolumeError'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'attachError' in kwargs:
+        if attached is None:
+            raise TypeError("Missing 'attached' argument")
+        if attach_error is None and 'attachError' in kwargs:
             attach_error = kwargs['attachError']
-        if 'attachmentMetadata' in kwargs:
+        if attachment_metadata is None and 'attachmentMetadata' in kwargs:
             attachment_metadata = kwargs['attachmentMetadata']
-        if 'detachError' in kwargs:
+        if detach_error is None and 'detachError' in kwargs:
             detach_error = kwargs['detachError']
 
         _setter("attached", attached)
@@ -593,11 +603,11 @@ class VolumeAttachmentStatusPatch(dict):
              detach_error: Optional['outputs.VolumeErrorPatch'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'attachError' in kwargs:
+        if attach_error is None and 'attachError' in kwargs:
             attach_error = kwargs['attachError']
-        if 'attachmentMetadata' in kwargs:
+        if attachment_metadata is None and 'attachmentMetadata' in kwargs:
             attachment_metadata = kwargs['attachmentMetadata']
-        if 'detachError' in kwargs:
+        if detach_error is None and 'detachError' in kwargs:
             detach_error = kwargs['detachError']
 
         if attach_error is not None:

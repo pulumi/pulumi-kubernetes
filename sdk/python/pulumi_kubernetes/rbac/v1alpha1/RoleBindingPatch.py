@@ -48,9 +48,9 @@ class RoleBindingPatchArgs:
              subjects: Optional[pulumi.Input[Sequence[pulumi.Input['SubjectPatchArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
-        if 'roleRef' in kwargs:
+        if role_ref is None and 'roleRef' in kwargs:
             role_ref = kwargs['roleRef']
 
         if api_version is not None:

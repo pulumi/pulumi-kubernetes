@@ -86,7 +86,7 @@ class Endpoint(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             addresses: Sequence[str],
+             addresses: Optional[Sequence[str]] = None,
              conditions: Optional['outputs.EndpointConditions'] = None,
              deprecated_topology: Optional[Mapping[str, str]] = None,
              hints: Optional['outputs.EndpointHints'] = None,
@@ -96,11 +96,13 @@ class Endpoint(dict):
              zone: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'deprecatedTopology' in kwargs:
+        if addresses is None:
+            raise TypeError("Missing 'addresses' argument")
+        if deprecated_topology is None and 'deprecatedTopology' in kwargs:
             deprecated_topology = kwargs['deprecatedTopology']
-        if 'nodeName' in kwargs:
+        if node_name is None and 'nodeName' in kwargs:
             node_name = kwargs['nodeName']
-        if 'targetRef' in kwargs:
+        if target_ref is None and 'targetRef' in kwargs:
             target_ref = kwargs['targetRef']
 
         _setter("addresses", addresses)
@@ -346,7 +348,7 @@ class EndpointHints(dict):
              for_zones: Optional[Sequence['outputs.ForZone']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'forZones' in kwargs:
+        if for_zones is None and 'forZones' in kwargs:
             for_zones = kwargs['forZones']
 
         if for_zones is not None:
@@ -399,7 +401,7 @@ class EndpointHintsPatch(dict):
              for_zones: Optional[Sequence['outputs.ForZonePatch']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'forZones' in kwargs:
+        if for_zones is None and 'forZones' in kwargs:
             for_zones = kwargs['forZones']
 
         if for_zones is not None:
@@ -484,11 +486,11 @@ class EndpointPatch(dict):
              zone: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'deprecatedTopology' in kwargs:
+        if deprecated_topology is None and 'deprecatedTopology' in kwargs:
             deprecated_topology = kwargs['deprecatedTopology']
-        if 'nodeName' in kwargs:
+        if node_name is None and 'nodeName' in kwargs:
             node_name = kwargs['nodeName']
-        if 'targetRef' in kwargs:
+        if target_ref is None and 'targetRef' in kwargs:
             target_ref = kwargs['targetRef']
 
         if addresses is not None:
@@ -632,7 +634,7 @@ class EndpointPort(dict):
              protocol: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'appProtocol' in kwargs:
+        if app_protocol is None and 'appProtocol' in kwargs:
             app_protocol = kwargs['appProtocol']
 
         if app_protocol is not None:
@@ -745,7 +747,7 @@ class EndpointPortPatch(dict):
              protocol: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'appProtocol' in kwargs:
+        if app_protocol is None and 'appProtocol' in kwargs:
             app_protocol = kwargs['appProtocol']
 
         if app_protocol is not None:
@@ -851,17 +853,21 @@ class EndpointSlice(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             address_type: str,
-             endpoints: Sequence['outputs.Endpoint'],
+             address_type: Optional[str] = None,
+             endpoints: Optional[Sequence['outputs.Endpoint']] = None,
              api_version: Optional[str] = None,
              kind: Optional[str] = None,
              metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
              ports: Optional[Sequence['outputs.EndpointPort']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'addressType' in kwargs:
+        if address_type is None and 'addressType' in kwargs:
             address_type = kwargs['addressType']
-        if 'apiVersion' in kwargs:
+        if address_type is None:
+            raise TypeError("Missing 'address_type' argument")
+        if endpoints is None:
+            raise TypeError("Missing 'endpoints' argument")
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         _setter("address_type", address_type)
@@ -942,9 +948,11 @@ class ForZone(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             name: str,
+             name: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if name is None:
+            raise TypeError("Missing 'name' argument")
 
         _setter("name", name)
 

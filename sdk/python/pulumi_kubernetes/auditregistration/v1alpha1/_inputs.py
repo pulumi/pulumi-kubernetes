@@ -97,10 +97,14 @@ class AuditSinkSpecArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             policy: pulumi.Input['PolicyArgs'],
-             webhook: pulumi.Input['WebhookArgs'],
+             policy: Optional[pulumi.Input['PolicyArgs']] = None,
+             webhook: Optional[pulumi.Input['WebhookArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if policy is None:
+            raise TypeError("Missing 'policy' argument")
+        if webhook is None:
+            raise TypeError("Missing 'webhook' argument")
 
         _setter("policy", policy)
         _setter("webhook", webhook)
@@ -159,7 +163,7 @@ class AuditSinkArgs:
              spec: Optional[pulumi.Input['AuditSinkSpecArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -288,10 +292,12 @@ class PolicyArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             level: pulumi.Input[str],
+             level: Optional[pulumi.Input[str]] = None,
              stages: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if level is None:
+            raise TypeError("Missing 'level' argument")
 
         _setter("level", level)
         if stages is not None:
@@ -435,12 +441,16 @@ class ServiceReferenceArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             name: pulumi.Input[str],
-             namespace: pulumi.Input[str],
+             name: Optional[pulumi.Input[str]] = None,
+             namespace: Optional[pulumi.Input[str]] = None,
              path: Optional[pulumi.Input[str]] = None,
              port: Optional[pulumi.Input[int]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if name is None:
+            raise TypeError("Missing 'name' argument")
+        if namespace is None:
+            raise TypeError("Missing 'namespace' argument")
 
         _setter("name", name)
         _setter("namespace", namespace)
@@ -536,7 +546,7 @@ class WebhookClientConfigPatchArgs:
              url: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'caBundle' in kwargs:
+        if ca_bundle is None and 'caBundle' in kwargs:
             ca_bundle = kwargs['caBundle']
 
         if ca_bundle is not None:
@@ -633,7 +643,7 @@ class WebhookClientConfigArgs:
              url: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'caBundle' in kwargs:
+        if ca_bundle is None and 'caBundle' in kwargs:
             ca_bundle = kwargs['caBundle']
 
         if ca_bundle is not None:
@@ -714,7 +724,7 @@ class WebhookPatchArgs:
              throttle: Optional[pulumi.Input['WebhookThrottleConfigPatchArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'clientConfig' in kwargs:
+        if client_config is None and 'clientConfig' in kwargs:
             client_config = kwargs['clientConfig']
 
         if client_config is not None:
@@ -871,12 +881,14 @@ class WebhookArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             client_config: pulumi.Input['WebhookClientConfigArgs'],
+             client_config: Optional[pulumi.Input['WebhookClientConfigArgs']] = None,
              throttle: Optional[pulumi.Input['WebhookThrottleConfigArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'clientConfig' in kwargs:
+        if client_config is None and 'clientConfig' in kwargs:
             client_config = kwargs['clientConfig']
+        if client_config is None:
+            raise TypeError("Missing 'client_config' argument")
 
         _setter("client_config", client_config)
         if throttle is not None:

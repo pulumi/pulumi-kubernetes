@@ -45,7 +45,7 @@ class CrossVersionObjectReferencePatchArgs:
              name: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -113,12 +113,16 @@ class CrossVersionObjectReferenceArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             kind: pulumi.Input[str],
-             name: pulumi.Input[str],
+             kind: Optional[pulumi.Input[str]] = None,
+             name: Optional[pulumi.Input[str]] = None,
              api_version: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if kind is None:
+            raise TypeError("Missing 'kind' argument")
+        if name is None:
+            raise TypeError("Missing 'name' argument")
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         _setter("kind", kind)
@@ -193,13 +197,13 @@ class HorizontalPodAutoscalerSpecPatchArgs:
              target_cpu_utilization_percentage: Optional[pulumi.Input[int]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'maxReplicas' in kwargs:
+        if max_replicas is None and 'maxReplicas' in kwargs:
             max_replicas = kwargs['maxReplicas']
-        if 'minReplicas' in kwargs:
+        if min_replicas is None and 'minReplicas' in kwargs:
             min_replicas = kwargs['minReplicas']
-        if 'scaleTargetRef' in kwargs:
+        if scale_target_ref is None and 'scaleTargetRef' in kwargs:
             scale_target_ref = kwargs['scaleTargetRef']
-        if 'targetCPUUtilizationPercentage' in kwargs:
+        if target_cpu_utilization_percentage is None and 'targetCPUUtilizationPercentage' in kwargs:
             target_cpu_utilization_percentage = kwargs['targetCPUUtilizationPercentage']
 
         if max_replicas is not None:
@@ -284,19 +288,23 @@ class HorizontalPodAutoscalerSpecArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             max_replicas: pulumi.Input[int],
-             scale_target_ref: pulumi.Input['CrossVersionObjectReferenceArgs'],
+             max_replicas: Optional[pulumi.Input[int]] = None,
+             scale_target_ref: Optional[pulumi.Input['CrossVersionObjectReferenceArgs']] = None,
              min_replicas: Optional[pulumi.Input[int]] = None,
              target_cpu_utilization_percentage: Optional[pulumi.Input[int]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'maxReplicas' in kwargs:
+        if max_replicas is None and 'maxReplicas' in kwargs:
             max_replicas = kwargs['maxReplicas']
-        if 'scaleTargetRef' in kwargs:
+        if max_replicas is None:
+            raise TypeError("Missing 'max_replicas' argument")
+        if scale_target_ref is None and 'scaleTargetRef' in kwargs:
             scale_target_ref = kwargs['scaleTargetRef']
-        if 'minReplicas' in kwargs:
+        if scale_target_ref is None:
+            raise TypeError("Missing 'scale_target_ref' argument")
+        if min_replicas is None and 'minReplicas' in kwargs:
             min_replicas = kwargs['minReplicas']
-        if 'targetCPUUtilizationPercentage' in kwargs:
+        if target_cpu_utilization_percentage is None and 'targetCPUUtilizationPercentage' in kwargs:
             target_cpu_utilization_percentage = kwargs['targetCPUUtilizationPercentage']
 
         _setter("max_replicas", max_replicas)
@@ -382,22 +390,26 @@ class HorizontalPodAutoscalerStatusArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             current_replicas: pulumi.Input[int],
-             desired_replicas: pulumi.Input[int],
+             current_replicas: Optional[pulumi.Input[int]] = None,
+             desired_replicas: Optional[pulumi.Input[int]] = None,
              current_cpu_utilization_percentage: Optional[pulumi.Input[int]] = None,
              last_scale_time: Optional[pulumi.Input[str]] = None,
              observed_generation: Optional[pulumi.Input[int]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'currentReplicas' in kwargs:
+        if current_replicas is None and 'currentReplicas' in kwargs:
             current_replicas = kwargs['currentReplicas']
-        if 'desiredReplicas' in kwargs:
+        if current_replicas is None:
+            raise TypeError("Missing 'current_replicas' argument")
+        if desired_replicas is None and 'desiredReplicas' in kwargs:
             desired_replicas = kwargs['desiredReplicas']
-        if 'currentCPUUtilizationPercentage' in kwargs:
+        if desired_replicas is None:
+            raise TypeError("Missing 'desired_replicas' argument")
+        if current_cpu_utilization_percentage is None and 'currentCPUUtilizationPercentage' in kwargs:
             current_cpu_utilization_percentage = kwargs['currentCPUUtilizationPercentage']
-        if 'lastScaleTime' in kwargs:
+        if last_scale_time is None and 'lastScaleTime' in kwargs:
             last_scale_time = kwargs['lastScaleTime']
-        if 'observedGeneration' in kwargs:
+        if observed_generation is None and 'observedGeneration' in kwargs:
             observed_generation = kwargs['observedGeneration']
 
         _setter("current_replicas", current_replicas)
@@ -504,7 +516,7 @@ class HorizontalPodAutoscalerArgs:
              status: Optional[pulumi.Input['HorizontalPodAutoscalerStatusArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:

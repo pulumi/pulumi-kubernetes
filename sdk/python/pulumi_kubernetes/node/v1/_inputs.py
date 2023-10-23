@@ -37,7 +37,7 @@ class OverheadPatchArgs:
              pod_fixed: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'podFixed' in kwargs:
+        if pod_fixed is None and 'podFixed' in kwargs:
             pod_fixed = kwargs['podFixed']
 
         if pod_fixed is not None:
@@ -74,7 +74,7 @@ class OverheadArgs:
              pod_fixed: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'podFixed' in kwargs:
+        if pod_fixed is None and 'podFixed' in kwargs:
             pod_fixed = kwargs['podFixed']
 
         if pod_fixed is not None:
@@ -124,7 +124,7 @@ class RuntimeClassArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             handler: pulumi.Input[str],
+             handler: Optional[pulumi.Input[str]] = None,
              api_version: Optional[pulumi.Input[str]] = None,
              kind: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
@@ -132,7 +132,9 @@ class RuntimeClassArgs:
              scheduling: Optional[pulumi.Input['SchedulingArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if handler is None:
+            raise TypeError("Missing 'handler' argument")
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         _setter("handler", handler)
@@ -243,7 +245,7 @@ class SchedulingPatchArgs:
              tolerations: Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.TolerationPatchArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'nodeSelector' in kwargs:
+        if node_selector is None and 'nodeSelector' in kwargs:
             node_selector = kwargs['nodeSelector']
 
         if node_selector is not None:
@@ -298,7 +300,7 @@ class SchedulingArgs:
              tolerations: Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.TolerationArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'nodeSelector' in kwargs:
+        if node_selector is None and 'nodeSelector' in kwargs:
             node_selector = kwargs['nodeSelector']
 
         if node_selector is not None:

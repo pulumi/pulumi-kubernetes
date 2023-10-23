@@ -63,7 +63,7 @@ class ReleaseStatus(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             status: str,
+             status: Optional[str] = None,
              app_version: Optional[str] = None,
              chart: Optional[str] = None,
              name: Optional[str] = None,
@@ -72,7 +72,9 @@ class ReleaseStatus(dict):
              version: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'appVersion' in kwargs:
+        if status is None:
+            raise TypeError("Missing 'status' argument")
+        if app_version is None and 'appVersion' in kwargs:
             app_version = kwargs['appVersion']
 
         _setter("status", status)
@@ -208,11 +210,11 @@ class RepositoryOpts(dict):
              username: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'caFile' in kwargs:
+        if ca_file is None and 'caFile' in kwargs:
             ca_file = kwargs['caFile']
-        if 'certFile' in kwargs:
+        if cert_file is None and 'certFile' in kwargs:
             cert_file = kwargs['certFile']
-        if 'keyFile' in kwargs:
+        if key_file is None and 'keyFile' in kwargs:
             key_file = kwargs['keyFile']
 
         if ca_file is not None:

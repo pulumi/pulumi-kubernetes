@@ -62,13 +62,13 @@ class CSIStorageCapacityPatchArgs:
              storage_class_name: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
-        if 'maximumVolumeSize' in kwargs:
+        if maximum_volume_size is None and 'maximumVolumeSize' in kwargs:
             maximum_volume_size = kwargs['maximumVolumeSize']
-        if 'nodeTopology' in kwargs:
+        if node_topology is None and 'nodeTopology' in kwargs:
             node_topology = kwargs['nodeTopology']
-        if 'storageClassName' in kwargs:
+        if storage_class_name is None and 'storageClassName' in kwargs:
             storage_class_name = kwargs['storageClassName']
 
         if api_version is not None:

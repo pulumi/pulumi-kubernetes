@@ -73,7 +73,7 @@ class ClusterCIDR(dict):
              spec: Optional['outputs.ClusterCIDRSpec'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -164,15 +164,17 @@ class ClusterCIDRSpec(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             per_node_host_bits: int,
+             per_node_host_bits: Optional[int] = None,
              ipv4: Optional[str] = None,
              ipv6: Optional[str] = None,
              node_selector: Optional['_core.v1.outputs.NodeSelector'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'perNodeHostBits' in kwargs:
+        if per_node_host_bits is None and 'perNodeHostBits' in kwargs:
             per_node_host_bits = kwargs['perNodeHostBits']
-        if 'nodeSelector' in kwargs:
+        if per_node_host_bits is None:
+            raise TypeError("Missing 'per_node_host_bits' argument")
+        if node_selector is None and 'nodeSelector' in kwargs:
             node_selector = kwargs['nodeSelector']
 
         _setter("per_node_host_bits", per_node_host_bits)
@@ -268,9 +270,9 @@ class ClusterCIDRSpecPatch(dict):
              per_node_host_bits: Optional[int] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'nodeSelector' in kwargs:
+        if node_selector is None and 'nodeSelector' in kwargs:
             node_selector = kwargs['nodeSelector']
-        if 'perNodeHostBits' in kwargs:
+        if per_node_host_bits is None and 'perNodeHostBits' in kwargs:
             per_node_host_bits = kwargs['perNodeHostBits']
 
         if ipv4 is not None:
@@ -365,7 +367,7 @@ class IPAddress(dict):
              spec: Optional['outputs.IPAddressSpec'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -448,7 +450,7 @@ class IPAddressSpec(dict):
              parent_ref: Optional['outputs.ParentReference'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'parentRef' in kwargs:
+        if parent_ref is None and 'parentRef' in kwargs:
             parent_ref = kwargs['parentRef']
 
         if parent_ref is not None:
@@ -501,7 +503,7 @@ class IPAddressSpecPatch(dict):
              parent_ref: Optional['outputs.ParentReferencePatch'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'parentRef' in kwargs:
+        if parent_ref is None and 'parentRef' in kwargs:
             parent_ref = kwargs['parentRef']
 
         if parent_ref is not None:

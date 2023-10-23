@@ -82,13 +82,15 @@ class CSIDriver(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             spec: 'outputs.CSIDriverSpec',
+             spec: Optional['outputs.CSIDriverSpec'] = None,
              api_version: Optional[str] = None,
              kind: Optional[str] = None,
              metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if spec is None:
+            raise TypeError("Missing 'spec' argument")
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         _setter("spec", spec)
@@ -229,19 +231,19 @@ class CSIDriverSpec(dict):
              volume_lifecycle_modes: Optional[Sequence[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'attachRequired' in kwargs:
+        if attach_required is None and 'attachRequired' in kwargs:
             attach_required = kwargs['attachRequired']
-        if 'fsGroupPolicy' in kwargs:
+        if fs_group_policy is None and 'fsGroupPolicy' in kwargs:
             fs_group_policy = kwargs['fsGroupPolicy']
-        if 'podInfoOnMount' in kwargs:
+        if pod_info_on_mount is None and 'podInfoOnMount' in kwargs:
             pod_info_on_mount = kwargs['podInfoOnMount']
-        if 'requiresRepublish' in kwargs:
+        if requires_republish is None and 'requiresRepublish' in kwargs:
             requires_republish = kwargs['requiresRepublish']
-        if 'storageCapacity' in kwargs:
+        if storage_capacity is None and 'storageCapacity' in kwargs:
             storage_capacity = kwargs['storageCapacity']
-        if 'tokenRequests' in kwargs:
+        if token_requests is None and 'tokenRequests' in kwargs:
             token_requests = kwargs['tokenRequests']
-        if 'volumeLifecycleModes' in kwargs:
+        if volume_lifecycle_modes is None and 'volumeLifecycleModes' in kwargs:
             volume_lifecycle_modes = kwargs['volumeLifecycleModes']
 
         if attach_required is not None:
@@ -436,19 +438,19 @@ class CSIDriverSpecPatch(dict):
              volume_lifecycle_modes: Optional[Sequence[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'attachRequired' in kwargs:
+        if attach_required is None and 'attachRequired' in kwargs:
             attach_required = kwargs['attachRequired']
-        if 'fsGroupPolicy' in kwargs:
+        if fs_group_policy is None and 'fsGroupPolicy' in kwargs:
             fs_group_policy = kwargs['fsGroupPolicy']
-        if 'podInfoOnMount' in kwargs:
+        if pod_info_on_mount is None and 'podInfoOnMount' in kwargs:
             pod_info_on_mount = kwargs['podInfoOnMount']
-        if 'requiresRepublish' in kwargs:
+        if requires_republish is None and 'requiresRepublish' in kwargs:
             requires_republish = kwargs['requiresRepublish']
-        if 'storageCapacity' in kwargs:
+        if storage_capacity is None and 'storageCapacity' in kwargs:
             storage_capacity = kwargs['storageCapacity']
-        if 'tokenRequests' in kwargs:
+        if token_requests is None and 'tokenRequests' in kwargs:
             token_requests = kwargs['tokenRequests']
-        if 'volumeLifecycleModes' in kwargs:
+        if volume_lifecycle_modes is None and 'volumeLifecycleModes' in kwargs:
             volume_lifecycle_modes = kwargs['volumeLifecycleModes']
 
         if attach_required is not None:
@@ -590,13 +592,15 @@ class CSINode(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             spec: 'outputs.CSINodeSpec',
+             spec: Optional['outputs.CSINodeSpec'] = None,
              api_version: Optional[str] = None,
              kind: Optional[str] = None,
              metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if spec is None:
+            raise TypeError("Missing 'spec' argument")
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         _setter("spec", spec)
@@ -686,15 +690,19 @@ class CSINodeDriver(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             name: str,
-             node_id: str,
+             name: Optional[str] = None,
+             node_id: Optional[str] = None,
              allocatable: Optional['outputs.VolumeNodeResources'] = None,
              topology_keys: Optional[Sequence[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'nodeID' in kwargs:
+        if name is None:
+            raise TypeError("Missing 'name' argument")
+        if node_id is None and 'nodeID' in kwargs:
             node_id = kwargs['nodeID']
-        if 'topologyKeys' in kwargs:
+        if node_id is None:
+            raise TypeError("Missing 'node_id' argument")
+        if topology_keys is None and 'topologyKeys' in kwargs:
             topology_keys = kwargs['topologyKeys']
 
         _setter("name", name)
@@ -789,9 +797,9 @@ class CSINodeDriverPatch(dict):
              topology_keys: Optional[Sequence[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'nodeID' in kwargs:
+        if node_id is None and 'nodeID' in kwargs:
             node_id = kwargs['nodeID']
-        if 'topologyKeys' in kwargs:
+        if topology_keys is None and 'topologyKeys' in kwargs:
             topology_keys = kwargs['topologyKeys']
 
         if allocatable is not None:
@@ -854,9 +862,11 @@ class CSINodeSpec(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             drivers: Sequence['outputs.CSINodeDriver'],
+             drivers: Optional[Sequence['outputs.CSINodeDriver']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if drivers is None:
+            raise TypeError("Missing 'drivers' argument")
 
         _setter("drivers", drivers)
 
@@ -986,7 +996,7 @@ class CSIStorageCapacity(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             storage_class_name: str,
+             storage_class_name: Optional[str] = None,
              api_version: Optional[str] = None,
              capacity: Optional[str] = None,
              kind: Optional[str] = None,
@@ -995,13 +1005,15 @@ class CSIStorageCapacity(dict):
              node_topology: Optional['_meta.v1.outputs.LabelSelector'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'storageClassName' in kwargs:
+        if storage_class_name is None and 'storageClassName' in kwargs:
             storage_class_name = kwargs['storageClassName']
-        if 'apiVersion' in kwargs:
+        if storage_class_name is None:
+            raise TypeError("Missing 'storage_class_name' argument")
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
-        if 'maximumVolumeSize' in kwargs:
+        if maximum_volume_size is None and 'maximumVolumeSize' in kwargs:
             maximum_volume_size = kwargs['maximumVolumeSize']
-        if 'nodeTopology' in kwargs:
+        if node_topology is None and 'nodeTopology' in kwargs:
             node_topology = kwargs['nodeTopology']
 
         _setter("storage_class_name", storage_class_name)
@@ -1159,7 +1171,7 @@ class StorageClass(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             provisioner: str,
+             provisioner: Optional[str] = None,
              allow_volume_expansion: Optional[bool] = None,
              allowed_topologies: Optional[Sequence['_core.v1.outputs.TopologySelectorTerm']] = None,
              api_version: Optional[str] = None,
@@ -1171,17 +1183,19 @@ class StorageClass(dict):
              volume_binding_mode: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'allowVolumeExpansion' in kwargs:
+        if provisioner is None:
+            raise TypeError("Missing 'provisioner' argument")
+        if allow_volume_expansion is None and 'allowVolumeExpansion' in kwargs:
             allow_volume_expansion = kwargs['allowVolumeExpansion']
-        if 'allowedTopologies' in kwargs:
+        if allowed_topologies is None and 'allowedTopologies' in kwargs:
             allowed_topologies = kwargs['allowedTopologies']
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
-        if 'mountOptions' in kwargs:
+        if mount_options is None and 'mountOptions' in kwargs:
             mount_options = kwargs['mountOptions']
-        if 'reclaimPolicy' in kwargs:
+        if reclaim_policy is None and 'reclaimPolicy' in kwargs:
             reclaim_policy = kwargs['reclaimPolicy']
-        if 'volumeBindingMode' in kwargs:
+        if volume_binding_mode is None and 'volumeBindingMode' in kwargs:
             volume_binding_mode = kwargs['volumeBindingMode']
 
         _setter("provisioner", provisioner)
@@ -1323,11 +1337,13 @@ class TokenRequest(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             audience: str,
+             audience: Optional[str] = None,
              expiration_seconds: Optional[int] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'expirationSeconds' in kwargs:
+        if audience is None:
+            raise TypeError("Missing 'audience' argument")
+        if expiration_seconds is None and 'expirationSeconds' in kwargs:
             expiration_seconds = kwargs['expirationSeconds']
 
         _setter("audience", audience)
@@ -1393,7 +1409,7 @@ class TokenRequestPatch(dict):
              expiration_seconds: Optional[int] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'expirationSeconds' in kwargs:
+        if expiration_seconds is None and 'expirationSeconds' in kwargs:
             expiration_seconds = kwargs['expirationSeconds']
 
         if audience is not None:
@@ -1469,14 +1485,16 @@ class VolumeAttachment(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             spec: 'outputs.VolumeAttachmentSpec',
+             spec: Optional['outputs.VolumeAttachmentSpec'] = None,
              api_version: Optional[str] = None,
              kind: Optional[str] = None,
              metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
              status: Optional['outputs.VolumeAttachmentStatus'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if spec is None:
+            raise TypeError("Missing 'spec' argument")
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         _setter("spec", spec)
@@ -1574,9 +1592,9 @@ class VolumeAttachmentSource(dict):
              persistent_volume_name: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'inlineVolumeSpec' in kwargs:
+        if inline_volume_spec is None and 'inlineVolumeSpec' in kwargs:
             inline_volume_spec = kwargs['inlineVolumeSpec']
-        if 'persistentVolumeName' in kwargs:
+        if persistent_volume_name is None and 'persistentVolumeName' in kwargs:
             persistent_volume_name = kwargs['persistentVolumeName']
 
         if inline_volume_spec is not None:
@@ -1645,9 +1663,9 @@ class VolumeAttachmentSourcePatch(dict):
              persistent_volume_name: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'inlineVolumeSpec' in kwargs:
+        if inline_volume_spec is None and 'inlineVolumeSpec' in kwargs:
             inline_volume_spec = kwargs['inlineVolumeSpec']
-        if 'persistentVolumeName' in kwargs:
+        if persistent_volume_name is None and 'persistentVolumeName' in kwargs:
             persistent_volume_name = kwargs['persistentVolumeName']
 
         if inline_volume_spec is not None:
@@ -1713,13 +1731,19 @@ class VolumeAttachmentSpec(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             attacher: str,
-             node_name: str,
-             source: 'outputs.VolumeAttachmentSource',
+             attacher: Optional[str] = None,
+             node_name: Optional[str] = None,
+             source: Optional['outputs.VolumeAttachmentSource'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'nodeName' in kwargs:
+        if attacher is None:
+            raise TypeError("Missing 'attacher' argument")
+        if node_name is None and 'nodeName' in kwargs:
             node_name = kwargs['nodeName']
+        if node_name is None:
+            raise TypeError("Missing 'node_name' argument")
+        if source is None:
+            raise TypeError("Missing 'source' argument")
 
         _setter("attacher", attacher)
         _setter("node_name", node_name)
@@ -1796,7 +1820,7 @@ class VolumeAttachmentSpecPatch(dict):
              source: Optional['outputs.VolumeAttachmentSourcePatch'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'nodeName' in kwargs:
+        if node_name is None and 'nodeName' in kwargs:
             node_name = kwargs['nodeName']
 
         if attacher is not None:
@@ -1879,17 +1903,19 @@ class VolumeAttachmentStatus(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             attached: bool,
+             attached: Optional[bool] = None,
              attach_error: Optional['outputs.VolumeError'] = None,
              attachment_metadata: Optional[Mapping[str, str]] = None,
              detach_error: Optional['outputs.VolumeError'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'attachError' in kwargs:
+        if attached is None:
+            raise TypeError("Missing 'attached' argument")
+        if attach_error is None and 'attachError' in kwargs:
             attach_error = kwargs['attachError']
-        if 'attachmentMetadata' in kwargs:
+        if attachment_metadata is None and 'attachmentMetadata' in kwargs:
             attachment_metadata = kwargs['attachmentMetadata']
-        if 'detachError' in kwargs:
+        if detach_error is None and 'detachError' in kwargs:
             detach_error = kwargs['detachError']
 
         _setter("attached", attached)
@@ -1987,11 +2013,11 @@ class VolumeAttachmentStatusPatch(dict):
              detach_error: Optional['outputs.VolumeErrorPatch'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'attachError' in kwargs:
+        if attach_error is None and 'attachError' in kwargs:
             attach_error = kwargs['attachError']
-        if 'attachmentMetadata' in kwargs:
+        if attachment_metadata is None and 'attachmentMetadata' in kwargs:
             attachment_metadata = kwargs['attachmentMetadata']
-        if 'detachError' in kwargs:
+        if detach_error is None and 'detachError' in kwargs:
             detach_error = kwargs['detachError']
 
         if attach_error is not None:

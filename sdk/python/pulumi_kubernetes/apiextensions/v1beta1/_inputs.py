@@ -78,7 +78,7 @@ class CustomResourceColumnDefinitionPatchArgs:
              type: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'JSONPath' in kwargs:
+        if json_path is None and 'JSONPath' in kwargs:
             json_path = kwargs['JSONPath']
 
         if json_path is not None:
@@ -197,16 +197,22 @@ class CustomResourceColumnDefinitionArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             json_path: pulumi.Input[str],
-             name: pulumi.Input[str],
-             type: pulumi.Input[str],
+             json_path: Optional[pulumi.Input[str]] = None,
+             name: Optional[pulumi.Input[str]] = None,
+             type: Optional[pulumi.Input[str]] = None,
              description: Optional[pulumi.Input[str]] = None,
              format: Optional[pulumi.Input[str]] = None,
              priority: Optional[pulumi.Input[int]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'JSONPath' in kwargs:
+        if json_path is None and 'JSONPath' in kwargs:
             json_path = kwargs['JSONPath']
+        if json_path is None:
+            raise TypeError("Missing 'json_path' argument")
+        if name is None:
+            raise TypeError("Missing 'name' argument")
+        if type is None:
+            raise TypeError("Missing 'type' argument")
 
         _setter("json_path", json_path)
         _setter("name", name)
@@ -318,9 +324,9 @@ class CustomResourceConversionPatchArgs:
              webhook_client_config: Optional[pulumi.Input['WebhookClientConfigPatchArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'conversionReviewVersions' in kwargs:
+        if conversion_review_versions is None and 'conversionReviewVersions' in kwargs:
             conversion_review_versions = kwargs['conversionReviewVersions']
-        if 'webhookClientConfig' in kwargs:
+        if webhook_client_config is None and 'webhookClientConfig' in kwargs:
             webhook_client_config = kwargs['webhookClientConfig']
 
         if conversion_review_versions is not None:
@@ -390,14 +396,16 @@ class CustomResourceConversionArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             strategy: pulumi.Input[str],
+             strategy: Optional[pulumi.Input[str]] = None,
              conversion_review_versions: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              webhook_client_config: Optional[pulumi.Input['WebhookClientConfigArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'conversionReviewVersions' in kwargs:
+        if strategy is None:
+            raise TypeError("Missing 'strategy' argument")
+        if conversion_review_versions is None and 'conversionReviewVersions' in kwargs:
             conversion_review_versions = kwargs['conversionReviewVersions']
-        if 'webhookClientConfig' in kwargs:
+        if webhook_client_config is None and 'webhookClientConfig' in kwargs:
             webhook_client_config = kwargs['webhookClientConfig']
 
         _setter("strategy", strategy)
@@ -471,14 +479,18 @@ class CustomResourceDefinitionConditionArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             status: pulumi.Input[str],
-             type: pulumi.Input[str],
+             status: Optional[pulumi.Input[str]] = None,
+             type: Optional[pulumi.Input[str]] = None,
              last_transition_time: Optional[pulumi.Input[str]] = None,
              message: Optional[pulumi.Input[str]] = None,
              reason: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'lastTransitionTime' in kwargs:
+        if status is None:
+            raise TypeError("Missing 'status' argument")
+        if type is None:
+            raise TypeError("Missing 'type' argument")
+        if last_transition_time is None and 'lastTransitionTime' in kwargs:
             last_transition_time = kwargs['lastTransitionTime']
 
         _setter("status", status)
@@ -589,9 +601,9 @@ class CustomResourceDefinitionNamesPatchArgs:
              singular: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'listKind' in kwargs:
+        if list_kind is None and 'listKind' in kwargs:
             list_kind = kwargs['listKind']
-        if 'shortNames' in kwargs:
+        if short_names is None and 'shortNames' in kwargs:
             short_names = kwargs['shortNames']
 
         if categories is not None:
@@ -710,17 +722,21 @@ class CustomResourceDefinitionNamesArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             kind: pulumi.Input[str],
-             plural: pulumi.Input[str],
+             kind: Optional[pulumi.Input[str]] = None,
+             plural: Optional[pulumi.Input[str]] = None,
              categories: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              list_kind: Optional[pulumi.Input[str]] = None,
              short_names: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              singular: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'listKind' in kwargs:
+        if kind is None:
+            raise TypeError("Missing 'kind' argument")
+        if plural is None:
+            raise TypeError("Missing 'plural' argument")
+        if list_kind is None and 'listKind' in kwargs:
             list_kind = kwargs['listKind']
-        if 'shortNames' in kwargs:
+        if short_names is None and 'shortNames' in kwargs:
             short_names = kwargs['shortNames']
 
         _setter("kind", kind)
@@ -861,9 +877,9 @@ class CustomResourceDefinitionSpecPatchArgs:
              versions: Optional[pulumi.Input[Sequence[pulumi.Input['CustomResourceDefinitionVersionPatchArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'additionalPrinterColumns' in kwargs:
+        if additional_printer_columns is None and 'additionalPrinterColumns' in kwargs:
             additional_printer_columns = kwargs['additionalPrinterColumns']
-        if 'preserveUnknownFields' in kwargs:
+        if preserve_unknown_fields is None and 'preserveUnknownFields' in kwargs:
             preserve_unknown_fields = kwargs['preserveUnknownFields']
 
         if additional_printer_columns is not None:
@@ -1050,9 +1066,9 @@ class CustomResourceDefinitionSpecArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             group: pulumi.Input[str],
-             names: pulumi.Input['CustomResourceDefinitionNamesArgs'],
-             scope: pulumi.Input[str],
+             group: Optional[pulumi.Input[str]] = None,
+             names: Optional[pulumi.Input['CustomResourceDefinitionNamesArgs']] = None,
+             scope: Optional[pulumi.Input[str]] = None,
              additional_printer_columns: Optional[pulumi.Input[Sequence[pulumi.Input['CustomResourceColumnDefinitionArgs']]]] = None,
              conversion: Optional[pulumi.Input['CustomResourceConversionArgs']] = None,
              preserve_unknown_fields: Optional[pulumi.Input[bool]] = None,
@@ -1062,9 +1078,15 @@ class CustomResourceDefinitionSpecArgs:
              versions: Optional[pulumi.Input[Sequence[pulumi.Input['CustomResourceDefinitionVersionArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'additionalPrinterColumns' in kwargs:
+        if group is None:
+            raise TypeError("Missing 'group' argument")
+        if names is None:
+            raise TypeError("Missing 'names' argument")
+        if scope is None:
+            raise TypeError("Missing 'scope' argument")
+        if additional_printer_columns is None and 'additionalPrinterColumns' in kwargs:
             additional_printer_columns = kwargs['additionalPrinterColumns']
-        if 'preserveUnknownFields' in kwargs:
+        if preserve_unknown_fields is None and 'preserveUnknownFields' in kwargs:
             preserve_unknown_fields = kwargs['preserveUnknownFields']
 
         _setter("group", group)
@@ -1227,15 +1249,19 @@ class CustomResourceDefinitionStatusArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             accepted_names: pulumi.Input['CustomResourceDefinitionNamesArgs'],
-             stored_versions: pulumi.Input[Sequence[pulumi.Input[str]]],
+             accepted_names: Optional[pulumi.Input['CustomResourceDefinitionNamesArgs']] = None,
+             stored_versions: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              conditions: Optional[pulumi.Input[Sequence[pulumi.Input['CustomResourceDefinitionConditionArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'acceptedNames' in kwargs:
+        if accepted_names is None and 'acceptedNames' in kwargs:
             accepted_names = kwargs['acceptedNames']
-        if 'storedVersions' in kwargs:
+        if accepted_names is None:
+            raise TypeError("Missing 'accepted_names' argument")
+        if stored_versions is None and 'storedVersions' in kwargs:
             stored_versions = kwargs['storedVersions']
+        if stored_versions is None:
+            raise TypeError("Missing 'stored_versions' argument")
 
         _setter("accepted_names", accepted_names)
         _setter("stored_versions", stored_versions)
@@ -1325,9 +1351,9 @@ class CustomResourceDefinitionVersionPatchArgs:
              subresources: Optional[pulumi.Input['CustomResourceSubresourcesPatchArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'additionalPrinterColumns' in kwargs:
+        if additional_printer_columns is None and 'additionalPrinterColumns' in kwargs:
             additional_printer_columns = kwargs['additionalPrinterColumns']
-        if 'deprecationWarning' in kwargs:
+        if deprecation_warning is None and 'deprecationWarning' in kwargs:
             deprecation_warning = kwargs['deprecationWarning']
 
         if additional_printer_columns is not None:
@@ -1480,9 +1506,9 @@ class CustomResourceDefinitionVersionArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             name: pulumi.Input[str],
-             served: pulumi.Input[bool],
-             storage: pulumi.Input[bool],
+             name: Optional[pulumi.Input[str]] = None,
+             served: Optional[pulumi.Input[bool]] = None,
+             storage: Optional[pulumi.Input[bool]] = None,
              additional_printer_columns: Optional[pulumi.Input[Sequence[pulumi.Input['CustomResourceColumnDefinitionArgs']]]] = None,
              deprecated: Optional[pulumi.Input[bool]] = None,
              deprecation_warning: Optional[pulumi.Input[str]] = None,
@@ -1490,9 +1516,15 @@ class CustomResourceDefinitionVersionArgs:
              subresources: Optional[pulumi.Input['CustomResourceSubresourcesArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'additionalPrinterColumns' in kwargs:
+        if name is None:
+            raise TypeError("Missing 'name' argument")
+        if served is None:
+            raise TypeError("Missing 'served' argument")
+        if storage is None:
+            raise TypeError("Missing 'storage' argument")
+        if additional_printer_columns is None and 'additionalPrinterColumns' in kwargs:
             additional_printer_columns = kwargs['additionalPrinterColumns']
-        if 'deprecationWarning' in kwargs:
+        if deprecation_warning is None and 'deprecationWarning' in kwargs:
             deprecation_warning = kwargs['deprecationWarning']
 
         _setter("name", name)
@@ -1632,14 +1664,16 @@ class CustomResourceDefinitionArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             spec: pulumi.Input['CustomResourceDefinitionSpecArgs'],
+             spec: Optional[pulumi.Input['CustomResourceDefinitionSpecArgs']] = None,
              api_version: Optional[pulumi.Input[str]] = None,
              kind: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              status: Optional[pulumi.Input['CustomResourceDefinitionStatusArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if spec is None:
+            raise TypeError("Missing 'spec' argument")
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         _setter("spec", spec)
@@ -1736,11 +1770,11 @@ class CustomResourceSubresourceScalePatchArgs:
              status_replicas_path: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'labelSelectorPath' in kwargs:
+        if label_selector_path is None and 'labelSelectorPath' in kwargs:
             label_selector_path = kwargs['labelSelectorPath']
-        if 'specReplicasPath' in kwargs:
+        if spec_replicas_path is None and 'specReplicasPath' in kwargs:
             spec_replicas_path = kwargs['specReplicasPath']
-        if 'statusReplicasPath' in kwargs:
+        if status_replicas_path is None and 'statusReplicasPath' in kwargs:
             status_replicas_path = kwargs['statusReplicasPath']
 
         if label_selector_path is not None:
@@ -1808,16 +1842,20 @@ class CustomResourceSubresourceScaleArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             spec_replicas_path: pulumi.Input[str],
-             status_replicas_path: pulumi.Input[str],
+             spec_replicas_path: Optional[pulumi.Input[str]] = None,
+             status_replicas_path: Optional[pulumi.Input[str]] = None,
              label_selector_path: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'specReplicasPath' in kwargs:
+        if spec_replicas_path is None and 'specReplicasPath' in kwargs:
             spec_replicas_path = kwargs['specReplicasPath']
-        if 'statusReplicasPath' in kwargs:
+        if spec_replicas_path is None:
+            raise TypeError("Missing 'spec_replicas_path' argument")
+        if status_replicas_path is None and 'statusReplicasPath' in kwargs:
             status_replicas_path = kwargs['statusReplicasPath']
-        if 'labelSelectorPath' in kwargs:
+        if status_replicas_path is None:
+            raise TypeError("Missing 'status_replicas_path' argument")
+        if label_selector_path is None and 'labelSelectorPath' in kwargs:
             label_selector_path = kwargs['labelSelectorPath']
 
         _setter("spec_replicas_path", spec_replicas_path)
@@ -1986,7 +2024,7 @@ class CustomResourceValidationPatchArgs:
              open_apiv3_schema: Optional[pulumi.Input['JSONSchemaPropsPatchArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'openAPIV3Schema' in kwargs:
+        if open_apiv3_schema is None and 'openAPIV3Schema' in kwargs:
             open_apiv3_schema = kwargs['openAPIV3Schema']
 
         if open_apiv3_schema is not None:
@@ -2023,7 +2061,7 @@ class CustomResourceValidationArgs:
              open_apiv3_schema: Optional[pulumi.Input['JSONSchemaPropsArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'openAPIV3Schema' in kwargs:
+        if open_apiv3_schema is None and 'openAPIV3Schema' in kwargs:
             open_apiv3_schema = kwargs['openAPIV3Schema']
 
         if open_apiv3_schema is not None:
@@ -2316,45 +2354,45 @@ class JSONSchemaPropsPatchArgs:
              x_kubernetes_preserve_unknown_fields: Optional[pulumi.Input[bool]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if '$ref' in kwargs:
+        if _ref is None and '$ref' in kwargs:
             _ref = kwargs['$ref']
-        if '$schema' in kwargs:
+        if _schema is None and '$schema' in kwargs:
             _schema = kwargs['$schema']
-        if 'additionalItems' in kwargs:
+        if additional_items is None and 'additionalItems' in kwargs:
             additional_items = kwargs['additionalItems']
-        if 'additionalProperties' in kwargs:
+        if additional_properties is None and 'additionalProperties' in kwargs:
             additional_properties = kwargs['additionalProperties']
-        if 'allOf' in kwargs:
+        if all_of is None and 'allOf' in kwargs:
             all_of = kwargs['allOf']
-        if 'anyOf' in kwargs:
+        if any_of is None and 'anyOf' in kwargs:
             any_of = kwargs['anyOf']
-        if 'exclusiveMaximum' in kwargs:
+        if exclusive_maximum is None and 'exclusiveMaximum' in kwargs:
             exclusive_maximum = kwargs['exclusiveMaximum']
-        if 'exclusiveMinimum' in kwargs:
+        if exclusive_minimum is None and 'exclusiveMinimum' in kwargs:
             exclusive_minimum = kwargs['exclusiveMinimum']
-        if 'externalDocs' in kwargs:
+        if external_docs is None and 'externalDocs' in kwargs:
             external_docs = kwargs['externalDocs']
-        if 'maxItems' in kwargs:
+        if max_items is None and 'maxItems' in kwargs:
             max_items = kwargs['maxItems']
-        if 'maxLength' in kwargs:
+        if max_length is None and 'maxLength' in kwargs:
             max_length = kwargs['maxLength']
-        if 'maxProperties' in kwargs:
+        if max_properties is None and 'maxProperties' in kwargs:
             max_properties = kwargs['maxProperties']
-        if 'minItems' in kwargs:
+        if min_items is None and 'minItems' in kwargs:
             min_items = kwargs['minItems']
-        if 'minLength' in kwargs:
+        if min_length is None and 'minLength' in kwargs:
             min_length = kwargs['minLength']
-        if 'minProperties' in kwargs:
+        if min_properties is None and 'minProperties' in kwargs:
             min_properties = kwargs['minProperties']
-        if 'multipleOf' in kwargs:
+        if multiple_of is None and 'multipleOf' in kwargs:
             multiple_of = kwargs['multipleOf']
-        if 'not' in kwargs:
+        if not_ is None and 'not' in kwargs:
             not_ = kwargs['not']
-        if 'oneOf' in kwargs:
+        if one_of is None and 'oneOf' in kwargs:
             one_of = kwargs['oneOf']
-        if 'patternProperties' in kwargs:
+        if pattern_properties is None and 'patternProperties' in kwargs:
             pattern_properties = kwargs['patternProperties']
-        if 'uniqueItems' in kwargs:
+        if unique_items is None and 'uniqueItems' in kwargs:
             unique_items = kwargs['uniqueItems']
 
         if _ref is not None:
@@ -3073,45 +3111,45 @@ class JSONSchemaPropsArgs:
              x_kubernetes_preserve_unknown_fields: Optional[pulumi.Input[bool]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if '$ref' in kwargs:
+        if _ref is None and '$ref' in kwargs:
             _ref = kwargs['$ref']
-        if '$schema' in kwargs:
+        if _schema is None and '$schema' in kwargs:
             _schema = kwargs['$schema']
-        if 'additionalItems' in kwargs:
+        if additional_items is None and 'additionalItems' in kwargs:
             additional_items = kwargs['additionalItems']
-        if 'additionalProperties' in kwargs:
+        if additional_properties is None and 'additionalProperties' in kwargs:
             additional_properties = kwargs['additionalProperties']
-        if 'allOf' in kwargs:
+        if all_of is None and 'allOf' in kwargs:
             all_of = kwargs['allOf']
-        if 'anyOf' in kwargs:
+        if any_of is None and 'anyOf' in kwargs:
             any_of = kwargs['anyOf']
-        if 'exclusiveMaximum' in kwargs:
+        if exclusive_maximum is None and 'exclusiveMaximum' in kwargs:
             exclusive_maximum = kwargs['exclusiveMaximum']
-        if 'exclusiveMinimum' in kwargs:
+        if exclusive_minimum is None and 'exclusiveMinimum' in kwargs:
             exclusive_minimum = kwargs['exclusiveMinimum']
-        if 'externalDocs' in kwargs:
+        if external_docs is None and 'externalDocs' in kwargs:
             external_docs = kwargs['externalDocs']
-        if 'maxItems' in kwargs:
+        if max_items is None and 'maxItems' in kwargs:
             max_items = kwargs['maxItems']
-        if 'maxLength' in kwargs:
+        if max_length is None and 'maxLength' in kwargs:
             max_length = kwargs['maxLength']
-        if 'maxProperties' in kwargs:
+        if max_properties is None and 'maxProperties' in kwargs:
             max_properties = kwargs['maxProperties']
-        if 'minItems' in kwargs:
+        if min_items is None and 'minItems' in kwargs:
             min_items = kwargs['minItems']
-        if 'minLength' in kwargs:
+        if min_length is None and 'minLength' in kwargs:
             min_length = kwargs['minLength']
-        if 'minProperties' in kwargs:
+        if min_properties is None and 'minProperties' in kwargs:
             min_properties = kwargs['minProperties']
-        if 'multipleOf' in kwargs:
+        if multiple_of is None and 'multipleOf' in kwargs:
             multiple_of = kwargs['multipleOf']
-        if 'not' in kwargs:
+        if not_ is None and 'not' in kwargs:
             not_ = kwargs['not']
-        if 'oneOf' in kwargs:
+        if one_of is None and 'oneOf' in kwargs:
             one_of = kwargs['oneOf']
-        if 'patternProperties' in kwargs:
+        if pattern_properties is None and 'patternProperties' in kwargs:
             pattern_properties = kwargs['patternProperties']
-        if 'uniqueItems' in kwargs:
+        if unique_items is None and 'uniqueItems' in kwargs:
             unique_items = kwargs['uniqueItems']
 
         if _ref is not None:
@@ -3759,12 +3797,16 @@ class ServiceReferenceArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             name: pulumi.Input[str],
-             namespace: pulumi.Input[str],
+             name: Optional[pulumi.Input[str]] = None,
+             namespace: Optional[pulumi.Input[str]] = None,
              path: Optional[pulumi.Input[str]] = None,
              port: Optional[pulumi.Input[int]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if name is None:
+            raise TypeError("Missing 'name' argument")
+        if namespace is None:
+            raise TypeError("Missing 'namespace' argument")
 
         _setter("name", name)
         _setter("namespace", namespace)
@@ -3860,7 +3902,7 @@ class WebhookClientConfigPatchArgs:
              url: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'caBundle' in kwargs:
+        if ca_bundle is None and 'caBundle' in kwargs:
             ca_bundle = kwargs['caBundle']
 
         if ca_bundle is not None:
@@ -3957,7 +3999,7 @@ class WebhookClientConfigArgs:
              url: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'caBundle' in kwargs:
+        if ca_bundle is None and 'caBundle' in kwargs:
             ca_bundle = kwargs['caBundle']
 
         if ca_bundle is not None:

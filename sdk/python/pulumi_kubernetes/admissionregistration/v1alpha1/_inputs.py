@@ -70,7 +70,7 @@ class AuditAnnotationPatchArgs:
              value_expression: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'valueExpression' in kwargs:
+        if value_expression is None and 'valueExpression' in kwargs:
             value_expression = kwargs['valueExpression']
 
         if key is not None:
@@ -141,12 +141,16 @@ class AuditAnnotationArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             key: pulumi.Input[str],
-             value_expression: pulumi.Input[str],
+             key: Optional[pulumi.Input[str]] = None,
+             value_expression: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'valueExpression' in kwargs:
+        if key is None:
+            raise TypeError("Missing 'key' argument")
+        if value_expression is None and 'valueExpression' in kwargs:
             value_expression = kwargs['valueExpression']
+        if value_expression is None:
+            raise TypeError("Missing 'value_expression' argument")
 
         _setter("key", key)
         _setter("value_expression", value_expression)
@@ -204,12 +208,16 @@ class ExpressionWarningArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             field_ref: pulumi.Input[str],
-             warning: pulumi.Input[str],
+             field_ref: Optional[pulumi.Input[str]] = None,
+             warning: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'fieldRef' in kwargs:
+        if field_ref is None and 'fieldRef' in kwargs:
             field_ref = kwargs['fieldRef']
+        if field_ref is None:
+            raise TypeError("Missing 'field_ref' argument")
+        if warning is None:
+            raise TypeError("Missing 'warning' argument")
 
         _setter("field_ref", field_ref)
         _setter("warning", warning)
@@ -338,10 +346,14 @@ class MatchConditionArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             expression: pulumi.Input[str],
-             name: pulumi.Input[str],
+             expression: Optional[pulumi.Input[str]] = None,
+             name: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if expression is None:
+            raise TypeError("Missing 'expression' argument")
+        if name is None:
+            raise TypeError("Missing 'name' argument")
 
         _setter("expression", expression)
         _setter("name", name)
@@ -451,15 +463,15 @@ class MatchResourcesPatchArgs:
              resource_rules: Optional[pulumi.Input[Sequence[pulumi.Input['NamedRuleWithOperationsPatchArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'excludeResourceRules' in kwargs:
+        if exclude_resource_rules is None and 'excludeResourceRules' in kwargs:
             exclude_resource_rules = kwargs['excludeResourceRules']
-        if 'matchPolicy' in kwargs:
+        if match_policy is None and 'matchPolicy' in kwargs:
             match_policy = kwargs['matchPolicy']
-        if 'namespaceSelector' in kwargs:
+        if namespace_selector is None and 'namespaceSelector' in kwargs:
             namespace_selector = kwargs['namespaceSelector']
-        if 'objectSelector' in kwargs:
+        if object_selector is None and 'objectSelector' in kwargs:
             object_selector = kwargs['objectSelector']
-        if 'resourceRules' in kwargs:
+        if resource_rules is None and 'resourceRules' in kwargs:
             resource_rules = kwargs['resourceRules']
 
         if exclude_resource_rules is not None:
@@ -640,15 +652,15 @@ class MatchResourcesArgs:
              resource_rules: Optional[pulumi.Input[Sequence[pulumi.Input['NamedRuleWithOperationsArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'excludeResourceRules' in kwargs:
+        if exclude_resource_rules is None and 'excludeResourceRules' in kwargs:
             exclude_resource_rules = kwargs['excludeResourceRules']
-        if 'matchPolicy' in kwargs:
+        if match_policy is None and 'matchPolicy' in kwargs:
             match_policy = kwargs['matchPolicy']
-        if 'namespaceSelector' in kwargs:
+        if namespace_selector is None and 'namespaceSelector' in kwargs:
             namespace_selector = kwargs['namespaceSelector']
-        if 'objectSelector' in kwargs:
+        if object_selector is None and 'objectSelector' in kwargs:
             object_selector = kwargs['objectSelector']
-        if 'resourceRules' in kwargs:
+        if resource_rules is None and 'resourceRules' in kwargs:
             resource_rules = kwargs['resourceRules']
 
         if exclude_resource_rules is not None:
@@ -803,11 +815,11 @@ class NamedRuleWithOperationsPatchArgs:
              scope: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiGroups' in kwargs:
+        if api_groups is None and 'apiGroups' in kwargs:
             api_groups = kwargs['apiGroups']
-        if 'apiVersions' in kwargs:
+        if api_versions is None and 'apiVersions' in kwargs:
             api_versions = kwargs['apiVersions']
-        if 'resourceNames' in kwargs:
+        if resource_names is None and 'resourceNames' in kwargs:
             resource_names = kwargs['resourceNames']
 
         if api_groups is not None:
@@ -946,11 +958,11 @@ class NamedRuleWithOperationsArgs:
              scope: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiGroups' in kwargs:
+        if api_groups is None and 'apiGroups' in kwargs:
             api_groups = kwargs['apiGroups']
-        if 'apiVersions' in kwargs:
+        if api_versions is None and 'apiVersions' in kwargs:
             api_versions = kwargs['apiVersions']
-        if 'resourceNames' in kwargs:
+        if resource_names is None and 'resourceNames' in kwargs:
             resource_names = kwargs['resourceNames']
 
         if api_groups is not None:
@@ -1067,7 +1079,7 @@ class ParamKindPatchArgs:
              kind: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -1122,7 +1134,7 @@ class ParamKindArgs:
              kind: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -1199,7 +1211,7 @@ class ParamRefPatchArgs:
              selector: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'parameterNotFoundAction' in kwargs:
+        if parameter_not_found_action is None and 'parameterNotFoundAction' in kwargs:
             parameter_not_found_action = kwargs['parameterNotFoundAction']
 
         if name is not None:
@@ -1318,7 +1330,7 @@ class ParamRefArgs:
              selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'parameterNotFoundAction' in kwargs:
+        if parameter_not_found_action is None and 'parameterNotFoundAction' in kwargs:
             parameter_not_found_action = kwargs['parameterNotFoundAction']
 
         if name is not None:
@@ -1411,7 +1423,7 @@ class TypeCheckingArgs:
              expression_warnings: Optional[pulumi.Input[Sequence[pulumi.Input['ExpressionWarningArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'expressionWarnings' in kwargs:
+        if expression_warnings is None and 'expressionWarnings' in kwargs:
             expression_warnings = kwargs['expressionWarnings']
 
         if expression_warnings is not None:
@@ -1478,13 +1490,13 @@ class ValidatingAdmissionPolicyBindingSpecPatchArgs:
              validation_actions: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'matchResources' in kwargs:
+        if match_resources is None and 'matchResources' in kwargs:
             match_resources = kwargs['matchResources']
-        if 'paramRef' in kwargs:
+        if param_ref is None and 'paramRef' in kwargs:
             param_ref = kwargs['paramRef']
-        if 'policyName' in kwargs:
+        if policy_name is None and 'policyName' in kwargs:
             policy_name = kwargs['policyName']
-        if 'validationActions' in kwargs:
+        if validation_actions is None and 'validationActions' in kwargs:
             validation_actions = kwargs['validationActions']
 
         if match_resources is not None:
@@ -1611,13 +1623,13 @@ class ValidatingAdmissionPolicyBindingSpecArgs:
              validation_actions: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'matchResources' in kwargs:
+        if match_resources is None and 'matchResources' in kwargs:
             match_resources = kwargs['matchResources']
-        if 'paramRef' in kwargs:
+        if param_ref is None and 'paramRef' in kwargs:
             param_ref = kwargs['paramRef']
-        if 'policyName' in kwargs:
+        if policy_name is None and 'policyName' in kwargs:
             policy_name = kwargs['policyName']
-        if 'validationActions' in kwargs:
+        if validation_actions is None and 'validationActions' in kwargs:
             validation_actions = kwargs['validationActions']
 
         if match_resources is not None:
@@ -1730,7 +1742,7 @@ class ValidatingAdmissionPolicyBindingArgs:
              spec: Optional[pulumi.Input['ValidatingAdmissionPolicyBindingSpecArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -1852,15 +1864,15 @@ class ValidatingAdmissionPolicySpecPatchArgs:
              variables: Optional[pulumi.Input[Sequence[pulumi.Input['VariablePatchArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'auditAnnotations' in kwargs:
+        if audit_annotations is None and 'auditAnnotations' in kwargs:
             audit_annotations = kwargs['auditAnnotations']
-        if 'failurePolicy' in kwargs:
+        if failure_policy is None and 'failurePolicy' in kwargs:
             failure_policy = kwargs['failurePolicy']
-        if 'matchConditions' in kwargs:
+        if match_conditions is None and 'matchConditions' in kwargs:
             match_conditions = kwargs['matchConditions']
-        if 'matchConstraints' in kwargs:
+        if match_constraints is None and 'matchConstraints' in kwargs:
             match_constraints = kwargs['matchConstraints']
-        if 'paramKind' in kwargs:
+        if param_kind is None and 'paramKind' in kwargs:
             param_kind = kwargs['paramKind']
 
         if audit_annotations is not None:
@@ -2034,7 +2046,7 @@ class ValidatingAdmissionPolicySpecArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             validations: pulumi.Input[Sequence[pulumi.Input['ValidationArgs']]],
+             validations: Optional[pulumi.Input[Sequence[pulumi.Input['ValidationArgs']]]] = None,
              audit_annotations: Optional[pulumi.Input[Sequence[pulumi.Input['AuditAnnotationArgs']]]] = None,
              failure_policy: Optional[pulumi.Input[str]] = None,
              match_conditions: Optional[pulumi.Input[Sequence[pulumi.Input['MatchConditionArgs']]]] = None,
@@ -2043,15 +2055,17 @@ class ValidatingAdmissionPolicySpecArgs:
              variables: Optional[pulumi.Input[Sequence[pulumi.Input['VariableArgs']]]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'auditAnnotations' in kwargs:
+        if validations is None:
+            raise TypeError("Missing 'validations' argument")
+        if audit_annotations is None and 'auditAnnotations' in kwargs:
             audit_annotations = kwargs['auditAnnotations']
-        if 'failurePolicy' in kwargs:
+        if failure_policy is None and 'failurePolicy' in kwargs:
             failure_policy = kwargs['failurePolicy']
-        if 'matchConditions' in kwargs:
+        if match_conditions is None and 'matchConditions' in kwargs:
             match_conditions = kwargs['matchConditions']
-        if 'matchConstraints' in kwargs:
+        if match_constraints is None and 'matchConstraints' in kwargs:
             match_constraints = kwargs['matchConstraints']
-        if 'paramKind' in kwargs:
+        if param_kind is None and 'paramKind' in kwargs:
             param_kind = kwargs['paramKind']
 
         _setter("validations", validations)
@@ -2198,9 +2212,9 @@ class ValidatingAdmissionPolicyStatusArgs:
              type_checking: Optional[pulumi.Input['TypeCheckingArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'observedGeneration' in kwargs:
+        if observed_generation is None and 'observedGeneration' in kwargs:
             observed_generation = kwargs['observedGeneration']
-        if 'typeChecking' in kwargs:
+        if type_checking is None and 'typeChecking' in kwargs:
             type_checking = kwargs['typeChecking']
 
         if conditions is not None:
@@ -2281,7 +2295,7 @@ class ValidatingAdmissionPolicyArgs:
              status: Optional[pulumi.Input['ValidatingAdmissionPolicyStatusArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -2411,7 +2425,7 @@ class ValidationPatchArgs:
              reason: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'messageExpression' in kwargs:
+        if message_expression is None and 'messageExpression' in kwargs:
             message_expression = kwargs['messageExpression']
 
         if expression is not None:
@@ -2546,13 +2560,15 @@ class ValidationArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             expression: pulumi.Input[str],
+             expression: Optional[pulumi.Input[str]] = None,
              message: Optional[pulumi.Input[str]] = None,
              message_expression: Optional[pulumi.Input[str]] = None,
              reason: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'messageExpression' in kwargs:
+        if expression is None:
+            raise TypeError("Missing 'expression' argument")
+        if message_expression is None and 'messageExpression' in kwargs:
             message_expression = kwargs['messageExpression']
 
         _setter("expression", expression)
@@ -2708,10 +2724,14 @@ class VariableArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             expression: pulumi.Input[str],
-             name: pulumi.Input[str],
+             expression: Optional[pulumi.Input[str]] = None,
+             name: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if expression is None:
+            raise TypeError("Missing 'expression' argument")
+        if name is None:
+            raise TypeError("Missing 'name' argument")
 
         _setter("expression", expression)
         _setter("name", name)

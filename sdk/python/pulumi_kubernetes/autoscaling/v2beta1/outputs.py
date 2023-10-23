@@ -93,15 +93,19 @@ class ContainerResourceMetricSource(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             container: str,
-             name: str,
+             container: Optional[str] = None,
+             name: Optional[str] = None,
              target_average_utilization: Optional[int] = None,
              target_average_value: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'targetAverageUtilization' in kwargs:
+        if container is None:
+            raise TypeError("Missing 'container' argument")
+        if name is None:
+            raise TypeError("Missing 'name' argument")
+        if target_average_utilization is None and 'targetAverageUtilization' in kwargs:
             target_average_utilization = kwargs['targetAverageUtilization']
-        if 'targetAverageValue' in kwargs:
+        if target_average_value is None and 'targetAverageValue' in kwargs:
             target_average_value = kwargs['targetAverageValue']
 
         _setter("container", container)
@@ -196,9 +200,9 @@ class ContainerResourceMetricSourcePatch(dict):
              target_average_value: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'targetAverageUtilization' in kwargs:
+        if target_average_utilization is None and 'targetAverageUtilization' in kwargs:
             target_average_utilization = kwargs['targetAverageUtilization']
-        if 'targetAverageValue' in kwargs:
+        if target_average_value is None and 'targetAverageValue' in kwargs:
             target_average_value = kwargs['targetAverageValue']
 
         if container is not None:
@@ -289,15 +293,21 @@ class ContainerResourceMetricStatus(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             container: str,
-             current_average_value: str,
-             name: str,
+             container: Optional[str] = None,
+             current_average_value: Optional[str] = None,
+             name: Optional[str] = None,
              current_average_utilization: Optional[int] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'currentAverageValue' in kwargs:
+        if container is None:
+            raise TypeError("Missing 'container' argument")
+        if current_average_value is None and 'currentAverageValue' in kwargs:
             current_average_value = kwargs['currentAverageValue']
-        if 'currentAverageUtilization' in kwargs:
+        if current_average_value is None:
+            raise TypeError("Missing 'current_average_value' argument")
+        if name is None:
+            raise TypeError("Missing 'name' argument")
+        if current_average_utilization is None and 'currentAverageUtilization' in kwargs:
             current_average_utilization = kwargs['currentAverageUtilization']
 
         _setter("container", container)
@@ -391,9 +401,9 @@ class ContainerResourceMetricStatusPatch(dict):
              name: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'currentAverageUtilization' in kwargs:
+        if current_average_utilization is None and 'currentAverageUtilization' in kwargs:
             current_average_utilization = kwargs['currentAverageUtilization']
-        if 'currentAverageValue' in kwargs:
+        if current_average_value is None and 'currentAverageValue' in kwargs:
             current_average_value = kwargs['currentAverageValue']
 
         if container is not None:
@@ -479,12 +489,16 @@ class CrossVersionObjectReference(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             kind: str,
-             name: str,
+             kind: Optional[str] = None,
+             name: Optional[str] = None,
              api_version: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if kind is None:
+            raise TypeError("Missing 'kind' argument")
+        if name is None:
+            raise TypeError("Missing 'name' argument")
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         _setter("kind", kind)
@@ -563,7 +577,7 @@ class CrossVersionObjectReferencePatch(dict):
              name: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -648,19 +662,21 @@ class ExternalMetricSource(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             metric_name: str,
+             metric_name: Optional[str] = None,
              metric_selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
              target_average_value: Optional[str] = None,
              target_value: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'metricName' in kwargs:
+        if metric_name is None and 'metricName' in kwargs:
             metric_name = kwargs['metricName']
-        if 'metricSelector' in kwargs:
+        if metric_name is None:
+            raise TypeError("Missing 'metric_name' argument")
+        if metric_selector is None and 'metricSelector' in kwargs:
             metric_selector = kwargs['metricSelector']
-        if 'targetAverageValue' in kwargs:
+        if target_average_value is None and 'targetAverageValue' in kwargs:
             target_average_value = kwargs['targetAverageValue']
-        if 'targetValue' in kwargs:
+        if target_value is None and 'targetValue' in kwargs:
             target_value = kwargs['targetValue']
 
         _setter("metric_name", metric_name)
@@ -760,13 +776,13 @@ class ExternalMetricSourcePatch(dict):
              target_value: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'metricName' in kwargs:
+        if metric_name is None and 'metricName' in kwargs:
             metric_name = kwargs['metricName']
-        if 'metricSelector' in kwargs:
+        if metric_selector is None and 'metricSelector' in kwargs:
             metric_selector = kwargs['metricSelector']
-        if 'targetAverageValue' in kwargs:
+        if target_average_value is None and 'targetAverageValue' in kwargs:
             target_average_value = kwargs['targetAverageValue']
-        if 'targetValue' in kwargs:
+        if target_value is None and 'targetValue' in kwargs:
             target_value = kwargs['targetValue']
 
         if metric_name is not None:
@@ -861,19 +877,23 @@ class ExternalMetricStatus(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             current_value: str,
-             metric_name: str,
+             current_value: Optional[str] = None,
+             metric_name: Optional[str] = None,
              current_average_value: Optional[str] = None,
              metric_selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'currentValue' in kwargs:
+        if current_value is None and 'currentValue' in kwargs:
             current_value = kwargs['currentValue']
-        if 'metricName' in kwargs:
+        if current_value is None:
+            raise TypeError("Missing 'current_value' argument")
+        if metric_name is None and 'metricName' in kwargs:
             metric_name = kwargs['metricName']
-        if 'currentAverageValue' in kwargs:
+        if metric_name is None:
+            raise TypeError("Missing 'metric_name' argument")
+        if current_average_value is None and 'currentAverageValue' in kwargs:
             current_average_value = kwargs['currentAverageValue']
-        if 'metricSelector' in kwargs:
+        if metric_selector is None and 'metricSelector' in kwargs:
             metric_selector = kwargs['metricSelector']
 
         _setter("current_value", current_value)
@@ -972,13 +992,13 @@ class ExternalMetricStatusPatch(dict):
              metric_selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'currentAverageValue' in kwargs:
+        if current_average_value is None and 'currentAverageValue' in kwargs:
             current_average_value = kwargs['currentAverageValue']
-        if 'currentValue' in kwargs:
+        if current_value is None and 'currentValue' in kwargs:
             current_value = kwargs['currentValue']
-        if 'metricName' in kwargs:
+        if metric_name is None and 'metricName' in kwargs:
             metric_name = kwargs['metricName']
-        if 'metricSelector' in kwargs:
+        if metric_selector is None and 'metricSelector' in kwargs:
             metric_selector = kwargs['metricSelector']
 
         if current_average_value is not None:
@@ -1077,7 +1097,7 @@ class HorizontalPodAutoscaler(dict):
              status: Optional['outputs.HorizontalPodAutoscalerStatus'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -1179,14 +1199,18 @@ class HorizontalPodAutoscalerCondition(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             status: str,
-             type: str,
+             status: Optional[str] = None,
+             type: Optional[str] = None,
              last_transition_time: Optional[str] = None,
              message: Optional[str] = None,
              reason: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'lastTransitionTime' in kwargs:
+        if status is None:
+            raise TypeError("Missing 'status' argument")
+        if type is None:
+            raise TypeError("Missing 'type' argument")
+        if last_transition_time is None and 'lastTransitionTime' in kwargs:
             last_transition_time = kwargs['lastTransitionTime']
 
         _setter("status", status)
@@ -1293,7 +1317,7 @@ class HorizontalPodAutoscalerConditionPatch(dict):
              type: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'lastTransitionTime' in kwargs:
+        if last_transition_time is None and 'lastTransitionTime' in kwargs:
             last_transition_time = kwargs['lastTransitionTime']
 
         if last_transition_time is not None:
@@ -1396,17 +1420,21 @@ class HorizontalPodAutoscalerSpec(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             max_replicas: int,
-             scale_target_ref: 'outputs.CrossVersionObjectReference',
+             max_replicas: Optional[int] = None,
+             scale_target_ref: Optional['outputs.CrossVersionObjectReference'] = None,
              metrics: Optional[Sequence['outputs.MetricSpec']] = None,
              min_replicas: Optional[int] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'maxReplicas' in kwargs:
+        if max_replicas is None and 'maxReplicas' in kwargs:
             max_replicas = kwargs['maxReplicas']
-        if 'scaleTargetRef' in kwargs:
+        if max_replicas is None:
+            raise TypeError("Missing 'max_replicas' argument")
+        if scale_target_ref is None and 'scaleTargetRef' in kwargs:
             scale_target_ref = kwargs['scaleTargetRef']
-        if 'minReplicas' in kwargs:
+        if scale_target_ref is None:
+            raise TypeError("Missing 'scale_target_ref' argument")
+        if min_replicas is None and 'minReplicas' in kwargs:
             min_replicas = kwargs['minReplicas']
 
         _setter("max_replicas", max_replicas)
@@ -1503,11 +1531,11 @@ class HorizontalPodAutoscalerSpecPatch(dict):
              scale_target_ref: Optional['outputs.CrossVersionObjectReferencePatch'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'maxReplicas' in kwargs:
+        if max_replicas is None and 'maxReplicas' in kwargs:
             max_replicas = kwargs['maxReplicas']
-        if 'minReplicas' in kwargs:
+        if min_replicas is None and 'minReplicas' in kwargs:
             min_replicas = kwargs['minReplicas']
-        if 'scaleTargetRef' in kwargs:
+        if scale_target_ref is None and 'scaleTargetRef' in kwargs:
             scale_target_ref = kwargs['scaleTargetRef']
 
         if max_replicas is not None:
@@ -1610,23 +1638,29 @@ class HorizontalPodAutoscalerStatus(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             conditions: Sequence['outputs.HorizontalPodAutoscalerCondition'],
-             current_replicas: int,
-             desired_replicas: int,
+             conditions: Optional[Sequence['outputs.HorizontalPodAutoscalerCondition']] = None,
+             current_replicas: Optional[int] = None,
+             desired_replicas: Optional[int] = None,
              current_metrics: Optional[Sequence['outputs.MetricStatus']] = None,
              last_scale_time: Optional[str] = None,
              observed_generation: Optional[int] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'currentReplicas' in kwargs:
+        if conditions is None:
+            raise TypeError("Missing 'conditions' argument")
+        if current_replicas is None and 'currentReplicas' in kwargs:
             current_replicas = kwargs['currentReplicas']
-        if 'desiredReplicas' in kwargs:
+        if current_replicas is None:
+            raise TypeError("Missing 'current_replicas' argument")
+        if desired_replicas is None and 'desiredReplicas' in kwargs:
             desired_replicas = kwargs['desiredReplicas']
-        if 'currentMetrics' in kwargs:
+        if desired_replicas is None:
+            raise TypeError("Missing 'desired_replicas' argument")
+        if current_metrics is None and 'currentMetrics' in kwargs:
             current_metrics = kwargs['currentMetrics']
-        if 'lastScaleTime' in kwargs:
+        if last_scale_time is None and 'lastScaleTime' in kwargs:
             last_scale_time = kwargs['lastScaleTime']
-        if 'observedGeneration' in kwargs:
+        if observed_generation is None and 'observedGeneration' in kwargs:
             observed_generation = kwargs['observedGeneration']
 
         _setter("conditions", conditions)
@@ -1754,15 +1788,15 @@ class HorizontalPodAutoscalerStatusPatch(dict):
              observed_generation: Optional[int] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'currentMetrics' in kwargs:
+        if current_metrics is None and 'currentMetrics' in kwargs:
             current_metrics = kwargs['currentMetrics']
-        if 'currentReplicas' in kwargs:
+        if current_replicas is None and 'currentReplicas' in kwargs:
             current_replicas = kwargs['currentReplicas']
-        if 'desiredReplicas' in kwargs:
+        if desired_replicas is None and 'desiredReplicas' in kwargs:
             desired_replicas = kwargs['desiredReplicas']
-        if 'lastScaleTime' in kwargs:
+        if last_scale_time is None and 'lastScaleTime' in kwargs:
             last_scale_time = kwargs['lastScaleTime']
-        if 'observedGeneration' in kwargs:
+        if observed_generation is None and 'observedGeneration' in kwargs:
             observed_generation = kwargs['observedGeneration']
 
         if conditions is not None:
@@ -1877,7 +1911,7 @@ class MetricSpec(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             type: str,
+             type: Optional[str] = None,
              container_resource: Optional['outputs.ContainerResourceMetricSource'] = None,
              external: Optional['outputs.ExternalMetricSource'] = None,
              object: Optional['outputs.ObjectMetricSource'] = None,
@@ -1885,7 +1919,9 @@ class MetricSpec(dict):
              resource: Optional['outputs.ResourceMetricSource'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'containerResource' in kwargs:
+        if type is None:
+            raise TypeError("Missing 'type' argument")
+        if container_resource is None and 'containerResource' in kwargs:
             container_resource = kwargs['containerResource']
 
         _setter("type", type)
@@ -2007,7 +2043,7 @@ class MetricSpecPatch(dict):
              type: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'containerResource' in kwargs:
+        if container_resource is None and 'containerResource' in kwargs:
             container_resource = kwargs['containerResource']
 
         if container_resource is not None:
@@ -2122,7 +2158,7 @@ class MetricStatus(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             type: str,
+             type: Optional[str] = None,
              container_resource: Optional['outputs.ContainerResourceMetricStatus'] = None,
              external: Optional['outputs.ExternalMetricStatus'] = None,
              object: Optional['outputs.ObjectMetricStatus'] = None,
@@ -2130,7 +2166,9 @@ class MetricStatus(dict):
              resource: Optional['outputs.ResourceMetricStatus'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'containerResource' in kwargs:
+        if type is None:
+            raise TypeError("Missing 'type' argument")
+        if container_resource is None and 'containerResource' in kwargs:
             container_resource = kwargs['containerResource']
 
         _setter("type", type)
@@ -2252,7 +2290,7 @@ class MetricStatusPatch(dict):
              type: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'containerResource' in kwargs:
+        if container_resource is None and 'containerResource' in kwargs:
             container_resource = kwargs['containerResource']
 
         if container_resource is not None:
@@ -2368,18 +2406,24 @@ class ObjectMetricSource(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             metric_name: str,
-             target: 'outputs.CrossVersionObjectReference',
-             target_value: str,
+             metric_name: Optional[str] = None,
+             target: Optional['outputs.CrossVersionObjectReference'] = None,
+             target_value: Optional[str] = None,
              average_value: Optional[str] = None,
              selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'metricName' in kwargs:
+        if metric_name is None and 'metricName' in kwargs:
             metric_name = kwargs['metricName']
-        if 'targetValue' in kwargs:
+        if metric_name is None:
+            raise TypeError("Missing 'metric_name' argument")
+        if target is None:
+            raise TypeError("Missing 'target' argument")
+        if target_value is None and 'targetValue' in kwargs:
             target_value = kwargs['targetValue']
-        if 'averageValue' in kwargs:
+        if target_value is None:
+            raise TypeError("Missing 'target_value' argument")
+        if average_value is None and 'averageValue' in kwargs:
             average_value = kwargs['averageValue']
 
         _setter("metric_name", metric_name)
@@ -2489,11 +2533,11 @@ class ObjectMetricSourcePatch(dict):
              target_value: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'averageValue' in kwargs:
+        if average_value is None and 'averageValue' in kwargs:
             average_value = kwargs['averageValue']
-        if 'metricName' in kwargs:
+        if metric_name is None and 'metricName' in kwargs:
             metric_name = kwargs['metricName']
-        if 'targetValue' in kwargs:
+        if target_value is None and 'targetValue' in kwargs:
             target_value = kwargs['targetValue']
 
         if average_value is not None:
@@ -2599,18 +2643,24 @@ class ObjectMetricStatus(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             current_value: str,
-             metric_name: str,
-             target: 'outputs.CrossVersionObjectReference',
+             current_value: Optional[str] = None,
+             metric_name: Optional[str] = None,
+             target: Optional['outputs.CrossVersionObjectReference'] = None,
              average_value: Optional[str] = None,
              selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'currentValue' in kwargs:
+        if current_value is None and 'currentValue' in kwargs:
             current_value = kwargs['currentValue']
-        if 'metricName' in kwargs:
+        if current_value is None:
+            raise TypeError("Missing 'current_value' argument")
+        if metric_name is None and 'metricName' in kwargs:
             metric_name = kwargs['metricName']
-        if 'averageValue' in kwargs:
+        if metric_name is None:
+            raise TypeError("Missing 'metric_name' argument")
+        if target is None:
+            raise TypeError("Missing 'target' argument")
+        if average_value is None and 'averageValue' in kwargs:
             average_value = kwargs['averageValue']
 
         _setter("current_value", current_value)
@@ -2720,11 +2770,11 @@ class ObjectMetricStatusPatch(dict):
              target: Optional['outputs.CrossVersionObjectReferencePatch'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'averageValue' in kwargs:
+        if average_value is None and 'averageValue' in kwargs:
             average_value = kwargs['averageValue']
-        if 'currentValue' in kwargs:
+        if current_value is None and 'currentValue' in kwargs:
             current_value = kwargs['currentValue']
-        if 'metricName' in kwargs:
+        if metric_name is None and 'metricName' in kwargs:
             metric_name = kwargs['metricName']
 
         if average_value is not None:
@@ -2822,15 +2872,19 @@ class PodsMetricSource(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             metric_name: str,
-             target_average_value: str,
+             metric_name: Optional[str] = None,
+             target_average_value: Optional[str] = None,
              selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'metricName' in kwargs:
+        if metric_name is None and 'metricName' in kwargs:
             metric_name = kwargs['metricName']
-        if 'targetAverageValue' in kwargs:
+        if metric_name is None:
+            raise TypeError("Missing 'metric_name' argument")
+        if target_average_value is None and 'targetAverageValue' in kwargs:
             target_average_value = kwargs['targetAverageValue']
+        if target_average_value is None:
+            raise TypeError("Missing 'target_average_value' argument")
 
         _setter("metric_name", metric_name)
         _setter("target_average_value", target_average_value)
@@ -2910,9 +2964,9 @@ class PodsMetricSourcePatch(dict):
              target_average_value: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'metricName' in kwargs:
+        if metric_name is None and 'metricName' in kwargs:
             metric_name = kwargs['metricName']
-        if 'targetAverageValue' in kwargs:
+        if target_average_value is None and 'targetAverageValue' in kwargs:
             target_average_value = kwargs['targetAverageValue']
 
         if metric_name is not None:
@@ -2990,15 +3044,19 @@ class PodsMetricStatus(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             current_average_value: str,
-             metric_name: str,
+             current_average_value: Optional[str] = None,
+             metric_name: Optional[str] = None,
              selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'currentAverageValue' in kwargs:
+        if current_average_value is None and 'currentAverageValue' in kwargs:
             current_average_value = kwargs['currentAverageValue']
-        if 'metricName' in kwargs:
+        if current_average_value is None:
+            raise TypeError("Missing 'current_average_value' argument")
+        if metric_name is None and 'metricName' in kwargs:
             metric_name = kwargs['metricName']
+        if metric_name is None:
+            raise TypeError("Missing 'metric_name' argument")
 
         _setter("current_average_value", current_average_value)
         _setter("metric_name", metric_name)
@@ -3078,9 +3136,9 @@ class PodsMetricStatusPatch(dict):
              selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'currentAverageValue' in kwargs:
+        if current_average_value is None and 'currentAverageValue' in kwargs:
             current_average_value = kwargs['currentAverageValue']
-        if 'metricName' in kwargs:
+        if metric_name is None and 'metricName' in kwargs:
             metric_name = kwargs['metricName']
 
         if current_average_value is not None:
@@ -3158,14 +3216,16 @@ class ResourceMetricSource(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             name: str,
+             name: Optional[str] = None,
              target_average_utilization: Optional[int] = None,
              target_average_value: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'targetAverageUtilization' in kwargs:
+        if name is None:
+            raise TypeError("Missing 'name' argument")
+        if target_average_utilization is None and 'targetAverageUtilization' in kwargs:
             target_average_utilization = kwargs['targetAverageUtilization']
-        if 'targetAverageValue' in kwargs:
+        if target_average_value is None and 'targetAverageValue' in kwargs:
             target_average_value = kwargs['targetAverageValue']
 
         _setter("name", name)
@@ -3247,9 +3307,9 @@ class ResourceMetricSourcePatch(dict):
              target_average_value: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'targetAverageUtilization' in kwargs:
+        if target_average_utilization is None and 'targetAverageUtilization' in kwargs:
             target_average_utilization = kwargs['targetAverageUtilization']
-        if 'targetAverageValue' in kwargs:
+        if target_average_value is None and 'targetAverageValue' in kwargs:
             target_average_value = kwargs['targetAverageValue']
 
         if name is not None:
@@ -3327,14 +3387,18 @@ class ResourceMetricStatus(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             current_average_value: str,
-             name: str,
+             current_average_value: Optional[str] = None,
+             name: Optional[str] = None,
              current_average_utilization: Optional[int] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'currentAverageValue' in kwargs:
+        if current_average_value is None and 'currentAverageValue' in kwargs:
             current_average_value = kwargs['currentAverageValue']
-        if 'currentAverageUtilization' in kwargs:
+        if current_average_value is None:
+            raise TypeError("Missing 'current_average_value' argument")
+        if name is None:
+            raise TypeError("Missing 'name' argument")
+        if current_average_utilization is None and 'currentAverageUtilization' in kwargs:
             current_average_utilization = kwargs['currentAverageUtilization']
 
         _setter("current_average_value", current_average_value)
@@ -3415,9 +3479,9 @@ class ResourceMetricStatusPatch(dict):
              name: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'currentAverageUtilization' in kwargs:
+        if current_average_utilization is None and 'currentAverageUtilization' in kwargs:
             current_average_utilization = kwargs['currentAverageUtilization']
-        if 'currentAverageValue' in kwargs:
+        if current_average_value is None and 'currentAverageValue' in kwargs:
             current_average_value = kwargs['currentAverageValue']
 
         if current_average_utilization is not None:

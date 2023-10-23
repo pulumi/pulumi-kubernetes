@@ -47,7 +47,7 @@ class CertificateSigningRequestConditionArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             type: pulumi.Input[str],
+             type: Optional[pulumi.Input[str]] = None,
              last_transition_time: Optional[pulumi.Input[str]] = None,
              last_update_time: Optional[pulumi.Input[str]] = None,
              message: Optional[pulumi.Input[str]] = None,
@@ -55,9 +55,11 @@ class CertificateSigningRequestConditionArgs:
              status: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'lastTransitionTime' in kwargs:
+        if type is None:
+            raise TypeError("Missing 'type' argument")
+        if last_transition_time is None and 'lastTransitionTime' in kwargs:
             last_transition_time = kwargs['lastTransitionTime']
-        if 'lastUpdateTime' in kwargs:
+        if last_update_time is None and 'lastUpdateTime' in kwargs:
             last_update_time = kwargs['lastUpdateTime']
 
         _setter("type", type)
@@ -194,7 +196,7 @@ class CertificateSigningRequestSpecPatchArgs:
              username: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'signerName' in kwargs:
+        if signer_name is None and 'signerName' in kwargs:
             signer_name = kwargs['signerName']
 
         if extra is not None:
@@ -344,7 +346,7 @@ class CertificateSigningRequestSpecArgs:
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             request: pulumi.Input[str],
+             request: Optional[pulumi.Input[str]] = None,
              extra: Optional[pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[str]]]]]] = None,
              groups: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              signer_name: Optional[pulumi.Input[str]] = None,
@@ -353,7 +355,9 @@ class CertificateSigningRequestSpecArgs:
              username: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'signerName' in kwargs:
+        if request is None:
+            raise TypeError("Missing 'request' argument")
+        if signer_name is None and 'signerName' in kwargs:
             signer_name = kwargs['signerName']
 
         _setter("request", request)
@@ -547,7 +551,7 @@ class CertificateSigningRequestArgs:
              status: Optional[pulumi.Input['CertificateSigningRequestStatusArgs']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:

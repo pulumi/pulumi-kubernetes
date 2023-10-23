@@ -54,9 +54,9 @@ class SecretInitArgs:
              type: Optional[pulumi.Input[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
-        if 'stringData' in kwargs:
+        if string_data is None and 'stringData' in kwargs:
             string_data = kwargs['stringData']
 
         if api_version is not None:

@@ -63,9 +63,11 @@ class AllowedCSIDriver(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             name: str,
+             name: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if name is None:
+            raise TypeError("Missing 'name' argument")
 
         _setter("name", name)
 
@@ -130,9 +132,11 @@ class AllowedFlexVolume(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             driver: str,
+             driver: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if driver is None:
+            raise TypeError("Missing 'driver' argument")
 
         _setter("driver", driver)
 
@@ -225,9 +229,9 @@ class AllowedHostPath(dict):
              read_only: Optional[bool] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'pathPrefix' in kwargs:
+        if path_prefix is None and 'pathPrefix' in kwargs:
             path_prefix = kwargs['pathPrefix']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
 
         if path_prefix is not None:
@@ -300,9 +304,9 @@ class AllowedHostPathPatch(dict):
              read_only: Optional[bool] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'pathPrefix' in kwargs:
+        if path_prefix is None and 'pathPrefix' in kwargs:
             path_prefix = kwargs['pathPrefix']
-        if 'readOnly' in kwargs:
+        if read_only is None and 'readOnly' in kwargs:
             read_only = kwargs['readOnly']
 
         if path_prefix is not None:
@@ -446,10 +450,14 @@ class HostPortRange(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             max: int,
-             min: int,
+             max: Optional[int] = None,
+             min: Optional[int] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if max is None:
+            raise TypeError("Missing 'max' argument")
+        if min is None:
+            raise TypeError("Missing 'min' argument")
 
         _setter("max", max)
         _setter("min", min)
@@ -540,10 +548,14 @@ class IDRange(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             max: int,
-             min: int,
+             max: Optional[int] = None,
+             min: Optional[int] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if max is None:
+            raise TypeError("Missing 'max' argument")
+        if min is None:
+            raise TypeError("Missing 'min' argument")
 
         _setter("max", max)
         _setter("min", min)
@@ -666,7 +678,7 @@ class PodDisruptionBudget(dict):
              status: Optional['outputs.PodDisruptionBudgetStatus'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -766,9 +778,9 @@ class PodDisruptionBudgetSpec(dict):
              selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'maxUnavailable' in kwargs:
+        if max_unavailable is None and 'maxUnavailable' in kwargs:
             max_unavailable = kwargs['maxUnavailable']
-        if 'minAvailable' in kwargs:
+        if min_available is None and 'minAvailable' in kwargs:
             min_available = kwargs['minAvailable']
 
         if max_unavailable is not None:
@@ -851,9 +863,9 @@ class PodDisruptionBudgetSpecPatch(dict):
              selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'maxUnavailable' in kwargs:
+        if max_unavailable is None and 'maxUnavailable' in kwargs:
             max_unavailable = kwargs['maxUnavailable']
-        if 'minAvailable' in kwargs:
+        if min_available is None and 'minAvailable' in kwargs:
             min_available = kwargs['minAvailable']
 
         if max_unavailable is not None:
@@ -948,25 +960,33 @@ class PodDisruptionBudgetStatus(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             current_healthy: int,
-             desired_healthy: int,
-             disruptions_allowed: int,
-             expected_pods: int,
+             current_healthy: Optional[int] = None,
+             desired_healthy: Optional[int] = None,
+             disruptions_allowed: Optional[int] = None,
+             expected_pods: Optional[int] = None,
              disrupted_pods: Optional[Mapping[str, str]] = None,
              observed_generation: Optional[int] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'currentHealthy' in kwargs:
+        if current_healthy is None and 'currentHealthy' in kwargs:
             current_healthy = kwargs['currentHealthy']
-        if 'desiredHealthy' in kwargs:
+        if current_healthy is None:
+            raise TypeError("Missing 'current_healthy' argument")
+        if desired_healthy is None and 'desiredHealthy' in kwargs:
             desired_healthy = kwargs['desiredHealthy']
-        if 'disruptionsAllowed' in kwargs:
+        if desired_healthy is None:
+            raise TypeError("Missing 'desired_healthy' argument")
+        if disruptions_allowed is None and 'disruptionsAllowed' in kwargs:
             disruptions_allowed = kwargs['disruptionsAllowed']
-        if 'expectedPods' in kwargs:
+        if disruptions_allowed is None:
+            raise TypeError("Missing 'disruptions_allowed' argument")
+        if expected_pods is None and 'expectedPods' in kwargs:
             expected_pods = kwargs['expectedPods']
-        if 'disruptedPods' in kwargs:
+        if expected_pods is None:
+            raise TypeError("Missing 'expected_pods' argument")
+        if disrupted_pods is None and 'disruptedPods' in kwargs:
             disrupted_pods = kwargs['disruptedPods']
-        if 'observedGeneration' in kwargs:
+        if observed_generation is None and 'observedGeneration' in kwargs:
             observed_generation = kwargs['observedGeneration']
 
         _setter("current_healthy", current_healthy)
@@ -1095,17 +1115,17 @@ class PodDisruptionBudgetStatusPatch(dict):
              observed_generation: Optional[int] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'currentHealthy' in kwargs:
+        if current_healthy is None and 'currentHealthy' in kwargs:
             current_healthy = kwargs['currentHealthy']
-        if 'desiredHealthy' in kwargs:
+        if desired_healthy is None and 'desiredHealthy' in kwargs:
             desired_healthy = kwargs['desiredHealthy']
-        if 'disruptedPods' in kwargs:
+        if disrupted_pods is None and 'disruptedPods' in kwargs:
             disrupted_pods = kwargs['disruptedPods']
-        if 'disruptionsAllowed' in kwargs:
+        if disruptions_allowed is None and 'disruptionsAllowed' in kwargs:
             disruptions_allowed = kwargs['disruptionsAllowed']
-        if 'expectedPods' in kwargs:
+        if expected_pods is None and 'expectedPods' in kwargs:
             expected_pods = kwargs['expectedPods']
-        if 'observedGeneration' in kwargs:
+        if observed_generation is None and 'observedGeneration' in kwargs:
             observed_generation = kwargs['observedGeneration']
 
         if current_healthy is not None:
@@ -1220,7 +1240,7 @@ class PodSecurityPolicy(dict):
              spec: Optional['outputs.PodSecurityPolicySpec'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'apiVersion' in kwargs:
+        if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
 
         if api_version is not None:
@@ -1415,10 +1435,10 @@ class PodSecurityPolicySpec(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             fs_group: 'outputs.FSGroupStrategyOptions',
-             run_as_user: 'outputs.RunAsUserStrategyOptions',
-             se_linux: 'outputs.SELinuxStrategyOptions',
-             supplemental_groups: 'outputs.SupplementalGroupsStrategyOptions',
+             fs_group: Optional['outputs.FSGroupStrategyOptions'] = None,
+             run_as_user: Optional['outputs.RunAsUserStrategyOptions'] = None,
+             se_linux: Optional['outputs.SELinuxStrategyOptions'] = None,
+             supplemental_groups: Optional['outputs.SupplementalGroupsStrategyOptions'] = None,
              allow_privilege_escalation: Optional[bool] = None,
              allowed_csi_drivers: Optional[Sequence['outputs.AllowedCSIDriver']] = None,
              allowed_capabilities: Optional[Sequence[str]] = None,
@@ -1441,49 +1461,57 @@ class PodSecurityPolicySpec(dict):
              volumes: Optional[Sequence[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'fsGroup' in kwargs:
+        if fs_group is None and 'fsGroup' in kwargs:
             fs_group = kwargs['fsGroup']
-        if 'runAsUser' in kwargs:
+        if fs_group is None:
+            raise TypeError("Missing 'fs_group' argument")
+        if run_as_user is None and 'runAsUser' in kwargs:
             run_as_user = kwargs['runAsUser']
-        if 'seLinux' in kwargs:
+        if run_as_user is None:
+            raise TypeError("Missing 'run_as_user' argument")
+        if se_linux is None and 'seLinux' in kwargs:
             se_linux = kwargs['seLinux']
-        if 'supplementalGroups' in kwargs:
+        if se_linux is None:
+            raise TypeError("Missing 'se_linux' argument")
+        if supplemental_groups is None and 'supplementalGroups' in kwargs:
             supplemental_groups = kwargs['supplementalGroups']
-        if 'allowPrivilegeEscalation' in kwargs:
+        if supplemental_groups is None:
+            raise TypeError("Missing 'supplemental_groups' argument")
+        if allow_privilege_escalation is None and 'allowPrivilegeEscalation' in kwargs:
             allow_privilege_escalation = kwargs['allowPrivilegeEscalation']
-        if 'allowedCSIDrivers' in kwargs:
+        if allowed_csi_drivers is None and 'allowedCSIDrivers' in kwargs:
             allowed_csi_drivers = kwargs['allowedCSIDrivers']
-        if 'allowedCapabilities' in kwargs:
+        if allowed_capabilities is None and 'allowedCapabilities' in kwargs:
             allowed_capabilities = kwargs['allowedCapabilities']
-        if 'allowedFlexVolumes' in kwargs:
+        if allowed_flex_volumes is None and 'allowedFlexVolumes' in kwargs:
             allowed_flex_volumes = kwargs['allowedFlexVolumes']
-        if 'allowedHostPaths' in kwargs:
+        if allowed_host_paths is None and 'allowedHostPaths' in kwargs:
             allowed_host_paths = kwargs['allowedHostPaths']
-        if 'allowedProcMountTypes' in kwargs:
+        if allowed_proc_mount_types is None and 'allowedProcMountTypes' in kwargs:
             allowed_proc_mount_types = kwargs['allowedProcMountTypes']
-        if 'allowedUnsafeSysctls' in kwargs:
+        if allowed_unsafe_sysctls is None and 'allowedUnsafeSysctls' in kwargs:
             allowed_unsafe_sysctls = kwargs['allowedUnsafeSysctls']
-        if 'defaultAddCapabilities' in kwargs:
+        if default_add_capabilities is None and 'defaultAddCapabilities' in kwargs:
             default_add_capabilities = kwargs['defaultAddCapabilities']
-        if 'defaultAllowPrivilegeEscalation' in kwargs:
+        if default_allow_privilege_escalation is None and 'defaultAllowPrivilegeEscalation' in kwargs:
             default_allow_privilege_escalation = kwargs['defaultAllowPrivilegeEscalation']
-        if 'forbiddenSysctls' in kwargs:
+        if forbidden_sysctls is None and 'forbiddenSysctls' in kwargs:
             forbidden_sysctls = kwargs['forbiddenSysctls']
-        if 'hostIPC' in kwargs:
+        if host_ipc is None and 'hostIPC' in kwargs:
             host_ipc = kwargs['hostIPC']
-        if 'hostNetwork' in kwargs:
+        if host_network is None and 'hostNetwork' in kwargs:
             host_network = kwargs['hostNetwork']
-        if 'hostPID' in kwargs:
+        if host_pid is None and 'hostPID' in kwargs:
             host_pid = kwargs['hostPID']
-        if 'hostPorts' in kwargs:
+        if host_ports is None and 'hostPorts' in kwargs:
             host_ports = kwargs['hostPorts']
-        if 'readOnlyRootFilesystem' in kwargs:
+        if read_only_root_filesystem is None and 'readOnlyRootFilesystem' in kwargs:
             read_only_root_filesystem = kwargs['readOnlyRootFilesystem']
-        if 'requiredDropCapabilities' in kwargs:
+        if required_drop_capabilities is None and 'requiredDropCapabilities' in kwargs:
             required_drop_capabilities = kwargs['requiredDropCapabilities']
-        if 'runAsGroup' in kwargs:
+        if run_as_group is None and 'runAsGroup' in kwargs:
             run_as_group = kwargs['runAsGroup']
-        if 'runtimeClass' in kwargs:
+        if runtime_class is None and 'runtimeClass' in kwargs:
             runtime_class = kwargs['runtimeClass']
 
         _setter("fs_group", fs_group)
@@ -1904,49 +1932,49 @@ class PodSecurityPolicySpecPatch(dict):
              volumes: Optional[Sequence[str]] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'allowPrivilegeEscalation' in kwargs:
+        if allow_privilege_escalation is None and 'allowPrivilegeEscalation' in kwargs:
             allow_privilege_escalation = kwargs['allowPrivilegeEscalation']
-        if 'allowedCSIDrivers' in kwargs:
+        if allowed_csi_drivers is None and 'allowedCSIDrivers' in kwargs:
             allowed_csi_drivers = kwargs['allowedCSIDrivers']
-        if 'allowedCapabilities' in kwargs:
+        if allowed_capabilities is None and 'allowedCapabilities' in kwargs:
             allowed_capabilities = kwargs['allowedCapabilities']
-        if 'allowedFlexVolumes' in kwargs:
+        if allowed_flex_volumes is None and 'allowedFlexVolumes' in kwargs:
             allowed_flex_volumes = kwargs['allowedFlexVolumes']
-        if 'allowedHostPaths' in kwargs:
+        if allowed_host_paths is None and 'allowedHostPaths' in kwargs:
             allowed_host_paths = kwargs['allowedHostPaths']
-        if 'allowedProcMountTypes' in kwargs:
+        if allowed_proc_mount_types is None and 'allowedProcMountTypes' in kwargs:
             allowed_proc_mount_types = kwargs['allowedProcMountTypes']
-        if 'allowedUnsafeSysctls' in kwargs:
+        if allowed_unsafe_sysctls is None and 'allowedUnsafeSysctls' in kwargs:
             allowed_unsafe_sysctls = kwargs['allowedUnsafeSysctls']
-        if 'defaultAddCapabilities' in kwargs:
+        if default_add_capabilities is None and 'defaultAddCapabilities' in kwargs:
             default_add_capabilities = kwargs['defaultAddCapabilities']
-        if 'defaultAllowPrivilegeEscalation' in kwargs:
+        if default_allow_privilege_escalation is None and 'defaultAllowPrivilegeEscalation' in kwargs:
             default_allow_privilege_escalation = kwargs['defaultAllowPrivilegeEscalation']
-        if 'forbiddenSysctls' in kwargs:
+        if forbidden_sysctls is None and 'forbiddenSysctls' in kwargs:
             forbidden_sysctls = kwargs['forbiddenSysctls']
-        if 'fsGroup' in kwargs:
+        if fs_group is None and 'fsGroup' in kwargs:
             fs_group = kwargs['fsGroup']
-        if 'hostIPC' in kwargs:
+        if host_ipc is None and 'hostIPC' in kwargs:
             host_ipc = kwargs['hostIPC']
-        if 'hostNetwork' in kwargs:
+        if host_network is None and 'hostNetwork' in kwargs:
             host_network = kwargs['hostNetwork']
-        if 'hostPID' in kwargs:
+        if host_pid is None and 'hostPID' in kwargs:
             host_pid = kwargs['hostPID']
-        if 'hostPorts' in kwargs:
+        if host_ports is None and 'hostPorts' in kwargs:
             host_ports = kwargs['hostPorts']
-        if 'readOnlyRootFilesystem' in kwargs:
+        if read_only_root_filesystem is None and 'readOnlyRootFilesystem' in kwargs:
             read_only_root_filesystem = kwargs['readOnlyRootFilesystem']
-        if 'requiredDropCapabilities' in kwargs:
+        if required_drop_capabilities is None and 'requiredDropCapabilities' in kwargs:
             required_drop_capabilities = kwargs['requiredDropCapabilities']
-        if 'runAsGroup' in kwargs:
+        if run_as_group is None and 'runAsGroup' in kwargs:
             run_as_group = kwargs['runAsGroup']
-        if 'runAsUser' in kwargs:
+        if run_as_user is None and 'runAsUser' in kwargs:
             run_as_user = kwargs['runAsUser']
-        if 'runtimeClass' in kwargs:
+        if runtime_class is None and 'runtimeClass' in kwargs:
             runtime_class = kwargs['runtimeClass']
-        if 'seLinux' in kwargs:
+        if se_linux is None and 'seLinux' in kwargs:
             se_linux = kwargs['seLinux']
-        if 'supplementalGroups' in kwargs:
+        if supplemental_groups is None and 'supplementalGroups' in kwargs:
             supplemental_groups = kwargs['supplementalGroups']
 
         if allow_privilege_escalation is not None:
@@ -2216,10 +2244,12 @@ class RunAsGroupStrategyOptions(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             rule: str,
+             rule: Optional[str] = None,
              ranges: Optional[Sequence['outputs.IDRange']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if rule is None:
+            raise TypeError("Missing 'rule' argument")
 
         _setter("rule", rule)
         if ranges is not None:
@@ -2311,10 +2341,12 @@ class RunAsUserStrategyOptions(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             rule: str,
+             rule: Optional[str] = None,
              ranges: Optional[Sequence['outputs.IDRange']] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
+        if rule is None:
+            raise TypeError("Missing 'rule' argument")
 
         _setter("rule", rule)
         if ranges is not None:
@@ -2425,13 +2457,15 @@ class RuntimeClassStrategyOptions(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             allowed_runtime_class_names: Sequence[str],
+             allowed_runtime_class_names: Optional[Sequence[str]] = None,
              default_runtime_class_name: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'allowedRuntimeClassNames' in kwargs:
+        if allowed_runtime_class_names is None and 'allowedRuntimeClassNames' in kwargs:
             allowed_runtime_class_names = kwargs['allowedRuntimeClassNames']
-        if 'defaultRuntimeClassName' in kwargs:
+        if allowed_runtime_class_names is None:
+            raise TypeError("Missing 'allowed_runtime_class_names' argument")
+        if default_runtime_class_name is None and 'defaultRuntimeClassName' in kwargs:
             default_runtime_class_name = kwargs['defaultRuntimeClassName']
 
         _setter("allowed_runtime_class_names", allowed_runtime_class_names)
@@ -2499,9 +2533,9 @@ class RuntimeClassStrategyOptionsPatch(dict):
              default_runtime_class_name: Optional[str] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'allowedRuntimeClassNames' in kwargs:
+        if allowed_runtime_class_names is None and 'allowedRuntimeClassNames' in kwargs:
             allowed_runtime_class_names = kwargs['allowedRuntimeClassNames']
-        if 'defaultRuntimeClassName' in kwargs:
+        if default_runtime_class_name is None and 'defaultRuntimeClassName' in kwargs:
             default_runtime_class_name = kwargs['defaultRuntimeClassName']
 
         if allowed_runtime_class_names is not None:
@@ -2564,11 +2598,13 @@ class SELinuxStrategyOptions(dict):
     @staticmethod
     def _configure(
              _setter: Callable[[Any, Any], None],
-             rule: str,
+             rule: Optional[str] = None,
              se_linux_options: Optional['_core.v1.outputs.SELinuxOptions'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'seLinuxOptions' in kwargs:
+        if rule is None:
+            raise TypeError("Missing 'rule' argument")
+        if se_linux_options is None and 'seLinuxOptions' in kwargs:
             se_linux_options = kwargs['seLinuxOptions']
 
         _setter("rule", rule)
@@ -2634,7 +2670,7 @@ class SELinuxStrategyOptionsPatch(dict):
              se_linux_options: Optional['_core.v1.outputs.SELinuxOptionsPatch'] = None,
              opts: Optional[pulumi.ResourceOptions]=None,
              **kwargs):
-        if 'seLinuxOptions' in kwargs:
+        if se_linux_options is None and 'seLinuxOptions' in kwargs:
             se_linux_options = kwargs['seLinuxOptions']
 
         if rule is not None:
