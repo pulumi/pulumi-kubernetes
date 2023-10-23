@@ -94,11 +94,10 @@ export class Directory extends yaml.CollectionComponentResource {
         }
         super("kubernetes:kustomize:Directory", name, config, opts);
 
-        const directory = config.directory
-
-        // Rather than using the default provider for the following invoke call, use the version specified
-        // in package.json.
-        let invokeOpts: pulumi.InvokeOptions = { async: true, version: getVersion(), provider: opts?.provider };
+        const directory = config.directory;
+        
+        const childOpts = yaml.getChildOpts(this, opts);
+        const invokeOpts = yaml.getInvokeOpts(childOpts);
 
         const promise = pulumi.runtime.invoke("kubernetes:kustomize:directory", {directory}, invokeOpts);
         this.resources = pulumi.output(promise).apply<{[key: string]: pulumi.CustomResource}>(p => yaml.parse(
@@ -107,7 +106,7 @@ export class Directory extends yaml.CollectionComponentResource {
                 objs: p.result,
                 transformations: config.transformations || [],
             },
-            { parent: this, dependsOn: opts?.dependsOn }
+            childOpts
         ));
     }
 }
