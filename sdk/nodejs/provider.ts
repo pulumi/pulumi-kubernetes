@@ -25,38 +25,6 @@ export class Provider extends pulumi.ProviderResource {
         return obj['__pulumiType'] === "pulumi:providers:" + Provider.__pulumiType;
     }
 
-    /**
-     * If present, the name of the kubeconfig cluster to use.
-     */
-    public readonly cluster!: pulumi.Output<string>;
-    /**
-     * If present, the name of the kubeconfig context to use.
-     */
-    public readonly context!: pulumi.Output<string>;
-    /**
-     * The contents of a kubeconfig file or the path to a kubeconfig file.
-     */
-    public readonly kubeconfig!: pulumi.Output<string>;
-    /**
-     * If present, the default namespace to use. This flag is ignored for cluster-scoped resources.
-     *
-     * A namespace can be specified in multiple places, and the precedence is as follows:
-     * 1. `.metadata.namespace` set on the resource.
-     * 2. This `namespace` parameter.
-     * 3. `namespace` set for the active context in the kubeconfig.
-     */
-    public readonly namespace!: pulumi.Output<string>;
-    /**
-     * BETA FEATURE - If present, render resource manifests to this directory. In this mode, resources will not
-     * be created on a Kubernetes cluster, but the rendered manifests will be kept in sync with changes
-     * to the Pulumi program. This feature is in developer preview, and is disabled by default.
-     *
-     * Note that some computed Outputs such as status fields will not be populated
-     * since the resources are not created on a Kubernetes cluster. These Output values will remain undefined,
-     * and may result in an error if they are referenced by other resources. Also note that any secret values
-     * used in these resources will be rendered in plaintext to the resulting YAML.
-     */
-    public readonly renderYamlToDirectory!: pulumi.Output<string>;
 
     /**
      * Create a Provider resource with the given unique name, arguments, and options.

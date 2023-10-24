@@ -58,7 +58,7 @@ new k8s.core.v1.Pod("nginx2", {
 
 // Create a Pod using the contents provider with a specified namespace.
 // The namespace should not be overridden by the provider default.
-new k8s.core.v1.Pod("namespaced-nginx1", {
+new k8s.core.v1.Pod("namespaced-nginx", {
     metadata: { namespace: ns2.metadata.name },
     spec: {
         containers: [{
@@ -68,19 +68,6 @@ new k8s.core.v1.Pod("namespaced-nginx1", {
         }],
     },
 }, { provider: kubeconfigContentsProvider });
-
-// Create a Pod using the namespace output property of the contents provider.
-// use the default provider to ensure that the namespace isn't inherited by other means. 
-new k8s.core.v1.Pod("namespaced-nginx2", {
-    metadata: { namespace: kubeconfigContentsProvider.namespace },
-    spec: {
-        containers: [{
-            image: "nginx:1.7.9",
-            name: "nginx",
-            ports: [{ containerPort: 80 }],
-        }],
-    },
-});
 
 // Create a Namespace using the contents provider
 // The namespace should not be affected by the provider override since it is a cluster-scoped kind.

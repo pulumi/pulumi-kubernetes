@@ -12,7 +12,6 @@
 - Fix normalizing fields with empty objects/slices (https://github.com/pulumi/pulumi-kubernetes/pull/2576)
 - helm.v3.Release: Improved cancellation support (https://github.com/pulumi/pulumi-kubernetes/pull/2579)
 - Update Kubernetes client library to v0.28.2 (https://github.com/pulumi/pulumi-kubernetes/pull/2585)
-- Normalize provider inputs and make available as outputs (https://github.com/pulumi/pulumi-kubernetes/pull/2598)
 
 ## 4.3.0 (September 25, 2023)
 

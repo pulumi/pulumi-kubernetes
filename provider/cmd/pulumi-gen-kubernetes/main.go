@@ -711,7 +711,7 @@ func buildPulumiFieldsFromTerraform(path string, block *TerraformBlockSchema) ma
 		if path == "kubernetes_deployment.spec.template.spec.container" && blockName == "port" {
 			field["name"] = "ports"
 		}
-		// 3. kubernetes_service has a field "port" which is a list, but we call it "ports"
+		// 3. kubernetes_service has a field "port" wich is a list, but we call it "ports"
 		if path == "kubernetes_service.spec" && blockName == "port" {
 			field["name"] = "ports"
 		}

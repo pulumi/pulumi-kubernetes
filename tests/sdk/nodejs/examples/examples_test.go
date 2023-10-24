@@ -489,25 +489,6 @@ func TestHelmReleaseNamespace(t *testing.T) {
 	integration.ProgramTest(t, &test)
 }
 
-// TestHelmReleaseProviderNamespace tests how Helm Release inherits provider namespace.
-func TestHelmReleaseProviderNamespace(t *testing.T) {
-	tests.SkipIfShort(t)
-	test := getBaseOptions(t).
-		With(integration.ProgramTestOptions{
-			Dir:         filepath.Join(getCwd(t), "helm-release-provider-namespace"),
-			SkipRefresh: true,
-			Verbose:     true,
-			Quick:       true,
-			ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
-				assert.NotNil(t, stackInfo.Outputs["providerNamespace"])
-				assert.NotNil(t, stackInfo.Outputs["alertManagerNamespace"])
-				assert.Equal(t, stackInfo.Outputs["providerNamespace"], stackInfo.Outputs["alertManagerNamespace"])
-			},
-		})
-
-	integration.ProgramTest(t, &test)
-}
-
 func TestHelmReleaseRedis(t *testing.T) {
 	expectKeyringInput := func(verifyVal bool, keyRingNonEmpty bool) func(t *testing.T,
 		stackInfo integration.RuntimeValidationStackInfo) {
