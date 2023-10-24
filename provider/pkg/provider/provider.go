@@ -2796,6 +2796,7 @@ func normalizeInputs(uns *unstructured.Unstructured) (*unstructured.Unstructured
 	unstructured.RemoveNestedField(uns.Object, "metadata", "managedFields")
 	unstructured.RemoveNestedField(uns.Object, "metadata", "resourceVersion")
 	unstructured.RemoveNestedField(uns.Object, "metadata", "uid")
+	unstructured.RemoveNestedField(uns.Object, "spec", "template", "metadata", "creationTimestamp")
 
 	return uns, nil
 }
