@@ -16,13 +16,13 @@ package provider
 
 import (
 	"encoding/json"
-	"os"
 	"reflect"
 	"testing"
 
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/stretchr/testify/assert"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/client-go/tools/clientcmd"
 	clientapi "k8s.io/client-go/tools/clientcmd/api"
 )
@@ -188,7 +188,7 @@ func TestFqName(t *testing.T) {
 	}
 }
 
-func Test_loadKubeconfig(t *testing.T) {
+func Test_getActiveClusterFromConfig(t *testing.T) {
 	const validKubeconfig = `apiVersion: v1
 clusters:
 - cluster:
@@ -209,7 +209,7 @@ users:
     client-certificate-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURGVENDQWYyZ0F3SUJBZ0lJWnBUZjVmbTZDQW93RFFZSktvWklodmNOQVFFTEJRQXdGVEVUTUJFR0ExVUUKQXhNS2EzVmlaWEp1WlhSbGN6QWVGdzB5TVRBME1qY3hOVFEzTURWYUZ3MHlNakExTVRJeU16SXdNVEphTURZeApGekFWQmdOVkJBb1REbk41YzNSbGJUcHRZWE4wWlhKek1Sc3dHUVlEVlFRREV4SmtiMk5yWlhJdFptOXlMV1JsCmMydDBiM0F3Z2dFaU1BMEdDU3FHU0liM0RRRUJBUVVBQTRJQkR3QXdnZ0VLQW9JQkFRRENMaDZ3MWV5WGpOQ3AKSzI5ZFJJQ3o3eHd3K1ZPVXVYYlh2R2NJTEFxaElUdlR3WTJqUmVaTFFXK3B5Wm9XUUdWZm5EYVZ5TGxmUUVaOQpXQm9IcEkvWGVvVWl4Uy9mWmVPN1RTeXA1bFpLcExzaXBMSE1RazN1NHp2d1RqelJITFJ4Q3k3b2RWTUVxVWFyCkkveUxiVUMxL1RkaGc3WkVZTFVrbEE4bWVhWFpHMGx5ZjA4UEdTdTVLUUJuTFVlbXk5OHNqV2U3YTBvdlRZd3kKTUhveUhyS0VGV0xCTmYrTm5TMTY3ZFBONzhTNCtENThobGxZTmZEZDVHbXJYYUFBYzVxeHhCSW5VcmhkSDJQawo2YUZkZXduQjFRQlV6OWVlVUJEVlFoQmwwbXNoMmRUSWF3cGlnbENrTnR1RlhoTEhGMitaRjFCSzN5VnZaYURsCmsyOTNnanlwQWdNQkFBR2pTREJHTUE0R0ExVWREd0VCL3dRRUF3SUZvREFUQmdOVkhTVUVEREFLQmdnckJnRUYKQlFjREFqQWZCZ05WSFNNRUdEQVdnQlNGOHBIQ29IVytDVnc5eWtjMGlSNS9yMHdjc2pBTkJna3Foa2lHOXcwQgpBUXNGQUFPQ0FRRUFnT1dxR2Q0TnlCRzFDOUovb1NVTmxzdkxSWXp4eEluZ0VsT09MUmlNN2t2dTduRXV6SHBYCkViODh3di9SSU1qWlFlbDFOTmdLWFJvb0hOSmpXcVppOG5aMEIxangySnNmaldrZWlPUE1aTjZqNzhzdDBqWmsKZDErSW5Oem1raEo4ck92UjVCd2xFcDNUcUtTN3J6dzF4MnphRkxUVWtZblh6Wnp4TkU3VGZuZVJVSG4zVyt4SwpXMFFaS3RkUlcvV0M5M3AvckcvZXp2Z0o5dCthenZwa2V1bklTUm5lbFpGQzgrZTR3ZXdoZm15TmRtUFVySThkCnQyMzhxeVhaNzZMTERKTFFDSTRieFRSVVpJM2NDdFY4bzU0UThnVHAvNklaRXVkV3dPbEdXa0FackdaMXNCN2QKQ1RRbjRVTVBXV0JmTzBPcFdZS3hGcVg4U1FpQndQaWhDdz09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
     client-key-data: LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFcEFJQkFBS0NBUUVBd2k0ZXNOWHNsNHpRcVN0dlhVU0FzKzhjTVBsVGxMbDIxN3huQ0N3S29TRTcwOEdOCm8wWG1TMEZ2cWNtYUZrQmxYNXcybGNpNVgwQkdmVmdhQjZTUDEzcUZJc1V2MzJYanUwMHNxZVpXU3FTN0lxU3gKekVKTjd1TTc4RTQ4MFJ5MGNRc3U2SFZUQktsR3F5UDhpMjFBdGYwM1lZTzJSR0MxSkpRUEpubWwyUnRKY245UApEeGtydVNrQVp5MUhwc3ZmTEkxbnUydEtMMDJNTWpCNk1oNnloQlZpd1RYL2paMHRldTNUemUvRXVQZytmSVpaCldEWHczZVJwcTEyZ0FIT2FzY1FTSjFLNFhSOWo1T21oWFhzSndkVUFWTS9YbmxBUTFVSVFaZEpySWRuVXlHc0sKWW9KUXBEYmJoVjRTeHhkdm1SZFFTdDhsYjJXZzVaTnZkNEk4cVFJREFRQUJBb0lCQVFDeitSY05BMW1EcFVvSQpZVytZWEZPRmNnc0pBUzJNWE5GZlp3bC9zNEl1a2FUbndTOUxzdytkbElxd0xXQ1pXeG9hSWFrZDdxcVJNL3VoClZUVGEvSlV0UEN1RmJJblFYcGxTRWxkaEtWRzFZVFRwQ1FpWnJxS1kxUmZLeEZqdDM5TUdLejFReXQwbEp0ZU8KNjQyNGxJd3pvUHZoYjdoUmEraTRmRm9HYVIxa09KN1dGcFNwM2pUa0pZckFpQWViL2IxUlZ5Rk9sNm9IcEozcQo3dmxoaHZibklJcXdrMHp4VU1ya1ArTDR2azhLdjhEcVZZMTg1M1B5UWJ3cm1EUnBkNWYvTmRwZ0lrMWNjUURZCk1OUUxPd3NaRThsdTJZMW9PcTVpRmhZZEFmM2o2Ykt2Vi92WFAxdXhtdlZSMEZ6eWU0L2JuaXBUcWdNYUI1ZnQKQWJ5MVJsL2hBb0dCQU5vRnBLVExmTGYvQUFqNGw4TmlvdjJ2OXhVWmlrQVhNL0NPREpDVzVEU2hZakNZV0tDNApYNm8vdlJ6bHF3NWNaMDEvKzBYZ2lRa0tBQUdacXlzRnRsYjgveDdkYThnVWVDRVhGcDUzNlRiZXdHaXJlSlRoCkNCSnhlQ0x1cjdLVmp6RnpHdFZlTzY4VzRHRjg0ZmlQaUk0ZVJETlExN0pYVVR2cGtZTGNCQ2RsQW9HQkFPUUIKU05hdS9GYVdHVG5DbkVKa2pqRm9JdWFGbnVLaHphd1FIUHVFSFV6TFMzT1Fqem54MVRmMGU5aWxkRHBoekJ0SQpoNUgrbzFvUmhNYlN5Z2g1SGQ5aE1nekM3cjcrNmdPU2hMOEdnNjJwNU13YzhSVUhnZWhOWmkxSEJaeUh0VGFFCmg3LzA2YjBOV3lyMDRVcGNSZXJIME44TWdSWXI2emZ4K25MblpGWDFBb0dBSE1kLzYwejlJcUNqbFl1VEpQU0IKUlhHVDhSSVZBTTdQU1dMRzM5TTdQb05MSGRVT1pmRFFsLzJmN2crWEcrY3dyN2RFS1A0eHVLSzhTM25JY1g1bwppbVVOSERyb1Bsb05YWGpad0lOZG9xT1d6SHBPQ1lFRytzQkZ0bjdCYkpaM2QzU1ZSek1RTjlXU091d3NQQTVlClhUdzdqbmFPY25rNlBPbGhEdUFTSUUwQ2dZRUFuNGpHam5DaDMzUG04cU5ZOHB1cFlxaWF3dkY3MnRlY01XaVUKM3VmeUdHbW13WlhFb2FhMHFoSkhGYSt2UTZwcVJpelpyeTJjM3NpalB2citvaThjMTlBS1ZTT1FLZFB6cWN3NwpWZTRZOU1xTGJNWlRhWU4zUWpQbDZvaG5STDh2N0pXTzVxRlhheENOV2VFK1FlbU9nbGlOcllQeVRyRXNSRmpzCkJMb2pXb0VDZ1lCaWMrWjJvSzNTTmpzL3J5ZFU1Lzg3T3NVbExHamxKbDI1NE0xaGl3RmVsd3pUWjNXWjFuZlkKcS80Mm5GR3VRQUQ3RFFwSTBCSnFWVTJCQlZySmlSeFhROVlXUStCb3Q5VU4yRVJQQmhFeityU0Y0MnhybnZobApsZTU2NHVmK3VBdCt2K2ZjZUtYVnVDRDN1ZGdxL2d5ejNCaHN5VkJxZkFoNy9oNndOTmhIb3c9PQotLS0tLUVORCBSU0EgUFJJVkFURSBLRVktLS0tLQo=
 `
-	// Malformed contexts[0]
+	// Outdented contexts[0].context.name
 	const invalidKubeconfig = `apiVersion: v1
 clusters:
 - cluster:
@@ -217,10 +217,10 @@ clusters:
     server: https://kubernetes.docker.internal:6443
   name: docker-desktop
 contexts:
-  context:
+- context:
     cluster: docker-desktop
     user: docker-desktop
-    name: docker-desktop
+name: docker-desktop
 current-context: docker-desktop
 kind: Config
 preferences: {}
@@ -230,116 +230,91 @@ users:
     client-certificate-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURGVENDQWYyZ0F3SUJBZ0lJWnBUZjVmbTZDQW93RFFZSktvWklodmNOQVFFTEJRQXdGVEVUTUJFR0ExVUUKQXhNS2EzVmlaWEp1WlhSbGN6QWVGdzB5TVRBME1qY3hOVFEzTURWYUZ3MHlNakExTVRJeU16SXdNVEphTURZeApGekFWQmdOVkJBb1REbk41YzNSbGJUcHRZWE4wWlhKek1Sc3dHUVlEVlFRREV4SmtiMk5yWlhJdFptOXlMV1JsCmMydDBiM0F3Z2dFaU1BMEdDU3FHU0liM0RRRUJBUVVBQTRJQkR3QXdnZ0VLQW9JQkFRRENMaDZ3MWV5WGpOQ3AKSzI5ZFJJQ3o3eHd3K1ZPVXVYYlh2R2NJTEFxaElUdlR3WTJqUmVaTFFXK3B5Wm9XUUdWZm5EYVZ5TGxmUUVaOQpXQm9IcEkvWGVvVWl4Uy9mWmVPN1RTeXA1bFpLcExzaXBMSE1RazN1NHp2d1RqelJITFJ4Q3k3b2RWTUVxVWFyCkkveUxiVUMxL1RkaGc3WkVZTFVrbEE4bWVhWFpHMGx5ZjA4UEdTdTVLUUJuTFVlbXk5OHNqV2U3YTBvdlRZd3kKTUhveUhyS0VGV0xCTmYrTm5TMTY3ZFBONzhTNCtENThobGxZTmZEZDVHbXJYYUFBYzVxeHhCSW5VcmhkSDJQawo2YUZkZXduQjFRQlV6OWVlVUJEVlFoQmwwbXNoMmRUSWF3cGlnbENrTnR1RlhoTEhGMitaRjFCSzN5VnZaYURsCmsyOTNnanlwQWdNQkFBR2pTREJHTUE0R0ExVWREd0VCL3dRRUF3SUZvREFUQmdOVkhTVUVEREFLQmdnckJnRUYKQlFjREFqQWZCZ05WSFNNRUdEQVdnQlNGOHBIQ29IVytDVnc5eWtjMGlSNS9yMHdjc2pBTkJna3Foa2lHOXcwQgpBUXNGQUFPQ0FRRUFnT1dxR2Q0TnlCRzFDOUovb1NVTmxzdkxSWXp4eEluZ0VsT09MUmlNN2t2dTduRXV6SHBYCkViODh3di9SSU1qWlFlbDFOTmdLWFJvb0hOSmpXcVppOG5aMEIxangySnNmaldrZWlPUE1aTjZqNzhzdDBqWmsKZDErSW5Oem1raEo4ck92UjVCd2xFcDNUcUtTN3J6dzF4MnphRkxUVWtZblh6Wnp4TkU3VGZuZVJVSG4zVyt4SwpXMFFaS3RkUlcvV0M5M3AvckcvZXp2Z0o5dCthenZwa2V1bklTUm5lbFpGQzgrZTR3ZXdoZm15TmRtUFVySThkCnQyMzhxeVhaNzZMTERKTFFDSTRieFRSVVpJM2NDdFY4bzU0UThnVHAvNklaRXVkV3dPbEdXa0FackdaMXNCN2QKQ1RRbjRVTVBXV0JmTzBPcFdZS3hGcVg4U1FpQndQaWhDdz09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
     client-key-data: LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFcEFJQkFBS0NBUUVBd2k0ZXNOWHNsNHpRcVN0dlhVU0FzKzhjTVBsVGxMbDIxN3huQ0N3S29TRTcwOEdOCm8wWG1TMEZ2cWNtYUZrQmxYNXcybGNpNVgwQkdmVmdhQjZTUDEzcUZJc1V2MzJYanUwMHNxZVpXU3FTN0lxU3gKekVKTjd1TTc4RTQ4MFJ5MGNRc3U2SFZUQktsR3F5UDhpMjFBdGYwM1lZTzJSR0MxSkpRUEpubWwyUnRKY245UApEeGtydVNrQVp5MUhwc3ZmTEkxbnUydEtMMDJNTWpCNk1oNnloQlZpd1RYL2paMHRldTNUemUvRXVQZytmSVpaCldEWHczZVJwcTEyZ0FIT2FzY1FTSjFLNFhSOWo1T21oWFhzSndkVUFWTS9YbmxBUTFVSVFaZEpySWRuVXlHc0sKWW9KUXBEYmJoVjRTeHhkdm1SZFFTdDhsYjJXZzVaTnZkNEk4cVFJREFRQUJBb0lCQVFDeitSY05BMW1EcFVvSQpZVytZWEZPRmNnc0pBUzJNWE5GZlp3bC9zNEl1a2FUbndTOUxzdytkbElxd0xXQ1pXeG9hSWFrZDdxcVJNL3VoClZUVGEvSlV0UEN1RmJJblFYcGxTRWxkaEtWRzFZVFRwQ1FpWnJxS1kxUmZLeEZqdDM5TUdLejFReXQwbEp0ZU8KNjQyNGxJd3pvUHZoYjdoUmEraTRmRm9HYVIxa09KN1dGcFNwM2pUa0pZckFpQWViL2IxUlZ5Rk9sNm9IcEozcQo3dmxoaHZibklJcXdrMHp4VU1ya1ArTDR2azhLdjhEcVZZMTg1M1B5UWJ3cm1EUnBkNWYvTmRwZ0lrMWNjUURZCk1OUUxPd3NaRThsdTJZMW9PcTVpRmhZZEFmM2o2Ykt2Vi92WFAxdXhtdlZSMEZ6eWU0L2JuaXBUcWdNYUI1ZnQKQWJ5MVJsL2hBb0dCQU5vRnBLVExmTGYvQUFqNGw4TmlvdjJ2OXhVWmlrQVhNL0NPREpDVzVEU2hZakNZV0tDNApYNm8vdlJ6bHF3NWNaMDEvKzBYZ2lRa0tBQUdacXlzRnRsYjgveDdkYThnVWVDRVhGcDUzNlRiZXdHaXJlSlRoCkNCSnhlQ0x1cjdLVmp6RnpHdFZlTzY4VzRHRjg0ZmlQaUk0ZVJETlExN0pYVVR2cGtZTGNCQ2RsQW9HQkFPUUIKU05hdS9GYVdHVG5DbkVKa2pqRm9JdWFGbnVLaHphd1FIUHVFSFV6TFMzT1Fqem54MVRmMGU5aWxkRHBoekJ0SQpoNUgrbzFvUmhNYlN5Z2g1SGQ5aE1nekM3cjcrNmdPU2hMOEdnNjJwNU13YzhSVUhnZWhOWmkxSEJaeUh0VGFFCmg3LzA2YjBOV3lyMDRVcGNSZXJIME44TWdSWXI2emZ4K25MblpGWDFBb0dBSE1kLzYwejlJcUNqbFl1VEpQU0IKUlhHVDhSSVZBTTdQU1dMRzM5TTdQb05MSGRVT1pmRFFsLzJmN2crWEcrY3dyN2RFS1A0eHVLSzhTM25JY1g1bwppbVVOSERyb1Bsb05YWGpad0lOZG9xT1d6SHBPQ1lFRytzQkZ0bjdCYkpaM2QzU1ZSek1RTjlXU091d3NQQTVlClhUdzdqbmFPY25rNlBPbGhEdUFTSUUwQ2dZRUFuNGpHam5DaDMzUG04cU5ZOHB1cFlxaWF3dkY3MnRlY01XaVUKM3VmeUdHbW13WlhFb2FhMHFoSkhGYSt2UTZwcVJpelpyeTJjM3NpalB2citvaThjMTlBS1ZTT1FLZFB6cWN3NwpWZTRZOU1xTGJNWlRhWU4zUWpQbDZvaG5STDh2N0pXTzVxRlhheENOV2VFK1FlbU9nbGlOcllQeVRyRXNSRmpzCkJMb2pXb0VDZ1lCaWMrWjJvSzNTTmpzL3J5ZFU1Lzg3T3NVbExHamxKbDI1NE0xaGl3RmVsd3pUWjNXWjFuZlkKcS80Mm5GR3VRQUQ3RFFwSTBCSnFWVTJCQlZySmlSeFhROVlXUStCb3Q5VU4yRVJQQmhFeityU0Y0MnhybnZobApsZTU2NHVmK3VBdCt2K2ZjZUtYVnVDRDN1ZGdxL2d5ejNCaHN5VkJxZkFoNy9oNndOTmhIb3c9PQotLS0tLUVORCBSU0EgUFJJVkFURSBLRVktLS0tLQo=
 `
+	certAuthData := []byte(`-----BEGIN CERTIFICATE-----
+MIIC5zCCAc+gAwIBAgIBADANBgkqhkiG9w0BAQsFADAVMRMwEQYDVQQDEwprdWJl
+cm5ldGVzMB4XDTIxMDQyNzE1NDcwNVoXDTMxMDQyNTE1NDcwNVowFTETMBEGA1UE
+AxMKa3ViZXJuZXRlczCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBANeh
+BM9J0IY+dR9RfUJ29JTqb1vSt0eK143uiPqdIIGxbXQoVezd8QQyhIAlPougEVKH
+R4hLTkxFIKMWCQttcBvEZFvAFkryPsYO5Eh1F6Gw2Ml6/5koSZl3XS05r7XgMGVM
+yqRQh3/UbEqVdZDeEiAJxz7rPIC1sQTJUjU6TcbZDUXVGF1VLrOnFBeRh56L07db
+2SxgwtXf5SS0AebrkODDc50QGXsntRFN719byanVBsusZnffvHEk5nq55ALta4n7
+6FCGjQ4xXchla5o1ikz+r7jLzry6SltrPYNL/eX4x/EM1PQnVKeQihE2h74rjHKp
+bl4p66OJ8lydFkEJAeMCAwEAAaNCMEAwDgYDVR0PAQH/BAQDAgKkMA8GA1UdEwEB
+/wQFMAMBAf8wHQYDVR0OBBYEFIXykcKgdb4JXD3KRzSJHn+vTByyMA0GCSqGSIb3
+DQEBCwUAA4IBAQAwS5Z6oWNzZta4MDyg35bfr5Qi9HtnV7g9ceNvcTI+qwGxUHYP
+gg2RoT4eNL2EPWYARdkeSmSrX0kE/T2tTnxbEXCMtB6N8OFvbCugW6O+ZpH3p4tt
+UECE1OvbXwy2C/vi2irn9kDwr7JAUCaFEZireOMcCljzeDML0C9JjBRNRdjXulrb
+JTp/DbYRt8UI5m3iQHkinjDGVEaTr3jeBM6PjIu/nljCe+Z/WL2ozEo82w3vpzN5
+v0dohqdVlO32gd6+BQNF8fP29o0dOCAjV/4wBbccuHubvBgu4rqHsHog371ETul/
+9IlqkgafzeruPs6k5PaZPMb+ngo3YDngvHnH
+-----END CERTIFICATE-----
+`)
 
-	makeTempFile := func(content string) string {
-		file, _ := os.CreateTemp("", "kubeconfig-")
-		defer file.Close()
-		t.Cleanup(func() {
-			os.Remove(file.Name())
-		})
-		_, _ = file.WriteString(validKubeconfig)
-		return file.Name()
-	}
-	validKubeconfigFile := makeTempFile(validKubeconfig)
+	validConfig, _ := clientcmd.Load([]byte(validKubeconfig))
+	outdentedConfig, _ := clientcmd.Load([]byte(invalidKubeconfig))
 
 	type args struct {
-		pathOrContents string
-		overrides      *clientcmd.ConfigOverrides
-	}
-	type env struct {
-		name  string
-		value string
+		config    *clientapi.Config
+		overrides resource.PropertyMap
 	}
 	tests := []struct {
-		name          string
-		args          args
-		envs          []env
-		expectedError string
+		name string
+		args args
+		want *clientapi.Cluster
 	}{
 		{
-			name: "ambient",
+			name: "nil",
 			args: args{
-				pathOrContents: "",
-				overrides:      &clientcmd.ConfigOverrides{},
+				config:    nil,
+				overrides: map[resource.PropertyKey]resource.PropertyValue{},
 			},
-			envs: []env{
-				{name: "KUBECONFIG", value: validKubeconfigFile},
-			},
+			want: &clientapi.Cluster{},
 		},
 		{
-			name: "valid_content",
+			name: "valid",
 			args: args{
-				pathOrContents: validKubeconfig,
-				overrides:      &clientcmd.ConfigOverrides{},
+				config:    validConfig,
+				overrides: map[resource.PropertyKey]resource.PropertyValue{},
 			},
-		},
-		{
-			name: "valid_path",
-			args: args{
-				pathOrContents: validKubeconfigFile,
-				overrides:      &clientcmd.ConfigOverrides{},
+			want: &clientapi.Cluster{
+				Server:                   "https://kubernetes.docker.internal:6443",
+				CertificateAuthorityData: certAuthData,
+				Extensions:               map[string]runtime.Object{},
 			},
-		},
-		{
-			name: "invalid_path",
-			args: args{
-				pathOrContents: "./invalid",
-				overrides:      &clientcmd.ConfigOverrides{},
-			},
-			expectedError: `open ./invalid: no such file or directory`,
 		},
 		{
 			name: "invalid_context_override",
 			args: args{
-				pathOrContents: validKubeconfig,
-				overrides: &clientcmd.ConfigOverrides{
-					CurrentContext: "foo",
+				config: validConfig,
+				overrides: map[resource.PropertyKey]resource.PropertyValue{
+					resource.PropertyKey("context"): {V: "foo"},
 				},
 			},
-			expectedError: `context "foo" does not exist`,
+			want: &clientapi.Cluster{},
 		},
 		{
 			name: "invalid_cluster_override",
 			args: args{
-				pathOrContents: validKubeconfig,
-				overrides: &clientcmd.ConfigOverrides{
-					Context: clientapi.Context{
-						Cluster: "foo",
-					},
+				config: validConfig,
+				overrides: map[resource.PropertyKey]resource.PropertyValue{
+					resource.PropertyKey("cluster"): {V: "foo"},
 				},
 			},
-			expectedError: `cluster "foo" does not exist`,
+			want: &clientapi.Cluster{},
 		},
 		{
-			name: "invalid_content",
+			name: "outdented_context_name",
 			args: args{
-				pathOrContents: invalidKubeconfig,
-				overrides:      &clientcmd.ConfigOverrides{},
+				config:    outdentedConfig,
+				overrides: map[resource.PropertyKey]resource.PropertyValue{},
 			},
-			expectedError: `json: cannot unmarshal object into Go struct field Config.contexts of type []v1.NamedContext`,
+			want: &clientapi.Cluster{},
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			for _, env := range tt.envs {
-				e := env
-				old, ok := os.LookupEnv(e.name)
-				defer func() {
-					if ok {
-						os.Setenv(e.name, old)
-					} else {
-						os.Unsetenv(e.name)
-					}
-				}()
-				os.Setenv(e.name, e.value)
-			}
-			kubeconfig, apiconfig, err := loadKubeconfig(tt.args.pathOrContents, tt.args.overrides)
-			if tt.expectedError != "" {
-				assert.EqualError(t, err, tt.expectedError)
-			} else {
-				assert.NoError(t, err)
-				assert.NotNil(t, kubeconfig, "kubeconfig")
-				assert.NotNil(t, apiconfig, "apiconfig")
+			if got := getActiveClusterFromConfig(tt.args.config, tt.args.overrides); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("getActiveClusterFromConfig() = %v, want %v", got, tt.want)
 			}
 		})
 	}

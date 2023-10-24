@@ -1,4 +1,5 @@
 ## Unreleased
+- Revert: Normalize provider inputs and make available as outputs (https://github.com/pulumi/pulumi-kubernetes/pull/2627)
 
 ## 4.5.0 (October 23, 2023)
 
@@ -6,13 +7,13 @@
 - Fix for Helm Import regression (https://github.com/pulumi/pulumi-kubernetes/pull/2605)
 - Improved search functionality for Helm Import (https://github.com/pulumi/pulumi-kubernetes/pull/2610)
 - Fix SSA dry-run previews when a Pulumi program uses Apply on the status subresource (https://github.com/pulumi/pulumi-kubernetes/pull/2615)
+- Normalize provider inputs and make available as outputs (https://github.com/pulumi/pulumi-kubernetes/pull/2598)
 
 ## 4.4.0 (October 12, 2023)
 
 - Fix normalizing fields with empty objects/slices (https://github.com/pulumi/pulumi-kubernetes/pull/2576)
 - helm.v3.Release: Improved cancellation support (https://github.com/pulumi/pulumi-kubernetes/pull/2579)
 - Update Kubernetes client library to v0.28.2 (https://github.com/pulumi/pulumi-kubernetes/pull/2585)
-- Normalize provider inputs and make available as outputs (https://github.com/pulumi/pulumi-kubernetes/pull/2598)
 
 ## 4.3.0 (September 25, 2023)
 
