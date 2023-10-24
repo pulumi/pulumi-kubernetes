@@ -1,0 +1,3 @@
+name: ignoreChanges-patch-deployment-stack
+description: Creates a deployment objects to test ignoreChanges with patch resources.
+runtime: nodejs

@@ -2102,3 +2102,192 @@ func TestEmptyItemNormalization(t *testing.T) {
 
 	integration.ProgramTest(t, &test)
 }
+
+// TestIgnoreChangesPatchResources tests that we can successfully ignore changes to a Patch Resource without SSA conflicts,
+// and accidentally unsetting a field of interest when the Patch resource is declared as the field manager. This allows a user
+// to use a SSA Patch resource like a strategic merge patch resource.
+// This test uses 2 stacks:
+//  1. The "deployment stack" creates a Deployment object on cluster.
+//  2. The "patch stack" uses a DeploymentPatch resource to patch the Deployment object on cluster.
+//
+// Steps:
+//  1. Create the deployment stack and let it run in the background with a goroutine.
+//  2. Wait for the deployment stack to finish creating the deployment object.
+//  3. Create the patch stack and patch the deployment object to scale to 2 replicas and have shared field
+//     owner ship of the .metadata.labels.app field.
+//  4. Validate that the deployment was scaled to 2 replica.
+//  5. Unblock the last step of the deploymnet step to run, and block the second step of the patch stack from running.
+//  6. Run the second and final step of the deployment stack to relinquish field ownership of the .metadata.labels.app field
+//     to the patch stack.
+//  7. Unblock the second step of the patch stack to run.
+//  8. Run the second step of the patch stack, which we expect to fail.
+//  9. Add the .metadata.labels.app field to the ignoreChanges list of the DeploymentPatch resource in step 3 of the patch stack.
+//  10. Run the third step of the patch stack which we expect to succeed.
+func TestIgnoreChangesPatchResources(t *testing.T) {
+	var depName, ns string
+
+	// patchStep1Done is used to block step 2 of the deployment stack from running until the patch stack is initialized.
+	patchStep1Done := make(chan bool, 1)
+	// depStackDone is used to block the patch stack step 2 from starting until step 2 of the deployment stack is done running. This completely
+	// relinquishes control of the .metadata.labels.app field to the patch stack.
+	depStackDone := make(chan bool, 1)
+	// depStep1Done is used to the initialization of the Patch stack until the deployment stack has finished creating the deployment object.
+	depStep1Done := make(chan bool, 1)
+
+	// Define the stack that creates the deployment object on cluster.
+	deploymentStack := baseOptions.With(integration.ProgramTestOptions{
+		Dir:                  filepath.Join("ignore-changes-patch", "deployment-stack", "step1"),
+		ExpectRefreshChanges: true,
+		// Enable destroy-on-cleanup so we can shell out to kubectl to make external changes to the resource and reuse the same stack.
+		DestroyOnCleanup: true,
+		Quick:            true,
+		OrderedConfig: []integration.ConfigValue{
+			{
+				Key:   "pulumi:disable-default-providers[0]",
+				Value: "kubernetes",
+				Path:  true,
+			},
+		},
+		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+			// Export the deployment name and namespace to be used in the patch stack.
+			depName = stackInfo.Outputs["deploymentName"].(string)
+			ns = stackInfo.Outputs["deploymentNamespace"].(string)
+
+			// Validate app labels.
+			t.Log("[Deployment Stack] Step 1: Validating that the app label was created as expected.")
+			expectedAppLabel := "test-ignore-changes"
+			depAppLabel, err := tests.Kubectl("get deployment -o=jsonpath={.spec.selector.matchLabels.app} -n", ns, depName)
+			assert.NoError(t, err)
+			assert.Equal(t, expectedAppLabel, string(depAppLabel))
+
+			// Block step 2 from running until patch stack is created, and field ownership has transferred to the patch stack.
+			// We have to do this since we can't manually run a ProgramTest edit step.
+			depStep1Done <- true
+			<-patchStep1Done
+		},
+		EditDirs: []integration.EditDir{
+			{
+				Dir:      filepath.Join("ignore-changes-patch", "deployment-stack", "step2"),
+				Additive: true,
+				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+					t.Log("[Deployment Stack] Step 2: Flagging that the deployment stack is done running.")
+					<-depStackDone
+				},
+			},
+		},
+	})
+
+	// Use manual lifecycle management since we need to keep the deployment stack alive while we use the patch stack.
+	t.Log("[main] Creating deployment stack and letting it run in the background.")
+	go func() {
+		pt := integration.ProgramTestManualLifeCycle(t, &deploymentStack)
+		err := pt.TestLifeCycleInitAndDestroy()
+		assert.NoError(t, err)
+	}()
+
+	t.Log("[main] Waiting for deployment stack to finish creating the deployment object.")
+	<-depStep1Done
+
+	// Define the stack that patches the deployment object on cluster.
+	patchResourceStack := baseOptions.With(integration.ProgramTestOptions{
+		Dir:                  filepath.Join("ignore-changes-patch", "patch-stack", "step1"),
+		DestroyOnCleanup:     true,
+		ExpectRefreshChanges: true,
+		OrderedConfig: []integration.ConfigValue{
+			{
+				Key:   "pulumi:disable-default-providers[0]",
+				Value: "kubernetes",
+				Path:  true,
+			},
+		},
+		Config: map[string]string{
+			"DEPLOYMENT_NAME":      depName,
+			"DEPLOYMENT_NAMESPACE": ns,
+		},
+		SkipPreview:            true,
+		SkipEmptyPreviewUpdate: true,
+		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+			t.Log("[Patch Stack] Step 1: Validating that the deployment was scaled to 2 replica.")
+			// Validate that the deployment was scaled to 2 replica.
+			depReplicas, err := tests.Kubectl("get deployment -o=jsonpath={.spec.replicas} -n", ns, depName)
+			assert.NoError(t, err)
+			assert.Equal(t, "2", string(depReplicas))
+
+			// Validate that the app label is still the same.
+			t.Log("[Patch Stack] Step 1: Validating that the app label was updated.")
+			expectedAppLabel := "test-ignore-changes"
+			depAppLabel, err := tests.Kubectl("get deployment -o=jsonpath={.spec.selector.matchLabels.app} -n", ns, depName)
+			assert.NoError(t, err)
+			assert.Equal(t, expectedAppLabel, string(depAppLabel))
+
+			// Unblock deployment stack step 2 from running.
+			t.Log("[Patch Stack] Step 1: Transferring field ownership to deployment stack.")
+			patchStep1Done <- true
+			// Wait for deployment stack step 2 to finish running.
+			t.Log("[Patch Stack] Step 1: Waiting for deployment stack step 2 to finish running.")
+			depStackDone <- true
+		},
+		// Test the next steps.
+		EditDirs: []integration.EditDir{
+			{
+				Dir:      filepath.Join("ignore-changes-patch", "patch-stack", "step2"),
+				Additive: true,
+				// We expect step 2 to fail due to inadvertently trying to unset app labels by treating patch resources
+				// as strategic merge patches instead of SSA patches when the patch resource is a field owner.
+				ExpectFailure: true,
+				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+					t.Log("[Patch Stack] Step 2: Validating that the deployment still has 2 replicas.")
+					depReplicas, err := tests.Kubectl("get deployment -o=jsonpath={.spec.replicas} -n", ns, depName)
+					assert.NoError(t, err)
+					assert.Equal(t, "2", string(depReplicas))
+				},
+			},
+			{
+				Dir:      filepath.Join("ignore-changes-patch", "patch-stack", "step3"),
+				Additive: true,
+				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+					t.Log("[Patch Stack] Step 3: Validating that the deployment was scaled down to 1 replica and the app label was not removed.")
+					depReplicas, err := tests.Kubectl("get deployment -o=jsonpath={.spec.replicas} -n", ns, depName)
+					assert.NoError(t, err)
+					assert.Equal(t, "1", string(depReplicas))
+
+					// This validation should never fail since the k8s API server will reject the patch if the app label is removed.
+					// We include this validation anyway to not rely on the k8s API server to reject the patch.
+					t.Log("[Patch Stack] Step 3: Validating that the app label was not removed.")
+					expectedAppLabel := "test-ignore-changes"
+					depAppLabel, err := tests.Kubectl("get deployment -o=jsonpath={.spec.selector.matchLabels.app} -n", ns, depName)
+					assert.NoError(t, err)
+					assert.Equal(t, expectedAppLabel, string(depAppLabel))
+				},
+			},
+		},
+	})
+
+	t.Log("[main] Starting patching of deployment object.")
+	err := programTestNoDestroy(t, &patchResourceStack)
+	assert.NoError(t, err)
+
+}
+
+// programTestNoDestroy is a helper function to run a program test without destroying the stack.
+func programTestNoDestroy(t *testing.T, opts *integration.ProgramTestOptions) error {
+	pt := integration.ProgramTestManualLifeCycle(t, opts)
+
+	err := pt.TestLifeCyclePrepare()
+	if err != nil {
+		return fmt.Errorf("copying test to temp dir failed")
+	}
+
+	t.Cleanup(pt.TestCleanUp)
+
+	err = pt.TestLifeCycleInitialize()
+	if err != nil {
+		return fmt.Errorf("initializing test project: %w", err)
+	}
+
+	if err = pt.TestPreviewUpdateAndEdits(); err != nil {
+		return fmt.Errorf("running test preview, update, and edits: %w", err)
+	}
+
+	return nil
+}
