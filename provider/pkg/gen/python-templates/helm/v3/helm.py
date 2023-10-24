@@ -19,7 +19,7 @@ import json
 from typing import Any, Callable, Optional, Sequence, Tuple, Union
 
 import pulumi.runtime
-from pulumi_kubernetes.yaml.yaml import _parse_yaml_document, _skip_await
+from pulumi_kubernetes.yaml.yaml import _get_child_options, _get_invoke_options, _parse_yaml_document, _skip_await
 
 from ... import _utilities
 
@@ -189,7 +189,8 @@ class Chart(pulumi.ComponentResource):
 
         config.release_name = release_name
 
-        all_config = pulumi.Output.from_input((config, pulumi.ResourceOptions(parent=self)))
+        parseOpts = _get_child_options(self, opts)
+        all_config = pulumi.Output.from_input((config, parseOpts))
 
         # Note: Unlike NodeJS, Python requires that we "pull" on our futures in order to get them scheduled for
         # execution. In order to do this, we leverage the engine's RegisterResourceOutputs to wait for the
@@ -587,12 +588,8 @@ def _parse_chart(all_config: Tuple[Union[ChartOpts, LocalChartOpts], pulumi.Reso
 
     json_opts = config.to_json()
 
-    # Rather than using the default provider for the following invoke call, use the version specified
-    # in package.json.
-    invoke_opts = pulumi.InvokeOptions(version=_utilities.get_version() if not opts.version else opts.version,
-     parent=opts.parent if opts.parent else None,
-     provider=opts.provider if opts.provider else None)
-
+    invoke_opts = _get_invoke_options(opts)
+    
     transformations = config.transformations if config.transformations is not None else []
     if config.skip_await:
         transformations.append(_skip_await)

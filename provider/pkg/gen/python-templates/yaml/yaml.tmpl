@@ -179,21 +179,16 @@ class ConfigGroup(pulumi.ComponentResource):
             else:
                 _files += [f for f in glob(file)]
 
-        opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(parent=self))
+        child_opts = _get_child_options(self, opts)
 
         for file in _files:
             cf = ConfigFile(
-                file, file_id=file, transformations=transformations, resource_prefix=resource_prefix, opts=opts)
+                file, file_id=file, transformations=transformations, resource_prefix=resource_prefix, opts=child_opts)
             # Add any new ConfigFile resources to the ConfigGroup's resources
             self.resources = pulumi.Output.all(cf.resources, self.resources).apply(lambda x: {**x[0], **x[1]})
 
         for text in yaml:
-            # Rather than using the default provider for the following invoke call, use the version specified
-            # in package.json.
-            invoke_opts = pulumi.InvokeOptions(version=_utilities.get_version() if not opts.version else opts.version,
-                parent=opts.parent if opts.parent else None,
-                provider=opts.provider if opts.provider else None)
-                
+            invoke_opts = _get_invoke_options(child_opts)
             __ret__ = invoke_yaml_decode(text, invoke_opts)
             resources = _parse_yaml_document(__ret__, opts, transformations, resource_prefix)
             # Add any new YAML resources to the ConfigGroup's resources
@@ -335,24 +330,19 @@ class ConfigFile(pulumi.ComponentResource):
         else:
             text = _read_file(file)
 
-        opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(parent=self))
+        child_opts = _get_child_options(self, opts)
 
         transformations = transformations if transformations is not None else []
         if skip_await:
             transformations.append(_skip_await)
-
-        # Rather than using the default provider for the following invoke call, use the version specified
-        # in package.json.       
-        invoke_opts = pulumi.InvokeOptions(version=_utilities.get_version() if not opts.version else opts.version,
-            parent=opts.parent if opts.parent else None,
-            provider=opts.provider if opts.provider else None)
-
+ 
+        invoke_opts = _get_invoke_options(child_opts)
         __ret__ = invoke_yaml_decode(text, invoke_opts)
 
         # Note: Unlike NodeJS, Python requires that we "pull" on our futures in order to get them scheduled for
         # execution. In order to do this, we leverage the engine's RegisterResourceOutputs to wait for the
         # resolution of all resources that this YAML document created.
-        self.resources = _parse_yaml_document(__ret__, opts, transformations, resource_prefix)
+        self.resources = _parse_yaml_document(__ret__, child_opts, transformations, resource_prefix)
         self.register_outputs({"resources": self.resources})
 
     def translate_output_property(self, prop: str) -> str:
@@ -412,7 +402,17 @@ def _read_file(path: str) -> str:
 def _build_resources_dict(objs: Sequence[pulumi.Output]) -> Mapping[pulumi.Output, pulumi.Output]:
     return {key: value for key, value in objs}
 
+def _get_child_options(parent: pulumi.Resource, opts: pulumi.ResourceOptions):
+    return pulumi.ResourceOptions(parent=parent, depends_on=opts.depends_on)
 
+def _get_invoke_options(opts: pulumi.ResourceOptions):
+    return pulumi.InvokeOptions(
+        parent=opts.parent if opts.parent else None,
+        provider=opts.provider if opts.provider else None,
+        version=_utilities.get_version() if not opts.version else opts.version,
+        plugin_download_url=opts.plugin_download_url if opts.plugin_download_url else None
+     )
+     
 def _parse_yaml_document(
         objects, opts: Optional[pulumi.ResourceOptions] = None,
         transformations: Optional[Sequence[Callable]] = None,
