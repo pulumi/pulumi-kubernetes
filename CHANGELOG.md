@@ -1,4 +1,6 @@
 ## Unreleased
+
+## 4.5.1 (October 24, 2023)
 - Revert: Normalize provider inputs and make available as outputs (https://github.com/pulumi/pulumi-kubernetes/pull/2627)
 
 ## 4.5.0 (October 23, 2023)
