@@ -1,0 +1,3 @@
+name: server-side-apply-tests
+description: Tests Server-side Apply support
+runtime: go
