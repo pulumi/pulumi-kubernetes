@@ -243,13 +243,6 @@ func NewChart(ctx *pulumi.Context,
 			Type: pulumi.String("kubernetes:helm.sh/v2:Chart"),
 		},
 	})
-
-	var resourceOrInvokeOptions []pulumi.ResourceOrInvokeOption
-	for _, o := range opts {
-		if asResOrInv, ok := o.(pulumi.ResourceOrInvokeOption); ok {
-			resourceOrInvokeOptions = append(resourceOrInvokeOptions, asResOrInv)
-		}
-	}
 	opts = append(opts, aliases)
 	err := ctx.RegisterComponentResource("kubernetes:helm.sh/v3:Chart", name, chart, opts...)
 	if err != nil {
@@ -261,9 +254,12 @@ func NewChart(ctx *pulumi.Context,
 		name = args.ResourcePrefix + "-" + name
 	}
 
-	resourceOrInvokeOptions = append(resourceOrInvokeOptions, pulumi.Parent(chart))
+	parseOpts, err := yaml.GetChildOptions(chart, opts)
+	if err != nil {
+		return nil, err
+	}
 	resources := args.ToChartArgsOutput().ApplyT(func(args chartArgs) (map[string]pulumi.Resource, error) {
-		return parseChart(ctx, name, args, resourceOrInvokeOptions...)
+		return parseChart(ctx, name, args, parseOpts...)
 	})
 	chart.Resources = resources
 
@@ -287,7 +283,7 @@ func NewChart(ctx *pulumi.Context,
 	return chart, nil
 }
 
-func parseChart(ctx *pulumi.Context, name string, args chartArgs, opts ...pulumi.ResourceOrInvokeOption,
+func parseChart(ctx *pulumi.Context, name string, args chartArgs, opts ...pulumi.ResourceOption,
 ) (map[string]pulumi.Resource, error) {
 	type jsonOptsArgs struct {
 		chartArgs
@@ -304,11 +300,9 @@ func parseChart(ctx *pulumi.Context, name string, args chartArgs, opts ...pulumi
 		return nil, err
 	}
 
-	var invokeOpts []pulumi.InvokeOption
-	var resourceOpts []pulumi.ResourceOption
-	for _, o := range opts {
-		invokeOpts = append(invokeOpts, o)
-		resourceOpts = append(resourceOpts, o)
+	invokeOpts, err := yaml.GetInvokeOptions(opts)
+	if err != nil {
+		return nil, err
 	}
 	objs, err := helmTemplate(ctx, string(b), invokeOpts...)
 	if err != nil {
@@ -320,7 +314,7 @@ func parseChart(ctx *pulumi.Context, name string, args chartArgs, opts ...pulumi
 		transformations = yaml.AddSkipAwaitTransformation(transformations)
 	}
 
-	resources, err := yaml.ParseYamlObjects(ctx, objs, transformations, args.ResourcePrefix, resourceOpts...)
+	resources, err := yaml.ParseYamlObjects(ctx, objs, transformations, args.ResourcePrefix, opts...)
 	if err != nil {
 		return nil, err
 	}
