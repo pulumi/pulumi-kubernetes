@@ -180,7 +180,7 @@ func (k *kubeProvider) getResources() (k8sopenapi.Resources, error) {
 	rs := k.resources
 	k.resourcesMutex.RUnlock()
 
-	if rs != nil {
+	if rs != nil && true {
 		return rs, nil
 	}
 
