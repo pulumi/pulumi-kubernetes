@@ -65,7 +65,7 @@ class Lease(dict):
              kind: Optional[str] = None,
              metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
              spec: Optional['outputs.LeaseSpec'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -172,7 +172,7 @@ class LeaseSpec(dict):
              lease_duration_seconds: Optional[int] = None,
              lease_transitions: Optional[int] = None,
              renew_time: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if acquire_time is None and 'acquireTime' in kwargs:
             acquire_time = kwargs['acquireTime']
@@ -297,7 +297,7 @@ class LeaseSpecPatch(dict):
              lease_duration_seconds: Optional[int] = None,
              lease_transitions: Optional[int] = None,
              renew_time: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if acquire_time is None and 'acquireTime' in kwargs:
             acquire_time = kwargs['acquireTime']

@@ -107,7 +107,7 @@ class AllowedCSIDriverPatchArgs:
     def _configure(
              _setter: Callable[[Any, Any], None],
              name: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if name is not None:
@@ -142,7 +142,7 @@ class AllowedCSIDriverArgs:
     def _configure(
              _setter: Callable[[Any, Any], None],
              name: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if name is None:
             raise TypeError("Missing 'name' argument")
@@ -178,7 +178,7 @@ class AllowedFlexVolumePatchArgs:
     def _configure(
              _setter: Callable[[Any, Any], None],
              driver: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if driver is not None:
@@ -213,7 +213,7 @@ class AllowedFlexVolumeArgs:
     def _configure(
              _setter: Callable[[Any, Any], None],
              driver: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if driver is None:
             raise TypeError("Missing 'driver' argument")
@@ -255,7 +255,7 @@ class AllowedHostPathPatchArgs:
              _setter: Callable[[Any, Any], None],
              path_prefix: Optional[pulumi.Input[str]] = None,
              read_only: Optional[pulumi.Input[bool]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if path_prefix is None and 'pathPrefix' in kwargs:
             path_prefix = kwargs['pathPrefix']
@@ -316,7 +316,7 @@ class AllowedHostPathArgs:
              _setter: Callable[[Any, Any], None],
              path_prefix: Optional[pulumi.Input[str]] = None,
              read_only: Optional[pulumi.Input[bool]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if path_prefix is None and 'pathPrefix' in kwargs:
             path_prefix = kwargs['pathPrefix']
@@ -387,7 +387,7 @@ class DaemonSetConditionArgs:
              last_transition_time: Optional[pulumi.Input[str]] = None,
              message: Optional[pulumi.Input[str]] = None,
              reason: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if status is None:
             raise TypeError("Missing 'status' argument")
@@ -502,7 +502,7 @@ class DaemonSetSpecPatchArgs:
              template: Optional[pulumi.Input['_core.v1.PodTemplateSpecPatchArgs']] = None,
              template_generation: Optional[pulumi.Input[int]] = None,
              update_strategy: Optional[pulumi.Input['DaemonSetUpdateStrategyPatchArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if min_ready_seconds is None and 'minReadySeconds' in kwargs:
             min_ready_seconds = kwargs['minReadySeconds']
@@ -635,7 +635,7 @@ class DaemonSetSpecArgs:
              selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
              template_generation: Optional[pulumi.Input[int]] = None,
              update_strategy: Optional[pulumi.Input['DaemonSetUpdateStrategyArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if template is None:
             raise TypeError("Missing 'template' argument")
@@ -785,7 +785,7 @@ class DaemonSetStatusArgs:
              number_unavailable: Optional[pulumi.Input[int]] = None,
              observed_generation: Optional[pulumi.Input[int]] = None,
              updated_number_scheduled: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if current_number_scheduled is None and 'currentNumberScheduled' in kwargs:
             current_number_scheduled = kwargs['currentNumberScheduled']
@@ -971,7 +971,7 @@ class DaemonSetUpdateStrategyPatchArgs:
              _setter: Callable[[Any, Any], None],
              rolling_update: Optional[pulumi.Input['RollingUpdateDaemonSetPatchArgs']] = None,
              type: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if rolling_update is None and 'rollingUpdate' in kwargs:
             rolling_update = kwargs['rollingUpdate']
@@ -1025,7 +1025,7 @@ class DaemonSetUpdateStrategyArgs:
              _setter: Callable[[Any, Any], None],
              rolling_update: Optional[pulumi.Input['RollingUpdateDaemonSetArgs']] = None,
              type: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if rolling_update is None and 'rollingUpdate' in kwargs:
             rolling_update = kwargs['rollingUpdate']
@@ -1092,7 +1092,7 @@ class DaemonSetArgs:
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              spec: Optional[pulumi.Input['DaemonSetSpecArgs']] = None,
              status: Optional[pulumi.Input['DaemonSetStatusArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -1205,7 +1205,7 @@ class DeploymentConditionArgs:
              last_update_time: Optional[pulumi.Input[str]] = None,
              message: Optional[pulumi.Input[str]] = None,
              reason: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if status is None:
             raise TypeError("Missing 'status' argument")
@@ -1348,7 +1348,7 @@ class DeploymentSpecPatchArgs:
              selector: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']] = None,
              strategy: Optional[pulumi.Input['DeploymentStrategyPatchArgs']] = None,
              template: Optional[pulumi.Input['_core.v1.PodTemplateSpecPatchArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if min_ready_seconds is None and 'minReadySeconds' in kwargs:
             min_ready_seconds = kwargs['minReadySeconds']
@@ -1535,7 +1535,7 @@ class DeploymentSpecArgs:
              rollback_to: Optional[pulumi.Input['RollbackConfigArgs']] = None,
              selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
              strategy: Optional[pulumi.Input['DeploymentStrategyArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if template is None:
             raise TypeError("Missing 'template' argument")
@@ -1719,7 +1719,7 @@ class DeploymentStatusArgs:
              replicas: Optional[pulumi.Input[int]] = None,
              unavailable_replicas: Optional[pulumi.Input[int]] = None,
              updated_replicas: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if available_replicas is None and 'availableReplicas' in kwargs:
             available_replicas = kwargs['availableReplicas']
@@ -1868,7 +1868,7 @@ class DeploymentStrategyPatchArgs:
              _setter: Callable[[Any, Any], None],
              rolling_update: Optional[pulumi.Input['RollingUpdateDeploymentPatchArgs']] = None,
              type: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if rolling_update is None and 'rollingUpdate' in kwargs:
             rolling_update = kwargs['rollingUpdate']
@@ -1923,7 +1923,7 @@ class DeploymentStrategyArgs:
              _setter: Callable[[Any, Any], None],
              rolling_update: Optional[pulumi.Input['RollingUpdateDeploymentArgs']] = None,
              type: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if rolling_update is None and 'rollingUpdate' in kwargs:
             rolling_update = kwargs['rollingUpdate']
@@ -2012,7 +2012,7 @@ class DeploymentArgs:
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              spec: Optional[pulumi.Input['DeploymentSpecArgs']] = None,
              status: Optional[pulumi.Input['DeploymentStatusArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -2109,7 +2109,7 @@ class FSGroupStrategyOptionsPatchArgs:
              _setter: Callable[[Any, Any], None],
              ranges: Optional[pulumi.Input[Sequence[pulumi.Input['IDRangePatchArgs']]]] = None,
              rule: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if ranges is not None:
@@ -2162,7 +2162,7 @@ class FSGroupStrategyOptionsArgs:
              _setter: Callable[[Any, Any], None],
              ranges: Optional[pulumi.Input[Sequence[pulumi.Input['IDRangeArgs']]]] = None,
              rule: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if ranges is not None:
@@ -2229,7 +2229,7 @@ class HTTPIngressPathPatchArgs:
              backend: Optional[pulumi.Input['IngressBackendPatchArgs']] = None,
              path: Optional[pulumi.Input[str]] = None,
              path_type: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if path_type is None and 'pathType' in kwargs:
             path_type = kwargs['pathType']
@@ -2322,7 +2322,7 @@ class HTTPIngressPathArgs:
              backend: Optional[pulumi.Input['IngressBackendArgs']] = None,
              path: Optional[pulumi.Input[str]] = None,
              path_type: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if backend is None:
             raise TypeError("Missing 'backend' argument")
@@ -2398,7 +2398,7 @@ class HTTPIngressRuleValuePatchArgs:
     def _configure(
              _setter: Callable[[Any, Any], None],
              paths: Optional[pulumi.Input[Sequence[pulumi.Input['HTTPIngressPathPatchArgs']]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if paths is not None:
@@ -2433,7 +2433,7 @@ class HTTPIngressRuleValueArgs:
     def _configure(
              _setter: Callable[[Any, Any], None],
              paths: Optional[pulumi.Input[Sequence[pulumi.Input['HTTPIngressPathArgs']]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if paths is None:
             raise TypeError("Missing 'paths' argument")
@@ -2473,7 +2473,7 @@ class HostPortRangePatchArgs:
              _setter: Callable[[Any, Any], None],
              max: Optional[pulumi.Input[int]] = None,
              min: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if max is not None:
@@ -2526,7 +2526,7 @@ class HostPortRangeArgs:
              _setter: Callable[[Any, Any], None],
              max: Optional[pulumi.Input[int]] = None,
              min: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if max is None:
             raise TypeError("Missing 'max' argument")
@@ -2581,7 +2581,7 @@ class IDRangePatchArgs:
              _setter: Callable[[Any, Any], None],
              max: Optional[pulumi.Input[int]] = None,
              min: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if max is not None:
@@ -2634,7 +2634,7 @@ class IDRangeArgs:
              _setter: Callable[[Any, Any], None],
              max: Optional[pulumi.Input[int]] = None,
              min: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if max is None:
             raise TypeError("Missing 'max' argument")
@@ -2689,7 +2689,7 @@ class IPBlockPatchArgs:
              _setter: Callable[[Any, Any], None],
              cidr: Optional[pulumi.Input[str]] = None,
              except_: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if except_ is None and 'except' in kwargs:
             except_ = kwargs['except']
@@ -2744,7 +2744,7 @@ class IPBlockArgs:
              _setter: Callable[[Any, Any], None],
              cidr: Optional[pulumi.Input[str]] = None,
              except_: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if cidr is None:
             raise TypeError("Missing 'cidr' argument")
@@ -2804,7 +2804,7 @@ class IngressBackendPatchArgs:
              resource: Optional[pulumi.Input['_core.v1.TypedLocalObjectReferencePatchArgs']] = None,
              service_name: Optional[pulumi.Input[str]] = None,
              service_port: Optional[pulumi.Input[Union[int, str]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if service_name is None and 'serviceName' in kwargs:
             service_name = kwargs['serviceName']
@@ -2879,7 +2879,7 @@ class IngressBackendArgs:
              service_name: Optional[pulumi.Input[str]] = None,
              service_port: Optional[pulumi.Input[Union[int, str]]] = None,
              resource: Optional[pulumi.Input['_core.v1.TypedLocalObjectReferenceArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if service_name is None and 'serviceName' in kwargs:
             service_name = kwargs['serviceName']
@@ -2956,7 +2956,7 @@ class IngressRulePatchArgs:
              _setter: Callable[[Any, Any], None],
              host: Optional[pulumi.Input[str]] = None,
              http: Optional[pulumi.Input['HTTPIngressRuleValuePatchArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if host is not None:
@@ -3015,7 +3015,7 @@ class IngressRuleArgs:
              _setter: Callable[[Any, Any], None],
              host: Optional[pulumi.Input[str]] = None,
              http: Optional[pulumi.Input['HTTPIngressRuleValueArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if host is not None:
@@ -3078,7 +3078,7 @@ class IngressSpecPatchArgs:
              ingress_class_name: Optional[pulumi.Input[str]] = None,
              rules: Optional[pulumi.Input[Sequence[pulumi.Input['IngressRulePatchArgs']]]] = None,
              tls: Optional[pulumi.Input[Sequence[pulumi.Input['IngressTLSPatchArgs']]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if ingress_class_name is None and 'ingressClassName' in kwargs:
             ingress_class_name = kwargs['ingressClassName']
@@ -3169,7 +3169,7 @@ class IngressSpecArgs:
              ingress_class_name: Optional[pulumi.Input[str]] = None,
              rules: Optional[pulumi.Input[Sequence[pulumi.Input['IngressRuleArgs']]]] = None,
              tls: Optional[pulumi.Input[Sequence[pulumi.Input['IngressTLSArgs']]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if ingress_class_name is None and 'ingressClassName' in kwargs:
             ingress_class_name = kwargs['ingressClassName']
@@ -3248,7 +3248,7 @@ class IngressStatusArgs:
     def _configure(
              _setter: Callable[[Any, Any], None],
              load_balancer: Optional[pulumi.Input['_core.v1.LoadBalancerStatusArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if load_balancer is None and 'loadBalancer' in kwargs:
             load_balancer = kwargs['loadBalancer']
@@ -3289,7 +3289,7 @@ class IngressTLSPatchArgs:
              _setter: Callable[[Any, Any], None],
              hosts: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              secret_name: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if secret_name is None and 'secretName' in kwargs:
             secret_name = kwargs['secretName']
@@ -3344,7 +3344,7 @@ class IngressTLSArgs:
              _setter: Callable[[Any, Any], None],
              hosts: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              secret_name: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if secret_name is None and 'secretName' in kwargs:
             secret_name = kwargs['secretName']
@@ -3425,7 +3425,7 @@ class IngressArgs:
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              spec: Optional[pulumi.Input['IngressSpecArgs']] = None,
              status: Optional[pulumi.Input['IngressStatusArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -3522,7 +3522,7 @@ class NetworkPolicyEgressRulePatchArgs:
              _setter: Callable[[Any, Any], None],
              ports: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPortPatchArgs']]]] = None,
              to: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPeerPatchArgs']]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if ports is not None:
@@ -3575,7 +3575,7 @@ class NetworkPolicyEgressRuleArgs:
              _setter: Callable[[Any, Any], None],
              ports: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPortArgs']]]] = None,
              to: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPeerArgs']]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if ports is not None:
@@ -3628,7 +3628,7 @@ class NetworkPolicyIngressRulePatchArgs:
              _setter: Callable[[Any, Any], None],
              from_: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPeerPatchArgs']]]] = None,
              ports: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPortPatchArgs']]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if from_ is None and 'from' in kwargs:
             from_ = kwargs['from']
@@ -3683,7 +3683,7 @@ class NetworkPolicyIngressRuleArgs:
              _setter: Callable[[Any, Any], None],
              from_: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPeerArgs']]]] = None,
              ports: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyPortArgs']]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if from_ is None and 'from' in kwargs:
             from_ = kwargs['from']
@@ -3746,7 +3746,7 @@ class NetworkPolicyPeerPatchArgs:
              ip_block: Optional[pulumi.Input['IPBlockPatchArgs']] = None,
              namespace_selector: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']] = None,
              pod_selector: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if ip_block is None and 'ipBlock' in kwargs:
             ip_block = kwargs['ipBlock']
@@ -3831,7 +3831,7 @@ class NetworkPolicyPeerArgs:
              ip_block: Optional[pulumi.Input['IPBlockArgs']] = None,
              namespace_selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
              pod_selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if ip_block is None and 'ipBlock' in kwargs:
             ip_block = kwargs['ipBlock']
@@ -3908,7 +3908,7 @@ class NetworkPolicyPortPatchArgs:
              _setter: Callable[[Any, Any], None],
              port: Optional[pulumi.Input[Union[int, str]]] = None,
              protocol: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if port is not None:
@@ -3961,7 +3961,7 @@ class NetworkPolicyPortArgs:
              _setter: Callable[[Any, Any], None],
              port: Optional[pulumi.Input[Union[int, str]]] = None,
              protocol: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if port is not None:
@@ -4022,7 +4022,7 @@ class NetworkPolicySpecPatchArgs:
              ingress: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyIngressRulePatchArgs']]]] = None,
              pod_selector: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']] = None,
              policy_types: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if pod_selector is None and 'podSelector' in kwargs:
             pod_selector = kwargs['podSelector']
@@ -4115,7 +4115,7 @@ class NetworkPolicySpecArgs:
              egress: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyEgressRuleArgs']]]] = None,
              ingress: Optional[pulumi.Input[Sequence[pulumi.Input['NetworkPolicyIngressRuleArgs']]]] = None,
              policy_types: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if pod_selector is None and 'podSelector' in kwargs:
             pod_selector = kwargs['podSelector']
@@ -4209,7 +4209,7 @@ class NetworkPolicyArgs:
              kind: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              spec: Optional[pulumi.Input['NetworkPolicySpecArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -4384,7 +4384,7 @@ class PodSecurityPolicySpecPatchArgs:
              se_linux: Optional[pulumi.Input['SELinuxStrategyOptionsPatchArgs']] = None,
              supplemental_groups: Optional[pulumi.Input['SupplementalGroupsStrategyOptionsPatchArgs']] = None,
              volumes: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if allow_privilege_escalation is None and 'allowPrivilegeEscalation' in kwargs:
             allow_privilege_escalation = kwargs['allowPrivilegeEscalation']
@@ -4885,7 +4885,7 @@ class PodSecurityPolicySpecArgs:
              run_as_group: Optional[pulumi.Input['RunAsGroupStrategyOptionsArgs']] = None,
              runtime_class: Optional[pulumi.Input['RuntimeClassStrategyOptionsArgs']] = None,
              volumes: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if fs_group is None and 'fsGroup' in kwargs:
             fs_group = kwargs['fsGroup']
@@ -5306,7 +5306,7 @@ class PodSecurityPolicyArgs:
              kind: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              spec: Optional[pulumi.Input['PodSecurityPolicySpecArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -5401,7 +5401,7 @@ class ReplicaSetConditionArgs:
              last_transition_time: Optional[pulumi.Input[str]] = None,
              message: Optional[pulumi.Input[str]] = None,
              reason: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if status is None:
             raise TypeError("Missing 'status' argument")
@@ -5508,7 +5508,7 @@ class ReplicaSetSpecPatchArgs:
              replicas: Optional[pulumi.Input[int]] = None,
              selector: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']] = None,
              template: Optional[pulumi.Input['_core.v1.PodTemplateSpecPatchArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if min_ready_seconds is None and 'minReadySeconds' in kwargs:
             min_ready_seconds = kwargs['minReadySeconds']
@@ -5599,7 +5599,7 @@ class ReplicaSetSpecArgs:
              replicas: Optional[pulumi.Input[int]] = None,
              selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
              template: Optional[pulumi.Input['_core.v1.PodTemplateSpecArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if min_ready_seconds is None and 'minReadySeconds' in kwargs:
             min_ready_seconds = kwargs['minReadySeconds']
@@ -5698,7 +5698,7 @@ class ReplicaSetStatusArgs:
              fully_labeled_replicas: Optional[pulumi.Input[int]] = None,
              observed_generation: Optional[pulumi.Input[int]] = None,
              ready_replicas: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if replicas is None:
             raise TypeError("Missing 'replicas' argument")
@@ -5828,7 +5828,7 @@ class ReplicaSetArgs:
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              spec: Optional[pulumi.Input['ReplicaSetSpecArgs']] = None,
              status: Optional[pulumi.Input['ReplicaSetStatusArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -5921,7 +5921,7 @@ class RollbackConfigPatchArgs:
     def _configure(
              _setter: Callable[[Any, Any], None],
              revision: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if revision is not None:
@@ -5956,7 +5956,7 @@ class RollbackConfigArgs:
     def _configure(
              _setter: Callable[[Any, Any], None],
              revision: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if revision is not None:
@@ -5991,7 +5991,7 @@ class RollingUpdateDaemonSetPatchArgs:
     def _configure(
              _setter: Callable[[Any, Any], None],
              max_unavailable: Optional[pulumi.Input[Union[int, str]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if max_unavailable is None and 'maxUnavailable' in kwargs:
             max_unavailable = kwargs['maxUnavailable']
@@ -6028,7 +6028,7 @@ class RollingUpdateDaemonSetArgs:
     def _configure(
              _setter: Callable[[Any, Any], None],
              max_unavailable: Optional[pulumi.Input[Union[int, str]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if max_unavailable is None and 'maxUnavailable' in kwargs:
             max_unavailable = kwargs['maxUnavailable']
@@ -6069,7 +6069,7 @@ class RollingUpdateDeploymentPatchArgs:
              _setter: Callable[[Any, Any], None],
              max_surge: Optional[pulumi.Input[Union[int, str]]] = None,
              max_unavailable: Optional[pulumi.Input[Union[int, str]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if max_surge is None and 'maxSurge' in kwargs:
             max_surge = kwargs['maxSurge']
@@ -6126,7 +6126,7 @@ class RollingUpdateDeploymentArgs:
              _setter: Callable[[Any, Any], None],
              max_surge: Optional[pulumi.Input[Union[int, str]]] = None,
              max_unavailable: Optional[pulumi.Input[Union[int, str]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if max_surge is None and 'maxSurge' in kwargs:
             max_surge = kwargs['maxSurge']
@@ -6183,7 +6183,7 @@ class RunAsGroupStrategyOptionsPatchArgs:
              _setter: Callable[[Any, Any], None],
              ranges: Optional[pulumi.Input[Sequence[pulumi.Input['IDRangePatchArgs']]]] = None,
              rule: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if ranges is not None:
@@ -6236,7 +6236,7 @@ class RunAsGroupStrategyOptionsArgs:
              _setter: Callable[[Any, Any], None],
              rule: Optional[pulumi.Input[str]] = None,
              ranges: Optional[pulumi.Input[Sequence[pulumi.Input['IDRangeArgs']]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if rule is None:
             raise TypeError("Missing 'rule' argument")
@@ -6290,7 +6290,7 @@ class RunAsUserStrategyOptionsPatchArgs:
              _setter: Callable[[Any, Any], None],
              ranges: Optional[pulumi.Input[Sequence[pulumi.Input['IDRangePatchArgs']]]] = None,
              rule: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if ranges is not None:
@@ -6343,7 +6343,7 @@ class RunAsUserStrategyOptionsArgs:
              _setter: Callable[[Any, Any], None],
              rule: Optional[pulumi.Input[str]] = None,
              ranges: Optional[pulumi.Input[Sequence[pulumi.Input['IDRangeArgs']]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if rule is None:
             raise TypeError("Missing 'rule' argument")
@@ -6397,7 +6397,7 @@ class RuntimeClassStrategyOptionsPatchArgs:
              _setter: Callable[[Any, Any], None],
              allowed_runtime_class_names: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              default_runtime_class_name: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if allowed_runtime_class_names is None and 'allowedRuntimeClassNames' in kwargs:
             allowed_runtime_class_names = kwargs['allowedRuntimeClassNames']
@@ -6454,7 +6454,7 @@ class RuntimeClassStrategyOptionsArgs:
              _setter: Callable[[Any, Any], None],
              allowed_runtime_class_names: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              default_runtime_class_name: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if allowed_runtime_class_names is None and 'allowedRuntimeClassNames' in kwargs:
             allowed_runtime_class_names = kwargs['allowedRuntimeClassNames']
@@ -6512,7 +6512,7 @@ class SELinuxStrategyOptionsPatchArgs:
              _setter: Callable[[Any, Any], None],
              rule: Optional[pulumi.Input[str]] = None,
              se_linux_options: Optional[pulumi.Input['_core.v1.SELinuxOptionsPatchArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if se_linux_options is None and 'seLinuxOptions' in kwargs:
             se_linux_options = kwargs['seLinuxOptions']
@@ -6567,7 +6567,7 @@ class SELinuxStrategyOptionsArgs:
              _setter: Callable[[Any, Any], None],
              rule: Optional[pulumi.Input[str]] = None,
              se_linux_options: Optional[pulumi.Input['_core.v1.SELinuxOptionsArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if rule is None:
             raise TypeError("Missing 'rule' argument")
@@ -6623,7 +6623,7 @@ class SupplementalGroupsStrategyOptionsPatchArgs:
              _setter: Callable[[Any, Any], None],
              ranges: Optional[pulumi.Input[Sequence[pulumi.Input['IDRangePatchArgs']]]] = None,
              rule: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if ranges is not None:
@@ -6676,7 +6676,7 @@ class SupplementalGroupsStrategyOptionsArgs:
              _setter: Callable[[Any, Any], None],
              ranges: Optional[pulumi.Input[Sequence[pulumi.Input['IDRangeArgs']]]] = None,
              rule: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if ranges is not None:

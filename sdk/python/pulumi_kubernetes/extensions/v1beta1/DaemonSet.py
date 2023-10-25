@@ -43,7 +43,7 @@ class DaemonSetInitArgs:
              kind: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              spec: Optional[pulumi.Input['DaemonSetSpecArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -169,17 +169,9 @@ class DaemonSet(pulumi.CustomResource):
 
             __props__.__dict__["api_version"] = 'extensions/v1beta1'
             __props__.__dict__["kind"] = 'DaemonSet'
-            if metadata is not None and not isinstance(metadata, _meta.v1.ObjectMetaArgs):
-                metadata = metadata or {}
-                def _setter(key, value):
-                    metadata[key] = value
-                _meta.v1.ObjectMetaArgs._configure(_setter, **metadata)
+            metadata = _utilities.configure(metadata, _meta.v1.ObjectMetaArgs, True)
             __props__.__dict__["metadata"] = metadata
-            if spec is not None and not isinstance(spec, DaemonSetSpecArgs):
-                spec = spec or {}
-                def _setter(key, value):
-                    spec[key] = value
-                DaemonSetSpecArgs._configure(_setter, **spec)
+            spec = _utilities.configure(spec, DaemonSetSpecArgs, True)
             __props__.__dict__["spec"] = spec
             __props__.__dict__["status"] = None
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:apps/v1:DaemonSet"), pulumi.Alias(type_="kubernetes:apps/v1beta2:DaemonSet")])

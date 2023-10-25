@@ -42,7 +42,7 @@ class ValidatingAdmissionPolicyBindingPatchArgs:
              kind: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']] = None,
              spec: Optional[pulumi.Input['ValidatingAdmissionPolicyBindingSpecPatchArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -188,17 +188,9 @@ class ValidatingAdmissionPolicyBindingPatch(pulumi.CustomResource):
 
             __props__.__dict__["api_version"] = 'admissionregistration.k8s.io/v1alpha1'
             __props__.__dict__["kind"] = 'ValidatingAdmissionPolicyBinding'
-            if metadata is not None and not isinstance(metadata, _meta.v1.ObjectMetaPatchArgs):
-                metadata = metadata or {}
-                def _setter(key, value):
-                    metadata[key] = value
-                _meta.v1.ObjectMetaPatchArgs._configure(_setter, **metadata)
+            metadata = _utilities.configure(metadata, _meta.v1.ObjectMetaPatchArgs, True)
             __props__.__dict__["metadata"] = metadata
-            if spec is not None and not isinstance(spec, ValidatingAdmissionPolicyBindingSpecPatchArgs):
-                spec = spec or {}
-                def _setter(key, value):
-                    spec[key] = value
-                ValidatingAdmissionPolicyBindingSpecPatchArgs._configure(_setter, **spec)
+            spec = _utilities.configure(spec, ValidatingAdmissionPolicyBindingSpecPatchArgs, True)
             __props__.__dict__["spec"] = spec
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingAdmissionPolicyBindingPatch")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)

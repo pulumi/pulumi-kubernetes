@@ -41,7 +41,7 @@ class PodPresetPatchArgs:
              kind: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']] = None,
              spec: Optional[pulumi.Input['PodPresetSpecPatchArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -171,17 +171,9 @@ class PodPresetPatch(pulumi.CustomResource):
 
             __props__.__dict__["api_version"] = 'settings.k8s.io/v1alpha1'
             __props__.__dict__["kind"] = 'PodPreset'
-            if metadata is not None and not isinstance(metadata, _meta.v1.ObjectMetaPatchArgs):
-                metadata = metadata or {}
-                def _setter(key, value):
-                    metadata[key] = value
-                _meta.v1.ObjectMetaPatchArgs._configure(_setter, **metadata)
+            metadata = _utilities.configure(metadata, _meta.v1.ObjectMetaPatchArgs, True)
             __props__.__dict__["metadata"] = metadata
-            if spec is not None and not isinstance(spec, PodPresetSpecPatchArgs):
-                spec = spec or {}
-                def _setter(key, value):
-                    spec[key] = value
-                PodPresetSpecPatchArgs._configure(_setter, **spec)
+            spec = _utilities.configure(spec, PodPresetSpecPatchArgs, True)
             __props__.__dict__["spec"] = spec
         super(PodPresetPatch, __self__).__init__(
             'kubernetes:settings.k8s.io/v1alpha1:PodPresetPatch',

@@ -91,7 +91,7 @@ class CronJob(dict):
              metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
              spec: Optional['outputs.CronJobSpec'] = None,
              status: Optional['outputs.CronJobStatus'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -224,7 +224,7 @@ class CronJobSpec(dict):
              successful_jobs_history_limit: Optional[int] = None,
              suspend: Optional[bool] = None,
              time_zone: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if job_template is None and 'jobTemplate' in kwargs:
             job_template = kwargs['jobTemplate']
@@ -401,7 +401,7 @@ class CronJobSpecPatch(dict):
              successful_jobs_history_limit: Optional[int] = None,
              suspend: Optional[bool] = None,
              time_zone: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if concurrency_policy is None and 'concurrencyPolicy' in kwargs:
             concurrency_policy = kwargs['concurrencyPolicy']
@@ -546,7 +546,7 @@ class CronJobStatus(dict):
              active: Optional[Sequence['_core.v1.outputs.ObjectReference']] = None,
              last_schedule_time: Optional[str] = None,
              last_successful_time: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if last_schedule_time is None and 'lastScheduleTime' in kwargs:
             last_schedule_time = kwargs['lastScheduleTime']
@@ -631,7 +631,7 @@ class CronJobStatusPatch(dict):
              active: Optional[Sequence['_core.v1.outputs.ObjectReferencePatch']] = None,
              last_schedule_time: Optional[str] = None,
              last_successful_time: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if last_schedule_time is None and 'lastScheduleTime' in kwargs:
             last_schedule_time = kwargs['lastScheduleTime']
@@ -762,7 +762,7 @@ class Job(dict):
              metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
              spec: Optional['outputs.JobSpec'] = None,
              status: Optional['outputs.JobStatus'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -877,7 +877,7 @@ class JobCondition(dict):
              last_transition_time: Optional[str] = None,
              message: Optional[str] = None,
              reason: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if status is None:
             raise TypeError("Missing 'status' argument")
@@ -1006,7 +1006,7 @@ class JobConditionPatch(dict):
              reason: Optional[str] = None,
              status: Optional[str] = None,
              type: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if last_probe_time is None and 'lastProbeTime' in kwargs:
             last_probe_time = kwargs['lastProbeTime']
@@ -1192,7 +1192,7 @@ class JobSpec(dict):
              selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
              suspend: Optional[bool] = None,
              ttl_seconds_after_finished: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if template is None:
             raise TypeError("Missing 'template' argument")
@@ -1486,7 +1486,7 @@ class JobSpecPatch(dict):
              suspend: Optional[bool] = None,
              template: Optional['_core.v1.outputs.PodTemplateSpecPatch'] = None,
              ttl_seconds_after_finished: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if active_deadline_seconds is None and 'activeDeadlineSeconds' in kwargs:
             active_deadline_seconds = kwargs['activeDeadlineSeconds']
@@ -1757,7 +1757,7 @@ class JobStatus(dict):
              succeeded: Optional[int] = None,
              terminating: Optional[int] = None,
              uncounted_terminated_pods: Optional['outputs.UncountedTerminatedPods'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if completed_indexes is None and 'completedIndexes' in kwargs:
             completed_indexes = kwargs['completedIndexes']
@@ -1988,7 +1988,7 @@ class JobStatusPatch(dict):
              succeeded: Optional[int] = None,
              terminating: Optional[int] = None,
              uncounted_terminated_pods: Optional['outputs.UncountedTerminatedPodsPatch'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if completed_indexes is None and 'completedIndexes' in kwargs:
             completed_indexes = kwargs['completedIndexes']
@@ -2147,7 +2147,7 @@ class JobTemplateSpec(dict):
              _setter: Callable[[Any, Any], None],
              metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
              spec: Optional['outputs.JobSpec'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if metadata is not None:
@@ -2195,7 +2195,7 @@ class JobTemplateSpecPatch(dict):
              _setter: Callable[[Any, Any], None],
              metadata: Optional['_meta.v1.outputs.ObjectMetaPatch'] = None,
              spec: Optional['outputs.JobSpecPatch'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if metadata is not None:
@@ -2239,7 +2239,7 @@ class PodFailurePolicy(dict):
     def _configure(
              _setter: Callable[[Any, Any], None],
              rules: Optional[Sequence['outputs.PodFailurePolicyRule']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if rules is None:
             raise TypeError("Missing 'rules' argument")
@@ -2307,7 +2307,7 @@ class PodFailurePolicyOnExitCodesRequirement(dict):
              operator: Optional[str] = None,
              values: Optional[Sequence[int]] = None,
              container_name: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if operator is None:
             raise TypeError("Missing 'operator' argument")
@@ -2406,7 +2406,7 @@ class PodFailurePolicyOnExitCodesRequirementPatch(dict):
              container_name: Optional[str] = None,
              operator: Optional[str] = None,
              values: Optional[Sequence[int]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if container_name is None and 'containerName' in kwargs:
             container_name = kwargs['containerName']
@@ -2474,7 +2474,7 @@ class PodFailurePolicyOnPodConditionsPattern(dict):
              _setter: Callable[[Any, Any], None],
              status: Optional[str] = None,
              type: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if status is None:
             raise TypeError("Missing 'status' argument")
@@ -2524,7 +2524,7 @@ class PodFailurePolicyOnPodConditionsPatternPatch(dict):
              _setter: Callable[[Any, Any], None],
              status: Optional[str] = None,
              type: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if status is not None:
@@ -2568,7 +2568,7 @@ class PodFailurePolicyPatch(dict):
     def _configure(
              _setter: Callable[[Any, Any], None],
              rules: Optional[Sequence['outputs.PodFailurePolicyRulePatch']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if rules is not None:
@@ -2641,7 +2641,7 @@ class PodFailurePolicyRule(dict):
              action: Optional[str] = None,
              on_pod_conditions: Optional[Sequence['outputs.PodFailurePolicyOnPodConditionsPattern']] = None,
              on_exit_codes: Optional['outputs.PodFailurePolicyOnExitCodesRequirement'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if action is None:
             raise TypeError("Missing 'action' argument")
@@ -2752,7 +2752,7 @@ class PodFailurePolicyRulePatch(dict):
              action: Optional[str] = None,
              on_exit_codes: Optional['outputs.PodFailurePolicyOnExitCodesRequirementPatch'] = None,
              on_pod_conditions: Optional[Sequence['outputs.PodFailurePolicyOnPodConditionsPatternPatch']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if on_exit_codes is None and 'onExitCodes' in kwargs:
             on_exit_codes = kwargs['onExitCodes']
@@ -2826,7 +2826,7 @@ class UncountedTerminatedPods(dict):
              _setter: Callable[[Any, Any], None],
              failed: Optional[Sequence[str]] = None,
              succeeded: Optional[Sequence[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if failed is not None:
@@ -2874,7 +2874,7 @@ class UncountedTerminatedPodsPatch(dict):
              _setter: Callable[[Any, Any], None],
              failed: Optional[Sequence[str]] = None,
              succeeded: Optional[Sequence[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if failed is not None:

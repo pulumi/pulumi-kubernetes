@@ -131,7 +131,7 @@ class Event(dict):
              reporting_instance: Optional[str] = None,
              series: Optional['outputs.EventSeries'] = None,
              type: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if event_time is None and 'eventTime' in kwargs:
             event_time = kwargs['eventTime']
@@ -364,7 +364,7 @@ class EventSeries(dict):
              count: Optional[int] = None,
              last_observed_time: Optional[str] = None,
              state: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if count is None:
             raise TypeError("Missing 'count' argument")
@@ -448,7 +448,7 @@ class EventSeriesPatch(dict):
              count: Optional[int] = None,
              last_observed_time: Optional[str] = None,
              state: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if last_observed_time is None and 'lastObservedTime' in kwargs:
             last_observed_time = kwargs['lastObservedTime']

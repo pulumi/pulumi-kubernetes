@@ -52,7 +52,7 @@ class SecretPatchArgs:
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']] = None,
              string_data: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
              type: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -265,11 +265,7 @@ class SecretPatch(pulumi.CustomResource):
             __props__.__dict__["data"] = data
             __props__.__dict__["immutable"] = immutable
             __props__.__dict__["kind"] = 'Secret'
-            if metadata is not None and not isinstance(metadata, _meta.v1.ObjectMetaPatchArgs):
-                metadata = metadata or {}
-                def _setter(key, value):
-                    metadata[key] = value
-                _meta.v1.ObjectMetaPatchArgs._configure(_setter, **metadata)
+            metadata = _utilities.configure(metadata, _meta.v1.ObjectMetaPatchArgs, True)
             __props__.__dict__["metadata"] = metadata
             __props__.__dict__["string_data"] = string_data
             __props__.__dict__["type"] = type

@@ -41,7 +41,7 @@ class EventSeriesPatchArgs:
              count: Optional[pulumi.Input[int]] = None,
              last_observed_time: Optional[pulumi.Input[str]] = None,
              state: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if last_observed_time is None and 'lastObservedTime' in kwargs:
             last_observed_time = kwargs['lastObservedTime']
@@ -114,7 +114,7 @@ class EventSeriesArgs:
              count: Optional[pulumi.Input[int]] = None,
              last_observed_time: Optional[pulumi.Input[str]] = None,
              state: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if count is None:
             raise TypeError("Missing 'count' argument")
@@ -245,7 +245,7 @@ class EventArgs:
              reporting_instance: Optional[pulumi.Input[str]] = None,
              series: Optional[pulumi.Input['EventSeriesArgs']] = None,
              type: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if event_time is None and 'eventTime' in kwargs:
             event_time = kwargs['eventTime']

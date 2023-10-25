@@ -89,7 +89,7 @@ class Condition(dict):
              status: Optional[str] = None,
              type: Optional[str] = None,
              observed_generation: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if last_transition_time is None and 'lastTransitionTime' in kwargs:
             last_transition_time = kwargs['lastTransitionTime']
@@ -221,7 +221,7 @@ class ConditionPatch(dict):
              reason: Optional[str] = None,
              status: Optional[str] = None,
              type: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if last_transition_time is None and 'lastTransitionTime' in kwargs:
             last_transition_time = kwargs['lastTransitionTime']
@@ -332,7 +332,7 @@ class LabelSelector(dict):
              _setter: Callable[[Any, Any], None],
              match_expressions: Optional[Sequence['outputs.LabelSelectorRequirement']] = None,
              match_labels: Optional[Mapping[str, str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if match_expressions is None and 'matchExpressions' in kwargs:
             match_expressions = kwargs['matchExpressions']
@@ -403,7 +403,7 @@ class LabelSelectorPatch(dict):
              _setter: Callable[[Any, Any], None],
              match_expressions: Optional[Sequence['outputs.LabelSelectorRequirementPatch']] = None,
              match_labels: Optional[Mapping[str, str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if match_expressions is None and 'matchExpressions' in kwargs:
             match_expressions = kwargs['matchExpressions']
@@ -459,7 +459,7 @@ class LabelSelectorRequirement(dict):
              key: Optional[str] = None,
              operator: Optional[str] = None,
              values: Optional[Sequence[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if key is None:
             raise TypeError("Missing 'key' argument")
@@ -523,7 +523,7 @@ class LabelSelectorRequirementPatch(dict):
              key: Optional[str] = None,
              operator: Optional[str] = None,
              values: Optional[Sequence[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if key is not None:
@@ -612,7 +612,7 @@ class ListMeta(dict):
              remaining_item_count: Optional[int] = None,
              resource_version: Optional[str] = None,
              self_link: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if continue_ is None and 'continue' in kwargs:
             continue_ = kwargs['continue']
@@ -719,7 +719,7 @@ class ListMetaPatch(dict):
              remaining_item_count: Optional[int] = None,
              resource_version: Optional[str] = None,
              self_link: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if continue_ is None and 'continue' in kwargs:
             continue_ = kwargs['continue']
@@ -836,7 +836,7 @@ class ManagedFieldsEntry(dict):
              operation: Optional[str] = None,
              subresource: Optional[str] = None,
              time: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -981,7 +981,7 @@ class ManagedFieldsEntryPatch(dict):
              operation: Optional[str] = None,
              subresource: Optional[str] = None,
              time: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -1188,7 +1188,7 @@ class ObjectMeta(dict):
              resource_version: Optional[str] = None,
              self_link: Optional[str] = None,
              uid: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if cluster_name is None and 'clusterName' in kwargs:
             cluster_name = kwargs['clusterName']
@@ -1511,7 +1511,7 @@ class ObjectMetaPatch(dict):
              resource_version: Optional[str] = None,
              self_link: Optional[str] = None,
              uid: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if cluster_name is None and 'clusterName' in kwargs:
             cluster_name = kwargs['clusterName']
@@ -1766,7 +1766,7 @@ class OwnerReference(dict):
              uid: Optional[str] = None,
              block_owner_deletion: Optional[bool] = None,
              controller: Optional[bool] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -1897,7 +1897,7 @@ class OwnerReferencePatch(dict):
              kind: Optional[str] = None,
              name: Optional[str] = None,
              uid: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -1997,7 +1997,7 @@ class StatusCause(dict):
              field: Optional[str] = None,
              message: Optional[str] = None,
              reason: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if field is not None:
@@ -2067,7 +2067,7 @@ class StatusCausePatch(dict):
              field: Optional[str] = None,
              message: Optional[str] = None,
              reason: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if field is not None:
@@ -2162,7 +2162,7 @@ class StatusDetails(dict):
              name: Optional[str] = None,
              retry_after_seconds: Optional[int] = None,
              uid: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if retry_after_seconds is None and 'retryAfterSeconds' in kwargs:
             retry_after_seconds = kwargs['retryAfterSeconds']
@@ -2285,7 +2285,7 @@ class StatusDetailsPatch(dict):
              name: Optional[str] = None,
              retry_after_seconds: Optional[int] = None,
              uid: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if retry_after_seconds is None and 'retryAfterSeconds' in kwargs:
             retry_after_seconds = kwargs['retryAfterSeconds']

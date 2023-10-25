@@ -52,7 +52,7 @@ class RuntimeClassInitArgs:
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              overhead: Optional[pulumi.Input['OverheadArgs']] = None,
              scheduling: Optional[pulumi.Input['SchedulingArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if handler is None:
             raise TypeError("Missing 'handler' argument")
@@ -218,23 +218,11 @@ class RuntimeClass(pulumi.CustomResource):
                 raise TypeError("Missing required property 'handler'")
             __props__.__dict__["handler"] = handler
             __props__.__dict__["kind"] = 'RuntimeClass'
-            if metadata is not None and not isinstance(metadata, _meta.v1.ObjectMetaArgs):
-                metadata = metadata or {}
-                def _setter(key, value):
-                    metadata[key] = value
-                _meta.v1.ObjectMetaArgs._configure(_setter, **metadata)
+            metadata = _utilities.configure(metadata, _meta.v1.ObjectMetaArgs, True)
             __props__.__dict__["metadata"] = metadata
-            if overhead is not None and not isinstance(overhead, OverheadArgs):
-                overhead = overhead or {}
-                def _setter(key, value):
-                    overhead[key] = value
-                OverheadArgs._configure(_setter, **overhead)
+            overhead = _utilities.configure(overhead, OverheadArgs, True)
             __props__.__dict__["overhead"] = overhead
-            if scheduling is not None and not isinstance(scheduling, SchedulingArgs):
-                scheduling = scheduling or {}
-                def _setter(key, value):
-                    scheduling[key] = value
-                SchedulingArgs._configure(_setter, **scheduling)
+            scheduling = _utilities.configure(scheduling, SchedulingArgs, True)
             __props__.__dict__["scheduling"] = scheduling
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:node.k8s.io/v1alpha1:RuntimeClass"), pulumi.Alias(type_="kubernetes:node.k8s.io/v1beta1:RuntimeClass")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)

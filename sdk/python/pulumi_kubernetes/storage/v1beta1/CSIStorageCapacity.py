@@ -60,7 +60,7 @@ class CSIStorageCapacityInitArgs:
              maximum_volume_size: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              node_topology: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if storage_class_name is None and 'storageClassName' in kwargs:
             storage_class_name = kwargs['storageClassName']
@@ -278,17 +278,9 @@ class CSIStorageCapacity(pulumi.CustomResource):
             __props__.__dict__["capacity"] = capacity
             __props__.__dict__["kind"] = 'CSIStorageCapacity'
             __props__.__dict__["maximum_volume_size"] = maximum_volume_size
-            if metadata is not None and not isinstance(metadata, _meta.v1.ObjectMetaArgs):
-                metadata = metadata or {}
-                def _setter(key, value):
-                    metadata[key] = value
-                _meta.v1.ObjectMetaArgs._configure(_setter, **metadata)
+            metadata = _utilities.configure(metadata, _meta.v1.ObjectMetaArgs, True)
             __props__.__dict__["metadata"] = metadata
-            if node_topology is not None and not isinstance(node_topology, _meta.v1.LabelSelectorArgs):
-                node_topology = node_topology or {}
-                def _setter(key, value):
-                    node_topology[key] = value
-                _meta.v1.LabelSelectorArgs._configure(_setter, **node_topology)
+            node_topology = _utilities.configure(node_topology, _meta.v1.LabelSelectorArgs, True)
             __props__.__dict__["node_topology"] = node_topology
             if storage_class_name is None and not opts.urn:
                 raise TypeError("Missing required property 'storage_class_name'")

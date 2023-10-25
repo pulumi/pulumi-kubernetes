@@ -73,7 +73,7 @@ class ClusterTrustBundle(dict):
              api_version: Optional[str] = None,
              kind: Optional[str] = None,
              metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if spec is None:
             raise TypeError("Missing 'spec' argument")
@@ -175,7 +175,7 @@ class ClusterTrustBundleSpec(dict):
              _setter: Callable[[Any, Any], None],
              trust_bundle: Optional[str] = None,
              signer_name: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if trust_bundle is None and 'trustBundle' in kwargs:
             trust_bundle = kwargs['trustBundle']
@@ -271,7 +271,7 @@ class ClusterTrustBundleSpecPatch(dict):
              _setter: Callable[[Any, Any], None],
              signer_name: Optional[str] = None,
              trust_bundle: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if signer_name is None and 'signerName' in kwargs:
             signer_name = kwargs['signerName']

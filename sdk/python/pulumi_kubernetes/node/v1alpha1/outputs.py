@@ -58,7 +58,7 @@ class Overhead(dict):
     def _configure(
              _setter: Callable[[Any, Any], None],
              pod_fixed: Optional[Mapping[str, str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if pod_fixed is None and 'podFixed' in kwargs:
             pod_fixed = kwargs['podFixed']
@@ -111,7 +111,7 @@ class OverheadPatch(dict):
     def _configure(
              _setter: Callable[[Any, Any], None],
              pod_fixed: Optional[Mapping[str, str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if pod_fixed is None and 'podFixed' in kwargs:
             pod_fixed = kwargs['podFixed']
@@ -176,7 +176,7 @@ class RuntimeClass(dict):
              api_version: Optional[str] = None,
              kind: Optional[str] = None,
              metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if spec is None:
             raise TypeError("Missing 'spec' argument")
@@ -268,7 +268,7 @@ class RuntimeClassSpec(dict):
              runtime_handler: Optional[str] = None,
              overhead: Optional['outputs.Overhead'] = None,
              scheduling: Optional['outputs.Scheduling'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if runtime_handler is None and 'runtimeHandler' in kwargs:
             runtime_handler = kwargs['runtimeHandler']
@@ -350,7 +350,7 @@ class RuntimeClassSpecPatch(dict):
              overhead: Optional['outputs.OverheadPatch'] = None,
              runtime_handler: Optional[str] = None,
              scheduling: Optional['outputs.SchedulingPatch'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if runtime_handler is None and 'runtimeHandler' in kwargs:
             runtime_handler = kwargs['runtimeHandler']
@@ -427,7 +427,7 @@ class Scheduling(dict):
              _setter: Callable[[Any, Any], None],
              node_selector: Optional[Mapping[str, str]] = None,
              tolerations: Optional[Sequence['_core.v1.outputs.Toleration']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if node_selector is None and 'nodeSelector' in kwargs:
             node_selector = kwargs['nodeSelector']
@@ -494,7 +494,7 @@ class SchedulingPatch(dict):
              _setter: Callable[[Any, Any], None],
              node_selector: Optional[Mapping[str, str]] = None,
              tolerations: Optional[Sequence['_core.v1.outputs.TolerationPatch']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if node_selector is None and 'nodeSelector' in kwargs:
             node_selector = kwargs['nodeSelector']

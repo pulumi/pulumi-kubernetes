@@ -57,7 +57,7 @@ class MatchConditionPatchArgs:
              _setter: Callable[[Any, Any], None],
              expression: Optional[pulumi.Input[str]] = None,
              name: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if expression is not None:
@@ -130,7 +130,7 @@ class MatchConditionArgs:
              _setter: Callable[[Any, Any], None],
              expression: Optional[pulumi.Input[str]] = None,
              name: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if expression is None:
             raise TypeError("Missing 'expression' argument")
@@ -203,7 +203,7 @@ class MutatingWebhookConfigurationArgs:
              kind: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              webhooks: Optional[pulumi.Input[Sequence[pulumi.Input['MutatingWebhookArgs']]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -377,7 +377,7 @@ class MutatingWebhookPatchArgs:
              rules: Optional[pulumi.Input[Sequence[pulumi.Input['RuleWithOperationsPatchArgs']]]] = None,
              side_effects: Optional[pulumi.Input[str]] = None,
              timeout_seconds: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if admission_review_versions is None and 'admissionReviewVersions' in kwargs:
             admission_review_versions = kwargs['admissionReviewVersions']
@@ -732,7 +732,7 @@ class MutatingWebhookArgs:
              reinvocation_policy: Optional[pulumi.Input[str]] = None,
              rules: Optional[pulumi.Input[Sequence[pulumi.Input['RuleWithOperationsArgs']]]] = None,
              timeout_seconds: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if admission_review_versions is None and 'admissionReviewVersions' in kwargs:
             admission_review_versions = kwargs['admissionReviewVersions']
@@ -1018,7 +1018,7 @@ class RuleWithOperationsPatchArgs:
              operations: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              resources: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              scope: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_groups is None and 'apiGroups' in kwargs:
             api_groups = kwargs['apiGroups']
@@ -1141,7 +1141,7 @@ class RuleWithOperationsArgs:
              operations: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              resources: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              scope: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_groups is None and 'apiGroups' in kwargs:
             api_groups = kwargs['apiGroups']
@@ -1254,7 +1254,7 @@ class ServiceReferencePatchArgs:
              namespace: Optional[pulumi.Input[str]] = None,
              path: Optional[pulumi.Input[str]] = None,
              port: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if name is not None:
@@ -1343,7 +1343,7 @@ class ServiceReferenceArgs:
              namespace: Optional[pulumi.Input[str]] = None,
              path: Optional[pulumi.Input[str]] = None,
              port: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if name is None:
             raise TypeError("Missing 'name' argument")
@@ -1434,7 +1434,7 @@ class ValidatingWebhookConfigurationArgs:
              kind: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              webhooks: Optional[pulumi.Input[Sequence[pulumi.Input['ValidatingWebhookArgs']]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -1598,7 +1598,7 @@ class ValidatingWebhookPatchArgs:
              rules: Optional[pulumi.Input[Sequence[pulumi.Input['RuleWithOperationsPatchArgs']]]] = None,
              side_effects: Optional[pulumi.Input[str]] = None,
              timeout_seconds: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if admission_review_versions is None and 'admissionReviewVersions' in kwargs:
             admission_review_versions = kwargs['admissionReviewVersions']
@@ -1921,7 +1921,7 @@ class ValidatingWebhookArgs:
              object_selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
              rules: Optional[pulumi.Input[Sequence[pulumi.Input['RuleWithOperationsArgs']]]] = None,
              timeout_seconds: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if admission_review_versions is None and 'admissionReviewVersions' in kwargs:
             admission_review_versions = kwargs['admissionReviewVersions']
@@ -2183,7 +2183,7 @@ class WebhookClientConfigPatchArgs:
              ca_bundle: Optional[pulumi.Input[str]] = None,
              service: Optional[pulumi.Input['ServiceReferencePatchArgs']] = None,
              url: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if ca_bundle is None and 'caBundle' in kwargs:
             ca_bundle = kwargs['caBundle']
@@ -2280,7 +2280,7 @@ class WebhookClientConfigArgs:
              ca_bundle: Optional[pulumi.Input[str]] = None,
              service: Optional[pulumi.Input['ServiceReferenceArgs']] = None,
              url: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if ca_bundle is None and 'caBundle' in kwargs:
             ca_bundle = kwargs['caBundle']

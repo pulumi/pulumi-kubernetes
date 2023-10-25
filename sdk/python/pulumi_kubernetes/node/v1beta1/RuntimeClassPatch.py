@@ -51,7 +51,7 @@ class RuntimeClassPatchArgs:
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']] = None,
              overhead: Optional[pulumi.Input['OverheadPatchArgs']] = None,
              scheduling: Optional[pulumi.Input['SchedulingPatchArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -224,23 +224,11 @@ class RuntimeClassPatch(pulumi.CustomResource):
             __props__.__dict__["api_version"] = 'node.k8s.io/v1beta1'
             __props__.__dict__["handler"] = handler
             __props__.__dict__["kind"] = 'RuntimeClass'
-            if metadata is not None and not isinstance(metadata, _meta.v1.ObjectMetaPatchArgs):
-                metadata = metadata or {}
-                def _setter(key, value):
-                    metadata[key] = value
-                _meta.v1.ObjectMetaPatchArgs._configure(_setter, **metadata)
+            metadata = _utilities.configure(metadata, _meta.v1.ObjectMetaPatchArgs, True)
             __props__.__dict__["metadata"] = metadata
-            if overhead is not None and not isinstance(overhead, OverheadPatchArgs):
-                overhead = overhead or {}
-                def _setter(key, value):
-                    overhead[key] = value
-                OverheadPatchArgs._configure(_setter, **overhead)
+            overhead = _utilities.configure(overhead, OverheadPatchArgs, True)
             __props__.__dict__["overhead"] = overhead
-            if scheduling is not None and not isinstance(scheduling, SchedulingPatchArgs):
-                scheduling = scheduling or {}
-                def _setter(key, value):
-                    scheduling[key] = value
-                SchedulingPatchArgs._configure(_setter, **scheduling)
+            scheduling = _utilities.configure(scheduling, SchedulingPatchArgs, True)
             __props__.__dict__["scheduling"] = scheduling
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:node.k8s.io/v1:RuntimeClassPatch"), pulumi.Alias(type_="kubernetes:node.k8s.io/v1alpha1:RuntimeClassPatch")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)

@@ -44,7 +44,7 @@ class ControllerRevisionInitArgs:
              data: Optional[Any] = None,
              kind: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if revision is None:
             raise TypeError("Missing 'revision' argument")
@@ -189,11 +189,7 @@ class ControllerRevision(pulumi.CustomResource):
             __props__.__dict__["api_version"] = 'apps/v1beta1'
             __props__.__dict__["data"] = data
             __props__.__dict__["kind"] = 'ControllerRevision'
-            if metadata is not None and not isinstance(metadata, _meta.v1.ObjectMetaArgs):
-                metadata = metadata or {}
-                def _setter(key, value):
-                    metadata[key] = value
-                _meta.v1.ObjectMetaArgs._configure(_setter, **metadata)
+            metadata = _utilities.configure(metadata, _meta.v1.ObjectMetaArgs, True)
             __props__.__dict__["metadata"] = metadata
             if revision is None and not opts.urn:
                 raise TypeError("Missing required property 'revision'")

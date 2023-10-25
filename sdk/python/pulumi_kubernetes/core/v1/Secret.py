@@ -52,7 +52,7 @@ class SecretInitArgs:
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              string_data: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
              type: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -253,11 +253,7 @@ class Secret(pulumi.CustomResource):
             __props__.__dict__["data"] = None if data is None else pulumi.Output.secret(data)
             __props__.__dict__["immutable"] = immutable
             __props__.__dict__["kind"] = 'Secret'
-            if metadata is not None and not isinstance(metadata, _meta.v1.ObjectMetaArgs):
-                metadata = metadata or {}
-                def _setter(key, value):
-                    metadata[key] = value
-                _meta.v1.ObjectMetaArgs._configure(_setter, **metadata)
+            metadata = _utilities.configure(metadata, _meta.v1.ObjectMetaArgs, True)
             __props__.__dict__["metadata"] = metadata
             __props__.__dict__["string_data"] = None if string_data is None else pulumi.Output.secret(string_data)
             __props__.__dict__["type"] = type

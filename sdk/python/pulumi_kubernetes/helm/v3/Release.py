@@ -164,7 +164,7 @@ class ReleaseArgs:
              verify: Optional[pulumi.Input[bool]] = None,
              version: Optional[pulumi.Input[str]] = None,
              wait_for_jobs: Optional[pulumi.Input[bool]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if chart is None:
             raise TypeError("Missing 'chart' argument")
@@ -1193,11 +1193,7 @@ class Release(pulumi.CustomResource):
             __props__.__dict__["recreate_pods"] = recreate_pods
             __props__.__dict__["render_subchart_notes"] = render_subchart_notes
             __props__.__dict__["replace"] = replace
-            if repository_opts is not None and not isinstance(repository_opts, RepositoryOptsArgs):
-                repository_opts = repository_opts or {}
-                def _setter(key, value):
-                    repository_opts[key] = value
-                RepositoryOptsArgs._configure(_setter, **repository_opts)
+            repository_opts = _utilities.configure(repository_opts, RepositoryOptsArgs, True)
             __props__.__dict__["repository_opts"] = repository_opts
             __props__.__dict__["reset_values"] = reset_values
             __props__.__dict__["resource_names"] = resource_names

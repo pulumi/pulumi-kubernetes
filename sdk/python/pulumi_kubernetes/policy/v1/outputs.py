@@ -71,7 +71,7 @@ class PodDisruptionBudget(dict):
              metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
              spec: Optional['outputs.PodDisruptionBudgetSpec'] = None,
              status: Optional['outputs.PodDisruptionBudgetStatus'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -190,7 +190,7 @@ class PodDisruptionBudgetSpec(dict):
              min_available: Optional[Any] = None,
              selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
              unhealthy_pod_eviction_policy: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if max_unavailable is None and 'maxUnavailable' in kwargs:
             max_unavailable = kwargs['maxUnavailable']
@@ -313,7 +313,7 @@ class PodDisruptionBudgetSpecPatch(dict):
              min_available: Optional[Any] = None,
              selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None,
              unhealthy_pod_eviction_policy: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if max_unavailable is None and 'maxUnavailable' in kwargs:
             max_unavailable = kwargs['maxUnavailable']
@@ -452,7 +452,7 @@ class PodDisruptionBudgetStatus(dict):
              conditions: Optional[Sequence['_meta.v1.outputs.Condition']] = None,
              disrupted_pods: Optional[Mapping[str, str]] = None,
              observed_generation: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if current_healthy is None and 'currentHealthy' in kwargs:
             current_healthy = kwargs['currentHealthy']
@@ -629,7 +629,7 @@ class PodDisruptionBudgetStatusPatch(dict):
              disruptions_allowed: Optional[int] = None,
              expected_pods: Optional[int] = None,
              observed_generation: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if current_healthy is None and 'currentHealthy' in kwargs:
             current_healthy = kwargs['currentHealthy']

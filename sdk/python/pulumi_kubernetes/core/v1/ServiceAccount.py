@@ -50,7 +50,7 @@ class ServiceAccountInitArgs:
              kind: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              secrets: Optional[pulumi.Input[Sequence[pulumi.Input['ObjectReferenceArgs']]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -216,11 +216,7 @@ class ServiceAccount(pulumi.CustomResource):
             __props__.__dict__["automount_service_account_token"] = automount_service_account_token
             __props__.__dict__["image_pull_secrets"] = image_pull_secrets
             __props__.__dict__["kind"] = 'ServiceAccount'
-            if metadata is not None and not isinstance(metadata, _meta.v1.ObjectMetaArgs):
-                metadata = metadata or {}
-                def _setter(key, value):
-                    metadata[key] = value
-                _meta.v1.ObjectMetaArgs._configure(_setter, **metadata)
+            metadata = _utilities.configure(metadata, _meta.v1.ObjectMetaArgs, True)
             __props__.__dict__["metadata"] = metadata
             __props__.__dict__["secrets"] = secrets
         super(ServiceAccount, __self__).__init__(

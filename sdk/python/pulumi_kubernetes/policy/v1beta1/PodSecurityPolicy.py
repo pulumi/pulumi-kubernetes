@@ -43,7 +43,7 @@ class PodSecurityPolicyInitArgs:
              kind: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              spec: Optional[pulumi.Input['PodSecurityPolicySpecArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -169,17 +169,9 @@ class PodSecurityPolicy(pulumi.CustomResource):
 
             __props__.__dict__["api_version"] = 'policy/v1beta1'
             __props__.__dict__["kind"] = 'PodSecurityPolicy'
-            if metadata is not None and not isinstance(metadata, _meta.v1.ObjectMetaArgs):
-                metadata = metadata or {}
-                def _setter(key, value):
-                    metadata[key] = value
-                _meta.v1.ObjectMetaArgs._configure(_setter, **metadata)
+            metadata = _utilities.configure(metadata, _meta.v1.ObjectMetaArgs, True)
             __props__.__dict__["metadata"] = metadata
-            if spec is not None and not isinstance(spec, PodSecurityPolicySpecArgs):
-                spec = spec or {}
-                def _setter(key, value):
-                    spec[key] = value
-                PodSecurityPolicySpecArgs._configure(_setter, **spec)
+            spec = _utilities.configure(spec, PodSecurityPolicySpecArgs, True)
             __props__.__dict__["spec"] = spec
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:extensions/v1beta1:PodSecurityPolicy")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)

@@ -46,7 +46,7 @@ class ClusterRoleBindingInitArgs:
              kind: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              subjects: Optional[pulumi.Input[Sequence[pulumi.Input['SubjectArgs']]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if role_ref is None and 'roleRef' in kwargs:
             role_ref = kwargs['roleRef']
@@ -192,17 +192,9 @@ class ClusterRoleBinding(pulumi.CustomResource):
 
             __props__.__dict__["api_version"] = 'rbac.authorization.k8s.io/v1beta1'
             __props__.__dict__["kind"] = 'ClusterRoleBinding'
-            if metadata is not None and not isinstance(metadata, _meta.v1.ObjectMetaArgs):
-                metadata = metadata or {}
-                def _setter(key, value):
-                    metadata[key] = value
-                _meta.v1.ObjectMetaArgs._configure(_setter, **metadata)
+            metadata = _utilities.configure(metadata, _meta.v1.ObjectMetaArgs, True)
             __props__.__dict__["metadata"] = metadata
-            if role_ref is not None and not isinstance(role_ref, RoleRefArgs):
-                role_ref = role_ref or {}
-                def _setter(key, value):
-                    role_ref[key] = value
-                RoleRefArgs._configure(_setter, **role_ref)
+            role_ref = _utilities.configure(role_ref, RoleRefArgs, True)
             if role_ref is None and not opts.urn:
                 raise TypeError("Missing required property 'role_ref'")
             __props__.__dict__["role_ref"] = role_ref

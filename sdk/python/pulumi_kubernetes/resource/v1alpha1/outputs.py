@@ -89,7 +89,7 @@ class AllocationResult(dict):
              available_on_nodes: Optional['_core.v1.outputs.NodeSelector'] = None,
              resource_handle: Optional[str] = None,
              shareable: Optional[bool] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if available_on_nodes is None and 'availableOnNodes' in kwargs:
             available_on_nodes = kwargs['availableOnNodes']
@@ -182,7 +182,7 @@ class AllocationResultPatch(dict):
              available_on_nodes: Optional['_core.v1.outputs.NodeSelectorPatch'] = None,
              resource_handle: Optional[str] = None,
              shareable: Optional[bool] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if available_on_nodes is None and 'availableOnNodes' in kwargs:
             available_on_nodes = kwargs['availableOnNodes']
@@ -281,7 +281,7 @@ class PodScheduling(dict):
              kind: Optional[str] = None,
              metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
              status: Optional['outputs.PodSchedulingStatus'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if spec is None:
             raise TypeError("Missing 'spec' argument")
@@ -383,7 +383,7 @@ class PodSchedulingSpec(dict):
              _setter: Callable[[Any, Any], None],
              potential_nodes: Optional[Sequence[str]] = None,
              selected_node: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if potential_nodes is None and 'potentialNodes' in kwargs:
             potential_nodes = kwargs['potentialNodes']
@@ -458,7 +458,7 @@ class PodSchedulingSpecPatch(dict):
              _setter: Callable[[Any, Any], None],
              potential_nodes: Optional[Sequence[str]] = None,
              selected_node: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if potential_nodes is None and 'potentialNodes' in kwargs:
             potential_nodes = kwargs['potentialNodes']
@@ -525,7 +525,7 @@ class PodSchedulingStatus(dict):
     def _configure(
              _setter: Callable[[Any, Any], None],
              resource_claims: Optional[Sequence['outputs.ResourceClaimSchedulingStatus']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if resource_claims is None and 'resourceClaims' in kwargs:
             resource_claims = kwargs['resourceClaims']
@@ -578,7 +578,7 @@ class PodSchedulingStatusPatch(dict):
     def _configure(
              _setter: Callable[[Any, Any], None],
              resource_claims: Optional[Sequence['outputs.ResourceClaimSchedulingStatusPatch']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if resource_claims is None and 'resourceClaims' in kwargs:
             resource_claims = kwargs['resourceClaims']
@@ -651,7 +651,7 @@ class ResourceClaim(dict):
              kind: Optional[str] = None,
              metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
              status: Optional['outputs.ResourceClaimStatus'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if spec is None:
             raise TypeError("Missing 'spec' argument")
@@ -757,7 +757,7 @@ class ResourceClaimConsumerReference(dict):
              resource: Optional[str] = None,
              uid: Optional[str] = None,
              api_group: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if name is None:
             raise TypeError("Missing 'name' argument")
@@ -855,7 +855,7 @@ class ResourceClaimConsumerReferencePatch(dict):
              name: Optional[str] = None,
              resource: Optional[str] = None,
              uid: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_group is None and 'apiGroup' in kwargs:
             api_group = kwargs['apiGroup']
@@ -946,7 +946,7 @@ class ResourceClaimParametersReference(dict):
              kind: Optional[str] = None,
              name: Optional[str] = None,
              api_group: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if kind is None:
             raise TypeError("Missing 'kind' argument")
@@ -1029,7 +1029,7 @@ class ResourceClaimParametersReferencePatch(dict):
              api_group: Optional[str] = None,
              kind: Optional[str] = None,
              name: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_group is None and 'apiGroup' in kwargs:
             api_group = kwargs['apiGroup']
@@ -1108,7 +1108,7 @@ class ResourceClaimSchedulingStatus(dict):
              _setter: Callable[[Any, Any], None],
              name: Optional[str] = None,
              unsuitable_nodes: Optional[Sequence[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if unsuitable_nodes is None and 'unsuitableNodes' in kwargs:
             unsuitable_nodes = kwargs['unsuitableNodes']
@@ -1179,7 +1179,7 @@ class ResourceClaimSchedulingStatusPatch(dict):
              _setter: Callable[[Any, Any], None],
              name: Optional[str] = None,
              unsuitable_nodes: Optional[Sequence[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if unsuitable_nodes is None and 'unsuitableNodes' in kwargs:
             unsuitable_nodes = kwargs['unsuitableNodes']
@@ -1258,7 +1258,7 @@ class ResourceClaimSpec(dict):
              resource_class_name: Optional[str] = None,
              allocation_mode: Optional[str] = None,
              parameters_ref: Optional['outputs.ResourceClaimParametersReference'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if resource_class_name is None and 'resourceClassName' in kwargs:
             resource_class_name = kwargs['resourceClassName']
@@ -1352,7 +1352,7 @@ class ResourceClaimSpecPatch(dict):
              allocation_mode: Optional[str] = None,
              parameters_ref: Optional['outputs.ResourceClaimParametersReferencePatch'] = None,
              resource_class_name: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if allocation_mode is None and 'allocationMode' in kwargs:
             allocation_mode = kwargs['allocationMode']
@@ -1453,7 +1453,7 @@ class ResourceClaimStatus(dict):
              deallocation_requested: Optional[bool] = None,
              driver_name: Optional[str] = None,
              reserved_for: Optional[Sequence['outputs.ResourceClaimConsumerReference']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if deallocation_requested is None and 'deallocationRequested' in kwargs:
             deallocation_requested = kwargs['deallocationRequested']
@@ -1568,7 +1568,7 @@ class ResourceClaimStatusPatch(dict):
              deallocation_requested: Optional[bool] = None,
              driver_name: Optional[str] = None,
              reserved_for: Optional[Sequence['outputs.ResourceClaimConsumerReferencePatch']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if deallocation_requested is None and 'deallocationRequested' in kwargs:
             deallocation_requested = kwargs['deallocationRequested']
@@ -1675,7 +1675,7 @@ class ResourceClaimTemplate(dict):
              api_version: Optional[str] = None,
              kind: Optional[str] = None,
              metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if spec is None:
             raise TypeError("Missing 'spec' argument")
@@ -1748,7 +1748,7 @@ class ResourceClaimTemplateSpec(dict):
              _setter: Callable[[Any, Any], None],
              spec: Optional['outputs.ResourceClaimSpec'] = None,
              metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if spec is None:
             raise TypeError("Missing 'spec' argument")
@@ -1797,7 +1797,7 @@ class ResourceClaimTemplateSpecPatch(dict):
              _setter: Callable[[Any, Any], None],
              metadata: Optional['_meta.v1.outputs.ObjectMetaPatch'] = None,
              spec: Optional['outputs.ResourceClaimSpecPatch'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if metadata is not None:
@@ -1892,7 +1892,7 @@ class ResourceClass(dict):
              metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
              parameters_ref: Optional['outputs.ResourceClassParametersReference'] = None,
              suitable_nodes: Optional['_core.v1.outputs.NodeSelector'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if driver_name is None and 'driverName' in kwargs:
             driver_name = kwargs['driverName']
@@ -2018,7 +2018,7 @@ class ResourceClassParametersReference(dict):
              name: Optional[str] = None,
              api_group: Optional[str] = None,
              namespace: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if kind is None:
             raise TypeError("Missing 'kind' argument")
@@ -2115,7 +2115,7 @@ class ResourceClassParametersReferencePatch(dict):
              kind: Optional[str] = None,
              name: Optional[str] = None,
              namespace: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_group is None and 'apiGroup' in kwargs:
             api_group = kwargs['apiGroup']

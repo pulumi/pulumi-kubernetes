@@ -64,7 +64,7 @@ class PodPreset(dict):
              kind: Optional[str] = None,
              metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
              spec: Optional['outputs.PodPresetSpec'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -159,7 +159,7 @@ class PodPresetSpec(dict):
              selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
              volume_mounts: Optional[Sequence['_core.v1.outputs.VolumeMount']] = None,
              volumes: Optional[Sequence['_core.v1.outputs.Volume']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if env_from is None and 'envFrom' in kwargs:
             env_from = kwargs['envFrom']
@@ -272,7 +272,7 @@ class PodPresetSpecPatch(dict):
              selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None,
              volume_mounts: Optional[Sequence['_core.v1.outputs.VolumeMountPatch']] = None,
              volumes: Optional[Sequence['_core.v1.outputs.VolumePatch']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if env_from is None and 'envFrom' in kwargs:
             env_from = kwargs['envFrom']

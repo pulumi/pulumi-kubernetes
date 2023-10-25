@@ -86,7 +86,7 @@ class Endpoint(dict):
              node_name: Optional[str] = None,
              target_ref: Optional['_core.v1.outputs.ObjectReference'] = None,
              topology: Optional[Mapping[str, str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if addresses is None:
             raise TypeError("Missing 'addresses' argument")
@@ -189,7 +189,7 @@ class EndpointConditions(dict):
              ready: Optional[bool] = None,
              serving: Optional[bool] = None,
              terminating: Optional[bool] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if ready is not None:
@@ -251,7 +251,7 @@ class EndpointConditionsPatch(dict):
              ready: Optional[bool] = None,
              serving: Optional[bool] = None,
              terminating: Optional[bool] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if ready is not None:
@@ -350,7 +350,7 @@ class EndpointPatch(dict):
              node_name: Optional[str] = None,
              target_ref: Optional['_core.v1.outputs.ObjectReferencePatch'] = None,
              topology: Optional[Mapping[str, str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if node_name is None and 'nodeName' in kwargs:
             node_name = kwargs['nodeName']
@@ -473,7 +473,7 @@ class EndpointPort(dict):
              name: Optional[str] = None,
              port: Optional[int] = None,
              protocol: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if app_protocol is None and 'appProtocol' in kwargs:
             app_protocol = kwargs['appProtocol']
@@ -568,7 +568,7 @@ class EndpointPortPatch(dict):
              name: Optional[str] = None,
              port: Optional[int] = None,
              protocol: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if app_protocol is None and 'appProtocol' in kwargs:
             app_protocol = kwargs['appProtocol']
@@ -673,7 +673,7 @@ class EndpointSlice(dict):
              kind: Optional[str] = None,
              metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
              ports: Optional[Sequence['outputs.EndpointPort']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if address_type is None and 'addressType' in kwargs:
             address_type = kwargs['addressType']

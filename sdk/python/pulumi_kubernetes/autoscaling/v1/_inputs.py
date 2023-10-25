@@ -43,7 +43,7 @@ class CrossVersionObjectReferencePatchArgs:
              api_version: Optional[pulumi.Input[str]] = None,
              kind: Optional[pulumi.Input[str]] = None,
              name: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -116,7 +116,7 @@ class CrossVersionObjectReferenceArgs:
              kind: Optional[pulumi.Input[str]] = None,
              name: Optional[pulumi.Input[str]] = None,
              api_version: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if kind is None:
             raise TypeError("Missing 'kind' argument")
@@ -195,7 +195,7 @@ class HorizontalPodAutoscalerSpecPatchArgs:
              min_replicas: Optional[pulumi.Input[int]] = None,
              scale_target_ref: Optional[pulumi.Input['CrossVersionObjectReferencePatchArgs']] = None,
              target_cpu_utilization_percentage: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if max_replicas is None and 'maxReplicas' in kwargs:
             max_replicas = kwargs['maxReplicas']
@@ -292,7 +292,7 @@ class HorizontalPodAutoscalerSpecArgs:
              scale_target_ref: Optional[pulumi.Input['CrossVersionObjectReferenceArgs']] = None,
              min_replicas: Optional[pulumi.Input[int]] = None,
              target_cpu_utilization_percentage: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if max_replicas is None and 'maxReplicas' in kwargs:
             max_replicas = kwargs['maxReplicas']
@@ -395,7 +395,7 @@ class HorizontalPodAutoscalerStatusArgs:
              current_cpu_utilization_percentage: Optional[pulumi.Input[int]] = None,
              last_scale_time: Optional[pulumi.Input[str]] = None,
              observed_generation: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if current_replicas is None and 'currentReplicas' in kwargs:
             current_replicas = kwargs['currentReplicas']
@@ -514,7 +514,7 @@ class HorizontalPodAutoscalerArgs:
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              spec: Optional[pulumi.Input['HorizontalPodAutoscalerSpecArgs']] = None,
              status: Optional[pulumi.Input['HorizontalPodAutoscalerStatusArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']

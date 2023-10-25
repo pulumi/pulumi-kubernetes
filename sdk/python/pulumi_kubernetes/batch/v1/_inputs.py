@@ -80,7 +80,7 @@ class CronJobSpecPatchArgs:
              successful_jobs_history_limit: Optional[pulumi.Input[int]] = None,
              suspend: Optional[pulumi.Input[bool]] = None,
              time_zone: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if concurrency_policy is None and 'concurrencyPolicy' in kwargs:
             concurrency_policy = kwargs['concurrencyPolicy']
@@ -257,7 +257,7 @@ class CronJobSpecArgs:
              successful_jobs_history_limit: Optional[pulumi.Input[int]] = None,
              suspend: Optional[pulumi.Input[bool]] = None,
              time_zone: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if job_template is None and 'jobTemplate' in kwargs:
             job_template = kwargs['jobTemplate']
@@ -414,7 +414,7 @@ class CronJobStatusArgs:
              active: Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.ObjectReferenceArgs']]]] = None,
              last_schedule_time: Optional[pulumi.Input[str]] = None,
              last_successful_time: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if last_schedule_time is None and 'lastScheduleTime' in kwargs:
             last_schedule_time = kwargs['lastScheduleTime']
@@ -497,7 +497,7 @@ class CronJobArgs:
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              spec: Optional[pulumi.Input['CronJobSpecArgs']] = None,
              status: Optional[pulumi.Input['CronJobStatusArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -610,7 +610,7 @@ class JobConditionArgs:
              last_transition_time: Optional[pulumi.Input[str]] = None,
              message: Optional[pulumi.Input[str]] = None,
              reason: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if status is None:
             raise TypeError("Missing 'status' argument")
@@ -786,7 +786,7 @@ class JobSpecPatchArgs:
              suspend: Optional[pulumi.Input[bool]] = None,
              template: Optional[pulumi.Input['_core.v1.PodTemplateSpecPatchArgs']] = None,
              ttl_seconds_after_finished: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if active_deadline_seconds is None and 'activeDeadlineSeconds' in kwargs:
             active_deadline_seconds = kwargs['activeDeadlineSeconds']
@@ -1099,7 +1099,7 @@ class JobSpecArgs:
              selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
              suspend: Optional[pulumi.Input[bool]] = None,
              ttl_seconds_after_finished: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if template is None:
             raise TypeError("Missing 'template' argument")
@@ -1399,7 +1399,7 @@ class JobStatusArgs:
              succeeded: Optional[pulumi.Input[int]] = None,
              terminating: Optional[pulumi.Input[int]] = None,
              uncounted_terminated_pods: Optional[pulumi.Input['UncountedTerminatedPodsArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if completed_indexes is None and 'completedIndexes' in kwargs:
             completed_indexes = kwargs['completedIndexes']
@@ -1599,7 +1599,7 @@ class JobTemplateSpecPatchArgs:
              _setter: Callable[[Any, Any], None],
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']] = None,
              spec: Optional[pulumi.Input['JobSpecPatchArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if metadata is not None:
@@ -1652,7 +1652,7 @@ class JobTemplateSpecArgs:
              _setter: Callable[[Any, Any], None],
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              spec: Optional[pulumi.Input['JobSpecArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if metadata is not None:
@@ -1737,7 +1737,7 @@ class JobArgs:
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              spec: Optional[pulumi.Input['JobSpecArgs']] = None,
              status: Optional[pulumi.Input['JobStatusArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -1846,7 +1846,7 @@ class PodFailurePolicyOnExitCodesRequirementPatchArgs:
              container_name: Optional[pulumi.Input[str]] = None,
              operator: Optional[pulumi.Input[str]] = None,
              values: Optional[pulumi.Input[Sequence[pulumi.Input[int]]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if container_name is None and 'containerName' in kwargs:
             container_name = kwargs['containerName']
@@ -1935,7 +1935,7 @@ class PodFailurePolicyOnExitCodesRequirementArgs:
              operator: Optional[pulumi.Input[str]] = None,
              values: Optional[pulumi.Input[Sequence[pulumi.Input[int]]]] = None,
              container_name: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if operator is None:
             raise TypeError("Missing 'operator' argument")
@@ -2014,7 +2014,7 @@ class PodFailurePolicyOnPodConditionsPatternPatchArgs:
              _setter: Callable[[Any, Any], None],
              status: Optional[pulumi.Input[str]] = None,
              type: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if status is not None:
@@ -2067,7 +2067,7 @@ class PodFailurePolicyOnPodConditionsPatternArgs:
              _setter: Callable[[Any, Any], None],
              status: Optional[pulumi.Input[str]] = None,
              type: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if status is None:
             raise TypeError("Missing 'status' argument")
@@ -2118,7 +2118,7 @@ class PodFailurePolicyPatchArgs:
     def _configure(
              _setter: Callable[[Any, Any], None],
              rules: Optional[pulumi.Input[Sequence[pulumi.Input['PodFailurePolicyRulePatchArgs']]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if rules is not None:
@@ -2173,7 +2173,7 @@ class PodFailurePolicyRulePatchArgs:
              action: Optional[pulumi.Input[str]] = None,
              on_exit_codes: Optional[pulumi.Input['PodFailurePolicyOnExitCodesRequirementPatchArgs']] = None,
              on_pod_conditions: Optional[pulumi.Input[Sequence[pulumi.Input['PodFailurePolicyOnPodConditionsPatternPatchArgs']]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if on_exit_codes is None and 'onExitCodes' in kwargs:
             on_exit_codes = kwargs['onExitCodes']
@@ -2272,7 +2272,7 @@ class PodFailurePolicyRuleArgs:
              action: Optional[pulumi.Input[str]] = None,
              on_pod_conditions: Optional[pulumi.Input[Sequence[pulumi.Input['PodFailurePolicyOnPodConditionsPatternArgs']]]] = None,
              on_exit_codes: Optional[pulumi.Input['PodFailurePolicyOnExitCodesRequirementArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if action is None:
             raise TypeError("Missing 'action' argument")
@@ -2353,7 +2353,7 @@ class PodFailurePolicyArgs:
     def _configure(
              _setter: Callable[[Any, Any], None],
              rules: Optional[pulumi.Input[Sequence[pulumi.Input['PodFailurePolicyRuleArgs']]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if rules is None:
             raise TypeError("Missing 'rules' argument")
@@ -2393,7 +2393,7 @@ class UncountedTerminatedPodsArgs:
              _setter: Callable[[Any, Any], None],
              failed: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              succeeded: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if failed is not None:

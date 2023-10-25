@@ -65,7 +65,7 @@ class StorageClassInitArgs:
              parameters: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
              reclaim_policy: Optional[pulumi.Input[str]] = None,
              volume_binding_mode: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if provisioner is None:
             raise TypeError("Missing 'provisioner' argument")
@@ -310,11 +310,7 @@ class StorageClass(pulumi.CustomResource):
             __props__.__dict__["allowed_topologies"] = allowed_topologies
             __props__.__dict__["api_version"] = 'storage.k8s.io/v1beta1'
             __props__.__dict__["kind"] = 'StorageClass'
-            if metadata is not None and not isinstance(metadata, _meta.v1.ObjectMetaArgs):
-                metadata = metadata or {}
-                def _setter(key, value):
-                    metadata[key] = value
-                _meta.v1.ObjectMetaArgs._configure(_setter, **metadata)
+            metadata = _utilities.configure(metadata, _meta.v1.ObjectMetaArgs, True)
             __props__.__dict__["metadata"] = metadata
             __props__.__dict__["mount_options"] = mount_options
             __props__.__dict__["parameters"] = parameters

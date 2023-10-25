@@ -53,7 +53,7 @@ class StatusPatchArgs:
              message: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['ListMetaPatchArgs']] = None,
              reason: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -242,19 +242,11 @@ class StatusPatch(pulumi.CustomResource):
 
             __props__.__dict__["api_version"] = 'v1'
             __props__.__dict__["code"] = code
-            if details is not None and not isinstance(details, StatusDetailsPatchArgs):
-                details = details or {}
-                def _setter(key, value):
-                    details[key] = value
-                StatusDetailsPatchArgs._configure(_setter, **details)
+            details = _utilities.configure(details, StatusDetailsPatchArgs, True)
             __props__.__dict__["details"] = details
             __props__.__dict__["kind"] = 'Status'
             __props__.__dict__["message"] = message
-            if metadata is not None and not isinstance(metadata, ListMetaPatchArgs):
-                metadata = metadata or {}
-                def _setter(key, value):
-                    metadata[key] = value
-                ListMetaPatchArgs._configure(_setter, **metadata)
+            metadata = _utilities.configure(metadata, ListMetaPatchArgs, True)
             __props__.__dict__["metadata"] = metadata
             __props__.__dict__["reason"] = reason
             __props__.__dict__["status"] = None

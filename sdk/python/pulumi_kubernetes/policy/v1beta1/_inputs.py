@@ -59,7 +59,7 @@ class AllowedCSIDriverPatchArgs:
     def _configure(
              _setter: Callable[[Any, Any], None],
              name: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if name is not None:
@@ -94,7 +94,7 @@ class AllowedCSIDriverArgs:
     def _configure(
              _setter: Callable[[Any, Any], None],
              name: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if name is None:
             raise TypeError("Missing 'name' argument")
@@ -130,7 +130,7 @@ class AllowedFlexVolumePatchArgs:
     def _configure(
              _setter: Callable[[Any, Any], None],
              driver: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if driver is not None:
@@ -165,7 +165,7 @@ class AllowedFlexVolumeArgs:
     def _configure(
              _setter: Callable[[Any, Any], None],
              driver: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if driver is None:
             raise TypeError("Missing 'driver' argument")
@@ -207,7 +207,7 @@ class AllowedHostPathPatchArgs:
              _setter: Callable[[Any, Any], None],
              path_prefix: Optional[pulumi.Input[str]] = None,
              read_only: Optional[pulumi.Input[bool]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if path_prefix is None and 'pathPrefix' in kwargs:
             path_prefix = kwargs['pathPrefix']
@@ -268,7 +268,7 @@ class AllowedHostPathArgs:
              _setter: Callable[[Any, Any], None],
              path_prefix: Optional[pulumi.Input[str]] = None,
              read_only: Optional[pulumi.Input[bool]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if path_prefix is None and 'pathPrefix' in kwargs:
             path_prefix = kwargs['pathPrefix']
@@ -327,7 +327,7 @@ class FSGroupStrategyOptionsPatchArgs:
              _setter: Callable[[Any, Any], None],
              ranges: Optional[pulumi.Input[Sequence[pulumi.Input['IDRangePatchArgs']]]] = None,
              rule: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if ranges is not None:
@@ -380,7 +380,7 @@ class FSGroupStrategyOptionsArgs:
              _setter: Callable[[Any, Any], None],
              ranges: Optional[pulumi.Input[Sequence[pulumi.Input['IDRangeArgs']]]] = None,
              rule: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if ranges is not None:
@@ -433,7 +433,7 @@ class HostPortRangePatchArgs:
              _setter: Callable[[Any, Any], None],
              max: Optional[pulumi.Input[int]] = None,
              min: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if max is not None:
@@ -486,7 +486,7 @@ class HostPortRangeArgs:
              _setter: Callable[[Any, Any], None],
              max: Optional[pulumi.Input[int]] = None,
              min: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if max is None:
             raise TypeError("Missing 'max' argument")
@@ -541,7 +541,7 @@ class IDRangePatchArgs:
              _setter: Callable[[Any, Any], None],
              max: Optional[pulumi.Input[int]] = None,
              min: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if max is not None:
@@ -594,7 +594,7 @@ class IDRangeArgs:
              _setter: Callable[[Any, Any], None],
              max: Optional[pulumi.Input[int]] = None,
              min: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if max is None:
             raise TypeError("Missing 'max' argument")
@@ -653,7 +653,7 @@ class PodDisruptionBudgetSpecPatchArgs:
              max_unavailable: Optional[pulumi.Input[Union[int, str]]] = None,
              min_available: Optional[pulumi.Input[Union[int, str]]] = None,
              selector: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if max_unavailable is None and 'maxUnavailable' in kwargs:
             max_unavailable = kwargs['maxUnavailable']
@@ -728,7 +728,7 @@ class PodDisruptionBudgetSpecArgs:
              max_unavailable: Optional[pulumi.Input[Union[int, str]]] = None,
              min_available: Optional[pulumi.Input[Union[int, str]]] = None,
              selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if max_unavailable is None and 'maxUnavailable' in kwargs:
             max_unavailable = kwargs['maxUnavailable']
@@ -815,7 +815,7 @@ class PodDisruptionBudgetStatusArgs:
              expected_pods: Optional[pulumi.Input[int]] = None,
              disrupted_pods: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
              observed_generation: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if current_healthy is None and 'currentHealthy' in kwargs:
             current_healthy = kwargs['currentHealthy']
@@ -951,7 +951,7 @@ class PodDisruptionBudgetArgs:
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              spec: Optional[pulumi.Input['PodDisruptionBudgetSpecArgs']] = None,
              status: Optional[pulumi.Input['PodDisruptionBudgetStatusArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -1137,7 +1137,7 @@ class PodSecurityPolicySpecPatchArgs:
              se_linux: Optional[pulumi.Input['SELinuxStrategyOptionsPatchArgs']] = None,
              supplemental_groups: Optional[pulumi.Input['SupplementalGroupsStrategyOptionsPatchArgs']] = None,
              volumes: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if allow_privilege_escalation is None and 'allowPrivilegeEscalation' in kwargs:
             allow_privilege_escalation = kwargs['allowPrivilegeEscalation']
@@ -1638,7 +1638,7 @@ class PodSecurityPolicySpecArgs:
              run_as_group: Optional[pulumi.Input['RunAsGroupStrategyOptionsArgs']] = None,
              runtime_class: Optional[pulumi.Input['RuntimeClassStrategyOptionsArgs']] = None,
              volumes: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if fs_group is None and 'fsGroup' in kwargs:
             fs_group = kwargs['fsGroup']
@@ -2059,7 +2059,7 @@ class PodSecurityPolicyArgs:
              kind: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              spec: Optional[pulumi.Input['PodSecurityPolicySpecArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -2142,7 +2142,7 @@ class RunAsGroupStrategyOptionsPatchArgs:
              _setter: Callable[[Any, Any], None],
              ranges: Optional[pulumi.Input[Sequence[pulumi.Input['IDRangePatchArgs']]]] = None,
              rule: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if ranges is not None:
@@ -2195,7 +2195,7 @@ class RunAsGroupStrategyOptionsArgs:
              _setter: Callable[[Any, Any], None],
              rule: Optional[pulumi.Input[str]] = None,
              ranges: Optional[pulumi.Input[Sequence[pulumi.Input['IDRangeArgs']]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if rule is None:
             raise TypeError("Missing 'rule' argument")
@@ -2249,7 +2249,7 @@ class RunAsUserStrategyOptionsPatchArgs:
              _setter: Callable[[Any, Any], None],
              ranges: Optional[pulumi.Input[Sequence[pulumi.Input['IDRangePatchArgs']]]] = None,
              rule: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if ranges is not None:
@@ -2302,7 +2302,7 @@ class RunAsUserStrategyOptionsArgs:
              _setter: Callable[[Any, Any], None],
              rule: Optional[pulumi.Input[str]] = None,
              ranges: Optional[pulumi.Input[Sequence[pulumi.Input['IDRangeArgs']]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if rule is None:
             raise TypeError("Missing 'rule' argument")
@@ -2356,7 +2356,7 @@ class RuntimeClassStrategyOptionsPatchArgs:
              _setter: Callable[[Any, Any], None],
              allowed_runtime_class_names: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              default_runtime_class_name: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if allowed_runtime_class_names is None and 'allowedRuntimeClassNames' in kwargs:
             allowed_runtime_class_names = kwargs['allowedRuntimeClassNames']
@@ -2413,7 +2413,7 @@ class RuntimeClassStrategyOptionsArgs:
              _setter: Callable[[Any, Any], None],
              allowed_runtime_class_names: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              default_runtime_class_name: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if allowed_runtime_class_names is None and 'allowedRuntimeClassNames' in kwargs:
             allowed_runtime_class_names = kwargs['allowedRuntimeClassNames']
@@ -2471,7 +2471,7 @@ class SELinuxStrategyOptionsPatchArgs:
              _setter: Callable[[Any, Any], None],
              rule: Optional[pulumi.Input[str]] = None,
              se_linux_options: Optional[pulumi.Input['_core.v1.SELinuxOptionsPatchArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if se_linux_options is None and 'seLinuxOptions' in kwargs:
             se_linux_options = kwargs['seLinuxOptions']
@@ -2526,7 +2526,7 @@ class SELinuxStrategyOptionsArgs:
              _setter: Callable[[Any, Any], None],
              rule: Optional[pulumi.Input[str]] = None,
              se_linux_options: Optional[pulumi.Input['_core.v1.SELinuxOptionsArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if rule is None:
             raise TypeError("Missing 'rule' argument")
@@ -2582,7 +2582,7 @@ class SupplementalGroupsStrategyOptionsPatchArgs:
              _setter: Callable[[Any, Any], None],
              ranges: Optional[pulumi.Input[Sequence[pulumi.Input['IDRangePatchArgs']]]] = None,
              rule: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if ranges is not None:
@@ -2635,7 +2635,7 @@ class SupplementalGroupsStrategyOptionsArgs:
              _setter: Callable[[Any, Any], None],
              ranges: Optional[pulumi.Input[Sequence[pulumi.Input['IDRangeArgs']]]] = None,
              rule: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if ranges is not None:

@@ -42,7 +42,7 @@ class PodTemplatePatchArgs:
              kind: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']] = None,
              template: Optional[pulumi.Input['PodTemplateSpecPatchArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -180,17 +180,9 @@ class PodTemplatePatch(pulumi.CustomResource):
 
             __props__.__dict__["api_version"] = 'v1'
             __props__.__dict__["kind"] = 'PodTemplate'
-            if metadata is not None and not isinstance(metadata, _meta.v1.ObjectMetaPatchArgs):
-                metadata = metadata or {}
-                def _setter(key, value):
-                    metadata[key] = value
-                _meta.v1.ObjectMetaPatchArgs._configure(_setter, **metadata)
+            metadata = _utilities.configure(metadata, _meta.v1.ObjectMetaPatchArgs, True)
             __props__.__dict__["metadata"] = metadata
-            if template is not None and not isinstance(template, PodTemplateSpecPatchArgs):
-                template = template or {}
-                def _setter(key, value):
-                    template[key] = value
-                PodTemplateSpecPatchArgs._configure(_setter, **template)
+            template = _utilities.configure(template, PodTemplateSpecPatchArgs, True)
             __props__.__dict__["template"] = template
         super(PodTemplatePatch, __self__).__init__(
             'kubernetes:core/v1:PodTemplatePatch',

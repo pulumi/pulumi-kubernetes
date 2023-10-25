@@ -46,7 +46,7 @@ class ClusterRolePatchArgs:
              kind: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']] = None,
              rules: Optional[pulumi.Input[Sequence[pulumi.Input['PolicyRulePatchArgs']]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if aggregation_rule is None and 'aggregationRule' in kwargs:
             aggregation_rule = kwargs['aggregationRule']
@@ -201,19 +201,11 @@ class ClusterRolePatch(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = ClusterRolePatchArgs.__new__(ClusterRolePatchArgs)
 
-            if aggregation_rule is not None and not isinstance(aggregation_rule, AggregationRulePatchArgs):
-                aggregation_rule = aggregation_rule or {}
-                def _setter(key, value):
-                    aggregation_rule[key] = value
-                AggregationRulePatchArgs._configure(_setter, **aggregation_rule)
+            aggregation_rule = _utilities.configure(aggregation_rule, AggregationRulePatchArgs, True)
             __props__.__dict__["aggregation_rule"] = aggregation_rule
             __props__.__dict__["api_version"] = 'rbac.authorization.k8s.io/v1beta1'
             __props__.__dict__["kind"] = 'ClusterRole'
-            if metadata is not None and not isinstance(metadata, _meta.v1.ObjectMetaPatchArgs):
-                metadata = metadata or {}
-                def _setter(key, value):
-                    metadata[key] = value
-                _meta.v1.ObjectMetaPatchArgs._configure(_setter, **metadata)
+            metadata = _utilities.configure(metadata, _meta.v1.ObjectMetaPatchArgs, True)
             __props__.__dict__["metadata"] = metadata
             __props__.__dict__["rules"] = rules
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:rbac.authorization.k8s.io/v1:ClusterRolePatch"), pulumi.Alias(type_="kubernetes:rbac.authorization.k8s.io/v1alpha1:ClusterRolePatch")])

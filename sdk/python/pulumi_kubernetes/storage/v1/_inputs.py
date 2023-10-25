@@ -122,7 +122,7 @@ class CSIDriverSpecPatchArgs:
              storage_capacity: Optional[pulumi.Input[bool]] = None,
              token_requests: Optional[pulumi.Input[Sequence[pulumi.Input['TokenRequestPatchArgs']]]] = None,
              volume_lifecycle_modes: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if attach_required is None and 'attachRequired' in kwargs:
             attach_required = kwargs['attachRequired']
@@ -385,7 +385,7 @@ class CSIDriverSpecArgs:
              storage_capacity: Optional[pulumi.Input[bool]] = None,
              token_requests: Optional[pulumi.Input[Sequence[pulumi.Input['TokenRequestArgs']]]] = None,
              volume_lifecycle_modes: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if attach_required is None and 'attachRequired' in kwargs:
             attach_required = kwargs['attachRequired']
@@ -589,7 +589,7 @@ class CSIDriverArgs:
              api_version: Optional[pulumi.Input[str]] = None,
              kind: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if spec is None:
             raise TypeError("Missing 'spec' argument")
@@ -681,7 +681,7 @@ class CSINodeDriverPatchArgs:
              name: Optional[pulumi.Input[str]] = None,
              node_id: Optional[pulumi.Input[str]] = None,
              topology_keys: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if node_id is None and 'nodeID' in kwargs:
             node_id = kwargs['nodeID']
@@ -774,7 +774,7 @@ class CSINodeDriverArgs:
              node_id: Optional[pulumi.Input[str]] = None,
              allocatable: Optional[pulumi.Input['VolumeNodeResourcesArgs']] = None,
              topology_keys: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if name is None:
             raise TypeError("Missing 'name' argument")
@@ -857,7 +857,7 @@ class CSINodeSpecPatchArgs:
     def _configure(
              _setter: Callable[[Any, Any], None],
              drivers: Optional[pulumi.Input[Sequence[pulumi.Input['CSINodeDriverPatchArgs']]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if drivers is not None:
@@ -892,7 +892,7 @@ class CSINodeSpecArgs:
     def _configure(
              _setter: Callable[[Any, Any], None],
              drivers: Optional[pulumi.Input[Sequence[pulumi.Input['CSINodeDriverArgs']]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if drivers is None:
             raise TypeError("Missing 'drivers' argument")
@@ -940,7 +940,7 @@ class CSINodeArgs:
              api_version: Optional[pulumi.Input[str]] = None,
              kind: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if spec is None:
             raise TypeError("Missing 'spec' argument")
@@ -1060,7 +1060,7 @@ class CSIStorageCapacityArgs:
              maximum_volume_size: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              node_topology: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if storage_class_name is None and 'storageClassName' in kwargs:
             storage_class_name = kwargs['storageClassName']
@@ -1234,7 +1234,7 @@ class StorageClassArgs:
              parameters: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
              reclaim_policy: Optional[pulumi.Input[str]] = None,
              volume_binding_mode: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if provisioner is None:
             raise TypeError("Missing 'provisioner' argument")
@@ -1412,7 +1412,7 @@ class TokenRequestPatchArgs:
              _setter: Callable[[Any, Any], None],
              audience: Optional[pulumi.Input[str]] = None,
              expiration_seconds: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if expiration_seconds is None and 'expirationSeconds' in kwargs:
             expiration_seconds = kwargs['expirationSeconds']
@@ -1467,7 +1467,7 @@ class TokenRequestArgs:
              _setter: Callable[[Any, Any], None],
              audience: Optional[pulumi.Input[str]] = None,
              expiration_seconds: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if audience is None:
             raise TypeError("Missing 'audience' argument")
@@ -1523,7 +1523,7 @@ class VolumeAttachmentSourcePatchArgs:
              _setter: Callable[[Any, Any], None],
              inline_volume_spec: Optional[pulumi.Input['_core.v1.PersistentVolumeSpecPatchArgs']] = None,
              persistent_volume_name: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if inline_volume_spec is None and 'inlineVolumeSpec' in kwargs:
             inline_volume_spec = kwargs['inlineVolumeSpec']
@@ -1580,7 +1580,7 @@ class VolumeAttachmentSourceArgs:
              _setter: Callable[[Any, Any], None],
              inline_volume_spec: Optional[pulumi.Input['_core.v1.PersistentVolumeSpecArgs']] = None,
              persistent_volume_name: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if inline_volume_spec is None and 'inlineVolumeSpec' in kwargs:
             inline_volume_spec = kwargs['inlineVolumeSpec']
@@ -1641,7 +1641,7 @@ class VolumeAttachmentSpecPatchArgs:
              attacher: Optional[pulumi.Input[str]] = None,
              node_name: Optional[pulumi.Input[str]] = None,
              source: Optional[pulumi.Input['VolumeAttachmentSourcePatchArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if node_name is None and 'nodeName' in kwargs:
             node_name = kwargs['nodeName']
@@ -1714,7 +1714,7 @@ class VolumeAttachmentSpecArgs:
              attacher: Optional[pulumi.Input[str]] = None,
              node_name: Optional[pulumi.Input[str]] = None,
              source: Optional[pulumi.Input['VolumeAttachmentSourceArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if attacher is None:
             raise TypeError("Missing 'attacher' argument")
@@ -1794,7 +1794,7 @@ class VolumeAttachmentStatusArgs:
              attach_error: Optional[pulumi.Input['VolumeErrorArgs']] = None,
              attachment_metadata: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
              detach_error: Optional[pulumi.Input['VolumeErrorArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if attached is None:
             raise TypeError("Missing 'attached' argument")
@@ -1896,7 +1896,7 @@ class VolumeAttachmentArgs:
              kind: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              status: Optional[pulumi.Input['VolumeAttachmentStatusArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if spec is None:
             raise TypeError("Missing 'spec' argument")
@@ -1994,7 +1994,7 @@ class VolumeErrorArgs:
              _setter: Callable[[Any, Any], None],
              message: Optional[pulumi.Input[str]] = None,
              time: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if message is not None:
@@ -2043,7 +2043,7 @@ class VolumeNodeResourcesPatchArgs:
     def _configure(
              _setter: Callable[[Any, Any], None],
              count: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if count is not None:
@@ -2078,7 +2078,7 @@ class VolumeNodeResourcesArgs:
     def _configure(
              _setter: Callable[[Any, Any], None],
              count: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if count is not None:

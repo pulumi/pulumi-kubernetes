@@ -42,7 +42,7 @@ class ClusterTrustBundleInitArgs:
              api_version: Optional[pulumi.Input[str]] = None,
              kind: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if spec is None:
             raise TypeError("Missing 'spec' argument")
@@ -177,17 +177,9 @@ class ClusterTrustBundle(pulumi.CustomResource):
 
             __props__.__dict__["api_version"] = 'certificates.k8s.io/v1alpha1'
             __props__.__dict__["kind"] = 'ClusterTrustBundle'
-            if metadata is not None and not isinstance(metadata, _meta.v1.ObjectMetaArgs):
-                metadata = metadata or {}
-                def _setter(key, value):
-                    metadata[key] = value
-                _meta.v1.ObjectMetaArgs._configure(_setter, **metadata)
+            metadata = _utilities.configure(metadata, _meta.v1.ObjectMetaArgs, True)
             __props__.__dict__["metadata"] = metadata
-            if spec is not None and not isinstance(spec, ClusterTrustBundleSpecArgs):
-                spec = spec or {}
-                def _setter(key, value):
-                    spec[key] = value
-                ClusterTrustBundleSpecArgs._configure(_setter, **spec)
+            spec = _utilities.configure(spec, ClusterTrustBundleSpecArgs, True)
             if spec is None and not opts.urn:
                 raise TypeError("Missing required property 'spec'")
             __props__.__dict__["spec"] = spec

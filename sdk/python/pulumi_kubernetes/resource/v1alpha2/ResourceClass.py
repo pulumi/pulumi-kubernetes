@@ -55,7 +55,7 @@ class ResourceClassInitArgs:
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              parameters_ref: Optional[pulumi.Input['ResourceClassParametersReferenceArgs']] = None,
              suitable_nodes: Optional[pulumi.Input['_core.v1.NodeSelectorArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if driver_name is None and 'driverName' in kwargs:
             driver_name = kwargs['driverName']
@@ -237,23 +237,11 @@ class ResourceClass(pulumi.CustomResource):
                 raise TypeError("Missing required property 'driver_name'")
             __props__.__dict__["driver_name"] = driver_name
             __props__.__dict__["kind"] = 'ResourceClass'
-            if metadata is not None and not isinstance(metadata, _meta.v1.ObjectMetaArgs):
-                metadata = metadata or {}
-                def _setter(key, value):
-                    metadata[key] = value
-                _meta.v1.ObjectMetaArgs._configure(_setter, **metadata)
+            metadata = _utilities.configure(metadata, _meta.v1.ObjectMetaArgs, True)
             __props__.__dict__["metadata"] = metadata
-            if parameters_ref is not None and not isinstance(parameters_ref, ResourceClassParametersReferenceArgs):
-                parameters_ref = parameters_ref or {}
-                def _setter(key, value):
-                    parameters_ref[key] = value
-                ResourceClassParametersReferenceArgs._configure(_setter, **parameters_ref)
+            parameters_ref = _utilities.configure(parameters_ref, ResourceClassParametersReferenceArgs, True)
             __props__.__dict__["parameters_ref"] = parameters_ref
-            if suitable_nodes is not None and not isinstance(suitable_nodes, _core.v1.NodeSelectorArgs):
-                suitable_nodes = suitable_nodes or {}
-                def _setter(key, value):
-                    suitable_nodes[key] = value
-                _core.v1.NodeSelectorArgs._configure(_setter, **suitable_nodes)
+            suitable_nodes = _utilities.configure(suitable_nodes, _core.v1.NodeSelectorArgs, True)
             __props__.__dict__["suitable_nodes"] = suitable_nodes
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:resource.k8s.io/v1alpha1:ResourceClass")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)

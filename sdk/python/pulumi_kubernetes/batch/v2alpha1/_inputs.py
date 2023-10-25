@@ -61,7 +61,7 @@ class CronJobSpecPatchArgs:
              starting_deadline_seconds: Optional[pulumi.Input[int]] = None,
              successful_jobs_history_limit: Optional[pulumi.Input[int]] = None,
              suspend: Optional[pulumi.Input[bool]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if concurrency_policy is None and 'concurrencyPolicy' in kwargs:
             concurrency_policy = kwargs['concurrencyPolicy']
@@ -214,7 +214,7 @@ class CronJobSpecArgs:
              starting_deadline_seconds: Optional[pulumi.Input[int]] = None,
              successful_jobs_history_limit: Optional[pulumi.Input[int]] = None,
              suspend: Optional[pulumi.Input[bool]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if job_template is None and 'jobTemplate' in kwargs:
             job_template = kwargs['jobTemplate']
@@ -349,7 +349,7 @@ class CronJobStatusArgs:
              _setter: Callable[[Any, Any], None],
              active: Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.ObjectReferenceArgs']]]] = None,
              last_schedule_time: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if last_schedule_time is None and 'lastScheduleTime' in kwargs:
             last_schedule_time = kwargs['lastScheduleTime']
@@ -416,7 +416,7 @@ class CronJobArgs:
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              spec: Optional[pulumi.Input['CronJobSpecArgs']] = None,
              status: Optional[pulumi.Input['CronJobStatusArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -513,7 +513,7 @@ class JobTemplateSpecPatchArgs:
              _setter: Callable[[Any, Any], None],
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']] = None,
              spec: Optional[pulumi.Input['_batch.v1.JobSpecPatchArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if metadata is not None:
@@ -566,7 +566,7 @@ class JobTemplateSpecArgs:
              _setter: Callable[[Any, Any], None],
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              spec: Optional[pulumi.Input['_batch.v1.JobSpecArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if metadata is not None:

@@ -66,7 +66,7 @@ class ContainerResourceMetricSourcePatchArgs:
              name: Optional[pulumi.Input[str]] = None,
              target_average_utilization: Optional[pulumi.Input[int]] = None,
              target_average_value: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if target_average_utilization is None and 'targetAverageUtilization' in kwargs:
             target_average_utilization = kwargs['targetAverageUtilization']
@@ -159,7 +159,7 @@ class ContainerResourceMetricSourceArgs:
              name: Optional[pulumi.Input[str]] = None,
              target_average_utilization: Optional[pulumi.Input[int]] = None,
              target_average_value: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if container is None:
             raise TypeError("Missing 'container' argument")
@@ -254,7 +254,7 @@ class ContainerResourceMetricStatusArgs:
              current_average_value: Optional[pulumi.Input[str]] = None,
              name: Optional[pulumi.Input[str]] = None,
              current_average_utilization: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if container is None:
             raise TypeError("Missing 'container' argument")
@@ -346,7 +346,7 @@ class CrossVersionObjectReferencePatchArgs:
              api_version: Optional[pulumi.Input[str]] = None,
              kind: Optional[pulumi.Input[str]] = None,
              name: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -419,7 +419,7 @@ class CrossVersionObjectReferenceArgs:
              kind: Optional[pulumi.Input[str]] = None,
              name: Optional[pulumi.Input[str]] = None,
              api_version: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if kind is None:
             raise TypeError("Missing 'kind' argument")
@@ -498,7 +498,7 @@ class ExternalMetricSourcePatchArgs:
              metric_selector: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']] = None,
              target_average_value: Optional[pulumi.Input[str]] = None,
              target_value: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if metric_name is None and 'metricName' in kwargs:
             metric_name = kwargs['metricName']
@@ -595,7 +595,7 @@ class ExternalMetricSourceArgs:
              metric_selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
              target_average_value: Optional[pulumi.Input[str]] = None,
              target_value: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if metric_name is None and 'metricName' in kwargs:
             metric_name = kwargs['metricName']
@@ -693,7 +693,7 @@ class ExternalMetricStatusArgs:
              metric_name: Optional[pulumi.Input[str]] = None,
              current_average_value: Optional[pulumi.Input[str]] = None,
              metric_selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if current_value is None and 'currentValue' in kwargs:
             current_value = kwargs['currentValue']
@@ -796,7 +796,7 @@ class HorizontalPodAutoscalerConditionArgs:
              last_transition_time: Optional[pulumi.Input[str]] = None,
              message: Optional[pulumi.Input[str]] = None,
              reason: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if status is None:
             raise TypeError("Missing 'status' argument")
@@ -903,7 +903,7 @@ class HorizontalPodAutoscalerSpecPatchArgs:
              metrics: Optional[pulumi.Input[Sequence[pulumi.Input['MetricSpecPatchArgs']]]] = None,
              min_replicas: Optional[pulumi.Input[int]] = None,
              scale_target_ref: Optional[pulumi.Input['CrossVersionObjectReferencePatchArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if max_replicas is None and 'maxReplicas' in kwargs:
             max_replicas = kwargs['maxReplicas']
@@ -998,7 +998,7 @@ class HorizontalPodAutoscalerSpecArgs:
              scale_target_ref: Optional[pulumi.Input['CrossVersionObjectReferenceArgs']] = None,
              metrics: Optional[pulumi.Input[Sequence[pulumi.Input['MetricSpecArgs']]]] = None,
              min_replicas: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if max_replicas is None and 'maxReplicas' in kwargs:
             max_replicas = kwargs['maxReplicas']
@@ -1103,7 +1103,7 @@ class HorizontalPodAutoscalerStatusArgs:
              current_metrics: Optional[pulumi.Input[Sequence[pulumi.Input['MetricStatusArgs']]]] = None,
              last_scale_time: Optional[pulumi.Input[str]] = None,
              observed_generation: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if conditions is None:
             raise TypeError("Missing 'conditions' argument")
@@ -1237,7 +1237,7 @@ class HorizontalPodAutoscalerArgs:
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              spec: Optional[pulumi.Input['HorizontalPodAutoscalerSpecArgs']] = None,
              status: Optional[pulumi.Input['HorizontalPodAutoscalerStatusArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -1350,7 +1350,7 @@ class MetricSpecPatchArgs:
              pods: Optional[pulumi.Input['PodsMetricSourcePatchArgs']] = None,
              resource: Optional[pulumi.Input['ResourceMetricSourcePatchArgs']] = None,
              type: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if container_resource is None and 'containerResource' in kwargs:
             container_resource = kwargs['containerResource']
@@ -1477,7 +1477,7 @@ class MetricSpecArgs:
              object: Optional[pulumi.Input['ObjectMetricSourceArgs']] = None,
              pods: Optional[pulumi.Input['PodsMetricSourceArgs']] = None,
              resource: Optional[pulumi.Input['ResourceMetricSourceArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if type is None:
             raise TypeError("Missing 'type' argument")
@@ -1605,7 +1605,7 @@ class MetricStatusArgs:
              object: Optional[pulumi.Input['ObjectMetricStatusArgs']] = None,
              pods: Optional[pulumi.Input['PodsMetricStatusArgs']] = None,
              resource: Optional[pulumi.Input['ResourceMetricStatusArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if type is None:
             raise TypeError("Missing 'type' argument")
@@ -1729,7 +1729,7 @@ class ObjectMetricSourcePatchArgs:
              selector: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']] = None,
              target: Optional[pulumi.Input['CrossVersionObjectReferencePatchArgs']] = None,
              target_value: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if average_value is None and 'averageValue' in kwargs:
             average_value = kwargs['averageValue']
@@ -1842,7 +1842,7 @@ class ObjectMetricSourceArgs:
              target_value: Optional[pulumi.Input[str]] = None,
              average_value: Optional[pulumi.Input[str]] = None,
              selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if metric_name is None and 'metricName' in kwargs:
             metric_name = kwargs['metricName']
@@ -1958,7 +1958,7 @@ class ObjectMetricStatusArgs:
              target: Optional[pulumi.Input['CrossVersionObjectReferenceArgs']] = None,
              average_value: Optional[pulumi.Input[str]] = None,
              selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if current_value is None and 'currentValue' in kwargs:
             current_value = kwargs['currentValue']
@@ -2066,7 +2066,7 @@ class PodsMetricSourcePatchArgs:
              metric_name: Optional[pulumi.Input[str]] = None,
              selector: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']] = None,
              target_average_value: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if metric_name is None and 'metricName' in kwargs:
             metric_name = kwargs['metricName']
@@ -2141,7 +2141,7 @@ class PodsMetricSourceArgs:
              metric_name: Optional[pulumi.Input[str]] = None,
              target_average_value: Optional[pulumi.Input[str]] = None,
              selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if metric_name is None and 'metricName' in kwargs:
             metric_name = kwargs['metricName']
@@ -2218,7 +2218,7 @@ class PodsMetricStatusArgs:
              current_average_value: Optional[pulumi.Input[str]] = None,
              metric_name: Optional[pulumi.Input[str]] = None,
              selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if current_average_value is None and 'currentAverageValue' in kwargs:
             current_average_value = kwargs['currentAverageValue']
@@ -2295,7 +2295,7 @@ class ResourceMetricSourcePatchArgs:
              name: Optional[pulumi.Input[str]] = None,
              target_average_utilization: Optional[pulumi.Input[int]] = None,
              target_average_value: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if target_average_utilization is None and 'targetAverageUtilization' in kwargs:
             target_average_utilization = kwargs['targetAverageUtilization']
@@ -2370,7 +2370,7 @@ class ResourceMetricSourceArgs:
              name: Optional[pulumi.Input[str]] = None,
              target_average_utilization: Optional[pulumi.Input[int]] = None,
              target_average_value: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if name is None:
             raise TypeError("Missing 'name' argument")
@@ -2446,7 +2446,7 @@ class ResourceMetricStatusArgs:
              current_average_value: Optional[pulumi.Input[str]] = None,
              name: Optional[pulumi.Input[str]] = None,
              current_average_utilization: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if current_average_value is None and 'currentAverageValue' in kwargs:
             current_average_value = kwargs['currentAverageValue']

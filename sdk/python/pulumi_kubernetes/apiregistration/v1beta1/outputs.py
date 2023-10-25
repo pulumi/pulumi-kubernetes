@@ -74,7 +74,7 @@ class APIService(dict):
              metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
              spec: Optional['outputs.APIServiceSpec'] = None,
              status: Optional['outputs.APIServiceStatus'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -180,7 +180,7 @@ class APIServiceCondition(dict):
              last_transition_time: Optional[str] = None,
              message: Optional[str] = None,
              reason: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if status is None:
             raise TypeError("Missing 'status' argument")
@@ -291,7 +291,7 @@ class APIServiceConditionPatch(dict):
              reason: Optional[str] = None,
              status: Optional[str] = None,
              type: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if last_transition_time is None and 'lastTransitionTime' in kwargs:
             last_transition_time = kwargs['lastTransitionTime']
@@ -414,7 +414,7 @@ class APIServiceSpec(dict):
              group: Optional[str] = None,
              insecure_skip_tls_verify: Optional[bool] = None,
              version: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if group_priority_minimum is None and 'groupPriorityMinimum' in kwargs:
             group_priority_minimum = kwargs['groupPriorityMinimum']
@@ -566,7 +566,7 @@ class APIServiceSpecPatch(dict):
              service: Optional['outputs.ServiceReferencePatch'] = None,
              version: Optional[str] = None,
              version_priority: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if ca_bundle is None and 'caBundle' in kwargs:
             ca_bundle = kwargs['caBundle']
@@ -668,7 +668,7 @@ class APIServiceStatus(dict):
     def _configure(
              _setter: Callable[[Any, Any], None],
              conditions: Optional[Sequence['outputs.APIServiceCondition']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if conditions is not None:
@@ -702,7 +702,7 @@ class APIServiceStatusPatch(dict):
     def _configure(
              _setter: Callable[[Any, Any], None],
              conditions: Optional[Sequence['outputs.APIServiceConditionPatch']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if conditions is not None:
@@ -744,7 +744,7 @@ class ServiceReference(dict):
              name: Optional[str] = None,
              namespace: Optional[str] = None,
              port: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if name is not None:
@@ -806,7 +806,7 @@ class ServiceReferencePatch(dict):
              name: Optional[str] = None,
              namespace: Optional[str] = None,
              port: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if name is not None:

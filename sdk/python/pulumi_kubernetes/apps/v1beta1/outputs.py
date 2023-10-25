@@ -92,7 +92,7 @@ class ControllerRevision(dict):
              data: Optional[Any] = None,
              kind: Optional[str] = None,
              metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if revision is None:
             raise TypeError("Missing 'revision' argument")
@@ -246,7 +246,7 @@ class Deployment(dict):
              metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
              spec: Optional['outputs.DeploymentSpec'] = None,
              status: Optional['outputs.DeploymentStatus'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -361,7 +361,7 @@ class DeploymentCondition(dict):
              last_update_time: Optional[str] = None,
              message: Optional[str] = None,
              reason: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if status is None:
             raise TypeError("Missing 'status' argument")
@@ -490,7 +490,7 @@ class DeploymentConditionPatch(dict):
              reason: Optional[str] = None,
              status: Optional[str] = None,
              type: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if last_transition_time is None and 'lastTransitionTime' in kwargs:
             last_transition_time = kwargs['lastTransitionTime']
@@ -633,7 +633,7 @@ class DeploymentSpec(dict):
              rollback_to: Optional['outputs.RollbackConfig'] = None,
              selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
              strategy: Optional['outputs.DeploymentStrategy'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if template is None:
             raise TypeError("Missing 'template' argument")
@@ -811,7 +811,7 @@ class DeploymentSpecPatch(dict):
              selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None,
              strategy: Optional['outputs.DeploymentStrategyPatch'] = None,
              template: Optional['_core.v1.outputs.PodTemplateSpecPatch'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if min_ready_seconds is None and 'minReadySeconds' in kwargs:
             min_ready_seconds = kwargs['minReadySeconds']
@@ -988,7 +988,7 @@ class DeploymentStatus(dict):
              replicas: Optional[int] = None,
              unavailable_replicas: Optional[int] = None,
              updated_replicas: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if available_replicas is None and 'availableReplicas' in kwargs:
             available_replicas = kwargs['availableReplicas']
@@ -1159,7 +1159,7 @@ class DeploymentStatusPatch(dict):
              replicas: Optional[int] = None,
              unavailable_replicas: Optional[int] = None,
              updated_replicas: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if available_replicas is None and 'availableReplicas' in kwargs:
             available_replicas = kwargs['availableReplicas']
@@ -1296,7 +1296,7 @@ class DeploymentStrategy(dict):
              _setter: Callable[[Any, Any], None],
              rolling_update: Optional['outputs.RollingUpdateDeployment'] = None,
              type: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if rolling_update is None and 'rollingUpdate' in kwargs:
             rolling_update = kwargs['rollingUpdate']
@@ -1363,7 +1363,7 @@ class DeploymentStrategyPatch(dict):
              _setter: Callable[[Any, Any], None],
              rolling_update: Optional['outputs.RollingUpdateDeploymentPatch'] = None,
              type: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if rolling_update is None and 'rollingUpdate' in kwargs:
             rolling_update = kwargs['rollingUpdate']
@@ -1409,7 +1409,7 @@ class RollbackConfig(dict):
     def _configure(
              _setter: Callable[[Any, Any], None],
              revision: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if revision is not None:
@@ -1443,7 +1443,7 @@ class RollbackConfigPatch(dict):
     def _configure(
              _setter: Callable[[Any, Any], None],
              revision: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if revision is not None:
@@ -1500,7 +1500,7 @@ class RollingUpdateDeployment(dict):
              _setter: Callable[[Any, Any], None],
              max_surge: Optional[Any] = None,
              max_unavailable: Optional[Any] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if max_surge is None and 'maxSurge' in kwargs:
             max_surge = kwargs['maxSurge']
@@ -1571,7 +1571,7 @@ class RollingUpdateDeploymentPatch(dict):
              _setter: Callable[[Any, Any], None],
              max_surge: Optional[Any] = None,
              max_unavailable: Optional[Any] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if max_surge is None and 'maxSurge' in kwargs:
             max_surge = kwargs['maxSurge']
@@ -1619,7 +1619,7 @@ class RollingUpdateStatefulSetStrategy(dict):
     def _configure(
              _setter: Callable[[Any, Any], None],
              partition: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if partition is not None:
@@ -1653,7 +1653,7 @@ class RollingUpdateStatefulSetStrategyPatch(dict):
     def _configure(
              _setter: Callable[[Any, Any], None],
              partition: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if partition is not None:
@@ -1751,7 +1751,7 @@ class StatefulSet(dict):
              metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
              spec: Optional['outputs.StatefulSetSpec'] = None,
              status: Optional['outputs.StatefulSetStatus'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -1857,7 +1857,7 @@ class StatefulSetCondition(dict):
              last_transition_time: Optional[str] = None,
              message: Optional[str] = None,
              reason: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if status is None:
             raise TypeError("Missing 'status' argument")
@@ -1968,7 +1968,7 @@ class StatefulSetConditionPatch(dict):
              reason: Optional[str] = None,
              status: Optional[str] = None,
              type: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if last_transition_time is None and 'lastTransitionTime' in kwargs:
             last_transition_time = kwargs['lastTransitionTime']
@@ -2097,7 +2097,7 @@ class StatefulSetSpec(dict):
              selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
              update_strategy: Optional['outputs.StatefulSetUpdateStrategy'] = None,
              volume_claim_templates: Optional[Sequence['_core.v1.outputs.PersistentVolumeClaim']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if service_name is None and 'serviceName' in kwargs:
             service_name = kwargs['serviceName']
@@ -2266,7 +2266,7 @@ class StatefulSetSpecPatch(dict):
              template: Optional['_core.v1.outputs.PodTemplateSpecPatch'] = None,
              update_strategy: Optional['outputs.StatefulSetUpdateStrategyPatch'] = None,
              volume_claim_templates: Optional[Sequence['_core.v1.outputs.PersistentVolumeClaimPatch']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if pod_management_policy is None and 'podManagementPolicy' in kwargs:
             pod_management_policy = kwargs['podManagementPolicy']
@@ -2441,7 +2441,7 @@ class StatefulSetStatus(dict):
              ready_replicas: Optional[int] = None,
              update_revision: Optional[str] = None,
              updated_replicas: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if replicas is None:
             raise TypeError("Missing 'replicas' argument")
@@ -2631,7 +2631,7 @@ class StatefulSetStatusPatch(dict):
              replicas: Optional[int] = None,
              update_revision: Optional[str] = None,
              updated_replicas: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if collision_count is None and 'collisionCount' in kwargs:
             collision_count = kwargs['collisionCount']
@@ -2780,7 +2780,7 @@ class StatefulSetUpdateStrategy(dict):
              _setter: Callable[[Any, Any], None],
              rolling_update: Optional['outputs.RollingUpdateStatefulSetStrategy'] = None,
              type: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if rolling_update is None and 'rollingUpdate' in kwargs:
             rolling_update = kwargs['rollingUpdate']
@@ -2847,7 +2847,7 @@ class StatefulSetUpdateStrategyPatch(dict):
              _setter: Callable[[Any, Any], None],
              rolling_update: Optional['outputs.RollingUpdateStatefulSetStrategyPatch'] = None,
              type: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if rolling_update is None and 'rollingUpdate' in kwargs:
             rolling_update = kwargs['rollingUpdate']
