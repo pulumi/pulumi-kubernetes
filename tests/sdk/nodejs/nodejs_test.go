@@ -2011,15 +2011,15 @@ func TestEmptyItemNormalization(t *testing.T) {
 	integration.ProgramTest(t, &test)
 }
 
-// TestFieldManagerPatchResources tests that we do not patch field managers when the resource
-// is a Patch resource (eg. DaemonSetPatch). This will cause the Patch resource to override field
-// managers managed by kubectl, which will cause the fields to be unset with SSA.
-// See https://github.com/pulumi/pulumi-kubernetes/issues/2639 for more information.
-// Steps:
-//  1. Use kubectl to apply a deployment with image nginx:1.14.2 and replicas 2.
-//  2. Use a DeploymentPatch resource to patch the deployment with image nginx:1.14.1 (step1).
-//  3. Use kubectl to patch the deployment with image nginx:1.14.0 and ensure that other fields owned by
-//     kubectl-client-side-apply are not unset (step2).
+// TestFieldManagerPatchResources ensures field managers are not patched when dealing with a Patch resource
+// (e.g., DaemonSetPatch). This precaution prevents the Patch resource from taking ownership of fields managed by kubectl field managers,
+// which would otherwise result in the unintended unsetting of all unspecified fields of a resource via Server-Side Apply (SSA).
+// For additional context, refer to: https://github.com/pulumi/pulumi-kubernetes/issues/2639.
+// Test Steps:
+//  1. Deploy an nginx:1.14.2 image with 2 replicas using kubectl which sets the field manager to kubectl-client-side-apply.
+//  2. Apply a DeploymentPatch resource to modify the deployment by changing the image to nginx:1.14.1 (Step 1).
+//  3. Update the DeploymentPatch resource to further patch the deployment, setting the image to nginx:1.14.0,
+//     and verify that other fields managed by kubectl-client-side-apply remain unaffected (Step 2).
 func TestFieldManagerPatchResources(t *testing.T) {
 	testFolder := "field-manager-patch-resources"
 
