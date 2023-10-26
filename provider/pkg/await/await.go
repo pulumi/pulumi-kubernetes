@@ -618,6 +618,14 @@ func makeInterfaceSlice[T any](inputs []T) []interface{} {
 // fixCSAFieldManagers patches the field managers for an existing resource that was managed using client-side apply.
 // The new server-side apply field manager takes ownership of all these fields to avoid conflicts.
 func fixCSAFieldManagers(c *UpdateConfig, liveOldObj *unstructured.Unstructured, client dynamic.ResourceInterface) (*unstructured.Unstructured, error) {
+	if kinds.PatchQualifiedTypes.Has(c.URN.QualifiedType().String()) {
+		// If this is a patch resource, we don't need to patch the field managers.
+		// This will cause us unintentionally taking ownership of the fields which
+		// we don't care about during updates, ie. when a patch resource is reused.
+		// pulumi-kubernetes#2639
+		return liveOldObj, nil
+	}
+
 	managedFields := liveOldObj.GetManagedFields()
 	if c.Preview || len(managedFields) == 0 {
 		return liveOldObj, nil
