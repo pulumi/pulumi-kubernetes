@@ -37,7 +37,9 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+	"k8s.io/apimachinery/pkg/util/rand"
 	"k8s.io/client-go/tools/clientcmd"
 )
 
@@ -2004,6 +2006,85 @@ func TestEmptyItemNormalization(t *testing.T) {
 			},
 		},
 		ExtraRuntimeValidation: validateProgram(false),
+	})
+
+	integration.ProgramTest(t, &test)
+}
+
+// TestFieldManagerPatchResources ensures field managers are not patched when dealing with a Patch resource
+// (e.g., DaemonSetPatch). This precaution prevents the Patch resource from taking ownership of fields managed by kubectl field managers,
+// which would otherwise result in the unintended unsetting of all unspecified fields of a resource via Server-Side Apply (SSA).
+// For additional context, refer to: https://github.com/pulumi/pulumi-kubernetes/issues/2639.
+// Test Steps:
+//  1. Deploy an nginx:1.14.2 image with 2 replicas using kubectl which sets the field manager to kubectl-client-side-apply.
+//  2. Apply a DeploymentPatch resource to modify the deployment by changing the image to nginx:1.14.1 (Step 1).
+//  3. Update the DeploymentPatch resource to further patch the deployment, setting the image to nginx:1.14.0,
+//     and verify that other fields managed by kubectl-client-side-apply remain unaffected (Step 2).
+func TestFieldManagerPatchResources(t *testing.T) {
+	testFolder := "field-manager-patch-resources"
+
+	createDeployment := func() string {
+		// Create a random namespace to deploy the nginx deployment to.
+		ns := "test-filed-mgr-" + rand.String(5)
+		_, err := tests.Kubectl("create namespace", ns)
+		require.NoError(t, err)
+		t.Cleanup(func() {
+			tests.Kubectl("delete namespace", ns)
+		})
+
+		// Create nginx deployment.
+		_, err = tests.Kubectl("apply -f", filepath.Join(testFolder, "deployment.yaml"), "-n", ns)
+		require.NoError(t, err)
+		t.Cleanup(func() {
+			tests.Kubectl("delete namespace", ns)
+		})
+
+		return ns
+	}
+
+	namespace := createDeployment()
+
+	test := baseOptions.With(integration.ProgramTestOptions{
+		Dir:                  filepath.Join(testFolder, "step1"),
+		ExpectRefreshChanges: true,
+		OrderedConfig: []integration.ConfigValue{
+			{
+				Key:   "pulumi:disable-default-providers[0]",
+				Value: "kubernetes",
+				Path:  true,
+			},
+		},
+		Config: map[string]string{
+			"namespace": namespace,
+		},
+		ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+			// Ensure that the nginx deployment was patched with image nginx:1.14.1.
+			depImage, err := tests.Kubectl("get deployment -o=jsonpath={.spec.template.spec.containers[0].image} -n", namespace, "test-mgr-nginx")
+			assert.NoError(t, err)
+			assert.Equal(t, "nginx:1.14.1", string(depImage))
+
+			// Ensure that the nginx deployment replicas is still 2.
+			depReplicas, err := tests.Kubectl("get deployment -o=jsonpath={.spec.replicas} -n", namespace, "test-mgr-nginx")
+			assert.NoError(t, err)
+			assert.Equal(t, "2", string(depReplicas))
+		},
+		EditDirs: []integration.EditDir{
+			{
+				Dir:      filepath.Join(testFolder, "step2"),
+				Additive: true,
+				ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+					// Ensure that the nginx deployment was patched with image nginx:1.14.1.
+					depImage, err := tests.Kubectl("get deployment -o=jsonpath={.spec.template.spec.containers[0].image} -n", namespace, "test-mgr-nginx")
+					assert.NoError(t, err)
+					assert.Equal(t, "nginx:1.14.0", string(depImage))
+
+					// Ensure that the nginx deployment replicas is still 2, and was not unset to the default 1 due to field manager being patched.
+					depReplicas, err := tests.Kubectl("get deployment -o=jsonpath={.spec.replicas} -n", namespace, "test-mgr-nginx")
+					assert.NoError(t, err)
+					assert.Equal(t, "2", string(depReplicas))
+				},
+			},
+		},
 	})
 
 	integration.ProgramTest(t, &test)

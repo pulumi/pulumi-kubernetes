@@ -1,5 +1,7 @@
 ## Unreleased
 
+- Fix: Do not patch field managers for Patch resources (https://github.com/pulumi/pulumi-kubernetes/pull/2640)
+
 ## 4.5.1 (October 24, 2023)
 - Revert: Normalize provider inputs and make available as outputs (https://github.com/pulumi/pulumi-kubernetes/pull/2627)
 

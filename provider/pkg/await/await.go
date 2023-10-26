@@ -618,6 +618,14 @@ func makeInterfaceSlice[T any](inputs []T) []interface{} {
 // fixCSAFieldManagers patches the field managers for an existing resource that was managed using client-side apply.
 // The new server-side apply field manager takes ownership of all these fields to avoid conflicts.
 func fixCSAFieldManagers(c *UpdateConfig, liveOldObj *unstructured.Unstructured, client dynamic.ResourceInterface) (*unstructured.Unstructured, error) {
+	if kinds.PatchQualifiedTypes.Has(c.URN.QualifiedType().String()) {
+		// When dealing with a patch resource, there's no need to patch the field managers.
+		// Doing so would inadvertently make us responsible for managing fields that are not relevant to us during updates,
+		// which occurs when reusing a patch resource. Patch resources do not need to worry about other fields
+		// not directly defined within a the Patch resource.
+		return liveOldObj, nil
+	}
+
 	managedFields := liveOldObj.GetManagedFields()
 	if c.Preview || len(managedFields) == 0 {
 		return liveOldObj, nil
