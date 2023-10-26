@@ -1,5 +1,6 @@
 ## Unreleased
 
+## 4.5.2 (October 26, 2023)
 - Fix: Do not patch field managers for Patch resources (https://github.com/pulumi/pulumi-kubernetes/pull/2640)
 
 ## 4.5.1 (October 24, 2023)
