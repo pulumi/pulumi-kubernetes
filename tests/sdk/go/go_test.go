@@ -18,6 +18,7 @@ import (
 	b64 "encoding/base64"
 	"encoding/json"
 	"fmt"
+	"log"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -26,6 +27,8 @@ import (
 	"testing"
 
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/openapi"
+	"github.com/pulumi/pulumi-kubernetes/tests/v4"
+	"github.com/pulumi/pulumi-kubernetes/tests/v4/cluster"
 	"github.com/pulumi/pulumi/pkg/v3/testing/integration"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 	"github.com/stretchr/testify/assert"
@@ -51,6 +54,85 @@ func TestGo(t *testing.T) {
 	if !assert.NoError(t, err) {
 		t.FailNow()
 	}
+
+	t.Run("testPatchForceWithDaemonSet", func(t *testing.T) {
+		// Create and use a kind cluster since this test interacts with the kube-proxy resource.
+		kubecfg := cluster.NewKindCluster(t, "testPatchForceWithDaemonSet")
+
+		// Create a tmp dir to store the kube-proxy manifest we'll fetch from the cluster.
+		tmpDir, err := os.MkdirTemp("", "test-daemon-set")
+		require.NoError(t, err)
+		t.Cleanup(func() {
+			log.Println("Deleting kubeconfig tmp dir")
+			assert.NoError(t, os.RemoveAll(tmpDir))
+		})
+
+		// Fetch the kube-proxy manifest from the cluster.
+		kubeProxyManifest, err := tests.Kubectl("get daemonset kube-proxy -n kube-system -o yaml --kubeconfig", kubecfg)
+		require.NoError(t, err)
+
+		// Patch the kube-proxy manifest to a different container image.
+		regex := regexp.MustCompile(`registry.k8s.io\/kube-proxy:v\d\.\d+\.3`)
+		newManifest := regex.ReplaceAllString(string(kubeProxyManifest), "registry.k8s.io/kube-proxy:v1.27.2")
+		// Write the patched kube-proxy manifest to a file.
+		err = os.WriteFile(filepath.Join(tmpDir, "kube-proxy.yaml"), []byte(newManifest), 0644)
+		require.NoError(t, err)
+
+		// Patch the kube-proxy daemonset with the patched manifest using kubectl-client-side-apply.
+		_, err = tests.Kubectl("apply -f", filepath.Join(tmpDir, "kube-proxy.yaml"), "--kubeconfig", kubecfg)
+		require.NoError(t, err)
+
+		// Ensure the kube-proxy daemonset was updated with the new image.
+		kubeProxyImage, err := tests.Kubectl("get daemonset kube-proxy -n kube-system -o=jsonpath={.spec.template.spec.containers[0].image} --kubeconfig", kubecfg)
+		require.NoError(t, err)
+		assert.Equal(t, "registry.k8s.io/kube-proxy:v1.27.2", string(kubeProxyImage))
+
+		kubeProxyManifest, err = tests.Kubectl("get daemonset kube-proxy -n kube-system -o yaml --show-managed-fields --kubeconfig", kubecfg)
+		assert.NoError(t, err)
+		t.Logf("Obtained kube-proxy manifest from cluster: %s", string(kubeProxyManifest))
+
+		t.Log("Starting Pulumi program test")
+
+		// PULUMI PROGRAM TEST
+		test := baseOptions.With(integration.ProgramTestOptions{
+			Dir:                  filepath.Join("patch-force-patch-resource", "step1"),
+			ExpectRefreshChanges: false,
+			// Expect a field conflict error here.
+			ExpectFailure: true,
+			OrderedConfig: []integration.ConfigValue{
+				{
+					Key:   "pulumi:disable-default-providers[0]",
+					Value: "kubernetes",
+					Path:  true,
+				},
+			},
+			Environments: []string{"PULUMI_K8S_ENABLE_PATCH_FORCE="},
+			Config: map[string]string{
+				"kubeconfig": kubecfg,
+			},
+			ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+				t.Log("Validating that the kube-proxy daemonset was not updated with the new image.")
+				kubeProxyImage, err := tests.Kubectl("get daemonset kube-proxy -n kube-system -o=jsonpath={.spec.template.spec.containers[0].image} --kubeconfig", kubecfg)
+				assert.NoError(t, err)
+				assert.Equal(t, "registry.k8s.io/kube-proxy:v1.27.2", string(kubeProxyImage))
+			},
+			EditDirs: []integration.EditDir{
+				{
+					Dir:      filepath.Join("patch-force-patch-resource", "step2"),
+					Additive: true,
+					ExtraRuntimeValidation: func(t *testing.T, stackInfo integration.RuntimeValidationStackInfo) {
+						t.Log("Validating that the kube-proxy daemonset was updated with the new image.")
+						kubeProxyImage, err := tests.Kubectl("get daemonset kube-proxy -n kube-system -o=jsonpath={.spec.template.spec.containers[0].image} --kubeconfig", kubecfg)
+						assert.NoError(t, err)
+						assert.Equal(t, "registry.k8s.io/kube-proxy:v1.27.1", string(kubeProxyImage))
+					},
+				},
+			},
+		})
+
+		integration.ProgramTest(t, &test)
+	})
+
 	t.Run("Basic", func(t *testing.T) {
 		options := baseOptions.With(integration.ProgramTestOptions{
 			Dir:                  filepath.Join(cwd, "basic"),
