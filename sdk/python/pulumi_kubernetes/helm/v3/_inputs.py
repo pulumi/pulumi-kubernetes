@@ -49,7 +49,7 @@ class RepositoryOptsArgs:
              password: Optional[pulumi.Input[str]] = None,
              repo: Optional[pulumi.Input[str]] = None,
              username: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if ca_file is None and 'caFile' in kwargs:
             ca_file = kwargs['caFile']

@@ -52,7 +52,7 @@ class PriorityClassPatchArgs:
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']] = None,
              preemption_policy: Optional[pulumi.Input[str]] = None,
              value: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -247,11 +247,7 @@ class PriorityClassPatch(pulumi.CustomResource):
             __props__.__dict__["description"] = description
             __props__.__dict__["global_default"] = global_default
             __props__.__dict__["kind"] = 'PriorityClass'
-            if metadata is not None and not isinstance(metadata, _meta.v1.ObjectMetaPatchArgs):
-                metadata = metadata or {}
-                def _setter(key, value):
-                    metadata[key] = value
-                _meta.v1.ObjectMetaPatchArgs._configure(_setter, **metadata)
+            metadata = _utilities.configure(metadata, _meta.v1.ObjectMetaPatchArgs, True)
             __props__.__dict__["metadata"] = metadata
             __props__.__dict__["preemption_policy"] = preemption_policy
             __props__.__dict__["value"] = value

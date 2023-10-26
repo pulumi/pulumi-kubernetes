@@ -72,7 +72,7 @@ class CertificateSigningRequest(dict):
              metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
              spec: Optional['outputs.CertificateSigningRequestSpec'] = None,
              status: Optional['outputs.CertificateSigningRequestStatus'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -180,7 +180,7 @@ class CertificateSigningRequestCondition(dict):
              message: Optional[str] = None,
              reason: Optional[str] = None,
              status: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if type is None:
             raise TypeError("Missing 'type' argument")
@@ -304,7 +304,7 @@ class CertificateSigningRequestConditionPatch(dict):
              reason: Optional[str] = None,
              status: Optional[str] = None,
              type: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if last_transition_time is None and 'lastTransitionTime' in kwargs:
             last_transition_time = kwargs['lastTransitionTime']
@@ -440,7 +440,7 @@ class CertificateSigningRequestSpec(dict):
              uid: Optional[str] = None,
              usages: Optional[Sequence[str]] = None,
              username: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if request is None:
             raise TypeError("Missing 'request' argument")
@@ -592,7 +592,7 @@ class CertificateSigningRequestSpecPatch(dict):
              uid: Optional[str] = None,
              usages: Optional[Sequence[str]] = None,
              username: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if signer_name is None and 'signerName' in kwargs:
             signer_name = kwargs['signerName']
@@ -695,7 +695,7 @@ class CertificateSigningRequestStatus(dict):
              _setter: Callable[[Any, Any], None],
              certificate: Optional[str] = None,
              conditions: Optional[Sequence['outputs.CertificateSigningRequestCondition']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if certificate is not None:
@@ -739,7 +739,7 @@ class CertificateSigningRequestStatusPatch(dict):
              _setter: Callable[[Any, Any], None],
              certificate: Optional[str] = None,
              conditions: Optional[Sequence['outputs.CertificateSigningRequestConditionPatch']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if certificate is not None:

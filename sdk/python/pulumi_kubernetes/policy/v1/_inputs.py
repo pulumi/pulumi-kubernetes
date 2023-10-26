@@ -55,7 +55,7 @@ class PodDisruptionBudgetSpecPatchArgs:
              min_available: Optional[pulumi.Input[Union[int, str]]] = None,
              selector: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']] = None,
              unhealthy_pod_eviction_policy: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if max_unavailable is None and 'maxUnavailable' in kwargs:
             max_unavailable = kwargs['maxUnavailable']
@@ -170,7 +170,7 @@ class PodDisruptionBudgetSpecArgs:
              min_available: Optional[pulumi.Input[Union[int, str]]] = None,
              selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
              unhealthy_pod_eviction_policy: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if max_unavailable is None and 'maxUnavailable' in kwargs:
             max_unavailable = kwargs['maxUnavailable']
@@ -295,7 +295,7 @@ class PodDisruptionBudgetStatusArgs:
              conditions: Optional[pulumi.Input[Sequence[pulumi.Input['_meta.v1.ConditionArgs']]]] = None,
              disrupted_pods: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
              observed_generation: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if current_healthy is None and 'currentHealthy' in kwargs:
             current_healthy = kwargs['currentHealthy']
@@ -454,7 +454,7 @@ class PodDisruptionBudgetArgs:
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              spec: Optional[pulumi.Input['PodDisruptionBudgetSpecArgs']] = None,
              status: Optional[pulumi.Input['PodDisruptionBudgetStatusArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']

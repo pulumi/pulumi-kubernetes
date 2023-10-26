@@ -48,7 +48,7 @@ class LeaseSpecPatchArgs:
              lease_duration_seconds: Optional[pulumi.Input[int]] = None,
              lease_transitions: Optional[pulumi.Input[int]] = None,
              renew_time: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if acquire_time is None and 'acquireTime' in kwargs:
             acquire_time = kwargs['acquireTime']
@@ -165,7 +165,7 @@ class LeaseSpecArgs:
              lease_duration_seconds: Optional[pulumi.Input[int]] = None,
              lease_transitions: Optional[pulumi.Input[int]] = None,
              renew_time: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if acquire_time is None and 'acquireTime' in kwargs:
             acquire_time = kwargs['acquireTime']
@@ -278,7 +278,7 @@ class LeaseArgs:
              kind: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              spec: Optional[pulumi.Input['LeaseSpecArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']

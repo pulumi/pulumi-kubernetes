@@ -50,7 +50,7 @@ class ClusterCIDRSpecPatchArgs:
              ipv6: Optional[pulumi.Input[str]] = None,
              node_selector: Optional[pulumi.Input['_core.v1.NodeSelectorPatchArgs']] = None,
              per_node_host_bits: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if node_selector is None and 'nodeSelector' in kwargs:
             node_selector = kwargs['nodeSelector']
@@ -143,7 +143,7 @@ class ClusterCIDRSpecArgs:
              ipv4: Optional[pulumi.Input[str]] = None,
              ipv6: Optional[pulumi.Input[str]] = None,
              node_selector: Optional[pulumi.Input['_core.v1.NodeSelectorArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if per_node_host_bits is None and 'perNodeHostBits' in kwargs:
             per_node_host_bits = kwargs['perNodeHostBits']
@@ -237,7 +237,7 @@ class ClusterCIDRArgs:
              kind: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              spec: Optional[pulumi.Input['ClusterCIDRSpecArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -316,7 +316,7 @@ class IPAddressSpecPatchArgs:
     def _configure(
              _setter: Callable[[Any, Any], None],
              parent_ref: Optional[pulumi.Input['ParentReferencePatchArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if parent_ref is None and 'parentRef' in kwargs:
             parent_ref = kwargs['parentRef']
@@ -353,7 +353,7 @@ class IPAddressSpecArgs:
     def _configure(
              _setter: Callable[[Any, Any], None],
              parent_ref: Optional[pulumi.Input['ParentReferenceArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if parent_ref is None and 'parentRef' in kwargs:
             parent_ref = kwargs['parentRef']
@@ -402,7 +402,7 @@ class IPAddressArgs:
              kind: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              spec: Optional[pulumi.Input['IPAddressSpecArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -497,7 +497,7 @@ class ParentReferencePatchArgs:
              namespace: Optional[pulumi.Input[str]] = None,
              resource: Optional[pulumi.Input[str]] = None,
              uid: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if group is not None:
@@ -604,7 +604,7 @@ class ParentReferenceArgs:
              namespace: Optional[pulumi.Input[str]] = None,
              resource: Optional[pulumi.Input[str]] = None,
              uid: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if group is not None:

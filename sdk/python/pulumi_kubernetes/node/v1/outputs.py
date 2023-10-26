@@ -56,7 +56,7 @@ class Overhead(dict):
     def _configure(
              _setter: Callable[[Any, Any], None],
              pod_fixed: Optional[Mapping[str, str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if pod_fixed is None and 'podFixed' in kwargs:
             pod_fixed = kwargs['podFixed']
@@ -109,7 +109,7 @@ class OverheadPatch(dict):
     def _configure(
              _setter: Callable[[Any, Any], None],
              pod_fixed: Optional[Mapping[str, str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if pod_fixed is None and 'podFixed' in kwargs:
             pod_fixed = kwargs['podFixed']
@@ -183,7 +183,7 @@ class RuntimeClass(dict):
              metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
              overhead: Optional['outputs.Overhead'] = None,
              scheduling: Optional['outputs.Scheduling'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if handler is None:
             raise TypeError("Missing 'handler' argument")
@@ -292,7 +292,7 @@ class Scheduling(dict):
              _setter: Callable[[Any, Any], None],
              node_selector: Optional[Mapping[str, str]] = None,
              tolerations: Optional[Sequence['_core.v1.outputs.Toleration']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if node_selector is None and 'nodeSelector' in kwargs:
             node_selector = kwargs['nodeSelector']
@@ -359,7 +359,7 @@ class SchedulingPatch(dict):
              _setter: Callable[[Any, Any], None],
              node_selector: Optional[Mapping[str, str]] = None,
              tolerations: Optional[Sequence['_core.v1.outputs.TolerationPatch']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if node_selector is None and 'nodeSelector' in kwargs:
             node_selector = kwargs['nodeSelector']

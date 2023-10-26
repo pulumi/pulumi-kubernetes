@@ -65,7 +65,7 @@ class StorageClassPatchArgs:
              provisioner: Optional[pulumi.Input[str]] = None,
              reclaim_policy: Optional[pulumi.Input[str]] = None,
              volume_binding_mode: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if allow_volume_expansion is None and 'allowVolumeExpansion' in kwargs:
             allow_volume_expansion = kwargs['allowVolumeExpansion']
@@ -321,11 +321,7 @@ class StorageClassPatch(pulumi.CustomResource):
             __props__.__dict__["allowed_topologies"] = allowed_topologies
             __props__.__dict__["api_version"] = 'storage.k8s.io/v1'
             __props__.__dict__["kind"] = 'StorageClass'
-            if metadata is not None and not isinstance(metadata, _meta.v1.ObjectMetaPatchArgs):
-                metadata = metadata or {}
-                def _setter(key, value):
-                    metadata[key] = value
-                _meta.v1.ObjectMetaPatchArgs._configure(_setter, **metadata)
+            metadata = _utilities.configure(metadata, _meta.v1.ObjectMetaPatchArgs, True)
             __props__.__dict__["metadata"] = metadata
             __props__.__dict__["mount_options"] = mount_options
             __props__.__dict__["parameters"] = parameters

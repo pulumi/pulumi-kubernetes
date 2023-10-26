@@ -46,7 +46,7 @@ class AuditSinkSpecPatchArgs:
              _setter: Callable[[Any, Any], None],
              policy: Optional[pulumi.Input['PolicyPatchArgs']] = None,
              webhook: Optional[pulumi.Input['WebhookPatchArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if policy is not None:
@@ -99,7 +99,7 @@ class AuditSinkSpecArgs:
              _setter: Callable[[Any, Any], None],
              policy: Optional[pulumi.Input['PolicyArgs']] = None,
              webhook: Optional[pulumi.Input['WebhookArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if policy is None:
             raise TypeError("Missing 'policy' argument")
@@ -161,7 +161,7 @@ class AuditSinkArgs:
              kind: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              spec: Optional[pulumi.Input['AuditSinkSpecArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -241,7 +241,7 @@ class PolicyPatchArgs:
              _setter: Callable[[Any, Any], None],
              level: Optional[pulumi.Input[str]] = None,
              stages: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if level is not None:
@@ -294,7 +294,7 @@ class PolicyArgs:
              _setter: Callable[[Any, Any], None],
              level: Optional[pulumi.Input[str]] = None,
              stages: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if level is None:
             raise TypeError("Missing 'level' argument")
@@ -356,7 +356,7 @@ class ServiceReferencePatchArgs:
              namespace: Optional[pulumi.Input[str]] = None,
              path: Optional[pulumi.Input[str]] = None,
              port: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if name is not None:
@@ -445,7 +445,7 @@ class ServiceReferenceArgs:
              namespace: Optional[pulumi.Input[str]] = None,
              path: Optional[pulumi.Input[str]] = None,
              port: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if name is None:
             raise TypeError("Missing 'name' argument")
@@ -544,7 +544,7 @@ class WebhookClientConfigPatchArgs:
              ca_bundle: Optional[pulumi.Input[str]] = None,
              service: Optional[pulumi.Input['ServiceReferencePatchArgs']] = None,
              url: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if ca_bundle is None and 'caBundle' in kwargs:
             ca_bundle = kwargs['caBundle']
@@ -641,7 +641,7 @@ class WebhookClientConfigArgs:
              ca_bundle: Optional[pulumi.Input[str]] = None,
              service: Optional[pulumi.Input['ServiceReferenceArgs']] = None,
              url: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if ca_bundle is None and 'caBundle' in kwargs:
             ca_bundle = kwargs['caBundle']
@@ -722,7 +722,7 @@ class WebhookPatchArgs:
              _setter: Callable[[Any, Any], None],
              client_config: Optional[pulumi.Input['WebhookClientConfigPatchArgs']] = None,
              throttle: Optional[pulumi.Input['WebhookThrottleConfigPatchArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if client_config is None and 'clientConfig' in kwargs:
             client_config = kwargs['clientConfig']
@@ -777,7 +777,7 @@ class WebhookThrottleConfigPatchArgs:
              _setter: Callable[[Any, Any], None],
              burst: Optional[pulumi.Input[int]] = None,
              qps: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if burst is not None:
@@ -830,7 +830,7 @@ class WebhookThrottleConfigArgs:
              _setter: Callable[[Any, Any], None],
              burst: Optional[pulumi.Input[int]] = None,
              qps: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if burst is not None:
@@ -883,7 +883,7 @@ class WebhookArgs:
              _setter: Callable[[Any, Any], None],
              client_config: Optional[pulumi.Input['WebhookClientConfigArgs']] = None,
              throttle: Optional[pulumi.Input['WebhookThrottleConfigArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if client_config is None and 'clientConfig' in kwargs:
             client_config = kwargs['clientConfig']

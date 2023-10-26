@@ -99,7 +99,7 @@ class CustomResourceColumnDefinition(dict):
              description: Optional[str] = None,
              format: Optional[str] = None,
              priority: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if json_path is None and 'JSONPath' in kwargs:
             json_path = kwargs['JSONPath']
@@ -225,7 +225,7 @@ class CustomResourceColumnDefinitionPatch(dict):
              name: Optional[str] = None,
              priority: Optional[int] = None,
              type: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if json_path is None and 'JSONPath' in kwargs:
             json_path = kwargs['JSONPath']
@@ -339,7 +339,7 @@ class CustomResourceConversion(dict):
              strategy: Optional[str] = None,
              conversion_review_versions: Optional[Sequence[str]] = None,
              webhook_client_config: Optional['outputs.WebhookClientConfig'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if strategy is None:
             raise TypeError("Missing 'strategy' argument")
@@ -427,7 +427,7 @@ class CustomResourceConversionPatch(dict):
              conversion_review_versions: Optional[Sequence[str]] = None,
              strategy: Optional[str] = None,
              webhook_client_config: Optional['outputs.WebhookClientConfigPatch'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if conversion_review_versions is None and 'conversionReviewVersions' in kwargs:
             conversion_review_versions = kwargs['conversionReviewVersions']
@@ -518,7 +518,7 @@ class CustomResourceDefinition(dict):
              kind: Optional[str] = None,
              metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
              status: Optional['outputs.CustomResourceDefinitionStatus'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if spec is None:
             raise TypeError("Missing 'spec' argument")
@@ -625,7 +625,7 @@ class CustomResourceDefinitionCondition(dict):
              last_transition_time: Optional[str] = None,
              message: Optional[str] = None,
              reason: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if status is None:
             raise TypeError("Missing 'status' argument")
@@ -736,7 +736,7 @@ class CustomResourceDefinitionConditionPatch(dict):
              reason: Optional[str] = None,
              status: Optional[str] = None,
              type: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if last_transition_time is None and 'lastTransitionTime' in kwargs:
             last_transition_time = kwargs['lastTransitionTime']
@@ -851,7 +851,7 @@ class CustomResourceDefinitionNames(dict):
              list_kind: Optional[str] = None,
              short_names: Optional[Sequence[str]] = None,
              singular: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if kind is None:
             raise TypeError("Missing 'kind' argument")
@@ -980,7 +980,7 @@ class CustomResourceDefinitionNamesPatch(dict):
              plural: Optional[str] = None,
              short_names: Optional[Sequence[str]] = None,
              singular: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if list_kind is None and 'listKind' in kwargs:
             list_kind = kwargs['listKind']
@@ -1123,7 +1123,7 @@ class CustomResourceDefinitionSpec(dict):
              validation: Optional['outputs.CustomResourceValidation'] = None,
              version: Optional[str] = None,
              versions: Optional[Sequence['outputs.CustomResourceDefinitionVersion']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if group is None:
             raise TypeError("Missing 'group' argument")
@@ -1309,7 +1309,7 @@ class CustomResourceDefinitionSpecPatch(dict):
              validation: Optional['outputs.CustomResourceValidationPatch'] = None,
              version: Optional[str] = None,
              versions: Optional[Sequence['outputs.CustomResourceDefinitionVersionPatch']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if additional_printer_columns is None and 'additionalPrinterColumns' in kwargs:
             additional_printer_columns = kwargs['additionalPrinterColumns']
@@ -1464,7 +1464,7 @@ class CustomResourceDefinitionStatus(dict):
              accepted_names: Optional['outputs.CustomResourceDefinitionNames'] = None,
              stored_versions: Optional[Sequence[str]] = None,
              conditions: Optional[Sequence['outputs.CustomResourceDefinitionCondition']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if accepted_names is None and 'acceptedNames' in kwargs:
             accepted_names = kwargs['acceptedNames']
@@ -1551,7 +1551,7 @@ class CustomResourceDefinitionStatusPatch(dict):
              accepted_names: Optional['outputs.CustomResourceDefinitionNamesPatch'] = None,
              conditions: Optional[Sequence['outputs.CustomResourceDefinitionConditionPatch']] = None,
              stored_versions: Optional[Sequence[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if accepted_names is None and 'acceptedNames' in kwargs:
             accepted_names = kwargs['acceptedNames']
@@ -1656,7 +1656,7 @@ class CustomResourceDefinitionVersion(dict):
              deprecation_warning: Optional[str] = None,
              schema: Optional['outputs.CustomResourceValidation'] = None,
              subresources: Optional['outputs.CustomResourceSubresources'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if name is None:
             raise TypeError("Missing 'name' argument")
@@ -1814,7 +1814,7 @@ class CustomResourceDefinitionVersionPatch(dict):
              served: Optional[bool] = None,
              storage: Optional[bool] = None,
              subresources: Optional['outputs.CustomResourceSubresourcesPatch'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if additional_printer_columns is None and 'additionalPrinterColumns' in kwargs:
             additional_printer_columns = kwargs['additionalPrinterColumns']
@@ -1951,7 +1951,7 @@ class CustomResourceSubresourceScale(dict):
              spec_replicas_path: Optional[str] = None,
              status_replicas_path: Optional[str] = None,
              label_selector_path: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if spec_replicas_path is None and 'specReplicasPath' in kwargs:
             spec_replicas_path = kwargs['specReplicasPath']
@@ -2042,7 +2042,7 @@ class CustomResourceSubresourceScalePatch(dict):
              label_selector_path: Optional[str] = None,
              spec_replicas_path: Optional[str] = None,
              status_replicas_path: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if label_selector_path is None and 'labelSelectorPath' in kwargs:
             label_selector_path = kwargs['labelSelectorPath']
@@ -2106,7 +2106,7 @@ class CustomResourceSubresources(dict):
              _setter: Callable[[Any, Any], None],
              scale: Optional['outputs.CustomResourceSubresourceScale'] = None,
              status: Optional[Any] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if scale is not None:
@@ -2154,7 +2154,7 @@ class CustomResourceSubresourcesPatch(dict):
              _setter: Callable[[Any, Any], None],
              scale: Optional['outputs.CustomResourceSubresourceScalePatch'] = None,
              status: Optional[Any] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if scale is not None:
@@ -2215,7 +2215,7 @@ class CustomResourceValidation(dict):
     def _configure(
              _setter: Callable[[Any, Any], None],
              open_apiv3_schema: Optional['outputs.JSONSchemaProps'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if open_apiv3_schema is None and 'openAPIV3Schema' in kwargs:
             open_apiv3_schema = kwargs['openAPIV3Schema']
@@ -2268,7 +2268,7 @@ class CustomResourceValidationPatch(dict):
     def _configure(
              _setter: Callable[[Any, Any], None],
              open_apiv3_schema: Optional['outputs.JSONSchemaPropsPatch'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if open_apiv3_schema is None and 'openAPIV3Schema' in kwargs:
             open_apiv3_schema = kwargs['openAPIV3Schema']
@@ -2306,7 +2306,7 @@ class ExternalDocumentation(dict):
              _setter: Callable[[Any, Any], None],
              description: Optional[str] = None,
              url: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if description is not None:
@@ -2346,7 +2346,7 @@ class ExternalDocumentationPatch(dict):
              _setter: Callable[[Any, Any], None],
              description: Optional[str] = None,
              url: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if description is not None:
@@ -2605,7 +2605,7 @@ class JSONSchemaProps(dict):
              x_kubernetes_list_type: Optional[str] = None,
              x_kubernetes_map_type: Optional[str] = None,
              x_kubernetes_preserve_unknown_fields: Optional[bool] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if _ref is None and '$ref' in kwargs:
             _ref = kwargs['$ref']
@@ -3248,7 +3248,7 @@ class JSONSchemaPropsPatch(dict):
              x_kubernetes_list_type: Optional[str] = None,
              x_kubernetes_map_type: Optional[str] = None,
              x_kubernetes_preserve_unknown_fields: Optional[bool] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if _ref is None and '$ref' in kwargs:
             _ref = kwargs['$ref']
@@ -3682,7 +3682,7 @@ class ServiceReference(dict):
              namespace: Optional[str] = None,
              path: Optional[str] = None,
              port: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if name is None:
             raise TypeError("Missing 'name' argument")
@@ -3760,7 +3760,7 @@ class ServiceReferencePatch(dict):
              namespace: Optional[str] = None,
              path: Optional[str] = None,
              port: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if name is not None:
@@ -3861,7 +3861,7 @@ class WebhookClientConfig(dict):
              ca_bundle: Optional[str] = None,
              service: Optional['outputs.ServiceReference'] = None,
              url: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if ca_bundle is None and 'caBundle' in kwargs:
             ca_bundle = kwargs['caBundle']
@@ -3966,7 +3966,7 @@ class WebhookClientConfigPatch(dict):
              ca_bundle: Optional[str] = None,
              service: Optional['outputs.ServiceReferencePatch'] = None,
              url: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if ca_bundle is None and 'caBundle' in kwargs:
             ca_bundle = kwargs['caBundle']

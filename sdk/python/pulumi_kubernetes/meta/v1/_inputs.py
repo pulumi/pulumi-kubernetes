@@ -65,7 +65,7 @@ class ConditionArgs:
              status: Optional[pulumi.Input[str]] = None,
              type: Optional[pulumi.Input[str]] = None,
              observed_generation: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if last_transition_time is None and 'lastTransitionTime' in kwargs:
             last_transition_time = kwargs['lastTransitionTime']
@@ -183,7 +183,7 @@ class LabelSelectorPatchArgs:
              _setter: Callable[[Any, Any], None],
              match_expressions: Optional[pulumi.Input[Sequence[pulumi.Input['LabelSelectorRequirementPatchArgs']]]] = None,
              match_labels: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if match_expressions is None and 'matchExpressions' in kwargs:
             match_expressions = kwargs['matchExpressions']
@@ -244,7 +244,7 @@ class LabelSelectorRequirementPatchArgs:
              key: Optional[pulumi.Input[str]] = None,
              operator: Optional[pulumi.Input[str]] = None,
              values: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if key is not None:
@@ -315,7 +315,7 @@ class LabelSelectorRequirementArgs:
              key: Optional[pulumi.Input[str]] = None,
              operator: Optional[pulumi.Input[str]] = None,
              values: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if key is None:
             raise TypeError("Missing 'key' argument")
@@ -384,7 +384,7 @@ class LabelSelectorArgs:
              _setter: Callable[[Any, Any], None],
              match_expressions: Optional[pulumi.Input[Sequence[pulumi.Input['LabelSelectorRequirementArgs']]]] = None,
              match_labels: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if match_expressions is None and 'matchExpressions' in kwargs:
             match_expressions = kwargs['matchExpressions']
@@ -449,7 +449,7 @@ class ListMetaPatchArgs:
              remaining_item_count: Optional[pulumi.Input[int]] = None,
              resource_version: Optional[pulumi.Input[str]] = None,
              self_link: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if continue_ is None and 'continue' in kwargs:
             continue_ = kwargs['continue']
@@ -546,7 +546,7 @@ class ListMetaArgs:
              remaining_item_count: Optional[pulumi.Input[int]] = None,
              resource_version: Optional[pulumi.Input[str]] = None,
              self_link: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if continue_ is None and 'continue' in kwargs:
             continue_ = kwargs['continue']
@@ -655,7 +655,7 @@ class ManagedFieldsEntryPatchArgs:
              operation: Optional[pulumi.Input[str]] = None,
              subresource: Optional[pulumi.Input[str]] = None,
              time: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -804,7 +804,7 @@ class ManagedFieldsEntryArgs:
              operation: Optional[pulumi.Input[str]] = None,
              subresource: Optional[pulumi.Input[str]] = None,
              time: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -1003,7 +1003,7 @@ class ObjectMetaPatchArgs:
              resource_version: Optional[pulumi.Input[str]] = None,
              self_link: Optional[pulumi.Input[str]] = None,
              uid: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if cluster_name is None and 'clusterName' in kwargs:
             cluster_name = kwargs['clusterName']
@@ -1354,7 +1354,7 @@ class ObjectMetaArgs:
              resource_version: Optional[pulumi.Input[str]] = None,
              self_link: Optional[pulumi.Input[str]] = None,
              uid: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if cluster_name is None and 'clusterName' in kwargs:
             cluster_name = kwargs['clusterName']
@@ -1651,7 +1651,7 @@ class OwnerReferencePatchArgs:
              kind: Optional[pulumi.Input[str]] = None,
              name: Optional[pulumi.Input[str]] = None,
              uid: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -1780,7 +1780,7 @@ class OwnerReferenceArgs:
              uid: Optional[pulumi.Input[str]] = None,
              block_owner_deletion: Optional[pulumi.Input[bool]] = None,
              controller: Optional[pulumi.Input[bool]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -1905,7 +1905,7 @@ class StatusCausePatchArgs:
              field: Optional[pulumi.Input[str]] = None,
              message: Optional[pulumi.Input[str]] = None,
              reason: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if field is not None:
@@ -1984,7 +1984,7 @@ class StatusCauseArgs:
              field: Optional[pulumi.Input[str]] = None,
              message: Optional[pulumi.Input[str]] = None,
              reason: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if field is not None:
@@ -2071,7 +2071,7 @@ class StatusDetailsPatchArgs:
              name: Optional[pulumi.Input[str]] = None,
              retry_after_seconds: Optional[pulumi.Input[int]] = None,
              uid: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if retry_after_seconds is None and 'retryAfterSeconds' in kwargs:
             retry_after_seconds = kwargs['retryAfterSeconds']
@@ -2198,7 +2198,7 @@ class StatusDetailsArgs:
              name: Optional[pulumi.Input[str]] = None,
              retry_after_seconds: Optional[pulumi.Input[int]] = None,
              uid: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if retry_after_seconds is None and 'retryAfterSeconds' in kwargs:
             retry_after_seconds = kwargs['retryAfterSeconds']

@@ -53,7 +53,7 @@ class CertificateSigningRequestConditionArgs:
              message: Optional[pulumi.Input[str]] = None,
              reason: Optional[pulumi.Input[str]] = None,
              status: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if type is None:
             raise TypeError("Missing 'type' argument")
@@ -194,7 +194,7 @@ class CertificateSigningRequestSpecPatchArgs:
              uid: Optional[pulumi.Input[str]] = None,
              usages: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              username: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if signer_name is None and 'signerName' in kwargs:
             signer_name = kwargs['signerName']
@@ -353,7 +353,7 @@ class CertificateSigningRequestSpecArgs:
              uid: Optional[pulumi.Input[str]] = None,
              usages: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              username: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if request is None:
             raise TypeError("Missing 'request' argument")
@@ -485,7 +485,7 @@ class CertificateSigningRequestStatusArgs:
              _setter: Callable[[Any, Any], None],
              certificate: Optional[pulumi.Input[str]] = None,
              conditions: Optional[pulumi.Input[Sequence[pulumi.Input['CertificateSigningRequestConditionArgs']]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if certificate is not None:
@@ -549,7 +549,7 @@ class CertificateSigningRequestArgs:
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              spec: Optional[pulumi.Input['CertificateSigningRequestSpecArgs']] = None,
              status: Optional[pulumi.Input['CertificateSigningRequestStatusArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']

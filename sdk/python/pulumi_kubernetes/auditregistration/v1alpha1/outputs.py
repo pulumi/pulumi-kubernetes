@@ -74,7 +74,7 @@ class AuditSink(dict):
              kind: Optional[str] = None,
              metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
              spec: Optional['outputs.AuditSinkSpec'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -141,7 +141,7 @@ class AuditSinkSpec(dict):
              _setter: Callable[[Any, Any], None],
              policy: Optional['outputs.Policy'] = None,
              webhook: Optional['outputs.Webhook'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if policy is None:
             raise TypeError("Missing 'policy' argument")
@@ -191,7 +191,7 @@ class AuditSinkSpecPatch(dict):
              _setter: Callable[[Any, Any], None],
              policy: Optional['outputs.PolicyPatch'] = None,
              webhook: Optional['outputs.WebhookPatch'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if policy is not None:
@@ -239,7 +239,7 @@ class Policy(dict):
              _setter: Callable[[Any, Any], None],
              level: Optional[str] = None,
              stages: Optional[Sequence[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if level is None:
             raise TypeError("Missing 'level' argument")
@@ -288,7 +288,7 @@ class PolicyPatch(dict):
              _setter: Callable[[Any, Any], None],
              level: Optional[str] = None,
              stages: Optional[Sequence[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if level is not None:
@@ -344,7 +344,7 @@ class ServiceReference(dict):
              namespace: Optional[str] = None,
              path: Optional[str] = None,
              port: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if name is None:
             raise TypeError("Missing 'name' argument")
@@ -422,7 +422,7 @@ class ServiceReferencePatch(dict):
              namespace: Optional[str] = None,
              path: Optional[str] = None,
              port: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if name is not None:
@@ -507,7 +507,7 @@ class Webhook(dict):
              _setter: Callable[[Any, Any], None],
              client_config: Optional['outputs.WebhookClientConfig'] = None,
              throttle: Optional['outputs.WebhookThrottleConfig'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if client_config is None and 'clientConfig' in kwargs:
             client_config = kwargs['clientConfig']
@@ -591,7 +591,7 @@ class WebhookClientConfig(dict):
              ca_bundle: Optional[str] = None,
              service: Optional['outputs.ServiceReference'] = None,
              url: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if ca_bundle is None and 'caBundle' in kwargs:
             ca_bundle = kwargs['caBundle']
@@ -696,7 +696,7 @@ class WebhookClientConfigPatch(dict):
              ca_bundle: Optional[str] = None,
              service: Optional['outputs.ServiceReferencePatch'] = None,
              url: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if ca_bundle is None and 'caBundle' in kwargs:
             ca_bundle = kwargs['caBundle']
@@ -785,7 +785,7 @@ class WebhookPatch(dict):
              _setter: Callable[[Any, Any], None],
              client_config: Optional['outputs.WebhookClientConfigPatch'] = None,
              throttle: Optional['outputs.WebhookThrottleConfigPatch'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if client_config is None and 'clientConfig' in kwargs:
             client_config = kwargs['clientConfig']
@@ -835,7 +835,7 @@ class WebhookThrottleConfig(dict):
              _setter: Callable[[Any, Any], None],
              burst: Optional[int] = None,
              qps: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if burst is not None:
@@ -883,7 +883,7 @@ class WebhookThrottleConfigPatch(dict):
              _setter: Callable[[Any, Any], None],
              burst: Optional[int] = None,
              qps: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if burst is not None:

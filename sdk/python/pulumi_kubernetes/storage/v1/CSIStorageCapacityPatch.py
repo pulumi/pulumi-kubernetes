@@ -60,7 +60,7 @@ class CSIStorageCapacityPatchArgs:
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']] = None,
              node_topology: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']] = None,
              storage_class_name: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -289,17 +289,9 @@ class CSIStorageCapacityPatch(pulumi.CustomResource):
             __props__.__dict__["capacity"] = capacity
             __props__.__dict__["kind"] = 'CSIStorageCapacity'
             __props__.__dict__["maximum_volume_size"] = maximum_volume_size
-            if metadata is not None and not isinstance(metadata, _meta.v1.ObjectMetaPatchArgs):
-                metadata = metadata or {}
-                def _setter(key, value):
-                    metadata[key] = value
-                _meta.v1.ObjectMetaPatchArgs._configure(_setter, **metadata)
+            metadata = _utilities.configure(metadata, _meta.v1.ObjectMetaPatchArgs, True)
             __props__.__dict__["metadata"] = metadata
-            if node_topology is not None and not isinstance(node_topology, _meta.v1.LabelSelectorPatchArgs):
-                node_topology = node_topology or {}
-                def _setter(key, value):
-                    node_topology[key] = value
-                _meta.v1.LabelSelectorPatchArgs._configure(_setter, **node_topology)
+            node_topology = _utilities.configure(node_topology, _meta.v1.LabelSelectorPatchArgs, True)
             __props__.__dict__["node_topology"] = node_topology
             __props__.__dict__["storage_class_name"] = storage_class_name
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:storage.k8s.io/v1beta1:CSIStorageCapacityPatch"), pulumi.Alias(type_="kubernetes:storage.k8s.io/v1alpha1:CSIStorageCapacityPatch")])

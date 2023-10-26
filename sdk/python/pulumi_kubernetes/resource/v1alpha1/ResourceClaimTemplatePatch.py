@@ -44,7 +44,7 @@ class ResourceClaimTemplatePatchArgs:
              kind: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']] = None,
              spec: Optional[pulumi.Input['ResourceClaimTemplateSpecPatchArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -186,17 +186,9 @@ class ResourceClaimTemplatePatch(pulumi.CustomResource):
 
             __props__.__dict__["api_version"] = 'resource.k8s.io/v1alpha1'
             __props__.__dict__["kind"] = 'ResourceClaimTemplate'
-            if metadata is not None and not isinstance(metadata, _meta.v1.ObjectMetaPatchArgs):
-                metadata = metadata or {}
-                def _setter(key, value):
-                    metadata[key] = value
-                _meta.v1.ObjectMetaPatchArgs._configure(_setter, **metadata)
+            metadata = _utilities.configure(metadata, _meta.v1.ObjectMetaPatchArgs, True)
             __props__.__dict__["metadata"] = metadata
-            if spec is not None and not isinstance(spec, ResourceClaimTemplateSpecPatchArgs):
-                spec = spec or {}
-                def _setter(key, value):
-                    spec[key] = value
-                ResourceClaimTemplateSpecPatchArgs._configure(_setter, **spec)
+            spec = _utilities.configure(spec, ResourceClaimTemplateSpecPatchArgs, True)
             __props__.__dict__["spec"] = spec
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:resource.k8s.io/v1alpha2:ResourceClaimTemplatePatch")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)

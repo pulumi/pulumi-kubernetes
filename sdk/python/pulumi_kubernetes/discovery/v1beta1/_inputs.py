@@ -45,7 +45,7 @@ class EndpointConditionsPatchArgs:
              ready: Optional[pulumi.Input[bool]] = None,
              serving: Optional[pulumi.Input[bool]] = None,
              terminating: Optional[pulumi.Input[bool]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if ready is not None:
@@ -116,7 +116,7 @@ class EndpointConditionsArgs:
              ready: Optional[pulumi.Input[bool]] = None,
              serving: Optional[pulumi.Input[bool]] = None,
              terminating: Optional[pulumi.Input[bool]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if ready is not None:
@@ -205,7 +205,7 @@ class EndpointPatchArgs:
              node_name: Optional[pulumi.Input[str]] = None,
              target_ref: Optional[pulumi.Input['_core.v1.ObjectReferencePatchArgs']] = None,
              topology: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if node_name is None and 'nodeName' in kwargs:
             node_name = kwargs['nodeName']
@@ -332,7 +332,7 @@ class EndpointPortPatchArgs:
              name: Optional[pulumi.Input[str]] = None,
              port: Optional[pulumi.Input[int]] = None,
              protocol: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if app_protocol is None and 'appProtocol' in kwargs:
             app_protocol = kwargs['appProtocol']
@@ -423,7 +423,7 @@ class EndpointPortArgs:
              name: Optional[pulumi.Input[str]] = None,
              port: Optional[pulumi.Input[int]] = None,
              protocol: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if app_protocol is None and 'appProtocol' in kwargs:
             app_protocol = kwargs['appProtocol']
@@ -522,7 +522,7 @@ class EndpointSliceArgs:
              kind: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              ports: Optional[pulumi.Input[Sequence[pulumi.Input['EndpointPortArgs']]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if address_type is None and 'addressType' in kwargs:
             address_type = kwargs['addressType']
@@ -659,7 +659,7 @@ class EndpointArgs:
              node_name: Optional[pulumi.Input[str]] = None,
              target_ref: Optional[pulumi.Input['_core.v1.ObjectReferenceArgs']] = None,
              topology: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if addresses is None:
             raise TypeError("Missing 'addresses' argument")

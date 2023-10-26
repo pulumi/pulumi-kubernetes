@@ -42,7 +42,7 @@ class PersistentVolumeClaimInitArgs:
              kind: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              spec: Optional[pulumi.Input['PersistentVolumeClaimSpecArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -168,17 +168,9 @@ class PersistentVolumeClaim(pulumi.CustomResource):
 
             __props__.__dict__["api_version"] = 'v1'
             __props__.__dict__["kind"] = 'PersistentVolumeClaim'
-            if metadata is not None and not isinstance(metadata, _meta.v1.ObjectMetaArgs):
-                metadata = metadata or {}
-                def _setter(key, value):
-                    metadata[key] = value
-                _meta.v1.ObjectMetaArgs._configure(_setter, **metadata)
+            metadata = _utilities.configure(metadata, _meta.v1.ObjectMetaArgs, True)
             __props__.__dict__["metadata"] = metadata
-            if spec is not None and not isinstance(spec, PersistentVolumeClaimSpecArgs):
-                spec = spec or {}
-                def _setter(key, value):
-                    spec[key] = value
-                PersistentVolumeClaimSpecArgs._configure(_setter, **spec)
+            spec = _utilities.configure(spec, PersistentVolumeClaimSpecArgs, True)
             __props__.__dict__["spec"] = spec
             __props__.__dict__["status"] = None
         super(PersistentVolumeClaim, __self__).__init__(

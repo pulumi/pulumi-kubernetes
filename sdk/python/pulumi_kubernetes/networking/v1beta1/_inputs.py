@@ -65,7 +65,7 @@ class HTTPIngressPathPatchArgs:
              backend: Optional[pulumi.Input['IngressBackendPatchArgs']] = None,
              path: Optional[pulumi.Input[str]] = None,
              path_type: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if path_type is None and 'pathType' in kwargs:
             path_type = kwargs['pathType']
@@ -158,7 +158,7 @@ class HTTPIngressPathArgs:
              backend: Optional[pulumi.Input['IngressBackendArgs']] = None,
              path: Optional[pulumi.Input[str]] = None,
              path_type: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if backend is None:
             raise TypeError("Missing 'backend' argument")
@@ -234,7 +234,7 @@ class HTTPIngressRuleValuePatchArgs:
     def _configure(
              _setter: Callable[[Any, Any], None],
              paths: Optional[pulumi.Input[Sequence[pulumi.Input['HTTPIngressPathPatchArgs']]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if paths is not None:
@@ -269,7 +269,7 @@ class HTTPIngressRuleValueArgs:
     def _configure(
              _setter: Callable[[Any, Any], None],
              paths: Optional[pulumi.Input[Sequence[pulumi.Input['HTTPIngressPathArgs']]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if paths is None:
             raise TypeError("Missing 'paths' argument")
@@ -313,7 +313,7 @@ class IngressBackendPatchArgs:
              resource: Optional[pulumi.Input['_core.v1.TypedLocalObjectReferencePatchArgs']] = None,
              service_name: Optional[pulumi.Input[str]] = None,
              service_port: Optional[pulumi.Input[Union[int, str]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if service_name is None and 'serviceName' in kwargs:
             service_name = kwargs['serviceName']
@@ -388,7 +388,7 @@ class IngressBackendArgs:
              service_name: Optional[pulumi.Input[str]] = None,
              service_port: Optional[pulumi.Input[Union[int, str]]] = None,
              resource: Optional[pulumi.Input['_core.v1.TypedLocalObjectReferenceArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if service_name is None and 'serviceName' in kwargs:
             service_name = kwargs['serviceName']
@@ -461,7 +461,7 @@ class IngressClassSpecPatchArgs:
              _setter: Callable[[Any, Any], None],
              controller: Optional[pulumi.Input[str]] = None,
              parameters: Optional[pulumi.Input['_core.v1.TypedLocalObjectReferencePatchArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if controller is not None:
@@ -514,7 +514,7 @@ class IngressClassSpecArgs:
              _setter: Callable[[Any, Any], None],
              controller: Optional[pulumi.Input[str]] = None,
              parameters: Optional[pulumi.Input['_core.v1.TypedLocalObjectReferenceArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if controller is not None:
@@ -575,7 +575,7 @@ class IngressClassArgs:
              kind: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              spec: Optional[pulumi.Input['IngressClassSpecArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -662,7 +662,7 @@ class IngressRulePatchArgs:
              _setter: Callable[[Any, Any], None],
              host: Optional[pulumi.Input[str]] = None,
              http: Optional[pulumi.Input['HTTPIngressRuleValuePatchArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if host is not None:
@@ -721,7 +721,7 @@ class IngressRuleArgs:
              _setter: Callable[[Any, Any], None],
              host: Optional[pulumi.Input[str]] = None,
              http: Optional[pulumi.Input['HTTPIngressRuleValueArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if host is not None:
@@ -784,7 +784,7 @@ class IngressSpecPatchArgs:
              ingress_class_name: Optional[pulumi.Input[str]] = None,
              rules: Optional[pulumi.Input[Sequence[pulumi.Input['IngressRulePatchArgs']]]] = None,
              tls: Optional[pulumi.Input[Sequence[pulumi.Input['IngressTLSPatchArgs']]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if ingress_class_name is None and 'ingressClassName' in kwargs:
             ingress_class_name = kwargs['ingressClassName']
@@ -875,7 +875,7 @@ class IngressSpecArgs:
              ingress_class_name: Optional[pulumi.Input[str]] = None,
              rules: Optional[pulumi.Input[Sequence[pulumi.Input['IngressRuleArgs']]]] = None,
              tls: Optional[pulumi.Input[Sequence[pulumi.Input['IngressTLSArgs']]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if ingress_class_name is None and 'ingressClassName' in kwargs:
             ingress_class_name = kwargs['ingressClassName']
@@ -954,7 +954,7 @@ class IngressStatusArgs:
     def _configure(
              _setter: Callable[[Any, Any], None],
              load_balancer: Optional[pulumi.Input['_core.v1.LoadBalancerStatusArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if load_balancer is None and 'loadBalancer' in kwargs:
             load_balancer = kwargs['loadBalancer']
@@ -995,7 +995,7 @@ class IngressTLSPatchArgs:
              _setter: Callable[[Any, Any], None],
              hosts: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              secret_name: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if secret_name is None and 'secretName' in kwargs:
             secret_name = kwargs['secretName']
@@ -1050,7 +1050,7 @@ class IngressTLSArgs:
              _setter: Callable[[Any, Any], None],
              hosts: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
              secret_name: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if secret_name is None and 'secretName' in kwargs:
             secret_name = kwargs['secretName']
@@ -1131,7 +1131,7 @@ class IngressArgs:
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              spec: Optional[pulumi.Input['IngressSpecArgs']] = None,
              status: Optional[pulumi.Input['IngressStatusArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']

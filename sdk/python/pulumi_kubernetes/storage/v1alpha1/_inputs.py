@@ -41,7 +41,7 @@ class VolumeAttachmentSourcePatchArgs:
              _setter: Callable[[Any, Any], None],
              inline_volume_spec: Optional[pulumi.Input['_core.v1.PersistentVolumeSpecPatchArgs']] = None,
              persistent_volume_name: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if inline_volume_spec is None and 'inlineVolumeSpec' in kwargs:
             inline_volume_spec = kwargs['inlineVolumeSpec']
@@ -98,7 +98,7 @@ class VolumeAttachmentSourceArgs:
              _setter: Callable[[Any, Any], None],
              inline_volume_spec: Optional[pulumi.Input['_core.v1.PersistentVolumeSpecArgs']] = None,
              persistent_volume_name: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if inline_volume_spec is None and 'inlineVolumeSpec' in kwargs:
             inline_volume_spec = kwargs['inlineVolumeSpec']
@@ -159,7 +159,7 @@ class VolumeAttachmentSpecPatchArgs:
              attacher: Optional[pulumi.Input[str]] = None,
              node_name: Optional[pulumi.Input[str]] = None,
              source: Optional[pulumi.Input['VolumeAttachmentSourcePatchArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if node_name is None and 'nodeName' in kwargs:
             node_name = kwargs['nodeName']
@@ -232,7 +232,7 @@ class VolumeAttachmentSpecArgs:
              attacher: Optional[pulumi.Input[str]] = None,
              node_name: Optional[pulumi.Input[str]] = None,
              source: Optional[pulumi.Input['VolumeAttachmentSourceArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if attacher is None:
             raise TypeError("Missing 'attacher' argument")
@@ -312,7 +312,7 @@ class VolumeAttachmentStatusArgs:
              attach_error: Optional[pulumi.Input['VolumeErrorArgs']] = None,
              attachment_metadata: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
              detach_error: Optional[pulumi.Input['VolumeErrorArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if attached is None:
             raise TypeError("Missing 'attached' argument")
@@ -414,7 +414,7 @@ class VolumeAttachmentArgs:
              kind: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              status: Optional[pulumi.Input['VolumeAttachmentStatusArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if spec is None:
             raise TypeError("Missing 'spec' argument")
@@ -512,7 +512,7 @@ class VolumeErrorArgs:
              _setter: Callable[[Any, Any], None],
              message: Optional[pulumi.Input[str]] = None,
              time: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if message is not None:

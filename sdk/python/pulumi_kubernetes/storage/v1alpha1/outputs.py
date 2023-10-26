@@ -80,7 +80,7 @@ class VolumeAttachment(dict):
              kind: Optional[str] = None,
              metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
              status: Optional['outputs.VolumeAttachmentStatus'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if spec is None:
             raise TypeError("Missing 'spec' argument")
@@ -180,7 +180,7 @@ class VolumeAttachmentSource(dict):
              _setter: Callable[[Any, Any], None],
              inline_volume_spec: Optional['_core.v1.outputs.PersistentVolumeSpec'] = None,
              persistent_volume_name: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if inline_volume_spec is None and 'inlineVolumeSpec' in kwargs:
             inline_volume_spec = kwargs['inlineVolumeSpec']
@@ -251,7 +251,7 @@ class VolumeAttachmentSourcePatch(dict):
              _setter: Callable[[Any, Any], None],
              inline_volume_spec: Optional['_core.v1.outputs.PersistentVolumeSpecPatch'] = None,
              persistent_volume_name: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if inline_volume_spec is None and 'inlineVolumeSpec' in kwargs:
             inline_volume_spec = kwargs['inlineVolumeSpec']
@@ -324,7 +324,7 @@ class VolumeAttachmentSpec(dict):
              attacher: Optional[str] = None,
              node_name: Optional[str] = None,
              source: Optional['outputs.VolumeAttachmentSource'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if attacher is None:
             raise TypeError("Missing 'attacher' argument")
@@ -408,7 +408,7 @@ class VolumeAttachmentSpecPatch(dict):
              attacher: Optional[str] = None,
              node_name: Optional[str] = None,
              source: Optional['outputs.VolumeAttachmentSourcePatch'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if node_name is None and 'nodeName' in kwargs:
             node_name = kwargs['nodeName']
@@ -497,7 +497,7 @@ class VolumeAttachmentStatus(dict):
              attach_error: Optional['outputs.VolumeError'] = None,
              attachment_metadata: Optional[Mapping[str, str]] = None,
              detach_error: Optional['outputs.VolumeError'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if attached is None:
             raise TypeError("Missing 'attached' argument")
@@ -601,7 +601,7 @@ class VolumeAttachmentStatusPatch(dict):
              attached: Optional[bool] = None,
              attachment_metadata: Optional[Mapping[str, str]] = None,
              detach_error: Optional['outputs.VolumeErrorPatch'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if attach_error is None and 'attachError' in kwargs:
             attach_error = kwargs['attachError']
@@ -675,7 +675,7 @@ class VolumeError(dict):
              _setter: Callable[[Any, Any], None],
              message: Optional[str] = None,
              time: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if message is not None:
@@ -723,7 +723,7 @@ class VolumeErrorPatch(dict):
              _setter: Callable[[Any, Any], None],
              message: Optional[str] = None,
              time: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if message is not None:

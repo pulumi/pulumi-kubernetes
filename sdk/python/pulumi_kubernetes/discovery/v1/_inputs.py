@@ -49,7 +49,7 @@ class EndpointConditionsPatchArgs:
              ready: Optional[pulumi.Input[bool]] = None,
              serving: Optional[pulumi.Input[bool]] = None,
              terminating: Optional[pulumi.Input[bool]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if ready is not None:
@@ -120,7 +120,7 @@ class EndpointConditionsArgs:
              ready: Optional[pulumi.Input[bool]] = None,
              serving: Optional[pulumi.Input[bool]] = None,
              terminating: Optional[pulumi.Input[bool]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if ready is not None:
@@ -183,7 +183,7 @@ class EndpointHintsPatchArgs:
     def _configure(
              _setter: Callable[[Any, Any], None],
              for_zones: Optional[pulumi.Input[Sequence[pulumi.Input['ForZonePatchArgs']]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if for_zones is None and 'forZones' in kwargs:
             for_zones = kwargs['forZones']
@@ -220,7 +220,7 @@ class EndpointHintsArgs:
     def _configure(
              _setter: Callable[[Any, Any], None],
              for_zones: Optional[pulumi.Input[Sequence[pulumi.Input['ForZoneArgs']]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if for_zones is None and 'forZones' in kwargs:
             for_zones = kwargs['forZones']
@@ -285,7 +285,7 @@ class EndpointPatchArgs:
              node_name: Optional[pulumi.Input[str]] = None,
              target_ref: Optional[pulumi.Input['_core.v1.ObjectReferencePatchArgs']] = None,
              zone: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if deprecated_topology is None and 'deprecatedTopology' in kwargs:
             deprecated_topology = kwargs['deprecatedTopology']
@@ -445,7 +445,7 @@ class EndpointPortPatchArgs:
              name: Optional[pulumi.Input[str]] = None,
              port: Optional[pulumi.Input[int]] = None,
              protocol: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if app_protocol is None and 'appProtocol' in kwargs:
             app_protocol = kwargs['appProtocol']
@@ -554,7 +554,7 @@ class EndpointPortArgs:
              name: Optional[pulumi.Input[str]] = None,
              port: Optional[pulumi.Input[int]] = None,
              protocol: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if app_protocol is None and 'appProtocol' in kwargs:
             app_protocol = kwargs['appProtocol']
@@ -662,7 +662,7 @@ class EndpointSliceArgs:
              kind: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              ports: Optional[pulumi.Input[Sequence[pulumi.Input['EndpointPortArgs']]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if address_type is None and 'addressType' in kwargs:
             address_type = kwargs['addressType']
@@ -801,7 +801,7 @@ class EndpointArgs:
              node_name: Optional[pulumi.Input[str]] = None,
              target_ref: Optional[pulumi.Input['_core.v1.ObjectReferenceArgs']] = None,
              zone: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if addresses is None:
             raise TypeError("Missing 'addresses' argument")
@@ -941,7 +941,7 @@ class ForZonePatchArgs:
     def _configure(
              _setter: Callable[[Any, Any], None],
              name: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if name is not None:
@@ -976,7 +976,7 @@ class ForZoneArgs:
     def _configure(
              _setter: Callable[[Any, Any], None],
              name: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if name is None:
             raise TypeError("Missing 'name' argument")

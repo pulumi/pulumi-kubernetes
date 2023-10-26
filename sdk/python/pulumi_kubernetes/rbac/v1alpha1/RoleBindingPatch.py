@@ -46,7 +46,7 @@ class RoleBindingPatchArgs:
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']] = None,
              role_ref: Optional[pulumi.Input['RoleRefPatchArgs']] = None,
              subjects: Optional[pulumi.Input[Sequence[pulumi.Input['SubjectPatchArgs']]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -203,17 +203,9 @@ class RoleBindingPatch(pulumi.CustomResource):
 
             __props__.__dict__["api_version"] = 'rbac.authorization.k8s.io/v1alpha1'
             __props__.__dict__["kind"] = 'RoleBinding'
-            if metadata is not None and not isinstance(metadata, _meta.v1.ObjectMetaPatchArgs):
-                metadata = metadata or {}
-                def _setter(key, value):
-                    metadata[key] = value
-                _meta.v1.ObjectMetaPatchArgs._configure(_setter, **metadata)
+            metadata = _utilities.configure(metadata, _meta.v1.ObjectMetaPatchArgs, True)
             __props__.__dict__["metadata"] = metadata
-            if role_ref is not None and not isinstance(role_ref, RoleRefPatchArgs):
-                role_ref = role_ref or {}
-                def _setter(key, value):
-                    role_ref[key] = value
-                RoleRefPatchArgs._configure(_setter, **role_ref)
+            role_ref = _utilities.configure(role_ref, RoleRefPatchArgs, True)
             __props__.__dict__["role_ref"] = role_ref
             __props__.__dict__["subjects"] = subjects
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:rbac.authorization.k8s.io/v1:RoleBindingPatch"), pulumi.Alias(type_="kubernetes:rbac.authorization.k8s.io/v1beta1:RoleBindingPatch")])

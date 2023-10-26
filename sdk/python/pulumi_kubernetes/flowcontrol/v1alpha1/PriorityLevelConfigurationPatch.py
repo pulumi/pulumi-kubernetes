@@ -42,7 +42,7 @@ class PriorityLevelConfigurationPatchArgs:
              kind: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']] = None,
              spec: Optional[pulumi.Input['PriorityLevelConfigurationSpecPatchArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -180,17 +180,9 @@ class PriorityLevelConfigurationPatch(pulumi.CustomResource):
 
             __props__.__dict__["api_version"] = 'flowcontrol.apiserver.k8s.io/v1alpha1'
             __props__.__dict__["kind"] = 'PriorityLevelConfiguration'
-            if metadata is not None and not isinstance(metadata, _meta.v1.ObjectMetaPatchArgs):
-                metadata = metadata or {}
-                def _setter(key, value):
-                    metadata[key] = value
-                _meta.v1.ObjectMetaPatchArgs._configure(_setter, **metadata)
+            metadata = _utilities.configure(metadata, _meta.v1.ObjectMetaPatchArgs, True)
             __props__.__dict__["metadata"] = metadata
-            if spec is not None and not isinstance(spec, PriorityLevelConfigurationSpecPatchArgs):
-                spec = spec or {}
-                def _setter(key, value):
-                    spec[key] = value
-                PriorityLevelConfigurationSpecPatchArgs._configure(_setter, **spec)
+            spec = _utilities.configure(spec, PriorityLevelConfigurationSpecPatchArgs, True)
             __props__.__dict__["spec"] = spec
             __props__.__dict__["status"] = None
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:flowcontrol.apiserver.k8s.io/v1beta1:PriorityLevelConfigurationPatch"), pulumi.Alias(type_="kubernetes:flowcontrol.apiserver.k8s.io/v1beta2:PriorityLevelConfigurationPatch"), pulumi.Alias(type_="kubernetes:flowcontrol.apiserver.k8s.io/v1beta3:PriorityLevelConfigurationPatch")])

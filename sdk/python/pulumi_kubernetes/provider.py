@@ -94,7 +94,7 @@ class ProviderArgs:
              skip_update_unreachable: Optional[pulumi.Input[bool]] = None,
              suppress_deprecation_warnings: Optional[pulumi.Input[bool]] = None,
              suppress_helm_hook_warnings: Optional[pulumi.Input[bool]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if delete_unreachable is None and 'deleteUnreachable' in kwargs:
             delete_unreachable = kwargs['deleteUnreachable']
@@ -448,17 +448,9 @@ class Provider(pulumi.ProviderResource):
             if enable_server_side_apply is None:
                 enable_server_side_apply = _utilities.get_env_bool('PULUMI_K8S_ENABLE_SERVER_SIDE_APPLY')
             __props__.__dict__["enable_server_side_apply"] = pulumi.Output.from_input(enable_server_side_apply).apply(pulumi.runtime.to_json) if enable_server_side_apply is not None else None
-            if helm_release_settings is not None and not isinstance(helm_release_settings, HelmReleaseSettingsArgs):
-                helm_release_settings = helm_release_settings or {}
-                def _setter(key, value):
-                    helm_release_settings[key] = value
-                HelmReleaseSettingsArgs._configure(_setter, **helm_release_settings)
+            helm_release_settings = _utilities.configure(helm_release_settings, HelmReleaseSettingsArgs, True)
             __props__.__dict__["helm_release_settings"] = pulumi.Output.from_input(helm_release_settings).apply(pulumi.runtime.to_json) if helm_release_settings is not None else None
-            if kube_client_settings is not None and not isinstance(kube_client_settings, KubeClientSettingsArgs):
-                kube_client_settings = kube_client_settings or {}
-                def _setter(key, value):
-                    kube_client_settings[key] = value
-                KubeClientSettingsArgs._configure(_setter, **kube_client_settings)
+            kube_client_settings = _utilities.configure(kube_client_settings, KubeClientSettingsArgs, True)
             __props__.__dict__["kube_client_settings"] = pulumi.Output.from_input(kube_client_settings).apply(pulumi.runtime.to_json) if kube_client_settings is not None else None
             if kubeconfig is None:
                 kubeconfig = _utilities.get_env('KUBECONFIG')

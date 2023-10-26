@@ -75,7 +75,7 @@ class CronJob(dict):
              metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
              spec: Optional['outputs.CronJobSpec'] = None,
              status: Optional['outputs.CronJobStatus'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -200,7 +200,7 @@ class CronJobSpec(dict):
              starting_deadline_seconds: Optional[int] = None,
              successful_jobs_history_limit: Optional[int] = None,
              suspend: Optional[bool] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if job_template is None and 'jobTemplate' in kwargs:
             job_template = kwargs['jobTemplate']
@@ -355,7 +355,7 @@ class CronJobSpecPatch(dict):
              starting_deadline_seconds: Optional[int] = None,
              successful_jobs_history_limit: Optional[int] = None,
              suspend: Optional[bool] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if concurrency_policy is None and 'concurrencyPolicy' in kwargs:
             concurrency_policy = kwargs['concurrencyPolicy']
@@ -480,7 +480,7 @@ class CronJobStatus(dict):
              _setter: Callable[[Any, Any], None],
              active: Optional[Sequence['_core.v1.outputs.ObjectReference']] = None,
              last_schedule_time: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if last_schedule_time is None and 'lastScheduleTime' in kwargs:
             last_schedule_time = kwargs['lastScheduleTime']
@@ -547,7 +547,7 @@ class CronJobStatusPatch(dict):
              _setter: Callable[[Any, Any], None],
              active: Optional[Sequence['_core.v1.outputs.ObjectReferencePatch']] = None,
              last_schedule_time: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if last_schedule_time is None and 'lastScheduleTime' in kwargs:
             last_schedule_time = kwargs['lastScheduleTime']
@@ -597,7 +597,7 @@ class JobTemplateSpec(dict):
              _setter: Callable[[Any, Any], None],
              metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
              spec: Optional['_batch.v1.outputs.JobSpec'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if metadata is not None:
@@ -645,7 +645,7 @@ class JobTemplateSpecPatch(dict):
              _setter: Callable[[Any, Any], None],
              metadata: Optional['_meta.v1.outputs.ObjectMetaPatch'] = None,
              spec: Optional['_batch.v1.outputs.JobSpecPatch'] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if metadata is not None:

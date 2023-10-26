@@ -94,7 +94,7 @@ class EventPatchArgs:
              reporting_instance: Optional[pulumi.Input[str]] = None,
              series: Optional[pulumi.Input['EventSeriesPatchArgs']] = None,
              type: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -466,41 +466,21 @@ class EventPatch(pulumi.CustomResource):
             __props__.__dict__["deprecated_count"] = deprecated_count
             __props__.__dict__["deprecated_first_timestamp"] = deprecated_first_timestamp
             __props__.__dict__["deprecated_last_timestamp"] = deprecated_last_timestamp
-            if deprecated_source is not None and not isinstance(deprecated_source, _core.v1.EventSourcePatchArgs):
-                deprecated_source = deprecated_source or {}
-                def _setter(key, value):
-                    deprecated_source[key] = value
-                _core.v1.EventSourcePatchArgs._configure(_setter, **deprecated_source)
+            deprecated_source = _utilities.configure(deprecated_source, _core.v1.EventSourcePatchArgs, True)
             __props__.__dict__["deprecated_source"] = deprecated_source
             __props__.__dict__["event_time"] = event_time
             __props__.__dict__["kind"] = 'Event'
-            if metadata is not None and not isinstance(metadata, _meta.v1.ObjectMetaPatchArgs):
-                metadata = metadata or {}
-                def _setter(key, value):
-                    metadata[key] = value
-                _meta.v1.ObjectMetaPatchArgs._configure(_setter, **metadata)
+            metadata = _utilities.configure(metadata, _meta.v1.ObjectMetaPatchArgs, True)
             __props__.__dict__["metadata"] = metadata
             __props__.__dict__["note"] = note
             __props__.__dict__["reason"] = reason
-            if regarding is not None and not isinstance(regarding, _core.v1.ObjectReferencePatchArgs):
-                regarding = regarding or {}
-                def _setter(key, value):
-                    regarding[key] = value
-                _core.v1.ObjectReferencePatchArgs._configure(_setter, **regarding)
+            regarding = _utilities.configure(regarding, _core.v1.ObjectReferencePatchArgs, True)
             __props__.__dict__["regarding"] = regarding
-            if related is not None and not isinstance(related, _core.v1.ObjectReferencePatchArgs):
-                related = related or {}
-                def _setter(key, value):
-                    related[key] = value
-                _core.v1.ObjectReferencePatchArgs._configure(_setter, **related)
+            related = _utilities.configure(related, _core.v1.ObjectReferencePatchArgs, True)
             __props__.__dict__["related"] = related
             __props__.__dict__["reporting_controller"] = reporting_controller
             __props__.__dict__["reporting_instance"] = reporting_instance
-            if series is not None and not isinstance(series, EventSeriesPatchArgs):
-                series = series or {}
-                def _setter(key, value):
-                    series[key] = value
-                EventSeriesPatchArgs._configure(_setter, **series)
+            series = _utilities.configure(series, EventSeriesPatchArgs, True)
             __props__.__dict__["series"] = series
             __props__.__dict__["type"] = type
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:core/v1:EventPatch"), pulumi.Alias(type_="kubernetes:events.k8s.io/v1:EventPatch")])

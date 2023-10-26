@@ -52,7 +52,7 @@ class PriorityClassInitArgs:
              kind: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
              preemption_policy: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if value is None:
             raise TypeError("Missing 'value' argument")
@@ -236,11 +236,7 @@ class PriorityClass(pulumi.CustomResource):
             __props__.__dict__["description"] = description
             __props__.__dict__["global_default"] = global_default
             __props__.__dict__["kind"] = 'PriorityClass'
-            if metadata is not None and not isinstance(metadata, _meta.v1.ObjectMetaArgs):
-                metadata = metadata or {}
-                def _setter(key, value):
-                    metadata[key] = value
-                _meta.v1.ObjectMetaArgs._configure(_setter, **metadata)
+            metadata = _utilities.configure(metadata, _meta.v1.ObjectMetaArgs, True)
             __props__.__dict__["metadata"] = metadata
             __props__.__dict__["preemption_policy"] = preemption_policy
             if value is None and not opts.urn:

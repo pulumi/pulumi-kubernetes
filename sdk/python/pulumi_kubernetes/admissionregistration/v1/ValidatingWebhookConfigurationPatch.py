@@ -42,7 +42,7 @@ class ValidatingWebhookConfigurationPatchArgs:
              kind: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']] = None,
              webhooks: Optional[pulumi.Input[Sequence[pulumi.Input['ValidatingWebhookPatchArgs']]]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -180,11 +180,7 @@ class ValidatingWebhookConfigurationPatch(pulumi.CustomResource):
 
             __props__.__dict__["api_version"] = 'admissionregistration.k8s.io/v1'
             __props__.__dict__["kind"] = 'ValidatingWebhookConfiguration'
-            if metadata is not None and not isinstance(metadata, _meta.v1.ObjectMetaPatchArgs):
-                metadata = metadata or {}
-                def _setter(key, value):
-                    metadata[key] = value
-                _meta.v1.ObjectMetaPatchArgs._configure(_setter, **metadata)
+            metadata = _utilities.configure(metadata, _meta.v1.ObjectMetaPatchArgs, True)
             __props__.__dict__["metadata"] = metadata
             __props__.__dict__["webhooks"] = webhooks
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:admissionregistration.k8s.io/v1beta1:ValidatingWebhookConfigurationPatch")])

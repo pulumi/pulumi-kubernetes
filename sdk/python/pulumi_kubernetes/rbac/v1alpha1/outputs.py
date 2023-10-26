@@ -62,7 +62,7 @@ class AggregationRule(dict):
     def _configure(
              _setter: Callable[[Any, Any], None],
              cluster_role_selectors: Optional[Sequence['_meta.v1.outputs.LabelSelector']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if cluster_role_selectors is None and 'clusterRoleSelectors' in kwargs:
             cluster_role_selectors = kwargs['clusterRoleSelectors']
@@ -115,7 +115,7 @@ class AggregationRulePatch(dict):
     def _configure(
              _setter: Callable[[Any, Any], None],
              cluster_role_selectors: Optional[Sequence['_meta.v1.outputs.LabelSelectorPatch']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if cluster_role_selectors is None and 'clusterRoleSelectors' in kwargs:
             cluster_role_selectors = kwargs['clusterRoleSelectors']
@@ -186,7 +186,7 @@ class ClusterRole(dict):
              kind: Optional[str] = None,
              metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
              rules: Optional[Sequence['outputs.PolicyRule']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if aggregation_rule is None and 'aggregationRule' in kwargs:
             aggregation_rule = kwargs['aggregationRule']
@@ -299,7 +299,7 @@ class ClusterRoleBinding(dict):
              kind: Optional[str] = None,
              metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
              subjects: Optional[Sequence['outputs.Subject']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if role_ref is None and 'roleRef' in kwargs:
             role_ref = kwargs['roleRef']
@@ -415,7 +415,7 @@ class PolicyRule(dict):
              non_resource_urls: Optional[Sequence[str]] = None,
              resource_names: Optional[Sequence[str]] = None,
              resources: Optional[Sequence[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if verbs is None:
             raise TypeError("Missing 'verbs' argument")
@@ -533,7 +533,7 @@ class PolicyRulePatch(dict):
              resource_names: Optional[Sequence[str]] = None,
              resources: Optional[Sequence[str]] = None,
              verbs: Optional[Sequence[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_groups is None and 'apiGroups' in kwargs:
             api_groups = kwargs['apiGroups']
@@ -642,7 +642,7 @@ class Role(dict):
              kind: Optional[str] = None,
              metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
              rules: Optional[Sequence['outputs.PolicyRule']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -743,7 +743,7 @@ class RoleBinding(dict):
              kind: Optional[str] = None,
              metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
              subjects: Optional[Sequence['outputs.Subject']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if role_ref is None and 'roleRef' in kwargs:
             role_ref = kwargs['roleRef']
@@ -847,7 +847,7 @@ class RoleRef(dict):
              api_group: Optional[str] = None,
              kind: Optional[str] = None,
              name: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_group is None and 'apiGroup' in kwargs:
             api_group = kwargs['apiGroup']
@@ -931,7 +931,7 @@ class RoleRefPatch(dict):
              api_group: Optional[str] = None,
              kind: Optional[str] = None,
              name: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_group is None and 'apiGroup' in kwargs:
             api_group = kwargs['apiGroup']
@@ -1016,7 +1016,7 @@ class Subject(dict):
              name: Optional[str] = None,
              api_version: Optional[str] = None,
              namespace: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if kind is None:
             raise TypeError("Missing 'kind' argument")
@@ -1113,7 +1113,7 @@ class SubjectPatch(dict):
              kind: Optional[str] = None,
              name: Optional[str] = None,
              namespace: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']

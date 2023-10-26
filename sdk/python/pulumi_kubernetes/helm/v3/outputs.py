@@ -70,7 +70,7 @@ class ReleaseStatus(dict):
              namespace: Optional[str] = None,
              revision: Optional[int] = None,
              version: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if status is None:
             raise TypeError("Missing 'status' argument")
@@ -208,7 +208,7 @@ class RepositoryOpts(dict):
              password: Optional[str] = None,
              repo: Optional[str] = None,
              username: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if ca_file is None and 'caFile' in kwargs:
             ca_file = kwargs['caFile']

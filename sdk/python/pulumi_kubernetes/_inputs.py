@@ -46,7 +46,7 @@ class HelmReleaseSettingsArgs:
              registry_config_path: Optional[pulumi.Input[str]] = None,
              repository_cache: Optional[pulumi.Input[str]] = None,
              repository_config_path: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if plugins_path is None and 'pluginsPath' in kwargs:
             plugins_path = kwargs['pluginsPath']
@@ -163,7 +163,7 @@ class KubeClientSettingsArgs:
              burst: Optional[pulumi.Input[int]] = None,
              qps: Optional[pulumi.Input[float]] = None,
              timeout: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
 
         if burst is None:

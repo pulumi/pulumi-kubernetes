@@ -42,7 +42,7 @@ class BindingPatchArgs:
              kind: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']] = None,
              target: Optional[pulumi.Input['ObjectReferencePatchArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if api_version is None and 'apiVersion' in kwargs:
             api_version = kwargs['apiVersion']
@@ -180,17 +180,9 @@ class BindingPatch(pulumi.CustomResource):
 
             __props__.__dict__["api_version"] = 'v1'
             __props__.__dict__["kind"] = 'Binding'
-            if metadata is not None and not isinstance(metadata, _meta.v1.ObjectMetaPatchArgs):
-                metadata = metadata or {}
-                def _setter(key, value):
-                    metadata[key] = value
-                _meta.v1.ObjectMetaPatchArgs._configure(_setter, **metadata)
+            metadata = _utilities.configure(metadata, _meta.v1.ObjectMetaPatchArgs, True)
             __props__.__dict__["metadata"] = metadata
-            if target is not None and not isinstance(target, ObjectReferencePatchArgs):
-                target = target or {}
-                def _setter(key, value):
-                    target[key] = value
-                ObjectReferencePatchArgs._configure(_setter, **target)
+            target = _utilities.configure(target, ObjectReferencePatchArgs, True)
             __props__.__dict__["target"] = target
         super(BindingPatch, __self__).__init__(
             'kubernetes:core/v1:BindingPatch',

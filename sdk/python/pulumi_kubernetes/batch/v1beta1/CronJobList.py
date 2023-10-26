@@ -44,7 +44,7 @@ class CronJobListArgs:
              api_version: Optional[pulumi.Input[str]] = None,
              kind: Optional[pulumi.Input[str]] = None,
              metadata: Optional[pulumi.Input['_meta.v1.ListMetaArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions]=None,
+             opts: Optional[pulumi.ResourceOptions] = None,
              **kwargs):
         if items is None:
             raise TypeError("Missing 'items' argument")
@@ -174,11 +174,7 @@ class CronJobList(pulumi.CustomResource):
                 raise TypeError("Missing required property 'items'")
             __props__.__dict__["items"] = items
             __props__.__dict__["kind"] = 'CronJobList'
-            if metadata is not None and not isinstance(metadata, _meta.v1.ListMetaArgs):
-                metadata = metadata or {}
-                def _setter(key, value):
-                    metadata[key] = value
-                _meta.v1.ListMetaArgs._configure(_setter, **metadata)
+            metadata = _utilities.configure(metadata, _meta.v1.ListMetaArgs, True)
             __props__.__dict__["metadata"] = metadata
         super(CronJobList, __self__).__init__(
             'kubernetes:batch/v1beta1:CronJobList',
