@@ -1,4 +1,5 @@
 ## Unreleased
+- Fix: Helm OCI chart deployment fails in Windows (https://github.com/pulumi/pulumi-kubernetes/pull/2648)
 
 ## 4.5.4 (November 8, 2023)
 - Fix: Helm Release: chart requires kubeVersion (https://github.com/pulumi/pulumi-kubernetes/pull/2653)
