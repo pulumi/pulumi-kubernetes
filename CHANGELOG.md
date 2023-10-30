@@ -1,5 +1,7 @@
 ## Unreleased
 
+- Fix: Update pulumi version to 3.91.1 to pick up fixes in python codegen (https://github.com/pulumi/pulumi-kubernetes/pull/2647)
+
 ## 4.5.2 (October 26, 2023)
 - Fix: Do not patch field managers for Patch resources (https://github.com/pulumi/pulumi-kubernetes/pull/2640)
 

@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from ... import meta as _meta
 
@@ -40,51 +40,20 @@ class CSIStorageCapacityPatchArgs:
         :param pulumi.Input['_meta.v1.LabelSelectorPatchArgs'] node_topology: nodeTopology defines which nodes have access to the storage for which capacity was reported. If not set, the storage is not accessible from any node in the cluster. If empty, the storage is accessible from all nodes. This field is immutable.
         :param pulumi.Input[str] storage_class_name: storageClassName represents the name of the StorageClass that the reported capacity applies to. It must meet the same requirements as the name of a StorageClass object (non-empty, DNS subdomain). If that object no longer exists, the CSIStorageCapacity object is obsolete and should be removed by its creator. This field is immutable.
         """
-        CSIStorageCapacityPatchArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            api_version=api_version,
-            capacity=capacity,
-            kind=kind,
-            maximum_volume_size=maximum_volume_size,
-            metadata=metadata,
-            node_topology=node_topology,
-            storage_class_name=storage_class_name,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             api_version: Optional[pulumi.Input[str]] = None,
-             capacity: Optional[pulumi.Input[str]] = None,
-             kind: Optional[pulumi.Input[str]] = None,
-             maximum_volume_size: Optional[pulumi.Input[str]] = None,
-             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']] = None,
-             node_topology: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']] = None,
-             storage_class_name: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if api_version is None and 'apiVersion' in kwargs:
-            api_version = kwargs['apiVersion']
-        if maximum_volume_size is None and 'maximumVolumeSize' in kwargs:
-            maximum_volume_size = kwargs['maximumVolumeSize']
-        if node_topology is None and 'nodeTopology' in kwargs:
-            node_topology = kwargs['nodeTopology']
-        if storage_class_name is None and 'storageClassName' in kwargs:
-            storage_class_name = kwargs['storageClassName']
-
         if api_version is not None:
-            _setter("api_version", 'storage.k8s.io/v1')
+            pulumi.set(__self__, "api_version", 'storage.k8s.io/v1')
         if capacity is not None:
-            _setter("capacity", capacity)
+            pulumi.set(__self__, "capacity", capacity)
         if kind is not None:
-            _setter("kind", 'CSIStorageCapacity')
+            pulumi.set(__self__, "kind", 'CSIStorageCapacity')
         if maximum_volume_size is not None:
-            _setter("maximum_volume_size", maximum_volume_size)
+            pulumi.set(__self__, "maximum_volume_size", maximum_volume_size)
         if metadata is not None:
-            _setter("metadata", metadata)
+            pulumi.set(__self__, "metadata", metadata)
         if node_topology is not None:
-            _setter("node_topology", node_topology)
+            pulumi.set(__self__, "node_topology", node_topology)
         if storage_class_name is not None:
-            _setter("storage_class_name", storage_class_name)
+            pulumi.set(__self__, "storage_class_name", storage_class_name)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -260,10 +229,6 @@ class CSIStorageCapacityPatch(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
-            kwargs = kwargs or {}
-            def _setter(key, value):
-                kwargs[key] = value
-            CSIStorageCapacityPatchArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
@@ -289,9 +254,7 @@ class CSIStorageCapacityPatch(pulumi.CustomResource):
             __props__.__dict__["capacity"] = capacity
             __props__.__dict__["kind"] = 'CSIStorageCapacity'
             __props__.__dict__["maximum_volume_size"] = maximum_volume_size
-            metadata = _utilities.configure(metadata, _meta.v1.ObjectMetaPatchArgs, True)
             __props__.__dict__["metadata"] = metadata
-            node_topology = _utilities.configure(node_topology, _meta.v1.LabelSelectorPatchArgs, True)
             __props__.__dict__["node_topology"] = node_topology
             __props__.__dict__["storage_class_name"] = storage_class_name
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:storage.k8s.io/v1beta1:CSIStorageCapacityPatch"), pulumi.Alias(type_="kubernetes:storage.k8s.io/v1alpha1:CSIStorageCapacityPatch")])

@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from ... import core as _core
 from ... import meta as _meta
@@ -51,38 +51,15 @@ class ControllerRevisionArgs:
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         """
-        ControllerRevisionArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            revision=revision,
-            api_version=api_version,
-            data=data,
-            kind=kind,
-            metadata=metadata,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             revision: Optional[pulumi.Input[int]] = None,
-             api_version: Optional[pulumi.Input[str]] = None,
-             data: Optional[Any] = None,
-             kind: Optional[pulumi.Input[str]] = None,
-             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if revision is None:
-            raise TypeError("Missing 'revision' argument")
-        if api_version is None and 'apiVersion' in kwargs:
-            api_version = kwargs['apiVersion']
-
-        _setter("revision", revision)
+        pulumi.set(__self__, "revision", revision)
         if api_version is not None:
-            _setter("api_version", 'apps/v1beta1')
+            pulumi.set(__self__, "api_version", 'apps/v1beta1')
         if data is not None:
-            _setter("data", data)
+            pulumi.set(__self__, "data", data)
         if kind is not None:
-            _setter("kind", 'ControllerRevision')
+            pulumi.set(__self__, "kind", 'ControllerRevision')
         if metadata is not None:
-            _setter("metadata", metadata)
+            pulumi.set(__self__, "metadata", metadata)
 
     @property
     @pulumi.getter
@@ -163,45 +140,16 @@ class DeploymentConditionArgs:
         :param pulumi.Input[str] message: A human readable message indicating details about the transition.
         :param pulumi.Input[str] reason: The reason for the condition's last transition.
         """
-        DeploymentConditionArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            status=status,
-            type=type,
-            last_transition_time=last_transition_time,
-            last_update_time=last_update_time,
-            message=message,
-            reason=reason,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             status: Optional[pulumi.Input[str]] = None,
-             type: Optional[pulumi.Input[str]] = None,
-             last_transition_time: Optional[pulumi.Input[str]] = None,
-             last_update_time: Optional[pulumi.Input[str]] = None,
-             message: Optional[pulumi.Input[str]] = None,
-             reason: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if status is None:
-            raise TypeError("Missing 'status' argument")
-        if type is None:
-            raise TypeError("Missing 'type' argument")
-        if last_transition_time is None and 'lastTransitionTime' in kwargs:
-            last_transition_time = kwargs['lastTransitionTime']
-        if last_update_time is None and 'lastUpdateTime' in kwargs:
-            last_update_time = kwargs['lastUpdateTime']
-
-        _setter("status", status)
-        _setter("type", type)
+        pulumi.set(__self__, "status", status)
+        pulumi.set(__self__, "type", type)
         if last_transition_time is not None:
-            _setter("last_transition_time", last_transition_time)
+            pulumi.set(__self__, "last_transition_time", last_transition_time)
         if last_update_time is not None:
-            _setter("last_update_time", last_update_time)
+            pulumi.set(__self__, "last_update_time", last_update_time)
         if message is not None:
-            _setter("message", message)
+            pulumi.set(__self__, "message", message)
         if reason is not None:
-            _setter("reason", reason)
+            pulumi.set(__self__, "reason", reason)
 
     @property
     @pulumi.getter
@@ -300,59 +248,24 @@ class DeploymentSpecPatchArgs:
         :param pulumi.Input['DeploymentStrategyPatchArgs'] strategy: The deployment strategy to use to replace existing pods with new ones.
         :param pulumi.Input['_core.v1.PodTemplateSpecPatchArgs'] template: Template describes the pods that will be created.
         """
-        DeploymentSpecPatchArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            min_ready_seconds=min_ready_seconds,
-            paused=paused,
-            progress_deadline_seconds=progress_deadline_seconds,
-            replicas=replicas,
-            revision_history_limit=revision_history_limit,
-            rollback_to=rollback_to,
-            selector=selector,
-            strategy=strategy,
-            template=template,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             min_ready_seconds: Optional[pulumi.Input[int]] = None,
-             paused: Optional[pulumi.Input[bool]] = None,
-             progress_deadline_seconds: Optional[pulumi.Input[int]] = None,
-             replicas: Optional[pulumi.Input[int]] = None,
-             revision_history_limit: Optional[pulumi.Input[int]] = None,
-             rollback_to: Optional[pulumi.Input['RollbackConfigPatchArgs']] = None,
-             selector: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']] = None,
-             strategy: Optional[pulumi.Input['DeploymentStrategyPatchArgs']] = None,
-             template: Optional[pulumi.Input['_core.v1.PodTemplateSpecPatchArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if min_ready_seconds is None and 'minReadySeconds' in kwargs:
-            min_ready_seconds = kwargs['minReadySeconds']
-        if progress_deadline_seconds is None and 'progressDeadlineSeconds' in kwargs:
-            progress_deadline_seconds = kwargs['progressDeadlineSeconds']
-        if revision_history_limit is None and 'revisionHistoryLimit' in kwargs:
-            revision_history_limit = kwargs['revisionHistoryLimit']
-        if rollback_to is None and 'rollbackTo' in kwargs:
-            rollback_to = kwargs['rollbackTo']
-
         if min_ready_seconds is not None:
-            _setter("min_ready_seconds", min_ready_seconds)
+            pulumi.set(__self__, "min_ready_seconds", min_ready_seconds)
         if paused is not None:
-            _setter("paused", paused)
+            pulumi.set(__self__, "paused", paused)
         if progress_deadline_seconds is not None:
-            _setter("progress_deadline_seconds", progress_deadline_seconds)
+            pulumi.set(__self__, "progress_deadline_seconds", progress_deadline_seconds)
         if replicas is not None:
-            _setter("replicas", replicas)
+            pulumi.set(__self__, "replicas", replicas)
         if revision_history_limit is not None:
-            _setter("revision_history_limit", revision_history_limit)
+            pulumi.set(__self__, "revision_history_limit", revision_history_limit)
         if rollback_to is not None:
-            _setter("rollback_to", rollback_to)
+            pulumi.set(__self__, "rollback_to", rollback_to)
         if selector is not None:
-            _setter("selector", selector)
+            pulumi.set(__self__, "selector", selector)
         if strategy is not None:
-            _setter("strategy", strategy)
+            pulumi.set(__self__, "strategy", strategy)
         if template is not None:
-            _setter("template", template)
+            pulumi.set(__self__, "template", template)
 
     @property
     @pulumi.getter(name="minReadySeconds")
@@ -487,60 +400,23 @@ class DeploymentSpecArgs:
         :param pulumi.Input['_meta.v1.LabelSelectorArgs'] selector: Label selector for pods. Existing ReplicaSets whose pods are selected by this will be the ones affected by this deployment.
         :param pulumi.Input['DeploymentStrategyArgs'] strategy: The deployment strategy to use to replace existing pods with new ones.
         """
-        DeploymentSpecArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            template=template,
-            min_ready_seconds=min_ready_seconds,
-            paused=paused,
-            progress_deadline_seconds=progress_deadline_seconds,
-            replicas=replicas,
-            revision_history_limit=revision_history_limit,
-            rollback_to=rollback_to,
-            selector=selector,
-            strategy=strategy,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             template: Optional[pulumi.Input['_core.v1.PodTemplateSpecArgs']] = None,
-             min_ready_seconds: Optional[pulumi.Input[int]] = None,
-             paused: Optional[pulumi.Input[bool]] = None,
-             progress_deadline_seconds: Optional[pulumi.Input[int]] = None,
-             replicas: Optional[pulumi.Input[int]] = None,
-             revision_history_limit: Optional[pulumi.Input[int]] = None,
-             rollback_to: Optional[pulumi.Input['RollbackConfigArgs']] = None,
-             selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
-             strategy: Optional[pulumi.Input['DeploymentStrategyArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if template is None:
-            raise TypeError("Missing 'template' argument")
-        if min_ready_seconds is None and 'minReadySeconds' in kwargs:
-            min_ready_seconds = kwargs['minReadySeconds']
-        if progress_deadline_seconds is None and 'progressDeadlineSeconds' in kwargs:
-            progress_deadline_seconds = kwargs['progressDeadlineSeconds']
-        if revision_history_limit is None and 'revisionHistoryLimit' in kwargs:
-            revision_history_limit = kwargs['revisionHistoryLimit']
-        if rollback_to is None and 'rollbackTo' in kwargs:
-            rollback_to = kwargs['rollbackTo']
-
-        _setter("template", template)
+        pulumi.set(__self__, "template", template)
         if min_ready_seconds is not None:
-            _setter("min_ready_seconds", min_ready_seconds)
+            pulumi.set(__self__, "min_ready_seconds", min_ready_seconds)
         if paused is not None:
-            _setter("paused", paused)
+            pulumi.set(__self__, "paused", paused)
         if progress_deadline_seconds is not None:
-            _setter("progress_deadline_seconds", progress_deadline_seconds)
+            pulumi.set(__self__, "progress_deadline_seconds", progress_deadline_seconds)
         if replicas is not None:
-            _setter("replicas", replicas)
+            pulumi.set(__self__, "replicas", replicas)
         if revision_history_limit is not None:
-            _setter("revision_history_limit", revision_history_limit)
+            pulumi.set(__self__, "revision_history_limit", revision_history_limit)
         if rollback_to is not None:
-            _setter("rollback_to", rollback_to)
+            pulumi.set(__self__, "rollback_to", rollback_to)
         if selector is not None:
-            _setter("selector", selector)
+            pulumi.set(__self__, "selector", selector)
         if strategy is not None:
-            _setter("strategy", strategy)
+            pulumi.set(__self__, "strategy", strategy)
 
     @property
     @pulumi.getter
@@ -673,59 +549,22 @@ class DeploymentStatusArgs:
         :param pulumi.Input[int] unavailable_replicas: Total number of unavailable pods targeted by this deployment. This is the total number of pods that are still required for the deployment to have 100% available capacity. They may either be pods that are running but not yet available or pods that still have not been created.
         :param pulumi.Input[int] updated_replicas: Total number of non-terminated pods targeted by this deployment that have the desired template spec.
         """
-        DeploymentStatusArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            available_replicas=available_replicas,
-            collision_count=collision_count,
-            conditions=conditions,
-            observed_generation=observed_generation,
-            ready_replicas=ready_replicas,
-            replicas=replicas,
-            unavailable_replicas=unavailable_replicas,
-            updated_replicas=updated_replicas,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             available_replicas: Optional[pulumi.Input[int]] = None,
-             collision_count: Optional[pulumi.Input[int]] = None,
-             conditions: Optional[pulumi.Input[Sequence[pulumi.Input['DeploymentConditionArgs']]]] = None,
-             observed_generation: Optional[pulumi.Input[int]] = None,
-             ready_replicas: Optional[pulumi.Input[int]] = None,
-             replicas: Optional[pulumi.Input[int]] = None,
-             unavailable_replicas: Optional[pulumi.Input[int]] = None,
-             updated_replicas: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if available_replicas is None and 'availableReplicas' in kwargs:
-            available_replicas = kwargs['availableReplicas']
-        if collision_count is None and 'collisionCount' in kwargs:
-            collision_count = kwargs['collisionCount']
-        if observed_generation is None and 'observedGeneration' in kwargs:
-            observed_generation = kwargs['observedGeneration']
-        if ready_replicas is None and 'readyReplicas' in kwargs:
-            ready_replicas = kwargs['readyReplicas']
-        if unavailable_replicas is None and 'unavailableReplicas' in kwargs:
-            unavailable_replicas = kwargs['unavailableReplicas']
-        if updated_replicas is None and 'updatedReplicas' in kwargs:
-            updated_replicas = kwargs['updatedReplicas']
-
         if available_replicas is not None:
-            _setter("available_replicas", available_replicas)
+            pulumi.set(__self__, "available_replicas", available_replicas)
         if collision_count is not None:
-            _setter("collision_count", collision_count)
+            pulumi.set(__self__, "collision_count", collision_count)
         if conditions is not None:
-            _setter("conditions", conditions)
+            pulumi.set(__self__, "conditions", conditions)
         if observed_generation is not None:
-            _setter("observed_generation", observed_generation)
+            pulumi.set(__self__, "observed_generation", observed_generation)
         if ready_replicas is not None:
-            _setter("ready_replicas", ready_replicas)
+            pulumi.set(__self__, "ready_replicas", ready_replicas)
         if replicas is not None:
-            _setter("replicas", replicas)
+            pulumi.set(__self__, "replicas", replicas)
         if unavailable_replicas is not None:
-            _setter("unavailable_replicas", unavailable_replicas)
+            pulumi.set(__self__, "unavailable_replicas", unavailable_replicas)
         if updated_replicas is not None:
-            _setter("updated_replicas", updated_replicas)
+            pulumi.set(__self__, "updated_replicas", updated_replicas)
 
     @property
     @pulumi.getter(name="availableReplicas")
@@ -834,25 +673,10 @@ class DeploymentStrategyPatchArgs:
         :param pulumi.Input['RollingUpdateDeploymentPatchArgs'] rolling_update: Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
         :param pulumi.Input[str] type: Type of deployment. Can be "Recreate" or "RollingUpdate". Default is RollingUpdate.
         """
-        DeploymentStrategyPatchArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            rolling_update=rolling_update,
-            type=type,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             rolling_update: Optional[pulumi.Input['RollingUpdateDeploymentPatchArgs']] = None,
-             type: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if rolling_update is None and 'rollingUpdate' in kwargs:
-            rolling_update = kwargs['rollingUpdate']
-
         if rolling_update is not None:
-            _setter("rolling_update", rolling_update)
+            pulumi.set(__self__, "rolling_update", rolling_update)
         if type is not None:
-            _setter("type", type)
+            pulumi.set(__self__, "type", type)
 
     @property
     @pulumi.getter(name="rollingUpdate")
@@ -889,25 +713,10 @@ class DeploymentStrategyArgs:
         :param pulumi.Input['RollingUpdateDeploymentArgs'] rolling_update: Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
         :param pulumi.Input[str] type: Type of deployment. Can be "Recreate" or "RollingUpdate". Default is RollingUpdate.
         """
-        DeploymentStrategyArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            rolling_update=rolling_update,
-            type=type,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             rolling_update: Optional[pulumi.Input['RollingUpdateDeploymentArgs']] = None,
-             type: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if rolling_update is None and 'rollingUpdate' in kwargs:
-            rolling_update = kwargs['rollingUpdate']
-
         if rolling_update is not None:
-            _setter("rolling_update", rolling_update)
+            pulumi.set(__self__, "rolling_update", rolling_update)
         if type is not None:
-            _setter("type", type)
+            pulumi.set(__self__, "type", type)
 
     @property
     @pulumi.getter(name="rollingUpdate")
@@ -972,37 +781,16 @@ class DeploymentArgs:
         :param pulumi.Input['DeploymentSpecArgs'] spec: Specification of the desired behavior of the Deployment.
         :param pulumi.Input['DeploymentStatusArgs'] status: Most recently observed status of the Deployment.
         """
-        DeploymentArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            api_version=api_version,
-            kind=kind,
-            metadata=metadata,
-            spec=spec,
-            status=status,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             api_version: Optional[pulumi.Input[str]] = None,
-             kind: Optional[pulumi.Input[str]] = None,
-             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-             spec: Optional[pulumi.Input['DeploymentSpecArgs']] = None,
-             status: Optional[pulumi.Input['DeploymentStatusArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if api_version is None and 'apiVersion' in kwargs:
-            api_version = kwargs['apiVersion']
-
         if api_version is not None:
-            _setter("api_version", 'apps/v1beta1')
+            pulumi.set(__self__, "api_version", 'apps/v1beta1')
         if kind is not None:
-            _setter("kind", 'Deployment')
+            pulumi.set(__self__, "kind", 'Deployment')
         if metadata is not None:
-            _setter("metadata", metadata)
+            pulumi.set(__self__, "metadata", metadata)
         if spec is not None:
-            _setter("spec", spec)
+            pulumi.set(__self__, "spec", spec)
         if status is not None:
-            _setter("status", status)
+            pulumi.set(__self__, "status", status)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -1073,19 +861,8 @@ class RollbackConfigPatchArgs:
         DEPRECATED.
         :param pulumi.Input[int] revision: The revision to rollback to. If set to 0, rollback to the last revision.
         """
-        RollbackConfigPatchArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            revision=revision,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             revision: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-
         if revision is not None:
-            _setter("revision", revision)
+            pulumi.set(__self__, "revision", revision)
 
     @property
     @pulumi.getter
@@ -1108,19 +885,8 @@ class RollbackConfigArgs:
         DEPRECATED.
         :param pulumi.Input[int] revision: The revision to rollback to. If set to 0, rollback to the last revision.
         """
-        RollbackConfigArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            revision=revision,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             revision: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-
         if revision is not None:
-            _setter("revision", revision)
+            pulumi.set(__self__, "revision", revision)
 
     @property
     @pulumi.getter
@@ -1145,27 +911,10 @@ class RollingUpdateDeploymentPatchArgs:
         :param pulumi.Input[Union[int, str]] max_surge: The maximum number of pods that can be scheduled above the desired number of pods. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up. Defaults to 25%. Example: when this is set to 30%, the new ReplicaSet can be scaled up immediately when the rolling update starts, such that the total number of old and new pods do not exceed 130% of desired pods. Once old pods have been killed, new ReplicaSet can be scaled up further, ensuring that total number of pods running at any time during the update is at most 130% of desired pods.
         :param pulumi.Input[Union[int, str]] max_unavailable: The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding down. This can not be 0 if MaxSurge is 0. Defaults to 25%. Example: when this is set to 30%, the old ReplicaSet can be scaled down to 70% of desired pods immediately when the rolling update starts. Once new pods are ready, old ReplicaSet can be scaled down further, followed by scaling up the new ReplicaSet, ensuring that the total number of pods available at all times during the update is at least 70% of desired pods.
         """
-        RollingUpdateDeploymentPatchArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            max_surge=max_surge,
-            max_unavailable=max_unavailable,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             max_surge: Optional[pulumi.Input[Union[int, str]]] = None,
-             max_unavailable: Optional[pulumi.Input[Union[int, str]]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if max_surge is None and 'maxSurge' in kwargs:
-            max_surge = kwargs['maxSurge']
-        if max_unavailable is None and 'maxUnavailable' in kwargs:
-            max_unavailable = kwargs['maxUnavailable']
-
         if max_surge is not None:
-            _setter("max_surge", max_surge)
+            pulumi.set(__self__, "max_surge", max_surge)
         if max_unavailable is not None:
-            _setter("max_unavailable", max_unavailable)
+            pulumi.set(__self__, "max_unavailable", max_unavailable)
 
     @property
     @pulumi.getter(name="maxSurge")
@@ -1202,27 +951,10 @@ class RollingUpdateDeploymentArgs:
         :param pulumi.Input[Union[int, str]] max_surge: The maximum number of pods that can be scheduled above the desired number of pods. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up. Defaults to 25%. Example: when this is set to 30%, the new ReplicaSet can be scaled up immediately when the rolling update starts, such that the total number of old and new pods do not exceed 130% of desired pods. Once old pods have been killed, new ReplicaSet can be scaled up further, ensuring that total number of pods running at any time during the update is at most 130% of desired pods.
         :param pulumi.Input[Union[int, str]] max_unavailable: The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding down. This can not be 0 if MaxSurge is 0. Defaults to 25%. Example: when this is set to 30%, the old ReplicaSet can be scaled down to 70% of desired pods immediately when the rolling update starts. Once new pods are ready, old ReplicaSet can be scaled down further, followed by scaling up the new ReplicaSet, ensuring that the total number of pods available at all times during the update is at least 70% of desired pods.
         """
-        RollingUpdateDeploymentArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            max_surge=max_surge,
-            max_unavailable=max_unavailable,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             max_surge: Optional[pulumi.Input[Union[int, str]]] = None,
-             max_unavailable: Optional[pulumi.Input[Union[int, str]]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if max_surge is None and 'maxSurge' in kwargs:
-            max_surge = kwargs['maxSurge']
-        if max_unavailable is None and 'maxUnavailable' in kwargs:
-            max_unavailable = kwargs['maxUnavailable']
-
         if max_surge is not None:
-            _setter("max_surge", max_surge)
+            pulumi.set(__self__, "max_surge", max_surge)
         if max_unavailable is not None:
-            _setter("max_unavailable", max_unavailable)
+            pulumi.set(__self__, "max_unavailable", max_unavailable)
 
     @property
     @pulumi.getter(name="maxSurge")
@@ -1257,19 +989,8 @@ class RollingUpdateStatefulSetStrategyPatchArgs:
         RollingUpdateStatefulSetStrategy is used to communicate parameter for RollingUpdateStatefulSetStrategyType.
         :param pulumi.Input[int] partition: Partition indicates the ordinal at which the StatefulSet should be partitioned.
         """
-        RollingUpdateStatefulSetStrategyPatchArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            partition=partition,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             partition: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-
         if partition is not None:
-            _setter("partition", partition)
+            pulumi.set(__self__, "partition", partition)
 
     @property
     @pulumi.getter
@@ -1292,19 +1013,8 @@ class RollingUpdateStatefulSetStrategyArgs:
         RollingUpdateStatefulSetStrategy is used to communicate parameter for RollingUpdateStatefulSetStrategyType.
         :param pulumi.Input[int] partition: Partition indicates the ordinal at which the StatefulSet should be partitioned.
         """
-        RollingUpdateStatefulSetStrategyArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            partition=partition,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             partition: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-
         if partition is not None:
-            _setter("partition", partition)
+            pulumi.set(__self__, "partition", partition)
 
     @property
     @pulumi.getter
@@ -1335,39 +1045,14 @@ class StatefulSetConditionArgs:
         :param pulumi.Input[str] message: A human readable message indicating details about the transition.
         :param pulumi.Input[str] reason: The reason for the condition's last transition.
         """
-        StatefulSetConditionArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            status=status,
-            type=type,
-            last_transition_time=last_transition_time,
-            message=message,
-            reason=reason,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             status: Optional[pulumi.Input[str]] = None,
-             type: Optional[pulumi.Input[str]] = None,
-             last_transition_time: Optional[pulumi.Input[str]] = None,
-             message: Optional[pulumi.Input[str]] = None,
-             reason: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if status is None:
-            raise TypeError("Missing 'status' argument")
-        if type is None:
-            raise TypeError("Missing 'type' argument")
-        if last_transition_time is None and 'lastTransitionTime' in kwargs:
-            last_transition_time = kwargs['lastTransitionTime']
-
-        _setter("status", status)
-        _setter("type", type)
+        pulumi.set(__self__, "status", status)
+        pulumi.set(__self__, "type", type)
         if last_transition_time is not None:
-            _setter("last_transition_time", last_transition_time)
+            pulumi.set(__self__, "last_transition_time", last_transition_time)
         if message is not None:
-            _setter("message", message)
+            pulumi.set(__self__, "message", message)
         if reason is not None:
-            _setter("reason", reason)
+            pulumi.set(__self__, "reason", reason)
 
     @property
     @pulumi.getter
@@ -1452,57 +1137,22 @@ class StatefulSetSpecPatchArgs:
         :param pulumi.Input['StatefulSetUpdateStrategyPatchArgs'] update_strategy: updateStrategy indicates the StatefulSetUpdateStrategy that will be employed to update Pods in the StatefulSet when a revision is made to Template.
         :param pulumi.Input[Sequence[pulumi.Input['_core.v1.PersistentVolumeClaimPatchArgs']]] volume_claim_templates: volumeClaimTemplates is a list of claims that pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a pod. Every claim in this list must have at least one matching (by name) volumeMount in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name.
         """
-        StatefulSetSpecPatchArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            pod_management_policy=pod_management_policy,
-            replicas=replicas,
-            revision_history_limit=revision_history_limit,
-            selector=selector,
-            service_name=service_name,
-            template=template,
-            update_strategy=update_strategy,
-            volume_claim_templates=volume_claim_templates,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             pod_management_policy: Optional[pulumi.Input[str]] = None,
-             replicas: Optional[pulumi.Input[int]] = None,
-             revision_history_limit: Optional[pulumi.Input[int]] = None,
-             selector: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']] = None,
-             service_name: Optional[pulumi.Input[str]] = None,
-             template: Optional[pulumi.Input['_core.v1.PodTemplateSpecPatchArgs']] = None,
-             update_strategy: Optional[pulumi.Input['StatefulSetUpdateStrategyPatchArgs']] = None,
-             volume_claim_templates: Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.PersistentVolumeClaimPatchArgs']]]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if pod_management_policy is None and 'podManagementPolicy' in kwargs:
-            pod_management_policy = kwargs['podManagementPolicy']
-        if revision_history_limit is None and 'revisionHistoryLimit' in kwargs:
-            revision_history_limit = kwargs['revisionHistoryLimit']
-        if service_name is None and 'serviceName' in kwargs:
-            service_name = kwargs['serviceName']
-        if update_strategy is None and 'updateStrategy' in kwargs:
-            update_strategy = kwargs['updateStrategy']
-        if volume_claim_templates is None and 'volumeClaimTemplates' in kwargs:
-            volume_claim_templates = kwargs['volumeClaimTemplates']
-
         if pod_management_policy is not None:
-            _setter("pod_management_policy", pod_management_policy)
+            pulumi.set(__self__, "pod_management_policy", pod_management_policy)
         if replicas is not None:
-            _setter("replicas", replicas)
+            pulumi.set(__self__, "replicas", replicas)
         if revision_history_limit is not None:
-            _setter("revision_history_limit", revision_history_limit)
+            pulumi.set(__self__, "revision_history_limit", revision_history_limit)
         if selector is not None:
-            _setter("selector", selector)
+            pulumi.set(__self__, "selector", selector)
         if service_name is not None:
-            _setter("service_name", service_name)
+            pulumi.set(__self__, "service_name", service_name)
         if template is not None:
-            _setter("template", template)
+            pulumi.set(__self__, "template", template)
         if update_strategy is not None:
-            _setter("update_strategy", update_strategy)
+            pulumi.set(__self__, "update_strategy", update_strategy)
         if volume_claim_templates is not None:
-            _setter("volume_claim_templates", volume_claim_templates)
+            pulumi.set(__self__, "volume_claim_templates", volume_claim_templates)
 
     @property
     @pulumi.getter(name="podManagementPolicy")
@@ -1623,59 +1273,20 @@ class StatefulSetSpecArgs:
         :param pulumi.Input['StatefulSetUpdateStrategyArgs'] update_strategy: updateStrategy indicates the StatefulSetUpdateStrategy that will be employed to update Pods in the StatefulSet when a revision is made to Template.
         :param pulumi.Input[Sequence[pulumi.Input['_core.v1.PersistentVolumeClaimArgs']]] volume_claim_templates: volumeClaimTemplates is a list of claims that pods are allowed to reference. The StatefulSet controller is responsible for mapping network identities to claims in a way that maintains the identity of a pod. Every claim in this list must have at least one matching (by name) volumeMount in one container in the template. A claim in this list takes precedence over any volumes in the template, with the same name.
         """
-        StatefulSetSpecArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            service_name=service_name,
-            template=template,
-            pod_management_policy=pod_management_policy,
-            replicas=replicas,
-            revision_history_limit=revision_history_limit,
-            selector=selector,
-            update_strategy=update_strategy,
-            volume_claim_templates=volume_claim_templates,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             service_name: Optional[pulumi.Input[str]] = None,
-             template: Optional[pulumi.Input['_core.v1.PodTemplateSpecArgs']] = None,
-             pod_management_policy: Optional[pulumi.Input[str]] = None,
-             replicas: Optional[pulumi.Input[int]] = None,
-             revision_history_limit: Optional[pulumi.Input[int]] = None,
-             selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
-             update_strategy: Optional[pulumi.Input['StatefulSetUpdateStrategyArgs']] = None,
-             volume_claim_templates: Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.PersistentVolumeClaimArgs']]]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if service_name is None and 'serviceName' in kwargs:
-            service_name = kwargs['serviceName']
-        if service_name is None:
-            raise TypeError("Missing 'service_name' argument")
-        if template is None:
-            raise TypeError("Missing 'template' argument")
-        if pod_management_policy is None and 'podManagementPolicy' in kwargs:
-            pod_management_policy = kwargs['podManagementPolicy']
-        if revision_history_limit is None and 'revisionHistoryLimit' in kwargs:
-            revision_history_limit = kwargs['revisionHistoryLimit']
-        if update_strategy is None and 'updateStrategy' in kwargs:
-            update_strategy = kwargs['updateStrategy']
-        if volume_claim_templates is None and 'volumeClaimTemplates' in kwargs:
-            volume_claim_templates = kwargs['volumeClaimTemplates']
-
-        _setter("service_name", service_name)
-        _setter("template", template)
+        pulumi.set(__self__, "service_name", service_name)
+        pulumi.set(__self__, "template", template)
         if pod_management_policy is not None:
-            _setter("pod_management_policy", pod_management_policy)
+            pulumi.set(__self__, "pod_management_policy", pod_management_policy)
         if replicas is not None:
-            _setter("replicas", replicas)
+            pulumi.set(__self__, "replicas", replicas)
         if revision_history_limit is not None:
-            _setter("revision_history_limit", revision_history_limit)
+            pulumi.set(__self__, "revision_history_limit", revision_history_limit)
         if selector is not None:
-            _setter("selector", selector)
+            pulumi.set(__self__, "selector", selector)
         if update_strategy is not None:
-            _setter("update_strategy", update_strategy)
+            pulumi.set(__self__, "update_strategy", update_strategy)
         if volume_claim_templates is not None:
-            _setter("volume_claim_templates", volume_claim_templates)
+            pulumi.set(__self__, "volume_claim_templates", volume_claim_templates)
 
     @property
     @pulumi.getter(name="serviceName")
@@ -1798,66 +1409,23 @@ class StatefulSetStatusArgs:
         :param pulumi.Input[str] update_revision: updateRevision, if not empty, indicates the version of the StatefulSet used to generate Pods in the sequence [replicas-updatedReplicas,replicas)
         :param pulumi.Input[int] updated_replicas: updatedReplicas is the number of Pods created by the StatefulSet controller from the StatefulSet version indicated by updateRevision.
         """
-        StatefulSetStatusArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            replicas=replicas,
-            collision_count=collision_count,
-            conditions=conditions,
-            current_replicas=current_replicas,
-            current_revision=current_revision,
-            observed_generation=observed_generation,
-            ready_replicas=ready_replicas,
-            update_revision=update_revision,
-            updated_replicas=updated_replicas,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             replicas: Optional[pulumi.Input[int]] = None,
-             collision_count: Optional[pulumi.Input[int]] = None,
-             conditions: Optional[pulumi.Input[Sequence[pulumi.Input['StatefulSetConditionArgs']]]] = None,
-             current_replicas: Optional[pulumi.Input[int]] = None,
-             current_revision: Optional[pulumi.Input[str]] = None,
-             observed_generation: Optional[pulumi.Input[int]] = None,
-             ready_replicas: Optional[pulumi.Input[int]] = None,
-             update_revision: Optional[pulumi.Input[str]] = None,
-             updated_replicas: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if replicas is None:
-            raise TypeError("Missing 'replicas' argument")
-        if collision_count is None and 'collisionCount' in kwargs:
-            collision_count = kwargs['collisionCount']
-        if current_replicas is None and 'currentReplicas' in kwargs:
-            current_replicas = kwargs['currentReplicas']
-        if current_revision is None and 'currentRevision' in kwargs:
-            current_revision = kwargs['currentRevision']
-        if observed_generation is None and 'observedGeneration' in kwargs:
-            observed_generation = kwargs['observedGeneration']
-        if ready_replicas is None and 'readyReplicas' in kwargs:
-            ready_replicas = kwargs['readyReplicas']
-        if update_revision is None and 'updateRevision' in kwargs:
-            update_revision = kwargs['updateRevision']
-        if updated_replicas is None and 'updatedReplicas' in kwargs:
-            updated_replicas = kwargs['updatedReplicas']
-
-        _setter("replicas", replicas)
+        pulumi.set(__self__, "replicas", replicas)
         if collision_count is not None:
-            _setter("collision_count", collision_count)
+            pulumi.set(__self__, "collision_count", collision_count)
         if conditions is not None:
-            _setter("conditions", conditions)
+            pulumi.set(__self__, "conditions", conditions)
         if current_replicas is not None:
-            _setter("current_replicas", current_replicas)
+            pulumi.set(__self__, "current_replicas", current_replicas)
         if current_revision is not None:
-            _setter("current_revision", current_revision)
+            pulumi.set(__self__, "current_revision", current_revision)
         if observed_generation is not None:
-            _setter("observed_generation", observed_generation)
+            pulumi.set(__self__, "observed_generation", observed_generation)
         if ready_replicas is not None:
-            _setter("ready_replicas", ready_replicas)
+            pulumi.set(__self__, "ready_replicas", ready_replicas)
         if update_revision is not None:
-            _setter("update_revision", update_revision)
+            pulumi.set(__self__, "update_revision", update_revision)
         if updated_replicas is not None:
-            _setter("updated_replicas", updated_replicas)
+            pulumi.set(__self__, "updated_replicas", updated_replicas)
 
     @property
     @pulumi.getter
@@ -1978,25 +1546,10 @@ class StatefulSetUpdateStrategyPatchArgs:
         :param pulumi.Input['RollingUpdateStatefulSetStrategyPatchArgs'] rolling_update: RollingUpdate is used to communicate parameters when Type is RollingUpdateStatefulSetStrategyType.
         :param pulumi.Input[str] type: Type indicates the type of the StatefulSetUpdateStrategy.
         """
-        StatefulSetUpdateStrategyPatchArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            rolling_update=rolling_update,
-            type=type,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             rolling_update: Optional[pulumi.Input['RollingUpdateStatefulSetStrategyPatchArgs']] = None,
-             type: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if rolling_update is None and 'rollingUpdate' in kwargs:
-            rolling_update = kwargs['rollingUpdate']
-
         if rolling_update is not None:
-            _setter("rolling_update", rolling_update)
+            pulumi.set(__self__, "rolling_update", rolling_update)
         if type is not None:
-            _setter("type", type)
+            pulumi.set(__self__, "type", type)
 
     @property
     @pulumi.getter(name="rollingUpdate")
@@ -2033,25 +1586,10 @@ class StatefulSetUpdateStrategyArgs:
         :param pulumi.Input['RollingUpdateStatefulSetStrategyArgs'] rolling_update: RollingUpdate is used to communicate parameters when Type is RollingUpdateStatefulSetStrategyType.
         :param pulumi.Input[str] type: Type indicates the type of the StatefulSetUpdateStrategy.
         """
-        StatefulSetUpdateStrategyArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            rolling_update=rolling_update,
-            type=type,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             rolling_update: Optional[pulumi.Input['RollingUpdateStatefulSetStrategyArgs']] = None,
-             type: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if rolling_update is None and 'rollingUpdate' in kwargs:
-            rolling_update = kwargs['rollingUpdate']
-
         if rolling_update is not None:
-            _setter("rolling_update", rolling_update)
+            pulumi.set(__self__, "rolling_update", rolling_update)
         if type is not None:
-            _setter("type", type)
+            pulumi.set(__self__, "type", type)
 
     @property
     @pulumi.getter(name="rollingUpdate")
@@ -2109,37 +1647,16 @@ class StatefulSetArgs:
         :param pulumi.Input['StatefulSetSpecArgs'] spec: Spec defines the desired identities of pods in this set.
         :param pulumi.Input['StatefulSetStatusArgs'] status: Status is the current status of Pods in this StatefulSet. This data may be out of date by some window of time.
         """
-        StatefulSetArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            api_version=api_version,
-            kind=kind,
-            metadata=metadata,
-            spec=spec,
-            status=status,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             api_version: Optional[pulumi.Input[str]] = None,
-             kind: Optional[pulumi.Input[str]] = None,
-             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-             spec: Optional[pulumi.Input['StatefulSetSpecArgs']] = None,
-             status: Optional[pulumi.Input['StatefulSetStatusArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if api_version is None and 'apiVersion' in kwargs:
-            api_version = kwargs['apiVersion']
-
         if api_version is not None:
-            _setter("api_version", 'apps/v1beta1')
+            pulumi.set(__self__, "api_version", 'apps/v1beta1')
         if kind is not None:
-            _setter("kind", 'StatefulSet')
+            pulumi.set(__self__, "kind", 'StatefulSet')
         if metadata is not None:
-            _setter("metadata", metadata)
+            pulumi.set(__self__, "metadata", metadata)
         if spec is not None:
-            _setter("spec", spec)
+            pulumi.set(__self__, "spec", spec)
         if status is not None:
-            _setter("status", status)
+            pulumi.set(__self__, "status", status)
 
     @property
     @pulumi.getter(name="apiVersion")

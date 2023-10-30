@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from . import outputs
 from ... import core as _core
@@ -37,47 +37,18 @@ class ResourceClassPatchArgs:
                
                Setting this field is optional. If null, all nodes are candidates.
         """
-        ResourceClassPatchArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            api_version=api_version,
-            driver_name=driver_name,
-            kind=kind,
-            metadata=metadata,
-            parameters_ref=parameters_ref,
-            suitable_nodes=suitable_nodes,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             api_version: Optional[pulumi.Input[str]] = None,
-             driver_name: Optional[pulumi.Input[str]] = None,
-             kind: Optional[pulumi.Input[str]] = None,
-             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']] = None,
-             parameters_ref: Optional[pulumi.Input['ResourceClassParametersReferencePatchArgs']] = None,
-             suitable_nodes: Optional[pulumi.Input['_core.v1.NodeSelectorPatchArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if api_version is None and 'apiVersion' in kwargs:
-            api_version = kwargs['apiVersion']
-        if driver_name is None and 'driverName' in kwargs:
-            driver_name = kwargs['driverName']
-        if parameters_ref is None and 'parametersRef' in kwargs:
-            parameters_ref = kwargs['parametersRef']
-        if suitable_nodes is None and 'suitableNodes' in kwargs:
-            suitable_nodes = kwargs['suitableNodes']
-
         if api_version is not None:
-            _setter("api_version", 'resource.k8s.io/v1alpha2')
+            pulumi.set(__self__, "api_version", 'resource.k8s.io/v1alpha2')
         if driver_name is not None:
-            _setter("driver_name", driver_name)
+            pulumi.set(__self__, "driver_name", driver_name)
         if kind is not None:
-            _setter("kind", 'ResourceClass')
+            pulumi.set(__self__, "kind", 'ResourceClass')
         if metadata is not None:
-            _setter("metadata", metadata)
+            pulumi.set(__self__, "metadata", metadata)
         if parameters_ref is not None:
-            _setter("parameters_ref", parameters_ref)
+            pulumi.set(__self__, "parameters_ref", parameters_ref)
         if suitable_nodes is not None:
-            _setter("suitable_nodes", suitable_nodes)
+            pulumi.set(__self__, "suitable_nodes", suitable_nodes)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -219,10 +190,6 @@ class ResourceClassPatch(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
-            kwargs = kwargs or {}
-            def _setter(key, value):
-                kwargs[key] = value
-            ResourceClassPatchArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
@@ -246,11 +213,8 @@ class ResourceClassPatch(pulumi.CustomResource):
             __props__.__dict__["api_version"] = 'resource.k8s.io/v1alpha2'
             __props__.__dict__["driver_name"] = driver_name
             __props__.__dict__["kind"] = 'ResourceClass'
-            metadata = _utilities.configure(metadata, _meta.v1.ObjectMetaPatchArgs, True)
             __props__.__dict__["metadata"] = metadata
-            parameters_ref = _utilities.configure(parameters_ref, ResourceClassParametersReferencePatchArgs, True)
             __props__.__dict__["parameters_ref"] = parameters_ref
-            suitable_nodes = _utilities.configure(suitable_nodes, _core.v1.NodeSelectorPatchArgs, True)
             __props__.__dict__["suitable_nodes"] = suitable_nodes
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:resource.k8s.io/v1alpha1:ResourceClassPatch")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)

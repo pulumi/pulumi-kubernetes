@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from ... import meta as _meta
 
@@ -32,49 +32,20 @@ class PriorityClassPatchArgs:
         :param pulumi.Input[str] preemption_policy: preemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
         :param pulumi.Input[int] value: value represents the integer value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
         """
-        PriorityClassPatchArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            api_version=api_version,
-            description=description,
-            global_default=global_default,
-            kind=kind,
-            metadata=metadata,
-            preemption_policy=preemption_policy,
-            value=value,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             api_version: Optional[pulumi.Input[str]] = None,
-             description: Optional[pulumi.Input[str]] = None,
-             global_default: Optional[pulumi.Input[bool]] = None,
-             kind: Optional[pulumi.Input[str]] = None,
-             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']] = None,
-             preemption_policy: Optional[pulumi.Input[str]] = None,
-             value: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if api_version is None and 'apiVersion' in kwargs:
-            api_version = kwargs['apiVersion']
-        if global_default is None and 'globalDefault' in kwargs:
-            global_default = kwargs['globalDefault']
-        if preemption_policy is None and 'preemptionPolicy' in kwargs:
-            preemption_policy = kwargs['preemptionPolicy']
-
         if api_version is not None:
-            _setter("api_version", 'scheduling.k8s.io/v1')
+            pulumi.set(__self__, "api_version", 'scheduling.k8s.io/v1')
         if description is not None:
-            _setter("description", description)
+            pulumi.set(__self__, "description", description)
         if global_default is not None:
-            _setter("global_default", global_default)
+            pulumi.set(__self__, "global_default", global_default)
         if kind is not None:
-            _setter("kind", 'PriorityClass')
+            pulumi.set(__self__, "kind", 'PriorityClass')
         if metadata is not None:
-            _setter("metadata", metadata)
+            pulumi.set(__self__, "metadata", metadata)
         if preemption_policy is not None:
-            _setter("preemption_policy", preemption_policy)
+            pulumi.set(__self__, "preemption_policy", preemption_policy)
         if value is not None:
-            _setter("value", value)
+            pulumi.set(__self__, "value", value)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -218,10 +189,6 @@ class PriorityClassPatch(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
-            kwargs = kwargs or {}
-            def _setter(key, value):
-                kwargs[key] = value
-            PriorityClassPatchArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
@@ -247,7 +214,6 @@ class PriorityClassPatch(pulumi.CustomResource):
             __props__.__dict__["description"] = description
             __props__.__dict__["global_default"] = global_default
             __props__.__dict__["kind"] = 'PriorityClass'
-            metadata = _utilities.configure(metadata, _meta.v1.ObjectMetaPatchArgs, True)
             __props__.__dict__["metadata"] = metadata
             __props__.__dict__["preemption_policy"] = preemption_policy
             __props__.__dict__["value"] = value

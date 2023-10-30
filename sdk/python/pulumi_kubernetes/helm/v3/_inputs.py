@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 
 __all__ = [
@@ -31,45 +31,18 @@ class RepositoryOptsArgs:
         :param pulumi.Input[str] repo: Repository where to locate the requested chart. If is a URL the chart is installed without installing the repository.
         :param pulumi.Input[str] username: Username for HTTP basic authentication
         """
-        RepositoryOptsArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            ca_file=ca_file,
-            cert_file=cert_file,
-            key_file=key_file,
-            password=password,
-            repo=repo,
-            username=username,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             ca_file: Optional[pulumi.Input[str]] = None,
-             cert_file: Optional[pulumi.Input[str]] = None,
-             key_file: Optional[pulumi.Input[str]] = None,
-             password: Optional[pulumi.Input[str]] = None,
-             repo: Optional[pulumi.Input[str]] = None,
-             username: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if ca_file is None and 'caFile' in kwargs:
-            ca_file = kwargs['caFile']
-        if cert_file is None and 'certFile' in kwargs:
-            cert_file = kwargs['certFile']
-        if key_file is None and 'keyFile' in kwargs:
-            key_file = kwargs['keyFile']
-
         if ca_file is not None:
-            _setter("ca_file", ca_file)
+            pulumi.set(__self__, "ca_file", ca_file)
         if cert_file is not None:
-            _setter("cert_file", cert_file)
+            pulumi.set(__self__, "cert_file", cert_file)
         if key_file is not None:
-            _setter("key_file", key_file)
+            pulumi.set(__self__, "key_file", key_file)
         if password is not None:
-            _setter("password", password)
+            pulumi.set(__self__, "password", password)
         if repo is not None:
-            _setter("repo", repo)
+            pulumi.set(__self__, "repo", repo)
         if username is not None:
-            _setter("username", username)
+            pulumi.set(__self__, "username", username)
 
     @property
     @pulumi.getter(name="caFile")

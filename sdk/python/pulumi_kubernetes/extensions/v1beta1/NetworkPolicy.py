@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from . import outputs
 from ... import meta as _meta
@@ -28,33 +28,14 @@ class NetworkPolicyInitArgs:
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param pulumi.Input['NetworkPolicySpecArgs'] spec: Specification of the desired behavior for this NetworkPolicy.
         """
-        NetworkPolicyInitArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            api_version=api_version,
-            kind=kind,
-            metadata=metadata,
-            spec=spec,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             api_version: Optional[pulumi.Input[str]] = None,
-             kind: Optional[pulumi.Input[str]] = None,
-             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-             spec: Optional[pulumi.Input['NetworkPolicySpecArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if api_version is None and 'apiVersion' in kwargs:
-            api_version = kwargs['apiVersion']
-
         if api_version is not None:
-            _setter("api_version", 'extensions/v1beta1')
+            pulumi.set(__self__, "api_version", 'extensions/v1beta1')
         if kind is not None:
-            _setter("kind", 'NetworkPolicy')
+            pulumi.set(__self__, "kind", 'NetworkPolicy')
         if metadata is not None:
-            _setter("metadata", metadata)
+            pulumi.set(__self__, "metadata", metadata)
         if spec is not None:
-            _setter("spec", spec)
+            pulumi.set(__self__, "spec", spec)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -144,10 +125,6 @@ class NetworkPolicy(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
-            kwargs = kwargs or {}
-            def _setter(key, value):
-                kwargs[key] = value
-            NetworkPolicyInitArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
@@ -168,9 +145,7 @@ class NetworkPolicy(pulumi.CustomResource):
 
             __props__.__dict__["api_version"] = 'extensions/v1beta1'
             __props__.__dict__["kind"] = 'NetworkPolicy'
-            metadata = _utilities.configure(metadata, _meta.v1.ObjectMetaArgs, True)
             __props__.__dict__["metadata"] = metadata
-            spec = _utilities.configure(spec, NetworkPolicySpecArgs, True)
             __props__.__dict__["spec"] = spec
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:networking.k8s.io/v1:NetworkPolicy")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)

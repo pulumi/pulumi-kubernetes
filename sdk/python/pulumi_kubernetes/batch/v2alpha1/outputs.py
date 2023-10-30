@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from . import outputs
 from ... import batch as _batch
@@ -59,37 +59,16 @@ class CronJob(dict):
         :param 'CronJobSpecArgs' spec: Specification of the desired behavior of a cron job, including the schedule. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         :param 'CronJobStatusArgs' status: Current status of a cron job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
-        CronJob._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            api_version=api_version,
-            kind=kind,
-            metadata=metadata,
-            spec=spec,
-            status=status,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             api_version: Optional[str] = None,
-             kind: Optional[str] = None,
-             metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
-             spec: Optional['outputs.CronJobSpec'] = None,
-             status: Optional['outputs.CronJobStatus'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if api_version is None and 'apiVersion' in kwargs:
-            api_version = kwargs['apiVersion']
-
         if api_version is not None:
-            _setter("api_version", 'batch/v2alpha1')
+            pulumi.set(__self__, "api_version", 'batch/v2alpha1')
         if kind is not None:
-            _setter("kind", 'CronJob')
+            pulumi.set(__self__, "kind", 'CronJob')
         if metadata is not None:
-            _setter("metadata", metadata)
+            pulumi.set(__self__, "metadata", metadata)
         if spec is not None:
-            _setter("spec", spec)
+            pulumi.set(__self__, "spec", spec)
         if status is not None:
-            _setter("status", status)
+            pulumi.set(__self__, "status", status)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -180,55 +159,18 @@ class CronJobSpec(dict):
         :param int successful_jobs_history_limit: The number of successful finished jobs to retain. This is a pointer to distinguish between explicit zero and not specified.
         :param bool suspend: This flag tells the controller to suspend subsequent executions, it does not apply to already started executions.  Defaults to false.
         """
-        CronJobSpec._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            job_template=job_template,
-            schedule=schedule,
-            concurrency_policy=concurrency_policy,
-            failed_jobs_history_limit=failed_jobs_history_limit,
-            starting_deadline_seconds=starting_deadline_seconds,
-            successful_jobs_history_limit=successful_jobs_history_limit,
-            suspend=suspend,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             job_template: Optional['outputs.JobTemplateSpec'] = None,
-             schedule: Optional[str] = None,
-             concurrency_policy: Optional[str] = None,
-             failed_jobs_history_limit: Optional[int] = None,
-             starting_deadline_seconds: Optional[int] = None,
-             successful_jobs_history_limit: Optional[int] = None,
-             suspend: Optional[bool] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if job_template is None and 'jobTemplate' in kwargs:
-            job_template = kwargs['jobTemplate']
-        if job_template is None:
-            raise TypeError("Missing 'job_template' argument")
-        if schedule is None:
-            raise TypeError("Missing 'schedule' argument")
-        if concurrency_policy is None and 'concurrencyPolicy' in kwargs:
-            concurrency_policy = kwargs['concurrencyPolicy']
-        if failed_jobs_history_limit is None and 'failedJobsHistoryLimit' in kwargs:
-            failed_jobs_history_limit = kwargs['failedJobsHistoryLimit']
-        if starting_deadline_seconds is None and 'startingDeadlineSeconds' in kwargs:
-            starting_deadline_seconds = kwargs['startingDeadlineSeconds']
-        if successful_jobs_history_limit is None and 'successfulJobsHistoryLimit' in kwargs:
-            successful_jobs_history_limit = kwargs['successfulJobsHistoryLimit']
-
-        _setter("job_template", job_template)
-        _setter("schedule", schedule)
+        pulumi.set(__self__, "job_template", job_template)
+        pulumi.set(__self__, "schedule", schedule)
         if concurrency_policy is not None:
-            _setter("concurrency_policy", concurrency_policy)
+            pulumi.set(__self__, "concurrency_policy", concurrency_policy)
         if failed_jobs_history_limit is not None:
-            _setter("failed_jobs_history_limit", failed_jobs_history_limit)
+            pulumi.set(__self__, "failed_jobs_history_limit", failed_jobs_history_limit)
         if starting_deadline_seconds is not None:
-            _setter("starting_deadline_seconds", starting_deadline_seconds)
+            pulumi.set(__self__, "starting_deadline_seconds", starting_deadline_seconds)
         if successful_jobs_history_limit is not None:
-            _setter("successful_jobs_history_limit", successful_jobs_history_limit)
+            pulumi.set(__self__, "successful_jobs_history_limit", successful_jobs_history_limit)
         if suspend is not None:
-            _setter("suspend", suspend)
+            pulumi.set(__self__, "suspend", suspend)
 
     @property
     @pulumi.getter(name="jobTemplate")
@@ -335,53 +277,20 @@ class CronJobSpecPatch(dict):
         :param int successful_jobs_history_limit: The number of successful finished jobs to retain. This is a pointer to distinguish between explicit zero and not specified.
         :param bool suspend: This flag tells the controller to suspend subsequent executions, it does not apply to already started executions.  Defaults to false.
         """
-        CronJobSpecPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            concurrency_policy=concurrency_policy,
-            failed_jobs_history_limit=failed_jobs_history_limit,
-            job_template=job_template,
-            schedule=schedule,
-            starting_deadline_seconds=starting_deadline_seconds,
-            successful_jobs_history_limit=successful_jobs_history_limit,
-            suspend=suspend,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             concurrency_policy: Optional[str] = None,
-             failed_jobs_history_limit: Optional[int] = None,
-             job_template: Optional['outputs.JobTemplateSpecPatch'] = None,
-             schedule: Optional[str] = None,
-             starting_deadline_seconds: Optional[int] = None,
-             successful_jobs_history_limit: Optional[int] = None,
-             suspend: Optional[bool] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if concurrency_policy is None and 'concurrencyPolicy' in kwargs:
-            concurrency_policy = kwargs['concurrencyPolicy']
-        if failed_jobs_history_limit is None and 'failedJobsHistoryLimit' in kwargs:
-            failed_jobs_history_limit = kwargs['failedJobsHistoryLimit']
-        if job_template is None and 'jobTemplate' in kwargs:
-            job_template = kwargs['jobTemplate']
-        if starting_deadline_seconds is None and 'startingDeadlineSeconds' in kwargs:
-            starting_deadline_seconds = kwargs['startingDeadlineSeconds']
-        if successful_jobs_history_limit is None and 'successfulJobsHistoryLimit' in kwargs:
-            successful_jobs_history_limit = kwargs['successfulJobsHistoryLimit']
-
         if concurrency_policy is not None:
-            _setter("concurrency_policy", concurrency_policy)
+            pulumi.set(__self__, "concurrency_policy", concurrency_policy)
         if failed_jobs_history_limit is not None:
-            _setter("failed_jobs_history_limit", failed_jobs_history_limit)
+            pulumi.set(__self__, "failed_jobs_history_limit", failed_jobs_history_limit)
         if job_template is not None:
-            _setter("job_template", job_template)
+            pulumi.set(__self__, "job_template", job_template)
         if schedule is not None:
-            _setter("schedule", schedule)
+            pulumi.set(__self__, "schedule", schedule)
         if starting_deadline_seconds is not None:
-            _setter("starting_deadline_seconds", starting_deadline_seconds)
+            pulumi.set(__self__, "starting_deadline_seconds", starting_deadline_seconds)
         if successful_jobs_history_limit is not None:
-            _setter("successful_jobs_history_limit", successful_jobs_history_limit)
+            pulumi.set(__self__, "successful_jobs_history_limit", successful_jobs_history_limit)
         if suspend is not None:
-            _setter("suspend", suspend)
+            pulumi.set(__self__, "suspend", suspend)
 
     @property
     @pulumi.getter(name="concurrencyPolicy")
@@ -470,25 +379,10 @@ class CronJobStatus(dict):
         :param Sequence['_core.v1.ObjectReferenceArgs'] active: A list of pointers to currently running jobs.
         :param str last_schedule_time: Information when was the last time the job was successfully scheduled.
         """
-        CronJobStatus._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            active=active,
-            last_schedule_time=last_schedule_time,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             active: Optional[Sequence['_core.v1.outputs.ObjectReference']] = None,
-             last_schedule_time: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if last_schedule_time is None and 'lastScheduleTime' in kwargs:
-            last_schedule_time = kwargs['lastScheduleTime']
-
         if active is not None:
-            _setter("active", active)
+            pulumi.set(__self__, "active", active)
         if last_schedule_time is not None:
-            _setter("last_schedule_time", last_schedule_time)
+            pulumi.set(__self__, "last_schedule_time", last_schedule_time)
 
     @property
     @pulumi.getter
@@ -537,25 +431,10 @@ class CronJobStatusPatch(dict):
         :param Sequence['_core.v1.ObjectReferencePatchArgs'] active: A list of pointers to currently running jobs.
         :param str last_schedule_time: Information when was the last time the job was successfully scheduled.
         """
-        CronJobStatusPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            active=active,
-            last_schedule_time=last_schedule_time,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             active: Optional[Sequence['_core.v1.outputs.ObjectReferencePatch']] = None,
-             last_schedule_time: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if last_schedule_time is None and 'lastScheduleTime' in kwargs:
-            last_schedule_time = kwargs['lastScheduleTime']
-
         if active is not None:
-            _setter("active", active)
+            pulumi.set(__self__, "active", active)
         if last_schedule_time is not None:
-            _setter("last_schedule_time", last_schedule_time)
+            pulumi.set(__self__, "last_schedule_time", last_schedule_time)
 
     @property
     @pulumi.getter
@@ -587,23 +466,10 @@ class JobTemplateSpec(dict):
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata of the jobs created from this template. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param '_batch.v1.JobSpecArgs' spec: Specification of the desired behavior of the job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
-        JobTemplateSpec._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            metadata=metadata,
-            spec=spec,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
-             spec: Optional['_batch.v1.outputs.JobSpec'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-
         if metadata is not None:
-            _setter("metadata", metadata)
+            pulumi.set(__self__, "metadata", metadata)
         if spec is not None:
-            _setter("spec", spec)
+            pulumi.set(__self__, "spec", spec)
 
     @property
     @pulumi.getter
@@ -635,23 +501,10 @@ class JobTemplateSpecPatch(dict):
         :param '_meta.v1.ObjectMetaPatchArgs' metadata: Standard object's metadata of the jobs created from this template. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param '_batch.v1.JobSpecPatchArgs' spec: Specification of the desired behavior of the job. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
-        JobTemplateSpecPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            metadata=metadata,
-            spec=spec,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             metadata: Optional['_meta.v1.outputs.ObjectMetaPatch'] = None,
-             spec: Optional['_batch.v1.outputs.JobSpecPatch'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-
         if metadata is not None:
-            _setter("metadata", metadata)
+            pulumi.set(__self__, "metadata", metadata)
         if spec is not None:
-            _setter("spec", spec)
+            pulumi.set(__self__, "spec", spec)
 
     @property
     @pulumi.getter

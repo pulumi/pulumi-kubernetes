@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from ... import meta as _meta
 
@@ -32,47 +32,20 @@ class SecretPatchArgs:
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] string_data: stringData allows specifying non-binary secret data in string form. It is provided as a write-only input field for convenience. All keys and values are merged into the data field on write, overwriting any existing values. The stringData field is never output when reading from the API.
         :param pulumi.Input[str] type: Used to facilitate programmatic handling of secret data. More info: https://kubernetes.io/docs/concepts/configuration/secret/#secret-types
         """
-        SecretPatchArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            api_version=api_version,
-            data=data,
-            immutable=immutable,
-            kind=kind,
-            metadata=metadata,
-            string_data=string_data,
-            type=type,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             api_version: Optional[pulumi.Input[str]] = None,
-             data: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
-             immutable: Optional[pulumi.Input[bool]] = None,
-             kind: Optional[pulumi.Input[str]] = None,
-             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']] = None,
-             string_data: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
-             type: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if api_version is None and 'apiVersion' in kwargs:
-            api_version = kwargs['apiVersion']
-        if string_data is None and 'stringData' in kwargs:
-            string_data = kwargs['stringData']
-
         if api_version is not None:
-            _setter("api_version", 'v1')
+            pulumi.set(__self__, "api_version", 'v1')
         if data is not None:
-            _setter("data", data)
+            pulumi.set(__self__, "data", data)
         if immutable is not None:
-            _setter("immutable", immutable)
+            pulumi.set(__self__, "immutable", immutable)
         if kind is not None:
-            _setter("kind", 'Secret')
+            pulumi.set(__self__, "kind", 'Secret')
         if metadata is not None:
-            _setter("metadata", metadata)
+            pulumi.set(__self__, "metadata", metadata)
         if string_data is not None:
-            _setter("string_data", string_data)
+            pulumi.set(__self__, "string_data", string_data)
         if type is not None:
-            _setter("type", type)
+            pulumi.set(__self__, "type", type)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -236,10 +209,6 @@ class SecretPatch(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
-            kwargs = kwargs or {}
-            def _setter(key, value):
-                kwargs[key] = value
-            SecretPatchArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
@@ -265,7 +234,6 @@ class SecretPatch(pulumi.CustomResource):
             __props__.__dict__["data"] = data
             __props__.__dict__["immutable"] = immutable
             __props__.__dict__["kind"] = 'Secret'
-            metadata = _utilities.configure(metadata, _meta.v1.ObjectMetaPatchArgs, True)
             __props__.__dict__["metadata"] = metadata
             __props__.__dict__["string_data"] = string_data
             __props__.__dict__["type"] = type
