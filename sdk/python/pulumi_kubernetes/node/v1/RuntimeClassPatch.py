@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from . import outputs
 from ... import core as _core
@@ -34,41 +34,18 @@ class RuntimeClassPatchArgs:
                 https://kubernetes.io/docs/concepts/scheduling-eviction/pod-overhead/
         :param pulumi.Input['SchedulingPatchArgs'] scheduling: scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
         """
-        RuntimeClassPatchArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            api_version=api_version,
-            handler=handler,
-            kind=kind,
-            metadata=metadata,
-            overhead=overhead,
-            scheduling=scheduling,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             api_version: Optional[pulumi.Input[str]] = None,
-             handler: Optional[pulumi.Input[str]] = None,
-             kind: Optional[pulumi.Input[str]] = None,
-             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']] = None,
-             overhead: Optional[pulumi.Input['OverheadPatchArgs']] = None,
-             scheduling: Optional[pulumi.Input['SchedulingPatchArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if api_version is None and 'apiVersion' in kwargs:
-            api_version = kwargs['apiVersion']
-
         if api_version is not None:
-            _setter("api_version", 'node.k8s.io/v1')
+            pulumi.set(__self__, "api_version", 'node.k8s.io/v1')
         if handler is not None:
-            _setter("handler", handler)
+            pulumi.set(__self__, "handler", handler)
         if kind is not None:
-            _setter("kind", 'RuntimeClass')
+            pulumi.set(__self__, "kind", 'RuntimeClass')
         if metadata is not None:
-            _setter("metadata", metadata)
+            pulumi.set(__self__, "metadata", metadata)
         if overhead is not None:
-            _setter("overhead", overhead)
+            pulumi.set(__self__, "overhead", overhead)
         if scheduling is not None:
-            _setter("scheduling", scheduling)
+            pulumi.set(__self__, "scheduling", scheduling)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -200,10 +177,6 @@ class RuntimeClassPatch(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
-            kwargs = kwargs or {}
-            def _setter(key, value):
-                kwargs[key] = value
-            RuntimeClassPatchArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
@@ -227,11 +200,8 @@ class RuntimeClassPatch(pulumi.CustomResource):
             __props__.__dict__["api_version"] = 'node.k8s.io/v1'
             __props__.__dict__["handler"] = handler
             __props__.__dict__["kind"] = 'RuntimeClass'
-            metadata = _utilities.configure(metadata, _meta.v1.ObjectMetaPatchArgs, True)
             __props__.__dict__["metadata"] = metadata
-            overhead = _utilities.configure(overhead, OverheadPatchArgs, True)
             __props__.__dict__["overhead"] = overhead
-            scheduling = _utilities.configure(scheduling, SchedulingPatchArgs, True)
             __props__.__dict__["scheduling"] = scheduling
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:node.k8s.io/v1alpha1:RuntimeClassPatch"), pulumi.Alias(type_="kubernetes:node.k8s.io/v1beta1:RuntimeClassPatch")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)

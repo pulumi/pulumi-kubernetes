@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from ... import core as _core
 from ... import meta as _meta
@@ -39,68 +39,25 @@ class StorageClassInitArgs:
         :param pulumi.Input[str] reclaim_policy: reclaimPolicy controls the reclaimPolicy for dynamically provisioned PersistentVolumes of this storage class. Defaults to Delete.
         :param pulumi.Input[str] volume_binding_mode: volumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
         """
-        StorageClassInitArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            provisioner=provisioner,
-            allow_volume_expansion=allow_volume_expansion,
-            allowed_topologies=allowed_topologies,
-            api_version=api_version,
-            kind=kind,
-            metadata=metadata,
-            mount_options=mount_options,
-            parameters=parameters,
-            reclaim_policy=reclaim_policy,
-            volume_binding_mode=volume_binding_mode,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             provisioner: Optional[pulumi.Input[str]] = None,
-             allow_volume_expansion: Optional[pulumi.Input[bool]] = None,
-             allowed_topologies: Optional[pulumi.Input[Sequence[pulumi.Input['_core.v1.TopologySelectorTermArgs']]]] = None,
-             api_version: Optional[pulumi.Input[str]] = None,
-             kind: Optional[pulumi.Input[str]] = None,
-             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-             mount_options: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             parameters: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
-             reclaim_policy: Optional[pulumi.Input[str]] = None,
-             volume_binding_mode: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if provisioner is None:
-            raise TypeError("Missing 'provisioner' argument")
-        if allow_volume_expansion is None and 'allowVolumeExpansion' in kwargs:
-            allow_volume_expansion = kwargs['allowVolumeExpansion']
-        if allowed_topologies is None and 'allowedTopologies' in kwargs:
-            allowed_topologies = kwargs['allowedTopologies']
-        if api_version is None and 'apiVersion' in kwargs:
-            api_version = kwargs['apiVersion']
-        if mount_options is None and 'mountOptions' in kwargs:
-            mount_options = kwargs['mountOptions']
-        if reclaim_policy is None and 'reclaimPolicy' in kwargs:
-            reclaim_policy = kwargs['reclaimPolicy']
-        if volume_binding_mode is None and 'volumeBindingMode' in kwargs:
-            volume_binding_mode = kwargs['volumeBindingMode']
-
-        _setter("provisioner", provisioner)
+        pulumi.set(__self__, "provisioner", provisioner)
         if allow_volume_expansion is not None:
-            _setter("allow_volume_expansion", allow_volume_expansion)
+            pulumi.set(__self__, "allow_volume_expansion", allow_volume_expansion)
         if allowed_topologies is not None:
-            _setter("allowed_topologies", allowed_topologies)
+            pulumi.set(__self__, "allowed_topologies", allowed_topologies)
         if api_version is not None:
-            _setter("api_version", 'storage.k8s.io/v1')
+            pulumi.set(__self__, "api_version", 'storage.k8s.io/v1')
         if kind is not None:
-            _setter("kind", 'StorageClass')
+            pulumi.set(__self__, "kind", 'StorageClass')
         if metadata is not None:
-            _setter("metadata", metadata)
+            pulumi.set(__self__, "metadata", metadata)
         if mount_options is not None:
-            _setter("mount_options", mount_options)
+            pulumi.set(__self__, "mount_options", mount_options)
         if parameters is not None:
-            _setter("parameters", parameters)
+            pulumi.set(__self__, "parameters", parameters)
         if reclaim_policy is not None:
-            _setter("reclaim_policy", reclaim_policy)
+            pulumi.set(__self__, "reclaim_policy", reclaim_policy)
         if volume_binding_mode is not None:
-            _setter("volume_binding_mode", volume_binding_mode)
+            pulumi.set(__self__, "volume_binding_mode", volume_binding_mode)
 
     @property
     @pulumi.getter
@@ -278,10 +235,6 @@ class StorageClass(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
-            kwargs = kwargs or {}
-            def _setter(key, value):
-                kwargs[key] = value
-            StorageClassInitArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
@@ -310,7 +263,6 @@ class StorageClass(pulumi.CustomResource):
             __props__.__dict__["allowed_topologies"] = allowed_topologies
             __props__.__dict__["api_version"] = 'storage.k8s.io/v1'
             __props__.__dict__["kind"] = 'StorageClass'
-            metadata = _utilities.configure(metadata, _meta.v1.ObjectMetaArgs, True)
             __props__.__dict__["metadata"] = metadata
             __props__.__dict__["mount_options"] = mount_options
             __props__.__dict__["parameters"] = parameters

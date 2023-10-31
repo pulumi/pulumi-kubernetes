@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from . import outputs
 from ... import core as _core
@@ -34,42 +34,17 @@ class RuntimeClassInitArgs:
                 https://kubernetes.io/docs/concepts/scheduling-eviction/pod-overhead/
         :param pulumi.Input['SchedulingArgs'] scheduling: scheduling holds the scheduling constraints to ensure that pods running with this RuntimeClass are scheduled to nodes that support it. If scheduling is nil, this RuntimeClass is assumed to be supported by all nodes.
         """
-        RuntimeClassInitArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            handler=handler,
-            api_version=api_version,
-            kind=kind,
-            metadata=metadata,
-            overhead=overhead,
-            scheduling=scheduling,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             handler: Optional[pulumi.Input[str]] = None,
-             api_version: Optional[pulumi.Input[str]] = None,
-             kind: Optional[pulumi.Input[str]] = None,
-             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-             overhead: Optional[pulumi.Input['OverheadArgs']] = None,
-             scheduling: Optional[pulumi.Input['SchedulingArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if handler is None:
-            raise TypeError("Missing 'handler' argument")
-        if api_version is None and 'apiVersion' in kwargs:
-            api_version = kwargs['apiVersion']
-
-        _setter("handler", handler)
+        pulumi.set(__self__, "handler", handler)
         if api_version is not None:
-            _setter("api_version", 'node.k8s.io/v1')
+            pulumi.set(__self__, "api_version", 'node.k8s.io/v1')
         if kind is not None:
-            _setter("kind", 'RuntimeClass')
+            pulumi.set(__self__, "kind", 'RuntimeClass')
         if metadata is not None:
-            _setter("metadata", metadata)
+            pulumi.set(__self__, "metadata", metadata)
         if overhead is not None:
-            _setter("overhead", overhead)
+            pulumi.set(__self__, "overhead", overhead)
         if scheduling is not None:
-            _setter("scheduling", scheduling)
+            pulumi.set(__self__, "scheduling", scheduling)
 
     @property
     @pulumi.getter
@@ -189,10 +164,6 @@ class RuntimeClass(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
-            kwargs = kwargs or {}
-            def _setter(key, value):
-                kwargs[key] = value
-            RuntimeClassInitArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
@@ -218,11 +189,8 @@ class RuntimeClass(pulumi.CustomResource):
                 raise TypeError("Missing required property 'handler'")
             __props__.__dict__["handler"] = handler
             __props__.__dict__["kind"] = 'RuntimeClass'
-            metadata = _utilities.configure(metadata, _meta.v1.ObjectMetaArgs, True)
             __props__.__dict__["metadata"] = metadata
-            overhead = _utilities.configure(overhead, OverheadArgs, True)
             __props__.__dict__["overhead"] = overhead
-            scheduling = _utilities.configure(scheduling, SchedulingArgs, True)
             __props__.__dict__["scheduling"] = scheduling
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:node.k8s.io/v1alpha1:RuntimeClass"), pulumi.Alias(type_="kubernetes:node.k8s.io/v1beta1:RuntimeClass")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)

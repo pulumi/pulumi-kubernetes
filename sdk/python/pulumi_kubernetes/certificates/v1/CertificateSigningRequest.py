@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from . import outputs
 from ... import meta as _meta
@@ -27,34 +27,13 @@ class CertificateSigningRequestInitArgs:
         :param pulumi.Input[str] api_version: APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
-        CertificateSigningRequestInitArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            spec=spec,
-            api_version=api_version,
-            kind=kind,
-            metadata=metadata,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             spec: Optional[pulumi.Input['CertificateSigningRequestSpecArgs']] = None,
-             api_version: Optional[pulumi.Input[str]] = None,
-             kind: Optional[pulumi.Input[str]] = None,
-             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if spec is None:
-            raise TypeError("Missing 'spec' argument")
-        if api_version is None and 'apiVersion' in kwargs:
-            api_version = kwargs['apiVersion']
-
-        _setter("spec", spec)
+        pulumi.set(__self__, "spec", spec)
         if api_version is not None:
-            _setter("api_version", 'certificates.k8s.io/v1')
+            pulumi.set(__self__, "api_version", 'certificates.k8s.io/v1')
         if kind is not None:
-            _setter("kind", 'CertificateSigningRequest')
+            pulumi.set(__self__, "kind", 'CertificateSigningRequest')
         if metadata is not None:
-            _setter("metadata", metadata)
+            pulumi.set(__self__, "metadata", metadata)
 
     @property
     @pulumi.getter
@@ -152,10 +131,6 @@ class CertificateSigningRequest(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
-            kwargs = kwargs or {}
-            def _setter(key, value):
-                kwargs[key] = value
-            CertificateSigningRequestInitArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
@@ -176,9 +151,7 @@ class CertificateSigningRequest(pulumi.CustomResource):
 
             __props__.__dict__["api_version"] = 'certificates.k8s.io/v1'
             __props__.__dict__["kind"] = 'CertificateSigningRequest'
-            metadata = _utilities.configure(metadata, _meta.v1.ObjectMetaArgs, True)
             __props__.__dict__["metadata"] = metadata
-            spec = _utilities.configure(spec, CertificateSigningRequestSpecArgs, True)
             if spec is None and not opts.urn:
                 raise TypeError("Missing required property 'spec'")
             __props__.__dict__["spec"] = spec

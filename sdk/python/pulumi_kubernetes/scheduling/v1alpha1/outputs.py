@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from ... import meta as _meta
 
@@ -58,50 +58,19 @@ class PriorityClass(dict):
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param str preemption_policy: PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is alpha-level and is only honored by servers that enable the NonPreemptingPriority feature.
         """
-        PriorityClass._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            value=value,
-            api_version=api_version,
-            description=description,
-            global_default=global_default,
-            kind=kind,
-            metadata=metadata,
-            preemption_policy=preemption_policy,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             value: Optional[int] = None,
-             api_version: Optional[str] = None,
-             description: Optional[str] = None,
-             global_default: Optional[bool] = None,
-             kind: Optional[str] = None,
-             metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
-             preemption_policy: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if value is None:
-            raise TypeError("Missing 'value' argument")
-        if api_version is None and 'apiVersion' in kwargs:
-            api_version = kwargs['apiVersion']
-        if global_default is None and 'globalDefault' in kwargs:
-            global_default = kwargs['globalDefault']
-        if preemption_policy is None and 'preemptionPolicy' in kwargs:
-            preemption_policy = kwargs['preemptionPolicy']
-
-        _setter("value", value)
+        pulumi.set(__self__, "value", value)
         if api_version is not None:
-            _setter("api_version", 'scheduling.k8s.io/v1alpha1')
+            pulumi.set(__self__, "api_version", 'scheduling.k8s.io/v1alpha1')
         if description is not None:
-            _setter("description", description)
+            pulumi.set(__self__, "description", description)
         if global_default is not None:
-            _setter("global_default", global_default)
+            pulumi.set(__self__, "global_default", global_default)
         if kind is not None:
-            _setter("kind", 'PriorityClass')
+            pulumi.set(__self__, "kind", 'PriorityClass')
         if metadata is not None:
-            _setter("metadata", metadata)
+            pulumi.set(__self__, "metadata", metadata)
         if preemption_policy is not None:
-            _setter("preemption_policy", preemption_policy)
+            pulumi.set(__self__, "preemption_policy", preemption_policy)
 
     @property
     @pulumi.getter

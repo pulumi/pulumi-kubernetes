@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from . import outputs
 from ... import meta as _meta
@@ -30,33 +30,14 @@ class ResourceClaimTemplatePatchArgs:
                
                This field is immutable. A ResourceClaim will get created by the control plane for a Pod when needed and then not get updated anymore.
         """
-        ResourceClaimTemplatePatchArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            api_version=api_version,
-            kind=kind,
-            metadata=metadata,
-            spec=spec,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             api_version: Optional[pulumi.Input[str]] = None,
-             kind: Optional[pulumi.Input[str]] = None,
-             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaPatchArgs']] = None,
-             spec: Optional[pulumi.Input['ResourceClaimTemplateSpecPatchArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if api_version is None and 'apiVersion' in kwargs:
-            api_version = kwargs['apiVersion']
-
         if api_version is not None:
-            _setter("api_version", 'resource.k8s.io/v1alpha2')
+            pulumi.set(__self__, "api_version", 'resource.k8s.io/v1alpha2')
         if kind is not None:
-            _setter("kind", 'ResourceClaimTemplate')
+            pulumi.set(__self__, "kind", 'ResourceClaimTemplate')
         if metadata is not None:
-            _setter("metadata", metadata)
+            pulumi.set(__self__, "metadata", metadata)
         if spec is not None:
-            _setter("spec", spec)
+            pulumi.set(__self__, "spec", spec)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -162,10 +143,6 @@ class ResourceClaimTemplatePatch(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
-            kwargs = kwargs or {}
-            def _setter(key, value):
-                kwargs[key] = value
-            ResourceClaimTemplatePatchArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
@@ -186,9 +163,7 @@ class ResourceClaimTemplatePatch(pulumi.CustomResource):
 
             __props__.__dict__["api_version"] = 'resource.k8s.io/v1alpha2'
             __props__.__dict__["kind"] = 'ResourceClaimTemplate'
-            metadata = _utilities.configure(metadata, _meta.v1.ObjectMetaPatchArgs, True)
             __props__.__dict__["metadata"] = metadata
-            spec = _utilities.configure(spec, ResourceClaimTemplateSpecPatchArgs, True)
             __props__.__dict__["spec"] = spec
         alias_opts = pulumi.ResourceOptions(aliases=[pulumi.Alias(type_="kubernetes:resource.k8s.io/v1alpha1:ResourceClaimTemplatePatch")])
         opts = pulumi.ResourceOptions.merge(opts, alias_opts)

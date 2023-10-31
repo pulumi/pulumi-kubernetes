@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from . import outputs
 from ... import meta as _meta
@@ -59,37 +59,16 @@ class APIService(dict):
         :param 'APIServiceSpecArgs' spec: Spec contains information for locating and communicating with a server
         :param 'APIServiceStatusArgs' status: Status contains derived information about an API server
         """
-        APIService._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            api_version=api_version,
-            kind=kind,
-            metadata=metadata,
-            spec=spec,
-            status=status,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             api_version: Optional[str] = None,
-             kind: Optional[str] = None,
-             metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
-             spec: Optional['outputs.APIServiceSpec'] = None,
-             status: Optional['outputs.APIServiceStatus'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if api_version is None and 'apiVersion' in kwargs:
-            api_version = kwargs['apiVersion']
-
         if api_version is not None:
-            _setter("api_version", 'apiregistration.k8s.io/v1')
+            pulumi.set(__self__, "api_version", 'apiregistration.k8s.io/v1')
         if kind is not None:
-            _setter("kind", 'APIService')
+            pulumi.set(__self__, "kind", 'APIService')
         if metadata is not None:
-            _setter("metadata", metadata)
+            pulumi.set(__self__, "metadata", metadata)
         if spec is not None:
-            _setter("spec", spec)
+            pulumi.set(__self__, "spec", spec)
         if status is not None:
-            _setter("status", status)
+            pulumi.set(__self__, "status", status)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -168,39 +147,14 @@ class APIServiceCondition(dict):
         :param str message: Human-readable message indicating details about last transition.
         :param str reason: Unique, one-word, CamelCase reason for the condition's last transition.
         """
-        APIServiceCondition._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            status=status,
-            type=type,
-            last_transition_time=last_transition_time,
-            message=message,
-            reason=reason,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             status: Optional[str] = None,
-             type: Optional[str] = None,
-             last_transition_time: Optional[str] = None,
-             message: Optional[str] = None,
-             reason: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if status is None:
-            raise TypeError("Missing 'status' argument")
-        if type is None:
-            raise TypeError("Missing 'type' argument")
-        if last_transition_time is None and 'lastTransitionTime' in kwargs:
-            last_transition_time = kwargs['lastTransitionTime']
-
-        _setter("status", status)
-        _setter("type", type)
+        pulumi.set(__self__, "status", status)
+        pulumi.set(__self__, "type", type)
         if last_transition_time is not None:
-            _setter("last_transition_time", last_transition_time)
+            pulumi.set(__self__, "last_transition_time", last_transition_time)
         if message is not None:
-            _setter("message", message)
+            pulumi.set(__self__, "message", message)
         if reason is not None:
-            _setter("reason", reason)
+            pulumi.set(__self__, "reason", reason)
 
     @property
     @pulumi.getter
@@ -279,37 +233,16 @@ class APIServiceConditionPatch(dict):
         :param str status: Status is the status of the condition. Can be True, False, Unknown.
         :param str type: Type is the type of the condition.
         """
-        APIServiceConditionPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            last_transition_time=last_transition_time,
-            message=message,
-            reason=reason,
-            status=status,
-            type=type,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             last_transition_time: Optional[str] = None,
-             message: Optional[str] = None,
-             reason: Optional[str] = None,
-             status: Optional[str] = None,
-             type: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if last_transition_time is None and 'lastTransitionTime' in kwargs:
-            last_transition_time = kwargs['lastTransitionTime']
-
         if last_transition_time is not None:
-            _setter("last_transition_time", last_transition_time)
+            pulumi.set(__self__, "last_transition_time", last_transition_time)
         if message is not None:
-            _setter("message", message)
+            pulumi.set(__self__, "message", message)
         if reason is not None:
-            _setter("reason", reason)
+            pulumi.set(__self__, "reason", reason)
         if status is not None:
-            _setter("status", status)
+            pulumi.set(__self__, "status", status)
         if type is not None:
-            _setter("type", type)
+            pulumi.set(__self__, "type", type)
 
     @property
     @pulumi.getter(name="lastTransitionTime")
@@ -398,53 +331,18 @@ class APIServiceSpec(dict):
         :param 'ServiceReferenceArgs' service: Service is a reference to the service for this API server.  It must communicate on port 443. If the Service is nil, that means the handling for the API groupversion is handled locally on this server. The call will simply delegate to the normal handler chain to be fulfilled.
         :param str version: Version is the API version this server hosts.  For example, "v1"
         """
-        APIServiceSpec._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            group_priority_minimum=group_priority_minimum,
-            version_priority=version_priority,
-            ca_bundle=ca_bundle,
-            group=group,
-            insecure_skip_tls_verify=insecure_skip_tls_verify,
-            service=service,
-            version=version,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             group_priority_minimum: Optional[int] = None,
-             version_priority: Optional[int] = None,
-             ca_bundle: Optional[str] = None,
-             group: Optional[str] = None,
-             insecure_skip_tls_verify: Optional[bool] = None,
-             service: Optional['outputs.ServiceReference'] = None,
-             version: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if group_priority_minimum is None and 'groupPriorityMinimum' in kwargs:
-            group_priority_minimum = kwargs['groupPriorityMinimum']
-        if group_priority_minimum is None:
-            raise TypeError("Missing 'group_priority_minimum' argument")
-        if version_priority is None and 'versionPriority' in kwargs:
-            version_priority = kwargs['versionPriority']
-        if version_priority is None:
-            raise TypeError("Missing 'version_priority' argument")
-        if ca_bundle is None and 'caBundle' in kwargs:
-            ca_bundle = kwargs['caBundle']
-        if insecure_skip_tls_verify is None and 'insecureSkipTLSVerify' in kwargs:
-            insecure_skip_tls_verify = kwargs['insecureSkipTLSVerify']
-
-        _setter("group_priority_minimum", group_priority_minimum)
-        _setter("version_priority", version_priority)
+        pulumi.set(__self__, "group_priority_minimum", group_priority_minimum)
+        pulumi.set(__self__, "version_priority", version_priority)
         if ca_bundle is not None:
-            _setter("ca_bundle", ca_bundle)
+            pulumi.set(__self__, "ca_bundle", ca_bundle)
         if group is not None:
-            _setter("group", group)
+            pulumi.set(__self__, "group", group)
         if insecure_skip_tls_verify is not None:
-            _setter("insecure_skip_tls_verify", insecure_skip_tls_verify)
+            pulumi.set(__self__, "insecure_skip_tls_verify", insecure_skip_tls_verify)
         if service is not None:
-            _setter("service", service)
+            pulumi.set(__self__, "service", service)
         if version is not None:
-            _setter("version", version)
+            pulumi.set(__self__, "version", version)
 
     @property
     @pulumi.getter(name="groupPriorityMinimum")
@@ -549,51 +447,20 @@ class APIServiceSpecPatch(dict):
         :param str version: Version is the API version this server hosts.  For example, "v1"
         :param int version_priority: VersionPriority controls the ordering of this API version inside of its group.  Must be greater than zero. The primary sort is based on VersionPriority, ordered highest to lowest (20 before 10). Since it's inside of a group, the number can be small, probably in the 10s. In case of equal version priorities, the version string will be used to compute the order inside a group. If the version string is "kube-like", it will sort above non "kube-like" version strings, which are ordered lexicographically. "Kube-like" versions start with a "v", then are followed by a number (the major version), then optionally the string "alpha" or "beta" and another number (the minor version). These are sorted first by GA > beta > alpha (where GA is a version with no suffix such as beta or alpha), and then by comparing major version, then minor version. An example sorted list of versions: v10, v2, v1, v11beta2, v10beta3, v3beta1, v12alpha1, v11alpha2, foo1, foo10.
         """
-        APIServiceSpecPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            ca_bundle=ca_bundle,
-            group=group,
-            group_priority_minimum=group_priority_minimum,
-            insecure_skip_tls_verify=insecure_skip_tls_verify,
-            service=service,
-            version=version,
-            version_priority=version_priority,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             ca_bundle: Optional[str] = None,
-             group: Optional[str] = None,
-             group_priority_minimum: Optional[int] = None,
-             insecure_skip_tls_verify: Optional[bool] = None,
-             service: Optional['outputs.ServiceReferencePatch'] = None,
-             version: Optional[str] = None,
-             version_priority: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if ca_bundle is None and 'caBundle' in kwargs:
-            ca_bundle = kwargs['caBundle']
-        if group_priority_minimum is None and 'groupPriorityMinimum' in kwargs:
-            group_priority_minimum = kwargs['groupPriorityMinimum']
-        if insecure_skip_tls_verify is None and 'insecureSkipTLSVerify' in kwargs:
-            insecure_skip_tls_verify = kwargs['insecureSkipTLSVerify']
-        if version_priority is None and 'versionPriority' in kwargs:
-            version_priority = kwargs['versionPriority']
-
         if ca_bundle is not None:
-            _setter("ca_bundle", ca_bundle)
+            pulumi.set(__self__, "ca_bundle", ca_bundle)
         if group is not None:
-            _setter("group", group)
+            pulumi.set(__self__, "group", group)
         if group_priority_minimum is not None:
-            _setter("group_priority_minimum", group_priority_minimum)
+            pulumi.set(__self__, "group_priority_minimum", group_priority_minimum)
         if insecure_skip_tls_verify is not None:
-            _setter("insecure_skip_tls_verify", insecure_skip_tls_verify)
+            pulumi.set(__self__, "insecure_skip_tls_verify", insecure_skip_tls_verify)
         if service is not None:
-            _setter("service", service)
+            pulumi.set(__self__, "service", service)
         if version is not None:
-            _setter("version", version)
+            pulumi.set(__self__, "version", version)
         if version_priority is not None:
-            _setter("version_priority", version_priority)
+            pulumi.set(__self__, "version_priority", version_priority)
 
     @property
     @pulumi.getter(name="caBundle")
@@ -663,19 +530,8 @@ class APIServiceStatus(dict):
         APIServiceStatus contains derived information about an API server
         :param Sequence['APIServiceConditionArgs'] conditions: Current service state of apiService.
         """
-        APIServiceStatus._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            conditions=conditions,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             conditions: Optional[Sequence['outputs.APIServiceCondition']] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-
         if conditions is not None:
-            _setter("conditions", conditions)
+            pulumi.set(__self__, "conditions", conditions)
 
     @property
     @pulumi.getter
@@ -697,19 +553,8 @@ class APIServiceStatusPatch(dict):
         APIServiceStatus contains derived information about an API server
         :param Sequence['APIServiceConditionPatchArgs'] conditions: Current service state of apiService.
         """
-        APIServiceStatusPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            conditions=conditions,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             conditions: Optional[Sequence['outputs.APIServiceConditionPatch']] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-
         if conditions is not None:
-            _setter("conditions", conditions)
+            pulumi.set(__self__, "conditions", conditions)
 
     @property
     @pulumi.getter
@@ -735,27 +580,12 @@ class ServiceReference(dict):
         :param str namespace: Namespace is the namespace of the service
         :param int port: If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
         """
-        ServiceReference._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            name=name,
-            namespace=namespace,
-            port=port,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             name: Optional[str] = None,
-             namespace: Optional[str] = None,
-             port: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-
         if name is not None:
-            _setter("name", name)
+            pulumi.set(__self__, "name", name)
         if namespace is not None:
-            _setter("namespace", namespace)
+            pulumi.set(__self__, "namespace", namespace)
         if port is not None:
-            _setter("port", port)
+            pulumi.set(__self__, "port", port)
 
     @property
     @pulumi.getter
@@ -797,27 +627,12 @@ class ServiceReferencePatch(dict):
         :param str namespace: Namespace is the namespace of the service
         :param int port: If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
         """
-        ServiceReferencePatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            name=name,
-            namespace=namespace,
-            port=port,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             name: Optional[str] = None,
-             namespace: Optional[str] = None,
-             port: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-
         if name is not None:
-            _setter("name", name)
+            pulumi.set(__self__, "name", name)
         if namespace is not None:
-            _setter("namespace", namespace)
+            pulumi.set(__self__, "namespace", namespace)
         if port is not None:
-            _setter("port", port)
+            pulumi.set(__self__, "port", port)
 
     @property
     @pulumi.getter

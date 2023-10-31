@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from . import outputs
 from ... import meta as _meta
@@ -30,40 +30,15 @@ class ClusterRoleBindingInitArgs:
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object's metadata.
         :param pulumi.Input[Sequence[pulumi.Input['SubjectArgs']]] subjects: Subjects holds references to the objects the role applies to.
         """
-        ClusterRoleBindingInitArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            role_ref=role_ref,
-            api_version=api_version,
-            kind=kind,
-            metadata=metadata,
-            subjects=subjects,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             role_ref: Optional[pulumi.Input['RoleRefArgs']] = None,
-             api_version: Optional[pulumi.Input[str]] = None,
-             kind: Optional[pulumi.Input[str]] = None,
-             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-             subjects: Optional[pulumi.Input[Sequence[pulumi.Input['SubjectArgs']]]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if role_ref is None and 'roleRef' in kwargs:
-            role_ref = kwargs['roleRef']
-        if role_ref is None:
-            raise TypeError("Missing 'role_ref' argument")
-        if api_version is None and 'apiVersion' in kwargs:
-            api_version = kwargs['apiVersion']
-
-        _setter("role_ref", role_ref)
+        pulumi.set(__self__, "role_ref", role_ref)
         if api_version is not None:
-            _setter("api_version", 'rbac.authorization.k8s.io/v1')
+            pulumi.set(__self__, "api_version", 'rbac.authorization.k8s.io/v1')
         if kind is not None:
-            _setter("kind", 'ClusterRoleBinding')
+            pulumi.set(__self__, "kind", 'ClusterRoleBinding')
         if metadata is not None:
-            _setter("metadata", metadata)
+            pulumi.set(__self__, "metadata", metadata)
         if subjects is not None:
-            _setter("subjects", subjects)
+            pulumi.set(__self__, "subjects", subjects)
 
     @property
     @pulumi.getter(name="roleRef")
@@ -167,10 +142,6 @@ class ClusterRoleBinding(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
-            kwargs = kwargs or {}
-            def _setter(key, value):
-                kwargs[key] = value
-            ClusterRoleBindingInitArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
@@ -192,9 +163,7 @@ class ClusterRoleBinding(pulumi.CustomResource):
 
             __props__.__dict__["api_version"] = 'rbac.authorization.k8s.io/v1'
             __props__.__dict__["kind"] = 'ClusterRoleBinding'
-            metadata = _utilities.configure(metadata, _meta.v1.ObjectMetaArgs, True)
             __props__.__dict__["metadata"] = metadata
-            role_ref = _utilities.configure(role_ref, RoleRefArgs, True)
             if role_ref is None and not opts.urn:
                 raise TypeError("Missing required property 'role_ref'")
             __props__.__dict__["role_ref"] = role_ref

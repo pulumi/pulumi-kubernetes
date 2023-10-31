@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from . import outputs
 from ._inputs import *
@@ -33,45 +33,20 @@ class StatusPatchArgs:
         :param pulumi.Input['ListMetaPatchArgs'] metadata: Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input[str] reason: A machine-readable description of why this operation is in the "Failure" status. If this value is empty there is no information available. A Reason clarifies an HTTP status code but does not override it.
         """
-        StatusPatchArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            api_version=api_version,
-            code=code,
-            details=details,
-            kind=kind,
-            message=message,
-            metadata=metadata,
-            reason=reason,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             api_version: Optional[pulumi.Input[str]] = None,
-             code: Optional[pulumi.Input[int]] = None,
-             details: Optional[pulumi.Input['StatusDetailsPatchArgs']] = None,
-             kind: Optional[pulumi.Input[str]] = None,
-             message: Optional[pulumi.Input[str]] = None,
-             metadata: Optional[pulumi.Input['ListMetaPatchArgs']] = None,
-             reason: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if api_version is None and 'apiVersion' in kwargs:
-            api_version = kwargs['apiVersion']
-
         if api_version is not None:
-            _setter("api_version", 'v1')
+            pulumi.set(__self__, "api_version", 'v1')
         if code is not None:
-            _setter("code", code)
+            pulumi.set(__self__, "code", code)
         if details is not None:
-            _setter("details", details)
+            pulumi.set(__self__, "details", details)
         if kind is not None:
-            _setter("kind", 'Status')
+            pulumi.set(__self__, "kind", 'Status')
         if message is not None:
-            _setter("message", message)
+            pulumi.set(__self__, "message", message)
         if metadata is not None:
-            _setter("metadata", metadata)
+            pulumi.set(__self__, "metadata", metadata)
         if reason is not None:
-            _setter("reason", reason)
+            pulumi.set(__self__, "reason", reason)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -215,10 +190,6 @@ class StatusPatch(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
-            kwargs = kwargs or {}
-            def _setter(key, value):
-                kwargs[key] = value
-            StatusPatchArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
@@ -242,11 +213,9 @@ class StatusPatch(pulumi.CustomResource):
 
             __props__.__dict__["api_version"] = 'v1'
             __props__.__dict__["code"] = code
-            details = _utilities.configure(details, StatusDetailsPatchArgs, True)
             __props__.__dict__["details"] = details
             __props__.__dict__["kind"] = 'Status'
             __props__.__dict__["message"] = message
-            metadata = _utilities.configure(metadata, ListMetaPatchArgs, True)
             __props__.__dict__["metadata"] = metadata
             __props__.__dict__["reason"] = reason
             __props__.__dict__["status"] = None

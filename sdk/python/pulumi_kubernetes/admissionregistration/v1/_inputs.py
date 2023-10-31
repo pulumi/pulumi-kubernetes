@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from ... import meta as _meta
 
@@ -47,23 +47,10 @@ class MatchConditionPatchArgs:
                
                Required.
         """
-        MatchConditionPatchArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            expression=expression,
-            name=name,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             expression: Optional[pulumi.Input[str]] = None,
-             name: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-
         if expression is not None:
-            _setter("expression", expression)
+            pulumi.set(__self__, "expression", expression)
         if name is not None:
-            _setter("name", name)
+            pulumi.set(__self__, "name", name)
 
     @property
     @pulumi.getter
@@ -120,25 +107,8 @@ class MatchConditionArgs:
                
                Required.
         """
-        MatchConditionArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            expression=expression,
-            name=name,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             expression: Optional[pulumi.Input[str]] = None,
-             name: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if expression is None:
-            raise TypeError("Missing 'expression' argument")
-        if name is None:
-            raise TypeError("Missing 'name' argument")
-
-        _setter("expression", expression)
-        _setter("name", name)
+        pulumi.set(__self__, "expression", expression)
+        pulumi.set(__self__, "name", name)
 
     @property
     @pulumi.getter
@@ -189,33 +159,14 @@ class MutatingWebhookConfigurationArgs:
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
         :param pulumi.Input[Sequence[pulumi.Input['MutatingWebhookArgs']]] webhooks: Webhooks is a list of webhooks and the affected resources and operations.
         """
-        MutatingWebhookConfigurationArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            api_version=api_version,
-            kind=kind,
-            metadata=metadata,
-            webhooks=webhooks,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             api_version: Optional[pulumi.Input[str]] = None,
-             kind: Optional[pulumi.Input[str]] = None,
-             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-             webhooks: Optional[pulumi.Input[Sequence[pulumi.Input['MutatingWebhookArgs']]]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if api_version is None and 'apiVersion' in kwargs:
-            api_version = kwargs['apiVersion']
-
         if api_version is not None:
-            _setter("api_version", 'admissionregistration.k8s.io/v1')
+            pulumi.set(__self__, "api_version", 'admissionregistration.k8s.io/v1')
         if kind is not None:
-            _setter("kind", 'MutatingWebhookConfiguration')
+            pulumi.set(__self__, "kind", 'MutatingWebhookConfiguration')
         if metadata is not None:
-            _setter("metadata", metadata)
+            pulumi.set(__self__, "metadata", metadata)
         if webhooks is not None:
-            _setter("webhooks", webhooks)
+            pulumi.set(__self__, "webhooks", webhooks)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -347,83 +298,30 @@ class MutatingWebhookPatchArgs:
         :param pulumi.Input[str] side_effects: SideEffects states whether this webhook has side effects. Acceptable values are: None, NoneOnDryRun (webhooks created via v1beta1 may also specify Some or Unknown). Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission chain and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some.
         :param pulumi.Input[int] timeout_seconds: TimeoutSeconds specifies the timeout for this webhook. After the timeout passes, the webhook call will be ignored or the API call will fail based on the failure policy. The timeout value must be between 1 and 30 seconds. Default to 10 seconds.
         """
-        MutatingWebhookPatchArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            admission_review_versions=admission_review_versions,
-            client_config=client_config,
-            failure_policy=failure_policy,
-            match_conditions=match_conditions,
-            match_policy=match_policy,
-            name=name,
-            namespace_selector=namespace_selector,
-            object_selector=object_selector,
-            reinvocation_policy=reinvocation_policy,
-            rules=rules,
-            side_effects=side_effects,
-            timeout_seconds=timeout_seconds,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             admission_review_versions: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             client_config: Optional[pulumi.Input['WebhookClientConfigPatchArgs']] = None,
-             failure_policy: Optional[pulumi.Input[str]] = None,
-             match_conditions: Optional[pulumi.Input[Sequence[pulumi.Input['MatchConditionPatchArgs']]]] = None,
-             match_policy: Optional[pulumi.Input[str]] = None,
-             name: Optional[pulumi.Input[str]] = None,
-             namespace_selector: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']] = None,
-             object_selector: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']] = None,
-             reinvocation_policy: Optional[pulumi.Input[str]] = None,
-             rules: Optional[pulumi.Input[Sequence[pulumi.Input['RuleWithOperationsPatchArgs']]]] = None,
-             side_effects: Optional[pulumi.Input[str]] = None,
-             timeout_seconds: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if admission_review_versions is None and 'admissionReviewVersions' in kwargs:
-            admission_review_versions = kwargs['admissionReviewVersions']
-        if client_config is None and 'clientConfig' in kwargs:
-            client_config = kwargs['clientConfig']
-        if failure_policy is None and 'failurePolicy' in kwargs:
-            failure_policy = kwargs['failurePolicy']
-        if match_conditions is None and 'matchConditions' in kwargs:
-            match_conditions = kwargs['matchConditions']
-        if match_policy is None and 'matchPolicy' in kwargs:
-            match_policy = kwargs['matchPolicy']
-        if namespace_selector is None and 'namespaceSelector' in kwargs:
-            namespace_selector = kwargs['namespaceSelector']
-        if object_selector is None and 'objectSelector' in kwargs:
-            object_selector = kwargs['objectSelector']
-        if reinvocation_policy is None and 'reinvocationPolicy' in kwargs:
-            reinvocation_policy = kwargs['reinvocationPolicy']
-        if side_effects is None and 'sideEffects' in kwargs:
-            side_effects = kwargs['sideEffects']
-        if timeout_seconds is None and 'timeoutSeconds' in kwargs:
-            timeout_seconds = kwargs['timeoutSeconds']
-
         if admission_review_versions is not None:
-            _setter("admission_review_versions", admission_review_versions)
+            pulumi.set(__self__, "admission_review_versions", admission_review_versions)
         if client_config is not None:
-            _setter("client_config", client_config)
+            pulumi.set(__self__, "client_config", client_config)
         if failure_policy is not None:
-            _setter("failure_policy", failure_policy)
+            pulumi.set(__self__, "failure_policy", failure_policy)
         if match_conditions is not None:
-            _setter("match_conditions", match_conditions)
+            pulumi.set(__self__, "match_conditions", match_conditions)
         if match_policy is not None:
-            _setter("match_policy", match_policy)
+            pulumi.set(__self__, "match_policy", match_policy)
         if name is not None:
-            _setter("name", name)
+            pulumi.set(__self__, "name", name)
         if namespace_selector is not None:
-            _setter("namespace_selector", namespace_selector)
+            pulumi.set(__self__, "namespace_selector", namespace_selector)
         if object_selector is not None:
-            _setter("object_selector", object_selector)
+            pulumi.set(__self__, "object_selector", object_selector)
         if reinvocation_policy is not None:
-            _setter("reinvocation_policy", reinvocation_policy)
+            pulumi.set(__self__, "reinvocation_policy", reinvocation_policy)
         if rules is not None:
-            _setter("rules", rules)
+            pulumi.set(__self__, "rules", rules)
         if side_effects is not None:
-            _setter("side_effects", side_effects)
+            pulumi.set(__self__, "side_effects", side_effects)
         if timeout_seconds is not None:
-            _setter("timeout_seconds", timeout_seconds)
+            pulumi.set(__self__, "timeout_seconds", timeout_seconds)
 
     @property
     @pulumi.getter(name="admissionReviewVersions")
@@ -702,87 +600,26 @@ class MutatingWebhookArgs:
         :param pulumi.Input[Sequence[pulumi.Input['RuleWithOperationsArgs']]] rules: Rules describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ Rule. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.
         :param pulumi.Input[int] timeout_seconds: TimeoutSeconds specifies the timeout for this webhook. After the timeout passes, the webhook call will be ignored or the API call will fail based on the failure policy. The timeout value must be between 1 and 30 seconds. Default to 10 seconds.
         """
-        MutatingWebhookArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            admission_review_versions=admission_review_versions,
-            client_config=client_config,
-            name=name,
-            side_effects=side_effects,
-            failure_policy=failure_policy,
-            match_conditions=match_conditions,
-            match_policy=match_policy,
-            namespace_selector=namespace_selector,
-            object_selector=object_selector,
-            reinvocation_policy=reinvocation_policy,
-            rules=rules,
-            timeout_seconds=timeout_seconds,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             admission_review_versions: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             client_config: Optional[pulumi.Input['WebhookClientConfigArgs']] = None,
-             name: Optional[pulumi.Input[str]] = None,
-             side_effects: Optional[pulumi.Input[str]] = None,
-             failure_policy: Optional[pulumi.Input[str]] = None,
-             match_conditions: Optional[pulumi.Input[Sequence[pulumi.Input['MatchConditionArgs']]]] = None,
-             match_policy: Optional[pulumi.Input[str]] = None,
-             namespace_selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
-             object_selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
-             reinvocation_policy: Optional[pulumi.Input[str]] = None,
-             rules: Optional[pulumi.Input[Sequence[pulumi.Input['RuleWithOperationsArgs']]]] = None,
-             timeout_seconds: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if admission_review_versions is None and 'admissionReviewVersions' in kwargs:
-            admission_review_versions = kwargs['admissionReviewVersions']
-        if admission_review_versions is None:
-            raise TypeError("Missing 'admission_review_versions' argument")
-        if client_config is None and 'clientConfig' in kwargs:
-            client_config = kwargs['clientConfig']
-        if client_config is None:
-            raise TypeError("Missing 'client_config' argument")
-        if name is None:
-            raise TypeError("Missing 'name' argument")
-        if side_effects is None and 'sideEffects' in kwargs:
-            side_effects = kwargs['sideEffects']
-        if side_effects is None:
-            raise TypeError("Missing 'side_effects' argument")
-        if failure_policy is None and 'failurePolicy' in kwargs:
-            failure_policy = kwargs['failurePolicy']
-        if match_conditions is None and 'matchConditions' in kwargs:
-            match_conditions = kwargs['matchConditions']
-        if match_policy is None and 'matchPolicy' in kwargs:
-            match_policy = kwargs['matchPolicy']
-        if namespace_selector is None and 'namespaceSelector' in kwargs:
-            namespace_selector = kwargs['namespaceSelector']
-        if object_selector is None and 'objectSelector' in kwargs:
-            object_selector = kwargs['objectSelector']
-        if reinvocation_policy is None and 'reinvocationPolicy' in kwargs:
-            reinvocation_policy = kwargs['reinvocationPolicy']
-        if timeout_seconds is None and 'timeoutSeconds' in kwargs:
-            timeout_seconds = kwargs['timeoutSeconds']
-
-        _setter("admission_review_versions", admission_review_versions)
-        _setter("client_config", client_config)
-        _setter("name", name)
-        _setter("side_effects", side_effects)
+        pulumi.set(__self__, "admission_review_versions", admission_review_versions)
+        pulumi.set(__self__, "client_config", client_config)
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "side_effects", side_effects)
         if failure_policy is not None:
-            _setter("failure_policy", failure_policy)
+            pulumi.set(__self__, "failure_policy", failure_policy)
         if match_conditions is not None:
-            _setter("match_conditions", match_conditions)
+            pulumi.set(__self__, "match_conditions", match_conditions)
         if match_policy is not None:
-            _setter("match_policy", match_policy)
+            pulumi.set(__self__, "match_policy", match_policy)
         if namespace_selector is not None:
-            _setter("namespace_selector", namespace_selector)
+            pulumi.set(__self__, "namespace_selector", namespace_selector)
         if object_selector is not None:
-            _setter("object_selector", object_selector)
+            pulumi.set(__self__, "object_selector", object_selector)
         if reinvocation_policy is not None:
-            _setter("reinvocation_policy", reinvocation_policy)
+            pulumi.set(__self__, "reinvocation_policy", reinvocation_policy)
         if rules is not None:
-            _setter("rules", rules)
+            pulumi.set(__self__, "rules", rules)
         if timeout_seconds is not None:
-            _setter("timeout_seconds", timeout_seconds)
+            pulumi.set(__self__, "timeout_seconds", timeout_seconds)
 
     @property
     @pulumi.getter(name="admissionReviewVersions")
@@ -1002,39 +839,16 @@ class RuleWithOperationsPatchArgs:
                Depending on the enclosing object, subresources might not be allowed. Required.
         :param pulumi.Input[str] scope: scope specifies the scope of this rule. Valid values are "Cluster", "Namespaced", and "*" "Cluster" means that only cluster-scoped resources will match this rule. Namespace API objects are cluster-scoped. "Namespaced" means that only namespaced resources will match this rule. "*" means that there are no scope restrictions. Subresources match the scope of their parent resource. Default is "*".
         """
-        RuleWithOperationsPatchArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            api_groups=api_groups,
-            api_versions=api_versions,
-            operations=operations,
-            resources=resources,
-            scope=scope,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             api_groups: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             api_versions: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             operations: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             resources: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             scope: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if api_groups is None and 'apiGroups' in kwargs:
-            api_groups = kwargs['apiGroups']
-        if api_versions is None and 'apiVersions' in kwargs:
-            api_versions = kwargs['apiVersions']
-
         if api_groups is not None:
-            _setter("api_groups", api_groups)
+            pulumi.set(__self__, "api_groups", api_groups)
         if api_versions is not None:
-            _setter("api_versions", api_versions)
+            pulumi.set(__self__, "api_versions", api_versions)
         if operations is not None:
-            _setter("operations", operations)
+            pulumi.set(__self__, "operations", operations)
         if resources is not None:
-            _setter("resources", resources)
+            pulumi.set(__self__, "resources", resources)
         if scope is not None:
-            _setter("scope", scope)
+            pulumi.set(__self__, "scope", scope)
 
     @property
     @pulumi.getter(name="apiGroups")
@@ -1125,39 +939,16 @@ class RuleWithOperationsArgs:
                Depending on the enclosing object, subresources might not be allowed. Required.
         :param pulumi.Input[str] scope: scope specifies the scope of this rule. Valid values are "Cluster", "Namespaced", and "*" "Cluster" means that only cluster-scoped resources will match this rule. Namespace API objects are cluster-scoped. "Namespaced" means that only namespaced resources will match this rule. "*" means that there are no scope restrictions. Subresources match the scope of their parent resource. Default is "*".
         """
-        RuleWithOperationsArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            api_groups=api_groups,
-            api_versions=api_versions,
-            operations=operations,
-            resources=resources,
-            scope=scope,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             api_groups: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             api_versions: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             operations: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             resources: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             scope: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if api_groups is None and 'apiGroups' in kwargs:
-            api_groups = kwargs['apiGroups']
-        if api_versions is None and 'apiVersions' in kwargs:
-            api_versions = kwargs['apiVersions']
-
         if api_groups is not None:
-            _setter("api_groups", api_groups)
+            pulumi.set(__self__, "api_groups", api_groups)
         if api_versions is not None:
-            _setter("api_versions", api_versions)
+            pulumi.set(__self__, "api_versions", api_versions)
         if operations is not None:
-            _setter("operations", operations)
+            pulumi.set(__self__, "operations", operations)
         if resources is not None:
-            _setter("resources", resources)
+            pulumi.set(__self__, "resources", resources)
         if scope is not None:
-            _setter("scope", scope)
+            pulumi.set(__self__, "scope", scope)
 
     @property
     @pulumi.getter(name="apiGroups")
@@ -1240,31 +1031,14 @@ class ServiceReferencePatchArgs:
         :param pulumi.Input[str] path: `path` is an optional URL path which will be sent in any request to this service.
         :param pulumi.Input[int] port: If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
         """
-        ServiceReferencePatchArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            name=name,
-            namespace=namespace,
-            path=path,
-            port=port,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             name: Optional[pulumi.Input[str]] = None,
-             namespace: Optional[pulumi.Input[str]] = None,
-             path: Optional[pulumi.Input[str]] = None,
-             port: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-
         if name is not None:
-            _setter("name", name)
+            pulumi.set(__self__, "name", name)
         if namespace is not None:
-            _setter("namespace", namespace)
+            pulumi.set(__self__, "namespace", namespace)
         if path is not None:
-            _setter("path", path)
+            pulumi.set(__self__, "path", path)
         if port is not None:
-            _setter("port", port)
+            pulumi.set(__self__, "port", port)
 
     @property
     @pulumi.getter
@@ -1329,33 +1103,12 @@ class ServiceReferenceArgs:
         :param pulumi.Input[str] path: `path` is an optional URL path which will be sent in any request to this service.
         :param pulumi.Input[int] port: If specified, the port on the service that hosting webhook. Default to 443 for backward compatibility. `port` should be a valid port number (1-65535, inclusive).
         """
-        ServiceReferenceArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            name=name,
-            namespace=namespace,
-            path=path,
-            port=port,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             name: Optional[pulumi.Input[str]] = None,
-             namespace: Optional[pulumi.Input[str]] = None,
-             path: Optional[pulumi.Input[str]] = None,
-             port: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if name is None:
-            raise TypeError("Missing 'name' argument")
-        if namespace is None:
-            raise TypeError("Missing 'namespace' argument")
-
-        _setter("name", name)
-        _setter("namespace", namespace)
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "namespace", namespace)
         if path is not None:
-            _setter("path", path)
+            pulumi.set(__self__, "path", path)
         if port is not None:
-            _setter("port", port)
+            pulumi.set(__self__, "port", port)
 
     @property
     @pulumi.getter
@@ -1420,33 +1173,14 @@ class ValidatingWebhookConfigurationArgs:
         :param pulumi.Input['_meta.v1.ObjectMetaArgs'] metadata: Standard object metadata; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata.
         :param pulumi.Input[Sequence[pulumi.Input['ValidatingWebhookArgs']]] webhooks: Webhooks is a list of webhooks and the affected resources and operations.
         """
-        ValidatingWebhookConfigurationArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            api_version=api_version,
-            kind=kind,
-            metadata=metadata,
-            webhooks=webhooks,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             api_version: Optional[pulumi.Input[str]] = None,
-             kind: Optional[pulumi.Input[str]] = None,
-             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-             webhooks: Optional[pulumi.Input[Sequence[pulumi.Input['ValidatingWebhookArgs']]]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if api_version is None and 'apiVersion' in kwargs:
-            api_version = kwargs['apiVersion']
-
         if api_version is not None:
-            _setter("api_version", 'admissionregistration.k8s.io/v1')
+            pulumi.set(__self__, "api_version", 'admissionregistration.k8s.io/v1')
         if kind is not None:
-            _setter("kind", 'ValidatingWebhookConfiguration')
+            pulumi.set(__self__, "kind", 'ValidatingWebhookConfiguration')
         if metadata is not None:
-            _setter("metadata", metadata)
+            pulumi.set(__self__, "metadata", metadata)
         if webhooks is not None:
-            _setter("webhooks", webhooks)
+            pulumi.set(__self__, "webhooks", webhooks)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -1570,77 +1304,28 @@ class ValidatingWebhookPatchArgs:
         :param pulumi.Input[str] side_effects: SideEffects states whether this webhook has side effects. Acceptable values are: None, NoneOnDryRun (webhooks created via v1beta1 may also specify Some or Unknown). Webhooks with side effects MUST implement a reconciliation system, since a request may be rejected by a future step in the admission chain and the side effects therefore need to be undone. Requests with the dryRun attribute will be auto-rejected if they match a webhook with sideEffects == Unknown or Some.
         :param pulumi.Input[int] timeout_seconds: TimeoutSeconds specifies the timeout for this webhook. After the timeout passes, the webhook call will be ignored or the API call will fail based on the failure policy. The timeout value must be between 1 and 30 seconds. Default to 10 seconds.
         """
-        ValidatingWebhookPatchArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            admission_review_versions=admission_review_versions,
-            client_config=client_config,
-            failure_policy=failure_policy,
-            match_conditions=match_conditions,
-            match_policy=match_policy,
-            name=name,
-            namespace_selector=namespace_selector,
-            object_selector=object_selector,
-            rules=rules,
-            side_effects=side_effects,
-            timeout_seconds=timeout_seconds,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             admission_review_versions: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             client_config: Optional[pulumi.Input['WebhookClientConfigPatchArgs']] = None,
-             failure_policy: Optional[pulumi.Input[str]] = None,
-             match_conditions: Optional[pulumi.Input[Sequence[pulumi.Input['MatchConditionPatchArgs']]]] = None,
-             match_policy: Optional[pulumi.Input[str]] = None,
-             name: Optional[pulumi.Input[str]] = None,
-             namespace_selector: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']] = None,
-             object_selector: Optional[pulumi.Input['_meta.v1.LabelSelectorPatchArgs']] = None,
-             rules: Optional[pulumi.Input[Sequence[pulumi.Input['RuleWithOperationsPatchArgs']]]] = None,
-             side_effects: Optional[pulumi.Input[str]] = None,
-             timeout_seconds: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if admission_review_versions is None and 'admissionReviewVersions' in kwargs:
-            admission_review_versions = kwargs['admissionReviewVersions']
-        if client_config is None and 'clientConfig' in kwargs:
-            client_config = kwargs['clientConfig']
-        if failure_policy is None and 'failurePolicy' in kwargs:
-            failure_policy = kwargs['failurePolicy']
-        if match_conditions is None and 'matchConditions' in kwargs:
-            match_conditions = kwargs['matchConditions']
-        if match_policy is None and 'matchPolicy' in kwargs:
-            match_policy = kwargs['matchPolicy']
-        if namespace_selector is None and 'namespaceSelector' in kwargs:
-            namespace_selector = kwargs['namespaceSelector']
-        if object_selector is None and 'objectSelector' in kwargs:
-            object_selector = kwargs['objectSelector']
-        if side_effects is None and 'sideEffects' in kwargs:
-            side_effects = kwargs['sideEffects']
-        if timeout_seconds is None and 'timeoutSeconds' in kwargs:
-            timeout_seconds = kwargs['timeoutSeconds']
-
         if admission_review_versions is not None:
-            _setter("admission_review_versions", admission_review_versions)
+            pulumi.set(__self__, "admission_review_versions", admission_review_versions)
         if client_config is not None:
-            _setter("client_config", client_config)
+            pulumi.set(__self__, "client_config", client_config)
         if failure_policy is not None:
-            _setter("failure_policy", failure_policy)
+            pulumi.set(__self__, "failure_policy", failure_policy)
         if match_conditions is not None:
-            _setter("match_conditions", match_conditions)
+            pulumi.set(__self__, "match_conditions", match_conditions)
         if match_policy is not None:
-            _setter("match_policy", match_policy)
+            pulumi.set(__self__, "match_policy", match_policy)
         if name is not None:
-            _setter("name", name)
+            pulumi.set(__self__, "name", name)
         if namespace_selector is not None:
-            _setter("namespace_selector", namespace_selector)
+            pulumi.set(__self__, "namespace_selector", namespace_selector)
         if object_selector is not None:
-            _setter("object_selector", object_selector)
+            pulumi.set(__self__, "object_selector", object_selector)
         if rules is not None:
-            _setter("rules", rules)
+            pulumi.set(__self__, "rules", rules)
         if side_effects is not None:
-            _setter("side_effects", side_effects)
+            pulumi.set(__self__, "side_effects", side_effects)
         if timeout_seconds is not None:
-            _setter("timeout_seconds", timeout_seconds)
+            pulumi.set(__self__, "timeout_seconds", timeout_seconds)
 
     @property
     @pulumi.getter(name="admissionReviewVersions")
@@ -1893,81 +1578,24 @@ class ValidatingWebhookArgs:
         :param pulumi.Input[Sequence[pulumi.Input['RuleWithOperationsArgs']]] rules: Rules describes what operations on what resources/subresources the webhook cares about. The webhook cares about an operation if it matches _any_ Rule. However, in order to prevent ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks from putting the cluster in a state which cannot be recovered from without completely disabling the plugin, ValidatingAdmissionWebhooks and MutatingAdmissionWebhooks are never called on admission requests for ValidatingWebhookConfiguration and MutatingWebhookConfiguration objects.
         :param pulumi.Input[int] timeout_seconds: TimeoutSeconds specifies the timeout for this webhook. After the timeout passes, the webhook call will be ignored or the API call will fail based on the failure policy. The timeout value must be between 1 and 30 seconds. Default to 10 seconds.
         """
-        ValidatingWebhookArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            admission_review_versions=admission_review_versions,
-            client_config=client_config,
-            name=name,
-            side_effects=side_effects,
-            failure_policy=failure_policy,
-            match_conditions=match_conditions,
-            match_policy=match_policy,
-            namespace_selector=namespace_selector,
-            object_selector=object_selector,
-            rules=rules,
-            timeout_seconds=timeout_seconds,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             admission_review_versions: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
-             client_config: Optional[pulumi.Input['WebhookClientConfigArgs']] = None,
-             name: Optional[pulumi.Input[str]] = None,
-             side_effects: Optional[pulumi.Input[str]] = None,
-             failure_policy: Optional[pulumi.Input[str]] = None,
-             match_conditions: Optional[pulumi.Input[Sequence[pulumi.Input['MatchConditionArgs']]]] = None,
-             match_policy: Optional[pulumi.Input[str]] = None,
-             namespace_selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
-             object_selector: Optional[pulumi.Input['_meta.v1.LabelSelectorArgs']] = None,
-             rules: Optional[pulumi.Input[Sequence[pulumi.Input['RuleWithOperationsArgs']]]] = None,
-             timeout_seconds: Optional[pulumi.Input[int]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if admission_review_versions is None and 'admissionReviewVersions' in kwargs:
-            admission_review_versions = kwargs['admissionReviewVersions']
-        if admission_review_versions is None:
-            raise TypeError("Missing 'admission_review_versions' argument")
-        if client_config is None and 'clientConfig' in kwargs:
-            client_config = kwargs['clientConfig']
-        if client_config is None:
-            raise TypeError("Missing 'client_config' argument")
-        if name is None:
-            raise TypeError("Missing 'name' argument")
-        if side_effects is None and 'sideEffects' in kwargs:
-            side_effects = kwargs['sideEffects']
-        if side_effects is None:
-            raise TypeError("Missing 'side_effects' argument")
-        if failure_policy is None and 'failurePolicy' in kwargs:
-            failure_policy = kwargs['failurePolicy']
-        if match_conditions is None and 'matchConditions' in kwargs:
-            match_conditions = kwargs['matchConditions']
-        if match_policy is None and 'matchPolicy' in kwargs:
-            match_policy = kwargs['matchPolicy']
-        if namespace_selector is None and 'namespaceSelector' in kwargs:
-            namespace_selector = kwargs['namespaceSelector']
-        if object_selector is None and 'objectSelector' in kwargs:
-            object_selector = kwargs['objectSelector']
-        if timeout_seconds is None and 'timeoutSeconds' in kwargs:
-            timeout_seconds = kwargs['timeoutSeconds']
-
-        _setter("admission_review_versions", admission_review_versions)
-        _setter("client_config", client_config)
-        _setter("name", name)
-        _setter("side_effects", side_effects)
+        pulumi.set(__self__, "admission_review_versions", admission_review_versions)
+        pulumi.set(__self__, "client_config", client_config)
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "side_effects", side_effects)
         if failure_policy is not None:
-            _setter("failure_policy", failure_policy)
+            pulumi.set(__self__, "failure_policy", failure_policy)
         if match_conditions is not None:
-            _setter("match_conditions", match_conditions)
+            pulumi.set(__self__, "match_conditions", match_conditions)
         if match_policy is not None:
-            _setter("match_policy", match_policy)
+            pulumi.set(__self__, "match_policy", match_policy)
         if namespace_selector is not None:
-            _setter("namespace_selector", namespace_selector)
+            pulumi.set(__self__, "namespace_selector", namespace_selector)
         if object_selector is not None:
-            _setter("object_selector", object_selector)
+            pulumi.set(__self__, "object_selector", object_selector)
         if rules is not None:
-            _setter("rules", rules)
+            pulumi.set(__self__, "rules", rules)
         if timeout_seconds is not None:
-            _setter("timeout_seconds", timeout_seconds)
+            pulumi.set(__self__, "timeout_seconds", timeout_seconds)
 
     @property
     @pulumi.getter(name="admissionReviewVersions")
@@ -2171,29 +1799,12 @@ class WebhookClientConfigPatchArgs:
                
                Attempting to use a user or basic auth e.g. "user:password@" is not allowed. Fragments ("#...") and query parameters ("?...") are not allowed, either.
         """
-        WebhookClientConfigPatchArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            ca_bundle=ca_bundle,
-            service=service,
-            url=url,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             ca_bundle: Optional[pulumi.Input[str]] = None,
-             service: Optional[pulumi.Input['ServiceReferencePatchArgs']] = None,
-             url: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if ca_bundle is None and 'caBundle' in kwargs:
-            ca_bundle = kwargs['caBundle']
-
         if ca_bundle is not None:
-            _setter("ca_bundle", ca_bundle)
+            pulumi.set(__self__, "ca_bundle", ca_bundle)
         if service is not None:
-            _setter("service", service)
+            pulumi.set(__self__, "service", service)
         if url is not None:
-            _setter("url", url)
+            pulumi.set(__self__, "url", url)
 
     @property
     @pulumi.getter(name="caBundle")
@@ -2268,29 +1879,12 @@ class WebhookClientConfigArgs:
                
                Attempting to use a user or basic auth e.g. "user:password@" is not allowed. Fragments ("#...") and query parameters ("?...") are not allowed, either.
         """
-        WebhookClientConfigArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            ca_bundle=ca_bundle,
-            service=service,
-            url=url,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             ca_bundle: Optional[pulumi.Input[str]] = None,
-             service: Optional[pulumi.Input['ServiceReferenceArgs']] = None,
-             url: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if ca_bundle is None and 'caBundle' in kwargs:
-            ca_bundle = kwargs['caBundle']
-
         if ca_bundle is not None:
-            _setter("ca_bundle", ca_bundle)
+            pulumi.set(__self__, "ca_bundle", ca_bundle)
         if service is not None:
-            _setter("service", service)
+            pulumi.set(__self__, "service", service)
         if url is not None:
-            _setter("url", url)
+            pulumi.set(__self__, "url", url)
 
     @property
     @pulumi.getter(name="caBundle")

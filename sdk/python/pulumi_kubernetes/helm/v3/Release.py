@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from . import outputs
 from ._inputs import *
@@ -88,194 +88,75 @@ class ReleaseArgs:
         :param pulumi.Input[str] version: Specify the exact chart version to install. If this is not specified, the latest version is installed.
         :param pulumi.Input[bool] wait_for_jobs: Will wait until all Jobs have been completed before marking the release as successful. This is ignored if `skipAwait` is enabled.
         """
-        ReleaseArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            chart=chart,
-            allow_null_values=allow_null_values,
-            atomic=atomic,
-            cleanup_on_fail=cleanup_on_fail,
-            compat=compat,
-            create_namespace=create_namespace,
-            dependency_update=dependency_update,
-            description=description,
-            devel=devel,
-            disable_crd_hooks=disable_crd_hooks,
-            disable_openapi_validation=disable_openapi_validation,
-            disable_webhooks=disable_webhooks,
-            force_update=force_update,
-            keyring=keyring,
-            lint=lint,
-            manifest=manifest,
-            max_history=max_history,
-            name=name,
-            namespace=namespace,
-            postrender=postrender,
-            recreate_pods=recreate_pods,
-            render_subchart_notes=render_subchart_notes,
-            replace=replace,
-            repository_opts=repository_opts,
-            reset_values=reset_values,
-            resource_names=resource_names,
-            reuse_values=reuse_values,
-            skip_await=skip_await,
-            skip_crds=skip_crds,
-            timeout=timeout,
-            value_yaml_files=value_yaml_files,
-            values=values,
-            verify=verify,
-            version=version,
-            wait_for_jobs=wait_for_jobs,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             chart: Optional[pulumi.Input[str]] = None,
-             allow_null_values: Optional[pulumi.Input[bool]] = None,
-             atomic: Optional[pulumi.Input[bool]] = None,
-             cleanup_on_fail: Optional[pulumi.Input[bool]] = None,
-             compat: Optional[pulumi.Input[str]] = None,
-             create_namespace: Optional[pulumi.Input[bool]] = None,
-             dependency_update: Optional[pulumi.Input[bool]] = None,
-             description: Optional[pulumi.Input[str]] = None,
-             devel: Optional[pulumi.Input[bool]] = None,
-             disable_crd_hooks: Optional[pulumi.Input[bool]] = None,
-             disable_openapi_validation: Optional[pulumi.Input[bool]] = None,
-             disable_webhooks: Optional[pulumi.Input[bool]] = None,
-             force_update: Optional[pulumi.Input[bool]] = None,
-             keyring: Optional[pulumi.Input[str]] = None,
-             lint: Optional[pulumi.Input[bool]] = None,
-             manifest: Optional[pulumi.Input[Mapping[str, Any]]] = None,
-             max_history: Optional[pulumi.Input[int]] = None,
-             name: Optional[pulumi.Input[str]] = None,
-             namespace: Optional[pulumi.Input[str]] = None,
-             postrender: Optional[pulumi.Input[str]] = None,
-             recreate_pods: Optional[pulumi.Input[bool]] = None,
-             render_subchart_notes: Optional[pulumi.Input[bool]] = None,
-             replace: Optional[pulumi.Input[bool]] = None,
-             repository_opts: Optional[pulumi.Input['RepositoryOptsArgs']] = None,
-             reset_values: Optional[pulumi.Input[bool]] = None,
-             resource_names: Optional[pulumi.Input[Mapping[str, pulumi.Input[Sequence[pulumi.Input[str]]]]]] = None,
-             reuse_values: Optional[pulumi.Input[bool]] = None,
-             skip_await: Optional[pulumi.Input[bool]] = None,
-             skip_crds: Optional[pulumi.Input[bool]] = None,
-             timeout: Optional[pulumi.Input[int]] = None,
-             value_yaml_files: Optional[pulumi.Input[Sequence[pulumi.Input[Union[pulumi.Asset, pulumi.Archive]]]]] = None,
-             values: Optional[pulumi.Input[Mapping[str, Any]]] = None,
-             verify: Optional[pulumi.Input[bool]] = None,
-             version: Optional[pulumi.Input[str]] = None,
-             wait_for_jobs: Optional[pulumi.Input[bool]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if chart is None:
-            raise TypeError("Missing 'chart' argument")
-        if allow_null_values is None and 'allowNullValues' in kwargs:
-            allow_null_values = kwargs['allowNullValues']
-        if cleanup_on_fail is None and 'cleanupOnFail' in kwargs:
-            cleanup_on_fail = kwargs['cleanupOnFail']
-        if create_namespace is None and 'createNamespace' in kwargs:
-            create_namespace = kwargs['createNamespace']
-        if dependency_update is None and 'dependencyUpdate' in kwargs:
-            dependency_update = kwargs['dependencyUpdate']
-        if disable_crd_hooks is None and 'disableCRDHooks' in kwargs:
-            disable_crd_hooks = kwargs['disableCRDHooks']
-        if disable_openapi_validation is None and 'disableOpenapiValidation' in kwargs:
-            disable_openapi_validation = kwargs['disableOpenapiValidation']
-        if disable_webhooks is None and 'disableWebhooks' in kwargs:
-            disable_webhooks = kwargs['disableWebhooks']
-        if force_update is None and 'forceUpdate' in kwargs:
-            force_update = kwargs['forceUpdate']
-        if max_history is None and 'maxHistory' in kwargs:
-            max_history = kwargs['maxHistory']
-        if recreate_pods is None and 'recreatePods' in kwargs:
-            recreate_pods = kwargs['recreatePods']
-        if render_subchart_notes is None and 'renderSubchartNotes' in kwargs:
-            render_subchart_notes = kwargs['renderSubchartNotes']
-        if repository_opts is None and 'repositoryOpts' in kwargs:
-            repository_opts = kwargs['repositoryOpts']
-        if reset_values is None and 'resetValues' in kwargs:
-            reset_values = kwargs['resetValues']
-        if resource_names is None and 'resourceNames' in kwargs:
-            resource_names = kwargs['resourceNames']
-        if reuse_values is None and 'reuseValues' in kwargs:
-            reuse_values = kwargs['reuseValues']
-        if skip_await is None and 'skipAwait' in kwargs:
-            skip_await = kwargs['skipAwait']
-        if skip_crds is None and 'skipCrds' in kwargs:
-            skip_crds = kwargs['skipCrds']
-        if value_yaml_files is None and 'valueYamlFiles' in kwargs:
-            value_yaml_files = kwargs['valueYamlFiles']
-        if wait_for_jobs is None and 'waitForJobs' in kwargs:
-            wait_for_jobs = kwargs['waitForJobs']
-
-        _setter("chart", chart)
+        pulumi.set(__self__, "chart", chart)
         if allow_null_values is not None:
-            _setter("allow_null_values", allow_null_values)
+            pulumi.set(__self__, "allow_null_values", allow_null_values)
         if atomic is not None:
-            _setter("atomic", atomic)
+            pulumi.set(__self__, "atomic", atomic)
         if cleanup_on_fail is not None:
-            _setter("cleanup_on_fail", cleanup_on_fail)
+            pulumi.set(__self__, "cleanup_on_fail", cleanup_on_fail)
         if compat is not None:
-            _setter("compat", 'true')
+            pulumi.set(__self__, "compat", 'true')
         if create_namespace is not None:
-            _setter("create_namespace", create_namespace)
+            pulumi.set(__self__, "create_namespace", create_namespace)
         if dependency_update is not None:
-            _setter("dependency_update", dependency_update)
+            pulumi.set(__self__, "dependency_update", dependency_update)
         if description is not None:
-            _setter("description", description)
+            pulumi.set(__self__, "description", description)
         if devel is not None:
-            _setter("devel", devel)
+            pulumi.set(__self__, "devel", devel)
         if disable_crd_hooks is not None:
-            _setter("disable_crd_hooks", disable_crd_hooks)
+            pulumi.set(__self__, "disable_crd_hooks", disable_crd_hooks)
         if disable_openapi_validation is not None:
-            _setter("disable_openapi_validation", disable_openapi_validation)
+            pulumi.set(__self__, "disable_openapi_validation", disable_openapi_validation)
         if disable_webhooks is not None:
-            _setter("disable_webhooks", disable_webhooks)
+            pulumi.set(__self__, "disable_webhooks", disable_webhooks)
         if force_update is not None:
-            _setter("force_update", force_update)
+            pulumi.set(__self__, "force_update", force_update)
         if keyring is not None:
-            _setter("keyring", keyring)
+            pulumi.set(__self__, "keyring", keyring)
         if lint is not None:
-            _setter("lint", lint)
+            pulumi.set(__self__, "lint", lint)
         if manifest is not None:
-            _setter("manifest", manifest)
+            pulumi.set(__self__, "manifest", manifest)
         if max_history is not None:
-            _setter("max_history", max_history)
+            pulumi.set(__self__, "max_history", max_history)
         if name is not None:
-            _setter("name", name)
+            pulumi.set(__self__, "name", name)
         if namespace is not None:
-            _setter("namespace", namespace)
+            pulumi.set(__self__, "namespace", namespace)
         if postrender is not None:
-            _setter("postrender", postrender)
+            pulumi.set(__self__, "postrender", postrender)
         if recreate_pods is not None:
-            _setter("recreate_pods", recreate_pods)
+            pulumi.set(__self__, "recreate_pods", recreate_pods)
         if render_subchart_notes is not None:
-            _setter("render_subchart_notes", render_subchart_notes)
+            pulumi.set(__self__, "render_subchart_notes", render_subchart_notes)
         if replace is not None:
-            _setter("replace", replace)
+            pulumi.set(__self__, "replace", replace)
         if repository_opts is not None:
-            _setter("repository_opts", repository_opts)
+            pulumi.set(__self__, "repository_opts", repository_opts)
         if reset_values is not None:
-            _setter("reset_values", reset_values)
+            pulumi.set(__self__, "reset_values", reset_values)
         if resource_names is not None:
-            _setter("resource_names", resource_names)
+            pulumi.set(__self__, "resource_names", resource_names)
         if reuse_values is not None:
-            _setter("reuse_values", reuse_values)
+            pulumi.set(__self__, "reuse_values", reuse_values)
         if skip_await is not None:
-            _setter("skip_await", skip_await)
+            pulumi.set(__self__, "skip_await", skip_await)
         if skip_crds is not None:
-            _setter("skip_crds", skip_crds)
+            pulumi.set(__self__, "skip_crds", skip_crds)
         if timeout is not None:
-            _setter("timeout", timeout)
+            pulumi.set(__self__, "timeout", timeout)
         if value_yaml_files is not None:
-            _setter("value_yaml_files", value_yaml_files)
+            pulumi.set(__self__, "value_yaml_files", value_yaml_files)
         if values is not None:
-            _setter("values", values)
+            pulumi.set(__self__, "values", values)
         if verify is not None:
-            _setter("verify", verify)
+            pulumi.set(__self__, "verify", verify)
         if version is not None:
-            _setter("version", version)
+            pulumi.set(__self__, "version", version)
         if wait_for_jobs is not None:
-            _setter("wait_for_jobs", wait_for_jobs)
+            pulumi.set(__self__, "wait_for_jobs", wait_for_jobs)
 
     @property
     @pulumi.getter
@@ -1115,10 +996,6 @@ class Release(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
-            kwargs = kwargs or {}
-            def _setter(key, value):
-                kwargs[key] = value
-            ReleaseArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
@@ -1193,7 +1070,6 @@ class Release(pulumi.CustomResource):
             __props__.__dict__["recreate_pods"] = recreate_pods
             __props__.__dict__["render_subchart_notes"] = render_subchart_notes
             __props__.__dict__["replace"] = replace
-            repository_opts = _utilities.configure(repository_opts, RepositoryOptsArgs, True)
             __props__.__dict__["repository_opts"] = repository_opts
             __props__.__dict__["reset_values"] = reset_values
             __props__.__dict__["resource_names"] = resource_names

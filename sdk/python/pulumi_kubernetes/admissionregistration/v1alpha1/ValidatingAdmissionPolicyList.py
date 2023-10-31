@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from . import outputs
 from ... import meta as _meta
@@ -28,33 +28,14 @@ class ValidatingAdmissionPolicyListArgs:
         :param pulumi.Input[str] kind: Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param pulumi.Input['_meta.v1.ListMetaArgs'] metadata: Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         """
-        ValidatingAdmissionPolicyListArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            api_version=api_version,
-            items=items,
-            kind=kind,
-            metadata=metadata,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             api_version: Optional[pulumi.Input[str]] = None,
-             items: Optional[pulumi.Input[Sequence[pulumi.Input['ValidatingAdmissionPolicyArgs']]]] = None,
-             kind: Optional[pulumi.Input[str]] = None,
-             metadata: Optional[pulumi.Input['_meta.v1.ListMetaArgs']] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if api_version is None and 'apiVersion' in kwargs:
-            api_version = kwargs['apiVersion']
-
         if api_version is not None:
-            _setter("api_version", 'admissionregistration.k8s.io/v1alpha1')
+            pulumi.set(__self__, "api_version", 'admissionregistration.k8s.io/v1alpha1')
         if items is not None:
-            _setter("items", items)
+            pulumi.set(__self__, "items", items)
         if kind is not None:
-            _setter("kind", 'ValidatingAdmissionPolicyList')
+            pulumi.set(__self__, "kind", 'ValidatingAdmissionPolicyList')
         if metadata is not None:
-            _setter("metadata", metadata)
+            pulumi.set(__self__, "metadata", metadata)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -144,10 +125,6 @@ class ValidatingAdmissionPolicyList(pulumi.CustomResource):
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
-            kwargs = kwargs or {}
-            def _setter(key, value):
-                kwargs[key] = value
-            ValidatingAdmissionPolicyListArgs._configure(_setter, **kwargs)
             __self__._internal_init(resource_name, *args, **kwargs)
 
     def _internal_init(__self__,
@@ -169,7 +146,6 @@ class ValidatingAdmissionPolicyList(pulumi.CustomResource):
             __props__.__dict__["api_version"] = 'admissionregistration.k8s.io/v1alpha1'
             __props__.__dict__["items"] = items
             __props__.__dict__["kind"] = 'ValidatingAdmissionPolicyList'
-            metadata = _utilities.configure(metadata, _meta.v1.ListMetaArgs, True)
             __props__.__dict__["metadata"] = metadata
         super(ValidatingAdmissionPolicyList, __self__).__init__(
             'kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicyList',

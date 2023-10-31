@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from . import outputs
 from ... import core as _core
@@ -110,20 +110,7 @@ class AllowedCSIDriver(dict):
         AllowedCSIDriver represents a single inline CSI Driver that is allowed to be used.
         :param str name: Name is the registered name of the CSI driver
         """
-        AllowedCSIDriver._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            name=name,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             name: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if name is None:
-            raise TypeError("Missing 'name' argument")
-
-        _setter("name", name)
+        pulumi.set(__self__, "name", name)
 
     @property
     @pulumi.getter
@@ -145,19 +132,8 @@ class AllowedCSIDriverPatch(dict):
         AllowedCSIDriver represents a single inline CSI Driver that is allowed to be used.
         :param str name: Name is the registered name of the CSI driver
         """
-        AllowedCSIDriverPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            name=name,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             name: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-
         if name is not None:
-            _setter("name", name)
+            pulumi.set(__self__, "name", name)
 
     @property
     @pulumi.getter
@@ -179,20 +155,7 @@ class AllowedFlexVolume(dict):
         AllowedFlexVolume represents a single Flexvolume that is allowed to be used. Deprecated: use AllowedFlexVolume from policy API Group instead.
         :param str driver: driver is the name of the Flexvolume driver.
         """
-        AllowedFlexVolume._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            driver=driver,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             driver: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if driver is None:
-            raise TypeError("Missing 'driver' argument")
-
-        _setter("driver", driver)
+        pulumi.set(__self__, "driver", driver)
 
     @property
     @pulumi.getter
@@ -214,19 +177,8 @@ class AllowedFlexVolumePatch(dict):
         AllowedFlexVolume represents a single Flexvolume that is allowed to be used. Deprecated: use AllowedFlexVolume from policy API Group instead.
         :param str driver: driver is the name of the Flexvolume driver.
         """
-        AllowedFlexVolumePatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            driver=driver,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             driver: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-
         if driver is not None:
-            _setter("driver", driver)
+            pulumi.set(__self__, "driver", driver)
 
     @property
     @pulumi.getter
@@ -271,27 +223,10 @@ class AllowedHostPath(dict):
                Examples: `/foo` would allow `/foo`, `/foo/` and `/foo/bar` `/foo` would not allow `/food` or `/etc/foo`
         :param bool read_only: when set to true, will allow host volumes matching the pathPrefix only if all volume mounts are readOnly.
         """
-        AllowedHostPath._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            path_prefix=path_prefix,
-            read_only=read_only,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             path_prefix: Optional[str] = None,
-             read_only: Optional[bool] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if path_prefix is None and 'pathPrefix' in kwargs:
-            path_prefix = kwargs['pathPrefix']
-        if read_only is None and 'readOnly' in kwargs:
-            read_only = kwargs['readOnly']
-
         if path_prefix is not None:
-            _setter("path_prefix", path_prefix)
+            pulumi.set(__self__, "path_prefix", path_prefix)
         if read_only is not None:
-            _setter("read_only", read_only)
+            pulumi.set(__self__, "read_only", read_only)
 
     @property
     @pulumi.getter(name="pathPrefix")
@@ -346,27 +281,10 @@ class AllowedHostPathPatch(dict):
                Examples: `/foo` would allow `/foo`, `/foo/` and `/foo/bar` `/foo` would not allow `/food` or `/etc/foo`
         :param bool read_only: when set to true, will allow host volumes matching the pathPrefix only if all volume mounts are readOnly.
         """
-        AllowedHostPathPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            path_prefix=path_prefix,
-            read_only=read_only,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             path_prefix: Optional[str] = None,
-             read_only: Optional[bool] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if path_prefix is None and 'pathPrefix' in kwargs:
-            path_prefix = kwargs['pathPrefix']
-        if read_only is None and 'readOnly' in kwargs:
-            read_only = kwargs['readOnly']
-
         if path_prefix is not None:
-            _setter("path_prefix", path_prefix)
+            pulumi.set(__self__, "path_prefix", path_prefix)
         if read_only is not None:
-            _setter("read_only", read_only)
+            pulumi.set(__self__, "read_only", read_only)
 
     @property
     @pulumi.getter(name="pathPrefix")
@@ -423,37 +341,16 @@ class DaemonSet(dict):
         :param 'DaemonSetSpecArgs' spec: The desired behavior of this daemon set. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         :param 'DaemonSetStatusArgs' status: The current status of this daemon set. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
-        DaemonSet._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            api_version=api_version,
-            kind=kind,
-            metadata=metadata,
-            spec=spec,
-            status=status,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             api_version: Optional[str] = None,
-             kind: Optional[str] = None,
-             metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
-             spec: Optional['outputs.DaemonSetSpec'] = None,
-             status: Optional['outputs.DaemonSetStatus'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if api_version is None and 'apiVersion' in kwargs:
-            api_version = kwargs['apiVersion']
-
         if api_version is not None:
-            _setter("api_version", 'extensions/v1beta1')
+            pulumi.set(__self__, "api_version", 'extensions/v1beta1')
         if kind is not None:
-            _setter("kind", 'DaemonSet')
+            pulumi.set(__self__, "kind", 'DaemonSet')
         if metadata is not None:
-            _setter("metadata", metadata)
+            pulumi.set(__self__, "metadata", metadata)
         if spec is not None:
-            _setter("spec", spec)
+            pulumi.set(__self__, "spec", spec)
         if status is not None:
-            _setter("status", status)
+            pulumi.set(__self__, "status", status)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -532,39 +429,14 @@ class DaemonSetCondition(dict):
         :param str message: A human readable message indicating details about the transition.
         :param str reason: The reason for the condition's last transition.
         """
-        DaemonSetCondition._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            status=status,
-            type=type,
-            last_transition_time=last_transition_time,
-            message=message,
-            reason=reason,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             status: Optional[str] = None,
-             type: Optional[str] = None,
-             last_transition_time: Optional[str] = None,
-             message: Optional[str] = None,
-             reason: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if status is None:
-            raise TypeError("Missing 'status' argument")
-        if type is None:
-            raise TypeError("Missing 'type' argument")
-        if last_transition_time is None and 'lastTransitionTime' in kwargs:
-            last_transition_time = kwargs['lastTransitionTime']
-
-        _setter("status", status)
-        _setter("type", type)
+        pulumi.set(__self__, "status", status)
+        pulumi.set(__self__, "type", type)
         if last_transition_time is not None:
-            _setter("last_transition_time", last_transition_time)
+            pulumi.set(__self__, "last_transition_time", last_transition_time)
         if message is not None:
-            _setter("message", message)
+            pulumi.set(__self__, "message", message)
         if reason is not None:
-            _setter("reason", reason)
+            pulumi.set(__self__, "reason", reason)
 
     @property
     @pulumi.getter
@@ -643,37 +515,16 @@ class DaemonSetConditionPatch(dict):
         :param str status: Status of the condition, one of True, False, Unknown.
         :param str type: Type of DaemonSet condition.
         """
-        DaemonSetConditionPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            last_transition_time=last_transition_time,
-            message=message,
-            reason=reason,
-            status=status,
-            type=type,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             last_transition_time: Optional[str] = None,
-             message: Optional[str] = None,
-             reason: Optional[str] = None,
-             status: Optional[str] = None,
-             type: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if last_transition_time is None and 'lastTransitionTime' in kwargs:
-            last_transition_time = kwargs['lastTransitionTime']
-
         if last_transition_time is not None:
-            _setter("last_transition_time", last_transition_time)
+            pulumi.set(__self__, "last_transition_time", last_transition_time)
         if message is not None:
-            _setter("message", message)
+            pulumi.set(__self__, "message", message)
         if reason is not None:
-            _setter("reason", reason)
+            pulumi.set(__self__, "reason", reason)
         if status is not None:
-            _setter("status", status)
+            pulumi.set(__self__, "status", status)
         if type is not None:
-            _setter("type", type)
+            pulumi.set(__self__, "type", type)
 
     @property
     @pulumi.getter(name="lastTransitionTime")
@@ -760,48 +611,17 @@ class DaemonSetSpec(dict):
         :param int template_generation: DEPRECATED. A sequence number representing a specific generation of the template. Populated by the system. It can be set only during the creation.
         :param 'DaemonSetUpdateStrategyArgs' update_strategy: An update strategy to replace existing DaemonSet pods with new pods.
         """
-        DaemonSetSpec._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            template=template,
-            min_ready_seconds=min_ready_seconds,
-            revision_history_limit=revision_history_limit,
-            selector=selector,
-            template_generation=template_generation,
-            update_strategy=update_strategy,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             template: Optional['_core.v1.outputs.PodTemplateSpec'] = None,
-             min_ready_seconds: Optional[int] = None,
-             revision_history_limit: Optional[int] = None,
-             selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
-             template_generation: Optional[int] = None,
-             update_strategy: Optional['outputs.DaemonSetUpdateStrategy'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if template is None:
-            raise TypeError("Missing 'template' argument")
-        if min_ready_seconds is None and 'minReadySeconds' in kwargs:
-            min_ready_seconds = kwargs['minReadySeconds']
-        if revision_history_limit is None and 'revisionHistoryLimit' in kwargs:
-            revision_history_limit = kwargs['revisionHistoryLimit']
-        if template_generation is None and 'templateGeneration' in kwargs:
-            template_generation = kwargs['templateGeneration']
-        if update_strategy is None and 'updateStrategy' in kwargs:
-            update_strategy = kwargs['updateStrategy']
-
-        _setter("template", template)
+        pulumi.set(__self__, "template", template)
         if min_ready_seconds is not None:
-            _setter("min_ready_seconds", min_ready_seconds)
+            pulumi.set(__self__, "min_ready_seconds", min_ready_seconds)
         if revision_history_limit is not None:
-            _setter("revision_history_limit", revision_history_limit)
+            pulumi.set(__self__, "revision_history_limit", revision_history_limit)
         if selector is not None:
-            _setter("selector", selector)
+            pulumi.set(__self__, "selector", selector)
         if template_generation is not None:
-            _setter("template_generation", template_generation)
+            pulumi.set(__self__, "template_generation", template_generation)
         if update_strategy is not None:
-            _setter("update_strategy", update_strategy)
+            pulumi.set(__self__, "update_strategy", update_strategy)
 
     @property
     @pulumi.getter
@@ -896,47 +716,18 @@ class DaemonSetSpecPatch(dict):
         :param int template_generation: DEPRECATED. A sequence number representing a specific generation of the template. Populated by the system. It can be set only during the creation.
         :param 'DaemonSetUpdateStrategyPatchArgs' update_strategy: An update strategy to replace existing DaemonSet pods with new pods.
         """
-        DaemonSetSpecPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            min_ready_seconds=min_ready_seconds,
-            revision_history_limit=revision_history_limit,
-            selector=selector,
-            template=template,
-            template_generation=template_generation,
-            update_strategy=update_strategy,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             min_ready_seconds: Optional[int] = None,
-             revision_history_limit: Optional[int] = None,
-             selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None,
-             template: Optional['_core.v1.outputs.PodTemplateSpecPatch'] = None,
-             template_generation: Optional[int] = None,
-             update_strategy: Optional['outputs.DaemonSetUpdateStrategyPatch'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if min_ready_seconds is None and 'minReadySeconds' in kwargs:
-            min_ready_seconds = kwargs['minReadySeconds']
-        if revision_history_limit is None and 'revisionHistoryLimit' in kwargs:
-            revision_history_limit = kwargs['revisionHistoryLimit']
-        if template_generation is None and 'templateGeneration' in kwargs:
-            template_generation = kwargs['templateGeneration']
-        if update_strategy is None and 'updateStrategy' in kwargs:
-            update_strategy = kwargs['updateStrategy']
-
         if min_ready_seconds is not None:
-            _setter("min_ready_seconds", min_ready_seconds)
+            pulumi.set(__self__, "min_ready_seconds", min_ready_seconds)
         if revision_history_limit is not None:
-            _setter("revision_history_limit", revision_history_limit)
+            pulumi.set(__self__, "revision_history_limit", revision_history_limit)
         if selector is not None:
-            _setter("selector", selector)
+            pulumi.set(__self__, "selector", selector)
         if template is not None:
-            _setter("template", template)
+            pulumi.set(__self__, "template", template)
         if template_generation is not None:
-            _setter("template_generation", template_generation)
+            pulumi.set(__self__, "template_generation", template_generation)
         if update_strategy is not None:
-            _setter("update_strategy", update_strategy)
+            pulumi.set(__self__, "update_strategy", update_strategy)
 
     @property
     @pulumi.getter(name="minReadySeconds")
@@ -1049,77 +840,22 @@ class DaemonSetStatus(dict):
         :param int observed_generation: The most recent generation observed by the daemon set controller.
         :param int updated_number_scheduled: The total number of nodes that are running updated daemon pod
         """
-        DaemonSetStatus._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            current_number_scheduled=current_number_scheduled,
-            desired_number_scheduled=desired_number_scheduled,
-            number_misscheduled=number_misscheduled,
-            number_ready=number_ready,
-            collision_count=collision_count,
-            conditions=conditions,
-            number_available=number_available,
-            number_unavailable=number_unavailable,
-            observed_generation=observed_generation,
-            updated_number_scheduled=updated_number_scheduled,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             current_number_scheduled: Optional[int] = None,
-             desired_number_scheduled: Optional[int] = None,
-             number_misscheduled: Optional[int] = None,
-             number_ready: Optional[int] = None,
-             collision_count: Optional[int] = None,
-             conditions: Optional[Sequence['outputs.DaemonSetCondition']] = None,
-             number_available: Optional[int] = None,
-             number_unavailable: Optional[int] = None,
-             observed_generation: Optional[int] = None,
-             updated_number_scheduled: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if current_number_scheduled is None and 'currentNumberScheduled' in kwargs:
-            current_number_scheduled = kwargs['currentNumberScheduled']
-        if current_number_scheduled is None:
-            raise TypeError("Missing 'current_number_scheduled' argument")
-        if desired_number_scheduled is None and 'desiredNumberScheduled' in kwargs:
-            desired_number_scheduled = kwargs['desiredNumberScheduled']
-        if desired_number_scheduled is None:
-            raise TypeError("Missing 'desired_number_scheduled' argument")
-        if number_misscheduled is None and 'numberMisscheduled' in kwargs:
-            number_misscheduled = kwargs['numberMisscheduled']
-        if number_misscheduled is None:
-            raise TypeError("Missing 'number_misscheduled' argument")
-        if number_ready is None and 'numberReady' in kwargs:
-            number_ready = kwargs['numberReady']
-        if number_ready is None:
-            raise TypeError("Missing 'number_ready' argument")
-        if collision_count is None and 'collisionCount' in kwargs:
-            collision_count = kwargs['collisionCount']
-        if number_available is None and 'numberAvailable' in kwargs:
-            number_available = kwargs['numberAvailable']
-        if number_unavailable is None and 'numberUnavailable' in kwargs:
-            number_unavailable = kwargs['numberUnavailable']
-        if observed_generation is None and 'observedGeneration' in kwargs:
-            observed_generation = kwargs['observedGeneration']
-        if updated_number_scheduled is None and 'updatedNumberScheduled' in kwargs:
-            updated_number_scheduled = kwargs['updatedNumberScheduled']
-
-        _setter("current_number_scheduled", current_number_scheduled)
-        _setter("desired_number_scheduled", desired_number_scheduled)
-        _setter("number_misscheduled", number_misscheduled)
-        _setter("number_ready", number_ready)
+        pulumi.set(__self__, "current_number_scheduled", current_number_scheduled)
+        pulumi.set(__self__, "desired_number_scheduled", desired_number_scheduled)
+        pulumi.set(__self__, "number_misscheduled", number_misscheduled)
+        pulumi.set(__self__, "number_ready", number_ready)
         if collision_count is not None:
-            _setter("collision_count", collision_count)
+            pulumi.set(__self__, "collision_count", collision_count)
         if conditions is not None:
-            _setter("conditions", conditions)
+            pulumi.set(__self__, "conditions", conditions)
         if number_available is not None:
-            _setter("number_available", number_available)
+            pulumi.set(__self__, "number_available", number_available)
         if number_unavailable is not None:
-            _setter("number_unavailable", number_unavailable)
+            pulumi.set(__self__, "number_unavailable", number_unavailable)
         if observed_generation is not None:
-            _setter("observed_generation", observed_generation)
+            pulumi.set(__self__, "observed_generation", observed_generation)
         if updated_number_scheduled is not None:
-            _setter("updated_number_scheduled", updated_number_scheduled)
+            pulumi.set(__self__, "updated_number_scheduled", updated_number_scheduled)
 
     @property
     @pulumi.getter(name="currentNumberScheduled")
@@ -1264,73 +1000,26 @@ class DaemonSetStatusPatch(dict):
         :param int observed_generation: The most recent generation observed by the daemon set controller.
         :param int updated_number_scheduled: The total number of nodes that are running updated daemon pod
         """
-        DaemonSetStatusPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            collision_count=collision_count,
-            conditions=conditions,
-            current_number_scheduled=current_number_scheduled,
-            desired_number_scheduled=desired_number_scheduled,
-            number_available=number_available,
-            number_misscheduled=number_misscheduled,
-            number_ready=number_ready,
-            number_unavailable=number_unavailable,
-            observed_generation=observed_generation,
-            updated_number_scheduled=updated_number_scheduled,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             collision_count: Optional[int] = None,
-             conditions: Optional[Sequence['outputs.DaemonSetConditionPatch']] = None,
-             current_number_scheduled: Optional[int] = None,
-             desired_number_scheduled: Optional[int] = None,
-             number_available: Optional[int] = None,
-             number_misscheduled: Optional[int] = None,
-             number_ready: Optional[int] = None,
-             number_unavailable: Optional[int] = None,
-             observed_generation: Optional[int] = None,
-             updated_number_scheduled: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if collision_count is None and 'collisionCount' in kwargs:
-            collision_count = kwargs['collisionCount']
-        if current_number_scheduled is None and 'currentNumberScheduled' in kwargs:
-            current_number_scheduled = kwargs['currentNumberScheduled']
-        if desired_number_scheduled is None and 'desiredNumberScheduled' in kwargs:
-            desired_number_scheduled = kwargs['desiredNumberScheduled']
-        if number_available is None and 'numberAvailable' in kwargs:
-            number_available = kwargs['numberAvailable']
-        if number_misscheduled is None and 'numberMisscheduled' in kwargs:
-            number_misscheduled = kwargs['numberMisscheduled']
-        if number_ready is None and 'numberReady' in kwargs:
-            number_ready = kwargs['numberReady']
-        if number_unavailable is None and 'numberUnavailable' in kwargs:
-            number_unavailable = kwargs['numberUnavailable']
-        if observed_generation is None and 'observedGeneration' in kwargs:
-            observed_generation = kwargs['observedGeneration']
-        if updated_number_scheduled is None and 'updatedNumberScheduled' in kwargs:
-            updated_number_scheduled = kwargs['updatedNumberScheduled']
-
         if collision_count is not None:
-            _setter("collision_count", collision_count)
+            pulumi.set(__self__, "collision_count", collision_count)
         if conditions is not None:
-            _setter("conditions", conditions)
+            pulumi.set(__self__, "conditions", conditions)
         if current_number_scheduled is not None:
-            _setter("current_number_scheduled", current_number_scheduled)
+            pulumi.set(__self__, "current_number_scheduled", current_number_scheduled)
         if desired_number_scheduled is not None:
-            _setter("desired_number_scheduled", desired_number_scheduled)
+            pulumi.set(__self__, "desired_number_scheduled", desired_number_scheduled)
         if number_available is not None:
-            _setter("number_available", number_available)
+            pulumi.set(__self__, "number_available", number_available)
         if number_misscheduled is not None:
-            _setter("number_misscheduled", number_misscheduled)
+            pulumi.set(__self__, "number_misscheduled", number_misscheduled)
         if number_ready is not None:
-            _setter("number_ready", number_ready)
+            pulumi.set(__self__, "number_ready", number_ready)
         if number_unavailable is not None:
-            _setter("number_unavailable", number_unavailable)
+            pulumi.set(__self__, "number_unavailable", number_unavailable)
         if observed_generation is not None:
-            _setter("observed_generation", observed_generation)
+            pulumi.set(__self__, "observed_generation", observed_generation)
         if updated_number_scheduled is not None:
-            _setter("updated_number_scheduled", updated_number_scheduled)
+            pulumi.set(__self__, "updated_number_scheduled", updated_number_scheduled)
 
     @property
     @pulumi.getter(name="collisionCount")
@@ -1439,25 +1128,10 @@ class DaemonSetUpdateStrategy(dict):
         :param 'RollingUpdateDaemonSetArgs' rolling_update: Rolling update config params. Present only if type = "RollingUpdate".
         :param str type: Type of daemon set update. Can be "RollingUpdate" or "OnDelete". Default is OnDelete.
         """
-        DaemonSetUpdateStrategy._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            rolling_update=rolling_update,
-            type=type,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             rolling_update: Optional['outputs.RollingUpdateDaemonSet'] = None,
-             type: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if rolling_update is None and 'rollingUpdate' in kwargs:
-            rolling_update = kwargs['rollingUpdate']
-
         if rolling_update is not None:
-            _setter("rolling_update", rolling_update)
+            pulumi.set(__self__, "rolling_update", rolling_update)
         if type is not None:
-            _setter("type", type)
+            pulumi.set(__self__, "type", type)
 
     @property
     @pulumi.getter(name="rollingUpdate")
@@ -1502,25 +1176,10 @@ class DaemonSetUpdateStrategyPatch(dict):
         :param 'RollingUpdateDaemonSetPatchArgs' rolling_update: Rolling update config params. Present only if type = "RollingUpdate".
         :param str type: Type of daemon set update. Can be "RollingUpdate" or "OnDelete". Default is OnDelete.
         """
-        DaemonSetUpdateStrategyPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            rolling_update=rolling_update,
-            type=type,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             rolling_update: Optional['outputs.RollingUpdateDaemonSetPatch'] = None,
-             type: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if rolling_update is None and 'rollingUpdate' in kwargs:
-            rolling_update = kwargs['rollingUpdate']
-
         if rolling_update is not None:
-            _setter("rolling_update", rolling_update)
+            pulumi.set(__self__, "rolling_update", rolling_update)
         if type is not None:
-            _setter("type", type)
+            pulumi.set(__self__, "type", type)
 
     @property
     @pulumi.getter(name="rollingUpdate")
@@ -1619,37 +1278,16 @@ class Deployment(dict):
         :param 'DeploymentSpecArgs' spec: Specification of the desired behavior of the Deployment.
         :param 'DeploymentStatusArgs' status: Most recently observed status of the Deployment.
         """
-        Deployment._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            api_version=api_version,
-            kind=kind,
-            metadata=metadata,
-            spec=spec,
-            status=status,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             api_version: Optional[str] = None,
-             kind: Optional[str] = None,
-             metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
-             spec: Optional['outputs.DeploymentSpec'] = None,
-             status: Optional['outputs.DeploymentStatus'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if api_version is None and 'apiVersion' in kwargs:
-            api_version = kwargs['apiVersion']
-
         if api_version is not None:
-            _setter("api_version", 'extensions/v1beta1')
+            pulumi.set(__self__, "api_version", 'extensions/v1beta1')
         if kind is not None:
-            _setter("kind", 'Deployment')
+            pulumi.set(__self__, "kind", 'Deployment')
         if metadata is not None:
-            _setter("metadata", metadata)
+            pulumi.set(__self__, "metadata", metadata)
         if spec is not None:
-            _setter("spec", spec)
+            pulumi.set(__self__, "spec", spec)
         if status is not None:
-            _setter("status", status)
+            pulumi.set(__self__, "status", status)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -1732,45 +1370,16 @@ class DeploymentCondition(dict):
         :param str message: A human readable message indicating details about the transition.
         :param str reason: The reason for the condition's last transition.
         """
-        DeploymentCondition._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            status=status,
-            type=type,
-            last_transition_time=last_transition_time,
-            last_update_time=last_update_time,
-            message=message,
-            reason=reason,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             status: Optional[str] = None,
-             type: Optional[str] = None,
-             last_transition_time: Optional[str] = None,
-             last_update_time: Optional[str] = None,
-             message: Optional[str] = None,
-             reason: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if status is None:
-            raise TypeError("Missing 'status' argument")
-        if type is None:
-            raise TypeError("Missing 'type' argument")
-        if last_transition_time is None and 'lastTransitionTime' in kwargs:
-            last_transition_time = kwargs['lastTransitionTime']
-        if last_update_time is None and 'lastUpdateTime' in kwargs:
-            last_update_time = kwargs['lastUpdateTime']
-
-        _setter("status", status)
-        _setter("type", type)
+        pulumi.set(__self__, "status", status)
+        pulumi.set(__self__, "type", type)
         if last_transition_time is not None:
-            _setter("last_transition_time", last_transition_time)
+            pulumi.set(__self__, "last_transition_time", last_transition_time)
         if last_update_time is not None:
-            _setter("last_update_time", last_update_time)
+            pulumi.set(__self__, "last_update_time", last_update_time)
         if message is not None:
-            _setter("message", message)
+            pulumi.set(__self__, "message", message)
         if reason is not None:
-            _setter("reason", reason)
+            pulumi.set(__self__, "reason", reason)
 
     @property
     @pulumi.getter
@@ -1861,43 +1470,18 @@ class DeploymentConditionPatch(dict):
         :param str status: Status of the condition, one of True, False, Unknown.
         :param str type: Type of deployment condition.
         """
-        DeploymentConditionPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            last_transition_time=last_transition_time,
-            last_update_time=last_update_time,
-            message=message,
-            reason=reason,
-            status=status,
-            type=type,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             last_transition_time: Optional[str] = None,
-             last_update_time: Optional[str] = None,
-             message: Optional[str] = None,
-             reason: Optional[str] = None,
-             status: Optional[str] = None,
-             type: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if last_transition_time is None and 'lastTransitionTime' in kwargs:
-            last_transition_time = kwargs['lastTransitionTime']
-        if last_update_time is None and 'lastUpdateTime' in kwargs:
-            last_update_time = kwargs['lastUpdateTime']
-
         if last_transition_time is not None:
-            _setter("last_transition_time", last_transition_time)
+            pulumi.set(__self__, "last_transition_time", last_transition_time)
         if last_update_time is not None:
-            _setter("last_update_time", last_update_time)
+            pulumi.set(__self__, "last_update_time", last_update_time)
         if message is not None:
-            _setter("message", message)
+            pulumi.set(__self__, "message", message)
         if reason is not None:
-            _setter("reason", reason)
+            pulumi.set(__self__, "reason", reason)
         if status is not None:
-            _setter("status", status)
+            pulumi.set(__self__, "status", status)
         if type is not None:
-            _setter("type", type)
+            pulumi.set(__self__, "type", type)
 
     @property
     @pulumi.getter(name="lastTransitionTime")
@@ -1998,60 +1582,23 @@ class DeploymentSpec(dict):
         :param '_meta.v1.LabelSelectorArgs' selector: Label selector for pods. Existing ReplicaSets whose pods are selected by this will be the ones affected by this deployment.
         :param 'DeploymentStrategyArgs' strategy: The deployment strategy to use to replace existing pods with new ones.
         """
-        DeploymentSpec._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            template=template,
-            min_ready_seconds=min_ready_seconds,
-            paused=paused,
-            progress_deadline_seconds=progress_deadline_seconds,
-            replicas=replicas,
-            revision_history_limit=revision_history_limit,
-            rollback_to=rollback_to,
-            selector=selector,
-            strategy=strategy,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             template: Optional['_core.v1.outputs.PodTemplateSpec'] = None,
-             min_ready_seconds: Optional[int] = None,
-             paused: Optional[bool] = None,
-             progress_deadline_seconds: Optional[int] = None,
-             replicas: Optional[int] = None,
-             revision_history_limit: Optional[int] = None,
-             rollback_to: Optional['outputs.RollbackConfig'] = None,
-             selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
-             strategy: Optional['outputs.DeploymentStrategy'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if template is None:
-            raise TypeError("Missing 'template' argument")
-        if min_ready_seconds is None and 'minReadySeconds' in kwargs:
-            min_ready_seconds = kwargs['minReadySeconds']
-        if progress_deadline_seconds is None and 'progressDeadlineSeconds' in kwargs:
-            progress_deadline_seconds = kwargs['progressDeadlineSeconds']
-        if revision_history_limit is None and 'revisionHistoryLimit' in kwargs:
-            revision_history_limit = kwargs['revisionHistoryLimit']
-        if rollback_to is None and 'rollbackTo' in kwargs:
-            rollback_to = kwargs['rollbackTo']
-
-        _setter("template", template)
+        pulumi.set(__self__, "template", template)
         if min_ready_seconds is not None:
-            _setter("min_ready_seconds", min_ready_seconds)
+            pulumi.set(__self__, "min_ready_seconds", min_ready_seconds)
         if paused is not None:
-            _setter("paused", paused)
+            pulumi.set(__self__, "paused", paused)
         if progress_deadline_seconds is not None:
-            _setter("progress_deadline_seconds", progress_deadline_seconds)
+            pulumi.set(__self__, "progress_deadline_seconds", progress_deadline_seconds)
         if replicas is not None:
-            _setter("replicas", replicas)
+            pulumi.set(__self__, "replicas", replicas)
         if revision_history_limit is not None:
-            _setter("revision_history_limit", revision_history_limit)
+            pulumi.set(__self__, "revision_history_limit", revision_history_limit)
         if rollback_to is not None:
-            _setter("rollback_to", rollback_to)
+            pulumi.set(__self__, "rollback_to", rollback_to)
         if selector is not None:
-            _setter("selector", selector)
+            pulumi.set(__self__, "selector", selector)
         if strategy is not None:
-            _setter("strategy", strategy)
+            pulumi.set(__self__, "strategy", strategy)
 
     @property
     @pulumi.getter
@@ -2176,59 +1723,24 @@ class DeploymentSpecPatch(dict):
         :param 'DeploymentStrategyPatchArgs' strategy: The deployment strategy to use to replace existing pods with new ones.
         :param '_core.v1.PodTemplateSpecPatchArgs' template: Template describes the pods that will be created.
         """
-        DeploymentSpecPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            min_ready_seconds=min_ready_seconds,
-            paused=paused,
-            progress_deadline_seconds=progress_deadline_seconds,
-            replicas=replicas,
-            revision_history_limit=revision_history_limit,
-            rollback_to=rollback_to,
-            selector=selector,
-            strategy=strategy,
-            template=template,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             min_ready_seconds: Optional[int] = None,
-             paused: Optional[bool] = None,
-             progress_deadline_seconds: Optional[int] = None,
-             replicas: Optional[int] = None,
-             revision_history_limit: Optional[int] = None,
-             rollback_to: Optional['outputs.RollbackConfigPatch'] = None,
-             selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None,
-             strategy: Optional['outputs.DeploymentStrategyPatch'] = None,
-             template: Optional['_core.v1.outputs.PodTemplateSpecPatch'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if min_ready_seconds is None and 'minReadySeconds' in kwargs:
-            min_ready_seconds = kwargs['minReadySeconds']
-        if progress_deadline_seconds is None and 'progressDeadlineSeconds' in kwargs:
-            progress_deadline_seconds = kwargs['progressDeadlineSeconds']
-        if revision_history_limit is None and 'revisionHistoryLimit' in kwargs:
-            revision_history_limit = kwargs['revisionHistoryLimit']
-        if rollback_to is None and 'rollbackTo' in kwargs:
-            rollback_to = kwargs['rollbackTo']
-
         if min_ready_seconds is not None:
-            _setter("min_ready_seconds", min_ready_seconds)
+            pulumi.set(__self__, "min_ready_seconds", min_ready_seconds)
         if paused is not None:
-            _setter("paused", paused)
+            pulumi.set(__self__, "paused", paused)
         if progress_deadline_seconds is not None:
-            _setter("progress_deadline_seconds", progress_deadline_seconds)
+            pulumi.set(__self__, "progress_deadline_seconds", progress_deadline_seconds)
         if replicas is not None:
-            _setter("replicas", replicas)
+            pulumi.set(__self__, "replicas", replicas)
         if revision_history_limit is not None:
-            _setter("revision_history_limit", revision_history_limit)
+            pulumi.set(__self__, "revision_history_limit", revision_history_limit)
         if rollback_to is not None:
-            _setter("rollback_to", rollback_to)
+            pulumi.set(__self__, "rollback_to", rollback_to)
         if selector is not None:
-            _setter("selector", selector)
+            pulumi.set(__self__, "selector", selector)
         if strategy is not None:
-            _setter("strategy", strategy)
+            pulumi.set(__self__, "strategy", strategy)
         if template is not None:
-            _setter("template", template)
+            pulumi.set(__self__, "template", template)
 
     @property
     @pulumi.getter(name="minReadySeconds")
@@ -2355,59 +1867,22 @@ class DeploymentStatus(dict):
         :param int unavailable_replicas: Total number of unavailable pods targeted by this deployment. This is the total number of pods that are still required for the deployment to have 100% available capacity. They may either be pods that are running but not yet available or pods that still have not been created.
         :param int updated_replicas: Total number of non-terminated pods targeted by this deployment that have the desired template spec.
         """
-        DeploymentStatus._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            available_replicas=available_replicas,
-            collision_count=collision_count,
-            conditions=conditions,
-            observed_generation=observed_generation,
-            ready_replicas=ready_replicas,
-            replicas=replicas,
-            unavailable_replicas=unavailable_replicas,
-            updated_replicas=updated_replicas,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             available_replicas: Optional[int] = None,
-             collision_count: Optional[int] = None,
-             conditions: Optional[Sequence['outputs.DeploymentCondition']] = None,
-             observed_generation: Optional[int] = None,
-             ready_replicas: Optional[int] = None,
-             replicas: Optional[int] = None,
-             unavailable_replicas: Optional[int] = None,
-             updated_replicas: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if available_replicas is None and 'availableReplicas' in kwargs:
-            available_replicas = kwargs['availableReplicas']
-        if collision_count is None and 'collisionCount' in kwargs:
-            collision_count = kwargs['collisionCount']
-        if observed_generation is None and 'observedGeneration' in kwargs:
-            observed_generation = kwargs['observedGeneration']
-        if ready_replicas is None and 'readyReplicas' in kwargs:
-            ready_replicas = kwargs['readyReplicas']
-        if unavailable_replicas is None and 'unavailableReplicas' in kwargs:
-            unavailable_replicas = kwargs['unavailableReplicas']
-        if updated_replicas is None and 'updatedReplicas' in kwargs:
-            updated_replicas = kwargs['updatedReplicas']
-
         if available_replicas is not None:
-            _setter("available_replicas", available_replicas)
+            pulumi.set(__self__, "available_replicas", available_replicas)
         if collision_count is not None:
-            _setter("collision_count", collision_count)
+            pulumi.set(__self__, "collision_count", collision_count)
         if conditions is not None:
-            _setter("conditions", conditions)
+            pulumi.set(__self__, "conditions", conditions)
         if observed_generation is not None:
-            _setter("observed_generation", observed_generation)
+            pulumi.set(__self__, "observed_generation", observed_generation)
         if ready_replicas is not None:
-            _setter("ready_replicas", ready_replicas)
+            pulumi.set(__self__, "ready_replicas", ready_replicas)
         if replicas is not None:
-            _setter("replicas", replicas)
+            pulumi.set(__self__, "replicas", replicas)
         if unavailable_replicas is not None:
-            _setter("unavailable_replicas", unavailable_replicas)
+            pulumi.set(__self__, "unavailable_replicas", unavailable_replicas)
         if updated_replicas is not None:
-            _setter("updated_replicas", updated_replicas)
+            pulumi.set(__self__, "updated_replicas", updated_replicas)
 
     @property
     @pulumi.getter(name="availableReplicas")
@@ -2526,59 +2001,22 @@ class DeploymentStatusPatch(dict):
         :param int unavailable_replicas: Total number of unavailable pods targeted by this deployment. This is the total number of pods that are still required for the deployment to have 100% available capacity. They may either be pods that are running but not yet available or pods that still have not been created.
         :param int updated_replicas: Total number of non-terminated pods targeted by this deployment that have the desired template spec.
         """
-        DeploymentStatusPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            available_replicas=available_replicas,
-            collision_count=collision_count,
-            conditions=conditions,
-            observed_generation=observed_generation,
-            ready_replicas=ready_replicas,
-            replicas=replicas,
-            unavailable_replicas=unavailable_replicas,
-            updated_replicas=updated_replicas,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             available_replicas: Optional[int] = None,
-             collision_count: Optional[int] = None,
-             conditions: Optional[Sequence['outputs.DeploymentConditionPatch']] = None,
-             observed_generation: Optional[int] = None,
-             ready_replicas: Optional[int] = None,
-             replicas: Optional[int] = None,
-             unavailable_replicas: Optional[int] = None,
-             updated_replicas: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if available_replicas is None and 'availableReplicas' in kwargs:
-            available_replicas = kwargs['availableReplicas']
-        if collision_count is None and 'collisionCount' in kwargs:
-            collision_count = kwargs['collisionCount']
-        if observed_generation is None and 'observedGeneration' in kwargs:
-            observed_generation = kwargs['observedGeneration']
-        if ready_replicas is None and 'readyReplicas' in kwargs:
-            ready_replicas = kwargs['readyReplicas']
-        if unavailable_replicas is None and 'unavailableReplicas' in kwargs:
-            unavailable_replicas = kwargs['unavailableReplicas']
-        if updated_replicas is None and 'updatedReplicas' in kwargs:
-            updated_replicas = kwargs['updatedReplicas']
-
         if available_replicas is not None:
-            _setter("available_replicas", available_replicas)
+            pulumi.set(__self__, "available_replicas", available_replicas)
         if collision_count is not None:
-            _setter("collision_count", collision_count)
+            pulumi.set(__self__, "collision_count", collision_count)
         if conditions is not None:
-            _setter("conditions", conditions)
+            pulumi.set(__self__, "conditions", conditions)
         if observed_generation is not None:
-            _setter("observed_generation", observed_generation)
+            pulumi.set(__self__, "observed_generation", observed_generation)
         if ready_replicas is not None:
-            _setter("ready_replicas", ready_replicas)
+            pulumi.set(__self__, "ready_replicas", ready_replicas)
         if replicas is not None:
-            _setter("replicas", replicas)
+            pulumi.set(__self__, "replicas", replicas)
         if unavailable_replicas is not None:
-            _setter("unavailable_replicas", unavailable_replicas)
+            pulumi.set(__self__, "unavailable_replicas", unavailable_replicas)
         if updated_replicas is not None:
-            _setter("updated_replicas", updated_replicas)
+            pulumi.set(__self__, "updated_replicas", updated_replicas)
 
     @property
     @pulumi.getter(name="availableReplicas")
@@ -2675,25 +2113,10 @@ class DeploymentStrategy(dict):
         :param 'RollingUpdateDeploymentArgs' rolling_update: Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
         :param str type: Type of deployment. Can be "Recreate" or "RollingUpdate". Default is RollingUpdate.
         """
-        DeploymentStrategy._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            rolling_update=rolling_update,
-            type=type,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             rolling_update: Optional['outputs.RollingUpdateDeployment'] = None,
-             type: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if rolling_update is None and 'rollingUpdate' in kwargs:
-            rolling_update = kwargs['rollingUpdate']
-
         if rolling_update is not None:
-            _setter("rolling_update", rolling_update)
+            pulumi.set(__self__, "rolling_update", rolling_update)
         if type is not None:
-            _setter("type", type)
+            pulumi.set(__self__, "type", type)
 
     @property
     @pulumi.getter(name="rollingUpdate")
@@ -2742,25 +2165,10 @@ class DeploymentStrategyPatch(dict):
         :param 'RollingUpdateDeploymentPatchArgs' rolling_update: Rolling update config params. Present only if DeploymentStrategyType = RollingUpdate.
         :param str type: Type of deployment. Can be "Recreate" or "RollingUpdate". Default is RollingUpdate.
         """
-        DeploymentStrategyPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            rolling_update=rolling_update,
-            type=type,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             rolling_update: Optional['outputs.RollingUpdateDeploymentPatch'] = None,
-             type: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if rolling_update is None and 'rollingUpdate' in kwargs:
-            rolling_update = kwargs['rollingUpdate']
-
         if rolling_update is not None:
-            _setter("rolling_update", rolling_update)
+            pulumi.set(__self__, "rolling_update", rolling_update)
         if type is not None:
-            _setter("type", type)
+            pulumi.set(__self__, "type", type)
 
     @property
     @pulumi.getter(name="rollingUpdate")
@@ -2792,23 +2200,10 @@ class FSGroupStrategyOptions(dict):
         :param Sequence['IDRangeArgs'] ranges: ranges are the allowed ranges of fs groups.  If you would like to force a single fs group then supply a single range with the same start and end. Required for MustRunAs.
         :param str rule: rule is the strategy that will dictate what FSGroup is used in the SecurityContext.
         """
-        FSGroupStrategyOptions._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            ranges=ranges,
-            rule=rule,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             ranges: Optional[Sequence['outputs.IDRange']] = None,
-             rule: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-
         if ranges is not None:
-            _setter("ranges", ranges)
+            pulumi.set(__self__, "ranges", ranges)
         if rule is not None:
-            _setter("rule", rule)
+            pulumi.set(__self__, "rule", rule)
 
     @property
     @pulumi.getter
@@ -2840,23 +2235,10 @@ class FSGroupStrategyOptionsPatch(dict):
         :param Sequence['IDRangePatchArgs'] ranges: ranges are the allowed ranges of fs groups.  If you would like to force a single fs group then supply a single range with the same start and end. Required for MustRunAs.
         :param str rule: rule is the strategy that will dictate what FSGroup is used in the SecurityContext.
         """
-        FSGroupStrategyOptionsPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            ranges=ranges,
-            rule=rule,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             ranges: Optional[Sequence['outputs.IDRangePatch']] = None,
-             rule: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-
         if ranges is not None:
-            _setter("ranges", ranges)
+            pulumi.set(__self__, "ranges", ranges)
         if rule is not None:
-            _setter("rule", rule)
+            pulumi.set(__self__, "rule", rule)
 
     @property
     @pulumi.getter
@@ -2917,30 +2299,11 @@ class HTTPIngressPath(dict):
                  or treat it identically to Prefix or Exact path types.
                Implementations are required to support all path types. Defaults to ImplementationSpecific.
         """
-        HTTPIngressPath._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            backend=backend,
-            path=path,
-            path_type=path_type,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             backend: Optional['outputs.IngressBackend'] = None,
-             path: Optional[str] = None,
-             path_type: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if backend is None:
-            raise TypeError("Missing 'backend' argument")
-        if path_type is None and 'pathType' in kwargs:
-            path_type = kwargs['pathType']
-
-        _setter("backend", backend)
+        pulumi.set(__self__, "backend", backend)
         if path is not None:
-            _setter("path", path)
+            pulumi.set(__self__, "path", path)
         if path_type is not None:
-            _setter("path_type", path_type)
+            pulumi.set(__self__, "path_type", path_type)
 
     @property
     @pulumi.getter
@@ -3019,29 +2382,12 @@ class HTTPIngressPathPatch(dict):
                  or treat it identically to Prefix or Exact path types.
                Implementations are required to support all path types. Defaults to ImplementationSpecific.
         """
-        HTTPIngressPathPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            backend=backend,
-            path=path,
-            path_type=path_type,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             backend: Optional['outputs.IngressBackendPatch'] = None,
-             path: Optional[str] = None,
-             path_type: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if path_type is None and 'pathType' in kwargs:
-            path_type = kwargs['pathType']
-
         if backend is not None:
-            _setter("backend", backend)
+            pulumi.set(__self__, "backend", backend)
         if path is not None:
-            _setter("path", path)
+            pulumi.set(__self__, "path", path)
         if path_type is not None:
-            _setter("path_type", path_type)
+            pulumi.set(__self__, "path_type", path_type)
 
     @property
     @pulumi.getter
@@ -3089,20 +2435,7 @@ class HTTPIngressRuleValue(dict):
         HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example: http://<host>/<path>?<searchpart> -> backend where where parts of the url correspond to RFC 3986, this resource will be used to match against everything after the last '/' and before the first '?' or '#'.
         :param Sequence['HTTPIngressPathArgs'] paths: A collection of paths that map requests to backends.
         """
-        HTTPIngressRuleValue._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            paths=paths,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             paths: Optional[Sequence['outputs.HTTPIngressPath']] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if paths is None:
-            raise TypeError("Missing 'paths' argument")
-
-        _setter("paths", paths)
+        pulumi.set(__self__, "paths", paths)
 
     @property
     @pulumi.getter
@@ -3124,19 +2457,8 @@ class HTTPIngressRuleValuePatch(dict):
         HTTPIngressRuleValue is a list of http selectors pointing to backends. In the example: http://<host>/<path>?<searchpart> -> backend where where parts of the url correspond to RFC 3986, this resource will be used to match against everything after the last '/' and before the first '?' or '#'.
         :param Sequence['HTTPIngressPathPatchArgs'] paths: A collection of paths that map requests to backends.
         """
-        HTTPIngressRuleValuePatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            paths=paths,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             paths: Optional[Sequence['outputs.HTTPIngressPathPatch']] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-
         if paths is not None:
-            _setter("paths", paths)
+            pulumi.set(__self__, "paths", paths)
 
     @property
     @pulumi.getter
@@ -3160,25 +2482,8 @@ class HostPortRange(dict):
         :param int max: max is the end of the range, inclusive.
         :param int min: min is the start of the range, inclusive.
         """
-        HostPortRange._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            max=max,
-            min=min,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             max: Optional[int] = None,
-             min: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if max is None:
-            raise TypeError("Missing 'max' argument")
-        if min is None:
-            raise TypeError("Missing 'min' argument")
-
-        _setter("max", max)
-        _setter("min", min)
+        pulumi.set(__self__, "max", max)
+        pulumi.set(__self__, "min", min)
 
     @property
     @pulumi.getter
@@ -3210,23 +2515,10 @@ class HostPortRangePatch(dict):
         :param int max: max is the end of the range, inclusive.
         :param int min: min is the start of the range, inclusive.
         """
-        HostPortRangePatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            max=max,
-            min=min,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             max: Optional[int] = None,
-             min: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-
         if max is not None:
-            _setter("max", max)
+            pulumi.set(__self__, "max", max)
         if min is not None:
-            _setter("min", min)
+            pulumi.set(__self__, "min", min)
 
     @property
     @pulumi.getter
@@ -3258,25 +2550,8 @@ class IDRange(dict):
         :param int max: max is the end of the range, inclusive.
         :param int min: min is the start of the range, inclusive.
         """
-        IDRange._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            max=max,
-            min=min,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             max: Optional[int] = None,
-             min: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if max is None:
-            raise TypeError("Missing 'max' argument")
-        if min is None:
-            raise TypeError("Missing 'min' argument")
-
-        _setter("max", max)
-        _setter("min", min)
+        pulumi.set(__self__, "max", max)
+        pulumi.set(__self__, "min", min)
 
     @property
     @pulumi.getter
@@ -3308,23 +2583,10 @@ class IDRangePatch(dict):
         :param int max: max is the end of the range, inclusive.
         :param int min: min is the start of the range, inclusive.
         """
-        IDRangePatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            max=max,
-            min=min,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             max: Optional[int] = None,
-             min: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-
         if max is not None:
-            _setter("max", max)
+            pulumi.set(__self__, "max", max)
         if min is not None:
-            _setter("min", min)
+            pulumi.set(__self__, "min", min)
 
     @property
     @pulumi.getter
@@ -3373,26 +2635,9 @@ class IPBlock(dict):
         :param str cidr: CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24"
         :param Sequence[str] except_: Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" Except values will be rejected if they are outside the CIDR range
         """
-        IPBlock._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            cidr=cidr,
-            except_=except_,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             cidr: Optional[str] = None,
-             except_: Optional[Sequence[str]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if cidr is None:
-            raise TypeError("Missing 'cidr' argument")
-        if except_ is None and 'except' in kwargs:
-            except_ = kwargs['except']
-
-        _setter("cidr", cidr)
+        pulumi.set(__self__, "cidr", cidr)
         if except_ is not None:
-            _setter("except_", except_)
+            pulumi.set(__self__, "except_", except_)
 
     @property
     @pulumi.getter
@@ -3441,25 +2686,10 @@ class IPBlockPatch(dict):
         :param str cidr: CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24"
         :param Sequence[str] except_: Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" Except values will be rejected if they are outside the CIDR range
         """
-        IPBlockPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            cidr=cidr,
-            except_=except_,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             cidr: Optional[str] = None,
-             except_: Optional[Sequence[str]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if except_ is None and 'except' in kwargs:
-            except_ = kwargs['except']
-
         if cidr is not None:
-            _setter("cidr", cidr)
+            pulumi.set(__self__, "cidr", cidr)
         if except_ is not None:
-            _setter("except_", except_)
+            pulumi.set(__self__, "except_", except_)
 
     @property
     @pulumi.getter
@@ -3542,37 +2772,16 @@ class Ingress(dict):
         :param 'IngressSpecArgs' spec: Spec is the desired state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         :param 'IngressStatusArgs' status: Status is the current state of the Ingress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
-        Ingress._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            api_version=api_version,
-            kind=kind,
-            metadata=metadata,
-            spec=spec,
-            status=status,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             api_version: Optional[str] = None,
-             kind: Optional[str] = None,
-             metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
-             spec: Optional['outputs.IngressSpec'] = None,
-             status: Optional['outputs.IngressStatus'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if api_version is None and 'apiVersion' in kwargs:
-            api_version = kwargs['apiVersion']
-
         if api_version is not None:
-            _setter("api_version", 'extensions/v1beta1')
+            pulumi.set(__self__, "api_version", 'extensions/v1beta1')
         if kind is not None:
-            _setter("kind", 'Ingress')
+            pulumi.set(__self__, "kind", 'Ingress')
         if metadata is not None:
-            _setter("metadata", metadata)
+            pulumi.set(__self__, "metadata", metadata)
         if spec is not None:
-            _setter("spec", spec)
+            pulumi.set(__self__, "spec", spec)
         if status is not None:
-            _setter("status", status)
+            pulumi.set(__self__, "status", status)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -3649,33 +2858,10 @@ class IngressBackend(dict):
         :param Union[int, str] service_port: Specifies the port of the referenced service.
         :param '_core.v1.TypedLocalObjectReferenceArgs' resource: Resource is an ObjectRef to another Kubernetes resource in the namespace of the Ingress object. If resource is specified, serviceName and servicePort must not be specified.
         """
-        IngressBackend._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            service_name=service_name,
-            service_port=service_port,
-            resource=resource,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             service_name: Optional[str] = None,
-             service_port: Optional[Any] = None,
-             resource: Optional['_core.v1.outputs.TypedLocalObjectReference'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if service_name is None and 'serviceName' in kwargs:
-            service_name = kwargs['serviceName']
-        if service_name is None:
-            raise TypeError("Missing 'service_name' argument")
-        if service_port is None and 'servicePort' in kwargs:
-            service_port = kwargs['servicePort']
-        if service_port is None:
-            raise TypeError("Missing 'service_port' argument")
-
-        _setter("service_name", service_name)
-        _setter("service_port", service_port)
+        pulumi.set(__self__, "service_name", service_name)
+        pulumi.set(__self__, "service_port", service_port)
         if resource is not None:
-            _setter("resource", resource)
+            pulumi.set(__self__, "resource", resource)
 
     @property
     @pulumi.getter(name="serviceName")
@@ -3736,31 +2922,12 @@ class IngressBackendPatch(dict):
         :param str service_name: Specifies the name of the referenced service.
         :param Union[int, str] service_port: Specifies the port of the referenced service.
         """
-        IngressBackendPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            resource=resource,
-            service_name=service_name,
-            service_port=service_port,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             resource: Optional['_core.v1.outputs.TypedLocalObjectReferencePatch'] = None,
-             service_name: Optional[str] = None,
-             service_port: Optional[Any] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if service_name is None and 'serviceName' in kwargs:
-            service_name = kwargs['serviceName']
-        if service_port is None and 'servicePort' in kwargs:
-            service_port = kwargs['servicePort']
-
         if resource is not None:
-            _setter("resource", resource)
+            pulumi.set(__self__, "resource", resource)
         if service_name is not None:
-            _setter("service_name", service_name)
+            pulumi.set(__self__, "service_name", service_name)
         if service_port is not None:
-            _setter("service_port", service_port)
+            pulumi.set(__self__, "service_port", service_port)
 
     @property
     @pulumi.getter
@@ -3804,23 +2971,10 @@ class IngressRule(dict):
                	  :443 for https.
                Both these may change in the future. Incoming requests are matched against the host before the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on the specified IngressRuleValue.
         """
-        IngressRule._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            host=host,
-            http=http,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             host: Optional[str] = None,
-             http: Optional['outputs.HTTPIngressRuleValue'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-
         if host is not None:
-            _setter("host", host)
+            pulumi.set(__self__, "host", host)
         if http is not None:
-            _setter("http", http)
+            pulumi.set(__self__, "http", http)
 
     @property
     @pulumi.getter
@@ -3858,23 +3012,10 @@ class IngressRulePatch(dict):
                	  :443 for https.
                Both these may change in the future. Incoming requests are matched against the host before the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on the specified IngressRuleValue.
         """
-        IngressRulePatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            host=host,
-            http=http,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             host: Optional[str] = None,
-             http: Optional['outputs.HTTPIngressRuleValuePatch'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-
         if host is not None:
-            _setter("host", host)
+            pulumi.set(__self__, "host", host)
         if http is not None:
-            _setter("http", http)
+            pulumi.set(__self__, "http", http)
 
     @property
     @pulumi.getter
@@ -3929,33 +3070,14 @@ class IngressSpec(dict):
         :param Sequence['IngressRuleArgs'] rules: A list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
         :param Sequence['IngressTLSArgs'] tls: TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
         """
-        IngressSpec._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            backend=backend,
-            ingress_class_name=ingress_class_name,
-            rules=rules,
-            tls=tls,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             backend: Optional['outputs.IngressBackend'] = None,
-             ingress_class_name: Optional[str] = None,
-             rules: Optional[Sequence['outputs.IngressRule']] = None,
-             tls: Optional[Sequence['outputs.IngressTLS']] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if ingress_class_name is None and 'ingressClassName' in kwargs:
-            ingress_class_name = kwargs['ingressClassName']
-
         if backend is not None:
-            _setter("backend", backend)
+            pulumi.set(__self__, "backend", backend)
         if ingress_class_name is not None:
-            _setter("ingress_class_name", ingress_class_name)
+            pulumi.set(__self__, "ingress_class_name", ingress_class_name)
         if rules is not None:
-            _setter("rules", rules)
+            pulumi.set(__self__, "rules", rules)
         if tls is not None:
-            _setter("tls", tls)
+            pulumi.set(__self__, "tls", tls)
 
     @property
     @pulumi.getter
@@ -4024,33 +3146,14 @@ class IngressSpecPatch(dict):
         :param Sequence['IngressRulePatchArgs'] rules: A list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
         :param Sequence['IngressTLSPatchArgs'] tls: TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
         """
-        IngressSpecPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            backend=backend,
-            ingress_class_name=ingress_class_name,
-            rules=rules,
-            tls=tls,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             backend: Optional['outputs.IngressBackendPatch'] = None,
-             ingress_class_name: Optional[str] = None,
-             rules: Optional[Sequence['outputs.IngressRulePatch']] = None,
-             tls: Optional[Sequence['outputs.IngressTLSPatch']] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if ingress_class_name is None and 'ingressClassName' in kwargs:
-            ingress_class_name = kwargs['ingressClassName']
-
         if backend is not None:
-            _setter("backend", backend)
+            pulumi.set(__self__, "backend", backend)
         if ingress_class_name is not None:
-            _setter("ingress_class_name", ingress_class_name)
+            pulumi.set(__self__, "ingress_class_name", ingress_class_name)
         if rules is not None:
-            _setter("rules", rules)
+            pulumi.set(__self__, "rules", rules)
         if tls is not None:
-            _setter("tls", tls)
+            pulumi.set(__self__, "tls", tls)
 
     @property
     @pulumi.getter
@@ -4113,21 +3216,8 @@ class IngressStatus(dict):
         IngressStatus describe the current state of the Ingress.
         :param '_core.v1.LoadBalancerStatusArgs' load_balancer: LoadBalancer contains the current status of the load-balancer.
         """
-        IngressStatus._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            load_balancer=load_balancer,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             load_balancer: Optional['_core.v1.outputs.LoadBalancerStatus'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if load_balancer is None and 'loadBalancer' in kwargs:
-            load_balancer = kwargs['loadBalancer']
-
         if load_balancer is not None:
-            _setter("load_balancer", load_balancer)
+            pulumi.set(__self__, "load_balancer", load_balancer)
 
     @property
     @pulumi.getter(name="loadBalancer")
@@ -4166,21 +3256,8 @@ class IngressStatusPatch(dict):
         IngressStatus describe the current state of the Ingress.
         :param '_core.v1.LoadBalancerStatusPatchArgs' load_balancer: LoadBalancer contains the current status of the load-balancer.
         """
-        IngressStatusPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            load_balancer=load_balancer,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             load_balancer: Optional['_core.v1.outputs.LoadBalancerStatusPatch'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if load_balancer is None and 'loadBalancer' in kwargs:
-            load_balancer = kwargs['loadBalancer']
-
         if load_balancer is not None:
-            _setter("load_balancer", load_balancer)
+            pulumi.set(__self__, "load_balancer", load_balancer)
 
     @property
     @pulumi.getter(name="loadBalancer")
@@ -4221,25 +3298,10 @@ class IngressTLS(dict):
         :param Sequence[str] hosts: Hosts are a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
         :param str secret_name: SecretName is the name of the secret used to terminate SSL traffic on 443. Field is left optional to allow SSL routing based on SNI hostname alone. If the SNI host in a listener conflicts with the "Host" header field used by an IngressRule, the SNI host is used for termination and value of the Host header is used for routing.
         """
-        IngressTLS._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            hosts=hosts,
-            secret_name=secret_name,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             hosts: Optional[Sequence[str]] = None,
-             secret_name: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if secret_name is None and 'secretName' in kwargs:
-            secret_name = kwargs['secretName']
-
         if hosts is not None:
-            _setter("hosts", hosts)
+            pulumi.set(__self__, "hosts", hosts)
         if secret_name is not None:
-            _setter("secret_name", secret_name)
+            pulumi.set(__self__, "secret_name", secret_name)
 
     @property
     @pulumi.getter
@@ -4288,25 +3350,10 @@ class IngressTLSPatch(dict):
         :param Sequence[str] hosts: Hosts are a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
         :param str secret_name: SecretName is the name of the secret used to terminate SSL traffic on 443. Field is left optional to allow SSL routing based on SNI hostname alone. If the SNI host in a listener conflicts with the "Host" header field used by an IngressRule, the SNI host is used for termination and value of the Host header is used for routing.
         """
-        IngressTLSPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            hosts=hosts,
-            secret_name=secret_name,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             hosts: Optional[Sequence[str]] = None,
-             secret_name: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if secret_name is None and 'secretName' in kwargs:
-            secret_name = kwargs['secretName']
-
         if hosts is not None:
-            _setter("hosts", hosts)
+            pulumi.set(__self__, "hosts", hosts)
         if secret_name is not None:
-            _setter("secret_name", secret_name)
+            pulumi.set(__self__, "secret_name", secret_name)
 
     @property
     @pulumi.getter
@@ -4359,33 +3406,14 @@ class NetworkPolicy(dict):
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param 'NetworkPolicySpecArgs' spec: Specification of the desired behavior for this NetworkPolicy.
         """
-        NetworkPolicy._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            api_version=api_version,
-            kind=kind,
-            metadata=metadata,
-            spec=spec,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             api_version: Optional[str] = None,
-             kind: Optional[str] = None,
-             metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
-             spec: Optional['outputs.NetworkPolicySpec'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if api_version is None and 'apiVersion' in kwargs:
-            api_version = kwargs['apiVersion']
-
         if api_version is not None:
-            _setter("api_version", 'extensions/v1beta1')
+            pulumi.set(__self__, "api_version", 'extensions/v1beta1')
         if kind is not None:
-            _setter("kind", 'NetworkPolicy')
+            pulumi.set(__self__, "kind", 'NetworkPolicy')
         if metadata is not None:
-            _setter("metadata", metadata)
+            pulumi.set(__self__, "metadata", metadata)
         if spec is not None:
-            _setter("spec", spec)
+            pulumi.set(__self__, "spec", spec)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -4433,23 +3461,10 @@ class NetworkPolicyEgressRule(dict):
         :param Sequence['NetworkPolicyPortArgs'] ports: List of destination ports for outgoing traffic. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
         :param Sequence['NetworkPolicyPeerArgs'] to: List of destinations for outgoing traffic of pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all destinations (traffic not restricted by destination). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the to list.
         """
-        NetworkPolicyEgressRule._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            ports=ports,
-            to=to,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             ports: Optional[Sequence['outputs.NetworkPolicyPort']] = None,
-             to: Optional[Sequence['outputs.NetworkPolicyPeer']] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-
         if ports is not None:
-            _setter("ports", ports)
+            pulumi.set(__self__, "ports", ports)
         if to is not None:
-            _setter("to", to)
+            pulumi.set(__self__, "to", to)
 
     @property
     @pulumi.getter
@@ -4481,23 +3496,10 @@ class NetworkPolicyEgressRulePatch(dict):
         :param Sequence['NetworkPolicyPortPatchArgs'] ports: List of destination ports for outgoing traffic. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
         :param Sequence['NetworkPolicyPeerPatchArgs'] to: List of destinations for outgoing traffic of pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all destinations (traffic not restricted by destination). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the to list.
         """
-        NetworkPolicyEgressRulePatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            ports=ports,
-            to=to,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             ports: Optional[Sequence['outputs.NetworkPolicyPortPatch']] = None,
-             to: Optional[Sequence['outputs.NetworkPolicyPeerPatch']] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-
         if ports is not None:
-            _setter("ports", ports)
+            pulumi.set(__self__, "ports", ports)
         if to is not None:
-            _setter("to", to)
+            pulumi.set(__self__, "to", to)
 
     @property
     @pulumi.getter
@@ -4546,25 +3548,10 @@ class NetworkPolicyIngressRule(dict):
         :param Sequence['NetworkPolicyPeerArgs'] from_: List of sources which should be able to access the pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all sources (traffic not restricted by source). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the from list.
         :param Sequence['NetworkPolicyPortArgs'] ports: List of ports which should be made accessible on the pods selected for this rule. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
         """
-        NetworkPolicyIngressRule._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            from_=from_,
-            ports=ports,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             from_: Optional[Sequence['outputs.NetworkPolicyPeer']] = None,
-             ports: Optional[Sequence['outputs.NetworkPolicyPort']] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if from_ is None and 'from' in kwargs:
-            from_ = kwargs['from']
-
         if from_ is not None:
-            _setter("from_", from_)
+            pulumi.set(__self__, "from_", from_)
         if ports is not None:
-            _setter("ports", ports)
+            pulumi.set(__self__, "ports", ports)
 
     @property
     @pulumi.getter(name="from")
@@ -4613,25 +3600,10 @@ class NetworkPolicyIngressRulePatch(dict):
         :param Sequence['NetworkPolicyPeerPatchArgs'] from_: List of sources which should be able to access the pods selected for this rule. Items in this list are combined using a logical OR operation. If this field is empty or missing, this rule matches all sources (traffic not restricted by source). If this field is present and contains at least one item, this rule allows traffic only if the traffic matches at least one item in the from list.
         :param Sequence['NetworkPolicyPortPatchArgs'] ports: List of ports which should be made accessible on the pods selected for this rule. Each item in this list is combined using a logical OR. If this field is empty or missing, this rule matches all ports (traffic not restricted by port). If this field is present and contains at least one item, then this rule allows traffic only if the traffic matches at least one port in the list.
         """
-        NetworkPolicyIngressRulePatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            from_=from_,
-            ports=ports,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             from_: Optional[Sequence['outputs.NetworkPolicyPeerPatch']] = None,
-             ports: Optional[Sequence['outputs.NetworkPolicyPortPatch']] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if from_ is None and 'from' in kwargs:
-            from_ = kwargs['from']
-
         if from_ is not None:
-            _setter("from_", from_)
+            pulumi.set(__self__, "from_", from_)
         if ports is not None:
-            _setter("ports", ports)
+            pulumi.set(__self__, "ports", ports)
 
     @property
     @pulumi.getter(name="from")
@@ -4690,33 +3662,12 @@ class NetworkPolicyPeer(dict):
                
                If NamespaceSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects the Pods matching PodSelector in the policy's own Namespace.
         """
-        NetworkPolicyPeer._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            ip_block=ip_block,
-            namespace_selector=namespace_selector,
-            pod_selector=pod_selector,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             ip_block: Optional['outputs.IPBlock'] = None,
-             namespace_selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
-             pod_selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if ip_block is None and 'ipBlock' in kwargs:
-            ip_block = kwargs['ipBlock']
-        if namespace_selector is None and 'namespaceSelector' in kwargs:
-            namespace_selector = kwargs['namespaceSelector']
-        if pod_selector is None and 'podSelector' in kwargs:
-            pod_selector = kwargs['podSelector']
-
         if ip_block is not None:
-            _setter("ip_block", ip_block)
+            pulumi.set(__self__, "ip_block", ip_block)
         if namespace_selector is not None:
-            _setter("namespace_selector", namespace_selector)
+            pulumi.set(__self__, "namespace_selector", namespace_selector)
         if pod_selector is not None:
-            _setter("pod_selector", pod_selector)
+            pulumi.set(__self__, "pod_selector", pod_selector)
 
     @property
     @pulumi.getter(name="ipBlock")
@@ -4787,33 +3738,12 @@ class NetworkPolicyPeerPatch(dict):
                
                If NamespaceSelector is also set, then the NetworkPolicyPeer as a whole selects the Pods matching PodSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects the Pods matching PodSelector in the policy's own Namespace.
         """
-        NetworkPolicyPeerPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            ip_block=ip_block,
-            namespace_selector=namespace_selector,
-            pod_selector=pod_selector,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             ip_block: Optional['outputs.IPBlockPatch'] = None,
-             namespace_selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None,
-             pod_selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if ip_block is None and 'ipBlock' in kwargs:
-            ip_block = kwargs['ipBlock']
-        if namespace_selector is None and 'namespaceSelector' in kwargs:
-            namespace_selector = kwargs['namespaceSelector']
-        if pod_selector is None and 'podSelector' in kwargs:
-            pod_selector = kwargs['podSelector']
-
         if ip_block is not None:
-            _setter("ip_block", ip_block)
+            pulumi.set(__self__, "ip_block", ip_block)
         if namespace_selector is not None:
-            _setter("namespace_selector", namespace_selector)
+            pulumi.set(__self__, "namespace_selector", namespace_selector)
         if pod_selector is not None:
-            _setter("pod_selector", pod_selector)
+            pulumi.set(__self__, "pod_selector", pod_selector)
 
     @property
     @pulumi.getter(name="ipBlock")
@@ -4857,23 +3787,10 @@ class NetworkPolicyPort(dict):
         :param Union[int, str] port: If specified, the port on the given protocol.  This can either be a numerical or named port on a pod.  If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
         :param str protocol: Optional.  The protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field defaults to TCP.
         """
-        NetworkPolicyPort._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            port=port,
-            protocol=protocol,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             port: Optional[Any] = None,
-             protocol: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-
         if port is not None:
-            _setter("port", port)
+            pulumi.set(__self__, "port", port)
         if protocol is not None:
-            _setter("protocol", protocol)
+            pulumi.set(__self__, "protocol", protocol)
 
     @property
     @pulumi.getter
@@ -4905,23 +3822,10 @@ class NetworkPolicyPortPatch(dict):
         :param Union[int, str] port: If specified, the port on the given protocol.  This can either be a numerical or named port on a pod.  If this field is not provided, this matches all port names and numbers. If present, only traffic on the specified protocol AND port will be matched.
         :param str protocol: Optional.  The protocol (TCP, UDP, or SCTP) which traffic must match. If not specified, this field defaults to TCP.
         """
-        NetworkPolicyPortPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            port=port,
-            protocol=protocol,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             port: Optional[Any] = None,
-             protocol: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-
         if port is not None:
-            _setter("port", port)
+            pulumi.set(__self__, "port", port)
         if protocol is not None:
-            _setter("protocol", protocol)
+            pulumi.set(__self__, "protocol", protocol)
 
     @property
     @pulumi.getter
@@ -4976,36 +3880,13 @@ class NetworkPolicySpec(dict):
         :param Sequence['NetworkPolicyIngressRuleArgs'] ingress: List of ingress rules to be applied to the selected pods. Traffic is allowed to a pod if there are no NetworkPolicies selecting the pod OR if the traffic source is the pod's local node, OR if the traffic matches at least one ingress rule across all of the NetworkPolicy objects whose podSelector matches the pod. If this field is empty then this NetworkPolicy does not allow any traffic (and serves solely to ensure that the pods it selects are isolated by default).
         :param Sequence[str] policy_types: List of rule types that the NetworkPolicy relates to. Valid options are "Ingress", "Egress", or "Ingress,Egress". If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
         """
-        NetworkPolicySpec._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            pod_selector=pod_selector,
-            egress=egress,
-            ingress=ingress,
-            policy_types=policy_types,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             pod_selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
-             egress: Optional[Sequence['outputs.NetworkPolicyEgressRule']] = None,
-             ingress: Optional[Sequence['outputs.NetworkPolicyIngressRule']] = None,
-             policy_types: Optional[Sequence[str]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if pod_selector is None and 'podSelector' in kwargs:
-            pod_selector = kwargs['podSelector']
-        if pod_selector is None:
-            raise TypeError("Missing 'pod_selector' argument")
-        if policy_types is None and 'policyTypes' in kwargs:
-            policy_types = kwargs['policyTypes']
-
-        _setter("pod_selector", pod_selector)
+        pulumi.set(__self__, "pod_selector", pod_selector)
         if egress is not None:
-            _setter("egress", egress)
+            pulumi.set(__self__, "egress", egress)
         if ingress is not None:
-            _setter("ingress", ingress)
+            pulumi.set(__self__, "ingress", ingress)
         if policy_types is not None:
-            _setter("policy_types", policy_types)
+            pulumi.set(__self__, "policy_types", policy_types)
 
     @property
     @pulumi.getter(name="podSelector")
@@ -5076,35 +3957,14 @@ class NetworkPolicySpecPatch(dict):
         :param '_meta.v1.LabelSelectorPatchArgs' pod_selector: Selects the pods to which this NetworkPolicy object applies.  The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods.  In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
         :param Sequence[str] policy_types: List of rule types that the NetworkPolicy relates to. Valid options are "Ingress", "Egress", or "Ingress,Egress". If this field is not specified, it will default based on the existence of Ingress or Egress rules; policies that contain an Egress section are assumed to affect Egress, and all policies (whether or not they contain an Ingress section) are assumed to affect Ingress. If you want to write an egress-only policy, you must explicitly specify policyTypes [ "Egress" ]. Likewise, if you want to write a policy that specifies that no egress is allowed, you must specify a policyTypes value that include "Egress" (since such a policy would not include an Egress section and would otherwise default to just [ "Ingress" ]). This field is beta-level in 1.8
         """
-        NetworkPolicySpecPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            egress=egress,
-            ingress=ingress,
-            pod_selector=pod_selector,
-            policy_types=policy_types,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             egress: Optional[Sequence['outputs.NetworkPolicyEgressRulePatch']] = None,
-             ingress: Optional[Sequence['outputs.NetworkPolicyIngressRulePatch']] = None,
-             pod_selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None,
-             policy_types: Optional[Sequence[str]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if pod_selector is None and 'podSelector' in kwargs:
-            pod_selector = kwargs['podSelector']
-        if policy_types is None and 'policyTypes' in kwargs:
-            policy_types = kwargs['policyTypes']
-
         if egress is not None:
-            _setter("egress", egress)
+            pulumi.set(__self__, "egress", egress)
         if ingress is not None:
-            _setter("ingress", ingress)
+            pulumi.set(__self__, "ingress", ingress)
         if pod_selector is not None:
-            _setter("pod_selector", pod_selector)
+            pulumi.set(__self__, "pod_selector", pod_selector)
         if policy_types is not None:
-            _setter("policy_types", policy_types)
+            pulumi.set(__self__, "policy_types", policy_types)
 
     @property
     @pulumi.getter
@@ -5173,33 +4033,14 @@ class PodSecurityPolicy(dict):
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
         :param 'PodSecurityPolicySpecArgs' spec: spec defines the policy enforced.
         """
-        PodSecurityPolicy._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            api_version=api_version,
-            kind=kind,
-            metadata=metadata,
-            spec=spec,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             api_version: Optional[str] = None,
-             kind: Optional[str] = None,
-             metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
-             spec: Optional['outputs.PodSecurityPolicySpec'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if api_version is None and 'apiVersion' in kwargs:
-            api_version = kwargs['apiVersion']
-
         if api_version is not None:
-            _setter("api_version", 'extensions/v1beta1')
+            pulumi.set(__self__, "api_version", 'extensions/v1beta1')
         if kind is not None:
-            _setter("kind", 'PodSecurityPolicy')
+            pulumi.set(__self__, "kind", 'PodSecurityPolicy')
         if metadata is not None:
-            _setter("metadata", metadata)
+            pulumi.set(__self__, "metadata", metadata)
         if spec is not None:
-            _setter("spec", spec)
+            pulumi.set(__self__, "spec", spec)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -5354,159 +4195,50 @@ class PodSecurityPolicySpec(dict):
         :param 'RuntimeClassStrategyOptionsArgs' runtime_class: runtimeClass is the strategy that will dictate the allowable RuntimeClasses for a pod. If this field is omitted, the pod's runtimeClassName field is unrestricted. Enforcement of this field depends on the RuntimeClass feature gate being enabled.
         :param Sequence[str] volumes: volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
         """
-        PodSecurityPolicySpec._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            fs_group=fs_group,
-            run_as_user=run_as_user,
-            se_linux=se_linux,
-            supplemental_groups=supplemental_groups,
-            allow_privilege_escalation=allow_privilege_escalation,
-            allowed_csi_drivers=allowed_csi_drivers,
-            allowed_capabilities=allowed_capabilities,
-            allowed_flex_volumes=allowed_flex_volumes,
-            allowed_host_paths=allowed_host_paths,
-            allowed_proc_mount_types=allowed_proc_mount_types,
-            allowed_unsafe_sysctls=allowed_unsafe_sysctls,
-            default_add_capabilities=default_add_capabilities,
-            default_allow_privilege_escalation=default_allow_privilege_escalation,
-            forbidden_sysctls=forbidden_sysctls,
-            host_ipc=host_ipc,
-            host_network=host_network,
-            host_pid=host_pid,
-            host_ports=host_ports,
-            privileged=privileged,
-            read_only_root_filesystem=read_only_root_filesystem,
-            required_drop_capabilities=required_drop_capabilities,
-            run_as_group=run_as_group,
-            runtime_class=runtime_class,
-            volumes=volumes,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             fs_group: Optional['outputs.FSGroupStrategyOptions'] = None,
-             run_as_user: Optional['outputs.RunAsUserStrategyOptions'] = None,
-             se_linux: Optional['outputs.SELinuxStrategyOptions'] = None,
-             supplemental_groups: Optional['outputs.SupplementalGroupsStrategyOptions'] = None,
-             allow_privilege_escalation: Optional[bool] = None,
-             allowed_csi_drivers: Optional[Sequence['outputs.AllowedCSIDriver']] = None,
-             allowed_capabilities: Optional[Sequence[str]] = None,
-             allowed_flex_volumes: Optional[Sequence['outputs.AllowedFlexVolume']] = None,
-             allowed_host_paths: Optional[Sequence['outputs.AllowedHostPath']] = None,
-             allowed_proc_mount_types: Optional[Sequence[str]] = None,
-             allowed_unsafe_sysctls: Optional[Sequence[str]] = None,
-             default_add_capabilities: Optional[Sequence[str]] = None,
-             default_allow_privilege_escalation: Optional[bool] = None,
-             forbidden_sysctls: Optional[Sequence[str]] = None,
-             host_ipc: Optional[bool] = None,
-             host_network: Optional[bool] = None,
-             host_pid: Optional[bool] = None,
-             host_ports: Optional[Sequence['outputs.HostPortRange']] = None,
-             privileged: Optional[bool] = None,
-             read_only_root_filesystem: Optional[bool] = None,
-             required_drop_capabilities: Optional[Sequence[str]] = None,
-             run_as_group: Optional['outputs.RunAsGroupStrategyOptions'] = None,
-             runtime_class: Optional['outputs.RuntimeClassStrategyOptions'] = None,
-             volumes: Optional[Sequence[str]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if fs_group is None and 'fsGroup' in kwargs:
-            fs_group = kwargs['fsGroup']
-        if fs_group is None:
-            raise TypeError("Missing 'fs_group' argument")
-        if run_as_user is None and 'runAsUser' in kwargs:
-            run_as_user = kwargs['runAsUser']
-        if run_as_user is None:
-            raise TypeError("Missing 'run_as_user' argument")
-        if se_linux is None and 'seLinux' in kwargs:
-            se_linux = kwargs['seLinux']
-        if se_linux is None:
-            raise TypeError("Missing 'se_linux' argument")
-        if supplemental_groups is None and 'supplementalGroups' in kwargs:
-            supplemental_groups = kwargs['supplementalGroups']
-        if supplemental_groups is None:
-            raise TypeError("Missing 'supplemental_groups' argument")
-        if allow_privilege_escalation is None and 'allowPrivilegeEscalation' in kwargs:
-            allow_privilege_escalation = kwargs['allowPrivilegeEscalation']
-        if allowed_csi_drivers is None and 'allowedCSIDrivers' in kwargs:
-            allowed_csi_drivers = kwargs['allowedCSIDrivers']
-        if allowed_capabilities is None and 'allowedCapabilities' in kwargs:
-            allowed_capabilities = kwargs['allowedCapabilities']
-        if allowed_flex_volumes is None and 'allowedFlexVolumes' in kwargs:
-            allowed_flex_volumes = kwargs['allowedFlexVolumes']
-        if allowed_host_paths is None and 'allowedHostPaths' in kwargs:
-            allowed_host_paths = kwargs['allowedHostPaths']
-        if allowed_proc_mount_types is None and 'allowedProcMountTypes' in kwargs:
-            allowed_proc_mount_types = kwargs['allowedProcMountTypes']
-        if allowed_unsafe_sysctls is None and 'allowedUnsafeSysctls' in kwargs:
-            allowed_unsafe_sysctls = kwargs['allowedUnsafeSysctls']
-        if default_add_capabilities is None and 'defaultAddCapabilities' in kwargs:
-            default_add_capabilities = kwargs['defaultAddCapabilities']
-        if default_allow_privilege_escalation is None and 'defaultAllowPrivilegeEscalation' in kwargs:
-            default_allow_privilege_escalation = kwargs['defaultAllowPrivilegeEscalation']
-        if forbidden_sysctls is None and 'forbiddenSysctls' in kwargs:
-            forbidden_sysctls = kwargs['forbiddenSysctls']
-        if host_ipc is None and 'hostIPC' in kwargs:
-            host_ipc = kwargs['hostIPC']
-        if host_network is None and 'hostNetwork' in kwargs:
-            host_network = kwargs['hostNetwork']
-        if host_pid is None and 'hostPID' in kwargs:
-            host_pid = kwargs['hostPID']
-        if host_ports is None and 'hostPorts' in kwargs:
-            host_ports = kwargs['hostPorts']
-        if read_only_root_filesystem is None and 'readOnlyRootFilesystem' in kwargs:
-            read_only_root_filesystem = kwargs['readOnlyRootFilesystem']
-        if required_drop_capabilities is None and 'requiredDropCapabilities' in kwargs:
-            required_drop_capabilities = kwargs['requiredDropCapabilities']
-        if run_as_group is None and 'runAsGroup' in kwargs:
-            run_as_group = kwargs['runAsGroup']
-        if runtime_class is None and 'runtimeClass' in kwargs:
-            runtime_class = kwargs['runtimeClass']
-
-        _setter("fs_group", fs_group)
-        _setter("run_as_user", run_as_user)
-        _setter("se_linux", se_linux)
-        _setter("supplemental_groups", supplemental_groups)
+        pulumi.set(__self__, "fs_group", fs_group)
+        pulumi.set(__self__, "run_as_user", run_as_user)
+        pulumi.set(__self__, "se_linux", se_linux)
+        pulumi.set(__self__, "supplemental_groups", supplemental_groups)
         if allow_privilege_escalation is not None:
-            _setter("allow_privilege_escalation", allow_privilege_escalation)
+            pulumi.set(__self__, "allow_privilege_escalation", allow_privilege_escalation)
         if allowed_csi_drivers is not None:
-            _setter("allowed_csi_drivers", allowed_csi_drivers)
+            pulumi.set(__self__, "allowed_csi_drivers", allowed_csi_drivers)
         if allowed_capabilities is not None:
-            _setter("allowed_capabilities", allowed_capabilities)
+            pulumi.set(__self__, "allowed_capabilities", allowed_capabilities)
         if allowed_flex_volumes is not None:
-            _setter("allowed_flex_volumes", allowed_flex_volumes)
+            pulumi.set(__self__, "allowed_flex_volumes", allowed_flex_volumes)
         if allowed_host_paths is not None:
-            _setter("allowed_host_paths", allowed_host_paths)
+            pulumi.set(__self__, "allowed_host_paths", allowed_host_paths)
         if allowed_proc_mount_types is not None:
-            _setter("allowed_proc_mount_types", allowed_proc_mount_types)
+            pulumi.set(__self__, "allowed_proc_mount_types", allowed_proc_mount_types)
         if allowed_unsafe_sysctls is not None:
-            _setter("allowed_unsafe_sysctls", allowed_unsafe_sysctls)
+            pulumi.set(__self__, "allowed_unsafe_sysctls", allowed_unsafe_sysctls)
         if default_add_capabilities is not None:
-            _setter("default_add_capabilities", default_add_capabilities)
+            pulumi.set(__self__, "default_add_capabilities", default_add_capabilities)
         if default_allow_privilege_escalation is not None:
-            _setter("default_allow_privilege_escalation", default_allow_privilege_escalation)
+            pulumi.set(__self__, "default_allow_privilege_escalation", default_allow_privilege_escalation)
         if forbidden_sysctls is not None:
-            _setter("forbidden_sysctls", forbidden_sysctls)
+            pulumi.set(__self__, "forbidden_sysctls", forbidden_sysctls)
         if host_ipc is not None:
-            _setter("host_ipc", host_ipc)
+            pulumi.set(__self__, "host_ipc", host_ipc)
         if host_network is not None:
-            _setter("host_network", host_network)
+            pulumi.set(__self__, "host_network", host_network)
         if host_pid is not None:
-            _setter("host_pid", host_pid)
+            pulumi.set(__self__, "host_pid", host_pid)
         if host_ports is not None:
-            _setter("host_ports", host_ports)
+            pulumi.set(__self__, "host_ports", host_ports)
         if privileged is not None:
-            _setter("privileged", privileged)
+            pulumi.set(__self__, "privileged", privileged)
         if read_only_root_filesystem is not None:
-            _setter("read_only_root_filesystem", read_only_root_filesystem)
+            pulumi.set(__self__, "read_only_root_filesystem", read_only_root_filesystem)
         if required_drop_capabilities is not None:
-            _setter("required_drop_capabilities", required_drop_capabilities)
+            pulumi.set(__self__, "required_drop_capabilities", required_drop_capabilities)
         if run_as_group is not None:
-            _setter("run_as_group", run_as_group)
+            pulumi.set(__self__, "run_as_group", run_as_group)
         if runtime_class is not None:
-            _setter("runtime_class", runtime_class)
+            pulumi.set(__self__, "runtime_class", runtime_class)
         if volumes is not None:
-            _setter("volumes", volumes)
+            pulumi.set(__self__, "volumes", volumes)
 
     @property
     @pulumi.getter(name="fsGroup")
@@ -5825,155 +4557,54 @@ class PodSecurityPolicySpecPatch(dict):
         :param 'SupplementalGroupsStrategyOptionsPatchArgs' supplemental_groups: supplementalGroups is the strategy that will dictate what supplemental groups are used by the SecurityContext.
         :param Sequence[str] volumes: volumes is a white list of allowed volume plugins. Empty indicates that no volumes may be used. To allow all volumes you may use '*'.
         """
-        PodSecurityPolicySpecPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            allow_privilege_escalation=allow_privilege_escalation,
-            allowed_csi_drivers=allowed_csi_drivers,
-            allowed_capabilities=allowed_capabilities,
-            allowed_flex_volumes=allowed_flex_volumes,
-            allowed_host_paths=allowed_host_paths,
-            allowed_proc_mount_types=allowed_proc_mount_types,
-            allowed_unsafe_sysctls=allowed_unsafe_sysctls,
-            default_add_capabilities=default_add_capabilities,
-            default_allow_privilege_escalation=default_allow_privilege_escalation,
-            forbidden_sysctls=forbidden_sysctls,
-            fs_group=fs_group,
-            host_ipc=host_ipc,
-            host_network=host_network,
-            host_pid=host_pid,
-            host_ports=host_ports,
-            privileged=privileged,
-            read_only_root_filesystem=read_only_root_filesystem,
-            required_drop_capabilities=required_drop_capabilities,
-            run_as_group=run_as_group,
-            run_as_user=run_as_user,
-            runtime_class=runtime_class,
-            se_linux=se_linux,
-            supplemental_groups=supplemental_groups,
-            volumes=volumes,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             allow_privilege_escalation: Optional[bool] = None,
-             allowed_csi_drivers: Optional[Sequence['outputs.AllowedCSIDriverPatch']] = None,
-             allowed_capabilities: Optional[Sequence[str]] = None,
-             allowed_flex_volumes: Optional[Sequence['outputs.AllowedFlexVolumePatch']] = None,
-             allowed_host_paths: Optional[Sequence['outputs.AllowedHostPathPatch']] = None,
-             allowed_proc_mount_types: Optional[Sequence[str]] = None,
-             allowed_unsafe_sysctls: Optional[Sequence[str]] = None,
-             default_add_capabilities: Optional[Sequence[str]] = None,
-             default_allow_privilege_escalation: Optional[bool] = None,
-             forbidden_sysctls: Optional[Sequence[str]] = None,
-             fs_group: Optional['outputs.FSGroupStrategyOptionsPatch'] = None,
-             host_ipc: Optional[bool] = None,
-             host_network: Optional[bool] = None,
-             host_pid: Optional[bool] = None,
-             host_ports: Optional[Sequence['outputs.HostPortRangePatch']] = None,
-             privileged: Optional[bool] = None,
-             read_only_root_filesystem: Optional[bool] = None,
-             required_drop_capabilities: Optional[Sequence[str]] = None,
-             run_as_group: Optional['outputs.RunAsGroupStrategyOptionsPatch'] = None,
-             run_as_user: Optional['outputs.RunAsUserStrategyOptionsPatch'] = None,
-             runtime_class: Optional['outputs.RuntimeClassStrategyOptionsPatch'] = None,
-             se_linux: Optional['outputs.SELinuxStrategyOptionsPatch'] = None,
-             supplemental_groups: Optional['outputs.SupplementalGroupsStrategyOptionsPatch'] = None,
-             volumes: Optional[Sequence[str]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if allow_privilege_escalation is None and 'allowPrivilegeEscalation' in kwargs:
-            allow_privilege_escalation = kwargs['allowPrivilegeEscalation']
-        if allowed_csi_drivers is None and 'allowedCSIDrivers' in kwargs:
-            allowed_csi_drivers = kwargs['allowedCSIDrivers']
-        if allowed_capabilities is None and 'allowedCapabilities' in kwargs:
-            allowed_capabilities = kwargs['allowedCapabilities']
-        if allowed_flex_volumes is None and 'allowedFlexVolumes' in kwargs:
-            allowed_flex_volumes = kwargs['allowedFlexVolumes']
-        if allowed_host_paths is None and 'allowedHostPaths' in kwargs:
-            allowed_host_paths = kwargs['allowedHostPaths']
-        if allowed_proc_mount_types is None and 'allowedProcMountTypes' in kwargs:
-            allowed_proc_mount_types = kwargs['allowedProcMountTypes']
-        if allowed_unsafe_sysctls is None and 'allowedUnsafeSysctls' in kwargs:
-            allowed_unsafe_sysctls = kwargs['allowedUnsafeSysctls']
-        if default_add_capabilities is None and 'defaultAddCapabilities' in kwargs:
-            default_add_capabilities = kwargs['defaultAddCapabilities']
-        if default_allow_privilege_escalation is None and 'defaultAllowPrivilegeEscalation' in kwargs:
-            default_allow_privilege_escalation = kwargs['defaultAllowPrivilegeEscalation']
-        if forbidden_sysctls is None and 'forbiddenSysctls' in kwargs:
-            forbidden_sysctls = kwargs['forbiddenSysctls']
-        if fs_group is None and 'fsGroup' in kwargs:
-            fs_group = kwargs['fsGroup']
-        if host_ipc is None and 'hostIPC' in kwargs:
-            host_ipc = kwargs['hostIPC']
-        if host_network is None and 'hostNetwork' in kwargs:
-            host_network = kwargs['hostNetwork']
-        if host_pid is None and 'hostPID' in kwargs:
-            host_pid = kwargs['hostPID']
-        if host_ports is None and 'hostPorts' in kwargs:
-            host_ports = kwargs['hostPorts']
-        if read_only_root_filesystem is None and 'readOnlyRootFilesystem' in kwargs:
-            read_only_root_filesystem = kwargs['readOnlyRootFilesystem']
-        if required_drop_capabilities is None and 'requiredDropCapabilities' in kwargs:
-            required_drop_capabilities = kwargs['requiredDropCapabilities']
-        if run_as_group is None and 'runAsGroup' in kwargs:
-            run_as_group = kwargs['runAsGroup']
-        if run_as_user is None and 'runAsUser' in kwargs:
-            run_as_user = kwargs['runAsUser']
-        if runtime_class is None and 'runtimeClass' in kwargs:
-            runtime_class = kwargs['runtimeClass']
-        if se_linux is None and 'seLinux' in kwargs:
-            se_linux = kwargs['seLinux']
-        if supplemental_groups is None and 'supplementalGroups' in kwargs:
-            supplemental_groups = kwargs['supplementalGroups']
-
         if allow_privilege_escalation is not None:
-            _setter("allow_privilege_escalation", allow_privilege_escalation)
+            pulumi.set(__self__, "allow_privilege_escalation", allow_privilege_escalation)
         if allowed_csi_drivers is not None:
-            _setter("allowed_csi_drivers", allowed_csi_drivers)
+            pulumi.set(__self__, "allowed_csi_drivers", allowed_csi_drivers)
         if allowed_capabilities is not None:
-            _setter("allowed_capabilities", allowed_capabilities)
+            pulumi.set(__self__, "allowed_capabilities", allowed_capabilities)
         if allowed_flex_volumes is not None:
-            _setter("allowed_flex_volumes", allowed_flex_volumes)
+            pulumi.set(__self__, "allowed_flex_volumes", allowed_flex_volumes)
         if allowed_host_paths is not None:
-            _setter("allowed_host_paths", allowed_host_paths)
+            pulumi.set(__self__, "allowed_host_paths", allowed_host_paths)
         if allowed_proc_mount_types is not None:
-            _setter("allowed_proc_mount_types", allowed_proc_mount_types)
+            pulumi.set(__self__, "allowed_proc_mount_types", allowed_proc_mount_types)
         if allowed_unsafe_sysctls is not None:
-            _setter("allowed_unsafe_sysctls", allowed_unsafe_sysctls)
+            pulumi.set(__self__, "allowed_unsafe_sysctls", allowed_unsafe_sysctls)
         if default_add_capabilities is not None:
-            _setter("default_add_capabilities", default_add_capabilities)
+            pulumi.set(__self__, "default_add_capabilities", default_add_capabilities)
         if default_allow_privilege_escalation is not None:
-            _setter("default_allow_privilege_escalation", default_allow_privilege_escalation)
+            pulumi.set(__self__, "default_allow_privilege_escalation", default_allow_privilege_escalation)
         if forbidden_sysctls is not None:
-            _setter("forbidden_sysctls", forbidden_sysctls)
+            pulumi.set(__self__, "forbidden_sysctls", forbidden_sysctls)
         if fs_group is not None:
-            _setter("fs_group", fs_group)
+            pulumi.set(__self__, "fs_group", fs_group)
         if host_ipc is not None:
-            _setter("host_ipc", host_ipc)
+            pulumi.set(__self__, "host_ipc", host_ipc)
         if host_network is not None:
-            _setter("host_network", host_network)
+            pulumi.set(__self__, "host_network", host_network)
         if host_pid is not None:
-            _setter("host_pid", host_pid)
+            pulumi.set(__self__, "host_pid", host_pid)
         if host_ports is not None:
-            _setter("host_ports", host_ports)
+            pulumi.set(__self__, "host_ports", host_ports)
         if privileged is not None:
-            _setter("privileged", privileged)
+            pulumi.set(__self__, "privileged", privileged)
         if read_only_root_filesystem is not None:
-            _setter("read_only_root_filesystem", read_only_root_filesystem)
+            pulumi.set(__self__, "read_only_root_filesystem", read_only_root_filesystem)
         if required_drop_capabilities is not None:
-            _setter("required_drop_capabilities", required_drop_capabilities)
+            pulumi.set(__self__, "required_drop_capabilities", required_drop_capabilities)
         if run_as_group is not None:
-            _setter("run_as_group", run_as_group)
+            pulumi.set(__self__, "run_as_group", run_as_group)
         if run_as_user is not None:
-            _setter("run_as_user", run_as_user)
+            pulumi.set(__self__, "run_as_user", run_as_user)
         if runtime_class is not None:
-            _setter("runtime_class", runtime_class)
+            pulumi.set(__self__, "runtime_class", runtime_class)
         if se_linux is not None:
-            _setter("se_linux", se_linux)
+            pulumi.set(__self__, "se_linux", se_linux)
         if supplemental_groups is not None:
-            _setter("supplemental_groups", supplemental_groups)
+            pulumi.set(__self__, "supplemental_groups", supplemental_groups)
         if volumes is not None:
-            _setter("volumes", volumes)
+            pulumi.set(__self__, "volumes", volumes)
 
     @property
     @pulumi.getter(name="allowPrivilegeEscalation")
@@ -6208,37 +4839,16 @@ class ReplicaSet(dict):
         :param 'ReplicaSetSpecArgs' spec: Spec defines the specification of the desired behavior of the ReplicaSet. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         :param 'ReplicaSetStatusArgs' status: Status is the most recently observed status of the ReplicaSet. This data may be out of date by some window of time. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
         """
-        ReplicaSet._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            api_version=api_version,
-            kind=kind,
-            metadata=metadata,
-            spec=spec,
-            status=status,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             api_version: Optional[str] = None,
-             kind: Optional[str] = None,
-             metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
-             spec: Optional['outputs.ReplicaSetSpec'] = None,
-             status: Optional['outputs.ReplicaSetStatus'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if api_version is None and 'apiVersion' in kwargs:
-            api_version = kwargs['apiVersion']
-
         if api_version is not None:
-            _setter("api_version", 'extensions/v1beta1')
+            pulumi.set(__self__, "api_version", 'extensions/v1beta1')
         if kind is not None:
-            _setter("kind", 'ReplicaSet')
+            pulumi.set(__self__, "kind", 'ReplicaSet')
         if metadata is not None:
-            _setter("metadata", metadata)
+            pulumi.set(__self__, "metadata", metadata)
         if spec is not None:
-            _setter("spec", spec)
+            pulumi.set(__self__, "spec", spec)
         if status is not None:
-            _setter("status", status)
+            pulumi.set(__self__, "status", status)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -6317,39 +4927,14 @@ class ReplicaSetCondition(dict):
         :param str message: A human readable message indicating details about the transition.
         :param str reason: The reason for the condition's last transition.
         """
-        ReplicaSetCondition._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            status=status,
-            type=type,
-            last_transition_time=last_transition_time,
-            message=message,
-            reason=reason,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             status: Optional[str] = None,
-             type: Optional[str] = None,
-             last_transition_time: Optional[str] = None,
-             message: Optional[str] = None,
-             reason: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if status is None:
-            raise TypeError("Missing 'status' argument")
-        if type is None:
-            raise TypeError("Missing 'type' argument")
-        if last_transition_time is None and 'lastTransitionTime' in kwargs:
-            last_transition_time = kwargs['lastTransitionTime']
-
-        _setter("status", status)
-        _setter("type", type)
+        pulumi.set(__self__, "status", status)
+        pulumi.set(__self__, "type", type)
         if last_transition_time is not None:
-            _setter("last_transition_time", last_transition_time)
+            pulumi.set(__self__, "last_transition_time", last_transition_time)
         if message is not None:
-            _setter("message", message)
+            pulumi.set(__self__, "message", message)
         if reason is not None:
-            _setter("reason", reason)
+            pulumi.set(__self__, "reason", reason)
 
     @property
     @pulumi.getter
@@ -6428,37 +5013,16 @@ class ReplicaSetConditionPatch(dict):
         :param str status: Status of the condition, one of True, False, Unknown.
         :param str type: Type of replica set condition.
         """
-        ReplicaSetConditionPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            last_transition_time=last_transition_time,
-            message=message,
-            reason=reason,
-            status=status,
-            type=type,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             last_transition_time: Optional[str] = None,
-             message: Optional[str] = None,
-             reason: Optional[str] = None,
-             status: Optional[str] = None,
-             type: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if last_transition_time is None and 'lastTransitionTime' in kwargs:
-            last_transition_time = kwargs['lastTransitionTime']
-
         if last_transition_time is not None:
-            _setter("last_transition_time", last_transition_time)
+            pulumi.set(__self__, "last_transition_time", last_transition_time)
         if message is not None:
-            _setter("message", message)
+            pulumi.set(__self__, "message", message)
         if reason is not None:
-            _setter("reason", reason)
+            pulumi.set(__self__, "reason", reason)
         if status is not None:
-            _setter("status", status)
+            pulumi.set(__self__, "status", status)
         if type is not None:
-            _setter("type", type)
+            pulumi.set(__self__, "type", type)
 
     @property
     @pulumi.getter(name="lastTransitionTime")
@@ -6535,33 +5099,14 @@ class ReplicaSetSpec(dict):
         :param '_meta.v1.LabelSelectorArgs' selector: Selector is a label query over pods that should match the replica count. If the selector is empty, it is defaulted to the labels present on the pod template. Label keys and values that must match in order to be controlled by this replica set. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
         :param '_core.v1.PodTemplateSpecArgs' template: Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
         """
-        ReplicaSetSpec._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            min_ready_seconds=min_ready_seconds,
-            replicas=replicas,
-            selector=selector,
-            template=template,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             min_ready_seconds: Optional[int] = None,
-             replicas: Optional[int] = None,
-             selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
-             template: Optional['_core.v1.outputs.PodTemplateSpec'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if min_ready_seconds is None and 'minReadySeconds' in kwargs:
-            min_ready_seconds = kwargs['minReadySeconds']
-
         if min_ready_seconds is not None:
-            _setter("min_ready_seconds", min_ready_seconds)
+            pulumi.set(__self__, "min_ready_seconds", min_ready_seconds)
         if replicas is not None:
-            _setter("replicas", replicas)
+            pulumi.set(__self__, "replicas", replicas)
         if selector is not None:
-            _setter("selector", selector)
+            pulumi.set(__self__, "selector", selector)
         if template is not None:
-            _setter("template", template)
+            pulumi.set(__self__, "template", template)
 
     @property
     @pulumi.getter(name="minReadySeconds")
@@ -6630,33 +5175,14 @@ class ReplicaSetSpecPatch(dict):
         :param '_meta.v1.LabelSelectorPatchArgs' selector: Selector is a label query over pods that should match the replica count. If the selector is empty, it is defaulted to the labels present on the pod template. Label keys and values that must match in order to be controlled by this replica set. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
         :param '_core.v1.PodTemplateSpecPatchArgs' template: Template is the object that describes the pod that will be created if insufficient replicas are detected. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller#pod-template
         """
-        ReplicaSetSpecPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            min_ready_seconds=min_ready_seconds,
-            replicas=replicas,
-            selector=selector,
-            template=template,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             min_ready_seconds: Optional[int] = None,
-             replicas: Optional[int] = None,
-             selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None,
-             template: Optional['_core.v1.outputs.PodTemplateSpecPatch'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if min_ready_seconds is None and 'minReadySeconds' in kwargs:
-            min_ready_seconds = kwargs['minReadySeconds']
-
         if min_ready_seconds is not None:
-            _setter("min_ready_seconds", min_ready_seconds)
+            pulumi.set(__self__, "min_ready_seconds", min_ready_seconds)
         if replicas is not None:
-            _setter("replicas", replicas)
+            pulumi.set(__self__, "replicas", replicas)
         if selector is not None:
-            _setter("selector", selector)
+            pulumi.set(__self__, "selector", selector)
         if template is not None:
-            _setter("template", template)
+            pulumi.set(__self__, "template", template)
 
     @property
     @pulumi.getter(name="minReadySeconds")
@@ -6735,48 +5261,17 @@ class ReplicaSetStatus(dict):
         :param int observed_generation: ObservedGeneration reflects the generation of the most recently observed ReplicaSet.
         :param int ready_replicas: The number of ready replicas for this replica set.
         """
-        ReplicaSetStatus._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            replicas=replicas,
-            available_replicas=available_replicas,
-            conditions=conditions,
-            fully_labeled_replicas=fully_labeled_replicas,
-            observed_generation=observed_generation,
-            ready_replicas=ready_replicas,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             replicas: Optional[int] = None,
-             available_replicas: Optional[int] = None,
-             conditions: Optional[Sequence['outputs.ReplicaSetCondition']] = None,
-             fully_labeled_replicas: Optional[int] = None,
-             observed_generation: Optional[int] = None,
-             ready_replicas: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if replicas is None:
-            raise TypeError("Missing 'replicas' argument")
-        if available_replicas is None and 'availableReplicas' in kwargs:
-            available_replicas = kwargs['availableReplicas']
-        if fully_labeled_replicas is None and 'fullyLabeledReplicas' in kwargs:
-            fully_labeled_replicas = kwargs['fullyLabeledReplicas']
-        if observed_generation is None and 'observedGeneration' in kwargs:
-            observed_generation = kwargs['observedGeneration']
-        if ready_replicas is None and 'readyReplicas' in kwargs:
-            ready_replicas = kwargs['readyReplicas']
-
-        _setter("replicas", replicas)
+        pulumi.set(__self__, "replicas", replicas)
         if available_replicas is not None:
-            _setter("available_replicas", available_replicas)
+            pulumi.set(__self__, "available_replicas", available_replicas)
         if conditions is not None:
-            _setter("conditions", conditions)
+            pulumi.set(__self__, "conditions", conditions)
         if fully_labeled_replicas is not None:
-            _setter("fully_labeled_replicas", fully_labeled_replicas)
+            pulumi.set(__self__, "fully_labeled_replicas", fully_labeled_replicas)
         if observed_generation is not None:
-            _setter("observed_generation", observed_generation)
+            pulumi.set(__self__, "observed_generation", observed_generation)
         if ready_replicas is not None:
-            _setter("ready_replicas", ready_replicas)
+            pulumi.set(__self__, "ready_replicas", ready_replicas)
 
     @property
     @pulumi.getter
@@ -6871,47 +5366,18 @@ class ReplicaSetStatusPatch(dict):
         :param int ready_replicas: The number of ready replicas for this replica set.
         :param int replicas: Replicas is the most recently oberved number of replicas. More info: https://kubernetes.io/docs/concepts/workloads/controllers/replicationcontroller/#what-is-a-replicationcontroller
         """
-        ReplicaSetStatusPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            available_replicas=available_replicas,
-            conditions=conditions,
-            fully_labeled_replicas=fully_labeled_replicas,
-            observed_generation=observed_generation,
-            ready_replicas=ready_replicas,
-            replicas=replicas,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             available_replicas: Optional[int] = None,
-             conditions: Optional[Sequence['outputs.ReplicaSetConditionPatch']] = None,
-             fully_labeled_replicas: Optional[int] = None,
-             observed_generation: Optional[int] = None,
-             ready_replicas: Optional[int] = None,
-             replicas: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if available_replicas is None and 'availableReplicas' in kwargs:
-            available_replicas = kwargs['availableReplicas']
-        if fully_labeled_replicas is None and 'fullyLabeledReplicas' in kwargs:
-            fully_labeled_replicas = kwargs['fullyLabeledReplicas']
-        if observed_generation is None and 'observedGeneration' in kwargs:
-            observed_generation = kwargs['observedGeneration']
-        if ready_replicas is None and 'readyReplicas' in kwargs:
-            ready_replicas = kwargs['readyReplicas']
-
         if available_replicas is not None:
-            _setter("available_replicas", available_replicas)
+            pulumi.set(__self__, "available_replicas", available_replicas)
         if conditions is not None:
-            _setter("conditions", conditions)
+            pulumi.set(__self__, "conditions", conditions)
         if fully_labeled_replicas is not None:
-            _setter("fully_labeled_replicas", fully_labeled_replicas)
+            pulumi.set(__self__, "fully_labeled_replicas", fully_labeled_replicas)
         if observed_generation is not None:
-            _setter("observed_generation", observed_generation)
+            pulumi.set(__self__, "observed_generation", observed_generation)
         if ready_replicas is not None:
-            _setter("ready_replicas", ready_replicas)
+            pulumi.set(__self__, "ready_replicas", ready_replicas)
         if replicas is not None:
-            _setter("replicas", replicas)
+            pulumi.set(__self__, "replicas", replicas)
 
     @property
     @pulumi.getter(name="availableReplicas")
@@ -6973,19 +5439,8 @@ class RollbackConfig(dict):
         DEPRECATED.
         :param int revision: The revision to rollback to. If set to 0, rollback to the last revision.
         """
-        RollbackConfig._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            revision=revision,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             revision: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-
         if revision is not None:
-            _setter("revision", revision)
+            pulumi.set(__self__, "revision", revision)
 
     @property
     @pulumi.getter
@@ -7007,19 +5462,8 @@ class RollbackConfigPatch(dict):
         DEPRECATED.
         :param int revision: The revision to rollback to. If set to 0, rollback to the last revision.
         """
-        RollbackConfigPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            revision=revision,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             revision: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-
         if revision is not None:
-            _setter("revision", revision)
+            pulumi.set(__self__, "revision", revision)
 
     @property
     @pulumi.getter
@@ -7058,21 +5502,8 @@ class RollingUpdateDaemonSet(dict):
         Spec to control the desired behavior of daemon set rolling update.
         :param Union[int, str] max_unavailable: The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0. Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
         """
-        RollingUpdateDaemonSet._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            max_unavailable=max_unavailable,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             max_unavailable: Optional[Any] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if max_unavailable is None and 'maxUnavailable' in kwargs:
-            max_unavailable = kwargs['maxUnavailable']
-
         if max_unavailable is not None:
-            _setter("max_unavailable", max_unavailable)
+            pulumi.set(__self__, "max_unavailable", max_unavailable)
 
     @property
     @pulumi.getter(name="maxUnavailable")
@@ -7111,21 +5542,8 @@ class RollingUpdateDaemonSetPatch(dict):
         Spec to control the desired behavior of daemon set rolling update.
         :param Union[int, str] max_unavailable: The maximum number of DaemonSet pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of total number of DaemonSet pods at the start of the update (ex: 10%). Absolute number is calculated from percentage by rounding up. This cannot be 0. Default value is 1. Example: when this is set to 30%, at most 30% of the total number of nodes that should be running the daemon pod (i.e. status.desiredNumberScheduled) can have their pods stopped for an update at any given time. The update starts by stopping at most 30% of those DaemonSet pods and then brings up new DaemonSet pods in their place. Once the new pods are available, it then proceeds onto other DaemonSet pods, thus ensuring that at least 70% of original number of DaemonSet pods are available at all times during the update.
         """
-        RollingUpdateDaemonSetPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            max_unavailable=max_unavailable,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             max_unavailable: Optional[Any] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if max_unavailable is None and 'maxUnavailable' in kwargs:
-            max_unavailable = kwargs['maxUnavailable']
-
         if max_unavailable is not None:
-            _setter("max_unavailable", max_unavailable)
+            pulumi.set(__self__, "max_unavailable", max_unavailable)
 
     @property
     @pulumi.getter(name="maxUnavailable")
@@ -7168,27 +5586,10 @@ class RollingUpdateDeployment(dict):
         :param Union[int, str] max_surge: The maximum number of pods that can be scheduled above the desired number of pods. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up. By default, a value of 1 is used. Example: when this is set to 30%, the new RC can be scaled up immediately when the rolling update starts, such that the total number of old and new pods do not exceed 130% of desired pods. Once old pods have been killed, new RC can be scaled up further, ensuring that total number of pods running at any time during the update is at most 130% of desired pods.
         :param Union[int, str] max_unavailable: The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding down. This can not be 0 if MaxSurge is 0. By default, a fixed value of 1 is used. Example: when this is set to 30%, the old RC can be scaled down to 70% of desired pods immediately when the rolling update starts. Once new pods are ready, old RC can be scaled down further, followed by scaling up the new RC, ensuring that the total number of pods available at all times during the update is at least 70% of desired pods.
         """
-        RollingUpdateDeployment._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            max_surge=max_surge,
-            max_unavailable=max_unavailable,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             max_surge: Optional[Any] = None,
-             max_unavailable: Optional[Any] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if max_surge is None and 'maxSurge' in kwargs:
-            max_surge = kwargs['maxSurge']
-        if max_unavailable is None and 'maxUnavailable' in kwargs:
-            max_unavailable = kwargs['maxUnavailable']
-
         if max_surge is not None:
-            _setter("max_surge", max_surge)
+            pulumi.set(__self__, "max_surge", max_surge)
         if max_unavailable is not None:
-            _setter("max_unavailable", max_unavailable)
+            pulumi.set(__self__, "max_unavailable", max_unavailable)
 
     @property
     @pulumi.getter(name="maxSurge")
@@ -7239,27 +5640,10 @@ class RollingUpdateDeploymentPatch(dict):
         :param Union[int, str] max_surge: The maximum number of pods that can be scheduled above the desired number of pods. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). This can not be 0 if MaxUnavailable is 0. Absolute number is calculated from percentage by rounding up. By default, a value of 1 is used. Example: when this is set to 30%, the new RC can be scaled up immediately when the rolling update starts, such that the total number of old and new pods do not exceed 130% of desired pods. Once old pods have been killed, new RC can be scaled up further, ensuring that total number of pods running at any time during the update is at most 130% of desired pods.
         :param Union[int, str] max_unavailable: The maximum number of pods that can be unavailable during the update. Value can be an absolute number (ex: 5) or a percentage of desired pods (ex: 10%). Absolute number is calculated from percentage by rounding down. This can not be 0 if MaxSurge is 0. By default, a fixed value of 1 is used. Example: when this is set to 30%, the old RC can be scaled down to 70% of desired pods immediately when the rolling update starts. Once new pods are ready, old RC can be scaled down further, followed by scaling up the new RC, ensuring that the total number of pods available at all times during the update is at least 70% of desired pods.
         """
-        RollingUpdateDeploymentPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            max_surge=max_surge,
-            max_unavailable=max_unavailable,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             max_surge: Optional[Any] = None,
-             max_unavailable: Optional[Any] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if max_surge is None and 'maxSurge' in kwargs:
-            max_surge = kwargs['maxSurge']
-        if max_unavailable is None and 'maxUnavailable' in kwargs:
-            max_unavailable = kwargs['maxUnavailable']
-
         if max_surge is not None:
-            _setter("max_surge", max_surge)
+            pulumi.set(__self__, "max_surge", max_surge)
         if max_unavailable is not None:
-            _setter("max_unavailable", max_unavailable)
+            pulumi.set(__self__, "max_unavailable", max_unavailable)
 
     @property
     @pulumi.getter(name="maxSurge")
@@ -7291,24 +5675,9 @@ class RunAsGroupStrategyOptions(dict):
         :param str rule: rule is the strategy that will dictate the allowable RunAsGroup values that may be set.
         :param Sequence['IDRangeArgs'] ranges: ranges are the allowed ranges of gids that may be used. If you would like to force a single gid then supply a single range with the same start and end. Required for MustRunAs.
         """
-        RunAsGroupStrategyOptions._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            rule=rule,
-            ranges=ranges,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             rule: Optional[str] = None,
-             ranges: Optional[Sequence['outputs.IDRange']] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if rule is None:
-            raise TypeError("Missing 'rule' argument")
-
-        _setter("rule", rule)
+        pulumi.set(__self__, "rule", rule)
         if ranges is not None:
-            _setter("ranges", ranges)
+            pulumi.set(__self__, "ranges", ranges)
 
     @property
     @pulumi.getter
@@ -7340,23 +5709,10 @@ class RunAsGroupStrategyOptionsPatch(dict):
         :param Sequence['IDRangePatchArgs'] ranges: ranges are the allowed ranges of gids that may be used. If you would like to force a single gid then supply a single range with the same start and end. Required for MustRunAs.
         :param str rule: rule is the strategy that will dictate the allowable RunAsGroup values that may be set.
         """
-        RunAsGroupStrategyOptionsPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            ranges=ranges,
-            rule=rule,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             ranges: Optional[Sequence['outputs.IDRangePatch']] = None,
-             rule: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-
         if ranges is not None:
-            _setter("ranges", ranges)
+            pulumi.set(__self__, "ranges", ranges)
         if rule is not None:
-            _setter("rule", rule)
+            pulumi.set(__self__, "rule", rule)
 
     @property
     @pulumi.getter
@@ -7388,24 +5744,9 @@ class RunAsUserStrategyOptions(dict):
         :param str rule: rule is the strategy that will dictate the allowable RunAsUser values that may be set.
         :param Sequence['IDRangeArgs'] ranges: ranges are the allowed ranges of uids that may be used. If you would like to force a single uid then supply a single range with the same start and end. Required for MustRunAs.
         """
-        RunAsUserStrategyOptions._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            rule=rule,
-            ranges=ranges,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             rule: Optional[str] = None,
-             ranges: Optional[Sequence['outputs.IDRange']] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if rule is None:
-            raise TypeError("Missing 'rule' argument")
-
-        _setter("rule", rule)
+        pulumi.set(__self__, "rule", rule)
         if ranges is not None:
-            _setter("ranges", ranges)
+            pulumi.set(__self__, "ranges", ranges)
 
     @property
     @pulumi.getter
@@ -7437,23 +5778,10 @@ class RunAsUserStrategyOptionsPatch(dict):
         :param Sequence['IDRangePatchArgs'] ranges: ranges are the allowed ranges of uids that may be used. If you would like to force a single uid then supply a single range with the same start and end. Required for MustRunAs.
         :param str rule: rule is the strategy that will dictate the allowable RunAsUser values that may be set.
         """
-        RunAsUserStrategyOptionsPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            ranges=ranges,
-            rule=rule,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             ranges: Optional[Sequence['outputs.IDRangePatch']] = None,
-             rule: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-
         if ranges is not None:
-            _setter("ranges", ranges)
+            pulumi.set(__self__, "ranges", ranges)
         if rule is not None:
-            _setter("rule", rule)
+            pulumi.set(__self__, "rule", rule)
 
     @property
     @pulumi.getter
@@ -7504,28 +5832,9 @@ class RuntimeClassStrategyOptions(dict):
         :param Sequence[str] allowed_runtime_class_names: allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
         :param str default_runtime_class_name: defaultRuntimeClassName is the default RuntimeClassName to set on the pod. The default MUST be allowed by the allowedRuntimeClassNames list. A value of nil does not mutate the Pod.
         """
-        RuntimeClassStrategyOptions._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            allowed_runtime_class_names=allowed_runtime_class_names,
-            default_runtime_class_name=default_runtime_class_name,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             allowed_runtime_class_names: Optional[Sequence[str]] = None,
-             default_runtime_class_name: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if allowed_runtime_class_names is None and 'allowedRuntimeClassNames' in kwargs:
-            allowed_runtime_class_names = kwargs['allowedRuntimeClassNames']
-        if allowed_runtime_class_names is None:
-            raise TypeError("Missing 'allowed_runtime_class_names' argument")
-        if default_runtime_class_name is None and 'defaultRuntimeClassName' in kwargs:
-            default_runtime_class_name = kwargs['defaultRuntimeClassName']
-
-        _setter("allowed_runtime_class_names", allowed_runtime_class_names)
+        pulumi.set(__self__, "allowed_runtime_class_names", allowed_runtime_class_names)
         if default_runtime_class_name is not None:
-            _setter("default_runtime_class_name", default_runtime_class_name)
+            pulumi.set(__self__, "default_runtime_class_name", default_runtime_class_name)
 
     @property
     @pulumi.getter(name="allowedRuntimeClassNames")
@@ -7576,27 +5885,10 @@ class RuntimeClassStrategyOptionsPatch(dict):
         :param Sequence[str] allowed_runtime_class_names: allowedRuntimeClassNames is a whitelist of RuntimeClass names that may be specified on a pod. A value of "*" means that any RuntimeClass name is allowed, and must be the only item in the list. An empty list requires the RuntimeClassName field to be unset.
         :param str default_runtime_class_name: defaultRuntimeClassName is the default RuntimeClassName to set on the pod. The default MUST be allowed by the allowedRuntimeClassNames list. A value of nil does not mutate the Pod.
         """
-        RuntimeClassStrategyOptionsPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            allowed_runtime_class_names=allowed_runtime_class_names,
-            default_runtime_class_name=default_runtime_class_name,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             allowed_runtime_class_names: Optional[Sequence[str]] = None,
-             default_runtime_class_name: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if allowed_runtime_class_names is None and 'allowedRuntimeClassNames' in kwargs:
-            allowed_runtime_class_names = kwargs['allowedRuntimeClassNames']
-        if default_runtime_class_name is None and 'defaultRuntimeClassName' in kwargs:
-            default_runtime_class_name = kwargs['defaultRuntimeClassName']
-
         if allowed_runtime_class_names is not None:
-            _setter("allowed_runtime_class_names", allowed_runtime_class_names)
+            pulumi.set(__self__, "allowed_runtime_class_names", allowed_runtime_class_names)
         if default_runtime_class_name is not None:
-            _setter("default_runtime_class_name", default_runtime_class_name)
+            pulumi.set(__self__, "default_runtime_class_name", default_runtime_class_name)
 
     @property
     @pulumi.getter(name="allowedRuntimeClassNames")
@@ -7645,26 +5937,9 @@ class SELinuxStrategyOptions(dict):
         :param str rule: rule is the strategy that will dictate the allowable labels that may be set.
         :param '_core.v1.SELinuxOptionsArgs' se_linux_options: seLinuxOptions required to run as; required for MustRunAs More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
         """
-        SELinuxStrategyOptions._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            rule=rule,
-            se_linux_options=se_linux_options,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             rule: Optional[str] = None,
-             se_linux_options: Optional['_core.v1.outputs.SELinuxOptions'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if rule is None:
-            raise TypeError("Missing 'rule' argument")
-        if se_linux_options is None and 'seLinuxOptions' in kwargs:
-            se_linux_options = kwargs['seLinuxOptions']
-
-        _setter("rule", rule)
+        pulumi.set(__self__, "rule", rule)
         if se_linux_options is not None:
-            _setter("se_linux_options", se_linux_options)
+            pulumi.set(__self__, "se_linux_options", se_linux_options)
 
     @property
     @pulumi.getter
@@ -7713,25 +5988,10 @@ class SELinuxStrategyOptionsPatch(dict):
         :param str rule: rule is the strategy that will dictate the allowable labels that may be set.
         :param '_core.v1.SELinuxOptionsPatchArgs' se_linux_options: seLinuxOptions required to run as; required for MustRunAs More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
         """
-        SELinuxStrategyOptionsPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            rule=rule,
-            se_linux_options=se_linux_options,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             rule: Optional[str] = None,
-             se_linux_options: Optional['_core.v1.outputs.SELinuxOptionsPatch'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if se_linux_options is None and 'seLinuxOptions' in kwargs:
-            se_linux_options = kwargs['seLinuxOptions']
-
         if rule is not None:
-            _setter("rule", rule)
+            pulumi.set(__self__, "rule", rule)
         if se_linux_options is not None:
-            _setter("se_linux_options", se_linux_options)
+            pulumi.set(__self__, "se_linux_options", se_linux_options)
 
     @property
     @pulumi.getter
@@ -7763,23 +6023,10 @@ class SupplementalGroupsStrategyOptions(dict):
         :param Sequence['IDRangeArgs'] ranges: ranges are the allowed ranges of supplemental groups.  If you would like to force a single supplemental group then supply a single range with the same start and end. Required for MustRunAs.
         :param str rule: rule is the strategy that will dictate what supplemental groups is used in the SecurityContext.
         """
-        SupplementalGroupsStrategyOptions._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            ranges=ranges,
-            rule=rule,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             ranges: Optional[Sequence['outputs.IDRange']] = None,
-             rule: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-
         if ranges is not None:
-            _setter("ranges", ranges)
+            pulumi.set(__self__, "ranges", ranges)
         if rule is not None:
-            _setter("rule", rule)
+            pulumi.set(__self__, "rule", rule)
 
     @property
     @pulumi.getter
@@ -7811,23 +6058,10 @@ class SupplementalGroupsStrategyOptionsPatch(dict):
         :param Sequence['IDRangePatchArgs'] ranges: ranges are the allowed ranges of supplemental groups.  If you would like to force a single supplemental group then supply a single range with the same start and end. Required for MustRunAs.
         :param str rule: rule is the strategy that will dictate what supplemental groups is used in the SecurityContext.
         """
-        SupplementalGroupsStrategyOptionsPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            ranges=ranges,
-            rule=rule,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             ranges: Optional[Sequence['outputs.IDRangePatch']] = None,
-             rule: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-
         if ranges is not None:
-            _setter("ranges", ranges)
+            pulumi.set(__self__, "ranges", ranges)
         if rule is not None:
-            _setter("rule", rule)
+            pulumi.set(__self__, "rule", rule)
 
     @property
     @pulumi.getter

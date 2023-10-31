@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from . import outputs
 from ... import meta as _meta
@@ -74,30 +74,9 @@ class ContainerResourceMetricSource(dict):
         :param str name: name is the name of the resource in question.
         :param 'MetricTargetArgs' target: target specifies the target value for the given metric
         """
-        ContainerResourceMetricSource._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            container=container,
-            name=name,
-            target=target,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             container: Optional[str] = None,
-             name: Optional[str] = None,
-             target: Optional['outputs.MetricTarget'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if container is None:
-            raise TypeError("Missing 'container' argument")
-        if name is None:
-            raise TypeError("Missing 'name' argument")
-        if target is None:
-            raise TypeError("Missing 'target' argument")
-
-        _setter("container", container)
-        _setter("name", name)
-        _setter("target", target)
+        pulumi.set(__self__, "container", container)
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "target", target)
 
     @property
     @pulumi.getter
@@ -139,27 +118,12 @@ class ContainerResourceMetricSourcePatch(dict):
         :param str name: name is the name of the resource in question.
         :param 'MetricTargetPatchArgs' target: target specifies the target value for the given metric
         """
-        ContainerResourceMetricSourcePatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            container=container,
-            name=name,
-            target=target,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             container: Optional[str] = None,
-             name: Optional[str] = None,
-             target: Optional['outputs.MetricTargetPatch'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-
         if container is not None:
-            _setter("container", container)
+            pulumi.set(__self__, "container", container)
         if name is not None:
-            _setter("name", name)
+            pulumi.set(__self__, "name", name)
         if target is not None:
-            _setter("target", target)
+            pulumi.set(__self__, "target", target)
 
     @property
     @pulumi.getter
@@ -201,30 +165,9 @@ class ContainerResourceMetricStatus(dict):
         :param 'MetricValueStatusArgs' current: current contains the current value for the given metric
         :param str name: name is the name of the resource in question.
         """
-        ContainerResourceMetricStatus._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            container=container,
-            current=current,
-            name=name,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             container: Optional[str] = None,
-             current: Optional['outputs.MetricValueStatus'] = None,
-             name: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if container is None:
-            raise TypeError("Missing 'container' argument")
-        if current is None:
-            raise TypeError("Missing 'current' argument")
-        if name is None:
-            raise TypeError("Missing 'name' argument")
-
-        _setter("container", container)
-        _setter("current", current)
-        _setter("name", name)
+        pulumi.set(__self__, "container", container)
+        pulumi.set(__self__, "current", current)
+        pulumi.set(__self__, "name", name)
 
     @property
     @pulumi.getter
@@ -266,27 +209,12 @@ class ContainerResourceMetricStatusPatch(dict):
         :param 'MetricValueStatusPatchArgs' current: current contains the current value for the given metric
         :param str name: name is the name of the resource in question.
         """
-        ContainerResourceMetricStatusPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            container=container,
-            current=current,
-            name=name,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             container: Optional[str] = None,
-             current: Optional['outputs.MetricValueStatusPatch'] = None,
-             name: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-
         if container is not None:
-            _setter("container", container)
+            pulumi.set(__self__, "container", container)
         if current is not None:
-            _setter("current", current)
+            pulumi.set(__self__, "current", current)
         if name is not None:
-            _setter("name", name)
+            pulumi.set(__self__, "name", name)
 
     @property
     @pulumi.getter
@@ -345,31 +273,10 @@ class CrossVersionObjectReference(dict):
         :param str name: name is the name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
         :param str api_version: apiVersion is the API version of the referent
         """
-        CrossVersionObjectReference._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            kind=kind,
-            name=name,
-            api_version=api_version,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             kind: Optional[str] = None,
-             name: Optional[str] = None,
-             api_version: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if kind is None:
-            raise TypeError("Missing 'kind' argument")
-        if name is None:
-            raise TypeError("Missing 'name' argument")
-        if api_version is None and 'apiVersion' in kwargs:
-            api_version = kwargs['apiVersion']
-
-        _setter("kind", kind)
-        _setter("name", name)
+        pulumi.set(__self__, "kind", kind)
+        pulumi.set(__self__, "name", name)
         if api_version is not None:
-            _setter("api_version", api_version)
+            pulumi.set(__self__, "api_version", api_version)
 
     @property
     @pulumi.getter
@@ -428,29 +335,12 @@ class CrossVersionObjectReferencePatch(dict):
         :param str kind: kind is the kind of the referent; More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
         :param str name: name is the name of the referent; More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
         """
-        CrossVersionObjectReferencePatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            api_version=api_version,
-            kind=kind,
-            name=name,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             api_version: Optional[str] = None,
-             kind: Optional[str] = None,
-             name: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if api_version is None and 'apiVersion' in kwargs:
-            api_version = kwargs['apiVersion']
-
         if api_version is not None:
-            _setter("api_version", api_version)
+            pulumi.set(__self__, "api_version", api_version)
         if kind is not None:
-            _setter("kind", kind)
+            pulumi.set(__self__, "kind", kind)
         if name is not None:
-            _setter("name", name)
+            pulumi.set(__self__, "name", name)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -490,25 +380,8 @@ class ExternalMetricSource(dict):
         :param 'MetricIdentifierArgs' metric: metric identifies the target metric by name and selector
         :param 'MetricTargetArgs' target: target specifies the target value for the given metric
         """
-        ExternalMetricSource._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            metric=metric,
-            target=target,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             metric: Optional['outputs.MetricIdentifier'] = None,
-             target: Optional['outputs.MetricTarget'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if metric is None:
-            raise TypeError("Missing 'metric' argument")
-        if target is None:
-            raise TypeError("Missing 'target' argument")
-
-        _setter("metric", metric)
-        _setter("target", target)
+        pulumi.set(__self__, "metric", metric)
+        pulumi.set(__self__, "target", target)
 
     @property
     @pulumi.getter
@@ -540,23 +413,10 @@ class ExternalMetricSourcePatch(dict):
         :param 'MetricIdentifierPatchArgs' metric: metric identifies the target metric by name and selector
         :param 'MetricTargetPatchArgs' target: target specifies the target value for the given metric
         """
-        ExternalMetricSourcePatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            metric=metric,
-            target=target,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             metric: Optional['outputs.MetricIdentifierPatch'] = None,
-             target: Optional['outputs.MetricTargetPatch'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-
         if metric is not None:
-            _setter("metric", metric)
+            pulumi.set(__self__, "metric", metric)
         if target is not None:
-            _setter("target", target)
+            pulumi.set(__self__, "target", target)
 
     @property
     @pulumi.getter
@@ -588,25 +448,8 @@ class ExternalMetricStatus(dict):
         :param 'MetricValueStatusArgs' current: current contains the current value for the given metric
         :param 'MetricIdentifierArgs' metric: metric identifies the target metric by name and selector
         """
-        ExternalMetricStatus._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            current=current,
-            metric=metric,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             current: Optional['outputs.MetricValueStatus'] = None,
-             metric: Optional['outputs.MetricIdentifier'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if current is None:
-            raise TypeError("Missing 'current' argument")
-        if metric is None:
-            raise TypeError("Missing 'metric' argument")
-
-        _setter("current", current)
-        _setter("metric", metric)
+        pulumi.set(__self__, "current", current)
+        pulumi.set(__self__, "metric", metric)
 
     @property
     @pulumi.getter
@@ -638,23 +481,10 @@ class ExternalMetricStatusPatch(dict):
         :param 'MetricValueStatusPatchArgs' current: current contains the current value for the given metric
         :param 'MetricIdentifierPatchArgs' metric: metric identifies the target metric by name and selector
         """
-        ExternalMetricStatusPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            current=current,
-            metric=metric,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             current: Optional['outputs.MetricValueStatusPatch'] = None,
-             metric: Optional['outputs.MetricIdentifierPatch'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-
         if current is not None:
-            _setter("current", current)
+            pulumi.set(__self__, "current", current)
         if metric is not None:
-            _setter("metric", metric)
+            pulumi.set(__self__, "metric", metric)
 
     @property
     @pulumi.getter
@@ -705,32 +535,9 @@ class HPAScalingPolicy(dict):
         :param str type: type is used to specify the scaling policy.
         :param int value: value contains the amount of change which is permitted by the policy. It must be greater than zero
         """
-        HPAScalingPolicy._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            period_seconds=period_seconds,
-            type=type,
-            value=value,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             period_seconds: Optional[int] = None,
-             type: Optional[str] = None,
-             value: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if period_seconds is None and 'periodSeconds' in kwargs:
-            period_seconds = kwargs['periodSeconds']
-        if period_seconds is None:
-            raise TypeError("Missing 'period_seconds' argument")
-        if type is None:
-            raise TypeError("Missing 'type' argument")
-        if value is None:
-            raise TypeError("Missing 'value' argument")
-
-        _setter("period_seconds", period_seconds)
-        _setter("type", type)
-        _setter("value", value)
+        pulumi.set(__self__, "period_seconds", period_seconds)
+        pulumi.set(__self__, "type", type)
+        pulumi.set(__self__, "value", value)
 
     @property
     @pulumi.getter(name="periodSeconds")
@@ -789,29 +596,12 @@ class HPAScalingPolicyPatch(dict):
         :param str type: type is used to specify the scaling policy.
         :param int value: value contains the amount of change which is permitted by the policy. It must be greater than zero
         """
-        HPAScalingPolicyPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            period_seconds=period_seconds,
-            type=type,
-            value=value,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             period_seconds: Optional[int] = None,
-             type: Optional[str] = None,
-             value: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if period_seconds is None and 'periodSeconds' in kwargs:
-            period_seconds = kwargs['periodSeconds']
-
         if period_seconds is not None:
-            _setter("period_seconds", period_seconds)
+            pulumi.set(__self__, "period_seconds", period_seconds)
         if type is not None:
-            _setter("type", type)
+            pulumi.set(__self__, "type", type)
         if value is not None:
-            _setter("value", value)
+            pulumi.set(__self__, "value", value)
 
     @property
     @pulumi.getter(name="periodSeconds")
@@ -872,31 +662,12 @@ class HPAScalingRules(dict):
         :param str select_policy: selectPolicy is used to specify which policy should be used. If not set, the default value Max is used.
         :param int stabilization_window_seconds: stabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
         """
-        HPAScalingRules._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            policies=policies,
-            select_policy=select_policy,
-            stabilization_window_seconds=stabilization_window_seconds,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             policies: Optional[Sequence['outputs.HPAScalingPolicy']] = None,
-             select_policy: Optional[str] = None,
-             stabilization_window_seconds: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if select_policy is None and 'selectPolicy' in kwargs:
-            select_policy = kwargs['selectPolicy']
-        if stabilization_window_seconds is None and 'stabilizationWindowSeconds' in kwargs:
-            stabilization_window_seconds = kwargs['stabilizationWindowSeconds']
-
         if policies is not None:
-            _setter("policies", policies)
+            pulumi.set(__self__, "policies", policies)
         if select_policy is not None:
-            _setter("select_policy", select_policy)
+            pulumi.set(__self__, "select_policy", select_policy)
         if stabilization_window_seconds is not None:
-            _setter("stabilization_window_seconds", stabilization_window_seconds)
+            pulumi.set(__self__, "stabilization_window_seconds", stabilization_window_seconds)
 
     @property
     @pulumi.getter
@@ -957,31 +728,12 @@ class HPAScalingRulesPatch(dict):
         :param str select_policy: selectPolicy is used to specify which policy should be used. If not set, the default value Max is used.
         :param int stabilization_window_seconds: stabilizationWindowSeconds is the number of seconds for which past recommendations should be considered while scaling up or scaling down. StabilizationWindowSeconds must be greater than or equal to zero and less than or equal to 3600 (one hour). If not set, use the default values: - For scale up: 0 (i.e. no stabilization is done). - For scale down: 300 (i.e. the stabilization window is 300 seconds long).
         """
-        HPAScalingRulesPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            policies=policies,
-            select_policy=select_policy,
-            stabilization_window_seconds=stabilization_window_seconds,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             policies: Optional[Sequence['outputs.HPAScalingPolicyPatch']] = None,
-             select_policy: Optional[str] = None,
-             stabilization_window_seconds: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if select_policy is None and 'selectPolicy' in kwargs:
-            select_policy = kwargs['selectPolicy']
-        if stabilization_window_seconds is None and 'stabilizationWindowSeconds' in kwargs:
-            stabilization_window_seconds = kwargs['stabilizationWindowSeconds']
-
         if policies is not None:
-            _setter("policies", policies)
+            pulumi.set(__self__, "policies", policies)
         if select_policy is not None:
-            _setter("select_policy", select_policy)
+            pulumi.set(__self__, "select_policy", select_policy)
         if stabilization_window_seconds is not None:
-            _setter("stabilization_window_seconds", stabilization_window_seconds)
+            pulumi.set(__self__, "stabilization_window_seconds", stabilization_window_seconds)
 
     @property
     @pulumi.getter
@@ -1044,37 +796,16 @@ class HorizontalPodAutoscaler(dict):
         :param 'HorizontalPodAutoscalerSpecArgs' spec: spec is the specification for the behaviour of the autoscaler. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
         :param 'HorizontalPodAutoscalerStatusArgs' status: status is the current information about the autoscaler.
         """
-        HorizontalPodAutoscaler._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            api_version=api_version,
-            kind=kind,
-            metadata=metadata,
-            spec=spec,
-            status=status,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             api_version: Optional[str] = None,
-             kind: Optional[str] = None,
-             metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
-             spec: Optional['outputs.HorizontalPodAutoscalerSpec'] = None,
-             status: Optional['outputs.HorizontalPodAutoscalerStatus'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if api_version is None and 'apiVersion' in kwargs:
-            api_version = kwargs['apiVersion']
-
         if api_version is not None:
-            _setter("api_version", 'autoscaling/v2')
+            pulumi.set(__self__, "api_version", 'autoscaling/v2')
         if kind is not None:
-            _setter("kind", 'HorizontalPodAutoscaler')
+            pulumi.set(__self__, "kind", 'HorizontalPodAutoscaler')
         if metadata is not None:
-            _setter("metadata", metadata)
+            pulumi.set(__self__, "metadata", metadata)
         if spec is not None:
-            _setter("spec", spec)
+            pulumi.set(__self__, "spec", spec)
         if status is not None:
-            _setter("status", status)
+            pulumi.set(__self__, "status", status)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -1152,27 +883,10 @@ class HorizontalPodAutoscalerBehavior(dict):
                  * double the number of pods per 60 seconds
                No stabilization is used.
         """
-        HorizontalPodAutoscalerBehavior._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            scale_down=scale_down,
-            scale_up=scale_up,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             scale_down: Optional['outputs.HPAScalingRules'] = None,
-             scale_up: Optional['outputs.HPAScalingRules'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if scale_down is None and 'scaleDown' in kwargs:
-            scale_down = kwargs['scaleDown']
-        if scale_up is None and 'scaleUp' in kwargs:
-            scale_up = kwargs['scaleUp']
-
         if scale_down is not None:
-            _setter("scale_down", scale_down)
+            pulumi.set(__self__, "scale_down", scale_down)
         if scale_up is not None:
-            _setter("scale_up", scale_up)
+            pulumi.set(__self__, "scale_up", scale_up)
 
     @property
     @pulumi.getter(name="scaleDown")
@@ -1229,27 +943,10 @@ class HorizontalPodAutoscalerBehaviorPatch(dict):
                  * double the number of pods per 60 seconds
                No stabilization is used.
         """
-        HorizontalPodAutoscalerBehaviorPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            scale_down=scale_down,
-            scale_up=scale_up,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             scale_down: Optional['outputs.HPAScalingRulesPatch'] = None,
-             scale_up: Optional['outputs.HPAScalingRulesPatch'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if scale_down is None and 'scaleDown' in kwargs:
-            scale_down = kwargs['scaleDown']
-        if scale_up is None and 'scaleUp' in kwargs:
-            scale_up = kwargs['scaleUp']
-
         if scale_down is not None:
-            _setter("scale_down", scale_down)
+            pulumi.set(__self__, "scale_down", scale_down)
         if scale_up is not None:
-            _setter("scale_up", scale_up)
+            pulumi.set(__self__, "scale_up", scale_up)
 
     @property
     @pulumi.getter(name="scaleDown")
@@ -1307,39 +1004,14 @@ class HorizontalPodAutoscalerCondition(dict):
         :param str message: message is a human-readable explanation containing details about the transition
         :param str reason: reason is the reason for the condition's last transition.
         """
-        HorizontalPodAutoscalerCondition._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            status=status,
-            type=type,
-            last_transition_time=last_transition_time,
-            message=message,
-            reason=reason,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             status: Optional[str] = None,
-             type: Optional[str] = None,
-             last_transition_time: Optional[str] = None,
-             message: Optional[str] = None,
-             reason: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if status is None:
-            raise TypeError("Missing 'status' argument")
-        if type is None:
-            raise TypeError("Missing 'type' argument")
-        if last_transition_time is None and 'lastTransitionTime' in kwargs:
-            last_transition_time = kwargs['lastTransitionTime']
-
-        _setter("status", status)
-        _setter("type", type)
+        pulumi.set(__self__, "status", status)
+        pulumi.set(__self__, "type", type)
         if last_transition_time is not None:
-            _setter("last_transition_time", last_transition_time)
+            pulumi.set(__self__, "last_transition_time", last_transition_time)
         if message is not None:
-            _setter("message", message)
+            pulumi.set(__self__, "message", message)
         if reason is not None:
-            _setter("reason", reason)
+            pulumi.set(__self__, "reason", reason)
 
     @property
     @pulumi.getter
@@ -1418,37 +1090,16 @@ class HorizontalPodAutoscalerConditionPatch(dict):
         :param str status: status is the status of the condition (True, False, Unknown)
         :param str type: type describes the current condition
         """
-        HorizontalPodAutoscalerConditionPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            last_transition_time=last_transition_time,
-            message=message,
-            reason=reason,
-            status=status,
-            type=type,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             last_transition_time: Optional[str] = None,
-             message: Optional[str] = None,
-             reason: Optional[str] = None,
-             status: Optional[str] = None,
-             type: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if last_transition_time is None and 'lastTransitionTime' in kwargs:
-            last_transition_time = kwargs['lastTransitionTime']
-
         if last_transition_time is not None:
-            _setter("last_transition_time", last_transition_time)
+            pulumi.set(__self__, "last_transition_time", last_transition_time)
         if message is not None:
-            _setter("message", message)
+            pulumi.set(__self__, "message", message)
         if reason is not None:
-            _setter("reason", reason)
+            pulumi.set(__self__, "reason", reason)
         if status is not None:
-            _setter("status", status)
+            pulumi.set(__self__, "status", status)
         if type is not None:
-            _setter("type", type)
+            pulumi.set(__self__, "type", type)
 
     @property
     @pulumi.getter(name="lastTransitionTime")
@@ -1531,43 +1182,14 @@ class HorizontalPodAutoscalerSpec(dict):
         :param Sequence['MetricSpecArgs'] metrics: metrics contains the specifications for which to use to calculate the desired replica count (the maximum replica count across all metrics will be used).  The desired replica count is calculated multiplying the ratio between the target value and the current value by the current number of pods.  Ergo, metrics used must decrease as the pod count is increased, and vice-versa.  See the individual metric source types for more information about how each type of metric must respond. If not set, the default metric will be set to 80% average CPU utilization.
         :param int min_replicas: minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.
         """
-        HorizontalPodAutoscalerSpec._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            max_replicas=max_replicas,
-            scale_target_ref=scale_target_ref,
-            behavior=behavior,
-            metrics=metrics,
-            min_replicas=min_replicas,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             max_replicas: Optional[int] = None,
-             scale_target_ref: Optional['outputs.CrossVersionObjectReference'] = None,
-             behavior: Optional['outputs.HorizontalPodAutoscalerBehavior'] = None,
-             metrics: Optional[Sequence['outputs.MetricSpec']] = None,
-             min_replicas: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if max_replicas is None and 'maxReplicas' in kwargs:
-            max_replicas = kwargs['maxReplicas']
-        if max_replicas is None:
-            raise TypeError("Missing 'max_replicas' argument")
-        if scale_target_ref is None and 'scaleTargetRef' in kwargs:
-            scale_target_ref = kwargs['scaleTargetRef']
-        if scale_target_ref is None:
-            raise TypeError("Missing 'scale_target_ref' argument")
-        if min_replicas is None and 'minReplicas' in kwargs:
-            min_replicas = kwargs['minReplicas']
-
-        _setter("max_replicas", max_replicas)
-        _setter("scale_target_ref", scale_target_ref)
+        pulumi.set(__self__, "max_replicas", max_replicas)
+        pulumi.set(__self__, "scale_target_ref", scale_target_ref)
         if behavior is not None:
-            _setter("behavior", behavior)
+            pulumi.set(__self__, "behavior", behavior)
         if metrics is not None:
-            _setter("metrics", metrics)
+            pulumi.set(__self__, "metrics", metrics)
         if min_replicas is not None:
-            _setter("min_replicas", min_replicas)
+            pulumi.set(__self__, "min_replicas", min_replicas)
 
     @property
     @pulumi.getter(name="maxReplicas")
@@ -1650,41 +1272,16 @@ class HorizontalPodAutoscalerSpecPatch(dict):
         :param int min_replicas: minReplicas is the lower limit for the number of replicas to which the autoscaler can scale down.  It defaults to 1 pod.  minReplicas is allowed to be 0 if the alpha feature gate HPAScaleToZero is enabled and at least one Object or External metric is configured.  Scaling is active as long as at least one metric value is available.
         :param 'CrossVersionObjectReferencePatchArgs' scale_target_ref: scaleTargetRef points to the target resource to scale, and is used to the pods for which metrics should be collected, as well as to actually change the replica count.
         """
-        HorizontalPodAutoscalerSpecPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            behavior=behavior,
-            max_replicas=max_replicas,
-            metrics=metrics,
-            min_replicas=min_replicas,
-            scale_target_ref=scale_target_ref,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             behavior: Optional['outputs.HorizontalPodAutoscalerBehaviorPatch'] = None,
-             max_replicas: Optional[int] = None,
-             metrics: Optional[Sequence['outputs.MetricSpecPatch']] = None,
-             min_replicas: Optional[int] = None,
-             scale_target_ref: Optional['outputs.CrossVersionObjectReferencePatch'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if max_replicas is None and 'maxReplicas' in kwargs:
-            max_replicas = kwargs['maxReplicas']
-        if min_replicas is None and 'minReplicas' in kwargs:
-            min_replicas = kwargs['minReplicas']
-        if scale_target_ref is None and 'scaleTargetRef' in kwargs:
-            scale_target_ref = kwargs['scaleTargetRef']
-
         if behavior is not None:
-            _setter("behavior", behavior)
+            pulumi.set(__self__, "behavior", behavior)
         if max_replicas is not None:
-            _setter("max_replicas", max_replicas)
+            pulumi.set(__self__, "max_replicas", max_replicas)
         if metrics is not None:
-            _setter("metrics", metrics)
+            pulumi.set(__self__, "metrics", metrics)
         if min_replicas is not None:
-            _setter("min_replicas", min_replicas)
+            pulumi.set(__self__, "min_replicas", min_replicas)
         if scale_target_ref is not None:
-            _setter("scale_target_ref", scale_target_ref)
+            pulumi.set(__self__, "scale_target_ref", scale_target_ref)
 
     @property
     @pulumi.getter
@@ -1773,50 +1370,17 @@ class HorizontalPodAutoscalerStatus(dict):
         :param str last_scale_time: lastScaleTime is the last time the HorizontalPodAutoscaler scaled the number of pods, used by the autoscaler to control how often the number of pods is changed.
         :param int observed_generation: observedGeneration is the most recent generation observed by this autoscaler.
         """
-        HorizontalPodAutoscalerStatus._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            desired_replicas=desired_replicas,
-            conditions=conditions,
-            current_metrics=current_metrics,
-            current_replicas=current_replicas,
-            last_scale_time=last_scale_time,
-            observed_generation=observed_generation,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             desired_replicas: Optional[int] = None,
-             conditions: Optional[Sequence['outputs.HorizontalPodAutoscalerCondition']] = None,
-             current_metrics: Optional[Sequence['outputs.MetricStatus']] = None,
-             current_replicas: Optional[int] = None,
-             last_scale_time: Optional[str] = None,
-             observed_generation: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if desired_replicas is None and 'desiredReplicas' in kwargs:
-            desired_replicas = kwargs['desiredReplicas']
-        if desired_replicas is None:
-            raise TypeError("Missing 'desired_replicas' argument")
-        if current_metrics is None and 'currentMetrics' in kwargs:
-            current_metrics = kwargs['currentMetrics']
-        if current_replicas is None and 'currentReplicas' in kwargs:
-            current_replicas = kwargs['currentReplicas']
-        if last_scale_time is None and 'lastScaleTime' in kwargs:
-            last_scale_time = kwargs['lastScaleTime']
-        if observed_generation is None and 'observedGeneration' in kwargs:
-            observed_generation = kwargs['observedGeneration']
-
-        _setter("desired_replicas", desired_replicas)
+        pulumi.set(__self__, "desired_replicas", desired_replicas)
         if conditions is not None:
-            _setter("conditions", conditions)
+            pulumi.set(__self__, "conditions", conditions)
         if current_metrics is not None:
-            _setter("current_metrics", current_metrics)
+            pulumi.set(__self__, "current_metrics", current_metrics)
         if current_replicas is not None:
-            _setter("current_replicas", current_replicas)
+            pulumi.set(__self__, "current_replicas", current_replicas)
         if last_scale_time is not None:
-            _setter("last_scale_time", last_scale_time)
+            pulumi.set(__self__, "last_scale_time", last_scale_time)
         if observed_generation is not None:
-            _setter("observed_generation", observed_generation)
+            pulumi.set(__self__, "observed_generation", observed_generation)
 
     @property
     @pulumi.getter(name="desiredReplicas")
@@ -1913,49 +1477,18 @@ class HorizontalPodAutoscalerStatusPatch(dict):
         :param str last_scale_time: lastScaleTime is the last time the HorizontalPodAutoscaler scaled the number of pods, used by the autoscaler to control how often the number of pods is changed.
         :param int observed_generation: observedGeneration is the most recent generation observed by this autoscaler.
         """
-        HorizontalPodAutoscalerStatusPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            conditions=conditions,
-            current_metrics=current_metrics,
-            current_replicas=current_replicas,
-            desired_replicas=desired_replicas,
-            last_scale_time=last_scale_time,
-            observed_generation=observed_generation,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             conditions: Optional[Sequence['outputs.HorizontalPodAutoscalerConditionPatch']] = None,
-             current_metrics: Optional[Sequence['outputs.MetricStatusPatch']] = None,
-             current_replicas: Optional[int] = None,
-             desired_replicas: Optional[int] = None,
-             last_scale_time: Optional[str] = None,
-             observed_generation: Optional[int] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if current_metrics is None and 'currentMetrics' in kwargs:
-            current_metrics = kwargs['currentMetrics']
-        if current_replicas is None and 'currentReplicas' in kwargs:
-            current_replicas = kwargs['currentReplicas']
-        if desired_replicas is None and 'desiredReplicas' in kwargs:
-            desired_replicas = kwargs['desiredReplicas']
-        if last_scale_time is None and 'lastScaleTime' in kwargs:
-            last_scale_time = kwargs['lastScaleTime']
-        if observed_generation is None and 'observedGeneration' in kwargs:
-            observed_generation = kwargs['observedGeneration']
-
         if conditions is not None:
-            _setter("conditions", conditions)
+            pulumi.set(__self__, "conditions", conditions)
         if current_metrics is not None:
-            _setter("current_metrics", current_metrics)
+            pulumi.set(__self__, "current_metrics", current_metrics)
         if current_replicas is not None:
-            _setter("current_replicas", current_replicas)
+            pulumi.set(__self__, "current_replicas", current_replicas)
         if desired_replicas is not None:
-            _setter("desired_replicas", desired_replicas)
+            pulumi.set(__self__, "desired_replicas", desired_replicas)
         if last_scale_time is not None:
-            _setter("last_scale_time", last_scale_time)
+            pulumi.set(__self__, "last_scale_time", last_scale_time)
         if observed_generation is not None:
-            _setter("observed_generation", observed_generation)
+            pulumi.set(__self__, "observed_generation", observed_generation)
 
     @property
     @pulumi.getter
@@ -2019,24 +1552,9 @@ class MetricIdentifier(dict):
         :param str name: name is the name of the given metric
         :param '_meta.v1.LabelSelectorArgs' selector: selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping. When unset, just the metricName will be used to gather metrics.
         """
-        MetricIdentifier._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            name=name,
-            selector=selector,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             name: Optional[str] = None,
-             selector: Optional['_meta.v1.outputs.LabelSelector'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if name is None:
-            raise TypeError("Missing 'name' argument")
-
-        _setter("name", name)
+        pulumi.set(__self__, "name", name)
         if selector is not None:
-            _setter("selector", selector)
+            pulumi.set(__self__, "selector", selector)
 
     @property
     @pulumi.getter
@@ -2068,23 +1586,10 @@ class MetricIdentifierPatch(dict):
         :param str name: name is the name of the given metric
         :param '_meta.v1.LabelSelectorPatchArgs' selector: selector is the string-encoded form of a standard kubernetes label selector for the given metric When set, it is passed as an additional parameter to the metrics server for more specific metrics scoping. When unset, just the metricName will be used to gather metrics.
         """
-        MetricIdentifierPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            name=name,
-            selector=selector,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             name: Optional[str] = None,
-             selector: Optional['_meta.v1.outputs.LabelSelectorPatch'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-
         if name is not None:
-            _setter("name", name)
+            pulumi.set(__self__, "name", name)
         if selector is not None:
-            _setter("selector", selector)
+            pulumi.set(__self__, "selector", selector)
 
     @property
     @pulumi.getter
@@ -2141,42 +1646,17 @@ class MetricSpec(dict):
         :param 'PodsMetricSourceArgs' pods: pods refers to a metric describing each pod in the current scale target (for example, transactions-processed-per-second).  The values will be averaged together before being compared to the target value.
         :param 'ResourceMetricSourceArgs' resource: resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
         """
-        MetricSpec._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            type=type,
-            container_resource=container_resource,
-            external=external,
-            object=object,
-            pods=pods,
-            resource=resource,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             type: Optional[str] = None,
-             container_resource: Optional['outputs.ContainerResourceMetricSource'] = None,
-             external: Optional['outputs.ExternalMetricSource'] = None,
-             object: Optional['outputs.ObjectMetricSource'] = None,
-             pods: Optional['outputs.PodsMetricSource'] = None,
-             resource: Optional['outputs.ResourceMetricSource'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if type is None:
-            raise TypeError("Missing 'type' argument")
-        if container_resource is None and 'containerResource' in kwargs:
-            container_resource = kwargs['containerResource']
-
-        _setter("type", type)
+        pulumi.set(__self__, "type", type)
         if container_resource is not None:
-            _setter("container_resource", container_resource)
+            pulumi.set(__self__, "container_resource", container_resource)
         if external is not None:
-            _setter("external", external)
+            pulumi.set(__self__, "external", external)
         if object is not None:
-            _setter("object", object)
+            pulumi.set(__self__, "object", object)
         if pods is not None:
-            _setter("pods", pods)
+            pulumi.set(__self__, "pods", pods)
         if resource is not None:
-            _setter("resource", resource)
+            pulumi.set(__self__, "resource", resource)
 
     @property
     @pulumi.getter
@@ -2265,41 +1745,18 @@ class MetricSpecPatch(dict):
         :param 'ResourceMetricSourcePatchArgs' resource: resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
         :param str type: type is the type of metric source.  It should be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each mapping to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
         """
-        MetricSpecPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            container_resource=container_resource,
-            external=external,
-            object=object,
-            pods=pods,
-            resource=resource,
-            type=type,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             container_resource: Optional['outputs.ContainerResourceMetricSourcePatch'] = None,
-             external: Optional['outputs.ExternalMetricSourcePatch'] = None,
-             object: Optional['outputs.ObjectMetricSourcePatch'] = None,
-             pods: Optional['outputs.PodsMetricSourcePatch'] = None,
-             resource: Optional['outputs.ResourceMetricSourcePatch'] = None,
-             type: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if container_resource is None and 'containerResource' in kwargs:
-            container_resource = kwargs['containerResource']
-
         if container_resource is not None:
-            _setter("container_resource", container_resource)
+            pulumi.set(__self__, "container_resource", container_resource)
         if external is not None:
-            _setter("external", external)
+            pulumi.set(__self__, "external", external)
         if object is not None:
-            _setter("object", object)
+            pulumi.set(__self__, "object", object)
         if pods is not None:
-            _setter("pods", pods)
+            pulumi.set(__self__, "pods", pods)
         if resource is not None:
-            _setter("resource", resource)
+            pulumi.set(__self__, "resource", resource)
         if type is not None:
-            _setter("type", type)
+            pulumi.set(__self__, "type", type)
 
     @property
     @pulumi.getter(name="containerResource")
@@ -2388,42 +1845,17 @@ class MetricStatus(dict):
         :param 'PodsMetricStatusArgs' pods: pods refers to a metric describing each pod in the current scale target (for example, transactions-processed-per-second).  The values will be averaged together before being compared to the target value.
         :param 'ResourceMetricStatusArgs' resource: resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
         """
-        MetricStatus._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            type=type,
-            container_resource=container_resource,
-            external=external,
-            object=object,
-            pods=pods,
-            resource=resource,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             type: Optional[str] = None,
-             container_resource: Optional['outputs.ContainerResourceMetricStatus'] = None,
-             external: Optional['outputs.ExternalMetricStatus'] = None,
-             object: Optional['outputs.ObjectMetricStatus'] = None,
-             pods: Optional['outputs.PodsMetricStatus'] = None,
-             resource: Optional['outputs.ResourceMetricStatus'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if type is None:
-            raise TypeError("Missing 'type' argument")
-        if container_resource is None and 'containerResource' in kwargs:
-            container_resource = kwargs['containerResource']
-
-        _setter("type", type)
+        pulumi.set(__self__, "type", type)
         if container_resource is not None:
-            _setter("container_resource", container_resource)
+            pulumi.set(__self__, "container_resource", container_resource)
         if external is not None:
-            _setter("external", external)
+            pulumi.set(__self__, "external", external)
         if object is not None:
-            _setter("object", object)
+            pulumi.set(__self__, "object", object)
         if pods is not None:
-            _setter("pods", pods)
+            pulumi.set(__self__, "pods", pods)
         if resource is not None:
-            _setter("resource", resource)
+            pulumi.set(__self__, "resource", resource)
 
     @property
     @pulumi.getter
@@ -2512,41 +1944,18 @@ class MetricStatusPatch(dict):
         :param 'ResourceMetricStatusPatchArgs' resource: resource refers to a resource metric (such as those specified in requests and limits) known to Kubernetes describing each pod in the current scale target (e.g. CPU or memory). Such metrics are built in to Kubernetes, and have special scaling options on top of those available to normal per-pod metrics using the "pods" source.
         :param str type: type is the type of metric source.  It will be one of "ContainerResource", "External", "Object", "Pods" or "Resource", each corresponds to a matching field in the object. Note: "ContainerResource" type is available on when the feature-gate HPAContainerMetrics is enabled
         """
-        MetricStatusPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            container_resource=container_resource,
-            external=external,
-            object=object,
-            pods=pods,
-            resource=resource,
-            type=type,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             container_resource: Optional['outputs.ContainerResourceMetricStatusPatch'] = None,
-             external: Optional['outputs.ExternalMetricStatusPatch'] = None,
-             object: Optional['outputs.ObjectMetricStatusPatch'] = None,
-             pods: Optional['outputs.PodsMetricStatusPatch'] = None,
-             resource: Optional['outputs.ResourceMetricStatusPatch'] = None,
-             type: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if container_resource is None and 'containerResource' in kwargs:
-            container_resource = kwargs['containerResource']
-
         if container_resource is not None:
-            _setter("container_resource", container_resource)
+            pulumi.set(__self__, "container_resource", container_resource)
         if external is not None:
-            _setter("external", external)
+            pulumi.set(__self__, "external", external)
         if object is not None:
-            _setter("object", object)
+            pulumi.set(__self__, "object", object)
         if pods is not None:
-            _setter("pods", pods)
+            pulumi.set(__self__, "pods", pods)
         if resource is not None:
-            _setter("resource", resource)
+            pulumi.set(__self__, "resource", resource)
         if type is not None:
-            _setter("type", type)
+            pulumi.set(__self__, "type", type)
 
     @property
     @pulumi.getter(name="containerResource")
@@ -2633,36 +2042,13 @@ class MetricTarget(dict):
         :param str average_value: averageValue is the target value of the average of the metric across all relevant pods (as a quantity)
         :param str value: value is the target value of the metric (as a quantity).
         """
-        MetricTarget._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            type=type,
-            average_utilization=average_utilization,
-            average_value=average_value,
-            value=value,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             type: Optional[str] = None,
-             average_utilization: Optional[int] = None,
-             average_value: Optional[str] = None,
-             value: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if type is None:
-            raise TypeError("Missing 'type' argument")
-        if average_utilization is None and 'averageUtilization' in kwargs:
-            average_utilization = kwargs['averageUtilization']
-        if average_value is None and 'averageValue' in kwargs:
-            average_value = kwargs['averageValue']
-
-        _setter("type", type)
+        pulumi.set(__self__, "type", type)
         if average_utilization is not None:
-            _setter("average_utilization", average_utilization)
+            pulumi.set(__self__, "average_utilization", average_utilization)
         if average_value is not None:
-            _setter("average_value", average_value)
+            pulumi.set(__self__, "average_value", average_value)
         if value is not None:
-            _setter("value", value)
+            pulumi.set(__self__, "value", value)
 
     @property
     @pulumi.getter
@@ -2733,35 +2119,14 @@ class MetricTargetPatch(dict):
         :param str type: type represents whether the metric type is Utilization, Value, or AverageValue
         :param str value: value is the target value of the metric (as a quantity).
         """
-        MetricTargetPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            average_utilization=average_utilization,
-            average_value=average_value,
-            type=type,
-            value=value,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             average_utilization: Optional[int] = None,
-             average_value: Optional[str] = None,
-             type: Optional[str] = None,
-             value: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if average_utilization is None and 'averageUtilization' in kwargs:
-            average_utilization = kwargs['averageUtilization']
-        if average_value is None and 'averageValue' in kwargs:
-            average_value = kwargs['averageValue']
-
         if average_utilization is not None:
-            _setter("average_utilization", average_utilization)
+            pulumi.set(__self__, "average_utilization", average_utilization)
         if average_value is not None:
-            _setter("average_value", average_value)
+            pulumi.set(__self__, "average_value", average_value)
         if type is not None:
-            _setter("type", type)
+            pulumi.set(__self__, "type", type)
         if value is not None:
-            _setter("value", value)
+            pulumi.set(__self__, "value", value)
 
     @property
     @pulumi.getter(name="averageUtilization")
@@ -2830,31 +2195,12 @@ class MetricValueStatus(dict):
         :param str average_value: averageValue is the current value of the average of the metric across all relevant pods (as a quantity)
         :param str value: value is the current value of the metric (as a quantity).
         """
-        MetricValueStatus._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            average_utilization=average_utilization,
-            average_value=average_value,
-            value=value,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             average_utilization: Optional[int] = None,
-             average_value: Optional[str] = None,
-             value: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if average_utilization is None and 'averageUtilization' in kwargs:
-            average_utilization = kwargs['averageUtilization']
-        if average_value is None and 'averageValue' in kwargs:
-            average_value = kwargs['averageValue']
-
         if average_utilization is not None:
-            _setter("average_utilization", average_utilization)
+            pulumi.set(__self__, "average_utilization", average_utilization)
         if average_value is not None:
-            _setter("average_value", average_value)
+            pulumi.set(__self__, "average_value", average_value)
         if value is not None:
-            _setter("value", value)
+            pulumi.set(__self__, "value", value)
 
     @property
     @pulumi.getter(name="averageUtilization")
@@ -2915,31 +2261,12 @@ class MetricValueStatusPatch(dict):
         :param str average_value: averageValue is the current value of the average of the metric across all relevant pods (as a quantity)
         :param str value: value is the current value of the metric (as a quantity).
         """
-        MetricValueStatusPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            average_utilization=average_utilization,
-            average_value=average_value,
-            value=value,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             average_utilization: Optional[int] = None,
-             average_value: Optional[str] = None,
-             value: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if average_utilization is None and 'averageUtilization' in kwargs:
-            average_utilization = kwargs['averageUtilization']
-        if average_value is None and 'averageValue' in kwargs:
-            average_value = kwargs['averageValue']
-
         if average_utilization is not None:
-            _setter("average_utilization", average_utilization)
+            pulumi.set(__self__, "average_utilization", average_utilization)
         if average_value is not None:
-            _setter("average_value", average_value)
+            pulumi.set(__self__, "average_value", average_value)
         if value is not None:
-            _setter("value", value)
+            pulumi.set(__self__, "value", value)
 
     @property
     @pulumi.getter(name="averageUtilization")
@@ -2998,32 +2325,9 @@ class ObjectMetricSource(dict):
         :param 'MetricIdentifierArgs' metric: metric identifies the target metric by name and selector
         :param 'MetricTargetArgs' target: target specifies the target value for the given metric
         """
-        ObjectMetricSource._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            described_object=described_object,
-            metric=metric,
-            target=target,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             described_object: Optional['outputs.CrossVersionObjectReference'] = None,
-             metric: Optional['outputs.MetricIdentifier'] = None,
-             target: Optional['outputs.MetricTarget'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if described_object is None and 'describedObject' in kwargs:
-            described_object = kwargs['describedObject']
-        if described_object is None:
-            raise TypeError("Missing 'described_object' argument")
-        if metric is None:
-            raise TypeError("Missing 'metric' argument")
-        if target is None:
-            raise TypeError("Missing 'target' argument")
-
-        _setter("described_object", described_object)
-        _setter("metric", metric)
-        _setter("target", target)
+        pulumi.set(__self__, "described_object", described_object)
+        pulumi.set(__self__, "metric", metric)
+        pulumi.set(__self__, "target", target)
 
     @property
     @pulumi.getter(name="describedObject")
@@ -3082,29 +2386,12 @@ class ObjectMetricSourcePatch(dict):
         :param 'MetricIdentifierPatchArgs' metric: metric identifies the target metric by name and selector
         :param 'MetricTargetPatchArgs' target: target specifies the target value for the given metric
         """
-        ObjectMetricSourcePatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            described_object=described_object,
-            metric=metric,
-            target=target,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             described_object: Optional['outputs.CrossVersionObjectReferencePatch'] = None,
-             metric: Optional['outputs.MetricIdentifierPatch'] = None,
-             target: Optional['outputs.MetricTargetPatch'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if described_object is None and 'describedObject' in kwargs:
-            described_object = kwargs['describedObject']
-
         if described_object is not None:
-            _setter("described_object", described_object)
+            pulumi.set(__self__, "described_object", described_object)
         if metric is not None:
-            _setter("metric", metric)
+            pulumi.set(__self__, "metric", metric)
         if target is not None:
-            _setter("target", target)
+            pulumi.set(__self__, "target", target)
 
     @property
     @pulumi.getter(name="describedObject")
@@ -3163,32 +2450,9 @@ class ObjectMetricStatus(dict):
         :param 'CrossVersionObjectReferenceArgs' described_object: DescribedObject specifies the descriptions of a object,such as kind,name apiVersion
         :param 'MetricIdentifierArgs' metric: metric identifies the target metric by name and selector
         """
-        ObjectMetricStatus._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            current=current,
-            described_object=described_object,
-            metric=metric,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             current: Optional['outputs.MetricValueStatus'] = None,
-             described_object: Optional['outputs.CrossVersionObjectReference'] = None,
-             metric: Optional['outputs.MetricIdentifier'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if current is None:
-            raise TypeError("Missing 'current' argument")
-        if described_object is None and 'describedObject' in kwargs:
-            described_object = kwargs['describedObject']
-        if described_object is None:
-            raise TypeError("Missing 'described_object' argument")
-        if metric is None:
-            raise TypeError("Missing 'metric' argument")
-
-        _setter("current", current)
-        _setter("described_object", described_object)
-        _setter("metric", metric)
+        pulumi.set(__self__, "current", current)
+        pulumi.set(__self__, "described_object", described_object)
+        pulumi.set(__self__, "metric", metric)
 
     @property
     @pulumi.getter
@@ -3247,29 +2511,12 @@ class ObjectMetricStatusPatch(dict):
         :param 'CrossVersionObjectReferencePatchArgs' described_object: DescribedObject specifies the descriptions of a object,such as kind,name apiVersion
         :param 'MetricIdentifierPatchArgs' metric: metric identifies the target metric by name and selector
         """
-        ObjectMetricStatusPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            current=current,
-            described_object=described_object,
-            metric=metric,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             current: Optional['outputs.MetricValueStatusPatch'] = None,
-             described_object: Optional['outputs.CrossVersionObjectReferencePatch'] = None,
-             metric: Optional['outputs.MetricIdentifierPatch'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if described_object is None and 'describedObject' in kwargs:
-            described_object = kwargs['describedObject']
-
         if current is not None:
-            _setter("current", current)
+            pulumi.set(__self__, "current", current)
         if described_object is not None:
-            _setter("described_object", described_object)
+            pulumi.set(__self__, "described_object", described_object)
         if metric is not None:
-            _setter("metric", metric)
+            pulumi.set(__self__, "metric", metric)
 
     @property
     @pulumi.getter
@@ -3309,25 +2556,8 @@ class PodsMetricSource(dict):
         :param 'MetricIdentifierArgs' metric: metric identifies the target metric by name and selector
         :param 'MetricTargetArgs' target: target specifies the target value for the given metric
         """
-        PodsMetricSource._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            metric=metric,
-            target=target,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             metric: Optional['outputs.MetricIdentifier'] = None,
-             target: Optional['outputs.MetricTarget'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if metric is None:
-            raise TypeError("Missing 'metric' argument")
-        if target is None:
-            raise TypeError("Missing 'target' argument")
-
-        _setter("metric", metric)
-        _setter("target", target)
+        pulumi.set(__self__, "metric", metric)
+        pulumi.set(__self__, "target", target)
 
     @property
     @pulumi.getter
@@ -3359,23 +2589,10 @@ class PodsMetricSourcePatch(dict):
         :param 'MetricIdentifierPatchArgs' metric: metric identifies the target metric by name and selector
         :param 'MetricTargetPatchArgs' target: target specifies the target value for the given metric
         """
-        PodsMetricSourcePatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            metric=metric,
-            target=target,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             metric: Optional['outputs.MetricIdentifierPatch'] = None,
-             target: Optional['outputs.MetricTargetPatch'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-
         if metric is not None:
-            _setter("metric", metric)
+            pulumi.set(__self__, "metric", metric)
         if target is not None:
-            _setter("target", target)
+            pulumi.set(__self__, "target", target)
 
     @property
     @pulumi.getter
@@ -3407,25 +2624,8 @@ class PodsMetricStatus(dict):
         :param 'MetricValueStatusArgs' current: current contains the current value for the given metric
         :param 'MetricIdentifierArgs' metric: metric identifies the target metric by name and selector
         """
-        PodsMetricStatus._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            current=current,
-            metric=metric,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             current: Optional['outputs.MetricValueStatus'] = None,
-             metric: Optional['outputs.MetricIdentifier'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if current is None:
-            raise TypeError("Missing 'current' argument")
-        if metric is None:
-            raise TypeError("Missing 'metric' argument")
-
-        _setter("current", current)
-        _setter("metric", metric)
+        pulumi.set(__self__, "current", current)
+        pulumi.set(__self__, "metric", metric)
 
     @property
     @pulumi.getter
@@ -3457,23 +2657,10 @@ class PodsMetricStatusPatch(dict):
         :param 'MetricValueStatusPatchArgs' current: current contains the current value for the given metric
         :param 'MetricIdentifierPatchArgs' metric: metric identifies the target metric by name and selector
         """
-        PodsMetricStatusPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            current=current,
-            metric=metric,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             current: Optional['outputs.MetricValueStatusPatch'] = None,
-             metric: Optional['outputs.MetricIdentifierPatch'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-
         if current is not None:
-            _setter("current", current)
+            pulumi.set(__self__, "current", current)
         if metric is not None:
-            _setter("metric", metric)
+            pulumi.set(__self__, "metric", metric)
 
     @property
     @pulumi.getter
@@ -3505,25 +2692,8 @@ class ResourceMetricSource(dict):
         :param str name: name is the name of the resource in question.
         :param 'MetricTargetArgs' target: target specifies the target value for the given metric
         """
-        ResourceMetricSource._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            name=name,
-            target=target,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             name: Optional[str] = None,
-             target: Optional['outputs.MetricTarget'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if name is None:
-            raise TypeError("Missing 'name' argument")
-        if target is None:
-            raise TypeError("Missing 'target' argument")
-
-        _setter("name", name)
-        _setter("target", target)
+        pulumi.set(__self__, "name", name)
+        pulumi.set(__self__, "target", target)
 
     @property
     @pulumi.getter
@@ -3555,23 +2725,10 @@ class ResourceMetricSourcePatch(dict):
         :param str name: name is the name of the resource in question.
         :param 'MetricTargetPatchArgs' target: target specifies the target value for the given metric
         """
-        ResourceMetricSourcePatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            name=name,
-            target=target,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             name: Optional[str] = None,
-             target: Optional['outputs.MetricTargetPatch'] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-
         if name is not None:
-            _setter("name", name)
+            pulumi.set(__self__, "name", name)
         if target is not None:
-            _setter("target", target)
+            pulumi.set(__self__, "target", target)
 
     @property
     @pulumi.getter
@@ -3603,25 +2760,8 @@ class ResourceMetricStatus(dict):
         :param 'MetricValueStatusArgs' current: current contains the current value for the given metric
         :param str name: name is the name of the resource in question.
         """
-        ResourceMetricStatus._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            current=current,
-            name=name,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             current: Optional['outputs.MetricValueStatus'] = None,
-             name: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if current is None:
-            raise TypeError("Missing 'current' argument")
-        if name is None:
-            raise TypeError("Missing 'name' argument")
-
-        _setter("current", current)
-        _setter("name", name)
+        pulumi.set(__self__, "current", current)
+        pulumi.set(__self__, "name", name)
 
     @property
     @pulumi.getter
@@ -3653,23 +2793,10 @@ class ResourceMetricStatusPatch(dict):
         :param 'MetricValueStatusPatchArgs' current: current contains the current value for the given metric
         :param str name: name is the name of the resource in question.
         """
-        ResourceMetricStatusPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            current=current,
-            name=name,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             current: Optional['outputs.MetricValueStatusPatch'] = None,
-             name: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-
         if current is not None:
-            _setter("current", current)
+            pulumi.set(__self__, "current", current)
         if name is not None:
-            _setter("name", name)
+            pulumi.set(__self__, "name", name)
 
     @property
     @pulumi.getter

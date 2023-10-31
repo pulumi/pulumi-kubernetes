@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from . import outputs
 from ... import meta as _meta
@@ -54,21 +54,8 @@ class AggregationRule(dict):
         AggregationRule describes how to locate ClusterRoles to aggregate into the ClusterRole
         :param Sequence['_meta.v1.LabelSelectorArgs'] cluster_role_selectors: ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
         """
-        AggregationRule._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            cluster_role_selectors=cluster_role_selectors,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             cluster_role_selectors: Optional[Sequence['_meta.v1.outputs.LabelSelector']] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if cluster_role_selectors is None and 'clusterRoleSelectors' in kwargs:
-            cluster_role_selectors = kwargs['clusterRoleSelectors']
-
         if cluster_role_selectors is not None:
-            _setter("cluster_role_selectors", cluster_role_selectors)
+            pulumi.set(__self__, "cluster_role_selectors", cluster_role_selectors)
 
     @property
     @pulumi.getter(name="clusterRoleSelectors")
@@ -107,21 +94,8 @@ class AggregationRulePatch(dict):
         AggregationRule describes how to locate ClusterRoles to aggregate into the ClusterRole
         :param Sequence['_meta.v1.LabelSelectorPatchArgs'] cluster_role_selectors: ClusterRoleSelectors holds a list of selectors which will be used to find ClusterRoles and create the rules. If any of the selectors match, then the ClusterRole's permissions will be added
         """
-        AggregationRulePatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            cluster_role_selectors=cluster_role_selectors,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             cluster_role_selectors: Optional[Sequence['_meta.v1.outputs.LabelSelectorPatch']] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if cluster_role_selectors is None and 'clusterRoleSelectors' in kwargs:
-            cluster_role_selectors = kwargs['clusterRoleSelectors']
-
         if cluster_role_selectors is not None:
-            _setter("cluster_role_selectors", cluster_role_selectors)
+            pulumi.set(__self__, "cluster_role_selectors", cluster_role_selectors)
 
     @property
     @pulumi.getter(name="clusterRoleSelectors")
@@ -170,39 +144,16 @@ class ClusterRole(dict):
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata.
         :param Sequence['PolicyRuleArgs'] rules: Rules holds all the PolicyRules for this ClusterRole
         """
-        ClusterRole._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            aggregation_rule=aggregation_rule,
-            api_version=api_version,
-            kind=kind,
-            metadata=metadata,
-            rules=rules,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             aggregation_rule: Optional['outputs.AggregationRule'] = None,
-             api_version: Optional[str] = None,
-             kind: Optional[str] = None,
-             metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
-             rules: Optional[Sequence['outputs.PolicyRule']] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if aggregation_rule is None and 'aggregationRule' in kwargs:
-            aggregation_rule = kwargs['aggregationRule']
-        if api_version is None and 'apiVersion' in kwargs:
-            api_version = kwargs['apiVersion']
-
         if aggregation_rule is not None:
-            _setter("aggregation_rule", aggregation_rule)
+            pulumi.set(__self__, "aggregation_rule", aggregation_rule)
         if api_version is not None:
-            _setter("api_version", 'rbac.authorization.k8s.io/v1')
+            pulumi.set(__self__, "api_version", 'rbac.authorization.k8s.io/v1')
         if kind is not None:
-            _setter("kind", 'ClusterRole')
+            pulumi.set(__self__, "kind", 'ClusterRole')
         if metadata is not None:
-            _setter("metadata", metadata)
+            pulumi.set(__self__, "metadata", metadata)
         if rules is not None:
-            _setter("rules", rules)
+            pulumi.set(__self__, "rules", rules)
 
     @property
     @pulumi.getter(name="aggregationRule")
@@ -283,40 +234,15 @@ class ClusterRoleBinding(dict):
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata.
         :param Sequence['SubjectArgs'] subjects: Subjects holds references to the objects the role applies to.
         """
-        ClusterRoleBinding._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            role_ref=role_ref,
-            api_version=api_version,
-            kind=kind,
-            metadata=metadata,
-            subjects=subjects,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             role_ref: Optional['outputs.RoleRef'] = None,
-             api_version: Optional[str] = None,
-             kind: Optional[str] = None,
-             metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
-             subjects: Optional[Sequence['outputs.Subject']] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if role_ref is None and 'roleRef' in kwargs:
-            role_ref = kwargs['roleRef']
-        if role_ref is None:
-            raise TypeError("Missing 'role_ref' argument")
-        if api_version is None and 'apiVersion' in kwargs:
-            api_version = kwargs['apiVersion']
-
-        _setter("role_ref", role_ref)
+        pulumi.set(__self__, "role_ref", role_ref)
         if api_version is not None:
-            _setter("api_version", 'rbac.authorization.k8s.io/v1')
+            pulumi.set(__self__, "api_version", 'rbac.authorization.k8s.io/v1')
         if kind is not None:
-            _setter("kind", 'ClusterRoleBinding')
+            pulumi.set(__self__, "kind", 'ClusterRoleBinding')
         if metadata is not None:
-            _setter("metadata", metadata)
+            pulumi.set(__self__, "metadata", metadata)
         if subjects is not None:
-            _setter("subjects", subjects)
+            pulumi.set(__self__, "subjects", subjects)
 
     @property
     @pulumi.getter(name="roleRef")
@@ -399,42 +325,15 @@ class PolicyRule(dict):
         :param Sequence[str] resource_names: ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
         :param Sequence[str] resources: Resources is a list of resources this rule applies to. '*' represents all resources.
         """
-        PolicyRule._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            verbs=verbs,
-            api_groups=api_groups,
-            non_resource_urls=non_resource_urls,
-            resource_names=resource_names,
-            resources=resources,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             verbs: Optional[Sequence[str]] = None,
-             api_groups: Optional[Sequence[str]] = None,
-             non_resource_urls: Optional[Sequence[str]] = None,
-             resource_names: Optional[Sequence[str]] = None,
-             resources: Optional[Sequence[str]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if verbs is None:
-            raise TypeError("Missing 'verbs' argument")
-        if api_groups is None and 'apiGroups' in kwargs:
-            api_groups = kwargs['apiGroups']
-        if non_resource_urls is None and 'nonResourceURLs' in kwargs:
-            non_resource_urls = kwargs['nonResourceURLs']
-        if resource_names is None and 'resourceNames' in kwargs:
-            resource_names = kwargs['resourceNames']
-
-        _setter("verbs", verbs)
+        pulumi.set(__self__, "verbs", verbs)
         if api_groups is not None:
-            _setter("api_groups", api_groups)
+            pulumi.set(__self__, "api_groups", api_groups)
         if non_resource_urls is not None:
-            _setter("non_resource_urls", non_resource_urls)
+            pulumi.set(__self__, "non_resource_urls", non_resource_urls)
         if resource_names is not None:
-            _setter("resource_names", resource_names)
+            pulumi.set(__self__, "resource_names", resource_names)
         if resources is not None:
-            _setter("resources", resources)
+            pulumi.set(__self__, "resources", resources)
 
     @property
     @pulumi.getter
@@ -517,41 +416,16 @@ class PolicyRulePatch(dict):
         :param Sequence[str] resources: Resources is a list of resources this rule applies to. '*' represents all resources.
         :param Sequence[str] verbs: Verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. '*' represents all verbs.
         """
-        PolicyRulePatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            api_groups=api_groups,
-            non_resource_urls=non_resource_urls,
-            resource_names=resource_names,
-            resources=resources,
-            verbs=verbs,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             api_groups: Optional[Sequence[str]] = None,
-             non_resource_urls: Optional[Sequence[str]] = None,
-             resource_names: Optional[Sequence[str]] = None,
-             resources: Optional[Sequence[str]] = None,
-             verbs: Optional[Sequence[str]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if api_groups is None and 'apiGroups' in kwargs:
-            api_groups = kwargs['apiGroups']
-        if non_resource_urls is None and 'nonResourceURLs' in kwargs:
-            non_resource_urls = kwargs['nonResourceURLs']
-        if resource_names is None and 'resourceNames' in kwargs:
-            resource_names = kwargs['resourceNames']
-
         if api_groups is not None:
-            _setter("api_groups", api_groups)
+            pulumi.set(__self__, "api_groups", api_groups)
         if non_resource_urls is not None:
-            _setter("non_resource_urls", non_resource_urls)
+            pulumi.set(__self__, "non_resource_urls", non_resource_urls)
         if resource_names is not None:
-            _setter("resource_names", resource_names)
+            pulumi.set(__self__, "resource_names", resource_names)
         if resources is not None:
-            _setter("resources", resources)
+            pulumi.set(__self__, "resources", resources)
         if verbs is not None:
-            _setter("verbs", verbs)
+            pulumi.set(__self__, "verbs", verbs)
 
     @property
     @pulumi.getter(name="apiGroups")
@@ -628,33 +502,14 @@ class Role(dict):
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata.
         :param Sequence['PolicyRuleArgs'] rules: Rules holds all the PolicyRules for this Role
         """
-        Role._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            api_version=api_version,
-            kind=kind,
-            metadata=metadata,
-            rules=rules,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             api_version: Optional[str] = None,
-             kind: Optional[str] = None,
-             metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
-             rules: Optional[Sequence['outputs.PolicyRule']] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if api_version is None and 'apiVersion' in kwargs:
-            api_version = kwargs['apiVersion']
-
         if api_version is not None:
-            _setter("api_version", 'rbac.authorization.k8s.io/v1')
+            pulumi.set(__self__, "api_version", 'rbac.authorization.k8s.io/v1')
         if kind is not None:
-            _setter("kind", 'Role')
+            pulumi.set(__self__, "kind", 'Role')
         if metadata is not None:
-            _setter("metadata", metadata)
+            pulumi.set(__self__, "metadata", metadata)
         if rules is not None:
-            _setter("rules", rules)
+            pulumi.set(__self__, "rules", rules)
 
     @property
     @pulumi.getter(name="apiVersion")
@@ -727,40 +582,15 @@ class RoleBinding(dict):
         :param '_meta.v1.ObjectMetaArgs' metadata: Standard object's metadata.
         :param Sequence['SubjectArgs'] subjects: Subjects holds references to the objects the role applies to.
         """
-        RoleBinding._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            role_ref=role_ref,
-            api_version=api_version,
-            kind=kind,
-            metadata=metadata,
-            subjects=subjects,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             role_ref: Optional['outputs.RoleRef'] = None,
-             api_version: Optional[str] = None,
-             kind: Optional[str] = None,
-             metadata: Optional['_meta.v1.outputs.ObjectMeta'] = None,
-             subjects: Optional[Sequence['outputs.Subject']] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if role_ref is None and 'roleRef' in kwargs:
-            role_ref = kwargs['roleRef']
-        if role_ref is None:
-            raise TypeError("Missing 'role_ref' argument")
-        if api_version is None and 'apiVersion' in kwargs:
-            api_version = kwargs['apiVersion']
-
-        _setter("role_ref", role_ref)
+        pulumi.set(__self__, "role_ref", role_ref)
         if api_version is not None:
-            _setter("api_version", 'rbac.authorization.k8s.io/v1')
+            pulumi.set(__self__, "api_version", 'rbac.authorization.k8s.io/v1')
         if kind is not None:
-            _setter("kind", 'RoleBinding')
+            pulumi.set(__self__, "kind", 'RoleBinding')
         if metadata is not None:
-            _setter("metadata", metadata)
+            pulumi.set(__self__, "metadata", metadata)
         if subjects is not None:
-            _setter("subjects", subjects)
+            pulumi.set(__self__, "subjects", subjects)
 
     @property
     @pulumi.getter(name="roleRef")
@@ -835,32 +665,9 @@ class RoleRef(dict):
         :param str kind: Kind is the type of resource being referenced
         :param str name: Name is the name of resource being referenced
         """
-        RoleRef._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            api_group=api_group,
-            kind=kind,
-            name=name,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             api_group: Optional[str] = None,
-             kind: Optional[str] = None,
-             name: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if api_group is None and 'apiGroup' in kwargs:
-            api_group = kwargs['apiGroup']
-        if api_group is None:
-            raise TypeError("Missing 'api_group' argument")
-        if kind is None:
-            raise TypeError("Missing 'kind' argument")
-        if name is None:
-            raise TypeError("Missing 'name' argument")
-
-        _setter("api_group", api_group)
-        _setter("kind", kind)
-        _setter("name", name)
+        pulumi.set(__self__, "api_group", api_group)
+        pulumi.set(__self__, "kind", kind)
+        pulumi.set(__self__, "name", name)
 
     @property
     @pulumi.getter(name="apiGroup")
@@ -919,29 +726,12 @@ class RoleRefPatch(dict):
         :param str kind: Kind is the type of resource being referenced
         :param str name: Name is the name of resource being referenced
         """
-        RoleRefPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            api_group=api_group,
-            kind=kind,
-            name=name,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             api_group: Optional[str] = None,
-             kind: Optional[str] = None,
-             name: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if api_group is None and 'apiGroup' in kwargs:
-            api_group = kwargs['apiGroup']
-
         if api_group is not None:
-            _setter("api_group", api_group)
+            pulumi.set(__self__, "api_group", api_group)
         if kind is not None:
-            _setter("kind", kind)
+            pulumi.set(__self__, "kind", kind)
         if name is not None:
-            _setter("name", name)
+            pulumi.set(__self__, "name", name)
 
     @property
     @pulumi.getter(name="apiGroup")
@@ -1002,35 +792,12 @@ class Subject(dict):
         :param str api_group: APIGroup holds the API group of the referenced subject. Defaults to "" for ServiceAccount subjects. Defaults to "rbac.authorization.k8s.io" for User and Group subjects.
         :param str namespace: Namespace of the referenced object.  If the object kind is non-namespace, such as "User" or "Group", and this value is not empty the Authorizer should report an error.
         """
-        Subject._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            kind=kind,
-            name=name,
-            api_group=api_group,
-            namespace=namespace,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             kind: Optional[str] = None,
-             name: Optional[str] = None,
-             api_group: Optional[str] = None,
-             namespace: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if kind is None:
-            raise TypeError("Missing 'kind' argument")
-        if name is None:
-            raise TypeError("Missing 'name' argument")
-        if api_group is None and 'apiGroup' in kwargs:
-            api_group = kwargs['apiGroup']
-
-        _setter("kind", kind)
-        _setter("name", name)
+        pulumi.set(__self__, "kind", kind)
+        pulumi.set(__self__, "name", name)
         if api_group is not None:
-            _setter("api_group", api_group)
+            pulumi.set(__self__, "api_group", api_group)
         if namespace is not None:
-            _setter("namespace", namespace)
+            pulumi.set(__self__, "namespace", namespace)
 
     @property
     @pulumi.getter
@@ -1099,33 +866,14 @@ class SubjectPatch(dict):
         :param str name: Name of the object being referenced.
         :param str namespace: Namespace of the referenced object.  If the object kind is non-namespace, such as "User" or "Group", and this value is not empty the Authorizer should report an error.
         """
-        SubjectPatch._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            api_group=api_group,
-            kind=kind,
-            name=name,
-            namespace=namespace,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             api_group: Optional[str] = None,
-             kind: Optional[str] = None,
-             name: Optional[str] = None,
-             namespace: Optional[str] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if api_group is None and 'apiGroup' in kwargs:
-            api_group = kwargs['apiGroup']
-
         if api_group is not None:
-            _setter("api_group", api_group)
+            pulumi.set(__self__, "api_group", api_group)
         if kind is not None:
-            _setter("kind", kind)
+            pulumi.set(__self__, "kind", kind)
         if name is not None:
-            _setter("name", name)
+            pulumi.set(__self__, "name", name)
         if namespace is not None:
-            _setter("namespace", namespace)
+            pulumi.set(__self__, "namespace", namespace)
 
     @property
     @pulumi.getter(name="apiGroup")

@@ -6,7 +6,7 @@ import copy
 import warnings
 import pulumi
 import pulumi.runtime
-from typing import Any, Callable, Mapping, Optional, Sequence, Union, overload
+from typing import Any, Mapping, Optional, Sequence, Union, overload
 from ... import _utilities
 from ... import core as _core
 from ... import meta as _meta
@@ -29,29 +29,12 @@ class EventSeriesPatchArgs:
         :param pulumi.Input[str] last_observed_time: Time when last Event from the series was seen before last heartbeat.
         :param pulumi.Input[str] state: Information whether this series is ongoing or finished. Deprecated. Planned removal for 1.18
         """
-        EventSeriesPatchArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            count=count,
-            last_observed_time=last_observed_time,
-            state=state,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             count: Optional[pulumi.Input[int]] = None,
-             last_observed_time: Optional[pulumi.Input[str]] = None,
-             state: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if last_observed_time is None and 'lastObservedTime' in kwargs:
-            last_observed_time = kwargs['lastObservedTime']
-
         if count is not None:
-            _setter("count", count)
+            pulumi.set(__self__, "count", count)
         if last_observed_time is not None:
-            _setter("last_observed_time", last_observed_time)
+            pulumi.set(__self__, "last_observed_time", last_observed_time)
         if state is not None:
-            _setter("state", state)
+            pulumi.set(__self__, "state", state)
 
     @property
     @pulumi.getter
@@ -102,32 +85,9 @@ class EventSeriesArgs:
         :param pulumi.Input[str] last_observed_time: Time when last Event from the series was seen before last heartbeat.
         :param pulumi.Input[str] state: Information whether this series is ongoing or finished. Deprecated. Planned removal for 1.18
         """
-        EventSeriesArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            count=count,
-            last_observed_time=last_observed_time,
-            state=state,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             count: Optional[pulumi.Input[int]] = None,
-             last_observed_time: Optional[pulumi.Input[str]] = None,
-             state: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if count is None:
-            raise TypeError("Missing 'count' argument")
-        if last_observed_time is None and 'lastObservedTime' in kwargs:
-            last_observed_time = kwargs['lastObservedTime']
-        if last_observed_time is None:
-            raise TypeError("Missing 'last_observed_time' argument")
-        if state is None:
-            raise TypeError("Missing 'state' argument")
-
-        _setter("count", count)
-        _setter("last_observed_time", last_observed_time)
-        _setter("state", state)
+        pulumi.set(__self__, "count", count)
+        pulumi.set(__self__, "last_observed_time", last_observed_time)
+        pulumi.set(__self__, "state", state)
 
     @property
     @pulumi.getter
@@ -205,100 +165,39 @@ class EventArgs:
         :param pulumi.Input['EventSeriesArgs'] series: Data about the Event series this event represents or nil if it's a singleton Event.
         :param pulumi.Input[str] type: Type of this event (Normal, Warning), new types could be added in the future.
         """
-        EventArgs._configure(
-            lambda key, value: pulumi.set(__self__, key, value),
-            event_time=event_time,
-            action=action,
-            api_version=api_version,
-            deprecated_count=deprecated_count,
-            deprecated_first_timestamp=deprecated_first_timestamp,
-            deprecated_last_timestamp=deprecated_last_timestamp,
-            deprecated_source=deprecated_source,
-            kind=kind,
-            metadata=metadata,
-            note=note,
-            reason=reason,
-            regarding=regarding,
-            related=related,
-            reporting_controller=reporting_controller,
-            reporting_instance=reporting_instance,
-            series=series,
-            type=type,
-        )
-    @staticmethod
-    def _configure(
-             _setter: Callable[[Any, Any], None],
-             event_time: Optional[pulumi.Input[str]] = None,
-             action: Optional[pulumi.Input[str]] = None,
-             api_version: Optional[pulumi.Input[str]] = None,
-             deprecated_count: Optional[pulumi.Input[int]] = None,
-             deprecated_first_timestamp: Optional[pulumi.Input[str]] = None,
-             deprecated_last_timestamp: Optional[pulumi.Input[str]] = None,
-             deprecated_source: Optional[pulumi.Input['_core.v1.EventSourceArgs']] = None,
-             kind: Optional[pulumi.Input[str]] = None,
-             metadata: Optional[pulumi.Input['_meta.v1.ObjectMetaArgs']] = None,
-             note: Optional[pulumi.Input[str]] = None,
-             reason: Optional[pulumi.Input[str]] = None,
-             regarding: Optional[pulumi.Input['_core.v1.ObjectReferenceArgs']] = None,
-             related: Optional[pulumi.Input['_core.v1.ObjectReferenceArgs']] = None,
-             reporting_controller: Optional[pulumi.Input[str]] = None,
-             reporting_instance: Optional[pulumi.Input[str]] = None,
-             series: Optional[pulumi.Input['EventSeriesArgs']] = None,
-             type: Optional[pulumi.Input[str]] = None,
-             opts: Optional[pulumi.ResourceOptions] = None,
-             **kwargs):
-        if event_time is None and 'eventTime' in kwargs:
-            event_time = kwargs['eventTime']
-        if event_time is None:
-            raise TypeError("Missing 'event_time' argument")
-        if api_version is None and 'apiVersion' in kwargs:
-            api_version = kwargs['apiVersion']
-        if deprecated_count is None and 'deprecatedCount' in kwargs:
-            deprecated_count = kwargs['deprecatedCount']
-        if deprecated_first_timestamp is None and 'deprecatedFirstTimestamp' in kwargs:
-            deprecated_first_timestamp = kwargs['deprecatedFirstTimestamp']
-        if deprecated_last_timestamp is None and 'deprecatedLastTimestamp' in kwargs:
-            deprecated_last_timestamp = kwargs['deprecatedLastTimestamp']
-        if deprecated_source is None and 'deprecatedSource' in kwargs:
-            deprecated_source = kwargs['deprecatedSource']
-        if reporting_controller is None and 'reportingController' in kwargs:
-            reporting_controller = kwargs['reportingController']
-        if reporting_instance is None and 'reportingInstance' in kwargs:
-            reporting_instance = kwargs['reportingInstance']
-
-        _setter("event_time", event_time)
+        pulumi.set(__self__, "event_time", event_time)
         if action is not None:
-            _setter("action", action)
+            pulumi.set(__self__, "action", action)
         if api_version is not None:
-            _setter("api_version", 'events.k8s.io/v1beta1')
+            pulumi.set(__self__, "api_version", 'events.k8s.io/v1beta1')
         if deprecated_count is not None:
-            _setter("deprecated_count", deprecated_count)
+            pulumi.set(__self__, "deprecated_count", deprecated_count)
         if deprecated_first_timestamp is not None:
-            _setter("deprecated_first_timestamp", deprecated_first_timestamp)
+            pulumi.set(__self__, "deprecated_first_timestamp", deprecated_first_timestamp)
         if deprecated_last_timestamp is not None:
-            _setter("deprecated_last_timestamp", deprecated_last_timestamp)
+            pulumi.set(__self__, "deprecated_last_timestamp", deprecated_last_timestamp)
         if deprecated_source is not None:
-            _setter("deprecated_source", deprecated_source)
+            pulumi.set(__self__, "deprecated_source", deprecated_source)
         if kind is not None:
-            _setter("kind", 'Event')
+            pulumi.set(__self__, "kind", 'Event')
         if metadata is not None:
-            _setter("metadata", metadata)
+            pulumi.set(__self__, "metadata", metadata)
         if note is not None:
-            _setter("note", note)
+            pulumi.set(__self__, "note", note)
         if reason is not None:
-            _setter("reason", reason)
+            pulumi.set(__self__, "reason", reason)
         if regarding is not None:
-            _setter("regarding", regarding)
+            pulumi.set(__self__, "regarding", regarding)
         if related is not None:
-            _setter("related", related)
+            pulumi.set(__self__, "related", related)
         if reporting_controller is not None:
-            _setter("reporting_controller", reporting_controller)
+            pulumi.set(__self__, "reporting_controller", reporting_controller)
         if reporting_instance is not None:
-            _setter("reporting_instance", reporting_instance)
+            pulumi.set(__self__, "reporting_instance", reporting_instance)
         if series is not None:
-            _setter("series", series)
+            pulumi.set(__self__, "series", series)
         if type is not None:
-            _setter("type", type)
+            pulumi.set(__self__, "type", type)
 
     @property
     @pulumi.getter(name="eventTime")
