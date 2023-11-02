@@ -170,7 +170,7 @@ func NewConfigFile(ctx *pulumi.Context,
 			Files:           []string{args.File},
 			Transformations: args.Transformations,
 			ResourcePrefix:  args.ResourcePrefix,
-		}, true, parseOpts...)
+		}, false, parseOpts...)
 		if err != nil {
 			return nil, err
 		}
