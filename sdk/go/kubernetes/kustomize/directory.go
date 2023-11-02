@@ -160,17 +160,12 @@ func NewDirectory(ctx *pulumi.Context,
 		return nil, err
 	}
 
-	// Honor the resource name prefix if specified.
-	if args.ResourcePrefix != "" {
-		name = args.ResourcePrefix + "-" + name
-	}
-
 	parseOpts, err := yaml.GetChildOptions(chart, opts)
 	if err != nil {
 		return nil, err
 	}
 	resources := args.ToDirectoryArgsOutput().ApplyT(func(args directoryArgs) (map[string]pulumi.Resource, error) {
-		return parseDirectory(ctx, name, args, parseOpts...)
+		return parseDirectory(ctx, args, parseOpts...)
 	})
 	chart.Resources = resources
 
@@ -185,7 +180,7 @@ func NewDirectory(ctx *pulumi.Context,
 	return chart, nil
 }
 
-func parseDirectory(ctx *pulumi.Context, name string, args directoryArgs, opts ...pulumi.ResourceOption,
+func parseDirectory(ctx *pulumi.Context, args directoryArgs, opts ...pulumi.ResourceOption,
 ) (map[string]pulumi.Resource, error) {
 	invokeArgs := struct {
 		Directory string `pulumi:"directory"`
