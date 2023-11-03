@@ -1,5 +1,6 @@
 ## Unreleased
 
+## 4.5.3 (October 31, 2023)
 - Fix: Update pulumi version to 3.91.1 to pick up fixes in python codegen (https://github.com/pulumi/pulumi-kubernetes/pull/2647)
 
 ## 4.5.2 (October 26, 2023)
