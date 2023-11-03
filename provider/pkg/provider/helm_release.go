@@ -522,6 +522,10 @@ func (r *helmReleaseProvider) helmTemplate(ctx context.Context, urn resource.URN
 		client.PostRenderer = pr
 	}
 
+	if r.clientSet != nil {
+		setKubeVersionAndAPIVersions(r.clientSet, client)
+	}
+
 	logger.V(9).Infof("template helm chart")
 	rel, err := client.RunWithContext(r.canceler.context, c, values)
 	if err != nil {
