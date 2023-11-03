@@ -125,7 +125,7 @@ jobs:
 
         git add .
 
-        git commit -m "Updated modules"
+        git commit -m "Updated modules" || echo "ignore commit failure, may be empty"
 
         git push origin update-pulumi/${{ github.run_id }}-${{ github.run_number }}
     - name: Create PR
