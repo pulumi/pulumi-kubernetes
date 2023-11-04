@@ -679,6 +679,21 @@ var helmV3ReleaseResource = pschema.ResourceSpec{
 				},
 				Description: "Whether to allow Null values in helm chart configs.",
 			},
+			"apiVersions": {
+				TypeSpec: pschema.TypeSpec{
+					Type: "array",
+					Items: &pschema.TypeSpec{
+						Type: "string",
+					},
+				},
+				Description: "The optional Kubernetes API versions used for Capabilities.APIVersions. By default is detected from the server.",
+			},
+			"kubeVersion": {
+				TypeSpec: pschema.TypeSpec{
+					Type: "string",
+				},
+				Description: "Overrides the Kubernetes version used for Capabilities.KubeVersion. By default is detected from the server.",
+			},
 		},
 		Type: "object",
 		Required: []string{
@@ -950,6 +965,21 @@ var helmV3ReleaseResource = pschema.ResourceSpec{
 				Type: "boolean",
 			},
 			Description: "Whether to allow Null values in helm chart configs.",
+		},
+		"apiVersions": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "array",
+				Items: &pschema.TypeSpec{
+					Type: "string",
+				},
+			},
+			Description: "The optional Kubernetes API versions used for Capabilities.APIVersions. By default is detected from the server.",
+		},
+		"kubeVersion": {
+			TypeSpec: pschema.TypeSpec{
+				Type: "string",
+			},
+			Description: "Overrides the Kubernetes version used for Capabilities.KubeVersion. By default is detected from the server.",
 		},
 	},
 	RequiredInputs: []string{

@@ -46,6 +46,7 @@ import (
 	"helm.sh/helm/v3/pkg/action"
 	helmchart "helm.sh/helm/v3/pkg/chart"
 	"helm.sh/helm/v3/pkg/chart/loader"
+	"helm.sh/helm/v3/pkg/chartutil"
 	"helm.sh/helm/v3/pkg/cli"
 	"helm.sh/helm/v3/pkg/downloader"
 	"helm.sh/helm/v3/pkg/getter"
@@ -70,6 +71,8 @@ var errReleaseNotFound = errors.New("release not found")
 type Release struct {
 	// When combinging Values with mergeMaps, allow Nulls
 	AllowNullValues bool `json:"allowNullValues,omitempty"`
+	// The optional Kubernetes API versions used for Capabilities.APIVersions.
+	APIVersions []string `json:"apiVersions,omitempty"`
 	// If set, installation process purges chart on fail. The wait flag will be set automatically if atomic is used
 	Atomic bool `json:"atomic,omitempty"`
 	// Chart name to be installed. A path may be used.
@@ -94,6 +97,8 @@ type Release struct {
 	ForceUpdate bool `json:"forceUpdate,omitempty"`
 	// Location of public keys used for verification. Used only if `verify` is true
 	Keyring string `json:"keyring,omitempty"`
+	// Overrides the Kubernetes version used for Capabilities.KubeVersion.
+	KubeVersion string `json:"kubeVersion,omitempty"`
 	// Run helm lint when planning
 	Lint bool `json:"lint,omitempty"`
 	// Limit the maximum number of revisions saved per release. Use 0 for no limit
@@ -520,6 +525,18 @@ func (r *helmReleaseProvider) helmTemplate(ctx context.Context, urn resource.URN
 		}
 
 		client.PostRenderer = pr
+	}
+
+	if newRelease.KubeVersion != "" {
+		var kubeVersion *chartutil.KubeVersion
+		if kubeVersion, err = chartutil.ParseKubeVersion(newRelease.KubeVersion); err != nil {
+			return "", fmt.Errorf("could not get parse kube_version %q from release options: %w", newRelease.KubeVersion, err)
+		}
+		client.KubeVersion = kubeVersion
+	}
+
+	if len(newRelease.APIVersions) > 0 {
+		client.APIVersions = newRelease.APIVersions
 	}
 
 	logger.V(9).Infof("template helm chart")

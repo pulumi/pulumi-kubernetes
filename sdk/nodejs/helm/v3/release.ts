@@ -190,6 +190,10 @@ export class Release extends pulumi.CustomResource {
      */
     public readonly allowNullValues!: pulumi.Output<boolean>;
     /**
+     * The optional Kubernetes API versions used for Capabilities.APIVersions. By default is detected from the server.
+     */
+    public readonly apiVersions!: pulumi.Output<string[]>;
+    /**
      * If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
      */
     public readonly atomic!: pulumi.Output<boolean>;
@@ -237,6 +241,10 @@ export class Release extends pulumi.CustomResource {
      * Location of public keys used for verification. Used only if `verify` is true
      */
     public readonly keyring!: pulumi.Output<string>;
+    /**
+     * Overrides the Kubernetes version used for Capabilities.KubeVersion. By default is detected from the server.
+     */
+    public readonly kubeVersion!: pulumi.Output<string>;
     /**
      * Run helm lint when planning.
      */
@@ -341,6 +349,7 @@ export class Release extends pulumi.CustomResource {
                 throw new Error("Missing required property 'chart'");
             }
             resourceInputs["allowNullValues"] = args ? args.allowNullValues : undefined;
+            resourceInputs["apiVersions"] = args ? args.apiVersions : undefined;
             resourceInputs["atomic"] = args ? args.atomic : undefined;
             resourceInputs["chart"] = args ? args.chart : undefined;
             resourceInputs["cleanupOnFail"] = args ? args.cleanupOnFail : undefined;
@@ -354,6 +363,7 @@ export class Release extends pulumi.CustomResource {
             resourceInputs["disableWebhooks"] = args ? args.disableWebhooks : undefined;
             resourceInputs["forceUpdate"] = args ? args.forceUpdate : undefined;
             resourceInputs["keyring"] = args ? args.keyring : undefined;
+            resourceInputs["kubeVersion"] = args ? args.kubeVersion : undefined;
             resourceInputs["lint"] = args ? args.lint : undefined;
             resourceInputs["manifest"] = args ? args.manifest : undefined;
             resourceInputs["maxHistory"] = args ? args.maxHistory : undefined;
@@ -378,6 +388,7 @@ export class Release extends pulumi.CustomResource {
             resourceInputs["status"] = undefined /*out*/;
         } else {
             resourceInputs["allowNullValues"] = undefined /*out*/;
+            resourceInputs["apiVersions"] = undefined /*out*/;
             resourceInputs["atomic"] = undefined /*out*/;
             resourceInputs["chart"] = undefined /*out*/;
             resourceInputs["cleanupOnFail"] = undefined /*out*/;
@@ -390,6 +401,7 @@ export class Release extends pulumi.CustomResource {
             resourceInputs["disableWebhooks"] = undefined /*out*/;
             resourceInputs["forceUpdate"] = undefined /*out*/;
             resourceInputs["keyring"] = undefined /*out*/;
+            resourceInputs["kubeVersion"] = undefined /*out*/;
             resourceInputs["lint"] = undefined /*out*/;
             resourceInputs["manifest"] = undefined /*out*/;
             resourceInputs["maxHistory"] = undefined /*out*/;
@@ -426,6 +438,10 @@ export interface ReleaseArgs {
      * Whether to allow Null values in helm chart configs.
      */
     allowNullValues?: pulumi.Input<boolean>;
+    /**
+     * The optional Kubernetes API versions used for Capabilities.APIVersions. By default is detected from the server.
+     */
+    apiVersions?: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
      */
@@ -475,6 +491,10 @@ export interface ReleaseArgs {
      * Location of public keys used for verification. Used only if `verify` is true
      */
     keyring?: pulumi.Input<string>;
+    /**
+     * Overrides the Kubernetes version used for Capabilities.KubeVersion. By default is detected from the server.
+     */
+    kubeVersion?: pulumi.Input<string>;
     /**
      * Run helm lint when planning.
      */

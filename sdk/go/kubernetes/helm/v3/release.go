@@ -300,6 +300,8 @@ type Release struct {
 
 	// Whether to allow Null values in helm chart configs.
 	AllowNullValues pulumi.BoolPtrOutput `pulumi:"allowNullValues"`
+	// The optional Kubernetes API versions used for Capabilities.APIVersions. By default is detected from the server.
+	ApiVersions pulumi.StringArrayOutput `pulumi:"apiVersions"`
 	// If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
 	Atomic pulumi.BoolPtrOutput `pulumi:"atomic"`
 	// Chart name to be installed. A path may be used.
@@ -324,6 +326,8 @@ type Release struct {
 	ForceUpdate pulumi.BoolPtrOutput `pulumi:"forceUpdate"`
 	// Location of public keys used for verification. Used only if `verify` is true
 	Keyring pulumi.StringPtrOutput `pulumi:"keyring"`
+	// Overrides the Kubernetes version used for Capabilities.KubeVersion. By default is detected from the server.
+	KubeVersion pulumi.StringPtrOutput `pulumi:"kubeVersion"`
 	// Run helm lint when planning.
 	Lint pulumi.BoolPtrOutput `pulumi:"lint"`
 	// The rendered manifests as JSON. Not yet supported.
@@ -416,6 +420,8 @@ func (ReleaseState) ElementType() reflect.Type {
 type releaseArgs struct {
 	// Whether to allow Null values in helm chart configs.
 	AllowNullValues *bool `pulumi:"allowNullValues"`
+	// The optional Kubernetes API versions used for Capabilities.APIVersions. By default is detected from the server.
+	ApiVersions []string `pulumi:"apiVersions"`
 	// If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
 	Atomic *bool `pulumi:"atomic"`
 	// Chart name to be installed. A path may be used.
@@ -441,6 +447,8 @@ type releaseArgs struct {
 	ForceUpdate *bool `pulumi:"forceUpdate"`
 	// Location of public keys used for verification. Used only if `verify` is true
 	Keyring *string `pulumi:"keyring"`
+	// Overrides the Kubernetes version used for Capabilities.KubeVersion. By default is detected from the server.
+	KubeVersion *string `pulumi:"kubeVersion"`
 	// Run helm lint when planning.
 	Lint *bool `pulumi:"lint"`
 	// The rendered manifests as JSON. Not yet supported.
@@ -489,6 +497,8 @@ type releaseArgs struct {
 type ReleaseArgs struct {
 	// Whether to allow Null values in helm chart configs.
 	AllowNullValues pulumi.BoolPtrInput
+	// The optional Kubernetes API versions used for Capabilities.APIVersions. By default is detected from the server.
+	ApiVersions pulumi.StringArrayInput
 	// If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
 	Atomic pulumi.BoolPtrInput
 	// Chart name to be installed. A path may be used.
@@ -514,6 +524,8 @@ type ReleaseArgs struct {
 	ForceUpdate pulumi.BoolPtrInput
 	// Location of public keys used for verification. Used only if `verify` is true
 	Keyring pulumi.StringPtrInput
+	// Overrides the Kubernetes version used for Capabilities.KubeVersion. By default is detected from the server.
+	KubeVersion pulumi.StringPtrInput
 	// Run helm lint when planning.
 	Lint pulumi.BoolPtrInput
 	// The rendered manifests as JSON. Not yet supported.
@@ -674,6 +686,11 @@ func (o ReleaseOutput) AllowNullValues() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Release) pulumi.BoolPtrOutput { return v.AllowNullValues }).(pulumi.BoolPtrOutput)
 }
 
+// The optional Kubernetes API versions used for Capabilities.APIVersions. By default is detected from the server.
+func (o ReleaseOutput) ApiVersions() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *Release) pulumi.StringArrayOutput { return v.ApiVersions }).(pulumi.StringArrayOutput)
+}
+
 // If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
 func (o ReleaseOutput) Atomic() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Release) pulumi.BoolPtrOutput { return v.Atomic }).(pulumi.BoolPtrOutput)
@@ -732,6 +749,11 @@ func (o ReleaseOutput) ForceUpdate() pulumi.BoolPtrOutput {
 // Location of public keys used for verification. Used only if `verify` is true
 func (o ReleaseOutput) Keyring() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Release) pulumi.StringPtrOutput { return v.Keyring }).(pulumi.StringPtrOutput)
+}
+
+// Overrides the Kubernetes version used for Capabilities.KubeVersion. By default is detected from the server.
+func (o ReleaseOutput) KubeVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *Release) pulumi.StringPtrOutput { return v.KubeVersion }).(pulumi.StringPtrOutput)
 }
 
 // Run helm lint when planning.

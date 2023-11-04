@@ -39,6 +39,21 @@ public final class ReleaseArgs extends com.pulumi.resources.ResourceArgs {
     }
 
     /**
+     * The optional Kubernetes API versions used for Capabilities.APIVersions. By default is detected from the server.
+     * 
+     */
+    @Import(name="apiVersions")
+    private @Nullable Output<List<String>> apiVersions;
+
+    /**
+     * @return The optional Kubernetes API versions used for Capabilities.APIVersions. By default is detected from the server.
+     * 
+     */
+    public Optional<Output<List<String>>> apiVersions() {
+        return Optional.ofNullable(this.apiVersions);
+    }
+
+    /**
      * If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
      * 
      */
@@ -223,6 +238,21 @@ public final class ReleaseArgs extends com.pulumi.resources.ResourceArgs {
      */
     public Optional<Output<String>> keyring() {
         return Optional.ofNullable(this.keyring);
+    }
+
+    /**
+     * Overrides the Kubernetes version used for Capabilities.KubeVersion. By default is detected from the server.
+     * 
+     */
+    @Import(name="kubeVersion")
+    private @Nullable Output<String> kubeVersion;
+
+    /**
+     * @return Overrides the Kubernetes version used for Capabilities.KubeVersion. By default is detected from the server.
+     * 
+     */
+    public Optional<Output<String>> kubeVersion() {
+        return Optional.ofNullable(this.kubeVersion);
     }
 
     /**
@@ -544,6 +574,7 @@ public final class ReleaseArgs extends com.pulumi.resources.ResourceArgs {
 
     private ReleaseArgs(ReleaseArgs $) {
         this.allowNullValues = $.allowNullValues;
+        this.apiVersions = $.apiVersions;
         this.atomic = $.atomic;
         this.chart = $.chart;
         this.cleanupOnFail = $.cleanupOnFail;
@@ -557,6 +588,7 @@ public final class ReleaseArgs extends com.pulumi.resources.ResourceArgs {
         this.disableWebhooks = $.disableWebhooks;
         this.forceUpdate = $.forceUpdate;
         this.keyring = $.keyring;
+        this.kubeVersion = $.kubeVersion;
         this.lint = $.lint;
         this.manifest = $.manifest;
         this.maxHistory = $.maxHistory;
@@ -617,6 +649,37 @@ public final class ReleaseArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder allowNullValues(Boolean allowNullValues) {
             return allowNullValues(Output.of(allowNullValues));
+        }
+
+        /**
+         * @param apiVersions The optional Kubernetes API versions used for Capabilities.APIVersions. By default is detected from the server.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder apiVersions(@Nullable Output<List<String>> apiVersions) {
+            $.apiVersions = apiVersions;
+            return this;
+        }
+
+        /**
+         * @param apiVersions The optional Kubernetes API versions used for Capabilities.APIVersions. By default is detected from the server.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder apiVersions(List<String> apiVersions) {
+            return apiVersions(Output.of(apiVersions));
+        }
+
+        /**
+         * @param apiVersions The optional Kubernetes API versions used for Capabilities.APIVersions. By default is detected from the server.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder apiVersions(String... apiVersions) {
+            return apiVersions(List.of(apiVersions));
         }
 
         /**
@@ -878,6 +941,27 @@ public final class ReleaseArgs extends com.pulumi.resources.ResourceArgs {
          */
         public Builder keyring(String keyring) {
             return keyring(Output.of(keyring));
+        }
+
+        /**
+         * @param kubeVersion Overrides the Kubernetes version used for Capabilities.KubeVersion. By default is detected from the server.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder kubeVersion(@Nullable Output<String> kubeVersion) {
+            $.kubeVersion = kubeVersion;
+            return this;
+        }
+
+        /**
+         * @param kubeVersion Overrides the Kubernetes version used for Capabilities.KubeVersion. By default is detected from the server.
+         * 
+         * @return builder
+         * 
+         */
+        public Builder kubeVersion(String kubeVersion) {
+            return kubeVersion(Output.of(kubeVersion));
         }
 
         /**

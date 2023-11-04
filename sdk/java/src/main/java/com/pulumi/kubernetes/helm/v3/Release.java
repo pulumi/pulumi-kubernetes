@@ -57,6 +57,20 @@ public class Release extends com.pulumi.resources.CustomResource {
         return Codegen.optional(this.allowNullValues);
     }
     /**
+     * The optional Kubernetes API versions used for Capabilities.APIVersions. By default is detected from the server.
+     * 
+     */
+    @Export(name="apiVersions", refs={List.class,String.class}, tree="[0,1]")
+    private Output</* @Nullable */ List<String>> apiVersions;
+
+    /**
+     * @return The optional Kubernetes API versions used for Capabilities.APIVersions. By default is detected from the server.
+     * 
+     */
+    public Output<Optional<List<String>>> apiVersions() {
+        return Codegen.optional(this.apiVersions);
+    }
+    /**
      * If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
      * 
      */
@@ -223,6 +237,20 @@ public class Release extends com.pulumi.resources.CustomResource {
      */
     public Output<Optional<String>> keyring() {
         return Codegen.optional(this.keyring);
+    }
+    /**
+     * Overrides the Kubernetes version used for Capabilities.KubeVersion. By default is detected from the server.
+     * 
+     */
+    @Export(name="kubeVersion", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> kubeVersion;
+
+    /**
+     * @return Overrides the Kubernetes version used for Capabilities.KubeVersion. By default is detected from the server.
+     * 
+     */
+    public Output<Optional<String>> kubeVersion() {
+        return Codegen.optional(this.kubeVersion);
     }
     /**
      * Run helm lint when planning.

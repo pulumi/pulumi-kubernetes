@@ -18,6 +18,7 @@ class ReleaseArgs:
     def __init__(__self__, *,
                  chart: pulumi.Input[str],
                  allow_null_values: Optional[pulumi.Input[bool]] = None,
+                 api_versions: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  atomic: Optional[pulumi.Input[bool]] = None,
                  cleanup_on_fail: Optional[pulumi.Input[bool]] = None,
                  compat: Optional[pulumi.Input[str]] = None,
@@ -30,6 +31,7 @@ class ReleaseArgs:
                  disable_webhooks: Optional[pulumi.Input[bool]] = None,
                  force_update: Optional[pulumi.Input[bool]] = None,
                  keyring: Optional[pulumi.Input[str]] = None,
+                 kube_version: Optional[pulumi.Input[str]] = None,
                  lint: Optional[pulumi.Input[bool]] = None,
                  manifest: Optional[pulumi.Input[Mapping[str, Any]]] = None,
                  max_history: Optional[pulumi.Input[int]] = None,
@@ -55,6 +57,7 @@ class ReleaseArgs:
         The set of arguments for constructing a Release resource.
         :param pulumi.Input[str] chart: Chart name to be installed. A path may be used.
         :param pulumi.Input[bool] allow_null_values: Whether to allow Null values in helm chart configs.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] api_versions: The optional Kubernetes API versions used for Capabilities.APIVersions. By default is detected from the server.
         :param pulumi.Input[bool] atomic: If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
         :param pulumi.Input[bool] cleanup_on_fail: Allow deletion of new resources created in this upgrade when upgrade fails.
         :param pulumi.Input[bool] create_namespace: Create the namespace if it does not exist.
@@ -66,6 +69,7 @@ class ReleaseArgs:
         :param pulumi.Input[bool] disable_webhooks: Prevent hooks from running.
         :param pulumi.Input[bool] force_update: Force resource update through delete/recreate if needed.
         :param pulumi.Input[str] keyring: Location of public keys used for verification. Used only if `verify` is true
+        :param pulumi.Input[str] kube_version: Overrides the Kubernetes version used for Capabilities.KubeVersion. By default is detected from the server.
         :param pulumi.Input[bool] lint: Run helm lint when planning.
         :param pulumi.Input[Mapping[str, Any]] manifest: The rendered manifests as JSON. Not yet supported.
         :param pulumi.Input[int] max_history: Limit the maximum number of revisions saved per release. Use 0 for no limit.
@@ -91,6 +95,8 @@ class ReleaseArgs:
         pulumi.set(__self__, "chart", chart)
         if allow_null_values is not None:
             pulumi.set(__self__, "allow_null_values", allow_null_values)
+        if api_versions is not None:
+            pulumi.set(__self__, "api_versions", api_versions)
         if atomic is not None:
             pulumi.set(__self__, "atomic", atomic)
         if cleanup_on_fail is not None:
@@ -115,6 +121,8 @@ class ReleaseArgs:
             pulumi.set(__self__, "force_update", force_update)
         if keyring is not None:
             pulumi.set(__self__, "keyring", keyring)
+        if kube_version is not None:
+            pulumi.set(__self__, "kube_version", kube_version)
         if lint is not None:
             pulumi.set(__self__, "lint", lint)
         if manifest is not None:
@@ -181,6 +189,18 @@ class ReleaseArgs:
     @allow_null_values.setter
     def allow_null_values(self, value: Optional[pulumi.Input[bool]]):
         pulumi.set(self, "allow_null_values", value)
+
+    @property
+    @pulumi.getter(name="apiVersions")
+    def api_versions(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        """
+        The optional Kubernetes API versions used for Capabilities.APIVersions. By default is detected from the server.
+        """
+        return pulumi.get(self, "api_versions")
+
+    @api_versions.setter
+    def api_versions(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "api_versions", value)
 
     @property
     @pulumi.getter
@@ -322,6 +342,18 @@ class ReleaseArgs:
     @keyring.setter
     def keyring(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "keyring", value)
+
+    @property
+    @pulumi.getter(name="kubeVersion")
+    def kube_version(self) -> Optional[pulumi.Input[str]]:
+        """
+        Overrides the Kubernetes version used for Capabilities.KubeVersion. By default is detected from the server.
+        """
+        return pulumi.get(self, "kube_version")
+
+    @kube_version.setter
+    def kube_version(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "kube_version", value)
 
     @property
     @pulumi.getter
@@ -582,6 +614,7 @@ class Release(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  allow_null_values: Optional[pulumi.Input[bool]] = None,
+                 api_versions: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  atomic: Optional[pulumi.Input[bool]] = None,
                  chart: Optional[pulumi.Input[str]] = None,
                  cleanup_on_fail: Optional[pulumi.Input[bool]] = None,
@@ -595,6 +628,7 @@ class Release(pulumi.CustomResource):
                  disable_webhooks: Optional[pulumi.Input[bool]] = None,
                  force_update: Optional[pulumi.Input[bool]] = None,
                  keyring: Optional[pulumi.Input[str]] = None,
+                 kube_version: Optional[pulumi.Input[str]] = None,
                  lint: Optional[pulumi.Input[bool]] = None,
                  manifest: Optional[pulumi.Input[Mapping[str, Any]]] = None,
                  max_history: Optional[pulumi.Input[int]] = None,
@@ -783,6 +817,7 @@ class Release(pulumi.CustomResource):
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[bool] allow_null_values: Whether to allow Null values in helm chart configs.
+        :param pulumi.Input[Sequence[pulumi.Input[str]]] api_versions: The optional Kubernetes API versions used for Capabilities.APIVersions. By default is detected from the server.
         :param pulumi.Input[bool] atomic: If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
         :param pulumi.Input[str] chart: Chart name to be installed. A path may be used.
         :param pulumi.Input[bool] cleanup_on_fail: Allow deletion of new resources created in this upgrade when upgrade fails.
@@ -795,6 +830,7 @@ class Release(pulumi.CustomResource):
         :param pulumi.Input[bool] disable_webhooks: Prevent hooks from running.
         :param pulumi.Input[bool] force_update: Force resource update through delete/recreate if needed.
         :param pulumi.Input[str] keyring: Location of public keys used for verification. Used only if `verify` is true
+        :param pulumi.Input[str] kube_version: Overrides the Kubernetes version used for Capabilities.KubeVersion. By default is detected from the server.
         :param pulumi.Input[bool] lint: Run helm lint when planning.
         :param pulumi.Input[Mapping[str, Any]] manifest: The rendered manifests as JSON. Not yet supported.
         :param pulumi.Input[int] max_history: Limit the maximum number of revisions saved per release. Use 0 for no limit.
@@ -1002,6 +1038,7 @@ class Release(pulumi.CustomResource):
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
                  allow_null_values: Optional[pulumi.Input[bool]] = None,
+                 api_versions: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  atomic: Optional[pulumi.Input[bool]] = None,
                  chart: Optional[pulumi.Input[str]] = None,
                  cleanup_on_fail: Optional[pulumi.Input[bool]] = None,
@@ -1015,6 +1052,7 @@ class Release(pulumi.CustomResource):
                  disable_webhooks: Optional[pulumi.Input[bool]] = None,
                  force_update: Optional[pulumi.Input[bool]] = None,
                  keyring: Optional[pulumi.Input[str]] = None,
+                 kube_version: Optional[pulumi.Input[str]] = None,
                  lint: Optional[pulumi.Input[bool]] = None,
                  manifest: Optional[pulumi.Input[Mapping[str, Any]]] = None,
                  max_history: Optional[pulumi.Input[int]] = None,
@@ -1046,6 +1084,7 @@ class Release(pulumi.CustomResource):
             __props__ = ReleaseArgs.__new__(ReleaseArgs)
 
             __props__.__dict__["allow_null_values"] = allow_null_values
+            __props__.__dict__["api_versions"] = api_versions
             __props__.__dict__["atomic"] = atomic
             if chart is None and not opts.urn:
                 raise TypeError("Missing required property 'chart'")
@@ -1061,6 +1100,7 @@ class Release(pulumi.CustomResource):
             __props__.__dict__["disable_webhooks"] = disable_webhooks
             __props__.__dict__["force_update"] = force_update
             __props__.__dict__["keyring"] = keyring
+            __props__.__dict__["kube_version"] = kube_version
             __props__.__dict__["lint"] = lint
             __props__.__dict__["manifest"] = manifest
             __props__.__dict__["max_history"] = max_history
@@ -1106,6 +1146,7 @@ class Release(pulumi.CustomResource):
         __props__ = ReleaseArgs.__new__(ReleaseArgs)
 
         __props__.__dict__["allow_null_values"] = None
+        __props__.__dict__["api_versions"] = None
         __props__.__dict__["atomic"] = None
         __props__.__dict__["chart"] = None
         __props__.__dict__["cleanup_on_fail"] = None
@@ -1118,6 +1159,7 @@ class Release(pulumi.CustomResource):
         __props__.__dict__["disable_webhooks"] = None
         __props__.__dict__["force_update"] = None
         __props__.__dict__["keyring"] = None
+        __props__.__dict__["kube_version"] = None
         __props__.__dict__["lint"] = None
         __props__.__dict__["manifest"] = None
         __props__.__dict__["max_history"] = None
@@ -1149,6 +1191,14 @@ class Release(pulumi.CustomResource):
         Whether to allow Null values in helm chart configs.
         """
         return pulumi.get(self, "allow_null_values")
+
+    @property
+    @pulumi.getter(name="apiVersions")
+    def api_versions(self) -> pulumi.Output[Optional[Sequence[str]]]:
+        """
+        The optional Kubernetes API versions used for Capabilities.APIVersions. By default is detected from the server.
+        """
+        return pulumi.get(self, "api_versions")
 
     @property
     @pulumi.getter
@@ -1245,6 +1295,14 @@ class Release(pulumi.CustomResource):
         Location of public keys used for verification. Used only if `verify` is true
         """
         return pulumi.get(self, "keyring")
+
+    @property
+    @pulumi.getter(name="kubeVersion")
+    def kube_version(self) -> pulumi.Output[Optional[str]]:
+        """
+        Overrides the Kubernetes version used for Capabilities.KubeVersion. By default is detected from the server.
+        """
+        return pulumi.get(self, "kube_version")
 
     @property
     @pulumi.getter

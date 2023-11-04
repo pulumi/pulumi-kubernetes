@@ -260,6 +260,12 @@ namespace Pulumi.Kubernetes.Helm.V3
         public Output<bool> AllowNullValues { get; private set; } = null!;
 
         /// <summary>
+        /// The optional Kubernetes API versions used for Capabilities.APIVersions. By default is detected from the server.
+        /// </summary>
+        [Output("apiVersions")]
+        public Output<ImmutableArray<string>> ApiVersions { get; private set; } = null!;
+
+        /// <summary>
         /// If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
         /// </summary>
         [Output("atomic")]
@@ -330,6 +336,12 @@ namespace Pulumi.Kubernetes.Helm.V3
         /// </summary>
         [Output("keyring")]
         public Output<string> Keyring { get; private set; } = null!;
+
+        /// <summary>
+        /// Overrides the Kubernetes version used for Capabilities.KubeVersion. By default is detected from the server.
+        /// </summary>
+        [Output("kubeVersion")]
+        public Output<string> KubeVersion { get; private set; } = null!;
 
         /// <summary>
         /// Run helm lint when planning.
@@ -528,6 +540,18 @@ namespace Pulumi.Kubernetes.Types.Inputs.Helm.V3
         [Input("allowNullValues")]
         public Input<bool>? AllowNullValues { get; set; }
 
+        [Input("apiVersions")]
+        private InputList<string>? _apiVersions;
+
+        /// <summary>
+        /// The optional Kubernetes API versions used for Capabilities.APIVersions. By default is detected from the server.
+        /// </summary>
+        public InputList<string> ApiVersions
+        {
+            get => _apiVersions ?? (_apiVersions = new InputList<string>());
+            set => _apiVersions = value;
+        }
+
         /// <summary>
         /// If set, installation process purges chart on fail. `skipAwait` will be disabled automatically if atomic is used.
         /// </summary>
@@ -602,6 +626,12 @@ namespace Pulumi.Kubernetes.Types.Inputs.Helm.V3
         /// </summary>
         [Input("keyring")]
         public Input<string>? Keyring { get; set; }
+
+        /// <summary>
+        /// Overrides the Kubernetes version used for Capabilities.KubeVersion. By default is detected from the server.
+        /// </summary>
+        [Input("kubeVersion")]
+        public Input<string>? KubeVersion { get; set; }
 
         /// <summary>
         /// Run helm lint when planning.
