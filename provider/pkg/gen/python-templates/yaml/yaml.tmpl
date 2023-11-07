@@ -517,4 +517,4 @@ def _parse_yaml_object(
 
 def invoke_yaml_decode(text, invoke_opts):
     inv = pulumi.runtime.invoke('kubernetes:yaml:decode', {'text': text}, invoke_opts)
-    return inv.value['result'] if inv is not None and inv.value is not None else []
+    return (inv.value or {}).get('result', [])
