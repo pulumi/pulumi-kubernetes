@@ -258,7 +258,10 @@ func (c *chart) template(clientSet *clients.DynamicClientSet) (string, error) {
 	}
 
 	if clientSet != nil {
-		setKubeVersionAndAPIVersions(clientSet, installAction)
+		err = setKubeVersionAndAPIVersions(clientSet, installAction)
+		if err != nil {
+			return "", err
+		}
 	}
 
 	chartName, err := func() (string, error) {
