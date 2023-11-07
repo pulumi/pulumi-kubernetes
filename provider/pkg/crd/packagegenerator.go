@@ -97,7 +97,7 @@ func ReadPackagesFromSource(version string, yamlSources []io.ReadCloser) (*Packa
 
 func (pg *PackageGenerator) SchemaPackage() *pschema.Package {
 	if pg.schemaPackageWithObjectMetaType == nil {
-		pkg, err := genPackage(pg.Version, pg.Types, pg.ResourceTokens)
+		pkg, err := genPackage(pg.Version, pg.Types, pg.ResourceTokens, pg.CustomResourceGenerators)
 		contract.AssertNoErrorf(err, "could not parse Pulumi package")
 		pg.schemaPackageWithObjectMetaType = pkg
 	}

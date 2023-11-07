@@ -20,7 +20,9 @@ import (
 	"strconv"
 
 	"github.com/iancoleman/strcase"
+	kversion "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/version"
 	pschema "github.com/pulumi/pulumi/pkg/v3/codegen/schema"
+	"github.com/pulumi/pulumi/sdk/v3/go/common/slice"
 	"github.com/pulumi/pulumi/sdk/v3/go/common/tokens"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
@@ -72,7 +74,7 @@ var intOrStringTypeSpec = pschema.TypeSpec{
 // Returns the Pulumi package given a types map and a slice of the token types
 // of every CustomResource. If includeObjectMetaType is true, then a
 // ObjectMetaType type is also generated.
-func genPackage(version string, types map[string]pschema.ComplexTypeSpec, resourceTokens []string) (*pschema.Package, error) {
+func genPackage(version string, types map[string]pschema.ComplexTypeSpec, resourceTokens []string, resourceGenerators []CustomResourceGenerator) (*pschema.Package, error) {
 	types[objectMetaToken] = pschema.ComplexTypeSpec{
 		ObjectTypeSpec: pschema.ObjectTypeSpec{
 			Type: "object",
@@ -96,12 +98,21 @@ func genPackage(version string, types map[string]pschema.ComplexTypeSpec, resour
 	}
 	sort.Strings(allowedPackages)
 
+	crds := slice.Map[CustomResourceGenerator, unstructured.Unstructured](resourceGenerators, func(resourceGenerator CustomResourceGenerator) unstructured.Unstructured {
+		return resourceGenerator.CustomResourceDefinition
+	})
+
 	pkgSpec := pschema.PackageSpec{
 		Name:                DefaultName,
 		Version:             version,
 		Types:               types,
 		Resources:           resources,
 		AllowedPackageNames: allowedPackages,
+		Extension: &pschema.PackageExtensionSpec{
+			Name:    "kubernetes",
+			Version: kversion.Version,
+		},
+		Parameter: crds,
 	}
 
 	pkg, err := pschema.ImportSpec(pkgSpec, nil)
