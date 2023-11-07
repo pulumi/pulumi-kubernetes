@@ -1,0 +1,3 @@
+name: go_helm_local_kubernetes
+description: Test Kubernetes Helm package with local Chart.
+runtime: go
