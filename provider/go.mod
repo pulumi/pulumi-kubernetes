@@ -16,7 +16,7 @@ require (
 	github.com/pulumi/pulumi/sdk/v3 v3.94.2
 	github.com/stretchr/testify v1.8.4
 	golang.org/x/crypto v0.14.0
-	google.golang.org/grpc v1.58.2
+	google.golang.org/grpc v1.58.3
 	gopkg.in/yaml.v3 v3.0.1
 	helm.sh/helm/v3 v3.12.1
 	k8s.io/api v0.28.2
