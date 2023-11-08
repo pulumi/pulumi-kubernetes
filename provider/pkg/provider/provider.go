@@ -236,7 +236,6 @@ func (k *kubeProvider) Construct(ctx context.Context, req *pulumirpc.ConstructRe
 func (k *kubeProvider) Parameterize(ctx context.Context, req *pulumirpc.ParameterizeRequest) (*pulumirpc.ParameterizeResponse, error) {
 	crdPackageName := req.Key
 	var crdPackage *pulumischema.Package
-	var err error
 
 	switch p := req.Parameters.(type) {
 	case *pulumirpc.ParameterizeRequest_Args:
@@ -262,6 +261,7 @@ func (k *kubeProvider) Parameterize(ctx context.Context, req *pulumirpc.Paramete
 				PackageVersion: version,
 			}
 			reader := io.NopCloser(strings.NewReader(v))
+			var err error
 			crdPackage, err = crd.Generate(cs, []io.ReadCloser{reader})
 			if err != nil {
 				return nil, err
