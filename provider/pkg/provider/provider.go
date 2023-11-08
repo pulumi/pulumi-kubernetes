@@ -18,6 +18,7 @@ import (
 	"bufio"
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
 	"net/url"
@@ -40,6 +41,7 @@ import (
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/await"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/cluster"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/crd"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gen"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/kinds"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/logging"
@@ -142,6 +144,8 @@ type kubeProvider struct {
 	yamlRenderMode bool
 	yamlDirectory  string
 
+	crdSchemas map[string]*pulumischema.Package // maps crd package name to its package spec
+
 	clusterUnreachable       bool   // Kubernetes cluster is unreachable.
 	clusterUnreachableReason string // Detailed error message if cluster is unreachable.
 
@@ -227,13 +231,59 @@ func (k *kubeProvider) Construct(ctx context.Context, req *pulumirpc.ConstructRe
 	return nil, status.Error(codes.Unimplemented, "Construct is not yet implemented")
 }
 
-// GetSchema returns the JSON-encoded schema for this provider's package.
-func (k *kubeProvider) GetSchema(ctx context.Context, req *pulumirpc.GetSchemaRequest) (*pulumirpc.GetSchemaResponse, error) {
-	if v := req.GetVersion(); v != 0 {
-		return nil, fmt.Errorf("unsupported schema version %d", v)
+// Parameterize is called by the engine when the Kubernetes provider is used for CRDs.
+func (k *kubeProvider) Parameterize(ctx context.Context, req *pulumirpc.ParameterizeRequest) (*pulumirpc.ParameterizeResponse, error) {
+	switch p := req.Parameters.(type) {
+	case *pulumirpc.ParameterizeRequest_Args:
+		crdPackageName := req.Key
+		crdParameters, err := ParseCrdArgs(p.Args.Args)
+		if err != nil {
+			return nil, err
+		}
+		cs := &crd.CodegenSettings{
+			PackageName:    crdPackageName,
+			PackageVersion: crdParameters.PackageVersion,
+		}
+		crdPackage, err := crd.GenerateFromFiles(cs, crdParameters.YamlPaths)
+		if err != nil {
+			return nil, err
+		}
+		// TODO Should lock access in case of concurrent Parameterize calls
+		if k.crdSchemas == nil {
+			k.crdSchemas = map[string]*pulumischema.Package{crdPackageName: crdPackage}
+		} else {
+			k.crdSchemas[crdPackageName] = crdPackage
+		}
+		return &pulumirpc.ParameterizeResponse{}, nil
+
+		// case *pulumirpc.ParameterizeRequest_Value:
+		// 	switch v := p.Value.AsInterface().(type) {
+		// 	case string:
+		// 		k.parameter = &v
+		// 		return &rpc.ParameterizeResponse{}, nil
+		// 	default:
+		// 		return nil, fmt.Errorf("unexpected value type: %v", v)
+		// 	}
 	}
 
-	return &pulumirpc.GetSchemaResponse{Schema: string(k.pulumiSchema)}, nil
+	return nil, errors.New("provider parameter can only be args or value type")
+}
+
+// GetSchema returns the JSON-encoded schema for this provider's package.
+func (k *kubeProvider) GetSchema(ctx context.Context, req *pulumirpc.GetSchemaRequest) (*pulumirpc.GetSchemaResponse, error) {
+	v := req.GetVersion()
+	switch v {
+	case 0:
+		return &pulumirpc.GetSchemaResponse{Schema: string(k.pulumiSchema)}, nil
+	case 1:
+		crdname := req.Key
+		flattenedSchema, err := json.Marshal(k.crdSchemas[crdname])
+		if err != nil {
+			return nil, err
+		}
+		return &pulumirpc.GetSchemaResponse{Schema: string(flattenedSchema)}, nil
+	}
+	return nil, fmt.Errorf("unsupported schema version %d", v)
 }
 
 // CheckConfig validates the configuration for this provider.
