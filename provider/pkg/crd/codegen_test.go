@@ -34,6 +34,11 @@ func TestGenSchemaFromFileWithSingleCRD(t *testing.T) {
 	assert.Equal(t, 1, len(schema.Resources))
 	res := schema.Resources[0]
 	assert.Equal(t, "Order is a type to represent an Order with an ACME server", res.Comment)
+	assert.Equal(t, "cert-manager:acme.cert-manager.io/v1:Order", res.Token)
+	// New style CRD schema generation should alias the old style for easy migration
+	assert.Equal(t, 1, len(res.Aliases))
+	typeAlias := res.Aliases[0]
+	assert.Equal(t, "kubernetes:acme.cert-manager.io/v1:Order", *typeAlias.Type)
 	orderProps := res.Properties
 	assert.Equal(t, 5, len(orderProps))
 	orderSpec := orderProps[3] // Expecting this to be `spec`

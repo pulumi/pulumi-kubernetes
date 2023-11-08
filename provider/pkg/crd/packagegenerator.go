@@ -34,6 +34,8 @@ type PackageGenerator struct {
 	GroupVersions []string
 	// Types is a mapping from every type's token name to its ComplexTypeSpec
 	Types map[string]pschema.ComplexTypeSpec
+	// Name is the name that will be stamped into the generated package
+	Name string
 	// Version is the semver that will be stamped into the generated package
 	Version string
 	// schemaPackageWithObjectMetaType is the Pulumi schema package used to
@@ -43,7 +45,7 @@ type PackageGenerator struct {
 
 // ReadPackagesFromSource reads one or more documents and returns a PackageGenerator that can be used to generate Pulumi code.
 // Calling this function will fully read and close each document.
-func ReadPackagesFromSource(version string, yamlSources []io.ReadCloser) (*PackageGenerator, error) {
+func ReadPackagesFromSource(cs *CodegenSettings, yamlSources []io.ReadCloser) (*PackageGenerator, error) {
 	yamlData := make([][]byte, len(yamlSources))
 
 	for i, yamlSource := range yamlSources {
@@ -69,7 +71,7 @@ func ReadPackagesFromSource(version string, yamlSources []io.ReadCloser) (*Packa
 
 	crgs := make([]CustomResourceGenerator, 0, len(crds))
 	for i, crd := range crds {
-		crg, err := NewCustomResourceGenerator(crd)
+		crg, err := NewCustomResourceGenerator(cs.PackageName, crd)
 		if err != nil {
 			return nil, fmt.Errorf("could not parse crd %d: %w", i, err)
 		}
@@ -89,7 +91,8 @@ func ReadPackagesFromSource(version string, yamlSources []io.ReadCloser) (*Packa
 		CustomResourceGenerators: crgs,
 		ResourceTokens:           baseRefs,
 		GroupVersions:            groupVersions,
-		Version:                  version,
+		Name:                     cs.PackageName,
+		Version:                  cs.PackageVersion,
 	}
 	pg.Types = pg.GetTypes()
 	return pg, nil
@@ -97,7 +100,7 @@ func ReadPackagesFromSource(version string, yamlSources []io.ReadCloser) (*Packa
 
 func (pg *PackageGenerator) SchemaPackage() *pschema.Package {
 	if pg.schemaPackageWithObjectMetaType == nil {
-		pkg, err := genPackage(pg.Version, pg.Types, pg.ResourceTokens, pg.CustomResourceGenerators)
+		pkg, err := genPackage(pg.Name, pg.Version, pg.Types, pg.ResourceTokens, pg.CustomResourceGenerators)
 		contract.AssertNoErrorf(err, "could not parse Pulumi package")
 		pg.schemaPackageWithObjectMetaType = pkg
 	}
@@ -136,7 +139,7 @@ func (pg *PackageGenerator) GetTypes() map[string]pschema.ComplexTypeSpec {
 	types := map[string]pschema.ComplexTypeSpec{}
 	for _, crg := range pg.CustomResourceGenerators {
 		for version, schema := range crg.Schemas {
-			resourceToken := getToken(crg.Group, version, crg.Kind)
+			resourceToken := getToken(pg.Name, crg.Group, version, crg.Kind)
 			_, foundProperties, _ := unstructured.NestedMap(schema, "properties")
 			if foundProperties {
 				AddType(schema, resourceToken, types)

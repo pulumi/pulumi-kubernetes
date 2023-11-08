@@ -27,9 +27,6 @@ import (
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
-// DefaultName specifies the default value for the package name
-const DefaultName = "crds"
-
 const (
 	Boolean string = "boolean"
 	Integer string = "integer"
@@ -74,20 +71,29 @@ var intOrStringTypeSpec = pschema.TypeSpec{
 // Returns the Pulumi package given a types map and a slice of the token types
 // of every CustomResource. If includeObjectMetaType is true, then a
 // ObjectMetaType type is also generated.
-func genPackage(version string, types map[string]pschema.ComplexTypeSpec, resourceTokens []string, resourceGenerators []CustomResourceGenerator) (*pschema.Package, error) {
+func genPackage(name, version string, types map[string]pschema.ComplexTypeSpec, resourceTokens []string, resourceGenerators []CustomResourceGenerator) (*pschema.Package, error) {
 	types[objectMetaToken] = pschema.ComplexTypeSpec{
 		ObjectTypeSpec: pschema.ObjectTypeSpec{
 			Type: "object",
 		},
 	}
 
-	packages := map[string]bool{DefaultName: true, "kubernetes": true}
+	packages := map[string]bool{}
 	resources := map[string]pschema.ResourceSpec{}
 	for _, baseRef := range resourceTokens {
 		complexTypeSpec := types[baseRef]
+
+		tok := tokens.Type(baseRef)
+		alias := fmt.Sprintf("kubernetes:%s:%s", tok.Module().Name().String(), tok.Name().String())
 		resources[baseRef] = pschema.ResourceSpec{
 			ObjectTypeSpec:  complexTypeSpec.ObjectTypeSpec,
 			InputProperties: complexTypeSpec.Properties,
+			// Accomodate for easy transition from old crd2pulumi generated libraries
+			Aliases: []pschema.AliasSpec{
+				{
+					Type: &alias,
+				},
+			},
 		}
 		packages[string(tokens.ModuleMember(baseRef).Package())] = true
 	}
@@ -103,7 +109,7 @@ func genPackage(version string, types map[string]pschema.ComplexTypeSpec, resour
 	})
 
 	pkgSpec := pschema.PackageSpec{
-		Name:                DefaultName,
+		Name:                name,
 		Version:             version,
 		Types:               types,
 		Resources:           resources,
@@ -322,6 +328,6 @@ func CombineSchemas(combineRequired bool, schemas ...map[string]any) map[string]
 	return combinedSchema
 }
 
-func getToken(group, version, kind string) string {
-	return fmt.Sprintf("kubernetes:%s/%s:%s", group, version, kind)
+func getToken(packagename, group, version, kind string) string {
+	return fmt.Sprintf("%s:%s/%s:%s", packagename, group, version, kind)
 }

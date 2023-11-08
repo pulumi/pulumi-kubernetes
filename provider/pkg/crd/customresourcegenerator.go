@@ -45,7 +45,7 @@ type CustomResourceGenerator struct {
 	ResourceTokens []string
 }
 
-func NewCustomResourceGenerator(crd unstructured.Unstructured) (CustomResourceGenerator, error) {
+func NewCustomResourceGenerator(packagename string, crd unstructured.Unstructured) (CustomResourceGenerator, error) {
 	apiVersion := crd.GetAPIVersion()
 	schemas := map[string]map[string]any{}
 
@@ -91,7 +91,7 @@ func NewCustomResourceGenerator(crd unstructured.Unstructured) (CustomResourceGe
 	for version := range schemas {
 		versions = append(versions, version)
 		groupVersions = append(groupVersions, group+"/"+version)
-		resourceTokens = append(resourceTokens, getToken(group, version, kind))
+		resourceTokens = append(resourceTokens, getToken(packagename, group, version, kind))
 	}
 
 	crg := CustomResourceGenerator{

@@ -53,7 +53,7 @@ func expandFolderContent(yamlPaths []string) []string {
 // Generate performs the entire CRD codegen process, reading YAML content from the given readers.
 func Generate(cs *CodegenSettings, yamls []io.ReadCloser) (*pschema.Package, error) {
 	// Do the actual reading of files from source, may take substantial time depending on the sources.
-	pg, err := ReadPackagesFromSource(cs.PackageVersion, yamls)
+	pg, err := ReadPackagesFromSource(cs, yamls)
 	if err != nil {
 		return nil, err
 	}
