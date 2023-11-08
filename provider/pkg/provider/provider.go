@@ -254,8 +254,8 @@ func (k *kubeProvider) Parameterize(ctx context.Context, req *pulumirpc.Paramete
 		}
 
 	case *pulumirpc.ParameterizeRequest_Value:
-		version := "1.0.0"
-		switch v := p.Value.AsInterface().(type) {
+		version := p.Value.Version
+		switch v := p.Value.Value.AsInterface().(type) {
 		case string:
 			cs := &crd.CodegenSettings{
 				PackageName:    crdPackageName,
