@@ -2654,7 +2654,13 @@ func (k *kubeProvider) gvkFromUnstructured(input *unstructured.Unstructured) sch
 }
 
 func (k *kubeProvider) gvkFromURN(urn resource.URN) (schema.GroupVersionKind, error) {
-	if string(urn.Type().Package()) != k.providerPackage {
+	packageName := urn.Type().Package()
+
+	matchesKubernetesOrCrdPackage := string(packageName) == k.providerPackage
+	_, crdFound := k.crdSchemas[string(packageName)]
+	matchesKubernetesOrCrdPackage = matchesKubernetesOrCrdPackage || crdFound
+
+	if !matchesKubernetesOrCrdPackage {
 		return schema.GroupVersionKind{}, fmt.Errorf("unrecognized resource type: %q for this provider",
 			urn.Type())
 	}
