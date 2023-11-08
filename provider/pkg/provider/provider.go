@@ -20,6 +20,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"os"
@@ -233,9 +234,12 @@ func (k *kubeProvider) Construct(ctx context.Context, req *pulumirpc.ConstructRe
 
 // Parameterize is called by the engine when the Kubernetes provider is used for CRDs.
 func (k *kubeProvider) Parameterize(ctx context.Context, req *pulumirpc.ParameterizeRequest) (*pulumirpc.ParameterizeResponse, error) {
+	crdPackageName := req.Key
+	var crdPackage *pulumischema.Package
+	var err error
+
 	switch p := req.Parameters.(type) {
 	case *pulumirpc.ParameterizeRequest_Args:
-		crdPackageName := req.Key
 		crdParameters, err := ParseCrdArgs(p.Args.Args)
 		if err != nil {
 			return nil, err
@@ -244,10 +248,30 @@ func (k *kubeProvider) Parameterize(ctx context.Context, req *pulumirpc.Paramete
 			PackageName:    crdPackageName,
 			PackageVersion: crdParameters.PackageVersion,
 		}
-		crdPackage, err := crd.GenerateFromFiles(cs, crdParameters.YamlPaths)
+		crdPackage, err = crd.GenerateFromFiles(cs, crdParameters.YamlPaths)
 		if err != nil {
 			return nil, err
 		}
+
+	case *pulumirpc.ParameterizeRequest_Value:
+		version := "1.0.0"
+		switch v := p.Value.AsInterface().(type) {
+		case string:
+			cs := &crd.CodegenSettings{
+				PackageName:    crdPackageName,
+				PackageVersion: version,
+			}
+			reader := io.NopCloser(strings.NewReader(v))
+			crdPackage, err = crd.Generate(cs, []io.ReadCloser{reader})
+			if err != nil {
+				return nil, err
+			}
+		default:
+			return nil, fmt.Errorf("unexpected value type: %v", v)
+		}
+	}
+
+	if crdPackage != nil {
 		// TODO Should lock access in case of concurrent Parameterize calls
 		if k.crdSchemas == nil {
 			k.crdSchemas = map[string]*pulumischema.Package{crdPackageName: crdPackage}
@@ -255,15 +279,6 @@ func (k *kubeProvider) Parameterize(ctx context.Context, req *pulumirpc.Paramete
 			k.crdSchemas[crdPackageName] = crdPackage
 		}
 		return &pulumirpc.ParameterizeResponse{}, nil
-
-		// case *pulumirpc.ParameterizeRequest_Value:
-		// 	switch v := p.Value.AsInterface().(type) {
-		// 	case string:
-		// 		k.parameter = &v
-		// 		return &rpc.ParameterizeResponse{}, nil
-		// 	default:
-		// 		return nil, fmt.Errorf("unexpected value type: %v", v)
-		// 	}
 	}
 
 	return nil, errors.New("provider parameter can only be args or value type")
