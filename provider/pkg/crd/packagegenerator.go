@@ -41,6 +41,9 @@ type PackageGenerator struct {
 	// schemaPackageWithObjectMetaType is the Pulumi schema package used to
 	// generate code for languages that need an ObjectMeta type (Python, Go, and .NET)
 	schemaPackageWithObjectMetaType *pschema.Package
+
+	// A map of module names to sensible module/namespace names.
+	ModuleToPackage map[string]string
 }
 
 // ReadPackagesFromSource reads one or more documents and returns a PackageGenerator that can be used to generate Pulumi code.
@@ -95,12 +98,16 @@ func ReadPackagesFromSource(cs *CodegenSettings, yamlSources []io.ReadCloser) (*
 		Version:                  cs.PackageVersion,
 	}
 	pg.Types = pg.GetTypes()
+	pg.ModuleToPackage, err = pg.GetModuleToPackage()
+	if err != nil {
+		return nil, err
+	}
 	return pg, nil
 }
 
 func (pg *PackageGenerator) SchemaPackage() *pschema.Package {
 	if pg.schemaPackageWithObjectMetaType == nil {
-		pkg, err := genPackage(pg.Name, pg.Version, pg.Types, pg.ResourceTokens, pg.CustomResourceGenerators)
+		pkg, err := genPackage(pg.Name, pg.Version, pg.Types, pg.ResourceTokens, pg.CustomResourceGenerators, pg.ModuleToPackage)
 		contract.AssertNoErrorf(err, "could not parse Pulumi package")
 		pg.schemaPackageWithObjectMetaType = pkg
 	}
@@ -109,7 +116,7 @@ func (pg *PackageGenerator) SchemaPackage() *pschema.Package {
 
 // Returns language-specific 'ModuleToPackage' map. Creates a mapping from
 // every groupVersion string <group>/<version> to <groupPrefix>/<version>.
-func (pg *PackageGenerator) ModuleToPackage() (map[string]string, error) {
+func (pg *PackageGenerator) GetModuleToPackage() (map[string]string, error) {
 	moduleToPackage := map[string]string{}
 	for _, groupVersion := range pg.GroupVersions {
 		group, version, err := SplitGroupVersion(groupVersion)

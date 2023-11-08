@@ -15,6 +15,7 @@
 package crd
 
 import (
+	"encoding/json"
 	"fmt"
 	"sort"
 	"strconv"
@@ -68,10 +69,19 @@ var intOrStringTypeSpec = pschema.TypeSpec{
 	},
 }
 
+// rawMessage takes any JSON object and returns a json.RawMessage representation of it
+func rawMessage(v any) (json.RawMessage, error) {
+	return json.Marshal(v)
+}
+
 // Returns the Pulumi package given a types map and a slice of the token types
 // of every CustomResource. If includeObjectMetaType is true, then a
 // ObjectMetaType type is also generated.
-func genPackage(name, version string, types map[string]pschema.ComplexTypeSpec, resourceTokens []string, resourceGenerators []CustomResourceGenerator) (*pschema.Package, error) {
+func genPackage(
+	name, version string, types map[string]pschema.ComplexTypeSpec,
+	resourceTokens []string, resourceGenerators []CustomResourceGenerator,
+	moduleToPackage map[string]string,
+) (*pschema.Package, error) {
 	if name == "kubernetes" {
 		types[objectMetaToken] = pschema.ComplexTypeSpec{
 			ObjectTypeSpec: pschema.ObjectTypeSpec{
@@ -131,6 +141,28 @@ func genPackage(name, version string, types map[string]pschema.ComplexTypeSpec, 
 	delete(types, objectMetaToken)
 	// CRD's don't need a provider, they rely on the Kubernetes provider
 	pkg.Provider = nil
+
+	// Set the module map on each language
+	pkg.Language["nodejs"], err = rawMessage(map[string]any{
+		"moduleToPackage": moduleToPackage,
+	})
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal language metadata: %w", err)
+	}
+
+	pkg.Language["go"], err = rawMessage(map[string]any{
+		"moduleToPackage": moduleToPackage,
+	})
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal language metadata: %w", err)
+	}
+
+	pkg.Language["python"], err = rawMessage(map[string]any{
+		"moduleNameOverrides": moduleToPackage,
+	})
+	if err != nil {
+		return nil, fmt.Errorf("failed to marshal language metadata: %w", err)
+	}
 
 	return pkg, nil
 }
