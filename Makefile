@@ -118,6 +118,9 @@ install:: install_nodejs_sdk install_dotnet_sdk install_provider
 GO_TEST_FAST := go test -short -v -count=1 -cover -timeout 2h -parallel ${TESTPARALLELISM}
 GO_TEST		 := go test -v -count=1 -cover -timeout 2h -parallel ${TESTPARALLELISM}
 
+# Required for the codegen action that runs in pulumi/pulumi
+test:: test_all
+
 test_fast::
 # TODO: re-enable this test once https://github.com/pulumi/pulumi/issues/4954 is fixed.
 #	./sdk/nodejs/node_modules/mocha/bin/mocha ./sdk/nodejs/bin/tests
