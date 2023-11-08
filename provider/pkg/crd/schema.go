@@ -72,10 +72,12 @@ var intOrStringTypeSpec = pschema.TypeSpec{
 // of every CustomResource. If includeObjectMetaType is true, then a
 // ObjectMetaType type is also generated.
 func genPackage(name, version string, types map[string]pschema.ComplexTypeSpec, resourceTokens []string, resourceGenerators []CustomResourceGenerator) (*pschema.Package, error) {
-	types[objectMetaToken] = pschema.ComplexTypeSpec{
-		ObjectTypeSpec: pschema.ObjectTypeSpec{
-			Type: "object",
-		},
+	if name == "kubernetes" {
+		types[objectMetaToken] = pschema.ComplexTypeSpec{
+			ObjectTypeSpec: pschema.ObjectTypeSpec{
+				Type: "object",
+			},
+		}
 	}
 
 	packages := map[string]bool{}
