@@ -88,7 +88,9 @@ jobs:
       with:
         repo: pulumi/pulumictl
     - name: Install Pulumi CLI
-      uses: pulumi/action-install-pulumi-cli@v2
+      uses: pulumi/actions@v4
+      with:
+        pulumi-version: v3.89.0
     - if: github.event_name == 'pull_request'
       name: Install Schema Tools
       uses: jaxxstorm/action-install-gh-release@v1.5.0
@@ -190,7 +192,9 @@ jobs:
       with:
         repo: pulumi/pulumictl
     - name: Install Pulumi CLI
-      uses: pulumi/action-install-pulumi-cli@v2
+      uses: pulumi/actions@v4
+      with:
+        pulumi-version: v3.89.0
     - name: Setup Node
       uses: actions/setup-node@v2
       with:
@@ -287,7 +291,9 @@ jobs:
       with:
         repo: pulumi/pulumictl
     - name: Install Pulumi CLI
-      uses: pulumi/action-install-pulumi-cli@v2
+      uses: pulumi/actions@v4
+      with:
+        pulumi-version: v3.89.0
     - name: Setup Node
       uses: actions/setup-node@v2
       with:
@@ -433,7 +439,9 @@ jobs:
       with:
         go-version: ${{ env.GOVERSION }}
     - name: Install Pulumi CLI
-      uses: pulumi/action-install-pulumi-cli@v2
+      uses: pulumi/actions@v4
+      with:
+        pulumi-version: v3.89.0
     - name: Setup Node
       uses: actions/setup-node@v2
       with:
@@ -497,7 +505,9 @@ jobs:
       with:
         go-version: ${{ env.GOVERSION }}
     - name: Install Pulumi CLI
-      uses: pulumi/action-install-pulumi-cli@v2
+      uses: pulumi/actions@v4
+      with:
+        pulumi-version: v3.89.0
     - name: Setup Node
       uses: actions/setup-node@v2
       with:
