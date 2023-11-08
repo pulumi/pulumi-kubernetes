@@ -1,7 +1,10 @@
 ## Unreleased
 
-- Fix: Update pulumi version to 3.91.1 to pick up fixes in python codegen (https://github.com/pulumi/pulumi-kubernetes/pull/2647)
+## 4.5.4 (November 8, 2023)
 - Fix: Helm Release: chart requires kubeVersion (https://github.com/pulumi/pulumi-kubernetes/pull/2653)
+
+## 4.5.3 (October 31, 2023)
+- Fix: Update pulumi version to 3.91.1 to pick up fixes in python codegen (https://github.com/pulumi/pulumi-kubernetes/pull/2647)
 
 ## 4.5.2 (October 26, 2023)
 - Fix: Do not patch field managers for Patch resources (https://github.com/pulumi/pulumi-kubernetes/pull/2640)
