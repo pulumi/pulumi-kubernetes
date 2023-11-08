@@ -127,10 +127,10 @@ func genPackage(
 		Resources:           resources,
 		AllowedPackageNames: allowedPackages,
 		Extension: &pschema.PackageExtensionSpec{
-			Name:    "kubernetes",
-			Version: kversion.Version,
+			Name:      "kubernetes",
+			Version:   kversion.Version,
+			Parameter: crds,
 		},
-		Parameter: crds,
 	}
 
 	pkg, err := pschema.ImportSpec(pkgSpec, nil)
