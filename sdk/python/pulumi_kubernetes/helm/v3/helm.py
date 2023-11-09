@@ -619,6 +619,14 @@ def _parse_chart(all_config: Tuple[Union[ChartOpts, LocalChartOpts], pulumi.Reso
 
     def invoke_helm_template(opts):
         inv = pulumi.runtime.invoke('kubernetes:helm:template', {'jsonOpts': opts}, invoke_opts)
-        return inv.value['result'] if inv is not None and inv.value is not None else []
+        return (
+            inv.value["result"]
+            if inv is not None
+            and (
+                inv.value is not None
+                or (type(inv.value) == dict and len(inv.value) != 0)
+            )
+            else []
+        )
     objects = json_opts.apply(invoke_helm_template)
     return objects.apply(lambda x: _parse_yaml_document(x, opts, transformations))
