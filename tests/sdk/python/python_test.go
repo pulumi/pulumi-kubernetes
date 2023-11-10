@@ -231,6 +231,28 @@ func TestYaml(t *testing.T) {
 	integration.ProgramTest(t, &options)
 }
 
+// Regression Test for https://github.com/pulumi/pulumi-kubernetes/issues/2664.
+// Ensure the program runs without an error being raised when an invoke is called
+// using a provider that is not configured.
+func TestYamlUnconfiguredProvider(t *testing.T) {
+	cwd, err := os.Getwd()
+	if !assert.NoError(t, err) {
+		t.FailNow()
+	}
+	options := baseOptions.With(integration.ProgramTestOptions{
+		Dir:                  filepath.Join(cwd, "yaml-test-unconfigured-provider"),
+		ExpectRefreshChanges: true,
+		OrderedConfig: []integration.ConfigValue{
+			{
+				Key:   "pulumi:disable-default-providers[0]",
+				Value: "kubernetes",
+				Path:  true,
+			},
+		},
+	})
+	integration.ProgramTest(t, &options)
+}
+
 func TestGuestbook(t *testing.T) {
 	cwd, err := os.Getwd()
 	if !assert.NoError(t, err) {
