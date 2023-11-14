@@ -34,7 +34,7 @@ unknown = k8s.Provider("provider").id.apply(lambda _: True)
 # This provider will be unconfigured when the passed-in configuration has an unknown value.
 provider = k8s.Provider("k8s", suppress_deprecation_warnings=unknown)
 
-ns = k8s.core.v1.Namespace("ns", opts=ResourceOptions(provider=provider))
+ns = k8s.core.v1.Namespace("unconfiguredtest", opts=ResourceOptions(provider=provider))
 
 # An error shouldn't be raised when called using the unconfigured provider.
 k8s.kustomize.Directory(

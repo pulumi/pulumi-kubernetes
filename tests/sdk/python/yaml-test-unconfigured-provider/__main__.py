@@ -39,7 +39,7 @@ unknown = Provider("provider").id.apply(lambda _: True)
 # This provider will be unconfigured when the passed-in configuration has an unknown value.
 provider = Provider("k8s", suppress_deprecation_warnings=unknown)
 
-ns = Namespace("ns", opts=ResourceOptions(provider=provider))
+ns = Namespace("unconfiguredtest", opts=ResourceOptions(provider=provider))
 
 # An error shouldn't be raised when called using the unconfigured provider.
 cf_local = ConfigFile(
@@ -60,7 +60,7 @@ cg = ConfigGroup(
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: cg3
+  name: utcg3
     """],
     opts=ResourceOptions(provider=provider)
 )

@@ -12,9 +12,22 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
+from typing import Any
+
 from pulumi_kubernetes import Provider
+from pulumi_kubernetes.core.v1 import Namespace
 from pulumi_kubernetes.helm.v3 import Chart, LocalChartOpts
 from pulumi import Config, ResourceOptions
+
+
+def set_namespace(namespace):
+    def f(obj: Any):
+        if "metadata" in obj:
+            obj["metadata"]["namespace"] = namespace.metadata["name"]
+        else:
+            obj["metadata"] = {"namespace": namespace.metadata["name"]}
+
+    return f
 
 
 config = Config()
@@ -28,5 +41,16 @@ provider = Provider("k8s", suppress_deprecation_warnings=unknown)
 
 values = {"service": {"type": "ClusterIP"}}
 
+ns = Namespace("unconfiguredtest", opts=ResourceOptions(provider=provider))
+
 # An error shouldn't be raised when called using the unconfigured provider.
-chart = Chart("nginx", LocalChartOpts(path=path, values=values), opts=ResourceOptions(provider=provider))
+chart = Chart(
+    "nginx",
+    LocalChartOpts(
+        path=path,
+        namespace=ns.metadata.name,
+        values=values,
+        transformations=[set_namespace(ns)],
+    ),
+    opts=ResourceOptions(provider=provider)
+)
