@@ -455,6 +455,10 @@ func TestHelmLocalUnconfiguredProvider(t *testing.T) {
 				Value: "kubernetes",
 				Path:  true,
 			},
+			{
+				Key:   "path",
+				Value: filepath.Join(cwd, "..", "..", "testdata", "helm", "nginx"),
+			},
 		},
 		ExpectRefreshChanges: true,
 	})

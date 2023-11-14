@@ -14,7 +14,7 @@
 
 from pulumi_kubernetes import Provider
 from pulumi_kubernetes.core.v1 import Namespace
-from pulumi_kubernetes.yaml import ConfigFile
+from pulumi_kubernetes.yaml import ConfigFile, ConfigGroup
 from pulumi import ResourceOptions
 
 
@@ -50,4 +50,17 @@ cf_local = ConfigFile(
         secret_status,
     ],
     opts=ResourceOptions(provider=provider),
+)
+
+# An error shouldn't be raised when called using the unconfigured provider.
+cg = ConfigGroup(
+    "deployment",
+    files=["ns*.yaml"],
+    yaml=["""
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cg3
+    """],
+    opts=ResourceOptions(provider=provider)
 )

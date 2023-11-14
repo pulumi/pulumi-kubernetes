@@ -14,8 +14,11 @@
 
 from pulumi_kubernetes import Provider
 from pulumi_kubernetes.helm.v3 import Chart, LocalChartOpts
-from pulumi import ResourceOptions
+from pulumi import Config, ResourceOptions
 
+
+config = Config()
+path = config.require("path")
 
 # This will be unknown during the initial preview.
 unknown = Provider("provider").id.apply(lambda _: True)
@@ -26,4 +29,4 @@ provider = Provider("k8s", suppress_deprecation_warnings=unknown)
 values = {"service": {"type": "ClusterIP"}}
 
 # An error shouldn't be raised when called using the unconfigured provider.
-chart = Chart("nginx", LocalChartOpts(path="nginx", values=values), opts=ResourceOptions(provider=provider))
+chart = Chart("nginx", LocalChartOpts(path=path, values=values), opts=ResourceOptions(provider=provider))
