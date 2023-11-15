@@ -231,6 +231,28 @@ func TestYaml(t *testing.T) {
 	integration.ProgramTest(t, &options)
 }
 
+// Regression Test for https://github.com/pulumi/pulumi-kubernetes/issues/2664.
+// Ensure the program runs without an error being raised when an invoke is called
+// using a provider that is not configured.
+func TestYamlUnconfiguredProvider(t *testing.T) {
+	cwd, err := os.Getwd()
+	if !assert.NoError(t, err) {
+		t.FailNow()
+	}
+	options := baseOptions.With(integration.ProgramTestOptions{
+		Dir:                  filepath.Join(cwd, "yaml-test-unconfigured-provider"),
+		ExpectRefreshChanges: true,
+		OrderedConfig: []integration.ConfigValue{
+			{
+				Key:   "pulumi:disable-default-providers[0]",
+				Value: "kubernetes",
+				Path:  true,
+			},
+		},
+	})
+	integration.ProgramTest(t, &options)
+}
+
 func TestGuestbook(t *testing.T) {
 	cwd, err := os.Getwd()
 	if !assert.NoError(t, err) {
@@ -417,6 +439,32 @@ func TestHelmLocal(t *testing.T) {
 	integration.ProgramTest(t, &options)
 }
 
+// Regression Test for https://github.com/pulumi/pulumi-kubernetes/issues/2664.
+// Ensure the program runs without an error being raised when an invoke is called
+// using a provider that is not configured.
+func TestHelmLocalUnconfiguredProvider(t *testing.T) {
+	cwd, err := os.Getwd()
+	if !assert.NoError(t, err) {
+		t.FailNow()
+	}
+	options := baseOptions.With(integration.ProgramTestOptions{
+		Dir: filepath.Join(cwd, "helm-local-unconfigured-provider"),
+		OrderedConfig: []integration.ConfigValue{
+			{
+				Key:   "pulumi:disable-default-providers[0]",
+				Value: "kubernetes",
+				Path:  true,
+			},
+			{
+				Key:   "path",
+				Value: filepath.Join(cwd, "..", "..", "testdata", "helm", "nginx"),
+			},
+		},
+		ExpectRefreshChanges: true,
+	})
+	integration.ProgramTest(t, &options)
+}
+
 func TestHelmApiVersions(t *testing.T) {
 	cwd, err := os.Getwd()
 	if !assert.NoError(t, err) {
@@ -473,6 +521,27 @@ func TestKustomize(t *testing.T) {
 	}
 	options := baseOptions.With(integration.ProgramTestOptions{
 		Dir: filepath.Join(cwd, "kustomize"),
+		OrderedConfig: []integration.ConfigValue{
+			{
+				Key:   "pulumi:disable-default-providers[0]",
+				Value: "kubernetes",
+				Path:  true,
+			},
+		},
+	})
+	integration.ProgramTest(t, &options)
+}
+
+// Regression Test for https://github.com/pulumi/pulumi-kubernetes/issues/2664.
+// Ensure the program runs without an error being raised when an invoke is called
+// using a provider that is not configured.
+func TestKustomizeUnconfiguredProvider(t *testing.T) {
+	cwd, err := os.Getwd()
+	if !assert.NoError(t, err) {
+		t.FailNow()
+	}
+	options := baseOptions.With(integration.ProgramTestOptions{
+		Dir: filepath.Join(cwd, "kustomize-unconfigured-provider"),
 		OrderedConfig: []integration.ConfigValue{
 			{
 				Key:   "pulumi:disable-default-providers[0]",

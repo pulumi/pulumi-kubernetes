@@ -1,0 +1,3 @@
+name: helm-local-unconfigured-provider
+description: A program that tests Helm chart creation from a local directory with an unconfigured provider
+runtime: python

@@ -1,0 +1,3 @@
+name: yaml-test-unconfigured-provider
+description: A program that tests YAML functionality in the Python SDK with an unconfigured provider
+runtime: python
