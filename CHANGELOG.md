@@ -1,4 +1,5 @@
 ## Unreleased
+- Fix: Helm OCI chart deployment fails in Windows (https://github.com/pulumi/pulumi-kubernetes/pull/2648)
 
 - Fix: Make the invoke calls for Helm charts and YAML config resilient to the value being None or an empty dict (https://github.com/pulumi/pulumi-kubernetes/pull/2665)
 
