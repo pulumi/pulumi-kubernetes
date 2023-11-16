@@ -10,7 +10,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -122,12 +121,6 @@ func (i *NamespacePatch) ToNamespacePatchOutputWithContext(ctx context.Context) 
 	return pulumi.ToOutputWithContext(ctx, i).(NamespacePatchOutput)
 }
 
-func (i *NamespacePatch) ToOutput(ctx context.Context) pulumix.Output[*NamespacePatch] {
-	return pulumix.Output[*NamespacePatch]{
-		OutputState: i.ToNamespacePatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // NamespacePatchArrayInput is an input type that accepts NamespacePatchArray and NamespacePatchArrayOutput values.
 // You can construct a concrete instance of `NamespacePatchArrayInput` via:
 //
@@ -151,12 +144,6 @@ func (i NamespacePatchArray) ToNamespacePatchArrayOutput() NamespacePatchArrayOu
 
 func (i NamespacePatchArray) ToNamespacePatchArrayOutputWithContext(ctx context.Context) NamespacePatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(NamespacePatchArrayOutput)
-}
-
-func (i NamespacePatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*NamespacePatch] {
-	return pulumix.Output[[]*NamespacePatch]{
-		OutputState: i.ToNamespacePatchArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // NamespacePatchMapInput is an input type that accepts NamespacePatchMap and NamespacePatchMapOutput values.
@@ -184,12 +171,6 @@ func (i NamespacePatchMap) ToNamespacePatchMapOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(NamespacePatchMapOutput)
 }
 
-func (i NamespacePatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*NamespacePatch] {
-	return pulumix.Output[map[string]*NamespacePatch]{
-		OutputState: i.ToNamespacePatchMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type NamespacePatchOutput struct{ *pulumi.OutputState }
 
 func (NamespacePatchOutput) ElementType() reflect.Type {
@@ -202,12 +183,6 @@ func (o NamespacePatchOutput) ToNamespacePatchOutput() NamespacePatchOutput {
 
 func (o NamespacePatchOutput) ToNamespacePatchOutputWithContext(ctx context.Context) NamespacePatchOutput {
 	return o
-}
-
-func (o NamespacePatchOutput) ToOutput(ctx context.Context) pulumix.Output[*NamespacePatch] {
-	return pulumix.Output[*NamespacePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -249,12 +224,6 @@ func (o NamespacePatchArrayOutput) ToNamespacePatchArrayOutputWithContext(ctx co
 	return o
 }
 
-func (o NamespacePatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*NamespacePatch] {
-	return pulumix.Output[[]*NamespacePatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o NamespacePatchArrayOutput) Index(i pulumi.IntInput) NamespacePatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *NamespacePatch {
 		return vs[0].([]*NamespacePatch)[vs[1].(int)]
@@ -273,12 +242,6 @@ func (o NamespacePatchMapOutput) ToNamespacePatchMapOutput() NamespacePatchMapOu
 
 func (o NamespacePatchMapOutput) ToNamespacePatchMapOutputWithContext(ctx context.Context) NamespacePatchMapOutput {
 	return o
-}
-
-func (o NamespacePatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*NamespacePatch] {
-	return pulumix.Output[map[string]*NamespacePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o NamespacePatchMapOutput) MapIndex(k pulumi.StringInput) NamespacePatchOutput {

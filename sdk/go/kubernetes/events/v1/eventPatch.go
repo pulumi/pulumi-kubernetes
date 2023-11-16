@@ -11,7 +11,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -208,12 +207,6 @@ func (i *EventPatch) ToEventPatchOutputWithContext(ctx context.Context) EventPat
 	return pulumi.ToOutputWithContext(ctx, i).(EventPatchOutput)
 }
 
-func (i *EventPatch) ToOutput(ctx context.Context) pulumix.Output[*EventPatch] {
-	return pulumix.Output[*EventPatch]{
-		OutputState: i.ToEventPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // EventPatchArrayInput is an input type that accepts EventPatchArray and EventPatchArrayOutput values.
 // You can construct a concrete instance of `EventPatchArrayInput` via:
 //
@@ -237,12 +230,6 @@ func (i EventPatchArray) ToEventPatchArrayOutput() EventPatchArrayOutput {
 
 func (i EventPatchArray) ToEventPatchArrayOutputWithContext(ctx context.Context) EventPatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(EventPatchArrayOutput)
-}
-
-func (i EventPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*EventPatch] {
-	return pulumix.Output[[]*EventPatch]{
-		OutputState: i.ToEventPatchArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // EventPatchMapInput is an input type that accepts EventPatchMap and EventPatchMapOutput values.
@@ -270,12 +257,6 @@ func (i EventPatchMap) ToEventPatchMapOutputWithContext(ctx context.Context) Eve
 	return pulumi.ToOutputWithContext(ctx, i).(EventPatchMapOutput)
 }
 
-func (i EventPatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*EventPatch] {
-	return pulumix.Output[map[string]*EventPatch]{
-		OutputState: i.ToEventPatchMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type EventPatchOutput struct{ *pulumi.OutputState }
 
 func (EventPatchOutput) ElementType() reflect.Type {
@@ -288,12 +269,6 @@ func (o EventPatchOutput) ToEventPatchOutput() EventPatchOutput {
 
 func (o EventPatchOutput) ToEventPatchOutputWithContext(ctx context.Context) EventPatchOutput {
 	return o
-}
-
-func (o EventPatchOutput) ToOutput(ctx context.Context) pulumix.Output[*EventPatch] {
-	return pulumix.Output[*EventPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // action is what action was taken/failed regarding to the regarding object. It is machine-readable. This field cannot be empty for new Events and it can have at most 128 characters.
@@ -395,12 +370,6 @@ func (o EventPatchArrayOutput) ToEventPatchArrayOutputWithContext(ctx context.Co
 	return o
 }
 
-func (o EventPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*EventPatch] {
-	return pulumix.Output[[]*EventPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o EventPatchArrayOutput) Index(i pulumi.IntInput) EventPatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *EventPatch {
 		return vs[0].([]*EventPatch)[vs[1].(int)]
@@ -419,12 +388,6 @@ func (o EventPatchMapOutput) ToEventPatchMapOutput() EventPatchMapOutput {
 
 func (o EventPatchMapOutput) ToEventPatchMapOutputWithContext(ctx context.Context) EventPatchMapOutput {
 	return o
-}
-
-func (o EventPatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*EventPatch] {
-	return pulumix.Output[map[string]*EventPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o EventPatchMapOutput) MapIndex(k pulumi.StringInput) EventPatchOutput {

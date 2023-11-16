@@ -10,7 +10,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -148,12 +147,6 @@ func (i *SecretPatch) ToSecretPatchOutputWithContext(ctx context.Context) Secret
 	return pulumi.ToOutputWithContext(ctx, i).(SecretPatchOutput)
 }
 
-func (i *SecretPatch) ToOutput(ctx context.Context) pulumix.Output[*SecretPatch] {
-	return pulumix.Output[*SecretPatch]{
-		OutputState: i.ToSecretPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // SecretPatchArrayInput is an input type that accepts SecretPatchArray and SecretPatchArrayOutput values.
 // You can construct a concrete instance of `SecretPatchArrayInput` via:
 //
@@ -177,12 +170,6 @@ func (i SecretPatchArray) ToSecretPatchArrayOutput() SecretPatchArrayOutput {
 
 func (i SecretPatchArray) ToSecretPatchArrayOutputWithContext(ctx context.Context) SecretPatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(SecretPatchArrayOutput)
-}
-
-func (i SecretPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*SecretPatch] {
-	return pulumix.Output[[]*SecretPatch]{
-		OutputState: i.ToSecretPatchArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // SecretPatchMapInput is an input type that accepts SecretPatchMap and SecretPatchMapOutput values.
@@ -210,12 +197,6 @@ func (i SecretPatchMap) ToSecretPatchMapOutputWithContext(ctx context.Context) S
 	return pulumi.ToOutputWithContext(ctx, i).(SecretPatchMapOutput)
 }
 
-func (i SecretPatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*SecretPatch] {
-	return pulumix.Output[map[string]*SecretPatch]{
-		OutputState: i.ToSecretPatchMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type SecretPatchOutput struct{ *pulumi.OutputState }
 
 func (SecretPatchOutput) ElementType() reflect.Type {
@@ -228,12 +209,6 @@ func (o SecretPatchOutput) ToSecretPatchOutput() SecretPatchOutput {
 
 func (o SecretPatchOutput) ToSecretPatchOutputWithContext(ctx context.Context) SecretPatchOutput {
 	return o
-}
-
-func (o SecretPatchOutput) ToOutput(ctx context.Context) pulumix.Output[*SecretPatch] {
-	return pulumix.Output[*SecretPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -285,12 +260,6 @@ func (o SecretPatchArrayOutput) ToSecretPatchArrayOutputWithContext(ctx context.
 	return o
 }
 
-func (o SecretPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*SecretPatch] {
-	return pulumix.Output[[]*SecretPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o SecretPatchArrayOutput) Index(i pulumi.IntInput) SecretPatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *SecretPatch {
 		return vs[0].([]*SecretPatch)[vs[1].(int)]
@@ -309,12 +278,6 @@ func (o SecretPatchMapOutput) ToSecretPatchMapOutput() SecretPatchMapOutput {
 
 func (o SecretPatchMapOutput) ToSecretPatchMapOutputWithContext(ctx context.Context) SecretPatchMapOutput {
 	return o
-}
-
-func (o SecretPatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*SecretPatch] {
-	return pulumix.Output[map[string]*SecretPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o SecretPatchMapOutput) MapIndex(k pulumi.StringInput) SecretPatchOutput {

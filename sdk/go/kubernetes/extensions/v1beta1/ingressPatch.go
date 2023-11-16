@@ -10,7 +10,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -147,12 +146,6 @@ func (i *IngressPatch) ToIngressPatchOutputWithContext(ctx context.Context) Ingr
 	return pulumi.ToOutputWithContext(ctx, i).(IngressPatchOutput)
 }
 
-func (i *IngressPatch) ToOutput(ctx context.Context) pulumix.Output[*IngressPatch] {
-	return pulumix.Output[*IngressPatch]{
-		OutputState: i.ToIngressPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // IngressPatchArrayInput is an input type that accepts IngressPatchArray and IngressPatchArrayOutput values.
 // You can construct a concrete instance of `IngressPatchArrayInput` via:
 //
@@ -176,12 +169,6 @@ func (i IngressPatchArray) ToIngressPatchArrayOutput() IngressPatchArrayOutput {
 
 func (i IngressPatchArray) ToIngressPatchArrayOutputWithContext(ctx context.Context) IngressPatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(IngressPatchArrayOutput)
-}
-
-func (i IngressPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*IngressPatch] {
-	return pulumix.Output[[]*IngressPatch]{
-		OutputState: i.ToIngressPatchArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // IngressPatchMapInput is an input type that accepts IngressPatchMap and IngressPatchMapOutput values.
@@ -209,12 +196,6 @@ func (i IngressPatchMap) ToIngressPatchMapOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(IngressPatchMapOutput)
 }
 
-func (i IngressPatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*IngressPatch] {
-	return pulumix.Output[map[string]*IngressPatch]{
-		OutputState: i.ToIngressPatchMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type IngressPatchOutput struct{ *pulumi.OutputState }
 
 func (IngressPatchOutput) ElementType() reflect.Type {
@@ -227,12 +208,6 @@ func (o IngressPatchOutput) ToIngressPatchOutput() IngressPatchOutput {
 
 func (o IngressPatchOutput) ToIngressPatchOutputWithContext(ctx context.Context) IngressPatchOutput {
 	return o
-}
-
-func (o IngressPatchOutput) ToOutput(ctx context.Context) pulumix.Output[*IngressPatch] {
-	return pulumix.Output[*IngressPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -274,12 +249,6 @@ func (o IngressPatchArrayOutput) ToIngressPatchArrayOutputWithContext(ctx contex
 	return o
 }
 
-func (o IngressPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*IngressPatch] {
-	return pulumix.Output[[]*IngressPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o IngressPatchArrayOutput) Index(i pulumi.IntInput) IngressPatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *IngressPatch {
 		return vs[0].([]*IngressPatch)[vs[1].(int)]
@@ -298,12 +267,6 @@ func (o IngressPatchMapOutput) ToIngressPatchMapOutput() IngressPatchMapOutput {
 
 func (o IngressPatchMapOutput) ToIngressPatchMapOutputWithContext(ctx context.Context) IngressPatchMapOutput {
 	return o
-}
-
-func (o IngressPatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*IngressPatch] {
-	return pulumix.Output[map[string]*IngressPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o IngressPatchMapOutput) MapIndex(k pulumi.StringInput) IngressPatchOutput {

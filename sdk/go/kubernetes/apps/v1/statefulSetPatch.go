@@ -10,7 +10,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -148,12 +147,6 @@ func (i *StatefulSetPatch) ToStatefulSetPatchOutputWithContext(ctx context.Conte
 	return pulumi.ToOutputWithContext(ctx, i).(StatefulSetPatchOutput)
 }
 
-func (i *StatefulSetPatch) ToOutput(ctx context.Context) pulumix.Output[*StatefulSetPatch] {
-	return pulumix.Output[*StatefulSetPatch]{
-		OutputState: i.ToStatefulSetPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // StatefulSetPatchArrayInput is an input type that accepts StatefulSetPatchArray and StatefulSetPatchArrayOutput values.
 // You can construct a concrete instance of `StatefulSetPatchArrayInput` via:
 //
@@ -177,12 +170,6 @@ func (i StatefulSetPatchArray) ToStatefulSetPatchArrayOutput() StatefulSetPatchA
 
 func (i StatefulSetPatchArray) ToStatefulSetPatchArrayOutputWithContext(ctx context.Context) StatefulSetPatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(StatefulSetPatchArrayOutput)
-}
-
-func (i StatefulSetPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*StatefulSetPatch] {
-	return pulumix.Output[[]*StatefulSetPatch]{
-		OutputState: i.ToStatefulSetPatchArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // StatefulSetPatchMapInput is an input type that accepts StatefulSetPatchMap and StatefulSetPatchMapOutput values.
@@ -210,12 +197,6 @@ func (i StatefulSetPatchMap) ToStatefulSetPatchMapOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(StatefulSetPatchMapOutput)
 }
 
-func (i StatefulSetPatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*StatefulSetPatch] {
-	return pulumix.Output[map[string]*StatefulSetPatch]{
-		OutputState: i.ToStatefulSetPatchMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type StatefulSetPatchOutput struct{ *pulumi.OutputState }
 
 func (StatefulSetPatchOutput) ElementType() reflect.Type {
@@ -228,12 +209,6 @@ func (o StatefulSetPatchOutput) ToStatefulSetPatchOutput() StatefulSetPatchOutpu
 
 func (o StatefulSetPatchOutput) ToStatefulSetPatchOutputWithContext(ctx context.Context) StatefulSetPatchOutput {
 	return o
-}
-
-func (o StatefulSetPatchOutput) ToOutput(ctx context.Context) pulumix.Output[*StatefulSetPatch] {
-	return pulumix.Output[*StatefulSetPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -275,12 +250,6 @@ func (o StatefulSetPatchArrayOutput) ToStatefulSetPatchArrayOutputWithContext(ct
 	return o
 }
 
-func (o StatefulSetPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*StatefulSetPatch] {
-	return pulumix.Output[[]*StatefulSetPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o StatefulSetPatchArrayOutput) Index(i pulumi.IntInput) StatefulSetPatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *StatefulSetPatch {
 		return vs[0].([]*StatefulSetPatch)[vs[1].(int)]
@@ -299,12 +268,6 @@ func (o StatefulSetPatchMapOutput) ToStatefulSetPatchMapOutput() StatefulSetPatc
 
 func (o StatefulSetPatchMapOutput) ToStatefulSetPatchMapOutputWithContext(ctx context.Context) StatefulSetPatchMapOutput {
 	return o
-}
-
-func (o StatefulSetPatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*StatefulSetPatch] {
-	return pulumix.Output[map[string]*StatefulSetPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o StatefulSetPatchMapOutput) MapIndex(k pulumi.StringInput) StatefulSetPatchOutput {

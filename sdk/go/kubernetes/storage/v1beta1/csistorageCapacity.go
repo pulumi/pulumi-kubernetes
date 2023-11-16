@@ -11,7 +11,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // CSIStorageCapacity stores the result of one CSI GetCapacity call. For a given StorageClass, this describes the available capacity in a particular topology segment.  This can be used when considering where to instantiate new PersistentVolumes.
@@ -177,12 +176,6 @@ func (i *CSIStorageCapacity) ToCSIStorageCapacityOutputWithContext(ctx context.C
 	return pulumi.ToOutputWithContext(ctx, i).(CSIStorageCapacityOutput)
 }
 
-func (i *CSIStorageCapacity) ToOutput(ctx context.Context) pulumix.Output[*CSIStorageCapacity] {
-	return pulumix.Output[*CSIStorageCapacity]{
-		OutputState: i.ToCSIStorageCapacityOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CSIStorageCapacityArrayInput is an input type that accepts CSIStorageCapacityArray and CSIStorageCapacityArrayOutput values.
 // You can construct a concrete instance of `CSIStorageCapacityArrayInput` via:
 //
@@ -206,12 +199,6 @@ func (i CSIStorageCapacityArray) ToCSIStorageCapacityArrayOutput() CSIStorageCap
 
 func (i CSIStorageCapacityArray) ToCSIStorageCapacityArrayOutputWithContext(ctx context.Context) CSIStorageCapacityArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(CSIStorageCapacityArrayOutput)
-}
-
-func (i CSIStorageCapacityArray) ToOutput(ctx context.Context) pulumix.Output[[]*CSIStorageCapacity] {
-	return pulumix.Output[[]*CSIStorageCapacity]{
-		OutputState: i.ToCSIStorageCapacityArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // CSIStorageCapacityMapInput is an input type that accepts CSIStorageCapacityMap and CSIStorageCapacityMapOutput values.
@@ -239,12 +226,6 @@ func (i CSIStorageCapacityMap) ToCSIStorageCapacityMapOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(CSIStorageCapacityMapOutput)
 }
 
-func (i CSIStorageCapacityMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*CSIStorageCapacity] {
-	return pulumix.Output[map[string]*CSIStorageCapacity]{
-		OutputState: i.ToCSIStorageCapacityMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type CSIStorageCapacityOutput struct{ *pulumi.OutputState }
 
 func (CSIStorageCapacityOutput) ElementType() reflect.Type {
@@ -257,12 +238,6 @@ func (o CSIStorageCapacityOutput) ToCSIStorageCapacityOutput() CSIStorageCapacit
 
 func (o CSIStorageCapacityOutput) ToCSIStorageCapacityOutputWithContext(ctx context.Context) CSIStorageCapacityOutput {
 	return o
-}
-
-func (o CSIStorageCapacityOutput) ToOutput(ctx context.Context) pulumix.Output[*CSIStorageCapacity] {
-	return pulumix.Output[*CSIStorageCapacity]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -322,12 +297,6 @@ func (o CSIStorageCapacityArrayOutput) ToCSIStorageCapacityArrayOutputWithContex
 	return o
 }
 
-func (o CSIStorageCapacityArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*CSIStorageCapacity] {
-	return pulumix.Output[[]*CSIStorageCapacity]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o CSIStorageCapacityArrayOutput) Index(i pulumi.IntInput) CSIStorageCapacityOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *CSIStorageCapacity {
 		return vs[0].([]*CSIStorageCapacity)[vs[1].(int)]
@@ -346,12 +315,6 @@ func (o CSIStorageCapacityMapOutput) ToCSIStorageCapacityMapOutput() CSIStorageC
 
 func (o CSIStorageCapacityMapOutput) ToCSIStorageCapacityMapOutputWithContext(ctx context.Context) CSIStorageCapacityMapOutput {
 	return o
-}
-
-func (o CSIStorageCapacityMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*CSIStorageCapacity] {
-	return pulumix.Output[map[string]*CSIStorageCapacity]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o CSIStorageCapacityMapOutput) MapIndex(k pulumi.StringInput) CSIStorageCapacityOutput {

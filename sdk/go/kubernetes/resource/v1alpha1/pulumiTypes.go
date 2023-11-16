@@ -11,7 +11,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 var _ = utilities.GetEnvOrDefault
@@ -67,12 +66,6 @@ func (i AllocationResultArgs) ToAllocationResultOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(AllocationResultOutput)
 }
 
-func (i AllocationResultArgs) ToOutput(ctx context.Context) pulumix.Output[AllocationResult] {
-	return pulumix.Output[AllocationResult]{
-		OutputState: i.ToAllocationResultOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i AllocationResultArgs) ToAllocationResultPtrOutput() AllocationResultPtrOutput {
 	return i.ToAllocationResultPtrOutputWithContext(context.Background())
 }
@@ -114,12 +107,6 @@ func (i *allocationResultPtrType) ToAllocationResultPtrOutputWithContext(ctx con
 	return pulumi.ToOutputWithContext(ctx, i).(AllocationResultPtrOutput)
 }
 
-func (i *allocationResultPtrType) ToOutput(ctx context.Context) pulumix.Output[*AllocationResult] {
-	return pulumix.Output[*AllocationResult]{
-		OutputState: i.ToAllocationResultPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // AllocationResult contains attributed of an allocated resource.
 type AllocationResultOutput struct{ *pulumi.OutputState }
 
@@ -143,12 +130,6 @@ func (o AllocationResultOutput) ToAllocationResultPtrOutputWithContext(ctx conte
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v AllocationResult) *AllocationResult {
 		return &v
 	}).(AllocationResultPtrOutput)
-}
-
-func (o AllocationResultOutput) ToOutput(ctx context.Context) pulumix.Output[AllocationResult] {
-	return pulumix.Output[AllocationResult]{
-		OutputState: o.OutputState,
-	}
 }
 
 // This field will get set by the resource driver after it has allocated the resource driver to inform the scheduler where it can schedule Pods using the ResourceClaim.
@@ -182,12 +163,6 @@ func (o AllocationResultPtrOutput) ToAllocationResultPtrOutput() AllocationResul
 
 func (o AllocationResultPtrOutput) ToAllocationResultPtrOutputWithContext(ctx context.Context) AllocationResultPtrOutput {
 	return o
-}
-
-func (o AllocationResultPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*AllocationResult] {
-	return pulumix.Output[*AllocationResult]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o AllocationResultPtrOutput) Elem() AllocationResultOutput {
@@ -285,12 +260,6 @@ func (i AllocationResultPatchArgs) ToAllocationResultPatchOutputWithContext(ctx 
 	return pulumi.ToOutputWithContext(ctx, i).(AllocationResultPatchOutput)
 }
 
-func (i AllocationResultPatchArgs) ToOutput(ctx context.Context) pulumix.Output[AllocationResultPatch] {
-	return pulumix.Output[AllocationResultPatch]{
-		OutputState: i.ToAllocationResultPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i AllocationResultPatchArgs) ToAllocationResultPatchPtrOutput() AllocationResultPatchPtrOutput {
 	return i.ToAllocationResultPatchPtrOutputWithContext(context.Background())
 }
@@ -332,12 +301,6 @@ func (i *allocationResultPatchPtrType) ToAllocationResultPatchPtrOutputWithConte
 	return pulumi.ToOutputWithContext(ctx, i).(AllocationResultPatchPtrOutput)
 }
 
-func (i *allocationResultPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*AllocationResultPatch] {
-	return pulumix.Output[*AllocationResultPatch]{
-		OutputState: i.ToAllocationResultPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // AllocationResult contains attributed of an allocated resource.
 type AllocationResultPatchOutput struct{ *pulumi.OutputState }
 
@@ -361,12 +324,6 @@ func (o AllocationResultPatchOutput) ToAllocationResultPatchPtrOutputWithContext
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v AllocationResultPatch) *AllocationResultPatch {
 		return &v
 	}).(AllocationResultPatchPtrOutput)
-}
-
-func (o AllocationResultPatchOutput) ToOutput(ctx context.Context) pulumix.Output[AllocationResultPatch] {
-	return pulumix.Output[AllocationResultPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // This field will get set by the resource driver after it has allocated the resource driver to inform the scheduler where it can schedule Pods using the ResourceClaim.
@@ -400,12 +357,6 @@ func (o AllocationResultPatchPtrOutput) ToAllocationResultPatchPtrOutput() Alloc
 
 func (o AllocationResultPatchPtrOutput) ToAllocationResultPatchPtrOutputWithContext(ctx context.Context) AllocationResultPatchPtrOutput {
 	return o
-}
-
-func (o AllocationResultPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*AllocationResultPatch] {
-	return pulumix.Output[*AllocationResultPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o AllocationResultPatchPtrOutput) Elem() AllocationResultPatchOutput {
@@ -507,12 +458,6 @@ func (i PodSchedulingTypeArgs) ToPodSchedulingTypeOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(PodSchedulingTypeOutput)
 }
 
-func (i PodSchedulingTypeArgs) ToOutput(ctx context.Context) pulumix.Output[PodSchedulingType] {
-	return pulumix.Output[PodSchedulingType]{
-		OutputState: i.ToPodSchedulingTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PodSchedulingTypeArrayInput is an input type that accepts PodSchedulingTypeArray and PodSchedulingTypeArrayOutput values.
 // You can construct a concrete instance of `PodSchedulingTypeArrayInput` via:
 //
@@ -538,12 +483,6 @@ func (i PodSchedulingTypeArray) ToPodSchedulingTypeArrayOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(PodSchedulingTypeArrayOutput)
 }
 
-func (i PodSchedulingTypeArray) ToOutput(ctx context.Context) pulumix.Output[[]PodSchedulingType] {
-	return pulumix.Output[[]PodSchedulingType]{
-		OutputState: i.ToPodSchedulingTypeArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PodScheduling objects hold information that is needed to schedule a Pod with ResourceClaims that use "WaitForFirstConsumer" allocation mode.
 //
 // This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
@@ -559,12 +498,6 @@ func (o PodSchedulingTypeOutput) ToPodSchedulingTypeOutput() PodSchedulingTypeOu
 
 func (o PodSchedulingTypeOutput) ToPodSchedulingTypeOutputWithContext(ctx context.Context) PodSchedulingTypeOutput {
 	return o
-}
-
-func (o PodSchedulingTypeOutput) ToOutput(ctx context.Context) pulumix.Output[PodSchedulingType] {
-	return pulumix.Output[PodSchedulingType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -604,12 +537,6 @@ func (o PodSchedulingTypeArrayOutput) ToPodSchedulingTypeArrayOutput() PodSchedu
 
 func (o PodSchedulingTypeArrayOutput) ToPodSchedulingTypeArrayOutputWithContext(ctx context.Context) PodSchedulingTypeArrayOutput {
 	return o
-}
-
-func (o PodSchedulingTypeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]PodSchedulingType] {
-	return pulumix.Output[[]PodSchedulingType]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o PodSchedulingTypeArrayOutput) Index(i pulumi.IntInput) PodSchedulingTypeOutput {
@@ -665,12 +592,6 @@ func (i PodSchedulingListTypeArgs) ToPodSchedulingListTypeOutputWithContext(ctx 
 	return pulumi.ToOutputWithContext(ctx, i).(PodSchedulingListTypeOutput)
 }
 
-func (i PodSchedulingListTypeArgs) ToOutput(ctx context.Context) pulumix.Output[PodSchedulingListType] {
-	return pulumix.Output[PodSchedulingListType]{
-		OutputState: i.ToPodSchedulingListTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PodSchedulingList is a collection of Pod scheduling objects.
 type PodSchedulingListTypeOutput struct{ *pulumi.OutputState }
 
@@ -684,12 +605,6 @@ func (o PodSchedulingListTypeOutput) ToPodSchedulingListTypeOutput() PodScheduli
 
 func (o PodSchedulingListTypeOutput) ToPodSchedulingListTypeOutputWithContext(ctx context.Context) PodSchedulingListTypeOutput {
 	return o
-}
-
-func (o PodSchedulingListTypeOutput) ToOutput(ctx context.Context) pulumix.Output[PodSchedulingListType] {
-	return pulumix.Output[PodSchedulingListType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -767,12 +682,6 @@ func (i PodSchedulingPatchTypeArgs) ToPodSchedulingPatchTypeOutputWithContext(ct
 	return pulumi.ToOutputWithContext(ctx, i).(PodSchedulingPatchTypeOutput)
 }
 
-func (i PodSchedulingPatchTypeArgs) ToOutput(ctx context.Context) pulumix.Output[PodSchedulingPatchType] {
-	return pulumix.Output[PodSchedulingPatchType]{
-		OutputState: i.ToPodSchedulingPatchTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PodScheduling objects hold information that is needed to schedule a Pod with ResourceClaims that use "WaitForFirstConsumer" allocation mode.
 //
 // This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
@@ -788,12 +697,6 @@ func (o PodSchedulingPatchTypeOutput) ToPodSchedulingPatchTypeOutput() PodSchedu
 
 func (o PodSchedulingPatchTypeOutput) ToPodSchedulingPatchTypeOutputWithContext(ctx context.Context) PodSchedulingPatchTypeOutput {
 	return o
-}
-
-func (o PodSchedulingPatchTypeOutput) ToOutput(ctx context.Context) pulumix.Output[PodSchedulingPatchType] {
-	return pulumix.Output[PodSchedulingPatchType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -864,12 +767,6 @@ func (i PodSchedulingSpecArgs) ToPodSchedulingSpecOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(PodSchedulingSpecOutput)
 }
 
-func (i PodSchedulingSpecArgs) ToOutput(ctx context.Context) pulumix.Output[PodSchedulingSpec] {
-	return pulumix.Output[PodSchedulingSpec]{
-		OutputState: i.ToPodSchedulingSpecOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PodSchedulingSpec describes where resources for the Pod are needed.
 type PodSchedulingSpecOutput struct{ *pulumi.OutputState }
 
@@ -883,12 +780,6 @@ func (o PodSchedulingSpecOutput) ToPodSchedulingSpecOutput() PodSchedulingSpecOu
 
 func (o PodSchedulingSpecOutput) ToPodSchedulingSpecOutputWithContext(ctx context.Context) PodSchedulingSpecOutput {
 	return o
-}
-
-func (o PodSchedulingSpecOutput) ToOutput(ctx context.Context) pulumix.Output[PodSchedulingSpec] {
-	return pulumix.Output[PodSchedulingSpec]{
-		OutputState: o.OutputState,
-	}
 }
 
 // PotentialNodes lists nodes where the Pod might be able to run.
@@ -946,12 +837,6 @@ func (i PodSchedulingSpecPatchArgs) ToPodSchedulingSpecPatchOutputWithContext(ct
 	return pulumi.ToOutputWithContext(ctx, i).(PodSchedulingSpecPatchOutput)
 }
 
-func (i PodSchedulingSpecPatchArgs) ToOutput(ctx context.Context) pulumix.Output[PodSchedulingSpecPatch] {
-	return pulumix.Output[PodSchedulingSpecPatch]{
-		OutputState: i.ToPodSchedulingSpecPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i PodSchedulingSpecPatchArgs) ToPodSchedulingSpecPatchPtrOutput() PodSchedulingSpecPatchPtrOutput {
 	return i.ToPodSchedulingSpecPatchPtrOutputWithContext(context.Background())
 }
@@ -993,12 +878,6 @@ func (i *podSchedulingSpecPatchPtrType) ToPodSchedulingSpecPatchPtrOutputWithCon
 	return pulumi.ToOutputWithContext(ctx, i).(PodSchedulingSpecPatchPtrOutput)
 }
 
-func (i *podSchedulingSpecPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*PodSchedulingSpecPatch] {
-	return pulumix.Output[*PodSchedulingSpecPatch]{
-		OutputState: i.ToPodSchedulingSpecPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PodSchedulingSpec describes where resources for the Pod are needed.
 type PodSchedulingSpecPatchOutput struct{ *pulumi.OutputState }
 
@@ -1022,12 +901,6 @@ func (o PodSchedulingSpecPatchOutput) ToPodSchedulingSpecPatchPtrOutputWithConte
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v PodSchedulingSpecPatch) *PodSchedulingSpecPatch {
 		return &v
 	}).(PodSchedulingSpecPatchPtrOutput)
-}
-
-func (o PodSchedulingSpecPatchOutput) ToOutput(ctx context.Context) pulumix.Output[PodSchedulingSpecPatch] {
-	return pulumix.Output[PodSchedulingSpecPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // PotentialNodes lists nodes where the Pod might be able to run.
@@ -1054,12 +927,6 @@ func (o PodSchedulingSpecPatchPtrOutput) ToPodSchedulingSpecPatchPtrOutput() Pod
 
 func (o PodSchedulingSpecPatchPtrOutput) ToPodSchedulingSpecPatchPtrOutputWithContext(ctx context.Context) PodSchedulingSpecPatchPtrOutput {
 	return o
-}
-
-func (o PodSchedulingSpecPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*PodSchedulingSpecPatch] {
-	return pulumix.Output[*PodSchedulingSpecPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o PodSchedulingSpecPatchPtrOutput) Elem() PodSchedulingSpecPatchOutput {
@@ -1129,12 +996,6 @@ func (i PodSchedulingStatusArgs) ToPodSchedulingStatusOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(PodSchedulingStatusOutput)
 }
 
-func (i PodSchedulingStatusArgs) ToOutput(ctx context.Context) pulumix.Output[PodSchedulingStatus] {
-	return pulumix.Output[PodSchedulingStatus]{
-		OutputState: i.ToPodSchedulingStatusOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i PodSchedulingStatusArgs) ToPodSchedulingStatusPtrOutput() PodSchedulingStatusPtrOutput {
 	return i.ToPodSchedulingStatusPtrOutputWithContext(context.Background())
 }
@@ -1176,12 +1037,6 @@ func (i *podSchedulingStatusPtrType) ToPodSchedulingStatusPtrOutputWithContext(c
 	return pulumi.ToOutputWithContext(ctx, i).(PodSchedulingStatusPtrOutput)
 }
 
-func (i *podSchedulingStatusPtrType) ToOutput(ctx context.Context) pulumix.Output[*PodSchedulingStatus] {
-	return pulumix.Output[*PodSchedulingStatus]{
-		OutputState: i.ToPodSchedulingStatusPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PodSchedulingStatus describes where resources for the Pod can be allocated.
 type PodSchedulingStatusOutput struct{ *pulumi.OutputState }
 
@@ -1207,12 +1062,6 @@ func (o PodSchedulingStatusOutput) ToPodSchedulingStatusPtrOutputWithContext(ctx
 	}).(PodSchedulingStatusPtrOutput)
 }
 
-func (o PodSchedulingStatusOutput) ToOutput(ctx context.Context) pulumix.Output[PodSchedulingStatus] {
-	return pulumix.Output[PodSchedulingStatus]{
-		OutputState: o.OutputState,
-	}
-}
-
 // ResourceClaims describes resource availability for each pod.spec.resourceClaim entry where the corresponding ResourceClaim uses "WaitForFirstConsumer" allocation mode.
 func (o PodSchedulingStatusOutput) ResourceClaims() ResourceClaimSchedulingStatusArrayOutput {
 	return o.ApplyT(func(v PodSchedulingStatus) []ResourceClaimSchedulingStatus { return v.ResourceClaims }).(ResourceClaimSchedulingStatusArrayOutput)
@@ -1230,12 +1079,6 @@ func (o PodSchedulingStatusPtrOutput) ToPodSchedulingStatusPtrOutput() PodSchedu
 
 func (o PodSchedulingStatusPtrOutput) ToPodSchedulingStatusPtrOutputWithContext(ctx context.Context) PodSchedulingStatusPtrOutput {
 	return o
-}
-
-func (o PodSchedulingStatusPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*PodSchedulingStatus] {
-	return pulumix.Output[*PodSchedulingStatus]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o PodSchedulingStatusPtrOutput) Elem() PodSchedulingStatusOutput {
@@ -1293,12 +1136,6 @@ func (i PodSchedulingStatusPatchArgs) ToPodSchedulingStatusPatchOutputWithContex
 	return pulumi.ToOutputWithContext(ctx, i).(PodSchedulingStatusPatchOutput)
 }
 
-func (i PodSchedulingStatusPatchArgs) ToOutput(ctx context.Context) pulumix.Output[PodSchedulingStatusPatch] {
-	return pulumix.Output[PodSchedulingStatusPatch]{
-		OutputState: i.ToPodSchedulingStatusPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i PodSchedulingStatusPatchArgs) ToPodSchedulingStatusPatchPtrOutput() PodSchedulingStatusPatchPtrOutput {
 	return i.ToPodSchedulingStatusPatchPtrOutputWithContext(context.Background())
 }
@@ -1340,12 +1177,6 @@ func (i *podSchedulingStatusPatchPtrType) ToPodSchedulingStatusPatchPtrOutputWit
 	return pulumi.ToOutputWithContext(ctx, i).(PodSchedulingStatusPatchPtrOutput)
 }
 
-func (i *podSchedulingStatusPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*PodSchedulingStatusPatch] {
-	return pulumix.Output[*PodSchedulingStatusPatch]{
-		OutputState: i.ToPodSchedulingStatusPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PodSchedulingStatus describes where resources for the Pod can be allocated.
 type PodSchedulingStatusPatchOutput struct{ *pulumi.OutputState }
 
@@ -1371,12 +1202,6 @@ func (o PodSchedulingStatusPatchOutput) ToPodSchedulingStatusPatchPtrOutputWithC
 	}).(PodSchedulingStatusPatchPtrOutput)
 }
 
-func (o PodSchedulingStatusPatchOutput) ToOutput(ctx context.Context) pulumix.Output[PodSchedulingStatusPatch] {
-	return pulumix.Output[PodSchedulingStatusPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 // ResourceClaims describes resource availability for each pod.spec.resourceClaim entry where the corresponding ResourceClaim uses "WaitForFirstConsumer" allocation mode.
 func (o PodSchedulingStatusPatchOutput) ResourceClaims() ResourceClaimSchedulingStatusPatchArrayOutput {
 	return o.ApplyT(func(v PodSchedulingStatusPatch) []ResourceClaimSchedulingStatusPatch { return v.ResourceClaims }).(ResourceClaimSchedulingStatusPatchArrayOutput)
@@ -1394,12 +1219,6 @@ func (o PodSchedulingStatusPatchPtrOutput) ToPodSchedulingStatusPatchPtrOutput()
 
 func (o PodSchedulingStatusPatchPtrOutput) ToPodSchedulingStatusPatchPtrOutputWithContext(ctx context.Context) PodSchedulingStatusPatchPtrOutput {
 	return o
-}
-
-func (o PodSchedulingStatusPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*PodSchedulingStatusPatch] {
-	return pulumix.Output[*PodSchedulingStatusPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o PodSchedulingStatusPatchPtrOutput) Elem() PodSchedulingStatusPatchOutput {
@@ -1477,12 +1296,6 @@ func (i ResourceClaimTypeArgs) ToResourceClaimTypeOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimTypeOutput)
 }
 
-func (i ResourceClaimTypeArgs) ToOutput(ctx context.Context) pulumix.Output[ResourceClaimType] {
-	return pulumix.Output[ResourceClaimType]{
-		OutputState: i.ToResourceClaimTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ResourceClaimTypeArrayInput is an input type that accepts ResourceClaimTypeArray and ResourceClaimTypeArrayOutput values.
 // You can construct a concrete instance of `ResourceClaimTypeArrayInput` via:
 //
@@ -1508,12 +1321,6 @@ func (i ResourceClaimTypeArray) ToResourceClaimTypeArrayOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimTypeArrayOutput)
 }
 
-func (i ResourceClaimTypeArray) ToOutput(ctx context.Context) pulumix.Output[[]ResourceClaimType] {
-	return pulumix.Output[[]ResourceClaimType]{
-		OutputState: i.ToResourceClaimTypeArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ResourceClaim describes which resources are needed by a resource consumer. Its status tracks whether the resource has been allocated and what the resulting attributes are.
 //
 // This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
@@ -1529,12 +1336,6 @@ func (o ResourceClaimTypeOutput) ToResourceClaimTypeOutput() ResourceClaimTypeOu
 
 func (o ResourceClaimTypeOutput) ToResourceClaimTypeOutputWithContext(ctx context.Context) ResourceClaimTypeOutput {
 	return o
-}
-
-func (o ResourceClaimTypeOutput) ToOutput(ctx context.Context) pulumix.Output[ResourceClaimType] {
-	return pulumix.Output[ResourceClaimType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -1574,12 +1375,6 @@ func (o ResourceClaimTypeArrayOutput) ToResourceClaimTypeArrayOutput() ResourceC
 
 func (o ResourceClaimTypeArrayOutput) ToResourceClaimTypeArrayOutputWithContext(ctx context.Context) ResourceClaimTypeArrayOutput {
 	return o
-}
-
-func (o ResourceClaimTypeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]ResourceClaimType] {
-	return pulumix.Output[[]ResourceClaimType]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ResourceClaimTypeArrayOutput) Index(i pulumi.IntInput) ResourceClaimTypeOutput {
@@ -1635,12 +1430,6 @@ func (i ResourceClaimConsumerReferenceArgs) ToResourceClaimConsumerReferenceOutp
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimConsumerReferenceOutput)
 }
 
-func (i ResourceClaimConsumerReferenceArgs) ToOutput(ctx context.Context) pulumix.Output[ResourceClaimConsumerReference] {
-	return pulumix.Output[ResourceClaimConsumerReference]{
-		OutputState: i.ToResourceClaimConsumerReferenceOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ResourceClaimConsumerReferenceArrayInput is an input type that accepts ResourceClaimConsumerReferenceArray and ResourceClaimConsumerReferenceArrayOutput values.
 // You can construct a concrete instance of `ResourceClaimConsumerReferenceArrayInput` via:
 //
@@ -1666,12 +1455,6 @@ func (i ResourceClaimConsumerReferenceArray) ToResourceClaimConsumerReferenceArr
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimConsumerReferenceArrayOutput)
 }
 
-func (i ResourceClaimConsumerReferenceArray) ToOutput(ctx context.Context) pulumix.Output[[]ResourceClaimConsumerReference] {
-	return pulumix.Output[[]ResourceClaimConsumerReference]{
-		OutputState: i.ToResourceClaimConsumerReferenceArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ResourceClaimConsumerReference contains enough information to let you locate the consumer of a ResourceClaim. The user must be a resource in the same namespace as the ResourceClaim.
 type ResourceClaimConsumerReferenceOutput struct{ *pulumi.OutputState }
 
@@ -1685,12 +1468,6 @@ func (o ResourceClaimConsumerReferenceOutput) ToResourceClaimConsumerReferenceOu
 
 func (o ResourceClaimConsumerReferenceOutput) ToResourceClaimConsumerReferenceOutputWithContext(ctx context.Context) ResourceClaimConsumerReferenceOutput {
 	return o
-}
-
-func (o ResourceClaimConsumerReferenceOutput) ToOutput(ctx context.Context) pulumix.Output[ResourceClaimConsumerReference] {
-	return pulumix.Output[ResourceClaimConsumerReference]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
@@ -1725,12 +1502,6 @@ func (o ResourceClaimConsumerReferenceArrayOutput) ToResourceClaimConsumerRefere
 
 func (o ResourceClaimConsumerReferenceArrayOutput) ToResourceClaimConsumerReferenceArrayOutputWithContext(ctx context.Context) ResourceClaimConsumerReferenceArrayOutput {
 	return o
-}
-
-func (o ResourceClaimConsumerReferenceArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]ResourceClaimConsumerReference] {
-	return pulumix.Output[[]ResourceClaimConsumerReference]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ResourceClaimConsumerReferenceArrayOutput) Index(i pulumi.IntInput) ResourceClaimConsumerReferenceOutput {
@@ -1786,12 +1557,6 @@ func (i ResourceClaimConsumerReferencePatchArgs) ToResourceClaimConsumerReferenc
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimConsumerReferencePatchOutput)
 }
 
-func (i ResourceClaimConsumerReferencePatchArgs) ToOutput(ctx context.Context) pulumix.Output[ResourceClaimConsumerReferencePatch] {
-	return pulumix.Output[ResourceClaimConsumerReferencePatch]{
-		OutputState: i.ToResourceClaimConsumerReferencePatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ResourceClaimConsumerReferencePatchArrayInput is an input type that accepts ResourceClaimConsumerReferencePatchArray and ResourceClaimConsumerReferencePatchArrayOutput values.
 // You can construct a concrete instance of `ResourceClaimConsumerReferencePatchArrayInput` via:
 //
@@ -1817,12 +1582,6 @@ func (i ResourceClaimConsumerReferencePatchArray) ToResourceClaimConsumerReferen
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimConsumerReferencePatchArrayOutput)
 }
 
-func (i ResourceClaimConsumerReferencePatchArray) ToOutput(ctx context.Context) pulumix.Output[[]ResourceClaimConsumerReferencePatch] {
-	return pulumix.Output[[]ResourceClaimConsumerReferencePatch]{
-		OutputState: i.ToResourceClaimConsumerReferencePatchArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ResourceClaimConsumerReference contains enough information to let you locate the consumer of a ResourceClaim. The user must be a resource in the same namespace as the ResourceClaim.
 type ResourceClaimConsumerReferencePatchOutput struct{ *pulumi.OutputState }
 
@@ -1836,12 +1595,6 @@ func (o ResourceClaimConsumerReferencePatchOutput) ToResourceClaimConsumerRefere
 
 func (o ResourceClaimConsumerReferencePatchOutput) ToResourceClaimConsumerReferencePatchOutputWithContext(ctx context.Context) ResourceClaimConsumerReferencePatchOutput {
 	return o
-}
-
-func (o ResourceClaimConsumerReferencePatchOutput) ToOutput(ctx context.Context) pulumix.Output[ResourceClaimConsumerReferencePatch] {
-	return pulumix.Output[ResourceClaimConsumerReferencePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
@@ -1876,12 +1629,6 @@ func (o ResourceClaimConsumerReferencePatchArrayOutput) ToResourceClaimConsumerR
 
 func (o ResourceClaimConsumerReferencePatchArrayOutput) ToResourceClaimConsumerReferencePatchArrayOutputWithContext(ctx context.Context) ResourceClaimConsumerReferencePatchArrayOutput {
 	return o
-}
-
-func (o ResourceClaimConsumerReferencePatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]ResourceClaimConsumerReferencePatch] {
-	return pulumix.Output[[]ResourceClaimConsumerReferencePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ResourceClaimConsumerReferencePatchArrayOutput) Index(i pulumi.IntInput) ResourceClaimConsumerReferencePatchOutput {
@@ -1937,12 +1684,6 @@ func (i ResourceClaimListTypeArgs) ToResourceClaimListTypeOutputWithContext(ctx 
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimListTypeOutput)
 }
 
-func (i ResourceClaimListTypeArgs) ToOutput(ctx context.Context) pulumix.Output[ResourceClaimListType] {
-	return pulumix.Output[ResourceClaimListType]{
-		OutputState: i.ToResourceClaimListTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ResourceClaimList is a collection of claims.
 type ResourceClaimListTypeOutput struct{ *pulumi.OutputState }
 
@@ -1956,12 +1697,6 @@ func (o ResourceClaimListTypeOutput) ToResourceClaimListTypeOutput() ResourceCla
 
 func (o ResourceClaimListTypeOutput) ToResourceClaimListTypeOutputWithContext(ctx context.Context) ResourceClaimListTypeOutput {
 	return o
-}
-
-func (o ResourceClaimListTypeOutput) ToOutput(ctx context.Context) pulumix.Output[ResourceClaimListType] {
-	return pulumix.Output[ResourceClaimListType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -2027,12 +1762,6 @@ func (i ResourceClaimParametersReferenceArgs) ToResourceClaimParametersReference
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimParametersReferenceOutput)
 }
 
-func (i ResourceClaimParametersReferenceArgs) ToOutput(ctx context.Context) pulumix.Output[ResourceClaimParametersReference] {
-	return pulumix.Output[ResourceClaimParametersReference]{
-		OutputState: i.ToResourceClaimParametersReferenceOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i ResourceClaimParametersReferenceArgs) ToResourceClaimParametersReferencePtrOutput() ResourceClaimParametersReferencePtrOutput {
 	return i.ToResourceClaimParametersReferencePtrOutputWithContext(context.Background())
 }
@@ -2074,12 +1803,6 @@ func (i *resourceClaimParametersReferencePtrType) ToResourceClaimParametersRefer
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimParametersReferencePtrOutput)
 }
 
-func (i *resourceClaimParametersReferencePtrType) ToOutput(ctx context.Context) pulumix.Output[*ResourceClaimParametersReference] {
-	return pulumix.Output[*ResourceClaimParametersReference]{
-		OutputState: i.ToResourceClaimParametersReferencePtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ResourceClaimParametersReference contains enough information to let you locate the parameters for a ResourceClaim. The object must be in the same namespace as the ResourceClaim.
 type ResourceClaimParametersReferenceOutput struct{ *pulumi.OutputState }
 
@@ -2103,12 +1826,6 @@ func (o ResourceClaimParametersReferenceOutput) ToResourceClaimParametersReferen
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v ResourceClaimParametersReference) *ResourceClaimParametersReference {
 		return &v
 	}).(ResourceClaimParametersReferencePtrOutput)
-}
-
-func (o ResourceClaimParametersReferenceOutput) ToOutput(ctx context.Context) pulumix.Output[ResourceClaimParametersReference] {
-	return pulumix.Output[ResourceClaimParametersReference]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
@@ -2138,12 +1855,6 @@ func (o ResourceClaimParametersReferencePtrOutput) ToResourceClaimParametersRefe
 
 func (o ResourceClaimParametersReferencePtrOutput) ToResourceClaimParametersReferencePtrOutputWithContext(ctx context.Context) ResourceClaimParametersReferencePtrOutput {
 	return o
-}
-
-func (o ResourceClaimParametersReferencePtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ResourceClaimParametersReference] {
-	return pulumix.Output[*ResourceClaimParametersReference]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ResourceClaimParametersReferencePtrOutput) Elem() ResourceClaimParametersReferenceOutput {
@@ -2229,12 +1940,6 @@ func (i ResourceClaimParametersReferencePatchArgs) ToResourceClaimParametersRefe
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimParametersReferencePatchOutput)
 }
 
-func (i ResourceClaimParametersReferencePatchArgs) ToOutput(ctx context.Context) pulumix.Output[ResourceClaimParametersReferencePatch] {
-	return pulumix.Output[ResourceClaimParametersReferencePatch]{
-		OutputState: i.ToResourceClaimParametersReferencePatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i ResourceClaimParametersReferencePatchArgs) ToResourceClaimParametersReferencePatchPtrOutput() ResourceClaimParametersReferencePatchPtrOutput {
 	return i.ToResourceClaimParametersReferencePatchPtrOutputWithContext(context.Background())
 }
@@ -2276,12 +1981,6 @@ func (i *resourceClaimParametersReferencePatchPtrType) ToResourceClaimParameters
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimParametersReferencePatchPtrOutput)
 }
 
-func (i *resourceClaimParametersReferencePatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*ResourceClaimParametersReferencePatch] {
-	return pulumix.Output[*ResourceClaimParametersReferencePatch]{
-		OutputState: i.ToResourceClaimParametersReferencePatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ResourceClaimParametersReference contains enough information to let you locate the parameters for a ResourceClaim. The object must be in the same namespace as the ResourceClaim.
 type ResourceClaimParametersReferencePatchOutput struct{ *pulumi.OutputState }
 
@@ -2305,12 +2004,6 @@ func (o ResourceClaimParametersReferencePatchOutput) ToResourceClaimParametersRe
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v ResourceClaimParametersReferencePatch) *ResourceClaimParametersReferencePatch {
 		return &v
 	}).(ResourceClaimParametersReferencePatchPtrOutput)
-}
-
-func (o ResourceClaimParametersReferencePatchOutput) ToOutput(ctx context.Context) pulumix.Output[ResourceClaimParametersReferencePatch] {
-	return pulumix.Output[ResourceClaimParametersReferencePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
@@ -2340,12 +2033,6 @@ func (o ResourceClaimParametersReferencePatchPtrOutput) ToResourceClaimParameter
 
 func (o ResourceClaimParametersReferencePatchPtrOutput) ToResourceClaimParametersReferencePatchPtrOutputWithContext(ctx context.Context) ResourceClaimParametersReferencePatchPtrOutput {
 	return o
-}
-
-func (o ResourceClaimParametersReferencePatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ResourceClaimParametersReferencePatch] {
-	return pulumix.Output[*ResourceClaimParametersReferencePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ResourceClaimParametersReferencePatchPtrOutput) Elem() ResourceClaimParametersReferencePatchOutput {
@@ -2443,12 +2130,6 @@ func (i ResourceClaimPatchTypeArgs) ToResourceClaimPatchTypeOutputWithContext(ct
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimPatchTypeOutput)
 }
 
-func (i ResourceClaimPatchTypeArgs) ToOutput(ctx context.Context) pulumix.Output[ResourceClaimPatchType] {
-	return pulumix.Output[ResourceClaimPatchType]{
-		OutputState: i.ToResourceClaimPatchTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ResourceClaim describes which resources are needed by a resource consumer. Its status tracks whether the resource has been allocated and what the resulting attributes are.
 //
 // This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
@@ -2464,12 +2145,6 @@ func (o ResourceClaimPatchTypeOutput) ToResourceClaimPatchTypeOutput() ResourceC
 
 func (o ResourceClaimPatchTypeOutput) ToResourceClaimPatchTypeOutputWithContext(ctx context.Context) ResourceClaimPatchTypeOutput {
 	return o
-}
-
-func (o ResourceClaimPatchTypeOutput) ToOutput(ctx context.Context) pulumix.Output[ResourceClaimPatchType] {
-	return pulumix.Output[ResourceClaimPatchType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -2540,12 +2215,6 @@ func (i ResourceClaimSchedulingStatusArgs) ToResourceClaimSchedulingStatusOutput
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimSchedulingStatusOutput)
 }
 
-func (i ResourceClaimSchedulingStatusArgs) ToOutput(ctx context.Context) pulumix.Output[ResourceClaimSchedulingStatus] {
-	return pulumix.Output[ResourceClaimSchedulingStatus]{
-		OutputState: i.ToResourceClaimSchedulingStatusOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ResourceClaimSchedulingStatusArrayInput is an input type that accepts ResourceClaimSchedulingStatusArray and ResourceClaimSchedulingStatusArrayOutput values.
 // You can construct a concrete instance of `ResourceClaimSchedulingStatusArrayInput` via:
 //
@@ -2571,12 +2240,6 @@ func (i ResourceClaimSchedulingStatusArray) ToResourceClaimSchedulingStatusArray
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimSchedulingStatusArrayOutput)
 }
 
-func (i ResourceClaimSchedulingStatusArray) ToOutput(ctx context.Context) pulumix.Output[[]ResourceClaimSchedulingStatus] {
-	return pulumix.Output[[]ResourceClaimSchedulingStatus]{
-		OutputState: i.ToResourceClaimSchedulingStatusArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ResourceClaimSchedulingStatus contains information about one particular ResourceClaim with "WaitForFirstConsumer" allocation mode.
 type ResourceClaimSchedulingStatusOutput struct{ *pulumi.OutputState }
 
@@ -2590,12 +2253,6 @@ func (o ResourceClaimSchedulingStatusOutput) ToResourceClaimSchedulingStatusOutp
 
 func (o ResourceClaimSchedulingStatusOutput) ToResourceClaimSchedulingStatusOutputWithContext(ctx context.Context) ResourceClaimSchedulingStatusOutput {
 	return o
-}
-
-func (o ResourceClaimSchedulingStatusOutput) ToOutput(ctx context.Context) pulumix.Output[ResourceClaimSchedulingStatus] {
-	return pulumix.Output[ResourceClaimSchedulingStatus]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Name matches the pod.spec.resourceClaims[*].Name field.
@@ -2622,12 +2279,6 @@ func (o ResourceClaimSchedulingStatusArrayOutput) ToResourceClaimSchedulingStatu
 
 func (o ResourceClaimSchedulingStatusArrayOutput) ToResourceClaimSchedulingStatusArrayOutputWithContext(ctx context.Context) ResourceClaimSchedulingStatusArrayOutput {
 	return o
-}
-
-func (o ResourceClaimSchedulingStatusArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]ResourceClaimSchedulingStatus] {
-	return pulumix.Output[[]ResourceClaimSchedulingStatus]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ResourceClaimSchedulingStatusArrayOutput) Index(i pulumi.IntInput) ResourceClaimSchedulingStatusOutput {
@@ -2679,12 +2330,6 @@ func (i ResourceClaimSchedulingStatusPatchArgs) ToResourceClaimSchedulingStatusP
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimSchedulingStatusPatchOutput)
 }
 
-func (i ResourceClaimSchedulingStatusPatchArgs) ToOutput(ctx context.Context) pulumix.Output[ResourceClaimSchedulingStatusPatch] {
-	return pulumix.Output[ResourceClaimSchedulingStatusPatch]{
-		OutputState: i.ToResourceClaimSchedulingStatusPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ResourceClaimSchedulingStatusPatchArrayInput is an input type that accepts ResourceClaimSchedulingStatusPatchArray and ResourceClaimSchedulingStatusPatchArrayOutput values.
 // You can construct a concrete instance of `ResourceClaimSchedulingStatusPatchArrayInput` via:
 //
@@ -2710,12 +2355,6 @@ func (i ResourceClaimSchedulingStatusPatchArray) ToResourceClaimSchedulingStatus
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimSchedulingStatusPatchArrayOutput)
 }
 
-func (i ResourceClaimSchedulingStatusPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]ResourceClaimSchedulingStatusPatch] {
-	return pulumix.Output[[]ResourceClaimSchedulingStatusPatch]{
-		OutputState: i.ToResourceClaimSchedulingStatusPatchArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ResourceClaimSchedulingStatus contains information about one particular ResourceClaim with "WaitForFirstConsumer" allocation mode.
 type ResourceClaimSchedulingStatusPatchOutput struct{ *pulumi.OutputState }
 
@@ -2729,12 +2368,6 @@ func (o ResourceClaimSchedulingStatusPatchOutput) ToResourceClaimSchedulingStatu
 
 func (o ResourceClaimSchedulingStatusPatchOutput) ToResourceClaimSchedulingStatusPatchOutputWithContext(ctx context.Context) ResourceClaimSchedulingStatusPatchOutput {
 	return o
-}
-
-func (o ResourceClaimSchedulingStatusPatchOutput) ToOutput(ctx context.Context) pulumix.Output[ResourceClaimSchedulingStatusPatch] {
-	return pulumix.Output[ResourceClaimSchedulingStatusPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Name matches the pod.spec.resourceClaims[*].Name field.
@@ -2761,12 +2394,6 @@ func (o ResourceClaimSchedulingStatusPatchArrayOutput) ToResourceClaimScheduling
 
 func (o ResourceClaimSchedulingStatusPatchArrayOutput) ToResourceClaimSchedulingStatusPatchArrayOutputWithContext(ctx context.Context) ResourceClaimSchedulingStatusPatchArrayOutput {
 	return o
-}
-
-func (o ResourceClaimSchedulingStatusPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]ResourceClaimSchedulingStatusPatch] {
-	return pulumix.Output[[]ResourceClaimSchedulingStatusPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ResourceClaimSchedulingStatusPatchArrayOutput) Index(i pulumi.IntInput) ResourceClaimSchedulingStatusPatchOutput {
@@ -2822,12 +2449,6 @@ func (i ResourceClaimSpecArgs) ToResourceClaimSpecOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimSpecOutput)
 }
 
-func (i ResourceClaimSpecArgs) ToOutput(ctx context.Context) pulumix.Output[ResourceClaimSpec] {
-	return pulumix.Output[ResourceClaimSpec]{
-		OutputState: i.ToResourceClaimSpecOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ResourceClaimSpec defines how a resource is to be allocated.
 type ResourceClaimSpecOutput struct{ *pulumi.OutputState }
 
@@ -2841,12 +2462,6 @@ func (o ResourceClaimSpecOutput) ToResourceClaimSpecOutput() ResourceClaimSpecOu
 
 func (o ResourceClaimSpecOutput) ToResourceClaimSpecOutputWithContext(ctx context.Context) ResourceClaimSpecOutput {
 	return o
-}
-
-func (o ResourceClaimSpecOutput) ToOutput(ctx context.Context) pulumix.Output[ResourceClaimSpec] {
-	return pulumix.Output[ResourceClaimSpec]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Allocation can start immediately or when a Pod wants to use the resource. "WaitForFirstConsumer" is the default.
@@ -2913,12 +2528,6 @@ func (i ResourceClaimSpecPatchArgs) ToResourceClaimSpecPatchOutputWithContext(ct
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimSpecPatchOutput)
 }
 
-func (i ResourceClaimSpecPatchArgs) ToOutput(ctx context.Context) pulumix.Output[ResourceClaimSpecPatch] {
-	return pulumix.Output[ResourceClaimSpecPatch]{
-		OutputState: i.ToResourceClaimSpecPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i ResourceClaimSpecPatchArgs) ToResourceClaimSpecPatchPtrOutput() ResourceClaimSpecPatchPtrOutput {
 	return i.ToResourceClaimSpecPatchPtrOutputWithContext(context.Background())
 }
@@ -2960,12 +2569,6 @@ func (i *resourceClaimSpecPatchPtrType) ToResourceClaimSpecPatchPtrOutputWithCon
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimSpecPatchPtrOutput)
 }
 
-func (i *resourceClaimSpecPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*ResourceClaimSpecPatch] {
-	return pulumix.Output[*ResourceClaimSpecPatch]{
-		OutputState: i.ToResourceClaimSpecPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ResourceClaimSpec defines how a resource is to be allocated.
 type ResourceClaimSpecPatchOutput struct{ *pulumi.OutputState }
 
@@ -2989,12 +2592,6 @@ func (o ResourceClaimSpecPatchOutput) ToResourceClaimSpecPatchPtrOutputWithConte
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v ResourceClaimSpecPatch) *ResourceClaimSpecPatch {
 		return &v
 	}).(ResourceClaimSpecPatchPtrOutput)
-}
-
-func (o ResourceClaimSpecPatchOutput) ToOutput(ctx context.Context) pulumix.Output[ResourceClaimSpecPatch] {
-	return pulumix.Output[ResourceClaimSpecPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Allocation can start immediately or when a Pod wants to use the resource. "WaitForFirstConsumer" is the default.
@@ -3026,12 +2623,6 @@ func (o ResourceClaimSpecPatchPtrOutput) ToResourceClaimSpecPatchPtrOutput() Res
 
 func (o ResourceClaimSpecPatchPtrOutput) ToResourceClaimSpecPatchPtrOutputWithContext(ctx context.Context) ResourceClaimSpecPatchPtrOutput {
 	return o
-}
-
-func (o ResourceClaimSpecPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ResourceClaimSpecPatch] {
-	return pulumix.Output[*ResourceClaimSpecPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ResourceClaimSpecPatchPtrOutput) Elem() ResourceClaimSpecPatchOutput {
@@ -3135,12 +2726,6 @@ func (i ResourceClaimStatusArgs) ToResourceClaimStatusOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimStatusOutput)
 }
 
-func (i ResourceClaimStatusArgs) ToOutput(ctx context.Context) pulumix.Output[ResourceClaimStatus] {
-	return pulumix.Output[ResourceClaimStatus]{
-		OutputState: i.ToResourceClaimStatusOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i ResourceClaimStatusArgs) ToResourceClaimStatusPtrOutput() ResourceClaimStatusPtrOutput {
 	return i.ToResourceClaimStatusPtrOutputWithContext(context.Background())
 }
@@ -3182,12 +2767,6 @@ func (i *resourceClaimStatusPtrType) ToResourceClaimStatusPtrOutputWithContext(c
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimStatusPtrOutput)
 }
 
-func (i *resourceClaimStatusPtrType) ToOutput(ctx context.Context) pulumix.Output[*ResourceClaimStatus] {
-	return pulumix.Output[*ResourceClaimStatus]{
-		OutputState: i.ToResourceClaimStatusPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ResourceClaimStatus tracks whether the resource has been allocated and what the resulting attributes are.
 type ResourceClaimStatusOutput struct{ *pulumi.OutputState }
 
@@ -3211,12 +2790,6 @@ func (o ResourceClaimStatusOutput) ToResourceClaimStatusPtrOutputWithContext(ctx
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v ResourceClaimStatus) *ResourceClaimStatus {
 		return &v
 	}).(ResourceClaimStatusPtrOutput)
-}
-
-func (o ResourceClaimStatusOutput) ToOutput(ctx context.Context) pulumix.Output[ResourceClaimStatus] {
-	return pulumix.Output[ResourceClaimStatus]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Allocation is set by the resource driver once a resource has been allocated successfully. If this is not specified, the resource is not yet allocated.
@@ -3257,12 +2830,6 @@ func (o ResourceClaimStatusPtrOutput) ToResourceClaimStatusPtrOutput() ResourceC
 
 func (o ResourceClaimStatusPtrOutput) ToResourceClaimStatusPtrOutputWithContext(ctx context.Context) ResourceClaimStatusPtrOutput {
 	return o
-}
-
-func (o ResourceClaimStatusPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ResourceClaimStatus] {
-	return pulumix.Output[*ResourceClaimStatus]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ResourceClaimStatusPtrOutput) Elem() ResourceClaimStatusOutput {
@@ -3380,12 +2947,6 @@ func (i ResourceClaimStatusPatchArgs) ToResourceClaimStatusPatchOutputWithContex
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimStatusPatchOutput)
 }
 
-func (i ResourceClaimStatusPatchArgs) ToOutput(ctx context.Context) pulumix.Output[ResourceClaimStatusPatch] {
-	return pulumix.Output[ResourceClaimStatusPatch]{
-		OutputState: i.ToResourceClaimStatusPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i ResourceClaimStatusPatchArgs) ToResourceClaimStatusPatchPtrOutput() ResourceClaimStatusPatchPtrOutput {
 	return i.ToResourceClaimStatusPatchPtrOutputWithContext(context.Background())
 }
@@ -3427,12 +2988,6 @@ func (i *resourceClaimStatusPatchPtrType) ToResourceClaimStatusPatchPtrOutputWit
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimStatusPatchPtrOutput)
 }
 
-func (i *resourceClaimStatusPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*ResourceClaimStatusPatch] {
-	return pulumix.Output[*ResourceClaimStatusPatch]{
-		OutputState: i.ToResourceClaimStatusPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ResourceClaimStatus tracks whether the resource has been allocated and what the resulting attributes are.
 type ResourceClaimStatusPatchOutput struct{ *pulumi.OutputState }
 
@@ -3456,12 +3011,6 @@ func (o ResourceClaimStatusPatchOutput) ToResourceClaimStatusPatchPtrOutputWithC
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v ResourceClaimStatusPatch) *ResourceClaimStatusPatch {
 		return &v
 	}).(ResourceClaimStatusPatchPtrOutput)
-}
-
-func (o ResourceClaimStatusPatchOutput) ToOutput(ctx context.Context) pulumix.Output[ResourceClaimStatusPatch] {
-	return pulumix.Output[ResourceClaimStatusPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Allocation is set by the resource driver once a resource has been allocated successfully. If this is not specified, the resource is not yet allocated.
@@ -3502,12 +3051,6 @@ func (o ResourceClaimStatusPatchPtrOutput) ToResourceClaimStatusPatchPtrOutput()
 
 func (o ResourceClaimStatusPatchPtrOutput) ToResourceClaimStatusPatchPtrOutputWithContext(ctx context.Context) ResourceClaimStatusPatchPtrOutput {
 	return o
-}
-
-func (o ResourceClaimStatusPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ResourceClaimStatusPatch] {
-	return pulumix.Output[*ResourceClaimStatusPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ResourceClaimStatusPatchPtrOutput) Elem() ResourceClaimStatusPatchOutput {
@@ -3617,12 +3160,6 @@ func (i ResourceClaimTemplateTypeArgs) ToResourceClaimTemplateTypeOutputWithCont
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimTemplateTypeOutput)
 }
 
-func (i ResourceClaimTemplateTypeArgs) ToOutput(ctx context.Context) pulumix.Output[ResourceClaimTemplateType] {
-	return pulumix.Output[ResourceClaimTemplateType]{
-		OutputState: i.ToResourceClaimTemplateTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ResourceClaimTemplateTypeArrayInput is an input type that accepts ResourceClaimTemplateTypeArray and ResourceClaimTemplateTypeArrayOutput values.
 // You can construct a concrete instance of `ResourceClaimTemplateTypeArrayInput` via:
 //
@@ -3648,12 +3185,6 @@ func (i ResourceClaimTemplateTypeArray) ToResourceClaimTemplateTypeArrayOutputWi
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimTemplateTypeArrayOutput)
 }
 
-func (i ResourceClaimTemplateTypeArray) ToOutput(ctx context.Context) pulumix.Output[[]ResourceClaimTemplateType] {
-	return pulumix.Output[[]ResourceClaimTemplateType]{
-		OutputState: i.ToResourceClaimTemplateTypeArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ResourceClaimTemplate is used to produce ResourceClaim objects.
 type ResourceClaimTemplateTypeOutput struct{ *pulumi.OutputState }
 
@@ -3667,12 +3198,6 @@ func (o ResourceClaimTemplateTypeOutput) ToResourceClaimTemplateTypeOutput() Res
 
 func (o ResourceClaimTemplateTypeOutput) ToResourceClaimTemplateTypeOutputWithContext(ctx context.Context) ResourceClaimTemplateTypeOutput {
 	return o
-}
-
-func (o ResourceClaimTemplateTypeOutput) ToOutput(ctx context.Context) pulumix.Output[ResourceClaimTemplateType] {
-	return pulumix.Output[ResourceClaimTemplateType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -3709,12 +3234,6 @@ func (o ResourceClaimTemplateTypeArrayOutput) ToResourceClaimTemplateTypeArrayOu
 
 func (o ResourceClaimTemplateTypeArrayOutput) ToResourceClaimTemplateTypeArrayOutputWithContext(ctx context.Context) ResourceClaimTemplateTypeArrayOutput {
 	return o
-}
-
-func (o ResourceClaimTemplateTypeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]ResourceClaimTemplateType] {
-	return pulumix.Output[[]ResourceClaimTemplateType]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ResourceClaimTemplateTypeArrayOutput) Index(i pulumi.IntInput) ResourceClaimTemplateTypeOutput {
@@ -3770,12 +3289,6 @@ func (i ResourceClaimTemplateListTypeArgs) ToResourceClaimTemplateListTypeOutput
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimTemplateListTypeOutput)
 }
 
-func (i ResourceClaimTemplateListTypeArgs) ToOutput(ctx context.Context) pulumix.Output[ResourceClaimTemplateListType] {
-	return pulumix.Output[ResourceClaimTemplateListType]{
-		OutputState: i.ToResourceClaimTemplateListTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ResourceClaimTemplateList is a collection of claim templates.
 type ResourceClaimTemplateListTypeOutput struct{ *pulumi.OutputState }
 
@@ -3789,12 +3302,6 @@ func (o ResourceClaimTemplateListTypeOutput) ToResourceClaimTemplateListTypeOutp
 
 func (o ResourceClaimTemplateListTypeOutput) ToResourceClaimTemplateListTypeOutputWithContext(ctx context.Context) ResourceClaimTemplateListTypeOutput {
 	return o
-}
-
-func (o ResourceClaimTemplateListTypeOutput) ToOutput(ctx context.Context) pulumix.Output[ResourceClaimTemplateListType] {
-	return pulumix.Output[ResourceClaimTemplateListType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -3868,12 +3375,6 @@ func (i ResourceClaimTemplatePatchTypeArgs) ToResourceClaimTemplatePatchTypeOutp
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimTemplatePatchTypeOutput)
 }
 
-func (i ResourceClaimTemplatePatchTypeArgs) ToOutput(ctx context.Context) pulumix.Output[ResourceClaimTemplatePatchType] {
-	return pulumix.Output[ResourceClaimTemplatePatchType]{
-		OutputState: i.ToResourceClaimTemplatePatchTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ResourceClaimTemplate is used to produce ResourceClaim objects.
 type ResourceClaimTemplatePatchTypeOutput struct{ *pulumi.OutputState }
 
@@ -3887,12 +3388,6 @@ func (o ResourceClaimTemplatePatchTypeOutput) ToResourceClaimTemplatePatchTypeOu
 
 func (o ResourceClaimTemplatePatchTypeOutput) ToResourceClaimTemplatePatchTypeOutputWithContext(ctx context.Context) ResourceClaimTemplatePatchTypeOutput {
 	return o
-}
-
-func (o ResourceClaimTemplatePatchTypeOutput) ToOutput(ctx context.Context) pulumix.Output[ResourceClaimTemplatePatchType] {
-	return pulumix.Output[ResourceClaimTemplatePatchType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -3956,12 +3451,6 @@ func (i ResourceClaimTemplateSpecArgs) ToResourceClaimTemplateSpecOutputWithCont
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimTemplateSpecOutput)
 }
 
-func (i ResourceClaimTemplateSpecArgs) ToOutput(ctx context.Context) pulumix.Output[ResourceClaimTemplateSpec] {
-	return pulumix.Output[ResourceClaimTemplateSpec]{
-		OutputState: i.ToResourceClaimTemplateSpecOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ResourceClaimTemplateSpec contains the metadata and fields for a ResourceClaim.
 type ResourceClaimTemplateSpecOutput struct{ *pulumi.OutputState }
 
@@ -3975,12 +3464,6 @@ func (o ResourceClaimTemplateSpecOutput) ToResourceClaimTemplateSpecOutput() Res
 
 func (o ResourceClaimTemplateSpecOutput) ToResourceClaimTemplateSpecOutputWithContext(ctx context.Context) ResourceClaimTemplateSpecOutput {
 	return o
-}
-
-func (o ResourceClaimTemplateSpecOutput) ToOutput(ctx context.Context) pulumix.Output[ResourceClaimTemplateSpec] {
-	return pulumix.Output[ResourceClaimTemplateSpec]{
-		OutputState: o.OutputState,
-	}
 }
 
 // ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
@@ -4032,12 +3515,6 @@ func (i ResourceClaimTemplateSpecPatchArgs) ToResourceClaimTemplateSpecPatchOutp
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimTemplateSpecPatchOutput)
 }
 
-func (i ResourceClaimTemplateSpecPatchArgs) ToOutput(ctx context.Context) pulumix.Output[ResourceClaimTemplateSpecPatch] {
-	return pulumix.Output[ResourceClaimTemplateSpecPatch]{
-		OutputState: i.ToResourceClaimTemplateSpecPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i ResourceClaimTemplateSpecPatchArgs) ToResourceClaimTemplateSpecPatchPtrOutput() ResourceClaimTemplateSpecPatchPtrOutput {
 	return i.ToResourceClaimTemplateSpecPatchPtrOutputWithContext(context.Background())
 }
@@ -4079,12 +3556,6 @@ func (i *resourceClaimTemplateSpecPatchPtrType) ToResourceClaimTemplateSpecPatch
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimTemplateSpecPatchPtrOutput)
 }
 
-func (i *resourceClaimTemplateSpecPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*ResourceClaimTemplateSpecPatch] {
-	return pulumix.Output[*ResourceClaimTemplateSpecPatch]{
-		OutputState: i.ToResourceClaimTemplateSpecPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ResourceClaimTemplateSpec contains the metadata and fields for a ResourceClaim.
 type ResourceClaimTemplateSpecPatchOutput struct{ *pulumi.OutputState }
 
@@ -4110,12 +3581,6 @@ func (o ResourceClaimTemplateSpecPatchOutput) ToResourceClaimTemplateSpecPatchPt
 	}).(ResourceClaimTemplateSpecPatchPtrOutput)
 }
 
-func (o ResourceClaimTemplateSpecPatchOutput) ToOutput(ctx context.Context) pulumix.Output[ResourceClaimTemplateSpecPatch] {
-	return pulumix.Output[ResourceClaimTemplateSpecPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 // ObjectMeta may contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
 func (o ResourceClaimTemplateSpecPatchOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
 	return o.ApplyT(func(v ResourceClaimTemplateSpecPatch) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
@@ -4138,12 +3603,6 @@ func (o ResourceClaimTemplateSpecPatchPtrOutput) ToResourceClaimTemplateSpecPatc
 
 func (o ResourceClaimTemplateSpecPatchPtrOutput) ToResourceClaimTemplateSpecPatchPtrOutputWithContext(ctx context.Context) ResourceClaimTemplateSpecPatchPtrOutput {
 	return o
-}
-
-func (o ResourceClaimTemplateSpecPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ResourceClaimTemplateSpecPatch] {
-	return pulumix.Output[*ResourceClaimTemplateSpecPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ResourceClaimTemplateSpecPatchPtrOutput) Elem() ResourceClaimTemplateSpecPatchOutput {
@@ -4243,12 +3702,6 @@ func (i ResourceClassTypeArgs) ToResourceClassTypeOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClassTypeOutput)
 }
 
-func (i ResourceClassTypeArgs) ToOutput(ctx context.Context) pulumix.Output[ResourceClassType] {
-	return pulumix.Output[ResourceClassType]{
-		OutputState: i.ToResourceClassTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ResourceClassTypeArrayInput is an input type that accepts ResourceClassTypeArray and ResourceClassTypeArrayOutput values.
 // You can construct a concrete instance of `ResourceClassTypeArrayInput` via:
 //
@@ -4274,12 +3727,6 @@ func (i ResourceClassTypeArray) ToResourceClassTypeArrayOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClassTypeArrayOutput)
 }
 
-func (i ResourceClassTypeArray) ToOutput(ctx context.Context) pulumix.Output[[]ResourceClassType] {
-	return pulumix.Output[[]ResourceClassType]{
-		OutputState: i.ToResourceClassTypeArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ResourceClass is used by administrators to influence how resources are allocated.
 //
 // This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
@@ -4295,12 +3742,6 @@ func (o ResourceClassTypeOutput) ToResourceClassTypeOutput() ResourceClassTypeOu
 
 func (o ResourceClassTypeOutput) ToResourceClassTypeOutputWithContext(ctx context.Context) ResourceClassTypeOutput {
 	return o
-}
-
-func (o ResourceClassTypeOutput) ToOutput(ctx context.Context) pulumix.Output[ResourceClassType] {
-	return pulumix.Output[ResourceClassType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -4349,12 +3790,6 @@ func (o ResourceClassTypeArrayOutput) ToResourceClassTypeArrayOutput() ResourceC
 
 func (o ResourceClassTypeArrayOutput) ToResourceClassTypeArrayOutputWithContext(ctx context.Context) ResourceClassTypeArrayOutput {
 	return o
-}
-
-func (o ResourceClassTypeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]ResourceClassType] {
-	return pulumix.Output[[]ResourceClassType]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ResourceClassTypeArrayOutput) Index(i pulumi.IntInput) ResourceClassTypeOutput {
@@ -4410,12 +3845,6 @@ func (i ResourceClassListTypeArgs) ToResourceClassListTypeOutputWithContext(ctx 
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClassListTypeOutput)
 }
 
-func (i ResourceClassListTypeArgs) ToOutput(ctx context.Context) pulumix.Output[ResourceClassListType] {
-	return pulumix.Output[ResourceClassListType]{
-		OutputState: i.ToResourceClassListTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ResourceClassList is a collection of classes.
 type ResourceClassListTypeOutput struct{ *pulumi.OutputState }
 
@@ -4429,12 +3858,6 @@ func (o ResourceClassListTypeOutput) ToResourceClassListTypeOutput() ResourceCla
 
 func (o ResourceClassListTypeOutput) ToResourceClassListTypeOutputWithContext(ctx context.Context) ResourceClassListTypeOutput {
 	return o
-}
-
-func (o ResourceClassListTypeOutput) ToOutput(ctx context.Context) pulumix.Output[ResourceClassListType] {
-	return pulumix.Output[ResourceClassListType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -4504,12 +3927,6 @@ func (i ResourceClassParametersReferenceArgs) ToResourceClassParametersReference
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClassParametersReferenceOutput)
 }
 
-func (i ResourceClassParametersReferenceArgs) ToOutput(ctx context.Context) pulumix.Output[ResourceClassParametersReference] {
-	return pulumix.Output[ResourceClassParametersReference]{
-		OutputState: i.ToResourceClassParametersReferenceOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i ResourceClassParametersReferenceArgs) ToResourceClassParametersReferencePtrOutput() ResourceClassParametersReferencePtrOutput {
 	return i.ToResourceClassParametersReferencePtrOutputWithContext(context.Background())
 }
@@ -4551,12 +3968,6 @@ func (i *resourceClassParametersReferencePtrType) ToResourceClassParametersRefer
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClassParametersReferencePtrOutput)
 }
 
-func (i *resourceClassParametersReferencePtrType) ToOutput(ctx context.Context) pulumix.Output[*ResourceClassParametersReference] {
-	return pulumix.Output[*ResourceClassParametersReference]{
-		OutputState: i.ToResourceClassParametersReferencePtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ResourceClassParametersReference contains enough information to let you locate the parameters for a ResourceClass.
 type ResourceClassParametersReferenceOutput struct{ *pulumi.OutputState }
 
@@ -4580,12 +3991,6 @@ func (o ResourceClassParametersReferenceOutput) ToResourceClassParametersReferen
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v ResourceClassParametersReference) *ResourceClassParametersReference {
 		return &v
 	}).(ResourceClassParametersReferencePtrOutput)
-}
-
-func (o ResourceClassParametersReferenceOutput) ToOutput(ctx context.Context) pulumix.Output[ResourceClassParametersReference] {
-	return pulumix.Output[ResourceClassParametersReference]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
@@ -4620,12 +4025,6 @@ func (o ResourceClassParametersReferencePtrOutput) ToResourceClassParametersRefe
 
 func (o ResourceClassParametersReferencePtrOutput) ToResourceClassParametersReferencePtrOutputWithContext(ctx context.Context) ResourceClassParametersReferencePtrOutput {
 	return o
-}
-
-func (o ResourceClassParametersReferencePtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ResourceClassParametersReference] {
-	return pulumix.Output[*ResourceClassParametersReference]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ResourceClassParametersReferencePtrOutput) Elem() ResourceClassParametersReferenceOutput {
@@ -4725,12 +4124,6 @@ func (i ResourceClassParametersReferencePatchArgs) ToResourceClassParametersRefe
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClassParametersReferencePatchOutput)
 }
 
-func (i ResourceClassParametersReferencePatchArgs) ToOutput(ctx context.Context) pulumix.Output[ResourceClassParametersReferencePatch] {
-	return pulumix.Output[ResourceClassParametersReferencePatch]{
-		OutputState: i.ToResourceClassParametersReferencePatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i ResourceClassParametersReferencePatchArgs) ToResourceClassParametersReferencePatchPtrOutput() ResourceClassParametersReferencePatchPtrOutput {
 	return i.ToResourceClassParametersReferencePatchPtrOutputWithContext(context.Background())
 }
@@ -4772,12 +4165,6 @@ func (i *resourceClassParametersReferencePatchPtrType) ToResourceClassParameters
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClassParametersReferencePatchPtrOutput)
 }
 
-func (i *resourceClassParametersReferencePatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*ResourceClassParametersReferencePatch] {
-	return pulumix.Output[*ResourceClassParametersReferencePatch]{
-		OutputState: i.ToResourceClassParametersReferencePatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ResourceClassParametersReference contains enough information to let you locate the parameters for a ResourceClass.
 type ResourceClassParametersReferencePatchOutput struct{ *pulumi.OutputState }
 
@@ -4801,12 +4188,6 @@ func (o ResourceClassParametersReferencePatchOutput) ToResourceClassParametersRe
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v ResourceClassParametersReferencePatch) *ResourceClassParametersReferencePatch {
 		return &v
 	}).(ResourceClassParametersReferencePatchPtrOutput)
-}
-
-func (o ResourceClassParametersReferencePatchOutput) ToOutput(ctx context.Context) pulumix.Output[ResourceClassParametersReferencePatch] {
-	return pulumix.Output[ResourceClassParametersReferencePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
@@ -4841,12 +4222,6 @@ func (o ResourceClassParametersReferencePatchPtrOutput) ToResourceClassParameter
 
 func (o ResourceClassParametersReferencePatchPtrOutput) ToResourceClassParametersReferencePatchPtrOutputWithContext(ctx context.Context) ResourceClassParametersReferencePatchPtrOutput {
 	return o
-}
-
-func (o ResourceClassParametersReferencePatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ResourceClassParametersReferencePatch] {
-	return pulumix.Output[*ResourceClassParametersReferencePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ResourceClassParametersReferencePatchPtrOutput) Elem() ResourceClassParametersReferencePatchOutput {
@@ -4966,12 +4341,6 @@ func (i ResourceClassPatchTypeArgs) ToResourceClassPatchTypeOutputWithContext(ct
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClassPatchTypeOutput)
 }
 
-func (i ResourceClassPatchTypeArgs) ToOutput(ctx context.Context) pulumix.Output[ResourceClassPatchType] {
-	return pulumix.Output[ResourceClassPatchType]{
-		OutputState: i.ToResourceClassPatchTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ResourceClass is used by administrators to influence how resources are allocated.
 //
 // This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
@@ -4987,12 +4356,6 @@ func (o ResourceClassPatchTypeOutput) ToResourceClassPatchTypeOutput() ResourceC
 
 func (o ResourceClassPatchTypeOutput) ToResourceClassPatchTypeOutputWithContext(ctx context.Context) ResourceClassPatchTypeOutput {
 	return o
-}
-
-func (o ResourceClassPatchTypeOutput) ToOutput(ctx context.Context) pulumix.Output[ResourceClassPatchType] {
-	return pulumix.Output[ResourceClassPatchType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources

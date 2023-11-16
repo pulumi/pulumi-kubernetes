@@ -10,7 +10,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -132,12 +131,6 @@ func (i *EndpointsPatch) ToEndpointsPatchOutputWithContext(ctx context.Context) 
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointsPatchOutput)
 }
 
-func (i *EndpointsPatch) ToOutput(ctx context.Context) pulumix.Output[*EndpointsPatch] {
-	return pulumix.Output[*EndpointsPatch]{
-		OutputState: i.ToEndpointsPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // EndpointsPatchArrayInput is an input type that accepts EndpointsPatchArray and EndpointsPatchArrayOutput values.
 // You can construct a concrete instance of `EndpointsPatchArrayInput` via:
 //
@@ -161,12 +154,6 @@ func (i EndpointsPatchArray) ToEndpointsPatchArrayOutput() EndpointsPatchArrayOu
 
 func (i EndpointsPatchArray) ToEndpointsPatchArrayOutputWithContext(ctx context.Context) EndpointsPatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointsPatchArrayOutput)
-}
-
-func (i EndpointsPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*EndpointsPatch] {
-	return pulumix.Output[[]*EndpointsPatch]{
-		OutputState: i.ToEndpointsPatchArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // EndpointsPatchMapInput is an input type that accepts EndpointsPatchMap and EndpointsPatchMapOutput values.
@@ -194,12 +181,6 @@ func (i EndpointsPatchMap) ToEndpointsPatchMapOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointsPatchMapOutput)
 }
 
-func (i EndpointsPatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*EndpointsPatch] {
-	return pulumix.Output[map[string]*EndpointsPatch]{
-		OutputState: i.ToEndpointsPatchMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type EndpointsPatchOutput struct{ *pulumi.OutputState }
 
 func (EndpointsPatchOutput) ElementType() reflect.Type {
@@ -212,12 +193,6 @@ func (o EndpointsPatchOutput) ToEndpointsPatchOutput() EndpointsPatchOutput {
 
 func (o EndpointsPatchOutput) ToEndpointsPatchOutputWithContext(ctx context.Context) EndpointsPatchOutput {
 	return o
-}
-
-func (o EndpointsPatchOutput) ToOutput(ctx context.Context) pulumix.Output[*EndpointsPatch] {
-	return pulumix.Output[*EndpointsPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -254,12 +229,6 @@ func (o EndpointsPatchArrayOutput) ToEndpointsPatchArrayOutputWithContext(ctx co
 	return o
 }
 
-func (o EndpointsPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*EndpointsPatch] {
-	return pulumix.Output[[]*EndpointsPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o EndpointsPatchArrayOutput) Index(i pulumi.IntInput) EndpointsPatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *EndpointsPatch {
 		return vs[0].([]*EndpointsPatch)[vs[1].(int)]
@@ -278,12 +247,6 @@ func (o EndpointsPatchMapOutput) ToEndpointsPatchMapOutput() EndpointsPatchMapOu
 
 func (o EndpointsPatchMapOutput) ToEndpointsPatchMapOutputWithContext(ctx context.Context) EndpointsPatchMapOutput {
 	return o
-}
-
-func (o EndpointsPatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*EndpointsPatch] {
-	return pulumix.Output[map[string]*EndpointsPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o EndpointsPatchMapOutput) MapIndex(k pulumi.StringInput) EndpointsPatchOutput {

@@ -9,7 +9,6 @@ import (
 
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 var _ = utilities.GetEnvOrDefault
@@ -69,12 +68,6 @@ func (i APIGroupArgs) ToAPIGroupOutputWithContext(ctx context.Context) APIGroupO
 	return pulumi.ToOutputWithContext(ctx, i).(APIGroupOutput)
 }
 
-func (i APIGroupArgs) ToOutput(ctx context.Context) pulumix.Output[APIGroup] {
-	return pulumix.Output[APIGroup]{
-		OutputState: i.ToAPIGroupOutputWithContext(ctx).OutputState,
-	}
-}
-
 // APIGroupArrayInput is an input type that accepts APIGroupArray and APIGroupArrayOutput values.
 // You can construct a concrete instance of `APIGroupArrayInput` via:
 //
@@ -100,12 +93,6 @@ func (i APIGroupArray) ToAPIGroupArrayOutputWithContext(ctx context.Context) API
 	return pulumi.ToOutputWithContext(ctx, i).(APIGroupArrayOutput)
 }
 
-func (i APIGroupArray) ToOutput(ctx context.Context) pulumix.Output[[]APIGroup] {
-	return pulumix.Output[[]APIGroup]{
-		OutputState: i.ToAPIGroupArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // APIGroup contains the name, the supported versions, and the preferred version of a group.
 type APIGroupOutput struct{ *pulumi.OutputState }
 
@@ -119,12 +106,6 @@ func (o APIGroupOutput) ToAPIGroupOutput() APIGroupOutput {
 
 func (o APIGroupOutput) ToAPIGroupOutputWithContext(ctx context.Context) APIGroupOutput {
 	return o
-}
-
-func (o APIGroupOutput) ToOutput(ctx context.Context) pulumix.Output[APIGroup] {
-	return pulumix.Output[APIGroup]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -169,12 +150,6 @@ func (o APIGroupArrayOutput) ToAPIGroupArrayOutput() APIGroupArrayOutput {
 
 func (o APIGroupArrayOutput) ToAPIGroupArrayOutputWithContext(ctx context.Context) APIGroupArrayOutput {
 	return o
-}
-
-func (o APIGroupArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]APIGroup] {
-	return pulumix.Output[[]APIGroup]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o APIGroupArrayOutput) Index(i pulumi.IntInput) APIGroupOutput {
@@ -226,12 +201,6 @@ func (i APIGroupListArgs) ToAPIGroupListOutputWithContext(ctx context.Context) A
 	return pulumi.ToOutputWithContext(ctx, i).(APIGroupListOutput)
 }
 
-func (i APIGroupListArgs) ToOutput(ctx context.Context) pulumix.Output[APIGroupList] {
-	return pulumix.Output[APIGroupList]{
-		OutputState: i.ToAPIGroupListOutputWithContext(ctx).OutputState,
-	}
-}
-
 // APIGroupList is a list of APIGroup, to allow clients to discover the API at /apis.
 type APIGroupListOutput struct{ *pulumi.OutputState }
 
@@ -245,12 +214,6 @@ func (o APIGroupListOutput) ToAPIGroupListOutput() APIGroupListOutput {
 
 func (o APIGroupListOutput) ToAPIGroupListOutputWithContext(ctx context.Context) APIGroupListOutput {
 	return o
-}
-
-func (o APIGroupListOutput) ToOutput(ctx context.Context) pulumix.Output[APIGroupList] {
-	return pulumix.Output[APIGroupList]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -323,12 +286,6 @@ func (i APIGroupPatchArgs) ToAPIGroupPatchOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(APIGroupPatchOutput)
 }
 
-func (i APIGroupPatchArgs) ToOutput(ctx context.Context) pulumix.Output[APIGroupPatch] {
-	return pulumix.Output[APIGroupPatch]{
-		OutputState: i.ToAPIGroupPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // APIGroup contains the name, the supported versions, and the preferred version of a group.
 type APIGroupPatchOutput struct{ *pulumi.OutputState }
 
@@ -342,12 +299,6 @@ func (o APIGroupPatchOutput) ToAPIGroupPatchOutput() APIGroupPatchOutput {
 
 func (o APIGroupPatchOutput) ToAPIGroupPatchOutputWithContext(ctx context.Context) APIGroupPatchOutput {
 	return o
-}
-
-func (o APIGroupPatchOutput) ToOutput(ctx context.Context) pulumix.Output[APIGroupPatch] {
-	return pulumix.Output[APIGroupPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -451,12 +402,6 @@ func (i APIResourceArgs) ToAPIResourceOutputWithContext(ctx context.Context) API
 	return pulumi.ToOutputWithContext(ctx, i).(APIResourceOutput)
 }
 
-func (i APIResourceArgs) ToOutput(ctx context.Context) pulumix.Output[APIResource] {
-	return pulumix.Output[APIResource]{
-		OutputState: i.ToAPIResourceOutputWithContext(ctx).OutputState,
-	}
-}
-
 // APIResourceArrayInput is an input type that accepts APIResourceArray and APIResourceArrayOutput values.
 // You can construct a concrete instance of `APIResourceArrayInput` via:
 //
@@ -482,12 +427,6 @@ func (i APIResourceArray) ToAPIResourceArrayOutputWithContext(ctx context.Contex
 	return pulumi.ToOutputWithContext(ctx, i).(APIResourceArrayOutput)
 }
 
-func (i APIResourceArray) ToOutput(ctx context.Context) pulumix.Output[[]APIResource] {
-	return pulumix.Output[[]APIResource]{
-		OutputState: i.ToAPIResourceArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // APIResource specifies the name of a resource and whether it is namespaced.
 type APIResourceOutput struct{ *pulumi.OutputState }
 
@@ -501,12 +440,6 @@ func (o APIResourceOutput) ToAPIResourceOutput() APIResourceOutput {
 
 func (o APIResourceOutput) ToAPIResourceOutputWithContext(ctx context.Context) APIResourceOutput {
 	return o
-}
-
-func (o APIResourceOutput) ToOutput(ctx context.Context) pulumix.Output[APIResource] {
-	return pulumix.Output[APIResource]{
-		OutputState: o.OutputState,
-	}
 }
 
 // categories is a list of the grouped resources this resource belongs to (e.g. 'all')
@@ -573,12 +506,6 @@ func (o APIResourceArrayOutput) ToAPIResourceArrayOutputWithContext(ctx context.
 	return o
 }
 
-func (o APIResourceArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]APIResource] {
-	return pulumix.Output[[]APIResource]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o APIResourceArrayOutput) Index(i pulumi.IntInput) APIResourceOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) APIResource {
 		return vs[0].([]APIResource)[vs[1].(int)]
@@ -632,12 +559,6 @@ func (i APIResourceListArgs) ToAPIResourceListOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(APIResourceListOutput)
 }
 
-func (i APIResourceListArgs) ToOutput(ctx context.Context) pulumix.Output[APIResourceList] {
-	return pulumix.Output[APIResourceList]{
-		OutputState: i.ToAPIResourceListOutputWithContext(ctx).OutputState,
-	}
-}
-
 // APIResourceList is a list of APIResource, it is used to expose the name of the resources supported in a specific group and version, and if the resource is namespaced.
 type APIResourceListOutput struct{ *pulumi.OutputState }
 
@@ -651,12 +572,6 @@ func (o APIResourceListOutput) ToAPIResourceListOutput() APIResourceListOutput {
 
 func (o APIResourceListOutput) ToAPIResourceListOutputWithContext(ctx context.Context) APIResourceListOutput {
 	return o
-}
-
-func (o APIResourceListOutput) ToOutput(ctx context.Context) pulumix.Output[APIResourceList] {
-	return pulumix.Output[APIResourceList]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -750,12 +665,6 @@ func (i APIResourcePatchArgs) ToAPIResourcePatchOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(APIResourcePatchOutput)
 }
 
-func (i APIResourcePatchArgs) ToOutput(ctx context.Context) pulumix.Output[APIResourcePatch] {
-	return pulumix.Output[APIResourcePatch]{
-		OutputState: i.ToAPIResourcePatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // APIResource specifies the name of a resource and whether it is namespaced.
 type APIResourcePatchOutput struct{ *pulumi.OutputState }
 
@@ -769,12 +678,6 @@ func (o APIResourcePatchOutput) ToAPIResourcePatchOutput() APIResourcePatchOutpu
 
 func (o APIResourcePatchOutput) ToAPIResourcePatchOutputWithContext(ctx context.Context) APIResourcePatchOutput {
 	return o
-}
-
-func (o APIResourcePatchOutput) ToOutput(ctx context.Context) pulumix.Output[APIResourcePatch] {
-	return pulumix.Output[APIResourcePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // categories is a list of the grouped resources this resource belongs to (e.g. 'all')
@@ -874,12 +777,6 @@ func (i APIVersionsArgs) ToAPIVersionsOutputWithContext(ctx context.Context) API
 	return pulumi.ToOutputWithContext(ctx, i).(APIVersionsOutput)
 }
 
-func (i APIVersionsArgs) ToOutput(ctx context.Context) pulumix.Output[APIVersions] {
-	return pulumix.Output[APIVersions]{
-		OutputState: i.ToAPIVersionsOutputWithContext(ctx).OutputState,
-	}
-}
-
 // APIVersions lists the versions that are available, to allow clients to discover the API at /api, which is the root path of the legacy v1 API.
 type APIVersionsOutput struct{ *pulumi.OutputState }
 
@@ -893,12 +790,6 @@ func (o APIVersionsOutput) ToAPIVersionsOutput() APIVersionsOutput {
 
 func (o APIVersionsOutput) ToAPIVersionsOutputWithContext(ctx context.Context) APIVersionsOutput {
 	return o
-}
-
-func (o APIVersionsOutput) ToOutput(ctx context.Context) pulumix.Output[APIVersions] {
-	return pulumix.Output[APIVersions]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -968,12 +859,6 @@ func (i APIVersionsPatchArgs) ToAPIVersionsPatchOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(APIVersionsPatchOutput)
 }
 
-func (i APIVersionsPatchArgs) ToOutput(ctx context.Context) pulumix.Output[APIVersionsPatch] {
-	return pulumix.Output[APIVersionsPatch]{
-		OutputState: i.ToAPIVersionsPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // APIVersions lists the versions that are available, to allow clients to discover the API at /api, which is the root path of the legacy v1 API.
 type APIVersionsPatchOutput struct{ *pulumi.OutputState }
 
@@ -987,12 +872,6 @@ func (o APIVersionsPatchOutput) ToAPIVersionsPatchOutput() APIVersionsPatchOutpu
 
 func (o APIVersionsPatchOutput) ToAPIVersionsPatchOutputWithContext(ctx context.Context) APIVersionsPatchOutput {
 	return o
-}
-
-func (o APIVersionsPatchOutput) ToOutput(ctx context.Context) pulumix.Output[APIVersionsPatch] {
-	return pulumix.Output[APIVersionsPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -1070,12 +949,6 @@ func (i ConditionArgs) ToConditionOutputWithContext(ctx context.Context) Conditi
 	return pulumi.ToOutputWithContext(ctx, i).(ConditionOutput)
 }
 
-func (i ConditionArgs) ToOutput(ctx context.Context) pulumix.Output[Condition] {
-	return pulumix.Output[Condition]{
-		OutputState: i.ToConditionOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ConditionArrayInput is an input type that accepts ConditionArray and ConditionArrayOutput values.
 // You can construct a concrete instance of `ConditionArrayInput` via:
 //
@@ -1101,12 +974,6 @@ func (i ConditionArray) ToConditionArrayOutputWithContext(ctx context.Context) C
 	return pulumi.ToOutputWithContext(ctx, i).(ConditionArrayOutput)
 }
 
-func (i ConditionArray) ToOutput(ctx context.Context) pulumix.Output[[]Condition] {
-	return pulumix.Output[[]Condition]{
-		OutputState: i.ToConditionArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // Condition contains details for one aspect of the current state of this API Resource.
 type ConditionOutput struct{ *pulumi.OutputState }
 
@@ -1120,12 +987,6 @@ func (o ConditionOutput) ToConditionOutput() ConditionOutput {
 
 func (o ConditionOutput) ToConditionOutputWithContext(ctx context.Context) ConditionOutput {
 	return o
-}
-
-func (o ConditionOutput) ToOutput(ctx context.Context) pulumix.Output[Condition] {
-	return pulumix.Output[Condition]{
-		OutputState: o.OutputState,
-	}
 }
 
 // lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
@@ -1170,12 +1031,6 @@ func (o ConditionArrayOutput) ToConditionArrayOutput() ConditionArrayOutput {
 
 func (o ConditionArrayOutput) ToConditionArrayOutputWithContext(ctx context.Context) ConditionArrayOutput {
 	return o
-}
-
-func (o ConditionArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]Condition] {
-	return pulumix.Output[[]Condition]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ConditionArrayOutput) Index(i pulumi.IntInput) ConditionOutput {
@@ -1239,12 +1094,6 @@ func (i ConditionPatchArgs) ToConditionPatchOutputWithContext(ctx context.Contex
 	return pulumi.ToOutputWithContext(ctx, i).(ConditionPatchOutput)
 }
 
-func (i ConditionPatchArgs) ToOutput(ctx context.Context) pulumix.Output[ConditionPatch] {
-	return pulumix.Output[ConditionPatch]{
-		OutputState: i.ToConditionPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ConditionPatchArrayInput is an input type that accepts ConditionPatchArray and ConditionPatchArrayOutput values.
 // You can construct a concrete instance of `ConditionPatchArrayInput` via:
 //
@@ -1270,12 +1119,6 @@ func (i ConditionPatchArray) ToConditionPatchArrayOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(ConditionPatchArrayOutput)
 }
 
-func (i ConditionPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]ConditionPatch] {
-	return pulumix.Output[[]ConditionPatch]{
-		OutputState: i.ToConditionPatchArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // Condition contains details for one aspect of the current state of this API Resource.
 type ConditionPatchOutput struct{ *pulumi.OutputState }
 
@@ -1289,12 +1132,6 @@ func (o ConditionPatchOutput) ToConditionPatchOutput() ConditionPatchOutput {
 
 func (o ConditionPatchOutput) ToConditionPatchOutputWithContext(ctx context.Context) ConditionPatchOutput {
 	return o
-}
-
-func (o ConditionPatchOutput) ToOutput(ctx context.Context) pulumix.Output[ConditionPatch] {
-	return pulumix.Output[ConditionPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
@@ -1339,12 +1176,6 @@ func (o ConditionPatchArrayOutput) ToConditionPatchArrayOutput() ConditionPatchA
 
 func (o ConditionPatchArrayOutput) ToConditionPatchArrayOutputWithContext(ctx context.Context) ConditionPatchArrayOutput {
 	return o
-}
-
-func (o ConditionPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]ConditionPatch] {
-	return pulumix.Output[[]ConditionPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ConditionPatchArrayOutput) Index(i pulumi.IntInput) ConditionPatchOutput {
@@ -1412,12 +1243,6 @@ func (i DeleteOptionsArgs) ToDeleteOptionsOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(DeleteOptionsOutput)
 }
 
-func (i DeleteOptionsArgs) ToOutput(ctx context.Context) pulumix.Output[DeleteOptions] {
-	return pulumix.Output[DeleteOptions]{
-		OutputState: i.ToDeleteOptionsOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i DeleteOptionsArgs) ToDeleteOptionsPtrOutput() DeleteOptionsPtrOutput {
 	return i.ToDeleteOptionsPtrOutputWithContext(context.Background())
 }
@@ -1459,12 +1284,6 @@ func (i *deleteOptionsPtrType) ToDeleteOptionsPtrOutputWithContext(ctx context.C
 	return pulumi.ToOutputWithContext(ctx, i).(DeleteOptionsPtrOutput)
 }
 
-func (i *deleteOptionsPtrType) ToOutput(ctx context.Context) pulumix.Output[*DeleteOptions] {
-	return pulumix.Output[*DeleteOptions]{
-		OutputState: i.ToDeleteOptionsPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // DeleteOptions may be provided when deleting an API object.
 type DeleteOptionsOutput struct{ *pulumi.OutputState }
 
@@ -1488,12 +1307,6 @@ func (o DeleteOptionsOutput) ToDeleteOptionsPtrOutputWithContext(ctx context.Con
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v DeleteOptions) *DeleteOptions {
 		return &v
 	}).(DeleteOptionsPtrOutput)
-}
-
-func (o DeleteOptionsOutput) ToOutput(ctx context.Context) pulumix.Output[DeleteOptions] {
-	return pulumix.Output[DeleteOptions]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -1543,12 +1356,6 @@ func (o DeleteOptionsPtrOutput) ToDeleteOptionsPtrOutput() DeleteOptionsPtrOutpu
 
 func (o DeleteOptionsPtrOutput) ToDeleteOptionsPtrOutputWithContext(ctx context.Context) DeleteOptionsPtrOutput {
 	return o
-}
-
-func (o DeleteOptionsPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*DeleteOptions] {
-	return pulumix.Output[*DeleteOptions]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o DeleteOptionsPtrOutput) Elem() DeleteOptionsOutput {
@@ -1690,12 +1497,6 @@ func (i DeleteOptionsPatchArgs) ToDeleteOptionsPatchOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(DeleteOptionsPatchOutput)
 }
 
-func (i DeleteOptionsPatchArgs) ToOutput(ctx context.Context) pulumix.Output[DeleteOptionsPatch] {
-	return pulumix.Output[DeleteOptionsPatch]{
-		OutputState: i.ToDeleteOptionsPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i DeleteOptionsPatchArgs) ToDeleteOptionsPatchPtrOutput() DeleteOptionsPatchPtrOutput {
 	return i.ToDeleteOptionsPatchPtrOutputWithContext(context.Background())
 }
@@ -1737,12 +1538,6 @@ func (i *deleteOptionsPatchPtrType) ToDeleteOptionsPatchPtrOutputWithContext(ctx
 	return pulumi.ToOutputWithContext(ctx, i).(DeleteOptionsPatchPtrOutput)
 }
 
-func (i *deleteOptionsPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*DeleteOptionsPatch] {
-	return pulumix.Output[*DeleteOptionsPatch]{
-		OutputState: i.ToDeleteOptionsPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // DeleteOptions may be provided when deleting an API object.
 type DeleteOptionsPatchOutput struct{ *pulumi.OutputState }
 
@@ -1766,12 +1561,6 @@ func (o DeleteOptionsPatchOutput) ToDeleteOptionsPatchPtrOutputWithContext(ctx c
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v DeleteOptionsPatch) *DeleteOptionsPatch {
 		return &v
 	}).(DeleteOptionsPatchPtrOutput)
-}
-
-func (o DeleteOptionsPatchOutput) ToOutput(ctx context.Context) pulumix.Output[DeleteOptionsPatch] {
-	return pulumix.Output[DeleteOptionsPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -1821,12 +1610,6 @@ func (o DeleteOptionsPatchPtrOutput) ToDeleteOptionsPatchPtrOutput() DeleteOptio
 
 func (o DeleteOptionsPatchPtrOutput) ToDeleteOptionsPatchPtrOutputWithContext(ctx context.Context) DeleteOptionsPatchPtrOutput {
 	return o
-}
-
-func (o DeleteOptionsPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*DeleteOptionsPatch] {
-	return pulumix.Output[*DeleteOptionsPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o DeleteOptionsPatchPtrOutput) Elem() DeleteOptionsPatchOutput {
@@ -1948,12 +1731,6 @@ func (i GroupVersionForDiscoveryArgs) ToGroupVersionForDiscoveryOutputWithContex
 	return pulumi.ToOutputWithContext(ctx, i).(GroupVersionForDiscoveryOutput)
 }
 
-func (i GroupVersionForDiscoveryArgs) ToOutput(ctx context.Context) pulumix.Output[GroupVersionForDiscovery] {
-	return pulumix.Output[GroupVersionForDiscovery]{
-		OutputState: i.ToGroupVersionForDiscoveryOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i GroupVersionForDiscoveryArgs) ToGroupVersionForDiscoveryPtrOutput() GroupVersionForDiscoveryPtrOutput {
 	return i.ToGroupVersionForDiscoveryPtrOutputWithContext(context.Background())
 }
@@ -1995,12 +1772,6 @@ func (i *groupVersionForDiscoveryPtrType) ToGroupVersionForDiscoveryPtrOutputWit
 	return pulumi.ToOutputWithContext(ctx, i).(GroupVersionForDiscoveryPtrOutput)
 }
 
-func (i *groupVersionForDiscoveryPtrType) ToOutput(ctx context.Context) pulumix.Output[*GroupVersionForDiscovery] {
-	return pulumix.Output[*GroupVersionForDiscovery]{
-		OutputState: i.ToGroupVersionForDiscoveryPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // GroupVersionForDiscoveryArrayInput is an input type that accepts GroupVersionForDiscoveryArray and GroupVersionForDiscoveryArrayOutput values.
 // You can construct a concrete instance of `GroupVersionForDiscoveryArrayInput` via:
 //
@@ -2024,12 +1795,6 @@ func (i GroupVersionForDiscoveryArray) ToGroupVersionForDiscoveryArrayOutput() G
 
 func (i GroupVersionForDiscoveryArray) ToGroupVersionForDiscoveryArrayOutputWithContext(ctx context.Context) GroupVersionForDiscoveryArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(GroupVersionForDiscoveryArrayOutput)
-}
-
-func (i GroupVersionForDiscoveryArray) ToOutput(ctx context.Context) pulumix.Output[[]GroupVersionForDiscovery] {
-	return pulumix.Output[[]GroupVersionForDiscovery]{
-		OutputState: i.ToGroupVersionForDiscoveryArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // GroupVersion contains the "group/version" and "version" string of a version. It is made a struct to keep extensibility.
@@ -2057,12 +1822,6 @@ func (o GroupVersionForDiscoveryOutput) ToGroupVersionForDiscoveryPtrOutputWithC
 	}).(GroupVersionForDiscoveryPtrOutput)
 }
 
-func (o GroupVersionForDiscoveryOutput) ToOutput(ctx context.Context) pulumix.Output[GroupVersionForDiscovery] {
-	return pulumix.Output[GroupVersionForDiscovery]{
-		OutputState: o.OutputState,
-	}
-}
-
 // groupVersion specifies the API group and version in the form "group/version"
 func (o GroupVersionForDiscoveryOutput) GroupVersion() pulumi.StringOutput {
 	return o.ApplyT(func(v GroupVersionForDiscovery) string { return v.GroupVersion }).(pulumi.StringOutput)
@@ -2085,12 +1844,6 @@ func (o GroupVersionForDiscoveryPtrOutput) ToGroupVersionForDiscoveryPtrOutput()
 
 func (o GroupVersionForDiscoveryPtrOutput) ToGroupVersionForDiscoveryPtrOutputWithContext(ctx context.Context) GroupVersionForDiscoveryPtrOutput {
 	return o
-}
-
-func (o GroupVersionForDiscoveryPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*GroupVersionForDiscovery] {
-	return pulumix.Output[*GroupVersionForDiscovery]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o GroupVersionForDiscoveryPtrOutput) Elem() GroupVersionForDiscoveryOutput {
@@ -2135,12 +1888,6 @@ func (o GroupVersionForDiscoveryArrayOutput) ToGroupVersionForDiscoveryArrayOutp
 
 func (o GroupVersionForDiscoveryArrayOutput) ToGroupVersionForDiscoveryArrayOutputWithContext(ctx context.Context) GroupVersionForDiscoveryArrayOutput {
 	return o
-}
-
-func (o GroupVersionForDiscoveryArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]GroupVersionForDiscovery] {
-	return pulumix.Output[[]GroupVersionForDiscovery]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o GroupVersionForDiscoveryArrayOutput) Index(i pulumi.IntInput) GroupVersionForDiscoveryOutput {
@@ -2188,12 +1935,6 @@ func (i GroupVersionForDiscoveryPatchArgs) ToGroupVersionForDiscoveryPatchOutput
 	return pulumi.ToOutputWithContext(ctx, i).(GroupVersionForDiscoveryPatchOutput)
 }
 
-func (i GroupVersionForDiscoveryPatchArgs) ToOutput(ctx context.Context) pulumix.Output[GroupVersionForDiscoveryPatch] {
-	return pulumix.Output[GroupVersionForDiscoveryPatch]{
-		OutputState: i.ToGroupVersionForDiscoveryPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i GroupVersionForDiscoveryPatchArgs) ToGroupVersionForDiscoveryPatchPtrOutput() GroupVersionForDiscoveryPatchPtrOutput {
 	return i.ToGroupVersionForDiscoveryPatchPtrOutputWithContext(context.Background())
 }
@@ -2235,12 +1976,6 @@ func (i *groupVersionForDiscoveryPatchPtrType) ToGroupVersionForDiscoveryPatchPt
 	return pulumi.ToOutputWithContext(ctx, i).(GroupVersionForDiscoveryPatchPtrOutput)
 }
 
-func (i *groupVersionForDiscoveryPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*GroupVersionForDiscoveryPatch] {
-	return pulumix.Output[*GroupVersionForDiscoveryPatch]{
-		OutputState: i.ToGroupVersionForDiscoveryPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // GroupVersionForDiscoveryPatchArrayInput is an input type that accepts GroupVersionForDiscoveryPatchArray and GroupVersionForDiscoveryPatchArrayOutput values.
 // You can construct a concrete instance of `GroupVersionForDiscoveryPatchArrayInput` via:
 //
@@ -2264,12 +1999,6 @@ func (i GroupVersionForDiscoveryPatchArray) ToGroupVersionForDiscoveryPatchArray
 
 func (i GroupVersionForDiscoveryPatchArray) ToGroupVersionForDiscoveryPatchArrayOutputWithContext(ctx context.Context) GroupVersionForDiscoveryPatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(GroupVersionForDiscoveryPatchArrayOutput)
-}
-
-func (i GroupVersionForDiscoveryPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]GroupVersionForDiscoveryPatch] {
-	return pulumix.Output[[]GroupVersionForDiscoveryPatch]{
-		OutputState: i.ToGroupVersionForDiscoveryPatchArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // GroupVersion contains the "group/version" and "version" string of a version. It is made a struct to keep extensibility.
@@ -2297,12 +2026,6 @@ func (o GroupVersionForDiscoveryPatchOutput) ToGroupVersionForDiscoveryPatchPtrO
 	}).(GroupVersionForDiscoveryPatchPtrOutput)
 }
 
-func (o GroupVersionForDiscoveryPatchOutput) ToOutput(ctx context.Context) pulumix.Output[GroupVersionForDiscoveryPatch] {
-	return pulumix.Output[GroupVersionForDiscoveryPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 // groupVersion specifies the API group and version in the form "group/version"
 func (o GroupVersionForDiscoveryPatchOutput) GroupVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v GroupVersionForDiscoveryPatch) *string { return v.GroupVersion }).(pulumi.StringPtrOutput)
@@ -2325,12 +2048,6 @@ func (o GroupVersionForDiscoveryPatchPtrOutput) ToGroupVersionForDiscoveryPatchP
 
 func (o GroupVersionForDiscoveryPatchPtrOutput) ToGroupVersionForDiscoveryPatchPtrOutputWithContext(ctx context.Context) GroupVersionForDiscoveryPatchPtrOutput {
 	return o
-}
-
-func (o GroupVersionForDiscoveryPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*GroupVersionForDiscoveryPatch] {
-	return pulumix.Output[*GroupVersionForDiscoveryPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o GroupVersionForDiscoveryPatchPtrOutput) Elem() GroupVersionForDiscoveryPatchOutput {
@@ -2375,12 +2092,6 @@ func (o GroupVersionForDiscoveryPatchArrayOutput) ToGroupVersionForDiscoveryPatc
 
 func (o GroupVersionForDiscoveryPatchArrayOutput) ToGroupVersionForDiscoveryPatchArrayOutputWithContext(ctx context.Context) GroupVersionForDiscoveryPatchArrayOutput {
 	return o
-}
-
-func (o GroupVersionForDiscoveryPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]GroupVersionForDiscoveryPatch] {
-	return pulumix.Output[[]GroupVersionForDiscoveryPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o GroupVersionForDiscoveryPatchArrayOutput) Index(i pulumi.IntInput) GroupVersionForDiscoveryPatchOutput {
@@ -2428,12 +2139,6 @@ func (i LabelSelectorArgs) ToLabelSelectorOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(LabelSelectorOutput)
 }
 
-func (i LabelSelectorArgs) ToOutput(ctx context.Context) pulumix.Output[LabelSelector] {
-	return pulumix.Output[LabelSelector]{
-		OutputState: i.ToLabelSelectorOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i LabelSelectorArgs) ToLabelSelectorPtrOutput() LabelSelectorPtrOutput {
 	return i.ToLabelSelectorPtrOutputWithContext(context.Background())
 }
@@ -2475,12 +2180,6 @@ func (i *labelSelectorPtrType) ToLabelSelectorPtrOutputWithContext(ctx context.C
 	return pulumi.ToOutputWithContext(ctx, i).(LabelSelectorPtrOutput)
 }
 
-func (i *labelSelectorPtrType) ToOutput(ctx context.Context) pulumix.Output[*LabelSelector] {
-	return pulumix.Output[*LabelSelector]{
-		OutputState: i.ToLabelSelectorPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // LabelSelectorArrayInput is an input type that accepts LabelSelectorArray and LabelSelectorArrayOutput values.
 // You can construct a concrete instance of `LabelSelectorArrayInput` via:
 //
@@ -2504,12 +2203,6 @@ func (i LabelSelectorArray) ToLabelSelectorArrayOutput() LabelSelectorArrayOutpu
 
 func (i LabelSelectorArray) ToLabelSelectorArrayOutputWithContext(ctx context.Context) LabelSelectorArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(LabelSelectorArrayOutput)
-}
-
-func (i LabelSelectorArray) ToOutput(ctx context.Context) pulumix.Output[[]LabelSelector] {
-	return pulumix.Output[[]LabelSelector]{
-		OutputState: i.ToLabelSelectorArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // A label selector is a label query over a set of resources. The result of matchLabels and matchExpressions are ANDed. An empty label selector matches all objects. A null label selector matches no objects.
@@ -2537,12 +2230,6 @@ func (o LabelSelectorOutput) ToLabelSelectorPtrOutputWithContext(ctx context.Con
 	}).(LabelSelectorPtrOutput)
 }
 
-func (o LabelSelectorOutput) ToOutput(ctx context.Context) pulumix.Output[LabelSelector] {
-	return pulumix.Output[LabelSelector]{
-		OutputState: o.OutputState,
-	}
-}
-
 // matchExpressions is a list of label selector requirements. The requirements are ANDed.
 func (o LabelSelectorOutput) MatchExpressions() LabelSelectorRequirementArrayOutput {
 	return o.ApplyT(func(v LabelSelector) []LabelSelectorRequirement { return v.MatchExpressions }).(LabelSelectorRequirementArrayOutput)
@@ -2565,12 +2252,6 @@ func (o LabelSelectorPtrOutput) ToLabelSelectorPtrOutput() LabelSelectorPtrOutpu
 
 func (o LabelSelectorPtrOutput) ToLabelSelectorPtrOutputWithContext(ctx context.Context) LabelSelectorPtrOutput {
 	return o
-}
-
-func (o LabelSelectorPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*LabelSelector] {
-	return pulumix.Output[*LabelSelector]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o LabelSelectorPtrOutput) Elem() LabelSelectorOutput {
@@ -2615,12 +2296,6 @@ func (o LabelSelectorArrayOutput) ToLabelSelectorArrayOutput() LabelSelectorArra
 
 func (o LabelSelectorArrayOutput) ToLabelSelectorArrayOutputWithContext(ctx context.Context) LabelSelectorArrayOutput {
 	return o
-}
-
-func (o LabelSelectorArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]LabelSelector] {
-	return pulumix.Output[[]LabelSelector]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o LabelSelectorArrayOutput) Index(i pulumi.IntInput) LabelSelectorOutput {
@@ -2668,12 +2343,6 @@ func (i LabelSelectorPatchArgs) ToLabelSelectorPatchOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(LabelSelectorPatchOutput)
 }
 
-func (i LabelSelectorPatchArgs) ToOutput(ctx context.Context) pulumix.Output[LabelSelectorPatch] {
-	return pulumix.Output[LabelSelectorPatch]{
-		OutputState: i.ToLabelSelectorPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i LabelSelectorPatchArgs) ToLabelSelectorPatchPtrOutput() LabelSelectorPatchPtrOutput {
 	return i.ToLabelSelectorPatchPtrOutputWithContext(context.Background())
 }
@@ -2715,12 +2384,6 @@ func (i *labelSelectorPatchPtrType) ToLabelSelectorPatchPtrOutputWithContext(ctx
 	return pulumi.ToOutputWithContext(ctx, i).(LabelSelectorPatchPtrOutput)
 }
 
-func (i *labelSelectorPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*LabelSelectorPatch] {
-	return pulumix.Output[*LabelSelectorPatch]{
-		OutputState: i.ToLabelSelectorPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // LabelSelectorPatchArrayInput is an input type that accepts LabelSelectorPatchArray and LabelSelectorPatchArrayOutput values.
 // You can construct a concrete instance of `LabelSelectorPatchArrayInput` via:
 //
@@ -2744,12 +2407,6 @@ func (i LabelSelectorPatchArray) ToLabelSelectorPatchArrayOutput() LabelSelector
 
 func (i LabelSelectorPatchArray) ToLabelSelectorPatchArrayOutputWithContext(ctx context.Context) LabelSelectorPatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(LabelSelectorPatchArrayOutput)
-}
-
-func (i LabelSelectorPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]LabelSelectorPatch] {
-	return pulumix.Output[[]LabelSelectorPatch]{
-		OutputState: i.ToLabelSelectorPatchArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // A label selector is a label query over a set of resources. The result of matchLabels and matchExpressions are ANDed. An empty label selector matches all objects. A null label selector matches no objects.
@@ -2777,12 +2434,6 @@ func (o LabelSelectorPatchOutput) ToLabelSelectorPatchPtrOutputWithContext(ctx c
 	}).(LabelSelectorPatchPtrOutput)
 }
 
-func (o LabelSelectorPatchOutput) ToOutput(ctx context.Context) pulumix.Output[LabelSelectorPatch] {
-	return pulumix.Output[LabelSelectorPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 // matchExpressions is a list of label selector requirements. The requirements are ANDed.
 func (o LabelSelectorPatchOutput) MatchExpressions() LabelSelectorRequirementPatchArrayOutput {
 	return o.ApplyT(func(v LabelSelectorPatch) []LabelSelectorRequirementPatch { return v.MatchExpressions }).(LabelSelectorRequirementPatchArrayOutput)
@@ -2805,12 +2456,6 @@ func (o LabelSelectorPatchPtrOutput) ToLabelSelectorPatchPtrOutput() LabelSelect
 
 func (o LabelSelectorPatchPtrOutput) ToLabelSelectorPatchPtrOutputWithContext(ctx context.Context) LabelSelectorPatchPtrOutput {
 	return o
-}
-
-func (o LabelSelectorPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*LabelSelectorPatch] {
-	return pulumix.Output[*LabelSelectorPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o LabelSelectorPatchPtrOutput) Elem() LabelSelectorPatchOutput {
@@ -2855,12 +2500,6 @@ func (o LabelSelectorPatchArrayOutput) ToLabelSelectorPatchArrayOutput() LabelSe
 
 func (o LabelSelectorPatchArrayOutput) ToLabelSelectorPatchArrayOutputWithContext(ctx context.Context) LabelSelectorPatchArrayOutput {
 	return o
-}
-
-func (o LabelSelectorPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]LabelSelectorPatch] {
-	return pulumix.Output[[]LabelSelectorPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o LabelSelectorPatchArrayOutput) Index(i pulumi.IntInput) LabelSelectorPatchOutput {
@@ -2912,12 +2551,6 @@ func (i LabelSelectorRequirementArgs) ToLabelSelectorRequirementOutputWithContex
 	return pulumi.ToOutputWithContext(ctx, i).(LabelSelectorRequirementOutput)
 }
 
-func (i LabelSelectorRequirementArgs) ToOutput(ctx context.Context) pulumix.Output[LabelSelectorRequirement] {
-	return pulumix.Output[LabelSelectorRequirement]{
-		OutputState: i.ToLabelSelectorRequirementOutputWithContext(ctx).OutputState,
-	}
-}
-
 // LabelSelectorRequirementArrayInput is an input type that accepts LabelSelectorRequirementArray and LabelSelectorRequirementArrayOutput values.
 // You can construct a concrete instance of `LabelSelectorRequirementArrayInput` via:
 //
@@ -2943,12 +2576,6 @@ func (i LabelSelectorRequirementArray) ToLabelSelectorRequirementArrayOutputWith
 	return pulumi.ToOutputWithContext(ctx, i).(LabelSelectorRequirementArrayOutput)
 }
 
-func (i LabelSelectorRequirementArray) ToOutput(ctx context.Context) pulumix.Output[[]LabelSelectorRequirement] {
-	return pulumix.Output[[]LabelSelectorRequirement]{
-		OutputState: i.ToLabelSelectorRequirementArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
 type LabelSelectorRequirementOutput struct{ *pulumi.OutputState }
 
@@ -2962,12 +2589,6 @@ func (o LabelSelectorRequirementOutput) ToLabelSelectorRequirementOutput() Label
 
 func (o LabelSelectorRequirementOutput) ToLabelSelectorRequirementOutputWithContext(ctx context.Context) LabelSelectorRequirementOutput {
 	return o
-}
-
-func (o LabelSelectorRequirementOutput) ToOutput(ctx context.Context) pulumix.Output[LabelSelectorRequirement] {
-	return pulumix.Output[LabelSelectorRequirement]{
-		OutputState: o.OutputState,
-	}
 }
 
 // key is the label key that the selector applies to.
@@ -2997,12 +2618,6 @@ func (o LabelSelectorRequirementArrayOutput) ToLabelSelectorRequirementArrayOutp
 
 func (o LabelSelectorRequirementArrayOutput) ToLabelSelectorRequirementArrayOutputWithContext(ctx context.Context) LabelSelectorRequirementArrayOutput {
 	return o
-}
-
-func (o LabelSelectorRequirementArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]LabelSelectorRequirement] {
-	return pulumix.Output[[]LabelSelectorRequirement]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o LabelSelectorRequirementArrayOutput) Index(i pulumi.IntInput) LabelSelectorRequirementOutput {
@@ -3054,12 +2669,6 @@ func (i LabelSelectorRequirementPatchArgs) ToLabelSelectorRequirementPatchOutput
 	return pulumi.ToOutputWithContext(ctx, i).(LabelSelectorRequirementPatchOutput)
 }
 
-func (i LabelSelectorRequirementPatchArgs) ToOutput(ctx context.Context) pulumix.Output[LabelSelectorRequirementPatch] {
-	return pulumix.Output[LabelSelectorRequirementPatch]{
-		OutputState: i.ToLabelSelectorRequirementPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // LabelSelectorRequirementPatchArrayInput is an input type that accepts LabelSelectorRequirementPatchArray and LabelSelectorRequirementPatchArrayOutput values.
 // You can construct a concrete instance of `LabelSelectorRequirementPatchArrayInput` via:
 //
@@ -3085,12 +2694,6 @@ func (i LabelSelectorRequirementPatchArray) ToLabelSelectorRequirementPatchArray
 	return pulumi.ToOutputWithContext(ctx, i).(LabelSelectorRequirementPatchArrayOutput)
 }
 
-func (i LabelSelectorRequirementPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]LabelSelectorRequirementPatch] {
-	return pulumix.Output[[]LabelSelectorRequirementPatch]{
-		OutputState: i.ToLabelSelectorRequirementPatchArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.
 type LabelSelectorRequirementPatchOutput struct{ *pulumi.OutputState }
 
@@ -3104,12 +2707,6 @@ func (o LabelSelectorRequirementPatchOutput) ToLabelSelectorRequirementPatchOutp
 
 func (o LabelSelectorRequirementPatchOutput) ToLabelSelectorRequirementPatchOutputWithContext(ctx context.Context) LabelSelectorRequirementPatchOutput {
 	return o
-}
-
-func (o LabelSelectorRequirementPatchOutput) ToOutput(ctx context.Context) pulumix.Output[LabelSelectorRequirementPatch] {
-	return pulumix.Output[LabelSelectorRequirementPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // key is the label key that the selector applies to.
@@ -3139,12 +2736,6 @@ func (o LabelSelectorRequirementPatchArrayOutput) ToLabelSelectorRequirementPatc
 
 func (o LabelSelectorRequirementPatchArrayOutput) ToLabelSelectorRequirementPatchArrayOutputWithContext(ctx context.Context) LabelSelectorRequirementPatchArrayOutput {
 	return o
-}
-
-func (o LabelSelectorRequirementPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]LabelSelectorRequirementPatch] {
-	return pulumix.Output[[]LabelSelectorRequirementPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o LabelSelectorRequirementPatchArrayOutput) Index(i pulumi.IntInput) LabelSelectorRequirementPatchOutput {
@@ -3200,12 +2791,6 @@ func (i ListMetaArgs) ToListMetaOutputWithContext(ctx context.Context) ListMetaO
 	return pulumi.ToOutputWithContext(ctx, i).(ListMetaOutput)
 }
 
-func (i ListMetaArgs) ToOutput(ctx context.Context) pulumix.Output[ListMeta] {
-	return pulumix.Output[ListMeta]{
-		OutputState: i.ToListMetaOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i ListMetaArgs) ToListMetaPtrOutput() ListMetaPtrOutput {
 	return i.ToListMetaPtrOutputWithContext(context.Background())
 }
@@ -3247,12 +2832,6 @@ func (i *listMetaPtrType) ToListMetaPtrOutputWithContext(ctx context.Context) Li
 	return pulumi.ToOutputWithContext(ctx, i).(ListMetaPtrOutput)
 }
 
-func (i *listMetaPtrType) ToOutput(ctx context.Context) pulumix.Output[*ListMeta] {
-	return pulumix.Output[*ListMeta]{
-		OutputState: i.ToListMetaPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ListMeta describes metadata that synthetic resources must have, including lists and various status objects. A resource may have only one of {ObjectMeta, ListMeta}.
 type ListMetaOutput struct{ *pulumi.OutputState }
 
@@ -3276,12 +2855,6 @@ func (o ListMetaOutput) ToListMetaPtrOutputWithContext(ctx context.Context) List
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v ListMeta) *ListMeta {
 		return &v
 	}).(ListMetaPtrOutput)
-}
-
-func (o ListMetaOutput) ToOutput(ctx context.Context) pulumix.Output[ListMeta] {
-	return pulumix.Output[ListMeta]{
-		OutputState: o.OutputState,
-	}
 }
 
 // continue may be set if the user set a limit on the number of items returned, and indicates that the server has more data available. The value is opaque and may be used to issue another request to the endpoint that served this list to retrieve the next set of available objects. Continuing a consistent list may not be possible if the server configuration has changed or more than a few minutes have passed. The resourceVersion field returned when using this continue value will be identical to the value in the first response, unless you have received this token from an error message.
@@ -3316,12 +2889,6 @@ func (o ListMetaPtrOutput) ToListMetaPtrOutput() ListMetaPtrOutput {
 
 func (o ListMetaPtrOutput) ToListMetaPtrOutputWithContext(ctx context.Context) ListMetaPtrOutput {
 	return o
-}
-
-func (o ListMetaPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ListMeta] {
-	return pulumix.Output[*ListMeta]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ListMetaPtrOutput) Elem() ListMetaOutput {
@@ -3421,12 +2988,6 @@ func (i ListMetaPatchArgs) ToListMetaPatchOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(ListMetaPatchOutput)
 }
 
-func (i ListMetaPatchArgs) ToOutput(ctx context.Context) pulumix.Output[ListMetaPatch] {
-	return pulumix.Output[ListMetaPatch]{
-		OutputState: i.ToListMetaPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i ListMetaPatchArgs) ToListMetaPatchPtrOutput() ListMetaPatchPtrOutput {
 	return i.ToListMetaPatchPtrOutputWithContext(context.Background())
 }
@@ -3468,12 +3029,6 @@ func (i *listMetaPatchPtrType) ToListMetaPatchPtrOutputWithContext(ctx context.C
 	return pulumi.ToOutputWithContext(ctx, i).(ListMetaPatchPtrOutput)
 }
 
-func (i *listMetaPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*ListMetaPatch] {
-	return pulumix.Output[*ListMetaPatch]{
-		OutputState: i.ToListMetaPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ListMeta describes metadata that synthetic resources must have, including lists and various status objects. A resource may have only one of {ObjectMeta, ListMeta}.
 type ListMetaPatchOutput struct{ *pulumi.OutputState }
 
@@ -3497,12 +3052,6 @@ func (o ListMetaPatchOutput) ToListMetaPatchPtrOutputWithContext(ctx context.Con
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v ListMetaPatch) *ListMetaPatch {
 		return &v
 	}).(ListMetaPatchPtrOutput)
-}
-
-func (o ListMetaPatchOutput) ToOutput(ctx context.Context) pulumix.Output[ListMetaPatch] {
-	return pulumix.Output[ListMetaPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // continue may be set if the user set a limit on the number of items returned, and indicates that the server has more data available. The value is opaque and may be used to issue another request to the endpoint that served this list to retrieve the next set of available objects. Continuing a consistent list may not be possible if the server configuration has changed or more than a few minutes have passed. The resourceVersion field returned when using this continue value will be identical to the value in the first response, unless you have received this token from an error message.
@@ -3537,12 +3086,6 @@ func (o ListMetaPatchPtrOutput) ToListMetaPatchPtrOutput() ListMetaPatchPtrOutpu
 
 func (o ListMetaPatchPtrOutput) ToListMetaPatchPtrOutputWithContext(ctx context.Context) ListMetaPatchPtrOutput {
 	return o
-}
-
-func (o ListMetaPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ListMetaPatch] {
-	return pulumix.Output[*ListMetaPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ListMetaPatchPtrOutput) Elem() ListMetaPatchOutput {
@@ -3654,12 +3197,6 @@ func (i ManagedFieldsEntryArgs) ToManagedFieldsEntryOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(ManagedFieldsEntryOutput)
 }
 
-func (i ManagedFieldsEntryArgs) ToOutput(ctx context.Context) pulumix.Output[ManagedFieldsEntry] {
-	return pulumix.Output[ManagedFieldsEntry]{
-		OutputState: i.ToManagedFieldsEntryOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ManagedFieldsEntryArrayInput is an input type that accepts ManagedFieldsEntryArray and ManagedFieldsEntryArrayOutput values.
 // You can construct a concrete instance of `ManagedFieldsEntryArrayInput` via:
 //
@@ -3685,12 +3222,6 @@ func (i ManagedFieldsEntryArray) ToManagedFieldsEntryArrayOutputWithContext(ctx 
 	return pulumi.ToOutputWithContext(ctx, i).(ManagedFieldsEntryArrayOutput)
 }
 
-func (i ManagedFieldsEntryArray) ToOutput(ctx context.Context) pulumix.Output[[]ManagedFieldsEntry] {
-	return pulumix.Output[[]ManagedFieldsEntry]{
-		OutputState: i.ToManagedFieldsEntryArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ManagedFieldsEntry is a workflow-id, a FieldSet and the group version of the resource that the fieldset applies to.
 type ManagedFieldsEntryOutput struct{ *pulumi.OutputState }
 
@@ -3704,12 +3235,6 @@ func (o ManagedFieldsEntryOutput) ToManagedFieldsEntryOutput() ManagedFieldsEntr
 
 func (o ManagedFieldsEntryOutput) ToManagedFieldsEntryOutputWithContext(ctx context.Context) ManagedFieldsEntryOutput {
 	return o
-}
-
-func (o ManagedFieldsEntryOutput) ToOutput(ctx context.Context) pulumix.Output[ManagedFieldsEntry] {
-	return pulumix.Output[ManagedFieldsEntry]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the version of this resource that this field set applies to. The format is "group/version" just like the top-level APIVersion field. It is necessary to track the version of a field set because it cannot be automatically converted.
@@ -3759,12 +3284,6 @@ func (o ManagedFieldsEntryArrayOutput) ToManagedFieldsEntryArrayOutput() Managed
 
 func (o ManagedFieldsEntryArrayOutput) ToManagedFieldsEntryArrayOutputWithContext(ctx context.Context) ManagedFieldsEntryArrayOutput {
 	return o
-}
-
-func (o ManagedFieldsEntryArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]ManagedFieldsEntry] {
-	return pulumix.Output[[]ManagedFieldsEntry]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ManagedFieldsEntryArrayOutput) Index(i pulumi.IntInput) ManagedFieldsEntryOutput {
@@ -3832,12 +3351,6 @@ func (i ManagedFieldsEntryPatchArgs) ToManagedFieldsEntryPatchOutputWithContext(
 	return pulumi.ToOutputWithContext(ctx, i).(ManagedFieldsEntryPatchOutput)
 }
 
-func (i ManagedFieldsEntryPatchArgs) ToOutput(ctx context.Context) pulumix.Output[ManagedFieldsEntryPatch] {
-	return pulumix.Output[ManagedFieldsEntryPatch]{
-		OutputState: i.ToManagedFieldsEntryPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ManagedFieldsEntryPatchArrayInput is an input type that accepts ManagedFieldsEntryPatchArray and ManagedFieldsEntryPatchArrayOutput values.
 // You can construct a concrete instance of `ManagedFieldsEntryPatchArrayInput` via:
 //
@@ -3863,12 +3376,6 @@ func (i ManagedFieldsEntryPatchArray) ToManagedFieldsEntryPatchArrayOutputWithCo
 	return pulumi.ToOutputWithContext(ctx, i).(ManagedFieldsEntryPatchArrayOutput)
 }
 
-func (i ManagedFieldsEntryPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]ManagedFieldsEntryPatch] {
-	return pulumix.Output[[]ManagedFieldsEntryPatch]{
-		OutputState: i.ToManagedFieldsEntryPatchArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ManagedFieldsEntry is a workflow-id, a FieldSet and the group version of the resource that the fieldset applies to.
 type ManagedFieldsEntryPatchOutput struct{ *pulumi.OutputState }
 
@@ -3882,12 +3389,6 @@ func (o ManagedFieldsEntryPatchOutput) ToManagedFieldsEntryPatchOutput() Managed
 
 func (o ManagedFieldsEntryPatchOutput) ToManagedFieldsEntryPatchOutputWithContext(ctx context.Context) ManagedFieldsEntryPatchOutput {
 	return o
-}
-
-func (o ManagedFieldsEntryPatchOutput) ToOutput(ctx context.Context) pulumix.Output[ManagedFieldsEntryPatch] {
-	return pulumix.Output[ManagedFieldsEntryPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the version of this resource that this field set applies to. The format is "group/version" just like the top-level APIVersion field. It is necessary to track the version of a field set because it cannot be automatically converted.
@@ -3937,12 +3438,6 @@ func (o ManagedFieldsEntryPatchArrayOutput) ToManagedFieldsEntryPatchArrayOutput
 
 func (o ManagedFieldsEntryPatchArrayOutput) ToManagedFieldsEntryPatchArrayOutputWithContext(ctx context.Context) ManagedFieldsEntryPatchArrayOutput {
 	return o
-}
-
-func (o ManagedFieldsEntryPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]ManagedFieldsEntryPatch] {
-	return pulumix.Output[[]ManagedFieldsEntryPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ManagedFieldsEntryPatchArrayOutput) Index(i pulumi.IntInput) ManagedFieldsEntryPatchOutput {
@@ -4074,12 +3569,6 @@ func (i ObjectMetaArgs) ToObjectMetaOutputWithContext(ctx context.Context) Objec
 	return pulumi.ToOutputWithContext(ctx, i).(ObjectMetaOutput)
 }
 
-func (i ObjectMetaArgs) ToOutput(ctx context.Context) pulumix.Output[ObjectMeta] {
-	return pulumix.Output[ObjectMeta]{
-		OutputState: i.ToObjectMetaOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i ObjectMetaArgs) ToObjectMetaPtrOutput() ObjectMetaPtrOutput {
 	return i.ToObjectMetaPtrOutputWithContext(context.Background())
 }
@@ -4121,12 +3610,6 @@ func (i *objectMetaPtrType) ToObjectMetaPtrOutputWithContext(ctx context.Context
 	return pulumi.ToOutputWithContext(ctx, i).(ObjectMetaPtrOutput)
 }
 
-func (i *objectMetaPtrType) ToOutput(ctx context.Context) pulumix.Output[*ObjectMeta] {
-	return pulumix.Output[*ObjectMeta]{
-		OutputState: i.ToObjectMetaPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create.
 type ObjectMetaOutput struct{ *pulumi.OutputState }
 
@@ -4150,12 +3633,6 @@ func (o ObjectMetaOutput) ToObjectMetaPtrOutputWithContext(ctx context.Context) 
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v ObjectMeta) *ObjectMeta {
 		return &v
 	}).(ObjectMetaPtrOutput)
-}
-
-func (o ObjectMetaOutput) ToOutput(ctx context.Context) pulumix.Output[ObjectMeta] {
-	return pulumix.Output[ObjectMeta]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations
@@ -4264,12 +3741,6 @@ func (o ObjectMetaPtrOutput) ToObjectMetaPtrOutput() ObjectMetaPtrOutput {
 
 func (o ObjectMetaPtrOutput) ToObjectMetaPtrOutputWithContext(ctx context.Context) ObjectMetaPtrOutput {
 	return o
-}
-
-func (o ObjectMetaPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ObjectMeta] {
-	return pulumix.Output[*ObjectMeta]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ObjectMetaPtrOutput) Elem() ObjectMetaOutput {
@@ -4579,12 +4050,6 @@ func (i ObjectMetaPatchArgs) ToObjectMetaPatchOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(ObjectMetaPatchOutput)
 }
 
-func (i ObjectMetaPatchArgs) ToOutput(ctx context.Context) pulumix.Output[ObjectMetaPatch] {
-	return pulumix.Output[ObjectMetaPatch]{
-		OutputState: i.ToObjectMetaPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i ObjectMetaPatchArgs) ToObjectMetaPatchPtrOutput() ObjectMetaPatchPtrOutput {
 	return i.ToObjectMetaPatchPtrOutputWithContext(context.Background())
 }
@@ -4626,12 +4091,6 @@ func (i *objectMetaPatchPtrType) ToObjectMetaPatchPtrOutputWithContext(ctx conte
 	return pulumi.ToOutputWithContext(ctx, i).(ObjectMetaPatchPtrOutput)
 }
 
-func (i *objectMetaPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*ObjectMetaPatch] {
-	return pulumix.Output[*ObjectMetaPatch]{
-		OutputState: i.ToObjectMetaPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create.
 type ObjectMetaPatchOutput struct{ *pulumi.OutputState }
 
@@ -4655,12 +4114,6 @@ func (o ObjectMetaPatchOutput) ToObjectMetaPatchPtrOutputWithContext(ctx context
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v ObjectMetaPatch) *ObjectMetaPatch {
 		return &v
 	}).(ObjectMetaPatchPtrOutput)
-}
-
-func (o ObjectMetaPatchOutput) ToOutput(ctx context.Context) pulumix.Output[ObjectMetaPatch] {
-	return pulumix.Output[ObjectMetaPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations
@@ -4769,12 +4222,6 @@ func (o ObjectMetaPatchPtrOutput) ToObjectMetaPatchPtrOutput() ObjectMetaPatchPt
 
 func (o ObjectMetaPatchPtrOutput) ToObjectMetaPatchPtrOutputWithContext(ctx context.Context) ObjectMetaPatchPtrOutput {
 	return o
-}
-
-func (o ObjectMetaPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ObjectMetaPatch] {
-	return pulumix.Output[*ObjectMetaPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ObjectMetaPatchPtrOutput) Elem() ObjectMetaPatchOutput {
@@ -5016,12 +4463,6 @@ func (i OwnerReferenceArgs) ToOwnerReferenceOutputWithContext(ctx context.Contex
 	return pulumi.ToOutputWithContext(ctx, i).(OwnerReferenceOutput)
 }
 
-func (i OwnerReferenceArgs) ToOutput(ctx context.Context) pulumix.Output[OwnerReference] {
-	return pulumix.Output[OwnerReference]{
-		OutputState: i.ToOwnerReferenceOutputWithContext(ctx).OutputState,
-	}
-}
-
 // OwnerReferenceArrayInput is an input type that accepts OwnerReferenceArray and OwnerReferenceArrayOutput values.
 // You can construct a concrete instance of `OwnerReferenceArrayInput` via:
 //
@@ -5047,12 +4488,6 @@ func (i OwnerReferenceArray) ToOwnerReferenceArrayOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(OwnerReferenceArrayOutput)
 }
 
-func (i OwnerReferenceArray) ToOutput(ctx context.Context) pulumix.Output[[]OwnerReference] {
-	return pulumix.Output[[]OwnerReference]{
-		OutputState: i.ToOwnerReferenceArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // OwnerReference contains enough information to let you identify an owning object. An owning object must be in the same namespace as the dependent, or be cluster-scoped, so there is no namespace field.
 type OwnerReferenceOutput struct{ *pulumi.OutputState }
 
@@ -5066,12 +4501,6 @@ func (o OwnerReferenceOutput) ToOwnerReferenceOutput() OwnerReferenceOutput {
 
 func (o OwnerReferenceOutput) ToOwnerReferenceOutputWithContext(ctx context.Context) OwnerReferenceOutput {
 	return o
-}
-
-func (o OwnerReferenceOutput) ToOutput(ctx context.Context) pulumix.Output[OwnerReference] {
-	return pulumix.Output[OwnerReference]{
-		OutputState: o.OutputState,
-	}
 }
 
 // API version of the referent.
@@ -5116,12 +4545,6 @@ func (o OwnerReferenceArrayOutput) ToOwnerReferenceArrayOutput() OwnerReferenceA
 
 func (o OwnerReferenceArrayOutput) ToOwnerReferenceArrayOutputWithContext(ctx context.Context) OwnerReferenceArrayOutput {
 	return o
-}
-
-func (o OwnerReferenceArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]OwnerReference] {
-	return pulumix.Output[[]OwnerReference]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o OwnerReferenceArrayOutput) Index(i pulumi.IntInput) OwnerReferenceOutput {
@@ -5185,12 +4608,6 @@ func (i OwnerReferencePatchArgs) ToOwnerReferencePatchOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(OwnerReferencePatchOutput)
 }
 
-func (i OwnerReferencePatchArgs) ToOutput(ctx context.Context) pulumix.Output[OwnerReferencePatch] {
-	return pulumix.Output[OwnerReferencePatch]{
-		OutputState: i.ToOwnerReferencePatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // OwnerReferencePatchArrayInput is an input type that accepts OwnerReferencePatchArray and OwnerReferencePatchArrayOutput values.
 // You can construct a concrete instance of `OwnerReferencePatchArrayInput` via:
 //
@@ -5216,12 +4633,6 @@ func (i OwnerReferencePatchArray) ToOwnerReferencePatchArrayOutputWithContext(ct
 	return pulumi.ToOutputWithContext(ctx, i).(OwnerReferencePatchArrayOutput)
 }
 
-func (i OwnerReferencePatchArray) ToOutput(ctx context.Context) pulumix.Output[[]OwnerReferencePatch] {
-	return pulumix.Output[[]OwnerReferencePatch]{
-		OutputState: i.ToOwnerReferencePatchArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // OwnerReference contains enough information to let you identify an owning object. An owning object must be in the same namespace as the dependent, or be cluster-scoped, so there is no namespace field.
 type OwnerReferencePatchOutput struct{ *pulumi.OutputState }
 
@@ -5235,12 +4646,6 @@ func (o OwnerReferencePatchOutput) ToOwnerReferencePatchOutput() OwnerReferenceP
 
 func (o OwnerReferencePatchOutput) ToOwnerReferencePatchOutputWithContext(ctx context.Context) OwnerReferencePatchOutput {
 	return o
-}
-
-func (o OwnerReferencePatchOutput) ToOutput(ctx context.Context) pulumix.Output[OwnerReferencePatch] {
-	return pulumix.Output[OwnerReferencePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // API version of the referent.
@@ -5285,12 +4690,6 @@ func (o OwnerReferencePatchArrayOutput) ToOwnerReferencePatchArrayOutput() Owner
 
 func (o OwnerReferencePatchArrayOutput) ToOwnerReferencePatchArrayOutputWithContext(ctx context.Context) OwnerReferencePatchArrayOutput {
 	return o
-}
-
-func (o OwnerReferencePatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]OwnerReferencePatch] {
-	return pulumix.Output[[]OwnerReferencePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o OwnerReferencePatchArrayOutput) Index(i pulumi.IntInput) OwnerReferencePatchOutput {
@@ -5338,12 +4737,6 @@ func (i PreconditionsArgs) ToPreconditionsOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(PreconditionsOutput)
 }
 
-func (i PreconditionsArgs) ToOutput(ctx context.Context) pulumix.Output[Preconditions] {
-	return pulumix.Output[Preconditions]{
-		OutputState: i.ToPreconditionsOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i PreconditionsArgs) ToPreconditionsPtrOutput() PreconditionsPtrOutput {
 	return i.ToPreconditionsPtrOutputWithContext(context.Background())
 }
@@ -5385,12 +4778,6 @@ func (i *preconditionsPtrType) ToPreconditionsPtrOutputWithContext(ctx context.C
 	return pulumi.ToOutputWithContext(ctx, i).(PreconditionsPtrOutput)
 }
 
-func (i *preconditionsPtrType) ToOutput(ctx context.Context) pulumix.Output[*Preconditions] {
-	return pulumix.Output[*Preconditions]{
-		OutputState: i.ToPreconditionsPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // Preconditions must be fulfilled before an operation (update, delete, etc.) is carried out.
 type PreconditionsOutput struct{ *pulumi.OutputState }
 
@@ -5416,12 +4803,6 @@ func (o PreconditionsOutput) ToPreconditionsPtrOutputWithContext(ctx context.Con
 	}).(PreconditionsPtrOutput)
 }
 
-func (o PreconditionsOutput) ToOutput(ctx context.Context) pulumix.Output[Preconditions] {
-	return pulumix.Output[Preconditions]{
-		OutputState: o.OutputState,
-	}
-}
-
 // Specifies the target ResourceVersion
 func (o PreconditionsOutput) ResourceVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v Preconditions) *string { return v.ResourceVersion }).(pulumi.StringPtrOutput)
@@ -5444,12 +4825,6 @@ func (o PreconditionsPtrOutput) ToPreconditionsPtrOutput() PreconditionsPtrOutpu
 
 func (o PreconditionsPtrOutput) ToPreconditionsPtrOutputWithContext(ctx context.Context) PreconditionsPtrOutput {
 	return o
-}
-
-func (o PreconditionsPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*Preconditions] {
-	return pulumix.Output[*Preconditions]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o PreconditionsPtrOutput) Elem() PreconditionsOutput {
@@ -5521,12 +4896,6 @@ func (i PreconditionsPatchArgs) ToPreconditionsPatchOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(PreconditionsPatchOutput)
 }
 
-func (i PreconditionsPatchArgs) ToOutput(ctx context.Context) pulumix.Output[PreconditionsPatch] {
-	return pulumix.Output[PreconditionsPatch]{
-		OutputState: i.ToPreconditionsPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i PreconditionsPatchArgs) ToPreconditionsPatchPtrOutput() PreconditionsPatchPtrOutput {
 	return i.ToPreconditionsPatchPtrOutputWithContext(context.Background())
 }
@@ -5568,12 +4937,6 @@ func (i *preconditionsPatchPtrType) ToPreconditionsPatchPtrOutputWithContext(ctx
 	return pulumi.ToOutputWithContext(ctx, i).(PreconditionsPatchPtrOutput)
 }
 
-func (i *preconditionsPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*PreconditionsPatch] {
-	return pulumix.Output[*PreconditionsPatch]{
-		OutputState: i.ToPreconditionsPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // Preconditions must be fulfilled before an operation (update, delete, etc.) is carried out.
 type PreconditionsPatchOutput struct{ *pulumi.OutputState }
 
@@ -5599,12 +4962,6 @@ func (o PreconditionsPatchOutput) ToPreconditionsPatchPtrOutputWithContext(ctx c
 	}).(PreconditionsPatchPtrOutput)
 }
 
-func (o PreconditionsPatchOutput) ToOutput(ctx context.Context) pulumix.Output[PreconditionsPatch] {
-	return pulumix.Output[PreconditionsPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 // Specifies the target ResourceVersion
 func (o PreconditionsPatchOutput) ResourceVersion() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v PreconditionsPatch) *string { return v.ResourceVersion }).(pulumi.StringPtrOutput)
@@ -5627,12 +4984,6 @@ func (o PreconditionsPatchPtrOutput) ToPreconditionsPatchPtrOutput() Preconditio
 
 func (o PreconditionsPatchPtrOutput) ToPreconditionsPatchPtrOutputWithContext(ctx context.Context) PreconditionsPatchPtrOutput {
 	return o
-}
-
-func (o PreconditionsPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*PreconditionsPatch] {
-	return pulumix.Output[*PreconditionsPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o PreconditionsPatchPtrOutput) Elem() PreconditionsPatchOutput {
@@ -5704,12 +5055,6 @@ func (i ServerAddressByClientCIDRArgs) ToServerAddressByClientCIDROutputWithCont
 	return pulumi.ToOutputWithContext(ctx, i).(ServerAddressByClientCIDROutput)
 }
 
-func (i ServerAddressByClientCIDRArgs) ToOutput(ctx context.Context) pulumix.Output[ServerAddressByClientCIDR] {
-	return pulumix.Output[ServerAddressByClientCIDR]{
-		OutputState: i.ToServerAddressByClientCIDROutputWithContext(ctx).OutputState,
-	}
-}
-
 // ServerAddressByClientCIDRArrayInput is an input type that accepts ServerAddressByClientCIDRArray and ServerAddressByClientCIDRArrayOutput values.
 // You can construct a concrete instance of `ServerAddressByClientCIDRArrayInput` via:
 //
@@ -5735,12 +5080,6 @@ func (i ServerAddressByClientCIDRArray) ToServerAddressByClientCIDRArrayOutputWi
 	return pulumi.ToOutputWithContext(ctx, i).(ServerAddressByClientCIDRArrayOutput)
 }
 
-func (i ServerAddressByClientCIDRArray) ToOutput(ctx context.Context) pulumix.Output[[]ServerAddressByClientCIDR] {
-	return pulumix.Output[[]ServerAddressByClientCIDR]{
-		OutputState: i.ToServerAddressByClientCIDRArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ServerAddressByClientCIDR helps the client to determine the server address that they should use, depending on the clientCIDR that they match.
 type ServerAddressByClientCIDROutput struct{ *pulumi.OutputState }
 
@@ -5754,12 +5093,6 @@ func (o ServerAddressByClientCIDROutput) ToServerAddressByClientCIDROutput() Ser
 
 func (o ServerAddressByClientCIDROutput) ToServerAddressByClientCIDROutputWithContext(ctx context.Context) ServerAddressByClientCIDROutput {
 	return o
-}
-
-func (o ServerAddressByClientCIDROutput) ToOutput(ctx context.Context) pulumix.Output[ServerAddressByClientCIDR] {
-	return pulumix.Output[ServerAddressByClientCIDR]{
-		OutputState: o.OutputState,
-	}
 }
 
 // The CIDR with which clients can match their IP to figure out the server address that they should use.
@@ -5784,12 +5117,6 @@ func (o ServerAddressByClientCIDRArrayOutput) ToServerAddressByClientCIDRArrayOu
 
 func (o ServerAddressByClientCIDRArrayOutput) ToServerAddressByClientCIDRArrayOutputWithContext(ctx context.Context) ServerAddressByClientCIDRArrayOutput {
 	return o
-}
-
-func (o ServerAddressByClientCIDRArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]ServerAddressByClientCIDR] {
-	return pulumix.Output[[]ServerAddressByClientCIDR]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ServerAddressByClientCIDRArrayOutput) Index(i pulumi.IntInput) ServerAddressByClientCIDROutput {
@@ -5837,12 +5164,6 @@ func (i ServerAddressByClientCIDRPatchArgs) ToServerAddressByClientCIDRPatchOutp
 	return pulumi.ToOutputWithContext(ctx, i).(ServerAddressByClientCIDRPatchOutput)
 }
 
-func (i ServerAddressByClientCIDRPatchArgs) ToOutput(ctx context.Context) pulumix.Output[ServerAddressByClientCIDRPatch] {
-	return pulumix.Output[ServerAddressByClientCIDRPatch]{
-		OutputState: i.ToServerAddressByClientCIDRPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ServerAddressByClientCIDRPatchArrayInput is an input type that accepts ServerAddressByClientCIDRPatchArray and ServerAddressByClientCIDRPatchArrayOutput values.
 // You can construct a concrete instance of `ServerAddressByClientCIDRPatchArrayInput` via:
 //
@@ -5868,12 +5189,6 @@ func (i ServerAddressByClientCIDRPatchArray) ToServerAddressByClientCIDRPatchArr
 	return pulumi.ToOutputWithContext(ctx, i).(ServerAddressByClientCIDRPatchArrayOutput)
 }
 
-func (i ServerAddressByClientCIDRPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]ServerAddressByClientCIDRPatch] {
-	return pulumix.Output[[]ServerAddressByClientCIDRPatch]{
-		OutputState: i.ToServerAddressByClientCIDRPatchArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ServerAddressByClientCIDR helps the client to determine the server address that they should use, depending on the clientCIDR that they match.
 type ServerAddressByClientCIDRPatchOutput struct{ *pulumi.OutputState }
 
@@ -5887,12 +5202,6 @@ func (o ServerAddressByClientCIDRPatchOutput) ToServerAddressByClientCIDRPatchOu
 
 func (o ServerAddressByClientCIDRPatchOutput) ToServerAddressByClientCIDRPatchOutputWithContext(ctx context.Context) ServerAddressByClientCIDRPatchOutput {
 	return o
-}
-
-func (o ServerAddressByClientCIDRPatchOutput) ToOutput(ctx context.Context) pulumix.Output[ServerAddressByClientCIDRPatch] {
-	return pulumix.Output[ServerAddressByClientCIDRPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // The CIDR with which clients can match their IP to figure out the server address that they should use.
@@ -5917,12 +5226,6 @@ func (o ServerAddressByClientCIDRPatchArrayOutput) ToServerAddressByClientCIDRPa
 
 func (o ServerAddressByClientCIDRPatchArrayOutput) ToServerAddressByClientCIDRPatchArrayOutputWithContext(ctx context.Context) ServerAddressByClientCIDRPatchArrayOutput {
 	return o
-}
-
-func (o ServerAddressByClientCIDRPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]ServerAddressByClientCIDRPatch] {
-	return pulumix.Output[[]ServerAddressByClientCIDRPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ServerAddressByClientCIDRPatchArrayOutput) Index(i pulumi.IntInput) ServerAddressByClientCIDRPatchOutput {
@@ -5994,12 +5297,6 @@ func (i StatusTypeArgs) ToStatusTypeOutputWithContext(ctx context.Context) Statu
 	return pulumi.ToOutputWithContext(ctx, i).(StatusTypeOutput)
 }
 
-func (i StatusTypeArgs) ToOutput(ctx context.Context) pulumix.Output[StatusType] {
-	return pulumix.Output[StatusType]{
-		OutputState: i.ToStatusTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // Status is a return value for calls that don't return other objects.
 type StatusTypeOutput struct{ *pulumi.OutputState }
 
@@ -6013,12 +5310,6 @@ func (o StatusTypeOutput) ToStatusTypeOutput() StatusTypeOutput {
 
 func (o StatusTypeOutput) ToStatusTypeOutputWithContext(ctx context.Context) StatusTypeOutput {
 	return o
-}
-
-func (o StatusTypeOutput) ToOutput(ctx context.Context) pulumix.Output[StatusType] {
-	return pulumix.Output[StatusType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -6112,12 +5403,6 @@ func (i StatusCauseArgs) ToStatusCauseOutputWithContext(ctx context.Context) Sta
 	return pulumi.ToOutputWithContext(ctx, i).(StatusCauseOutput)
 }
 
-func (i StatusCauseArgs) ToOutput(ctx context.Context) pulumix.Output[StatusCause] {
-	return pulumix.Output[StatusCause]{
-		OutputState: i.ToStatusCauseOutputWithContext(ctx).OutputState,
-	}
-}
-
 // StatusCauseArrayInput is an input type that accepts StatusCauseArray and StatusCauseArrayOutput values.
 // You can construct a concrete instance of `StatusCauseArrayInput` via:
 //
@@ -6143,12 +5428,6 @@ func (i StatusCauseArray) ToStatusCauseArrayOutputWithContext(ctx context.Contex
 	return pulumi.ToOutputWithContext(ctx, i).(StatusCauseArrayOutput)
 }
 
-func (i StatusCauseArray) ToOutput(ctx context.Context) pulumix.Output[[]StatusCause] {
-	return pulumix.Output[[]StatusCause]{
-		OutputState: i.ToStatusCauseArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // StatusCause provides more information about an api.Status failure, including cases when multiple errors are encountered.
 type StatusCauseOutput struct{ *pulumi.OutputState }
 
@@ -6162,12 +5441,6 @@ func (o StatusCauseOutput) ToStatusCauseOutput() StatusCauseOutput {
 
 func (o StatusCauseOutput) ToStatusCauseOutputWithContext(ctx context.Context) StatusCauseOutput {
 	return o
-}
-
-func (o StatusCauseOutput) ToOutput(ctx context.Context) pulumix.Output[StatusCause] {
-	return pulumix.Output[StatusCause]{
-		OutputState: o.OutputState,
-	}
 }
 
 // The field of the resource that has caused this error, as named by its JSON serialization. May include dot and postfix notation for nested attributes. Arrays are zero-indexed.  Fields may appear more than once in an array of causes due to fields having multiple errors. Optional.
@@ -6202,12 +5475,6 @@ func (o StatusCauseArrayOutput) ToStatusCauseArrayOutput() StatusCauseArrayOutpu
 
 func (o StatusCauseArrayOutput) ToStatusCauseArrayOutputWithContext(ctx context.Context) StatusCauseArrayOutput {
 	return o
-}
-
-func (o StatusCauseArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]StatusCause] {
-	return pulumix.Output[[]StatusCause]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o StatusCauseArrayOutput) Index(i pulumi.IntInput) StatusCauseOutput {
@@ -6267,12 +5534,6 @@ func (i StatusCausePatchArgs) ToStatusCausePatchOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(StatusCausePatchOutput)
 }
 
-func (i StatusCausePatchArgs) ToOutput(ctx context.Context) pulumix.Output[StatusCausePatch] {
-	return pulumix.Output[StatusCausePatch]{
-		OutputState: i.ToStatusCausePatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // StatusCausePatchArrayInput is an input type that accepts StatusCausePatchArray and StatusCausePatchArrayOutput values.
 // You can construct a concrete instance of `StatusCausePatchArrayInput` via:
 //
@@ -6298,12 +5559,6 @@ func (i StatusCausePatchArray) ToStatusCausePatchArrayOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(StatusCausePatchArrayOutput)
 }
 
-func (i StatusCausePatchArray) ToOutput(ctx context.Context) pulumix.Output[[]StatusCausePatch] {
-	return pulumix.Output[[]StatusCausePatch]{
-		OutputState: i.ToStatusCausePatchArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // StatusCause provides more information about an api.Status failure, including cases when multiple errors are encountered.
 type StatusCausePatchOutput struct{ *pulumi.OutputState }
 
@@ -6317,12 +5572,6 @@ func (o StatusCausePatchOutput) ToStatusCausePatchOutput() StatusCausePatchOutpu
 
 func (o StatusCausePatchOutput) ToStatusCausePatchOutputWithContext(ctx context.Context) StatusCausePatchOutput {
 	return o
-}
-
-func (o StatusCausePatchOutput) ToOutput(ctx context.Context) pulumix.Output[StatusCausePatch] {
-	return pulumix.Output[StatusCausePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // The field of the resource that has caused this error, as named by its JSON serialization. May include dot and postfix notation for nested attributes. Arrays are zero-indexed.  Fields may appear more than once in an array of causes due to fields having multiple errors. Optional.
@@ -6357,12 +5606,6 @@ func (o StatusCausePatchArrayOutput) ToStatusCausePatchArrayOutput() StatusCause
 
 func (o StatusCausePatchArrayOutput) ToStatusCausePatchArrayOutputWithContext(ctx context.Context) StatusCausePatchArrayOutput {
 	return o
-}
-
-func (o StatusCausePatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]StatusCausePatch] {
-	return pulumix.Output[[]StatusCausePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o StatusCausePatchArrayOutput) Index(i pulumi.IntInput) StatusCausePatchOutput {
@@ -6426,12 +5669,6 @@ func (i StatusDetailsArgs) ToStatusDetailsOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(StatusDetailsOutput)
 }
 
-func (i StatusDetailsArgs) ToOutput(ctx context.Context) pulumix.Output[StatusDetails] {
-	return pulumix.Output[StatusDetails]{
-		OutputState: i.ToStatusDetailsOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i StatusDetailsArgs) ToStatusDetailsPtrOutput() StatusDetailsPtrOutput {
 	return i.ToStatusDetailsPtrOutputWithContext(context.Background())
 }
@@ -6473,12 +5710,6 @@ func (i *statusDetailsPtrType) ToStatusDetailsPtrOutputWithContext(ctx context.C
 	return pulumi.ToOutputWithContext(ctx, i).(StatusDetailsPtrOutput)
 }
 
-func (i *statusDetailsPtrType) ToOutput(ctx context.Context) pulumix.Output[*StatusDetails] {
-	return pulumix.Output[*StatusDetails]{
-		OutputState: i.ToStatusDetailsPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // StatusDetails is a set of additional properties that MAY be set by the server to provide additional information about a response. The Reason field of a Status object defines what attributes will be set. Clients must ignore fields that do not match the defined type of each attribute, and should assume that any attribute may be empty, invalid, or under defined.
 type StatusDetailsOutput struct{ *pulumi.OutputState }
 
@@ -6502,12 +5733,6 @@ func (o StatusDetailsOutput) ToStatusDetailsPtrOutputWithContext(ctx context.Con
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v StatusDetails) *StatusDetails {
 		return &v
 	}).(StatusDetailsPtrOutput)
-}
-
-func (o StatusDetailsOutput) ToOutput(ctx context.Context) pulumix.Output[StatusDetails] {
-	return pulumix.Output[StatusDetails]{
-		OutputState: o.OutputState,
-	}
 }
 
 // The Causes array includes more details associated with the StatusReason failure. Not all StatusReasons may provide detailed causes.
@@ -6552,12 +5777,6 @@ func (o StatusDetailsPtrOutput) ToStatusDetailsPtrOutput() StatusDetailsPtrOutpu
 
 func (o StatusDetailsPtrOutput) ToStatusDetailsPtrOutputWithContext(ctx context.Context) StatusDetailsPtrOutput {
 	return o
-}
-
-func (o StatusDetailsPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*StatusDetails] {
-	return pulumix.Output[*StatusDetails]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o StatusDetailsPtrOutput) Elem() StatusDetailsOutput {
@@ -6685,12 +5904,6 @@ func (i StatusDetailsPatchArgs) ToStatusDetailsPatchOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(StatusDetailsPatchOutput)
 }
 
-func (i StatusDetailsPatchArgs) ToOutput(ctx context.Context) pulumix.Output[StatusDetailsPatch] {
-	return pulumix.Output[StatusDetailsPatch]{
-		OutputState: i.ToStatusDetailsPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i StatusDetailsPatchArgs) ToStatusDetailsPatchPtrOutput() StatusDetailsPatchPtrOutput {
 	return i.ToStatusDetailsPatchPtrOutputWithContext(context.Background())
 }
@@ -6732,12 +5945,6 @@ func (i *statusDetailsPatchPtrType) ToStatusDetailsPatchPtrOutputWithContext(ctx
 	return pulumi.ToOutputWithContext(ctx, i).(StatusDetailsPatchPtrOutput)
 }
 
-func (i *statusDetailsPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*StatusDetailsPatch] {
-	return pulumix.Output[*StatusDetailsPatch]{
-		OutputState: i.ToStatusDetailsPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // StatusDetails is a set of additional properties that MAY be set by the server to provide additional information about a response. The Reason field of a Status object defines what attributes will be set. Clients must ignore fields that do not match the defined type of each attribute, and should assume that any attribute may be empty, invalid, or under defined.
 type StatusDetailsPatchOutput struct{ *pulumi.OutputState }
 
@@ -6761,12 +5968,6 @@ func (o StatusDetailsPatchOutput) ToStatusDetailsPatchPtrOutputWithContext(ctx c
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v StatusDetailsPatch) *StatusDetailsPatch {
 		return &v
 	}).(StatusDetailsPatchPtrOutput)
-}
-
-func (o StatusDetailsPatchOutput) ToOutput(ctx context.Context) pulumix.Output[StatusDetailsPatch] {
-	return pulumix.Output[StatusDetailsPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // The Causes array includes more details associated with the StatusReason failure. Not all StatusReasons may provide detailed causes.
@@ -6811,12 +6012,6 @@ func (o StatusDetailsPatchPtrOutput) ToStatusDetailsPatchPtrOutput() StatusDetai
 
 func (o StatusDetailsPatchPtrOutput) ToStatusDetailsPatchPtrOutputWithContext(ctx context.Context) StatusDetailsPatchPtrOutput {
 	return o
-}
-
-func (o StatusDetailsPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*StatusDetailsPatch] {
-	return pulumix.Output[*StatusDetailsPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o StatusDetailsPatchPtrOutput) Elem() StatusDetailsPatchOutput {
@@ -6952,12 +6147,6 @@ func (i StatusPatchTypeArgs) ToStatusPatchTypeOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(StatusPatchTypeOutput)
 }
 
-func (i StatusPatchTypeArgs) ToOutput(ctx context.Context) pulumix.Output[StatusPatchType] {
-	return pulumix.Output[StatusPatchType]{
-		OutputState: i.ToStatusPatchTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // Status is a return value for calls that don't return other objects.
 type StatusPatchTypeOutput struct{ *pulumi.OutputState }
 
@@ -6971,12 +6160,6 @@ func (o StatusPatchTypeOutput) ToStatusPatchTypeOutput() StatusPatchTypeOutput {
 
 func (o StatusPatchTypeOutput) ToStatusPatchTypeOutputWithContext(ctx context.Context) StatusPatchTypeOutput {
 	return o
-}
-
-func (o StatusPatchTypeOutput) ToOutput(ctx context.Context) pulumix.Output[StatusPatchType] {
-	return pulumix.Output[StatusPatchType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -7064,12 +6247,6 @@ func (i WatchEventArgs) ToWatchEventOutputWithContext(ctx context.Context) Watch
 	return pulumi.ToOutputWithContext(ctx, i).(WatchEventOutput)
 }
 
-func (i WatchEventArgs) ToOutput(ctx context.Context) pulumix.Output[WatchEvent] {
-	return pulumix.Output[WatchEvent]{
-		OutputState: i.ToWatchEventOutputWithContext(ctx).OutputState,
-	}
-}
-
 // Event represents a single event to a watched resource.
 type WatchEventOutput struct{ *pulumi.OutputState }
 
@@ -7083,12 +6260,6 @@ func (o WatchEventOutput) ToWatchEventOutput() WatchEventOutput {
 
 func (o WatchEventOutput) ToWatchEventOutputWithContext(ctx context.Context) WatchEventOutput {
 	return o
-}
-
-func (o WatchEventOutput) ToOutput(ctx context.Context) pulumix.Output[WatchEvent] {
-	return pulumix.Output[WatchEvent]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Object is:
@@ -7149,12 +6320,6 @@ func (i WatchEventPatchArgs) ToWatchEventPatchOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(WatchEventPatchOutput)
 }
 
-func (i WatchEventPatchArgs) ToOutput(ctx context.Context) pulumix.Output[WatchEventPatch] {
-	return pulumix.Output[WatchEventPatch]{
-		OutputState: i.ToWatchEventPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // Event represents a single event to a watched resource.
 type WatchEventPatchOutput struct{ *pulumi.OutputState }
 
@@ -7168,12 +6333,6 @@ func (o WatchEventPatchOutput) ToWatchEventPatchOutput() WatchEventPatchOutput {
 
 func (o WatchEventPatchOutput) ToWatchEventPatchOutputWithContext(ctx context.Context) WatchEventPatchOutput {
 	return o
-}
-
-func (o WatchEventPatchOutput) ToOutput(ctx context.Context) pulumix.Output[WatchEventPatch] {
-	return pulumix.Output[WatchEventPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Object is:

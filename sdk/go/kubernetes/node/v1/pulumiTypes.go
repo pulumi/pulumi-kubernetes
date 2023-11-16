@@ -11,7 +11,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 var _ = utilities.GetEnvOrDefault
@@ -49,12 +48,6 @@ func (i OverheadArgs) ToOverheadOutput() OverheadOutput {
 
 func (i OverheadArgs) ToOverheadOutputWithContext(ctx context.Context) OverheadOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(OverheadOutput)
-}
-
-func (i OverheadArgs) ToOutput(ctx context.Context) pulumix.Output[Overhead] {
-	return pulumix.Output[Overhead]{
-		OutputState: i.ToOverheadOutputWithContext(ctx).OutputState,
-	}
 }
 
 func (i OverheadArgs) ToOverheadPtrOutput() OverheadPtrOutput {
@@ -98,12 +91,6 @@ func (i *overheadPtrType) ToOverheadPtrOutputWithContext(ctx context.Context) Ov
 	return pulumi.ToOutputWithContext(ctx, i).(OverheadPtrOutput)
 }
 
-func (i *overheadPtrType) ToOutput(ctx context.Context) pulumix.Output[*Overhead] {
-	return pulumix.Output[*Overhead]{
-		OutputState: i.ToOverheadPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // Overhead structure represents the resource overhead associated with running a pod.
 type OverheadOutput struct{ *pulumi.OutputState }
 
@@ -129,12 +116,6 @@ func (o OverheadOutput) ToOverheadPtrOutputWithContext(ctx context.Context) Over
 	}).(OverheadPtrOutput)
 }
 
-func (o OverheadOutput) ToOutput(ctx context.Context) pulumix.Output[Overhead] {
-	return pulumix.Output[Overhead]{
-		OutputState: o.OutputState,
-	}
-}
-
 // podFixed represents the fixed resource overhead associated with running a pod.
 func (o OverheadOutput) PodFixed() pulumi.StringMapOutput {
 	return o.ApplyT(func(v Overhead) map[string]string { return v.PodFixed }).(pulumi.StringMapOutput)
@@ -152,12 +133,6 @@ func (o OverheadPtrOutput) ToOverheadPtrOutput() OverheadPtrOutput {
 
 func (o OverheadPtrOutput) ToOverheadPtrOutputWithContext(ctx context.Context) OverheadPtrOutput {
 	return o
-}
-
-func (o OverheadPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*Overhead] {
-	return pulumix.Output[*Overhead]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o OverheadPtrOutput) Elem() OverheadOutput {
@@ -215,12 +190,6 @@ func (i OverheadPatchArgs) ToOverheadPatchOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(OverheadPatchOutput)
 }
 
-func (i OverheadPatchArgs) ToOutput(ctx context.Context) pulumix.Output[OverheadPatch] {
-	return pulumix.Output[OverheadPatch]{
-		OutputState: i.ToOverheadPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i OverheadPatchArgs) ToOverheadPatchPtrOutput() OverheadPatchPtrOutput {
 	return i.ToOverheadPatchPtrOutputWithContext(context.Background())
 }
@@ -262,12 +231,6 @@ func (i *overheadPatchPtrType) ToOverheadPatchPtrOutputWithContext(ctx context.C
 	return pulumi.ToOutputWithContext(ctx, i).(OverheadPatchPtrOutput)
 }
 
-func (i *overheadPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*OverheadPatch] {
-	return pulumix.Output[*OverheadPatch]{
-		OutputState: i.ToOverheadPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // Overhead structure represents the resource overhead associated with running a pod.
 type OverheadPatchOutput struct{ *pulumi.OutputState }
 
@@ -293,12 +256,6 @@ func (o OverheadPatchOutput) ToOverheadPatchPtrOutputWithContext(ctx context.Con
 	}).(OverheadPatchPtrOutput)
 }
 
-func (o OverheadPatchOutput) ToOutput(ctx context.Context) pulumix.Output[OverheadPatch] {
-	return pulumix.Output[OverheadPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 // podFixed represents the fixed resource overhead associated with running a pod.
 func (o OverheadPatchOutput) PodFixed() pulumi.StringMapOutput {
 	return o.ApplyT(func(v OverheadPatch) map[string]string { return v.PodFixed }).(pulumi.StringMapOutput)
@@ -316,12 +273,6 @@ func (o OverheadPatchPtrOutput) ToOverheadPatchPtrOutput() OverheadPatchPtrOutpu
 
 func (o OverheadPatchPtrOutput) ToOverheadPatchPtrOutputWithContext(ctx context.Context) OverheadPatchPtrOutput {
 	return o
-}
-
-func (o OverheadPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*OverheadPatch] {
-	return pulumix.Output[*OverheadPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o OverheadPatchPtrOutput) Elem() OverheadPatchOutput {
@@ -401,12 +352,6 @@ func (i RuntimeClassTypeArgs) ToRuntimeClassTypeOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(RuntimeClassTypeOutput)
 }
 
-func (i RuntimeClassTypeArgs) ToOutput(ctx context.Context) pulumix.Output[RuntimeClassType] {
-	return pulumix.Output[RuntimeClassType]{
-		OutputState: i.ToRuntimeClassTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // RuntimeClassTypeArrayInput is an input type that accepts RuntimeClassTypeArray and RuntimeClassTypeArrayOutput values.
 // You can construct a concrete instance of `RuntimeClassTypeArrayInput` via:
 //
@@ -432,12 +377,6 @@ func (i RuntimeClassTypeArray) ToRuntimeClassTypeArrayOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(RuntimeClassTypeArrayOutput)
 }
 
-func (i RuntimeClassTypeArray) ToOutput(ctx context.Context) pulumix.Output[[]RuntimeClassType] {
-	return pulumix.Output[[]RuntimeClassType]{
-		OutputState: i.ToRuntimeClassTypeArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a pod. RuntimeClasses are manually defined by a user or cluster provisioner, and referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName reference before running the pod.  For more details, see https://kubernetes.io/docs/concepts/containers/runtime-class/
 type RuntimeClassTypeOutput struct{ *pulumi.OutputState }
 
@@ -451,12 +390,6 @@ func (o RuntimeClassTypeOutput) ToRuntimeClassTypeOutput() RuntimeClassTypeOutpu
 
 func (o RuntimeClassTypeOutput) ToRuntimeClassTypeOutputWithContext(ctx context.Context) RuntimeClassTypeOutput {
 	return o
-}
-
-func (o RuntimeClassTypeOutput) ToOutput(ctx context.Context) pulumix.Output[RuntimeClassType] {
-	return pulumix.Output[RuntimeClassType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -503,12 +436,6 @@ func (o RuntimeClassTypeArrayOutput) ToRuntimeClassTypeArrayOutput() RuntimeClas
 
 func (o RuntimeClassTypeArrayOutput) ToRuntimeClassTypeArrayOutputWithContext(ctx context.Context) RuntimeClassTypeArrayOutput {
 	return o
-}
-
-func (o RuntimeClassTypeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]RuntimeClassType] {
-	return pulumix.Output[[]RuntimeClassType]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o RuntimeClassTypeArrayOutput) Index(i pulumi.IntInput) RuntimeClassTypeOutput {
@@ -564,12 +491,6 @@ func (i RuntimeClassListTypeArgs) ToRuntimeClassListTypeOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(RuntimeClassListTypeOutput)
 }
 
-func (i RuntimeClassListTypeArgs) ToOutput(ctx context.Context) pulumix.Output[RuntimeClassListType] {
-	return pulumix.Output[RuntimeClassListType]{
-		OutputState: i.ToRuntimeClassListTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // RuntimeClassList is a list of RuntimeClass objects.
 type RuntimeClassListTypeOutput struct{ *pulumi.OutputState }
 
@@ -583,12 +504,6 @@ func (o RuntimeClassListTypeOutput) ToRuntimeClassListTypeOutput() RuntimeClassL
 
 func (o RuntimeClassListTypeOutput) ToRuntimeClassListTypeOutputWithContext(ctx context.Context) RuntimeClassListTypeOutput {
 	return o
-}
-
-func (o RuntimeClassListTypeOutput) ToOutput(ctx context.Context) pulumix.Output[RuntimeClassListType] {
-	return pulumix.Output[RuntimeClassListType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -668,12 +583,6 @@ func (i RuntimeClassPatchTypeArgs) ToRuntimeClassPatchTypeOutputWithContext(ctx 
 	return pulumi.ToOutputWithContext(ctx, i).(RuntimeClassPatchTypeOutput)
 }
 
-func (i RuntimeClassPatchTypeArgs) ToOutput(ctx context.Context) pulumix.Output[RuntimeClassPatchType] {
-	return pulumix.Output[RuntimeClassPatchType]{
-		OutputState: i.ToRuntimeClassPatchTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // RuntimeClass defines a class of container runtime supported in the cluster. The RuntimeClass is used to determine which container runtime is used to run all containers in a pod. RuntimeClasses are manually defined by a user or cluster provisioner, and referenced in the PodSpec. The Kubelet is responsible for resolving the RuntimeClassName reference before running the pod.  For more details, see https://kubernetes.io/docs/concepts/containers/runtime-class/
 type RuntimeClassPatchTypeOutput struct{ *pulumi.OutputState }
 
@@ -687,12 +596,6 @@ func (o RuntimeClassPatchTypeOutput) ToRuntimeClassPatchTypeOutput() RuntimeClas
 
 func (o RuntimeClassPatchTypeOutput) ToRuntimeClassPatchTypeOutputWithContext(ctx context.Context) RuntimeClassPatchTypeOutput {
 	return o
-}
-
-func (o RuntimeClassPatchTypeOutput) ToOutput(ctx context.Context) pulumix.Output[RuntimeClassPatchType] {
-	return pulumix.Output[RuntimeClassPatchType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -766,12 +669,6 @@ func (i SchedulingArgs) ToSchedulingOutputWithContext(ctx context.Context) Sched
 	return pulumi.ToOutputWithContext(ctx, i).(SchedulingOutput)
 }
 
-func (i SchedulingArgs) ToOutput(ctx context.Context) pulumix.Output[Scheduling] {
-	return pulumix.Output[Scheduling]{
-		OutputState: i.ToSchedulingOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i SchedulingArgs) ToSchedulingPtrOutput() SchedulingPtrOutput {
 	return i.ToSchedulingPtrOutputWithContext(context.Background())
 }
@@ -813,12 +710,6 @@ func (i *schedulingPtrType) ToSchedulingPtrOutputWithContext(ctx context.Context
 	return pulumi.ToOutputWithContext(ctx, i).(SchedulingPtrOutput)
 }
 
-func (i *schedulingPtrType) ToOutput(ctx context.Context) pulumix.Output[*Scheduling] {
-	return pulumix.Output[*Scheduling]{
-		OutputState: i.ToSchedulingPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.
 type SchedulingOutput struct{ *pulumi.OutputState }
 
@@ -844,12 +735,6 @@ func (o SchedulingOutput) ToSchedulingPtrOutputWithContext(ctx context.Context) 
 	}).(SchedulingPtrOutput)
 }
 
-func (o SchedulingOutput) ToOutput(ctx context.Context) pulumix.Output[Scheduling] {
-	return pulumix.Output[Scheduling]{
-		OutputState: o.OutputState,
-	}
-}
-
 // nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.
 func (o SchedulingOutput) NodeSelector() pulumi.StringMapOutput {
 	return o.ApplyT(func(v Scheduling) map[string]string { return v.NodeSelector }).(pulumi.StringMapOutput)
@@ -872,12 +757,6 @@ func (o SchedulingPtrOutput) ToSchedulingPtrOutput() SchedulingPtrOutput {
 
 func (o SchedulingPtrOutput) ToSchedulingPtrOutputWithContext(ctx context.Context) SchedulingPtrOutput {
 	return o
-}
-
-func (o SchedulingPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*Scheduling] {
-	return pulumix.Output[*Scheduling]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o SchedulingPtrOutput) Elem() SchedulingOutput {
@@ -949,12 +828,6 @@ func (i SchedulingPatchArgs) ToSchedulingPatchOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(SchedulingPatchOutput)
 }
 
-func (i SchedulingPatchArgs) ToOutput(ctx context.Context) pulumix.Output[SchedulingPatch] {
-	return pulumix.Output[SchedulingPatch]{
-		OutputState: i.ToSchedulingPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i SchedulingPatchArgs) ToSchedulingPatchPtrOutput() SchedulingPatchPtrOutput {
 	return i.ToSchedulingPatchPtrOutputWithContext(context.Background())
 }
@@ -996,12 +869,6 @@ func (i *schedulingPatchPtrType) ToSchedulingPatchPtrOutputWithContext(ctx conte
 	return pulumi.ToOutputWithContext(ctx, i).(SchedulingPatchPtrOutput)
 }
 
-func (i *schedulingPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*SchedulingPatch] {
-	return pulumix.Output[*SchedulingPatch]{
-		OutputState: i.ToSchedulingPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // Scheduling specifies the scheduling constraints for nodes supporting a RuntimeClass.
 type SchedulingPatchOutput struct{ *pulumi.OutputState }
 
@@ -1027,12 +894,6 @@ func (o SchedulingPatchOutput) ToSchedulingPatchPtrOutputWithContext(ctx context
 	}).(SchedulingPatchPtrOutput)
 }
 
-func (o SchedulingPatchOutput) ToOutput(ctx context.Context) pulumix.Output[SchedulingPatch] {
-	return pulumix.Output[SchedulingPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 // nodeSelector lists labels that must be present on nodes that support this RuntimeClass. Pods using this RuntimeClass can only be scheduled to a node matched by this selector. The RuntimeClass nodeSelector is merged with a pod's existing nodeSelector. Any conflicts will cause the pod to be rejected in admission.
 func (o SchedulingPatchOutput) NodeSelector() pulumi.StringMapOutput {
 	return o.ApplyT(func(v SchedulingPatch) map[string]string { return v.NodeSelector }).(pulumi.StringMapOutput)
@@ -1055,12 +916,6 @@ func (o SchedulingPatchPtrOutput) ToSchedulingPatchPtrOutput() SchedulingPatchPt
 
 func (o SchedulingPatchPtrOutput) ToSchedulingPatchPtrOutputWithContext(ctx context.Context) SchedulingPatchPtrOutput {
 	return o
-}
-
-func (o SchedulingPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*SchedulingPatch] {
-	return pulumix.Output[*SchedulingPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o SchedulingPatchPtrOutput) Elem() SchedulingPatchOutput {

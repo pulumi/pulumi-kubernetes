@@ -10,7 +10,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 var _ = utilities.GetEnvOrDefault
@@ -66,12 +65,6 @@ func (i LocalSubjectAccessReviewArgs) ToLocalSubjectAccessReviewOutputWithContex
 	return pulumi.ToOutputWithContext(ctx, i).(LocalSubjectAccessReviewOutput)
 }
 
-func (i LocalSubjectAccessReviewArgs) ToOutput(ctx context.Context) pulumix.Output[LocalSubjectAccessReview] {
-	return pulumix.Output[LocalSubjectAccessReview]{
-		OutputState: i.ToLocalSubjectAccessReviewOutputWithContext(ctx).OutputState,
-	}
-}
-
 // LocalSubjectAccessReview checks whether or not a user or group can perform an action in a given namespace. Having a namespace scoped resource makes it much easier to grant namespace scoped policy that includes permissions checking.
 type LocalSubjectAccessReviewOutput struct{ *pulumi.OutputState }
 
@@ -85,12 +78,6 @@ func (o LocalSubjectAccessReviewOutput) ToLocalSubjectAccessReviewOutput() Local
 
 func (o LocalSubjectAccessReviewOutput) ToLocalSubjectAccessReviewOutputWithContext(ctx context.Context) LocalSubjectAccessReviewOutput {
 	return o
-}
-
-func (o LocalSubjectAccessReviewOutput) ToOutput(ctx context.Context) pulumix.Output[LocalSubjectAccessReview] {
-	return pulumix.Output[LocalSubjectAccessReview]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -169,12 +156,6 @@ func (i LocalSubjectAccessReviewPatchArgs) ToLocalSubjectAccessReviewPatchOutput
 	return pulumi.ToOutputWithContext(ctx, i).(LocalSubjectAccessReviewPatchOutput)
 }
 
-func (i LocalSubjectAccessReviewPatchArgs) ToOutput(ctx context.Context) pulumix.Output[LocalSubjectAccessReviewPatch] {
-	return pulumix.Output[LocalSubjectAccessReviewPatch]{
-		OutputState: i.ToLocalSubjectAccessReviewPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // LocalSubjectAccessReview checks whether or not a user or group can perform an action in a given namespace. Having a namespace scoped resource makes it much easier to grant namespace scoped policy that includes permissions checking.
 type LocalSubjectAccessReviewPatchOutput struct{ *pulumi.OutputState }
 
@@ -188,12 +169,6 @@ func (o LocalSubjectAccessReviewPatchOutput) ToLocalSubjectAccessReviewPatchOutp
 
 func (o LocalSubjectAccessReviewPatchOutput) ToLocalSubjectAccessReviewPatchOutputWithContext(ctx context.Context) LocalSubjectAccessReviewPatchOutput {
 	return o
-}
-
-func (o LocalSubjectAccessReviewPatchOutput) ToOutput(ctx context.Context) pulumix.Output[LocalSubjectAccessReviewPatch] {
-	return pulumix.Output[LocalSubjectAccessReviewPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -260,12 +235,6 @@ func (i NonResourceAttributesArgs) ToNonResourceAttributesOutputWithContext(ctx 
 	return pulumi.ToOutputWithContext(ctx, i).(NonResourceAttributesOutput)
 }
 
-func (i NonResourceAttributesArgs) ToOutput(ctx context.Context) pulumix.Output[NonResourceAttributes] {
-	return pulumix.Output[NonResourceAttributes]{
-		OutputState: i.ToNonResourceAttributesOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i NonResourceAttributesArgs) ToNonResourceAttributesPtrOutput() NonResourceAttributesPtrOutput {
 	return i.ToNonResourceAttributesPtrOutputWithContext(context.Background())
 }
@@ -307,12 +276,6 @@ func (i *nonResourceAttributesPtrType) ToNonResourceAttributesPtrOutputWithConte
 	return pulumi.ToOutputWithContext(ctx, i).(NonResourceAttributesPtrOutput)
 }
 
-func (i *nonResourceAttributesPtrType) ToOutput(ctx context.Context) pulumix.Output[*NonResourceAttributes] {
-	return pulumix.Output[*NonResourceAttributes]{
-		OutputState: i.ToNonResourceAttributesPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // NonResourceAttributes includes the authorization attributes available for non-resource requests to the Authorizer interface
 type NonResourceAttributesOutput struct{ *pulumi.OutputState }
 
@@ -338,12 +301,6 @@ func (o NonResourceAttributesOutput) ToNonResourceAttributesPtrOutputWithContext
 	}).(NonResourceAttributesPtrOutput)
 }
 
-func (o NonResourceAttributesOutput) ToOutput(ctx context.Context) pulumix.Output[NonResourceAttributes] {
-	return pulumix.Output[NonResourceAttributes]{
-		OutputState: o.OutputState,
-	}
-}
-
 // Path is the URL path of the request
 func (o NonResourceAttributesOutput) Path() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v NonResourceAttributes) *string { return v.Path }).(pulumi.StringPtrOutput)
@@ -366,12 +323,6 @@ func (o NonResourceAttributesPtrOutput) ToNonResourceAttributesPtrOutput() NonRe
 
 func (o NonResourceAttributesPtrOutput) ToNonResourceAttributesPtrOutputWithContext(ctx context.Context) NonResourceAttributesPtrOutput {
 	return o
-}
-
-func (o NonResourceAttributesPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*NonResourceAttributes] {
-	return pulumix.Output[*NonResourceAttributes]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o NonResourceAttributesPtrOutput) Elem() NonResourceAttributesOutput {
@@ -443,12 +394,6 @@ func (i NonResourceAttributesPatchArgs) ToNonResourceAttributesPatchOutputWithCo
 	return pulumi.ToOutputWithContext(ctx, i).(NonResourceAttributesPatchOutput)
 }
 
-func (i NonResourceAttributesPatchArgs) ToOutput(ctx context.Context) pulumix.Output[NonResourceAttributesPatch] {
-	return pulumix.Output[NonResourceAttributesPatch]{
-		OutputState: i.ToNonResourceAttributesPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i NonResourceAttributesPatchArgs) ToNonResourceAttributesPatchPtrOutput() NonResourceAttributesPatchPtrOutput {
 	return i.ToNonResourceAttributesPatchPtrOutputWithContext(context.Background())
 }
@@ -490,12 +435,6 @@ func (i *nonResourceAttributesPatchPtrType) ToNonResourceAttributesPatchPtrOutpu
 	return pulumi.ToOutputWithContext(ctx, i).(NonResourceAttributesPatchPtrOutput)
 }
 
-func (i *nonResourceAttributesPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*NonResourceAttributesPatch] {
-	return pulumix.Output[*NonResourceAttributesPatch]{
-		OutputState: i.ToNonResourceAttributesPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // NonResourceAttributes includes the authorization attributes available for non-resource requests to the Authorizer interface
 type NonResourceAttributesPatchOutput struct{ *pulumi.OutputState }
 
@@ -521,12 +460,6 @@ func (o NonResourceAttributesPatchOutput) ToNonResourceAttributesPatchPtrOutputW
 	}).(NonResourceAttributesPatchPtrOutput)
 }
 
-func (o NonResourceAttributesPatchOutput) ToOutput(ctx context.Context) pulumix.Output[NonResourceAttributesPatch] {
-	return pulumix.Output[NonResourceAttributesPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 // Path is the URL path of the request
 func (o NonResourceAttributesPatchOutput) Path() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v NonResourceAttributesPatch) *string { return v.Path }).(pulumi.StringPtrOutput)
@@ -549,12 +482,6 @@ func (o NonResourceAttributesPatchPtrOutput) ToNonResourceAttributesPatchPtrOutp
 
 func (o NonResourceAttributesPatchPtrOutput) ToNonResourceAttributesPatchPtrOutputWithContext(ctx context.Context) NonResourceAttributesPatchPtrOutput {
 	return o
-}
-
-func (o NonResourceAttributesPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*NonResourceAttributesPatch] {
-	return pulumix.Output[*NonResourceAttributesPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o NonResourceAttributesPatchPtrOutput) Elem() NonResourceAttributesPatchOutput {
@@ -626,12 +553,6 @@ func (i NonResourceRuleArgs) ToNonResourceRuleOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(NonResourceRuleOutput)
 }
 
-func (i NonResourceRuleArgs) ToOutput(ctx context.Context) pulumix.Output[NonResourceRule] {
-	return pulumix.Output[NonResourceRule]{
-		OutputState: i.ToNonResourceRuleOutputWithContext(ctx).OutputState,
-	}
-}
-
 // NonResourceRuleArrayInput is an input type that accepts NonResourceRuleArray and NonResourceRuleArrayOutput values.
 // You can construct a concrete instance of `NonResourceRuleArrayInput` via:
 //
@@ -657,12 +578,6 @@ func (i NonResourceRuleArray) ToNonResourceRuleArrayOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(NonResourceRuleArrayOutput)
 }
 
-func (i NonResourceRuleArray) ToOutput(ctx context.Context) pulumix.Output[[]NonResourceRule] {
-	return pulumix.Output[[]NonResourceRule]{
-		OutputState: i.ToNonResourceRuleArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // NonResourceRule holds information that describes a rule for the non-resource
 type NonResourceRuleOutput struct{ *pulumi.OutputState }
 
@@ -676,12 +591,6 @@ func (o NonResourceRuleOutput) ToNonResourceRuleOutput() NonResourceRuleOutput {
 
 func (o NonResourceRuleOutput) ToNonResourceRuleOutputWithContext(ctx context.Context) NonResourceRuleOutput {
 	return o
-}
-
-func (o NonResourceRuleOutput) ToOutput(ctx context.Context) pulumix.Output[NonResourceRule] {
-	return pulumix.Output[NonResourceRule]{
-		OutputState: o.OutputState,
-	}
 }
 
 // NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path.  "*" means all.
@@ -706,12 +615,6 @@ func (o NonResourceRuleArrayOutput) ToNonResourceRuleArrayOutput() NonResourceRu
 
 func (o NonResourceRuleArrayOutput) ToNonResourceRuleArrayOutputWithContext(ctx context.Context) NonResourceRuleArrayOutput {
 	return o
-}
-
-func (o NonResourceRuleArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]NonResourceRule] {
-	return pulumix.Output[[]NonResourceRule]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o NonResourceRuleArrayOutput) Index(i pulumi.IntInput) NonResourceRuleOutput {
@@ -759,12 +662,6 @@ func (i NonResourceRulePatchArgs) ToNonResourceRulePatchOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(NonResourceRulePatchOutput)
 }
 
-func (i NonResourceRulePatchArgs) ToOutput(ctx context.Context) pulumix.Output[NonResourceRulePatch] {
-	return pulumix.Output[NonResourceRulePatch]{
-		OutputState: i.ToNonResourceRulePatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // NonResourceRulePatchArrayInput is an input type that accepts NonResourceRulePatchArray and NonResourceRulePatchArrayOutput values.
 // You can construct a concrete instance of `NonResourceRulePatchArrayInput` via:
 //
@@ -790,12 +687,6 @@ func (i NonResourceRulePatchArray) ToNonResourceRulePatchArrayOutputWithContext(
 	return pulumi.ToOutputWithContext(ctx, i).(NonResourceRulePatchArrayOutput)
 }
 
-func (i NonResourceRulePatchArray) ToOutput(ctx context.Context) pulumix.Output[[]NonResourceRulePatch] {
-	return pulumix.Output[[]NonResourceRulePatch]{
-		OutputState: i.ToNonResourceRulePatchArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // NonResourceRule holds information that describes a rule for the non-resource
 type NonResourceRulePatchOutput struct{ *pulumi.OutputState }
 
@@ -809,12 +700,6 @@ func (o NonResourceRulePatchOutput) ToNonResourceRulePatchOutput() NonResourceRu
 
 func (o NonResourceRulePatchOutput) ToNonResourceRulePatchOutputWithContext(ctx context.Context) NonResourceRulePatchOutput {
 	return o
-}
-
-func (o NonResourceRulePatchOutput) ToOutput(ctx context.Context) pulumix.Output[NonResourceRulePatch] {
-	return pulumix.Output[NonResourceRulePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path.  "*" means all.
@@ -839,12 +724,6 @@ func (o NonResourceRulePatchArrayOutput) ToNonResourceRulePatchArrayOutput() Non
 
 func (o NonResourceRulePatchArrayOutput) ToNonResourceRulePatchArrayOutputWithContext(ctx context.Context) NonResourceRulePatchArrayOutput {
 	return o
-}
-
-func (o NonResourceRulePatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]NonResourceRulePatch] {
-	return pulumix.Output[[]NonResourceRulePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o NonResourceRulePatchArrayOutput) Index(i pulumi.IntInput) NonResourceRulePatchOutput {
@@ -912,12 +791,6 @@ func (i ResourceAttributesArgs) ToResourceAttributesOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceAttributesOutput)
 }
 
-func (i ResourceAttributesArgs) ToOutput(ctx context.Context) pulumix.Output[ResourceAttributes] {
-	return pulumix.Output[ResourceAttributes]{
-		OutputState: i.ToResourceAttributesOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i ResourceAttributesArgs) ToResourceAttributesPtrOutput() ResourceAttributesPtrOutput {
 	return i.ToResourceAttributesPtrOutputWithContext(context.Background())
 }
@@ -959,12 +832,6 @@ func (i *resourceAttributesPtrType) ToResourceAttributesPtrOutputWithContext(ctx
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceAttributesPtrOutput)
 }
 
-func (i *resourceAttributesPtrType) ToOutput(ctx context.Context) pulumix.Output[*ResourceAttributes] {
-	return pulumix.Output[*ResourceAttributes]{
-		OutputState: i.ToResourceAttributesPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ResourceAttributes includes the authorization attributes available for resource requests to the Authorizer interface
 type ResourceAttributesOutput struct{ *pulumi.OutputState }
 
@@ -988,12 +855,6 @@ func (o ResourceAttributesOutput) ToResourceAttributesPtrOutputWithContext(ctx c
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v ResourceAttributes) *ResourceAttributes {
 		return &v
 	}).(ResourceAttributesPtrOutput)
-}
-
-func (o ResourceAttributesOutput) ToOutput(ctx context.Context) pulumix.Output[ResourceAttributes] {
-	return pulumix.Output[ResourceAttributes]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Group is the API Group of the Resource.  "*" means all.
@@ -1043,12 +904,6 @@ func (o ResourceAttributesPtrOutput) ToResourceAttributesPtrOutput() ResourceAtt
 
 func (o ResourceAttributesPtrOutput) ToResourceAttributesPtrOutputWithContext(ctx context.Context) ResourceAttributesPtrOutput {
 	return o
-}
-
-func (o ResourceAttributesPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ResourceAttributes] {
-	return pulumix.Output[*ResourceAttributes]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ResourceAttributesPtrOutput) Elem() ResourceAttributesOutput {
@@ -1190,12 +1045,6 @@ func (i ResourceAttributesPatchArgs) ToResourceAttributesPatchOutputWithContext(
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceAttributesPatchOutput)
 }
 
-func (i ResourceAttributesPatchArgs) ToOutput(ctx context.Context) pulumix.Output[ResourceAttributesPatch] {
-	return pulumix.Output[ResourceAttributesPatch]{
-		OutputState: i.ToResourceAttributesPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i ResourceAttributesPatchArgs) ToResourceAttributesPatchPtrOutput() ResourceAttributesPatchPtrOutput {
 	return i.ToResourceAttributesPatchPtrOutputWithContext(context.Background())
 }
@@ -1237,12 +1086,6 @@ func (i *resourceAttributesPatchPtrType) ToResourceAttributesPatchPtrOutputWithC
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceAttributesPatchPtrOutput)
 }
 
-func (i *resourceAttributesPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*ResourceAttributesPatch] {
-	return pulumix.Output[*ResourceAttributesPatch]{
-		OutputState: i.ToResourceAttributesPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ResourceAttributes includes the authorization attributes available for resource requests to the Authorizer interface
 type ResourceAttributesPatchOutput struct{ *pulumi.OutputState }
 
@@ -1266,12 +1109,6 @@ func (o ResourceAttributesPatchOutput) ToResourceAttributesPatchPtrOutputWithCon
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v ResourceAttributesPatch) *ResourceAttributesPatch {
 		return &v
 	}).(ResourceAttributesPatchPtrOutput)
-}
-
-func (o ResourceAttributesPatchOutput) ToOutput(ctx context.Context) pulumix.Output[ResourceAttributesPatch] {
-	return pulumix.Output[ResourceAttributesPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Group is the API Group of the Resource.  "*" means all.
@@ -1321,12 +1158,6 @@ func (o ResourceAttributesPatchPtrOutput) ToResourceAttributesPatchPtrOutput() R
 
 func (o ResourceAttributesPatchPtrOutput) ToResourceAttributesPatchPtrOutputWithContext(ctx context.Context) ResourceAttributesPatchPtrOutput {
 	return o
-}
-
-func (o ResourceAttributesPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ResourceAttributesPatch] {
-	return pulumix.Output[*ResourceAttributesPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ResourceAttributesPatchPtrOutput) Elem() ResourceAttributesPatchOutput {
@@ -1458,12 +1289,6 @@ func (i ResourceRuleArgs) ToResourceRuleOutputWithContext(ctx context.Context) R
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceRuleOutput)
 }
 
-func (i ResourceRuleArgs) ToOutput(ctx context.Context) pulumix.Output[ResourceRule] {
-	return pulumix.Output[ResourceRule]{
-		OutputState: i.ToResourceRuleOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ResourceRuleArrayInput is an input type that accepts ResourceRuleArray and ResourceRuleArrayOutput values.
 // You can construct a concrete instance of `ResourceRuleArrayInput` via:
 //
@@ -1489,12 +1314,6 @@ func (i ResourceRuleArray) ToResourceRuleArrayOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceRuleArrayOutput)
 }
 
-func (i ResourceRuleArray) ToOutput(ctx context.Context) pulumix.Output[[]ResourceRule] {
-	return pulumix.Output[[]ResourceRule]{
-		OutputState: i.ToResourceRuleArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ResourceRule is the list of actions the subject is allowed to perform on resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.
 type ResourceRuleOutput struct{ *pulumi.OutputState }
 
@@ -1508,12 +1327,6 @@ func (o ResourceRuleOutput) ToResourceRuleOutput() ResourceRuleOutput {
 
 func (o ResourceRuleOutput) ToResourceRuleOutputWithContext(ctx context.Context) ResourceRuleOutput {
 	return o
-}
-
-func (o ResourceRuleOutput) ToOutput(ctx context.Context) pulumix.Output[ResourceRule] {
-	return pulumix.Output[ResourceRule]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.  "*" means all.
@@ -1550,12 +1363,6 @@ func (o ResourceRuleArrayOutput) ToResourceRuleArrayOutput() ResourceRuleArrayOu
 
 func (o ResourceRuleArrayOutput) ToResourceRuleArrayOutputWithContext(ctx context.Context) ResourceRuleArrayOutput {
 	return o
-}
-
-func (o ResourceRuleArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]ResourceRule] {
-	return pulumix.Output[[]ResourceRule]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ResourceRuleArrayOutput) Index(i pulumi.IntInput) ResourceRuleOutput {
@@ -1613,12 +1420,6 @@ func (i ResourceRulePatchArgs) ToResourceRulePatchOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceRulePatchOutput)
 }
 
-func (i ResourceRulePatchArgs) ToOutput(ctx context.Context) pulumix.Output[ResourceRulePatch] {
-	return pulumix.Output[ResourceRulePatch]{
-		OutputState: i.ToResourceRulePatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ResourceRulePatchArrayInput is an input type that accepts ResourceRulePatchArray and ResourceRulePatchArrayOutput values.
 // You can construct a concrete instance of `ResourceRulePatchArrayInput` via:
 //
@@ -1644,12 +1445,6 @@ func (i ResourceRulePatchArray) ToResourceRulePatchArrayOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceRulePatchArrayOutput)
 }
 
-func (i ResourceRulePatchArray) ToOutput(ctx context.Context) pulumix.Output[[]ResourceRulePatch] {
-	return pulumix.Output[[]ResourceRulePatch]{
-		OutputState: i.ToResourceRulePatchArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ResourceRule is the list of actions the subject is allowed to perform on resources. The list ordering isn't significant, may contain duplicates, and possibly be incomplete.
 type ResourceRulePatchOutput struct{ *pulumi.OutputState }
 
@@ -1663,12 +1458,6 @@ func (o ResourceRulePatchOutput) ToResourceRulePatchOutput() ResourceRulePatchOu
 
 func (o ResourceRulePatchOutput) ToResourceRulePatchOutputWithContext(ctx context.Context) ResourceRulePatchOutput {
 	return o
-}
-
-func (o ResourceRulePatchOutput) ToOutput(ctx context.Context) pulumix.Output[ResourceRulePatch] {
-	return pulumix.Output[ResourceRulePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIGroups is the name of the APIGroup that contains the resources.  If multiple API groups are specified, any action requested against one of the enumerated resources in any API group will be allowed.  "*" means all.
@@ -1705,12 +1494,6 @@ func (o ResourceRulePatchArrayOutput) ToResourceRulePatchArrayOutput() ResourceR
 
 func (o ResourceRulePatchArrayOutput) ToResourceRulePatchArrayOutputWithContext(ctx context.Context) ResourceRulePatchArrayOutput {
 	return o
-}
-
-func (o ResourceRulePatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]ResourceRulePatch] {
-	return pulumix.Output[[]ResourceRulePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ResourceRulePatchArrayOutput) Index(i pulumi.IntInput) ResourceRulePatchOutput {
@@ -1770,12 +1553,6 @@ func (i SelfSubjectAccessReviewArgs) ToSelfSubjectAccessReviewOutputWithContext(
 	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectAccessReviewOutput)
 }
 
-func (i SelfSubjectAccessReviewArgs) ToOutput(ctx context.Context) pulumix.Output[SelfSubjectAccessReview] {
-	return pulumix.Output[SelfSubjectAccessReview]{
-		OutputState: i.ToSelfSubjectAccessReviewOutputWithContext(ctx).OutputState,
-	}
-}
-
 // SelfSubjectAccessReview checks whether or the current user can perform an action.  Not filling in a spec.namespace means "in all namespaces".  Self is a special case, because users should always be able to check whether they can perform an action
 type SelfSubjectAccessReviewOutput struct{ *pulumi.OutputState }
 
@@ -1789,12 +1566,6 @@ func (o SelfSubjectAccessReviewOutput) ToSelfSubjectAccessReviewOutput() SelfSub
 
 func (o SelfSubjectAccessReviewOutput) ToSelfSubjectAccessReviewOutputWithContext(ctx context.Context) SelfSubjectAccessReviewOutput {
 	return o
-}
-
-func (o SelfSubjectAccessReviewOutput) ToOutput(ctx context.Context) pulumix.Output[SelfSubjectAccessReview] {
-	return pulumix.Output[SelfSubjectAccessReview]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -1873,12 +1644,6 @@ func (i SelfSubjectAccessReviewPatchArgs) ToSelfSubjectAccessReviewPatchOutputWi
 	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectAccessReviewPatchOutput)
 }
 
-func (i SelfSubjectAccessReviewPatchArgs) ToOutput(ctx context.Context) pulumix.Output[SelfSubjectAccessReviewPatch] {
-	return pulumix.Output[SelfSubjectAccessReviewPatch]{
-		OutputState: i.ToSelfSubjectAccessReviewPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // SelfSubjectAccessReview checks whether or the current user can perform an action.  Not filling in a spec.namespace means "in all namespaces".  Self is a special case, because users should always be able to check whether they can perform an action
 type SelfSubjectAccessReviewPatchOutput struct{ *pulumi.OutputState }
 
@@ -1892,12 +1657,6 @@ func (o SelfSubjectAccessReviewPatchOutput) ToSelfSubjectAccessReviewPatchOutput
 
 func (o SelfSubjectAccessReviewPatchOutput) ToSelfSubjectAccessReviewPatchOutputWithContext(ctx context.Context) SelfSubjectAccessReviewPatchOutput {
 	return o
-}
-
-func (o SelfSubjectAccessReviewPatchOutput) ToOutput(ctx context.Context) pulumix.Output[SelfSubjectAccessReviewPatch] {
-	return pulumix.Output[SelfSubjectAccessReviewPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -1964,12 +1723,6 @@ func (i SelfSubjectAccessReviewSpecArgs) ToSelfSubjectAccessReviewSpecOutputWith
 	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectAccessReviewSpecOutput)
 }
 
-func (i SelfSubjectAccessReviewSpecArgs) ToOutput(ctx context.Context) pulumix.Output[SelfSubjectAccessReviewSpec] {
-	return pulumix.Output[SelfSubjectAccessReviewSpec]{
-		OutputState: i.ToSelfSubjectAccessReviewSpecOutputWithContext(ctx).OutputState,
-	}
-}
-
 // SelfSubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
 type SelfSubjectAccessReviewSpecOutput struct{ *pulumi.OutputState }
 
@@ -1983,12 +1736,6 @@ func (o SelfSubjectAccessReviewSpecOutput) ToSelfSubjectAccessReviewSpecOutput()
 
 func (o SelfSubjectAccessReviewSpecOutput) ToSelfSubjectAccessReviewSpecOutputWithContext(ctx context.Context) SelfSubjectAccessReviewSpecOutput {
 	return o
-}
-
-func (o SelfSubjectAccessReviewSpecOutput) ToOutput(ctx context.Context) pulumix.Output[SelfSubjectAccessReviewSpec] {
-	return pulumix.Output[SelfSubjectAccessReviewSpec]{
-		OutputState: o.OutputState,
-	}
 }
 
 // NonResourceAttributes describes information for a non-resource access request
@@ -2040,12 +1787,6 @@ func (i SelfSubjectAccessReviewSpecPatchArgs) ToSelfSubjectAccessReviewSpecPatch
 	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectAccessReviewSpecPatchOutput)
 }
 
-func (i SelfSubjectAccessReviewSpecPatchArgs) ToOutput(ctx context.Context) pulumix.Output[SelfSubjectAccessReviewSpecPatch] {
-	return pulumix.Output[SelfSubjectAccessReviewSpecPatch]{
-		OutputState: i.ToSelfSubjectAccessReviewSpecPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i SelfSubjectAccessReviewSpecPatchArgs) ToSelfSubjectAccessReviewSpecPatchPtrOutput() SelfSubjectAccessReviewSpecPatchPtrOutput {
 	return i.ToSelfSubjectAccessReviewSpecPatchPtrOutputWithContext(context.Background())
 }
@@ -2087,12 +1828,6 @@ func (i *selfSubjectAccessReviewSpecPatchPtrType) ToSelfSubjectAccessReviewSpecP
 	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectAccessReviewSpecPatchPtrOutput)
 }
 
-func (i *selfSubjectAccessReviewSpecPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*SelfSubjectAccessReviewSpecPatch] {
-	return pulumix.Output[*SelfSubjectAccessReviewSpecPatch]{
-		OutputState: i.ToSelfSubjectAccessReviewSpecPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // SelfSubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
 type SelfSubjectAccessReviewSpecPatchOutput struct{ *pulumi.OutputState }
 
@@ -2118,12 +1853,6 @@ func (o SelfSubjectAccessReviewSpecPatchOutput) ToSelfSubjectAccessReviewSpecPat
 	}).(SelfSubjectAccessReviewSpecPatchPtrOutput)
 }
 
-func (o SelfSubjectAccessReviewSpecPatchOutput) ToOutput(ctx context.Context) pulumix.Output[SelfSubjectAccessReviewSpecPatch] {
-	return pulumix.Output[SelfSubjectAccessReviewSpecPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 // NonResourceAttributes describes information for a non-resource access request
 func (o SelfSubjectAccessReviewSpecPatchOutput) NonResourceAttributes() NonResourceAttributesPatchPtrOutput {
 	return o.ApplyT(func(v SelfSubjectAccessReviewSpecPatch) *NonResourceAttributesPatch { return v.NonResourceAttributes }).(NonResourceAttributesPatchPtrOutput)
@@ -2146,12 +1875,6 @@ func (o SelfSubjectAccessReviewSpecPatchPtrOutput) ToSelfSubjectAccessReviewSpec
 
 func (o SelfSubjectAccessReviewSpecPatchPtrOutput) ToSelfSubjectAccessReviewSpecPatchPtrOutputWithContext(ctx context.Context) SelfSubjectAccessReviewSpecPatchPtrOutput {
 	return o
-}
-
-func (o SelfSubjectAccessReviewSpecPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*SelfSubjectAccessReviewSpecPatch] {
-	return pulumix.Output[*SelfSubjectAccessReviewSpecPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o SelfSubjectAccessReviewSpecPatchPtrOutput) Elem() SelfSubjectAccessReviewSpecPatchOutput {
@@ -2235,12 +1958,6 @@ func (i SelfSubjectRulesReviewArgs) ToSelfSubjectRulesReviewOutputWithContext(ct
 	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectRulesReviewOutput)
 }
 
-func (i SelfSubjectRulesReviewArgs) ToOutput(ctx context.Context) pulumix.Output[SelfSubjectRulesReview] {
-	return pulumix.Output[SelfSubjectRulesReview]{
-		OutputState: i.ToSelfSubjectRulesReviewOutputWithContext(ctx).OutputState,
-	}
-}
-
 // SelfSubjectRulesReview enumerates the set of actions the current user can perform within a namespace. The returned list of actions may be incomplete depending on the server's authorization mode, and any errors experienced during the evaluation. SelfSubjectRulesReview should be used by UIs to show/hide actions, or to quickly let an end user reason about their permissions. It should NOT Be used by external systems to drive authorization decisions as this raises confused deputy, cache lifetime/revocation, and correctness concerns. SubjectAccessReview, and LocalAccessReview are the correct way to defer authorization decisions to the API server.
 type SelfSubjectRulesReviewOutput struct{ *pulumi.OutputState }
 
@@ -2254,12 +1971,6 @@ func (o SelfSubjectRulesReviewOutput) ToSelfSubjectRulesReviewOutput() SelfSubje
 
 func (o SelfSubjectRulesReviewOutput) ToSelfSubjectRulesReviewOutputWithContext(ctx context.Context) SelfSubjectRulesReviewOutput {
 	return o
-}
-
-func (o SelfSubjectRulesReviewOutput) ToOutput(ctx context.Context) pulumix.Output[SelfSubjectRulesReview] {
-	return pulumix.Output[SelfSubjectRulesReview]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -2338,12 +2049,6 @@ func (i SelfSubjectRulesReviewPatchArgs) ToSelfSubjectRulesReviewPatchOutputWith
 	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectRulesReviewPatchOutput)
 }
 
-func (i SelfSubjectRulesReviewPatchArgs) ToOutput(ctx context.Context) pulumix.Output[SelfSubjectRulesReviewPatch] {
-	return pulumix.Output[SelfSubjectRulesReviewPatch]{
-		OutputState: i.ToSelfSubjectRulesReviewPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // SelfSubjectRulesReview enumerates the set of actions the current user can perform within a namespace. The returned list of actions may be incomplete depending on the server's authorization mode, and any errors experienced during the evaluation. SelfSubjectRulesReview should be used by UIs to show/hide actions, or to quickly let an end user reason about their permissions. It should NOT Be used by external systems to drive authorization decisions as this raises confused deputy, cache lifetime/revocation, and correctness concerns. SubjectAccessReview, and LocalAccessReview are the correct way to defer authorization decisions to the API server.
 type SelfSubjectRulesReviewPatchOutput struct{ *pulumi.OutputState }
 
@@ -2357,12 +2062,6 @@ func (o SelfSubjectRulesReviewPatchOutput) ToSelfSubjectRulesReviewPatchOutput()
 
 func (o SelfSubjectRulesReviewPatchOutput) ToSelfSubjectRulesReviewPatchOutputWithContext(ctx context.Context) SelfSubjectRulesReviewPatchOutput {
 	return o
-}
-
-func (o SelfSubjectRulesReviewPatchOutput) ToOutput(ctx context.Context) pulumix.Output[SelfSubjectRulesReviewPatch] {
-	return pulumix.Output[SelfSubjectRulesReviewPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -2425,12 +2124,6 @@ func (i SelfSubjectRulesReviewSpecArgs) ToSelfSubjectRulesReviewSpecOutputWithCo
 	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectRulesReviewSpecOutput)
 }
 
-func (i SelfSubjectRulesReviewSpecArgs) ToOutput(ctx context.Context) pulumix.Output[SelfSubjectRulesReviewSpec] {
-	return pulumix.Output[SelfSubjectRulesReviewSpec]{
-		OutputState: i.ToSelfSubjectRulesReviewSpecOutputWithContext(ctx).OutputState,
-	}
-}
-
 // SelfSubjectRulesReviewSpec defines the specification for SelfSubjectRulesReview.
 type SelfSubjectRulesReviewSpecOutput struct{ *pulumi.OutputState }
 
@@ -2444,12 +2137,6 @@ func (o SelfSubjectRulesReviewSpecOutput) ToSelfSubjectRulesReviewSpecOutput() S
 
 func (o SelfSubjectRulesReviewSpecOutput) ToSelfSubjectRulesReviewSpecOutputWithContext(ctx context.Context) SelfSubjectRulesReviewSpecOutput {
 	return o
-}
-
-func (o SelfSubjectRulesReviewSpecOutput) ToOutput(ctx context.Context) pulumix.Output[SelfSubjectRulesReviewSpec] {
-	return pulumix.Output[SelfSubjectRulesReviewSpec]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Namespace to evaluate rules for. Required.
@@ -2490,12 +2177,6 @@ func (i SelfSubjectRulesReviewSpecPatchArgs) ToSelfSubjectRulesReviewSpecPatchOu
 
 func (i SelfSubjectRulesReviewSpecPatchArgs) ToSelfSubjectRulesReviewSpecPatchOutputWithContext(ctx context.Context) SelfSubjectRulesReviewSpecPatchOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectRulesReviewSpecPatchOutput)
-}
-
-func (i SelfSubjectRulesReviewSpecPatchArgs) ToOutput(ctx context.Context) pulumix.Output[SelfSubjectRulesReviewSpecPatch] {
-	return pulumix.Output[SelfSubjectRulesReviewSpecPatch]{
-		OutputState: i.ToSelfSubjectRulesReviewSpecPatchOutputWithContext(ctx).OutputState,
-	}
 }
 
 func (i SelfSubjectRulesReviewSpecPatchArgs) ToSelfSubjectRulesReviewSpecPatchPtrOutput() SelfSubjectRulesReviewSpecPatchPtrOutput {
@@ -2539,12 +2220,6 @@ func (i *selfSubjectRulesReviewSpecPatchPtrType) ToSelfSubjectRulesReviewSpecPat
 	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectRulesReviewSpecPatchPtrOutput)
 }
 
-func (i *selfSubjectRulesReviewSpecPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*SelfSubjectRulesReviewSpecPatch] {
-	return pulumix.Output[*SelfSubjectRulesReviewSpecPatch]{
-		OutputState: i.ToSelfSubjectRulesReviewSpecPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // SelfSubjectRulesReviewSpec defines the specification for SelfSubjectRulesReview.
 type SelfSubjectRulesReviewSpecPatchOutput struct{ *pulumi.OutputState }
 
@@ -2570,12 +2245,6 @@ func (o SelfSubjectRulesReviewSpecPatchOutput) ToSelfSubjectRulesReviewSpecPatch
 	}).(SelfSubjectRulesReviewSpecPatchPtrOutput)
 }
 
-func (o SelfSubjectRulesReviewSpecPatchOutput) ToOutput(ctx context.Context) pulumix.Output[SelfSubjectRulesReviewSpecPatch] {
-	return pulumix.Output[SelfSubjectRulesReviewSpecPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 // Namespace to evaluate rules for. Required.
 func (o SelfSubjectRulesReviewSpecPatchOutput) Namespace() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v SelfSubjectRulesReviewSpecPatch) *string { return v.Namespace }).(pulumi.StringPtrOutput)
@@ -2593,12 +2262,6 @@ func (o SelfSubjectRulesReviewSpecPatchPtrOutput) ToSelfSubjectRulesReviewSpecPa
 
 func (o SelfSubjectRulesReviewSpecPatchPtrOutput) ToSelfSubjectRulesReviewSpecPatchPtrOutputWithContext(ctx context.Context) SelfSubjectRulesReviewSpecPatchPtrOutput {
 	return o
-}
-
-func (o SelfSubjectRulesReviewSpecPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*SelfSubjectRulesReviewSpecPatch] {
-	return pulumix.Output[*SelfSubjectRulesReviewSpecPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o SelfSubjectRulesReviewSpecPatchPtrOutput) Elem() SelfSubjectRulesReviewSpecPatchOutput {
@@ -2672,12 +2335,6 @@ func (i SubjectAccessReviewArgs) ToSubjectAccessReviewOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(SubjectAccessReviewOutput)
 }
 
-func (i SubjectAccessReviewArgs) ToOutput(ctx context.Context) pulumix.Output[SubjectAccessReview] {
-	return pulumix.Output[SubjectAccessReview]{
-		OutputState: i.ToSubjectAccessReviewOutputWithContext(ctx).OutputState,
-	}
-}
-
 // SubjectAccessReview checks whether or not a user or group can perform an action.
 type SubjectAccessReviewOutput struct{ *pulumi.OutputState }
 
@@ -2691,12 +2348,6 @@ func (o SubjectAccessReviewOutput) ToSubjectAccessReviewOutput() SubjectAccessRe
 
 func (o SubjectAccessReviewOutput) ToSubjectAccessReviewOutputWithContext(ctx context.Context) SubjectAccessReviewOutput {
 	return o
-}
-
-func (o SubjectAccessReviewOutput) ToOutput(ctx context.Context) pulumix.Output[SubjectAccessReview] {
-	return pulumix.Output[SubjectAccessReview]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -2775,12 +2426,6 @@ func (i SubjectAccessReviewPatchArgs) ToSubjectAccessReviewPatchOutputWithContex
 	return pulumi.ToOutputWithContext(ctx, i).(SubjectAccessReviewPatchOutput)
 }
 
-func (i SubjectAccessReviewPatchArgs) ToOutput(ctx context.Context) pulumix.Output[SubjectAccessReviewPatch] {
-	return pulumix.Output[SubjectAccessReviewPatch]{
-		OutputState: i.ToSubjectAccessReviewPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // SubjectAccessReview checks whether or not a user or group can perform an action.
 type SubjectAccessReviewPatchOutput struct{ *pulumi.OutputState }
 
@@ -2794,12 +2439,6 @@ func (o SubjectAccessReviewPatchOutput) ToSubjectAccessReviewPatchOutput() Subje
 
 func (o SubjectAccessReviewPatchOutput) ToSubjectAccessReviewPatchOutputWithContext(ctx context.Context) SubjectAccessReviewPatchOutput {
 	return o
-}
-
-func (o SubjectAccessReviewPatchOutput) ToOutput(ctx context.Context) pulumix.Output[SubjectAccessReviewPatch] {
-	return pulumix.Output[SubjectAccessReviewPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -2882,12 +2521,6 @@ func (i SubjectAccessReviewSpecArgs) ToSubjectAccessReviewSpecOutputWithContext(
 	return pulumi.ToOutputWithContext(ctx, i).(SubjectAccessReviewSpecOutput)
 }
 
-func (i SubjectAccessReviewSpecArgs) ToOutput(ctx context.Context) pulumix.Output[SubjectAccessReviewSpec] {
-	return pulumix.Output[SubjectAccessReviewSpec]{
-		OutputState: i.ToSubjectAccessReviewSpecOutputWithContext(ctx).OutputState,
-	}
-}
-
 // SubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
 type SubjectAccessReviewSpecOutput struct{ *pulumi.OutputState }
 
@@ -2901,12 +2534,6 @@ func (o SubjectAccessReviewSpecOutput) ToSubjectAccessReviewSpecOutput() Subject
 
 func (o SubjectAccessReviewSpecOutput) ToSubjectAccessReviewSpecOutputWithContext(ctx context.Context) SubjectAccessReviewSpecOutput {
 	return o
-}
-
-func (o SubjectAccessReviewSpecOutput) ToOutput(ctx context.Context) pulumix.Output[SubjectAccessReviewSpec] {
-	return pulumix.Output[SubjectAccessReviewSpec]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Extra corresponds to the user.Info.GetExtra() method from the authenticator.  Since that is input to the authorizer it needs a reflection here.
@@ -2994,12 +2621,6 @@ func (i SubjectAccessReviewSpecPatchArgs) ToSubjectAccessReviewSpecPatchOutputWi
 	return pulumi.ToOutputWithContext(ctx, i).(SubjectAccessReviewSpecPatchOutput)
 }
 
-func (i SubjectAccessReviewSpecPatchArgs) ToOutput(ctx context.Context) pulumix.Output[SubjectAccessReviewSpecPatch] {
-	return pulumix.Output[SubjectAccessReviewSpecPatch]{
-		OutputState: i.ToSubjectAccessReviewSpecPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i SubjectAccessReviewSpecPatchArgs) ToSubjectAccessReviewSpecPatchPtrOutput() SubjectAccessReviewSpecPatchPtrOutput {
 	return i.ToSubjectAccessReviewSpecPatchPtrOutputWithContext(context.Background())
 }
@@ -3041,12 +2662,6 @@ func (i *subjectAccessReviewSpecPatchPtrType) ToSubjectAccessReviewSpecPatchPtrO
 	return pulumi.ToOutputWithContext(ctx, i).(SubjectAccessReviewSpecPatchPtrOutput)
 }
 
-func (i *subjectAccessReviewSpecPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*SubjectAccessReviewSpecPatch] {
-	return pulumix.Output[*SubjectAccessReviewSpecPatch]{
-		OutputState: i.ToSubjectAccessReviewSpecPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // SubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
 type SubjectAccessReviewSpecPatchOutput struct{ *pulumi.OutputState }
 
@@ -3070,12 +2685,6 @@ func (o SubjectAccessReviewSpecPatchOutput) ToSubjectAccessReviewSpecPatchPtrOut
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v SubjectAccessReviewSpecPatch) *SubjectAccessReviewSpecPatch {
 		return &v
 	}).(SubjectAccessReviewSpecPatchPtrOutput)
-}
-
-func (o SubjectAccessReviewSpecPatchOutput) ToOutput(ctx context.Context) pulumix.Output[SubjectAccessReviewSpecPatch] {
-	return pulumix.Output[SubjectAccessReviewSpecPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Extra corresponds to the user.Info.GetExtra() method from the authenticator.  Since that is input to the authorizer it needs a reflection here.
@@ -3120,12 +2729,6 @@ func (o SubjectAccessReviewSpecPatchPtrOutput) ToSubjectAccessReviewSpecPatchPtr
 
 func (o SubjectAccessReviewSpecPatchPtrOutput) ToSubjectAccessReviewSpecPatchPtrOutputWithContext(ctx context.Context) SubjectAccessReviewSpecPatchPtrOutput {
 	return o
-}
-
-func (o SubjectAccessReviewSpecPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*SubjectAccessReviewSpecPatch] {
-	return pulumix.Output[*SubjectAccessReviewSpecPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o SubjectAccessReviewSpecPatchPtrOutput) Elem() SubjectAccessReviewSpecPatchOutput {
@@ -3245,12 +2848,6 @@ func (i SubjectAccessReviewStatusArgs) ToSubjectAccessReviewStatusOutputWithCont
 	return pulumi.ToOutputWithContext(ctx, i).(SubjectAccessReviewStatusOutput)
 }
 
-func (i SubjectAccessReviewStatusArgs) ToOutput(ctx context.Context) pulumix.Output[SubjectAccessReviewStatus] {
-	return pulumix.Output[SubjectAccessReviewStatus]{
-		OutputState: i.ToSubjectAccessReviewStatusOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i SubjectAccessReviewStatusArgs) ToSubjectAccessReviewStatusPtrOutput() SubjectAccessReviewStatusPtrOutput {
 	return i.ToSubjectAccessReviewStatusPtrOutputWithContext(context.Background())
 }
@@ -3292,12 +2889,6 @@ func (i *subjectAccessReviewStatusPtrType) ToSubjectAccessReviewStatusPtrOutputW
 	return pulumi.ToOutputWithContext(ctx, i).(SubjectAccessReviewStatusPtrOutput)
 }
 
-func (i *subjectAccessReviewStatusPtrType) ToOutput(ctx context.Context) pulumix.Output[*SubjectAccessReviewStatus] {
-	return pulumix.Output[*SubjectAccessReviewStatus]{
-		OutputState: i.ToSubjectAccessReviewStatusPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // SubjectAccessReviewStatus
 type SubjectAccessReviewStatusOutput struct{ *pulumi.OutputState }
 
@@ -3321,12 +2912,6 @@ func (o SubjectAccessReviewStatusOutput) ToSubjectAccessReviewStatusPtrOutputWit
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v SubjectAccessReviewStatus) *SubjectAccessReviewStatus {
 		return &v
 	}).(SubjectAccessReviewStatusPtrOutput)
-}
-
-func (o SubjectAccessReviewStatusOutput) ToOutput(ctx context.Context) pulumix.Output[SubjectAccessReviewStatus] {
-	return pulumix.Output[SubjectAccessReviewStatus]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Allowed is required. True if the action would be allowed, false otherwise.
@@ -3361,12 +2946,6 @@ func (o SubjectAccessReviewStatusPtrOutput) ToSubjectAccessReviewStatusPtrOutput
 
 func (o SubjectAccessReviewStatusPtrOutput) ToSubjectAccessReviewStatusPtrOutputWithContext(ctx context.Context) SubjectAccessReviewStatusPtrOutput {
 	return o
-}
-
-func (o SubjectAccessReviewStatusPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*SubjectAccessReviewStatus] {
-	return pulumix.Output[*SubjectAccessReviewStatus]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o SubjectAccessReviewStatusPtrOutput) Elem() SubjectAccessReviewStatusOutput {
@@ -3466,12 +3045,6 @@ func (i SubjectAccessReviewStatusPatchArgs) ToSubjectAccessReviewStatusPatchOutp
 	return pulumi.ToOutputWithContext(ctx, i).(SubjectAccessReviewStatusPatchOutput)
 }
 
-func (i SubjectAccessReviewStatusPatchArgs) ToOutput(ctx context.Context) pulumix.Output[SubjectAccessReviewStatusPatch] {
-	return pulumix.Output[SubjectAccessReviewStatusPatch]{
-		OutputState: i.ToSubjectAccessReviewStatusPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i SubjectAccessReviewStatusPatchArgs) ToSubjectAccessReviewStatusPatchPtrOutput() SubjectAccessReviewStatusPatchPtrOutput {
 	return i.ToSubjectAccessReviewStatusPatchPtrOutputWithContext(context.Background())
 }
@@ -3513,12 +3086,6 @@ func (i *subjectAccessReviewStatusPatchPtrType) ToSubjectAccessReviewStatusPatch
 	return pulumi.ToOutputWithContext(ctx, i).(SubjectAccessReviewStatusPatchPtrOutput)
 }
 
-func (i *subjectAccessReviewStatusPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*SubjectAccessReviewStatusPatch] {
-	return pulumix.Output[*SubjectAccessReviewStatusPatch]{
-		OutputState: i.ToSubjectAccessReviewStatusPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // SubjectAccessReviewStatus
 type SubjectAccessReviewStatusPatchOutput struct{ *pulumi.OutputState }
 
@@ -3542,12 +3109,6 @@ func (o SubjectAccessReviewStatusPatchOutput) ToSubjectAccessReviewStatusPatchPt
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v SubjectAccessReviewStatusPatch) *SubjectAccessReviewStatusPatch {
 		return &v
 	}).(SubjectAccessReviewStatusPatchPtrOutput)
-}
-
-func (o SubjectAccessReviewStatusPatchOutput) ToOutput(ctx context.Context) pulumix.Output[SubjectAccessReviewStatusPatch] {
-	return pulumix.Output[SubjectAccessReviewStatusPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Allowed is required. True if the action would be allowed, false otherwise.
@@ -3582,12 +3143,6 @@ func (o SubjectAccessReviewStatusPatchPtrOutput) ToSubjectAccessReviewStatusPatc
 
 func (o SubjectAccessReviewStatusPatchPtrOutput) ToSubjectAccessReviewStatusPatchPtrOutputWithContext(ctx context.Context) SubjectAccessReviewStatusPatchPtrOutput {
 	return o
-}
-
-func (o SubjectAccessReviewStatusPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*SubjectAccessReviewStatusPatch] {
-	return pulumix.Output[*SubjectAccessReviewStatusPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o SubjectAccessReviewStatusPatchPtrOutput) Elem() SubjectAccessReviewStatusPatchOutput {
@@ -3687,12 +3242,6 @@ func (i SubjectRulesReviewStatusArgs) ToSubjectRulesReviewStatusOutputWithContex
 	return pulumi.ToOutputWithContext(ctx, i).(SubjectRulesReviewStatusOutput)
 }
 
-func (i SubjectRulesReviewStatusArgs) ToOutput(ctx context.Context) pulumix.Output[SubjectRulesReviewStatus] {
-	return pulumix.Output[SubjectRulesReviewStatus]{
-		OutputState: i.ToSubjectRulesReviewStatusOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i SubjectRulesReviewStatusArgs) ToSubjectRulesReviewStatusPtrOutput() SubjectRulesReviewStatusPtrOutput {
 	return i.ToSubjectRulesReviewStatusPtrOutputWithContext(context.Background())
 }
@@ -3734,12 +3283,6 @@ func (i *subjectRulesReviewStatusPtrType) ToSubjectRulesReviewStatusPtrOutputWit
 	return pulumi.ToOutputWithContext(ctx, i).(SubjectRulesReviewStatusPtrOutput)
 }
 
-func (i *subjectRulesReviewStatusPtrType) ToOutput(ctx context.Context) pulumix.Output[*SubjectRulesReviewStatus] {
-	return pulumix.Output[*SubjectRulesReviewStatus]{
-		OutputState: i.ToSubjectRulesReviewStatusPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // SubjectRulesReviewStatus contains the result of a rules check. This check can be incomplete depending on the set of authorizers the server is configured with and any errors experienced during evaluation. Because authorization rules are additive, if a rule appears in a list it's safe to assume the subject has that permission, even if that list is incomplete.
 type SubjectRulesReviewStatusOutput struct{ *pulumi.OutputState }
 
@@ -3763,12 +3306,6 @@ func (o SubjectRulesReviewStatusOutput) ToSubjectRulesReviewStatusPtrOutputWithC
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v SubjectRulesReviewStatus) *SubjectRulesReviewStatus {
 		return &v
 	}).(SubjectRulesReviewStatusPtrOutput)
-}
-
-func (o SubjectRulesReviewStatusOutput) ToOutput(ctx context.Context) pulumix.Output[SubjectRulesReviewStatus] {
-	return pulumix.Output[SubjectRulesReviewStatus]{
-		OutputState: o.OutputState,
-	}
 }
 
 // EvaluationError can appear in combination with Rules. It indicates an error occurred during rule evaluation, such as an authorizer that doesn't support rule evaluation, and that ResourceRules and/or NonResourceRules may be incomplete.
@@ -3803,12 +3340,6 @@ func (o SubjectRulesReviewStatusPtrOutput) ToSubjectRulesReviewStatusPtrOutput()
 
 func (o SubjectRulesReviewStatusPtrOutput) ToSubjectRulesReviewStatusPtrOutputWithContext(ctx context.Context) SubjectRulesReviewStatusPtrOutput {
 	return o
-}
-
-func (o SubjectRulesReviewStatusPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*SubjectRulesReviewStatus] {
-	return pulumix.Output[*SubjectRulesReviewStatus]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o SubjectRulesReviewStatusPtrOutput) Elem() SubjectRulesReviewStatusOutput {
@@ -3908,12 +3439,6 @@ func (i SubjectRulesReviewStatusPatchArgs) ToSubjectRulesReviewStatusPatchOutput
 	return pulumi.ToOutputWithContext(ctx, i).(SubjectRulesReviewStatusPatchOutput)
 }
 
-func (i SubjectRulesReviewStatusPatchArgs) ToOutput(ctx context.Context) pulumix.Output[SubjectRulesReviewStatusPatch] {
-	return pulumix.Output[SubjectRulesReviewStatusPatch]{
-		OutputState: i.ToSubjectRulesReviewStatusPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i SubjectRulesReviewStatusPatchArgs) ToSubjectRulesReviewStatusPatchPtrOutput() SubjectRulesReviewStatusPatchPtrOutput {
 	return i.ToSubjectRulesReviewStatusPatchPtrOutputWithContext(context.Background())
 }
@@ -3955,12 +3480,6 @@ func (i *subjectRulesReviewStatusPatchPtrType) ToSubjectRulesReviewStatusPatchPt
 	return pulumi.ToOutputWithContext(ctx, i).(SubjectRulesReviewStatusPatchPtrOutput)
 }
 
-func (i *subjectRulesReviewStatusPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*SubjectRulesReviewStatusPatch] {
-	return pulumix.Output[*SubjectRulesReviewStatusPatch]{
-		OutputState: i.ToSubjectRulesReviewStatusPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // SubjectRulesReviewStatus contains the result of a rules check. This check can be incomplete depending on the set of authorizers the server is configured with and any errors experienced during evaluation. Because authorization rules are additive, if a rule appears in a list it's safe to assume the subject has that permission, even if that list is incomplete.
 type SubjectRulesReviewStatusPatchOutput struct{ *pulumi.OutputState }
 
@@ -3984,12 +3503,6 @@ func (o SubjectRulesReviewStatusPatchOutput) ToSubjectRulesReviewStatusPatchPtrO
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v SubjectRulesReviewStatusPatch) *SubjectRulesReviewStatusPatch {
 		return &v
 	}).(SubjectRulesReviewStatusPatchPtrOutput)
-}
-
-func (o SubjectRulesReviewStatusPatchOutput) ToOutput(ctx context.Context) pulumix.Output[SubjectRulesReviewStatusPatch] {
-	return pulumix.Output[SubjectRulesReviewStatusPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // EvaluationError can appear in combination with Rules. It indicates an error occurred during rule evaluation, such as an authorizer that doesn't support rule evaluation, and that ResourceRules and/or NonResourceRules may be incomplete.
@@ -4024,12 +3537,6 @@ func (o SubjectRulesReviewStatusPatchPtrOutput) ToSubjectRulesReviewStatusPatchP
 
 func (o SubjectRulesReviewStatusPatchPtrOutput) ToSubjectRulesReviewStatusPatchPtrOutputWithContext(ctx context.Context) SubjectRulesReviewStatusPatchPtrOutput {
 	return o
-}
-
-func (o SubjectRulesReviewStatusPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*SubjectRulesReviewStatusPatch] {
-	return pulumix.Output[*SubjectRulesReviewStatusPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o SubjectRulesReviewStatusPatchPtrOutput) Elem() SubjectRulesReviewStatusPatchOutput {

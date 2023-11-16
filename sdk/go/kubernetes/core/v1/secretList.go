@@ -11,7 +11,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // SecretList is a list of Secret.
@@ -118,12 +117,6 @@ func (i *SecretList) ToSecretListOutputWithContext(ctx context.Context) SecretLi
 	return pulumi.ToOutputWithContext(ctx, i).(SecretListOutput)
 }
 
-func (i *SecretList) ToOutput(ctx context.Context) pulumix.Output[*SecretList] {
-	return pulumix.Output[*SecretList]{
-		OutputState: i.ToSecretListOutputWithContext(ctx).OutputState,
-	}
-}
-
 // SecretListArrayInput is an input type that accepts SecretListArray and SecretListArrayOutput values.
 // You can construct a concrete instance of `SecretListArrayInput` via:
 //
@@ -147,12 +140,6 @@ func (i SecretListArray) ToSecretListArrayOutput() SecretListArrayOutput {
 
 func (i SecretListArray) ToSecretListArrayOutputWithContext(ctx context.Context) SecretListArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(SecretListArrayOutput)
-}
-
-func (i SecretListArray) ToOutput(ctx context.Context) pulumix.Output[[]*SecretList] {
-	return pulumix.Output[[]*SecretList]{
-		OutputState: i.ToSecretListArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // SecretListMapInput is an input type that accepts SecretListMap and SecretListMapOutput values.
@@ -180,12 +167,6 @@ func (i SecretListMap) ToSecretListMapOutputWithContext(ctx context.Context) Sec
 	return pulumi.ToOutputWithContext(ctx, i).(SecretListMapOutput)
 }
 
-func (i SecretListMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*SecretList] {
-	return pulumix.Output[map[string]*SecretList]{
-		OutputState: i.ToSecretListMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type SecretListOutput struct{ *pulumi.OutputState }
 
 func (SecretListOutput) ElementType() reflect.Type {
@@ -198,12 +179,6 @@ func (o SecretListOutput) ToSecretListOutput() SecretListOutput {
 
 func (o SecretListOutput) ToSecretListOutputWithContext(ctx context.Context) SecretListOutput {
 	return o
-}
-
-func (o SecretListOutput) ToOutput(ctx context.Context) pulumix.Output[*SecretList] {
-	return pulumix.Output[*SecretList]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -240,12 +215,6 @@ func (o SecretListArrayOutput) ToSecretListArrayOutputWithContext(ctx context.Co
 	return o
 }
 
-func (o SecretListArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*SecretList] {
-	return pulumix.Output[[]*SecretList]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o SecretListArrayOutput) Index(i pulumi.IntInput) SecretListOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *SecretList {
 		return vs[0].([]*SecretList)[vs[1].(int)]
@@ -264,12 +233,6 @@ func (o SecretListMapOutput) ToSecretListMapOutput() SecretListMapOutput {
 
 func (o SecretListMapOutput) ToSecretListMapOutputWithContext(ctx context.Context) SecretListMapOutput {
 	return o
-}
-
-func (o SecretListMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*SecretList] {
-	return pulumix.Output[map[string]*SecretList]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o SecretListMapOutput) MapIndex(k pulumi.StringInput) SecretListOutput {

@@ -11,7 +11,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // CronJobList is a collection of cron jobs.
@@ -118,12 +117,6 @@ func (i *CronJobList) ToCronJobListOutputWithContext(ctx context.Context) CronJo
 	return pulumi.ToOutputWithContext(ctx, i).(CronJobListOutput)
 }
 
-func (i *CronJobList) ToOutput(ctx context.Context) pulumix.Output[*CronJobList] {
-	return pulumix.Output[*CronJobList]{
-		OutputState: i.ToCronJobListOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CronJobListArrayInput is an input type that accepts CronJobListArray and CronJobListArrayOutput values.
 // You can construct a concrete instance of `CronJobListArrayInput` via:
 //
@@ -147,12 +140,6 @@ func (i CronJobListArray) ToCronJobListArrayOutput() CronJobListArrayOutput {
 
 func (i CronJobListArray) ToCronJobListArrayOutputWithContext(ctx context.Context) CronJobListArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(CronJobListArrayOutput)
-}
-
-func (i CronJobListArray) ToOutput(ctx context.Context) pulumix.Output[[]*CronJobList] {
-	return pulumix.Output[[]*CronJobList]{
-		OutputState: i.ToCronJobListArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // CronJobListMapInput is an input type that accepts CronJobListMap and CronJobListMapOutput values.
@@ -180,12 +167,6 @@ func (i CronJobListMap) ToCronJobListMapOutputWithContext(ctx context.Context) C
 	return pulumi.ToOutputWithContext(ctx, i).(CronJobListMapOutput)
 }
 
-func (i CronJobListMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*CronJobList] {
-	return pulumix.Output[map[string]*CronJobList]{
-		OutputState: i.ToCronJobListMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type CronJobListOutput struct{ *pulumi.OutputState }
 
 func (CronJobListOutput) ElementType() reflect.Type {
@@ -198,12 +179,6 @@ func (o CronJobListOutput) ToCronJobListOutput() CronJobListOutput {
 
 func (o CronJobListOutput) ToCronJobListOutputWithContext(ctx context.Context) CronJobListOutput {
 	return o
-}
-
-func (o CronJobListOutput) ToOutput(ctx context.Context) pulumix.Output[*CronJobList] {
-	return pulumix.Output[*CronJobList]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -240,12 +215,6 @@ func (o CronJobListArrayOutput) ToCronJobListArrayOutputWithContext(ctx context.
 	return o
 }
 
-func (o CronJobListArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*CronJobList] {
-	return pulumix.Output[[]*CronJobList]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o CronJobListArrayOutput) Index(i pulumi.IntInput) CronJobListOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *CronJobList {
 		return vs[0].([]*CronJobList)[vs[1].(int)]
@@ -264,12 +233,6 @@ func (o CronJobListMapOutput) ToCronJobListMapOutput() CronJobListMapOutput {
 
 func (o CronJobListMapOutput) ToCronJobListMapOutputWithContext(ctx context.Context) CronJobListMapOutput {
 	return o
-}
-
-func (o CronJobListMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*CronJobList] {
-	return pulumix.Output[map[string]*CronJobList]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o CronJobListMapOutput) MapIndex(k pulumi.StringInput) CronJobListOutput {

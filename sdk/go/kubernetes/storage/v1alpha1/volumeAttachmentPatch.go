@@ -10,7 +10,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -133,12 +132,6 @@ func (i *VolumeAttachmentPatch) ToVolumeAttachmentPatchOutputWithContext(ctx con
 	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentPatchOutput)
 }
 
-func (i *VolumeAttachmentPatch) ToOutput(ctx context.Context) pulumix.Output[*VolumeAttachmentPatch] {
-	return pulumix.Output[*VolumeAttachmentPatch]{
-		OutputState: i.ToVolumeAttachmentPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // VolumeAttachmentPatchArrayInput is an input type that accepts VolumeAttachmentPatchArray and VolumeAttachmentPatchArrayOutput values.
 // You can construct a concrete instance of `VolumeAttachmentPatchArrayInput` via:
 //
@@ -162,12 +155,6 @@ func (i VolumeAttachmentPatchArray) ToVolumeAttachmentPatchArrayOutput() VolumeA
 
 func (i VolumeAttachmentPatchArray) ToVolumeAttachmentPatchArrayOutputWithContext(ctx context.Context) VolumeAttachmentPatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentPatchArrayOutput)
-}
-
-func (i VolumeAttachmentPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*VolumeAttachmentPatch] {
-	return pulumix.Output[[]*VolumeAttachmentPatch]{
-		OutputState: i.ToVolumeAttachmentPatchArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // VolumeAttachmentPatchMapInput is an input type that accepts VolumeAttachmentPatchMap and VolumeAttachmentPatchMapOutput values.
@@ -195,12 +182,6 @@ func (i VolumeAttachmentPatchMap) ToVolumeAttachmentPatchMapOutputWithContext(ct
 	return pulumi.ToOutputWithContext(ctx, i).(VolumeAttachmentPatchMapOutput)
 }
 
-func (i VolumeAttachmentPatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*VolumeAttachmentPatch] {
-	return pulumix.Output[map[string]*VolumeAttachmentPatch]{
-		OutputState: i.ToVolumeAttachmentPatchMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type VolumeAttachmentPatchOutput struct{ *pulumi.OutputState }
 
 func (VolumeAttachmentPatchOutput) ElementType() reflect.Type {
@@ -213,12 +194,6 @@ func (o VolumeAttachmentPatchOutput) ToVolumeAttachmentPatchOutput() VolumeAttac
 
 func (o VolumeAttachmentPatchOutput) ToVolumeAttachmentPatchOutputWithContext(ctx context.Context) VolumeAttachmentPatchOutput {
 	return o
-}
-
-func (o VolumeAttachmentPatchOutput) ToOutput(ctx context.Context) pulumix.Output[*VolumeAttachmentPatch] {
-	return pulumix.Output[*VolumeAttachmentPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -260,12 +235,6 @@ func (o VolumeAttachmentPatchArrayOutput) ToVolumeAttachmentPatchArrayOutputWith
 	return o
 }
 
-func (o VolumeAttachmentPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*VolumeAttachmentPatch] {
-	return pulumix.Output[[]*VolumeAttachmentPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o VolumeAttachmentPatchArrayOutput) Index(i pulumi.IntInput) VolumeAttachmentPatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *VolumeAttachmentPatch {
 		return vs[0].([]*VolumeAttachmentPatch)[vs[1].(int)]
@@ -284,12 +253,6 @@ func (o VolumeAttachmentPatchMapOutput) ToVolumeAttachmentPatchMapOutput() Volum
 
 func (o VolumeAttachmentPatchMapOutput) ToVolumeAttachmentPatchMapOutputWithContext(ctx context.Context) VolumeAttachmentPatchMapOutput {
 	return o
-}
-
-func (o VolumeAttachmentPatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*VolumeAttachmentPatch] {
-	return pulumix.Output[map[string]*VolumeAttachmentPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o VolumeAttachmentPatchMapOutput) MapIndex(k pulumi.StringInput) VolumeAttachmentPatchOutput {

@@ -11,7 +11,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // ClusterRoleBinding references a ClusterRole, but not contain it.  It can reference a ClusterRole in the global namespace, and adds who information via Subject. Deprecated in v1.17 in favor of rbac.authorization.k8s.io/v1 ClusterRoleBinding, and will no longer be served in v1.20.
@@ -133,12 +132,6 @@ func (i *ClusterRoleBinding) ToClusterRoleBindingOutputWithContext(ctx context.C
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterRoleBindingOutput)
 }
 
-func (i *ClusterRoleBinding) ToOutput(ctx context.Context) pulumix.Output[*ClusterRoleBinding] {
-	return pulumix.Output[*ClusterRoleBinding]{
-		OutputState: i.ToClusterRoleBindingOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ClusterRoleBindingArrayInput is an input type that accepts ClusterRoleBindingArray and ClusterRoleBindingArrayOutput values.
 // You can construct a concrete instance of `ClusterRoleBindingArrayInput` via:
 //
@@ -162,12 +155,6 @@ func (i ClusterRoleBindingArray) ToClusterRoleBindingArrayOutput() ClusterRoleBi
 
 func (i ClusterRoleBindingArray) ToClusterRoleBindingArrayOutputWithContext(ctx context.Context) ClusterRoleBindingArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterRoleBindingArrayOutput)
-}
-
-func (i ClusterRoleBindingArray) ToOutput(ctx context.Context) pulumix.Output[[]*ClusterRoleBinding] {
-	return pulumix.Output[[]*ClusterRoleBinding]{
-		OutputState: i.ToClusterRoleBindingArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // ClusterRoleBindingMapInput is an input type that accepts ClusterRoleBindingMap and ClusterRoleBindingMapOutput values.
@@ -195,12 +182,6 @@ func (i ClusterRoleBindingMap) ToClusterRoleBindingMapOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterRoleBindingMapOutput)
 }
 
-func (i ClusterRoleBindingMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*ClusterRoleBinding] {
-	return pulumix.Output[map[string]*ClusterRoleBinding]{
-		OutputState: i.ToClusterRoleBindingMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type ClusterRoleBindingOutput struct{ *pulumi.OutputState }
 
 func (ClusterRoleBindingOutput) ElementType() reflect.Type {
@@ -213,12 +194,6 @@ func (o ClusterRoleBindingOutput) ToClusterRoleBindingOutput() ClusterRoleBindin
 
 func (o ClusterRoleBindingOutput) ToClusterRoleBindingOutputWithContext(ctx context.Context) ClusterRoleBindingOutput {
 	return o
-}
-
-func (o ClusterRoleBindingOutput) ToOutput(ctx context.Context) pulumix.Output[*ClusterRoleBinding] {
-	return pulumix.Output[*ClusterRoleBinding]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -260,12 +235,6 @@ func (o ClusterRoleBindingArrayOutput) ToClusterRoleBindingArrayOutputWithContex
 	return o
 }
 
-func (o ClusterRoleBindingArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*ClusterRoleBinding] {
-	return pulumix.Output[[]*ClusterRoleBinding]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o ClusterRoleBindingArrayOutput) Index(i pulumi.IntInput) ClusterRoleBindingOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *ClusterRoleBinding {
 		return vs[0].([]*ClusterRoleBinding)[vs[1].(int)]
@@ -284,12 +253,6 @@ func (o ClusterRoleBindingMapOutput) ToClusterRoleBindingMapOutput() ClusterRole
 
 func (o ClusterRoleBindingMapOutput) ToClusterRoleBindingMapOutputWithContext(ctx context.Context) ClusterRoleBindingMapOutput {
 	return o
-}
-
-func (o ClusterRoleBindingMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*ClusterRoleBinding] {
-	return pulumix.Output[map[string]*ClusterRoleBinding]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ClusterRoleBindingMapOutput) MapIndex(k pulumi.StringInput) ClusterRoleBindingOutput {

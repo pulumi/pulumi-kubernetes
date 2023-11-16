@@ -10,7 +10,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 var _ = utilities.GetEnvOrDefault
@@ -64,12 +63,6 @@ func (i APIServiceTypeArgs) ToAPIServiceTypeOutputWithContext(ctx context.Contex
 	return pulumi.ToOutputWithContext(ctx, i).(APIServiceTypeOutput)
 }
 
-func (i APIServiceTypeArgs) ToOutput(ctx context.Context) pulumix.Output[APIServiceType] {
-	return pulumix.Output[APIServiceType]{
-		OutputState: i.ToAPIServiceTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // APIServiceTypeArrayInput is an input type that accepts APIServiceTypeArray and APIServiceTypeArrayOutput values.
 // You can construct a concrete instance of `APIServiceTypeArrayInput` via:
 //
@@ -95,12 +88,6 @@ func (i APIServiceTypeArray) ToAPIServiceTypeArrayOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(APIServiceTypeArrayOutput)
 }
 
-func (i APIServiceTypeArray) ToOutput(ctx context.Context) pulumix.Output[[]APIServiceType] {
-	return pulumix.Output[[]APIServiceType]{
-		OutputState: i.ToAPIServiceTypeArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // APIService represents a server for a particular GroupVersion. Name must be "version.group".
 type APIServiceTypeOutput struct{ *pulumi.OutputState }
 
@@ -114,12 +101,6 @@ func (o APIServiceTypeOutput) ToAPIServiceTypeOutput() APIServiceTypeOutput {
 
 func (o APIServiceTypeOutput) ToAPIServiceTypeOutputWithContext(ctx context.Context) APIServiceTypeOutput {
 	return o
-}
-
-func (o APIServiceTypeOutput) ToOutput(ctx context.Context) pulumix.Output[APIServiceType] {
-	return pulumix.Output[APIServiceType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -158,12 +139,6 @@ func (o APIServiceTypeArrayOutput) ToAPIServiceTypeArrayOutput() APIServiceTypeA
 
 func (o APIServiceTypeArrayOutput) ToAPIServiceTypeArrayOutputWithContext(ctx context.Context) APIServiceTypeArrayOutput {
 	return o
-}
-
-func (o APIServiceTypeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]APIServiceType] {
-	return pulumix.Output[[]APIServiceType]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o APIServiceTypeArrayOutput) Index(i pulumi.IntInput) APIServiceTypeOutput {
@@ -223,12 +198,6 @@ func (i APIServiceConditionArgs) ToAPIServiceConditionOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(APIServiceConditionOutput)
 }
 
-func (i APIServiceConditionArgs) ToOutput(ctx context.Context) pulumix.Output[APIServiceCondition] {
-	return pulumix.Output[APIServiceCondition]{
-		OutputState: i.ToAPIServiceConditionOutputWithContext(ctx).OutputState,
-	}
-}
-
 // APIServiceConditionArrayInput is an input type that accepts APIServiceConditionArray and APIServiceConditionArrayOutput values.
 // You can construct a concrete instance of `APIServiceConditionArrayInput` via:
 //
@@ -254,12 +223,6 @@ func (i APIServiceConditionArray) ToAPIServiceConditionArrayOutputWithContext(ct
 	return pulumi.ToOutputWithContext(ctx, i).(APIServiceConditionArrayOutput)
 }
 
-func (i APIServiceConditionArray) ToOutput(ctx context.Context) pulumix.Output[[]APIServiceCondition] {
-	return pulumix.Output[[]APIServiceCondition]{
-		OutputState: i.ToAPIServiceConditionArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // APIServiceCondition describes the state of an APIService at a particular point
 type APIServiceConditionOutput struct{ *pulumi.OutputState }
 
@@ -273,12 +236,6 @@ func (o APIServiceConditionOutput) ToAPIServiceConditionOutput() APIServiceCondi
 
 func (o APIServiceConditionOutput) ToAPIServiceConditionOutputWithContext(ctx context.Context) APIServiceConditionOutput {
 	return o
-}
-
-func (o APIServiceConditionOutput) ToOutput(ctx context.Context) pulumix.Output[APIServiceCondition] {
-	return pulumix.Output[APIServiceCondition]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Last time the condition transitioned from one status to another.
@@ -318,12 +275,6 @@ func (o APIServiceConditionArrayOutput) ToAPIServiceConditionArrayOutput() APISe
 
 func (o APIServiceConditionArrayOutput) ToAPIServiceConditionArrayOutputWithContext(ctx context.Context) APIServiceConditionArrayOutput {
 	return o
-}
-
-func (o APIServiceConditionArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]APIServiceCondition] {
-	return pulumix.Output[[]APIServiceCondition]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o APIServiceConditionArrayOutput) Index(i pulumi.IntInput) APIServiceConditionOutput {
@@ -383,12 +334,6 @@ func (i APIServiceConditionPatchArgs) ToAPIServiceConditionPatchOutputWithContex
 	return pulumi.ToOutputWithContext(ctx, i).(APIServiceConditionPatchOutput)
 }
 
-func (i APIServiceConditionPatchArgs) ToOutput(ctx context.Context) pulumix.Output[APIServiceConditionPatch] {
-	return pulumix.Output[APIServiceConditionPatch]{
-		OutputState: i.ToAPIServiceConditionPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // APIServiceConditionPatchArrayInput is an input type that accepts APIServiceConditionPatchArray and APIServiceConditionPatchArrayOutput values.
 // You can construct a concrete instance of `APIServiceConditionPatchArrayInput` via:
 //
@@ -414,12 +359,6 @@ func (i APIServiceConditionPatchArray) ToAPIServiceConditionPatchArrayOutputWith
 	return pulumi.ToOutputWithContext(ctx, i).(APIServiceConditionPatchArrayOutput)
 }
 
-func (i APIServiceConditionPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]APIServiceConditionPatch] {
-	return pulumix.Output[[]APIServiceConditionPatch]{
-		OutputState: i.ToAPIServiceConditionPatchArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // APIServiceCondition describes the state of an APIService at a particular point
 type APIServiceConditionPatchOutput struct{ *pulumi.OutputState }
 
@@ -433,12 +372,6 @@ func (o APIServiceConditionPatchOutput) ToAPIServiceConditionPatchOutput() APISe
 
 func (o APIServiceConditionPatchOutput) ToAPIServiceConditionPatchOutputWithContext(ctx context.Context) APIServiceConditionPatchOutput {
 	return o
-}
-
-func (o APIServiceConditionPatchOutput) ToOutput(ctx context.Context) pulumix.Output[APIServiceConditionPatch] {
-	return pulumix.Output[APIServiceConditionPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Last time the condition transitioned from one status to another.
@@ -478,12 +411,6 @@ func (o APIServiceConditionPatchArrayOutput) ToAPIServiceConditionPatchArrayOutp
 
 func (o APIServiceConditionPatchArrayOutput) ToAPIServiceConditionPatchArrayOutputWithContext(ctx context.Context) APIServiceConditionPatchArrayOutput {
 	return o
-}
-
-func (o APIServiceConditionPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]APIServiceConditionPatch] {
-	return pulumix.Output[[]APIServiceConditionPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o APIServiceConditionPatchArrayOutput) Index(i pulumi.IntInput) APIServiceConditionPatchOutput {
@@ -535,12 +462,6 @@ func (i APIServiceListTypeArgs) ToAPIServiceListTypeOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(APIServiceListTypeOutput)
 }
 
-func (i APIServiceListTypeArgs) ToOutput(ctx context.Context) pulumix.Output[APIServiceListType] {
-	return pulumix.Output[APIServiceListType]{
-		OutputState: i.ToAPIServiceListTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // APIServiceList is a list of APIService objects.
 type APIServiceListTypeOutput struct{ *pulumi.OutputState }
 
@@ -554,12 +475,6 @@ func (o APIServiceListTypeOutput) ToAPIServiceListTypeOutput() APIServiceListTyp
 
 func (o APIServiceListTypeOutput) ToAPIServiceListTypeOutputWithContext(ctx context.Context) APIServiceListTypeOutput {
 	return o
-}
-
-func (o APIServiceListTypeOutput) ToOutput(ctx context.Context) pulumix.Output[APIServiceListType] {
-	return pulumix.Output[APIServiceListType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -629,12 +544,6 @@ func (i APIServicePatchTypeArgs) ToAPIServicePatchTypeOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(APIServicePatchTypeOutput)
 }
 
-func (i APIServicePatchTypeArgs) ToOutput(ctx context.Context) pulumix.Output[APIServicePatchType] {
-	return pulumix.Output[APIServicePatchType]{
-		OutputState: i.ToAPIServicePatchTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // APIService represents a server for a particular GroupVersion. Name must be "version.group".
 type APIServicePatchTypeOutput struct{ *pulumi.OutputState }
 
@@ -648,12 +557,6 @@ func (o APIServicePatchTypeOutput) ToAPIServicePatchTypeOutput() APIServicePatch
 
 func (o APIServicePatchTypeOutput) ToAPIServicePatchTypeOutputWithContext(ctx context.Context) APIServicePatchTypeOutput {
 	return o
-}
-
-func (o APIServicePatchTypeOutput) ToOutput(ctx context.Context) pulumix.Output[APIServicePatchType] {
-	return pulumix.Output[APIServicePatchType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -739,12 +642,6 @@ func (i APIServiceSpecArgs) ToAPIServiceSpecOutputWithContext(ctx context.Contex
 	return pulumi.ToOutputWithContext(ctx, i).(APIServiceSpecOutput)
 }
 
-func (i APIServiceSpecArgs) ToOutput(ctx context.Context) pulumix.Output[APIServiceSpec] {
-	return pulumix.Output[APIServiceSpec]{
-		OutputState: i.ToAPIServiceSpecOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i APIServiceSpecArgs) ToAPIServiceSpecPtrOutput() APIServiceSpecPtrOutput {
 	return i.ToAPIServiceSpecPtrOutputWithContext(context.Background())
 }
@@ -786,12 +683,6 @@ func (i *apiserviceSpecPtrType) ToAPIServiceSpecPtrOutputWithContext(ctx context
 	return pulumi.ToOutputWithContext(ctx, i).(APIServiceSpecPtrOutput)
 }
 
-func (i *apiserviceSpecPtrType) ToOutput(ctx context.Context) pulumix.Output[*APIServiceSpec] {
-	return pulumix.Output[*APIServiceSpec]{
-		OutputState: i.ToAPIServiceSpecPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // APIServiceSpec contains information for locating and communicating with a server. Only https is supported, though you are able to disable certificate verification.
 type APIServiceSpecOutput struct{ *pulumi.OutputState }
 
@@ -815,12 +706,6 @@ func (o APIServiceSpecOutput) ToAPIServiceSpecPtrOutputWithContext(ctx context.C
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v APIServiceSpec) *APIServiceSpec {
 		return &v
 	}).(APIServiceSpecPtrOutput)
-}
-
-func (o APIServiceSpecOutput) ToOutput(ctx context.Context) pulumix.Output[APIServiceSpec] {
-	return pulumix.Output[APIServiceSpec]{
-		OutputState: o.OutputState,
-	}
 }
 
 // CABundle is a PEM encoded CA bundle which will be used to validate an API server's serving certificate. If unspecified, system trust roots on the apiserver are used.
@@ -870,12 +755,6 @@ func (o APIServiceSpecPtrOutput) ToAPIServiceSpecPtrOutput() APIServiceSpecPtrOu
 
 func (o APIServiceSpecPtrOutput) ToAPIServiceSpecPtrOutputWithContext(ctx context.Context) APIServiceSpecPtrOutput {
 	return o
-}
-
-func (o APIServiceSpecPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*APIServiceSpec] {
-	return pulumix.Output[*APIServiceSpec]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o APIServiceSpecPtrOutput) Elem() APIServiceSpecOutput {
@@ -1017,12 +896,6 @@ func (i APIServiceSpecPatchArgs) ToAPIServiceSpecPatchOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(APIServiceSpecPatchOutput)
 }
 
-func (i APIServiceSpecPatchArgs) ToOutput(ctx context.Context) pulumix.Output[APIServiceSpecPatch] {
-	return pulumix.Output[APIServiceSpecPatch]{
-		OutputState: i.ToAPIServiceSpecPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i APIServiceSpecPatchArgs) ToAPIServiceSpecPatchPtrOutput() APIServiceSpecPatchPtrOutput {
 	return i.ToAPIServiceSpecPatchPtrOutputWithContext(context.Background())
 }
@@ -1064,12 +937,6 @@ func (i *apiserviceSpecPatchPtrType) ToAPIServiceSpecPatchPtrOutputWithContext(c
 	return pulumi.ToOutputWithContext(ctx, i).(APIServiceSpecPatchPtrOutput)
 }
 
-func (i *apiserviceSpecPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*APIServiceSpecPatch] {
-	return pulumix.Output[*APIServiceSpecPatch]{
-		OutputState: i.ToAPIServiceSpecPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // APIServiceSpec contains information for locating and communicating with a server. Only https is supported, though you are able to disable certificate verification.
 type APIServiceSpecPatchOutput struct{ *pulumi.OutputState }
 
@@ -1093,12 +960,6 @@ func (o APIServiceSpecPatchOutput) ToAPIServiceSpecPatchPtrOutputWithContext(ctx
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v APIServiceSpecPatch) *APIServiceSpecPatch {
 		return &v
 	}).(APIServiceSpecPatchPtrOutput)
-}
-
-func (o APIServiceSpecPatchOutput) ToOutput(ctx context.Context) pulumix.Output[APIServiceSpecPatch] {
-	return pulumix.Output[APIServiceSpecPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // CABundle is a PEM encoded CA bundle which will be used to validate an API server's serving certificate. If unspecified, system trust roots on the apiserver are used.
@@ -1148,12 +1009,6 @@ func (o APIServiceSpecPatchPtrOutput) ToAPIServiceSpecPatchPtrOutput() APIServic
 
 func (o APIServiceSpecPatchPtrOutput) ToAPIServiceSpecPatchPtrOutputWithContext(ctx context.Context) APIServiceSpecPatchPtrOutput {
 	return o
-}
-
-func (o APIServiceSpecPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*APIServiceSpecPatch] {
-	return pulumix.Output[*APIServiceSpecPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o APIServiceSpecPatchPtrOutput) Elem() APIServiceSpecPatchOutput {
@@ -1271,12 +1126,6 @@ func (i APIServiceStatusArgs) ToAPIServiceStatusOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(APIServiceStatusOutput)
 }
 
-func (i APIServiceStatusArgs) ToOutput(ctx context.Context) pulumix.Output[APIServiceStatus] {
-	return pulumix.Output[APIServiceStatus]{
-		OutputState: i.ToAPIServiceStatusOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i APIServiceStatusArgs) ToAPIServiceStatusPtrOutput() APIServiceStatusPtrOutput {
 	return i.ToAPIServiceStatusPtrOutputWithContext(context.Background())
 }
@@ -1318,12 +1167,6 @@ func (i *apiserviceStatusPtrType) ToAPIServiceStatusPtrOutputWithContext(ctx con
 	return pulumi.ToOutputWithContext(ctx, i).(APIServiceStatusPtrOutput)
 }
 
-func (i *apiserviceStatusPtrType) ToOutput(ctx context.Context) pulumix.Output[*APIServiceStatus] {
-	return pulumix.Output[*APIServiceStatus]{
-		OutputState: i.ToAPIServiceStatusPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // APIServiceStatus contains derived information about an API server
 type APIServiceStatusOutput struct{ *pulumi.OutputState }
 
@@ -1349,12 +1192,6 @@ func (o APIServiceStatusOutput) ToAPIServiceStatusPtrOutputWithContext(ctx conte
 	}).(APIServiceStatusPtrOutput)
 }
 
-func (o APIServiceStatusOutput) ToOutput(ctx context.Context) pulumix.Output[APIServiceStatus] {
-	return pulumix.Output[APIServiceStatus]{
-		OutputState: o.OutputState,
-	}
-}
-
 // Current service state of apiService.
 func (o APIServiceStatusOutput) Conditions() APIServiceConditionArrayOutput {
 	return o.ApplyT(func(v APIServiceStatus) []APIServiceCondition { return v.Conditions }).(APIServiceConditionArrayOutput)
@@ -1372,12 +1209,6 @@ func (o APIServiceStatusPtrOutput) ToAPIServiceStatusPtrOutput() APIServiceStatu
 
 func (o APIServiceStatusPtrOutput) ToAPIServiceStatusPtrOutputWithContext(ctx context.Context) APIServiceStatusPtrOutput {
 	return o
-}
-
-func (o APIServiceStatusPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*APIServiceStatus] {
-	return pulumix.Output[*APIServiceStatus]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o APIServiceStatusPtrOutput) Elem() APIServiceStatusOutput {
@@ -1435,12 +1266,6 @@ func (i APIServiceStatusPatchArgs) ToAPIServiceStatusPatchOutputWithContext(ctx 
 	return pulumi.ToOutputWithContext(ctx, i).(APIServiceStatusPatchOutput)
 }
 
-func (i APIServiceStatusPatchArgs) ToOutput(ctx context.Context) pulumix.Output[APIServiceStatusPatch] {
-	return pulumix.Output[APIServiceStatusPatch]{
-		OutputState: i.ToAPIServiceStatusPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i APIServiceStatusPatchArgs) ToAPIServiceStatusPatchPtrOutput() APIServiceStatusPatchPtrOutput {
 	return i.ToAPIServiceStatusPatchPtrOutputWithContext(context.Background())
 }
@@ -1482,12 +1307,6 @@ func (i *apiserviceStatusPatchPtrType) ToAPIServiceStatusPatchPtrOutputWithConte
 	return pulumi.ToOutputWithContext(ctx, i).(APIServiceStatusPatchPtrOutput)
 }
 
-func (i *apiserviceStatusPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*APIServiceStatusPatch] {
-	return pulumix.Output[*APIServiceStatusPatch]{
-		OutputState: i.ToAPIServiceStatusPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // APIServiceStatus contains derived information about an API server
 type APIServiceStatusPatchOutput struct{ *pulumi.OutputState }
 
@@ -1513,12 +1332,6 @@ func (o APIServiceStatusPatchOutput) ToAPIServiceStatusPatchPtrOutputWithContext
 	}).(APIServiceStatusPatchPtrOutput)
 }
 
-func (o APIServiceStatusPatchOutput) ToOutput(ctx context.Context) pulumix.Output[APIServiceStatusPatch] {
-	return pulumix.Output[APIServiceStatusPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 // Current service state of apiService.
 func (o APIServiceStatusPatchOutput) Conditions() APIServiceConditionPatchArrayOutput {
 	return o.ApplyT(func(v APIServiceStatusPatch) []APIServiceConditionPatch { return v.Conditions }).(APIServiceConditionPatchArrayOutput)
@@ -1536,12 +1349,6 @@ func (o APIServiceStatusPatchPtrOutput) ToAPIServiceStatusPatchPtrOutput() APISe
 
 func (o APIServiceStatusPatchPtrOutput) ToAPIServiceStatusPatchPtrOutputWithContext(ctx context.Context) APIServiceStatusPatchPtrOutput {
 	return o
-}
-
-func (o APIServiceStatusPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*APIServiceStatusPatch] {
-	return pulumix.Output[*APIServiceStatusPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o APIServiceStatusPatchPtrOutput) Elem() APIServiceStatusPatchOutput {
@@ -1607,12 +1414,6 @@ func (i ServiceReferenceArgs) ToServiceReferenceOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(ServiceReferenceOutput)
 }
 
-func (i ServiceReferenceArgs) ToOutput(ctx context.Context) pulumix.Output[ServiceReference] {
-	return pulumix.Output[ServiceReference]{
-		OutputState: i.ToServiceReferenceOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i ServiceReferenceArgs) ToServiceReferencePtrOutput() ServiceReferencePtrOutput {
 	return i.ToServiceReferencePtrOutputWithContext(context.Background())
 }
@@ -1654,12 +1455,6 @@ func (i *serviceReferencePtrType) ToServiceReferencePtrOutputWithContext(ctx con
 	return pulumi.ToOutputWithContext(ctx, i).(ServiceReferencePtrOutput)
 }
 
-func (i *serviceReferencePtrType) ToOutput(ctx context.Context) pulumix.Output[*ServiceReference] {
-	return pulumix.Output[*ServiceReference]{
-		OutputState: i.ToServiceReferencePtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ServiceReference holds a reference to Service.legacy.k8s.io
 type ServiceReferenceOutput struct{ *pulumi.OutputState }
 
@@ -1683,12 +1478,6 @@ func (o ServiceReferenceOutput) ToServiceReferencePtrOutputWithContext(ctx conte
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v ServiceReference) *ServiceReference {
 		return &v
 	}).(ServiceReferencePtrOutput)
-}
-
-func (o ServiceReferenceOutput) ToOutput(ctx context.Context) pulumix.Output[ServiceReference] {
-	return pulumix.Output[ServiceReference]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Name is the name of the service
@@ -1718,12 +1507,6 @@ func (o ServiceReferencePtrOutput) ToServiceReferencePtrOutput() ServiceReferenc
 
 func (o ServiceReferencePtrOutput) ToServiceReferencePtrOutputWithContext(ctx context.Context) ServiceReferencePtrOutput {
 	return o
-}
-
-func (o ServiceReferencePtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ServiceReference] {
-	return pulumix.Output[*ServiceReference]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ServiceReferencePtrOutput) Elem() ServiceReferenceOutput {
@@ -1809,12 +1592,6 @@ func (i ServiceReferencePatchArgs) ToServiceReferencePatchOutputWithContext(ctx 
 	return pulumi.ToOutputWithContext(ctx, i).(ServiceReferencePatchOutput)
 }
 
-func (i ServiceReferencePatchArgs) ToOutput(ctx context.Context) pulumix.Output[ServiceReferencePatch] {
-	return pulumix.Output[ServiceReferencePatch]{
-		OutputState: i.ToServiceReferencePatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i ServiceReferencePatchArgs) ToServiceReferencePatchPtrOutput() ServiceReferencePatchPtrOutput {
 	return i.ToServiceReferencePatchPtrOutputWithContext(context.Background())
 }
@@ -1856,12 +1633,6 @@ func (i *serviceReferencePatchPtrType) ToServiceReferencePatchPtrOutputWithConte
 	return pulumi.ToOutputWithContext(ctx, i).(ServiceReferencePatchPtrOutput)
 }
 
-func (i *serviceReferencePatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*ServiceReferencePatch] {
-	return pulumix.Output[*ServiceReferencePatch]{
-		OutputState: i.ToServiceReferencePatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ServiceReference holds a reference to Service.legacy.k8s.io
 type ServiceReferencePatchOutput struct{ *pulumi.OutputState }
 
@@ -1885,12 +1656,6 @@ func (o ServiceReferencePatchOutput) ToServiceReferencePatchPtrOutputWithContext
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v ServiceReferencePatch) *ServiceReferencePatch {
 		return &v
 	}).(ServiceReferencePatchPtrOutput)
-}
-
-func (o ServiceReferencePatchOutput) ToOutput(ctx context.Context) pulumix.Output[ServiceReferencePatch] {
-	return pulumix.Output[ServiceReferencePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Name is the name of the service
@@ -1920,12 +1685,6 @@ func (o ServiceReferencePatchPtrOutput) ToServiceReferencePatchPtrOutput() Servi
 
 func (o ServiceReferencePatchPtrOutput) ToServiceReferencePatchPtrOutputWithContext(ctx context.Context) ServiceReferencePatchPtrOutput {
 	return o
-}
-
-func (o ServiceReferencePatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ServiceReferencePatch] {
-	return pulumix.Output[*ServiceReferencePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ServiceReferencePatchPtrOutput) Elem() ServiceReferencePatchOutput {

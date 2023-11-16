@@ -10,7 +10,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Lease defines a lease concept.
@@ -120,12 +119,6 @@ func (i *Lease) ToLeaseOutputWithContext(ctx context.Context) LeaseOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(LeaseOutput)
 }
 
-func (i *Lease) ToOutput(ctx context.Context) pulumix.Output[*Lease] {
-	return pulumix.Output[*Lease]{
-		OutputState: i.ToLeaseOutputWithContext(ctx).OutputState,
-	}
-}
-
 // LeaseArrayInput is an input type that accepts LeaseArray and LeaseArrayOutput values.
 // You can construct a concrete instance of `LeaseArrayInput` via:
 //
@@ -149,12 +142,6 @@ func (i LeaseArray) ToLeaseArrayOutput() LeaseArrayOutput {
 
 func (i LeaseArray) ToLeaseArrayOutputWithContext(ctx context.Context) LeaseArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(LeaseArrayOutput)
-}
-
-func (i LeaseArray) ToOutput(ctx context.Context) pulumix.Output[[]*Lease] {
-	return pulumix.Output[[]*Lease]{
-		OutputState: i.ToLeaseArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // LeaseMapInput is an input type that accepts LeaseMap and LeaseMapOutput values.
@@ -182,12 +169,6 @@ func (i LeaseMap) ToLeaseMapOutputWithContext(ctx context.Context) LeaseMapOutpu
 	return pulumi.ToOutputWithContext(ctx, i).(LeaseMapOutput)
 }
 
-func (i LeaseMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*Lease] {
-	return pulumix.Output[map[string]*Lease]{
-		OutputState: i.ToLeaseMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type LeaseOutput struct{ *pulumi.OutputState }
 
 func (LeaseOutput) ElementType() reflect.Type {
@@ -200,12 +181,6 @@ func (o LeaseOutput) ToLeaseOutput() LeaseOutput {
 
 func (o LeaseOutput) ToLeaseOutputWithContext(ctx context.Context) LeaseOutput {
 	return o
-}
-
-func (o LeaseOutput) ToOutput(ctx context.Context) pulumix.Output[*Lease] {
-	return pulumix.Output[*Lease]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -242,12 +217,6 @@ func (o LeaseArrayOutput) ToLeaseArrayOutputWithContext(ctx context.Context) Lea
 	return o
 }
 
-func (o LeaseArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*Lease] {
-	return pulumix.Output[[]*Lease]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o LeaseArrayOutput) Index(i pulumi.IntInput) LeaseOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *Lease {
 		return vs[0].([]*Lease)[vs[1].(int)]
@@ -266,12 +235,6 @@ func (o LeaseMapOutput) ToLeaseMapOutput() LeaseMapOutput {
 
 func (o LeaseMapOutput) ToLeaseMapOutputWithContext(ctx context.Context) LeaseMapOutput {
 	return o
-}
-
-func (o LeaseMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*Lease] {
-	return pulumix.Output[map[string]*Lease]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o LeaseMapOutput) MapIndex(k pulumi.StringInput) LeaseOutput {

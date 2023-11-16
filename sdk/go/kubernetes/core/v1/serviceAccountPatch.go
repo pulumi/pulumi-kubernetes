@@ -10,7 +10,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -132,12 +131,6 @@ func (i *ServiceAccountPatch) ToServiceAccountPatchOutputWithContext(ctx context
 	return pulumi.ToOutputWithContext(ctx, i).(ServiceAccountPatchOutput)
 }
 
-func (i *ServiceAccountPatch) ToOutput(ctx context.Context) pulumix.Output[*ServiceAccountPatch] {
-	return pulumix.Output[*ServiceAccountPatch]{
-		OutputState: i.ToServiceAccountPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ServiceAccountPatchArrayInput is an input type that accepts ServiceAccountPatchArray and ServiceAccountPatchArrayOutput values.
 // You can construct a concrete instance of `ServiceAccountPatchArrayInput` via:
 //
@@ -161,12 +154,6 @@ func (i ServiceAccountPatchArray) ToServiceAccountPatchArrayOutput() ServiceAcco
 
 func (i ServiceAccountPatchArray) ToServiceAccountPatchArrayOutputWithContext(ctx context.Context) ServiceAccountPatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ServiceAccountPatchArrayOutput)
-}
-
-func (i ServiceAccountPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*ServiceAccountPatch] {
-	return pulumix.Output[[]*ServiceAccountPatch]{
-		OutputState: i.ToServiceAccountPatchArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // ServiceAccountPatchMapInput is an input type that accepts ServiceAccountPatchMap and ServiceAccountPatchMapOutput values.
@@ -194,12 +181,6 @@ func (i ServiceAccountPatchMap) ToServiceAccountPatchMapOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(ServiceAccountPatchMapOutput)
 }
 
-func (i ServiceAccountPatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*ServiceAccountPatch] {
-	return pulumix.Output[map[string]*ServiceAccountPatch]{
-		OutputState: i.ToServiceAccountPatchMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type ServiceAccountPatchOutput struct{ *pulumi.OutputState }
 
 func (ServiceAccountPatchOutput) ElementType() reflect.Type {
@@ -212,12 +193,6 @@ func (o ServiceAccountPatchOutput) ToServiceAccountPatchOutput() ServiceAccountP
 
 func (o ServiceAccountPatchOutput) ToServiceAccountPatchOutputWithContext(ctx context.Context) ServiceAccountPatchOutput {
 	return o
-}
-
-func (o ServiceAccountPatchOutput) ToOutput(ctx context.Context) pulumix.Output[*ServiceAccountPatch] {
-	return pulumix.Output[*ServiceAccountPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -264,12 +239,6 @@ func (o ServiceAccountPatchArrayOutput) ToServiceAccountPatchArrayOutputWithCont
 	return o
 }
 
-func (o ServiceAccountPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*ServiceAccountPatch] {
-	return pulumix.Output[[]*ServiceAccountPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o ServiceAccountPatchArrayOutput) Index(i pulumi.IntInput) ServiceAccountPatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *ServiceAccountPatch {
 		return vs[0].([]*ServiceAccountPatch)[vs[1].(int)]
@@ -288,12 +257,6 @@ func (o ServiceAccountPatchMapOutput) ToServiceAccountPatchMapOutput() ServiceAc
 
 func (o ServiceAccountPatchMapOutput) ToServiceAccountPatchMapOutputWithContext(ctx context.Context) ServiceAccountPatchMapOutput {
 	return o
-}
-
-func (o ServiceAccountPatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*ServiceAccountPatch] {
-	return pulumix.Output[map[string]*ServiceAccountPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ServiceAccountPatchMapOutput) MapIndex(k pulumi.StringInput) ServiceAccountPatchOutput {

@@ -10,7 +10,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -147,12 +146,6 @@ func (i *PriorityClassPatch) ToPriorityClassPatchOutputWithContext(ctx context.C
 	return pulumi.ToOutputWithContext(ctx, i).(PriorityClassPatchOutput)
 }
 
-func (i *PriorityClassPatch) ToOutput(ctx context.Context) pulumix.Output[*PriorityClassPatch] {
-	return pulumix.Output[*PriorityClassPatch]{
-		OutputState: i.ToPriorityClassPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PriorityClassPatchArrayInput is an input type that accepts PriorityClassPatchArray and PriorityClassPatchArrayOutput values.
 // You can construct a concrete instance of `PriorityClassPatchArrayInput` via:
 //
@@ -176,12 +169,6 @@ func (i PriorityClassPatchArray) ToPriorityClassPatchArrayOutput() PriorityClass
 
 func (i PriorityClassPatchArray) ToPriorityClassPatchArrayOutputWithContext(ctx context.Context) PriorityClassPatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(PriorityClassPatchArrayOutput)
-}
-
-func (i PriorityClassPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*PriorityClassPatch] {
-	return pulumix.Output[[]*PriorityClassPatch]{
-		OutputState: i.ToPriorityClassPatchArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // PriorityClassPatchMapInput is an input type that accepts PriorityClassPatchMap and PriorityClassPatchMapOutput values.
@@ -209,12 +196,6 @@ func (i PriorityClassPatchMap) ToPriorityClassPatchMapOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(PriorityClassPatchMapOutput)
 }
 
-func (i PriorityClassPatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*PriorityClassPatch] {
-	return pulumix.Output[map[string]*PriorityClassPatch]{
-		OutputState: i.ToPriorityClassPatchMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type PriorityClassPatchOutput struct{ *pulumi.OutputState }
 
 func (PriorityClassPatchOutput) ElementType() reflect.Type {
@@ -227,12 +208,6 @@ func (o PriorityClassPatchOutput) ToPriorityClassPatchOutput() PriorityClassPatc
 
 func (o PriorityClassPatchOutput) ToPriorityClassPatchOutputWithContext(ctx context.Context) PriorityClassPatchOutput {
 	return o
-}
-
-func (o PriorityClassPatchOutput) ToOutput(ctx context.Context) pulumix.Output[*PriorityClassPatch] {
-	return pulumix.Output[*PriorityClassPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -284,12 +259,6 @@ func (o PriorityClassPatchArrayOutput) ToPriorityClassPatchArrayOutputWithContex
 	return o
 }
 
-func (o PriorityClassPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*PriorityClassPatch] {
-	return pulumix.Output[[]*PriorityClassPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o PriorityClassPatchArrayOutput) Index(i pulumi.IntInput) PriorityClassPatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *PriorityClassPatch {
 		return vs[0].([]*PriorityClassPatch)[vs[1].(int)]
@@ -308,12 +277,6 @@ func (o PriorityClassPatchMapOutput) ToPriorityClassPatchMapOutput() PriorityCla
 
 func (o PriorityClassPatchMapOutput) ToPriorityClassPatchMapOutputWithContext(ctx context.Context) PriorityClassPatchMapOutput {
 	return o
-}
-
-func (o PriorityClassPatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*PriorityClassPatch] {
-	return pulumix.Output[map[string]*PriorityClassPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o PriorityClassPatchMapOutput) MapIndex(k pulumi.StringInput) PriorityClassPatchOutput {

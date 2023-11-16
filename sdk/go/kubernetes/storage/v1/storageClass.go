@@ -12,7 +12,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // StorageClass describes the parameters for a class of storage for which PersistentVolumes can be dynamically provisioned.
@@ -163,12 +162,6 @@ func (i *StorageClass) ToStorageClassOutputWithContext(ctx context.Context) Stor
 	return pulumi.ToOutputWithContext(ctx, i).(StorageClassOutput)
 }
 
-func (i *StorageClass) ToOutput(ctx context.Context) pulumix.Output[*StorageClass] {
-	return pulumix.Output[*StorageClass]{
-		OutputState: i.ToStorageClassOutputWithContext(ctx).OutputState,
-	}
-}
-
 // StorageClassArrayInput is an input type that accepts StorageClassArray and StorageClassArrayOutput values.
 // You can construct a concrete instance of `StorageClassArrayInput` via:
 //
@@ -192,12 +185,6 @@ func (i StorageClassArray) ToStorageClassArrayOutput() StorageClassArrayOutput {
 
 func (i StorageClassArray) ToStorageClassArrayOutputWithContext(ctx context.Context) StorageClassArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(StorageClassArrayOutput)
-}
-
-func (i StorageClassArray) ToOutput(ctx context.Context) pulumix.Output[[]*StorageClass] {
-	return pulumix.Output[[]*StorageClass]{
-		OutputState: i.ToStorageClassArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // StorageClassMapInput is an input type that accepts StorageClassMap and StorageClassMapOutput values.
@@ -225,12 +212,6 @@ func (i StorageClassMap) ToStorageClassMapOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(StorageClassMapOutput)
 }
 
-func (i StorageClassMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*StorageClass] {
-	return pulumix.Output[map[string]*StorageClass]{
-		OutputState: i.ToStorageClassMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type StorageClassOutput struct{ *pulumi.OutputState }
 
 func (StorageClassOutput) ElementType() reflect.Type {
@@ -243,12 +224,6 @@ func (o StorageClassOutput) ToStorageClassOutput() StorageClassOutput {
 
 func (o StorageClassOutput) ToStorageClassOutputWithContext(ctx context.Context) StorageClassOutput {
 	return o
-}
-
-func (o StorageClassOutput) ToOutput(ctx context.Context) pulumix.Output[*StorageClass] {
-	return pulumix.Output[*StorageClass]{
-		OutputState: o.OutputState,
-	}
 }
 
 // allowVolumeExpansion shows whether the storage class allow volume expand.
@@ -315,12 +290,6 @@ func (o StorageClassArrayOutput) ToStorageClassArrayOutputWithContext(ctx contex
 	return o
 }
 
-func (o StorageClassArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*StorageClass] {
-	return pulumix.Output[[]*StorageClass]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o StorageClassArrayOutput) Index(i pulumi.IntInput) StorageClassOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *StorageClass {
 		return vs[0].([]*StorageClass)[vs[1].(int)]
@@ -339,12 +308,6 @@ func (o StorageClassMapOutput) ToStorageClassMapOutput() StorageClassMapOutput {
 
 func (o StorageClassMapOutput) ToStorageClassMapOutputWithContext(ctx context.Context) StorageClassMapOutput {
 	return o
-}
-
-func (o StorageClassMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*StorageClass] {
-	return pulumix.Output[map[string]*StorageClass]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o StorageClassMapOutput) MapIndex(k pulumi.StringInput) StorageClassOutput {

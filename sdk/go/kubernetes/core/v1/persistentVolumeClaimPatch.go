@@ -10,7 +10,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -122,12 +121,6 @@ func (i *PersistentVolumeClaimPatch) ToPersistentVolumeClaimPatchOutputWithConte
 	return pulumi.ToOutputWithContext(ctx, i).(PersistentVolumeClaimPatchOutput)
 }
 
-func (i *PersistentVolumeClaimPatch) ToOutput(ctx context.Context) pulumix.Output[*PersistentVolumeClaimPatch] {
-	return pulumix.Output[*PersistentVolumeClaimPatch]{
-		OutputState: i.ToPersistentVolumeClaimPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PersistentVolumeClaimPatchArrayInput is an input type that accepts PersistentVolumeClaimPatchArray and PersistentVolumeClaimPatchArrayOutput values.
 // You can construct a concrete instance of `PersistentVolumeClaimPatchArrayInput` via:
 //
@@ -151,12 +144,6 @@ func (i PersistentVolumeClaimPatchArray) ToPersistentVolumeClaimPatchArrayOutput
 
 func (i PersistentVolumeClaimPatchArray) ToPersistentVolumeClaimPatchArrayOutputWithContext(ctx context.Context) PersistentVolumeClaimPatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(PersistentVolumeClaimPatchArrayOutput)
-}
-
-func (i PersistentVolumeClaimPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*PersistentVolumeClaimPatch] {
-	return pulumix.Output[[]*PersistentVolumeClaimPatch]{
-		OutputState: i.ToPersistentVolumeClaimPatchArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // PersistentVolumeClaimPatchMapInput is an input type that accepts PersistentVolumeClaimPatchMap and PersistentVolumeClaimPatchMapOutput values.
@@ -184,12 +171,6 @@ func (i PersistentVolumeClaimPatchMap) ToPersistentVolumeClaimPatchMapOutputWith
 	return pulumi.ToOutputWithContext(ctx, i).(PersistentVolumeClaimPatchMapOutput)
 }
 
-func (i PersistentVolumeClaimPatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*PersistentVolumeClaimPatch] {
-	return pulumix.Output[map[string]*PersistentVolumeClaimPatch]{
-		OutputState: i.ToPersistentVolumeClaimPatchMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type PersistentVolumeClaimPatchOutput struct{ *pulumi.OutputState }
 
 func (PersistentVolumeClaimPatchOutput) ElementType() reflect.Type {
@@ -202,12 +183,6 @@ func (o PersistentVolumeClaimPatchOutput) ToPersistentVolumeClaimPatchOutput() P
 
 func (o PersistentVolumeClaimPatchOutput) ToPersistentVolumeClaimPatchOutputWithContext(ctx context.Context) PersistentVolumeClaimPatchOutput {
 	return o
-}
-
-func (o PersistentVolumeClaimPatchOutput) ToOutput(ctx context.Context) pulumix.Output[*PersistentVolumeClaimPatch] {
-	return pulumix.Output[*PersistentVolumeClaimPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -249,12 +224,6 @@ func (o PersistentVolumeClaimPatchArrayOutput) ToPersistentVolumeClaimPatchArray
 	return o
 }
 
-func (o PersistentVolumeClaimPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*PersistentVolumeClaimPatch] {
-	return pulumix.Output[[]*PersistentVolumeClaimPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o PersistentVolumeClaimPatchArrayOutput) Index(i pulumi.IntInput) PersistentVolumeClaimPatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *PersistentVolumeClaimPatch {
 		return vs[0].([]*PersistentVolumeClaimPatch)[vs[1].(int)]
@@ -273,12 +242,6 @@ func (o PersistentVolumeClaimPatchMapOutput) ToPersistentVolumeClaimPatchMapOutp
 
 func (o PersistentVolumeClaimPatchMapOutput) ToPersistentVolumeClaimPatchMapOutputWithContext(ctx context.Context) PersistentVolumeClaimPatchMapOutput {
 	return o
-}
-
-func (o PersistentVolumeClaimPatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*PersistentVolumeClaimPatch] {
-	return pulumix.Output[map[string]*PersistentVolumeClaimPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o PersistentVolumeClaimPatchMapOutput) MapIndex(k pulumi.StringInput) PersistentVolumeClaimPatchOutput {
