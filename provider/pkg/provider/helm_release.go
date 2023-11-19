@@ -743,23 +743,22 @@ func (r *helmReleaseProvider) Diff(ctx context.Context, req *pulumirpc.DiffReque
 
 	// Generate a patch to apply the new inputs to the old state, including deletions.
 	schema := &noSchema{}
-	oldInputsJson, err := json.Marshal(oldInputs.MapRepl(nil, mapReplStripSecrets))
+	oldInputsJSON, err := json.Marshal(oldInputs.MapRepl(nil, mapReplStripSecrets))
 	if err != nil {
 		return nil, pkgerrors.Wrapf(err, "internal error: json.Marshal(oldInputsJson)")
 	}
-	logger.V(9).Infof("oldInputsJSON: %+v", string(oldInputsJson))
-	newInputsJson, err := json.Marshal(news.MapRepl(nil, mapReplStripSecrets))
+	logger.V(9).Infof("oldInputsJSON: %+v", string(oldInputsJSON))
+	newInputsJSON, err := json.Marshal(news.MapRepl(nil, mapReplStripSecrets))
 	if err != nil {
 		return nil, pkgerrors.Wrapf(err, "internal error: json.Marshal(oldInputsJson)")
 	}
-	logger.V(9).Infof("newInputsJSON: %+v", string(newInputsJson))
-	oldStateJson, err := json.Marshal(olds.MapRepl(nil, mapReplStripSecrets))
+	logger.V(9).Infof("newInputsJSON: %+v", string(newInputsJSON))
+	oldStateJSON, err := json.Marshal(olds.MapRepl(nil, mapReplStripSecrets))
 	if err != nil {
 		return nil, pkgerrors.Wrapf(err, "internal error: json.Marshal(oldStateJson)")
 	}
-	logger.V(9).Infof("oldStateJson: %+v", string(oldStateJson))
-
-	strategicPatch, err := strategicpatch.CreateThreeWayMergePatch(oldInputsJson, newInputsJson, oldStateJson, schema, true)
+	logger.V(9).Infof("oldStateJson: %+v", string(oldStateJSON))
+	strategicPatch, err := strategicpatch.CreateThreeWayMergePatch(oldInputsJSON, newInputsJSON, oldStateJSON, schema, true)
 	if err != nil {
 		return nil, pkgerrors.Wrapf(err, "internal error: CreateThreeWayMergePatch")
 	}
