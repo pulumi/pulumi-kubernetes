@@ -21,7 +21,7 @@ func main() {
 			Namespace: ns.Metadata.Name(),
 			Values:    pulumi.Map{"service": pulumi.StringMap{"type": pulumi.String("ClusterIP")}},
 			Timeout:   pulumi.Int(300),
-		})
+		}, pulumi.IgnoreChanges([]string{"version"}))
 		if err != nil {
 			return err
 		}

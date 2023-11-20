@@ -512,7 +512,14 @@ func TestGo(t *testing.T) {
 		})
 	})
 
-	t.Run("Helm Release (Content Detection)", func(t *testing.T) {
+	t.Run("Helm Release (Local Chart Versioning)", func(t *testing.T) {
+		validateVersion := func(t *testing.T, stack integration.RuntimeValidationStackInfo, expected string) {
+			actual, ok := stack.Outputs["version"].(string)
+			if !ok {
+				t.Fatalf("expected a version output")
+			}
+			assert.Equal(t, expected, actual, "expected version to be %d", expected)
+		}
 		validateReplicas := func(t *testing.T, stack integration.RuntimeValidationStackInfo, expected float64) {
 			actual, ok := stack.Outputs["replicas"].(float64)
 			if !ok {
@@ -533,8 +540,10 @@ func TestGo(t *testing.T) {
 					Dir:      filepath.Join("helm-release-local", "step2"),
 					Additive: true,
 					ExtraRuntimeValidation: func(t *testing.T, stack integration.RuntimeValidationStackInfo) {
-						// expect the change in values.yaml (replicaCount: 2) to be detected
-						validateReplicas(t, stack, 2)
+						// expect the change in values.yaml (replicaCount: 2) to NOT be detected
+						// because Pulumi detects version changes only.
+						validateReplicas(t, stack, 1)
+						validateVersion(t, stack, "6.0.5")
 					},
 					ExpectFailure: false,
 				},
@@ -542,9 +551,20 @@ func TestGo(t *testing.T) {
 					Dir:      filepath.Join("helm-release-local", "step3"),
 					Additive: true,
 					ExtraRuntimeValidation: func(t *testing.T, stack integration.RuntimeValidationStackInfo) {
-						// note the resource option: pulumi.IgnoreChanges([]string{"checksum"})
-						// expect the change in values.yaml (replicaCount: 3) to be ignored
+						// bump the chart version and expect Pulumi to perform an upgrade.
 						validateReplicas(t, stack, 2)
+						validateVersion(t, stack, "6.1.0")
+					},
+					ExpectFailure: false,
+				},
+				{
+					Dir:      filepath.Join("helm-release-local", "step4"),
+					Additive: true,
+					ExtraRuntimeValidation: func(t *testing.T, stack integration.RuntimeValidationStackInfo) {
+						// bump the chart version again but with ignoreChanges: ["version"]
+						// expect no change in the number of replicas.
+						validateReplicas(t, stack, 2)
+						validateVersion(t, stack, "6.1.0")
 					},
 					ExpectFailure: false,
 				},

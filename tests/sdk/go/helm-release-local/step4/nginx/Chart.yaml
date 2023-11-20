@@ -1,0 +1,21 @@
+annotations:
+  category: Infrastructure
+apiVersion: v1
+appVersion: 1.19.1
+description: Chart for the nginx server
+engine: gotpl
+home: http://www.nginx.org
+icon: https://bitnami.com/assets/stacks/nginx/img/nginx-stack-220x234.png
+keywords:
+- nginx
+- http
+- web
+- www
+- reverse proxy
+maintainers:
+- email: containers@bitnami.com
+  name: Bitnami
+name: nginx
+sources:
+- https://github.com/bitnami/bitnami-docker-nginx
+version: 6.1.1 # bumped version (again)
