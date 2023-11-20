@@ -3,6 +3,8 @@
 
 - Fix: Make the invoke calls for Helm charts and YAML config resilient to the value being None or an empty dict (https://github.com/pulumi/pulumi-kubernetes/pull/2665)
 
+- Fix: compute version field in Check for content detection (https://github.com/pulumi/pulumi-kubernetes/pull/2672)
+
 ## 4.5.4 (November 8, 2023)
 - Fix: Helm Release: chart requires kubeVersion (https://github.com/pulumi/pulumi-kubernetes/pull/2653)
 
