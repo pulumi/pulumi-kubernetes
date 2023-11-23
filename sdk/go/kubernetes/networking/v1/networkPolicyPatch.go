@@ -10,7 +10,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -128,12 +127,6 @@ func (i *NetworkPolicyPatch) ToNetworkPolicyPatchOutputWithContext(ctx context.C
 	return pulumi.ToOutputWithContext(ctx, i).(NetworkPolicyPatchOutput)
 }
 
-func (i *NetworkPolicyPatch) ToOutput(ctx context.Context) pulumix.Output[*NetworkPolicyPatch] {
-	return pulumix.Output[*NetworkPolicyPatch]{
-		OutputState: i.ToNetworkPolicyPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // NetworkPolicyPatchArrayInput is an input type that accepts NetworkPolicyPatchArray and NetworkPolicyPatchArrayOutput values.
 // You can construct a concrete instance of `NetworkPolicyPatchArrayInput` via:
 //
@@ -157,12 +150,6 @@ func (i NetworkPolicyPatchArray) ToNetworkPolicyPatchArrayOutput() NetworkPolicy
 
 func (i NetworkPolicyPatchArray) ToNetworkPolicyPatchArrayOutputWithContext(ctx context.Context) NetworkPolicyPatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(NetworkPolicyPatchArrayOutput)
-}
-
-func (i NetworkPolicyPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*NetworkPolicyPatch] {
-	return pulumix.Output[[]*NetworkPolicyPatch]{
-		OutputState: i.ToNetworkPolicyPatchArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // NetworkPolicyPatchMapInput is an input type that accepts NetworkPolicyPatchMap and NetworkPolicyPatchMapOutput values.
@@ -190,12 +177,6 @@ func (i NetworkPolicyPatchMap) ToNetworkPolicyPatchMapOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(NetworkPolicyPatchMapOutput)
 }
 
-func (i NetworkPolicyPatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*NetworkPolicyPatch] {
-	return pulumix.Output[map[string]*NetworkPolicyPatch]{
-		OutputState: i.ToNetworkPolicyPatchMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type NetworkPolicyPatchOutput struct{ *pulumi.OutputState }
 
 func (NetworkPolicyPatchOutput) ElementType() reflect.Type {
@@ -208,12 +189,6 @@ func (o NetworkPolicyPatchOutput) ToNetworkPolicyPatchOutput() NetworkPolicyPatc
 
 func (o NetworkPolicyPatchOutput) ToNetworkPolicyPatchOutputWithContext(ctx context.Context) NetworkPolicyPatchOutput {
 	return o
-}
-
-func (o NetworkPolicyPatchOutput) ToOutput(ctx context.Context) pulumix.Output[*NetworkPolicyPatch] {
-	return pulumix.Output[*NetworkPolicyPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -255,12 +230,6 @@ func (o NetworkPolicyPatchArrayOutput) ToNetworkPolicyPatchArrayOutputWithContex
 	return o
 }
 
-func (o NetworkPolicyPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*NetworkPolicyPatch] {
-	return pulumix.Output[[]*NetworkPolicyPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o NetworkPolicyPatchArrayOutput) Index(i pulumi.IntInput) NetworkPolicyPatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *NetworkPolicyPatch {
 		return vs[0].([]*NetworkPolicyPatch)[vs[1].(int)]
@@ -279,12 +248,6 @@ func (o NetworkPolicyPatchMapOutput) ToNetworkPolicyPatchMapOutput() NetworkPoli
 
 func (o NetworkPolicyPatchMapOutput) ToNetworkPolicyPatchMapOutputWithContext(ctx context.Context) NetworkPolicyPatchMapOutput {
 	return o
-}
-
-func (o NetworkPolicyPatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*NetworkPolicyPatch] {
-	return pulumix.Output[map[string]*NetworkPolicyPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o NetworkPolicyPatchMapOutput) MapIndex(k pulumi.StringInput) NetworkPolicyPatchOutput {

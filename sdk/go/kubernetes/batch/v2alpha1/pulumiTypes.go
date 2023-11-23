@@ -12,7 +12,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 var _ = utilities.GetEnvOrDefault
@@ -68,12 +67,6 @@ func (i CronJobTypeArgs) ToCronJobTypeOutputWithContext(ctx context.Context) Cro
 	return pulumi.ToOutputWithContext(ctx, i).(CronJobTypeOutput)
 }
 
-func (i CronJobTypeArgs) ToOutput(ctx context.Context) pulumix.Output[CronJobType] {
-	return pulumix.Output[CronJobType]{
-		OutputState: i.ToCronJobTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CronJobTypeArrayInput is an input type that accepts CronJobTypeArray and CronJobTypeArrayOutput values.
 // You can construct a concrete instance of `CronJobTypeArrayInput` via:
 //
@@ -99,12 +92,6 @@ func (i CronJobTypeArray) ToCronJobTypeArrayOutputWithContext(ctx context.Contex
 	return pulumi.ToOutputWithContext(ctx, i).(CronJobTypeArrayOutput)
 }
 
-func (i CronJobTypeArray) ToOutput(ctx context.Context) pulumix.Output[[]CronJobType] {
-	return pulumix.Output[[]CronJobType]{
-		OutputState: i.ToCronJobTypeArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CronJob represents the configuration of a single cron job.
 type CronJobTypeOutput struct{ *pulumi.OutputState }
 
@@ -118,12 +105,6 @@ func (o CronJobTypeOutput) ToCronJobTypeOutput() CronJobTypeOutput {
 
 func (o CronJobTypeOutput) ToCronJobTypeOutputWithContext(ctx context.Context) CronJobTypeOutput {
 	return o
-}
-
-func (o CronJobTypeOutput) ToOutput(ctx context.Context) pulumix.Output[CronJobType] {
-	return pulumix.Output[CronJobType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -163,12 +144,6 @@ func (o CronJobTypeArrayOutput) ToCronJobTypeArrayOutput() CronJobTypeArrayOutpu
 
 func (o CronJobTypeArrayOutput) ToCronJobTypeArrayOutputWithContext(ctx context.Context) CronJobTypeArrayOutput {
 	return o
-}
-
-func (o CronJobTypeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]CronJobType] {
-	return pulumix.Output[[]CronJobType]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o CronJobTypeArrayOutput) Index(i pulumi.IntInput) CronJobTypeOutput {
@@ -224,12 +199,6 @@ func (i CronJobListTypeArgs) ToCronJobListTypeOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(CronJobListTypeOutput)
 }
 
-func (i CronJobListTypeArgs) ToOutput(ctx context.Context) pulumix.Output[CronJobListType] {
-	return pulumix.Output[CronJobListType]{
-		OutputState: i.ToCronJobListTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CronJobList is a collection of cron jobs.
 type CronJobListTypeOutput struct{ *pulumi.OutputState }
 
@@ -243,12 +212,6 @@ func (o CronJobListTypeOutput) ToCronJobListTypeOutput() CronJobListTypeOutput {
 
 func (o CronJobListTypeOutput) ToCronJobListTypeOutputWithContext(ctx context.Context) CronJobListTypeOutput {
 	return o
-}
-
-func (o CronJobListTypeOutput) ToOutput(ctx context.Context) pulumix.Output[CronJobListType] {
-	return pulumix.Output[CronJobListType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -322,12 +285,6 @@ func (i CronJobPatchTypeArgs) ToCronJobPatchTypeOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(CronJobPatchTypeOutput)
 }
 
-func (i CronJobPatchTypeArgs) ToOutput(ctx context.Context) pulumix.Output[CronJobPatchType] {
-	return pulumix.Output[CronJobPatchType]{
-		OutputState: i.ToCronJobPatchTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CronJob represents the configuration of a single cron job.
 type CronJobPatchTypeOutput struct{ *pulumi.OutputState }
 
@@ -341,12 +298,6 @@ func (o CronJobPatchTypeOutput) ToCronJobPatchTypeOutput() CronJobPatchTypeOutpu
 
 func (o CronJobPatchTypeOutput) ToCronJobPatchTypeOutputWithContext(ctx context.Context) CronJobPatchTypeOutput {
 	return o
-}
-
-func (o CronJobPatchTypeOutput) ToOutput(ctx context.Context) pulumix.Output[CronJobPatchType] {
-	return pulumix.Output[CronJobPatchType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -433,12 +384,6 @@ func (i CronJobSpecArgs) ToCronJobSpecOutputWithContext(ctx context.Context) Cro
 	return pulumi.ToOutputWithContext(ctx, i).(CronJobSpecOutput)
 }
 
-func (i CronJobSpecArgs) ToOutput(ctx context.Context) pulumix.Output[CronJobSpec] {
-	return pulumix.Output[CronJobSpec]{
-		OutputState: i.ToCronJobSpecOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i CronJobSpecArgs) ToCronJobSpecPtrOutput() CronJobSpecPtrOutput {
 	return i.ToCronJobSpecPtrOutputWithContext(context.Background())
 }
@@ -480,12 +425,6 @@ func (i *cronJobSpecPtrType) ToCronJobSpecPtrOutputWithContext(ctx context.Conte
 	return pulumi.ToOutputWithContext(ctx, i).(CronJobSpecPtrOutput)
 }
 
-func (i *cronJobSpecPtrType) ToOutput(ctx context.Context) pulumix.Output[*CronJobSpec] {
-	return pulumix.Output[*CronJobSpec]{
-		OutputState: i.ToCronJobSpecPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CronJobSpec describes how the job execution will look like and when it will actually run.
 type CronJobSpecOutput struct{ *pulumi.OutputState }
 
@@ -509,12 +448,6 @@ func (o CronJobSpecOutput) ToCronJobSpecPtrOutputWithContext(ctx context.Context
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v CronJobSpec) *CronJobSpec {
 		return &v
 	}).(CronJobSpecPtrOutput)
-}
-
-func (o CronJobSpecOutput) ToOutput(ctx context.Context) pulumix.Output[CronJobSpec] {
-	return pulumix.Output[CronJobSpec]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
@@ -564,12 +497,6 @@ func (o CronJobSpecPtrOutput) ToCronJobSpecPtrOutput() CronJobSpecPtrOutput {
 
 func (o CronJobSpecPtrOutput) ToCronJobSpecPtrOutputWithContext(ctx context.Context) CronJobSpecPtrOutput {
 	return o
-}
-
-func (o CronJobSpecPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*CronJobSpec] {
-	return pulumix.Output[*CronJobSpec]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o CronJobSpecPtrOutput) Elem() CronJobSpecOutput {
@@ -711,12 +638,6 @@ func (i CronJobSpecPatchArgs) ToCronJobSpecPatchOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(CronJobSpecPatchOutput)
 }
 
-func (i CronJobSpecPatchArgs) ToOutput(ctx context.Context) pulumix.Output[CronJobSpecPatch] {
-	return pulumix.Output[CronJobSpecPatch]{
-		OutputState: i.ToCronJobSpecPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i CronJobSpecPatchArgs) ToCronJobSpecPatchPtrOutput() CronJobSpecPatchPtrOutput {
 	return i.ToCronJobSpecPatchPtrOutputWithContext(context.Background())
 }
@@ -758,12 +679,6 @@ func (i *cronJobSpecPatchPtrType) ToCronJobSpecPatchPtrOutputWithContext(ctx con
 	return pulumi.ToOutputWithContext(ctx, i).(CronJobSpecPatchPtrOutput)
 }
 
-func (i *cronJobSpecPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*CronJobSpecPatch] {
-	return pulumix.Output[*CronJobSpecPatch]{
-		OutputState: i.ToCronJobSpecPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CronJobSpec describes how the job execution will look like and when it will actually run.
 type CronJobSpecPatchOutput struct{ *pulumi.OutputState }
 
@@ -787,12 +702,6 @@ func (o CronJobSpecPatchOutput) ToCronJobSpecPatchPtrOutputWithContext(ctx conte
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v CronJobSpecPatch) *CronJobSpecPatch {
 		return &v
 	}).(CronJobSpecPatchPtrOutput)
-}
-
-func (o CronJobSpecPatchOutput) ToOutput(ctx context.Context) pulumix.Output[CronJobSpecPatch] {
-	return pulumix.Output[CronJobSpecPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // Specifies how to treat concurrent executions of a Job. Valid values are: - "Allow" (default): allows CronJobs to run concurrently; - "Forbid": forbids concurrent runs, skipping next run if previous run hasn't finished yet; - "Replace": cancels currently running job and replaces it with a new one
@@ -842,12 +751,6 @@ func (o CronJobSpecPatchPtrOutput) ToCronJobSpecPatchPtrOutput() CronJobSpecPatc
 
 func (o CronJobSpecPatchPtrOutput) ToCronJobSpecPatchPtrOutputWithContext(ctx context.Context) CronJobSpecPatchPtrOutput {
 	return o
-}
-
-func (o CronJobSpecPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*CronJobSpecPatch] {
-	return pulumix.Output[*CronJobSpecPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o CronJobSpecPatchPtrOutput) Elem() CronJobSpecPatchOutput {
@@ -969,12 +872,6 @@ func (i CronJobStatusArgs) ToCronJobStatusOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(CronJobStatusOutput)
 }
 
-func (i CronJobStatusArgs) ToOutput(ctx context.Context) pulumix.Output[CronJobStatus] {
-	return pulumix.Output[CronJobStatus]{
-		OutputState: i.ToCronJobStatusOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i CronJobStatusArgs) ToCronJobStatusPtrOutput() CronJobStatusPtrOutput {
 	return i.ToCronJobStatusPtrOutputWithContext(context.Background())
 }
@@ -1016,12 +913,6 @@ func (i *cronJobStatusPtrType) ToCronJobStatusPtrOutputWithContext(ctx context.C
 	return pulumi.ToOutputWithContext(ctx, i).(CronJobStatusPtrOutput)
 }
 
-func (i *cronJobStatusPtrType) ToOutput(ctx context.Context) pulumix.Output[*CronJobStatus] {
-	return pulumix.Output[*CronJobStatus]{
-		OutputState: i.ToCronJobStatusPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CronJobStatus represents the current state of a cron job.
 type CronJobStatusOutput struct{ *pulumi.OutputState }
 
@@ -1047,12 +938,6 @@ func (o CronJobStatusOutput) ToCronJobStatusPtrOutputWithContext(ctx context.Con
 	}).(CronJobStatusPtrOutput)
 }
 
-func (o CronJobStatusOutput) ToOutput(ctx context.Context) pulumix.Output[CronJobStatus] {
-	return pulumix.Output[CronJobStatus]{
-		OutputState: o.OutputState,
-	}
-}
-
 // A list of pointers to currently running jobs.
 func (o CronJobStatusOutput) Active() corev1.ObjectReferenceArrayOutput {
 	return o.ApplyT(func(v CronJobStatus) []corev1.ObjectReference { return v.Active }).(corev1.ObjectReferenceArrayOutput)
@@ -1075,12 +960,6 @@ func (o CronJobStatusPtrOutput) ToCronJobStatusPtrOutput() CronJobStatusPtrOutpu
 
 func (o CronJobStatusPtrOutput) ToCronJobStatusPtrOutputWithContext(ctx context.Context) CronJobStatusPtrOutput {
 	return o
-}
-
-func (o CronJobStatusPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*CronJobStatus] {
-	return pulumix.Output[*CronJobStatus]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o CronJobStatusPtrOutput) Elem() CronJobStatusOutput {
@@ -1152,12 +1031,6 @@ func (i CronJobStatusPatchArgs) ToCronJobStatusPatchOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(CronJobStatusPatchOutput)
 }
 
-func (i CronJobStatusPatchArgs) ToOutput(ctx context.Context) pulumix.Output[CronJobStatusPatch] {
-	return pulumix.Output[CronJobStatusPatch]{
-		OutputState: i.ToCronJobStatusPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i CronJobStatusPatchArgs) ToCronJobStatusPatchPtrOutput() CronJobStatusPatchPtrOutput {
 	return i.ToCronJobStatusPatchPtrOutputWithContext(context.Background())
 }
@@ -1199,12 +1072,6 @@ func (i *cronJobStatusPatchPtrType) ToCronJobStatusPatchPtrOutputWithContext(ctx
 	return pulumi.ToOutputWithContext(ctx, i).(CronJobStatusPatchPtrOutput)
 }
 
-func (i *cronJobStatusPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*CronJobStatusPatch] {
-	return pulumix.Output[*CronJobStatusPatch]{
-		OutputState: i.ToCronJobStatusPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CronJobStatus represents the current state of a cron job.
 type CronJobStatusPatchOutput struct{ *pulumi.OutputState }
 
@@ -1230,12 +1097,6 @@ func (o CronJobStatusPatchOutput) ToCronJobStatusPatchPtrOutputWithContext(ctx c
 	}).(CronJobStatusPatchPtrOutput)
 }
 
-func (o CronJobStatusPatchOutput) ToOutput(ctx context.Context) pulumix.Output[CronJobStatusPatch] {
-	return pulumix.Output[CronJobStatusPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 // A list of pointers to currently running jobs.
 func (o CronJobStatusPatchOutput) Active() corev1.ObjectReferencePatchArrayOutput {
 	return o.ApplyT(func(v CronJobStatusPatch) []corev1.ObjectReferencePatch { return v.Active }).(corev1.ObjectReferencePatchArrayOutput)
@@ -1258,12 +1119,6 @@ func (o CronJobStatusPatchPtrOutput) ToCronJobStatusPatchPtrOutput() CronJobStat
 
 func (o CronJobStatusPatchPtrOutput) ToCronJobStatusPatchPtrOutputWithContext(ctx context.Context) CronJobStatusPatchPtrOutput {
 	return o
-}
-
-func (o CronJobStatusPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*CronJobStatusPatch] {
-	return pulumix.Output[*CronJobStatusPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o CronJobStatusPatchPtrOutput) Elem() CronJobStatusPatchOutput {
@@ -1335,12 +1190,6 @@ func (i JobTemplateSpecArgs) ToJobTemplateSpecOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(JobTemplateSpecOutput)
 }
 
-func (i JobTemplateSpecArgs) ToOutput(ctx context.Context) pulumix.Output[JobTemplateSpec] {
-	return pulumix.Output[JobTemplateSpec]{
-		OutputState: i.ToJobTemplateSpecOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i JobTemplateSpecArgs) ToJobTemplateSpecPtrOutput() JobTemplateSpecPtrOutput {
 	return i.ToJobTemplateSpecPtrOutputWithContext(context.Background())
 }
@@ -1382,12 +1231,6 @@ func (i *jobTemplateSpecPtrType) ToJobTemplateSpecPtrOutputWithContext(ctx conte
 	return pulumi.ToOutputWithContext(ctx, i).(JobTemplateSpecPtrOutput)
 }
 
-func (i *jobTemplateSpecPtrType) ToOutput(ctx context.Context) pulumix.Output[*JobTemplateSpec] {
-	return pulumix.Output[*JobTemplateSpec]{
-		OutputState: i.ToJobTemplateSpecPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // JobTemplateSpec describes the data a Job should have when created from a template
 type JobTemplateSpecOutput struct{ *pulumi.OutputState }
 
@@ -1413,12 +1256,6 @@ func (o JobTemplateSpecOutput) ToJobTemplateSpecPtrOutputWithContext(ctx context
 	}).(JobTemplateSpecPtrOutput)
 }
 
-func (o JobTemplateSpecOutput) ToOutput(ctx context.Context) pulumix.Output[JobTemplateSpec] {
-	return pulumix.Output[JobTemplateSpec]{
-		OutputState: o.OutputState,
-	}
-}
-
 // Standard object's metadata of the jobs created from this template. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o JobTemplateSpecOutput) Metadata() metav1.ObjectMetaPtrOutput {
 	return o.ApplyT(func(v JobTemplateSpec) *metav1.ObjectMeta { return v.Metadata }).(metav1.ObjectMetaPtrOutput)
@@ -1441,12 +1278,6 @@ func (o JobTemplateSpecPtrOutput) ToJobTemplateSpecPtrOutput() JobTemplateSpecPt
 
 func (o JobTemplateSpecPtrOutput) ToJobTemplateSpecPtrOutputWithContext(ctx context.Context) JobTemplateSpecPtrOutput {
 	return o
-}
-
-func (o JobTemplateSpecPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*JobTemplateSpec] {
-	return pulumix.Output[*JobTemplateSpec]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o JobTemplateSpecPtrOutput) Elem() JobTemplateSpecOutput {
@@ -1518,12 +1349,6 @@ func (i JobTemplateSpecPatchArgs) ToJobTemplateSpecPatchOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(JobTemplateSpecPatchOutput)
 }
 
-func (i JobTemplateSpecPatchArgs) ToOutput(ctx context.Context) pulumix.Output[JobTemplateSpecPatch] {
-	return pulumix.Output[JobTemplateSpecPatch]{
-		OutputState: i.ToJobTemplateSpecPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i JobTemplateSpecPatchArgs) ToJobTemplateSpecPatchPtrOutput() JobTemplateSpecPatchPtrOutput {
 	return i.ToJobTemplateSpecPatchPtrOutputWithContext(context.Background())
 }
@@ -1565,12 +1390,6 @@ func (i *jobTemplateSpecPatchPtrType) ToJobTemplateSpecPatchPtrOutputWithContext
 	return pulumi.ToOutputWithContext(ctx, i).(JobTemplateSpecPatchPtrOutput)
 }
 
-func (i *jobTemplateSpecPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*JobTemplateSpecPatch] {
-	return pulumix.Output[*JobTemplateSpecPatch]{
-		OutputState: i.ToJobTemplateSpecPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // JobTemplateSpec describes the data a Job should have when created from a template
 type JobTemplateSpecPatchOutput struct{ *pulumi.OutputState }
 
@@ -1596,12 +1415,6 @@ func (o JobTemplateSpecPatchOutput) ToJobTemplateSpecPatchPtrOutputWithContext(c
 	}).(JobTemplateSpecPatchPtrOutput)
 }
 
-func (o JobTemplateSpecPatchOutput) ToOutput(ctx context.Context) pulumix.Output[JobTemplateSpecPatch] {
-	return pulumix.Output[JobTemplateSpecPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 // Standard object's metadata of the jobs created from this template. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 func (o JobTemplateSpecPatchOutput) Metadata() metav1.ObjectMetaPatchPtrOutput {
 	return o.ApplyT(func(v JobTemplateSpecPatch) *metav1.ObjectMetaPatch { return v.Metadata }).(metav1.ObjectMetaPatchPtrOutput)
@@ -1624,12 +1437,6 @@ func (o JobTemplateSpecPatchPtrOutput) ToJobTemplateSpecPatchPtrOutput() JobTemp
 
 func (o JobTemplateSpecPatchPtrOutput) ToJobTemplateSpecPatchPtrOutputWithContext(ctx context.Context) JobTemplateSpecPatchPtrOutput {
 	return o
-}
-
-func (o JobTemplateSpecPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*JobTemplateSpecPatch] {
-	return pulumix.Output[*JobTemplateSpecPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o JobTemplateSpecPatchPtrOutput) Elem() JobTemplateSpecPatchOutput {

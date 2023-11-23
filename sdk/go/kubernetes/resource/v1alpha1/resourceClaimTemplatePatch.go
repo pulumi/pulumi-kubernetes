@@ -10,7 +10,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -132,12 +131,6 @@ func (i *ResourceClaimTemplatePatch) ToResourceClaimTemplatePatchOutputWithConte
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimTemplatePatchOutput)
 }
 
-func (i *ResourceClaimTemplatePatch) ToOutput(ctx context.Context) pulumix.Output[*ResourceClaimTemplatePatch] {
-	return pulumix.Output[*ResourceClaimTemplatePatch]{
-		OutputState: i.ToResourceClaimTemplatePatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ResourceClaimTemplatePatchArrayInput is an input type that accepts ResourceClaimTemplatePatchArray and ResourceClaimTemplatePatchArrayOutput values.
 // You can construct a concrete instance of `ResourceClaimTemplatePatchArrayInput` via:
 //
@@ -161,12 +154,6 @@ func (i ResourceClaimTemplatePatchArray) ToResourceClaimTemplatePatchArrayOutput
 
 func (i ResourceClaimTemplatePatchArray) ToResourceClaimTemplatePatchArrayOutputWithContext(ctx context.Context) ResourceClaimTemplatePatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimTemplatePatchArrayOutput)
-}
-
-func (i ResourceClaimTemplatePatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*ResourceClaimTemplatePatch] {
-	return pulumix.Output[[]*ResourceClaimTemplatePatch]{
-		OutputState: i.ToResourceClaimTemplatePatchArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // ResourceClaimTemplatePatchMapInput is an input type that accepts ResourceClaimTemplatePatchMap and ResourceClaimTemplatePatchMapOutput values.
@@ -194,12 +181,6 @@ func (i ResourceClaimTemplatePatchMap) ToResourceClaimTemplatePatchMapOutputWith
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClaimTemplatePatchMapOutput)
 }
 
-func (i ResourceClaimTemplatePatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*ResourceClaimTemplatePatch] {
-	return pulumix.Output[map[string]*ResourceClaimTemplatePatch]{
-		OutputState: i.ToResourceClaimTemplatePatchMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type ResourceClaimTemplatePatchOutput struct{ *pulumi.OutputState }
 
 func (ResourceClaimTemplatePatchOutput) ElementType() reflect.Type {
@@ -212,12 +193,6 @@ func (o ResourceClaimTemplatePatchOutput) ToResourceClaimTemplatePatchOutput() R
 
 func (o ResourceClaimTemplatePatchOutput) ToResourceClaimTemplatePatchOutputWithContext(ctx context.Context) ResourceClaimTemplatePatchOutput {
 	return o
-}
-
-func (o ResourceClaimTemplatePatchOutput) ToOutput(ctx context.Context) pulumix.Output[*ResourceClaimTemplatePatch] {
-	return pulumix.Output[*ResourceClaimTemplatePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -256,12 +231,6 @@ func (o ResourceClaimTemplatePatchArrayOutput) ToResourceClaimTemplatePatchArray
 	return o
 }
 
-func (o ResourceClaimTemplatePatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*ResourceClaimTemplatePatch] {
-	return pulumix.Output[[]*ResourceClaimTemplatePatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o ResourceClaimTemplatePatchArrayOutput) Index(i pulumi.IntInput) ResourceClaimTemplatePatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *ResourceClaimTemplatePatch {
 		return vs[0].([]*ResourceClaimTemplatePatch)[vs[1].(int)]
@@ -280,12 +249,6 @@ func (o ResourceClaimTemplatePatchMapOutput) ToResourceClaimTemplatePatchMapOutp
 
 func (o ResourceClaimTemplatePatchMapOutput) ToResourceClaimTemplatePatchMapOutputWithContext(ctx context.Context) ResourceClaimTemplatePatchMapOutput {
 	return o
-}
-
-func (o ResourceClaimTemplatePatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*ResourceClaimTemplatePatch] {
-	return pulumix.Output[map[string]*ResourceClaimTemplatePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ResourceClaimTemplatePatchMapOutput) MapIndex(k pulumi.StringInput) ResourceClaimTemplatePatchOutput {

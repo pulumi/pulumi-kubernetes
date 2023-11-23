@@ -11,7 +11,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // PodDisruptionBudgetList is a collection of PodDisruptionBudgets.
@@ -118,12 +117,6 @@ func (i *PodDisruptionBudgetList) ToPodDisruptionBudgetListOutputWithContext(ctx
 	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetListOutput)
 }
 
-func (i *PodDisruptionBudgetList) ToOutput(ctx context.Context) pulumix.Output[*PodDisruptionBudgetList] {
-	return pulumix.Output[*PodDisruptionBudgetList]{
-		OutputState: i.ToPodDisruptionBudgetListOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PodDisruptionBudgetListArrayInput is an input type that accepts PodDisruptionBudgetListArray and PodDisruptionBudgetListArrayOutput values.
 // You can construct a concrete instance of `PodDisruptionBudgetListArrayInput` via:
 //
@@ -147,12 +140,6 @@ func (i PodDisruptionBudgetListArray) ToPodDisruptionBudgetListArrayOutput() Pod
 
 func (i PodDisruptionBudgetListArray) ToPodDisruptionBudgetListArrayOutputWithContext(ctx context.Context) PodDisruptionBudgetListArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetListArrayOutput)
-}
-
-func (i PodDisruptionBudgetListArray) ToOutput(ctx context.Context) pulumix.Output[[]*PodDisruptionBudgetList] {
-	return pulumix.Output[[]*PodDisruptionBudgetList]{
-		OutputState: i.ToPodDisruptionBudgetListArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // PodDisruptionBudgetListMapInput is an input type that accepts PodDisruptionBudgetListMap and PodDisruptionBudgetListMapOutput values.
@@ -180,12 +167,6 @@ func (i PodDisruptionBudgetListMap) ToPodDisruptionBudgetListMapOutputWithContex
 	return pulumi.ToOutputWithContext(ctx, i).(PodDisruptionBudgetListMapOutput)
 }
 
-func (i PodDisruptionBudgetListMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*PodDisruptionBudgetList] {
-	return pulumix.Output[map[string]*PodDisruptionBudgetList]{
-		OutputState: i.ToPodDisruptionBudgetListMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type PodDisruptionBudgetListOutput struct{ *pulumi.OutputState }
 
 func (PodDisruptionBudgetListOutput) ElementType() reflect.Type {
@@ -198,12 +179,6 @@ func (o PodDisruptionBudgetListOutput) ToPodDisruptionBudgetListOutput() PodDisr
 
 func (o PodDisruptionBudgetListOutput) ToPodDisruptionBudgetListOutputWithContext(ctx context.Context) PodDisruptionBudgetListOutput {
 	return o
-}
-
-func (o PodDisruptionBudgetListOutput) ToOutput(ctx context.Context) pulumix.Output[*PodDisruptionBudgetList] {
-	return pulumix.Output[*PodDisruptionBudgetList]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -240,12 +215,6 @@ func (o PodDisruptionBudgetListArrayOutput) ToPodDisruptionBudgetListArrayOutput
 	return o
 }
 
-func (o PodDisruptionBudgetListArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*PodDisruptionBudgetList] {
-	return pulumix.Output[[]*PodDisruptionBudgetList]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o PodDisruptionBudgetListArrayOutput) Index(i pulumi.IntInput) PodDisruptionBudgetListOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *PodDisruptionBudgetList {
 		return vs[0].([]*PodDisruptionBudgetList)[vs[1].(int)]
@@ -264,12 +233,6 @@ func (o PodDisruptionBudgetListMapOutput) ToPodDisruptionBudgetListMapOutput() P
 
 func (o PodDisruptionBudgetListMapOutput) ToPodDisruptionBudgetListMapOutputWithContext(ctx context.Context) PodDisruptionBudgetListMapOutput {
 	return o
-}
-
-func (o PodDisruptionBudgetListMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*PodDisruptionBudgetList] {
-	return pulumix.Output[map[string]*PodDisruptionBudgetList]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o PodDisruptionBudgetListMapOutput) MapIndex(k pulumi.StringInput) PodDisruptionBudgetListOutput {

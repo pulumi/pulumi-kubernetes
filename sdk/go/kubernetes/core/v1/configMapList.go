@@ -11,7 +11,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // ConfigMapList is a resource containing a list of ConfigMap objects.
@@ -118,12 +117,6 @@ func (i *ConfigMapList) ToConfigMapListOutputWithContext(ctx context.Context) Co
 	return pulumi.ToOutputWithContext(ctx, i).(ConfigMapListOutput)
 }
 
-func (i *ConfigMapList) ToOutput(ctx context.Context) pulumix.Output[*ConfigMapList] {
-	return pulumix.Output[*ConfigMapList]{
-		OutputState: i.ToConfigMapListOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ConfigMapListArrayInput is an input type that accepts ConfigMapListArray and ConfigMapListArrayOutput values.
 // You can construct a concrete instance of `ConfigMapListArrayInput` via:
 //
@@ -147,12 +140,6 @@ func (i ConfigMapListArray) ToConfigMapListArrayOutput() ConfigMapListArrayOutpu
 
 func (i ConfigMapListArray) ToConfigMapListArrayOutputWithContext(ctx context.Context) ConfigMapListArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ConfigMapListArrayOutput)
-}
-
-func (i ConfigMapListArray) ToOutput(ctx context.Context) pulumix.Output[[]*ConfigMapList] {
-	return pulumix.Output[[]*ConfigMapList]{
-		OutputState: i.ToConfigMapListArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // ConfigMapListMapInput is an input type that accepts ConfigMapListMap and ConfigMapListMapOutput values.
@@ -180,12 +167,6 @@ func (i ConfigMapListMap) ToConfigMapListMapOutputWithContext(ctx context.Contex
 	return pulumi.ToOutputWithContext(ctx, i).(ConfigMapListMapOutput)
 }
 
-func (i ConfigMapListMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*ConfigMapList] {
-	return pulumix.Output[map[string]*ConfigMapList]{
-		OutputState: i.ToConfigMapListMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type ConfigMapListOutput struct{ *pulumi.OutputState }
 
 func (ConfigMapListOutput) ElementType() reflect.Type {
@@ -198,12 +179,6 @@ func (o ConfigMapListOutput) ToConfigMapListOutput() ConfigMapListOutput {
 
 func (o ConfigMapListOutput) ToConfigMapListOutputWithContext(ctx context.Context) ConfigMapListOutput {
 	return o
-}
-
-func (o ConfigMapListOutput) ToOutput(ctx context.Context) pulumix.Output[*ConfigMapList] {
-	return pulumix.Output[*ConfigMapList]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -240,12 +215,6 @@ func (o ConfigMapListArrayOutput) ToConfigMapListArrayOutputWithContext(ctx cont
 	return o
 }
 
-func (o ConfigMapListArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*ConfigMapList] {
-	return pulumix.Output[[]*ConfigMapList]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o ConfigMapListArrayOutput) Index(i pulumi.IntInput) ConfigMapListOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *ConfigMapList {
 		return vs[0].([]*ConfigMapList)[vs[1].(int)]
@@ -264,12 +233,6 @@ func (o ConfigMapListMapOutput) ToConfigMapListMapOutput() ConfigMapListMapOutpu
 
 func (o ConfigMapListMapOutput) ToConfigMapListMapOutputWithContext(ctx context.Context) ConfigMapListMapOutput {
 	return o
-}
-
-func (o ConfigMapListMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*ConfigMapList] {
-	return pulumix.Output[map[string]*ConfigMapList]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ConfigMapListMapOutput) MapIndex(k pulumi.StringInput) ConfigMapListOutput {

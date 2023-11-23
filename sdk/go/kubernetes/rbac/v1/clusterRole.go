@@ -10,7 +10,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding or ClusterRoleBinding.
@@ -129,12 +128,6 @@ func (i *ClusterRole) ToClusterRoleOutputWithContext(ctx context.Context) Cluste
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterRoleOutput)
 }
 
-func (i *ClusterRole) ToOutput(ctx context.Context) pulumix.Output[*ClusterRole] {
-	return pulumix.Output[*ClusterRole]{
-		OutputState: i.ToClusterRoleOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ClusterRoleArrayInput is an input type that accepts ClusterRoleArray and ClusterRoleArrayOutput values.
 // You can construct a concrete instance of `ClusterRoleArrayInput` via:
 //
@@ -158,12 +151,6 @@ func (i ClusterRoleArray) ToClusterRoleArrayOutput() ClusterRoleArrayOutput {
 
 func (i ClusterRoleArray) ToClusterRoleArrayOutputWithContext(ctx context.Context) ClusterRoleArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterRoleArrayOutput)
-}
-
-func (i ClusterRoleArray) ToOutput(ctx context.Context) pulumix.Output[[]*ClusterRole] {
-	return pulumix.Output[[]*ClusterRole]{
-		OutputState: i.ToClusterRoleArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // ClusterRoleMapInput is an input type that accepts ClusterRoleMap and ClusterRoleMapOutput values.
@@ -191,12 +178,6 @@ func (i ClusterRoleMap) ToClusterRoleMapOutputWithContext(ctx context.Context) C
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterRoleMapOutput)
 }
 
-func (i ClusterRoleMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*ClusterRole] {
-	return pulumix.Output[map[string]*ClusterRole]{
-		OutputState: i.ToClusterRoleMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type ClusterRoleOutput struct{ *pulumi.OutputState }
 
 func (ClusterRoleOutput) ElementType() reflect.Type {
@@ -209,12 +190,6 @@ func (o ClusterRoleOutput) ToClusterRoleOutput() ClusterRoleOutput {
 
 func (o ClusterRoleOutput) ToClusterRoleOutputWithContext(ctx context.Context) ClusterRoleOutput {
 	return o
-}
-
-func (o ClusterRoleOutput) ToOutput(ctx context.Context) pulumix.Output[*ClusterRole] {
-	return pulumix.Output[*ClusterRole]{
-		OutputState: o.OutputState,
-	}
 }
 
 // AggregationRule is an optional field that describes how to build the Rules for this ClusterRole. If AggregationRule is set, then the Rules are controller managed and direct changes to Rules will be stomped by the controller.
@@ -256,12 +231,6 @@ func (o ClusterRoleArrayOutput) ToClusterRoleArrayOutputWithContext(ctx context.
 	return o
 }
 
-func (o ClusterRoleArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*ClusterRole] {
-	return pulumix.Output[[]*ClusterRole]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o ClusterRoleArrayOutput) Index(i pulumi.IntInput) ClusterRoleOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *ClusterRole {
 		return vs[0].([]*ClusterRole)[vs[1].(int)]
@@ -280,12 +249,6 @@ func (o ClusterRoleMapOutput) ToClusterRoleMapOutput() ClusterRoleMapOutput {
 
 func (o ClusterRoleMapOutput) ToClusterRoleMapOutputWithContext(ctx context.Context) ClusterRoleMapOutput {
 	return o
-}
-
-func (o ClusterRoleMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*ClusterRole] {
-	return pulumix.Output[map[string]*ClusterRole]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ClusterRoleMapOutput) MapIndex(k pulumi.StringInput) ClusterRoleOutput {

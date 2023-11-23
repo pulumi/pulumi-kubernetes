@@ -12,7 +12,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // ResourceClass is used by administrators to influence how resources are allocated.
@@ -151,12 +150,6 @@ func (i *ResourceClass) ToResourceClassOutputWithContext(ctx context.Context) Re
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClassOutput)
 }
 
-func (i *ResourceClass) ToOutput(ctx context.Context) pulumix.Output[*ResourceClass] {
-	return pulumix.Output[*ResourceClass]{
-		OutputState: i.ToResourceClassOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ResourceClassArrayInput is an input type that accepts ResourceClassArray and ResourceClassArrayOutput values.
 // You can construct a concrete instance of `ResourceClassArrayInput` via:
 //
@@ -180,12 +173,6 @@ func (i ResourceClassArray) ToResourceClassArrayOutput() ResourceClassArrayOutpu
 
 func (i ResourceClassArray) ToResourceClassArrayOutputWithContext(ctx context.Context) ResourceClassArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClassArrayOutput)
-}
-
-func (i ResourceClassArray) ToOutput(ctx context.Context) pulumix.Output[[]*ResourceClass] {
-	return pulumix.Output[[]*ResourceClass]{
-		OutputState: i.ToResourceClassArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // ResourceClassMapInput is an input type that accepts ResourceClassMap and ResourceClassMapOutput values.
@@ -213,12 +200,6 @@ func (i ResourceClassMap) ToResourceClassMapOutputWithContext(ctx context.Contex
 	return pulumi.ToOutputWithContext(ctx, i).(ResourceClassMapOutput)
 }
 
-func (i ResourceClassMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*ResourceClass] {
-	return pulumix.Output[map[string]*ResourceClass]{
-		OutputState: i.ToResourceClassMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type ResourceClassOutput struct{ *pulumi.OutputState }
 
 func (ResourceClassOutput) ElementType() reflect.Type {
@@ -231,12 +212,6 @@ func (o ResourceClassOutput) ToResourceClassOutput() ResourceClassOutput {
 
 func (o ResourceClassOutput) ToResourceClassOutputWithContext(ctx context.Context) ResourceClassOutput {
 	return o
-}
-
-func (o ResourceClassOutput) ToOutput(ctx context.Context) pulumix.Output[*ResourceClass] {
-	return pulumix.Output[*ResourceClass]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -287,12 +262,6 @@ func (o ResourceClassArrayOutput) ToResourceClassArrayOutputWithContext(ctx cont
 	return o
 }
 
-func (o ResourceClassArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*ResourceClass] {
-	return pulumix.Output[[]*ResourceClass]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o ResourceClassArrayOutput) Index(i pulumi.IntInput) ResourceClassOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *ResourceClass {
 		return vs[0].([]*ResourceClass)[vs[1].(int)]
@@ -311,12 +280,6 @@ func (o ResourceClassMapOutput) ToResourceClassMapOutput() ResourceClassMapOutpu
 
 func (o ResourceClassMapOutput) ToResourceClassMapOutputWithContext(ctx context.Context) ResourceClassMapOutput {
 	return o
-}
-
-func (o ResourceClassMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*ResourceClass] {
-	return pulumix.Output[map[string]*ResourceClass]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ResourceClassMapOutput) MapIndex(k pulumi.StringInput) ResourceClassOutput {

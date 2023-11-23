@@ -11,7 +11,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // LimitRangeList is a list of LimitRange items.
@@ -118,12 +117,6 @@ func (i *LimitRangeList) ToLimitRangeListOutputWithContext(ctx context.Context) 
 	return pulumi.ToOutputWithContext(ctx, i).(LimitRangeListOutput)
 }
 
-func (i *LimitRangeList) ToOutput(ctx context.Context) pulumix.Output[*LimitRangeList] {
-	return pulumix.Output[*LimitRangeList]{
-		OutputState: i.ToLimitRangeListOutputWithContext(ctx).OutputState,
-	}
-}
-
 // LimitRangeListArrayInput is an input type that accepts LimitRangeListArray and LimitRangeListArrayOutput values.
 // You can construct a concrete instance of `LimitRangeListArrayInput` via:
 //
@@ -147,12 +140,6 @@ func (i LimitRangeListArray) ToLimitRangeListArrayOutput() LimitRangeListArrayOu
 
 func (i LimitRangeListArray) ToLimitRangeListArrayOutputWithContext(ctx context.Context) LimitRangeListArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(LimitRangeListArrayOutput)
-}
-
-func (i LimitRangeListArray) ToOutput(ctx context.Context) pulumix.Output[[]*LimitRangeList] {
-	return pulumix.Output[[]*LimitRangeList]{
-		OutputState: i.ToLimitRangeListArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // LimitRangeListMapInput is an input type that accepts LimitRangeListMap and LimitRangeListMapOutput values.
@@ -180,12 +167,6 @@ func (i LimitRangeListMap) ToLimitRangeListMapOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(LimitRangeListMapOutput)
 }
 
-func (i LimitRangeListMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*LimitRangeList] {
-	return pulumix.Output[map[string]*LimitRangeList]{
-		OutputState: i.ToLimitRangeListMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type LimitRangeListOutput struct{ *pulumi.OutputState }
 
 func (LimitRangeListOutput) ElementType() reflect.Type {
@@ -198,12 +179,6 @@ func (o LimitRangeListOutput) ToLimitRangeListOutput() LimitRangeListOutput {
 
 func (o LimitRangeListOutput) ToLimitRangeListOutputWithContext(ctx context.Context) LimitRangeListOutput {
 	return o
-}
-
-func (o LimitRangeListOutput) ToOutput(ctx context.Context) pulumix.Output[*LimitRangeList] {
-	return pulumix.Output[*LimitRangeList]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -240,12 +215,6 @@ func (o LimitRangeListArrayOutput) ToLimitRangeListArrayOutputWithContext(ctx co
 	return o
 }
 
-func (o LimitRangeListArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*LimitRangeList] {
-	return pulumix.Output[[]*LimitRangeList]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o LimitRangeListArrayOutput) Index(i pulumi.IntInput) LimitRangeListOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *LimitRangeList {
 		return vs[0].([]*LimitRangeList)[vs[1].(int)]
@@ -264,12 +233,6 @@ func (o LimitRangeListMapOutput) ToLimitRangeListMapOutput() LimitRangeListMapOu
 
 func (o LimitRangeListMapOutput) ToLimitRangeListMapOutputWithContext(ctx context.Context) LimitRangeListMapOutput {
 	return o
-}
-
-func (o LimitRangeListMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*LimitRangeList] {
-	return pulumix.Output[map[string]*LimitRangeList]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o LimitRangeListMapOutput) MapIndex(k pulumi.StringInput) LimitRangeListOutput {

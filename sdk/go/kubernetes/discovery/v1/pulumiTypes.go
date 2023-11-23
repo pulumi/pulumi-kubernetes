@@ -11,7 +11,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 var _ = utilities.GetEnvOrDefault
@@ -79,12 +78,6 @@ func (i EndpointArgs) ToEndpointOutputWithContext(ctx context.Context) EndpointO
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointOutput)
 }
 
-func (i EndpointArgs) ToOutput(ctx context.Context) pulumix.Output[Endpoint] {
-	return pulumix.Output[Endpoint]{
-		OutputState: i.ToEndpointOutputWithContext(ctx).OutputState,
-	}
-}
-
 // EndpointArrayInput is an input type that accepts EndpointArray and EndpointArrayOutput values.
 // You can construct a concrete instance of `EndpointArrayInput` via:
 //
@@ -110,12 +103,6 @@ func (i EndpointArray) ToEndpointArrayOutputWithContext(ctx context.Context) End
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointArrayOutput)
 }
 
-func (i EndpointArray) ToOutput(ctx context.Context) pulumix.Output[[]Endpoint] {
-	return pulumix.Output[[]Endpoint]{
-		OutputState: i.ToEndpointArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // Endpoint represents a single logical "backend" implementing a service.
 type EndpointOutput struct{ *pulumi.OutputState }
 
@@ -129,12 +116,6 @@ func (o EndpointOutput) ToEndpointOutput() EndpointOutput {
 
 func (o EndpointOutput) ToEndpointOutputWithContext(ctx context.Context) EndpointOutput {
 	return o
-}
-
-func (o EndpointOutput) ToOutput(ctx context.Context) pulumix.Output[Endpoint] {
-	return pulumix.Output[Endpoint]{
-		OutputState: o.OutputState,
-	}
 }
 
 // addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100. These are all assumed to be fungible and clients may choose to only use the first element. Refer to: https://issue.k8s.io/106267
@@ -191,12 +172,6 @@ func (o EndpointArrayOutput) ToEndpointArrayOutputWithContext(ctx context.Contex
 	return o
 }
 
-func (o EndpointArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]Endpoint] {
-	return pulumix.Output[[]Endpoint]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o EndpointArrayOutput) Index(i pulumi.IntInput) EndpointOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) Endpoint {
 		return vs[0].([]Endpoint)[vs[1].(int)]
@@ -246,12 +221,6 @@ func (i EndpointConditionsArgs) ToEndpointConditionsOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointConditionsOutput)
 }
 
-func (i EndpointConditionsArgs) ToOutput(ctx context.Context) pulumix.Output[EndpointConditions] {
-	return pulumix.Output[EndpointConditions]{
-		OutputState: i.ToEndpointConditionsOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i EndpointConditionsArgs) ToEndpointConditionsPtrOutput() EndpointConditionsPtrOutput {
 	return i.ToEndpointConditionsPtrOutputWithContext(context.Background())
 }
@@ -293,12 +262,6 @@ func (i *endpointConditionsPtrType) ToEndpointConditionsPtrOutputWithContext(ctx
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointConditionsPtrOutput)
 }
 
-func (i *endpointConditionsPtrType) ToOutput(ctx context.Context) pulumix.Output[*EndpointConditions] {
-	return pulumix.Output[*EndpointConditions]{
-		OutputState: i.ToEndpointConditionsPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // EndpointConditions represents the current condition of an endpoint.
 type EndpointConditionsOutput struct{ *pulumi.OutputState }
 
@@ -322,12 +285,6 @@ func (o EndpointConditionsOutput) ToEndpointConditionsPtrOutputWithContext(ctx c
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v EndpointConditions) *EndpointConditions {
 		return &v
 	}).(EndpointConditionsPtrOutput)
-}
-
-func (o EndpointConditionsOutput) ToOutput(ctx context.Context) pulumix.Output[EndpointConditions] {
-	return pulumix.Output[EndpointConditions]{
-		OutputState: o.OutputState,
-	}
 }
 
 // ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be "true" for terminating endpoints, except when the normal readiness behavior is being explicitly overridden, for example when the associated Service has set the publishNotReadyAddresses flag.
@@ -357,12 +314,6 @@ func (o EndpointConditionsPtrOutput) ToEndpointConditionsPtrOutput() EndpointCon
 
 func (o EndpointConditionsPtrOutput) ToEndpointConditionsPtrOutputWithContext(ctx context.Context) EndpointConditionsPtrOutput {
 	return o
-}
-
-func (o EndpointConditionsPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*EndpointConditions] {
-	return pulumix.Output[*EndpointConditions]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o EndpointConditionsPtrOutput) Elem() EndpointConditionsOutput {
@@ -448,12 +399,6 @@ func (i EndpointConditionsPatchArgs) ToEndpointConditionsPatchOutputWithContext(
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointConditionsPatchOutput)
 }
 
-func (i EndpointConditionsPatchArgs) ToOutput(ctx context.Context) pulumix.Output[EndpointConditionsPatch] {
-	return pulumix.Output[EndpointConditionsPatch]{
-		OutputState: i.ToEndpointConditionsPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i EndpointConditionsPatchArgs) ToEndpointConditionsPatchPtrOutput() EndpointConditionsPatchPtrOutput {
 	return i.ToEndpointConditionsPatchPtrOutputWithContext(context.Background())
 }
@@ -495,12 +440,6 @@ func (i *endpointConditionsPatchPtrType) ToEndpointConditionsPatchPtrOutputWithC
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointConditionsPatchPtrOutput)
 }
 
-func (i *endpointConditionsPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*EndpointConditionsPatch] {
-	return pulumix.Output[*EndpointConditionsPatch]{
-		OutputState: i.ToEndpointConditionsPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // EndpointConditions represents the current condition of an endpoint.
 type EndpointConditionsPatchOutput struct{ *pulumi.OutputState }
 
@@ -524,12 +463,6 @@ func (o EndpointConditionsPatchOutput) ToEndpointConditionsPatchPtrOutputWithCon
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v EndpointConditionsPatch) *EndpointConditionsPatch {
 		return &v
 	}).(EndpointConditionsPatchPtrOutput)
-}
-
-func (o EndpointConditionsPatchOutput) ToOutput(ctx context.Context) pulumix.Output[EndpointConditionsPatch] {
-	return pulumix.Output[EndpointConditionsPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be "true" for terminating endpoints, except when the normal readiness behavior is being explicitly overridden, for example when the associated Service has set the publishNotReadyAddresses flag.
@@ -559,12 +492,6 @@ func (o EndpointConditionsPatchPtrOutput) ToEndpointConditionsPatchPtrOutput() E
 
 func (o EndpointConditionsPatchPtrOutput) ToEndpointConditionsPatchPtrOutputWithContext(ctx context.Context) EndpointConditionsPatchPtrOutput {
 	return o
-}
-
-func (o EndpointConditionsPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*EndpointConditionsPatch] {
-	return pulumix.Output[*EndpointConditionsPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o EndpointConditionsPatchPtrOutput) Elem() EndpointConditionsPatchOutput {
@@ -642,12 +569,6 @@ func (i EndpointHintsArgs) ToEndpointHintsOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointHintsOutput)
 }
 
-func (i EndpointHintsArgs) ToOutput(ctx context.Context) pulumix.Output[EndpointHints] {
-	return pulumix.Output[EndpointHints]{
-		OutputState: i.ToEndpointHintsOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i EndpointHintsArgs) ToEndpointHintsPtrOutput() EndpointHintsPtrOutput {
 	return i.ToEndpointHintsPtrOutputWithContext(context.Background())
 }
@@ -689,12 +610,6 @@ func (i *endpointHintsPtrType) ToEndpointHintsPtrOutputWithContext(ctx context.C
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointHintsPtrOutput)
 }
 
-func (i *endpointHintsPtrType) ToOutput(ctx context.Context) pulumix.Output[*EndpointHints] {
-	return pulumix.Output[*EndpointHints]{
-		OutputState: i.ToEndpointHintsPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // EndpointHints provides hints describing how an endpoint should be consumed.
 type EndpointHintsOutput struct{ *pulumi.OutputState }
 
@@ -720,12 +635,6 @@ func (o EndpointHintsOutput) ToEndpointHintsPtrOutputWithContext(ctx context.Con
 	}).(EndpointHintsPtrOutput)
 }
 
-func (o EndpointHintsOutput) ToOutput(ctx context.Context) pulumix.Output[EndpointHints] {
-	return pulumix.Output[EndpointHints]{
-		OutputState: o.OutputState,
-	}
-}
-
 // forZones indicates the zone(s) this endpoint should be consumed by to enable topology aware routing.
 func (o EndpointHintsOutput) ForZones() ForZoneArrayOutput {
 	return o.ApplyT(func(v EndpointHints) []ForZone { return v.ForZones }).(ForZoneArrayOutput)
@@ -743,12 +652,6 @@ func (o EndpointHintsPtrOutput) ToEndpointHintsPtrOutput() EndpointHintsPtrOutpu
 
 func (o EndpointHintsPtrOutput) ToEndpointHintsPtrOutputWithContext(ctx context.Context) EndpointHintsPtrOutput {
 	return o
-}
-
-func (o EndpointHintsPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*EndpointHints] {
-	return pulumix.Output[*EndpointHints]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o EndpointHintsPtrOutput) Elem() EndpointHintsOutput {
@@ -806,12 +709,6 @@ func (i EndpointHintsPatchArgs) ToEndpointHintsPatchOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointHintsPatchOutput)
 }
 
-func (i EndpointHintsPatchArgs) ToOutput(ctx context.Context) pulumix.Output[EndpointHintsPatch] {
-	return pulumix.Output[EndpointHintsPatch]{
-		OutputState: i.ToEndpointHintsPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i EndpointHintsPatchArgs) ToEndpointHintsPatchPtrOutput() EndpointHintsPatchPtrOutput {
 	return i.ToEndpointHintsPatchPtrOutputWithContext(context.Background())
 }
@@ -853,12 +750,6 @@ func (i *endpointHintsPatchPtrType) ToEndpointHintsPatchPtrOutputWithContext(ctx
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointHintsPatchPtrOutput)
 }
 
-func (i *endpointHintsPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*EndpointHintsPatch] {
-	return pulumix.Output[*EndpointHintsPatch]{
-		OutputState: i.ToEndpointHintsPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // EndpointHints provides hints describing how an endpoint should be consumed.
 type EndpointHintsPatchOutput struct{ *pulumi.OutputState }
 
@@ -884,12 +775,6 @@ func (o EndpointHintsPatchOutput) ToEndpointHintsPatchPtrOutputWithContext(ctx c
 	}).(EndpointHintsPatchPtrOutput)
 }
 
-func (o EndpointHintsPatchOutput) ToOutput(ctx context.Context) pulumix.Output[EndpointHintsPatch] {
-	return pulumix.Output[EndpointHintsPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 // forZones indicates the zone(s) this endpoint should be consumed by to enable topology aware routing.
 func (o EndpointHintsPatchOutput) ForZones() ForZonePatchArrayOutput {
 	return o.ApplyT(func(v EndpointHintsPatch) []ForZonePatch { return v.ForZones }).(ForZonePatchArrayOutput)
@@ -907,12 +792,6 @@ func (o EndpointHintsPatchPtrOutput) ToEndpointHintsPatchPtrOutput() EndpointHin
 
 func (o EndpointHintsPatchPtrOutput) ToEndpointHintsPatchPtrOutputWithContext(ctx context.Context) EndpointHintsPatchPtrOutput {
 	return o
-}
-
-func (o EndpointHintsPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*EndpointHintsPatch] {
-	return pulumix.Output[*EndpointHintsPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o EndpointHintsPatchPtrOutput) Elem() EndpointHintsPatchOutput {
@@ -998,12 +877,6 @@ func (i EndpointPatchArgs) ToEndpointPatchOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointPatchOutput)
 }
 
-func (i EndpointPatchArgs) ToOutput(ctx context.Context) pulumix.Output[EndpointPatch] {
-	return pulumix.Output[EndpointPatch]{
-		OutputState: i.ToEndpointPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // EndpointPatchArrayInput is an input type that accepts EndpointPatchArray and EndpointPatchArrayOutput values.
 // You can construct a concrete instance of `EndpointPatchArrayInput` via:
 //
@@ -1029,12 +902,6 @@ func (i EndpointPatchArray) ToEndpointPatchArrayOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointPatchArrayOutput)
 }
 
-func (i EndpointPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]EndpointPatch] {
-	return pulumix.Output[[]EndpointPatch]{
-		OutputState: i.ToEndpointPatchArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // Endpoint represents a single logical "backend" implementing a service.
 type EndpointPatchOutput struct{ *pulumi.OutputState }
 
@@ -1048,12 +915,6 @@ func (o EndpointPatchOutput) ToEndpointPatchOutput() EndpointPatchOutput {
 
 func (o EndpointPatchOutput) ToEndpointPatchOutputWithContext(ctx context.Context) EndpointPatchOutput {
 	return o
-}
-
-func (o EndpointPatchOutput) ToOutput(ctx context.Context) pulumix.Output[EndpointPatch] {
-	return pulumix.Output[EndpointPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // addresses of this endpoint. The contents of this field are interpreted according to the corresponding EndpointSlice addressType field. Consumers must handle different types of addresses in the context of their own capabilities. This must contain at least one address but no more than 100. These are all assumed to be fungible and clients may choose to only use the first element. Refer to: https://issue.k8s.io/106267
@@ -1108,12 +969,6 @@ func (o EndpointPatchArrayOutput) ToEndpointPatchArrayOutput() EndpointPatchArra
 
 func (o EndpointPatchArrayOutput) ToEndpointPatchArrayOutputWithContext(ctx context.Context) EndpointPatchArrayOutput {
 	return o
-}
-
-func (o EndpointPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]EndpointPatch] {
-	return pulumix.Output[[]EndpointPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o EndpointPatchArrayOutput) Index(i pulumi.IntInput) EndpointPatchOutput {
@@ -1187,12 +1042,6 @@ func (i EndpointPortArgs) ToEndpointPortOutputWithContext(ctx context.Context) E
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointPortOutput)
 }
 
-func (i EndpointPortArgs) ToOutput(ctx context.Context) pulumix.Output[EndpointPort] {
-	return pulumix.Output[EndpointPort]{
-		OutputState: i.ToEndpointPortOutputWithContext(ctx).OutputState,
-	}
-}
-
 // EndpointPortArrayInput is an input type that accepts EndpointPortArray and EndpointPortArrayOutput values.
 // You can construct a concrete instance of `EndpointPortArrayInput` via:
 //
@@ -1218,12 +1067,6 @@ func (i EndpointPortArray) ToEndpointPortArrayOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointPortArrayOutput)
 }
 
-func (i EndpointPortArray) ToOutput(ctx context.Context) pulumix.Output[[]EndpointPort] {
-	return pulumix.Output[[]EndpointPort]{
-		OutputState: i.ToEndpointPortArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // EndpointPort represents a Port used by an EndpointSlice
 type EndpointPortOutput struct{ *pulumi.OutputState }
 
@@ -1237,12 +1080,6 @@ func (o EndpointPortOutput) ToEndpointPortOutput() EndpointPortOutput {
 
 func (o EndpointPortOutput) ToEndpointPortOutputWithContext(ctx context.Context) EndpointPortOutput {
 	return o
-}
-
-func (o EndpointPortOutput) ToOutput(ctx context.Context) pulumix.Output[EndpointPort] {
-	return pulumix.Output[EndpointPort]{
-		OutputState: o.OutputState,
-	}
 }
 
 // The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:
@@ -1286,12 +1123,6 @@ func (o EndpointPortArrayOutput) ToEndpointPortArrayOutput() EndpointPortArrayOu
 
 func (o EndpointPortArrayOutput) ToEndpointPortArrayOutputWithContext(ctx context.Context) EndpointPortArrayOutput {
 	return o
-}
-
-func (o EndpointPortArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]EndpointPort] {
-	return pulumix.Output[[]EndpointPort]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o EndpointPortArrayOutput) Index(i pulumi.IntInput) EndpointPortOutput {
@@ -1365,12 +1196,6 @@ func (i EndpointPortPatchArgs) ToEndpointPortPatchOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointPortPatchOutput)
 }
 
-func (i EndpointPortPatchArgs) ToOutput(ctx context.Context) pulumix.Output[EndpointPortPatch] {
-	return pulumix.Output[EndpointPortPatch]{
-		OutputState: i.ToEndpointPortPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // EndpointPortPatchArrayInput is an input type that accepts EndpointPortPatchArray and EndpointPortPatchArrayOutput values.
 // You can construct a concrete instance of `EndpointPortPatchArrayInput` via:
 //
@@ -1396,12 +1221,6 @@ func (i EndpointPortPatchArray) ToEndpointPortPatchArrayOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointPortPatchArrayOutput)
 }
 
-func (i EndpointPortPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]EndpointPortPatch] {
-	return pulumix.Output[[]EndpointPortPatch]{
-		OutputState: i.ToEndpointPortPatchArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // EndpointPort represents a Port used by an EndpointSlice
 type EndpointPortPatchOutput struct{ *pulumi.OutputState }
 
@@ -1415,12 +1234,6 @@ func (o EndpointPortPatchOutput) ToEndpointPortPatchOutput() EndpointPortPatchOu
 
 func (o EndpointPortPatchOutput) ToEndpointPortPatchOutputWithContext(ctx context.Context) EndpointPortPatchOutput {
 	return o
-}
-
-func (o EndpointPortPatchOutput) ToOutput(ctx context.Context) pulumix.Output[EndpointPortPatch] {
-	return pulumix.Output[EndpointPortPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:
@@ -1464,12 +1277,6 @@ func (o EndpointPortPatchArrayOutput) ToEndpointPortPatchArrayOutput() EndpointP
 
 func (o EndpointPortPatchArrayOutput) ToEndpointPortPatchArrayOutputWithContext(ctx context.Context) EndpointPortPatchArrayOutput {
 	return o
-}
-
-func (o EndpointPortPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]EndpointPortPatch] {
-	return pulumix.Output[[]EndpointPortPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o EndpointPortPatchArrayOutput) Index(i pulumi.IntInput) EndpointPortPatchOutput {
@@ -1533,12 +1340,6 @@ func (i EndpointSliceTypeArgs) ToEndpointSliceTypeOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointSliceTypeOutput)
 }
 
-func (i EndpointSliceTypeArgs) ToOutput(ctx context.Context) pulumix.Output[EndpointSliceType] {
-	return pulumix.Output[EndpointSliceType]{
-		OutputState: i.ToEndpointSliceTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // EndpointSliceTypeArrayInput is an input type that accepts EndpointSliceTypeArray and EndpointSliceTypeArrayOutput values.
 // You can construct a concrete instance of `EndpointSliceTypeArrayInput` via:
 //
@@ -1564,12 +1365,6 @@ func (i EndpointSliceTypeArray) ToEndpointSliceTypeArrayOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointSliceTypeArrayOutput)
 }
 
-func (i EndpointSliceTypeArray) ToOutput(ctx context.Context) pulumix.Output[[]EndpointSliceType] {
-	return pulumix.Output[[]EndpointSliceType]{
-		OutputState: i.ToEndpointSliceTypeArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // EndpointSlice represents a subset of the endpoints that implement a service. For a given service there may be multiple EndpointSlice objects, selected by labels, which must be joined to produce the full set of endpoints.
 type EndpointSliceTypeOutput struct{ *pulumi.OutputState }
 
@@ -1583,12 +1378,6 @@ func (o EndpointSliceTypeOutput) ToEndpointSliceTypeOutput() EndpointSliceTypeOu
 
 func (o EndpointSliceTypeOutput) ToEndpointSliceTypeOutputWithContext(ctx context.Context) EndpointSliceTypeOutput {
 	return o
-}
-
-func (o EndpointSliceTypeOutput) ToOutput(ctx context.Context) pulumix.Output[EndpointSliceType] {
-	return pulumix.Output[EndpointSliceType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // addressType specifies the type of address carried by this EndpointSlice. All addresses in this slice must be the same type. This field is immutable after creation. The following address types are currently supported: * IPv4: Represents an IPv4 Address. * IPv6: Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name.
@@ -1633,12 +1422,6 @@ func (o EndpointSliceTypeArrayOutput) ToEndpointSliceTypeArrayOutput() EndpointS
 
 func (o EndpointSliceTypeArrayOutput) ToEndpointSliceTypeArrayOutputWithContext(ctx context.Context) EndpointSliceTypeArrayOutput {
 	return o
-}
-
-func (o EndpointSliceTypeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]EndpointSliceType] {
-	return pulumix.Output[[]EndpointSliceType]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o EndpointSliceTypeArrayOutput) Index(i pulumi.IntInput) EndpointSliceTypeOutput {
@@ -1694,12 +1477,6 @@ func (i EndpointSliceListTypeArgs) ToEndpointSliceListTypeOutputWithContext(ctx 
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointSliceListTypeOutput)
 }
 
-func (i EndpointSliceListTypeArgs) ToOutput(ctx context.Context) pulumix.Output[EndpointSliceListType] {
-	return pulumix.Output[EndpointSliceListType]{
-		OutputState: i.ToEndpointSliceListTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // EndpointSliceList represents a list of endpoint slices
 type EndpointSliceListTypeOutput struct{ *pulumi.OutputState }
 
@@ -1713,12 +1490,6 @@ func (o EndpointSliceListTypeOutput) ToEndpointSliceListTypeOutput() EndpointSli
 
 func (o EndpointSliceListTypeOutput) ToEndpointSliceListTypeOutputWithContext(ctx context.Context) EndpointSliceListTypeOutput {
 	return o
-}
-
-func (o EndpointSliceListTypeOutput) ToOutput(ctx context.Context) pulumix.Output[EndpointSliceListType] {
-	return pulumix.Output[EndpointSliceListType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -1796,12 +1567,6 @@ func (i EndpointSlicePatchTypeArgs) ToEndpointSlicePatchTypeOutputWithContext(ct
 	return pulumi.ToOutputWithContext(ctx, i).(EndpointSlicePatchTypeOutput)
 }
 
-func (i EndpointSlicePatchTypeArgs) ToOutput(ctx context.Context) pulumix.Output[EndpointSlicePatchType] {
-	return pulumix.Output[EndpointSlicePatchType]{
-		OutputState: i.ToEndpointSlicePatchTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // EndpointSlice represents a subset of the endpoints that implement a service. For a given service there may be multiple EndpointSlice objects, selected by labels, which must be joined to produce the full set of endpoints.
 type EndpointSlicePatchTypeOutput struct{ *pulumi.OutputState }
 
@@ -1815,12 +1580,6 @@ func (o EndpointSlicePatchTypeOutput) ToEndpointSlicePatchTypeOutput() EndpointS
 
 func (o EndpointSlicePatchTypeOutput) ToEndpointSlicePatchTypeOutputWithContext(ctx context.Context) EndpointSlicePatchTypeOutput {
 	return o
-}
-
-func (o EndpointSlicePatchTypeOutput) ToOutput(ctx context.Context) pulumix.Output[EndpointSlicePatchType] {
-	return pulumix.Output[EndpointSlicePatchType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // addressType specifies the type of address carried by this EndpointSlice. All addresses in this slice must be the same type. This field is immutable after creation. The following address types are currently supported: * IPv4: Represents an IPv4 Address. * IPv6: Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name.
@@ -1888,12 +1647,6 @@ func (i ForZoneArgs) ToForZoneOutputWithContext(ctx context.Context) ForZoneOutp
 	return pulumi.ToOutputWithContext(ctx, i).(ForZoneOutput)
 }
 
-func (i ForZoneArgs) ToOutput(ctx context.Context) pulumix.Output[ForZone] {
-	return pulumix.Output[ForZone]{
-		OutputState: i.ToForZoneOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ForZoneArrayInput is an input type that accepts ForZoneArray and ForZoneArrayOutput values.
 // You can construct a concrete instance of `ForZoneArrayInput` via:
 //
@@ -1919,12 +1672,6 @@ func (i ForZoneArray) ToForZoneArrayOutputWithContext(ctx context.Context) ForZo
 	return pulumi.ToOutputWithContext(ctx, i).(ForZoneArrayOutput)
 }
 
-func (i ForZoneArray) ToOutput(ctx context.Context) pulumix.Output[[]ForZone] {
-	return pulumix.Output[[]ForZone]{
-		OutputState: i.ToForZoneArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ForZone provides information about which zones should consume this endpoint.
 type ForZoneOutput struct{ *pulumi.OutputState }
 
@@ -1938,12 +1685,6 @@ func (o ForZoneOutput) ToForZoneOutput() ForZoneOutput {
 
 func (o ForZoneOutput) ToForZoneOutputWithContext(ctx context.Context) ForZoneOutput {
 	return o
-}
-
-func (o ForZoneOutput) ToOutput(ctx context.Context) pulumix.Output[ForZone] {
-	return pulumix.Output[ForZone]{
-		OutputState: o.OutputState,
-	}
 }
 
 // name represents the name of the zone.
@@ -1963,12 +1704,6 @@ func (o ForZoneArrayOutput) ToForZoneArrayOutput() ForZoneArrayOutput {
 
 func (o ForZoneArrayOutput) ToForZoneArrayOutputWithContext(ctx context.Context) ForZoneArrayOutput {
 	return o
-}
-
-func (o ForZoneArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]ForZone] {
-	return pulumix.Output[[]ForZone]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ForZoneArrayOutput) Index(i pulumi.IntInput) ForZoneOutput {
@@ -2012,12 +1747,6 @@ func (i ForZonePatchArgs) ToForZonePatchOutputWithContext(ctx context.Context) F
 	return pulumi.ToOutputWithContext(ctx, i).(ForZonePatchOutput)
 }
 
-func (i ForZonePatchArgs) ToOutput(ctx context.Context) pulumix.Output[ForZonePatch] {
-	return pulumix.Output[ForZonePatch]{
-		OutputState: i.ToForZonePatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ForZonePatchArrayInput is an input type that accepts ForZonePatchArray and ForZonePatchArrayOutput values.
 // You can construct a concrete instance of `ForZonePatchArrayInput` via:
 //
@@ -2043,12 +1772,6 @@ func (i ForZonePatchArray) ToForZonePatchArrayOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(ForZonePatchArrayOutput)
 }
 
-func (i ForZonePatchArray) ToOutput(ctx context.Context) pulumix.Output[[]ForZonePatch] {
-	return pulumix.Output[[]ForZonePatch]{
-		OutputState: i.ToForZonePatchArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ForZone provides information about which zones should consume this endpoint.
 type ForZonePatchOutput struct{ *pulumi.OutputState }
 
@@ -2062,12 +1785,6 @@ func (o ForZonePatchOutput) ToForZonePatchOutput() ForZonePatchOutput {
 
 func (o ForZonePatchOutput) ToForZonePatchOutputWithContext(ctx context.Context) ForZonePatchOutput {
 	return o
-}
-
-func (o ForZonePatchOutput) ToOutput(ctx context.Context) pulumix.Output[ForZonePatch] {
-	return pulumix.Output[ForZonePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // name represents the name of the zone.
@@ -2087,12 +1804,6 @@ func (o ForZonePatchArrayOutput) ToForZonePatchArrayOutput() ForZonePatchArrayOu
 
 func (o ForZonePatchArrayOutput) ToForZonePatchArrayOutputWithContext(ctx context.Context) ForZonePatchArrayOutput {
 	return o
-}
-
-func (o ForZonePatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]ForZonePatch] {
-	return pulumix.Output[[]ForZonePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ForZonePatchArrayOutput) Index(i pulumi.IntInput) ForZonePatchOutput {

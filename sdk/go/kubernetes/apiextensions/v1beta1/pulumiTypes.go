@@ -10,7 +10,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 var _ = utilities.GetEnvOrDefault
@@ -70,12 +69,6 @@ func (i CustomResourceColumnDefinitionArgs) ToCustomResourceColumnDefinitionOutp
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceColumnDefinitionOutput)
 }
 
-func (i CustomResourceColumnDefinitionArgs) ToOutput(ctx context.Context) pulumix.Output[CustomResourceColumnDefinition] {
-	return pulumix.Output[CustomResourceColumnDefinition]{
-		OutputState: i.ToCustomResourceColumnDefinitionOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CustomResourceColumnDefinitionArrayInput is an input type that accepts CustomResourceColumnDefinitionArray and CustomResourceColumnDefinitionArrayOutput values.
 // You can construct a concrete instance of `CustomResourceColumnDefinitionArrayInput` via:
 //
@@ -101,12 +94,6 @@ func (i CustomResourceColumnDefinitionArray) ToCustomResourceColumnDefinitionArr
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceColumnDefinitionArrayOutput)
 }
 
-func (i CustomResourceColumnDefinitionArray) ToOutput(ctx context.Context) pulumix.Output[[]CustomResourceColumnDefinition] {
-	return pulumix.Output[[]CustomResourceColumnDefinition]{
-		OutputState: i.ToCustomResourceColumnDefinitionArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CustomResourceColumnDefinition specifies a column for server side printing.
 type CustomResourceColumnDefinitionOutput struct{ *pulumi.OutputState }
 
@@ -120,12 +107,6 @@ func (o CustomResourceColumnDefinitionOutput) ToCustomResourceColumnDefinitionOu
 
 func (o CustomResourceColumnDefinitionOutput) ToCustomResourceColumnDefinitionOutputWithContext(ctx context.Context) CustomResourceColumnDefinitionOutput {
 	return o
-}
-
-func (o CustomResourceColumnDefinitionOutput) ToOutput(ctx context.Context) pulumix.Output[CustomResourceColumnDefinition] {
-	return pulumix.Output[CustomResourceColumnDefinition]{
-		OutputState: o.OutputState,
-	}
 }
 
 // JSONPath is a simple JSON path (i.e. with array notation) which is evaluated against each custom resource to produce the value for this column.
@@ -170,12 +151,6 @@ func (o CustomResourceColumnDefinitionArrayOutput) ToCustomResourceColumnDefinit
 
 func (o CustomResourceColumnDefinitionArrayOutput) ToCustomResourceColumnDefinitionArrayOutputWithContext(ctx context.Context) CustomResourceColumnDefinitionArrayOutput {
 	return o
-}
-
-func (o CustomResourceColumnDefinitionArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]CustomResourceColumnDefinition] {
-	return pulumix.Output[[]CustomResourceColumnDefinition]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o CustomResourceColumnDefinitionArrayOutput) Index(i pulumi.IntInput) CustomResourceColumnDefinitionOutput {
@@ -239,12 +214,6 @@ func (i CustomResourceColumnDefinitionPatchArgs) ToCustomResourceColumnDefinitio
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceColumnDefinitionPatchOutput)
 }
 
-func (i CustomResourceColumnDefinitionPatchArgs) ToOutput(ctx context.Context) pulumix.Output[CustomResourceColumnDefinitionPatch] {
-	return pulumix.Output[CustomResourceColumnDefinitionPatch]{
-		OutputState: i.ToCustomResourceColumnDefinitionPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CustomResourceColumnDefinitionPatchArrayInput is an input type that accepts CustomResourceColumnDefinitionPatchArray and CustomResourceColumnDefinitionPatchArrayOutput values.
 // You can construct a concrete instance of `CustomResourceColumnDefinitionPatchArrayInput` via:
 //
@@ -270,12 +239,6 @@ func (i CustomResourceColumnDefinitionPatchArray) ToCustomResourceColumnDefiniti
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceColumnDefinitionPatchArrayOutput)
 }
 
-func (i CustomResourceColumnDefinitionPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]CustomResourceColumnDefinitionPatch] {
-	return pulumix.Output[[]CustomResourceColumnDefinitionPatch]{
-		OutputState: i.ToCustomResourceColumnDefinitionPatchArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CustomResourceColumnDefinition specifies a column for server side printing.
 type CustomResourceColumnDefinitionPatchOutput struct{ *pulumi.OutputState }
 
@@ -289,12 +252,6 @@ func (o CustomResourceColumnDefinitionPatchOutput) ToCustomResourceColumnDefinit
 
 func (o CustomResourceColumnDefinitionPatchOutput) ToCustomResourceColumnDefinitionPatchOutputWithContext(ctx context.Context) CustomResourceColumnDefinitionPatchOutput {
 	return o
-}
-
-func (o CustomResourceColumnDefinitionPatchOutput) ToOutput(ctx context.Context) pulumix.Output[CustomResourceColumnDefinitionPatch] {
-	return pulumix.Output[CustomResourceColumnDefinitionPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // JSONPath is a simple JSON path (i.e. with array notation) which is evaluated against each custom resource to produce the value for this column.
@@ -339,12 +296,6 @@ func (o CustomResourceColumnDefinitionPatchArrayOutput) ToCustomResourceColumnDe
 
 func (o CustomResourceColumnDefinitionPatchArrayOutput) ToCustomResourceColumnDefinitionPatchArrayOutputWithContext(ctx context.Context) CustomResourceColumnDefinitionPatchArrayOutput {
 	return o
-}
-
-func (o CustomResourceColumnDefinitionPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]CustomResourceColumnDefinitionPatch] {
-	return pulumix.Output[[]CustomResourceColumnDefinitionPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o CustomResourceColumnDefinitionPatchArrayOutput) Index(i pulumi.IntInput) CustomResourceColumnDefinitionPatchOutput {
@@ -398,12 +349,6 @@ func (i CustomResourceConversionArgs) ToCustomResourceConversionOutputWithContex
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceConversionOutput)
 }
 
-func (i CustomResourceConversionArgs) ToOutput(ctx context.Context) pulumix.Output[CustomResourceConversion] {
-	return pulumix.Output[CustomResourceConversion]{
-		OutputState: i.ToCustomResourceConversionOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i CustomResourceConversionArgs) ToCustomResourceConversionPtrOutput() CustomResourceConversionPtrOutput {
 	return i.ToCustomResourceConversionPtrOutputWithContext(context.Background())
 }
@@ -445,12 +390,6 @@ func (i *customResourceConversionPtrType) ToCustomResourceConversionPtrOutputWit
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceConversionPtrOutput)
 }
 
-func (i *customResourceConversionPtrType) ToOutput(ctx context.Context) pulumix.Output[*CustomResourceConversion] {
-	return pulumix.Output[*CustomResourceConversion]{
-		OutputState: i.ToCustomResourceConversionPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CustomResourceConversion describes how to convert different versions of a CR.
 type CustomResourceConversionOutput struct{ *pulumi.OutputState }
 
@@ -474,12 +413,6 @@ func (o CustomResourceConversionOutput) ToCustomResourceConversionPtrOutputWithC
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v CustomResourceConversion) *CustomResourceConversion {
 		return &v
 	}).(CustomResourceConversionPtrOutput)
-}
-
-func (o CustomResourceConversionOutput) ToOutput(ctx context.Context) pulumix.Output[CustomResourceConversion] {
-	return pulumix.Output[CustomResourceConversion]{
-		OutputState: o.OutputState,
-	}
 }
 
 // conversionReviewVersions is an ordered list of preferred `ConversionReview` versions the Webhook expects. The API server will use the first version in the list which it supports. If none of the versions specified in this list are supported by API server, conversion will fail for the custom resource. If a persisted Webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail. Defaults to `["v1beta1"]`.
@@ -511,12 +444,6 @@ func (o CustomResourceConversionPtrOutput) ToCustomResourceConversionPtrOutput()
 
 func (o CustomResourceConversionPtrOutput) ToCustomResourceConversionPtrOutputWithContext(ctx context.Context) CustomResourceConversionPtrOutput {
 	return o
-}
-
-func (o CustomResourceConversionPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*CustomResourceConversion] {
-	return pulumix.Output[*CustomResourceConversion]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o CustomResourceConversionPtrOutput) Elem() CustomResourceConversionOutput {
@@ -606,12 +533,6 @@ func (i CustomResourceConversionPatchArgs) ToCustomResourceConversionPatchOutput
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceConversionPatchOutput)
 }
 
-func (i CustomResourceConversionPatchArgs) ToOutput(ctx context.Context) pulumix.Output[CustomResourceConversionPatch] {
-	return pulumix.Output[CustomResourceConversionPatch]{
-		OutputState: i.ToCustomResourceConversionPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i CustomResourceConversionPatchArgs) ToCustomResourceConversionPatchPtrOutput() CustomResourceConversionPatchPtrOutput {
 	return i.ToCustomResourceConversionPatchPtrOutputWithContext(context.Background())
 }
@@ -653,12 +574,6 @@ func (i *customResourceConversionPatchPtrType) ToCustomResourceConversionPatchPt
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceConversionPatchPtrOutput)
 }
 
-func (i *customResourceConversionPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*CustomResourceConversionPatch] {
-	return pulumix.Output[*CustomResourceConversionPatch]{
-		OutputState: i.ToCustomResourceConversionPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CustomResourceConversion describes how to convert different versions of a CR.
 type CustomResourceConversionPatchOutput struct{ *pulumi.OutputState }
 
@@ -682,12 +597,6 @@ func (o CustomResourceConversionPatchOutput) ToCustomResourceConversionPatchPtrO
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v CustomResourceConversionPatch) *CustomResourceConversionPatch {
 		return &v
 	}).(CustomResourceConversionPatchPtrOutput)
-}
-
-func (o CustomResourceConversionPatchOutput) ToOutput(ctx context.Context) pulumix.Output[CustomResourceConversionPatch] {
-	return pulumix.Output[CustomResourceConversionPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // conversionReviewVersions is an ordered list of preferred `ConversionReview` versions the Webhook expects. The API server will use the first version in the list which it supports. If none of the versions specified in this list are supported by API server, conversion will fail for the custom resource. If a persisted Webhook configuration specifies allowed versions and does not include any versions known to the API Server, calls to the webhook will fail. Defaults to `["v1beta1"]`.
@@ -719,12 +628,6 @@ func (o CustomResourceConversionPatchPtrOutput) ToCustomResourceConversionPatchP
 
 func (o CustomResourceConversionPatchPtrOutput) ToCustomResourceConversionPatchPtrOutputWithContext(ctx context.Context) CustomResourceConversionPatchPtrOutput {
 	return o
-}
-
-func (o CustomResourceConversionPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*CustomResourceConversionPatch] {
-	return pulumix.Output[*CustomResourceConversionPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o CustomResourceConversionPatchPtrOutput) Elem() CustomResourceConversionPatchOutput {
@@ -818,12 +721,6 @@ func (i CustomResourceDefinitionTypeArgs) ToCustomResourceDefinitionTypeOutputWi
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionTypeOutput)
 }
 
-func (i CustomResourceDefinitionTypeArgs) ToOutput(ctx context.Context) pulumix.Output[CustomResourceDefinitionType] {
-	return pulumix.Output[CustomResourceDefinitionType]{
-		OutputState: i.ToCustomResourceDefinitionTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CustomResourceDefinitionTypeArrayInput is an input type that accepts CustomResourceDefinitionTypeArray and CustomResourceDefinitionTypeArrayOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionTypeArrayInput` via:
 //
@@ -849,12 +746,6 @@ func (i CustomResourceDefinitionTypeArray) ToCustomResourceDefinitionTypeArrayOu
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionTypeArrayOutput)
 }
 
-func (i CustomResourceDefinitionTypeArray) ToOutput(ctx context.Context) pulumix.Output[[]CustomResourceDefinitionType] {
-	return pulumix.Output[[]CustomResourceDefinitionType]{
-		OutputState: i.ToCustomResourceDefinitionTypeArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>. Deprecated in v1.16, planned for removal in v1.19. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.
 type CustomResourceDefinitionTypeOutput struct{ *pulumi.OutputState }
 
@@ -868,12 +759,6 @@ func (o CustomResourceDefinitionTypeOutput) ToCustomResourceDefinitionTypeOutput
 
 func (o CustomResourceDefinitionTypeOutput) ToCustomResourceDefinitionTypeOutputWithContext(ctx context.Context) CustomResourceDefinitionTypeOutput {
 	return o
-}
-
-func (o CustomResourceDefinitionTypeOutput) ToOutput(ctx context.Context) pulumix.Output[CustomResourceDefinitionType] {
-	return pulumix.Output[CustomResourceDefinitionType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -912,12 +797,6 @@ func (o CustomResourceDefinitionTypeArrayOutput) ToCustomResourceDefinitionTypeA
 
 func (o CustomResourceDefinitionTypeArrayOutput) ToCustomResourceDefinitionTypeArrayOutputWithContext(ctx context.Context) CustomResourceDefinitionTypeArrayOutput {
 	return o
-}
-
-func (o CustomResourceDefinitionTypeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]CustomResourceDefinitionType] {
-	return pulumix.Output[[]CustomResourceDefinitionType]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o CustomResourceDefinitionTypeArrayOutput) Index(i pulumi.IntInput) CustomResourceDefinitionTypeOutput {
@@ -977,12 +856,6 @@ func (i CustomResourceDefinitionConditionArgs) ToCustomResourceDefinitionConditi
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionConditionOutput)
 }
 
-func (i CustomResourceDefinitionConditionArgs) ToOutput(ctx context.Context) pulumix.Output[CustomResourceDefinitionCondition] {
-	return pulumix.Output[CustomResourceDefinitionCondition]{
-		OutputState: i.ToCustomResourceDefinitionConditionOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CustomResourceDefinitionConditionArrayInput is an input type that accepts CustomResourceDefinitionConditionArray and CustomResourceDefinitionConditionArrayOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionConditionArrayInput` via:
 //
@@ -1008,12 +881,6 @@ func (i CustomResourceDefinitionConditionArray) ToCustomResourceDefinitionCondit
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionConditionArrayOutput)
 }
 
-func (i CustomResourceDefinitionConditionArray) ToOutput(ctx context.Context) pulumix.Output[[]CustomResourceDefinitionCondition] {
-	return pulumix.Output[[]CustomResourceDefinitionCondition]{
-		OutputState: i.ToCustomResourceDefinitionConditionArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CustomResourceDefinitionCondition contains details for the current condition of this pod.
 type CustomResourceDefinitionConditionOutput struct{ *pulumi.OutputState }
 
@@ -1027,12 +894,6 @@ func (o CustomResourceDefinitionConditionOutput) ToCustomResourceDefinitionCondi
 
 func (o CustomResourceDefinitionConditionOutput) ToCustomResourceDefinitionConditionOutputWithContext(ctx context.Context) CustomResourceDefinitionConditionOutput {
 	return o
-}
-
-func (o CustomResourceDefinitionConditionOutput) ToOutput(ctx context.Context) pulumix.Output[CustomResourceDefinitionCondition] {
-	return pulumix.Output[CustomResourceDefinitionCondition]{
-		OutputState: o.OutputState,
-	}
 }
 
 // lastTransitionTime last time the condition transitioned from one status to another.
@@ -1072,12 +933,6 @@ func (o CustomResourceDefinitionConditionArrayOutput) ToCustomResourceDefinition
 
 func (o CustomResourceDefinitionConditionArrayOutput) ToCustomResourceDefinitionConditionArrayOutputWithContext(ctx context.Context) CustomResourceDefinitionConditionArrayOutput {
 	return o
-}
-
-func (o CustomResourceDefinitionConditionArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]CustomResourceDefinitionCondition] {
-	return pulumix.Output[[]CustomResourceDefinitionCondition]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o CustomResourceDefinitionConditionArrayOutput) Index(i pulumi.IntInput) CustomResourceDefinitionConditionOutput {
@@ -1137,12 +992,6 @@ func (i CustomResourceDefinitionConditionPatchArgs) ToCustomResourceDefinitionCo
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionConditionPatchOutput)
 }
 
-func (i CustomResourceDefinitionConditionPatchArgs) ToOutput(ctx context.Context) pulumix.Output[CustomResourceDefinitionConditionPatch] {
-	return pulumix.Output[CustomResourceDefinitionConditionPatch]{
-		OutputState: i.ToCustomResourceDefinitionConditionPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CustomResourceDefinitionConditionPatchArrayInput is an input type that accepts CustomResourceDefinitionConditionPatchArray and CustomResourceDefinitionConditionPatchArrayOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionConditionPatchArrayInput` via:
 //
@@ -1168,12 +1017,6 @@ func (i CustomResourceDefinitionConditionPatchArray) ToCustomResourceDefinitionC
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionConditionPatchArrayOutput)
 }
 
-func (i CustomResourceDefinitionConditionPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]CustomResourceDefinitionConditionPatch] {
-	return pulumix.Output[[]CustomResourceDefinitionConditionPatch]{
-		OutputState: i.ToCustomResourceDefinitionConditionPatchArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CustomResourceDefinitionCondition contains details for the current condition of this pod.
 type CustomResourceDefinitionConditionPatchOutput struct{ *pulumi.OutputState }
 
@@ -1187,12 +1030,6 @@ func (o CustomResourceDefinitionConditionPatchOutput) ToCustomResourceDefinition
 
 func (o CustomResourceDefinitionConditionPatchOutput) ToCustomResourceDefinitionConditionPatchOutputWithContext(ctx context.Context) CustomResourceDefinitionConditionPatchOutput {
 	return o
-}
-
-func (o CustomResourceDefinitionConditionPatchOutput) ToOutput(ctx context.Context) pulumix.Output[CustomResourceDefinitionConditionPatch] {
-	return pulumix.Output[CustomResourceDefinitionConditionPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // lastTransitionTime last time the condition transitioned from one status to another.
@@ -1232,12 +1069,6 @@ func (o CustomResourceDefinitionConditionPatchArrayOutput) ToCustomResourceDefin
 
 func (o CustomResourceDefinitionConditionPatchArrayOutput) ToCustomResourceDefinitionConditionPatchArrayOutputWithContext(ctx context.Context) CustomResourceDefinitionConditionPatchArrayOutput {
 	return o
-}
-
-func (o CustomResourceDefinitionConditionPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]CustomResourceDefinitionConditionPatch] {
-	return pulumix.Output[[]CustomResourceDefinitionConditionPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o CustomResourceDefinitionConditionPatchArrayOutput) Index(i pulumi.IntInput) CustomResourceDefinitionConditionPatchOutput {
@@ -1291,12 +1122,6 @@ func (i CustomResourceDefinitionListTypeArgs) ToCustomResourceDefinitionListType
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionListTypeOutput)
 }
 
-func (i CustomResourceDefinitionListTypeArgs) ToOutput(ctx context.Context) pulumix.Output[CustomResourceDefinitionListType] {
-	return pulumix.Output[CustomResourceDefinitionListType]{
-		OutputState: i.ToCustomResourceDefinitionListTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CustomResourceDefinitionList is a list of CustomResourceDefinition objects.
 type CustomResourceDefinitionListTypeOutput struct{ *pulumi.OutputState }
 
@@ -1310,12 +1135,6 @@ func (o CustomResourceDefinitionListTypeOutput) ToCustomResourceDefinitionListTy
 
 func (o CustomResourceDefinitionListTypeOutput) ToCustomResourceDefinitionListTypeOutputWithContext(ctx context.Context) CustomResourceDefinitionListTypeOutput {
 	return o
-}
-
-func (o CustomResourceDefinitionListTypeOutput) ToOutput(ctx context.Context) pulumix.Output[CustomResourceDefinitionListType] {
-	return pulumix.Output[CustomResourceDefinitionListType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -1392,12 +1211,6 @@ func (i CustomResourceDefinitionNamesArgs) ToCustomResourceDefinitionNamesOutput
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionNamesOutput)
 }
 
-func (i CustomResourceDefinitionNamesArgs) ToOutput(ctx context.Context) pulumix.Output[CustomResourceDefinitionNames] {
-	return pulumix.Output[CustomResourceDefinitionNames]{
-		OutputState: i.ToCustomResourceDefinitionNamesOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i CustomResourceDefinitionNamesArgs) ToCustomResourceDefinitionNamesPtrOutput() CustomResourceDefinitionNamesPtrOutput {
 	return i.ToCustomResourceDefinitionNamesPtrOutputWithContext(context.Background())
 }
@@ -1439,12 +1252,6 @@ func (i *customResourceDefinitionNamesPtrType) ToCustomResourceDefinitionNamesPt
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionNamesPtrOutput)
 }
 
-func (i *customResourceDefinitionNamesPtrType) ToOutput(ctx context.Context) pulumix.Output[*CustomResourceDefinitionNames] {
-	return pulumix.Output[*CustomResourceDefinitionNames]{
-		OutputState: i.ToCustomResourceDefinitionNamesPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CustomResourceDefinitionNames indicates the names to serve this CustomResourceDefinition
 type CustomResourceDefinitionNamesOutput struct{ *pulumi.OutputState }
 
@@ -1468,12 +1275,6 @@ func (o CustomResourceDefinitionNamesOutput) ToCustomResourceDefinitionNamesPtrO
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v CustomResourceDefinitionNames) *CustomResourceDefinitionNames {
 		return &v
 	}).(CustomResourceDefinitionNamesPtrOutput)
-}
-
-func (o CustomResourceDefinitionNamesOutput) ToOutput(ctx context.Context) pulumix.Output[CustomResourceDefinitionNames] {
-	return pulumix.Output[CustomResourceDefinitionNames]{
-		OutputState: o.OutputState,
-	}
 }
 
 // categories is a list of grouped resources this custom resource belongs to (e.g. 'all'). This is published in API discovery documents, and used by clients to support invocations like `kubectl get all`.
@@ -1518,12 +1319,6 @@ func (o CustomResourceDefinitionNamesPtrOutput) ToCustomResourceDefinitionNamesP
 
 func (o CustomResourceDefinitionNamesPtrOutput) ToCustomResourceDefinitionNamesPtrOutputWithContext(ctx context.Context) CustomResourceDefinitionNamesPtrOutput {
 	return o
-}
-
-func (o CustomResourceDefinitionNamesPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*CustomResourceDefinitionNames] {
-	return pulumix.Output[*CustomResourceDefinitionNames]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o CustomResourceDefinitionNamesPtrOutput) Elem() CustomResourceDefinitionNamesOutput {
@@ -1651,12 +1446,6 @@ func (i CustomResourceDefinitionNamesPatchArgs) ToCustomResourceDefinitionNamesP
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionNamesPatchOutput)
 }
 
-func (i CustomResourceDefinitionNamesPatchArgs) ToOutput(ctx context.Context) pulumix.Output[CustomResourceDefinitionNamesPatch] {
-	return pulumix.Output[CustomResourceDefinitionNamesPatch]{
-		OutputState: i.ToCustomResourceDefinitionNamesPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i CustomResourceDefinitionNamesPatchArgs) ToCustomResourceDefinitionNamesPatchPtrOutput() CustomResourceDefinitionNamesPatchPtrOutput {
 	return i.ToCustomResourceDefinitionNamesPatchPtrOutputWithContext(context.Background())
 }
@@ -1698,12 +1487,6 @@ func (i *customResourceDefinitionNamesPatchPtrType) ToCustomResourceDefinitionNa
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionNamesPatchPtrOutput)
 }
 
-func (i *customResourceDefinitionNamesPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*CustomResourceDefinitionNamesPatch] {
-	return pulumix.Output[*CustomResourceDefinitionNamesPatch]{
-		OutputState: i.ToCustomResourceDefinitionNamesPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CustomResourceDefinitionNames indicates the names to serve this CustomResourceDefinition
 type CustomResourceDefinitionNamesPatchOutput struct{ *pulumi.OutputState }
 
@@ -1727,12 +1510,6 @@ func (o CustomResourceDefinitionNamesPatchOutput) ToCustomResourceDefinitionName
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v CustomResourceDefinitionNamesPatch) *CustomResourceDefinitionNamesPatch {
 		return &v
 	}).(CustomResourceDefinitionNamesPatchPtrOutput)
-}
-
-func (o CustomResourceDefinitionNamesPatchOutput) ToOutput(ctx context.Context) pulumix.Output[CustomResourceDefinitionNamesPatch] {
-	return pulumix.Output[CustomResourceDefinitionNamesPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // categories is a list of grouped resources this custom resource belongs to (e.g. 'all'). This is published in API discovery documents, and used by clients to support invocations like `kubectl get all`.
@@ -1777,12 +1554,6 @@ func (o CustomResourceDefinitionNamesPatchPtrOutput) ToCustomResourceDefinitionN
 
 func (o CustomResourceDefinitionNamesPatchPtrOutput) ToCustomResourceDefinitionNamesPatchPtrOutputWithContext(ctx context.Context) CustomResourceDefinitionNamesPatchPtrOutput {
 	return o
-}
-
-func (o CustomResourceDefinitionNamesPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*CustomResourceDefinitionNamesPatch] {
-	return pulumix.Output[*CustomResourceDefinitionNamesPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o CustomResourceDefinitionNamesPatchPtrOutput) Elem() CustomResourceDefinitionNamesPatchOutput {
@@ -1904,12 +1675,6 @@ func (i CustomResourceDefinitionPatchTypeArgs) ToCustomResourceDefinitionPatchTy
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionPatchTypeOutput)
 }
 
-func (i CustomResourceDefinitionPatchTypeArgs) ToOutput(ctx context.Context) pulumix.Output[CustomResourceDefinitionPatchType] {
-	return pulumix.Output[CustomResourceDefinitionPatchType]{
-		OutputState: i.ToCustomResourceDefinitionPatchTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CustomResourceDefinition represents a resource that should be exposed on the API server.  Its name MUST be in the format <.spec.name>.<.spec.group>. Deprecated in v1.16, planned for removal in v1.19. Use apiextensions.k8s.io/v1 CustomResourceDefinition instead.
 type CustomResourceDefinitionPatchTypeOutput struct{ *pulumi.OutputState }
 
@@ -1923,12 +1688,6 @@ func (o CustomResourceDefinitionPatchTypeOutput) ToCustomResourceDefinitionPatch
 
 func (o CustomResourceDefinitionPatchTypeOutput) ToCustomResourceDefinitionPatchTypeOutputWithContext(ctx context.Context) CustomResourceDefinitionPatchTypeOutput {
 	return o
-}
-
-func (o CustomResourceDefinitionPatchTypeOutput) ToOutput(ctx context.Context) pulumix.Output[CustomResourceDefinitionPatchType] {
-	return pulumix.Output[CustomResourceDefinitionPatchType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -2026,12 +1785,6 @@ func (i CustomResourceDefinitionSpecArgs) ToCustomResourceDefinitionSpecOutputWi
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionSpecOutput)
 }
 
-func (i CustomResourceDefinitionSpecArgs) ToOutput(ctx context.Context) pulumix.Output[CustomResourceDefinitionSpec] {
-	return pulumix.Output[CustomResourceDefinitionSpec]{
-		OutputState: i.ToCustomResourceDefinitionSpecOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CustomResourceDefinitionSpec describes how a user wants their resource to appear
 type CustomResourceDefinitionSpecOutput struct{ *pulumi.OutputState }
 
@@ -2045,12 +1798,6 @@ func (o CustomResourceDefinitionSpecOutput) ToCustomResourceDefinitionSpecOutput
 
 func (o CustomResourceDefinitionSpecOutput) ToCustomResourceDefinitionSpecOutputWithContext(ctx context.Context) CustomResourceDefinitionSpecOutput {
 	return o
-}
-
-func (o CustomResourceDefinitionSpecOutput) ToOutput(ctx context.Context) pulumix.Output[CustomResourceDefinitionSpec] {
-	return pulumix.Output[CustomResourceDefinitionSpec]{
-		OutputState: o.OutputState,
-	}
 }
 
 // additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. If present, this field configures columns for all versions. Top-level and per-version columns are mutually exclusive. If no top-level or per-version columns are specified, a single column displaying the age of the custom resource is used.
@@ -2176,12 +1923,6 @@ func (i CustomResourceDefinitionSpecPatchArgs) ToCustomResourceDefinitionSpecPat
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionSpecPatchOutput)
 }
 
-func (i CustomResourceDefinitionSpecPatchArgs) ToOutput(ctx context.Context) pulumix.Output[CustomResourceDefinitionSpecPatch] {
-	return pulumix.Output[CustomResourceDefinitionSpecPatch]{
-		OutputState: i.ToCustomResourceDefinitionSpecPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i CustomResourceDefinitionSpecPatchArgs) ToCustomResourceDefinitionSpecPatchPtrOutput() CustomResourceDefinitionSpecPatchPtrOutput {
 	return i.ToCustomResourceDefinitionSpecPatchPtrOutputWithContext(context.Background())
 }
@@ -2223,12 +1964,6 @@ func (i *customResourceDefinitionSpecPatchPtrType) ToCustomResourceDefinitionSpe
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionSpecPatchPtrOutput)
 }
 
-func (i *customResourceDefinitionSpecPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*CustomResourceDefinitionSpecPatch] {
-	return pulumix.Output[*CustomResourceDefinitionSpecPatch]{
-		OutputState: i.ToCustomResourceDefinitionSpecPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CustomResourceDefinitionSpec describes how a user wants their resource to appear
 type CustomResourceDefinitionSpecPatchOutput struct{ *pulumi.OutputState }
 
@@ -2252,12 +1987,6 @@ func (o CustomResourceDefinitionSpecPatchOutput) ToCustomResourceDefinitionSpecP
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v CustomResourceDefinitionSpecPatch) *CustomResourceDefinitionSpecPatch {
 		return &v
 	}).(CustomResourceDefinitionSpecPatchPtrOutput)
-}
-
-func (o CustomResourceDefinitionSpecPatchOutput) ToOutput(ctx context.Context) pulumix.Output[CustomResourceDefinitionSpecPatch] {
-	return pulumix.Output[CustomResourceDefinitionSpecPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. If present, this field configures columns for all versions. Top-level and per-version columns are mutually exclusive. If no top-level or per-version columns are specified, a single column displaying the age of the custom resource is used.
@@ -2324,12 +2053,6 @@ func (o CustomResourceDefinitionSpecPatchPtrOutput) ToCustomResourceDefinitionSp
 
 func (o CustomResourceDefinitionSpecPatchPtrOutput) ToCustomResourceDefinitionSpecPatchPtrOutputWithContext(ctx context.Context) CustomResourceDefinitionSpecPatchPtrOutput {
 	return o
-}
-
-func (o CustomResourceDefinitionSpecPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*CustomResourceDefinitionSpecPatch] {
-	return pulumix.Output[*CustomResourceDefinitionSpecPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o CustomResourceDefinitionSpecPatchPtrOutput) Elem() CustomResourceDefinitionSpecPatchOutput {
@@ -2485,12 +2208,6 @@ func (i CustomResourceDefinitionStatusArgs) ToCustomResourceDefinitionStatusOutp
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionStatusOutput)
 }
 
-func (i CustomResourceDefinitionStatusArgs) ToOutput(ctx context.Context) pulumix.Output[CustomResourceDefinitionStatus] {
-	return pulumix.Output[CustomResourceDefinitionStatus]{
-		OutputState: i.ToCustomResourceDefinitionStatusOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i CustomResourceDefinitionStatusArgs) ToCustomResourceDefinitionStatusPtrOutput() CustomResourceDefinitionStatusPtrOutput {
 	return i.ToCustomResourceDefinitionStatusPtrOutputWithContext(context.Background())
 }
@@ -2532,12 +2249,6 @@ func (i *customResourceDefinitionStatusPtrType) ToCustomResourceDefinitionStatus
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionStatusPtrOutput)
 }
 
-func (i *customResourceDefinitionStatusPtrType) ToOutput(ctx context.Context) pulumix.Output[*CustomResourceDefinitionStatus] {
-	return pulumix.Output[*CustomResourceDefinitionStatus]{
-		OutputState: i.ToCustomResourceDefinitionStatusPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CustomResourceDefinitionStatus indicates the state of the CustomResourceDefinition
 type CustomResourceDefinitionStatusOutput struct{ *pulumi.OutputState }
 
@@ -2561,12 +2272,6 @@ func (o CustomResourceDefinitionStatusOutput) ToCustomResourceDefinitionStatusPt
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v CustomResourceDefinitionStatus) *CustomResourceDefinitionStatus {
 		return &v
 	}).(CustomResourceDefinitionStatusPtrOutput)
-}
-
-func (o CustomResourceDefinitionStatusOutput) ToOutput(ctx context.Context) pulumix.Output[CustomResourceDefinitionStatus] {
-	return pulumix.Output[CustomResourceDefinitionStatus]{
-		OutputState: o.OutputState,
-	}
 }
 
 // acceptedNames are the names that are actually being used to serve discovery. They may be different than the names in spec.
@@ -2596,12 +2301,6 @@ func (o CustomResourceDefinitionStatusPtrOutput) ToCustomResourceDefinitionStatu
 
 func (o CustomResourceDefinitionStatusPtrOutput) ToCustomResourceDefinitionStatusPtrOutputWithContext(ctx context.Context) CustomResourceDefinitionStatusPtrOutput {
 	return o
-}
-
-func (o CustomResourceDefinitionStatusPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*CustomResourceDefinitionStatus] {
-	return pulumix.Output[*CustomResourceDefinitionStatus]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o CustomResourceDefinitionStatusPtrOutput) Elem() CustomResourceDefinitionStatusOutput {
@@ -2687,12 +2386,6 @@ func (i CustomResourceDefinitionStatusPatchArgs) ToCustomResourceDefinitionStatu
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionStatusPatchOutput)
 }
 
-func (i CustomResourceDefinitionStatusPatchArgs) ToOutput(ctx context.Context) pulumix.Output[CustomResourceDefinitionStatusPatch] {
-	return pulumix.Output[CustomResourceDefinitionStatusPatch]{
-		OutputState: i.ToCustomResourceDefinitionStatusPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i CustomResourceDefinitionStatusPatchArgs) ToCustomResourceDefinitionStatusPatchPtrOutput() CustomResourceDefinitionStatusPatchPtrOutput {
 	return i.ToCustomResourceDefinitionStatusPatchPtrOutputWithContext(context.Background())
 }
@@ -2734,12 +2427,6 @@ func (i *customResourceDefinitionStatusPatchPtrType) ToCustomResourceDefinitionS
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionStatusPatchPtrOutput)
 }
 
-func (i *customResourceDefinitionStatusPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*CustomResourceDefinitionStatusPatch] {
-	return pulumix.Output[*CustomResourceDefinitionStatusPatch]{
-		OutputState: i.ToCustomResourceDefinitionStatusPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CustomResourceDefinitionStatus indicates the state of the CustomResourceDefinition
 type CustomResourceDefinitionStatusPatchOutput struct{ *pulumi.OutputState }
 
@@ -2763,12 +2450,6 @@ func (o CustomResourceDefinitionStatusPatchOutput) ToCustomResourceDefinitionSta
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v CustomResourceDefinitionStatusPatch) *CustomResourceDefinitionStatusPatch {
 		return &v
 	}).(CustomResourceDefinitionStatusPatchPtrOutput)
-}
-
-func (o CustomResourceDefinitionStatusPatchOutput) ToOutput(ctx context.Context) pulumix.Output[CustomResourceDefinitionStatusPatch] {
-	return pulumix.Output[CustomResourceDefinitionStatusPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // acceptedNames are the names that are actually being used to serve discovery. They may be different than the names in spec.
@@ -2802,12 +2483,6 @@ func (o CustomResourceDefinitionStatusPatchPtrOutput) ToCustomResourceDefinition
 
 func (o CustomResourceDefinitionStatusPatchPtrOutput) ToCustomResourceDefinitionStatusPatchPtrOutputWithContext(ctx context.Context) CustomResourceDefinitionStatusPatchPtrOutput {
 	return o
-}
-
-func (o CustomResourceDefinitionStatusPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*CustomResourceDefinitionStatusPatch] {
-	return pulumix.Output[*CustomResourceDefinitionStatusPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o CustomResourceDefinitionStatusPatchPtrOutput) Elem() CustomResourceDefinitionStatusPatchOutput {
@@ -2913,12 +2588,6 @@ func (i CustomResourceDefinitionVersionArgs) ToCustomResourceDefinitionVersionOu
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionVersionOutput)
 }
 
-func (i CustomResourceDefinitionVersionArgs) ToOutput(ctx context.Context) pulumix.Output[CustomResourceDefinitionVersion] {
-	return pulumix.Output[CustomResourceDefinitionVersion]{
-		OutputState: i.ToCustomResourceDefinitionVersionOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CustomResourceDefinitionVersionArrayInput is an input type that accepts CustomResourceDefinitionVersionArray and CustomResourceDefinitionVersionArrayOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionVersionArrayInput` via:
 //
@@ -2944,12 +2613,6 @@ func (i CustomResourceDefinitionVersionArray) ToCustomResourceDefinitionVersionA
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionVersionArrayOutput)
 }
 
-func (i CustomResourceDefinitionVersionArray) ToOutput(ctx context.Context) pulumix.Output[[]CustomResourceDefinitionVersion] {
-	return pulumix.Output[[]CustomResourceDefinitionVersion]{
-		OutputState: i.ToCustomResourceDefinitionVersionArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CustomResourceDefinitionVersion describes a version for CRD.
 type CustomResourceDefinitionVersionOutput struct{ *pulumi.OutputState }
 
@@ -2963,12 +2626,6 @@ func (o CustomResourceDefinitionVersionOutput) ToCustomResourceDefinitionVersion
 
 func (o CustomResourceDefinitionVersionOutput) ToCustomResourceDefinitionVersionOutputWithContext(ctx context.Context) CustomResourceDefinitionVersionOutput {
 	return o
-}
-
-func (o CustomResourceDefinitionVersionOutput) ToOutput(ctx context.Context) pulumix.Output[CustomResourceDefinitionVersion] {
-	return pulumix.Output[CustomResourceDefinitionVersion]{
-		OutputState: o.OutputState,
-	}
 }
 
 // additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. Top-level and per-version columns are mutually exclusive. Per-version columns must not all be set to identical values (top-level columns should be used instead). If no top-level or per-version columns are specified, a single column displaying the age of the custom resource is used.
@@ -3025,12 +2682,6 @@ func (o CustomResourceDefinitionVersionArrayOutput) ToCustomResourceDefinitionVe
 
 func (o CustomResourceDefinitionVersionArrayOutput) ToCustomResourceDefinitionVersionArrayOutputWithContext(ctx context.Context) CustomResourceDefinitionVersionArrayOutput {
 	return o
-}
-
-func (o CustomResourceDefinitionVersionArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]CustomResourceDefinitionVersion] {
-	return pulumix.Output[[]CustomResourceDefinitionVersion]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o CustomResourceDefinitionVersionArrayOutput) Index(i pulumi.IntInput) CustomResourceDefinitionVersionOutput {
@@ -3102,12 +2753,6 @@ func (i CustomResourceDefinitionVersionPatchArgs) ToCustomResourceDefinitionVers
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionVersionPatchOutput)
 }
 
-func (i CustomResourceDefinitionVersionPatchArgs) ToOutput(ctx context.Context) pulumix.Output[CustomResourceDefinitionVersionPatch] {
-	return pulumix.Output[CustomResourceDefinitionVersionPatch]{
-		OutputState: i.ToCustomResourceDefinitionVersionPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CustomResourceDefinitionVersionPatchArrayInput is an input type that accepts CustomResourceDefinitionVersionPatchArray and CustomResourceDefinitionVersionPatchArrayOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionVersionPatchArrayInput` via:
 //
@@ -3133,12 +2778,6 @@ func (i CustomResourceDefinitionVersionPatchArray) ToCustomResourceDefinitionVer
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionVersionPatchArrayOutput)
 }
 
-func (i CustomResourceDefinitionVersionPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]CustomResourceDefinitionVersionPatch] {
-	return pulumix.Output[[]CustomResourceDefinitionVersionPatch]{
-		OutputState: i.ToCustomResourceDefinitionVersionPatchArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CustomResourceDefinitionVersion describes a version for CRD.
 type CustomResourceDefinitionVersionPatchOutput struct{ *pulumi.OutputState }
 
@@ -3152,12 +2791,6 @@ func (o CustomResourceDefinitionVersionPatchOutput) ToCustomResourceDefinitionVe
 
 func (o CustomResourceDefinitionVersionPatchOutput) ToCustomResourceDefinitionVersionPatchOutputWithContext(ctx context.Context) CustomResourceDefinitionVersionPatchOutput {
 	return o
-}
-
-func (o CustomResourceDefinitionVersionPatchOutput) ToOutput(ctx context.Context) pulumix.Output[CustomResourceDefinitionVersionPatch] {
-	return pulumix.Output[CustomResourceDefinitionVersionPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // additionalPrinterColumns specifies additional columns returned in Table output. See https://kubernetes.io/docs/reference/using-api/api-concepts/#receiving-resources-as-tables for details. Top-level and per-version columns are mutually exclusive. Per-version columns must not all be set to identical values (top-level columns should be used instead). If no top-level or per-version columns are specified, a single column displaying the age of the custom resource is used.
@@ -3216,12 +2849,6 @@ func (o CustomResourceDefinitionVersionPatchArrayOutput) ToCustomResourceDefinit
 	return o
 }
 
-func (o CustomResourceDefinitionVersionPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]CustomResourceDefinitionVersionPatch] {
-	return pulumix.Output[[]CustomResourceDefinitionVersionPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o CustomResourceDefinitionVersionPatchArrayOutput) Index(i pulumi.IntInput) CustomResourceDefinitionVersionPatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) CustomResourceDefinitionVersionPatch {
 		return vs[0].([]CustomResourceDefinitionVersionPatch)[vs[1].(int)]
@@ -3271,12 +2898,6 @@ func (i CustomResourceSubresourceScaleArgs) ToCustomResourceSubresourceScaleOutp
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceSubresourceScaleOutput)
 }
 
-func (i CustomResourceSubresourceScaleArgs) ToOutput(ctx context.Context) pulumix.Output[CustomResourceSubresourceScale] {
-	return pulumix.Output[CustomResourceSubresourceScale]{
-		OutputState: i.ToCustomResourceSubresourceScaleOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i CustomResourceSubresourceScaleArgs) ToCustomResourceSubresourceScalePtrOutput() CustomResourceSubresourceScalePtrOutput {
 	return i.ToCustomResourceSubresourceScalePtrOutputWithContext(context.Background())
 }
@@ -3318,12 +2939,6 @@ func (i *customResourceSubresourceScalePtrType) ToCustomResourceSubresourceScale
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceSubresourceScalePtrOutput)
 }
 
-func (i *customResourceSubresourceScalePtrType) ToOutput(ctx context.Context) pulumix.Output[*CustomResourceSubresourceScale] {
-	return pulumix.Output[*CustomResourceSubresourceScale]{
-		OutputState: i.ToCustomResourceSubresourceScalePtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CustomResourceSubresourceScale defines how to serve the scale subresource for CustomResources.
 type CustomResourceSubresourceScaleOutput struct{ *pulumi.OutputState }
 
@@ -3347,12 +2962,6 @@ func (o CustomResourceSubresourceScaleOutput) ToCustomResourceSubresourceScalePt
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v CustomResourceSubresourceScale) *CustomResourceSubresourceScale {
 		return &v
 	}).(CustomResourceSubresourceScalePtrOutput)
-}
-
-func (o CustomResourceSubresourceScaleOutput) ToOutput(ctx context.Context) pulumix.Output[CustomResourceSubresourceScale] {
-	return pulumix.Output[CustomResourceSubresourceScale]{
-		OutputState: o.OutputState,
-	}
 }
 
 // labelSelectorPath defines the JSON path inside of a custom resource that corresponds to Scale `status.selector`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status` or `.spec`. Must be set to work with HorizontalPodAutoscaler. The field pointed by this JSON path must be a string field (not a complex selector struct) which contains a serialized label selector in string form. More info: https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions#scale-subresource If there is no value under the given path in the custom resource, the `status.selector` value in the `/scale` subresource will default to the empty string.
@@ -3382,12 +2991,6 @@ func (o CustomResourceSubresourceScalePtrOutput) ToCustomResourceSubresourceScal
 
 func (o CustomResourceSubresourceScalePtrOutput) ToCustomResourceSubresourceScalePtrOutputWithContext(ctx context.Context) CustomResourceSubresourceScalePtrOutput {
 	return o
-}
-
-func (o CustomResourceSubresourceScalePtrOutput) ToOutput(ctx context.Context) pulumix.Output[*CustomResourceSubresourceScale] {
-	return pulumix.Output[*CustomResourceSubresourceScale]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o CustomResourceSubresourceScalePtrOutput) Elem() CustomResourceSubresourceScaleOutput {
@@ -3473,12 +3076,6 @@ func (i CustomResourceSubresourceScalePatchArgs) ToCustomResourceSubresourceScal
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceSubresourceScalePatchOutput)
 }
 
-func (i CustomResourceSubresourceScalePatchArgs) ToOutput(ctx context.Context) pulumix.Output[CustomResourceSubresourceScalePatch] {
-	return pulumix.Output[CustomResourceSubresourceScalePatch]{
-		OutputState: i.ToCustomResourceSubresourceScalePatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i CustomResourceSubresourceScalePatchArgs) ToCustomResourceSubresourceScalePatchPtrOutput() CustomResourceSubresourceScalePatchPtrOutput {
 	return i.ToCustomResourceSubresourceScalePatchPtrOutputWithContext(context.Background())
 }
@@ -3520,12 +3117,6 @@ func (i *customResourceSubresourceScalePatchPtrType) ToCustomResourceSubresource
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceSubresourceScalePatchPtrOutput)
 }
 
-func (i *customResourceSubresourceScalePatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*CustomResourceSubresourceScalePatch] {
-	return pulumix.Output[*CustomResourceSubresourceScalePatch]{
-		OutputState: i.ToCustomResourceSubresourceScalePatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CustomResourceSubresourceScale defines how to serve the scale subresource for CustomResources.
 type CustomResourceSubresourceScalePatchOutput struct{ *pulumi.OutputState }
 
@@ -3549,12 +3140,6 @@ func (o CustomResourceSubresourceScalePatchOutput) ToCustomResourceSubresourceSc
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v CustomResourceSubresourceScalePatch) *CustomResourceSubresourceScalePatch {
 		return &v
 	}).(CustomResourceSubresourceScalePatchPtrOutput)
-}
-
-func (o CustomResourceSubresourceScalePatchOutput) ToOutput(ctx context.Context) pulumix.Output[CustomResourceSubresourceScalePatch] {
-	return pulumix.Output[CustomResourceSubresourceScalePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // labelSelectorPath defines the JSON path inside of a custom resource that corresponds to Scale `status.selector`. Only JSON paths without the array notation are allowed. Must be a JSON Path under `.status` or `.spec`. Must be set to work with HorizontalPodAutoscaler. The field pointed by this JSON path must be a string field (not a complex selector struct) which contains a serialized label selector in string form. More info: https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions#scale-subresource If there is no value under the given path in the custom resource, the `status.selector` value in the `/scale` subresource will default to the empty string.
@@ -3584,12 +3169,6 @@ func (o CustomResourceSubresourceScalePatchPtrOutput) ToCustomResourceSubresourc
 
 func (o CustomResourceSubresourceScalePatchPtrOutput) ToCustomResourceSubresourceScalePatchPtrOutputWithContext(ctx context.Context) CustomResourceSubresourceScalePatchPtrOutput {
 	return o
-}
-
-func (o CustomResourceSubresourceScalePatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*CustomResourceSubresourceScalePatch] {
-	return pulumix.Output[*CustomResourceSubresourceScalePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o CustomResourceSubresourceScalePatchPtrOutput) Elem() CustomResourceSubresourceScalePatchOutput {
@@ -3671,12 +3250,6 @@ func (i CustomResourceSubresourcesArgs) ToCustomResourceSubresourcesOutputWithCo
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceSubresourcesOutput)
 }
 
-func (i CustomResourceSubresourcesArgs) ToOutput(ctx context.Context) pulumix.Output[CustomResourceSubresources] {
-	return pulumix.Output[CustomResourceSubresources]{
-		OutputState: i.ToCustomResourceSubresourcesOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i CustomResourceSubresourcesArgs) ToCustomResourceSubresourcesPtrOutput() CustomResourceSubresourcesPtrOutput {
 	return i.ToCustomResourceSubresourcesPtrOutputWithContext(context.Background())
 }
@@ -3718,12 +3291,6 @@ func (i *customResourceSubresourcesPtrType) ToCustomResourceSubresourcesPtrOutpu
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceSubresourcesPtrOutput)
 }
 
-func (i *customResourceSubresourcesPtrType) ToOutput(ctx context.Context) pulumix.Output[*CustomResourceSubresources] {
-	return pulumix.Output[*CustomResourceSubresources]{
-		OutputState: i.ToCustomResourceSubresourcesPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CustomResourceSubresources defines the status and scale subresources for CustomResources.
 type CustomResourceSubresourcesOutput struct{ *pulumi.OutputState }
 
@@ -3749,12 +3316,6 @@ func (o CustomResourceSubresourcesOutput) ToCustomResourceSubresourcesPtrOutputW
 	}).(CustomResourceSubresourcesPtrOutput)
 }
 
-func (o CustomResourceSubresourcesOutput) ToOutput(ctx context.Context) pulumix.Output[CustomResourceSubresources] {
-	return pulumix.Output[CustomResourceSubresources]{
-		OutputState: o.OutputState,
-	}
-}
-
 // scale indicates the custom resource should serve a `/scale` subresource that returns an `autoscaling/v1` Scale object.
 func (o CustomResourceSubresourcesOutput) Scale() CustomResourceSubresourceScalePtrOutput {
 	return o.ApplyT(func(v CustomResourceSubresources) *CustomResourceSubresourceScale { return v.Scale }).(CustomResourceSubresourceScalePtrOutput)
@@ -3777,12 +3338,6 @@ func (o CustomResourceSubresourcesPtrOutput) ToCustomResourceSubresourcesPtrOutp
 
 func (o CustomResourceSubresourcesPtrOutput) ToCustomResourceSubresourcesPtrOutputWithContext(ctx context.Context) CustomResourceSubresourcesPtrOutput {
 	return o
-}
-
-func (o CustomResourceSubresourcesPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*CustomResourceSubresources] {
-	return pulumix.Output[*CustomResourceSubresources]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o CustomResourceSubresourcesPtrOutput) Elem() CustomResourceSubresourcesOutput {
@@ -3854,12 +3409,6 @@ func (i CustomResourceSubresourcesPatchArgs) ToCustomResourceSubresourcesPatchOu
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceSubresourcesPatchOutput)
 }
 
-func (i CustomResourceSubresourcesPatchArgs) ToOutput(ctx context.Context) pulumix.Output[CustomResourceSubresourcesPatch] {
-	return pulumix.Output[CustomResourceSubresourcesPatch]{
-		OutputState: i.ToCustomResourceSubresourcesPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i CustomResourceSubresourcesPatchArgs) ToCustomResourceSubresourcesPatchPtrOutput() CustomResourceSubresourcesPatchPtrOutput {
 	return i.ToCustomResourceSubresourcesPatchPtrOutputWithContext(context.Background())
 }
@@ -3901,12 +3450,6 @@ func (i *customResourceSubresourcesPatchPtrType) ToCustomResourceSubresourcesPat
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceSubresourcesPatchPtrOutput)
 }
 
-func (i *customResourceSubresourcesPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*CustomResourceSubresourcesPatch] {
-	return pulumix.Output[*CustomResourceSubresourcesPatch]{
-		OutputState: i.ToCustomResourceSubresourcesPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CustomResourceSubresources defines the status and scale subresources for CustomResources.
 type CustomResourceSubresourcesPatchOutput struct{ *pulumi.OutputState }
 
@@ -3932,12 +3475,6 @@ func (o CustomResourceSubresourcesPatchOutput) ToCustomResourceSubresourcesPatch
 	}).(CustomResourceSubresourcesPatchPtrOutput)
 }
 
-func (o CustomResourceSubresourcesPatchOutput) ToOutput(ctx context.Context) pulumix.Output[CustomResourceSubresourcesPatch] {
-	return pulumix.Output[CustomResourceSubresourcesPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 // scale indicates the custom resource should serve a `/scale` subresource that returns an `autoscaling/v1` Scale object.
 func (o CustomResourceSubresourcesPatchOutput) Scale() CustomResourceSubresourceScalePatchPtrOutput {
 	return o.ApplyT(func(v CustomResourceSubresourcesPatch) *CustomResourceSubresourceScalePatch { return v.Scale }).(CustomResourceSubresourceScalePatchPtrOutput)
@@ -3960,12 +3497,6 @@ func (o CustomResourceSubresourcesPatchPtrOutput) ToCustomResourceSubresourcesPa
 
 func (o CustomResourceSubresourcesPatchPtrOutput) ToCustomResourceSubresourcesPatchPtrOutputWithContext(ctx context.Context) CustomResourceSubresourcesPatchPtrOutput {
 	return o
-}
-
-func (o CustomResourceSubresourcesPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*CustomResourceSubresourcesPatch] {
-	return pulumix.Output[*CustomResourceSubresourcesPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o CustomResourceSubresourcesPatchPtrOutput) Elem() CustomResourceSubresourcesPatchOutput {
@@ -4033,12 +3564,6 @@ func (i CustomResourceValidationArgs) ToCustomResourceValidationOutputWithContex
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceValidationOutput)
 }
 
-func (i CustomResourceValidationArgs) ToOutput(ctx context.Context) pulumix.Output[CustomResourceValidation] {
-	return pulumix.Output[CustomResourceValidation]{
-		OutputState: i.ToCustomResourceValidationOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i CustomResourceValidationArgs) ToCustomResourceValidationPtrOutput() CustomResourceValidationPtrOutput {
 	return i.ToCustomResourceValidationPtrOutputWithContext(context.Background())
 }
@@ -4080,12 +3605,6 @@ func (i *customResourceValidationPtrType) ToCustomResourceValidationPtrOutputWit
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceValidationPtrOutput)
 }
 
-func (i *customResourceValidationPtrType) ToOutput(ctx context.Context) pulumix.Output[*CustomResourceValidation] {
-	return pulumix.Output[*CustomResourceValidation]{
-		OutputState: i.ToCustomResourceValidationPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CustomResourceValidation is a list of validation methods for CustomResources.
 type CustomResourceValidationOutput struct{ *pulumi.OutputState }
 
@@ -4111,12 +3630,6 @@ func (o CustomResourceValidationOutput) ToCustomResourceValidationPtrOutputWithC
 	}).(CustomResourceValidationPtrOutput)
 }
 
-func (o CustomResourceValidationOutput) ToOutput(ctx context.Context) pulumix.Output[CustomResourceValidation] {
-	return pulumix.Output[CustomResourceValidation]{
-		OutputState: o.OutputState,
-	}
-}
-
 // openAPIV3Schema is the OpenAPI v3 schema to use for validation and pruning.
 func (o CustomResourceValidationOutput) OpenAPIV3Schema() JSONSchemaPropsPtrOutput {
 	return o.ApplyT(func(v CustomResourceValidation) *JSONSchemaProps { return v.OpenAPIV3Schema }).(JSONSchemaPropsPtrOutput)
@@ -4134,12 +3647,6 @@ func (o CustomResourceValidationPtrOutput) ToCustomResourceValidationPtrOutput()
 
 func (o CustomResourceValidationPtrOutput) ToCustomResourceValidationPtrOutputWithContext(ctx context.Context) CustomResourceValidationPtrOutput {
 	return o
-}
-
-func (o CustomResourceValidationPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*CustomResourceValidation] {
-	return pulumix.Output[*CustomResourceValidation]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o CustomResourceValidationPtrOutput) Elem() CustomResourceValidationOutput {
@@ -4197,12 +3704,6 @@ func (i CustomResourceValidationPatchArgs) ToCustomResourceValidationPatchOutput
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceValidationPatchOutput)
 }
 
-func (i CustomResourceValidationPatchArgs) ToOutput(ctx context.Context) pulumix.Output[CustomResourceValidationPatch] {
-	return pulumix.Output[CustomResourceValidationPatch]{
-		OutputState: i.ToCustomResourceValidationPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i CustomResourceValidationPatchArgs) ToCustomResourceValidationPatchPtrOutput() CustomResourceValidationPatchPtrOutput {
 	return i.ToCustomResourceValidationPatchPtrOutputWithContext(context.Background())
 }
@@ -4244,12 +3745,6 @@ func (i *customResourceValidationPatchPtrType) ToCustomResourceValidationPatchPt
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceValidationPatchPtrOutput)
 }
 
-func (i *customResourceValidationPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*CustomResourceValidationPatch] {
-	return pulumix.Output[*CustomResourceValidationPatch]{
-		OutputState: i.ToCustomResourceValidationPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CustomResourceValidation is a list of validation methods for CustomResources.
 type CustomResourceValidationPatchOutput struct{ *pulumi.OutputState }
 
@@ -4275,12 +3770,6 @@ func (o CustomResourceValidationPatchOutput) ToCustomResourceValidationPatchPtrO
 	}).(CustomResourceValidationPatchPtrOutput)
 }
 
-func (o CustomResourceValidationPatchOutput) ToOutput(ctx context.Context) pulumix.Output[CustomResourceValidationPatch] {
-	return pulumix.Output[CustomResourceValidationPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 // openAPIV3Schema is the OpenAPI v3 schema to use for validation and pruning.
 func (o CustomResourceValidationPatchOutput) OpenAPIV3Schema() JSONSchemaPropsPatchPtrOutput {
 	return o.ApplyT(func(v CustomResourceValidationPatch) *JSONSchemaPropsPatch { return v.OpenAPIV3Schema }).(JSONSchemaPropsPatchPtrOutput)
@@ -4298,12 +3787,6 @@ func (o CustomResourceValidationPatchPtrOutput) ToCustomResourceValidationPatchP
 
 func (o CustomResourceValidationPatchPtrOutput) ToCustomResourceValidationPatchPtrOutputWithContext(ctx context.Context) CustomResourceValidationPatchPtrOutput {
 	return o
-}
-
-func (o CustomResourceValidationPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*CustomResourceValidationPatch] {
-	return pulumix.Output[*CustomResourceValidationPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o CustomResourceValidationPatchPtrOutput) Elem() CustomResourceValidationPatchOutput {
@@ -4361,12 +3844,6 @@ func (i ExternalDocumentationArgs) ToExternalDocumentationOutputWithContext(ctx 
 	return pulumi.ToOutputWithContext(ctx, i).(ExternalDocumentationOutput)
 }
 
-func (i ExternalDocumentationArgs) ToOutput(ctx context.Context) pulumix.Output[ExternalDocumentation] {
-	return pulumix.Output[ExternalDocumentation]{
-		OutputState: i.ToExternalDocumentationOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i ExternalDocumentationArgs) ToExternalDocumentationPtrOutput() ExternalDocumentationPtrOutput {
 	return i.ToExternalDocumentationPtrOutputWithContext(context.Background())
 }
@@ -4408,12 +3885,6 @@ func (i *externalDocumentationPtrType) ToExternalDocumentationPtrOutputWithConte
 	return pulumi.ToOutputWithContext(ctx, i).(ExternalDocumentationPtrOutput)
 }
 
-func (i *externalDocumentationPtrType) ToOutput(ctx context.Context) pulumix.Output[*ExternalDocumentation] {
-	return pulumix.Output[*ExternalDocumentation]{
-		OutputState: i.ToExternalDocumentationPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ExternalDocumentation allows referencing an external resource for extended documentation.
 type ExternalDocumentationOutput struct{ *pulumi.OutputState }
 
@@ -4439,12 +3910,6 @@ func (o ExternalDocumentationOutput) ToExternalDocumentationPtrOutputWithContext
 	}).(ExternalDocumentationPtrOutput)
 }
 
-func (o ExternalDocumentationOutput) ToOutput(ctx context.Context) pulumix.Output[ExternalDocumentation] {
-	return pulumix.Output[ExternalDocumentation]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o ExternalDocumentationOutput) Description() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ExternalDocumentation) *string { return v.Description }).(pulumi.StringPtrOutput)
 }
@@ -4465,12 +3930,6 @@ func (o ExternalDocumentationPtrOutput) ToExternalDocumentationPtrOutput() Exter
 
 func (o ExternalDocumentationPtrOutput) ToExternalDocumentationPtrOutputWithContext(ctx context.Context) ExternalDocumentationPtrOutput {
 	return o
-}
-
-func (o ExternalDocumentationPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ExternalDocumentation] {
-	return pulumix.Output[*ExternalDocumentation]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ExternalDocumentationPtrOutput) Elem() ExternalDocumentationOutput {
@@ -4536,12 +3995,6 @@ func (i ExternalDocumentationPatchArgs) ToExternalDocumentationPatchOutputWithCo
 	return pulumi.ToOutputWithContext(ctx, i).(ExternalDocumentationPatchOutput)
 }
 
-func (i ExternalDocumentationPatchArgs) ToOutput(ctx context.Context) pulumix.Output[ExternalDocumentationPatch] {
-	return pulumix.Output[ExternalDocumentationPatch]{
-		OutputState: i.ToExternalDocumentationPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i ExternalDocumentationPatchArgs) ToExternalDocumentationPatchPtrOutput() ExternalDocumentationPatchPtrOutput {
 	return i.ToExternalDocumentationPatchPtrOutputWithContext(context.Background())
 }
@@ -4583,12 +4036,6 @@ func (i *externalDocumentationPatchPtrType) ToExternalDocumentationPatchPtrOutpu
 	return pulumi.ToOutputWithContext(ctx, i).(ExternalDocumentationPatchPtrOutput)
 }
 
-func (i *externalDocumentationPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*ExternalDocumentationPatch] {
-	return pulumix.Output[*ExternalDocumentationPatch]{
-		OutputState: i.ToExternalDocumentationPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ExternalDocumentation allows referencing an external resource for extended documentation.
 type ExternalDocumentationPatchOutput struct{ *pulumi.OutputState }
 
@@ -4614,12 +4061,6 @@ func (o ExternalDocumentationPatchOutput) ToExternalDocumentationPatchPtrOutputW
 	}).(ExternalDocumentationPatchPtrOutput)
 }
 
-func (o ExternalDocumentationPatchOutput) ToOutput(ctx context.Context) pulumix.Output[ExternalDocumentationPatch] {
-	return pulumix.Output[ExternalDocumentationPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o ExternalDocumentationPatchOutput) Description() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v ExternalDocumentationPatch) *string { return v.Description }).(pulumi.StringPtrOutput)
 }
@@ -4640,12 +4081,6 @@ func (o ExternalDocumentationPatchPtrOutput) ToExternalDocumentationPatchPtrOutp
 
 func (o ExternalDocumentationPatchPtrOutput) ToExternalDocumentationPatchPtrOutputWithContext(ctx context.Context) ExternalDocumentationPatchPtrOutput {
 	return o
-}
-
-func (o ExternalDocumentationPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ExternalDocumentationPatch] {
-	return pulumix.Output[*ExternalDocumentationPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ExternalDocumentationPatchPtrOutput) Elem() ExternalDocumentationPatchOutput {
@@ -4875,12 +4310,6 @@ func (i JSONSchemaPropsArgs) ToJSONSchemaPropsOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(JSONSchemaPropsOutput)
 }
 
-func (i JSONSchemaPropsArgs) ToOutput(ctx context.Context) pulumix.Output[JSONSchemaProps] {
-	return pulumix.Output[JSONSchemaProps]{
-		OutputState: i.ToJSONSchemaPropsOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i JSONSchemaPropsArgs) ToJSONSchemaPropsPtrOutput() JSONSchemaPropsPtrOutput {
 	return i.ToJSONSchemaPropsPtrOutputWithContext(context.Background())
 }
@@ -4922,12 +4351,6 @@ func (i *jsonschemaPropsPtrType) ToJSONSchemaPropsPtrOutputWithContext(ctx conte
 	return pulumi.ToOutputWithContext(ctx, i).(JSONSchemaPropsPtrOutput)
 }
 
-func (i *jsonschemaPropsPtrType) ToOutput(ctx context.Context) pulumix.Output[*JSONSchemaProps] {
-	return pulumix.Output[*JSONSchemaProps]{
-		OutputState: i.ToJSONSchemaPropsPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // JSONSchemaPropsArrayInput is an input type that accepts JSONSchemaPropsArray and JSONSchemaPropsArrayOutput values.
 // You can construct a concrete instance of `JSONSchemaPropsArrayInput` via:
 //
@@ -4951,12 +4374,6 @@ func (i JSONSchemaPropsArray) ToJSONSchemaPropsArrayOutput() JSONSchemaPropsArra
 
 func (i JSONSchemaPropsArray) ToJSONSchemaPropsArrayOutputWithContext(ctx context.Context) JSONSchemaPropsArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(JSONSchemaPropsArrayOutput)
-}
-
-func (i JSONSchemaPropsArray) ToOutput(ctx context.Context) pulumix.Output[[]JSONSchemaProps] {
-	return pulumix.Output[[]JSONSchemaProps]{
-		OutputState: i.ToJSONSchemaPropsArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // JSONSchemaPropsMapInput is an input type that accepts JSONSchemaPropsMap and JSONSchemaPropsMapOutput values.
@@ -4984,12 +4401,6 @@ func (i JSONSchemaPropsMap) ToJSONSchemaPropsMapOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(JSONSchemaPropsMapOutput)
 }
 
-func (i JSONSchemaPropsMap) ToOutput(ctx context.Context) pulumix.Output[map[string]JSONSchemaProps] {
-	return pulumix.Output[map[string]JSONSchemaProps]{
-		OutputState: i.ToJSONSchemaPropsMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 // JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-schema.org/).
 type JSONSchemaPropsOutput struct{ *pulumi.OutputState }
 
@@ -5013,12 +4424,6 @@ func (o JSONSchemaPropsOutput) ToJSONSchemaPropsPtrOutputWithContext(ctx context
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v JSONSchemaProps) *JSONSchemaProps {
 		return &v
 	}).(JSONSchemaPropsPtrOutput)
-}
-
-func (o JSONSchemaPropsOutput) ToOutput(ctx context.Context) pulumix.Output[JSONSchemaProps] {
-	return pulumix.Output[JSONSchemaProps]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o JSONSchemaPropsOutput) Ref() pulumi.StringPtrOutput {
@@ -5247,12 +4652,6 @@ func (o JSONSchemaPropsPtrOutput) ToJSONSchemaPropsPtrOutput() JSONSchemaPropsPt
 
 func (o JSONSchemaPropsPtrOutput) ToJSONSchemaPropsPtrOutputWithContext(ctx context.Context) JSONSchemaPropsPtrOutput {
 	return o
-}
-
-func (o JSONSchemaPropsPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*JSONSchemaProps] {
-	return pulumix.Output[*JSONSchemaProps]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o JSONSchemaPropsPtrOutput) Elem() JSONSchemaPropsOutput {
@@ -5708,12 +5107,6 @@ func (o JSONSchemaPropsArrayOutput) ToJSONSchemaPropsArrayOutputWithContext(ctx 
 	return o
 }
 
-func (o JSONSchemaPropsArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]JSONSchemaProps] {
-	return pulumix.Output[[]JSONSchemaProps]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o JSONSchemaPropsArrayOutput) Index(i pulumi.IntInput) JSONSchemaPropsOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) JSONSchemaProps {
 		return vs[0].([]JSONSchemaProps)[vs[1].(int)]
@@ -5732,12 +5125,6 @@ func (o JSONSchemaPropsMapOutput) ToJSONSchemaPropsMapOutput() JSONSchemaPropsMa
 
 func (o JSONSchemaPropsMapOutput) ToJSONSchemaPropsMapOutputWithContext(ctx context.Context) JSONSchemaPropsMapOutput {
 	return o
-}
-
-func (o JSONSchemaPropsMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]JSONSchemaProps] {
-	return pulumix.Output[map[string]JSONSchemaProps]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o JSONSchemaPropsMapOutput) MapIndex(k pulumi.StringInput) JSONSchemaPropsOutput {
@@ -5945,12 +5332,6 @@ func (i JSONSchemaPropsPatchArgs) ToJSONSchemaPropsPatchOutputWithContext(ctx co
 	return pulumi.ToOutputWithContext(ctx, i).(JSONSchemaPropsPatchOutput)
 }
 
-func (i JSONSchemaPropsPatchArgs) ToOutput(ctx context.Context) pulumix.Output[JSONSchemaPropsPatch] {
-	return pulumix.Output[JSONSchemaPropsPatch]{
-		OutputState: i.ToJSONSchemaPropsPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i JSONSchemaPropsPatchArgs) ToJSONSchemaPropsPatchPtrOutput() JSONSchemaPropsPatchPtrOutput {
 	return i.ToJSONSchemaPropsPatchPtrOutputWithContext(context.Background())
 }
@@ -5992,12 +5373,6 @@ func (i *jsonschemaPropsPatchPtrType) ToJSONSchemaPropsPatchPtrOutputWithContext
 	return pulumi.ToOutputWithContext(ctx, i).(JSONSchemaPropsPatchPtrOutput)
 }
 
-func (i *jsonschemaPropsPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*JSONSchemaPropsPatch] {
-	return pulumix.Output[*JSONSchemaPropsPatch]{
-		OutputState: i.ToJSONSchemaPropsPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // JSONSchemaPropsPatchArrayInput is an input type that accepts JSONSchemaPropsPatchArray and JSONSchemaPropsPatchArrayOutput values.
 // You can construct a concrete instance of `JSONSchemaPropsPatchArrayInput` via:
 //
@@ -6023,12 +5398,6 @@ func (i JSONSchemaPropsPatchArray) ToJSONSchemaPropsPatchArrayOutputWithContext(
 	return pulumi.ToOutputWithContext(ctx, i).(JSONSchemaPropsPatchArrayOutput)
 }
 
-func (i JSONSchemaPropsPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]JSONSchemaPropsPatch] {
-	return pulumix.Output[[]JSONSchemaPropsPatch]{
-		OutputState: i.ToJSONSchemaPropsPatchArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // JSONSchemaProps is a JSON-Schema following Specification Draft 4 (http://json-schema.org/).
 type JSONSchemaPropsPatchOutput struct{ *pulumi.OutputState }
 
@@ -6052,12 +5421,6 @@ func (o JSONSchemaPropsPatchOutput) ToJSONSchemaPropsPatchPtrOutputWithContext(c
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v JSONSchemaPropsPatch) *JSONSchemaPropsPatch {
 		return &v
 	}).(JSONSchemaPropsPatchPtrOutput)
-}
-
-func (o JSONSchemaPropsPatchOutput) ToOutput(ctx context.Context) pulumix.Output[JSONSchemaPropsPatch] {
-	return pulumix.Output[JSONSchemaPropsPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o JSONSchemaPropsPatchOutput) Ref() pulumi.StringPtrOutput {
@@ -6286,12 +5649,6 @@ func (o JSONSchemaPropsPatchPtrOutput) ToJSONSchemaPropsPatchPtrOutput() JSONSch
 
 func (o JSONSchemaPropsPatchPtrOutput) ToJSONSchemaPropsPatchPtrOutputWithContext(ctx context.Context) JSONSchemaPropsPatchPtrOutput {
 	return o
-}
-
-func (o JSONSchemaPropsPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*JSONSchemaPropsPatch] {
-	return pulumix.Output[*JSONSchemaPropsPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o JSONSchemaPropsPatchPtrOutput) Elem() JSONSchemaPropsPatchOutput {
@@ -6747,12 +6104,6 @@ func (o JSONSchemaPropsPatchArrayOutput) ToJSONSchemaPropsPatchArrayOutputWithCo
 	return o
 }
 
-func (o JSONSchemaPropsPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]JSONSchemaPropsPatch] {
-	return pulumix.Output[[]JSONSchemaPropsPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o JSONSchemaPropsPatchArrayOutput) Index(i pulumi.IntInput) JSONSchemaPropsPatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) JSONSchemaPropsPatch {
 		return vs[0].([]JSONSchemaPropsPatch)[vs[1].(int)]
@@ -6806,12 +6157,6 @@ func (i ServiceReferenceArgs) ToServiceReferenceOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(ServiceReferenceOutput)
 }
 
-func (i ServiceReferenceArgs) ToOutput(ctx context.Context) pulumix.Output[ServiceReference] {
-	return pulumix.Output[ServiceReference]{
-		OutputState: i.ToServiceReferenceOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i ServiceReferenceArgs) ToServiceReferencePtrOutput() ServiceReferencePtrOutput {
 	return i.ToServiceReferencePtrOutputWithContext(context.Background())
 }
@@ -6853,12 +6198,6 @@ func (i *serviceReferencePtrType) ToServiceReferencePtrOutputWithContext(ctx con
 	return pulumi.ToOutputWithContext(ctx, i).(ServiceReferencePtrOutput)
 }
 
-func (i *serviceReferencePtrType) ToOutput(ctx context.Context) pulumix.Output[*ServiceReference] {
-	return pulumix.Output[*ServiceReference]{
-		OutputState: i.ToServiceReferencePtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ServiceReference holds a reference to Service.legacy.k8s.io
 type ServiceReferenceOutput struct{ *pulumi.OutputState }
 
@@ -6882,12 +6221,6 @@ func (o ServiceReferenceOutput) ToServiceReferencePtrOutputWithContext(ctx conte
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v ServiceReference) *ServiceReference {
 		return &v
 	}).(ServiceReferencePtrOutput)
-}
-
-func (o ServiceReferenceOutput) ToOutput(ctx context.Context) pulumix.Output[ServiceReference] {
-	return pulumix.Output[ServiceReference]{
-		OutputState: o.OutputState,
-	}
 }
 
 // name is the name of the service. Required
@@ -6922,12 +6255,6 @@ func (o ServiceReferencePtrOutput) ToServiceReferencePtrOutput() ServiceReferenc
 
 func (o ServiceReferencePtrOutput) ToServiceReferencePtrOutputWithContext(ctx context.Context) ServiceReferencePtrOutput {
 	return o
-}
-
-func (o ServiceReferencePtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ServiceReference] {
-	return pulumix.Output[*ServiceReference]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ServiceReferencePtrOutput) Elem() ServiceReferenceOutput {
@@ -7027,12 +6354,6 @@ func (i ServiceReferencePatchArgs) ToServiceReferencePatchOutputWithContext(ctx 
 	return pulumi.ToOutputWithContext(ctx, i).(ServiceReferencePatchOutput)
 }
 
-func (i ServiceReferencePatchArgs) ToOutput(ctx context.Context) pulumix.Output[ServiceReferencePatch] {
-	return pulumix.Output[ServiceReferencePatch]{
-		OutputState: i.ToServiceReferencePatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i ServiceReferencePatchArgs) ToServiceReferencePatchPtrOutput() ServiceReferencePatchPtrOutput {
 	return i.ToServiceReferencePatchPtrOutputWithContext(context.Background())
 }
@@ -7074,12 +6395,6 @@ func (i *serviceReferencePatchPtrType) ToServiceReferencePatchPtrOutputWithConte
 	return pulumi.ToOutputWithContext(ctx, i).(ServiceReferencePatchPtrOutput)
 }
 
-func (i *serviceReferencePatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*ServiceReferencePatch] {
-	return pulumix.Output[*ServiceReferencePatch]{
-		OutputState: i.ToServiceReferencePatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ServiceReference holds a reference to Service.legacy.k8s.io
 type ServiceReferencePatchOutput struct{ *pulumi.OutputState }
 
@@ -7103,12 +6418,6 @@ func (o ServiceReferencePatchOutput) ToServiceReferencePatchPtrOutputWithContext
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v ServiceReferencePatch) *ServiceReferencePatch {
 		return &v
 	}).(ServiceReferencePatchPtrOutput)
-}
-
-func (o ServiceReferencePatchOutput) ToOutput(ctx context.Context) pulumix.Output[ServiceReferencePatch] {
-	return pulumix.Output[ServiceReferencePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // name is the name of the service. Required
@@ -7143,12 +6452,6 @@ func (o ServiceReferencePatchPtrOutput) ToServiceReferencePatchPtrOutput() Servi
 
 func (o ServiceReferencePatchPtrOutput) ToServiceReferencePatchPtrOutputWithContext(ctx context.Context) ServiceReferencePatchPtrOutput {
 	return o
-}
-
-func (o ServiceReferencePatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ServiceReferencePatch] {
-	return pulumix.Output[*ServiceReferencePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ServiceReferencePatchPtrOutput) Elem() ServiceReferencePatchOutput {
@@ -7268,12 +6571,6 @@ func (i WebhookClientConfigArgs) ToWebhookClientConfigOutputWithContext(ctx cont
 	return pulumi.ToOutputWithContext(ctx, i).(WebhookClientConfigOutput)
 }
 
-func (i WebhookClientConfigArgs) ToOutput(ctx context.Context) pulumix.Output[WebhookClientConfig] {
-	return pulumix.Output[WebhookClientConfig]{
-		OutputState: i.ToWebhookClientConfigOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i WebhookClientConfigArgs) ToWebhookClientConfigPtrOutput() WebhookClientConfigPtrOutput {
 	return i.ToWebhookClientConfigPtrOutputWithContext(context.Background())
 }
@@ -7315,12 +6612,6 @@ func (i *webhookClientConfigPtrType) ToWebhookClientConfigPtrOutputWithContext(c
 	return pulumi.ToOutputWithContext(ctx, i).(WebhookClientConfigPtrOutput)
 }
 
-func (i *webhookClientConfigPtrType) ToOutput(ctx context.Context) pulumix.Output[*WebhookClientConfig] {
-	return pulumix.Output[*WebhookClientConfig]{
-		OutputState: i.ToWebhookClientConfigPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // WebhookClientConfig contains the information to make a TLS connection with the webhook.
 type WebhookClientConfigOutput struct{ *pulumi.OutputState }
 
@@ -7344,12 +6635,6 @@ func (o WebhookClientConfigOutput) ToWebhookClientConfigPtrOutputWithContext(ctx
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v WebhookClientConfig) *WebhookClientConfig {
 		return &v
 	}).(WebhookClientConfigPtrOutput)
-}
-
-func (o WebhookClientConfigOutput) ToOutput(ctx context.Context) pulumix.Output[WebhookClientConfig] {
-	return pulumix.Output[WebhookClientConfig]{
-		OutputState: o.OutputState,
-	}
 }
 
 // caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
@@ -7391,12 +6676,6 @@ func (o WebhookClientConfigPtrOutput) ToWebhookClientConfigPtrOutput() WebhookCl
 
 func (o WebhookClientConfigPtrOutput) ToWebhookClientConfigPtrOutputWithContext(ctx context.Context) WebhookClientConfigPtrOutput {
 	return o
-}
-
-func (o WebhookClientConfigPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*WebhookClientConfig] {
-	return pulumix.Output[*WebhookClientConfig]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o WebhookClientConfigPtrOutput) Elem() WebhookClientConfigOutput {
@@ -7518,12 +6797,6 @@ func (i WebhookClientConfigPatchArgs) ToWebhookClientConfigPatchOutputWithContex
 	return pulumi.ToOutputWithContext(ctx, i).(WebhookClientConfigPatchOutput)
 }
 
-func (i WebhookClientConfigPatchArgs) ToOutput(ctx context.Context) pulumix.Output[WebhookClientConfigPatch] {
-	return pulumix.Output[WebhookClientConfigPatch]{
-		OutputState: i.ToWebhookClientConfigPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i WebhookClientConfigPatchArgs) ToWebhookClientConfigPatchPtrOutput() WebhookClientConfigPatchPtrOutput {
 	return i.ToWebhookClientConfigPatchPtrOutputWithContext(context.Background())
 }
@@ -7565,12 +6838,6 @@ func (i *webhookClientConfigPatchPtrType) ToWebhookClientConfigPatchPtrOutputWit
 	return pulumi.ToOutputWithContext(ctx, i).(WebhookClientConfigPatchPtrOutput)
 }
 
-func (i *webhookClientConfigPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*WebhookClientConfigPatch] {
-	return pulumix.Output[*WebhookClientConfigPatch]{
-		OutputState: i.ToWebhookClientConfigPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // WebhookClientConfig contains the information to make a TLS connection with the webhook.
 type WebhookClientConfigPatchOutput struct{ *pulumi.OutputState }
 
@@ -7594,12 +6861,6 @@ func (o WebhookClientConfigPatchOutput) ToWebhookClientConfigPatchPtrOutputWithC
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v WebhookClientConfigPatch) *WebhookClientConfigPatch {
 		return &v
 	}).(WebhookClientConfigPatchPtrOutput)
-}
-
-func (o WebhookClientConfigPatchOutput) ToOutput(ctx context.Context) pulumix.Output[WebhookClientConfigPatch] {
-	return pulumix.Output[WebhookClientConfigPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // caBundle is a PEM encoded CA bundle which will be used to validate the webhook's server certificate. If unspecified, system trust roots on the apiserver are used.
@@ -7641,12 +6902,6 @@ func (o WebhookClientConfigPatchPtrOutput) ToWebhookClientConfigPatchPtrOutput()
 
 func (o WebhookClientConfigPatchPtrOutput) ToWebhookClientConfigPatchPtrOutputWithContext(ctx context.Context) WebhookClientConfigPatchPtrOutput {
 	return o
-}
-
-func (o WebhookClientConfigPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*WebhookClientConfigPatch] {
-	return pulumix.Output[*WebhookClientConfigPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o WebhookClientConfigPatchPtrOutput) Elem() WebhookClientConfigPatchOutput {

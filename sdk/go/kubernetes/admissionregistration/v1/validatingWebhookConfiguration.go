@@ -10,7 +10,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // ValidatingWebhookConfiguration describes the configuration of and admission webhook that accept or reject and object without changing it.
@@ -120,12 +119,6 @@ func (i *ValidatingWebhookConfiguration) ToValidatingWebhookConfigurationOutputW
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingWebhookConfigurationOutput)
 }
 
-func (i *ValidatingWebhookConfiguration) ToOutput(ctx context.Context) pulumix.Output[*ValidatingWebhookConfiguration] {
-	return pulumix.Output[*ValidatingWebhookConfiguration]{
-		OutputState: i.ToValidatingWebhookConfigurationOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ValidatingWebhookConfigurationArrayInput is an input type that accepts ValidatingWebhookConfigurationArray and ValidatingWebhookConfigurationArrayOutput values.
 // You can construct a concrete instance of `ValidatingWebhookConfigurationArrayInput` via:
 //
@@ -149,12 +142,6 @@ func (i ValidatingWebhookConfigurationArray) ToValidatingWebhookConfigurationArr
 
 func (i ValidatingWebhookConfigurationArray) ToValidatingWebhookConfigurationArrayOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingWebhookConfigurationArrayOutput)
-}
-
-func (i ValidatingWebhookConfigurationArray) ToOutput(ctx context.Context) pulumix.Output[[]*ValidatingWebhookConfiguration] {
-	return pulumix.Output[[]*ValidatingWebhookConfiguration]{
-		OutputState: i.ToValidatingWebhookConfigurationArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // ValidatingWebhookConfigurationMapInput is an input type that accepts ValidatingWebhookConfigurationMap and ValidatingWebhookConfigurationMapOutput values.
@@ -182,12 +169,6 @@ func (i ValidatingWebhookConfigurationMap) ToValidatingWebhookConfigurationMapOu
 	return pulumi.ToOutputWithContext(ctx, i).(ValidatingWebhookConfigurationMapOutput)
 }
 
-func (i ValidatingWebhookConfigurationMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*ValidatingWebhookConfiguration] {
-	return pulumix.Output[map[string]*ValidatingWebhookConfiguration]{
-		OutputState: i.ToValidatingWebhookConfigurationMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type ValidatingWebhookConfigurationOutput struct{ *pulumi.OutputState }
 
 func (ValidatingWebhookConfigurationOutput) ElementType() reflect.Type {
@@ -200,12 +181,6 @@ func (o ValidatingWebhookConfigurationOutput) ToValidatingWebhookConfigurationOu
 
 func (o ValidatingWebhookConfigurationOutput) ToValidatingWebhookConfigurationOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationOutput {
 	return o
-}
-
-func (o ValidatingWebhookConfigurationOutput) ToOutput(ctx context.Context) pulumix.Output[*ValidatingWebhookConfiguration] {
-	return pulumix.Output[*ValidatingWebhookConfiguration]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -242,12 +217,6 @@ func (o ValidatingWebhookConfigurationArrayOutput) ToValidatingWebhookConfigurat
 	return o
 }
 
-func (o ValidatingWebhookConfigurationArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*ValidatingWebhookConfiguration] {
-	return pulumix.Output[[]*ValidatingWebhookConfiguration]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o ValidatingWebhookConfigurationArrayOutput) Index(i pulumi.IntInput) ValidatingWebhookConfigurationOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *ValidatingWebhookConfiguration {
 		return vs[0].([]*ValidatingWebhookConfiguration)[vs[1].(int)]
@@ -266,12 +235,6 @@ func (o ValidatingWebhookConfigurationMapOutput) ToValidatingWebhookConfiguratio
 
 func (o ValidatingWebhookConfigurationMapOutput) ToValidatingWebhookConfigurationMapOutputWithContext(ctx context.Context) ValidatingWebhookConfigurationMapOutput {
 	return o
-}
-
-func (o ValidatingWebhookConfigurationMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*ValidatingWebhookConfiguration] {
-	return pulumix.Output[map[string]*ValidatingWebhookConfiguration]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ValidatingWebhookConfigurationMapOutput) MapIndex(k pulumi.StringInput) ValidatingWebhookConfigurationOutput {

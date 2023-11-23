@@ -10,7 +10,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // ClusterCIDR represents a single configuration for per-Node Pod CIDR allocations when the MultiCIDRRangeAllocator is enabled (see the config for kube-controller-manager).  A cluster may have any number of ClusterCIDR resources, all of which will be considered when allocating a CIDR for a Node.  A ClusterCIDR is eligible to be used for a given Node when the node selector matches the node in question and has free CIDRs to allocate.  In case of multiple matching ClusterCIDR resources, the allocator will attempt to break ties using internal heuristics, but any ClusterCIDR whose node selector matches the Node may be used.
@@ -114,12 +113,6 @@ func (i *ClusterCIDR) ToClusterCIDROutputWithContext(ctx context.Context) Cluste
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterCIDROutput)
 }
 
-func (i *ClusterCIDR) ToOutput(ctx context.Context) pulumix.Output[*ClusterCIDR] {
-	return pulumix.Output[*ClusterCIDR]{
-		OutputState: i.ToClusterCIDROutputWithContext(ctx).OutputState,
-	}
-}
-
 // ClusterCIDRArrayInput is an input type that accepts ClusterCIDRArray and ClusterCIDRArrayOutput values.
 // You can construct a concrete instance of `ClusterCIDRArrayInput` via:
 //
@@ -143,12 +136,6 @@ func (i ClusterCIDRArray) ToClusterCIDRArrayOutput() ClusterCIDRArrayOutput {
 
 func (i ClusterCIDRArray) ToClusterCIDRArrayOutputWithContext(ctx context.Context) ClusterCIDRArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterCIDRArrayOutput)
-}
-
-func (i ClusterCIDRArray) ToOutput(ctx context.Context) pulumix.Output[[]*ClusterCIDR] {
-	return pulumix.Output[[]*ClusterCIDR]{
-		OutputState: i.ToClusterCIDRArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // ClusterCIDRMapInput is an input type that accepts ClusterCIDRMap and ClusterCIDRMapOutput values.
@@ -176,12 +163,6 @@ func (i ClusterCIDRMap) ToClusterCIDRMapOutputWithContext(ctx context.Context) C
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterCIDRMapOutput)
 }
 
-func (i ClusterCIDRMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*ClusterCIDR] {
-	return pulumix.Output[map[string]*ClusterCIDR]{
-		OutputState: i.ToClusterCIDRMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type ClusterCIDROutput struct{ *pulumi.OutputState }
 
 func (ClusterCIDROutput) ElementType() reflect.Type {
@@ -194,12 +175,6 @@ func (o ClusterCIDROutput) ToClusterCIDROutput() ClusterCIDROutput {
 
 func (o ClusterCIDROutput) ToClusterCIDROutputWithContext(ctx context.Context) ClusterCIDROutput {
 	return o
-}
-
-func (o ClusterCIDROutput) ToOutput(ctx context.Context) pulumix.Output[*ClusterCIDR] {
-	return pulumix.Output[*ClusterCIDR]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -236,12 +211,6 @@ func (o ClusterCIDRArrayOutput) ToClusterCIDRArrayOutputWithContext(ctx context.
 	return o
 }
 
-func (o ClusterCIDRArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*ClusterCIDR] {
-	return pulumix.Output[[]*ClusterCIDR]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o ClusterCIDRArrayOutput) Index(i pulumi.IntInput) ClusterCIDROutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *ClusterCIDR {
 		return vs[0].([]*ClusterCIDR)[vs[1].(int)]
@@ -260,12 +229,6 @@ func (o ClusterCIDRMapOutput) ToClusterCIDRMapOutput() ClusterCIDRMapOutput {
 
 func (o ClusterCIDRMapOutput) ToClusterCIDRMapOutputWithContext(ctx context.Context) ClusterCIDRMapOutput {
 	return o
-}
-
-func (o ClusterCIDRMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*ClusterCIDR] {
-	return pulumix.Output[map[string]*ClusterCIDR]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ClusterCIDRMapOutput) MapIndex(k pulumi.StringInput) ClusterCIDROutput {

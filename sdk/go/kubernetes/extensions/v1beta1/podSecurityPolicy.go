@@ -10,7 +10,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // PodSecurityPolicy governs the ability to make requests that affect the Security Context that will be applied to a pod and container. Deprecated: use PodSecurityPolicy from policy API Group instead.
@@ -120,12 +119,6 @@ func (i *PodSecurityPolicy) ToPodSecurityPolicyOutputWithContext(ctx context.Con
 	return pulumi.ToOutputWithContext(ctx, i).(PodSecurityPolicyOutput)
 }
 
-func (i *PodSecurityPolicy) ToOutput(ctx context.Context) pulumix.Output[*PodSecurityPolicy] {
-	return pulumix.Output[*PodSecurityPolicy]{
-		OutputState: i.ToPodSecurityPolicyOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PodSecurityPolicyArrayInput is an input type that accepts PodSecurityPolicyArray and PodSecurityPolicyArrayOutput values.
 // You can construct a concrete instance of `PodSecurityPolicyArrayInput` via:
 //
@@ -149,12 +142,6 @@ func (i PodSecurityPolicyArray) ToPodSecurityPolicyArrayOutput() PodSecurityPoli
 
 func (i PodSecurityPolicyArray) ToPodSecurityPolicyArrayOutputWithContext(ctx context.Context) PodSecurityPolicyArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(PodSecurityPolicyArrayOutput)
-}
-
-func (i PodSecurityPolicyArray) ToOutput(ctx context.Context) pulumix.Output[[]*PodSecurityPolicy] {
-	return pulumix.Output[[]*PodSecurityPolicy]{
-		OutputState: i.ToPodSecurityPolicyArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // PodSecurityPolicyMapInput is an input type that accepts PodSecurityPolicyMap and PodSecurityPolicyMapOutput values.
@@ -182,12 +169,6 @@ func (i PodSecurityPolicyMap) ToPodSecurityPolicyMapOutputWithContext(ctx contex
 	return pulumi.ToOutputWithContext(ctx, i).(PodSecurityPolicyMapOutput)
 }
 
-func (i PodSecurityPolicyMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*PodSecurityPolicy] {
-	return pulumix.Output[map[string]*PodSecurityPolicy]{
-		OutputState: i.ToPodSecurityPolicyMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type PodSecurityPolicyOutput struct{ *pulumi.OutputState }
 
 func (PodSecurityPolicyOutput) ElementType() reflect.Type {
@@ -200,12 +181,6 @@ func (o PodSecurityPolicyOutput) ToPodSecurityPolicyOutput() PodSecurityPolicyOu
 
 func (o PodSecurityPolicyOutput) ToPodSecurityPolicyOutputWithContext(ctx context.Context) PodSecurityPolicyOutput {
 	return o
-}
-
-func (o PodSecurityPolicyOutput) ToOutput(ctx context.Context) pulumix.Output[*PodSecurityPolicy] {
-	return pulumix.Output[*PodSecurityPolicy]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -242,12 +217,6 @@ func (o PodSecurityPolicyArrayOutput) ToPodSecurityPolicyArrayOutputWithContext(
 	return o
 }
 
-func (o PodSecurityPolicyArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*PodSecurityPolicy] {
-	return pulumix.Output[[]*PodSecurityPolicy]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o PodSecurityPolicyArrayOutput) Index(i pulumi.IntInput) PodSecurityPolicyOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *PodSecurityPolicy {
 		return vs[0].([]*PodSecurityPolicy)[vs[1].(int)]
@@ -266,12 +235,6 @@ func (o PodSecurityPolicyMapOutput) ToPodSecurityPolicyMapOutput() PodSecurityPo
 
 func (o PodSecurityPolicyMapOutput) ToPodSecurityPolicyMapOutputWithContext(ctx context.Context) PodSecurityPolicyMapOutput {
 	return o
-}
-
-func (o PodSecurityPolicyMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*PodSecurityPolicy] {
-	return pulumix.Output[map[string]*PodSecurityPolicy]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o PodSecurityPolicyMapOutput) MapIndex(k pulumi.StringInput) PodSecurityPolicyOutput {

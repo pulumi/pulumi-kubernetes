@@ -10,7 +10,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // PersistentVolume (PV) is a storage resource provisioned by an administrator. It is analogous to a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes
@@ -116,12 +115,6 @@ func (i *PersistentVolume) ToPersistentVolumeOutputWithContext(ctx context.Conte
 	return pulumi.ToOutputWithContext(ctx, i).(PersistentVolumeOutput)
 }
 
-func (i *PersistentVolume) ToOutput(ctx context.Context) pulumix.Output[*PersistentVolume] {
-	return pulumix.Output[*PersistentVolume]{
-		OutputState: i.ToPersistentVolumeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PersistentVolumeArrayInput is an input type that accepts PersistentVolumeArray and PersistentVolumeArrayOutput values.
 // You can construct a concrete instance of `PersistentVolumeArrayInput` via:
 //
@@ -145,12 +138,6 @@ func (i PersistentVolumeArray) ToPersistentVolumeArrayOutput() PersistentVolumeA
 
 func (i PersistentVolumeArray) ToPersistentVolumeArrayOutputWithContext(ctx context.Context) PersistentVolumeArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(PersistentVolumeArrayOutput)
-}
-
-func (i PersistentVolumeArray) ToOutput(ctx context.Context) pulumix.Output[[]*PersistentVolume] {
-	return pulumix.Output[[]*PersistentVolume]{
-		OutputState: i.ToPersistentVolumeArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // PersistentVolumeMapInput is an input type that accepts PersistentVolumeMap and PersistentVolumeMapOutput values.
@@ -178,12 +165,6 @@ func (i PersistentVolumeMap) ToPersistentVolumeMapOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(PersistentVolumeMapOutput)
 }
 
-func (i PersistentVolumeMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*PersistentVolume] {
-	return pulumix.Output[map[string]*PersistentVolume]{
-		OutputState: i.ToPersistentVolumeMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type PersistentVolumeOutput struct{ *pulumi.OutputState }
 
 func (PersistentVolumeOutput) ElementType() reflect.Type {
@@ -196,12 +177,6 @@ func (o PersistentVolumeOutput) ToPersistentVolumeOutput() PersistentVolumeOutpu
 
 func (o PersistentVolumeOutput) ToPersistentVolumeOutputWithContext(ctx context.Context) PersistentVolumeOutput {
 	return o
-}
-
-func (o PersistentVolumeOutput) ToOutput(ctx context.Context) pulumix.Output[*PersistentVolume] {
-	return pulumix.Output[*PersistentVolume]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -243,12 +218,6 @@ func (o PersistentVolumeArrayOutput) ToPersistentVolumeArrayOutputWithContext(ct
 	return o
 }
 
-func (o PersistentVolumeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*PersistentVolume] {
-	return pulumix.Output[[]*PersistentVolume]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o PersistentVolumeArrayOutput) Index(i pulumi.IntInput) PersistentVolumeOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *PersistentVolume {
 		return vs[0].([]*PersistentVolume)[vs[1].(int)]
@@ -267,12 +236,6 @@ func (o PersistentVolumeMapOutput) ToPersistentVolumeMapOutput() PersistentVolum
 
 func (o PersistentVolumeMapOutput) ToPersistentVolumeMapOutputWithContext(ctx context.Context) PersistentVolumeMapOutput {
 	return o
-}
-
-func (o PersistentVolumeMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*PersistentVolume] {
-	return pulumix.Output[map[string]*PersistentVolume]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o PersistentVolumeMapOutput) MapIndex(k pulumi.StringInput) PersistentVolumeOutput {

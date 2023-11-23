@@ -10,7 +10,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -125,12 +124,6 @@ func (i *CertificateSigningRequestPatch) ToCertificateSigningRequestPatchOutputW
 	return pulumi.ToOutputWithContext(ctx, i).(CertificateSigningRequestPatchOutput)
 }
 
-func (i *CertificateSigningRequestPatch) ToOutput(ctx context.Context) pulumix.Output[*CertificateSigningRequestPatch] {
-	return pulumix.Output[*CertificateSigningRequestPatch]{
-		OutputState: i.ToCertificateSigningRequestPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CertificateSigningRequestPatchArrayInput is an input type that accepts CertificateSigningRequestPatchArray and CertificateSigningRequestPatchArrayOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestPatchArrayInput` via:
 //
@@ -154,12 +147,6 @@ func (i CertificateSigningRequestPatchArray) ToCertificateSigningRequestPatchArr
 
 func (i CertificateSigningRequestPatchArray) ToCertificateSigningRequestPatchArrayOutputWithContext(ctx context.Context) CertificateSigningRequestPatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(CertificateSigningRequestPatchArrayOutput)
-}
-
-func (i CertificateSigningRequestPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*CertificateSigningRequestPatch] {
-	return pulumix.Output[[]*CertificateSigningRequestPatch]{
-		OutputState: i.ToCertificateSigningRequestPatchArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // CertificateSigningRequestPatchMapInput is an input type that accepts CertificateSigningRequestPatchMap and CertificateSigningRequestPatchMapOutput values.
@@ -187,12 +174,6 @@ func (i CertificateSigningRequestPatchMap) ToCertificateSigningRequestPatchMapOu
 	return pulumi.ToOutputWithContext(ctx, i).(CertificateSigningRequestPatchMapOutput)
 }
 
-func (i CertificateSigningRequestPatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*CertificateSigningRequestPatch] {
-	return pulumix.Output[map[string]*CertificateSigningRequestPatch]{
-		OutputState: i.ToCertificateSigningRequestPatchMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type CertificateSigningRequestPatchOutput struct{ *pulumi.OutputState }
 
 func (CertificateSigningRequestPatchOutput) ElementType() reflect.Type {
@@ -205,12 +186,6 @@ func (o CertificateSigningRequestPatchOutput) ToCertificateSigningRequestPatchOu
 
 func (o CertificateSigningRequestPatchOutput) ToCertificateSigningRequestPatchOutputWithContext(ctx context.Context) CertificateSigningRequestPatchOutput {
 	return o
-}
-
-func (o CertificateSigningRequestPatchOutput) ToOutput(ctx context.Context) pulumix.Output[*CertificateSigningRequestPatch] {
-	return pulumix.Output[*CertificateSigningRequestPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -251,12 +226,6 @@ func (o CertificateSigningRequestPatchArrayOutput) ToCertificateSigningRequestPa
 	return o
 }
 
-func (o CertificateSigningRequestPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*CertificateSigningRequestPatch] {
-	return pulumix.Output[[]*CertificateSigningRequestPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o CertificateSigningRequestPatchArrayOutput) Index(i pulumi.IntInput) CertificateSigningRequestPatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *CertificateSigningRequestPatch {
 		return vs[0].([]*CertificateSigningRequestPatch)[vs[1].(int)]
@@ -275,12 +244,6 @@ func (o CertificateSigningRequestPatchMapOutput) ToCertificateSigningRequestPatc
 
 func (o CertificateSigningRequestPatchMapOutput) ToCertificateSigningRequestPatchMapOutputWithContext(ctx context.Context) CertificateSigningRequestPatchMapOutput {
 	return o
-}
-
-func (o CertificateSigningRequestPatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*CertificateSigningRequestPatch] {
-	return pulumix.Output[map[string]*CertificateSigningRequestPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o CertificateSigningRequestPatchMapOutput) MapIndex(k pulumi.StringInput) CertificateSigningRequestPatchOutput {

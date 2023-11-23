@@ -11,7 +11,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // MutatingWebhookConfigurationList is a list of MutatingWebhookConfiguration.
@@ -118,12 +117,6 @@ func (i *MutatingWebhookConfigurationList) ToMutatingWebhookConfigurationListOut
 	return pulumi.ToOutputWithContext(ctx, i).(MutatingWebhookConfigurationListOutput)
 }
 
-func (i *MutatingWebhookConfigurationList) ToOutput(ctx context.Context) pulumix.Output[*MutatingWebhookConfigurationList] {
-	return pulumix.Output[*MutatingWebhookConfigurationList]{
-		OutputState: i.ToMutatingWebhookConfigurationListOutputWithContext(ctx).OutputState,
-	}
-}
-
 // MutatingWebhookConfigurationListArrayInput is an input type that accepts MutatingWebhookConfigurationListArray and MutatingWebhookConfigurationListArrayOutput values.
 // You can construct a concrete instance of `MutatingWebhookConfigurationListArrayInput` via:
 //
@@ -147,12 +140,6 @@ func (i MutatingWebhookConfigurationListArray) ToMutatingWebhookConfigurationLis
 
 func (i MutatingWebhookConfigurationListArray) ToMutatingWebhookConfigurationListArrayOutputWithContext(ctx context.Context) MutatingWebhookConfigurationListArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(MutatingWebhookConfigurationListArrayOutput)
-}
-
-func (i MutatingWebhookConfigurationListArray) ToOutput(ctx context.Context) pulumix.Output[[]*MutatingWebhookConfigurationList] {
-	return pulumix.Output[[]*MutatingWebhookConfigurationList]{
-		OutputState: i.ToMutatingWebhookConfigurationListArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // MutatingWebhookConfigurationListMapInput is an input type that accepts MutatingWebhookConfigurationListMap and MutatingWebhookConfigurationListMapOutput values.
@@ -180,12 +167,6 @@ func (i MutatingWebhookConfigurationListMap) ToMutatingWebhookConfigurationListM
 	return pulumi.ToOutputWithContext(ctx, i).(MutatingWebhookConfigurationListMapOutput)
 }
 
-func (i MutatingWebhookConfigurationListMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*MutatingWebhookConfigurationList] {
-	return pulumix.Output[map[string]*MutatingWebhookConfigurationList]{
-		OutputState: i.ToMutatingWebhookConfigurationListMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type MutatingWebhookConfigurationListOutput struct{ *pulumi.OutputState }
 
 func (MutatingWebhookConfigurationListOutput) ElementType() reflect.Type {
@@ -198,12 +179,6 @@ func (o MutatingWebhookConfigurationListOutput) ToMutatingWebhookConfigurationLi
 
 func (o MutatingWebhookConfigurationListOutput) ToMutatingWebhookConfigurationListOutputWithContext(ctx context.Context) MutatingWebhookConfigurationListOutput {
 	return o
-}
-
-func (o MutatingWebhookConfigurationListOutput) ToOutput(ctx context.Context) pulumix.Output[*MutatingWebhookConfigurationList] {
-	return pulumix.Output[*MutatingWebhookConfigurationList]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -240,12 +215,6 @@ func (o MutatingWebhookConfigurationListArrayOutput) ToMutatingWebhookConfigurat
 	return o
 }
 
-func (o MutatingWebhookConfigurationListArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*MutatingWebhookConfigurationList] {
-	return pulumix.Output[[]*MutatingWebhookConfigurationList]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o MutatingWebhookConfigurationListArrayOutput) Index(i pulumi.IntInput) MutatingWebhookConfigurationListOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *MutatingWebhookConfigurationList {
 		return vs[0].([]*MutatingWebhookConfigurationList)[vs[1].(int)]
@@ -264,12 +233,6 @@ func (o MutatingWebhookConfigurationListMapOutput) ToMutatingWebhookConfiguratio
 
 func (o MutatingWebhookConfigurationListMapOutput) ToMutatingWebhookConfigurationListMapOutputWithContext(ctx context.Context) MutatingWebhookConfigurationListMapOutput {
 	return o
-}
-
-func (o MutatingWebhookConfigurationListMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*MutatingWebhookConfigurationList] {
-	return pulumix.Output[map[string]*MutatingWebhookConfigurationList]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o MutatingWebhookConfigurationListMapOutput) MapIndex(k pulumi.StringInput) MutatingWebhookConfigurationListOutput {

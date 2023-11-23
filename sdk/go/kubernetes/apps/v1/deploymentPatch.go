@@ -10,7 +10,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -156,12 +155,6 @@ func (i *DeploymentPatch) ToDeploymentPatchOutputWithContext(ctx context.Context
 	return pulumi.ToOutputWithContext(ctx, i).(DeploymentPatchOutput)
 }
 
-func (i *DeploymentPatch) ToOutput(ctx context.Context) pulumix.Output[*DeploymentPatch] {
-	return pulumix.Output[*DeploymentPatch]{
-		OutputState: i.ToDeploymentPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // DeploymentPatchArrayInput is an input type that accepts DeploymentPatchArray and DeploymentPatchArrayOutput values.
 // You can construct a concrete instance of `DeploymentPatchArrayInput` via:
 //
@@ -185,12 +178,6 @@ func (i DeploymentPatchArray) ToDeploymentPatchArrayOutput() DeploymentPatchArra
 
 func (i DeploymentPatchArray) ToDeploymentPatchArrayOutputWithContext(ctx context.Context) DeploymentPatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(DeploymentPatchArrayOutput)
-}
-
-func (i DeploymentPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*DeploymentPatch] {
-	return pulumix.Output[[]*DeploymentPatch]{
-		OutputState: i.ToDeploymentPatchArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // DeploymentPatchMapInput is an input type that accepts DeploymentPatchMap and DeploymentPatchMapOutput values.
@@ -218,12 +205,6 @@ func (i DeploymentPatchMap) ToDeploymentPatchMapOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(DeploymentPatchMapOutput)
 }
 
-func (i DeploymentPatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*DeploymentPatch] {
-	return pulumix.Output[map[string]*DeploymentPatch]{
-		OutputState: i.ToDeploymentPatchMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type DeploymentPatchOutput struct{ *pulumi.OutputState }
 
 func (DeploymentPatchOutput) ElementType() reflect.Type {
@@ -236,12 +217,6 @@ func (o DeploymentPatchOutput) ToDeploymentPatchOutput() DeploymentPatchOutput {
 
 func (o DeploymentPatchOutput) ToDeploymentPatchOutputWithContext(ctx context.Context) DeploymentPatchOutput {
 	return o
-}
-
-func (o DeploymentPatchOutput) ToOutput(ctx context.Context) pulumix.Output[*DeploymentPatch] {
-	return pulumix.Output[*DeploymentPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -283,12 +258,6 @@ func (o DeploymentPatchArrayOutput) ToDeploymentPatchArrayOutputWithContext(ctx 
 	return o
 }
 
-func (o DeploymentPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*DeploymentPatch] {
-	return pulumix.Output[[]*DeploymentPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o DeploymentPatchArrayOutput) Index(i pulumi.IntInput) DeploymentPatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *DeploymentPatch {
 		return vs[0].([]*DeploymentPatch)[vs[1].(int)]
@@ -307,12 +276,6 @@ func (o DeploymentPatchMapOutput) ToDeploymentPatchMapOutput() DeploymentPatchMa
 
 func (o DeploymentPatchMapOutput) ToDeploymentPatchMapOutputWithContext(ctx context.Context) DeploymentPatchMapOutput {
 	return o
-}
-
-func (o DeploymentPatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*DeploymentPatch] {
-	return pulumix.Output[map[string]*DeploymentPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o DeploymentPatchMapOutput) MapIndex(k pulumi.StringInput) DeploymentPatchOutput {

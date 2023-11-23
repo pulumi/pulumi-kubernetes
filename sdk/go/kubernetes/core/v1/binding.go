@@ -11,7 +11,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Binding ties one object to another; for example, a pod is bound to a node by a scheduler. Deprecated in 1.7, please use the bindings subresource of pods instead.
@@ -118,12 +117,6 @@ func (i *Binding) ToBindingOutputWithContext(ctx context.Context) BindingOutput 
 	return pulumi.ToOutputWithContext(ctx, i).(BindingOutput)
 }
 
-func (i *Binding) ToOutput(ctx context.Context) pulumix.Output[*Binding] {
-	return pulumix.Output[*Binding]{
-		OutputState: i.ToBindingOutputWithContext(ctx).OutputState,
-	}
-}
-
 // BindingArrayInput is an input type that accepts BindingArray and BindingArrayOutput values.
 // You can construct a concrete instance of `BindingArrayInput` via:
 //
@@ -147,12 +140,6 @@ func (i BindingArray) ToBindingArrayOutput() BindingArrayOutput {
 
 func (i BindingArray) ToBindingArrayOutputWithContext(ctx context.Context) BindingArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(BindingArrayOutput)
-}
-
-func (i BindingArray) ToOutput(ctx context.Context) pulumix.Output[[]*Binding] {
-	return pulumix.Output[[]*Binding]{
-		OutputState: i.ToBindingArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // BindingMapInput is an input type that accepts BindingMap and BindingMapOutput values.
@@ -180,12 +167,6 @@ func (i BindingMap) ToBindingMapOutputWithContext(ctx context.Context) BindingMa
 	return pulumi.ToOutputWithContext(ctx, i).(BindingMapOutput)
 }
 
-func (i BindingMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*Binding] {
-	return pulumix.Output[map[string]*Binding]{
-		OutputState: i.ToBindingMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type BindingOutput struct{ *pulumi.OutputState }
 
 func (BindingOutput) ElementType() reflect.Type {
@@ -198,12 +179,6 @@ func (o BindingOutput) ToBindingOutput() BindingOutput {
 
 func (o BindingOutput) ToBindingOutputWithContext(ctx context.Context) BindingOutput {
 	return o
-}
-
-func (o BindingOutput) ToOutput(ctx context.Context) pulumix.Output[*Binding] {
-	return pulumix.Output[*Binding]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -240,12 +215,6 @@ func (o BindingArrayOutput) ToBindingArrayOutputWithContext(ctx context.Context)
 	return o
 }
 
-func (o BindingArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*Binding] {
-	return pulumix.Output[[]*Binding]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o BindingArrayOutput) Index(i pulumi.IntInput) BindingOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *Binding {
 		return vs[0].([]*Binding)[vs[1].(int)]
@@ -264,12 +233,6 @@ func (o BindingMapOutput) ToBindingMapOutput() BindingMapOutput {
 
 func (o BindingMapOutput) ToBindingMapOutputWithContext(ctx context.Context) BindingMapOutput {
 	return o
-}
-
-func (o BindingMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*Binding] {
-	return pulumix.Output[map[string]*Binding]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o BindingMapOutput) MapIndex(k pulumi.StringInput) BindingOutput {

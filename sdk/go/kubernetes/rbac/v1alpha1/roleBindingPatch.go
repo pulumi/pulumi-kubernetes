@@ -10,7 +10,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -135,12 +134,6 @@ func (i *RoleBindingPatch) ToRoleBindingPatchOutputWithContext(ctx context.Conte
 	return pulumi.ToOutputWithContext(ctx, i).(RoleBindingPatchOutput)
 }
 
-func (i *RoleBindingPatch) ToOutput(ctx context.Context) pulumix.Output[*RoleBindingPatch] {
-	return pulumix.Output[*RoleBindingPatch]{
-		OutputState: i.ToRoleBindingPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // RoleBindingPatchArrayInput is an input type that accepts RoleBindingPatchArray and RoleBindingPatchArrayOutput values.
 // You can construct a concrete instance of `RoleBindingPatchArrayInput` via:
 //
@@ -164,12 +157,6 @@ func (i RoleBindingPatchArray) ToRoleBindingPatchArrayOutput() RoleBindingPatchA
 
 func (i RoleBindingPatchArray) ToRoleBindingPatchArrayOutputWithContext(ctx context.Context) RoleBindingPatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(RoleBindingPatchArrayOutput)
-}
-
-func (i RoleBindingPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*RoleBindingPatch] {
-	return pulumix.Output[[]*RoleBindingPatch]{
-		OutputState: i.ToRoleBindingPatchArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // RoleBindingPatchMapInput is an input type that accepts RoleBindingPatchMap and RoleBindingPatchMapOutput values.
@@ -197,12 +184,6 @@ func (i RoleBindingPatchMap) ToRoleBindingPatchMapOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(RoleBindingPatchMapOutput)
 }
 
-func (i RoleBindingPatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*RoleBindingPatch] {
-	return pulumix.Output[map[string]*RoleBindingPatch]{
-		OutputState: i.ToRoleBindingPatchMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type RoleBindingPatchOutput struct{ *pulumi.OutputState }
 
 func (RoleBindingPatchOutput) ElementType() reflect.Type {
@@ -215,12 +196,6 @@ func (o RoleBindingPatchOutput) ToRoleBindingPatchOutput() RoleBindingPatchOutpu
 
 func (o RoleBindingPatchOutput) ToRoleBindingPatchOutputWithContext(ctx context.Context) RoleBindingPatchOutput {
 	return o
-}
-
-func (o RoleBindingPatchOutput) ToOutput(ctx context.Context) pulumix.Output[*RoleBindingPatch] {
-	return pulumix.Output[*RoleBindingPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -262,12 +237,6 @@ func (o RoleBindingPatchArrayOutput) ToRoleBindingPatchArrayOutputWithContext(ct
 	return o
 }
 
-func (o RoleBindingPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*RoleBindingPatch] {
-	return pulumix.Output[[]*RoleBindingPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o RoleBindingPatchArrayOutput) Index(i pulumi.IntInput) RoleBindingPatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *RoleBindingPatch {
 		return vs[0].([]*RoleBindingPatch)[vs[1].(int)]
@@ -286,12 +255,6 @@ func (o RoleBindingPatchMapOutput) ToRoleBindingPatchMapOutput() RoleBindingPatc
 
 func (o RoleBindingPatchMapOutput) ToRoleBindingPatchMapOutputWithContext(ctx context.Context) RoleBindingPatchMapOutput {
 	return o
-}
-
-func (o RoleBindingPatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*RoleBindingPatch] {
-	return pulumix.Output[map[string]*RoleBindingPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o RoleBindingPatchMapOutput) MapIndex(k pulumi.StringInput) RoleBindingPatchOutput {

@@ -10,7 +10,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -126,12 +125,6 @@ func (i *PodSecurityPolicyPatch) ToPodSecurityPolicyPatchOutputWithContext(ctx c
 	return pulumi.ToOutputWithContext(ctx, i).(PodSecurityPolicyPatchOutput)
 }
 
-func (i *PodSecurityPolicyPatch) ToOutput(ctx context.Context) pulumix.Output[*PodSecurityPolicyPatch] {
-	return pulumix.Output[*PodSecurityPolicyPatch]{
-		OutputState: i.ToPodSecurityPolicyPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PodSecurityPolicyPatchArrayInput is an input type that accepts PodSecurityPolicyPatchArray and PodSecurityPolicyPatchArrayOutput values.
 // You can construct a concrete instance of `PodSecurityPolicyPatchArrayInput` via:
 //
@@ -155,12 +148,6 @@ func (i PodSecurityPolicyPatchArray) ToPodSecurityPolicyPatchArrayOutput() PodSe
 
 func (i PodSecurityPolicyPatchArray) ToPodSecurityPolicyPatchArrayOutputWithContext(ctx context.Context) PodSecurityPolicyPatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(PodSecurityPolicyPatchArrayOutput)
-}
-
-func (i PodSecurityPolicyPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*PodSecurityPolicyPatch] {
-	return pulumix.Output[[]*PodSecurityPolicyPatch]{
-		OutputState: i.ToPodSecurityPolicyPatchArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // PodSecurityPolicyPatchMapInput is an input type that accepts PodSecurityPolicyPatchMap and PodSecurityPolicyPatchMapOutput values.
@@ -188,12 +175,6 @@ func (i PodSecurityPolicyPatchMap) ToPodSecurityPolicyPatchMapOutputWithContext(
 	return pulumi.ToOutputWithContext(ctx, i).(PodSecurityPolicyPatchMapOutput)
 }
 
-func (i PodSecurityPolicyPatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*PodSecurityPolicyPatch] {
-	return pulumix.Output[map[string]*PodSecurityPolicyPatch]{
-		OutputState: i.ToPodSecurityPolicyPatchMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type PodSecurityPolicyPatchOutput struct{ *pulumi.OutputState }
 
 func (PodSecurityPolicyPatchOutput) ElementType() reflect.Type {
@@ -206,12 +187,6 @@ func (o PodSecurityPolicyPatchOutput) ToPodSecurityPolicyPatchOutput() PodSecuri
 
 func (o PodSecurityPolicyPatchOutput) ToPodSecurityPolicyPatchOutputWithContext(ctx context.Context) PodSecurityPolicyPatchOutput {
 	return o
-}
-
-func (o PodSecurityPolicyPatchOutput) ToOutput(ctx context.Context) pulumix.Output[*PodSecurityPolicyPatch] {
-	return pulumix.Output[*PodSecurityPolicyPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -248,12 +223,6 @@ func (o PodSecurityPolicyPatchArrayOutput) ToPodSecurityPolicyPatchArrayOutputWi
 	return o
 }
 
-func (o PodSecurityPolicyPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*PodSecurityPolicyPatch] {
-	return pulumix.Output[[]*PodSecurityPolicyPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o PodSecurityPolicyPatchArrayOutput) Index(i pulumi.IntInput) PodSecurityPolicyPatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *PodSecurityPolicyPatch {
 		return vs[0].([]*PodSecurityPolicyPatch)[vs[1].(int)]
@@ -272,12 +241,6 @@ func (o PodSecurityPolicyPatchMapOutput) ToPodSecurityPolicyPatchMapOutput() Pod
 
 func (o PodSecurityPolicyPatchMapOutput) ToPodSecurityPolicyPatchMapOutputWithContext(ctx context.Context) PodSecurityPolicyPatchMapOutput {
 	return o
-}
-
-func (o PodSecurityPolicyPatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*PodSecurityPolicyPatch] {
-	return pulumix.Output[map[string]*PodSecurityPolicyPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o PodSecurityPolicyPatchMapOutput) MapIndex(k pulumi.StringInput) PodSecurityPolicyPatchOutput {
