@@ -359,13 +359,17 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 			return nil, err
 		}
 
-		chart, err := r.helmBuild(ctx, urn, new)
+		logger.V(9).Infof("Loading Helm chart.")
+		chart, err := r.helmLoad(ctx, urn, new)
 		if err != nil {
 			failures = append(failures, &pulumirpc.CheckFailure{
 				Property: "chart",
 				Reason:   fmt.Sprintf("%v; check the chart name and repository configuration.", err),
 			})
 		} else {
+			// determine the desired state of the resource, i.e the specific chart version
+			// as opposed to the program input (which is a constraint such as ">= 1.2.3").
+			// with this we may determine whether the Helm release needs to be upgraded.
 			new.Version = chart.Metadata.Version
 		}
 
@@ -428,7 +432,7 @@ func (r *helmReleaseProvider) setDefaults(target resource.PropertyMap) {
 	}
 }
 
-func (r *helmReleaseProvider) helmBuild(ctx context.Context, urn resource.URN, newRelease *Release) (*helmchart.Chart, error) {
+func (r *helmReleaseProvider) helmLoad(ctx context.Context, urn resource.URN, newRelease *Release) (*helmchart.Chart, error) {
 	conf, err := r.getActionConfig(newRelease.Namespace)
 	if err != nil {
 		return nil, err
@@ -742,29 +746,28 @@ func (r *helmReleaseProvider) Diff(ctx context.Context, req *pulumirpc.DiffReque
 	logger.V(9).Infof("Diff: New release: %#v", newRelease)
 
 	// Generate a patch to apply the new inputs to the old state, including deletions.
-	schema := &noSchema{}
 	oldInputsJSON, err := json.Marshal(oldInputs.MapRepl(nil, mapReplStripSecrets))
 	if err != nil {
 		return nil, pkgerrors.Wrapf(err, "internal error: json.Marshal(oldInputsJson)")
 	}
-	logger.V(9).Infof("oldInputsJSON: %+v", string(oldInputsJSON))
+	logger.V(9).Infof("oldInputsJSON: %s", string(oldInputsJSON))
 	newInputsJSON, err := json.Marshal(news.MapRepl(nil, mapReplStripSecrets))
 	if err != nil {
 		return nil, pkgerrors.Wrapf(err, "internal error: json.Marshal(oldInputsJson)")
 	}
-	logger.V(9).Infof("newInputsJSON: %+v", string(newInputsJSON))
+	logger.V(9).Infof("newInputsJSON: %s", string(newInputsJSON))
 	oldStateJSON, err := json.Marshal(olds.MapRepl(nil, mapReplStripSecrets))
 	if err != nil {
 		return nil, pkgerrors.Wrapf(err, "internal error: json.Marshal(oldStateJson)")
 	}
-	logger.V(9).Infof("oldStateJson: %+v", string(oldStateJSON))
-	strategicPatch, err := strategicpatch.CreateThreeWayMergePatch(oldInputsJSON, newInputsJSON, oldStateJSON, schema, true)
+	logger.V(9).Infof("oldStateJSON: %s", string(oldStateJSON))
+	strategicPatchJSON, err := strategicpatch.CreateThreeWayMergePatch(oldInputsJSON, newInputsJSON, oldStateJSON, &noSchema{}, true)
 	if err != nil {
 		return nil, pkgerrors.Wrapf(err, "internal error: CreateThreeWayMergePatch")
 	}
-	logger.V(1).Infof("strategicPatch: %+v", string(strategicPatch))
+	logger.V(9).Infof("strategicPatchJSON: %s", string(strategicPatchJSON))
 	patchObj := map[string]any{}
-	if err = json.Unmarshal(strategicPatch, &patchObj); err != nil {
+	if err = json.Unmarshal(strategicPatchJSON, &patchObj); err != nil {
 		return nil, pkgerrors.Wrapf(
 			err, "Failed to check for changes in Helm release %s/%s because of an error serializing "+
 				"the JSON patch describing resource changes",
@@ -795,11 +798,6 @@ func (r *helmReleaseProvider) Diff(ctx context.Context, req *pulumirpc.DiffReque
 					"converting JSON patch describing resource changes to a diff",
 				newRelease.Namespace, newRelease.Name)
 		}
-
-		// this produces erroneous diffs in the drift detection case:
-		// for _, v := range detailedDiff {
-		// 	v.InputDiff = true
-		// }
 
 		for k, v := range detailedDiff {
 			switch v.Kind {
@@ -1253,7 +1251,7 @@ func (r *helmReleaseProvider) importRelease(ctx context.Context, urn resource.UR
 		release.Chart = hr.Chart.Metadata.Name
 	}
 
-	chart, err := r.helmBuild(ctx, urn, release)
+	chart, err := r.helmLoad(ctx, urn, release)
 	if err != nil {
 		// Likely because the chart is not readily available (e.g. import of chart where no repo info is stored).
 		// Eat the error to allow import to succeed, assuming that Check will report the failure later.
@@ -1684,22 +1682,21 @@ func getTimeoutOrDefault(timeout int) time.Duration {
 	return time.Duration(timeout) * time.Second
 }
 
+// noSchema implements a trivial lookup function for patch metadata (i.e. patch strategy and merge key).
+// CreateThreeWayMergePatch supports various strategies for merging maps and slices, but we use the default strategy.
 type noSchema struct {
 }
 
-// LookupPatchMetadataForSlice implements strategicpatch.LookupPatchMeta.
+var _ strategicpatch.LookupPatchMeta = &noSchema{}
+
 func (*noSchema) LookupPatchMetadataForSlice(key string) (strategicpatch.LookupPatchMeta, strategicpatch.PatchMeta, error) {
 	return &noSchema{}, strategicpatch.PatchMeta{}, nil
 }
 
-// LookupPatchMetadataForStruct implements strategicpatch.LookupPatchMeta.
 func (*noSchema) LookupPatchMetadataForStruct(key string) (strategicpatch.LookupPatchMeta, strategicpatch.PatchMeta, error) {
 	return &noSchema{}, strategicpatch.PatchMeta{}, nil
 }
 
-// Name implements strategicpatch.LookupPatchMeta.
 func (*noSchema) Name() string {
 	return ""
 }
-
-var _ strategicpatch.LookupPatchMeta = &noSchema{}
