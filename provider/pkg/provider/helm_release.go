@@ -132,8 +132,6 @@ type Release struct {
 	// Manifest map[string]interface{} `json:"manifest,omitempty"`
 	// Names of resources created by the release grouped by "kind/version".
 	ResourceNames map[string][]string `json:"resourceNames,omitempty"`
-	// The checksum of the rendered template (to detect changes)
-	Checksum string `json:"checksum,omitempty"`
 	// Status of the deployed release.
 	Status *ReleaseStatus `json:"status,omitempty"`
 }
@@ -378,7 +376,6 @@ func (r *helmReleaseProvider) Check(ctx context.Context, req *pulumirpc.CheckReq
 	}
 
 	// remove deprecated inputs
-	delete(news, "checksum")
 	delete(news, "resourceNames")
 
 	newInputs, err := plugin.UnmarshalProperties(newResInputs, plugin.MarshalOptions{
