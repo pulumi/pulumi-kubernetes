@@ -26,6 +26,8 @@ func main() {
 			return err
 		}
 
+		ctx.Export("version", rel.Status.Version())
+
 		replicas := pulumi.All(rel.Status.Namespace(), rel.Status.Name()).
 			ApplyT(func(r any) (any, error) {
 				arr := r.([]any)
