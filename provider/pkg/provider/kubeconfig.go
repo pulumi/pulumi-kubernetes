@@ -19,17 +19,19 @@ type KubeConfig struct {
 
 // ToDiscoveryClient implemented interface method
 func (k *KubeConfig) ToDiscoveryClient() (discovery.CachedDiscoveryInterface, error) {
+	c := rest.CopyConfig(k.restConfig)
+
 	// The more groups you have, the more discovery requests you need to make.
 	// given 25 groups (our groups + a few custom resources) with one-ish version each, discovery needs to make 50 requests
 	// double it just so we don't end up here again for a while.  This config is only used for discovery.
-	k.restConfig.Burst = 100
+	c.Burst = 100
 
-	return clients.NewMemCacheClient(discovery.NewDiscoveryClientForConfigOrDie(k.restConfig)), nil
+	return clients.NewMemCacheClient(discovery.NewDiscoveryClientForConfigOrDie(c)), nil
 }
 
 // ToRESTConfig implemented interface method
 func (k *KubeConfig) ToRESTConfig() (*rest.Config, error) {
-	return k.restConfig, nil
+	return rest.CopyConfig(k.restConfig), nil
 }
 
 // ToRESTMapper implemented interface method

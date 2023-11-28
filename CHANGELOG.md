@@ -5,6 +5,8 @@
 
 - Fix: compute version field in Check for content detection (https://github.com/pulumi/pulumi-kubernetes/pull/2672)
 
+- Fix: Fix: Helm Release fails with "the server could not find the requested resource" (https://github.com/pulumi/pulumi-kubernetes/pull/2677)
+
 ## 4.5.4 (November 8, 2023)
 - Fix: Helm Release: chart requires kubeVersion (https://github.com/pulumi/pulumi-kubernetes/pull/2653)
 
