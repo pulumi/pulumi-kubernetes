@@ -335,7 +335,7 @@ class ConfigFile(pulumi.ComponentResource):
         transformations = transformations if transformations is not None else []
         if skip_await:
             transformations.append(_skip_await)
-
+ 
         invoke_opts = _get_invoke_options(child_opts)
         __ret__ = invoke_yaml_decode(text, invoke_opts)
 
@@ -399,6 +399,9 @@ def _read_file(path: str) -> str:
     return data
 
 
+def _build_resources_dict(objs: Sequence[pulumi.Output]) -> Mapping[pulumi.Output, pulumi.Output]:
+    return {key: value for key, value in objs}
+
 def _get_child_options(parent: pulumi.Resource, opts: pulumi.ResourceOptions):
     return pulumi.ResourceOptions(parent=parent, depends_on=opts.depends_on)
 
@@ -409,11 +412,7 @@ def _get_invoke_options(opts: pulumi.ResourceOptions):
         version=_utilities.get_version() if not opts.version else opts.version,
         plugin_download_url=opts.plugin_download_url if opts.plugin_download_url else None
      )
-
-def _build_resources_dict(objs: Sequence[pulumi.Output]) -> Mapping[pulumi.Output, pulumi.Output]:
-    return {key: value for key, value in objs}
-
-
+     
 def _parse_yaml_document(
         objects, opts: Optional[pulumi.ResourceOptions] = None,
         transformations: Optional[Sequence[Callable]] = None,

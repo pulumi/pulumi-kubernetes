@@ -111,7 +111,7 @@ class Directory(pulumi.ComponentResource):
 
         child_opts = _get_child_options(self, opts)
         invoke_opts = _get_invoke_options(child_opts)
-
+        
         __ret__ = pulumi.runtime.invoke(
             'kubernetes:kustomize:directory', {'directory': directory}, invoke_opts)
 

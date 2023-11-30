@@ -122,7 +122,7 @@ class Directory(pulumi.ComponentResource):
         # Note: Unlike NodeJS, Python requires that we "pull" on our futures in order to get them scheduled for
         # execution. In order to do this, we leverage the engine's RegisterResourceOutputs to wait for the
         # resolution of all resources that this YAML document created.
-        self.resources = k8s.yaml.yaml._parse_yaml_document(result, child_opts, transformations, resource_prefix)
+        self.resources = _parse_yaml_document(result, child_opts, transformations, resource_prefix)
         self.register_outputs({"resources": self.resources})
 
     def translate_output_property(self, prop: str) -> str:

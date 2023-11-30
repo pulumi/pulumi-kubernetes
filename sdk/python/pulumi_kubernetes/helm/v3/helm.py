@@ -589,7 +589,7 @@ def _parse_chart(all_config: Tuple[Union[ChartOpts, LocalChartOpts], pulumi.Reso
     json_opts = config.to_json()
 
     invoke_opts = _get_invoke_options(opts)
-
+    
     transformations = config.transformations if config.transformations is not None else []
     if config.skip_await:
         transformations.append(_skip_await)
