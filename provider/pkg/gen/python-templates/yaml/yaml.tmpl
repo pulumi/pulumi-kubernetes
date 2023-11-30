@@ -190,7 +190,7 @@ class ConfigGroup(pulumi.ComponentResource):
         for text in yaml:
             invoke_opts = _get_invoke_options(child_opts)
             __ret__ = invoke_yaml_decode(text, invoke_opts)
-            resources = _parse_yaml_document(__ret__, opts, transformations, resource_prefix)
+            resources = _parse_yaml_document(__ret__, child_opts, transformations, resource_prefix)
             # Add any new YAML resources to the ConfigGroup's resources
             self.resources = pulumi.Output.all(resources, self.resources).apply(lambda x: {**x[0], **x[1]})
 
