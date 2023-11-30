@@ -125,39 +125,25 @@ namespace Pulumi.Kubernetes.Yaml
             : base("kubernetes:yaml:ConfigFile", MakeName(args, name), options)
         {
             name = MakeName(args, name);
-            options ??= new ComponentResourceOptions();
-            options.Parent ??= this;
-
-			var transformations = args?.Transformations ?? new List<TransformationAction>();
-			if (args?.SkipAwait == true)
-			{
-				transformations.Add(Parser.SkipAwait);
-			}
+            
             var fileOutput = args?.File.ToOutput() ?? Output.Create(name);
+            var childOpts = GetChildOptions(this, null, options);
             var resources = fileOutput.Apply(fileId =>
             {
                 try
                 {
-                    if (Parser.IsUrl(fileId))
-                    {
-                        using var wc = new System.Net.WebClient();
-                        return wc.DownloadString(fileId);
-                    }
-
-                    return File.ReadAllText(fileId);
+                    return Parser.Parse(new ConfigGroupArgs{
+                        Files = new string[]{ fileId },
+                        Transformations = args?.Transformations ?? new List<TransformationAction>(),
+                        ResourcePrefix = args?.ResourcePrefix,
+                        SkipAwait = args?.SkipAwait
+                    }, false, childOpts);
                 }
                 catch (Exception e)
                 {
                     throw new ResourceException($"Error fetching YAML file '{fileId}': {e.Message}", this);
                 }
-            }).Apply(text =>
-                Parser.ParseYamlDocument(new ParseArgs
-                {
-                    Objs = Invokes.YamlDecode(new YamlDecodeArgs { Text = text }, new InvokeOptions { Provider = options?.Provider }),
-                    Transformations = transformations,
-                    ResourcePrefix = args?.ResourcePrefix
-                }, options));
-
+            });
             RegisterResources(resources);
         }
 

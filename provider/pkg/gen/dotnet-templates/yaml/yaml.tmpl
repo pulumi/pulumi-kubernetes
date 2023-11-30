@@ -100,61 +100,95 @@ namespace Pulumi.Kubernetes.Yaml
             var id = namespaceName != null ? $"{namespaceName}/{name}" : name;
             return Resources.Apply(r => (CustomResource)r[$"{groupVersionKind}::{id}"]);
         }
+
+        protected static CustomResourceOptions GetChildOptions(Pu.Resource parent, InputList<Pu.Resource>? extraDependsOn, ComponentResourceOptions? options)
+        {
+            // Create resource options based on component resource options.
+            var dependsOn = new InputList<Pu.Resource>();
+            if (options?.DependsOn is not null)
+                dependsOn.AddRange(options.DependsOn);
+            if (extraDependsOn is not null)
+                dependsOn.AddRange(extraDependsOn);
+            return new CustomResourceOptions
+            {
+                Parent = parent,
+                DependsOn = dependsOn,
+            };
+        }
+
+        protected internal static InvokeOptions GetInvokeOptions(CustomResourceOptions? options)
+        {
+            return new InvokeOptions { 
+                Parent = options?.Parent,
+                Provider = options?.Provider,
+                Version = options?.Version,
+                PluginDownloadURL = options?.PluginDownloadURL,
+            }.WithDefaults();
+        }
     }
 
     internal static class Parser
     {
-        public static Output<ImmutableDictionary<string, KubernetesResource>> Parse(ConfigGroupArgs config, ComponentResourceOptions? options)
+        public static Output<ImmutableDictionary<string, KubernetesResource>> Parse(ConfigGroupArgs config, bool glob, CustomResourceOptions? opts)
         {
             var resources = Output.Create(ImmutableDictionary.Create<string, KubernetesResource>());
 
             var transformations = config.Transformations;
-            if (config?.SkipAwait == true)
+            if (config.SkipAwait == true)
             {
                 transformations.Add(SkipAwait);
             }
 
+            var yamls = new InputList<string>();
+            if (config.Yaml != null)
+                yamls.AddRange(config.Yaml);
+
             if (config.Files != null)
             {
-                var files = new List<string>();
                 foreach (var file in config.Files)
                 {
+                    // Read the raw YAML file(s) specified in the input file parameter. It might be a URL or a file path.
                     if (IsUrl(file))
-                        files.Add(file);
-                    else
-                        files.AddRange(Glob.Files(Directory.GetCurrentDirectory(), file));
-                }
-
-                foreach (var file in files)
-                {
-                    var cf = new ConfigFile(
-                        file,
-                        new ConfigFileArgs
+                    {
+                        // If the string looks like a URL, in that it begins with a scheme, fetch it over the network.
+                        using var wc = new System.Net.WebClient();
+                        var yaml = wc.DownloadString(file);
+                        yamls.Add(yaml);
+                    } 
+                    else 
+                    {
+                        // Otherwise, assume this is a path to a file on disk. If globbing is enabled, we might have
+			            // multiple files -- otherwise just read a singular file.
+                        var files = new List<string>();
+                        if (glob)
+                            files.AddRange(Glob.Files(Directory.GetCurrentDirectory(), file));
+                        else 
+                            files.Add(file);
+                        foreach (var fileId in files)
                         {
-                            File = file,
-                            Transformations = transformations,
-                            ResourcePrefix = config.ResourcePrefix
-                        },
-                        options);
-                    resources = Output.Tuple(resources, cf.Resources).Apply(vs => vs.Item1.AddRange(vs.Item2));
+                            var yaml = File.ReadAllText(fileId);
+                            yamls.Add(yaml);
+                        }
+                    }
                 }
             }
 
-            if (config.Yaml != null)
+            if (yamls is not null)
             {
-                var yamlResources = config.Yaml.ToOutput().Apply(texts =>
+                var invokeOpts = CollectionComponentResource.GetInvokeOptions(opts);
+                var yamlResources = yamls.ToOutput().Apply(texts =>
                 {
-                    var yamls = texts
+                    var r = texts
                         .Select(text =>
-                            ParseYamlDocument(new ParseArgs
+                            ParseYamlObjects(new ParseArgs
                             {
-                                Objs = Invokes.YamlDecode(new YamlDecodeArgs { Text = text }, new InvokeOptions { Provider = options?.Provider }),
+                                Objs = Invokes.YamlDecode(new YamlDecodeArgs { Text = text }, invokeOpts),
                                 Transformations = transformations,
-                                ResourcePrefix = config.ResourcePrefix
-                            }, options))
+                                ResourcePrefix = config?.ResourcePrefix
+                            }, opts))
                         .Select(output => (Input<ImmutableDictionary<string, KubernetesResource>>)output)
                         .ToImmutableArray();
-                    return Output.All(yamls);
+                    return Output.All(r);
                 });
 
                 resources = Output.Tuple(resources, yamlResources).Apply(vs =>
@@ -169,12 +203,12 @@ namespace Pulumi.Kubernetes.Yaml
 
             if (config.Objs != null)
             {
-                var docResources = ParseYamlDocument(new ParseArgs
+                var docResources = ParseYamlObjects(new ParseArgs
                 {
                     Objs = config.Objs,
                     Transformations = transformations,
                     ResourcePrefix = config.ResourcePrefix
-                }, options);
+                }, opts);
                 resources = Output.Tuple(resources, docResources).Apply(vs => vs.Item1.AddRange(vs.Item2));
             }
 
@@ -206,14 +240,14 @@ namespace Pulumi.Kubernetes.Yaml
         internal static bool IsUrl(string s)
             => s.StartsWith("http://", StringComparison.Ordinal) || s.StartsWith("https://", StringComparison.Ordinal);
 
-        internal static Output<ImmutableDictionary<string, KubernetesResource>> ParseYamlDocument(ParseArgs config,
-            ComponentResourceOptions? options = null)
+        internal static Output<ImmutableDictionary<string, KubernetesResource>> ParseYamlObjects(ParseArgs config,
+            CustomResourceOptions? opts)
         {
             return config.Objs.ToOutput().Apply(objs =>
             {
 
                 var inputs = objs
-                    .SelectMany(obj => ParseYamlObject(obj, config.Transformations, config.ResourcePrefix, options))
+                    .SelectMany(obj => ParseYamlObject(obj, config.Transformations, config.ResourcePrefix, opts))
                     .Select(output => (Input<(string, KubernetesResource)>) output)
                     .ToImmutableArray();
 
@@ -225,21 +259,13 @@ namespace Pulumi.Kubernetes.Yaml
         }
 
         private static Output<(string, KubernetesResource)>[] ParseYamlObject(ImmutableDictionary<string, object> obj,
-            List<TransformationAction>? transformations, string? resourcePrefix, ComponentResourceOptions? options = null)
+            List<TransformationAction>? transformations, string? resourcePrefix, CustomResourceOptions? opts)
         {
             if (obj == null || obj.Count == 0)
                 return new Output<(string, KubernetesResource)>[0];
 
-            // Create custom resource options based on component resource options.
-            var opts = new CustomResourceOptions
-            {
-                Parent = options?.Parent,
-                DependsOn = options?.DependsOn ?? new InputList<Pu.Resource>(),
-                IgnoreChanges = options?.IgnoreChanges ?? new List<string>(),
-                Version = options?.Version,
-                Provider = options?.Provider,
-                CustomTimeouts = options?.CustomTimeouts
-            };
+            // Create a copy of opts to pass into potentially mutating transforms that will be applied to this resource.
+            opts = CustomResourceOptions.Merge(null, opts);
 
             // Allow users to change API objects before any validation.
             if (transformations != null)
@@ -281,7 +307,7 @@ namespace Pulumi.Kubernetes.Yaml
                 if (obj["items"] is IEnumerable<ImmutableDictionary<string, object>> items)
                 {
                     foreach (var item in items)
-                        objs.AddRange(Parser.ParseYamlObject(item, transformations, resourcePrefix));
+                        objs.AddRange(Parser.ParseYamlObject(item, transformations, resourcePrefix, opts));
                 }
                 return objs.ToArray();
             }
