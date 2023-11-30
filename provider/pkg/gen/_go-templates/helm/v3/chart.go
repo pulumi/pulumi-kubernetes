@@ -250,11 +250,6 @@ func NewChart(ctx *pulumi.Context,
 		return nil, err
 	}
 
-	// Honor the resource name prefix if specified.
-	if args.ResourcePrefix != "" {
-		name = args.ResourcePrefix + "-" + name
-	}
-
 	parseOpts, err := yaml.GetChildOptions(chart, opts)
 	if err != nil {
 		return nil, err
@@ -294,6 +289,11 @@ func parseChart(ctx *pulumi.Context, name string, args chartArgs, opts ...pulumi
 	jsonOpts := jsonOptsArgs{
 		chartArgs:   args,
 		ReleaseName: name,
+	}
+
+	// Honor the resource name prefix if specified.
+	if args.ResourcePrefix != "" {
+		jsonOpts.ReleaseName = args.ResourcePrefix + "-" + name
 	}
 
 	b, err := json.Marshal(jsonOpts)

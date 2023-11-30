@@ -151,11 +151,6 @@ func NewConfigFile(ctx *pulumi.Context,
 
 	// Now provision all child resources by parsing the YAML file.
 	if args != nil {
-		// Honor the resource name prefix if specified.
-		if args.ResourcePrefix != "" {
-			name = args.ResourcePrefix + "-" + name
-		}
-
 		transformations := args.Transformations
 		if args.SkipAwait {
 			transformations = AddSkipAwaitTransformation(transformations)

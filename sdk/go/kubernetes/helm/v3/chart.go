@@ -243,15 +243,11 @@ func NewChart(ctx *pulumi.Context,
 			Type: pulumi.String("kubernetes:helm.sh/v2:Chart"),
 		},
 	})
+
 	opts = append(opts, aliases)
 	err := ctx.RegisterComponentResource("kubernetes:helm.sh/v3:Chart", name, chart, opts...)
 	if err != nil {
 		return nil, err
-	}
-
-	// Honor the resource name prefix if specified.
-	if args.ResourcePrefix != "" {
-		name = args.ResourcePrefix + "-" + name
 	}
 
 	parseOpts, err := yaml.GetChildOptions(chart, opts)
@@ -293,6 +289,11 @@ func parseChart(ctx *pulumi.Context, name string, args chartArgs, opts ...pulumi
 	jsonOpts := jsonOptsArgs{
 		chartArgs:   args,
 		ReleaseName: name,
+	}
+
+	// Honor the resource name prefix if specified.
+	if args.ResourcePrefix != "" {
+		jsonOpts.ReleaseName = args.ResourcePrefix + "-" + name
 	}
 
 	b, err := json.Marshal(jsonOpts)
