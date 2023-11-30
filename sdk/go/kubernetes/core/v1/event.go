@@ -11,7 +11,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Event is a report of an event somewhere in the cluster.  Events have a limited retention time and triggers and messages may evolve with time.  Event consumers should not rely on the timing of an event with a given Reason reflecting a consistent underlying trigger, or the continued existence of events with that Reason.  Events should be treated as informative, best-effort, supplemental data.
@@ -208,12 +207,6 @@ func (i *Event) ToEventOutputWithContext(ctx context.Context) EventOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(EventOutput)
 }
 
-func (i *Event) ToOutput(ctx context.Context) pulumix.Output[*Event] {
-	return pulumix.Output[*Event]{
-		OutputState: i.ToEventOutputWithContext(ctx).OutputState,
-	}
-}
-
 // EventArrayInput is an input type that accepts EventArray and EventArrayOutput values.
 // You can construct a concrete instance of `EventArrayInput` via:
 //
@@ -237,12 +230,6 @@ func (i EventArray) ToEventArrayOutput() EventArrayOutput {
 
 func (i EventArray) ToEventArrayOutputWithContext(ctx context.Context) EventArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(EventArrayOutput)
-}
-
-func (i EventArray) ToOutput(ctx context.Context) pulumix.Output[[]*Event] {
-	return pulumix.Output[[]*Event]{
-		OutputState: i.ToEventArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // EventMapInput is an input type that accepts EventMap and EventMapOutput values.
@@ -270,12 +257,6 @@ func (i EventMap) ToEventMapOutputWithContext(ctx context.Context) EventMapOutpu
 	return pulumi.ToOutputWithContext(ctx, i).(EventMapOutput)
 }
 
-func (i EventMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*Event] {
-	return pulumix.Output[map[string]*Event]{
-		OutputState: i.ToEventMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type EventOutput struct{ *pulumi.OutputState }
 
 func (EventOutput) ElementType() reflect.Type {
@@ -288,12 +269,6 @@ func (o EventOutput) ToEventOutput() EventOutput {
 
 func (o EventOutput) ToEventOutputWithContext(ctx context.Context) EventOutput {
 	return o
-}
-
-func (o EventOutput) ToOutput(ctx context.Context) pulumix.Output[*Event] {
-	return pulumix.Output[*Event]{
-		OutputState: o.OutputState,
-	}
 }
 
 // What action was taken/failed regarding to the Regarding object.
@@ -395,12 +370,6 @@ func (o EventArrayOutput) ToEventArrayOutputWithContext(ctx context.Context) Eve
 	return o
 }
 
-func (o EventArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*Event] {
-	return pulumix.Output[[]*Event]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o EventArrayOutput) Index(i pulumi.IntInput) EventOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *Event {
 		return vs[0].([]*Event)[vs[1].(int)]
@@ -419,12 +388,6 @@ func (o EventMapOutput) ToEventMapOutput() EventMapOutput {
 
 func (o EventMapOutput) ToEventMapOutputWithContext(ctx context.Context) EventMapOutput {
 	return o
-}
-
-func (o EventMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*Event] {
-	return pulumix.Output[map[string]*Event]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o EventMapOutput) MapIndex(k pulumi.StringInput) EventOutput {

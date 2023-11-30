@@ -10,7 +10,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -124,12 +123,6 @@ func (i *PodSchedulingContextPatch) ToPodSchedulingContextPatchOutputWithContext
 	return pulumi.ToOutputWithContext(ctx, i).(PodSchedulingContextPatchOutput)
 }
 
-func (i *PodSchedulingContextPatch) ToOutput(ctx context.Context) pulumix.Output[*PodSchedulingContextPatch] {
-	return pulumix.Output[*PodSchedulingContextPatch]{
-		OutputState: i.ToPodSchedulingContextPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PodSchedulingContextPatchArrayInput is an input type that accepts PodSchedulingContextPatchArray and PodSchedulingContextPatchArrayOutput values.
 // You can construct a concrete instance of `PodSchedulingContextPatchArrayInput` via:
 //
@@ -153,12 +146,6 @@ func (i PodSchedulingContextPatchArray) ToPodSchedulingContextPatchArrayOutput()
 
 func (i PodSchedulingContextPatchArray) ToPodSchedulingContextPatchArrayOutputWithContext(ctx context.Context) PodSchedulingContextPatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(PodSchedulingContextPatchArrayOutput)
-}
-
-func (i PodSchedulingContextPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*PodSchedulingContextPatch] {
-	return pulumix.Output[[]*PodSchedulingContextPatch]{
-		OutputState: i.ToPodSchedulingContextPatchArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // PodSchedulingContextPatchMapInput is an input type that accepts PodSchedulingContextPatchMap and PodSchedulingContextPatchMapOutput values.
@@ -186,12 +173,6 @@ func (i PodSchedulingContextPatchMap) ToPodSchedulingContextPatchMapOutputWithCo
 	return pulumi.ToOutputWithContext(ctx, i).(PodSchedulingContextPatchMapOutput)
 }
 
-func (i PodSchedulingContextPatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*PodSchedulingContextPatch] {
-	return pulumix.Output[map[string]*PodSchedulingContextPatch]{
-		OutputState: i.ToPodSchedulingContextPatchMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type PodSchedulingContextPatchOutput struct{ *pulumi.OutputState }
 
 func (PodSchedulingContextPatchOutput) ElementType() reflect.Type {
@@ -204,12 +185,6 @@ func (o PodSchedulingContextPatchOutput) ToPodSchedulingContextPatchOutput() Pod
 
 func (o PodSchedulingContextPatchOutput) ToPodSchedulingContextPatchOutputWithContext(ctx context.Context) PodSchedulingContextPatchOutput {
 	return o
-}
-
-func (o PodSchedulingContextPatchOutput) ToOutput(ctx context.Context) pulumix.Output[*PodSchedulingContextPatch] {
-	return pulumix.Output[*PodSchedulingContextPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -251,12 +226,6 @@ func (o PodSchedulingContextPatchArrayOutput) ToPodSchedulingContextPatchArrayOu
 	return o
 }
 
-func (o PodSchedulingContextPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*PodSchedulingContextPatch] {
-	return pulumix.Output[[]*PodSchedulingContextPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o PodSchedulingContextPatchArrayOutput) Index(i pulumi.IntInput) PodSchedulingContextPatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *PodSchedulingContextPatch {
 		return vs[0].([]*PodSchedulingContextPatch)[vs[1].(int)]
@@ -275,12 +244,6 @@ func (o PodSchedulingContextPatchMapOutput) ToPodSchedulingContextPatchMapOutput
 
 func (o PodSchedulingContextPatchMapOutput) ToPodSchedulingContextPatchMapOutputWithContext(ctx context.Context) PodSchedulingContextPatchMapOutput {
 	return o
-}
-
-func (o PodSchedulingContextPatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*PodSchedulingContextPatch] {
-	return pulumix.Output[map[string]*PodSchedulingContextPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o PodSchedulingContextPatchMapOutput) MapIndex(k pulumi.StringInput) PodSchedulingContextPatchOutput {

@@ -10,7 +10,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 var _ = utilities.GetEnvOrDefault
@@ -70,12 +69,6 @@ func (i ClusterTrustBundleTypeArgs) ToClusterTrustBundleTypeOutputWithContext(ct
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterTrustBundleTypeOutput)
 }
 
-func (i ClusterTrustBundleTypeArgs) ToOutput(ctx context.Context) pulumix.Output[ClusterTrustBundleType] {
-	return pulumix.Output[ClusterTrustBundleType]{
-		OutputState: i.ToClusterTrustBundleTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ClusterTrustBundleTypeArrayInput is an input type that accepts ClusterTrustBundleTypeArray and ClusterTrustBundleTypeArrayOutput values.
 // You can construct a concrete instance of `ClusterTrustBundleTypeArrayInput` via:
 //
@@ -101,12 +94,6 @@ func (i ClusterTrustBundleTypeArray) ToClusterTrustBundleTypeArrayOutputWithCont
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterTrustBundleTypeArrayOutput)
 }
 
-func (i ClusterTrustBundleTypeArray) ToOutput(ctx context.Context) pulumix.Output[[]ClusterTrustBundleType] {
-	return pulumix.Output[[]ClusterTrustBundleType]{
-		OutputState: i.ToClusterTrustBundleTypeArrayOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ClusterTrustBundle is a cluster-scoped container for X.509 trust anchors (root certificates).
 //
 // ClusterTrustBundle objects are considered to be readable by any authenticated user in the cluster, because they can be mounted by pods using the `clusterTrustBundle` projection.  All service accounts have read access to ClusterTrustBundles by default.  Users who only have namespace-level access to a cluster can read ClusterTrustBundles by impersonating a serviceaccount that they have access to.
@@ -124,12 +111,6 @@ func (o ClusterTrustBundleTypeOutput) ToClusterTrustBundleTypeOutput() ClusterTr
 
 func (o ClusterTrustBundleTypeOutput) ToClusterTrustBundleTypeOutputWithContext(ctx context.Context) ClusterTrustBundleTypeOutput {
 	return o
-}
-
-func (o ClusterTrustBundleTypeOutput) ToOutput(ctx context.Context) pulumix.Output[ClusterTrustBundleType] {
-	return pulumix.Output[ClusterTrustBundleType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -164,12 +145,6 @@ func (o ClusterTrustBundleTypeArrayOutput) ToClusterTrustBundleTypeArrayOutput()
 
 func (o ClusterTrustBundleTypeArrayOutput) ToClusterTrustBundleTypeArrayOutputWithContext(ctx context.Context) ClusterTrustBundleTypeArrayOutput {
 	return o
-}
-
-func (o ClusterTrustBundleTypeArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]ClusterTrustBundleType] {
-	return pulumix.Output[[]ClusterTrustBundleType]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ClusterTrustBundleTypeArrayOutput) Index(i pulumi.IntInput) ClusterTrustBundleTypeOutput {
@@ -225,12 +200,6 @@ func (i ClusterTrustBundleListTypeArgs) ToClusterTrustBundleListTypeOutputWithCo
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterTrustBundleListTypeOutput)
 }
 
-func (i ClusterTrustBundleListTypeArgs) ToOutput(ctx context.Context) pulumix.Output[ClusterTrustBundleListType] {
-	return pulumix.Output[ClusterTrustBundleListType]{
-		OutputState: i.ToClusterTrustBundleListTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ClusterTrustBundleList is a collection of ClusterTrustBundle objects
 type ClusterTrustBundleListTypeOutput struct{ *pulumi.OutputState }
 
@@ -244,12 +213,6 @@ func (o ClusterTrustBundleListTypeOutput) ToClusterTrustBundleListTypeOutput() C
 
 func (o ClusterTrustBundleListTypeOutput) ToClusterTrustBundleListTypeOutputWithContext(ctx context.Context) ClusterTrustBundleListTypeOutput {
 	return o
-}
-
-func (o ClusterTrustBundleListTypeOutput) ToOutput(ctx context.Context) pulumix.Output[ClusterTrustBundleListType] {
-	return pulumix.Output[ClusterTrustBundleListType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -327,12 +290,6 @@ func (i ClusterTrustBundlePatchTypeArgs) ToClusterTrustBundlePatchTypeOutputWith
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterTrustBundlePatchTypeOutput)
 }
 
-func (i ClusterTrustBundlePatchTypeArgs) ToOutput(ctx context.Context) pulumix.Output[ClusterTrustBundlePatchType] {
-	return pulumix.Output[ClusterTrustBundlePatchType]{
-		OutputState: i.ToClusterTrustBundlePatchTypeOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ClusterTrustBundle is a cluster-scoped container for X.509 trust anchors (root certificates).
 //
 // ClusterTrustBundle objects are considered to be readable by any authenticated user in the cluster, because they can be mounted by pods using the `clusterTrustBundle` projection.  All service accounts have read access to ClusterTrustBundles by default.  Users who only have namespace-level access to a cluster can read ClusterTrustBundles by impersonating a serviceaccount that they have access to.
@@ -350,12 +307,6 @@ func (o ClusterTrustBundlePatchTypeOutput) ToClusterTrustBundlePatchTypeOutput()
 
 func (o ClusterTrustBundlePatchTypeOutput) ToClusterTrustBundlePatchTypeOutputWithContext(ctx context.Context) ClusterTrustBundlePatchTypeOutput {
 	return o
-}
-
-func (o ClusterTrustBundlePatchTypeOutput) ToOutput(ctx context.Context) pulumix.Output[ClusterTrustBundlePatchType] {
-	return pulumix.Output[ClusterTrustBundlePatchType]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -441,12 +392,6 @@ func (i ClusterTrustBundleSpecArgs) ToClusterTrustBundleSpecOutputWithContext(ct
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterTrustBundleSpecOutput)
 }
 
-func (i ClusterTrustBundleSpecArgs) ToOutput(ctx context.Context) pulumix.Output[ClusterTrustBundleSpec] {
-	return pulumix.Output[ClusterTrustBundleSpec]{
-		OutputState: i.ToClusterTrustBundleSpecOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ClusterTrustBundleSpec contains the signer and trust anchors.
 type ClusterTrustBundleSpecOutput struct{ *pulumi.OutputState }
 
@@ -460,12 +405,6 @@ func (o ClusterTrustBundleSpecOutput) ToClusterTrustBundleSpecOutput() ClusterTr
 
 func (o ClusterTrustBundleSpecOutput) ToClusterTrustBundleSpecOutputWithContext(ctx context.Context) ClusterTrustBundleSpecOutput {
 	return o
-}
-
-func (o ClusterTrustBundleSpecOutput) ToOutput(ctx context.Context) pulumix.Output[ClusterTrustBundleSpec] {
-	return pulumix.Output[ClusterTrustBundleSpec]{
-		OutputState: o.OutputState,
-	}
 }
 
 // signerName indicates the associated signer, if any.
@@ -553,12 +492,6 @@ func (i ClusterTrustBundleSpecPatchArgs) ToClusterTrustBundleSpecPatchOutputWith
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterTrustBundleSpecPatchOutput)
 }
 
-func (i ClusterTrustBundleSpecPatchArgs) ToOutput(ctx context.Context) pulumix.Output[ClusterTrustBundleSpecPatch] {
-	return pulumix.Output[ClusterTrustBundleSpecPatch]{
-		OutputState: i.ToClusterTrustBundleSpecPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i ClusterTrustBundleSpecPatchArgs) ToClusterTrustBundleSpecPatchPtrOutput() ClusterTrustBundleSpecPatchPtrOutput {
 	return i.ToClusterTrustBundleSpecPatchPtrOutputWithContext(context.Background())
 }
@@ -600,12 +533,6 @@ func (i *clusterTrustBundleSpecPatchPtrType) ToClusterTrustBundleSpecPatchPtrOut
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterTrustBundleSpecPatchPtrOutput)
 }
 
-func (i *clusterTrustBundleSpecPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*ClusterTrustBundleSpecPatch] {
-	return pulumix.Output[*ClusterTrustBundleSpecPatch]{
-		OutputState: i.ToClusterTrustBundleSpecPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ClusterTrustBundleSpec contains the signer and trust anchors.
 type ClusterTrustBundleSpecPatchOutput struct{ *pulumi.OutputState }
 
@@ -629,12 +556,6 @@ func (o ClusterTrustBundleSpecPatchOutput) ToClusterTrustBundleSpecPatchPtrOutpu
 	return o.ApplyTWithContext(ctx, func(_ context.Context, v ClusterTrustBundleSpecPatch) *ClusterTrustBundleSpecPatch {
 		return &v
 	}).(ClusterTrustBundleSpecPatchPtrOutput)
-}
-
-func (o ClusterTrustBundleSpecPatchOutput) ToOutput(ctx context.Context) pulumix.Output[ClusterTrustBundleSpecPatch] {
-	return pulumix.Output[ClusterTrustBundleSpecPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // signerName indicates the associated signer, if any.
@@ -671,12 +592,6 @@ func (o ClusterTrustBundleSpecPatchPtrOutput) ToClusterTrustBundleSpecPatchPtrOu
 
 func (o ClusterTrustBundleSpecPatchPtrOutput) ToClusterTrustBundleSpecPatchPtrOutputWithContext(ctx context.Context) ClusterTrustBundleSpecPatchPtrOutput {
 	return o
-}
-
-func (o ClusterTrustBundleSpecPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*ClusterTrustBundleSpecPatch] {
-	return pulumix.Output[*ClusterTrustBundleSpecPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ClusterTrustBundleSpecPatchPtrOutput) Elem() ClusterTrustBundleSpecPatchOutput {

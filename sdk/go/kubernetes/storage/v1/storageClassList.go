@@ -11,7 +11,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // StorageClassList is a collection of storage classes.
@@ -118,12 +117,6 @@ func (i *StorageClassList) ToStorageClassListOutputWithContext(ctx context.Conte
 	return pulumi.ToOutputWithContext(ctx, i).(StorageClassListOutput)
 }
 
-func (i *StorageClassList) ToOutput(ctx context.Context) pulumix.Output[*StorageClassList] {
-	return pulumix.Output[*StorageClassList]{
-		OutputState: i.ToStorageClassListOutputWithContext(ctx).OutputState,
-	}
-}
-
 // StorageClassListArrayInput is an input type that accepts StorageClassListArray and StorageClassListArrayOutput values.
 // You can construct a concrete instance of `StorageClassListArrayInput` via:
 //
@@ -147,12 +140,6 @@ func (i StorageClassListArray) ToStorageClassListArrayOutput() StorageClassListA
 
 func (i StorageClassListArray) ToStorageClassListArrayOutputWithContext(ctx context.Context) StorageClassListArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(StorageClassListArrayOutput)
-}
-
-func (i StorageClassListArray) ToOutput(ctx context.Context) pulumix.Output[[]*StorageClassList] {
-	return pulumix.Output[[]*StorageClassList]{
-		OutputState: i.ToStorageClassListArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // StorageClassListMapInput is an input type that accepts StorageClassListMap and StorageClassListMapOutput values.
@@ -180,12 +167,6 @@ func (i StorageClassListMap) ToStorageClassListMapOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(StorageClassListMapOutput)
 }
 
-func (i StorageClassListMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*StorageClassList] {
-	return pulumix.Output[map[string]*StorageClassList]{
-		OutputState: i.ToStorageClassListMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type StorageClassListOutput struct{ *pulumi.OutputState }
 
 func (StorageClassListOutput) ElementType() reflect.Type {
@@ -198,12 +179,6 @@ func (o StorageClassListOutput) ToStorageClassListOutput() StorageClassListOutpu
 
 func (o StorageClassListOutput) ToStorageClassListOutputWithContext(ctx context.Context) StorageClassListOutput {
 	return o
-}
-
-func (o StorageClassListOutput) ToOutput(ctx context.Context) pulumix.Output[*StorageClassList] {
-	return pulumix.Output[*StorageClassList]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -240,12 +215,6 @@ func (o StorageClassListArrayOutput) ToStorageClassListArrayOutputWithContext(ct
 	return o
 }
 
-func (o StorageClassListArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*StorageClassList] {
-	return pulumix.Output[[]*StorageClassList]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o StorageClassListArrayOutput) Index(i pulumi.IntInput) StorageClassListOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *StorageClassList {
 		return vs[0].([]*StorageClassList)[vs[1].(int)]
@@ -264,12 +233,6 @@ func (o StorageClassListMapOutput) ToStorageClassListMapOutput() StorageClassLis
 
 func (o StorageClassListMapOutput) ToStorageClassListMapOutputWithContext(ctx context.Context) StorageClassListMapOutput {
 	return o
-}
-
-func (o StorageClassListMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*StorageClassList] {
-	return pulumix.Output[map[string]*StorageClassList]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o StorageClassListMapOutput) MapIndex(k pulumi.StringInput) StorageClassListOutput {

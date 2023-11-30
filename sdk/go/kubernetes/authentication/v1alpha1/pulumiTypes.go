@@ -11,7 +11,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 var _ = utilities.GetEnvOrDefault
@@ -63,12 +62,6 @@ func (i SelfSubjectReviewArgs) ToSelfSubjectReviewOutputWithContext(ctx context.
 	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectReviewOutput)
 }
 
-func (i SelfSubjectReviewArgs) ToOutput(ctx context.Context) pulumix.Output[SelfSubjectReview] {
-	return pulumix.Output[SelfSubjectReview]{
-		OutputState: i.ToSelfSubjectReviewOutputWithContext(ctx).OutputState,
-	}
-}
-
 // SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.  If impersonation or request header authentication is used, any extra keys will have their case ignored and returned as lowercase.
 type SelfSubjectReviewOutput struct{ *pulumi.OutputState }
 
@@ -82,12 +75,6 @@ func (o SelfSubjectReviewOutput) ToSelfSubjectReviewOutput() SelfSubjectReviewOu
 
 func (o SelfSubjectReviewOutput) ToSelfSubjectReviewOutputWithContext(ctx context.Context) SelfSubjectReviewOutput {
 	return o
-}
-
-func (o SelfSubjectReviewOutput) ToOutput(ctx context.Context) pulumix.Output[SelfSubjectReview] {
-	return pulumix.Output[SelfSubjectReview]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -157,12 +144,6 @@ func (i SelfSubjectReviewPatchArgs) ToSelfSubjectReviewPatchOutputWithContext(ct
 	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectReviewPatchOutput)
 }
 
-func (i SelfSubjectReviewPatchArgs) ToOutput(ctx context.Context) pulumix.Output[SelfSubjectReviewPatch] {
-	return pulumix.Output[SelfSubjectReviewPatch]{
-		OutputState: i.ToSelfSubjectReviewPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.  If impersonation or request header authentication is used, any extra keys will have their case ignored and returned as lowercase.
 type SelfSubjectReviewPatchOutput struct{ *pulumi.OutputState }
 
@@ -176,12 +157,6 @@ func (o SelfSubjectReviewPatchOutput) ToSelfSubjectReviewPatchOutput() SelfSubje
 
 func (o SelfSubjectReviewPatchOutput) ToSelfSubjectReviewPatchOutputWithContext(ctx context.Context) SelfSubjectReviewPatchOutput {
 	return o
-}
-
-func (o SelfSubjectReviewPatchOutput) ToOutput(ctx context.Context) pulumix.Output[SelfSubjectReviewPatch] {
-	return pulumix.Output[SelfSubjectReviewPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -239,12 +214,6 @@ func (i SelfSubjectReviewStatusArgs) ToSelfSubjectReviewStatusOutputWithContext(
 	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectReviewStatusOutput)
 }
 
-func (i SelfSubjectReviewStatusArgs) ToOutput(ctx context.Context) pulumix.Output[SelfSubjectReviewStatus] {
-	return pulumix.Output[SelfSubjectReviewStatus]{
-		OutputState: i.ToSelfSubjectReviewStatusOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i SelfSubjectReviewStatusArgs) ToSelfSubjectReviewStatusPtrOutput() SelfSubjectReviewStatusPtrOutput {
 	return i.ToSelfSubjectReviewStatusPtrOutputWithContext(context.Background())
 }
@@ -286,12 +255,6 @@ func (i *selfSubjectReviewStatusPtrType) ToSelfSubjectReviewStatusPtrOutputWithC
 	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectReviewStatusPtrOutput)
 }
 
-func (i *selfSubjectReviewStatusPtrType) ToOutput(ctx context.Context) pulumix.Output[*SelfSubjectReviewStatus] {
-	return pulumix.Output[*SelfSubjectReviewStatus]{
-		OutputState: i.ToSelfSubjectReviewStatusPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // SelfSubjectReviewStatus is filled by the kube-apiserver and sent back to a user.
 type SelfSubjectReviewStatusOutput struct{ *pulumi.OutputState }
 
@@ -317,12 +280,6 @@ func (o SelfSubjectReviewStatusOutput) ToSelfSubjectReviewStatusPtrOutputWithCon
 	}).(SelfSubjectReviewStatusPtrOutput)
 }
 
-func (o SelfSubjectReviewStatusOutput) ToOutput(ctx context.Context) pulumix.Output[SelfSubjectReviewStatus] {
-	return pulumix.Output[SelfSubjectReviewStatus]{
-		OutputState: o.OutputState,
-	}
-}
-
 // User attributes of the user making this request.
 func (o SelfSubjectReviewStatusOutput) UserInfo() authenticationv1.UserInfoPtrOutput {
 	return o.ApplyT(func(v SelfSubjectReviewStatus) *authenticationv1.UserInfo { return v.UserInfo }).(authenticationv1.UserInfoPtrOutput)
@@ -340,12 +297,6 @@ func (o SelfSubjectReviewStatusPtrOutput) ToSelfSubjectReviewStatusPtrOutput() S
 
 func (o SelfSubjectReviewStatusPtrOutput) ToSelfSubjectReviewStatusPtrOutputWithContext(ctx context.Context) SelfSubjectReviewStatusPtrOutput {
 	return o
-}
-
-func (o SelfSubjectReviewStatusPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*SelfSubjectReviewStatus] {
-	return pulumix.Output[*SelfSubjectReviewStatus]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o SelfSubjectReviewStatusPtrOutput) Elem() SelfSubjectReviewStatusOutput {
@@ -403,12 +354,6 @@ func (i SelfSubjectReviewStatusPatchArgs) ToSelfSubjectReviewStatusPatchOutputWi
 	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectReviewStatusPatchOutput)
 }
 
-func (i SelfSubjectReviewStatusPatchArgs) ToOutput(ctx context.Context) pulumix.Output[SelfSubjectReviewStatusPatch] {
-	return pulumix.Output[SelfSubjectReviewStatusPatch]{
-		OutputState: i.ToSelfSubjectReviewStatusPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 func (i SelfSubjectReviewStatusPatchArgs) ToSelfSubjectReviewStatusPatchPtrOutput() SelfSubjectReviewStatusPatchPtrOutput {
 	return i.ToSelfSubjectReviewStatusPatchPtrOutputWithContext(context.Background())
 }
@@ -450,12 +395,6 @@ func (i *selfSubjectReviewStatusPatchPtrType) ToSelfSubjectReviewStatusPatchPtrO
 	return pulumi.ToOutputWithContext(ctx, i).(SelfSubjectReviewStatusPatchPtrOutput)
 }
 
-func (i *selfSubjectReviewStatusPatchPtrType) ToOutput(ctx context.Context) pulumix.Output[*SelfSubjectReviewStatusPatch] {
-	return pulumix.Output[*SelfSubjectReviewStatusPatch]{
-		OutputState: i.ToSelfSubjectReviewStatusPatchPtrOutputWithContext(ctx).OutputState,
-	}
-}
-
 // SelfSubjectReviewStatus is filled by the kube-apiserver and sent back to a user.
 type SelfSubjectReviewStatusPatchOutput struct{ *pulumi.OutputState }
 
@@ -481,12 +420,6 @@ func (o SelfSubjectReviewStatusPatchOutput) ToSelfSubjectReviewStatusPatchPtrOut
 	}).(SelfSubjectReviewStatusPatchPtrOutput)
 }
 
-func (o SelfSubjectReviewStatusPatchOutput) ToOutput(ctx context.Context) pulumix.Output[SelfSubjectReviewStatusPatch] {
-	return pulumix.Output[SelfSubjectReviewStatusPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 // User attributes of the user making this request.
 func (o SelfSubjectReviewStatusPatchOutput) UserInfo() authenticationv1.UserInfoPatchPtrOutput {
 	return o.ApplyT(func(v SelfSubjectReviewStatusPatch) *authenticationv1.UserInfoPatch { return v.UserInfo }).(authenticationv1.UserInfoPatchPtrOutput)
@@ -504,12 +437,6 @@ func (o SelfSubjectReviewStatusPatchPtrOutput) ToSelfSubjectReviewStatusPatchPtr
 
 func (o SelfSubjectReviewStatusPatchPtrOutput) ToSelfSubjectReviewStatusPatchPtrOutputWithContext(ctx context.Context) SelfSubjectReviewStatusPatchPtrOutput {
 	return o
-}
-
-func (o SelfSubjectReviewStatusPatchPtrOutput) ToOutput(ctx context.Context) pulumix.Output[*SelfSubjectReviewStatusPatch] {
-	return pulumix.Output[*SelfSubjectReviewStatusPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o SelfSubjectReviewStatusPatchPtrOutput) Elem() SelfSubjectReviewStatusPatchOutput {

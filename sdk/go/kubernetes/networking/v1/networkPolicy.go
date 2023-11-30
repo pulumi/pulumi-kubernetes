@@ -10,7 +10,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // NetworkPolicy describes what network traffic is allowed for a set of Pods
@@ -122,12 +121,6 @@ func (i *NetworkPolicy) ToNetworkPolicyOutputWithContext(ctx context.Context) Ne
 	return pulumi.ToOutputWithContext(ctx, i).(NetworkPolicyOutput)
 }
 
-func (i *NetworkPolicy) ToOutput(ctx context.Context) pulumix.Output[*NetworkPolicy] {
-	return pulumix.Output[*NetworkPolicy]{
-		OutputState: i.ToNetworkPolicyOutputWithContext(ctx).OutputState,
-	}
-}
-
 // NetworkPolicyArrayInput is an input type that accepts NetworkPolicyArray and NetworkPolicyArrayOutput values.
 // You can construct a concrete instance of `NetworkPolicyArrayInput` via:
 //
@@ -151,12 +144,6 @@ func (i NetworkPolicyArray) ToNetworkPolicyArrayOutput() NetworkPolicyArrayOutpu
 
 func (i NetworkPolicyArray) ToNetworkPolicyArrayOutputWithContext(ctx context.Context) NetworkPolicyArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(NetworkPolicyArrayOutput)
-}
-
-func (i NetworkPolicyArray) ToOutput(ctx context.Context) pulumix.Output[[]*NetworkPolicy] {
-	return pulumix.Output[[]*NetworkPolicy]{
-		OutputState: i.ToNetworkPolicyArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // NetworkPolicyMapInput is an input type that accepts NetworkPolicyMap and NetworkPolicyMapOutput values.
@@ -184,12 +171,6 @@ func (i NetworkPolicyMap) ToNetworkPolicyMapOutputWithContext(ctx context.Contex
 	return pulumi.ToOutputWithContext(ctx, i).(NetworkPolicyMapOutput)
 }
 
-func (i NetworkPolicyMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*NetworkPolicy] {
-	return pulumix.Output[map[string]*NetworkPolicy]{
-		OutputState: i.ToNetworkPolicyMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type NetworkPolicyOutput struct{ *pulumi.OutputState }
 
 func (NetworkPolicyOutput) ElementType() reflect.Type {
@@ -202,12 +183,6 @@ func (o NetworkPolicyOutput) ToNetworkPolicyOutput() NetworkPolicyOutput {
 
 func (o NetworkPolicyOutput) ToNetworkPolicyOutputWithContext(ctx context.Context) NetworkPolicyOutput {
 	return o
-}
-
-func (o NetworkPolicyOutput) ToOutput(ctx context.Context) pulumix.Output[*NetworkPolicy] {
-	return pulumix.Output[*NetworkPolicy]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -249,12 +224,6 @@ func (o NetworkPolicyArrayOutput) ToNetworkPolicyArrayOutputWithContext(ctx cont
 	return o
 }
 
-func (o NetworkPolicyArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*NetworkPolicy] {
-	return pulumix.Output[[]*NetworkPolicy]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o NetworkPolicyArrayOutput) Index(i pulumi.IntInput) NetworkPolicyOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *NetworkPolicy {
 		return vs[0].([]*NetworkPolicy)[vs[1].(int)]
@@ -273,12 +242,6 @@ func (o NetworkPolicyMapOutput) ToNetworkPolicyMapOutput() NetworkPolicyMapOutpu
 
 func (o NetworkPolicyMapOutput) ToNetworkPolicyMapOutputWithContext(ctx context.Context) NetworkPolicyMapOutput {
 	return o
-}
-
-func (o NetworkPolicyMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*NetworkPolicy] {
-	return pulumix.Output[map[string]*NetworkPolicy]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o NetworkPolicyMapOutput) MapIndex(k pulumi.StringInput) NetworkPolicyOutput {

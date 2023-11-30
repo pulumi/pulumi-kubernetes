@@ -11,7 +11,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // FlowSchemaList is a list of FlowSchema objects.
@@ -118,12 +117,6 @@ func (i *FlowSchemaList) ToFlowSchemaListOutputWithContext(ctx context.Context) 
 	return pulumi.ToOutputWithContext(ctx, i).(FlowSchemaListOutput)
 }
 
-func (i *FlowSchemaList) ToOutput(ctx context.Context) pulumix.Output[*FlowSchemaList] {
-	return pulumix.Output[*FlowSchemaList]{
-		OutputState: i.ToFlowSchemaListOutputWithContext(ctx).OutputState,
-	}
-}
-
 // FlowSchemaListArrayInput is an input type that accepts FlowSchemaListArray and FlowSchemaListArrayOutput values.
 // You can construct a concrete instance of `FlowSchemaListArrayInput` via:
 //
@@ -147,12 +140,6 @@ func (i FlowSchemaListArray) ToFlowSchemaListArrayOutput() FlowSchemaListArrayOu
 
 func (i FlowSchemaListArray) ToFlowSchemaListArrayOutputWithContext(ctx context.Context) FlowSchemaListArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(FlowSchemaListArrayOutput)
-}
-
-func (i FlowSchemaListArray) ToOutput(ctx context.Context) pulumix.Output[[]*FlowSchemaList] {
-	return pulumix.Output[[]*FlowSchemaList]{
-		OutputState: i.ToFlowSchemaListArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // FlowSchemaListMapInput is an input type that accepts FlowSchemaListMap and FlowSchemaListMapOutput values.
@@ -180,12 +167,6 @@ func (i FlowSchemaListMap) ToFlowSchemaListMapOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(FlowSchemaListMapOutput)
 }
 
-func (i FlowSchemaListMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*FlowSchemaList] {
-	return pulumix.Output[map[string]*FlowSchemaList]{
-		OutputState: i.ToFlowSchemaListMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type FlowSchemaListOutput struct{ *pulumi.OutputState }
 
 func (FlowSchemaListOutput) ElementType() reflect.Type {
@@ -198,12 +179,6 @@ func (o FlowSchemaListOutput) ToFlowSchemaListOutput() FlowSchemaListOutput {
 
 func (o FlowSchemaListOutput) ToFlowSchemaListOutputWithContext(ctx context.Context) FlowSchemaListOutput {
 	return o
-}
-
-func (o FlowSchemaListOutput) ToOutput(ctx context.Context) pulumix.Output[*FlowSchemaList] {
-	return pulumix.Output[*FlowSchemaList]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -240,12 +215,6 @@ func (o FlowSchemaListArrayOutput) ToFlowSchemaListArrayOutputWithContext(ctx co
 	return o
 }
 
-func (o FlowSchemaListArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*FlowSchemaList] {
-	return pulumix.Output[[]*FlowSchemaList]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o FlowSchemaListArrayOutput) Index(i pulumi.IntInput) FlowSchemaListOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *FlowSchemaList {
 		return vs[0].([]*FlowSchemaList)[vs[1].(int)]
@@ -264,12 +233,6 @@ func (o FlowSchemaListMapOutput) ToFlowSchemaListMapOutput() FlowSchemaListMapOu
 
 func (o FlowSchemaListMapOutput) ToFlowSchemaListMapOutputWithContext(ctx context.Context) FlowSchemaListMapOutput {
 	return o
-}
-
-func (o FlowSchemaListMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*FlowSchemaList] {
-	return pulumix.Output[map[string]*FlowSchemaList]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o FlowSchemaListMapOutput) MapIndex(k pulumi.StringInput) FlowSchemaListOutput {

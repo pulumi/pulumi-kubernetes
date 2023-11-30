@@ -10,7 +10,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -120,12 +119,6 @@ func (i *IPAddressPatch) ToIPAddressPatchOutputWithContext(ctx context.Context) 
 	return pulumi.ToOutputWithContext(ctx, i).(IPAddressPatchOutput)
 }
 
-func (i *IPAddressPatch) ToOutput(ctx context.Context) pulumix.Output[*IPAddressPatch] {
-	return pulumix.Output[*IPAddressPatch]{
-		OutputState: i.ToIPAddressPatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // IPAddressPatchArrayInput is an input type that accepts IPAddressPatchArray and IPAddressPatchArrayOutput values.
 // You can construct a concrete instance of `IPAddressPatchArrayInput` via:
 //
@@ -149,12 +142,6 @@ func (i IPAddressPatchArray) ToIPAddressPatchArrayOutput() IPAddressPatchArrayOu
 
 func (i IPAddressPatchArray) ToIPAddressPatchArrayOutputWithContext(ctx context.Context) IPAddressPatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(IPAddressPatchArrayOutput)
-}
-
-func (i IPAddressPatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*IPAddressPatch] {
-	return pulumix.Output[[]*IPAddressPatch]{
-		OutputState: i.ToIPAddressPatchArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // IPAddressPatchMapInput is an input type that accepts IPAddressPatchMap and IPAddressPatchMapOutput values.
@@ -182,12 +169,6 @@ func (i IPAddressPatchMap) ToIPAddressPatchMapOutputWithContext(ctx context.Cont
 	return pulumi.ToOutputWithContext(ctx, i).(IPAddressPatchMapOutput)
 }
 
-func (i IPAddressPatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*IPAddressPatch] {
-	return pulumix.Output[map[string]*IPAddressPatch]{
-		OutputState: i.ToIPAddressPatchMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type IPAddressPatchOutput struct{ *pulumi.OutputState }
 
 func (IPAddressPatchOutput) ElementType() reflect.Type {
@@ -200,12 +181,6 @@ func (o IPAddressPatchOutput) ToIPAddressPatchOutput() IPAddressPatchOutput {
 
 func (o IPAddressPatchOutput) ToIPAddressPatchOutputWithContext(ctx context.Context) IPAddressPatchOutput {
 	return o
-}
-
-func (o IPAddressPatchOutput) ToOutput(ctx context.Context) pulumix.Output[*IPAddressPatch] {
-	return pulumix.Output[*IPAddressPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -242,12 +217,6 @@ func (o IPAddressPatchArrayOutput) ToIPAddressPatchArrayOutputWithContext(ctx co
 	return o
 }
 
-func (o IPAddressPatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*IPAddressPatch] {
-	return pulumix.Output[[]*IPAddressPatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o IPAddressPatchArrayOutput) Index(i pulumi.IntInput) IPAddressPatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *IPAddressPatch {
 		return vs[0].([]*IPAddressPatch)[vs[1].(int)]
@@ -266,12 +235,6 @@ func (o IPAddressPatchMapOutput) ToIPAddressPatchMapOutput() IPAddressPatchMapOu
 
 func (o IPAddressPatchMapOutput) ToIPAddressPatchMapOutputWithContext(ctx context.Context) IPAddressPatchMapOutput {
 	return o
-}
-
-func (o IPAddressPatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*IPAddressPatch] {
-	return pulumix.Output[map[string]*IPAddressPatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o IPAddressPatchMapOutput) MapIndex(k pulumi.StringInput) IPAddressPatchOutput {

@@ -10,7 +10,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -126,12 +125,6 @@ func (i *CSINodePatch) ToCSINodePatchOutputWithContext(ctx context.Context) CSIN
 	return pulumi.ToOutputWithContext(ctx, i).(CSINodePatchOutput)
 }
 
-func (i *CSINodePatch) ToOutput(ctx context.Context) pulumix.Output[*CSINodePatch] {
-	return pulumix.Output[*CSINodePatch]{
-		OutputState: i.ToCSINodePatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CSINodePatchArrayInput is an input type that accepts CSINodePatchArray and CSINodePatchArrayOutput values.
 // You can construct a concrete instance of `CSINodePatchArrayInput` via:
 //
@@ -155,12 +148,6 @@ func (i CSINodePatchArray) ToCSINodePatchArrayOutput() CSINodePatchArrayOutput {
 
 func (i CSINodePatchArray) ToCSINodePatchArrayOutputWithContext(ctx context.Context) CSINodePatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(CSINodePatchArrayOutput)
-}
-
-func (i CSINodePatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*CSINodePatch] {
-	return pulumix.Output[[]*CSINodePatch]{
-		OutputState: i.ToCSINodePatchArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // CSINodePatchMapInput is an input type that accepts CSINodePatchMap and CSINodePatchMapOutput values.
@@ -188,12 +175,6 @@ func (i CSINodePatchMap) ToCSINodePatchMapOutputWithContext(ctx context.Context)
 	return pulumi.ToOutputWithContext(ctx, i).(CSINodePatchMapOutput)
 }
 
-func (i CSINodePatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*CSINodePatch] {
-	return pulumix.Output[map[string]*CSINodePatch]{
-		OutputState: i.ToCSINodePatchMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type CSINodePatchOutput struct{ *pulumi.OutputState }
 
 func (CSINodePatchOutput) ElementType() reflect.Type {
@@ -206,12 +187,6 @@ func (o CSINodePatchOutput) ToCSINodePatchOutput() CSINodePatchOutput {
 
 func (o CSINodePatchOutput) ToCSINodePatchOutputWithContext(ctx context.Context) CSINodePatchOutput {
 	return o
-}
-
-func (o CSINodePatchOutput) ToOutput(ctx context.Context) pulumix.Output[*CSINodePatch] {
-	return pulumix.Output[*CSINodePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -248,12 +223,6 @@ func (o CSINodePatchArrayOutput) ToCSINodePatchArrayOutputWithContext(ctx contex
 	return o
 }
 
-func (o CSINodePatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*CSINodePatch] {
-	return pulumix.Output[[]*CSINodePatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o CSINodePatchArrayOutput) Index(i pulumi.IntInput) CSINodePatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *CSINodePatch {
 		return vs[0].([]*CSINodePatch)[vs[1].(int)]
@@ -272,12 +241,6 @@ func (o CSINodePatchMapOutput) ToCSINodePatchMapOutput() CSINodePatchMapOutput {
 
 func (o CSINodePatchMapOutput) ToCSINodePatchMapOutputWithContext(ctx context.Context) CSINodePatchMapOutput {
 	return o
-}
-
-func (o CSINodePatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*CSINodePatch] {
-	return pulumix.Output[map[string]*CSINodePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o CSINodePatchMapOutput) MapIndex(k pulumi.StringInput) CSINodePatchOutput {

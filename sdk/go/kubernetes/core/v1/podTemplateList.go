@@ -11,7 +11,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // PodTemplateList is a list of PodTemplates.
@@ -118,12 +117,6 @@ func (i *PodTemplateList) ToPodTemplateListOutputWithContext(ctx context.Context
 	return pulumi.ToOutputWithContext(ctx, i).(PodTemplateListOutput)
 }
 
-func (i *PodTemplateList) ToOutput(ctx context.Context) pulumix.Output[*PodTemplateList] {
-	return pulumix.Output[*PodTemplateList]{
-		OutputState: i.ToPodTemplateListOutputWithContext(ctx).OutputState,
-	}
-}
-
 // PodTemplateListArrayInput is an input type that accepts PodTemplateListArray and PodTemplateListArrayOutput values.
 // You can construct a concrete instance of `PodTemplateListArrayInput` via:
 //
@@ -147,12 +140,6 @@ func (i PodTemplateListArray) ToPodTemplateListArrayOutput() PodTemplateListArra
 
 func (i PodTemplateListArray) ToPodTemplateListArrayOutputWithContext(ctx context.Context) PodTemplateListArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(PodTemplateListArrayOutput)
-}
-
-func (i PodTemplateListArray) ToOutput(ctx context.Context) pulumix.Output[[]*PodTemplateList] {
-	return pulumix.Output[[]*PodTemplateList]{
-		OutputState: i.ToPodTemplateListArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // PodTemplateListMapInput is an input type that accepts PodTemplateListMap and PodTemplateListMapOutput values.
@@ -180,12 +167,6 @@ func (i PodTemplateListMap) ToPodTemplateListMapOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(PodTemplateListMapOutput)
 }
 
-func (i PodTemplateListMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*PodTemplateList] {
-	return pulumix.Output[map[string]*PodTemplateList]{
-		OutputState: i.ToPodTemplateListMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type PodTemplateListOutput struct{ *pulumi.OutputState }
 
 func (PodTemplateListOutput) ElementType() reflect.Type {
@@ -198,12 +179,6 @@ func (o PodTemplateListOutput) ToPodTemplateListOutput() PodTemplateListOutput {
 
 func (o PodTemplateListOutput) ToPodTemplateListOutputWithContext(ctx context.Context) PodTemplateListOutput {
 	return o
-}
-
-func (o PodTemplateListOutput) ToOutput(ctx context.Context) pulumix.Output[*PodTemplateList] {
-	return pulumix.Output[*PodTemplateList]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -240,12 +215,6 @@ func (o PodTemplateListArrayOutput) ToPodTemplateListArrayOutputWithContext(ctx 
 	return o
 }
 
-func (o PodTemplateListArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*PodTemplateList] {
-	return pulumix.Output[[]*PodTemplateList]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o PodTemplateListArrayOutput) Index(i pulumi.IntInput) PodTemplateListOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *PodTemplateList {
 		return vs[0].([]*PodTemplateList)[vs[1].(int)]
@@ -264,12 +233,6 @@ func (o PodTemplateListMapOutput) ToPodTemplateListMapOutput() PodTemplateListMa
 
 func (o PodTemplateListMapOutput) ToPodTemplateListMapOutputWithContext(ctx context.Context) PodTemplateListMapOutput {
 	return o
-}
-
-func (o PodTemplateListMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*PodTemplateList] {
-	return pulumix.Output[map[string]*PodTemplateList]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o PodTemplateListMapOutput) MapIndex(k pulumi.StringInput) PodTemplateListOutput {

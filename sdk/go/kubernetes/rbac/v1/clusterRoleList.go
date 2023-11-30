@@ -11,7 +11,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // ClusterRoleList is a collection of ClusterRoles
@@ -118,12 +117,6 @@ func (i *ClusterRoleList) ToClusterRoleListOutputWithContext(ctx context.Context
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterRoleListOutput)
 }
 
-func (i *ClusterRoleList) ToOutput(ctx context.Context) pulumix.Output[*ClusterRoleList] {
-	return pulumix.Output[*ClusterRoleList]{
-		OutputState: i.ToClusterRoleListOutputWithContext(ctx).OutputState,
-	}
-}
-
 // ClusterRoleListArrayInput is an input type that accepts ClusterRoleListArray and ClusterRoleListArrayOutput values.
 // You can construct a concrete instance of `ClusterRoleListArrayInput` via:
 //
@@ -147,12 +140,6 @@ func (i ClusterRoleListArray) ToClusterRoleListArrayOutput() ClusterRoleListArra
 
 func (i ClusterRoleListArray) ToClusterRoleListArrayOutputWithContext(ctx context.Context) ClusterRoleListArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterRoleListArrayOutput)
-}
-
-func (i ClusterRoleListArray) ToOutput(ctx context.Context) pulumix.Output[[]*ClusterRoleList] {
-	return pulumix.Output[[]*ClusterRoleList]{
-		OutputState: i.ToClusterRoleListArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // ClusterRoleListMapInput is an input type that accepts ClusterRoleListMap and ClusterRoleListMapOutput values.
@@ -180,12 +167,6 @@ func (i ClusterRoleListMap) ToClusterRoleListMapOutputWithContext(ctx context.Co
 	return pulumi.ToOutputWithContext(ctx, i).(ClusterRoleListMapOutput)
 }
 
-func (i ClusterRoleListMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*ClusterRoleList] {
-	return pulumix.Output[map[string]*ClusterRoleList]{
-		OutputState: i.ToClusterRoleListMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type ClusterRoleListOutput struct{ *pulumi.OutputState }
 
 func (ClusterRoleListOutput) ElementType() reflect.Type {
@@ -198,12 +179,6 @@ func (o ClusterRoleListOutput) ToClusterRoleListOutput() ClusterRoleListOutput {
 
 func (o ClusterRoleListOutput) ToClusterRoleListOutputWithContext(ctx context.Context) ClusterRoleListOutput {
 	return o
-}
-
-func (o ClusterRoleListOutput) ToOutput(ctx context.Context) pulumix.Output[*ClusterRoleList] {
-	return pulumix.Output[*ClusterRoleList]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -240,12 +215,6 @@ func (o ClusterRoleListArrayOutput) ToClusterRoleListArrayOutputWithContext(ctx 
 	return o
 }
 
-func (o ClusterRoleListArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*ClusterRoleList] {
-	return pulumix.Output[[]*ClusterRoleList]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o ClusterRoleListArrayOutput) Index(i pulumi.IntInput) ClusterRoleListOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *ClusterRoleList {
 		return vs[0].([]*ClusterRoleList)[vs[1].(int)]
@@ -264,12 +233,6 @@ func (o ClusterRoleListMapOutput) ToClusterRoleListMapOutput() ClusterRoleListMa
 
 func (o ClusterRoleListMapOutput) ToClusterRoleListMapOutputWithContext(ctx context.Context) ClusterRoleListMapOutput {
 	return o
-}
-
-func (o ClusterRoleListMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*ClusterRoleList] {
-	return pulumix.Output[map[string]*ClusterRoleList]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o ClusterRoleListMapOutput) MapIndex(k pulumi.StringInput) ClusterRoleListOutput {

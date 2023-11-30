@@ -10,7 +10,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Describes a certificate signing request
@@ -119,12 +118,6 @@ func (i *CertificateSigningRequest) ToCertificateSigningRequestOutputWithContext
 	return pulumi.ToOutputWithContext(ctx, i).(CertificateSigningRequestOutput)
 }
 
-func (i *CertificateSigningRequest) ToOutput(ctx context.Context) pulumix.Output[*CertificateSigningRequest] {
-	return pulumix.Output[*CertificateSigningRequest]{
-		OutputState: i.ToCertificateSigningRequestOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CertificateSigningRequestArrayInput is an input type that accepts CertificateSigningRequestArray and CertificateSigningRequestArrayOutput values.
 // You can construct a concrete instance of `CertificateSigningRequestArrayInput` via:
 //
@@ -148,12 +141,6 @@ func (i CertificateSigningRequestArray) ToCertificateSigningRequestArrayOutput()
 
 func (i CertificateSigningRequestArray) ToCertificateSigningRequestArrayOutputWithContext(ctx context.Context) CertificateSigningRequestArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(CertificateSigningRequestArrayOutput)
-}
-
-func (i CertificateSigningRequestArray) ToOutput(ctx context.Context) pulumix.Output[[]*CertificateSigningRequest] {
-	return pulumix.Output[[]*CertificateSigningRequest]{
-		OutputState: i.ToCertificateSigningRequestArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // CertificateSigningRequestMapInput is an input type that accepts CertificateSigningRequestMap and CertificateSigningRequestMapOutput values.
@@ -181,12 +168,6 @@ func (i CertificateSigningRequestMap) ToCertificateSigningRequestMapOutputWithCo
 	return pulumi.ToOutputWithContext(ctx, i).(CertificateSigningRequestMapOutput)
 }
 
-func (i CertificateSigningRequestMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*CertificateSigningRequest] {
-	return pulumix.Output[map[string]*CertificateSigningRequest]{
-		OutputState: i.ToCertificateSigningRequestMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type CertificateSigningRequestOutput struct{ *pulumi.OutputState }
 
 func (CertificateSigningRequestOutput) ElementType() reflect.Type {
@@ -199,12 +180,6 @@ func (o CertificateSigningRequestOutput) ToCertificateSigningRequestOutput() Cer
 
 func (o CertificateSigningRequestOutput) ToCertificateSigningRequestOutputWithContext(ctx context.Context) CertificateSigningRequestOutput {
 	return o
-}
-
-func (o CertificateSigningRequestOutput) ToOutput(ctx context.Context) pulumix.Output[*CertificateSigningRequest] {
-	return pulumix.Output[*CertificateSigningRequest]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -245,12 +220,6 @@ func (o CertificateSigningRequestArrayOutput) ToCertificateSigningRequestArrayOu
 	return o
 }
 
-func (o CertificateSigningRequestArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*CertificateSigningRequest] {
-	return pulumix.Output[[]*CertificateSigningRequest]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o CertificateSigningRequestArrayOutput) Index(i pulumi.IntInput) CertificateSigningRequestOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *CertificateSigningRequest {
 		return vs[0].([]*CertificateSigningRequest)[vs[1].(int)]
@@ -269,12 +238,6 @@ func (o CertificateSigningRequestMapOutput) ToCertificateSigningRequestMapOutput
 
 func (o CertificateSigningRequestMapOutput) ToCertificateSigningRequestMapOutputWithContext(ctx context.Context) CertificateSigningRequestMapOutput {
 	return o
-}
-
-func (o CertificateSigningRequestMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*CertificateSigningRequest] {
-	return pulumix.Output[map[string]*CertificateSigningRequest]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o CertificateSigningRequestMapOutput) MapIndex(k pulumi.StringInput) CertificateSigningRequestOutput {

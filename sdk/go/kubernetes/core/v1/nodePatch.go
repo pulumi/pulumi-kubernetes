@@ -10,7 +10,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // Patch resources are used to modify existing Kubernetes resources by using
@@ -122,12 +121,6 @@ func (i *NodePatch) ToNodePatchOutputWithContext(ctx context.Context) NodePatchO
 	return pulumi.ToOutputWithContext(ctx, i).(NodePatchOutput)
 }
 
-func (i *NodePatch) ToOutput(ctx context.Context) pulumix.Output[*NodePatch] {
-	return pulumix.Output[*NodePatch]{
-		OutputState: i.ToNodePatchOutputWithContext(ctx).OutputState,
-	}
-}
-
 // NodePatchArrayInput is an input type that accepts NodePatchArray and NodePatchArrayOutput values.
 // You can construct a concrete instance of `NodePatchArrayInput` via:
 //
@@ -151,12 +144,6 @@ func (i NodePatchArray) ToNodePatchArrayOutput() NodePatchArrayOutput {
 
 func (i NodePatchArray) ToNodePatchArrayOutputWithContext(ctx context.Context) NodePatchArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(NodePatchArrayOutput)
-}
-
-func (i NodePatchArray) ToOutput(ctx context.Context) pulumix.Output[[]*NodePatch] {
-	return pulumix.Output[[]*NodePatch]{
-		OutputState: i.ToNodePatchArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // NodePatchMapInput is an input type that accepts NodePatchMap and NodePatchMapOutput values.
@@ -184,12 +171,6 @@ func (i NodePatchMap) ToNodePatchMapOutputWithContext(ctx context.Context) NodeP
 	return pulumi.ToOutputWithContext(ctx, i).(NodePatchMapOutput)
 }
 
-func (i NodePatchMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*NodePatch] {
-	return pulumix.Output[map[string]*NodePatch]{
-		OutputState: i.ToNodePatchMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type NodePatchOutput struct{ *pulumi.OutputState }
 
 func (NodePatchOutput) ElementType() reflect.Type {
@@ -202,12 +183,6 @@ func (o NodePatchOutput) ToNodePatchOutput() NodePatchOutput {
 
 func (o NodePatchOutput) ToNodePatchOutputWithContext(ctx context.Context) NodePatchOutput {
 	return o
-}
-
-func (o NodePatchOutput) ToOutput(ctx context.Context) pulumix.Output[*NodePatch] {
-	return pulumix.Output[*NodePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -249,12 +224,6 @@ func (o NodePatchArrayOutput) ToNodePatchArrayOutputWithContext(ctx context.Cont
 	return o
 }
 
-func (o NodePatchArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*NodePatch] {
-	return pulumix.Output[[]*NodePatch]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o NodePatchArrayOutput) Index(i pulumi.IntInput) NodePatchOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *NodePatch {
 		return vs[0].([]*NodePatch)[vs[1].(int)]
@@ -273,12 +242,6 @@ func (o NodePatchMapOutput) ToNodePatchMapOutput() NodePatchMapOutput {
 
 func (o NodePatchMapOutput) ToNodePatchMapOutputWithContext(ctx context.Context) NodePatchMapOutput {
 	return o
-}
-
-func (o NodePatchMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*NodePatch] {
-	return pulumix.Output[map[string]*NodePatch]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o NodePatchMapOutput) MapIndex(k pulumi.StringInput) NodePatchOutput {

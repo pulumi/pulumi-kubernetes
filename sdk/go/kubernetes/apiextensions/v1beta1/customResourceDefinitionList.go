@@ -11,7 +11,6 @@ import (
 	metav1 "github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/meta/v1"
 	"github.com/pulumi/pulumi-kubernetes/sdk/v4/go/kubernetes/utilities"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-	"github.com/pulumi/pulumi/sdk/v3/go/pulumix"
 )
 
 // CustomResourceDefinitionList is a list of CustomResourceDefinition objects.
@@ -115,12 +114,6 @@ func (i *CustomResourceDefinitionList) ToCustomResourceDefinitionListOutputWithC
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionListOutput)
 }
 
-func (i *CustomResourceDefinitionList) ToOutput(ctx context.Context) pulumix.Output[*CustomResourceDefinitionList] {
-	return pulumix.Output[*CustomResourceDefinitionList]{
-		OutputState: i.ToCustomResourceDefinitionListOutputWithContext(ctx).OutputState,
-	}
-}
-
 // CustomResourceDefinitionListArrayInput is an input type that accepts CustomResourceDefinitionListArray and CustomResourceDefinitionListArrayOutput values.
 // You can construct a concrete instance of `CustomResourceDefinitionListArrayInput` via:
 //
@@ -144,12 +137,6 @@ func (i CustomResourceDefinitionListArray) ToCustomResourceDefinitionListArrayOu
 
 func (i CustomResourceDefinitionListArray) ToCustomResourceDefinitionListArrayOutputWithContext(ctx context.Context) CustomResourceDefinitionListArrayOutput {
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionListArrayOutput)
-}
-
-func (i CustomResourceDefinitionListArray) ToOutput(ctx context.Context) pulumix.Output[[]*CustomResourceDefinitionList] {
-	return pulumix.Output[[]*CustomResourceDefinitionList]{
-		OutputState: i.ToCustomResourceDefinitionListArrayOutputWithContext(ctx).OutputState,
-	}
 }
 
 // CustomResourceDefinitionListMapInput is an input type that accepts CustomResourceDefinitionListMap and CustomResourceDefinitionListMapOutput values.
@@ -177,12 +164,6 @@ func (i CustomResourceDefinitionListMap) ToCustomResourceDefinitionListMapOutput
 	return pulumi.ToOutputWithContext(ctx, i).(CustomResourceDefinitionListMapOutput)
 }
 
-func (i CustomResourceDefinitionListMap) ToOutput(ctx context.Context) pulumix.Output[map[string]*CustomResourceDefinitionList] {
-	return pulumix.Output[map[string]*CustomResourceDefinitionList]{
-		OutputState: i.ToCustomResourceDefinitionListMapOutputWithContext(ctx).OutputState,
-	}
-}
-
 type CustomResourceDefinitionListOutput struct{ *pulumi.OutputState }
 
 func (CustomResourceDefinitionListOutput) ElementType() reflect.Type {
@@ -195,12 +176,6 @@ func (o CustomResourceDefinitionListOutput) ToCustomResourceDefinitionListOutput
 
 func (o CustomResourceDefinitionListOutput) ToCustomResourceDefinitionListOutputWithContext(ctx context.Context) CustomResourceDefinitionListOutput {
 	return o
-}
-
-func (o CustomResourceDefinitionListOutput) ToOutput(ctx context.Context) pulumix.Output[*CustomResourceDefinitionList] {
-	return pulumix.Output[*CustomResourceDefinitionList]{
-		OutputState: o.OutputState,
-	}
 }
 
 // APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
@@ -236,12 +211,6 @@ func (o CustomResourceDefinitionListArrayOutput) ToCustomResourceDefinitionListA
 	return o
 }
 
-func (o CustomResourceDefinitionListArrayOutput) ToOutput(ctx context.Context) pulumix.Output[[]*CustomResourceDefinitionList] {
-	return pulumix.Output[[]*CustomResourceDefinitionList]{
-		OutputState: o.OutputState,
-	}
-}
-
 func (o CustomResourceDefinitionListArrayOutput) Index(i pulumi.IntInput) CustomResourceDefinitionListOutput {
 	return pulumi.All(o, i).ApplyT(func(vs []interface{}) *CustomResourceDefinitionList {
 		return vs[0].([]*CustomResourceDefinitionList)[vs[1].(int)]
@@ -260,12 +229,6 @@ func (o CustomResourceDefinitionListMapOutput) ToCustomResourceDefinitionListMap
 
 func (o CustomResourceDefinitionListMapOutput) ToCustomResourceDefinitionListMapOutputWithContext(ctx context.Context) CustomResourceDefinitionListMapOutput {
 	return o
-}
-
-func (o CustomResourceDefinitionListMapOutput) ToOutput(ctx context.Context) pulumix.Output[map[string]*CustomResourceDefinitionList] {
-	return pulumix.Output[map[string]*CustomResourceDefinitionList]{
-		OutputState: o.OutputState,
-	}
 }
 
 func (o CustomResourceDefinitionListMapOutput) MapIndex(k pulumi.StringInput) CustomResourceDefinitionListOutput {
