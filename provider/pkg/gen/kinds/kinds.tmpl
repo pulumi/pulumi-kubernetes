@@ -20,6 +20,8 @@ package kinds
 import (
 	"strings"
 
+	goset "github.com/deckarep/golang-set/v2"
+
 	"github.com/pulumi/pulumi/pkg/v3/codegen"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
@@ -122,7 +124,7 @@ func toGVK(gv groupVersion, kind Kind) schema.GroupVersionKind {
 }
 
 // KnownGroupVersions is the set of built-in GroupVersions / ApiVersions. GVs defined by a CRD are not part of this set.
-var KnownGroupVersions = codegen.NewStringSet(
+var KnownGroupVersions = goset.NewSet(
 {{- range .GroupVersions}}
 	"{{.}}",
 {{- end}}
@@ -131,7 +133,7 @@ var KnownGroupVersions = codegen.NewStringSet(
 
 // PatchQualifiedTypes is the set of "Patch" resource QualifiedType URN tokens. Checking against this known set rather
 // than using the Patch suffix avoids unintended clashes with CustomResources that also contain a Patch suffix.
-var PatchQualifiedTypes = codegen.NewStringSet(
+var PatchQualifiedTypes = goset.NewSet(
 {{- range .PatchKinds}}
 	"{{.}}",
 {{- end}}
@@ -139,7 +141,7 @@ var PatchQualifiedTypes = codegen.NewStringSet(
 
 // ListQualifiedTypes is the set of "List" resource QualifiedType URN tokens. Checking against this known set rather
 // than using the List suffix avoids unintended clashes with CustomResources that also contain a List suffix.
-var ListQualifiedTypes = codegen.NewStringSet(
+var ListQualifiedTypes = goset.NewSet(
 {{- range .ListKinds}}
 	"{{.}}",
 {{- end}}

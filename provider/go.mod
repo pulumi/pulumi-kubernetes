@@ -4,6 +4,7 @@ go 1.21
 
 require (
 	github.com/ahmetb/go-linq v3.0.0+incompatible
+	github.com/deckarep/golang-set/v2 v2.5.0
 	github.com/evanphx/json-patch v5.7.0+incompatible
 	github.com/fluxcd/pkg/ssa v0.28.1
 	github.com/golang/protobuf v1.5.3

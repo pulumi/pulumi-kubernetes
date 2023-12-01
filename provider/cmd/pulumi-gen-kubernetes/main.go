@@ -29,10 +29,11 @@ import (
 	"text/template"
 	"unicode"
 
+	goset "github.com/deckarep/golang-set/v2"
+
 	"github.com/pkg/errors"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/gen"
 	providerVersion "github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/version"
-	"github.com/pulumi/pulumi/pkg/v3/codegen"
 	dotnetgen "github.com/pulumi/pulumi/pkg/v3/codegen/dotnet"
 	gogen "github.com/pulumi/pulumi/pkg/v3/codegen/go"
 	nodejsgen "github.com/pulumi/pulumi/pkg/v3/codegen/nodejs"
@@ -172,7 +173,7 @@ func generateSchema(swaggerPath string) schema.PackageSpec {
 }
 
 // This is to mostly filter resources from the spec.
-var resourcesToFilterFromTemplate = codegen.NewStringSet("kubernetes:helm.sh/v3:Release")
+var resourcesToFilterFromTemplate = goset.NewSet("kubernetes:helm.sh/v3:Release")
 
 func writeNodeJSClient(pkg *schema.Package, outdir, templateDir string) {
 	resources, err := nodejsgen.LanguageResources(pkg)
@@ -181,9 +182,9 @@ func writeNodeJSClient(pkg *schema.Package, outdir, templateDir string) {
 	}
 
 	templateResources := gen.TemplateResources{}
-	packages := codegen.StringSet{}
+	packages := goset.NewSet[string]()
 	for tok, resource := range resources {
-		if resourcesToFilterFromTemplate.Has(tok) {
+		if resourcesToFilterFromTemplate.Contains(tok) {
 			continue
 		}
 		if resource.Package == "" {
@@ -216,7 +217,7 @@ func writeNodeJSClient(pkg *schema.Package, outdir, templateDir string) {
 	sort.Slice(templateResources.Resources, func(i, j int) bool {
 		return templateResources.Resources[i].Token < templateResources.Resources[j].Token
 	})
-	templateResources.Packages = packages.SortedValues()
+	templateResources.Packages = goset.Sorted(packages)
 
 	overlays := map[string][]byte{
 		"apiextensions/customResource.ts":      mustLoadFile(filepath.Join(templateDir, "apiextensions", "customResource.ts")),
@@ -245,7 +246,7 @@ func writePythonClient(pkg *schema.Package, outdir string, templateDir string) {
 
 	templateResources := gen.TemplateResources{}
 	for tok, resource := range resources {
-		if resourcesToFilterFromTemplate.Has(tok) {
+		if resourcesToFilterFromTemplate.Contains(tok) {
 			continue
 		}
 		if resource.Name == "CustomResourceDefinition" { // Use manual overlay in yaml.tmpl
@@ -289,7 +290,7 @@ func writeDotnetClient(pkg *schema.Package, outdir, templateDir string) {
 
 	templateResources := gen.TemplateResources{}
 	for tok, resource := range resources {
-		if resourcesToFilterFromTemplate.Has(tok) {
+		if resourcesToFilterFromTemplate.Contains(tok) {
 			continue
 		}
 		if strings.HasSuffix(resource.Name, "Patch") {
@@ -373,7 +374,7 @@ func writeGoClient(pkg *schema.Package, outdir string, templateDir string) {
 
 	templateResources := gen.GoTemplateResources{}
 	for tok, resource := range resources {
-		if resourcesToFilterFromTemplate.Has(tok) {
+		if resourcesToFilterFromTemplate.Contains(tok) {
 			continue
 		}
 		if strings.HasSuffix(resource.Name, "Patch") {
@@ -446,9 +447,9 @@ func mustRenderGoTemplate(path string, resources any) []byte {
 }
 
 func genK8sResourceTypes(pkg *schema.Package) {
-	groupVersions, kinds, patchKinds, listKinds := codegen.NewStringSet(), codegen.NewStringSet(), codegen.NewStringSet(), codegen.NewStringSet()
+	groupVersions, kinds, patchKinds, listKinds := goset.NewSet[string](), goset.NewSet[string](), goset.NewSet[string](), goset.NewSet[string]()
 	for _, resource := range pkg.Resources {
-		if resourcesToFilterFromTemplate.Has(resource.Token) {
+		if resourcesToFilterFromTemplate.Contains(resource.Token) {
 			continue
 		}
 		parts := strings.Split(resource.Token, ":")
@@ -471,8 +472,8 @@ func genK8sResourceTypes(pkg *schema.Package) {
 		kinds.Add(kind)
 	}
 
-	gvk := gen.GVK{Kinds: kinds.SortedValues(), PatchKinds: patchKinds.SortedValues(), ListKinds: listKinds.SortedValues()}
-	gvStrings := groupVersions.SortedValues()
+	gvk := gen.GVK{Kinds: goset.Sorted(kinds), PatchKinds: goset.Sorted(patchKinds), ListKinds: goset.Sorted(listKinds)}
+	gvStrings := goset.Sorted(groupVersions)
 	for _, gvString := range gvStrings {
 		gvk.GroupVersions = append(gvk.GroupVersions, gen.GroupVersion(gvString))
 	}

@@ -18,7 +18,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/pulumi/pulumi/pkg/v3/codegen"
+	goset "github.com/deckarep/golang-set/v2"
+
 	"github.com/pulumi/pulumi/sdk/v3/go/common/util/contract"
 )
 
@@ -95,13 +96,13 @@ type GoTemplateResources struct {
 
 // Imports returns a sorted list of all resource imports. This is currently used for the YAML SDK overlay.
 func (tr GoTemplateResources) Imports() []string {
-	imports := codegen.StringSet{}
+	imports := goset.NewSet[string]()
 	for _, r := range tr.Resources {
 		importPath := fmt.Sprintf(`%s "%s"`, r.Alias, r.Package)
 		imports.Add(importPath)
 	}
 
-	return imports.SortedValues()
+	return goset.Sorted(imports)
 }
 
 // GVK holds sorted lists of GroupVersions and Kinds.

@@ -20,7 +20,8 @@ package kinds
 import (
 	"strings"
 
-	"github.com/pulumi/pulumi/pkg/v3/codegen"
+	goset "github.com/deckarep/golang-set/v2"
+
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 
@@ -292,7 +293,7 @@ func toGVK(gv groupVersion, kind Kind) schema.GroupVersionKind {
 }
 
 // KnownGroupVersions is the set of built-in GroupVersions / ApiVersions. GVs defined by a CRD are not part of this set.
-var KnownGroupVersions = codegen.NewStringSet(
+var KnownGroupVersions = goset.NewSet(
 	"admissionregistration.k8s.io/v1",
 	"admissionregistration.k8s.io/v1alpha1",
 	"admissionregistration.k8s.io/v1beta1",
@@ -352,7 +353,7 @@ var KnownGroupVersions = codegen.NewStringSet(
 
 // PatchQualifiedTypes is the set of "Patch" resource QualifiedType URN tokens. Checking against this known set rather
 // than using the Patch suffix avoids unintended clashes with CustomResources that also contain a Patch suffix.
-var PatchQualifiedTypes = codegen.NewStringSet(
+var PatchQualifiedTypes = goset.NewSet(
 	"kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfigurationPatch",
 	"kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfigurationPatch",
 	"kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicyBindingPatch",
@@ -479,7 +480,7 @@ var PatchQualifiedTypes = codegen.NewStringSet(
 
 // ListQualifiedTypes is the set of "List" resource QualifiedType URN tokens. Checking against this known set rather
 // than using the List suffix avoids unintended clashes with CustomResources that also contain a List suffix.
-var ListQualifiedTypes = codegen.NewStringSet(
+var ListQualifiedTypes = goset.NewSet(
 	"kubernetes:admissionregistration.k8s.io/v1:MutatingWebhookConfigurationList",
 	"kubernetes:admissionregistration.k8s.io/v1:ValidatingWebhookConfigurationList",
 	"kubernetes:admissionregistration.k8s.io/v1alpha1:ValidatingAdmissionPolicyBindingList",

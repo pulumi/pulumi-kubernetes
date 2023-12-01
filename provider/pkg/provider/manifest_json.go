@@ -6,7 +6,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/pulumi/pulumi/pkg/v3/codegen"
+	goset "github.com/deckarep/golang-set/v2"
+
 	logger "github.com/pulumi/pulumi/sdk/v3/go/common/util/logging"
 	"golang.org/x/crypto/sha3"
 	"helm.sh/helm/v3/pkg/releaseutil"
@@ -24,7 +25,7 @@ import (
 // grouping resource names in the manifests by group version and any error encountered.
 // Not, currently only kubernetes secret data is masked.
 func convertYAMLManifestToJSON(manifest string) (map[string]any, map[string][]string, error) {
-	releaseResources := map[string]codegen.StringSet{}
+	releaseResources := map[string]goset.Set[string]{}
 	m := map[string]any{}
 
 	resources := releaseutil.SplitManifests(manifest)
@@ -44,7 +45,7 @@ func convertYAMLManifestToJSON(manifest string) (map[string]any, map[string][]st
 		resKey := fmt.Sprintf("%s/%s", gvk.GroupKind().String(), obj.GetAPIVersion())
 		resVal, has := releaseResources[resKey]
 		if !has {
-			resVal = codegen.NewStringSet()
+			resVal = goset.NewSet[string]()
 		}
 		resName := obj.GetName()
 		if namespace := obj.GetNamespace(); namespace != "" {
@@ -85,7 +86,7 @@ func convertYAMLManifestToJSON(manifest string) (map[string]any, map[string][]st
 
 	releaseResourcesGrouping := map[string][]string{}
 	for k, v := range releaseResources {
-		releaseResourcesGrouping[k] = v.SortedValues()
+		releaseResourcesGrouping[k] = goset.Sorted(v)
 	}
 	return m, releaseResourcesGrouping, nil
 }
