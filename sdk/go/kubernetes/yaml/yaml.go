@@ -86,14 +86,7 @@ import (
 )
 
 func GetChildOptions(parent pulumi.Resource, opts []pulumi.ResourceOption) ([]pulumi.ResourceOption, error) {
-	snapshot, err := pulumi.NewResourceOptions(opts...)
-	if err != nil {
-		return nil, err
-	}
 	childOpts := []pulumi.ResourceOption{pulumi.Parent(parent)}
-	if len(snapshot.DependsOn) > 0 {
-		childOpts = append(childOpts, pulumi.DependsOn(snapshot.DependsOn))
-	}
 	return childOpts, nil
 }
 
