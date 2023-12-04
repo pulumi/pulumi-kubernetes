@@ -1,5 +1,6 @@
 ## Unreleased
 
+## 4.5.5 (November 28, 2023)
 - Fix: Make the invoke calls for Helm charts and YAML config resilient to the value being None or an empty dict (https://github.com/pulumi/pulumi-kubernetes/pull/2665)
 
 ## 4.5.4 (November 8, 2023)
