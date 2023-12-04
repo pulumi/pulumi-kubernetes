@@ -826,8 +826,6 @@ namespace Pulumi.Kubernetes.Yaml
         {
             // Create resource options based on component resource options.
             var dependsOn = new InputList<Pu.Resource>();
-            if (options?.DependsOn is not null)
-                dependsOn.AddRange(options.DependsOn);
             if (extraDependsOn is not null)
                 dependsOn.AddRange(extraDependsOn);
             return new CustomResourceOptions
