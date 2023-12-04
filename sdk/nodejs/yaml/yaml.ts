@@ -3135,7 +3135,6 @@ export interface ConfigOpts {
 /** @ignore */ export function getChildOpts(parent: pulumi.Resource, opts?: pulumi.ComponentResourceOptions): pulumi.CustomResourceOptions {
     return {
         parent: parent,
-        dependsOn: opts?.dependsOn,
     };
 }
 

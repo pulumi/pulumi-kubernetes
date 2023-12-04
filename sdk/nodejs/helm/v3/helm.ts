@@ -238,8 +238,9 @@ export class Chart extends yaml.CollectionComponentResource {
             transformations.push(yaml.skipAwait);
         }
 
-        const childOpts = yaml.getChildOpts(this, opts)
-        const invokeOpts = yaml.getInvokeOpts(childOpts)
+        const childOpts = yaml.getChildOpts(this, opts);
+        const invokeOpts = yaml.getInvokeOpts(childOpts);
+
         const promise = pulumi.runtime.invoke("kubernetes:helm:template", {jsonOpts}, invokeOpts);
         return pulumi.output(promise).apply<{ [key: string]: pulumi.CustomResource }>(p => yaml.parse(
             {
