@@ -405,7 +405,7 @@ def _build_resources_dict(objs: Sequence[pulumi.Output]) -> Mapping[pulumi.Outpu
 def _get_child_options(parent: pulumi.Resource, opts: pulumi.ResourceOptions):
     if not opts:
         opts = pulumi.ResourceOptions()
-    return pulumi.ResourceOptions(parent=parent, depends_on=opts.depends_on)
+    return pulumi.ResourceOptions(parent=parent)
 
 def _get_invoke_options(opts: pulumi.ResourceOptions):
     if not opts:
